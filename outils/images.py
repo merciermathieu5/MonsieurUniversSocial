@@ -78,6 +78,36 @@ def interroger(titre: str, largeur: int) -> dict | None:
     return None
 
 
+SIGNATURES = {
+    b"\x89PNG": "PNG", b"\xff\xd8\xff": "JPEG", b"GIF8": "GIF",
+    b"RIFF": "WEBP", b"<svg": "SVG", b"<?xm": "SVG",
+}
+
+
+def verifier() -> None:
+    """Controle que chaque fichier telecharge est bien une image."""
+    registre = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
+    bons = mauvais = absents = 0
+    for nom, entree in registre.items():
+        cible = MEDIAS / entree.get("fiche", "divers") / nom
+        if not cible.exists():
+            print(f"  ABSENT   {nom}")
+            absents += 1
+            continue
+        debut = cible.read_bytes()[:4]
+        genre = next((g for sig, g in SIGNATURES.items() if debut.startswith(sig)), None)
+        taille = cible.stat().st_size // 1024
+        if genre:
+            print(f"  ok       {nom}  {genre}  {taille} ko")
+            bons += 1
+        else:
+            print(f"  CORROMPU {nom}  {taille} ko  (ce n'est pas une image)")
+            mauvais += 1
+    print(f"\n{bons} valides, {mauvais} corrompues, {absents} absentes.")
+    if mauvais:
+        print("Supprime les fichiers corrompus et relance sans --verifier.")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -85,7 +115,13 @@ def main():
                     help="retélécharge même si le fichier existe déjà")
     ap.add_argument("--largeur", type=int, default=1400,
                     help="largeur maximale en pixels (défaut : 1400)")
+    ap.add_argument("--verifier", action="store_true",
+                    help="controle les fichiers deja presents sans rien telecharger")
     args = ap.parse_args()
+
+    if args.verifier:
+        verifier()
+        return
 
     if not REGISTRE.exists():
         sys.exit("medias/sources.yml est introuvable.")
@@ -118,11 +154,19 @@ def main():
             continue
 
         try:
-            donnees = requests.get(trouve["url"], timeout=60, headers=ENTETES).content
+            reponse = requests.get(trouve["url"], timeout=60, headers=ENTETES)
+            reponse.raise_for_status()
+            genre = reponse.headers.get("Content-Type", "")
+            if not genre.startswith("image/"):
+                raise ValueError(f"le serveur a renvoyé du {genre or 'contenu inconnu'} "
+                                 f"au lieu d'une image")
+            donnees = reponse.content
+            if len(donnees) < 4096:
+                raise ValueError(f"fichier suspect de {len(donnees)} octets")
             dossier.mkdir(parents=True, exist_ok=True)
             cible.write_bytes(donnees)
         except Exception as erreur:
-            print(f"  {nom} : téléchargement impossible, {erreur}")
+            print(f"  ECHEC  {nom} : {erreur}")
             echecs += 1
             continue
 
