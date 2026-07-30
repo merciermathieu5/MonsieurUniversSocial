@@ -1,83 +1,62 @@
-# Registre des illustrations.
-#
-# Chaque entrée fait le lien entre un fichier local et sa source. Les champs
-# auteur, licence et lien sont remplis automatiquement par outils/images.py à
-# partir de l'API de Wikimedia Commons. Ne les remplis pas à la main : ils
-# doivent refléter exactement ce que dit la page source, c'est ce qui rend
-# l'attribution valable.
-#
-# Pour ajouter une image :
-#   1. trouve son fichier sur commons.wikimedia.org
-#   2. ajoute une entrée ici avec le nom exact « File:... »
-#   3. lance python3 outils/images.py
-#   4. réfère l'image dans la fiche : ![Légende](../medias/<fiche>/<fichier>)
-
 croissant-fertile.png:
   fiche: 01-sedentarisation
-  commons: "File:Croissant fertile carte.png"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Croissant fertile carte.png
+  auteur: User:NormanEinstein , based on a similar map from the 1994 edition of the Encyclopedia Britannica.
+    Translated by user:Sting
+  licence: CC BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Croissant_fertile_carte.png
 sites-neolithiques.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Siti neolitici del Vicino Oriente.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Siti neolitici del Vicino Oriente.jpg
+  auteur: 'Middle_East_topographic_map-blank.svg : Sémhur ( talk ) derivative work: PequoD 76 ( talk )'
+  licence: CC BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Siti_neolitici_del_Vicino_Oriente.jpg
 catal-hoyuk-maquette.jpg:
   fiche: 01-sedentarisation
-  commons: "File:MUFT - Catal Höyük Modell.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:MUFT - Catal Höyük Modell.jpg
+  auteur: Wolfgang Sauber
+  licence: CC BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:MUFT_-_Catal_H%C3%B6y%C3%BCk_Modell.jpg
 catal-hoyuk-interieur.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Catal Hüyük EL.JPG"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Catal Hüyük EL.JPG
+  auteur: Elelicht
+  licence: CC BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Catal_H%C3%BCy%C3%BCk_EL.JPG
 catal-hoyuk-site.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg
+  auteur: Murat Özsoy 1958
+  licence: CC BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:%C3%87atalh%C3%B6y%C3%BCk,_7400_BC,_Konya,_Turkey_-_UNESCO_World_Heritage_Site,_08.jpg
 fresque-chasse.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking an aurochs (Bos primigenius)..jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking
+    an aurochs (Bos primigenius)..jpg
+  auteur: Omar Hoftun
+  licence: CC BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Mural_from_%C3%87atalh%C3%B6y%C3%BCk_excavated_by_James_Mellaart_showing_neolithic_hunters_attacking_an_aurochs_(Bos_primigenius)..jpg
 faucille.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Muzeum Narodowe Ziemi Przemyskiej wkładki do sierpów neolit 2016-12-29 p.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Muzeum Narodowe Ziemi Przemyskiej wkładki do sierpów neolit 2016-12-29 p.jpg
+  auteur: Przykuta
+  licence: CC BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Muzeum_Narodowe_Ziemi_Przemyskiej_wk%C5%82adki_do_sierp%C3%B3w_neolit_2016-12-29_p.jpg
 houe.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg
+  auteur: Zde
+  licence: CC BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Hoe,_gray-green_slate,_end_of_Neolithic,_T%C3%BDnec_nad_S%C3%A1zavou_Museum,_188599.jpg
 meule.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
-
+  commons: File:Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692.jpg
+  auteur: Zde
+  licence: CC BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Neolithic_grain_crusher,_rough_sandstone,_Museum_of_Western_Bohemia,_187692.jpg
 poterie.jpg:
   fiche: 01-sedentarisation
-  commons: "File:Neolithic pottery, Museum of Western Bohemia, 187697.jpg"
-  auteur: ""
-  licence: ""
-  lien: ""
+  commons: File:Neolithic pottery, Museum of Western Bohemia, 187697.jpg
+  auteur: Zde
+  licence: CC BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Neolithic_pottery,_Museum_of_Western_Bohemia,_187697.jpg
