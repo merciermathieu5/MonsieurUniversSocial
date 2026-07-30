@@ -122,7 +122,7 @@ vallée du Nil en Égypte jusqu'au golfe Persique. Le Nil, le Tigre et l'Euphrat
 ont favorisé la sédentarisation des êtres humains, apportant les sédiments
 nécessaires à la fertilité des sols.
 
-![Le Croissant fertile s'étend de la vallée du Nil jusqu'au golfe Persique.](../medias/01-sedentarisation/croissant-fertile.png)
+![Le Croissant fertile, de la vallée du Nil au golfe Persique](../medias/01-sedentarisation/croissant-fertile.png)
 
 ### La présence de métaux influence-t-elle le choix des premiers sites?
 
@@ -142,7 +142,7 @@ ou dans la vallée du Nil, en Égypte. Ce sont les civilisations de l'argile,
 peuplées de potiers qui dépendent souvent d'importations lointaines pour leurs
 besoins minéraux.
 
-![Les principaux sites néolithiques du Proche-Orient.](../medias/01-sedentarisation/sites-neolithiques.jpg)
+![Les principaux sites néolithiques du Proche-Orient](../medias/01-sedentarisation/sites-neolithiques.jpg)
 
 ## Les premiers villages
 
@@ -179,6 +179,8 @@ archéologiques ont révélé que Çatal Höyük avait une communauté très dé
 avec des maisons en brique crue qui étaient construites les unes sur les autres.
 Ce village est l'un des plus importants du Néolithique.
 
+![Maquette de Çatal Höyük : des maisons accolées, aucune rue](../medias/01-sedentarisation/catal-hoyuk-maquette.jpg)
+
 Le village était protégé à l'aide d'une muraille de pierre afin de conserver le
 bétail et leur récolte. De cette manière, il devenait difficile pour les villages
 avoisinants de mettre la main sur leurs réserves de nourriture. Dans ce village,
@@ -190,11 +192,9 @@ autres. Leurs murs étaient peints de fresques (peintures et gravures) qui nous
 montrent aujourd'hui les animaux qui étaient chassés à l'époque. Finalement, la
 déesse-mère était souvent peinte pour attirer la fécondité.
 
-![Maquette de Çatal Höyük : les maisons collées les unes aux autres, sans rue.](../medias/01-sedentarisation/catal-hoyuk-maquette.jpg)
+![Reconstitution de l'intérieur d'une habitation](../medias/01-sedentarisation/catal-hoyuk-interieur.jpg)
 
-![Reconstitution de l'intérieur d'une habitation néolithique de Çatal Höyük.](../medias/01-sedentarisation/catal-hoyuk-interieur.jpg)
-
-![Le site archéologique de Çatal Höyük, en Turquie.](../medias/01-sedentarisation/catal-hoyuk-site.jpg)
+![Le chantier de fouilles de Çatal Höyük, en Turquie](../medias/01-sedentarisation/catal-hoyuk-site.jpg)
 
 ::: video 5ebUwqogWc8
 Çatal Höyük, un des premiers grands villages de l'humanité
@@ -220,6 +220,8 @@ répondaient aux besoins des humains. Les premiers animaux domestiqués étaient
 chiens, des moutons, des chèvres et des bovins. Ces animaux étaient choisis pour
 leurs spécificités, comme la capacité à être dressés, à produire du lait ou de la
 viande ou à fournir de la laine ou du cuir pour se vêtir.
+
+![Un troupeau de chèvres : une réserve de nourriture sur pied](../medias/01-sedentarisation/troupeau-chevres.jpg)
 
 Cette domestication a de nombreux avantages pour les communautés néolithiques du
 Croissant fertile. Tout d'abord, elle a permis aux humains de contrôler leur accès
@@ -247,6 +249,8 @@ légumineuses : le blé, l'orge, le pois et la lentille. En sélectionnant et en
 ressemant les graines des meilleurs plants, les agriculteurs du Néolithique
 transforment peu à peu les espèces sauvages en espèces cultivées.
 
+![L'engrain, l'une des premières céréales cultivées](../medias/01-sedentarisation/ble-sauvage.jpg)
+
 ## Maîtriser l'agriculture
 
 Au Néolithique, les êtres humains ont commencé à maîtriser l'agriculture, ce qui a
@@ -268,7 +272,7 @@ cet outil, les agriculteurs pouvaient récolter de plus grandes quantités de
 céréales plus rapidement, facilitant ainsi le stockage et la consommation de la
 nourriture tout au long de l'année.
 
-![Faucille néolithique : des éclats de silex fixés dans un manche.](../medias/01-sedentarisation/faucille.jpg)
+![Faucille néolithique : lame de pierre et manche de bois](../medias/01-sedentarisation/faucille.jpg)
 
 ### La houe
 
@@ -279,7 +283,7 @@ plantes. Elle jouait aussi un rôle important pour désherber les cultures,
 garantissant ainsi un meilleur rendement des champs en limitant la concurrence
 entre les plantes cultivées et les mauvaises herbes.
 
-![Houe en pierre polie, fin du Néolithique.](../medias/01-sedentarisation/houe.jpg)
+![Houe en pierre polie](../medias/01-sedentarisation/houe.jpg)
 
 ### La meule et la molette
 
@@ -290,7 +294,7 @@ grains. Ce processus de mouture était essentiel pour transformer les céréales
 aliments comestibles, comme le pain ou les galettes, rendant ainsi les produits
 cultivés plus faciles à consommer et à conserver.
 
-![Meule à grains en grès, période néolithique.](../medias/01-sedentarisation/meule.jpg)
+![Meule à grains : la céréale devient farine](../medias/01-sedentarisation/meule.jpg)
 
 ## La division du travail
 
@@ -320,7 +324,7 @@ L'avènement de la poterie est un événement particulièrement important pour l
 premiers villages. Les pots et autres récipients sont utiles pour la cuisson de la
 nourriture et pour l'entreposage des surplus agricoles.
 
-![Poterie du Néolithique. Les récipients servent à cuire les aliments et à entreposer les surplus.](../medias/01-sedentarisation/poterie.jpg)
+![Poterie néolithique : sans contenant, pas de réserve](../medias/01-sedentarisation/poterie.jpg)
 
 ### La hiérarchie sociale
 
@@ -330,6 +334,8 @@ prises de manière collective, au Néolithique, certaines personnes sont devenue
 chefs ou des dirigeants, chargés de prendre des décisions pour l'ensemble de la
 communauté. Cela a créé une structure sociale plus organisée, avec des individus
 ayant différents niveaux de pouvoir et de responsabilités.
+
+![L'or de la nécropole de Varna : des tombes très inégalement dotées](../medias/01-sedentarisation/varna-or.jpg)
 
 ### L'apparition des premiers échanges
 
@@ -364,7 +370,7 @@ Les peintures murales découvertes dans les maisons de Çatal Höyük fournissen
 représentent souvent des divinités telles que des déesses-mères, des animaux sacrés
 et des symboles de fertilité.
 
-![Fresque de Çatal Höyük : des chasseurs entourant un aurochs.](../medias/01-sedentarisation/fresque-chasse.jpg)
+![Fresque de Çatal Höyük : des chasseurs entourant un aurochs](../medias/01-sedentarisation/fresque-chasse.jpg)
 
 Les déesses-mères étaient vénérées dans de nombreuses cultures néolithiques à
 travers le monde. Elles étaient souvent représentées sous la forme de statues ou de

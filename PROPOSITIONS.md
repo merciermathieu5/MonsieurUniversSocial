@@ -106,6 +106,33 @@ La mention « Source : Alloprof » se trouvait au milieu de la page, détachée 
 passage concerné. Je l'ai déplacée dans la section Sources en bas de fiche. Dis-moi
 à quel passage précis elle se rapporte et je la remettrai au bon endroit.
 
+## Images ajoutées, à valider
+
+Le choix des images vise l'usage en classe : chacune porte dans le registre un
+champ `role` qui dit ce qu'elle sert à montrer, et ce rôle s'affiche sous la
+légende. Trois entrées méritent ton avis.
+
+**11. L'or de la nécropole de Varna**
+
+Placé en regard du paragraphe sur la hiérarchie sociale. C'est la trace
+matérielle la plus parlante de la différenciation sociale : des tombes très
+inégalement dotées dans une même nécropole. Attention, Varna est postérieure au
+Néolithique, autour de -4600 à -4200. À présenter comme un aboutissement du
+processus, pas comme un exemple néolithique. Dis-moi si tu la gardes.
+
+**12. L'engrain plutôt qu'un blé moderne**
+
+Pour la domestication des végétaux, l'engrain permet la comparaison épi sauvage
+et épi cultivé, qui est le coeur de la notion. Une photo de champ de blé
+d'aujourd'hui ne montrerait rien.
+
+**13. Le chantier de fouilles à côté des reconstitutions**
+
+J'ai mis côte à côte la maquette, la reconstitution d'intérieur et la photo du
+chantier réel. L'intention est de faire distinguer aux élèves le vestige de
+l'interprétation, ce qui prépare directement la compétence sur la méthode
+historique. À enlever si ça alourdit.
+
 ## Question ouverte sur la géographie
 
 J'avais renommé les pages de géographie pour enlever les répétitions, par exemple

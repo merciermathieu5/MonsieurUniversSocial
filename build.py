@@ -95,6 +95,9 @@ def charger_credits() -> dict:
 def habiller_images(html: str, credits: dict) -> str:
     """Transforme chaque image isolée en figure légendée et créditée.
 
+    Le crédit suit la forme demandée :
+      Auteur, Titre, Wikimedia Commons. Licence : Creative Commons BY-SA 3.0.
+
     Si le fichier n'est pas encore dans medias/, on affiche un espace réservé
     plutôt que de casser la page. Lance outils/images.py pour les récupérer.
     """
@@ -104,29 +107,31 @@ def habiller_images(html: str, credits: dict) -> str:
         src = attrs.get("src", "")
         legende = attrs.get("alt", "")
         nom = src.split("/")[-1]
-        credit = credits.get(nom, {})
+        source = credits.get(nom, {})
+        cadrage = source.get("cadrage", "flottant")
 
-        ligne = ""
-        if credit:
-            auteur = credit.get("auteur", "").strip()
-            licence = credit.get("licence", "").strip()
-            lien = credit.get("lien", "")
-            morceaux = [p for p in (auteur, licence) if p]
-            if morceaux:
-                texte = ", ".join(morceaux)
-                ligne = (f'<span class="credit"><a href="{lien}" rel="noopener">{texte}</a></span>'
-                         if lien else f'<span class="credit">{texte}</span>')
-        elif attrs.get("title"):
-            ligne = f'<span class="credit">{attrs["title"]}</span>'
+        credit = ""
+        if source.get("licence"):
+            auteur = source.get("auteur", "").strip()
+            titre = source.get("titre", "").strip()
+            lien = source.get("lien", "")
+            depot = (f'<a href="{lien}" rel="noopener" target="_blank">Wikimedia Commons</a>'
+                     if lien else "Wikimedia Commons")
+            debut = ", ".join(p for p in (auteur, titre) if p)
+            credit = (f'<span class="credit">{debut}, {depot}. '
+                      f'Licence&nbsp;: {source["licence"]}.</span>')
 
         existe = (MEDIAS / src.split("medias/")[-1]).exists() if "medias/" in src else False
         corps = balise if existe else (
             '<div class="attente-image">'
             f'<span>Image à récupérer</span><em>{legende}</em>'
-            '<code>python3 outils/images.py</code></div>'
+            '<code>python outils\\images.py</code></div>'
         )
-        return (f'<figure class="illustration">{corps}'
-                f'<figcaption>{legende}{ligne}</figcaption></figure>')
+        role = source.get("role", "").strip()
+        note = f'<span class="figure-role">{role}</span>' if role else ""
+        return (f'<figure class="illustration illustration--{cadrage}">{corps}'
+                f'<figcaption><span class="figure-legende">{legende}</span>'
+                f'{note}{credit}</figcaption></figure>')
 
     return IMAGE.sub(remplacer, html)
 
