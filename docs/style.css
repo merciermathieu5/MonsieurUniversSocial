@@ -22,9 +22,11 @@
   --corps:  'Newsreader', Georgia, 'Times New Roman', serif;
   --donnee: 'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
 
-  --large:  72rem;
-  --lecture: 40rem;
+  --large:  88rem;
+  --lecture: 44rem;
+  --colonne: 62rem;
   --rayon: 3px;
+  --echelle: 1;
 }
 
 [data-couleur="histoire"]   { --matiere: var(--histoire);   --matiere-pale: #DDE4EC; }
@@ -229,8 +231,11 @@ a { color: inherit; }
 
 /* ------------------------------------------------------------- le contenu */
 
-.texte { max-width: var(--lecture); counter-reset: chapitre; }
+.texte { max-width: var(--colonne); counter-reset: chapitre; }
 .texte > :first-child { margin-top: 0; }
+.texte > p, .texte > ul, .texte > ol, .texte > h3, .texte > .encadre, .texte > .avis {
+  max-width: var(--lecture);
+}
 
 .texte h2 {
   counter-increment: chapitre;
@@ -498,4 +503,124 @@ a { color: inherit; }
   .colonnes { display: block; padding: 0; }
   .texte { max-width: none; }
   .texte a::after { content: " (" attr(href) ")"; font-size: .8em; color: #555; }
+}
+
+/* =========================================================================
+   Mode projection
+   Chaque titre de niveau 2 devient un panneau plein écran. Tout est calibré
+   pour être lu depuis le fond d'une classe, pas depuis un bureau.
+   ========================================================================= */
+
+.declencheur {
+  margin-top: 1.5rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--titre); font-weight: 600; font-size: .9rem;
+  color: #fff; background: var(--matiere);
+  border: 0; border-radius: var(--rayon); padding: .6rem 1.1rem;
+  cursor: pointer; transition: filter .15s;
+}
+.declencheur:hover { filter: brightness(1.15); }
+.declencheur span { font-size: 1rem; line-height: 1; }
+
+.scene { display: none; }
+.pilote { display: none; }
+
+body[data-projection="on"] { overflow: hidden; background: var(--papier-3); }
+body[data-projection="on"] .bandeau,
+body[data-projection="on"] .pied,
+body[data-projection="on"] .frise,
+body[data-projection="on"] .colonnes,
+body[data-projection="on"] .suite,
+body[data-projection="on"] .entete { display: none; }
+
+body[data-projection="on"] .scene {
+  display: block; position: fixed; inset: 0; z-index: 60;
+  background: var(--papier-3);
+}
+
+.panneau {
+  display: none;
+  height: 100%; overflow-y: auto;
+  padding: clamp(2rem, 4vh, 3.5rem) clamp(2rem, 5vw, 5rem) 6rem;
+}
+.panneau.est-visible { display: block; }
+
+.panneau__entete { margin-bottom: clamp(1.5rem, 3vh, 2.5rem); }
+.panneau__surtitre {
+  font-family: var(--donnee);
+  font-size: calc(clamp(.8rem, 1vw, 1rem) * var(--echelle));
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--matiere); margin: 0 0 .6rem;
+}
+.panneau__entete h2 {
+  font-family: var(--titre); font-weight: 700; letter-spacing: -.025em;
+  font-size: calc(clamp(2rem, 3.6vw, 3.6rem) * var(--echelle));
+  line-height: 1.06; margin: 0;
+  padding-bottom: .7rem; border-bottom: 3px solid var(--matiere);
+}
+
+.panneau__corps { font-size: calc(clamp(1.15rem, 1.45vw, 1.9rem) * var(--echelle)); }
+.panneau__corps--deux {
+  display: grid; gap: clamp(2rem, 4vw, 4rem);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: start;
+}
+.panneau__texte > :first-child { margin-top: 0; }
+.panneau__texte p { margin: 0 0 .9em; line-height: 1.55; max-width: 46ch; }
+.panneau__corps--deux .panneau__texte p { max-width: none; }
+.panneau__texte h3 {
+  font-family: var(--titre); font-weight: 600;
+  font-size: 1.15em; margin: 1.4em 0 .4em;
+}
+.panneau__texte ul, .panneau__texte ol { margin: 0 0 1em; line-height: 1.5; }
+.panneau__texte li { margin-bottom: .45em; }
+.panneau__texte table { font-size: .8em; }
+
+.panneau__visuels { display: grid; gap: 1.5rem; }
+.panneau__visuels .illustration,
+.panneau__visuels .video { margin: 0; }
+.panneau__visuels img { width: 100%; }
+.panneau__visuels figcaption { font-size: .58em; }
+.panneau__visuels .attente-image { min-height: 14rem; }
+
+/* Les encadrés restent visibles mais ne volent pas la vedette. */
+.panneau .encadre { font-size: .82em; padding: 1em 1.2em; margin: 1.2em 0; }
+.panneau .encadre__titre { font-size: .62em; }
+
+.pilote {
+  position: fixed; z-index: 70; left: 50%; bottom: 1.1rem;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--encre); color: var(--papier);
+  padding: .45rem .6rem; border-radius: 100px;
+  box-shadow: 0 6px 26px rgba(20, 32, 43, .3);
+  opacity: .25; transition: opacity .2s;
+}
+body[data-projection="on"] .pilote { display: flex; }
+.pilote:hover, .pilote:focus-within { opacity: 1; }
+.pilote button {
+  font-family: var(--titre); font-weight: 600; font-size: .85rem;
+  color: var(--papier); background: rgba(255, 255, 255, .12);
+  border: 0; border-radius: 100px; padding: .35rem .8rem; cursor: pointer;
+  transition: background .15s;
+}
+.pilote button:hover { background: rgba(255, 255, 255, .28); }
+.pilote__position {
+  font-family: var(--donnee); font-size: .8rem; min-width: 4rem;
+  text-align: center; color: var(--signal);
+}
+.pilote__etiquette {
+  font-family: var(--titre); font-size: .8rem; max-width: 20rem;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 0 .5rem; color: rgba(255, 255, 255, .75);
+}
+.pilote__espace { flex: 1; }
+
+@media (max-width: 60rem) {
+  .panneau__corps--deux { grid-template-columns: 1fr; }
+  .pilote__etiquette { display: none; }
+}
+
+@media print {
+  .declencheur, .scene, .pilote { display: none !important; }
 }
