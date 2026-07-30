@@ -21,6 +21,7 @@ import argparse
 import html
 import re
 import sys
+import time
 from pathlib import Path
 
 try:
@@ -52,10 +53,11 @@ def nettoyer(valeur: str) -> str:
 
 
 def interroger(titre: str, largeur: int) -> dict | None:
+    """Demande à Commons l'adresse du fichier et ses métadonnées."""
     reponse = requests.get(API, timeout=30, headers=ENTETES, params={
         "action": "query", "format": "json", "titles": titre,
         "prop": "imageinfo",
-        "iiprop": "url|extmetadata",
+        "iiprop": "url|size|extmetadata",
         "iiurlwidth": largeur,
     })
     reponse.raise_for_status()
@@ -65,17 +67,71 @@ def interroger(titre: str, largeur: int) -> dict | None:
             return None
         info = page["imageinfo"][0]
         meta = info.get("extmetadata", {})
-        licence_brute = (meta.get("LicenseShortName", {}).get("value")
-                         or meta.get("License", {}).get("value") or "")
-        licence = nettoyer(licence_brute)
+        licence = nettoyer(meta.get("LicenseShortName", {}).get("value")
+                           or meta.get("License", {}).get("value") or "")
         licence = LICENCES_LISIBLES.get(licence.lower(), licence)
         return {
-            "url": info.get("thumburl") or info["url"],
+            "vignette": info.get("thumburl"),
+            "original": info["url"],
             "auteur": nettoyer(meta.get("Artist", {}).get("value", "")),
             "licence": licence or "voir la page source",
             "lien": info.get("descriptionurl", ""),
+            "poids": info.get("size", 0),
         }
     return None
+
+
+def essayer(url: str) -> bytes:
+    """Télécharge une adresse et refuse tout ce qui n'est pas une image.
+
+    Commons fabrique certaines vignettes à la demande. La première requête peut
+    donc échouer le temps que le serveur la produise. On réessaie.
+    """
+    dernier = ""
+    for tentative in range(3):
+        if tentative:
+            time.sleep(2 + 3 * tentative)
+        try:
+            reponse = requests.get(url, timeout=90, headers=ENTETES)
+        except Exception as erreur:
+            dernier = str(erreur)
+            continue
+        if reponse.status_code != 200:
+            dernier = f"HTTP {reponse.status_code}"
+            continue
+        genre = reponse.headers.get("Content-Type", "")
+        if not genre.startswith("image/"):
+            dernier = f"type {genre or 'inconnu'}"
+            continue
+        if len(reponse.content) < 2048:
+            dernier = f"{len(reponse.content)} octets seulement"
+            continue
+        return reponse.content
+    raise ValueError(dernier or "cause inconnue")
+
+
+def recuperer(trouve: dict, largeurs: list[int], titre: str) -> bytes:
+    """Essaie plusieurs largeurs, puis le fichier d'origine en dernier recours."""
+    erreurs = []
+    for largeur in largeurs:
+        info = interroger(titre, largeur)
+        if not info or not info.get("vignette"):
+            continue
+        try:
+            return essayer(info["vignette"])
+        except Exception as erreur:
+            erreurs.append(f"{largeur}px : {erreur}")
+        time.sleep(1)
+
+    # Le fichier d'origine est toujours servi tel quel, sans fabrication.
+    if trouve.get("poids", 0) and trouve["poids"] > 12_000_000:
+        erreurs.append("original trop lourd pour être rapatrié")
+        raise ValueError(" ; ".join(erreurs))
+    try:
+        return essayer(trouve["original"])
+    except Exception as erreur:
+        erreurs.append(f"original : {erreur}")
+    raise ValueError(" ; ".join(erreurs))
 
 
 SIGNATURES = {
@@ -153,22 +209,16 @@ def main():
             echecs += 1
             continue
 
+        largeurs = [args.largeur, 1024, 800]
         try:
-            reponse = requests.get(trouve["url"], timeout=60, headers=ENTETES)
-            reponse.raise_for_status()
-            genre = reponse.headers.get("Content-Type", "")
-            if not genre.startswith("image/"):
-                raise ValueError(f"le serveur a renvoyé du {genre or 'contenu inconnu'} "
-                                 f"au lieu d'une image")
-            donnees = reponse.content
-            if len(donnees) < 4096:
-                raise ValueError(f"fichier suspect de {len(donnees)} octets")
+            donnees = recuperer(trouve, largeurs, titre)
             dossier.mkdir(parents=True, exist_ok=True)
             cible.write_bytes(donnees)
         except Exception as erreur:
             print(f"  ECHEC  {nom} : {erreur}")
             echecs += 1
             continue
+        time.sleep(1)
 
         entree["auteur"] = trouve["auteur"]
         entree["licence"] = trouve["licence"]
