@@ -76,11 +76,10 @@ troupeau-chevres.jpg:
   fiche: 01-sedentarisation
   recherche: goat herd pasture Anatolia
   role: Rendre concrète la réserve de nourriture sur pied.
-  auteur: runran
-  titre: Bahar (2599760344)
-  licence: Creative Commons BY-SA 2.0
-  lien: https://commons.wikimedia.org/wiki/File:Bahar_(2599760344).jpg
-  commons: File:Bahar (2599760344).jpg
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
 faucille.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
@@ -115,44 +114,46 @@ poterie.jpg:
   fiche: 01-sedentarisation
   recherche: neolithic pottery vessel archaeological museum
   role: Entreposer les surplus, sans quoi il n'y a pas de réserve possible.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Vessel of the Neolithic Linear Pottery culture, City of Prague Museum, A0001688, 175894
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Vessel_of_the_Neolithic_Linear_Pottery_culture,_City_of_Prague_Museum,_A0001688,_175894.jpg
+  commons: File:Vessel of the Neolithic Linear Pottery culture, City of Prague Museum, A0001688, 175894.jpg
 varna-or.jpg:
   cadrage: large
   fiche: 01-sedentarisation
   recherche: Varna necropolis gold treasure
   role: 'Les objets déposés dans certaines tombes et pas dans d''autres : la trace matérielle de la hiérarchie
     sociale. Postérieur au Néolithique, à présenter comme un aboutissement.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Gold treasure, 4600-4200 BC, AM Varna, Varm24
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Gold_treasure,_4600-4200_BC,_AM_Varna,_Varm24.jpg
+  commons: File:Gold treasure, 4600-4200 BC, AM Varna, Varm24.jpg
 foyers-civilisation.png:
   cadrage: carte
   fiche: 02-emergence-civilisation
-  recherche: map cradles of civilization world
+  recherche: cradle of civilization map
   role: Situer les huit foyers les uns par rapport aux autres.
-  commons: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  commons: File:Civilization V AI Chart.png
+  titre: Civilization V AI Chart
+  auteur: Unknown author Unknown author
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Civilization_V_AI_Chart.png
 carte-mesopotamie.jpg:
   cadrage: carte
   fiche: 02-emergence-civilisation
-  recherche: map Mesopotamia Tigris Euphrates ancient
+  recherche: Mesopotamia map ancient
   role: Voir les deux fleuves et le tracé du Croissant fertile.
-  commons: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  commons: File:Ancient Upper Mesopotamia.png
+  titre: Ancient Upper Mesopotamia
+  auteur: Cattette
+  licence: Creative Commons BY 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Ancient_Upper_Mesopotamia.png
 irrigation.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
-  recherche: ancient Mesopotamia irrigation canal relief
+  recherche: Mesopotamia irrigation canal
   role: Rendre concret le canal qui fertilise et qui transporte.
   commons: ''
   titre: ''
@@ -162,7 +163,7 @@ irrigation.jpg:
 tablette-cuneiforme.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
-  recherche: cuneiform clay tablet Sumerian British Museum
+  recherche: cuneiform tablet Sumerian
   role: 'Une source d''époque : voir les signes en coin, pas un dessin.'
   commons: ''
   titre: ''
@@ -172,7 +173,7 @@ tablette-cuneiforme.jpg:
 scribe.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
-  recherche: Sumerian scribe statue Louvre
+  recherche: Sumerian scribe statue
   role: Mettre un visage sur le métier qui donne accès au pouvoir.
   commons: ''
   titre: ''
@@ -184,7 +185,7 @@ code-hammourabi.jpg:
   fiche: 02-emergence-civilisation
   recherche: Code of Hammurabi stele Louvre
   role: 'La stèle entière : deux mètres de loi exposée à tous.'
-  commons: ''
+  commons: File:Code of Hammurabi (Louvre Sb 8)-31434550325.jpg
   titre: ''
   auteur: ''
   licence: ''
@@ -192,7 +193,7 @@ code-hammourabi.jpg:
 cite-etat.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
-  recherche: Sumerian city state reconstruction Ur
+  recherche: Ur reconstruction Sumerian city
   role: Voir le palais, les murailles et la ziggourat au même endroit.
   commons: ''
   titre: ''
@@ -202,7 +203,7 @@ cite-etat.jpg:
 etendard-ur.jpg:
   cadrage: large
   fiche: 02-emergence-civilisation
-  recherche: Standard of Ur peace panel British Museum
+  recherche: Standard of Ur
   role: Lire les trois registres comme une bande dessinée.
   commons: ''
   titre: ''
@@ -212,7 +213,7 @@ etendard-ur.jpg:
 ziggourat-ur.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
-  recherche: Great Ziggurat of Ur Iraq
+  recherche: Ziggurat of Ur
   role: L'échelle du bâtiment religieux dans la cité.
   commons: ''
   titre: ''
@@ -222,7 +223,7 @@ ziggourat-ur.jpg:
 lapis-lazuli.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
-  recherche: lapis lazuli stone raw
+  recherche: lapis lazuli
   role: 'Une pierre venue de 2500 km : la preuve matérielle du commerce lointain.'
   commons: ''
   titre: ''

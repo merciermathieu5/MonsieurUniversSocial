@@ -118,17 +118,49 @@ def interroger(titre: str, largeur: int) -> dict | None:
     return None
 
 
-def chercher(termes: str, limite: int = 8) -> list[str]:
-    """Renvoie les noms exacts des fichiers correspondant à une recherche."""
+def _chercher_une(requete: str, limite: int) -> list[str]:
     reponse = requests.get(API, timeout=30, headers=ENTETES, params={
         "action": "query", "format": "json", "list": "search",
-        "srsearch": f"filetype:bitmap {termes}", "srnamespace": 6, "srlimit": limite,
+        "srsearch": requete, "srnamespace": 6, "srlimit": limite,
     })
     reponse.raise_for_status()
     return [e["title"] for e in reponse.json().get("query", {}).get("search", [])]
 
 
-def resoudre(entree: dict, largeur: int) -> dict | None:
+def chercher(termes: str, limite: int = 8, bavard: bool = False) -> list[str]:
+    """Cherche sur Commons, avec plusieurs formulations de repli.
+
+    filetype:bitmap écarte les SVG, or sur Commons les cartes sont presque
+    toutes en SVG. On tente donc du plus restrictif au plus large.
+    """
+    tentatives = [
+        f"filetype:bitmap|drawing {termes}",
+        termes,
+        " ".join(termes.split()[:3]),
+    ]
+    vus, resultat = set(), []
+    for requete in tentatives:
+        try:
+            trouves = _chercher_une(requete, limite)
+        except Exception as erreur:
+            if bavard:
+                print(f"           requête « {requete[:40]} » : {erreur}")
+            continue
+        if bavard:
+            print(f"           « {requete[:46]} » -> {len(trouves)} résultat(s)")
+        for t in trouves:
+            if t not in vus:
+                vus.add(t)
+                resultat.append(t)
+        if len(resultat) >= limite:
+            break
+    return resultat[:limite]
+
+
+EXPLOITABLES = ("image/jpeg", "image/png", "image/svg+xml", "image/webp", "image/tiff")
+
+
+def resoudre(entree: dict, largeur: int, bavard: bool = False) -> dict | None:
     """Trouve le fichier : par son nom exact, sinon par la recherche en clair."""
     titre = (entree.get("commons") or "").strip()
     if titre:
@@ -146,16 +178,28 @@ def resoudre(entree: dict, largeur: int) -> dict | None:
     if not termes:
         return None
 
-    for candidat in chercher(termes):
+    candidats = chercher(termes, 8, bavard)
+    if bavard:
+        print(f"           {len(candidats)} candidat(s) : "
+              + ", ".join(c.replace("File:", "")[:28] for c in candidats[:4]))
+    for candidat in candidats:
         try:
             trouve = interroger(candidat, largeur)
         except Exception:
             continue
-        # On refuse ce qui n'est pas une photographie ou une carte exploitable.
-        if trouve and trouve["mime"] in ("image/jpeg", "image/png"):
+        # Les SVG sont acceptés : Commons en fabrique une vignette PNG,
+        # c'est elle qu'on récupère. On refuse seulement ce qui n'est pas
+        # une image fixe exploitable.
+        if trouve and trouve["mime"] in EXPLOITABLES:
+            if trouve["mime"] == "image/svg+xml" and not trouve.get("vignette"):
+                continue
             print(f"         retenu : {candidat}")
             return trouve
+        if trouve and bavard:
+            print(f"           écarté ({trouve['mime']}) : {candidat}")
         time.sleep(.3)
+    if bavard:
+        print(f"           aucun des {len(candidats)} candidats n'est exploitable")
     return None
 
 
@@ -196,6 +240,9 @@ def recuperer(trouve: dict, titre: str, largeurs: list[int]) -> bytes:
         except Exception as erreur:
             soucis.append(f"{largeur}px : {erreur}")
         time.sleep(1)
+    if trouve.get("mime") == "image/svg+xml":
+        soucis.append("SVG : seule une vignette est exploitable")
+        raise ValueError(" ; ".join(soucis))
     if trouve.get("poids", 0) <= 12_000_000:
         try:
             return essayer(trouve["original"])
@@ -241,6 +288,8 @@ def main():
     ap.add_argument("--refaire", action="store_true")
     ap.add_argument("--verifier", action="store_true")
     ap.add_argument("--chercher", metavar="TERMES")
+    ap.add_argument("--bavard", action="store_true",
+                    help="explique chaque tentative de recherche")
     ap.add_argument("--largeur", type=int, default=1400)
     args = ap.parse_args()
 
@@ -271,7 +320,7 @@ def main():
 
         trouve = None
         try:
-            trouve = resoudre(entree, args.largeur)
+            trouve = resoudre(entree, args.largeur, args.bavard)
         except Exception as erreur:
             print(f"  ECHEC  {nom} : {erreur}")
 
