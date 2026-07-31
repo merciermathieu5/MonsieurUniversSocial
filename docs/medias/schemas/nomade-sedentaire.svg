@@ -1,38 +1,38 @@
-<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Comparaison entre le mode de vie nomade et le mode de vie sédentaire">
+<svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Comparaison du mode de vie nomade et du mode de vie sédentaire">
   <style>
     .t { font-family: Archivo, sans-serif; }
-    .col { font-size: 22px; font-weight: 700; fill: #fff; }
-    .cle { font-size: 14px; font-family: 'IBM Plex Mono', monospace; fill: var(--encre-pale); }
+    .col { font-size: 21px; font-weight: 700; }
+    .cle { font-size: 13px; font-family: 'IBM Plex Mono', monospace; fill: var(--schema-cle); }
     .v { font-size: 17px; fill: var(--encre); }
   </style>
-  <rect x="250" y="10" width="315" height="46" rx="4" fill="var(--encre-doux)"/>
-  <rect x="580" y="10" width="315" height="46" rx="4" fill="var(--matiere)"/>
-  <text class="t col" x="270" y="42">Nomade</text>
-  <text class="t col" x="600" y="42">Sédentaire</text>
+  <rect x="250" y="8" width="312" height="44" rx="4" fill="var(--bloc-pale)"/>
+  <rect x="578" y="8" width="314" height="44" rx="4" fill="var(--bloc)"/>
+  <text class="t col" x="272" y="38" fill="var(--bloc-pale-texte)">Nomade</text>
+  <text class="t col" x="600" y="38" fill="var(--bloc-texte)">Sédentaire</text>
   <g>
-    <text class="t cle" x="10" y="100">HABITATION</text>
-    <text class="t v" x="270" y="100">abri temporaire, peaux</text>
-    <text class="t v" x="600" y="100">maison de brique crue</text>
-    <line x1="10" y1="118" x2="890" y2="118" stroke="var(--trait)"/>
-    <text class="t cle" x="10" y="158">NOURRITURE</text>
-    <text class="t v" x="270" y="158">chasse, pêche, cueillette</text>
-    <text class="t v" x="600" y="158">agriculture, élevage</text>
-    <line x1="10" y1="176" x2="890" y2="176" stroke="var(--trait)"/>
-    <text class="t cle" x="10" y="216">RÉSERVES</text>
-    <text class="t v" x="270" y="216">aucune, on suit les saisons</text>
-    <text class="t v" x="600" y="216">surplus entreposés</text>
-    <line x1="10" y1="234" x2="890" y2="234" stroke="var(--trait)"/>
-    <text class="t cle" x="10" y="274">TRAVAIL</text>
-    <text class="t v" x="270" y="274">tous cherchent à manger</text>
-    <text class="t v" x="600" y="274">métiers spécialisés</text>
-    <line x1="10" y1="292" x2="890" y2="292" stroke="var(--trait)"/>
-    <text class="t cle" x="10" y="332">DÉCISIONS</text>
-    <text class="t v" x="270" y="332">prises en groupe</text>
-    <text class="t v" x="600" y="332">des chefs décident</text>
-    <line x1="10" y1="350" x2="890" y2="350" stroke="var(--trait)"/>
-    <text class="t cle" x="10" y="390">GROUPE</text>
-    <text class="t v" x="270" y="390">quelques familles</text>
-    <text class="t v" x="600" y="390">plusieurs milliers</text>
+    <text class="t cle" x="8" y="94">HABITATION</text>
+    <text class="t v" x="272" y="94">abri temporaire, peaux</text>
+    <text class="t v" x="600" y="94">maison de brique crue</text>
+    <line x1="8" y1="112" x2="892" y2="112" stroke="var(--schema-trait)"/>
+    <text class="t cle" x="8" y="150">NOURRITURE</text>
+    <text class="t v" x="272" y="150">chasse, pêche, cueillette</text>
+    <text class="t v" x="600" y="150">agriculture, élevage</text>
+    <line x1="8" y1="168" x2="892" y2="168" stroke="var(--schema-trait)"/>
+    <text class="t cle" x="8" y="206">RÉSERVES</text>
+    <text class="t v" x="272" y="206">aucune, on suit les saisons</text>
+    <text class="t v" x="600" y="206">surplus entreposés</text>
+    <line x1="8" y1="224" x2="892" y2="224" stroke="var(--schema-trait)"/>
+    <text class="t cle" x="8" y="262">TRAVAIL</text>
+    <text class="t v" x="272" y="262">tous cherchent à manger</text>
+    <text class="t v" x="600" y="262">métiers spécialisés</text>
+    <line x1="8" y1="280" x2="892" y2="280" stroke="var(--schema-trait)"/>
+    <text class="t cle" x="8" y="318">DÉCISIONS</text>
+    <text class="t v" x="272" y="318">prises en groupe</text>
+    <text class="t v" x="600" y="318">des chefs décident</text>
+    <line x1="8" y1="336" x2="892" y2="336" stroke="var(--schema-trait)"/>
+    <text class="t cle" x="8" y="374">GROUPE</text>
+    <text class="t v" x="272" y="374">quelques familles</text>
+    <text class="t v" x="600" y="374">plusieurs milliers</text>
   </g>
 </svg>

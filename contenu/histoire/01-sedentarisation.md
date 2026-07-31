@@ -38,7 +38,6 @@ La préhistoire est divisée en deux périodes bien distinctes : le Paléolithiq
 et le Néolithique.
 
 ::: schema frise-prehistoire
-C'est la sédentarisation qui sépare les deux périodes.
 :::
 
 C'est la sédentarisation de l'être humain qui fait la coupure entre ces deux
@@ -89,8 +88,6 @@ humains ont pu construire des villages permanents, développer des outils et
 réfléchir à une organisation complexe de leur communauté.
 
 ::: schema nomade-sedentaire
-Tout change en même temps : l'habitation, la nourriture, le travail et la façon
-de décider.
 :::
 
 ::: questions
@@ -257,7 +254,6 @@ ressemant les graines des meilleurs plants, les agriculteurs du Néolithique
 transforment peu à peu les espèces sauvages en espèces cultivées.
 
 ::: schema domestication
-Le même principe vaut pour les animaux et pour les plantes.
 :::
 
 ![L'engrain, l'une des premières céréales cultivées](../medias/01-sedentarisation/ble-sauvage.jpg)
@@ -327,7 +323,6 @@ communauté qui ne se vouaient pas à la production de nourriture se tournèrent
 vers l'artisanat.
 
 ::: schema surplus
-Le surplus est la cause unique. Tout le reste en découle.
 :::
 
 ### L'artisan

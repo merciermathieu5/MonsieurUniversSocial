@@ -1,22 +1,23 @@
-<svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Frise des deux périodes de la préhistoire">
+<svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les deux périodes de la préhistoire et le moment de la sédentarisation">
   <style>
-    .t { font-family: Archivo, sans-serif; fill: var(--encre); }
-    .d { font-family: 'IBM Plex Mono', monospace; fill: var(--encre-pale); font-size: 15px; }
-    .n { font-size: 25px; font-weight: 700; fill: #fff; }
-    .s { font-size: 16px; font-weight: 500; }
+    .t { font-family: Archivo, sans-serif; }
+    .nom { font-size: 24px; font-weight: 700; }
+    .sur { font-size: 16px; font-weight: 600; }
+    .sous { font-size: 14px; fill: var(--schema-cle); }
+    .date { font-family: 'IBM Plex Mono', monospace; font-size: 14px; fill: var(--schema-cle); }
   </style>
-  <rect x="10" y="52" width="580" height="66" rx="4" fill="var(--matiere)" opacity=".45"/>
-  <rect x="590" y="52" width="300" height="66" rx="4" fill="var(--matiere)"/>
-  <text class="t n" x="40" y="94">Paléolithique</text>
-  <text class="t n" x="620" y="94">Néolithique</text>
-  <text class="d" x="12" y="140">-3 000 000</text>
-  <text class="d" x="530" y="140">-10 000</text>
-  <text class="d" x="828" y="140">-3500</text>
-  <line x1="590" y1="30" x2="590" y2="152" stroke="var(--signal)" stroke-width="3"/>
-  <text class="t s" x="590" y="22" text-anchor="middle" fill="var(--signal)">la sédentarisation</text>
-  <text class="t s" x="40" y="190">Nomade</text>
-  <text class="t s" x="620" y="190">Sédentaire</text>
-  <text class="t" x="40" y="212" font-size="14" fill="var(--encre-doux)">chasse, pêche, cueillette</text>
-  <text class="t" x="620" y="212" font-size="14" fill="var(--encre-doux)">agriculture, élevage</text>
+  <rect x="8" y="46" width="574" height="60" rx="4" fill="var(--bloc-pale)"/>
+  <rect x="590" y="46" width="302" height="60" rx="4" fill="var(--bloc)"/>
+  <text class="t nom" x="34" y="84" fill="var(--bloc-pale-texte)">Paléolithique</text>
+  <text class="t nom" x="616" y="84" fill="var(--bloc-texte)">Néolithique</text>
+  <line x1="586" y1="28" x2="586" y2="118" stroke="var(--schema-accent)" stroke-width="3"/>
+  <text class="t sur" x="586" y="20" text-anchor="middle" fill="var(--schema-accent)">la sédentarisation</text>
+  <text class="t date" x="8" y="132">-3 000 000</text>
+  <text class="t date" x="586" y="132" text-anchor="middle">-10 000</text>
+  <text class="t date" x="892" y="132" text-anchor="end">-3500</text>
+  <text class="t sur" x="34" y="164" fill="var(--encre)">Nomade</text>
+  <text class="t sur" x="616" y="164" fill="var(--encre)">Sédentaire</text>
+  <text class="t sous" x="34" y="186">chasse, pêche, cueillette</text>
+  <text class="t sous" x="616" y="186">agriculture, élevage</text>
 </svg>

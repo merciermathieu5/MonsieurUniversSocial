@@ -150,10 +150,17 @@ Aucune intégration continue nécessaire. Tu construis chez toi, tu pousses, c'e
 en ligne.
 
 ```bash
-python3 build.py
-python3 outils/liens.py
+python build.py
+python outils\liens.py       # aucun lien interne brisé
+python outils\verifier.py    # contrastes, schémas, crédits
 git add -A && git commit -m "Mise à jour" && git push
 ```
+
+`verifier.py` mesure le contraste de chaque couple fond / texte du site et de
+chaque texte des schémas, dans le thème clair comme dans le thème sombre, et
+signale les débordements hors cadre. Il existe parce que l'oeil ne suffit pas :
+un texte blanc sur un rectangle à 45 pour cent d'opacité paraît correct dans
+l'éditeur et devient illisible au projecteur.
 
 ### Variante avec GitHub Actions
 

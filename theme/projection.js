@@ -15,6 +15,7 @@
   if (!texte) return;
 
   var corps = document.body;
+  var racine = document.documentElement;
   var panneaux = [];
   var courant = 0;
   var echelle = 1;
@@ -123,6 +124,7 @@
       '<button type="button" data-action="suivant" aria-label="Panneau suivant">&#8594;</button>' +
       '<span class="pilote__etiquette"></span>' +
       '<span class="pilote__espace"></span>' +
+      '<button type="button" data-action="sombre" aria-pressed="false">Sombre</button>' +
       '<button type="button" data-action="reduire" aria-label="Réduire le texte">A&#8722;</button>' +
       '<button type="button" data-action="agrandir" aria-label="Agrandir le texte">A+</button>' +
       '<button type="button" data-action="quitter">Quitter</button>';
@@ -139,7 +141,15 @@
       if (action === "quitter") sortir();
       if (action === "agrandir") zoomer(0.1);
       if (action === "reduire") zoomer(-0.1);
+      if (action === "sombre") basculerSombre(bouton);
     });
+  }
+
+  function basculerSombre(bouton) {
+    var actif = racine.dataset.sombre === "on";
+    if (actif) { delete racine.dataset.sombre; } else { racine.dataset.sombre = "on"; }
+    bouton.setAttribute("aria-pressed", String(!actif));
+    bouton.textContent = actif ? "Sombre" : "Clair";
   }
 
   function zoomer(pas) {
@@ -163,6 +173,7 @@
     decouper();
     if (!barre) creerBarre();
     corps.dataset.projection = "on";
+    racine.dataset.projection = "on";
     courant = 0;
     panneaux.forEach(function (p) { p.noeud.classList.remove("est-visible"); });
     aller(0);
@@ -173,6 +184,10 @@
 
   function sortir() {
     delete corps.dataset.projection;
+    delete racine.dataset.projection;
+    delete racine.dataset.sombre;
+    var bs = barre && barre.querySelector('[data-action="sombre"]');
+    if (bs) { bs.textContent = "Sombre"; bs.setAttribute("aria-pressed", "false"); }
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(function () {});
     }
@@ -198,6 +213,8 @@
       zoomer(0.1);
     } else if (evenement.key === "-") {
       zoomer(-0.1);
+    } else if (evenement.key === "n") {
+      basculerSombre(barre.querySelector('[data-action="sombre"]'));
     } else if (evenement.key === "Home") {
       aller(0);
     } else if (evenement.key === "End") {
@@ -205,6 +222,7 @@
     }
   });
 
+  // Le thème sombre ne survit pas à la sortie : la page reprend son aspect normal.
   document.addEventListener("fullscreenchange", function () {
     if (!document.fullscreenElement && corps.dataset.projection === "on") sortir();
   });

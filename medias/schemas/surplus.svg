@@ -1,34 +1,32 @@
-<svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Du surplus alimentaire à la hiérarchie sociale">
+<svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Du surplus alimentaire aux artisans, au commerce et aux chefs">
   <style>
     .t { font-family: Archivo, sans-serif; }
-    .b { font-size: 18px; font-weight: 600; fill: #fff; }
-    .l { font-size: 15px; fill: var(--encre-doux); font-family: Archivo, sans-serif; }
-    .f { fill: var(--matiere); }
+    .b { font-size: 17px; font-weight: 600; fill: var(--bloc-texte); }
+    .l { font-size: 14px; fill: var(--schema-cle); }
   </style>
-  <rect class="f" x="8" y="20" width="196" height="60" rx="4"/>
-  <text class="t b" x="106" y="47" text-anchor="middle">Agriculture</text>
-  <text class="t b" x="106" y="69" text-anchor="middle">et élevage</text>
-  <path d="M212 50 h48 l-10 -9 M260 50 l-10 9" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <rect class="f" x="268" y="20" width="196" height="60" rx="4"/>
-  <text class="t b" x="366" y="57" text-anchor="middle">Surplus</text>
-  <path d="M472 50 h48 l-10 -9 M520 50 l-10 9" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <rect class="f" x="528" y="20" width="240" height="60" rx="4"/>
-  <text class="t b" x="648" y="47" text-anchor="middle">Des bras libérés</text>
-  <text class="t b" x="648" y="69" text-anchor="middle">de la recherche de nourriture</text>
-  <path d="M648 88 v42" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <path d="M648 130 h-420 M648 130 h180" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <path d="M228 130 v34 l-9 -10 M228 164 l9 -10" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <path d="M648 130 v34 l-9 -10 M648 164 l9 -10" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <path d="M828 130 v34 l-9 -10 M828 164 l9 -10" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
-  <rect x="108" y="172" width="240" height="54" rx="4" fill="var(--matiere)" opacity=".8"/>
-  <text class="t b" x="228" y="205" text-anchor="middle">Artisans</text>
-  <rect x="528" y="172" width="240" height="54" rx="4" fill="var(--matiere)" opacity=".8"/>
-  <text class="t b" x="648" y="205" text-anchor="middle">Commerce et troc</text>
-  <rect x="778" y="172" width="114" height="54" rx="4" fill="var(--matiere)" opacity=".8"/>
-  <text class="t b" x="835" y="205" text-anchor="middle">Chefs</text>
-  <text class="t l" x="108" y="252">potier, vannier, tisserand</text>
-  <text class="t l" x="528" y="252">entre villages voisins</text>
-  <text class="t l" x="778" y="252">hiérarchie</text>
-  <text class="t l" x="8" y="290" font-size="14" fill="var(--encre-pale)">Une seule cause, trois conséquences : c'est le surplus qui rend tout le reste possible.</text>
+  <rect x="8" y="16" width="196" height="58" rx="4" fill="var(--bloc)"/>
+  <text class="t b" x="106" y="42" text-anchor="middle">Agriculture</text>
+  <text class="t b" x="106" y="64" text-anchor="middle">et élevage</text>
+  <path d="M214 45 h44 l-11 -9 M258 45 l-11 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="266" y="16" width="196" height="58" rx="4" fill="var(--bloc)"/>
+  <text class="t b" x="364" y="52" text-anchor="middle">Surplus</text>
+  <path d="M472 45 h44 l-11 -9 M516 45 l-11 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="524" y="16" width="368" height="58" rx="4" fill="var(--bloc)"/>
+  <text class="t b" x="708" y="42" text-anchor="middle">Des bras libérés de la recherche</text>
+  <text class="t b" x="708" y="64" text-anchor="middle">de nourriture</text>
+  <path d="M708 82 v34" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M158 116 h700" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M158 116 v28 l-9 -10 M158 144 l9 -10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M508 116 v28 l-9 -10 M508 144 l9 -10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M858 116 v28 l-9 -10 M858 144 l9 -10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="38" y="152" width="240" height="50" rx="4" fill="var(--bloc-pale)"/>
+  <text class="t b" x="158" y="183" text-anchor="middle" fill="var(--bloc-pale-texte)">Artisans</text>
+  <rect x="388" y="152" width="240" height="50" rx="4" fill="var(--bloc-pale)"/>
+  <text class="t b" x="508" y="183" text-anchor="middle" fill="var(--bloc-pale-texte)">Commerce et troc</text>
+  <rect x="738" y="152" width="240" height="50" rx="4" fill="var(--bloc-pale)"/>
+  <text class="t b" x="858" y="183" text-anchor="middle" fill="var(--bloc-pale-texte)">Chefs</text>
+  <text class="t l" x="38" y="224">potier, vannier, tisserand</text>
+  <text class="t l" x="388" y="224">entre villages voisins</text>
+  <text class="t l" x="738" y="224">hiérarchie sociale</text>
 </svg>

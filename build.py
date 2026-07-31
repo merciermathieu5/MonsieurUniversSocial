@@ -277,7 +277,10 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
         print("  python outils/images.py pour les récupérer, "
               "python build.py --brouillon pour voir leur emplacement")
     a_faire = sum(1 for s in sections.values() for f in s["fiches"] if f["vide"])
-    print(f"  {total} fiches construites dans {sortie.relative_to(RACINE)}/")
+    from datetime import datetime
+    marque = datetime.now().strftime("%Y-%m-%d %H:%M")
+    (sortie / "version.txt").write_text(marque, encoding="utf-8")
+    print(f"  {total} fiches construites dans {sortie.relative_to(RACINE)}/ ({marque})")
     if a_faire:
         print(f"  {a_faire} fiches contiennent encore des sections à remplir.")
 
