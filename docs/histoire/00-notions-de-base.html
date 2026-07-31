@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=268be8dc">
 </head>
 <body>
 
@@ -50,6 +50,8 @@ aria-current="page">Histoire</a>
       <div class="actions">
         <button type="button" class="declencheur" data-bascule="classe"
                 aria-pressed="false"><span aria-hidden="true">&#8599;</span> Mode classe</button>
+        <button type="button" class="declencheur" data-bascule="diapo"
+                aria-pressed="false"><span aria-hidden="true">&#9654;</span> Diaporama</button>
         <button type="button" class="declencheur" data-bascule="sombre"
                 aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
       </div>
@@ -167,6 +169,12 @@ aria-current="page">
   <div class="colonnes">
 
     <aside class="sommaire" aria-label="Sommaire de la page">
+      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
+              aria-expanded="true" title="Replier le sommaire (touche S)">
+        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
+        <span class="visuellement-cache">Replier le sommaire</span>
+      </button>
+      <div class="sommaire__contenu">
       <p class="sommaire__titre">Sur cette page</p>
       <ol>
         <li><a href="#mise-en-contexte">Mise en contexte</a></li>
@@ -174,6 +182,7 @@ aria-current="page">
         <li><a href="#section">Section</a></li>
         <li><a href="#sources">Sources</a></li>
       </ol>
+      </div>
     </aside>
 
     <div class="texte">
@@ -223,7 +232,7 @@ et construit la table des matières tout seul. -->
   </div>
 </footer>
 
-<script src="../page.js" defer></script>
+<script src="../page.js?v=268be8dc" defer></script>
 
 </body>
 </html>

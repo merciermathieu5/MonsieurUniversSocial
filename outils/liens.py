@@ -27,6 +27,7 @@ def main() -> int:
         for href in LIEN.findall(contenu):
             if href.startswith(("http", "mailto", "//", "#", "data:")):
                 continue
+            href = href.split("?")[0]
             verifies += 1
             if not (page.parent / href).resolve().exists():
                 brises.append((page.relative_to(SORTIE), href))

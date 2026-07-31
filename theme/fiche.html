@@ -45,6 +45,8 @@
       <div class="actions">
         <button type="button" class="declencheur" data-bascule="classe"
                 aria-pressed="false"><span aria-hidden="true">&#8599;</span> Mode classe</button>
+        <button type="button" class="declencheur" data-bascule="diapo"
+                aria-pressed="false"><span aria-hidden="true">&#9654;</span> Diaporama</button>
         <button type="button" class="declencheur" data-bascule="sombre"
                 aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
       </div>
@@ -81,12 +83,19 @@
   <div class="colonnes">
 
     <aside class="sommaire" aria-label="Sommaire de la page">
+      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
+              aria-expanded="true" title="Replier le sommaire (touche S)">
+        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
+        <span class="visuellement-cache">Replier le sommaire</span>
+      </button>
+      <div class="sommaire__contenu">
       <p class="sommaire__titre">Sur cette page</p>
       <ol>
         {% for t in fiche.sommaire %}
         <li><a href="#{{ t.id }}">{{ t.name }}</a></li>
         {% endfor %}
       </ol>
+      </div>
     </aside>
 
     <div class="texte">

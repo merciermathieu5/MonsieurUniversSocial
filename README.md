@@ -65,14 +65,24 @@ des sections ni de la frise. Tout est déduit des en-têtes.
 
 ## Projeter en classe
 
-Deux boutons sous le titre de chaque fiche, ou deux touches.
+Trois boutons sous le titre de chaque fiche, ou leurs touches.
 
-- **Mode classe** (touche `C`) agrandit la page, masque le menu, le sommaire et
-  la frise, et élargit les images. C'est la page elle-même, en grand.
-- **Thème sombre** (touche `N`) recolore la page. Utile en salle éclairée.
+- **Mode classe** (`C`) agrandit la page, masque menu, sommaire et frise.
+- **Diaporama** (`P`) part du mode classe et montre une section à la fois,
+  un titre de niveau 2 par écran. Flèches ou espace pour naviguer, le compteur
+  en bas à droite indique la position, `Échap` ramène la page complète.
+- **Thème sombre** (`N`) recolore la page. Clair par défaut.
 
-`Échap` sort du mode classe. Il n'y a pas de diaporama : un seul moteur de mise
-en page, celui de la page. Chaque mode se contente d'ajouter un attribut.
+Le sommaire de gauche se replie avec la touche `S` ou son bouton, et le texte
+reprend alors toute la largeur. Il n'y a qu'un seul moteur de mise en page :
+chaque mode se contente de poser un attribut sur la page.
+
+Les tests de ces comportements sont dans `outils/test_page.js` :
+
+```bash
+npm install jsdom
+node outils/test_page.js
+```
 
 ## Les concepts
 

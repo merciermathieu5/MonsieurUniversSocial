@@ -12,6 +12,7 @@ en-têtes YAML des fiches.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 import shutil
 import sys
@@ -239,6 +240,10 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     env.filters["glisser"] = glisser
 
     contexte = {"site": config, "sections": sections}
+
+    # L'empreinte force le navigateur à recharger les styles à chaque build.
+    empreinte = hashlib.md5((THEME / "style.css").read_bytes()).hexdigest()[:8]
+    env.globals["v"] = empreinte
 
     # Accueil
     (sortie / "index.html").write_text(
