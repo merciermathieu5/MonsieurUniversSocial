@@ -7,49 +7,35 @@
 
   <header class="entete">
     <div class="entete__interieur">
-      <p class="fil">
-        <a href="{{ base }}/{{ section.cle }}/index.html">{{ section.titre }}</a>
-      </p>
-      <div class="entete__haut">
-        <h1>{{ fiche.titre }}</h1>
-        {% if fiche.position %}
-        <p class="jalon">
-          <strong class="donnee">{{ "%02d"|format(fiche.position) }}</strong>
-          <span>{{ section.unite }}<br>sur {{ section.parcours|length }}</span>
+      <div class="entete__ligne">
+        <p class="fil">
+          <a href="{{ base }}/{{ section.cle }}/index.html">{{ section.titre }}</a>
         </p>
+        {% if fiche.position %}
+        <p class="jalon"><span class="donnee">{{ "%02d"|format(fiche.position) }} / {{ section.parcours|length }}</span> {{ section.unite }}s</p>
         {% endif %}
       </div>
+      <h1>{{ fiche.titre }}</h1>
 
-      <dl class="reperes">
-        {% if fiche.periode %}
-        <div><dt>Période</dt><dd class="donnee">{{ fiche.periode }}</dd></div>
-        {% endif %}
-        {% if fiche.angle %}
-        <div><dt>Angle d'entrée</dt><dd>{{ fiche.angle }}</dd></div>
-        {% endif %}
-        {% if fiche.type_territoire %}
-        <div><dt>Type</dt><dd>{{ fiche.type_territoire }}</dd></div>
-        {% endif %}
-        {% if fiche.echelle %}
-        <div><dt>Échelle</dt><dd class="donnee">{{ fiche.echelle }}</dd></div>
-        {% endif %}
-        {% if fiche.enjeu %}
-        <div><dt>Enjeu</dt><dd>{{ fiche.enjeu }}</dd></div>
-        {% endif %}
-      </dl>
-
-      {% if fiche.concepts %}
-      <div class="entete-concepts">
-        <span>Concepts à l'étude</span>
-        <ul>{% for c in fiche.concepts %}<li>{{ c }}</li>{% endfor %}</ul>
-      </div>
+      {% set reperes = [fiche.periode, fiche.angle, fiche.type_territoire,
+                        fiche.echelle, fiche.enjeu] | select | list %}
+      {% if reperes %}
+      <p class="repere-ligne">{{ reperes | join("\u2002\u00b7\u2002") }}</p>
       {% endif %}
 
-      {% if fiche.etudes_de_cas %}
-      <p class="cas"><span>Études de cas</span>
-        {% for c in fiche.etudes_de_cas %}<em>{{ c }}</em>{% endfor %}
-      </p>
-      {% endif %}
+      <div class="entete__bas">
+        <div class="entete__etiquettes">
+          {% if fiche.concepts %}
+          <ul class="pastilles" aria-label="Concepts à l'étude">
+            {% for c in fiche.concepts %}<li>{{ c }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+          {% if fiche.etudes_de_cas %}
+          <ul class="pastilles pastilles--cas" aria-label="Études de cas">
+            {% for c in fiche.etudes_de_cas %}<li>{{ c }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </div>
       <div class="actions">
         <button type="button" class="declencheur" data-bascule="classe"
                 aria-pressed="false"><span aria-hidden="true">&#8599;</span> Mode classe</button>
@@ -57,6 +43,7 @@
                 aria-pressed="false"><span aria-hidden="true">&#9654;</span> Diaporama</button>
         <button type="button" class="declencheur" data-bascule="sombre"
                 aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
+      </div>
       </div>
     </div>
   </header>

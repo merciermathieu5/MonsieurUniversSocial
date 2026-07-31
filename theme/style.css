@@ -115,39 +115,43 @@ a { color: inherit; }
   background: linear-gradient(130deg, var(--matiere-fonce) 0%, var(--matiere) 70%);
   color: #fff;
 }
-.entete__interieur { max-width: none; padding: 3rem 2rem 2.25rem; }
+.entete__interieur { max-width: none; padding: 1.8rem 2rem 1.5rem; }
 .fil {
-  font-family: var(--donnee); font-size: .72rem; letter-spacing: .12em;
-  text-transform: uppercase; color: rgba(255,255,255,.6); margin: 0 0 1rem;
+  font-family: var(--donnee); font-size: .7rem; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.6); margin: 0;
 }
 .fil a { color: rgba(255,255,255,.85); text-decoration: none; }
 .fil a:hover { color: #fff; text-decoration: underline; }
-.entete__haut {
-  display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 2.5rem; margin-bottom: 1.75rem;
+.entete__ligne {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1.5rem;
 }
 .entete h1 {
-  font-family: var(--titre); font-weight: 700; letter-spacing: -.03em;
-  font-size: clamp(2.1rem, 5.5vw, 3.4rem); line-height: 1.05;
-  margin: 0; max-width: 22ch;
-}
-.entete h1::after {
-  content: ""; display: block; width: 3.5rem; height: 4px;
-  background: var(--signal); border-radius: 2px; margin-top: 1.1rem;
+  font-family: var(--titre); font-weight: 700; letter-spacing: -.025em;
+  font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.08;
+  margin: .3rem 0 .55rem;
 }
 .jalon {
-  margin: .4rem 0 0; text-align: right; flex-shrink: 0;
-  display: grid; justify-items: end; gap: .1rem;
+  margin: 0; font-family: var(--titre); font-size: .8rem;
+  color: rgba(255,255,255,.6); white-space: nowrap;
 }
-.jalon strong {
-  font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 500; line-height: 1;
-  color: rgba(255,255,255,.92);
+.jalon .donnee { color: var(--signal); font-size: .85rem; margin-right: .3rem; }
+.repere-ligne {
+  margin: 0 0 .9rem; font-family: var(--titre); font-weight: 500;
+  font-size: 1.02rem; color: rgba(255,255,255,.88);
 }
-.jalon span {
-  font-family: var(--titre); font-size: .8rem; line-height: 1.35;
-  color: rgba(255,255,255,.6); text-align: right;
+.entete__bas {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 1.5rem; flex-wrap: wrap;
 }
-@media (max-width: 46rem) { .jalon { display: none; } }
+.entete__etiquettes { display: grid; gap: .4rem; }
+.pastilles { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .3rem; }
+.pastilles li {
+  font-family: var(--titre); font-weight: 500; font-size: .78rem;
+  background: rgba(255,255,255,.14); color: #fff;
+  padding: .18rem .6rem; border-radius: 100px;
+}
+.pastilles--cas li { background: rgba(210,149,46,.28); }
 .chapeau { font-size: 1.22rem; color: rgba(255,255,255,.82); max-width: var(--lecture); margin: 0; }
 
 .reperes {
@@ -347,7 +351,7 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 .illustration { margin: .4rem 0 1.6rem; }
 .illustration img {
   width: 100%; height: auto; display: block;
-  border-radius: var(--rayon); background: var(--surface-2);
+  border-radius: var(--rayon);
 }
 .illustration figcaption {
   display: grid; gap: .3rem; margin-top: .65rem;
@@ -592,13 +596,13 @@ details.credit > span { display: block; max-width: 34rem; }
    thème sombre la recolore. Rien qui recompose le contenu.
    ========================================================================= */
 
-.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0; }
 .declencheur {
   display: inline-flex; align-items: center; gap: .5rem;
-  font-family: var(--titre); font-weight: 600; font-size: .9rem;
+  font-family: var(--titre); font-weight: 600; font-size: .84rem;
   background: rgba(255,255,255,.16); color: #fff;
   border: 1px solid rgba(255,255,255,.3); border-radius: 100px;
-  padding: .55rem 1.2rem; cursor: pointer; transition: background .15s;
+  padding: .45rem 1rem; cursor: pointer; transition: background .15s;
 }
 .declencheur:hover { background: rgba(255,255,255,.28); }
 .declencheur[aria-pressed="true"] { background: #fff; color: var(--matiere-fonce); border-color: #fff; }
@@ -715,7 +719,9 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
   aspect-ratio: 3 / 2; object-fit: cover;
 }
 .galerie .illustration--carte img,
-.galerie .illustration--large img { object-fit: contain; background: var(--surface-2); }
+.galerie .illustration--large img {
+  aspect-ratio: auto; object-fit: fill; background: none;
+}
 
 /* ------------------------------------------------------ crédit repliable */
 

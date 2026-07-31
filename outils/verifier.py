@@ -289,7 +289,8 @@ def controler_variables() -> list[str]:
 CLASSES_EMISES = [
     "galerie", "illustration", "figure-legende", "figure-role", "credit",
     "encadre", "encadre__titre", "schema", "video", "attente-image",
-    "visionneuse", "diapo-barre", "jalon", "entete__haut",
+    "visionneuse", "diapo-barre", "jalon", "entete__ligne",
+    "repere-ligne", "entete__bas", "pastilles",
     "frise__bascule", "sommaire__bascule", "declencheur", "actions",
 ]
 
