@@ -111,7 +111,10 @@ a { color: inherit; }
 
 /* ------------------------------------------------------- entête en bandeau */
 
-.entete { background: var(--matiere); color: #fff; }
+.entete {
+  background: linear-gradient(130deg, var(--matiere-fonce) 0%, var(--matiere) 70%);
+  color: #fff;
+}
 .entete__interieur { max-width: none; padding: 3rem 2rem 2.25rem; }
 .fil {
   font-family: var(--donnee); font-size: .72rem; letter-spacing: .12em;
@@ -119,11 +122,32 @@ a { color: inherit; }
 }
 .fil a { color: rgba(255,255,255,.85); text-decoration: none; }
 .fil a:hover { color: #fff; text-decoration: underline; }
+.entete__haut {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 2.5rem; margin-bottom: 1.75rem;
+}
 .entete h1 {
   font-family: var(--titre); font-weight: 700; letter-spacing: -.03em;
   font-size: clamp(2.1rem, 5.5vw, 3.4rem); line-height: 1.05;
-  margin: 0 0 1.75rem; max-width: 22ch;
+  margin: 0; max-width: 22ch;
 }
+.entete h1::after {
+  content: ""; display: block; width: 3.5rem; height: 4px;
+  background: var(--signal); border-radius: 2px; margin-top: 1.1rem;
+}
+.jalon {
+  margin: .4rem 0 0; text-align: right; flex-shrink: 0;
+  display: grid; justify-items: end; gap: .1rem;
+}
+.jalon strong {
+  font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 500; line-height: 1;
+  color: rgba(255,255,255,.92);
+}
+.jalon span {
+  font-family: var(--titre); font-size: .8rem; line-height: 1.35;
+  color: rgba(255,255,255,.6); text-align: right;
+}
+@media (max-width: 46rem) { .jalon { display: none; } }
 .chapeau { font-size: 1.22rem; color: rgba(255,255,255,.82); max-width: var(--lecture); margin: 0; }
 
 .reperes {
@@ -614,7 +638,12 @@ html[data-sombre="on"][data-couleur="geographie"] {
   --bloc: #3E7350; --bloc-pale: #274434; --bloc-pale-texte: #D8ECDD;
 }
 /* Le bandeau d'entête ne peut pas rester en couleur claire avec du texte blanc. */
-html[data-sombre="on"] .entete { background: var(--surface); border-bottom: 3px solid var(--matiere); }
+html[data-sombre="on"] .entete {
+  background: linear-gradient(130deg, #131C26 0%, var(--matiere-voile) 80%);
+  border-bottom: 3px solid var(--matiere);
+}
+html[data-sombre="on"] .jalon strong { color: var(--encre); }
+html[data-sombre="on"] .jalon span { color: var(--encre-pale); }
 html[data-sombre="on"] .entete h1 { color: var(--encre); }
 html[data-sombre="on"] .fil, html[data-sombre="on"] .reperes dt { color: var(--encre-pale); }
 html[data-sombre="on"] .reperes dd, html[data-sombre="on"] .chapeau { color: var(--encre); }
@@ -668,3 +697,63 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 @media (max-width: 50rem) { .diapo-titre { display: none; } }
 
 @media print { .actions, .declencheur, .diapo-barre { display: none !important; } }
+
+/* =========================================================================
+   Galerie d'images
+   En fin de feuille volontairement : ces règles doivent gagner la cascade
+   sur tous les cadrages individuels.
+   ========================================================================= */
+
+.galerie {
+  clear: both; display: grid; gap: 1.9rem 1.6rem; margin: 2.25rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  max-width: 70rem;
+}
+.galerie .illustration { float: none !important; width: auto !important; margin: 0 !important; }
+.galerie img {
+  width: 100% !important; height: auto !important;
+  aspect-ratio: 3 / 2; object-fit: cover;
+}
+.galerie .illustration--carte img,
+.galerie .illustration--large img { object-fit: contain; background: var(--surface-2); }
+
+/* ------------------------------------------------------ crédit repliable */
+
+details.credit summary {
+  cursor: pointer; display: inline-block; list-style: none;
+  border-bottom: 1px dotted currentColor;
+}
+details.credit summary::-webkit-details-marker { display: none; }
+details.credit summary::marker { content: ""; }
+details.credit summary:hover { color: var(--matiere); }
+details.credit[open] summary { margin-bottom: .15rem; }
+details.credit > span { display: block; max-width: 34rem; }
+
+/* ------------------------------------------------------------ visionneuse */
+
+.illustration img { cursor: zoom-in; }
+
+.visionneuse {
+  position: fixed; inset: 0; z-index: 90;
+  background: rgba(10, 15, 21, .92);
+  display: grid; place-items: center; padding: 2.5rem 1.5rem;
+  cursor: zoom-out;
+}
+.visionneuse figure { margin: 0; max-width: min(94vw, 90rem); text-align: center; }
+.visionneuse img {
+  max-width: 100%; max-height: 82vh; width: auto; height: auto;
+  border-radius: var(--rayon); box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  cursor: zoom-out;
+}
+.visionneuse figcaption {
+  font-family: var(--titre); font-weight: 600; font-size: 1rem;
+  color: #fff; margin-top: 1rem;
+}
+.visionneuse__fermer {
+  position: fixed; top: 1.25rem; right: 1.5rem;
+  width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  font-size: 1.3rem; line-height: 1; color: #fff;
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.3);
+  cursor: pointer; display: grid; place-items: center;
+}
+.visionneuse__fermer:hover { background: rgba(255,255,255,.3); }

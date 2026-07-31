@@ -15,6 +15,7 @@ sections:
     court: Histoire
     cycle: Premier cycle du secondaire
     couleur: histoire
+    unite: réalité sociale
     intro: >-
       Les douze réalités sociales du programme, de la sédentarisation au
       Néolithique jusqu'à la reconnaissance des libertés et des droits civils.
@@ -34,6 +35,7 @@ sections:
     court: Géographie
     cycle: Premier cycle du secondaire
     couleur: geographie
+    unite: territoire
     intro: >-
       Les types de territoires du programme, étudiés à partir de cas concrets
       d'ici et d'ailleurs.

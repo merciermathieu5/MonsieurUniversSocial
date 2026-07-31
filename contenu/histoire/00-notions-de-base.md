@@ -7,6 +7,7 @@ periode: "Méthode"
 angle: "Les outils de l'historien"
 concepts: []
 concepts_valides: true
+hors_parcours: true
 statut: a-extraire
 image_entete: ""
 ---

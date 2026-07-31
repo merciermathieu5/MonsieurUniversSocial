@@ -9,6 +9,7 @@ enjeu: "Localiser un lieu avec précision"
 etudes_de_cas: []
 concepts: []
 concepts_valides: true
+hors_parcours: true
 statut: a-extraire
 image_entete: ""
 ---

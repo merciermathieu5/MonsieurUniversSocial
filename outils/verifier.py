@@ -286,6 +286,29 @@ def controler_variables() -> list[str]:
     return soucis
 
 
+CLASSES_EMISES = [
+    "galerie", "illustration", "figure-legende", "figure-role", "credit",
+    "encadre", "encadre__titre", "schema", "video", "attente-image",
+    "visionneuse", "diapo-barre", "jalon", "entete__haut",
+    "frise__bascule", "sommaire__bascule", "declencheur", "actions",
+]
+
+
+def controler_classes() -> list[str]:
+    """Chaque classe émise par les gabarits ou le générateur doit être stylée.
+
+    C'est le contrôle qui manquait quand les règles de la galerie ont disparu
+    de la feuille sans que rien ne le signale : le HTML sortait avec la classe,
+    le CSS ne la connaissait pas, la page s'affichait en vrac.
+    """
+    feuille = (RACINE / "theme" / "style.css").read_text(encoding="utf-8")
+    soucis = [f"classe émise mais absente du CSS : .{c}"
+              for c in CLASSES_EMISES if f".{c}" not in feuille]
+    if not soucis:
+        print(f"    ok   {len(CLASSES_EMISES)} classes émises, toutes stylées")
+    return soucis
+
+
 def main() -> int:
     print("PALETTE")
     soucis = controler_palette()
@@ -303,6 +326,12 @@ def main() -> int:
             soucis += trouves
         else:
             print(f"    ok   {chemin.name}")
+
+    print("\nCLASSES")
+    ratees = controler_classes()
+    for r in ratees:
+        print(f"    {r}")
+    soucis += ratees
 
     print("\nVARIABLES")
     manquantes_var = controler_variables()

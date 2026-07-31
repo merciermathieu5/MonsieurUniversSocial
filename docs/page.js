@@ -158,9 +158,45 @@
     if (corps.dataset.diapo === "on") { sortirDiapo(); } else { entrerDiapo(); }
   });
 
+  /* ---------------------------------------------------------- visionneuse */
+
+  function ouvrirVisionneuse(img) {
+    var figure = img.closest("figure");
+    var legende = "";
+    if (figure) {
+      var noeud = figure.querySelector(".figure-legende");
+      legende = noeud ? noeud.textContent : "";
+    }
+    var voile = document.createElement("div");
+    voile.className = "visionneuse";
+    voile.innerHTML = '<figure><img alt=""><figcaption></figcaption></figure>' +
+      '<button type="button" class="visionneuse__fermer" aria-label="Fermer">&#10005;</button>';
+    voile.querySelector("img").src = img.currentSrc || img.src;
+    voile.querySelector("img").alt = img.alt || "";
+    voile.querySelector("figcaption").textContent = legende || img.alt || "";
+    document.body.appendChild(voile);
+    corps.dataset.visionneuse = "on";
+    voile.addEventListener("click", fermerVisionneuse);
+  }
+
+  function fermerVisionneuse() {
+    var voile = document.querySelector(".visionneuse");
+    if (voile) voile.remove();
+    delete corps.dataset.visionneuse;
+  }
+
+  document.addEventListener("click", function (e) {
+    var img = e.target.closest(".illustration img");
+    if (img && !e.target.closest(".visionneuse")) ouvrirVisionneuse(img);
+  });
+
   // Raccourcis : C pour le mode classe, N pour le thème sombre.
   document.addEventListener("keydown", function (e) {
     if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (corps.dataset.visionneuse === "on") {
+      if (e.key === "Escape") fermerVisionneuse();
+      return;
+    }
     if (e.key === "c") { var b = document.querySelector('[data-bascule="classe"]'); if (b) b.click(); }
     if (e.key === "s") { var so = document.querySelector('[data-bascule="sommaire"]'); if (so) so.click(); }
     if (e.key === "n") { var s = document.querySelector('[data-bascule="sombre"]'); if (s) s.click(); }

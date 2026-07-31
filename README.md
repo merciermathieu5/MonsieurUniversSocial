@@ -76,6 +76,15 @@ Trois boutons sous le titre de chaque fiche, ou leurs touches.
   conservé d'une section à l'autre pendant toute la présentation.
 - **Thème sombre** (`N`) recolore la page. Clair par défaut.
 
+Un clic sur n'importe quelle image l'ouvre en grand format dans une visionneuse,
+avec sa légende. Un second clic ou `Échap` la referme.
+
+La navigation précédent-suivant et la frise parcourent les douze réalités
+sociales en histoire et les douze territoires en géographie. Les pages de
+méthode (notions de base, Canada politique, coordonnées géographiques) restent
+accessibles depuis l'index de leur matière mais ne font pas partie du parcours :
+le champ `hors_parcours: true` de leur en-tête les en retire.
+
 Le sommaire de gauche se replie avec la touche `S` ou son bouton, et le texte
 reprend alors toute la largeur. Il n'y a qu'un seul moteur de mise en page :
 chaque mode se contente de poser un attribut sur la page.

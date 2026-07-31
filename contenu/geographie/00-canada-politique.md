@@ -9,6 +9,7 @@ enjeu: "Se repérer sur le territoire canadien"
 etudes_de_cas: []
 concepts: []
 concepts_valides: true
+hors_parcours: true
 statut: a-extraire
 image_entete: ""
 ---

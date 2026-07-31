@@ -231,10 +231,18 @@ def charger_tout(config: dict) -> dict:
         dossier = CONTENU / cle
         fiches = sorted((lire_fiche(p, credits) for p in dossier.glob("*.md")),
                         key=lambda f: f.get("ordre", 999))
-        for i, f in enumerate(fiches):
-            f["precedent"] = fiches[i - 1] if i > 0 else None
-            f["suivant"] = fiches[i + 1] if i < len(fiches) - 1 else None
-        sections[cle] = dict(meta, cle=cle, fiches=fiches)
+        # Le parcours est la suite des réalités sociales ou des territoires.
+        # Les pages de méthode et de repères n'en font pas partie : elles ne
+        # figurent ni sur la frise ni dans la navigation précédent-suivant.
+        parcours = [f for f in fiches if not f.get("hors_parcours")]
+        for f in fiches:
+            f["precedent"] = f["suivant"] = None
+            f["position"] = None
+        for i, f in enumerate(parcours):
+            f["precedent"] = parcours[i - 1] if i > 0 else None
+            f["suivant"] = parcours[i + 1] if i < len(parcours) - 1 else None
+            f["position"] = i + 1
+        sections[cle] = dict(meta, cle=cle, fiches=fiches, parcours=parcours)
     return sections
 
 

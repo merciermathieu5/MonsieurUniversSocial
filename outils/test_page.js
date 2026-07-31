@@ -91,5 +91,23 @@ const revenus = Array.from(document.querySelectorAll(".texte > h2"))
 verifier("Quitter restaure toutes les sections", revenus === h2avant, revenus + " / " + h2avant);
 verifier("attribut diapo retiré", corps.dataset.diapo === undefined);
 
+console.log("VISIONNEUSE");
+// L'écouteur est délégué au document : on peut injecter une figure de test.
+const figure = document.createElement("figure");
+figure.className = "illustration illustration--flottant";
+figure.innerHTML = '<img src="../medias/test.jpg" alt="Essai">' +
+  '<figcaption><span class="figure-legende">Légende d\'essai</span></figcaption>';
+document.querySelector(".texte").appendChild(figure);
+figure.querySelector("img").dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+const voile = document.querySelector(".visionneuse");
+verifier("un clic sur l'image ouvre la visionneuse", !!voile);
+verifier("l'image agrandie est chargée", voile && voile.querySelector("img").src.includes("test.jpg"));
+verifier("la légende est reprise", voile && voile.querySelector("figcaption").textContent === "Légende d'essai");
+document.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+verifier("Échap ferme la visionneuse", !document.querySelector(".visionneuse"));
+figure.querySelector("img").dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+document.querySelector(".visionneuse").dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("un clic n'importe où ferme aussi", !document.querySelector(".visionneuse"));
+
 console.log(`\n${echecs} échec(s).`);
 process.exit(echecs ? 1 : 0);
