@@ -336,6 +336,15 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 }
 .credit { font-family: var(--donnee); font-size: .68rem; line-height: 1.5; color: var(--encre-pale); }
 .credit a { color: var(--matiere); text-decoration: none; border-bottom: 1px solid currentColor; }
+details.credit summary {
+  cursor: pointer; display: inline-block; list-style: none;
+  border-bottom: 1px dotted currentColor;
+}
+details.credit summary::-webkit-details-marker { display: none; }
+details.credit summary::marker { content: ""; }
+details.credit summary:hover { color: var(--matiere); }
+details.credit[open] summary { margin-bottom: .15rem; }
+details.credit > span { display: block; max-width: 34rem; }
 
 /* Par défaut l'image se place à droite et le texte l'enveloppe. */
 @media (min-width: 62rem) {

@@ -146,8 +146,9 @@ def habiller_images(html: str, credits: dict) -> str:
             depot = (f'<a href="{lien}" rel="noopener" target="_blank">Wikimedia Commons</a>'
                      if lien else "Wikimedia Commons")
             debut = ", ".join(p for p in (auteur, titre) if p)
-            credit = (f'<span class="credit">{debut}, {depot}. '
-                      f'Licence&nbsp;: {source["licence"]}.</span>')
+            credit = ('<details class="credit"><summary>Source</summary>'
+                      f'<span>{debut}, {depot}. '
+                      f'Licence&nbsp;: {source["licence"]}.</span></details>')
 
         existe = (MEDIAS / src.split("medias/")[-1]).exists() if "medias/" in src else False
         if not existe:
@@ -168,6 +169,35 @@ def habiller_images(html: str, credits: dict) -> str:
     return IMAGE.sub(remplacer, html)
 
 
+FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL)
+ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
+
+
+def ranger_figures(html: str) -> str:
+    """Une seule image flottante par section.
+
+    Dès qu'une section (un h2) contient deux figures ou plus, elles sont
+    retirées du fil du texte et regroupées en galerie uniforme à la fin de la
+    section, juste avant le bloc de questions s'il y en a un. C'est ce qui
+    empêche les collisions de flottants qui rendaient les pages chaotiques.
+    """
+    morceaux = re.split(r"(?=<h2)", html)
+    resultat = []
+    for morceau in morceaux:
+        figures = FIGURE.findall(morceau)
+        if len(figures) >= 2:
+            morceau = FIGURE.sub("", morceau)
+            galerie = '<div class="galerie">' + "".join(figures) + "</div>\n"
+            ancre = ANCRAGE_QUESTIONS.search(morceau)
+            if ancre:
+                i = ancre.start()
+                morceau = morceau[:i] + galerie + morceau[i:]
+            else:
+                morceau = morceau + galerie
+        resultat.append(morceau)
+    return "".join(resultat)
+
+
 def lire_fiche(chemin: Path, credits: dict) -> dict:
     brut = chemin.read_text(encoding="utf-8")
     if not brut.startswith("---"):
@@ -178,8 +208,8 @@ def lire_fiche(chemin: Path, credits: dict) -> dict:
     md = markdown.Markdown(extensions=EXTENSIONS_MD,
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
-    donnees["html"] = habiller_images(
-        md.convert(convertir_blocs(corps.strip())), credits)
+    donnees["html"] = ranger_figures(habiller_images(
+        md.convert(convertir_blocs(corps.strip())), credits))
     donnees["sommaire"] = [t for t in md.toc_tokens]
     donnees["nom"] = chemin.stem
     donnees["url"] = f"{donnees['section']}/{chemin.stem}.html"
