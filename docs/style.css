@@ -759,7 +759,8 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 .galerie .illustration { float: none !important; width: auto !important; margin: 0 !important; }
 .galerie img {
   width: 100% !important; height: auto !important;
-  aspect-ratio: 3 / 2; object-fit: cover;
+  aspect-ratio: 3 / 2; object-fit: contain; background: #fff;
+  border: 1px solid var(--trait);
 }
 .galerie .illustration--carte img,
 .galerie .illustration--large img {

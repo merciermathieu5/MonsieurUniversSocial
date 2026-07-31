@@ -1,62 +1,60 @@
 <svg viewBox="0 0 1100 390" xmlns="http://www.w3.org/2000/svg" role="img"
      aria-label="Ligne du temps de la civilisation mésopotamienne, des premières cités-États à la prise de Babylone par les Perses">
   <style>
-    .t { font-family: Archivo, sans-serif; }
-    .e { font-size: 13.5px; fill: var(--encre); }
-    .d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
-    .b { font-size: 15px; font-weight: 700; fill: var(--bloc-texte); }
+    .fm-t { font-family: Archivo, sans-serif; }
+    .fm-e { font-size: 13.5px; fill: var(--encre); }
+    .fm-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
   </style>
-  <rect x="70" y="177" width="960" height="26" rx="13" fill="var(--bloc)"/>
-  <text class="t b" x="550" y="195" text-anchor="middle">La civilisation mésopotamienne</text>
-  <text class="t d" x="8" y="195">-3 500</text>
-  <text class="t d" x="1092" y="195" text-anchor="end">-539</text>
+  <rect x="70" y="182" width="960" height="16" rx="8" fill="var(--bloc)"/>
+  <text class="fm-t fm-d" x="8" y="195">-3 500</text>
+  <text class="fm-t fm-d" x="1092" y="195" text-anchor="end">-539</text>
   <line x1="70.0" y1="182" x2="70.0" y2="164" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="76.0" y="99" text-anchor="start">vers -3500</text>
-  <text class="t e" x="76.0" y="120" text-anchor="start">Les premières cités-États</text>
-  <text class="t e" x="76.0" y="139" text-anchor="start">sumériennes apparaissent</text>
-  <text class="t e" x="76.0" y="158" text-anchor="start">à Uruk et à Eridu.</text>
+  <text class="fm-t fm-d" x="76.0" y="99" text-anchor="start">vers -3500</text>
+  <text class="fm-t fm-e" x="76.0" y="120" text-anchor="start">Les premières cités-États</text>
+  <text class="fm-t fm-e" x="76.0" y="139" text-anchor="start">sumériennes apparaissent</text>
+  <text class="fm-t fm-e" x="76.0" y="158" text-anchor="start">à Uruk et à Eridu.</text>
   <circle cx="70.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="134.0" y1="198" x2="134.0" y2="216" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="134.0" y="236" text-anchor="middle">vers -3300</text>
-  <text class="t e" x="134.0" y="257" text-anchor="middle">L'écriture cunéiforme</text>
-  <text class="t e" x="134.0" y="276" text-anchor="middle">est inventée pour tenir</text>
-  <text class="t e" x="134.0" y="295" text-anchor="middle">les comptes du temple.</text>
+  <text class="fm-t fm-d" x="134.0" y="236" text-anchor="middle">vers -3300</text>
+  <text class="fm-t fm-e" x="134.0" y="257" text-anchor="middle">L'écriture cunéiforme</text>
+  <text class="fm-t fm-e" x="134.0" y="276" text-anchor="middle">est inventée pour tenir</text>
+  <text class="fm-t fm-e" x="134.0" y="295" text-anchor="middle">les comptes du temple.</text>
   <circle cx="134.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="358.0" y1="182" x2="358.0" y2="164" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="358.0" y="99" text-anchor="middle">vers -2600</text>
-  <text class="t e" x="358.0" y="120" text-anchor="middle">Les tombes royales</text>
-  <text class="t e" x="358.0" y="139" text-anchor="middle">d'Ur livrent des</text>
-  <text class="t e" x="358.0" y="158" text-anchor="middle">bijoux et l'Étendard.</text>
+  <text class="fm-t fm-d" x="358.0" y="99" text-anchor="middle">vers -2600</text>
+  <text class="fm-t fm-e" x="358.0" y="120" text-anchor="middle">Les tombes royales</text>
+  <text class="fm-t fm-e" x="358.0" y="139" text-anchor="middle">d'Ur livrent des</text>
+  <text class="fm-t fm-e" x="358.0" y="158" text-anchor="middle">bijoux et l'Étendard.</text>
   <circle cx="358.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="443.1" y1="198" x2="443.1" y2="216" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="443.1" y="236" text-anchor="middle">vers -2334</text>
-  <text class="t e" x="443.1" y="257" text-anchor="middle">Sargon d'Akkad réunit</text>
-  <text class="t e" x="443.1" y="276" text-anchor="middle">les cités sous son</text>
-  <text class="t e" x="443.1" y="295" text-anchor="middle">autorité : premier empire.</text>
+  <text class="fm-t fm-d" x="443.1" y="236" text-anchor="middle">vers -2334</text>
+  <text class="fm-t fm-e" x="443.1" y="257" text-anchor="middle">Sargon d'Akkad réunit</text>
+  <text class="fm-t fm-e" x="443.1" y="276" text-anchor="middle">les cités sous son</text>
+  <text class="fm-t fm-e" x="443.1" y="295" text-anchor="middle">autorité : premier empire.</text>
   <circle cx="443.1" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="518.0" y1="182" x2="518.0" y2="164" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="518.0" y="99" text-anchor="middle">vers -2100</text>
-  <text class="t e" x="518.0" y="120" text-anchor="middle">Le roi Shulgi fait</text>
-  <text class="t e" x="518.0" y="139" text-anchor="middle">bâtir la grande</text>
-  <text class="t e" x="518.0" y="158" text-anchor="middle">ziggourat d'Ur.</text>
+  <text class="fm-t fm-d" x="518.0" y="99" text-anchor="middle">vers -2100</text>
+  <text class="fm-t fm-e" x="518.0" y="120" text-anchor="middle">Le roi Shulgi fait</text>
+  <text class="fm-t fm-e" x="518.0" y="139" text-anchor="middle">bâtir la grande</text>
+  <text class="fm-t fm-e" x="518.0" y="158" text-anchor="middle">ziggourat d'Ur.</text>
   <circle cx="518.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="630.0" y1="198" x2="630.0" y2="216" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="630.0" y="236" text-anchor="middle">vers -1750</text>
-  <text class="t e" x="630.0" y="257" text-anchor="middle">Hammourabi fait graver</text>
-  <text class="t e" x="630.0" y="276" text-anchor="middle">son code de lois sur</text>
-  <text class="t e" x="630.0" y="295" text-anchor="middle">une stèle, à Babylone.</text>
+  <text class="fm-t fm-d" x="630.0" y="236" text-anchor="middle">vers -1750</text>
+  <text class="fm-t fm-e" x="630.0" y="257" text-anchor="middle">Hammourabi fait graver</text>
+  <text class="fm-t fm-e" x="630.0" y="276" text-anchor="middle">son code de lois sur</text>
+  <text class="fm-t fm-e" x="630.0" y="295" text-anchor="middle">une stèle, à Babylone.</text>
   <circle cx="630.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="790.0" y1="182" x2="790.0" y2="164" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="790.0" y="99" text-anchor="middle">vers -1250</text>
-  <text class="t e" x="790.0" y="120" text-anchor="middle">L'épopée de Gilgamesh</text>
-  <text class="t e" x="790.0" y="139" text-anchor="middle">est mise par écrit sur</text>
-  <text class="t e" x="790.0" y="158" text-anchor="middle">douze tablettes d'argile.</text>
+  <text class="fm-t fm-d" x="790.0" y="99" text-anchor="middle">vers -1250</text>
+  <text class="fm-t fm-e" x="790.0" y="120" text-anchor="middle">L'épopée de Gilgamesh</text>
+  <text class="fm-t fm-e" x="790.0" y="139" text-anchor="middle">est mise par écrit sur</text>
+  <text class="fm-t fm-e" x="790.0" y="158" text-anchor="middle">douze tablettes d'argile.</text>
   <circle cx="790.0" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
   <line x1="1017.5" y1="198" x2="1017.5" y2="216" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="t d" x="1011.5" y="236" text-anchor="end">-539</text>
-  <text class="t e" x="1011.5" y="257" text-anchor="end">Les Perses de Cyrus</text>
-  <text class="t e" x="1011.5" y="276" text-anchor="end">prennent Babylone : la</text>
-  <text class="t e" x="1011.5" y="295" text-anchor="end">Mésopotamie perd son</text>
-  <text class="t e" x="1011.5" y="314" text-anchor="end">indépendance.</text>
+  <text class="fm-t fm-d" x="1011.5" y="236" text-anchor="end">-539</text>
+  <text class="fm-t fm-e" x="1011.5" y="257" text-anchor="end">Les Perses de Cyrus</text>
+  <text class="fm-t fm-e" x="1011.5" y="276" text-anchor="end">prennent Babylone : la</text>
+  <text class="fm-t fm-e" x="1011.5" y="295" text-anchor="end">Mésopotamie perd son</text>
+  <text class="fm-t fm-e" x="1011.5" y="314" text-anchor="end">indépendance.</text>
   <circle cx="1017.5" cy="190" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
 </svg>

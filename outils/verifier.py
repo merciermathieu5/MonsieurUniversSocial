@@ -150,6 +150,7 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
                 "x": min(xs), "y": min(ys),
                 "l": max(xs) - min(xs), "h": max(ys) - min(ys),
                 "couleur": poser(remplissage, fond_page, opacite),
+                "sommets": list(zip(xs, ys)),
             })
             continue
         if balise != "rect":
@@ -189,10 +190,11 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
         ancre = element.get("text-anchor", "start")
 
         # Fond réellement derrière le texte : le dernier rectangle qui le couvre.
-        derriere = fond_page
+        derriere, porteur = fond_page, None
         for r in rectangles:
             if r["x"] <= x <= r["x"] + r["l"] and r["y"] <= y <= r["y"] + r["h"]:
                 derriere = r["couleur"]
+                porteur = r
 
         rapport = contraste(couleur, derriere)
         # Un gros texte peut descendre à 3:1, la règle usuelle.
@@ -213,6 +215,25 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
             soucis.append(f"déborde à droite de {droite - largeur:.0f}px : « {contenu[:30]} »")
         if gauche < -2:
             soucis.append(f"déborde à gauche : « {contenu[:30]} »")
+
+        # Un texte posé sur une forme doit tenir dans la forme, avec une marge
+        # de 8px de chaque côté. Pour les polygones, la largeur disponible est
+        # celle de la forme à la hauteur exacte du texte, pas celle de sa
+        # boîte englobante : le haut d'une pyramide est bien plus étroit.
+        if porteur is not None and theme_nom == "lecture":
+            if porteur.get("sommets"):
+                xs = []
+                pts = porteur["sommets"]
+                for i in range(len(pts)):
+                    (x1, y1), (x2, y2) = pts[i], pts[(i + 1) % len(pts)]
+                    if y1 != y2 and min(y1, y2) <= y <= max(y1, y2):
+                        xs.append(x1 + (x2 - x1) * (y - y1) / (y2 - y1))
+                dispo = (max(xs) - min(xs)) if len(xs) >= 2 else porteur["l"]
+            else:
+                dispo = porteur["l"]
+            if estimee > dispo - 16:
+                soucis.append(f"dépasse de sa forme de {estimee - dispo + 16:.0f}px : "
+                              f"« {contenu[:34]} »")
         if y > hauteur:
             soucis.append(f"sort du cadre par le bas : « {contenu[:30]} »")
         elif y > hauteur - taille * .35:
@@ -266,6 +287,27 @@ def controler_chevauchements(chemin: Path) -> list[str]:
             a, b = boites[i], boites[j]
             if a[0] < b[2] - 2 and b[0] < a[2] - 2 and a[1] < b[3] - 2 and b[1] < a[3] - 2:
                 soucis.append(f"se chevauchent : « {a[4][:32]} » et « {b[4][:32]} »")
+    return soucis
+
+
+def controler_classes_partagees() -> list[str]:
+    """Deux schémas qui définissent la même classe se contaminent.
+
+    Les blocs <style> des SVG insérés dans une page sont globaux : la classe
+    .e blanche d'un schéma repeint la classe .e noire du schéma voisin. Le
+    défaut n'apparaît qu'une fois les deux réunis sur la même fiche, jamais
+    dans l'éditeur. Chaque schéma doit donc préfixer ses classes.
+    """
+    porteurs: dict[str, list[str]] = {}
+    for chemin in sorted(SCHEMAS.glob("*.svg")):
+        source = chemin.read_text(encoding="utf-8")
+        for selecteur in set(re.findall(r"\.([A-Za-z][\w-]*)\s*\{", source)):
+            porteurs.setdefault(selecteur, []).append(chemin.name)
+    soucis = []
+    for selecteur, fichiers in sorted(porteurs.items()):
+        if len(fichiers) > 1:
+            soucis.append(f"classe .{selecteur} définie dans plusieurs schémas : "
+                          + ", ".join(fichiers))
     return soucis
 
 
@@ -389,6 +431,9 @@ def main() -> int:
     soucis = controler_palette()
 
     print("\nSCHÉMAS")
+    for probleme in controler_classes_partagees():
+        print(f"    {probleme}")
+        soucis.append(probleme)
     for chemin in sorted(SCHEMAS.glob("*.svg")):
         trouves = []
         for theme in THEMES:

@@ -1,58 +1,58 @@
 <svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg" role="img"
      aria-label="Comparaison du mode de vie nomade et du mode de vie sédentaire selon six critères identiques">
   <style>
-    .t { font-family: Archivo, sans-serif; }
-    .col { font-size: 21px; font-weight: 700; }
-    .cle { font-size: 14px; font-weight: 600; fill: var(--schema-cle); }
-    .v { font-size: 15px; fill: var(--encre); }
+    .ns-t { font-family: Archivo, sans-serif; }
+    .ns-col { font-size: 21px; font-weight: 700; }
+    .ns-cle { font-size: 14px; font-weight: 600; fill: var(--schema-cle); }
+    .ns-v { font-size: 15px; fill: var(--encre); }
   </style>
   <rect x="286" y="8" width="340" height="46" rx="4" fill="var(--bloc-pale)"/>
   <rect x="642" y="8" width="350" height="46" rx="4" fill="var(--bloc)"/>
-  <text class="t col" x="456" y="39" text-anchor="middle" fill="var(--bloc-pale-texte)">Le nomade</text>
-  <text class="t col" x="817" y="39" text-anchor="middle" fill="var(--bloc-texte)">Le sédentaire</text>
+  <text class="ns-t ns-col" x="456" y="39" text-anchor="middle" fill="var(--bloc-pale-texte)">Le nomade</text>
+  <text class="ns-t ns-col" x="817" y="39" text-anchor="middle" fill="var(--bloc-texte)">Le sédentaire</text>
 
-  <text class="t cle" x="8" y="94">Habitation</text>
-  <text class="t v" x="300" y="94">Des abris temporaires faits</text>
-  <text class="t v" x="300" y="114">de peaux et de branches.</text>
-  <text class="t v" x="656" y="94">Des maisons de brique crue</text>
-  <text class="t v" x="656" y="114">regroupées en village.</text>
+  <text class="ns-t ns-cle" x="8" y="94">Habitation</text>
+  <text class="ns-t ns-v" x="300" y="94">Des abris temporaires faits</text>
+  <text class="ns-t ns-v" x="300" y="114">de peaux et de branches.</text>
+  <text class="ns-t ns-v" x="656" y="94">Des maisons de brique crue</text>
+  <text class="ns-t ns-v" x="656" y="114">regroupées en village.</text>
   <line x1="8" y1="134" x2="992" y2="134" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="170">Moyens de subsistance</text>
-  <text class="t v" x="300" y="170">Chasse, pêche et cueillette.</text>
-  <text class="t v" x="656" y="170">Agriculture, élevage, chasse,</text>
-  <text class="t v" x="656" y="190">pêche et cueillette.</text>
+  <text class="ns-t ns-cle" x="8" y="170">Moyens de subsistance</text>
+  <text class="ns-t ns-v" x="300" y="170">Chasse, pêche et cueillette.</text>
+  <text class="ns-t ns-v" x="656" y="170">Agriculture, élevage, chasse,</text>
+  <text class="ns-t ns-v" x="656" y="190">pêche et cueillette.</text>
   <line x1="8" y1="210" x2="992" y2="210" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="246">Réserves de nourriture</text>
-  <text class="t v" x="300" y="246">Aucune réserve : le groupe suit</text>
-  <text class="t v" x="300" y="266">les saisons et les troupeaux.</text>
-  <text class="t v" x="656" y="246">Des surplus entreposés dans</text>
-  <text class="t v" x="656" y="266">des greniers et des jarres.</text>
+  <text class="ns-t ns-cle" x="8" y="246">Réserves de nourriture</text>
+  <text class="ns-t ns-v" x="300" y="246">Aucune réserve : le groupe suit</text>
+  <text class="ns-t ns-v" x="300" y="266">les saisons et les troupeaux.</text>
+  <text class="ns-t ns-v" x="656" y="246">Des surplus entreposés dans</text>
+  <text class="ns-t ns-v" x="656" y="266">des greniers et des jarres.</text>
   <line x1="8" y1="286" x2="992" y2="286" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="322">Organisation du travail</text>
-  <text class="t v" x="300" y="322">Tous participent à la recherche</text>
-  <text class="t v" x="300" y="342">de la nourriture.</text>
-  <text class="t v" x="656" y="322">Des métiers se spécialisent :</text>
-  <text class="t v" x="656" y="342">potier, tisserand, vannier.</text>
+  <text class="ns-t ns-cle" x="8" y="322">Organisation du travail</text>
+  <text class="ns-t ns-v" x="300" y="322">Tous participent à la recherche</text>
+  <text class="ns-t ns-v" x="300" y="342">de la nourriture.</text>
+  <text class="ns-t ns-v" x="656" y="322">Des métiers se spécialisent :</text>
+  <text class="ns-t ns-v" x="656" y="342">potier, tisserand, vannier.</text>
   <line x1="8" y1="362" x2="992" y2="362" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="398">Prise des décisions</text>
-  <text class="t v" x="300" y="398">Les décisions se prennent</text>
-  <text class="t v" x="300" y="418">en groupe, entre adultes.</text>
-  <text class="t v" x="656" y="398">Des chefs dirigent le village</text>
-  <text class="t v" x="656" y="418">et commandent les travaux.</text>
+  <text class="ns-t ns-cle" x="8" y="398">Prise des décisions</text>
+  <text class="ns-t ns-v" x="300" y="398">Les décisions se prennent</text>
+  <text class="ns-t ns-v" x="300" y="418">en groupe, entre adultes.</text>
+  <text class="ns-t ns-v" x="656" y="398">Des chefs dirigent le village</text>
+  <text class="ns-t ns-v" x="656" y="418">et commandent les travaux.</text>
   <line x1="8" y1="438" x2="992" y2="438" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="474">Taille du groupe</text>
-  <text class="t v" x="300" y="474">Quelques familles, de vingt</text>
-  <text class="t v" x="300" y="494">à cinquante personnes.</text>
-  <text class="t v" x="656" y="474">De quelques centaines</text>
-  <text class="t v" x="656" y="494">à plusieurs milliers d'habitants.</text>
+  <text class="ns-t ns-cle" x="8" y="474">Taille du groupe</text>
+  <text class="ns-t ns-v" x="300" y="474">Quelques familles, de vingt</text>
+  <text class="ns-t ns-v" x="300" y="494">à cinquante personnes.</text>
+  <text class="ns-t ns-v" x="656" y="474">De quelques centaines</text>
+  <text class="ns-t ns-v" x="656" y="494">à plusieurs milliers d'habitants.</text>
   <line x1="8" y1="514" x2="992" y2="514" stroke="var(--schema-trait)"/>
 
-  <text class="t cle" x="8" y="546">Espérance de vie</text>
-  <text class="t v" x="300" y="546">Courte, la nourriture manque souvent.</text>
-  <text class="t v" x="656" y="546">Plus longue, mais les maladies circulent.</text>
+  <text class="ns-t ns-cle" x="8" y="546">Espérance de vie</text>
+  <text class="ns-t ns-v" x="300" y="546">Courte, la nourriture manque souvent.</text>
+  <text class="ns-t ns-v" x="656" y="546">Plus longue, mais les maladies circulent.</text>
 </svg>
