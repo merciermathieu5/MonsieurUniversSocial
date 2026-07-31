@@ -1,26 +1,25 @@
-<svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Les groupes sociaux de l'Attique au cinquième siècle : citoyens, femmes et enfants, métèques et esclaves">
+<svg viewBox="0 0 1000 420" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La répartition des groupes sociaux de l'Attique : citoyens, femmes et enfants, métèques et esclaves">
   <style>
     .pa-t { font-family: Archivo, sans-serif; }
-    .pa-e { font-size: 15px; font-weight: 700; fill: var(--encre); }
-    .pa-v { font-size: 13.5px; fill: var(--encre); }
-    .pa-i { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
-    .pa-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--schema-cle); }
+    .pa-n { font-size: 16px; font-weight: 700; fill: var(--encre); }
+    .pa-s { font-size: 13.5px; fill: var(--schema-cle); }
   </style>
-  <text class="pa-t pa-v" x="20" y="28">Environ 400 000 habitants vivent en Attique au 5e siècle av. J.-C.</text>
-  <rect x="20" y="110" width="96" height="70" fill="var(--bloc)"/>
-  <rect x="116" y="110" width="432" height="70" fill="var(--bloc-pale)"/>
-  <rect x="548" y="110" width="192" height="70" fill="var(--bloc-pale)" opacity=".78"/>
-  <rect x="740" y="110" width="240" height="70" fill="var(--bloc-pale)" opacity=".56"/>
-  <line x1="68" y1="102" x2="68" y2="78" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="pa-t pa-e" x="20" y="52">Les citoyens</text>
-  <text class="pa-t pa-d" x="20" y="70">10 %, seuls à voter</text>
-  <text class="pa-t pa-i" x="332" y="141" text-anchor="middle">Femmes et enfants</text>
-  <text class="pa-t pa-v" x="332" y="162" text-anchor="middle" fill="var(--bloc-pale-texte)">des familles citoyennes, environ 45 %</text>
-  <text class="pa-t pa-i" x="644" y="141" text-anchor="middle">Les métèques</text>
-  <text class="pa-t pa-v" x="644" y="162" text-anchor="middle" fill="var(--bloc-pale-texte)">environ 20 %</text>
-  <text class="pa-t pa-i" x="860" y="141" text-anchor="middle">Les esclaves</text>
-  <text class="pa-t pa-v" x="860" y="162" text-anchor="middle" fill="var(--bloc-pale-texte)">au moins 25 %</text>
-  <text class="pa-t pa-v" x="20" y="218">Les femmes, les métèques et les esclaves n'ont aucun droit politique. Les métèques paient pourtant</text>
-  <text class="pa-t pa-v" x="20" y="240">des impôts et font le service militaire, et les esclaves font tourner les mines, les chantiers et les maisons.</text>
+  <text class="pa-t pa-s" x="470" y="40">Environ 400 000 habitants vivent en Attique à l'époque de Périclès.</text>
+  <path d="M230,220 L230.0,62.0 A158,158 0 0 1 322.9,92.2 Z" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2.5"/>
+  <path d="M230,220 L322.9,92.2 A158,158 0 0 1 181.2,370.3 Z" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2.5"/>
+  <path d="M230,220 L181.2,370.3 A158,158 0 0 1 72.0,220.0 Z" fill="var(--bloc-pale)" stroke="var(--surface)" stroke-width="2.5"/>
+  <path d="M230,220 L72.0,220.0 A158,158 0 0 1 230.0,62.0 Z" fill="var(--schema-cle)" stroke="var(--surface)" stroke-width="2.5"/>
+  <rect x="470" y="79" width="20" height="20" rx="4" fill="var(--schema-accent)"/>
+  <text class="pa-t pa-n" x="504" y="96">Les citoyens : 10 %, les seuls à voter</text>
+  <text class="pa-t pa-s" x="504" y="118">Ils participent à la vie politique.</text>
+  <rect x="470" y="161" width="20" height="20" rx="4" fill="var(--bloc)"/>
+  <text class="pa-t pa-n" x="504" y="178">Les femmes et les enfants : environ 45 %</text>
+  <text class="pa-t pa-s" x="504" y="200">Ils vivent surtout dans l'espace privé.</text>
+  <rect x="470" y="243" width="20" height="20" rx="4" fill="var(--bloc-pale)"/>
+  <text class="pa-t pa-n" x="504" y="260">Les métèques : environ 20 %</text>
+  <text class="pa-t pa-s" x="504" y="282">Étrangers libres, sans droits politiques.</text>
+  <rect x="470" y="325" width="20" height="20" rx="4" fill="var(--schema-cle)"/>
+  <text class="pa-t pa-n" x="504" y="342">Les esclaves : plus de 25 %</text>
+  <text class="pa-t pa-s" x="504" y="364">Ils appartiennent à leur propriétaire.</text>
 </svg>

@@ -32,6 +32,11 @@ moyens de subsistance le dit des deux côtés.
 
 ## Couleurs
 
+Dans un diagramme à parts (circulaire, barres empilées), chaque part reçoit une
+couleur franchement distincte de la palette : jamais la même couleur déclinée
+en opacités, indiscernable au projecteur. L'accent doré se réserve à la part
+que l'élève doit retenir.
+
 Uniquement les variables du thème (`--bloc`, `--bloc-pale`, `--schema-accent`,
 `--encre`, `--schema-cle`...), jamais de couleur en dur : le vérificateur
 mesure le contraste de chaque texte sur son fond réel, dans les deux thèmes.

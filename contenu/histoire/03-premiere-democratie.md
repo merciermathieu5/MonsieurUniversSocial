@@ -26,116 +26,187 @@ image_entete: ""
 
 ## Mise en contexte
 
-Il y a 2 500 ans, la cité d'Athènes invente une façon de gouverner qui n'existe
-nulle part ailleurs : les citoyens se réunissent, débattent et votent eux-mêmes
-les lois de leur cité. C'est la naissance de la démocratie. Cette expérience ne
-concerne pourtant qu'une minorité : les femmes, les étrangers et les esclaves en
-sont exclus. Dans cette fiche, tu découvriras comment cette première démocratie
-fonctionne, qui y participe et pourquoi elle continue d'inspirer nos
-institutions d'aujourd'hui.
+La démocratie est un régime politique qui repose sur la reconnaissance que la
+souveraineté du pouvoir appartient aux citoyens. Au 5e siècle av. J.-C., Athènes
+établit une démocratie originale. L'étude des institutions de cette cité-État et
+des limites de son expérience met en relief les grands principes de la
+démocratie et permet de saisir la nature particulière des régimes politiques
+démocratiques.
 
 ## La Grèce, un monde de cités-États
 
-La Grèce antique n'est pas un pays uni. Son territoire montagneux, découpé en
-vallées isolées et bordé de centaines d'îles, rend les déplacements difficiles.
-Les communautés se développent donc chacune de leur côté et forment des
-cités-États : des villes indépendantes qui possèdent leur propre gouvernement,
-leurs propres lois et leur propre armée, comme les cités-États de Mésopotamie
-que tu as étudiées.
+La Grèce se situe dans le sud-est de l'Europe actuelle. Cette région est
+caractérisée par un relief montagneux et accidenté, avec de nombreuses chaînes
+de montagnes qui divisent le territoire en petites vallées et en bassins. Ces
+caractéristiques géographiques ont favorisé l'isolement et l'indépendance des
+différentes cités-États, comme Athènes, Sparte et Thèbes, chacune développant
+sa culture et son propre système politique.
 
-![La Grèce antique, entourée de la mer Ionienne, de la mer Égée et de la mer Méditerranée](../medias/03-premiere-democratie/carte-grece.png)
+La Grèce antique n'était donc pas unifiée : elle était plutôt composée d'une
+multitude de cités-États indépendantes, souvent en conflit les unes avec les
+autres. Le terrain montagneux et la présence de nombreuses îles ont aussi joué
+un rôle important dans le développement de la navigation et du commerce
+maritime, éléments centraux de l'économie grecque antique.
 
-Trois mers entourent ce territoire : la mer Ionienne à l'ouest, la mer Égée à
-l'est et la grande mer Méditerranée au sud. Comme la terre cultivable est rare,
-les Grecs se tournent vers la mer pour pêcher, commercer et fonder des colonies
-sur les côtes voisines.
+### L'importance des mers Égée, Ionienne et Méditerranée
+
+![La Grèce antique et les mers qui l'entourent](../medias/03-premiere-democratie/carte-grece.png)
+
+La Grèce antique était entourée de plusieurs mers importantes : la mer Égée à
+l'est, la mer Ionienne à l'ouest et la mer Méditerranée au sud. Ces mers
+étaient essentielles pour le commerce, la communication et la guerre.
+
+La mer Égée, parsemée d'innombrables îles, était particulièrement importante
+pour la civilisation grecque. Elle a facilité les échanges culturels et
+commerciaux entre les différentes cités-États et d'autres régions telles que
+l'Égypte et la Phénicie, ainsi que les civilisations du Proche-Orient. La mer
+Ionienne, à l'ouest, a ouvert des routes vers l'Italie actuelle et vers l'ouest
+de la Méditerranée. Ces mers ont aussi joué un rôle important dans les conflits
+militaires, notamment durant les guerres médiques et la guerre du Péloponnèse.
 
 ### L'Attique et le Péloponnèse
 
-Athènes se trouve dans la péninsule de l'Attique, une région qui a la chance de
-posséder les mines d'argent du Laurion, une source de grande richesse pour la
-cité. De l'autre côté du golfe, dans la péninsule du Péloponnèse, se dresse sa
-grande rivale : Sparte. Les deux cités s'observent, s'allient parfois contre un
-ennemi commun et finissent par s'affronter.
+![L'Attique et le Péloponnèse, les deux grandes péninsules rivales](../medias/03-premiere-democratie/carte-attique-peloponnese.png)
 
-![L'Attique, la région d'Athènes, et le Péloponnèse, la région de Sparte](../medias/03-premiere-democratie/carte-attique-peloponnese.png)
+L'Attique, une région centrée autour de la cité d'Athènes, était l'une des
+régions les plus influentes de la Grèce antique. Située au sud-est de la
+péninsule balkanique, elle bordait la mer Égée et bénéficiait d'un climat
+méditerranéen favorable à l'agriculture, en particulier la culture de l'olive
+et de la vigne. L'Attique était renommée pour ses ressources en argent,
+provenant des mines du Laurion, qui ont joué un rôle clé dans le financement de
+la puissance navale athénienne.
+
+Le Péloponnèse, une large péninsule reliée au reste de la Grèce par l'isthme de
+Corinthe, était une autre région majeure de la Grèce antique. Divisé en
+plusieurs royaumes et cités-États, dont la plus célèbre est Sparte, le
+Péloponnèse avait un terrain plus varié et fertile que l'Attique. La région
+était connue pour sa force militaire, en particulier les hoplites spartiates.
+Sa situation géographique et ses ressources naturelles en faisaient une zone
+stratégiquement et économiquement importante.
+
+![Athènes et l'Attique, entre montagnes et mer Égée](../medias/03-premiere-democratie/carte-attique.png)
 
 ::: questions
 1. Pourquoi la Grèce antique est-elle divisée en cités-États plutôt qu'unie en un seul pays?
-2. Nomme les trois mers qui entourent la Grèce.
-3. Dans quelle péninsule Athènes se trouve-t-elle et quelle richesse son sous-sol contient-il?
+2. Nomme les trois mers qui entourent la Grèce et donne un rôle qu'elles jouent.
+3. Quelle ressource des mines du Laurion finance la puissance navale d'Athènes?
+4. Quelle cité domine le Péloponnèse?
 :::
 
-## Situer Athènes dans le temps
+## De l'oligarchie à la démocratie
 
-Athènes n'a pas toujours été une démocratie. Pendant des siècles, une poignée de
-grandes familles aristocratiques gouverne la cité : c'est l'oligarchie, le
-pouvoir de quelques-uns. Trois réformateurs vont transformer ce régime, étape
-par étape.
+Au 8e siècle av. J.-C. est fondée la cité-État d'Athènes, une cité autonome,
+la polis, qui englobe non seulement la ville d'Athènes, mais également les
+territoires avoisinants. Plutôt qu'être dirigée par un roi, Athènes est alors
+gouvernée par un petit groupe de puissants aristocrates : c'est ce qu'on
+appelle une oligarchie.
+
+C'est au cours de cette période oligarchique que se mettent en place les
+fondements de la démocratie athénienne. Des réformateurs instaurent
+progressivement des mesures politiques et législatives qui favoriseront la
+participation des citoyens à la vie publique.
 
 ::: schema frise-athenes
 :::
 
-Vers -621, Dracon rédige le premier code de lois écrit d'Athènes. Ses lois sont
-très sévères, mais elles sont désormais les mêmes pour tous et affichées
-publiquement : les juges ne peuvent plus décider selon leur humeur. Vers -594,
-Solon abolit l'esclavage pour dettes, qui permettait de réduire en esclavage un
-paysan incapable de rembourser, et il ouvre certaines charges publiques aux
-citoyens moins fortunés. Enfin, en -507, Clisthène réorganise les institutions
-pour donner le pouvoir à l'ensemble des citoyens : la démocratie est née.
+D'abord, à la fin du 7e siècle av. J.-C., Dracon rédige un code de lois qui
+constitue une première tentative d'instituer un droit écrit commun pour tous
+les citoyens. Au début du 6e siècle, c'est au tour de Solon de mettre en oeuvre
+des réformes judiciaires et politiques, notamment l'abolition de l'esclavage
+pour dettes, et il supprime la dépendance des citoyens pauvres envers les
+riches aristocrates. Enfin, Clisthène remanie les institutions politiques
+d'Athènes et permet la naissance de la démocratie. Cette réforme affaiblit la
+puissance de l'ancienne aristocratie et permet véritablement l'isonomie,
+c'est-à-dire l'égalité de tous les citoyens devant la loi, qu'ils soient
+riches ou pauvres.
 
 ## Le 5e siècle : les guerres médiques et l'âge d'or
+
+La Grèce antique, qui s'étend de -1200 à -146, est une période clé de
+l'histoire, célèbre pour ses contributions majeures dans des domaines variés
+comme l'art, la philosophie, la science et la politique. Une des époques les
+plus brillantes de cette période est l'âge d'or d'Athènes, au 5e siècle
+av. J.-C. Le schéma suivant en rassemble les grands événements.
 
 ::: schema cinquieme-siecle
 :::
 
-Au début du 5e siècle, l'immense Empire perse tente d'envahir la Grèce. Contre
-toute attente, les cités grecques repoussent l'envahisseur : les hoplites
-athéniens, des fantassins lourdement armés, l'emportent à Marathon en -490, puis
-la flotte grecque écrase la flotte perse dans le détroit de Salamine en -480.
-Ces victoires des guerres médiques donnent à Athènes un immense prestige et
-font d'elle la première puissance navale de la mer Égée.
+### Les guerres médiques
+
+Entre -499 et -479, la Grèce est le théâtre de conflits majeurs : les guerres
+médiques, qui opposent les cités-États grecques, principalement Athènes et
+Sparte, à l'immense Empire perse. Les Grecs réussissent à repousser les
+invasions perses durant les batailles célèbres de Marathon, des Thermopyles et
+de Salamine.
+
+À Marathon, en -490, l'armée athénienne compte environ 10 000 hoplites, des
+citoyens-soldats lourdement armés qui forment la force principale de
+l'infanterie, rejoints par environ 1 000 soldats de la cité de Platée. En face,
+l'armée perse aligne de 25 000 à 50 000 hommes, fantassins légers et cavaliers.
+La victoire du général athénien Miltiade contre un ennemi bien plus nombreux
+frappe les esprits. Dix ans plus tard, la flotte grecque écrase la flotte perse
+dans le détroit de Salamine. Ces affrontements prouvent la détermination et le
+courage des Grecs et renforcent le sentiment d'unité entre les cités-États.
 
 ![La trière, le navire de guerre qui a fait la puissance d'Athènes, ici une reconstitution moderne](../medias/03-premiere-democratie/triere.jpg)
 
+### L'âge d'or d'Athènes
+
 ![Le stratège Périclès, qui a dirigé Athènes pendant plus de trente ans](../medias/03-premiere-democratie/pericles.jpg)
 
-Suit alors la période la plus brillante de l'histoire athénienne, qu'on appelle
-l'âge d'or. De -461 à -429, le stratège Périclès dirige la cité. Il fait
-reconstruire les temples de l'Acropole détruits par les Perses, dont le célèbre
-Parthénon, il embellit la ville et il verse une indemnité aux citoyens pauvres
-pour qu'ils puissent participer à la vie politique sans perdre leur salaire.
+Athènes tient son âge d'or en partie de Périclès, un homme politique, mais
+aussi un stratège militaire. Sous son administration, la cité connaît un essor
+culturel et politique remarquable. C'est une époque de développement artistique
+et intellectuel intense : des figures célèbres comme les dramaturges Euripide
+et Sophocle, le philosophe Socrate et le sculpteur Phidias sont actives à cette
+période, et leurs oeuvres continuent d'influencer notre monde aujourd'hui.
+Périclès fait aussi reconstruire les temples de l'Acropole détruits par les
+Perses, dont le célèbre Parthénon, et verse une indemnité aux citoyens pauvres
+pour qu'ils puissent participer à la vie politique.
 
 ![L'Acropole d'Athènes, la colline sacrée qui domine la ville](../medias/03-premiere-democratie/acropole.jpg)
 
 ![Le Parthénon, le temple dédié à la déesse Athéna](../medias/03-premiere-democratie/parthenon.jpg)
 
+### Visites virtuelles d'Athènes et d'Olympie
+
 ::: video 449m6yXWwR8
-Visite virtuelle de la Grèce antique
+La redécouverte des monuments grecs de l'Antiquité, permise grâce au travail soutenu des historiens et des programmeurs d'Ubisoft
 :::
 
 ::: video -a8cWF-29lI
-Visite virtuelle d'Athènes au 5e siècle
+Visite d'Athènes dans Assassin's Creed Odyssey
 :::
 
 ::: questions
-1. Qui affronte les Grecs pendant les guerres médiques?
-2. Nomme les deux grandes victoires grecques et leur date.
-3. Donne deux réalisations de Périclès pendant l'âge d'or d'Athènes.
+1. Qui affronte les cités grecques pendant les guerres médiques?
+2. Compare les forces en présence à la bataille de Marathon.
+3. Nomme trois personnages célèbres actifs pendant l'âge d'or d'Athènes.
 :::
 
 ## La démocratie athénienne
 
-Le mot démocratie vient du grec ancien : dêmos signifie « peuple » et krâtos
-signifie « pouvoir ». La démocratie, c'est donc le pouvoir exercé par le
-peuple. À Athènes, ce pouvoir s'exerce directement : les citoyens ne choisissent
-pas des représentants pour voter à leur place, ils se déplacent eux-mêmes à
-l'assemblée pour débattre et voter chaque loi. C'est ce qu'on appelle une
-démocratie directe.
+Le mot démocratie signifie le pouvoir, krâtos, au peuple, dêmos. Inventée par
+les Athéniens en même temps que le régime politique qui porte ce nom, elle
+apparaît en -507, lorsque la cité d'Athènes renverse la tyrannie. À l'époque,
+la démocratie signifie donc le pouvoir du peuple, qui doit assurer l'intérêt
+général. C'est aussi la possibilité pour tous les citoyens de participer aux
+différentes institutions de la cité.
 
-Nos démocraties actuelles fonctionnent autrement : nous élisons des députés qui
-votent les lois en notre nom. C'est une démocratie représentative. Le tableau
-suivant compare les deux systèmes.
+Contrairement à notre démocratie représentative, le régime politique athénien
+est une démocratie directe, c'est-à-dire que les citoyens peuvent participer
+directement aux décisions d'ordre public. Les principales institutions
+politiques assurent une participation équitable à la gouvernance de la cité,
+notamment en octroyant une grande place au tirage au sort et, par conséquent, à
+l'intervention des dieux lors de la nomination aux charges publiques.
+
+Dans une démocratie directe, les décisions sont prises directement par le
+peuple, sans intermédiaires ni représentants : les citoyens participent
+activement à la prise de décision par des votes sur des questions précises.
+Dans une démocratie représentative, les citoyens élisent plutôt des
+représentants pour prendre des décisions en leur nom, pour un mandat fixe. La
+majorité des démocraties modernes, comme le Canada, les États-Unis ou la
+France, sont des démocraties représentatives.
 
 ::: schema democratie-comparaison
 :::
@@ -143,207 +214,354 @@ suivant compare les deux systèmes.
 ::: questions
 1. Que signifient les mots grecs dêmos et krâtos?
 2. Quelle est la différence entre une démocratie directe et une démocratie représentative?
-3. Comment la plupart des charges publiques sont-elles attribuées à Athènes?
+3. Pourquoi le tirage au sort laisse-t-il une place aux dieux dans les nominations?
 :::
 
 ## Les institutions politiques d'Athènes
 
-Pour éviter qu'une seule personne concentre tous les pouvoirs, les Athéniens
-répartissent les responsabilités entre plusieurs institutions. Le pouvoir
-législatif vote les lois, le pouvoir exécutif les applique et le pouvoir
-judiciaire juge les procès. Cette séparation des pouvoirs existe encore dans
-nos institutions actuelles.
+La séparation des pouvoirs, bien que proposée par le philosophe Montesquieu au
+18e siècle, est apparue durant la Grèce antique dans la cité-État d'Athènes.
+Le pouvoir législatif consiste en l'adoption des lois, les règles que doivent
+suivre impérativement l'ensemble des citoyens; au Canada, il est détenu par la
+Chambre des communes, où siègent les élus du peuple qu'on nomme députés. Le
+pouvoir exécutif est du ressort du gouvernement : sa fonction est d'exécuter
+les lois. Le pouvoir judiciaire est du ressort des tribunaux : il fait
+respecter la loi et juge ceux qui ne l'auraient pas respectée.
 
 ::: schema institutions-atheniennes
 :::
 
-L'ecclésia, l'assemblée de tous les citoyens, se réunit environ quarante fois
-par année en plein air, sur la colline de la Pnyx. Chaque citoyen a le droit d'y
-prendre la parole du haut de la tribune avant le vote, à main levée.
+L'ecclésia, l'assemblée de tous les citoyens, se réunit une quarantaine de fois
+par année sur la colline de la Pnyx. Chaque citoyen peut y prendre la parole du
+haut de la tribune avant le vote.
 
 ![La tribune des orateurs sur la colline de la Pnyx, face à l'Acropole](../medias/03-premiere-democratie/pnyx.jpg)
 
-## La population d'Athènes : qui participe?
+## Les classes sociales athéniennes
 
-La démocratie athénienne est une expérience remarquable, mais elle repose sur
-une définition très étroite du citoyen. Sur environ 400 000 habitants de
-l'Attique, seul un homme sur dix possède des droits politiques.
+« Il faut toutefois savoir que, pour les Athéniens, le peuple se limite aux
+citoyens, c'est-à-dire aux hommes libres, nés de pères athéniens. Le groupe des
+citoyens n'inclut donc pas les femmes, les enfants, les étrangers et les
+esclaves. Environ 10 % de la population du territoire d'Athènes fait ainsi
+partie des citoyens. Évidemment, la démocratie athénienne, fort différente de
+nos démocraties modernes, ne s'est pas implantée du jour au lendemain. C'est
+graduellement que les institutions démocratiques ont vu le jour à Athènes. »
+(Source : Par ici la démocratie)
 
 ::: schema population-athenes
 :::
 
-### Les citoyens
+### Les citoyens athéniens
 
-Pour être citoyen d'Athènes, il faut être un homme de plus de 18 ans, être né
-d'un père citoyen et d'une mère fille de citoyen, et avoir accompli son service
-militaire. Le citoyen participe aux assemblées, peut être tiré au sort pour
-exercer une charge publique et possède des terres. En échange, il paie des
-impôts et défend la cité en temps de guerre.
+À l'époque de Périclès, l'Attique et sa cité principale, Athènes, comptent
+environ 400 000 habitants. De ce nombre, seulement 10 % répondent aux critères
+de citoyenneté et portent le titre de citoyen. Quels sont ces critères? Le
+citoyen doit avoir plus de 18 ans, être né de parents athéniens et avoir
+réalisé son service militaire.
 
-### Les femmes
+Les citoyens sont les individus qui possèdent le plus de droits dans la société
+athénienne, particulièrement dans le domaine politique. Tous peuvent participer
+à l'assemblée du peuple, l'ecclésia, qui se réunit une quarantaine de fois par
+année. Dans les faits, seuls ceux qui sont assez à l'aise financièrement pour
+s'absenter de leur travail le font : comme la majorité des citoyens sont des
+paysans, ils peuvent difficilement quitter leurs terres pour participer à
+l'ecclésia. Les citoyens ont aussi des devoirs à remplir : ils doivent faire
+leur service militaire et payer des impôts. Ils sont donc au sommet de la
+société athénienne.
 
-Les femmes de familles citoyennes n'ont aucun droit politique. Elles ne votent
-pas, ne siègent pas à l'assemblée et ne peuvent pas posséder de biens en leur
-nom. Leur vie se déroule surtout dans l'espace privé de la maison, où elles
-dirigent les tâches domestiques et l'éducation des jeunes enfants. L'espace
-public, celui des débats et du pouvoir, est réservé aux hommes.
+### Les femmes dans la Grèce antique
 
-### Les enfants et l'éducation
+Dans la société athénienne du 5e siècle av. J.-C., les femmes, qu'elles soient
+épouses d'un citoyen, métèques ou esclaves, n'ont aucun droit politique, légal
+ou social. Elles sont considérées comme des objets. On leur reconnaît cependant
+la possibilité de transmettre la citoyenneté à leur fils, si elles sont nées
+d'un père et d'une mère citoyens.
 
-Les garçons de familles citoyennes vont à l'école à partir de sept ans. Ils
-apprennent la lecture, l'écriture, le calcul, la musique et la gymnastique,
-puis se préparent au service militaire. L'objectif est d'en faire de bons
-citoyens, capables de débattre à l'assemblée et de défendre la cité. Les
-filles, elles, restent à la maison, où leur mère leur enseigne le tissage et
-la tenue du foyer.
+Les femmes sont exclues de la vie politique, mais ce sont elles qui dirigent
+l'organisation domestique. Elles demeurent au gynécée, l'appartement qui leur
+est réservé, s'occupent des enfants, dirigent le travail des esclaves et ne
+sortent de la maison que pour des occasions spéciales ou des fêtes religieuses.
+La femme métèque a plus de pouvoirs : elle peut voyager et travailler, et
+certaines possèdent même des commerces. Les femmes esclaves, elles, ont été
+vendues à des familles riches et sont à leur service : en échange du gîte et de
+la nourriture, elles accomplissent les tâches ménagères et s'occupent des
+enfants.
+
+### Les enfants de citoyens et l'éducation
+
+Jusqu'à l'âge de 7 ans, garçons et filles reçoivent la même éducation au
+gynécée, avec leur mère et les esclaves. Ensuite, les garçons sont instruits
+par des maîtres privés, alors que les filles restent avec leur mère, qui leur
+apprend la lecture, l'écriture, le calcul, le chant, la danse et le filage de
+la laine. Vers 14 ans, elles savent tout ce qu'il faut pour devenir une bonne
+épouse et prendre mari. Elles n'ont d'ailleurs pas leur mot à dire dans ce
+mariage, arrangé avec un homme qui peut avoir trois fois leur âge.
+
+Les enfants, garçons ou filles, apprennent les poèmes d'Homère, l'Iliade et
+l'Odyssée, et les récitent accompagnés de musique. Les garçons apprennent aussi
+à chanter, à danser et à jouer d'un instrument. À partir de 14 ans, ils
+pratiquent des sports et participent à des épreuves athlétiques. Ils écoutent
+les enseignements des philosophes, composent des discours et s'exercent à
+débattre afin de devenir de bons citoyens. À 18 ans, ils commencent leur
+formation militaire ou travaillent aux affaires de leur père.
+
+Les archéologues ont retrouvé à Corinthe une poupée dansante en terre cuite
+datée d'environ -350. Il s'agit d'un jouet de petite fille offert en offrande
+funéraire : plusieurs poupées semblables ont été retrouvées dans les tombes de
+jeunes filles mortes avant l'âge du mariage, vers 12 ou 13 ans. À l'époque, les
+poupées symbolisent l'enfance : elles sont offertes à des divinités vierges,
+avec une mèche de cheveux de la jeune fille, pour signifier que celle-ci est
+prête à devenir adulte et à se marier. Le mariage marque la fin de la vie aux
+côtés de ses parents : la jeune fille grecque change de maison, d'oikos.
+
+L'éducation que reçoivent les enfants de citoyens est un droit, un privilège.
+Les enfants de métèques et d'esclaves n'ont pas la chance d'avoir une telle
+éducation.
 
 ### Les métèques
 
-Les métèques sont des étrangers libres installés à Athènes, souvent des
-artisans, des commerçants ou des marins venus d'autres cités grecques. Ils
-représentent environ 20 % de la population. Ils paient des impôts et servent
-dans l'armée, mais ils n'ont aucun droit politique et ne peuvent pas posséder
-de terres en Attique.
+Dans la Grèce antique, ceux qui habitent Athènes sans y être nés sont appelés
+métèques. Ce sont des étrangers. La plupart sont des artisans ou des
+commerçants, et certains d'entre eux sont très riches : c'est sur eux que
+repose la prospérité économique d'Athènes. Ils représentent près de 20 % de la
+population totale athénienne. Ils sont obligés de payer des taxes et des impôts
+et de faire leur service militaire, comme les citoyens. Cependant, aucun
+métèque ne peut acheter ou posséder une terre ou une maison, et ils n'ont aucun
+droit politique.
 
 ### Les esclaves
 
-Les esclaves forment au moins le quart de la population. Prisonniers de guerre
-ou personnes achetées sur les marchés, ils appartiennent à leur maître et
-n'ont aucun droit. Ce sont eux qui travaillent dans les mines d'argent du
-Laurion, sur les chantiers, dans les ateliers et dans les maisons. Sans leur
-travail, les citoyens n'auraient pas le temps de participer à la vie politique.
+Dans la société athénienne, les esclaves forment plus du quart de la population
+totale. Ils n'ont aucun droit politique. Dans la plupart des cas, ce sont des
+prisonniers ramenés de la guerre, ou encore des enfants d'esclaves. Ils peuvent
+être vendus au marché comme de la marchandise et appartiennent à leur
+propriétaire.
+
+On peut les utiliser comme pédagogues, pour accompagner les enfants à l'école,
+les aider à faire leurs devoirs et leur apprendre les bonnes manières. Le plus
+souvent, on les emploie pour les travaux les plus difficiles, dans les mines et
+sur les chantiers publics. À la maison, ils accomplissent les travaux
+quotidiens. Ils peuvent aussi servir de policiers au service de l'État. Ceux
+qui travaillent dans les mines mènent une vie misérable, mais d'autres
+reçoivent un salaire et peuvent être affranchis par leur propriétaire : ils
+deviennent alors métèques.
 
 ::: questions
-1. Nomme les trois conditions pour être citoyen à Athènes.
-2. Quels groupes de la population n'ont aucun droit politique?
-3. Pourquoi peut-on dire que le travail des esclaves rend la démocratie athénienne possible?
+1. Nomme les trois critères pour être citoyen à Athènes.
+2. Pourquoi la plupart des citoyens participent-ils peu à l'ecclésia dans les faits?
+3. Que peut faire une femme métèque que l'épouse d'un citoyen ne peut pas faire?
+4. Nomme trois emplois confiés aux esclaves et explique comment un esclave peut devenir métèque.
 :::
 
-## La mythologie et les croyances
+## La mythologie grecque
 
 Les Grecs sont polythéistes : ils honorent de nombreux dieux et déesses, qui
-forment une grande famille installée sur le mont Olympe. Zeus règne sur le
-ciel, Poséidon sur la mer, Athéna protège Athènes, qui porte son nom. Ces
-divinités ressemblent aux humains : elles aiment, se disputent et se jouent
-des tours, mais elles sont immortelles.
+forment une grande famille installée sur le mont Olympe. Ces divinités
+ressemblent aux humains, ressentent la jalousie, la colère et l'affection,
+mais elles sont immortelles et interviennent dans la vie des mortels.
 
-Pour connaître la volonté des dieux, les Grecs consultent des oracles. Le plus
-célèbre est celui de Delphes, où la Pythie, une prêtresse d'Apollon, transmet
-des réponses mystérieuses que les prêtres interprètent. Des cités entières y
-envoient des messagers avant de prendre une décision importante.
+### Les valeurs de la société grecque : Héra et Artémis
 
-Les récits mythologiques circulent aussi par les grands poèmes. L'Odyssée,
-attribuée au poète Homère, raconte le long retour du héros Ulysse après la
-guerre de Troie : dix ans d'épreuves face aux monstres, aux tempêtes et à la
-colère des dieux. Ces récits enseignent aux jeunes Grecs les valeurs de la
-ruse, du courage et de la fidélité.
+Les déesses en disent long sur les valeurs de la société. Héra, la femme de
+Zeus, est la protectrice des femmes et la déesse du mariage, gardienne de la
+fécondité du couple. Elle insiste sur la nécessité de concevoir un enfant dans
+les liens du mariage : un enfant conçu hors de ces liens n'aurait pas la
+possibilité de faire partie de la cité. Le fils d'un citoyen et d'une citoyenne
+est d'ailleurs présenté publiquement, devant les membres de la cité, pour
+prouver qu'il est né dans le mariage.
+
+Artémis, fille de Zeus, est la déesse de la nature sauvage, de la chasse et des
+accouchements. Elle représente l'adolescence, l'insouciance et la liberté : la
+campagne, la chasse et l'entraînement s'opposent au monde adulte de la ville,
+de la vie politique, de la guerre et des responsabilités familiales. Les jeunes
+filles grecques se marient habituellement entre 12 et 14 ans, avec un mari qui
+a en moyenne plus de 28 ans.
+
+### L'oracle de Delphes
+
+L'oracle de Delphes était un des lieux les plus sacrés et respectés de la Grèce
+antique. Situé sur le mont Parnasse, ce sanctuaire était dédié au dieu Apollon.
+Au coeur du site se trouvait la Pythie, une prêtresse qui servait
+d'intermédiaire entre les dieux et les hommes. Assise sur un trépied sacré
+au-dessus d'une fissure dans le sol, elle inhalait des vapeurs et entrait en
+transe, ce qui lui permettait de transmettre les messages d'Apollon.
+
+Les Grecs consultaient l'oracle pour obtenir des réponses à leurs questions sur
+des sujets variés, comme la guerre, les récoltes ou les voyages. Les réponses,
+souvent énigmatiques, étaient interprétées par des prêtres, laissant place à
+diverses interprétations. Cette pratique reflète l'importance des dieux et des
+croyances dans la Grèce antique.
+
+### L'Odyssée d'Homère
+
+L'Odyssée est un des textes les plus célèbres de la littérature antique, écrit
+par Homère, un poète grec qui a vécu il y a environ 2 800 ans. C'est un poème
+épique qui raconte les aventures d'Ulysse après la guerre de Troie : il cherche
+à rentrer chez lui, sur l'île d'Ithaque, où sa femme Pénélope et son fils
+Télémaque l'attendent depuis vingt ans.
+
+Dans l'Odyssée, les dieux interagissent directement avec les humains. Athéna,
+la déesse de la sagesse, protège Ulysse, tandis que Poséidon, le dieu de la
+mer, le punit parce qu'il a blessé son fils, le cyclope Polyphème. Le poème met
+aussi en scène les sirènes, qui séduisent les marins avec leur chant pour les
+attirer à leur perte, et Charybde et Scylla, des monstres marins qui
+représentent les choix impossibles à éviter.
 
 ::: video bZ_R4EYaKSA
 L'Odyssée racontée
 :::
 
-## Le commerce et l'agora
+## La philosophie dans la Grèce antique
 
-Comme sa terre nourrit mal sa population nombreuse, Athènes vit du commerce
-maritime. Les navires marchands partent du Pirée, son grand port, chargés des
-produits de l'Attique, et reviennent remplis de ce qui manque à la cité.
-
-::: colonnes
-
-### Ce qu'Athènes exporte
-Le vin, l'huile d'olive, les parfums, les figues et la céramique peinte,
-réputée dans toute la Méditerranée.
-
-### Ce qu'Athènes importe
-Le blé, indispensable pour nourrir la population, le papyrus d'Égypte, les
-métaux, le bois de construction pour la flotte et des esclaves.
-
-:::
-
-Au coeur de la ville, l'agora est la grande place publique. On y fait le
-marché, mais on y discute aussi des affaires de la cité, on y rend la justice
-et on y affiche les lois. L'agora est le lieu par excellence de l'espace
-public athénien.
-
-::: questions
-1. Pourquoi Athènes doit-elle importer du blé?
-2. Nomme trois produits qu'Athènes exporte.
-3. Quelles activités se déroulent sur l'agora?
-:::
-
-## La philosophie
-
-Athènes voit naître une nouvelle façon de réfléchir : la philosophie, un mot
-qui signifie « amour de la sagesse ». Plutôt que d'expliquer le monde par les
-seuls mythes, les philosophes cherchent des réponses par la raison, le
-questionnement et le débat. Trois d'entre eux ont marqué l'histoire de la
-pensée.
-
-::: colonnes
+La philosophie est née d'un désir de comprendre le monde et de répondre à des
+questions sur la vie, la justice, le bonheur et même l'univers. À une époque où
+les mythes et les dieux apportaient des réponses, certains Grecs ont commencé à
+chercher des réponses différentes en utilisant la raison et l'observation
+plutôt que les croyances et les récits mythologiques. Ils voulaient comprendre
+le pourquoi et le comment. Le mot philosophie signifie d'ailleurs « amour de la
+sagesse ».
 
 ### Socrate
-Il enseigne en questionnant les passants sur l'agora. Ses questions dérangent :
-accusé de corrompre la jeunesse, il est condamné à mort par l'héliée en -399.
+
+Pour Socrate, la philosophie était une façon de vivre, un chemin pour devenir
+une meilleure personne. Il se promenait dans les rues d'Athènes et posait des
+questions aux gens pour les amener à réfléchir : qu'est-ce que la justice?
+Qu'est-ce que le bien? Pour lui, une vie sans examen ne vaut pas la peine
+d'être vécue. Il ne prétendait pas tout savoir, mais pensait qu'en discutant,
+on pouvait mieux comprendre ce qui est juste ou bon. Ses questions dérangent
+les puissants : accusé de corrompre la jeunesse, il est condamné à mort par le
+tribunal de l'héliée en -399 et meurt en buvant la ciguë, un poison.
 
 ### Platon
-Élève de Socrate, il fonde l'Académie, une école de philosophie, et rédige des
-dialogues qui mettent en scène son maître.
+
+Platon, un élève de Socrate, a poursuivi ces idées. Il a imaginé un monde idéal
+où tout avait une forme parfaite. Par exemple, il disait qu'il existe une
+« idée » parfaite de la justice, et que tout ce que nous voyons n'en est qu'une
+copie imparfaite. Il croyait aussi que les philosophes devraient gouverner la
+société, car ils étaient les seuls à chercher véritablement la vérité. Pour
+transmettre sa pensée, il fonde à Athènes une école célèbre, l'Académie, et
+rédige des dialogues qui mettent en scène son maître Socrate.
 
 ### Aristote
-Élève de Platon, il s'intéresse à tout : la politique, les sciences, la logique.
-Il devient le précepteur d'Alexandre le Grand.
 
+Aristote, le disciple de Platon, avait une approche différente. Il pensait
+qu'on pouvait comprendre le monde en l'observant attentivement. Il
+s'intéressait à tout : la biologie, la politique, l'éthique, l'art. Pour lui,
+le but de la vie était de trouver le juste équilibre, qu'il appelait la voie du
+milieu : le courage, par exemple, se trouve entre deux extrêmes, la peur et
+l'imprudence. Aristote fonde sa propre école, le Lycée, et devient le
+précepteur d'un jeune prince macédonien qui marquera l'histoire : Alexandre le
+Grand.
+
+::: questions
+1. Qu'est-ce qui distingue la démarche des philosophes de celle des mythes?
+2. Comment Socrate enseignait-il et comment sa vie s'est-elle terminée?
+3. Selon Aristote, où se trouve le courage?
+:::
+
+## Le commerce et l'agora
+
+En Grèce et dans l'ensemble de la mer Égée, les échanges commerciaux existent
+dès l'âge du bronze. La présence de poteries et de biens précieux comme l'or,
+le cuivre et l'ivoire, retrouvés loin de leur lieu de production, atteste du
+réseau d'échanges qui existait entre l'Égypte, l'Asie, la Grèce continentale et
+des îles telles que la Crète, Chypre et les Cyclades.
+
+À partir du 5e siècle av. J.-C., le port du Pirée devient le centre de commerce
+le plus important de la Méditerranée et acquiert la réputation d'être l'endroit
+où l'on trouve tous les types de marchandises sur le marché, l'agora. Grande
+place publique d'Athènes, l'agora réunit le marché, les boutiques et les
+édifices publics : c'est le coeur de l'espace public athénien.
+
+::: schema commerce-agora
+:::
+
+::: questions
+1. Depuis quand les échanges commerciaux existent-ils dans la mer Égée?
+2. Quel port devient le centre de commerce le plus important de la Méditerranée?
+3. Nomme deux produits qu'Athènes vend et deux produits qu'elle achète.
 :::
 
 ## La guerre du Péloponnèse
 
-La puissance d'Athènes inquiète Sparte. Athènes dirige la ligue de Délos, une
-alliance de cités qui lui versent un tribut, pendant que Sparte mène la ligue
-du Péloponnèse. En -431, la guerre éclate entre les deux camps et embrase le
-monde grec pendant près de trente ans.
+La guerre du Péloponnèse, de -431 à -404, est l'un des conflits les plus
+importants de l'Antiquité : elle marque la fin de l'âge d'or d'Athènes. Le
+conflit oppose deux blocs majeurs aux idéologies et aux forces opposées : la
+ligue de Délos, menée par Athènes, et la ligue du Péloponnèse, menée par
+Sparte. L'historien Thucydide, qui a documenté la guerre, explique que sa cause
+était la peur de Sparte face à la fondation croissante de colonies par Athènes.
+Les combats s'étendent sur près de trente ans, alternant entre invasions
+annuelles de l'Attique par Sparte et raids maritimes athéniens le long du
+Péloponnèse.
 
-Dès -430, une terrible épidémie de peste frappe Athènes, surpeuplée de
-réfugiés derrière ses murailles. Périclès lui-même en meurt en -429. Affaiblie
-par la maladie, les défaites et les trahisons de ses alliés, Athènes capitule
-finalement en -404. Sparte fait abattre ses murailles et impose un gouvernement
-oligarchique. La démocratie athénienne renaîtra, mais la cité ne retrouvera
-jamais sa puissance passée.
+Au début de la guerre, le stratège Périclès adopte une stratégie de repli : les
+Athéniens se réfugient à l'intérieur de l'enceinte fortifiée. Dans cette
+proximité étouffante éclate, en -430, une épidémie connue sous le nom de peste
+d'Athènes. Environ un quart à un tiers de la population périt, et Périclès
+lui-même succombe à la maladie en -429. Thucydide décrit un effondrement moral
+et social, où la peur de la mort immédiate pousse les citoyens à abandonner les
+lois et la religion. Affaiblie par cette tragédie, Athènes finit par capituler
+en -404, et Sparte impose alors sa domination.
 
-## Sparte, la rivale oligarchique
+## La cité-État oligarchique de Sparte
 
-Sparte a fait des choix opposés à ceux d'Athènes. La cité du Péloponnèse est
-une oligarchie militaire : une minorité de citoyens, les Égaux, environ 5 000
-hommes sur 250 000 habitants, consacre sa vie entière à la guerre. Dès l'âge de
-sept ans, les garçons quittent leur famille pour une éducation militaire d'une
-grande dureté.
+Sparte est une cité-État née de la conquête dorienne. Au 7e siècle av. J.-C.,
+les conquérants ne représentent plus qu'une infime minorité par rapport aux
+vaincus, environ 8 % de la population. Sparte se replie alors sur elle-même et
+se fige pour toujours sous les traits d'une cité militaire et oligarchique.
 
-Autour des Égaux vivent les périèques, des hommes libres qui pratiquent
-l'artisanat et le commerce sans droits politiques, et surtout les hilotes,
-environ 200 000 paysans appartenant à l'État, qui cultivent les terres des
-Égaux et les nourrissent.
+### Une vie vouée à la guerre
 
-### Les institutions de Sparte
+Toute la vie de Sparte est dominée par une caste de guerriers, seuls citoyens,
+qui s'appellent les Égaux. Ils sont à peine 5 000 sur une population de
+250 000. À partir de l'âge de 7 ans, le citoyen spartiate appartient à l'État,
+qui le prépare à devenir soldat. Le mariage n'a qu'un seul but dans cette
+société : procréer de robustes enfants. Un mari, c'est un soldat; une épouse
+n'est qu'une mère de soldat; un enfant n'est qu'un futur soldat. Jusqu'à
+30 ans, le citoyen spartiate vit pratiquement en caserne avec son unité
+militaire, et jusqu'à 60 ans, il doit participer chaque jour aux exercices
+guerriers.
 
-L'Assemblée des Égaux approuve ou rejette les propositions, sans vraiment en
-débattre. La Gérousia, un conseil de 28 anciens de plus de 60 ans accompagnés
-des deux rois, prépare les décisions. Cinq éphores, élus pour un an, dirigent
-la cité au quotidien et surveillent même les rois. Le pouvoir reste ainsi
-entre les mains d'une petite minorité : c'est tout le contraire de la
-démocratie athénienne.
+En dehors de ces citoyens, déjà inégaux en droits, on retrouve les périèques,
+des paysans libres sans droits civiques, et surtout les hilotes. Ce sont des
+esclaves, au nombre de 200 000. La loi les ignore : on peut les tuer
+impunément, et chaque année, la cité leur déclare officiellement la guerre afin
+d'exercer ses jeunes soldats.
+
+### Les institutions politiques de Sparte
+
+L'Assemblée est le rassemblement des Égaux, réuni à dates fixes. Les projets
+mis en forme par la gérousia lui sont soumis : elle les approuve ou non, sans
+les discuter, et vote les décisions par acclamations.
+
+La gérousia est une assemblée de 28 hommes âgés de plus de 60 ans, élus à vie
+par acclamation à l'Assemblée. Choisis en fonction de leur vertu militaire, les
+gérontes appartiennent pour la plupart aux grandes familles de Sparte. Ils
+jouent un rôle politique éminent : ils sont les seuls à pouvoir préparer les
+lois, gèrent toutes les affaires de politique intérieure et ne rendent pas de
+comptes.
+
+Les cinq éphores, enfin, sont chargés de surveiller les rois et les habitants
+de la cité, notamment pour s'assurer du respect des traditions. Ils peuvent
+infliger des amendes, des peines de prison, même aux rois, et ordonner des
+exécutions. Ils sont également chargés des affaires étrangères, exécutent les
+décisions de l'Assemblée, ordonnent la mobilisation et prennent les décisions
+urgentes.
 
 ::: questions
-1. Quel régime politique Sparte a-t-elle adopté?
-2. Qui sont les hilotes et quel rôle jouent-ils dans la société spartiate?
-3. Nomme deux différences entre les institutions de Sparte et celles d'Athènes.
+1. Qui sont les Égaux et combien sont-ils par rapport à la population totale?
+2. Que se passe-t-il pour un garçon spartiate à partir de 7 ans?
+3. Qui sont les hilotes et comment la cité les traite-t-elle?
+4. Nomme les trois institutions de Sparte et une responsabilité de chacune.
 :::
 
 ## Applications d'apprentissage
 
-Deux applications interactives, préparées avec Mme Johanne Rodrigue, te
+Deux applications d'apprentissage, partagées par Mme Johanne Rodrigue, te
 permettent de vérifier tes connaissances.
 
-- [Les institutions politiques d'Athènes](https://learningapps.org/watch?v=pm2ucm50a20)
-- [Les groupes sociaux d'Athènes](https://learningapps.org/watch?v=pxre91n1v20)
+- [Les institutions démocratiques](https://learningapps.org/watch?v=pm2ucm50a20)
+- [Les groupes sociaux](https://learningapps.org/watch?v=pxre91n1v20)
 
 ## Sources
 
