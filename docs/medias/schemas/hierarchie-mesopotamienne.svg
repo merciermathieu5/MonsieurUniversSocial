@@ -1,29 +1,35 @@
-<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img"
+<svg viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg" role="img"
      aria-label="La hiérarchie sociale mésopotamienne, du roi aux esclaves">
   <style>
     .t { font-family: Archivo, sans-serif; }
-    .r { font-size: 17px; font-weight: 600; }
-    .d { font-size: 14px; fill: var(--encre); }
-    .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--schema-cle); }
+    .r { font-size: 18px; font-weight: 700; }
+    .d { font-size: 13.5px; }
+    .n { font-family: 'IBM Plex Mono', monospace; font-size: 14px; fill: var(--schema-cle); }
+    .note { font-size: 14px; fill: var(--encre); }
   </style>
-  <polygon points="450,14 530,80 370,80" fill="var(--bloc)"/>
-  <rect x="330" y="86" width="240" height="56" fill="var(--bloc)" opacity=".85"/>
-  <rect x="290" y="148" width="320" height="56" fill="var(--bloc-pale)"/>
-  <rect x="250" y="210" width="400" height="56" fill="var(--bloc-pale)" opacity=".8"/>
-  <rect x="210" y="272" width="480" height="56" fill="var(--bloc-pale)" opacity=".6"/>
-  <text class="t r" x="450" y="62" text-anchor="middle" fill="var(--bloc-texte)">Le roi</text>
-  <text class="t r" x="450" y="120" text-anchor="middle" fill="var(--bloc-texte)">Scribes, prêtres, soldats</text>
-  <text class="t r" x="450" y="182" text-anchor="middle" fill="var(--bloc-pale-texte)">Artisans et marchands</text>
-  <text class="t r" x="450" y="244" text-anchor="middle" fill="var(--bloc-pale-texte)">Paysans</text>
-  <text class="t r" x="450" y="306" text-anchor="middle" fill="var(--bloc-pale-texte)">Esclaves</text>
-  <text class="t n" x="8" y="62">1</text><text class="t d" x="30" y="62">pouvoir des dieux, armée, administration</text>
-  <text class="t n" x="8" y="120">2</text><text class="t d" x="30" y="120">fonctionnaires de l'État, possèdent des terres</text>
-  <text class="t n" x="8" y="182">3</text><text class="t d" x="30" y="182">contrôlent le commerce et la fabrication</text>
-  <text class="t n" x="8" y="244">4</text><text class="t d" x="30" y="244">cultivent les champs, élèvent le bétail</text>
-  <text class="t n" x="8" y="306">5</text><text class="t d" x="30" y="306">prisonniers de guerre, débiteurs insolvables</text>
-  <line x1="700" y1="20" x2="700" y2="330" stroke="var(--schema-trait)" stroke-width="2"/>
-  <path d="M700 20 v310 l-8 -12 M700 330 l8 -12" stroke="var(--schema-accent)" stroke-width="2.5" fill="none"/>
-  <text class="t d" x="716" y="44" fill="var(--schema-cle)">plus de pouvoir</text>
-  <text class="t d" x="716" y="316" fill="var(--schema-cle)">moins de pouvoir</text>
-  <text class="t d" x="8" y="368">Le scribe doit son rang au fait qu'il sait écrire : l'écriture donne accès au pouvoir.</text>
+  <polygon points="290,20 430,20 485,92 235,92" fill="var(--bloc)"/>
+  <polygon points="235,100 485,100 540,172 180,172" fill="var(--bloc)" opacity=".85"/>
+  <polygon points="180,180 540,180 595,252 125,252" fill="var(--bloc-pale)"/>
+  <polygon points="125,260 595,260 650,332 70,332" fill="var(--bloc-pale)" opacity=".8"/>
+  <polygon points="70,340 650,340 705,412 15,412" fill="var(--bloc-pale)" opacity=".6"/>
+  <text class="t r" x="360" y="49" text-anchor="middle" fill="var(--bloc-texte)">Le roi</text>
+  <text class="t d" x="360" y="74" text-anchor="middle" fill="var(--bloc-texte)">un pouvoir reçu des dieux</text>
+  <text class="t r" x="360" y="129" text-anchor="middle" fill="var(--bloc-texte)">Scribes, prêtres et soldats</text>
+  <text class="t d" x="360" y="154" text-anchor="middle" fill="var(--bloc-texte)">fonctionnaires de l'État, ils possèdent les terres</text>
+  <text class="t r" x="360" y="209" text-anchor="middle" fill="var(--bloc-pale-texte)">Artisans et marchands</text>
+  <text class="t d" x="360" y="234" text-anchor="middle" fill="var(--bloc-pale-texte)">ils contrôlent la fabrication et le commerce</text>
+  <text class="t r" x="360" y="289" text-anchor="middle" fill="var(--bloc-pale-texte)">Paysans</text>
+  <text class="t d" x="360" y="314" text-anchor="middle" fill="var(--bloc-pale-texte)">ils cultivent les champs et élèvent le bétail</text>
+  <text class="t r" x="360" y="369" text-anchor="middle" fill="var(--bloc-pale-texte)">Esclaves</text>
+  <text class="t d" x="360" y="394" text-anchor="middle" fill="var(--bloc-pale-texte)">prisonniers de guerre et débiteurs insolvables</text>
+  <text class="t n" x="286" y="49" fill="var(--bloc-texte)">1</text>
+  <text class="t n" x="231" y="129" fill="var(--bloc-texte)">2</text>
+  <text class="t n" x="176" y="209" fill="var(--bloc-pale-texte)">3</text>
+  <text class="t n" x="121" y="289" fill="var(--bloc-pale-texte)">4</text>
+  <text class="t n" x="66" y="369" fill="var(--bloc-pale-texte)">5</text>
+  <line x1="790" y1="34" x2="790" y2="398" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <polygon points="790,412 782,396 798,396" fill="var(--schema-accent)"/>
+  <text class="t d" x="806" y="44" fill="var(--schema-cle)">plus de pouvoir</text>
+  <text class="t d" x="806" y="402" fill="var(--schema-cle)">moins de pouvoir</text>
+  <text class="t note" x="8" y="466">Le scribe doit son rang au fait qu'il sait écrire : l'écriture donne accès au pouvoir.</text>
 </svg>

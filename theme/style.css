@@ -396,14 +396,6 @@ details.credit > span { display: block; max-width: 34rem; }
 .illustration--carte { float: right; width: 24rem; margin: .4rem 0 1.5rem 2.5rem; }
 @media (max-width: 62rem) { .illustration--carte { float: none; width: 100%; margin: 1.5rem 0; } }
 
-/* Les lignes du temps rapatriées de l'ancien site occupent toute la largeur.
-   Le fond blanc et le cadre gardent leurs textes lisibles en thème sombre. */
-.illustration--ligne-du-temps { float: none; width: 100%; margin: 1.4rem 0 1.8rem; }
-.illustration--ligne-du-temps img {
-  background: #fff; border: 1px solid var(--trait); padding: .6rem;
-}
-.illustration--ligne-du-temps figcaption { max-width: var(--lecture); }
-
 .attente-image {
   display: grid; gap: .5rem; place-items: center; text-align: center;
   min-height: 10rem; padding: 1.5rem 1.1rem;

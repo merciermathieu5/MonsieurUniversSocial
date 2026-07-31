@@ -62,7 +62,7 @@ def glisser(texte: str) -> str:
     return re.sub(r"[\s_]+", "-", texte).strip("-")
 
 
-def convertir_blocs(texte: str) -> str:
+def convertir_blocs(texte: str, credits: dict) -> str:
     """Remplace les blocs ::: par du HTML que Markdown saura traiter."""
     def video(m):
         identifiant, legende = m.group(1), m.group(2).strip()
@@ -115,7 +115,12 @@ def convertir_blocs(texte: str) -> str:
         if not fichier.exists():
             return f'<p class="avis">Composant introuvable : {nom}.html</p>\n'
         lignes = fichier.read_text(encoding="utf-8").splitlines()
-        return "\n".join(l for l in lignes if l.strip()) + "\n"
+        corps = "\n".join(l for l in lignes if l.strip()) + "\n"
+        # {{credit:nom-de-fichier.jpg}} devient le crédit composé depuis le
+        # registre, comme sous les figures du fil du texte.
+        return re.sub(r"\{\{credit:([\w.-]+)\}\}",
+                      lambda c: composer_credit(credits.get(c.group(1), {})),
+                      corps)
 
     texte = COMPOSANT.sub(composant, texte)
     texte = SCHEMA.sub(schema, texte)
@@ -129,19 +134,27 @@ ATTRIBUT = re.compile(r'(\w+)="([^"]*)"')
 
 
 def charger_credits() -> dict:
-    """Réunit les deux registres d'images.
+    """medias/sources.yml est rempli automatiquement par outils/images.py."""
+    fichier = MEDIAS / "sources.yml"
+    if not fichier.exists():
+        return {}
+    return yaml.safe_load(fichier.read_text(encoding="utf-8")) or {}
 
-    medias/sources.yml : les documents de Wikimedia Commons, remplis par
-    outils/images.py, avec auteur et licence. medias/google.yml : tes propres
-    images rapatriées de l'ancien Google Site par outils/rapatrier.py, sans
-    crédit à composer mais avec un cadrage et un rôle.
-    """
-    credits = {}
-    for nom in ("sources.yml", "google.yml"):
-        fichier = MEDIAS / nom
-        if fichier.exists():
-            credits.update(yaml.safe_load(fichier.read_text(encoding="utf-8")) or {})
-    return credits
+
+def composer_credit(source: dict) -> str:
+    """Compose le crédit repliable d'une image, de la forme demandée :
+    Auteur, Titre, Wikimedia Commons. Licence : Creative Commons BY-SA 3.0."""
+    if not source.get("licence"):
+        return ""
+    auteur = source.get("auteur", "").strip()
+    titre = source.get("titre", "").strip()
+    lien = source.get("lien", "")
+    depot = (f'<a href="{lien}" rel="noopener" target="_blank">Wikimedia Commons</a>'
+             if lien else "Wikimedia Commons")
+    debut = ", ".join(p for p in (auteur, titre) if p)
+    return ('<details class="credit"><summary>Source</summary>'
+            f'<span>{debut}, {depot}. '
+            f'Licence&nbsp;: {source["licence"]}.</span></details>')
 
 
 def habiller_images(html: str, credits: dict) -> str:
@@ -162,17 +175,7 @@ def habiller_images(html: str, credits: dict) -> str:
         source = credits.get(nom, {})
         cadrage = source.get("cadrage", "flottant")
 
-        credit = ""
-        if source.get("licence"):
-            auteur = source.get("auteur", "").strip()
-            titre = source.get("titre", "").strip()
-            lien = source.get("lien", "")
-            depot = (f'<a href="{lien}" rel="noopener" target="_blank">Wikimedia Commons</a>'
-                     if lien else "Wikimedia Commons")
-            debut = ", ".join(p for p in (auteur, titre) if p)
-            credit = ('<details class="credit"><summary>Source</summary>'
-                      f'<span>{debut}, {depot}. '
-                      f'Licence&nbsp;: {source["licence"]}.</span></details>')
+        credit = composer_credit(source)
 
         existe = (MEDIAS / src.split("medias/")[-1]).exists() if "medias/" in src else False
         if not existe:
@@ -193,8 +196,7 @@ def habiller_images(html: str, credits: dict) -> str:
     return IMAGE.sub(remplacer, html)
 
 
-FIGURE = re.compile(r'<figure class="illustration(?![^"]*ligne-du-temps)[^"]*">.*?</figure>',
-                    re.DOTALL)
+FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL)
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
 
 
@@ -234,7 +236,7 @@ def lire_fiche(chemin: Path, credits: dict) -> dict:
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
     donnees["html"] = ranger_figures(habiller_images(
-        md.convert(convertir_blocs(corps.strip())), credits))
+        md.convert(convertir_blocs(corps.strip(), credits)), credits))
     donnees["sommaire"] = [t for t in md.toc_tokens]
     donnees["nom"] = chemin.stem
     donnees["url"] = f"{donnees['section']}/{chemin.stem}.html"
@@ -335,7 +337,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     shutil.copy2(THEME / "page.js", sortie / "page.js")
     if MEDIAS.exists():
         shutil.copytree(MEDIAS, sortie / "medias", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns("sources.yml", "google.yml"))
+                        ignore=shutil.ignore_patterns("sources.yml"))
     (sortie / ".nojekyll").write_text("", encoding="utf-8")
 
     if manquantes:

@@ -11,6 +11,12 @@
 .fnc__objet { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1.35rem; letter-spacing: -.02em; }
 .fnc__wiki { font-family: var(--titre); font-weight: 600; font-size: .74rem; text-decoration: none; color: var(--matiere-fonce); background: var(--matiere-voile); padding: .28rem .75rem; border-radius: 100px; white-space: nowrap; }
 .fnc__wiki:hover { background: var(--matiere); color: #fff; }
+.fnc__contenu { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 1.3rem; align-items: start; }
+.fnc__figure { margin: 0; grid-column: 2; grid-row: 1 / span 4; }
+.fnc__figure img { width: 100%; height: auto; display: block; border-radius: var(--rayon); border: 1px solid var(--trait); background: #fff; }
+.fnc__figure figcaption { margin-top: .45rem; }
+.fnc__figure.est-absente { display: none; }
+@media (max-width: 52rem) { .fnc__contenu { grid-template-columns: 1fr; } .fnc__figure { grid-column: 1; grid-row: auto; max-width: 17rem; } }
 .fnc__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr)); gap: .8rem 1.4rem; margin-bottom: 1.1rem; }
 .fnc__grille dt { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .12rem; }
 .fnc__grille dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: .92rem; line-height: 1.35; }
@@ -37,6 +43,38 @@ html[data-sombre="on"] .fnc__consigne { color: var(--encre-pale); }
 <h3 class="fnc__titre">Les fonctions de l'écriture dans la société mésopotamienne</h3>
 <p class="fnc__consigne">Observe chaque document, devine sa fonction, puis vérifie</p>
 </header>
+<div class="fnc__medias" hidden>
+<figure class="fnc__figure" data-fnc-figure="0">
+<img src="../medias/02-emergence-civilisation/code-hammourabi.jpg" alt="La stèle du Code d'Hammourabi, au Louvre" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:code-hammourabi.jpg}}</figcaption>
+</figure>
+<figure class="fnc__figure" data-fnc-figure="1">
+<img src="../medias/02-emergence-civilisation/cadastre-shulgi.jpg" alt="Liste d'inventaire de l'époque de Shulgi, musée d'Istanbul" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:cadastre-shulgi.jpg}}</figcaption>
+</figure>
+<figure class="fnc__figure" data-fnc-figure="2">
+<img src="../medias/02-emergence-civilisation/plimpton-322.jpg" alt="La tablette Plimpton 322, Université Columbia" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:plimpton-322.jpg}}</figcaption>
+</figure>
+<figure class="fnc__figure" data-fnc-figure="3">
+<img src="../medias/02-emergence-civilisation/stele-mesha.jpg" alt="La stèle de Mesha, au Louvre" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:stele-mesha.jpg}}</figcaption>
+</figure>
+<figure class="fnc__figure" data-fnc-figure="4">
+<img src="../medias/02-emergence-civilisation/traite-qadesh.jpg" alt="La tablette du traité de Qadesh, musée d'Istanbul" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:traite-qadesh.jpg}}</figcaption>
+</figure>
+<figure class="fnc__figure" data-fnc-figure="5">
+<img src="../medias/02-emergence-civilisation/tablette-gilgamesh.jpg" alt="La tablette du Déluge, British Museum" loading="lazy"
+     onerror="this.closest('.fnc__figure').classList.add('est-absente')">
+<figcaption>{{credit:tablette-gilgamesh.jpg}}</figcaption>
+</figure>
+</div>
 <div class="fnc__piste"></div>
 <div class="fnc__nav">
 <button type="button" class="fnc__bouton" data-fnc="prec">&#10094; Précédent</button>
@@ -125,6 +163,7 @@ html[data-sombre="on"] .fnc__consigne { color: var(--encre-pale); }
     haut.appendChild(wiki);
     fiche.appendChild(haut);
 
+    var contenu = texte("div", "fnc__contenu");
     var grille = texte("dl", "fnc__grille");
     f.infos.forEach(function (paire) {
       var d = texte("div");
@@ -132,8 +171,10 @@ html[data-sombre="on"] .fnc__consigne { color: var(--encre-pale); }
       d.appendChild(texte("dd", "", paire[1]));
       grille.appendChild(d);
     });
-    fiche.appendChild(grille);
-    fiche.appendChild(texte("p", "fnc__description", f.description));
+    contenu.appendChild(grille);
+    contenu.appendChild(texte("p", "fnc__description", f.description));
+    var figure = racine.querySelector('[data-fnc-figure="' + i + '"]');
+    if (figure) contenu.appendChild(figure);
 
     var reponse = texte("div", "fnc__reponse");
     reponse.id = "fnc-reponse-" + i;
@@ -149,8 +190,9 @@ html[data-sombre="on"] .fnc__consigne { color: var(--encre-pale); }
       reveler.setAttribute("aria-expanded", "true");
       reponse.classList.add("est-visible");
     });
-    fiche.appendChild(reveler);
-    fiche.appendChild(reponse);
+    contenu.appendChild(reveler);
+    contenu.appendChild(reponse);
+    fiche.appendChild(contenu);
     piste.appendChild(fiche);
 
     var point = texte("button", "fnc__point");
@@ -192,6 +234,8 @@ html[data-sombre="on"] .fnc__consigne { color: var(--encre-pale); }
     departX = null;
   }, { passive: true });
 
+  var reserve = racine.querySelector(".fnc__medias");
+  if (reserve) reserve.remove();
   montrer(0);
 })();
 </script>

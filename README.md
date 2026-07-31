@@ -10,7 +10,6 @@ Une fiche par réalité sociale, une fiche par territoire. Un fichier, une page.
 ```bash
 pip install -r requirements.txt
 python3 outils/images.py     # récupère les images depuis Wikimedia Commons
-python3 outils/rapatrier.py  # rapatrie tes lignes du temps de l'ancien Google Site
 python3 build.py --servir    # construit et ouvre un aperçu local
 ```
 
@@ -29,7 +28,6 @@ medias/                 images, un sous-dossier par fiche
 medias/sources.yml      registre des images et de leurs crédits
 outils/images.py        téléchargement des images depuis Wikimedia Commons
 outils/extraire.py      récupération du contenu de l'ancien Google Site
-outils/rapatrier.py     rapatriement de tes images du Google Site (medias/google.yml)
 outils/liens.py         vérification des liens internes
 site.yml                titre du site, menus, regroupements
 build.py                le générateur

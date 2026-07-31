@@ -72,7 +72,7 @@ déplacer sur le territoire.
 La croissance du nombre de personnes a obligé ces derniers à se regrouper en
 cités-États.
 
-![La Mésopotamie, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.jpg)
+![La Mésopotamie et le Croissant fertile, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.png)
 
 ![Irrigation sur les rives de l'Euphrate au début du 20e siècle](../medias/02-emergence-civilisation/irrigation.jpg)
 
@@ -84,7 +84,8 @@ cités-États.
 
 ## Situer la civilisation mésopotamienne dans le temps
 
-![Ligne du temps : la civilisation mésopotamienne](../medias/02-emergence-civilisation/ligne-du-temps-mesopotamie.png)
+::: schema frise-mesopotamie
+:::
 
 ## L'invention de l'écriture
 

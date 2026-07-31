@@ -1,0 +1,25 @@
+<svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La civilisation mésopotamienne située dans le temps, des premières cités-États à la prise de Babylone">
+  <style>
+    .t { font-family: Archivo, sans-serif; }
+    .nom { font-size: 21px; font-weight: 700; }
+    .sur { font-size: 16px; font-weight: 600; }
+    .sous { font-size: 14px; fill: var(--schema-cle); }
+    .date { font-family: 'IBM Plex Mono', monospace; font-size: 14px; fill: var(--schema-cle); }
+  </style>
+  <text class="t sous" x="94" y="22" text-anchor="middle">Préhistoire</text>
+  <text class="t sous" x="536" y="22" text-anchor="middle">Antiquité</text>
+  <line x1="8" y1="32" x2="892" y2="32" stroke="var(--schema-trait)" stroke-width="2"/>
+  <rect x="131" y="64" width="727" height="58" rx="4" fill="var(--bloc)"/>
+  <text class="t nom" x="510" y="101" text-anchor="middle" fill="var(--bloc-texte)">La civilisation mésopotamienne</text>
+  <line x1="180" y1="14" x2="180" y2="140" stroke="var(--schema-accent)" stroke-width="3"/>
+  <text class="t sur" x="192" y="52" fill="var(--schema-accent)">l'invention de l'écriture (-3 300)</text>
+  <line x1="561" y1="122" x2="561" y2="136" stroke="var(--schema-cle)" stroke-width="2"/>
+  <line x1="858" y1="122" x2="858" y2="136" stroke="var(--schema-cle)" stroke-width="2"/>
+  <text class="t date" x="131" y="158" text-anchor="middle">-3 500</text>
+  <text class="t date" x="561" y="158" text-anchor="middle">vers -1 750</text>
+  <text class="t date" x="874" y="158" text-anchor="end">-539</text>
+  <text class="t sous" x="131" y="180" text-anchor="middle">premières cités-États</text>
+  <text class="t sous" x="561" y="180" text-anchor="middle">Code d'Hammourabi</text>
+  <text class="t sous" x="892" y="180" text-anchor="end">prise de Babylone par les Perses</text>
+</svg>
