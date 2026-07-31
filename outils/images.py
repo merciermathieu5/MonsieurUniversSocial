@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import html
 import re
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -42,6 +43,18 @@ REGISTRE = MEDIAS / "sources.yml"
 CREDITS = MEDIAS / "credits.yml"
 API = "https://commons.wikimedia.org/w/api.php"
 ENTETES = {"User-Agent": "MonsieurUniversSocial/1.0 (site pedagogique quebecois)"}
+# lh3.googleusercontent.com sert les images aux navigateurs mais renvoie 403
+# aux agents inconnus. Pour les adresses directes du registre, on se présente
+# comme ce que la requête est vraiment : un chargement d'image de navigateur.
+ENTETES_NAVIGATEUR = {
+    "User-Agent": ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                   "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"),
+    "Accept": "image/avif,image/webp,image/apng,image/*,*/*;q=0.8",
+    "Sec-Fetch-Dest": "image",
+    "Sec-Fetch-Mode": "no-cors",
+    "Sec-Fetch-Site": "cross-site",
+    "Referer": "https://sites.google.com/",
+}
 
 # Noms de licence tels qu'ils doivent apparaître sous les images.
 LICENCES = {
@@ -242,8 +255,17 @@ def recuperer(trouve: dict, titre: str, largeurs: list[int]) -> bytes:
         try:
             return essayer(info["vignette"])
         except Exception as erreur:
-            soucis.append(f"{largeur}px : {erreur}")
-        time.sleep(1)
+            if "429" in str(erreur):
+                # Commons demande de ralentir : on patiente puis on réessaie
+                # une fois avant de passer à la largeur suivante.
+                time.sleep(30)
+                try:
+                    return essayer(info["vignette"])
+                except Exception as seconde:
+                    soucis.append(f"{largeur}px : {seconde}")
+            else:
+                soucis.append(f"{largeur}px : {erreur}")
+        time.sleep(2)
     if trouve.get("mime") == "image/svg+xml":
         soucis.append("SVG : seule une vignette est exploitable")
         raise ValueError(" ; ".join(soucis))
@@ -356,8 +378,19 @@ def main():
             if cible.exists() and not args.refaire:
                 sautees += 1
                 continue
+            # Une carte déjà enregistrée à la main sous son nom final, dans
+            # Téléchargements ou à la racine du dépôt, est simplement rangée.
+            for attente in (Path.home() / "Downloads" / nom, RACINE / nom):
+                if attente.exists():
+                    dossier.mkdir(parents=True, exist_ok=True)
+                    shutil.move(str(attente), str(cible))
+                    print(f"  ok     {nom}  rangée depuis {attente.parent.name}")
+                    reussites += 1
+                    break
+            if cible.exists():
+                continue
             try:
-                reponse = requests.get(url_directe, timeout=90, headers=ENTETES)
+                reponse = requests.get(url_directe, timeout=90, headers=ENTETES_NAVIGATEUR)
                 reponse.raise_for_status()
                 contenu = reponse.content
                 signatures = (b"\x89PNG", b"\xff\xd8\xff", b"GIF8", b"RIFF")

@@ -504,7 +504,6 @@ details.credit > span { display: block; max-width: 34rem; }
 .ouverture .mascotte { height: 19rem; right: .25rem; }
 @media (min-width: 62rem) {
   .entete--fiche .entete__interieur { padding-right: 16rem; }
-  .ouverture__interieur { padding-right: 21rem; }
 }
 /* Sous 62rem, la colonne de droite disparaît : le personnage aussi, sinon il
    passe derrière le texte. */
@@ -558,6 +557,13 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 
 .ouverture { background: var(--encre); color: #fff; }
 .ouverture__interieur { max-width: var(--large); margin: 0 auto; padding: 5rem 1.75rem 4rem; }
+/* Le personnage à la loupe occupe une colonne à droite : les cartes des
+   sections ne doivent pas passer sous ses pieds. Cette règle doit rester
+   déclarée APRÈS la définition de base ci-dessus, sinon le raccourci padding
+   la réécrase. */
+@media (min-width: 62rem) {
+  .ouverture__interieur { padding-right: 21rem; }
+}
 .ouverture__eyebrow {
   font-family: var(--donnee); font-size: .72rem; letter-spacing: .13em;
   text-transform: uppercase; color: rgba(255,255,255,.55); margin: 0 0 1.35rem;
