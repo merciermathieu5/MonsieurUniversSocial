@@ -74,7 +74,9 @@
 
       groupe.blocs.forEach(function (bloc) {
         var copie = bloc.cloneNode(true);
-        if (bloc.classList.contains("illustration") || bloc.classList.contains("video")) {
+        if (bloc.classList.contains("illustration") ||
+            bloc.classList.contains("video") ||
+            bloc.classList.contains("schema")) {
           colonneVisuels.appendChild(copie);
         } else {
           colonneTexte.appendChild(copie);
@@ -85,6 +87,16 @@
       contenu.className = "panneau__corps";
       if (colonneVisuels.children.length) {
         contenu.classList.add("panneau__corps--deux");
+        // Beaucoup de visuels : on leur laisse la moitié de l'écran.
+        if (colonneVisuels.children.length > 2) {
+          contenu.classList.add("panneau__corps--visuel");
+        }
+      } else {
+        // Sans visuel, le texte occupe toute la largeur. Au-delà d'un certain
+        // volume il se replie en deux colonnes plutôt que de laisser du vide.
+        var volume = colonneTexte.textContent.trim().length;
+        contenu.classList.add(volume > 700 ? "panneau__corps--flux"
+                                           : "panneau__corps--ample");
       }
       contenu.appendChild(colonneTexte);
       if (colonneVisuels.children.length) contenu.appendChild(colonneVisuels);
@@ -206,6 +218,25 @@
   bouton.title = "Afficher la fiche en plein écran pour la classe (touche P)";
   bouton.addEventListener("click", entrer);
 
+  // Second mode : la page elle-même, agrandie pour être projetée telle quelle.
+  var agrandir = document.createElement("button");
+  agrandir.type = "button";
+  agrandir.className = "declencheur declencheur--secondaire";
+  agrandir.innerHTML = '<span aria-hidden="true">&#8599;</span> Mode classe';
+  agrandir.title = "Agrandir la page pour la projeter sans passer en diaporama";
+  agrandir.setAttribute("aria-pressed", "false");
+  agrandir.addEventListener("click", function () {
+    var actif = corps.dataset.classe === "on";
+    if (actif) { delete corps.dataset.classe; } else { corps.dataset.classe = "on"; }
+    agrandir.setAttribute("aria-pressed", String(!actif));
+  });
+
   var accueil = document.querySelector(".entete__interieur");
-  if (accueil) accueil.appendChild(bouton);
+  if (accueil) {
+    var barreBoutons = document.createElement("div");
+    barreBoutons.className = "actions";
+    barreBoutons.appendChild(bouton);
+    barreBoutons.appendChild(agrandir);
+    accueil.appendChild(barreBoutons);
+  }
 })();

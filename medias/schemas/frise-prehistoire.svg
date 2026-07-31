@@ -1,0 +1,22 @@
+<svg viewBox="0 0 900 230" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Frise des deux périodes de la préhistoire">
+  <style>
+    .t { font-family: Archivo, sans-serif; fill: var(--encre); }
+    .d { font-family: 'IBM Plex Mono', monospace; fill: var(--encre-pale); font-size: 15px; }
+    .n { font-size: 25px; font-weight: 700; fill: #fff; }
+    .s { font-size: 16px; font-weight: 500; }
+  </style>
+  <rect x="10" y="52" width="580" height="66" rx="4" fill="var(--matiere)" opacity=".45"/>
+  <rect x="590" y="52" width="300" height="66" rx="4" fill="var(--matiere)"/>
+  <text class="t n" x="40" y="94">Paléolithique</text>
+  <text class="t n" x="620" y="94">Néolithique</text>
+  <text class="d" x="12" y="140">-3 000 000</text>
+  <text class="d" x="530" y="140">-10 000</text>
+  <text class="d" x="828" y="140">-3500</text>
+  <line x1="590" y1="30" x2="590" y2="152" stroke="var(--signal)" stroke-width="3"/>
+  <text class="t s" x="590" y="22" text-anchor="middle" fill="var(--signal)">la sédentarisation</text>
+  <text class="t s" x="40" y="190">Nomade</text>
+  <text class="t s" x="620" y="190">Sédentaire</text>
+  <text class="t" x="40" y="212" font-size="14" fill="var(--encre-doux)">chasse, pêche, cueillette</text>
+  <text class="t" x="620" y="212" font-size="14" fill="var(--encre-doux)">agriculture, élevage</text>
+</svg>

@@ -288,12 +288,9 @@ a { color: inherit; }
 
 /* Par défaut l'image se place à droite et le texte l'enveloppe. */
 @media (min-width: 62rem) {
-  .illustration--flottant {
-    float: right; width: 21rem; margin: .4rem 0 1.5rem 2.5rem;
-  }
-  .illustration--gauche {
-    float: left; width: 21rem; margin: .4rem 2.5rem 1.5rem 0;
-  }
+  .illustration--flottant { float: right; width: 16.5rem; margin: .35rem 0 1.3rem 2.25rem; }
+  .illustration--gauche   { float: left;  width: 16.5rem; margin: .35rem 2.25rem 1.3rem 0; }
+  .illustration--petit    { float: right; width: 12rem;   margin: .35rem 0 1.2rem 2rem; }
 }
 .illustration--large { clear: both; width: 100%; max-width: none; margin: 2rem 0; }
 .illustration--large figcaption { max-width: var(--lecture); }
@@ -344,6 +341,33 @@ a { color: inherit; }
 .avis {
   font-family: var(--titre); font-size: .9rem; color: var(--encre-doux);
   background: var(--fond-creux); padding: .85rem 1.1rem; border-radius: var(--rayon);
+}
+
+/* --------------------------------------------------- schémas et colonnage */
+
+.schema {
+  margin: 2rem 0; clear: both; padding: 1.5rem 1.75rem;
+  background: var(--surface-2); border-radius: var(--rayon);
+  border: 1px solid var(--trait);
+}
+.schema svg { width: 100%; height: auto; display: block; }
+.schema figcaption {
+  font-family: var(--titre); font-size: .88rem; color: var(--encre-doux);
+  margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--trait);
+  line-height: 1.45;
+}
+
+.colonnage { clear: both; margin: 1.6rem 0 1.9rem; }
+@media (min-width: 55rem) {
+  /* Le flux en colonnes se replie tout seul, quel que soit le contenu. */
+  .colonnage--2 { column-count: 2; column-gap: 2.5rem; }
+  .colonnage--3 { column-count: 3; column-gap: 2.25rem; }
+}
+.colonnage > * { max-width: none !important; }
+.colonnage h3 { margin-top: 0; break-after: avoid; }
+.colonnage p, .colonnage figure, .colonnage ul, .colonnage ol { break-inside: avoid; }
+.colonnage .illustration {
+  float: none !important; width: 100% !important; margin: .6rem 0 1rem !important;
 }
 
 /* --------------------------------------------------------- fiche suivante */
@@ -577,3 +601,47 @@ body[data-projection="on"] .pilote { display: flex; }
   .pilote__etiquette { display: none; }
 }
 @media print { .declencheur, .scene, .pilote { display: none !important; } }
+
+/* Remplissage de l'espace en projection selon ce que contient le panneau. */
+.panneau__corps--visuel { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+.panneau__corps--flux .panneau__texte { column-count: 2; column-gap: clamp(2rem, 4vw, 4rem); }
+.panneau__corps--flux .panneau__texte > p,
+.panneau__corps--flux .panneau__texte > ul,
+.panneau__corps--flux .panneau__texte > ol,
+.panneau__corps--flux .panneau__texte > .encadre { break-inside: avoid; }
+.panneau__corps--flux .panneau__texte h3 { break-after: avoid; }
+.panneau__corps--flux .panneau__texte table { break-inside: avoid; }
+.panneau__corps--ample { font-size: calc(clamp(1.35rem, 1.8vw, 2.3rem) * var(--echelle)); }
+.panneau__corps--ample .panneau__texte { max-width: 52ch; }
+.panneau .schema { background: rgba(255,255,255,.05); border-color: var(--trait); padding: 1.25rem; }
+.panneau .schema figcaption { font-size: .6em; color: var(--encre-doux); }
+.panneau__texte .schema { margin: 1.2em 0; }
+
+/* -------------------------------------------------- mode classe (la page) */
+
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
+.actions .declencheur { margin-top: 0; }
+.declencheur--secondaire {
+  background: rgba(255,255,255,.16); color: #fff;
+  box-shadow: none; border: 1px solid rgba(255,255,255,.3);
+}
+.declencheur--secondaire:hover { background: rgba(255,255,255,.26); }
+.declencheur--secondaire[aria-pressed="true"] { background: #fff; color: var(--matiere-fonce); }
+
+body[data-classe="on"] { font-size: 1.45rem; }
+body[data-classe="on"] .sommaire { display: none; }
+body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding-top: 2rem; }
+body[data-classe="on"] .texte { max-width: none; padding: 3rem 3.5rem; }
+body[data-classe="on"] .texte > p, body[data-classe="on"] .texte > ul,
+body[data-classe="on"] .texte > ol, body[data-classe="on"] .texte > h3,
+body[data-classe="on"] .texte > .encadre { max-width: 42ch; }
+body[data-classe="on"] .texte h2 { font-size: 2.4rem; margin-top: 3.5rem; }
+body[data-classe="on"] .texte h3 { font-size: 1.5rem; }
+body[data-classe="on"] .illustration--flottant,
+body[data-classe="on"] .illustration--gauche { width: 26rem; }
+body[data-classe="on"] .credit { display: none; }
+body[data-classe="on"] .bandeau, body[data-classe="on"] .frise { display: none; }
+@media (min-width: 75rem) {
+  body[data-classe="on"] .colonnage--2 { column-count: 2; }
+  body[data-classe="on"] .colonnage--3 { column-count: 3; }
+}

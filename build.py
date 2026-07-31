@@ -29,6 +29,10 @@ RACINE = Path(__file__).resolve().parent
 CONTENU = RACINE / "contenu"
 THEME = RACINE / "theme"
 MEDIAS = RACINE / "medias"
+SCHEMAS = MEDIAS / "schemas"
+
+BROUILLON = False
+manquantes: list[str] = []
 
 EXTENSIONS_MD = ["extra", "toc", "sane_lists", "md_in_html"]
 
@@ -37,6 +41,10 @@ BLOC = re.compile(r"^::: *(questions|note|savais-tu) *$(.*?)^::: *$",
                   re.MULTILINE | re.DOTALL)
 VIDEO = re.compile(r"^::: *video +([\w-]+) *$(.*?)^::: *$",
                    re.MULTILINE | re.DOTALL)
+SCHEMA = re.compile(r"^::: *schema +([\w-]+) *$(.*?)^::: *$",
+                    re.MULTILINE | re.DOTALL)
+COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
+                      re.MULTILINE | re.DOTALL)
 TITRES_BLOC = {
     "questions": "Questions",
     "note": "À retenir",
@@ -76,7 +84,26 @@ def convertir_blocs(texte: str) -> str:
             f'</aside>\n'
         )
 
+    def schema(m):
+        nom, legende = m.group(1), m.group(2).strip()
+        fichier = SCHEMAS / f"{nom}.svg"
+        if not fichier.exists():
+            return f'<p class="avis">Schéma introuvable : {nom}.svg</p>\n'
+        # Le SVG est inséré tel quel : il hérite des couleurs de la page et
+        # se recolore donc tout seul en mode projection.
+        dessin = fichier.read_text(encoding="utf-8")
+        return (f'<figure class="schema">{dessin}'
+                + (f'<figcaption>{legende}</figcaption>' if legende else "")
+                + '</figure>\n')
+
+    def colonnes(m):
+        nombre = m.group(1) or "2"
+        return (f'<div class="colonnage colonnage--{nombre}" markdown="1">\n'
+                f'{m.group(2).strip()}\n</div>\n')
+
+    texte = SCHEMA.sub(schema, texte)
     texte = VIDEO.sub(video, texte)
+    texte = COLONNES.sub(colonnes, texte)
     return BLOC.sub(encadre, texte)
 
 
@@ -122,6 +149,10 @@ def habiller_images(html: str, credits: dict) -> str:
                       f'Licence&nbsp;: {source["licence"]}.</span>')
 
         existe = (MEDIAS / src.split("medias/")[-1]).exists() if "medias/" in src else False
+        if not existe:
+            manquantes.append(nom)
+            if not BROUILLON:
+                return ""      # rien plutôt qu'un trou visible en classe
         corps = balise if existe else (
             '<div class="attente-image">'
             f'<span>Image à récupérer</span><em>{legende}</em>'
@@ -190,7 +221,10 @@ def grouper(section: dict) -> list:
     return resultat
 
 
-def construire(servir: bool = False) -> None:
+def construire(servir: bool = False, brouillon: bool = False) -> None:
+    global BROUILLON
+    BROUILLON = brouillon
+    manquantes.clear()
     config = yaml.safe_load((RACINE / "site.yml").read_text(encoding="utf-8"))
     sortie = RACINE / config.get("sortie", "public")
     if sortie.exists():
@@ -236,6 +270,12 @@ def construire(servir: bool = False) -> None:
                         ignore=shutil.ignore_patterns("sources.yml"))
     (sortie / ".nojekyll").write_text("", encoding="utf-8")
 
+    if manquantes:
+        uniques = sorted(set(manquantes))
+        print(f"  {len(uniques)} images absentes, omises du site : {', '.join(uniques[:5])}"
+              + (" ..." if len(uniques) > 5 else ""))
+        print("  python outils/images.py pour les récupérer, "
+              "python build.py --brouillon pour voir leur emplacement")
     a_faire = sum(1 for s in sections.values() for f in s["fiches"] if f["vide"])
     print(f"  {total} fiches construites dans {sortie.relative_to(RACINE)}/")
     if a_faire:
@@ -254,4 +294,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(description="Construit le site.")
     ap.add_argument("--servir", action="store_true",
                     help="démarre un serveur local après la construction")
+    ap.add_argument("--brouillon", action="store_true",
+                    help="affiche l'emplacement des images encore absentes")
     construire(**vars(ap.parse_args()))

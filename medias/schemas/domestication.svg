@@ -1,0 +1,38 @@
+<svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Le principe de la domestication par sélection">
+  <style>
+    .t { font-family: Archivo, sans-serif; }
+    .g { font-size: 17px; font-weight: 600; fill: var(--encre); }
+    .l { font-size: 14px; fill: var(--encre-doux); font-family: Archivo, sans-serif; }
+    .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--encre-pale); }
+  </style>
+  <text class="t n" x="10" y="24">GÉNÉRATION 1</text>
+  <text class="t n" x="330" y="24">GÉNÉRATION 2</text>
+  <text class="t n" x="650" y="24">APRÈS DES SIÈCLES</text>
+  <g fill="var(--encre-pale)">
+    <circle cx="30" cy="70" r="11"/><circle cx="70" cy="70" r="15"/><circle cx="115" cy="70" r="9"/>
+    <circle cx="155" cy="70" r="17"/><circle cx="200" cy="70" r="12"/>
+  </g>
+  <circle cx="70" cy="70" r="15" fill="var(--signal)"/>
+  <circle cx="155" cy="70" r="17" fill="var(--signal)"/>
+  <text class="t l" x="10" y="112">On garde les plus gros épis,</text>
+  <text class="t l" x="10" y="132">les bêtes les plus dociles.</text>
+  <path d="M240 70 h60 l-12 -10 M300 70 l-12 10" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
+  <g fill="var(--encre-pale)">
+    <circle cx="350" cy="70" r="14"/><circle cx="395" cy="70" r="17"/><circle cx="440" cy="70" r="13"/>
+    <circle cx="485" cy="70" r="18"/><circle cx="530" cy="70" r="15"/>
+  </g>
+  <circle cx="395" cy="70" r="17" fill="var(--signal)"/>
+  <circle cx="485" cy="70" r="18" fill="var(--signal)"/>
+  <text class="t l" x="330" y="112">On recommence, et encore.</text>
+  <path d="M560 70 h60 l-12 -10 M620 70 l-12 10" stroke="var(--matiere)" stroke-width="2.5" fill="none"/>
+  <g fill="var(--matiere)">
+    <circle cx="680" cy="70" r="21"/><circle cx="735" cy="70" r="22"/><circle cx="790" cy="70" r="21"/>
+    <circle cx="845" cy="70" r="22"/>
+  </g>
+  <text class="t l" x="650" y="112">L'espèce a changé. Elle ne peut</text>
+  <text class="t l" x="650" y="132">plus se reproduire sans nous.</text>
+  <rect x="10" y="165" width="880" height="70" rx="4" fill="var(--matiere)" opacity=".12"/>
+  <text class="t g" x="30" y="196">La domestication n'est pas une invention, c'est une accumulation de choix.</text>
+  <text class="t l" x="30" y="220">Personne n'a décidé un matin de créer le blé. Des milliers de récoltes l'ont fabriqué.</text>
+</svg>

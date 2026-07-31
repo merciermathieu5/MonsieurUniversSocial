@@ -34,10 +34,12 @@ av. J.-C. Il est étudié sous l'angle de l'organisation sociale et économique.
 
 ## Le Paléolithique et le Néolithique : deux périodes à distinguer
 
-La préhistoire est divisée en deux périodes bien distinctes :
+La préhistoire est divisée en deux périodes bien distinctes : le Paléolithique
+et le Néolithique.
 
-- Le Paléolithique (-3 000 000 à -10 000)
-- Le Néolithique (-10 000 à -3500)
+::: schema frise-prehistoire
+C'est la sédentarisation qui sépare les deux périodes.
+:::
 
 C'est la sédentarisation de l'être humain qui fait la coupure entre ces deux
 périodes. L'être humain est nomade durant le Paléolithique alors qu'il devient
@@ -85,6 +87,11 @@ chasse et à la cueillette. L'élevage d'animaux leur a également fourni une so
 régulière de nourriture. En s'installant dans des endroits fixes, les êtres
 humains ont pu construire des villages permanents, développer des outils et
 réfléchir à une organisation complexe de leur communauté.
+
+::: schema nomade-sedentaire
+Tout change en même temps : l'habitation, la nourriture, le travail et la façon
+de décider.
+:::
 
 ::: questions
 1. Qu'est-ce que les nomades du Paléolithique faisaient pour se nourrir?
@@ -249,6 +256,10 @@ légumineuses : le blé, l'orge, le pois et la lentille. En sélectionnant et en
 ressemant les graines des meilleurs plants, les agriculteurs du Néolithique
 transforment peu à peu les espèces sauvages en espèces cultivées.
 
+::: schema domestication
+Le même principe vaut pour les animaux et pour les plantes.
+:::
+
 ![L'engrain, l'une des premières céréales cultivées](../medias/01-sedentarisation/ble-sauvage.jpg)
 
 ## Maîtriser l'agriculture
@@ -263,6 +274,8 @@ bois. Ils ont permis aux humains de mieux contrôler leur environnement et de
 produire plus de nourriture, ce qui a conduit à la formation de villages
 permanents. Parmi ces outils essentiels, on retrouve la faucille, la houe, ainsi
 que la meule et la molette.
+
+::: colonnes3
 
 ### La faucille
 
@@ -296,6 +309,8 @@ cultivés plus faciles à consommer et à conserver.
 
 ![Meule à grains : la céréale devient farine](../medias/01-sedentarisation/meule.jpg)
 
+:::
+
 ## La division du travail
 
 ### Des surplus alimentaires
@@ -310,6 +325,10 @@ Une des conséquences les plus importantes de la production de surplus alimentai
 a été la spécialisation des individus dans différents domaines. Les membres de la
 communauté qui ne se vouaient pas à la production de nourriture se tournèrent ainsi
 vers l'artisanat.
+
+::: schema surplus
+Le surplus est la cause unique. Tout le reste en découle.
+:::
 
 ### L'artisan
 
