@@ -9,16 +9,12 @@ fin: -500
 angle: "Le rôle de l'écriture"
 concepts:
   - civilisation
-  - cité
-  - commerce
-  - culture
-  - écriture
-  - État
-  - hiérarchie
+  - communication
+  - échange
+  - justice
   - pouvoir
   - religion
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

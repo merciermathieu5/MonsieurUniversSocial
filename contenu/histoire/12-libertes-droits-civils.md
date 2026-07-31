@@ -8,14 +8,16 @@ debut: 1900
 fin: 2000
 angle: "Les revendications et les droits"
 concepts:
-  - droits civils
   - censure
-  - démocratie
+  - démocratisation
   - discrimination
+  - dissidence
+  - droits
   - égalité
   - liberté
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - répression
+  - ségrégation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

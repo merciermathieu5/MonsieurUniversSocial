@@ -8,15 +8,17 @@ debut: -500
 fin: -400
 angle: "La participation des citoyens à la vie politique"
 concepts:
-  - démocratie
+  - cité-État
   - citoyen
-  - cité
-  - esclavage
+  - démocratie
+  - éducation
+  - espace privé
+  - espace public
+  - institution
   - philosophie
   - pouvoir
   - régime politique
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

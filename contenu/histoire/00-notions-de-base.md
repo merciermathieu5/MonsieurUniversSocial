@@ -5,14 +5,8 @@ ordre: 0
 groupe: outils
 periode: "Méthode"
 angle: "Les outils de l'historien"
-concepts:
-  - chronologie
-  - document historique
-  - ligne du temps
-  - source primaire
-  - source secondaire
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts: []
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

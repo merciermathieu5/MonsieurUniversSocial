@@ -11,6 +11,15 @@
 (function () {
   "use strict";
 
+  // La frise reste repliée pour laisser la place au contenu.
+  var bascule = document.querySelector(".frise__bascule");
+  if (bascule) {
+    bascule.addEventListener("click", function () {
+      var ouvert = bascule.getAttribute("aria-expanded") === "true";
+      bascule.setAttribute("aria-expanded", String(!ouvert));
+    });
+  }
+
   var texte = document.querySelector(".fiche .texte");
   if (!texte) return;
 
@@ -186,8 +195,12 @@
     delete corps.dataset.projection;
     delete racine.dataset.projection;
     delete racine.dataset.sombre;
-    var bs = barre && barre.querySelector('[data-action="sombre"]');
-    if (bs) { bs.textContent = "Sombre"; bs.setAttribute("aria-pressed", "false"); }
+    var scene = document.querySelector(".scene");
+    if (scene) scene.remove();
+    if (barre) { barre.remove(); barre = null; }
+    panneaux = [];
+    construit = false;
+    courant = 0;
     if (document.fullscreenElement && document.exitFullscreen) {
       document.exitFullscreen().catch(function () {});
     }

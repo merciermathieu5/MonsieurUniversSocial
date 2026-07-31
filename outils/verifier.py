@@ -35,12 +35,20 @@ THEMES = {
         "--trait": "#CBD2C6", "--encre": "#1A2530", "--encre-doux": "#55636E",
         "--encre-pale": "#67747E", "--matiere": "#2F4B6E", "--matiere-fonce": "#22374F",
         "--matiere-voile": "#DEE5EE", "--signal": "#D2952E",
+        "--bloc": "#2F4B6E", "--bloc-texte": "#FFFFFF",
+        "--bloc-pale": "#A9BACC", "--bloc-pale-texte": "#12202F",
+        "--schema-cle": "#55636E", "--schema-accent": "#8A5D0C",
+        "--schema-trait": "#C2CAD3",
     },
     "sombre": {
         "--fond": "#10171F", "--surface": "#16202B", "--surface-2": "#1D2935",
         "--trait": "#2C3A48", "--encre": "#F2EFE8", "--encre-doux": "#B4BEC7",
         "--encre-pale": "#8A97A2", "--matiere": "#8FB4DC", "--matiere-fonce": "#B6D0EA",
         "--matiere-voile": "#1E3048", "--signal": "#E5AC44",
+        "--bloc": "#3A6091", "--bloc-texte": "#FFFFFF",
+        "--bloc-pale": "#2A4058", "--bloc-pale-texte": "#DCE7F2",
+        "--schema-cle": "#B4BEC7", "--schema-accent": "#E5AC44",
+        "--schema-trait": "#3B4C5E",
     },
 }
 
@@ -173,7 +181,12 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
 
         # Débordement du cadre. Largeur estimée à .55 em par signe.
         estimee = len(contenu) * taille * .55
-        gauche = x if ancre == "start" else x - estimee / 2
+        if ancre == "middle":
+            gauche = x - estimee / 2
+        elif ancre == "end":
+            gauche = x - estimee
+        else:
+            gauche = x
         droite = gauche + estimee
         if droite > largeur + 2:
             soucis.append(f"déborde à droite de {droite - largeur:.0f}px : « {contenu[:30]} »")
@@ -189,6 +202,9 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
 # -------------------------------------------------------------------- palette
 
 COUPLES = [
+    ("panneau encadré / texte", "--surface-2", "--encre"),
+    ("panneau encadré / titre", "--surface-2", "--schema-cle"),
+    ("panneau encadré / accent", "--surface-2", "--schema-accent"),
     ("page / texte", "--fond", "--encre"),
     ("surface / texte", "--surface", "--encre"),
     ("surface / texte doux", "--surface", "--encre-doux"),
@@ -214,7 +230,7 @@ def controler_palette() -> list[str]:
 # -------------------------------------------------------------------- contenu
 
 def controler_contenu() -> list[str]:
-    import yaml
+    import yaml  # noqa: F401
     soucis = []
     registre_fichier = RACINE / "medias" / "sources.yml"
     if registre_fichier.exists():
@@ -226,6 +242,12 @@ def controler_contenu() -> list[str]:
             elif not entree.get("licence"):
                 soucis.append(f"crédit incomplet : {nom}")
 
+    for fiche in sorted((RACINE / "contenu").rglob("*.md")):
+        entete = fiche.read_text(encoding="utf-8").split("---")[1]
+        donnees = yaml.safe_load(entete) or {}
+        if not donnees.get("concepts_valides"):
+            soucis.append(f"{fiche.name} : concepts non validés contre le programme")
+
     # Une légende sous un schéma qui résume au lieu de nommer, c'est du remplissage.
     for fiche in (RACINE / "contenu").rglob("*.md"):
         texte = fiche.read_text(encoding="utf-8")
@@ -234,6 +256,35 @@ def controler_contenu() -> list[str]:
             legende = bloc.strip()
             if legende:
                 soucis.append(f"{fiche.name} : légende de schéma à retirer, « {legende[:40]} »")
+    return soucis
+
+
+def controler_variables() -> list[str]:
+    """Toute variable utilisée dans un panneau doit exister dans les deux thèmes.
+
+    C'est le contrôle qui manquait : --matiere-voile était bien définie en
+    thème clair et redéfinie ailleurs en sombre, mais rien ne garantissait que
+    les deux couvraient les mêmes cas. Un encadré finissait pâle sur pâle.
+    """
+    feuille = (RACINE / "theme" / "style.css").read_text(encoding="utf-8")
+    soucis = []
+
+    # Variables employées dans les règles qui ne valent qu'en projection.
+    employees = set()
+    for regle in re.findall(r"\.panneau[^{]*\{([^}]*)\}", feuille):
+        employees |= set(re.findall(r"var\((--[\w-]+)\)", regle))
+
+    # Les variables de police, d'arrondi et d'échelle ne sont pas des couleurs.
+    hors_couleur = {"--titre", "--corps", "--donnee", "--rayon", "--echelle",
+                    "--large", "--lecture", "--colonne"}
+    employees -= hors_couleur
+
+    for nom_theme, theme in THEMES.items():
+        for variable in sorted(employees):
+            if variable not in theme:
+                soucis.append(f"{variable} employée dans un panneau, absente du thème {nom_theme}")
+    if not soucis:
+        print(f"    ok   {len(employees)} variables de panneau définies dans les deux thèmes")
     return soucis
 
 
@@ -254,6 +305,12 @@ def main() -> int:
             soucis += trouves
         else:
             print(f"    ok   {chemin.name}")
+
+    print("\nVARIABLES")
+    manquantes_var = controler_variables()
+    for m in manquantes_var:
+        print(f"    {m}")
+    soucis += manquantes_var
 
     print("\nCONTENU")
     contenu = controler_contenu()

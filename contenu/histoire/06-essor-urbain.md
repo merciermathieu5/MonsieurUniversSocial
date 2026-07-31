@@ -8,14 +8,16 @@ debut: 1100
 fin: 1400
 angle: "La renaissance des villes"
 concepts:
-  - urbanisation
+  - bourg
   - bourgeoisie
-  - commerce
-  - corporation
-  - économie
-  - ville
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - capital
+  - charte
+  - droit
+  - Grand commerce
+  - hiérarchie sociale
+  - institution
+  - urbanisation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

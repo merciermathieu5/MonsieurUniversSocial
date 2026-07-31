@@ -8,16 +8,16 @@ debut: -509
 fin: 476
 angle: "L'expansion de l'Empire romain"
 concepts:
-  - romanisation
-  - citoyenneté
-  - colonisation
-  - conquête
+  - citoyen
   - culture
   - droit
   - empire
   - État
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - infrastructure
+  - institution
+  - peuple
+  - territoire
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

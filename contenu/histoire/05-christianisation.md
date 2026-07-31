@@ -8,16 +8,16 @@ debut: 476
 fin: 1100
 angle: "L'influence de l'Église"
 concepts:
-  - christianisation
-  - clergé
+  - chrétienté
+  - Croisade
   - culture
+  - éducation
+  - Église
   - féodalité
-  - hiérarchie
+  - Occident
   - pouvoir
-  - religion
-  - société
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - science
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

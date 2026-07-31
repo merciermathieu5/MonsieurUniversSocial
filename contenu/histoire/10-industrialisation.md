@@ -8,14 +8,16 @@ debut: 1750
 fin: 1900
 angle: "La transformation économique et sociale"
 concepts:
-  - industrialisation
   - capitalisme
-  - classe sociale
-  - production
-  - syndicat
+  - classes sociales
+  - législation
+  - libéralisme
+  - mode de production
+  - révolution
+  - socialisme
+  - syndicalisme
   - urbanisation
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

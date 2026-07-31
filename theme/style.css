@@ -162,6 +162,19 @@ a { color: inherit; }
 /* ------------------------------------------------------------------ frise */
 
 .frise { background: var(--matiere-fonce); }
+.frise__bascule {
+  width: 100%; max-width: var(--large); margin: 0 auto; display: flex;
+  align-items: center; gap: .75rem; padding: .55rem 1.75rem;
+  background: none; border: 0; cursor: pointer; color: rgba(255,255,255,.7);
+  font-family: var(--donnee); font-size: .68rem; letter-spacing: .12em;
+  text-transform: uppercase; transition: color .15s;
+}
+.frise__bascule:hover { color: #fff; }
+.frise__compteur { color: var(--signal); letter-spacing: 0; }
+.frise__chevron { margin-left: auto; transition: transform .2s; font-size: .9rem; }
+.frise__bascule[aria-expanded="true"] .frise__chevron { transform: rotate(180deg); }
+.frise__contenu { display: none; }
+.frise__bascule[aria-expanded="true"] + .frise__contenu { display: block; }
 .frise__piste {
   list-style: none; margin: 0 auto; padding: 1rem 1.75rem .35rem;
   max-width: var(--large); display: flex; gap: 3px;
@@ -584,7 +597,7 @@ body[data-projection="on"] .panneau { background: var(--fond); }
 .panneau__visuels .credit { display: none; }
 .panneau__visuels .attente-image { min-height: 13rem; }
 
-.panneau .encadre { font-size: .82em; padding: 1em 1.25em; margin: 1.2em 0; background: var(--matiere-voile); }
+
 .panneau .encadre--note { background: #33291A; }
 .panneau .encadre--note .encadre__titre { color: var(--schema-accent); }
 .panneau .encadre__titre { font-size: .64em; color: var(--matiere); }
@@ -627,8 +640,7 @@ body[data-projection="on"] .pilote { display: flex; }
 .panneau__corps--flux .panneau__texte > .encadre { break-inside: avoid; }
 .panneau__corps--flux .panneau__texte h3 { break-after: avoid; }
 .panneau__corps--flux .panneau__texte table { break-inside: avoid; }
-.panneau__corps--ample { font-size: calc(clamp(1.35rem, 1.8vw, 2.3rem) * var(--echelle)); }
-.panneau__corps--ample .panneau__texte { max-width: 52ch; }
+
 .panneau .schema { background: var(--surface-2); border-color: var(--trait); padding: 1.25rem; }
 .panneau .schema figcaption { font-size: .6em; color: var(--encre-doux); }
 .panneau__texte .schema { margin: 1.2em 0; }
@@ -669,17 +681,22 @@ body[data-classe="on"] .bandeau, body[data-classe="on"] .frise { display: none; 
   border-left: 4px solid var(--matiere); border-radius: var(--rayon);
 }
 .panneau .encadre__titre { color: var(--matiere); }
-.panneau .encadre--questions { background: var(--matiere-voile); border-left-color: var(--matiere); }
-.panneau .encadre--questions .encadre__titre { color: var(--matiere-fonce); }
+
+
 .panneau .encadre--questions li { color: var(--encre); }
 .panneau .encadre--note { background: var(--surface-2); border-left-color: var(--signal); }
 .panneau .encadre--note .encadre__titre { color: var(--schema-accent); }
 .panneau .encadre--savais-tu { background: var(--surface-2); border-left-color: var(--encre-pale); }
 
 /* Longueur de ligne : une ligne de 110 signes est illisible à huit mètres. */
-.panneau__corps--ample .panneau__texte,
-.panneau__corps--ample .panneau__texte > * { max-width: 34ch; }
-.panneau__corps--ample .panneau__texte { max-width: 40ch; }
+/* Panneau sans visuel : le texte se centre et grossit, plutôt que de laisser
+   les deux tiers de l'écran vides. */
+.panneau__corps--ample {
+  font-size: calc(clamp(1.5rem, 2.1vw, 2.6rem) * var(--echelle));
+  min-height: 58vh; display: grid; align-content: center;
+}
+.panneau__corps--ample .panneau__texte { max-width: 30ch; margin: 0 auto; }
+.panneau__corps--ample .panneau__texte > * { max-width: none; }
 .panneau__corps--flux .panneau__texte { column-count: 2; column-gap: clamp(2.5rem, 5vw, 5rem); }
 .panneau__corps--deux .panneau__texte > * { max-width: 46ch; }
 
@@ -687,3 +704,18 @@ body[data-classe="on"] .bandeau, body[data-classe="on"] .frise { display: none; 
 .panneau { padding-bottom: 7.5rem; }
 .pilote { opacity: .55; }
 .pilote:hover, .pilote:focus-within { opacity: 1; }
+
+/* --------- projection : encadrés bâtis sur des variables sûres ------------
+   --matiere-voile change de sens selon la matière et le thème. On ne s'en
+   sert plus ici : --surface-2 est défini pour les deux thèmes et vérifié. */
+.panneau .encadre {
+  font-size: .84em; padding: 1em 1.3em; margin: 1.3em 0;
+  background: var(--surface-2); color: var(--encre);
+  border: 1px solid var(--trait); border-left: 4px solid var(--matiere);
+}
+.panneau .encadre__titre { color: var(--schema-cle); }
+.panneau .encadre--questions { border-left-color: var(--schema-accent); }
+.panneau .encadre--questions .encadre__titre { color: var(--schema-accent); }
+.panneau .encadre--questions li, .panneau .encadre li { color: var(--encre); }
+.panneau .encadre--note { border-left-color: var(--schema-accent); }
+.panneau .encadre--note .encadre__titre { color: var(--schema-accent); }

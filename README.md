@@ -63,6 +63,18 @@ Les fiches de géographie utilisent `type_territoire`, `echelle`, `enjeu` et
 Tu n'as pas à t'occuper des menus, de la table des matières, de la numérotation
 des sections ni de la frise. Tout est déduit des en-têtes.
 
+## Les concepts
+
+Les concepts affichés dans l'entête de chaque fiche d'histoire sont ceux
+prescrits par la Progression des apprentissages, Histoire et éducation à la
+citoyenneté, premier cycle, version du 20 août 2010, relevés section par
+section dans le document du ministère. Uniquement ceux-là.
+
+Le champ `concepts_valides` de l'en-tête indique si la liste a été confrontée
+au programme. `outils/verifier.py` signale toute fiche restée à `false`. Les
+fiches de géographie attendent encore la Progression des apprentissages de
+Géographie, elles sont donc marquées non validées.
+
 ## Écrire le contenu
 
 Markdown standard, plus trois encadrés :

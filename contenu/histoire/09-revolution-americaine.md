@@ -8,14 +8,17 @@ debut: 1763
 fin: 1791
 angle: "Les revendications et les droits"
 concepts:
-  - révolution
+  - citoyen
+  - démocratie
   - droits
-  - égalité
-  - État
-  - liberté
-  - république
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - hiérarchie sociale
+  - justice
+  - philosophie
+  - régime politique
+  - révolution
+  - séparation des pouvoirs
+  - Siècle des Lumières
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

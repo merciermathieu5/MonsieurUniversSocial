@@ -40,6 +40,13 @@
 
   {# La frise situe la fiche dans l'ensemble de la matière. #}
   <nav class="frise" aria-label="Position dans le programme">
+    <button type="button" class="frise__bascule" aria-expanded="false"
+            aria-controls="frise-piste">
+      <span class="frise__etiquette">Situer dans le programme</span>
+      <span class="frise__compteur donnee">{{ section.fiches.index(fiche) + 1 }} / {{ section.fiches|length }}</span>
+      <span class="frise__chevron" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="frise__contenu" id="frise-piste">
     <ol class="frise__piste">
       {% for f in section.fiches %}
       <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
@@ -55,6 +62,7 @@
       <span>{{ section.fiches[0].periode or section.fiches[0].titre }}</span>
       <span>{{ section.fiches[-1].periode or section.fiches[-1].titre }}</span>
     </p>
+    </div>
   </nav>
 
   <div class="colonnes">

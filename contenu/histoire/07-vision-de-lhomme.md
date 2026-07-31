@@ -8,14 +8,17 @@ debut: 1400
 fin: 1600
 angle: "L'humanisme"
 concepts:
-  - humanisme
   - art
-  - censure
+  - critique
+  - humanisme
+  - individu
   - liberté
+  - philosophie
   - Réforme
+  - Renaissance
+  - responsabilité
   - science
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

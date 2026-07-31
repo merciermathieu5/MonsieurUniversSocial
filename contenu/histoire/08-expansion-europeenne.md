@@ -8,14 +8,17 @@ debut: 1400
 fin: 1700
 angle: "Les grandes explorations"
 concepts:
-  - expansion européenne
   - colonisation
   - commerce
+  - culture
+  - économie-monde
   - empire
+  - enjeu
   - esclavage
+  - Grandes découvertes
   - technologie
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - territoire
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

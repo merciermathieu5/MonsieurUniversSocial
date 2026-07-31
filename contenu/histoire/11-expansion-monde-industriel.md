@@ -8,13 +8,13 @@ debut: 1850
 fin: 1914
 angle: "L'impérialisme et la colonisation"
 concepts:
-  - impérialisme
-  - colonie
+  - acculturation
+  - colonisation
   - discrimination
+  - impérialisme
   - métropole
   - nationalisme
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

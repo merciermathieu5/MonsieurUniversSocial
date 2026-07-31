@@ -53,6 +53,13 @@ aria-current="page">Géographie</a>
   </header>
 
   <nav class="frise" aria-label="Position dans le programme">
+    <button type="button" class="frise__bascule" aria-expanded="false"
+            aria-controls="frise-piste">
+      <span class="frise__etiquette">Situer dans le programme</span>
+      <span class="frise__compteur donnee">14 / 14</span>
+      <span class="frise__chevron" aria-hidden="true">&#9662;</span>
+    </button>
+    <div class="frise__contenu" id="frise-piste">
     <ol class="frise__piste">
       <li class="frise__cran">
         <a href="../geographie/00-canada-politique.html"
@@ -157,6 +164,7 @@ aria-current="page">
       <span>Le Canada politique</span>
       <span>Le territoire protégé : le parc naturel</span>
     </p>
+    </div>
   </nav>
 
   <div class="colonnes">

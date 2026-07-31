@@ -8,15 +8,15 @@ debut: -10000
 fin: -3500
 angle: "L'organisation sociale et économique"
 concepts:
-  - sédentarisation
-  - agriculture
-  - archéologie
-  - économie
-  - hiérarchie
-  - nomadisme
+  - division du travail
+  - échange
+  - hiérarchie sociale
+  - pouvoir
+  - production
+  - propriété
   - société
   - territoire
-concepts_valides: false
+concepts_valides: true
 statut: brouillon
 image_entete: ""
 # Contenu repris de la page Google Sites d'origine. Les dates, les périodes et
