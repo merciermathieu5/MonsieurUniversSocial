@@ -66,19 +66,20 @@ ble-sauvage.jpg:
   fiche: 01-sedentarisation
   recherche: einkorn wheat Triticum monococcum ear
   role: Comparer l'épi sauvage et l'épi cultivé, le coeur de la domestication.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Roger Culos
+  titre: Triticum monococcum MHNT.BOT.2015.2.37
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Triticum_monococcum_MHNT.BOT.2015.2.37.jpg
+  commons: File:Triticum monococcum MHNT.BOT.2015.2.37.jpg
 troupeau-chevres.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
   recherche: goat herd pasture Anatolia
   role: Rendre concrète la réserve de nourriture sur pied.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zeynel Cebeci
+  titre: Goat herd, Dağılcak - Kozan, Adana
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Goat_herd,_Da%C4%9F%C4%B1lcak_-_Kozan,_Adana.JPG
   commons: File:Goat herd, Dağılcak - Kozan, Adana.JPG
 faucille.jpg:
   cadrage: flottant
@@ -96,10 +97,10 @@ houe.jpg:
   commons: File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg
   recherche: neolithic stone hoe museum
   role: Préparer la terre avant les semailles.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Hoe,_gray-green_slate,_end_of_Neolithic,_T%C3%BDnec_nad_S%C3%A1zavou_Museum,_188599.jpg
 meule.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
@@ -125,30 +126,31 @@ varna-or.jpg:
   recherche: Varna necropolis gold treasure
   role: 'Les objets déposés dans certaines tombes et pas dans d''autres : la trace matérielle de la hiérarchie
     sociale. Postérieur au Néolithique, à présenter comme un aboutissement.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Gold treasure, 4600-4200 BC, AM Varna, Varm24
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Gold_treasure,_4600-4200_BC,_AM_Varna,_Varm24.jpg
+  commons: File:Gold treasure, 4600-4200 BC, AM Varna, Varm24.jpg
 foyers-civilisation.png:
   cadrage: carte
   fiche: 02-emergence-civilisation
   recherche: cradle of civilization map
   role: Situer les huit foyers les uns par rapport aux autres.
-  commons: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  commons: File:Civilization V AI Chart.png
+  titre: Civilization V AI Chart
+  auteur: Unknown author Unknown author
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Civilization_V_AI_Chart.png
 carte-mesopotamie.jpg:
   cadrage: carte
   fiche: 02-emergence-civilisation
   recherche: Mesopotamia map ancient
   role: Voir les deux fleuves et le tracé du Croissant fertile.
-  commons: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  commons: File:Ancient Upper Mesopotamia.png
+  titre: Ancient Upper Mesopotamia
+  auteur: Cattette
+  licence: Creative Commons BY 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Ancient_Upper_Mesopotamia.png
 irrigation.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
@@ -165,10 +167,10 @@ tablette-cuneiforme.jpg:
   recherche: cuneiform tablet Sumerian
   role: 'Une source d''époque : voir les signes en coin, pas un dessin.'
   commons: File:Issue of barley rations.JPG
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Issue of barley rations
+  auteur: Gavin.collins
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Issue_of_barley_rations.JPG
 scribe.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
@@ -176,20 +178,21 @@ scribe.jpg:
   role: Mettre un visage sur le métier qui donne accès au pouvoir.
   commons: File:A replica of the seated statue of the Sumerian scribe Dudu, dedicated to god Ningirsu.
     The Sulaymaniyah Museum.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: A replica of the seated statue of the Sumerian scribe Dudu, dedicated to god Ningirsu. The Sulaymaniyah
+    Museum
+  auteur: Osama Shukir Muhammed Amin FRCP(Glasg)
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:A_replica_of_the_seated_statue_of_the_Sumerian_scribe_Dudu,_dedicated_to_god_Ningirsu._The_Sulaymaniyah_Museum.jpg
 code-hammourabi.jpg:
   cadrage: large
   fiche: 02-emergence-civilisation
   recherche: Code of Hammurabi stele Louvre
   role: 'La stèle entière : deux mètres de loi exposée à tous.'
   commons: File:P1050763 Louvre code Hammurabi face rwk.JPG
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: P1050763 Louvre code Hammurabi face rwk
+  auteur: Mbzt
+  licence: Creative Commons BY 3.0
+  lien: https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG
 cite-etat.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
@@ -197,30 +200,31 @@ cite-etat.jpg:
   role: Voir le palais, les murailles et la ziggourat au même endroit.
   commons: File:Ridpath's history of the world; being an account of the ethnic origin, primitive estate,
     early migrations, social conditions and present promise of the principal families of men (1897) (14596923459).jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Ridpath's history of the world; being an account of the ethnic origin, primitive estate, early
+    migrations, social conditions and present promise of the principal families of men (1897) (14596923459)
+  auteur: Internet Archive Book Images
+  licence: No restrictions
+  lien: https://commons.wikimedia.org/wiki/File:Ridpath%27s_history_of_the_world;_being_an_account_of_the_ethnic_origin,_primitive_estate,_early_migrations,_social_conditions_and_present_promise_of_the_principal_families_of_men_(1897)_(14596923459).jpg
 etendard-ur.jpg:
   cadrage: large
   fiche: 02-emergence-civilisation
   recherche: Standard of Ur
   role: Lire les trois registres comme une bande dessinée.
   commons: File:Standard of Ur - Peace Panel - Sumer.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Standard of Ur - Peace Panel - Sumer
+  auteur: Juan Carlos Fonseca Mata
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Standard_of_Ur_-_Peace_Panel_-_Sumer.jpg
 ziggourat-ur.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
   recherche: Ziggurat of Ur
   role: L'échelle du bâtiment religieux dans la cité.
   commons: File:Ancient ziggurat at Ali Air Base Iraq 2005.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Ancient ziggurat at Ali Air Base Iraq 2005
+  auteur: en:User:Hardnfast
+  licence: Creative Commons BY 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Ancient_ziggurat_at_Ali_Air_Base_Iraq_2005.jpg
 lapis-lazuli.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
