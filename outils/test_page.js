@@ -58,6 +58,23 @@ verifier("compteur renseigné", position.textContent.trim() === "1 / 11", positi
 verifier("titre de section affiché", barre.querySelector(".diapo-titre").textContent.length > 3);
 verifier("bouton Quitter présent", !!barre.querySelector('[data-d="quitter"]'));
 verifier("bouton de thème présent", barre.querySelector('[data-d="theme"]').textContent === "Sombre");
+verifier("boutons A− et A+ présents",
+  !!barre.querySelector('[data-d="reduire"]') && !!barre.querySelector('[data-d="agrandir"]'));
+barre.querySelector('[data-d="agrandir"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("A+ grossit le texte", racine.style.getPropertyValue("--echelle").trim() === "1.1",
+  racine.style.getPropertyValue("--echelle"));
+barre.querySelector('[data-d="reduire"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("A− ramène à 1", racine.style.getPropertyValue("--echelle").trim() === "1",
+  racine.style.getPropertyValue("--echelle"));
+for (let i = 0; i < 15; i++) barre.querySelector('[data-d="reduire"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("plancher à 0.7", racine.style.getPropertyValue("--echelle").trim() === "0.7",
+  racine.style.getPropertyValue("--echelle"));
+for (let i = 0; i < 20; i++) barre.querySelector('[data-d="agrandir"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("plafond à 1.8", racine.style.getPropertyValue("--echelle").trim() === "1.8",
+  racine.style.getPropertyValue("--echelle"));
+document.dispatchEvent(new window.KeyboardEvent("keydown", { key: "-", bubbles: true }));
+verifier("touche - fonctionne aussi", racine.style.getPropertyValue("--echelle").trim() === "1.7",
+  racine.style.getPropertyValue("--echelle"));
 barre.querySelector('[data-d="suiv"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
 verifier("flèche suivante avance", position.textContent.trim() === "2 / 11", position.textContent);
 barre.querySelector('[data-d="prec"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));

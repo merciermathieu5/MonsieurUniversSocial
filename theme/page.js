@@ -52,6 +52,7 @@
   var sections = [];
   var courante = -1;
   var barre = null;
+  var echelle = 1;
   var position = null;
   var etiquette = null;
 
@@ -88,6 +89,11 @@
     });
   }
 
+  function zoomer(pas) {
+    echelle = Math.min(1.8, Math.max(0.7, Math.round((echelle + pas) * 10) / 10));
+    racine.style.setProperty("--echelle", echelle);
+  }
+
   function libelleTheme() {
     return racine.dataset.sombre === "on" ? "Clair" : "Sombre";
   }
@@ -100,6 +106,8 @@
       '<span class="diapo-position"></span>' +
       '<button type="button" data-d="suiv" aria-label="Section suivante">&#8594;</button>' +
       '<span class="diapo-titre"></span>' +
+      '<button type="button" data-d="reduire" aria-label="Réduire le texte">A&#8722;</button>' +
+      '<button type="button" data-d="agrandir" aria-label="Agrandir le texte">A+</button>' +
       '<button type="button" data-d="theme"></button>' +
       '<button type="button" data-d="quitter">Quitter</button>';
     document.body.appendChild(barre);
@@ -114,6 +122,8 @@
       if (action === "prec") montrer(courante - 1);
       if (action === "suiv") montrer(courante + 1);
       if (action === "quitter") sortirDiapo();
+      if (action === "reduire") zoomer(-0.1);
+      if (action === "agrandir") zoomer(0.1);
       if (action === "theme") {
         var s = document.querySelector('[data-bascule="sombre"]');
         if (s) s.click(); else {
@@ -162,6 +172,8 @@
         e.preventDefault(); montrer(courante - 1); return;
       }
       if (e.key === "Escape") { sortirDiapo(); return; }
+      if (e.key === "+" || e.key === "=") { zoomer(0.1); return; }
+      if (e.key === "-") { zoomer(-0.1); return; }
     }
     if (e.key === "p") { var d = document.querySelector('[data-bascule="diapo"]'); if (d) d.click(); }
     if (e.key === "Escape") { delete corps.dataset.classe;

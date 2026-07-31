@@ -1,111 +1,115 @@
-# Registre des illustrations.
-#
-# Deux façons de désigner une image :
-#   commons    le nom exact du fichier, si tu le connais
-#   recherche  une description en clair, et le script trouve le fichier
-#
-# Les champs titre, auteur, licence et lien sont remplis automatiquement à
-# partir de Commons. Ne les écris pas à la main, ce sont eux qui composent le
-# crédit affiché sous l'image.
-#
-#   python outils\images.py
-#   python outils\images.py --chercher "neolithic sickle"
-
-# --- Situer -----------------------------------------------------------------
-
 croissant-fertile.png:
   cadrage: carte
   fiche: 01-sedentarisation
-  commons: "File:Croissant fertile carte.png"
-  recherche: "fertile crescent map"
-  role: "Situer la région sur une carte en français."
-
+  commons: File:Croissant fertile carte.png
+  recherche: fertile crescent map
+  role: Situer la région sur une carte en français.
+  titre: Croissant fertile carte
+  auteur: User:NormanEinstein , based on a similar map from the 1994 edition of the Encyclopedia Britannica.
+    Translated by user:Sting
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Croissant_fertile_carte.png
 sites-neolithiques.jpg:
   cadrage: carte
   fiche: 01-sedentarisation
-  commons: "File:Siti neolitici del Vicino Oriente.jpg"
-  recherche: "neolithic sites near east map"
-  role: "Localiser Mureybet, Mallaha et Çatal Höyük les uns par rapport aux autres."
-
-# --- Le village -------------------------------------------------------------
-
+  commons: File:Siti neolitici del Vicino Oriente.jpg
+  recherche: neolithic sites near east map
+  role: Localiser Mureybet, Mallaha et Çatal Höyük les uns par rapport aux autres.
+  titre: Siti neolitici del Vicino Oriente
+  auteur: 'Middle_East_topographic_map-blank.svg : Sémhur ( talk ) derivative work: PequoD 76 ( talk )'
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Siti_neolitici_del_Vicino_Oriente.jpg
 catal-hoyuk-maquette.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  commons: "File:MUFT - Catal Höyük Modell.jpg"
-  recherche: "Catalhoyuk model reconstruction"
-  role: "Voir d'un coup d'oeil l'absence de rue et l'entrée par les toits."
-
+  commons: File:MUFT - Catal Höyük Modell.jpg
+  recherche: Catalhoyuk model reconstruction
+  role: Voir d'un coup d'oeil l'absence de rue et l'entrée par les toits.
+  titre: MUFT - Catal Höyük Modell
+  auteur: Wolfgang Sauber
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:MUFT_-_Catal_H%C3%B6y%C3%BCk_Modell.jpg
 catal-hoyuk-interieur.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
-  commons: "File:Catal Hüyük EL.JPG"
-  recherche: "Catalhoyuk house interior reconstruction museum"
-  role: "Entrer dans une maison : foyer, plateformes, rangement."
-
+  commons: File:Catal Hüyük EL.JPG
+  recherche: Catalhoyuk house interior reconstruction museum
+  role: 'Entrer dans une maison : foyer, plateformes, rangement.'
+  titre: Catal Hüyük EL
+  auteur: Elelicht
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Catal_H%C3%BCy%C3%BCk_EL.JPG
 catal-hoyuk-site.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  commons: "File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg"
-  recherche: "Catalhoyuk excavation site Konya"
-  role: "Montrer le chantier réel, pour distinguer vestige et reconstitution."
-
+  commons: File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg
+  recherche: Catalhoyuk excavation site Konya
+  role: Montrer le chantier réel, pour distinguer vestige et reconstitution.
+  titre: Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08
+  auteur: Murat Özsoy 1958
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:%C3%87atalh%C3%B6y%C3%BCk,_7400_BC,_Konya,_Turkey_-_UNESCO_World_Heritage_Site,_08.jpg
 fresque-chasse.jpg:
   cadrage: large
   fiche: 01-sedentarisation
-  commons: "File:Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking an aurochs (Bos primigenius)..jpg"
-  recherche: "Catalhoyuk mural hunting aurochs"
-  role: "Une source d'époque à lire avec les élèves plutôt qu'une illustration."
-
-# --- Domestiquer ------------------------------------------------------------
-
+  commons: File:Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking
+    an aurochs (Bos primigenius)..jpg
+  recherche: Catalhoyuk mural hunting aurochs
+  role: Une source d'époque à lire avec les élèves plutôt qu'une illustration.
+  titre: Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking an aurochs
+    (Bos primigenius).
+  auteur: Omar Hoftun
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Mural_from_%C3%87atalh%C3%B6y%C3%BCk_excavated_by_James_Mellaart_showing_neolithic_hunters_attacking_an_aurochs_(Bos_primigenius)..jpg
 ble-sauvage.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  recherche: "einkorn wheat Triticum monococcum ear"
-  role: "Comparer l'épi sauvage et l'épi cultivé, le coeur de la domestication."
-
+  recherche: einkorn wheat Triticum monococcum ear
+  role: Comparer l'épi sauvage et l'épi cultivé, le coeur de la domestication.
+  commons: File:Triticum monococcum MHNT.BOT.2015.2.37.jpg
+  titre: Triticum monococcum MHNT.BOT.2015.2.37
+  auteur: Roger Culos
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Triticum_monococcum_MHNT.BOT.2015.2.37.jpg
 troupeau-chevres.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
-  recherche: "goat herd pasture Anatolia"
-  role: "Rendre concrète la réserve de nourriture sur pied."
-
-# --- Outils et savoir-faire -------------------------------------------------
-
+  recherche: goat herd pasture Anatolia
+  role: Rendre concrète la réserve de nourriture sur pied.
 faucille.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  recherche: "neolithic sickle flint blades wooden handle"
-  role: "Un outil composite : lame de pierre et manche de bois."
-
+  recherche: neolithic sickle flint blades wooden handle
+  role: 'Un outil composite : lame de pierre et manche de bois.'
 houe.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
-  commons: "File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg"
-  recherche: "neolithic stone hoe museum"
-  role: "Préparer la terre avant les semailles."
-
+  commons: File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg
+  recherche: neolithic stone hoe museum
+  role: Préparer la terre avant les semailles.
+  titre: Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599
+  auteur: Zde
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Hoe,_gray-green_slate,_end_of_Neolithic,_T%C3%BDnec_nad_S%C3%A1zavou_Museum,_188599.jpg
 meule.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  commons: "File:Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692.jpg"
-  recherche: "neolithic grinding stone quern grain"
-  role: "Transformer le grain en farine, l'étape qui rend la céréale mangeable."
-
+  commons: File:Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692.jpg
+  recherche: neolithic grinding stone quern grain
+  role: Transformer le grain en farine, l'étape qui rend la céréale mangeable.
 poterie.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
-  recherche: "neolithic pottery vessel archaeological museum"
-  role: "Entreposer les surplus, sans quoi il n'y a pas de réserve possible."
-
-# --- Une société qui se hiérarchise -----------------------------------------
-
+  recherche: neolithic pottery vessel archaeological museum
+  role: Entreposer les surplus, sans quoi il n'y a pas de réserve possible.
 varna-or.jpg:
   cadrage: large
   fiche: 01-sedentarisation
-  recherche: "Varna necropolis gold treasure"
-  role: >-
-    Les objets déposés dans certaines tombes et pas dans d'autres : la trace
-    matérielle de la hiérarchie sociale. Postérieur au Néolithique, à présenter
-    comme un aboutissement.
+  recherche: Varna necropolis gold treasure
+  role: 'Les objets déposés dans certaines tombes et pas dans d''autres : la trace matérielle de la hiérarchie
+    sociale. Postérieur au Néolithique, à présenter comme un aboutissement.'
+  commons: File:Gold treasure, 4600-4200 BC, AM Varna, Varm24.jpg
+  titre: Gold treasure, 4600-4200 BC, AM Varna, Varm24
+  auteur: Zde
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Gold_treasure,_4600-4200_BC,_AM_Varna,_Varm24.jpg

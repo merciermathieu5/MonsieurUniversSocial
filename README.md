@@ -69,8 +69,11 @@ Trois boutons sous le titre de chaque fiche, ou leurs touches.
 
 - **Mode classe** (`C`) agrandit la page, masque menu, sommaire et frise.
 - **Diaporama** (`P`) part du mode classe et montre une section à la fois,
-  un titre de niveau 2 par écran. Flèches ou espace pour naviguer, le compteur
-  en bas à droite indique la position, `Échap` ramène la page complète.
+  un titre de niveau 2 par écran. Flèches ou espace pour naviguer. La barre du
+  bas donne le compteur, le titre de la section, les boutons `A−` et `A+` pour
+  ajuster la taille du texte (aussi au clavier avec `-` et `+`), la bascule de
+  thème et Quitter. `Échap` ramène la page complète. Le réglage de taille est
+  conservé d'une section à l'autre pendant toute la présentation.
 - **Thème sombre** (`N`) recolore la page. Clair par défaut.
 
 Le sommaire de gauche se replie avec la touche `S` ou son bouton, et le texte

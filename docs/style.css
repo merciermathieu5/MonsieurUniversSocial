@@ -572,15 +572,15 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 
 /* ----------------------------------------------------------- mode classe */
 
-body[data-classe="on"] { font-size: 1.5rem; }
+body[data-classe="on"] { font-size: calc(1.5rem * var(--echelle, 1)); }
+body[data-classe="on"] .texte h2 { font-size: calc(2.3rem * var(--echelle, 1)); }
+body[data-classe="on"] .texte h3 { font-size: calc(1.45rem * var(--echelle, 1)); }
 body[data-classe="on"] .bandeau, body[data-classe="on"] .frise,
 body[data-classe="on"] .sommaire, body[data-classe="on"] .suite,
 body[data-classe="on"] .credit { display: none; }
 body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding: 2rem 1.75rem 3rem; }
 body[data-classe="on"] .texte { max-width: none; padding: 2.5rem 3rem; }
 
-body[data-classe="on"] .texte h2 { font-size: 2.3rem; }
-body[data-classe="on"] .texte h3 { font-size: 1.45rem; }
 body[data-classe="on"] .illustration--flottant,
 body[data-classe="on"] .illustration--gauche { width: 26rem; }
 body[data-classe="on"] .illustration--large,
