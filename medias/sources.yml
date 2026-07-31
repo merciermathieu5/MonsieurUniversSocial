@@ -4,50 +4,51 @@ croissant-fertile.png:
   commons: File:Croissant fertile carte.png
   recherche: fertile crescent map
   role: Situer la région sur une carte en français.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: User:NormanEinstein , based on a similar map from the 1994 edition of the Encyclopedia Britannica.
+    Translated by user:Sting
+  titre: Croissant fertile carte
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Croissant_fertile_carte.png
 sites-neolithiques.jpg:
   cadrage: carte
   fiche: 01-sedentarisation
   commons: File:Siti neolitici del Vicino Oriente.jpg
   recherche: neolithic sites near east map
   role: Localiser Mureybet, Mallaha et Çatal Höyük les uns par rapport aux autres.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: 'Middle_East_topographic_map-blank.svg : Sémhur ( talk ) derivative work: PequoD 76 ( talk )'
+  titre: Siti neolitici del Vicino Oriente
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Siti_neolitici_del_Vicino_Oriente.jpg
 catal-hoyuk-maquette.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   commons: File:MUFT - Catal Höyük Modell.jpg
   recherche: Catalhoyuk model reconstruction
   role: Voir d'un coup d'oeil l'absence de rue et l'entrée par les toits.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Wolfgang Sauber
+  titre: MUFT - Catal Höyük Modell
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:MUFT_-_Catal_H%C3%B6y%C3%BCk_Modell.jpg
 catal-hoyuk-interieur.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
   commons: File:Catal Hüyük EL.JPG
   recherche: Catalhoyuk house interior reconstruction museum
   role: 'Entrer dans une maison : foyer, plateformes, rangement.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Elelicht
+  titre: Catal Hüyük EL
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Catal_H%C3%BCy%C3%BCk_EL.JPG
 catal-hoyuk-site.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   commons: File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg
   recherche: Catalhoyuk excavation site Konya
   role: Montrer le chantier réel, pour distinguer vestige et reconstitution.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Murat Özsoy 1958
+  titre: Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:%C3%87atalh%C3%B6y%C3%BCk,_7400_BC,_Konya,_Turkey_-_UNESCO_World_Heritage_Site,_08.jpg
 fresque-chasse.jpg:
   cadrage: large
   fiche: 01-sedentarisation
@@ -55,38 +56,40 @@ fresque-chasse.jpg:
     an aurochs (Bos primigenius)..jpg
   recherche: Catalhoyuk mural hunting aurochs
   role: Une source d'époque à lire avec les élèves plutôt qu'une illustration.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Omar Hoftun
+  titre: Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking an aurochs
+    (Bos primigenius).
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Mural_from_%C3%87atalh%C3%B6y%C3%BCk_excavated_by_James_Mellaart_showing_neolithic_hunters_attacking_an_aurochs_(Bos_primigenius)..jpg
 ble-sauvage.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   recherche: einkorn wheat Triticum monococcum ear
   role: Comparer l'épi sauvage et l'épi cultivé, le coeur de la domestication.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Roger Culos
+  titre: Triticum monococcum MHNT.BOT.2015.2.37
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Triticum_monococcum_MHNT.BOT.2015.2.37.jpg
+  commons: File:Triticum monococcum MHNT.BOT.2015.2.37.jpg
 troupeau-chevres.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
   recherche: goat herd pasture Anatolia
   role: Rendre concrète la réserve de nourriture sur pied.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zeynel Cebeci
+  titre: Goat herd, Dağılcak - Kozan, Adana
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Goat_herd,_Da%C4%9F%C4%B1lcak_-_Kozan,_Adana.JPG
   commons: File:Goat herd, Dağılcak - Kozan, Adana.JPG
 faucille.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   recherche: neolithic sickle flint blades wooden handle
   role: 'Un outil composite : lame de pierre et manche de bois.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Hanay
+  titre: Dagon Museum, Neolithic Sickle
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Dagon_Museum,_Neolithic_Sickle.JPG
   commons: File:Dagon Museum, Neolithic Sickle.JPG
 houe.jpg:
   cadrage: gauche
@@ -94,59 +97,61 @@ houe.jpg:
   commons: File:Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599.jpg
   recherche: neolithic stone hoe museum
   role: Préparer la terre avant les semailles.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Hoe, gray-green slate, end of Neolithic, Týnec nad Sázavou Museum, 188599
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Hoe,_gray-green_slate,_end_of_Neolithic,_T%C3%BDnec_nad_S%C3%A1zavou_Museum,_188599.jpg
 meule.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   commons: File:Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692.jpg
   recherche: neolithic grinding stone quern grain
   role: Transformer le grain en farine, l'étape qui rend la céréale mangeable.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Neolithic grain crusher, rough sandstone, Museum of Western Bohemia, 187692
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Neolithic_grain_crusher,_rough_sandstone,_Museum_of_Western_Bohemia,_187692.jpg
 poterie.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   recherche: neolithic pottery vessel archaeological museum
   role: Entreposer les surplus, sans quoi il n'y a pas de réserve possible.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Vessel of the Neolithic Linear Pottery culture, City of Prague Museum, A0001688, 175894
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Vessel_of_the_Neolithic_Linear_Pottery_culture,_City_of_Prague_Museum,_A0001688,_175894.jpg
+  commons: File:Vessel of the Neolithic Linear Pottery culture, City of Prague Museum, A0001688, 175894.jpg
 varna-or.jpg:
   cadrage: large
   fiche: 01-sedentarisation
   recherche: Varna necropolis gold treasure
   role: 'Les objets déposés dans certaines tombes et pas dans d''autres : la trace matérielle de la hiérarchie
     sociale. Postérieur au Néolithique, à présenter comme un aboutissement.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Zde
+  titre: Gold treasure, 4600-4200 BC, AM Varna, Varm24
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Gold_treasure,_4600-4200_BC,_AM_Varna,_Varm24.jpg
+  commons: File:Gold treasure, 4600-4200 BC, AM Varna, Varm24.jpg
 irrigation.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
   recherche: Mesopotamia irrigation canal
   role: Rendre concret le canal qui fertilise et qui transporte.
   commons: File:Irrigation on the Euphrates, where men have toiled since Adam left Eden. (29591542592).jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Irrigation on the Euphrates, where men have toiled since Adam left Eden. (29591542592)
+  auteur: SMU Central University Libraries
+  licence: No restrictions
+  lien: https://commons.wikimedia.org/wiki/File:Irrigation_on_the_Euphrates,_where_men_have_toiled_since_Adam_left_Eden._(29591542592).jpg
 tablette-cuneiforme.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
   recherche: cuneiform tablet Sumerian
   role: 'Une source d''époque : voir les signes en coin, pas un dessin.'
   commons: File:Issue of barley rations.JPG
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Issue of barley rations
+  auteur: Gavin.collins
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Issue_of_barley_rations.JPG
 scribe.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
@@ -154,20 +159,21 @@ scribe.jpg:
   role: Mettre un visage sur le métier qui donne accès au pouvoir.
   commons: File:A replica of the seated statue of the Sumerian scribe Dudu, dedicated to god Ningirsu.
     The Sulaymaniyah Museum.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: A replica of the seated statue of the Sumerian scribe Dudu, dedicated to god Ningirsu. The Sulaymaniyah
+    Museum
+  auteur: Osama Shukir Muhammed Amin FRCP(Glasg)
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:A_replica_of_the_seated_statue_of_the_Sumerian_scribe_Dudu,_dedicated_to_god_Ningirsu._The_Sulaymaniyah_Museum.jpg
 code-hammourabi.jpg:
   cadrage: large
   fiche: 02-emergence-civilisation
   recherche: Code of Hammurabi stele Louvre
   role: 'La stèle entière : deux mètres de loi exposée à tous.'
   commons: File:P1050763 Louvre code Hammurabi face rwk.JPG
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: P1050763 Louvre code Hammurabi face rwk
+  auteur: Mbzt
+  licence: Creative Commons BY 3.0
+  lien: https://commons.wikimedia.org/wiki/File:P1050763_Louvre_code_Hammurabi_face_rwk.JPG
 cite-etat.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
@@ -185,20 +191,20 @@ etendard-ur.jpg:
   recherche: Standard of Ur
   role: Lire les trois registres comme une bande dessinée.
   commons: File:Standard of Ur - Peace Panel - Sumer.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Standard of Ur - Peace Panel - Sumer
+  auteur: Juan Carlos Fonseca Mata
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Standard_of_Ur_-_Peace_Panel_-_Sumer.jpg
 ziggourat-ur.jpg:
   cadrage: flottant
   fiche: 02-emergence-civilisation
   recherche: Ziggurat of Ur
   role: L'échelle du bâtiment religieux dans la cité.
   commons: File:Ancient ziggurat at Ali Air Base Iraq 2005.jpg
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Ancient ziggurat at Ali Air Base Iraq 2005
+  auteur: en:User:Hardnfast
+  licence: Creative Commons BY 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Ancient_ziggurat_at_Ali_Air_Base_Iraq_2005.jpg
 lapis-lazuli.jpg:
   cadrage: gauche
   fiche: 02-emergence-civilisation
@@ -215,10 +221,11 @@ carte-mesopotamie.png:
   commons: File:Croissant fertile carte.png
   recherche: croissant fertile carte
   role: Voir les deux fleuves et le tracé du Croissant fertile, sur la même carte que la fiche précédente.
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Croissant fertile carte
+  auteur: User:NormanEinstein , based on a similar map from the 1994 edition of the Encyclopedia Britannica.
+    Translated by user:Sting
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Croissant_fertile_carte.png
 cadastre-shulgi.jpg:
   cadrage: composant
   fiche: 02-emergence-civilisation
@@ -226,30 +233,31 @@ cadastre-shulgi.jpg:
     Iraq. Ur III period, c, 2046 BCE. Ancient Orient Museum, Istanbul.jpg
   recherche: ''
   role: 'Une liste d''inventaire dressée sous Shulgi : l''écriture qui compte et enregistre.'
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Large inventory list written during the 48th regnal year of Shulgi, king of Ur. From Lagash,
+    Iraq. Ur III period, c, 2046 BCE. Ancient Orient Museum, Istanbul
+  auteur: Osama Shukir Muhammed Amin FRCP(Glasg)
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Large_inventory_list_written_during_the_48th_regnal_year_of_Shulgi,_king_of_Ur._From_Lagash,_Iraq._Ur_III_period,_c,_2046_BCE._Ancient_Orient_Museum,_Istanbul.jpg
 plimpton-322.jpg:
   cadrage: composant
   fiche: 02-emergence-civilisation
   commons: File:Plimpton 322.jpg
   recherche: ''
   role: La tablette mathématique Plimpton 322 et ses colonnes de nombres.
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Plimpton 322
+  auteur: photo author unknown
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Plimpton_322.jpg
 stele-mesha.jpg:
   cadrage: composant
   fiche: 02-emergence-civilisation
   commons: File:Mesha stele (Louvre, AO 5066).jpg
   recherche: ''
   role: La stèle de Mesha au Louvre, trente-quatre lignes gravées dans le basalte.
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: Mesha stele (Louvre, AO 5066)
+  auteur: Tangopaso
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Mesha_stele_(Louvre,_AO_5066).jpg
 traite-qadesh.jpg:
   cadrage: composant
   fiche: 02-emergence-civilisation
@@ -267,7 +275,7 @@ tablette-gilgamesh.jpg:
   commons: File:British Museum Flood Tablet.jpg
   recherche: ''
   role: La tablette XI de l'épopée de Gilgamesh, le récit du Déluge.
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
+  titre: British Museum Flood Tablet
+  auteur: Auteur inconnu
+  licence: Creative Commons Zero
+  lien: https://commons.wikimedia.org/wiki/File:British_Museum_Flood_Tablet.jpg
