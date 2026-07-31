@@ -7,17 +7,23 @@ type_territoire: "Territoire région"
 echelle: "Régionale"
 enjeu: "Le développement du tourisme et ses effets"
 etudes_de_cas:
-  - Charlevoix
-  - Venise
+  - Une région du Québec ou du Canada (obligatoire)
+  - La Savoie
+  - Les Grands Lacs africains
+  - La lagune de Venise
   - Tahiti
+  - L'Île-de-France
 concepts:
+  - acculturation
+  - aménagement
+  - commercialisation
+  - flux touristique
+  - foyer touristique
+  - mondialisation
+  - multinationale
+  - ressource
   - tourisme
-  - attrait
-  - développement
-  - saisonnalité
-  - économie régionale
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

@@ -7,13 +7,8 @@ type_territoire: "Repères"
 echelle: "Nationale"
 enjeu: "Se repérer sur le territoire canadien"
 etudes_de_cas: []
-concepts:
-  - province
-  - territoire
-  - capitale
-  - frontière
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts: []
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

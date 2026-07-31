@@ -7,14 +7,8 @@ type_territoire: "Repères"
 echelle: "Mondiale"
 enjeu: "Localiser un lieu avec précision"
 etudes_de_cas: []
-concepts:
-  - latitude
-  - longitude
-  - hémisphère
-  - méridien
-  - parallèle
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+concepts: []
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

@@ -7,18 +7,24 @@ type_territoire: "Territoire urbain"
 echelle: "Locale"
 enjeu: "L'aménagement et la gestion d'une grande ville"
 etudes_de_cas:
-  - Montréal
-  - New York
+  - Montréal (obligatoire)
   - Le Caire
+  - Mexico
+  - New York
+  - Sydney
 concepts:
-  - métropole
   - aménagement
   - banlieue
+  - bidonville
   - concentration
+  - croissance
+  - densité
+  - déséquilibre
   - étalement urbain
-  - transport
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - métropole
+  - multiethnicité
+  - urbanisation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

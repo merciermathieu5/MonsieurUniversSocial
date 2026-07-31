@@ -18,6 +18,7 @@ concepts:
   - répression
   - ségrégation
 concepts_valides: true
+contexte: "Lutte contre le racisme institué"
 statut: a-extraire
 image_entete: ""
 ---

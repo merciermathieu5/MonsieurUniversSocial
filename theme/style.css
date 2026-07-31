@@ -138,6 +138,18 @@ a { color: inherit; }
 }
 .reperes dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: 1rem; color: #fff; }
 
+.entete-concepts { margin: 1.5rem 0 0; }
+.entete-concepts > span {
+  display: block; font-family: var(--donnee); font-size: .66rem; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: .5rem;
+}
+.entete-concepts ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.entete-concepts li {
+  font-family: var(--titre); font-weight: 500; font-size: .84rem;
+  background: rgba(255,255,255,.16); color: #fff;
+  padding: .25rem .7rem; border-radius: 100px;
+}
+
 .cas { margin: 1.4rem 0 0; }
 .cas > span {
   font-family: var(--donnee); font-size: .66rem; letter-spacing: .12em;
@@ -312,12 +324,13 @@ a { color: inherit; }
 
 /* Par défaut l'image se place à droite et le texte l'enveloppe. */
 @media (min-width: 62rem) {
-  .illustration--flottant { float: right; width: 16.5rem; margin: .35rem 0 1.3rem 2.25rem; }
-  .illustration--gauche   { float: left;  width: 16.5rem; margin: .35rem 2.25rem 1.3rem 0; }
+  .illustration--flottant { float: right; width: 15rem; margin: .35rem 0 1.3rem 2.25rem; }
+  .illustration--gauche   { float: left;  width: 15rem; margin: .35rem 2.25rem 1.3rem 0; }
   .illustration--petit    { float: right; width: 12rem;   margin: .35rem 0 1.2rem 2rem; }
 }
-.illustration--large { clear: both; width: 100%; max-width: none; margin: 2rem 0; }
+.illustration--large { clear: both; width: 100%; max-width: 38rem; margin: 2rem 0; }
 .illustration--large figcaption { max-width: var(--lecture); }
+.illustration--carte { clear: both; width: 100%; max-width: 30rem; margin: 2rem 0; }
 
 .attente-image {
   display: grid; gap: .5rem; place-items: center; text-align: center;
@@ -524,198 +537,69 @@ a { color: inherit; }
 }
 
 /* =========================================================================
-   Mode projection
-   Fond sombre : moins de fatigue en classe éclairée, meilleur rendu au
-   projecteur, et le contraste des images ressort. Un titre de niveau 2 par
-   panneau, le texte à gauche et les visuels à droite.
+   Mode classe et thème sombre
+   Un seul moteur de mise en page : la page. Le mode classe l'agrandit, le
+   thème sombre la recolore. Rien qui recompose le contenu.
    ========================================================================= */
 
-.scene, .pilote { display: none; }
-
-body[data-projection="on"] {
-  overflow: hidden;
-  --fond: #10171F; --surface: #16202B; --surface-2: #1D2935; --trait: #2C3A48;
-  --encre: #F2EFE8; --encre-doux: #B4BEC7; --encre-pale: #7F8D99;
-}
-html[data-sombre="on"][data-couleur="histoire"] {
-  --matiere: #8FB4DC; --matiere-fonce: #B6D0EA; --matiere-voile: #1E3048;
-}
-html[data-sombre="on"][data-couleur="geographie"] {
-  --matiere: #92C5A1; --matiere-fonce: #B7DCC1; --matiere-voile: #1D3527;
-  --bloc: #3E7350; --bloc-pale: #274434; --bloc-pale-texte: #D8ECDD;
-}
-
-body[data-projection="on"] .bandeau, body[data-projection="on"] .pied,
-body[data-projection="on"] .frise, body[data-projection="on"] .colonnes,
-body[data-projection="on"] .suite, body[data-projection="on"] .entete { display: none; }
-
-body[data-projection="on"] .scene {
-  display: block; position: fixed; inset: 0; z-index: 60; background: var(--fond);
-}
-body[data-projection="on"] .panneau { background: var(--fond); }
-
-.panneau {
-  display: none; height: 100%; overflow-y: auto;
-  padding: clamp(2rem, 4vh, 3.5rem) clamp(2rem, 5vw, 5.5rem) 6rem;
-  color: var(--encre);
-}
-.panneau.est-visible { display: block; }
-.panneau__entete { margin-bottom: clamp(1.5rem, 3vh, 2.5rem); }
-.panneau__surtitre {
-  font-family: var(--donnee); font-size: calc(clamp(.78rem, .95vw, 1rem) * var(--echelle));
-  letter-spacing: .14em; text-transform: uppercase; color: var(--matiere); margin: 0 0 .7rem;
-}
-.panneau__entete h2 {
-  font-family: var(--titre); font-weight: 700; letter-spacing: -.028em;
-  font-size: calc(clamp(2rem, 3.5vw, 3.6rem) * var(--echelle));
-  line-height: 1.05; margin: 0; padding-bottom: .75rem;
-  border-bottom: 3px solid var(--matiere); color: var(--encre);
-}
-.panneau__corps { font-size: calc(clamp(1.15rem, 1.4vw, 1.85rem) * var(--echelle)); }
-.panneau__corps--deux {
-  display: grid; gap: clamp(2rem, 4vw, 4rem);
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); align-items: start;
-}
-.panneau__texte > :first-child { margin-top: 0; }
-.panneau__texte p { margin: 0 0 .85em; line-height: 1.5; }
-.panneau__texte h3 {
-  font-family: var(--titre); font-weight: 600; font-size: 1.12em;
-  margin: 1.3em 0 .35em; color: var(--matiere);
-}
-.panneau__texte ul, .panneau__texte ol { margin: 0 0 1em; line-height: 1.45; }
-.panneau__texte li { margin-bottom: .4em; }
-.panneau__texte ul > li::before { background: var(--matiere); }
-.panneau__texte table { font-size: .78em; }
-.panneau__texte th { background: var(--bloc); color: var(--bloc-texte); }
-.panneau__texte td { border-color: var(--trait); }
-.panneau__texte tbody tr:nth-child(even) { background: var(--surface-2); }
-
-.panneau__visuels { display: grid; gap: 1.5rem; }
-.panneau__visuels .illustration, .panneau__visuels .video { margin: 0; float: none; width: 100%; }
-.panneau__visuels .figure-legende { font-size: .62em; }
-.panneau__visuels .figure-role { font-size: .58em; }
-.panneau__visuels .credit { display: none; }
-.panneau__visuels .attente-image { min-height: 13rem; }
-
-
-.panneau .encadre--note { background: #33291A; }
-.panneau .encadre--note .encadre__titre { color: var(--schema-accent); }
-.panneau .encadre__titre { font-size: .64em; color: var(--matiere); }
-
-.pilote {
-  position: fixed; z-index: 70; left: 50%; bottom: 1.1rem; transform: translateX(-50%);
-  display: flex; align-items: center; gap: .5rem;
-  background: #121A23; color: #fff; padding: .45rem .6rem; border-radius: 100px;
-  border: 1px solid rgba(255,255,255,.2);
-  box-shadow: 0 6px 24px rgba(0,0,0,.4); transition: opacity .2s;
-}
-body[data-projection="on"] .pilote { display: flex; }
-.pilote:hover, .pilote:focus-within { opacity: 1; }
-.pilote button {
-  font-family: var(--titre); font-weight: 600; font-size: .85rem; color: #fff;
-  background: rgba(255,255,255,.14); border: 0; border-radius: 100px;
-  padding: .35rem .85rem; cursor: pointer; transition: background .15s;
-}
-.pilote button:hover { background: rgba(255,255,255,.3); }
-.pilote__position { font-family: var(--donnee); font-size: .8rem; min-width: 4rem; text-align: center; color: var(--signal); }
-.pilote__etiquette {
-  font-family: var(--titre); font-size: .8rem; max-width: 22rem;
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-  padding: 0 .5rem; color: rgba(255,255,255,.75);
-}
-.pilote__espace { flex: 1; }
-
-@media (max-width: 62rem) {
-  .panneau__corps--deux { grid-template-columns: 1fr; }
-  .pilote__etiquette { display: none; }
-}
-@media print { .declencheur, .scene, .pilote { display: none !important; } }
-
-/* Remplissage de l'espace en projection selon ce que contient le panneau. */
-.panneau__corps--visuel { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
-.panneau__corps--flux .panneau__texte { column-count: 2; column-gap: clamp(2rem, 4vw, 4rem); }
-.panneau__corps--flux .panneau__texte > p,
-.panneau__corps--flux .panneau__texte > ul,
-.panneau__corps--flux .panneau__texte > ol,
-.panneau__corps--flux .panneau__texte > .encadre { break-inside: avoid; }
-.panneau__corps--flux .panneau__texte h3 { break-after: avoid; }
-.panneau__corps--flux .panneau__texte table { break-inside: avoid; }
-
-.panneau .schema { background: var(--surface-2); border-color: var(--trait); padding: 1.25rem; }
-.panneau .schema figcaption { font-size: .6em; color: var(--encre-doux); }
-.panneau__texte .schema { margin: 1.2em 0; }
-
-/* -------------------------------------------------- mode classe (la page) */
-
 .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
-.actions .declencheur { margin-top: 0; }
-.declencheur--secondaire {
+.declencheur {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--titre); font-weight: 600; font-size: .9rem;
   background: rgba(255,255,255,.16); color: #fff;
-  box-shadow: none; border: 1px solid rgba(255,255,255,.3);
+  border: 1px solid rgba(255,255,255,.3); border-radius: 100px;
+  padding: .55rem 1.2rem; cursor: pointer; transition: background .15s;
 }
-.declencheur--secondaire:hover { background: rgba(255,255,255,.26); }
-.declencheur--secondaire[aria-pressed="true"] { background: #fff; color: var(--matiere-fonce); }
+.declencheur:hover { background: rgba(255,255,255,.28); }
+.declencheur[aria-pressed="true"] { background: #fff; color: var(--matiere-fonce); border-color: #fff; }
 
-body[data-classe="on"] { font-size: 1.45rem; }
-body[data-classe="on"] .sommaire { display: none; }
-body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding-top: 2rem; }
-body[data-classe="on"] .texte { max-width: none; padding: 3rem 3.5rem; }
+/* ----------------------------------------------------------- mode classe */
+
+body[data-classe="on"] { font-size: 1.5rem; }
+body[data-classe="on"] .bandeau, body[data-classe="on"] .frise,
+body[data-classe="on"] .sommaire, body[data-classe="on"] .suite,
+body[data-classe="on"] .credit { display: none; }
+body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding: 2rem 1.75rem 3rem; }
+body[data-classe="on"] .texte { max-width: none; padding: 2.5rem 3rem; }
 body[data-classe="on"] .texte > p, body[data-classe="on"] .texte > ul,
 body[data-classe="on"] .texte > ol, body[data-classe="on"] .texte > h3,
-body[data-classe="on"] .texte > .encadre { max-width: 42ch; }
-body[data-classe="on"] .texte h2 { font-size: 2.4rem; margin-top: 3.5rem; }
-body[data-classe="on"] .texte h3 { font-size: 1.5rem; }
+body[data-classe="on"] .texte > .encadre { max-width: 34ch; }
+body[data-classe="on"] .texte h2 { font-size: 2.3rem; }
+body[data-classe="on"] .texte h3 { font-size: 1.45rem; }
 body[data-classe="on"] .illustration--flottant,
-body[data-classe="on"] .illustration--gauche { width: 26rem; }
-body[data-classe="on"] .credit { display: none; }
-body[data-classe="on"] .bandeau, body[data-classe="on"] .frise { display: none; }
-@media (min-width: 75rem) {
-  body[data-classe="on"] .colonnage--2 { column-count: 2; }
-  body[data-classe="on"] .colonnage--3 { column-count: 3; }
+body[data-classe="on"] .illustration--gauche { width: 24rem; }
+body[data-classe="on"] .illustration--large { max-width: 46rem; }
+body[data-classe="on"] .entete__interieur { padding-bottom: 1.5rem; }
+
+/* --------------------------------------------------------- thème sombre */
+
+html[data-sombre="on"] {
+  --fond: #121A22; --fond-creux: #1B2530; --surface: #18222D; --surface-2: #1F2A36;
+  --trait: #2E3B48; --encre: #F1EEE7; --encre-doux: #B6C0C9; --encre-pale: #8B98A3;
+  --bloc: #3A6091; --bloc-texte: #FFFFFF;
+  --bloc-pale: #2A4058; --bloc-pale-texte: #DCE7F2;
+  --schema-cle: #B6C0C9; --schema-accent: #E5AC44; --schema-trait: #3B4C5E;
 }
-
-/* ------------------- projection : lisibilité garantie des encadrés -------- */
-
-.panneau .encadre {
-  background: var(--surface-2); color: var(--encre);
-  border-left: 4px solid var(--matiere); border-radius: var(--rayon);
+html[data-sombre="on"][data-couleur="histoire"] {
+  --matiere: #6F97C6; --matiere-fonce: #8FB4DC; --matiere-voile: #22334A;
 }
-.panneau .encadre__titre { color: var(--matiere); }
-
-
-.panneau .encadre--questions li { color: var(--encre); }
-.panneau .encadre--note { background: var(--surface-2); border-left-color: var(--signal); }
-.panneau .encadre--note .encadre__titre { color: var(--schema-accent); }
-.panneau .encadre--savais-tu { background: var(--surface-2); border-left-color: var(--encre-pale); }
-
-/* Longueur de ligne : une ligne de 110 signes est illisible à huit mètres. */
-/* Panneau sans visuel : le texte se centre et grossit, plutôt que de laisser
-   les deux tiers de l'écran vides. */
-.panneau__corps--ample {
-  font-size: calc(clamp(1.5rem, 2.1vw, 2.6rem) * var(--echelle));
-  min-height: 58vh; display: grid; align-content: center;
+html[data-sombre="on"][data-couleur="geographie"] {
+  --matiere: #74A683; --matiere-fonce: #92C5A1; --matiere-voile: #22392A;
+  --bloc: #3E7350; --bloc-pale: #274434; --bloc-pale-texte: #D8ECDD;
 }
-.panneau__corps--ample .panneau__texte { max-width: 30ch; margin: 0 auto; }
-.panneau__corps--ample .panneau__texte > * { max-width: none; }
-.panneau__corps--flux .panneau__texte { column-count: 2; column-gap: clamp(2.5rem, 5vw, 5rem); }
-.panneau__corps--deux .panneau__texte > * { max-width: 46ch; }
+/* Le bandeau d'entête ne peut pas rester en couleur claire avec du texte blanc. */
+html[data-sombre="on"] .entete { background: var(--surface); border-bottom: 3px solid var(--matiere); }
+html[data-sombre="on"] .entete h1 { color: var(--encre); }
+html[data-sombre="on"] .fil, html[data-sombre="on"] .reperes dt { color: var(--encre-pale); }
+html[data-sombre="on"] .reperes dd, html[data-sombre="on"] .chapeau { color: var(--encre); }
+html[data-sombre="on"] .reperes { border-top-color: var(--trait); }
+html[data-sombre="on"] .declencheur { background: var(--matiere-voile); color: var(--encre); border-color: var(--trait); }
+html[data-sombre="on"] .declencheur[aria-pressed="true"] { background: var(--matiere); color: #10171F; }
+html[data-sombre="on"] .frise { background: var(--fond-creux); }
+html[data-sombre="on"] .entete-concepts li { background: var(--matiere-voile); color: var(--encre); }
+html[data-sombre="on"] .cas em { background: var(--matiere-voile); color: var(--encre); }
+html[data-sombre="on"] .ouverture, html[data-sombre="on"] .pied,
+html[data-sombre="on"] .bandeau { background: #0D141B; }
+html[data-sombre="on"] .texte h2::before { color: #10171F; }
 
-/* La barre de commande ne doit rien recouvrir. */
-.panneau { padding-bottom: 7.5rem; }
-.pilote { opacity: .55; }
-.pilote:hover, .pilote:focus-within { opacity: 1; }
-
-/* --------- projection : encadrés bâtis sur des variables sûres ------------
-   --matiere-voile change de sens selon la matière et le thème. On ne s'en
-   sert plus ici : --surface-2 est défini pour les deux thèmes et vérifié. */
-.panneau .encadre {
-  font-size: .84em; padding: 1em 1.3em; margin: 1.3em 0;
-  background: var(--surface-2); color: var(--encre);
-  border: 1px solid var(--trait); border-left: 4px solid var(--matiere);
-}
-.panneau .encadre__titre { color: var(--schema-cle); }
-.panneau .encadre--questions { border-left-color: var(--schema-accent); }
-.panneau .encadre--questions .encadre__titre { color: var(--schema-accent); }
-.panneau .encadre--questions li, .panneau .encadre li { color: var(--encre); }
-.panneau .encadre--note { border-left-color: var(--schema-accent); }
-.panneau .encadre--note .encadre__titre { color: var(--schema-accent); }
+@media print { .actions, .declencheur { display: none !important; } }

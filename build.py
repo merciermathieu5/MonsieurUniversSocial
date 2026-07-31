@@ -264,7 +264,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
             total += 1
 
     shutil.copy2(THEME / "style.css", sortie / "style.css")
-    shutil.copy2(THEME / "projection.js", sortie / "projection.js")
+    shutil.copy2(THEME / "page.js", sortie / "page.js")
     if MEDIAS.exists():
         shutil.copytree(MEDIAS, sortie / "medias", dirs_exist_ok=True,
                         ignore=shutil.ignore_patterns("sources.yml"))

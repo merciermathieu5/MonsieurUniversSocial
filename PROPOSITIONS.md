@@ -133,6 +133,29 @@ chantier réel. L'intention est de faire distinguer aux élèves le vestige de
 l'interprétation, ce qui prépare directement la compétence sur la méthode
 historique. À enlever si ça alourdit.
 
+## Études de cas : trois écarts avec le programme
+
+En relevant les concepts dans la Progression des apprentissages de Géographie,
+j'ai constaté que les études de cas que j'avais inventées ne correspondent pas
+aux choix prescrits. Je les ai remplacées par les options du programme. Il te
+reste à retenir celles que tu enseignes vraiment.
+
+**14. Territoire agricole national.** J'avais mis « Prairies canadiennes » et
+« Basses-terres du Saint-Laurent ». Le programme impose le territoire agricole
+du Québec, puis laisse choisir entre le Japon et la Californie.
+
+**15. Territoire protégé.** J'avais mis le Serengeti et Yellowstone. Le
+programme propose un parc naturel du Québec ou du Canada, ou les îles
+Galapagos. Ni l'un ni l'autre de mes exemples n'y figure.
+
+**16. Territoire autochtone.** J'avais mis Eeyou Istchee, le Nunavik et le
+Nunavut. Le programme retient le Nunavut, le territoire des Cris et celui des
+Naskapis. Le Nunavik n'en fait pas partie.
+
+Pour les autres territoires, mes exemples tombaient juste : Montréal, Québec
+intra-muros, Manille, Charlevoix, la Colombie-Britannique, les Grands Lacs et
+le Bangladesh sont tous des choix prévus.
+
 ## Question ouverte sur la géographie
 
 J'avais renommé les pages de géographie pour enlever les répétitions, par exemple

@@ -30,11 +30,24 @@
         {% endif %}
       </dl>
 
+      {% if fiche.concepts %}
+      <div class="entete-concepts">
+        <span>Concepts à l'étude</span>
+        <ul>{% for c in fiche.concepts %}<li>{{ c }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+
       {% if fiche.etudes_de_cas %}
       <p class="cas"><span>Études de cas</span>
         {% for c in fiche.etudes_de_cas %}<em>{{ c }}</em>{% endfor %}
       </p>
       {% endif %}
+      <div class="actions">
+        <button type="button" class="declencheur" data-bascule="classe"
+                aria-pressed="false"><span aria-hidden="true">&#8599;</span> Mode classe</button>
+        <button type="button" class="declencheur" data-bascule="sombre"
+                aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
+      </div>
     </div>
   </header>
 
@@ -74,12 +87,6 @@
         <li><a href="#{{ t.id }}">{{ t.name }}</a></li>
         {% endfor %}
       </ol>
-      {% if fiche.concepts %}
-      <p class="sommaire__titre sommaire__titre--espace">Concepts à l'étude</p>
-      <ul class="concepts">
-        {% for c in fiche.concepts %}<li>{{ c }}</li>{% endfor %}
-      </ul>
-      {% endif %}
     </aside>
 
     <div class="texte">

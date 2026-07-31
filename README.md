@@ -63,6 +63,17 @@ Les fiches de géographie utilisent `type_territoire`, `echelle`, `enjeu` et
 Tu n'as pas à t'occuper des menus, de la table des matières, de la numérotation
 des sections ni de la frise. Tout est déduit des en-têtes.
 
+## Projeter en classe
+
+Deux boutons sous le titre de chaque fiche, ou deux touches.
+
+- **Mode classe** (touche `C`) agrandit la page, masque le menu, le sommaire et
+  la frise, et élargit les images. C'est la page elle-même, en grand.
+- **Thème sombre** (touche `N`) recolore la page. Utile en salle éclairée.
+
+`Échap` sort du mode classe. Il n'y a pas de diaporama : un seul moteur de mise
+en page, celui de la page. Chaque mode se contente d'ajouter un attribut.
+
 ## Les concepts
 
 Les concepts affichés dans l'entête de chaque fiche d'histoire sont ceux
@@ -70,10 +81,16 @@ prescrits par la Progression des apprentissages, Histoire et éducation à la
 citoyenneté, premier cycle, version du 20 août 2010, relevés section par
 section dans le document du ministère. Uniquement ceux-là.
 
-Le champ `concepts_valides` de l'en-tête indique si la liste a été confrontée
-au programme. `outils/verifier.py` signale toute fiche restée à `false`. Les
-fiches de géographie attendent encore la Progression des apprentissages de
-Géographie, elles sont donc marquées non validées.
+Ceux des fiches de géographie viennent de la Progression des apprentissages de
+Géographie, premier cycle, même version. Ils sont prescrits par type de
+territoire, donc les deux fiches énergétiques portent la même liste, ce qui est
+normal.
+
+Le champ `concepts_valides` de l'en-tête indique si la liste a été confrontée au
+programme. `outils/verifier.py` signale toute fiche restée à `false`.
+
+Le champ `etudes_de_cas` contient les choix prévus par le programme, avec la
+mention obligatoire là où elle s'applique. À réduire aux cas que tu enseignes.
 
 ## Écrire le contenu
 

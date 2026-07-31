@@ -7,15 +7,20 @@ type_territoire: "Territoire région"
 echelle: "Régionale"
 enjeu: "L'exploitation des énergies fossiles"
 etudes_de_cas:
-  - Sables bitumineux de l'Athabasca
+  - L'Alberta
+  - Le golfe Persique
 concepts:
-  - pétrole
-  - sables bitumineux
-  - ressource non renouvelable
-  - pollution
-  - économie
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - aménagement
+  - autonomie
+  - commercialisation
+  - dépendance énergétique
+  - effet de serre
+  - mondialisation
+  - multinationale
+  - réchauffement
+  - ressource
+  - source d'énergie
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

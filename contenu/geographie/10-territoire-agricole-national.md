@@ -7,16 +7,20 @@ type_territoire: "Territoire agricole"
 echelle: "Nationale"
 enjeu: "Nourrir la population et protéger les terres"
 etudes_de_cas:
-  - Prairies canadiennes
-  - Basses-terres du Saint-Laurent
+  - Le territoire agricole du Québec (obligatoire)
+  - Le Japon
+  - La Californie
 concepts:
-  - agriculture
-  - zonage agricole
-  - rendement
-  - monoculture
-  - sécurité alimentaire
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - distribution
+  - espace agricole national
+  - environnement
+  - équité
+  - exploitation
+  - mise en marché
+  - mode de culture
+  - productivité
+  - ruralité
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

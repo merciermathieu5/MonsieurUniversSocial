@@ -7,16 +7,20 @@ type_territoire: "Territoire région"
 echelle: "Régionale"
 enjeu: "La production hydroélectrique et ses effets"
 etudes_de_cas:
-  - Baie-James
-  - Complexe La Grande
+  - La Jamésie
+  - La Côte-Nord
 concepts:
-  - hydroélectricité
-  - barrage
+  - aménagement
+  - autonomie
+  - commercialisation
+  - dépendance énergétique
+  - effet de serre
+  - mondialisation
+  - multinationale
+  - réchauffement
   - ressource
-  - réservoir
-  - énergie renouvelable
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - source d'énergie
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

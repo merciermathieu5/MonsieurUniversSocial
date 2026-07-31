@@ -7,17 +7,16 @@ type_territoire: "Territoire protégé"
 echelle: "Régionale"
 enjeu: "Concilier la protection et la fréquentation"
 etudes_de_cas:
-  - Parc national de la Gaspésie
-  - Serengeti
-  - Yellowstone
+  - Un parc naturel du Québec ou du Canada
+  - Les îles Galapagos
 concepts:
-  - aire protégée
-  - biodiversité
+  - aménagement
   - conservation
-  - écotourisme
-  - espèce menacée
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - environnement
+  - parc naturel
+  - patrimoine naturel
+  - réglementation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

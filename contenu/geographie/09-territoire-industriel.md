@@ -7,16 +7,20 @@ type_territoire: "Territoire région"
 echelle: "Régionale"
 enjeu: "L'industrialisation et la reconversion"
 etudes_de_cas:
-  - Région des Grands Lacs
-  - Detroit
+  - La région des Grands Lacs américains et canadiens
+  - Une région industrielle du Québec
 concepts:
-  - industrie
+  - aménagement
+  - commercialisation
+  - concentration
   - délocalisation
-  - main-d'œuvre
-  - reconversion
-  - voie navigable
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - développement
+  - industrialisation
+  - mondialisation
+  - multinationale
+  - pays atelier
+  - ressource
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

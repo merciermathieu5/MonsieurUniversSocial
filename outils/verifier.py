@@ -41,10 +41,10 @@ THEMES = {
         "--schema-trait": "#C2CAD3",
     },
     "sombre": {
-        "--fond": "#10171F", "--surface": "#16202B", "--surface-2": "#1D2935",
-        "--trait": "#2C3A48", "--encre": "#F2EFE8", "--encre-doux": "#B4BEC7",
-        "--encre-pale": "#8A97A2", "--matiere": "#8FB4DC", "--matiere-fonce": "#B6D0EA",
-        "--matiere-voile": "#1E3048", "--signal": "#E5AC44",
+        "--fond": "#121A22", "--surface": "#18222D", "--surface-2": "#1F2A36",
+        "--trait": "#2E3B48", "--encre": "#F1EEE7", "--encre-doux": "#B6C0C9",
+        "--encre-pale": "#8B98A3", "--matiere": "#6F97C6", "--matiere-fonce": "#8FB4DC",
+        "--matiere-voile": "#22334A", "--signal": "#E5AC44",
         "--bloc": "#3A6091", "--bloc-texte": "#FFFFFF",
         "--bloc-pale": "#2A4058", "--bloc-pale-texte": "#DCE7F2",
         "--schema-cle": "#B4BEC7", "--schema-accent": "#E5AC44",
@@ -202,9 +202,7 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
 # -------------------------------------------------------------------- palette
 
 COUPLES = [
-    ("panneau encadré / texte", "--surface-2", "--encre"),
-    ("panneau encadré / titre", "--surface-2", "--schema-cle"),
-    ("panneau encadré / accent", "--surface-2", "--schema-accent"),
+    ("encadré matière / texte doux", "--matiere-voile", "--encre"),
     ("page / texte", "--fond", "--encre"),
     ("surface / texte", "--surface", "--encre"),
     ("surface / texte doux", "--surface", "--encre-doux"),
@@ -282,7 +280,7 @@ def controler_variables() -> list[str]:
     for nom_theme, theme in THEMES.items():
         for variable in sorted(employees):
             if variable not in theme:
-                soucis.append(f"{variable} employée dans un panneau, absente du thème {nom_theme}")
+                soucis.append(f"{variable} employée dans le contenu, absente du thème {nom_theme}")
     if not soucis:
         print(f"    ok   {len(employees)} variables de panneau définies dans les deux thèmes")
     return soucis

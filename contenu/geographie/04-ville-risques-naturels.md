@@ -8,16 +8,21 @@ echelle: "Locale"
 enjeu: "Vivre avec le risque naturel"
 etudes_de_cas:
   - Manille
-  - San Francisco
   - Quito
+  - San Francisco
 concepts:
-  - risque naturel
-  - aléa
+  - aménagement
+  - banlieue
+  - concentration
+  - densité
+  - environnement
+  - étalement urbain
+  - instabilité
+  - niveau de développement
   - prévention
-  - vulnérabilité
-  - catastrophe
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - risque naturel
+  - urbanisation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

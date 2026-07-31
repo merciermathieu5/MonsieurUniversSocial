@@ -7,17 +7,20 @@ type_territoire: "Territoire région"
 echelle: "Régionale"
 enjeu: "L'exploitation durable de la forêt"
 etudes_de_cas:
-  - Forêt boréale québécoise
-  - Amazonie
-  - Colombie-Britannique
+  - La Colombie-Britannique
+  - Une région forestière du Québec
+  - L'Amazonie
 concepts:
-  - forêt
-  - coupe
-  - déboisement
-  - ressource renouvelable
-  - développement durable
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - aménagement
+  - commercialisation
+  - déforestation
+  - exploitation forestière
+  - mondialisation
+  - multinationale
+  - récréotourisme
+  - ressource
+  - sylviculture
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

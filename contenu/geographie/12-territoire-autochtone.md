@@ -7,17 +7,19 @@ type_territoire: "Territoire autochtone"
 echelle: "Nationale"
 enjeu: "L'autonomie et la gestion du territoire"
 etudes_de_cas:
-  - Eeyou Istchee
-  - Nunavik
-  - Nunavut
+  - Le Nunavut
+  - Le territoire des Cris
+  - Le territoire des Naskapis
 concepts:
   - autochtone
-  - autonomie
-  - revendication territoriale
-  - traité
-  - mode de vie
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - bande
+  - convention
+  - culture
+  - droits ancestraux
+  - nation
+  - nordicité
+  - revendication
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

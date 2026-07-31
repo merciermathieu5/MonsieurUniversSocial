@@ -7,15 +7,21 @@ type_territoire: "Territoire agricole"
 echelle: "Nationale"
 enjeu: "Cultiver dans une zone d'inondations"
 etudes_de_cas:
-  - Bangladesh
+  - Le Bangladesh
+  - Le Sahel
+  - La Prairie canadienne
 concepts:
-  - inondation
-  - delta
-  - mousson
-  - densité de population
-  - vulnérabilité
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - catastrophe naturelle
+  - dégradation
+  - environnement
+  - milieu à risque
+  - mise en marché
+  - mode de culture
+  - productivité
+  - risque artificiel
+  - risque naturel
+  - ruralité
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

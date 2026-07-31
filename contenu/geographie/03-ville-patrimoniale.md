@@ -7,17 +7,25 @@ type_territoire: "Territoire urbain"
 echelle: "Locale"
 enjeu: "La conservation du patrimoine en milieu urbain"
 etudes_de_cas:
-  - Québec
+  - Québec intra-muros (obligatoire)
+  - Athènes
+  - Paris
   - Rome
   - Beijing
 concepts:
-  - patrimoine
+  - aménagement
+  - banlieue
+  - changement
+  - concentration
   - conservation
+  - continuité
+  - densité
+  - étalement urbain
+  - patrimoine
   - restauration
-  - tourisme
-  - site historique
-# Passe à true une fois les concepts vérifiés dans le PFEQ.
-concepts_valides: false
+  - site
+  - urbanisation
+concepts_valides: true
 statut: a-extraire
 image_entete: ""
 ---

@@ -14,14 +14,14 @@
 # --- Situer -----------------------------------------------------------------
 
 croissant-fertile.png:
-  cadrage: large
+  cadrage: carte
   fiche: 01-sedentarisation
   commons: "File:Croissant fertile carte.png"
   recherche: "fertile crescent map"
   role: "Situer la région sur une carte en français."
 
 sites-neolithiques.jpg:
-  cadrage: large
+  cadrage: carte
   fiche: 01-sedentarisation
   commons: "File:Siti neolitici del Vicino Oriente.jpg"
   recherche: "neolithic sites near east map"
