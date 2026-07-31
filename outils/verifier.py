@@ -220,6 +220,55 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
     return soucis
 
 
+# Largeur moyenne d'un signe, en fraction de la taille de police. Le gras et
+# la chasse fixe occupent davantage de place.
+CHASSE = {"mono": 0.601, "sans": 0.523}
+
+
+def controler_chevauchements(chemin: Path) -> list[str]:
+    """Signale deux textes qui se superposent dans un schéma.
+
+    Le contrôle de contraste ne voit pas ce défaut : deux étiquettes peuvent
+    être parfaitement lisibles chacune de son côté et se marcher dessus une
+    fois le SVG rendu. C'est le genre d'erreur qui ne saute aux yeux qu'au
+    projecteur, devant la classe.
+    """
+    source = chemin.read_text(encoding="utf-8")
+    racine = ET.fromstring(source)
+    regles = styles_du_svg(source)
+    boites = []
+    for el in racine.iter("{http://www.w3.org/2000/svg}text"):
+        contenu = "".join(el.itertext()).strip()
+        if not contenu:
+            continue
+        taille, genre, gras = 15.0, "sans", 400
+        for classe in (el.get("class") or "").split():
+            props = regles.get(classe, {})
+            if "font-size" in props:
+                taille = float(re.sub(r"[^\d.]", "", props["font-size"]))
+            if "mono" in props.get("font-family", ""):
+                genre = "mono"
+            if props.get("font-weight", "").isdigit():
+                gras = max(gras, int(props["font-weight"]))
+        if el.get("font-size"):
+            taille = float(re.sub(r"[^\d.]", "", el.get("font-size")))
+        if (el.get("font-weight") or "").isdigit():
+            gras = max(gras, int(el.get("font-weight")))
+        large = len(contenu) * taille * CHASSE[genre] * (1.045 if gras >= 600 else 1.0)
+        x, y = float(el.get("x", 0)), float(el.get("y", 0))
+        ancre = el.get("text-anchor", "start")
+        g = x - large / 2 if ancre == "middle" else (x - large if ancre == "end" else x)
+        boites.append((g, y - taille * .78, g + large, y + taille * .24, contenu))
+
+    soucis = []
+    for i in range(len(boites)):
+        for j in range(i + 1, len(boites)):
+            a, b = boites[i], boites[j]
+            if a[0] < b[2] - 2 and b[0] < a[2] - 2 and a[1] < b[3] - 2 and b[1] < a[3] - 2:
+                soucis.append(f"se chevauchent : « {a[4][:32]} » et « {b[4][:32]} »")
+    return soucis
+
+
 # -------------------------------------------------------------------- palette
 
 COUPLES = [
@@ -257,7 +306,10 @@ def controler_contenu() -> list[str]:
         for nom, entree in registre.items():
             chemin = RACINE / "medias" / entree.get("fiche", "divers") / nom
             if not chemin.exists():
-                soucis.append(f"image absente : {nom}")
+                if entree.get("source") == "locale":
+                    soucis.append(f"carte à déposer à la main : {nom}")
+                else:
+                    soucis.append(f"image absente : {nom}")
             elif not entree.get("licence"):
                 soucis.append(f"crédit incomplet : {nom}")
 
@@ -308,7 +360,7 @@ def controler_variables() -> list[str]:
 
 
 CLASSES_EMISES = [
-    "galerie", "illustration", "figure-legende", "figure-role", "credit",
+    "galerie", "illustration", "figure-legende", "credit",
     "encadre", "encadre__titre", "schema", "video", "attente-image",
     "visionneuse", "diapo-barre", "jalon", "entete__ligne",
     "repere-ligne", "entete__bas", "pastilles",
@@ -342,6 +394,8 @@ def main() -> int:
         for theme in THEMES:
             for probleme in controler_schema(chemin, theme):
                 trouves.append(f"{theme} : {probleme}")
+        # Indépendant du thème : on ne le fait qu'une fois par schéma.
+        trouves += controler_chevauchements(chemin)
         if trouves:
             print(f"    {chemin.name}")
             for t in trouves:

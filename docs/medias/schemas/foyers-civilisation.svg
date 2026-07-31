@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1000 656" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps des huit premiers foyers de civilisation et du cours d'eau près duquel chacun est né">
+  <style>
+    .t { font-family: Archivo, sans-serif; }
+    .no { font-size: 16px; font-weight: 700; fill: var(--encre); }
+    .li { font-size: 13.5px; fill: var(--schema-cle); }
+    .da { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; fill: var(--schema-accent); }
+    .ti { font-size: 13.5px; fill: var(--encre); }
+  </style>
+  <line x1="205" y1="30" x2="205" y2="590" stroke="var(--bloc)" stroke-width="3"/>
+  <text class="t ti" x="219" y="26" font-weight="600">Le temps</text>
+  <path d="M214 60.0 C 245 60.0, 245 60.0, 277 60.0" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="60.0" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="65.0" text-anchor="end">vers -3500</text>
+  <text class="t no" x="287" y="57.0">La civilisation sumérienne</text>
+  <text class="t li" x="287" y="79.0">En Mésopotamie, entre le Tigre et l'Euphrate.</text>
+  <path d="M214 60.0 C 245 60.0, 245 131.4, 277 131.4" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="t no" x="287" y="128.4">La civilisation égyptienne</text>
+  <text class="t li" x="287" y="150.4">En Égypte, le long du Nil, à peu près en même temps que Sumer.</text>
+  <path d="M214 168.7 C 245 168.7, 245 202.9, 277 202.9" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="168.7" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="173.7" text-anchor="end">peut-être dès -3000</text>
+  <text class="t no" x="287" y="199.9">La civilisation de Caral</text>
+  <text class="t li" x="287" y="221.9">Sur la côte du Pérou, près des rivières Supe et Fortaleza.</text>
+  <path d="M214 277.4 C 245 277.4, 245 274.3, 277 274.3" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="277.4" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="282.4" text-anchor="end">vers -2500</text>
+  <text class="t no" x="287" y="271.3">La civilisation sabéenne</text>
+  <text class="t li" x="287" y="293.3">Au Yémen et en Éthiopie, où des barrages retiennent les oueds.</text>
+  <path d="M214 320.9 C 245 320.9, 245 345.7, 277 345.7" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="320.9" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="325.9" text-anchor="end">vers -2300</text>
+  <text class="t no" x="287" y="342.7">La civilisation de l'Indus</text>
+  <text class="t li" x="287" y="364.7">Au Pakistan, dans la vallée du fleuve Indus.</text>
+  <path d="M214 342.6 C 245 342.6, 245 417.1, 277 417.1" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="342.6" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="347.6" text-anchor="end">vers -2200</text>
+  <text class="t no" x="287" y="414.1">La civilisation chinoise</text>
+  <text class="t li" x="287" y="436.1">En Chine, dans la vallée du Fleuve Jaune.</text>
+  <path d="M214 451.3 C 245 451.3, 245 488.6, 277 488.6" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="451.3" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="456.3" text-anchor="end">de -1700 à -500</text>
+  <text class="t no" x="287" y="485.6">La civilisation indienne</text>
+  <text class="t li" x="287" y="507.6">En Inde, dans la plaine du Gange.</text>
+  <path d="M214 560.0 C 245 560.0, 245 560.0, 277 560.0" fill="none" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <circle cx="205" cy="560.0" r="7" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="t da" x="187" y="565.0" text-anchor="end">vers -1200</text>
+  <text class="t no" x="287" y="557.0">La civilisation olmèque</text>
+  <text class="t li" x="287" y="579.0">Au sud du Mexique, le long du fleuve Coatzacoalcos.</text>
+  <text class="t ti" x="8" y="628">Ces huit foyers apparaissent à des siècles d'intervalle, sans aucun contact entre eux. Tous naissent près d'un cours d'eau : le</text>
+  <text class="t ti" x="8" y="650">fleuve donne l'eau d'irrigation, dépose un limon fertile à chaque crue et sert de route pour transporter les marchandises.</text>
+</svg>

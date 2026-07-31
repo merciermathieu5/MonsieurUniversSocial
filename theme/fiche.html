@@ -54,29 +54,27 @@
   {# La frise situe la fiche dans le parcours des réalités sociales
      ou des territoires. Les pages de méthode n'y figurent pas. #}
   {% if fiche.position %}
-  <nav class="frise" aria-label="Position dans le programme">
+  <nav class="frise" aria-label="{{ section.parcours_titre }}">
     <button type="button" class="frise__bascule" aria-expanded="false"
             aria-controls="frise-piste">
-      <span class="frise__etiquette">Situer dans le programme</span>
+      <span class="frise__etiquette">{{ section.parcours_titre }}</span>
       <span class="frise__compteur donnee">{{ fiche.position }} / {{ section.parcours|length }}</span>
       <span class="frise__chevron" aria-hidden="true">&#9662;</span>
     </button>
     <div class="frise__contenu" id="frise-piste">
+    {# Chaque bloc porte le nom de la réalité sociale, sans date : c'est le nom
+       que l'élève doit retenir et reconnaître d'une fiche à l'autre. #}
     <ol class="frise__piste">
       {% for f in section.parcours %}
       <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
         <a href="{{ base }}/{{ f.url }}"
            {% if f.nom == fiche.nom %}aria-current="page"{% endif %}>
-          <span class="frise__bulle">{{ f.titre }}{% if f.periode %} · {{ f.periode }}{% endif %}</span>
-          <span class="visuellement-cache">{{ f.titre }}</span>
+          <span class="frise__rang">{{ loop.index }}</span>
+          <span class="frise__nom">{{ f.court or f.titre }}</span>
         </a>
       </li>
       {% endfor %}
     </ol>
-    <p class="frise__legende">
-      <span>{{ section.parcours[0].periode or section.parcours[0].titre }}</span>
-      <span>{{ section.parcours[-1].periode or section.parcours[-1].titre }}</span>
-    </p>
     </div>
   </nav>
   {% endif %}

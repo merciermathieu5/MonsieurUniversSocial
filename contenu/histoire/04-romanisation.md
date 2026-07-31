@@ -1,5 +1,6 @@
 ---
 titre: "La romanisation"
+court: "Romanisation"
 section: histoire
 ordre: 4
 groupe: antiquite

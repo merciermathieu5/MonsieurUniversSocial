@@ -1,5 +1,6 @@
 ---
 titre: "La Révolution américaine"
+court: "Révolution américaine"
 section: histoire
 ordre: 9
 groupe: moderne

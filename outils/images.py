@@ -324,6 +324,46 @@ def main():
     for nom, entree in registre.items():
         dossier = MEDIAS / entree.get("fiche", "divers")
         cible = dossier / nom
+        # Certaines images ne se téléchargent pas : les cartes d-maps, dont les
+        # conditions interdisent les aspirateurs de site, et tes propres
+        # documents. On les signale, on ne les récupère jamais.
+        if entree.get("source") == "locale":
+            if cible.exists():
+                sautees += 1
+            else:
+                print(f"  À DÉPOSER  {nom}")
+                print(f"             enregistre la carte depuis {entree.get('lien', '')}")
+                print(f"             dans medias/{entree.get('fiche', 'divers')}/")
+            continue
+
+        # Les images à adresse directe viennent de l'ancien Google Site : on
+        # les copie telles quelles, sans passer par Commons. Le crédit inscrit
+        # dans le registre est conservé tel quel.
+        url_directe = (entree.get("url") or "").strip()
+        if url_directe:
+            if cible.exists() and not args.refaire:
+                sautees += 1
+                continue
+            try:
+                reponse = requests.get(url_directe, timeout=90, headers=ENTETES)
+                reponse.raise_for_status()
+                contenu = reponse.content
+                signatures = (b"\x89PNG", b"\xff\xd8\xff", b"GIF8", b"RIFF")
+                if not any(contenu.startswith(s) for s in signatures):
+                    raise ValueError("la réponse n'est pas une image (adresse expirée?)")
+                dossier.mkdir(parents=True, exist_ok=True)
+                cible.write_bytes(contenu)
+                print(f"  ok     {nom}  {len(contenu) // 1024} ko  (ancien site)")
+                reussites += 1
+                sauvegarder()
+                time.sleep(1)
+            except Exception as erreur:
+                print(f"  ECHEC  {nom} : {erreur}")
+                print("         En dernier recours : clic droit sur la carte dans le")
+                print(f"         Google Site, Enregistrer l'image sous, dans medias/{entree.get('fiche', 'divers')}/{nom}")
+                echecs += 1
+            continue
+
         complet = all(entree.get(c) for c in ("auteur", "licence", "lien"))
         if cible.exists() and complet and not args.refaire:
             sautees += 1

@@ -1,5 +1,6 @@
 ---
 titre: "La christianisation de l'Occident"
+court: "Christianisation de l'Occident"
 section: histoire
 ordre: 5
 groupe: moyen-age

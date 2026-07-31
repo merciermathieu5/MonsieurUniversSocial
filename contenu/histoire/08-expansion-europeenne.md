@@ -1,5 +1,6 @@
 ---
 titre: "L'expansion européenne dans le monde"
+court: "Expansion européenne dans le monde"
 section: histoire
 ordre: 8
 groupe: moderne

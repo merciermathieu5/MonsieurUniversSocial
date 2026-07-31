@@ -149,8 +149,9 @@ def composer_credit(source: dict) -> str:
     auteur = source.get("auteur", "").strip()
     titre = source.get("titre", "").strip()
     lien = source.get("lien", "")
-    depot = (f'<a href="{lien}" rel="noopener" target="_blank">Wikimedia Commons</a>'
-             if lien else "Wikimedia Commons")
+    nom_depot = source.get("depot") or "Wikimedia Commons"
+    depot = (f'<a href="{lien}" rel="noopener" target="_blank">{nom_depot}</a>'
+             if lien else nom_depot)
     debut = ", ".join(p for p in (auteur, titre) if p)
     return ('<details class="credit"><summary>Source</summary>'
             f'<span>{debut}, {depot}. '
@@ -187,11 +188,9 @@ def habiller_images(html: str, credits: dict) -> str:
             f'<span>Image à récupérer</span><em>{legende}</em>'
             '<code>python outils\\images.py</code></div>'
         )
-        role = source.get("role", "").strip()
-        note = f'<span class="figure-role">{role}</span>' if role else ""
         return (f'<figure class="illustration illustration--{cadrage}">{corps}'
                 f'<figcaption><span class="figure-legende">{legende}</span>'
-                f'{note}{credit}</figcaption></figure>')
+                f'{credit}</figcaption></figure>')
 
     return IMAGE.sub(remplacer, html)
 

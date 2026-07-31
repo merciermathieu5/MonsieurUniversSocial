@@ -1,5 +1,6 @@
 ---
 titre: "La sédentarisation"
+court: "Sédentarisation"
 section: histoire
 ordre: 1
 groupe: antiquite
@@ -128,6 +129,8 @@ nécessaires à la fertilité des sols.
 
 ![Le Croissant fertile, de la vallée du Nil au golfe Persique](../medias/01-sedentarisation/croissant-fertile.png)
 
+![Le Croissant fertile, carte muette à annoter](../medias/01-sedentarisation/dmaps-croissant-fertile.png)
+
 ### La présence de métaux influence-t-elle le choix des premiers sites?
 
 Les premières agglomérations sont établies près de l'eau et de sources de
@@ -149,6 +152,15 @@ besoins minéraux.
 ![Les principaux sites néolithiques du Proche-Orient](../medias/01-sedentarisation/sites-neolithiques.jpg)
 
 ## Les premiers villages
+
+Avant même les premiers villages permanents, des groupes encore nomades se
+rassemblaient déjà pour bâtir. Sur la colline de Göbekli Tepe, en Turquie
+actuelle, des chasseurs-cueilleurs ont dressé vers -9500 d'immenses piliers de
+pierre sculptés, disposés en cercles. Ce chantier a exigé des centaines de bras
+et plusieurs saisons de travail. Il montre que le besoin de se réunir et de
+croire a pu précéder l'agriculture, et non seulement la suivre.
+
+![Le site de Göbekli Tepe, en Turquie, vers -9500](../medias/01-sedentarisation/gobekli-tepe.jpg)
 
 Les villages néolithiques de Mureybet, de Mallaha et de Çatal Höyük sont des sites
 archéologiques importants qui nous permettent de mieux comprendre la vie des
@@ -369,6 +381,8 @@ d'échange est appelé le troc.
 :::
 
 ## Les rites funéraires et les croyances
+
+![La femme assise de Çatal Höyük, statuette d'argile façonnée vers -6000](../medias/01-sedentarisation/femme-assise-catal-hoyuk.jpg)
 
 Les fouilles menées à Çatal Höyük ont révélé que les habitants accordaient une
 grande importance à la mort et aux pratiques funéraires. Les morts étaient enterrés

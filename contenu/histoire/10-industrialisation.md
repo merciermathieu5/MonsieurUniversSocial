@@ -1,5 +1,6 @@
 ---
 titre: "L'industrialisation : une révolution économique et sociale"
+court: "Industrialisation"
 section: histoire
 ordre: 10
 groupe: moderne

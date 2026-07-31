@@ -1,5 +1,6 @@
 ---
 titre: "Le renouvellement de la vision de l'homme"
+court: "Renouvellement de la vision de l'homme"
 section: histoire
 ordre: 7
 groupe: moyen-age

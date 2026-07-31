@@ -10,6 +10,9 @@ Une fiche par réalité sociale, une fiche par territoire. Un fichier, une page.
 ```bash
 pip install -r requirements.txt
 python3 outils/images.py     # récupère les images depuis Wikimedia Commons
+# Les cartes d-maps sont reprises de l'ancien Google Site (champ url du
+# registre) ; le crédit avec le lien vers la page d-maps d'origine est
+# composé automatiquement.
 python3 build.py --servir    # construit et ouvre un aperçu local
 ```
 

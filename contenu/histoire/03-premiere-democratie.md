@@ -1,5 +1,6 @@
 ---
 titre: "Une première expérience de démocratie"
+court: "Première expérience de démocratie"
 section: histoire
 ordre: 3
 groupe: antiquite

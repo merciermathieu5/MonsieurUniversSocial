@@ -1,5 +1,6 @@
 ---
 titre: "L'émergence d'une civilisation"
+court: "Émergence d'une civilisation"
 section: histoire
 ordre: 2
 groupe: antiquite
@@ -46,7 +47,21 @@ de civilisation s'étant développés indépendamment les uns des autres.
 | Indienne | plaine du Gange | de -1700 à -500 |
 | Olmèque | sud du Mexique | vers -1200 |
 
-![Les premiers foyers de civilisation dans le monde](../medias/02-emergence-civilisation/foyers-civilisation.png)
+::: schema foyers-civilisation
+:::
+
+Ces huit foyers n'apparaissent pas au même moment et n'ont aucun contact entre
+eux : la civilisation olmèque naît plus de deux mille ans après la civilisation
+sumérienne, de l'autre côté de la planète. Pourtant, ils ont tous un point commun
+frappant. Chacun s'installe près d'un cours d'eau important : le Tigre et
+l'Euphrate en Mésopotamie, le Nil en Égypte, l'Indus au Pakistan, le Fleuve Jaune
+en Chine, le Gange en Inde, le Coatzacoalcos au Mexique.
+
+Ce n'est pas un hasard. Le fleuve fournit l'eau nécessaire à l'irrigation des
+champs, dépose à chaque crue un limon qui enrichit la terre et sert de route pour
+transporter les marchandises lourdes. Sans cette abondance, aucun surplus
+alimentaire n'est possible, et sans surplus, aucune ville ne peut nourrir des
+artisans, des prêtres et des soldats qui ne cultivent pas.
 
 ## La Mésopotamie et le Croissant fertile
 
@@ -233,7 +248,7 @@ semblables. Par exemple, le roi habite généralement dans un palais qui est ent
 de fortifications. On retrouve également d'autres bâtiments comme un marché, des
 temples et des ziggourats.
 
-![La cité d'Ur imaginée par un illustrateur du 19e siècle](../medias/02-emergence-civilisation/cite-etat.jpg)
+![Les principales cités-États de Mésopotamie, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/dmaps-mesopotamie.png)
 
 ::: video OSTgxepXwIg
 Les cités-États de Mésopotamie
@@ -315,6 +330,13 @@ effet, ils sont considérés comme les intermédiaires entre la population et le
 dieux.
 
 ![La ziggourat d'Ur, en Irak](../medias/02-emergence-civilisation/ziggourat-ur.jpg)
+
+Le vase d'Uruk, taillé dans l'albâtre vers -3200, montre une procession
+d'habitants qui apportent des paniers de fruits et de grains à la déesse de la
+cité. C'est une image directe du lien entre le surplus agricole, le temple et le
+pouvoir religieux.
+
+![Le vase d'Uruk, une procession d'offrandes à la déesse de la cité](../medias/02-emergence-civilisation/vase-uruk.jpg)
 
 Enlil est l'un des dieux principaux de la religion mésopotamienne. Il est
 considéré comme le roi des dieux, divinité suprême du panthéon mésopotamien. C'est

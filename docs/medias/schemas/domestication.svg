@@ -1,34 +1,37 @@
-<svg viewBox="0 0 900 175" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="La domestication par sélection, de génération en génération">
+<svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La domestication des plantes et des animaux par sélection, de génération en génération">
   <style>
     .t { font-family: Archivo, sans-serif; }
-    .l { font-size: 14px; fill: var(--encre); }
-    .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--schema-cle); }
+    .e { font-size: 15px; font-weight: 600; fill: var(--encre); }
+    .p { font-size: 15px; fill: var(--bloc-pale-texte); }
   </style>
-  <text class="t n" x="8" y="22">GÉNÉRATION 1</text>
-  <text class="t n" x="330" y="22">GÉNÉRATION 2</text>
-  <text class="t n" x="650" y="22">APRÈS DES SIÈCLES</text>
+  <text class="t e" x="8" y="22">Les premières générations</text>
+  <text class="t e" x="330" y="22">À chaque récolte</text>
+  <text class="t e" x="650" y="22">Après des siècles</text>
   <g fill="var(--bloc-pale)">
-    <circle cx="28" cy="66" r="11"/><circle cx="68" cy="66" r="15"/><circle cx="112" cy="66" r="9"/>
-    <circle cx="152" cy="66" r="17"/><circle cx="196" cy="66" r="12"/>
+    <circle cx="28" cy="72" r="11"/><circle cx="68" cy="72" r="15"/><circle cx="112" cy="72" r="9"/>
+    <circle cx="152" cy="72" r="17"/><circle cx="196" cy="72" r="12"/>
   </g>
-  <circle cx="68" cy="66" r="15" fill="var(--schema-accent)"/>
-  <circle cx="152" cy="66" r="17" fill="var(--schema-accent)"/>
-  <text class="t l" x="8" y="112">On garde les plus gros épis,</text>
-  <text class="t l" x="8" y="132">les bêtes les plus dociles.</text>
-  <path d="M236 66 h58 l-12 -10 M294 66 l-12 10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <circle cx="68" cy="72" r="15" fill="var(--schema-accent)"/>
+  <circle cx="152" cy="72" r="17" fill="var(--schema-accent)"/>
+  <path d="M236 72 h58 l-12 -10 M294 72 l-12 10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
   <g fill="var(--bloc-pale)">
-    <circle cx="348" cy="66" r="14"/><circle cx="392" cy="66" r="17"/><circle cx="436" cy="66" r="13"/>
-    <circle cx="480" cy="66" r="18"/><circle cx="524" cy="66" r="15"/>
+    <circle cx="348" cy="72" r="14"/><circle cx="392" cy="72" r="17"/><circle cx="436" cy="72" r="13"/>
+    <circle cx="480" cy="72" r="18"/><circle cx="524" cy="72" r="15"/>
   </g>
-  <circle cx="392" cy="66" r="17" fill="var(--schema-accent)"/>
-  <circle cx="480" cy="66" r="18" fill="var(--schema-accent)"/>
-  <text class="t l" x="330" y="112">On recommence, et encore.</text>
-  <path d="M556 66 h58 l-12 -10 M614 66 l-12 10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <circle cx="392" cy="72" r="17" fill="var(--schema-accent)"/>
+  <circle cx="480" cy="72" r="18" fill="var(--schema-accent)"/>
+  <path d="M556 72 h58 l-12 -10 M614 72 l-12 10" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
   <g fill="var(--bloc)">
-    <circle cx="676" cy="66" r="21"/><circle cx="730" cy="66" r="22"/>
-    <circle cx="784" cy="66" r="21"/><circle cx="838" cy="66" r="22"/>
+    <circle cx="676" cy="72" r="21"/><circle cx="730" cy="72" r="22"/>
+    <circle cx="784" cy="72" r="21"/><circle cx="838" cy="72" r="22"/>
   </g>
-  <text class="t l" x="650" y="112">L'espèce a changé. Elle ne peut</text>
-  <text class="t l" x="650" y="132">plus se reproduire sans nous.</text>
+  <text class="t e" x="8" y="124" fill="var(--schema-cle)">En doré : les épis et les bêtes que l'on choisit de conserver.</text>
+  <rect x="8" y="142" width="884" height="168" rx="4" fill="var(--bloc-pale)"/>
+  <text class="t p" x="32" y="176">À chaque récolte, les cultivateurs mettent de côté les graines des plus beaux épis pour les semer</text>
+  <text class="t p" x="32" y="200">l'année suivante. Les éleveurs, de leur côté, gardent les bêtes les plus dociles et les plus productives,</text>
+  <text class="t p" x="32" y="224">et écartent les autres. Répété pendant des siècles, ce tri modifie peu à peu les espèces : les épis</text>
+  <text class="t p" x="32" y="248">grossissent, les grains restent accrochés à la tige et les animaux deviennent plus faciles à élever.</text>
+  <text class="t p" x="32" y="272">C'est ce qu'on appelle la domestication. À la fin du processus, le blé cultivé et les animaux d'élevage</text>
+  <text class="t p" x="32" y="296">ne peuvent plus se reproduire seuls : ils dépendent désormais de l'être humain.</text>
 </svg>

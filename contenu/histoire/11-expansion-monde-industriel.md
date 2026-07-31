@@ -1,5 +1,6 @@
 ---
 titre: "L'expansion du monde industriel"
+court: "Expansion du monde industriel"
 section: histoire
 ordre: 11
 groupe: moderne

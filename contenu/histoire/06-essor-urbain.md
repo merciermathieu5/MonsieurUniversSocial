@@ -1,5 +1,6 @@
 ---
 titre: "L'essor urbain et commercial"
+court: "Essor urbain et commercial"
 section: histoire
 ordre: 6
 groupe: moyen-age

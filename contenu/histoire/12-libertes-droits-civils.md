@@ -1,5 +1,6 @@
 ---
 titre: "La reconnaissance des libertés et des droits civils"
+court: "Libertés et droits civils"
 section: histoire
 ordre: 12
 groupe: moderne

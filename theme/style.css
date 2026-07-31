@@ -226,33 +226,31 @@ a { color: inherit; }
 .frise__contenu { display: none; }
 .frise__bascule[aria-expanded="true"] + .frise__contenu { display: block; }
 .frise__piste {
-  list-style: none; margin: 0 auto; padding: 1rem 1.75rem .35rem;
-  max-width: var(--large); display: flex; gap: 3px;
+  list-style: none; margin: 0 auto; padding: .35rem 1.75rem 1.1rem;
+  max-width: var(--large); display: flex; gap: 5px;
 }
-.frise__cran { flex: 1 1 0; position: relative; }
+.frise__cran { flex: 1 1 0; min-width: 0; }
 .frise__cran > a {
-  display: block; height: 10px; border-radius: 2px;
-  background: rgba(255,255,255,.2); transition: background .15s, transform .15s;
+  display: flex; flex-direction: column; gap: .3rem; height: 100%;
+  padding: .5rem .55rem .6rem; border-radius: var(--rayon);
+  background: rgba(255,255,255,.11); border-top: 3px solid rgba(255,255,255,.28);
+  transition: background .15s, border-color .15s;
 }
-.frise__cran > a:hover { background: rgba(255,255,255,.55); transform: scaleY(1.5); }
-.frise__cran.est-ici > a { background: var(--signal); transform: scaleY(1.8); }
-.frise__bulle {
-  position: absolute; bottom: calc(100% + 11px); left: 50%;
-  transform: translateX(-50%) translateY(4px);
-  background: var(--encre); color: #fff;
-  font-family: var(--titre); font-weight: 500; font-size: .78rem; line-height: 1.35;
-  padding: .5rem .75rem; border-radius: var(--rayon); width: max-content; max-width: 15rem;
-  text-align: center; opacity: 0; pointer-events: none;
-  transition: opacity .15s, transform .15s; z-index: 10;
-  box-shadow: 0 4px 16px rgba(0,0,0,.3);
+.frise__cran > a:hover { background: rgba(255,255,255,.2); border-top-color: rgba(255,255,255,.6); }
+.frise__cran.est-ici > a { background: rgba(255,255,255,.17); border-top-color: var(--signal); }
+.frise__rang {
+  font-family: var(--donnee); font-size: .62rem; color: rgba(255,255,255,.5);
 }
-.frise__cran > a:hover .frise__bulle, .frise__cran > a:focus-visible .frise__bulle {
-  opacity: 1; transform: translateX(-50%) translateY(0);
+.frise__cran.est-ici .frise__rang { color: var(--signal); }
+/* Même famille que le reste de la page, pour ne pas dépayser l'élève. */
+.frise__nom {
+  font-family: var(--titre); font-weight: 500; font-size: .72rem; line-height: 1.25;
+  color: rgba(255,255,255,.82); hyphens: auto;
 }
-.frise__legende {
-  display: flex; justify-content: space-between; max-width: var(--large);
-  margin: 0 auto; padding: 0 1.75rem .9rem;
-  font-family: var(--donnee); font-size: .68rem; color: rgba(255,255,255,.5);
+.frise__cran.est-ici .frise__nom { font-weight: 700; color: #fff; }
+@media (max-width: 62rem) {
+  .frise__piste { flex-wrap: wrap; }
+  .frise__cran { flex: 1 1 8rem; }
 }
 
 /* --------------------------------------------------------------- colonnes */
@@ -368,10 +366,6 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
   padding-left: .8rem; border-left: 3px solid var(--matiere);
 }
 .figure-legende { font-family: var(--titre); font-weight: 600; font-size: .88rem; line-height: 1.4; }
-.figure-role {
-  font-family: var(--corps); font-size: .88rem; font-style: italic;
-  color: var(--encre-doux); line-height: 1.45;
-}
 .credit { font-family: var(--donnee); font-size: .68rem; line-height: 1.5; color: var(--encre-pale); }
 .credit a { color: var(--matiere); text-decoration: none; border-bottom: 1px solid currentColor; }
 details.credit summary {
@@ -495,22 +489,26 @@ details.credit > span { display: block; max-width: 34rem; }
 .entete--section {
   padding-bottom: 0; min-height: 15rem;
 }
-.entete--section .entete__interieur { padding-right: 22rem; }
-/* Le personnage se tient sur le bord bas du bandeau, comme sur l'illustration
-   d'origine où il dépasse de la bande bleue. */
+.entete--section .entete__interieur { padding-right: 23rem; }
+/* Le personnage a les pieds sur la bordure basse du bandeau : il est plus
+   haut que la bande, si bien que le haut du bâton se fait couper par le
+   débordement de l'entête. C'est voulu, cela l'ancre au sol. */
 .mascotte {
-  position: absolute; right: 3.5rem; bottom: 0; height: 15.5rem;
+  position: absolute; right: 3rem; bottom: 0; height: 19rem;
   z-index: 1; pointer-events: none;
 }
 /* Sur les fiches, l'entête est plus dense : le personnage se fait plus petit
    et l'intérieur lui réserve une colonne à droite. Sur l'accueil, il est posé
    dans l'intérieur pour rester aligné avec la colonne de contenu. */
-.entete--fiche .mascotte { height: 10.5rem; right: 2.25rem; }
-.ouverture .mascotte { height: 16.5rem; right: .5rem; }
+.entete--fiche .mascotte { height: 13.5rem; right: 1.5rem; }
+.ouverture .mascotte { height: 19rem; right: .25rem; }
 @media (min-width: 62rem) {
-  .entete--fiche .entete__interieur { padding-right: 14rem; }
+  .entete--fiche .entete__interieur { padding-right: 16rem; }
   .ouverture__interieur { padding-right: 21rem; }
 }
+/* Sous 62rem, la colonne de droite disparaît : le personnage aussi, sinon il
+   passe derrière le texte. */
+@media (max-width: 62rem) { .mascotte { display: none; } }
 .documents { margin: 1.4rem 0 1.6rem; display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline; }
 .documents > span {
   font-family: var(--donnee); font-size: .66rem; letter-spacing: .12em;
