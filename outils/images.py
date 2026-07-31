@@ -39,6 +39,7 @@ except ImportError:
 RACINE = Path(__file__).resolve().parent.parent
 MEDIAS = RACINE / "medias"
 REGISTRE = MEDIAS / "sources.yml"
+CREDITS = MEDIAS / "credits.yml"
 API = "https://commons.wikimedia.org/w/api.php"
 ENTETES = {"User-Agent": "MonsieurUniversSocial/1.0 (site pedagogique quebecois)"}
 
@@ -312,13 +313,24 @@ def main():
         return
 
     registre = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
+    credits = (yaml.safe_load(CREDITS.read_text(encoding="utf-8")) or {}
+               if CREDITS.exists() else {})
+
+    # Migration : les anciens registres portaient les crédits directement.
+    # On les déménage une fois pour toutes dans credits.yml, que les zips de
+    # mise à jour du site n'écrasent jamais.
+    for nom, entree in registre.items():
+        if (entree.get("commons") or entree.get("recherche")) and nom not in credits \
+                and all(entree.get(c) for c in ("auteur", "licence", "lien")):
+            credits[nom] = {c: entree[c] for c in ("commons", "titre", "auteur",
+                                                   "licence", "lien") if entree.get(c)}
     reussites = echecs = sautees = 0
 
     def sauvegarder():
         # Après chaque image, pas seulement à la fin : un plantage en cours de
         # route laissait des fichiers sur le disque sans leurs crédits.
-        REGISTRE.write_text(
-            yaml.safe_dump(registre, allow_unicode=True, sort_keys=False, width=100),
+        CREDITS.write_text(
+            yaml.safe_dump(credits, allow_unicode=True, sort_keys=False, width=100),
             encoding="utf-8")
 
     for nom, entree in registre.items():
@@ -364,14 +376,17 @@ def main():
                 echecs += 1
             continue
 
-        complet = all(entree.get(c) for c in ("auteur", "licence", "lien"))
+        credit = credits.get(nom, {})
+        complet = all(credit.get(c) for c in ("auteur", "licence", "lien"))
         if cible.exists() and complet and not args.refaire:
             sautees += 1
             continue
 
         trouve = None
         try:
-            trouve = resoudre(entree, args.largeur, args.bavard)
+            effective = dict(entree)
+            effective["commons"] = entree.get("commons") or credit.get("commons", "")
+            trouve = resoudre(effective, args.largeur, args.bavard)
         except Exception as erreur:
             print(f"  ECHEC  {nom} : {erreur}")
 
@@ -395,11 +410,13 @@ def main():
                 continue
             time.sleep(1)
 
-        entree["commons"] = trouve["commons"]
-        entree["titre"] = entree.get("titre") or joli_titre(trouve["commons"])
-        entree["auteur"] = trouve["auteur"]
-        entree["licence"] = trouve["licence"]
-        entree["lien"] = trouve["lien"]
+        credits[nom] = {
+            "commons": trouve["commons"],
+            "titre": entree.get("titre") or joli_titre(trouve["commons"]),
+            "auteur": trouve["auteur"],
+            "licence": trouve["licence"],
+            "lien": trouve["lien"],
+        }
         sauvegarder()
         print(f"  ok     {nom}  {cible.stat().st_size // 1024} ko  {trouve['licence']}")
         reussites += 1

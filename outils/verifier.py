@@ -345,6 +345,12 @@ def controler_contenu() -> list[str]:
     registre_fichier = RACINE / "medias" / "sources.yml"
     if registre_fichier.exists():
         registre = yaml.safe_load(registre_fichier.read_text(encoding="utf-8")) or {}
+        fichier_credits = RACINE / "medias" / "credits.yml"
+        if fichier_credits.exists():
+            for nom, credit in (yaml.safe_load(
+                    fichier_credits.read_text(encoding="utf-8")) or {}).items():
+                if nom in registre and isinstance(credit, dict):
+                    registre[nom].update({c: v for c, v in credit.items() if v})
         for nom, entree in registre.items():
             chemin = RACINE / "medias" / entree.get("fiche", "divers") / nom
             if not chemin.exists():

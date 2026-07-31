@@ -1,0 +1,45 @@
+<svg viewBox="0 0 1000 440" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Comparaison de la démocratie directe athénienne et de la démocratie représentative actuelle">
+  <style>
+    .dd-t { font-family: Archivo, sans-serif; }
+    .dd-col { font-size: 19px; font-weight: 700; }
+    .dd-cle { font-size: 14px; font-weight: 600; fill: var(--schema-cle); }
+    .dd-v { font-size: 15px; fill: var(--encre); }
+  </style>
+  <rect x="256" y="8" width="360" height="46" rx="4" fill="var(--bloc)"/>
+  <rect x="632" y="8" width="360" height="46" rx="4" fill="var(--bloc-pale)"/>
+  <text class="dd-t dd-col" x="436" y="39" text-anchor="middle" fill="var(--bloc-texte)">Athènes au 5e siècle</text>
+  <text class="dd-t dd-col" x="812" y="39" text-anchor="middle" fill="var(--bloc-pale-texte)">Le Québec aujourd'hui</text>
+
+  <text class="dd-t dd-cle" x="8" y="96">Type de démocratie</text>
+  <text class="dd-t dd-v" x="270" y="96">Directe : les citoyens votent</text>
+  <text class="dd-t dd-v" x="270" y="117">eux-mêmes chaque loi.</text>
+  <text class="dd-t dd-v" x="646" y="96">Représentative : on élit des députés</text>
+  <text class="dd-t dd-v" x="646" y="117">qui votent les lois en notre nom.</text>
+  <line x1="8" y1="140" x2="992" y2="140" stroke="var(--schema-trait)"/>
+
+  <text class="dd-t dd-cle" x="8" y="176">Qui participe</text>
+  <text class="dd-t dd-v" x="270" y="176">Les hommes de plus de 18 ans nés</text>
+  <text class="dd-t dd-v" x="270" y="197">de parents athéniens : 10 % des gens.</text>
+  <text class="dd-t dd-v" x="646" y="176">Toutes les citoyennes et tous les</text>
+  <text class="dd-t dd-v" x="646" y="197">citoyens de 18 ans et plus.</text>
+  <line x1="8" y1="220" x2="992" y2="220" stroke="var(--schema-trait)"/>
+
+  <text class="dd-t dd-cle" x="8" y="256">Choix des dirigeants</text>
+  <text class="dd-t dd-v" x="270" y="256">Le tirage au sort, sauf pour les</text>
+  <text class="dd-t dd-v" x="270" y="277">stratèges, qui sont élus.</text>
+  <text class="dd-t dd-v" x="646" y="256">L'élection, lors d'un scrutin</text>
+  <text class="dd-t dd-v" x="646" y="277">tenu environ tous les quatre ans.</text>
+  <line x1="8" y1="300" x2="992" y2="300" stroke="var(--schema-trait)"/>
+
+  <text class="dd-t dd-cle" x="8" y="336">Lieu des décisions</text>
+  <text class="dd-t dd-v" x="270" y="336">L'ecclésia, réunie en plein air</text>
+  <text class="dd-t dd-v" x="270" y="357">sur la colline de la Pnyx.</text>
+  <text class="dd-t dd-v" x="646" y="336">L'Assemblée nationale, à Québec,</text>
+  <text class="dd-t dd-v" x="646" y="357">et le Parlement, à Ottawa.</text>
+  <line x1="8" y1="380" x2="992" y2="380" stroke="var(--schema-trait)"/>
+
+  <text class="dd-t dd-cle" x="8" y="416">Fréquence des séances</text>
+  <text class="dd-t dd-v" x="270" y="416">Environ 40 assemblées par année.</text>
+  <text class="dd-t dd-v" x="646" y="416">Ils siègent presque toute l'année.</text>
+</svg>

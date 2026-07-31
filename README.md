@@ -30,6 +30,10 @@ theme/                  gabarits HTML et feuille de style
 medias/                 images, un sous-dossier par fiche
 medias/sources.yml      registre des images et de leurs crédits
 outils/images.py        téléchargement des images depuis Wikimedia Commons
+medias/credits.yml      crédits récoltés par images.py ; ce fichier est créé
+                        sur ta machine, se commit avec le reste et survit aux
+                        mises à jour du site : une image téléchargée une fois
+                        ne se retélécharge jamais
 outils/extraire.py      récupération du contenu de l'ancien Google Site
 outils/liens.py         vérification des liens internes
 site.yml                titre du site, menus, regroupements

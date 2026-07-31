@@ -134,11 +134,24 @@ ATTRIBUT = re.compile(r'(\w+)="([^"]*)"')
 
 
 def charger_credits() -> dict:
-    """medias/sources.yml est rempli automatiquement par outils/images.py."""
+    """Réunit le registre des images et leurs crédits.
+
+    medias/sources.yml décrit les images : nom, fiche, cadrage, source. Il est
+    livré avec le site et peut être remplacé à chaque mise à jour.
+    medias/credits.yml est rempli par outils/images.py sur ta machine : il
+    survit aux mises à jour, si bien qu'une image téléchargée une fois ne se
+    retélécharge jamais.
+    """
     fichier = MEDIAS / "sources.yml"
     if not fichier.exists():
         return {}
-    return yaml.safe_load(fichier.read_text(encoding="utf-8")) or {}
+    registre = yaml.safe_load(fichier.read_text(encoding="utf-8")) or {}
+    extra = MEDIAS / "credits.yml"
+    if extra.exists():
+        for nom, credit in (yaml.safe_load(extra.read_text(encoding="utf-8")) or {}).items():
+            if nom in registre and isinstance(credit, dict):
+                registre[nom].update({c: v for c, v in credit.items() if v})
+    return registre
 
 
 def composer_credit(source: dict) -> str:
