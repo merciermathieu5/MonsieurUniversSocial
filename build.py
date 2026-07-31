@@ -44,6 +44,7 @@ VIDEO = re.compile(r"^::: *video +([\w-]+) *$(.*?)^::: *$",
                    re.MULTILINE | re.DOTALL)
 SCHEMA = re.compile(r"^::: *schema +([\w-]+) *$(.*?)^::: *$",
                     re.MULTILINE | re.DOTALL)
+COMPOSANT = re.compile(r"^::: *composant +([\w-]+) *$", re.MULTILINE)
 COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
                       re.MULTILINE | re.DOTALL)
 TITRES_BLOC = {
@@ -102,6 +103,21 @@ def convertir_blocs(texte: str) -> str:
         return (f'<div class="colonnage colonnage--{nombre}" markdown="1">\n'
                 f'{m.group(2).strip()}\n</div>\n')
 
+    def composant(m):
+        """Insère telle quelle une interface autonome de theme/composants/.
+
+        Le fichier contient son propre style et son propre script, à la manière
+        des schémas SVG. Les lignes vides sont retirées pour que Markdown ne
+        découpe pas le bloc en morceaux.
+        """
+        nom = m.group(1)
+        fichier = THEME / "composants" / f"{nom}.html"
+        if not fichier.exists():
+            return f'<p class="avis">Composant introuvable : {nom}.html</p>\n'
+        lignes = fichier.read_text(encoding="utf-8").splitlines()
+        return "\n".join(l for l in lignes if l.strip()) + "\n"
+
+    texte = COMPOSANT.sub(composant, texte)
     texte = SCHEMA.sub(schema, texte)
     texte = VIDEO.sub(video, texte)
     texte = COLONNES.sub(colonnes, texte)
@@ -113,11 +129,19 @@ ATTRIBUT = re.compile(r'(\w+)="([^"]*)"')
 
 
 def charger_credits() -> dict:
-    """medias/sources.yml est rempli automatiquement par outils/images.py."""
-    fichier = MEDIAS / "sources.yml"
-    if not fichier.exists():
-        return {}
-    return yaml.safe_load(fichier.read_text(encoding="utf-8")) or {}
+    """Réunit les deux registres d'images.
+
+    medias/sources.yml : les documents de Wikimedia Commons, remplis par
+    outils/images.py, avec auteur et licence. medias/google.yml : tes propres
+    images rapatriées de l'ancien Google Site par outils/rapatrier.py, sans
+    crédit à composer mais avec un cadrage et un rôle.
+    """
+    credits = {}
+    for nom in ("sources.yml", "google.yml"):
+        fichier = MEDIAS / nom
+        if fichier.exists():
+            credits.update(yaml.safe_load(fichier.read_text(encoding="utf-8")) or {})
+    return credits
 
 
 def habiller_images(html: str, credits: dict) -> str:
@@ -169,7 +193,8 @@ def habiller_images(html: str, credits: dict) -> str:
     return IMAGE.sub(remplacer, html)
 
 
-FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL)
+FIGURE = re.compile(r'<figure class="illustration(?![^"]*ligne-du-temps)[^"]*">.*?</figure>',
+                    re.DOTALL)
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
 
 
@@ -310,7 +335,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     shutil.copy2(THEME / "page.js", sortie / "page.js")
     if MEDIAS.exists():
         shutil.copytree(MEDIAS, sortie / "medias", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns("sources.yml"))
+                        ignore=shutil.ignore_patterns("sources.yml", "google.yml"))
     (sortie / ".nojekyll").write_text("", encoding="utf-8")
 
     if manquantes:

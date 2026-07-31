@@ -261,6 +261,16 @@ def controler_contenu() -> list[str]:
             elif not entree.get("licence"):
                 soucis.append(f"crédit incomplet : {nom}")
 
+    # Les images rapatriées de l'ancien Google Site sont tes propres documents :
+    # on vérifie leur présence, pas leur licence.
+    registre_google = RACINE / "medias" / "google.yml"
+    if registre_google.exists():
+        registre = yaml.safe_load(registre_google.read_text(encoding="utf-8")) or {}
+        for nom, entree in registre.items():
+            chemin = RACINE / "medias" / entree.get("fiche", "divers") / nom
+            if not chemin.exists():
+                soucis.append(f"image absente : {nom}  (py outils\\rapatrier.py)")
+
     for fiche in sorted((RACINE / "contenu").rglob("*.md")):
         entete = fiche.read_text(encoding="utf-8").split("---")[1]
         donnees = yaml.safe_load(entete) or {}

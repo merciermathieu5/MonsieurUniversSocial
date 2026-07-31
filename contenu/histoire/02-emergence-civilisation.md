@@ -74,13 +74,17 @@ cités-États.
 
 ![La Mésopotamie, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.jpg)
 
-![Un canal d'irrigation en Mésopotamie](../medias/02-emergence-civilisation/irrigation.jpg)
+![Irrigation sur les rives de l'Euphrate au début du 20e siècle](../medias/02-emergence-civilisation/irrigation.jpg)
 
 ::: questions
 1. Où se situe la Mésopotamie et que signifie ce nom?
 2. Nomme deux avantages qu'apportent le Tigre et l'Euphrate.
 3. Pourquoi la population s'est-elle regroupée en cités-États?
 :::
+
+## Situer la civilisation mésopotamienne dans le temps
+
+![Ligne du temps : la civilisation mésopotamienne](../medias/02-emergence-civilisation/ligne-du-temps-mesopotamie.png)
 
 ## L'invention de l'écriture
 
@@ -108,7 +112,7 @@ avec les années. Le papyrus et le parchemin viendront remplacer la tablette
 d'argile. Ces nouveaux supports permettent de tracer plus facilement les symboles
 et d'améliorer la compréhension du message que l'on veut transmettre.
 
-![Tablette d'argile couverte de signes cunéiformes](../medias/02-emergence-civilisation/tablette-cuneiforme.jpg)
+![Tablette cunéiforme enregistrant des rations d'orge](../medias/02-emergence-civilisation/tablette-cuneiforme.jpg)
 
 ### Un métier particulier
 
@@ -117,7 +121,7 @@ des documents privés. Puisqu'il est l'une des rares personnes à savoir écrire
 possède un statut particulier. Le prestige lié à ce métier lui donne une place
 enviée dans la hiérarchie sociale.
 
-![Statue d'un scribe mésopotamien](../medias/02-emergence-civilisation/scribe.jpg)
+![Statue du scribe sumérien Dudu, réplique du musée de Sulaymaniyah](../medias/02-emergence-civilisation/scribe.jpg)
 
 ::: video yoelGFjNCKs
 L'invention de l'écriture
@@ -135,23 +139,11 @@ L'écriture cunéiforme
 
 ## L'utilité de l'écriture dans la société mésopotamienne
 
-Quatre documents montrent à quoi l'écriture a servi une fois inventée.
+Six documents montrent à quoi l'écriture a servi une fois inventée. Pour chacun,
+observe d'abord la fiche et formule ta propre réponse, puis vérifie-la en
+révélant la fonction.
 
-::: colonnes
-
-### Le Code d'Hammourabi
-Faire connaître la loi à toute la population.
-
-### L'Épopée de Gilgamesh
-Transmettre un récit et des croyances.
-
-### Le Traité de Qadesh
-Sceller la paix entre deux puissances.
-
-### La Stèle de Mesha
-Célébrer les hauts faits d'un roi.
-
-:::
+::: composant fonctions-ecriture
 
 ## Babylone : Hammourabi et son code de lois
 
@@ -240,7 +232,7 @@ semblables. Par exemple, le roi habite généralement dans un palais qui est ent
 de fortifications. On retrouve également d'autres bâtiments comme un marché, des
 temples et des ziggourats.
 
-![Reconstitution d'une cité-État mésopotamienne](../medias/02-emergence-civilisation/cite-etat.jpg)
+![La cité d'Ur imaginée par un illustrateur du 19e siècle](../medias/02-emergence-civilisation/cite-etat.jpg)
 
 ::: video OSTgxepXwIg
 Les cités-États de Mésopotamie

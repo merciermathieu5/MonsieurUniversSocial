@@ -99,7 +99,10 @@ def interroger(titre: str, largeur: int) -> dict | None:
         "iiurlwidth": largeur,
     })
     reponse.raise_for_status()
-    for page in reponse.json().get("query", {}).get("pages", {}).values():
+    donnees = reponse.json()
+    if "error" in donnees:
+        raise ValueError(f"API Commons : {donnees['error'].get('info', 'erreur inconnue')}")
+    for page in donnees.get("query", {}).get("pages", {}).values():
         if "missing" in page or not page.get("imageinfo"):
             return None
         info = page["imageinfo"][0]
@@ -311,10 +314,18 @@ def main():
     registre = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
     reussites = echecs = sautees = 0
 
+    def sauvegarder():
+        # Après chaque image, pas seulement à la fin : un plantage en cours de
+        # route laissait des fichiers sur le disque sans leurs crédits.
+        REGISTRE.write_text(
+            yaml.safe_dump(registre, allow_unicode=True, sort_keys=False, width=100),
+            encoding="utf-8")
+
     for nom, entree in registre.items():
         dossier = MEDIAS / entree.get("fiche", "divers")
         cible = dossier / nom
-        if cible.exists() and entree.get("licence") and not args.refaire:
+        complet = all(entree.get(c) for c in ("auteur", "licence", "lien"))
+        if cible.exists() and complet and not args.refaire:
             sautees += 1
             continue
 
@@ -326,11 +337,14 @@ def main():
 
         if not trouve:
             print(f"  ECHEC  {nom} : rien trouvé sur Commons")
-            print(f"         précise le champ recherche dans medias/sources.yml")
+            print(f"         précise le champ commons ou recherche dans medias/sources.yml")
             echecs += 1
             continue
 
-        if not cible.exists() or args.refaire:
+        # Un fichier présent mais sans crédits est retéléchargé : impossible de
+        # garantir autrement que l'image sur le disque et le crédit inscrit
+        # décrivent bien le même document.
+        if not cible.exists() or not complet or args.refaire:
             try:
                 donnees = recuperer(trouve, trouve["commons"], [args.largeur, 1024, 800])
                 dossier.mkdir(parents=True, exist_ok=True)
@@ -346,12 +360,11 @@ def main():
         entree["auteur"] = trouve["auteur"]
         entree["licence"] = trouve["licence"]
         entree["lien"] = trouve["lien"]
+        sauvegarder()
         print(f"  ok     {nom}  {cible.stat().st_size // 1024} ko  {trouve['licence']}")
         reussites += 1
 
-    REGISTRE.write_text(
-        yaml.safe_dump(registre, allow_unicode=True, sort_keys=False, width=100),
-        encoding="utf-8")
+    sauvegarder()
 
     print(f"\n{reussites} traitées, {sautees} déjà complètes, {echecs} en échec.")
     print("Relance python build.py pour reconstruire le site.")

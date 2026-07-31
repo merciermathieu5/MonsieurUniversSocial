@@ -37,8 +37,7 @@ av. J.-C. Il est étudié sous l'angle de l'organisation sociale et économique.
 La préhistoire est divisée en deux périodes bien distinctes : le Paléolithique
 et le Néolithique.
 
-::: schema frise-prehistoire
-:::
+![Ligne du temps : le Paléolithique et le Néolithique](../medias/01-sedentarisation/ligne-du-temps.png)
 
 C'est la sédentarisation de l'être humain qui fait la coupure entre ces deux
 périodes. L'être humain est nomade durant le Paléolithique alors qu'il devient

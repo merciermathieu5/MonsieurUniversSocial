@@ -5,7 +5,7 @@
 {% block corps %}
 <article class="fiche">
 
-  <header class="entete">
+  <header class="entete entete--fiche">
     <div class="entete__interieur">
       <div class="entete__ligne">
         <p class="fil">
@@ -46,6 +46,9 @@
       </div>
       </div>
     </div>
+    {% if section.mascotte %}
+    <img class="mascotte" src="{{ base }}/medias/mascotte/{{ section.mascotte }}" alt="" aria-hidden="true">
+    {% endif %}
   </header>
 
   {# La frise situe la fiche dans le parcours des réalités sociales

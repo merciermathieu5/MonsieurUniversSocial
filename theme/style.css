@@ -115,6 +115,16 @@ a { color: inherit; }
   background: linear-gradient(130deg, var(--matiere-fonce) 0%, var(--matiere) 70%);
   color: #fff;
 }
+/* La même bannière sur toutes les pages : le motif griffonné en filigrane et,
+   plus bas, le personnage debout sur le bord de la bande. L'accueil, les index
+   de section et les fiches la portent tous. */
+.entete, .ouverture { position: relative; overflow: hidden; }
+.entete::after, .ouverture::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url(./medias/mascotte/filigrane.png); background-size: 320px;
+  opacity: .12;
+}
+.entete__interieur, .ouverture__interieur { position: relative; z-index: 2; }
 .entete__interieur { max-width: none; padding: 1.8rem 2rem 1.5rem; }
 .fil {
   font-family: var(--donnee); font-size: .7rem; letter-spacing: .12em;
@@ -386,6 +396,14 @@ details.credit > span { display: block; max-width: 34rem; }
 .illustration--carte { float: right; width: 24rem; margin: .4rem 0 1.5rem 2.5rem; }
 @media (max-width: 62rem) { .illustration--carte { float: none; width: 100%; margin: 1.5rem 0; } }
 
+/* Les lignes du temps rapatriées de l'ancien site occupent toute la largeur.
+   Le fond blanc et le cadre gardent leurs textes lisibles en thème sombre. */
+.illustration--ligne-du-temps { float: none; width: 100%; margin: 1.4rem 0 1.8rem; }
+.illustration--ligne-du-temps img {
+  background: #fff; border: 1px solid var(--trait); padding: .6rem;
+}
+.illustration--ligne-du-temps figcaption { max-width: var(--lecture); }
+
 .attente-image {
   display: grid; gap: .5rem; place-items: center; text-align: center;
   min-height: 10rem; padding: 1.5rem 1.1rem;
@@ -483,20 +501,23 @@ details.credit > span { display: block; max-width: 34rem; }
 /* -------------------------------------------------------------- catalogue */
 
 .entete--section {
-  position: relative; overflow: hidden;
   padding-bottom: 0; min-height: 15rem;
 }
-.entete--section::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: url(./medias/mascotte/filigrane.png); background-size: 320px;
-  opacity: .12;
-}
-.entete--section .entete__interieur { position: relative; z-index: 2; padding-right: 22rem; }
+.entete--section .entete__interieur { padding-right: 22rem; }
 /* Le personnage se tient sur le bord bas du bandeau, comme sur l'illustration
    d'origine où il dépasse de la bande bleue. */
 .mascotte {
   position: absolute; right: 3.5rem; bottom: 0; height: 15.5rem;
   z-index: 1; pointer-events: none;
+}
+/* Sur les fiches, l'entête est plus dense : le personnage se fait plus petit
+   et l'intérieur lui réserve une colonne à droite. Sur l'accueil, il est posé
+   dans l'intérieur pour rester aligné avec la colonne de contenu. */
+.entete--fiche .mascotte { height: 10.5rem; right: 2.25rem; }
+.ouverture .mascotte { height: 16.5rem; right: .5rem; }
+@media (min-width: 62rem) {
+  .entete--fiche .entete__interieur { padding-right: 14rem; }
+  .ouverture__interieur { padding-right: 21rem; }
 }
 .documents { margin: 1.4rem 0 1.6rem; display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline; }
 .documents > span {
@@ -612,7 +633,8 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 }
 
 @media print {
-  .bandeau, .frise, .sommaire, .suite, .saut, .declencheur { display: none; }
+  .bandeau, .frise, .sommaire, .suite, .saut, .declencheur, .mascotte { display: none; }
+  .entete::after, .ouverture::after { content: none; }
   body { background: #fff; font-size: 11pt; }
   .entete { background: #fff; color: #000; }
   .entete h1, .reperes dd { color: #000; }
