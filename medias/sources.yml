@@ -4,50 +4,51 @@ croissant-fertile.png:
   commons: File:Croissant fertile carte.png
   recherche: fertile crescent map
   role: Situer la région sur une carte en français.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: User:NormanEinstein , based on a similar map from the 1994 edition of the Encyclopedia Britannica.
+    Translated by user:Sting
+  titre: Croissant fertile carte
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Croissant_fertile_carte.png
 sites-neolithiques.jpg:
   cadrage: carte
   fiche: 01-sedentarisation
   commons: File:Siti neolitici del Vicino Oriente.jpg
   recherche: neolithic sites near east map
   role: Localiser Mureybet, Mallaha et Çatal Höyük les uns par rapport aux autres.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: 'Middle_East_topographic_map-blank.svg : Sémhur ( talk ) derivative work: PequoD 76 ( talk )'
+  titre: Siti neolitici del Vicino Oriente
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Siti_neolitici_del_Vicino_Oriente.jpg
 catal-hoyuk-maquette.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   commons: File:MUFT - Catal Höyük Modell.jpg
   recherche: Catalhoyuk model reconstruction
   role: Voir d'un coup d'oeil l'absence de rue et l'entrée par les toits.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Wolfgang Sauber
+  titre: MUFT - Catal Höyük Modell
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:MUFT_-_Catal_H%C3%B6y%C3%BCk_Modell.jpg
 catal-hoyuk-interieur.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
   commons: File:Catal Hüyük EL.JPG
   recherche: Catalhoyuk house interior reconstruction museum
   role: 'Entrer dans une maison : foyer, plateformes, rangement.'
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Elelicht
+  titre: Catal Hüyük EL
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Catal_H%C3%BCy%C3%BCk_EL.JPG
 catal-hoyuk-site.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   commons: File:Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08.jpg
   recherche: Catalhoyuk excavation site Konya
   role: Montrer le chantier réel, pour distinguer vestige et reconstitution.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Murat Özsoy 1958
+  titre: Çatalhöyük, 7400 BC, Konya, Turkey - UNESCO World Heritage Site, 08
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:%C3%87atalh%C3%B6y%C3%BCk,_7400_BC,_Konya,_Turkey_-_UNESCO_World_Heritage_Site,_08.jpg
 fresque-chasse.jpg:
   cadrage: large
   fiche: 01-sedentarisation
@@ -55,28 +56,31 @@ fresque-chasse.jpg:
     an aurochs (Bos primigenius)..jpg
   recherche: Catalhoyuk mural hunting aurochs
   role: Une source d'époque à lire avec les élèves plutôt qu'une illustration.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Omar Hoftun
+  titre: Mural from Çatalhöyük excavated by James Mellaart showing neolithic hunters attacking an aurochs
+    (Bos primigenius).
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Mural_from_%C3%87atalh%C3%B6y%C3%BCk_excavated_by_James_Mellaart_showing_neolithic_hunters_attacking_an_aurochs_(Bos_primigenius)..jpg
 ble-sauvage.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
   recherche: einkorn wheat Triticum monococcum ear
   role: Comparer l'épi sauvage et l'épi cultivé, le coeur de la domestication.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: Roger Culos
+  titre: Triticum monococcum MHNT.BOT.2015.2.37
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Triticum_monococcum_MHNT.BOT.2015.2.37.jpg
+  commons: File:Triticum monococcum MHNT.BOT.2015.2.37.jpg
 troupeau-chevres.jpg:
   cadrage: gauche
   fiche: 01-sedentarisation
   recherche: goat herd pasture Anatolia
   role: Rendre concrète la réserve de nourriture sur pied.
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
+  auteur: runran
+  titre: Bahar (2599760344)
+  licence: Creative Commons BY-SA 2.0
+  lien: https://commons.wikimedia.org/wiki/File:Bahar_(2599760344).jpg
+  commons: File:Bahar (2599760344).jpg
 faucille.jpg:
   cadrage: flottant
   fiche: 01-sedentarisation
