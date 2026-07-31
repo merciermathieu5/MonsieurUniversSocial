@@ -1,7 +1,0 @@
-__pycache__/
-*.pyc
-.DS_Store
-extraction/
-node_modules/
-package-lock.json
-package.json
