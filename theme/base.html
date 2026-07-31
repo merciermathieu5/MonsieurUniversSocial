@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr-CA" data-couleur="{{ section.couleur if section else 'neutre' }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titre %}{{ site.titre }}{% endblock %}</title>
+<meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ base }}/style.css?v={{ v }}">
+</head>
+<body>
+
+<a class="saut" href="#contenu">Aller au contenu</a>
+
+<header class="bandeau">
+  <div class="bandeau__interieur">
+    <a class="marque" href="{{ base }}/index.html">
+      <span class="marque__nom">Monsieur Univers social</span>
+      <span class="marque__note">Premier cycle du secondaire</span>
+    </a>
+    <nav class="matieres" aria-label="Matières">
+      {% for cle, s in sections.items() %}
+      <a href="{{ base }}/{{ cle }}/index.html"
+         class="matieres__lien matieres__lien--{{ s.couleur }}{% if section and section.cle == cle %} est-actif{% endif %}"
+         {% if section and section.cle == cle %}aria-current="page"{% endif %}>{{ s.court }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+{% block corps %}{% endblock %}
+</main>
+
+<footer class="pied">
+  <div class="pied__interieur">
+    <p class="pied__signature">{{ site.titre }} <span>par Mathieu Mercier</span></p>
+    <p class="pied__detail">{{ site.description }}</p>
+    <p class="pied__detail"><a href="mailto:{{ site.courriel }}">{{ site.courriel }}</a></p>
+  </div>
+</footer>
+
+<script src="{{ base }}/page.js?v={{ v }}" defer></script>
+
+</body>
+</html>

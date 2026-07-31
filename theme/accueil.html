@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block corps %}
+
+<section class="ouverture">
+  <div class="ouverture__interieur">
+    <p class="ouverture__eyebrow">Histoire et géographie · Premier cycle du secondaire</p>
+    <h1 class="ouverture__titre">Tout le programme,<br>une fiche à la fois.</h1>
+    <p class="ouverture__texte">
+      Ce site accompagne mes élèves tout au long de leur cheminement. Tu y trouves
+      les réalités sociales en histoire et les types de territoires en géographie,
+      présentés de la même façon d'une fiche à l'autre : le contexte, les concepts,
+      les grandes idées et des questions pour vérifier ta compréhension.
+    </p>
+    <div class="ouverture__portes">
+      {% for cle, s in sections.items() %}
+      <a class="porte porte--{{ s.couleur }}" href="{{ base }}/{{ cle }}/index.html">
+        <span class="porte__compte donnee">{{ s.fiches|length }} fiches</span>
+        <span class="porte__titre">{{ s.court }}</span>
+        <span class="porte__texte">{{ s.intro }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    <img class="mascotte" src="{{ base }}/medias/mascotte/loupe.png" alt="" aria-hidden="true">
+  </div>
+</section>
+
+<section class="ressources">
+  <div class="ressources__interieur">
+    <h2>Pour aller plus loin</h2>
+    <ul>
+      <li>
+        <a href="https://histoire.recitus.qc.ca/">Service national du RÉCIT en univers social</a>
+        <span>Textes, vidéos, cartes et documents historiques à utiliser en classe.</span>
+      </li>
+      <li>
+        <a href="https://documents.recitus.qc.ca/">Dossiers documentaires du RÉCIT</a>
+        <span>Documents d'époque classés par réalité sociale.</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+{% endblock %}

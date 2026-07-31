@@ -1,0 +1,48 @@
+<svg viewBox="0 0 1000 302" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les conséquences économiques, sociales et politiques du surplus alimentaire">
+  <style>
+    .su-t { font-family: Archivo, sans-serif; }
+    .su-b { font-size: 16px; font-weight: 600; fill: var(--bloc-texte); }
+    .su-h { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .su-v { font-size: 14px; fill: var(--encre); }
+  </style>
+  <rect x="8" y="16" width="248" height="62" rx="4" fill="var(--bloc)"/>
+  <text class="su-t su-b" x="132" y="43" text-anchor="middle">L'agriculture et l'élevage</text>
+  <text class="su-t su-b" x="132" y="64" text-anchor="middle">nourrissent le village</text>
+  <path d="M266 47 h44 l-11 -9 M310 47 l-11 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="318" y="16" width="248" height="62" rx="4" fill="var(--bloc)"/>
+  <text class="su-t su-b" x="442" y="43" text-anchor="middle">Les récoltes dépassent</text>
+  <text class="su-t su-b" x="442" y="64" text-anchor="middle">les besoins : le surplus</text>
+  <path d="M576 47 h44 l-11 -9 M620 47 l-11 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="628" y="16" width="364" height="62" rx="4" fill="var(--bloc)"/>
+  <text class="su-t su-b" x="810" y="43" text-anchor="middle">Des bras sont libérés de la recherche</text>
+  <text class="su-t su-b" x="810" y="64" text-anchor="middle">quotidienne de nourriture</text>
+
+  <path d="M810 86 v28" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M170 114 h680" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M170 114 v30 l-9 -11 M170 144 l9 -11" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M510 114 v30 l-9 -11 M510 144 l9 -11" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <path d="M850 114 v30 l-9 -11 M850 144 l9 -11" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+
+  <rect x="8" y="152" width="324" height="44" rx="4" fill="var(--bloc-pale)"/>
+  <text class="su-t su-h" x="170" y="180" text-anchor="middle">Une conséquence économique</text>
+  <text class="su-t su-v" x="8" y="222">Des artisans vivent maintenant de leur</text>
+  <text class="su-t su-v" x="8" y="244">métier : potier, tisserand, vannier. Les</text>
+  <text class="su-t su-v" x="8" y="266">échanges se développent entre les villages</text>
+  <text class="su-t su-v" x="8" y="288">voisins, d'abord sous forme de troc.</text>
+
+  <rect x="348" y="152" width="324" height="44" rx="4" fill="var(--bloc-pale)"/>
+  <text class="su-t su-h" x="510" y="180" text-anchor="middle">Une conséquence sociale</text>
+  <text class="su-t su-v" x="348" y="222">Ceux qui contrôlent les surplus deviennent</text>
+  <text class="su-t su-v" x="348" y="244">plus riches que les autres. Une hiérarchie</text>
+  <text class="su-t su-v" x="348" y="266">sociale apparaît : la société se divise en</text>
+  <text class="su-t su-v" x="348" y="288">groupes qui n'ont pas le même pouvoir.</text>
+
+  <rect x="688" y="152" width="304" height="44" rx="4" fill="var(--bloc-pale)"/>
+  <text class="su-t su-h" x="840" y="180" text-anchor="middle">Une conséquence politique</text>
+  <text class="su-t su-v" x="688" y="222">Des chefs administrent les réserves,</text>
+  <text class="su-t su-v" x="688" y="244">organisent les travaux collectifs et</text>
+  <text class="su-t su-v" x="688" y="266">règlent les conflits. Ils prennent les</text>
+  <text class="su-t su-v" x="688" y="288">décisions au nom de la communauté.</text>
+
+</svg>

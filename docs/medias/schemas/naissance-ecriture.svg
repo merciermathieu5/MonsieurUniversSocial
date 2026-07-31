@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1000 190" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les étapes de la naissance de l'écriture, du besoin de compter au cunéiforme">
+  <style>
+    .ne-t { font-family: Archivo, sans-serif; }
+    .ne-e { font-size: 16px; font-weight: 600; fill: var(--bloc-texte); }
+    .ne-d { font-size: 14px; fill: var(--encre); }
+    .ne-n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
+  </style>
+  <text class="ne-t ne-n" x="8" y="22">VERS -3500</text>
+  <text class="ne-t ne-n" x="350" y="22">PEU APRÈS</text>
+  <text class="ne-t ne-n" x="692" y="22">VERS -2800</text>
+  <rect x="8" y="36" width="300" height="64" rx="4" fill="var(--bloc)"/>
+  <text class="ne-t ne-e" x="158" y="62" text-anchor="middle">On compte les biens</text>
+  <text class="ne-t ne-e" x="158" y="84" text-anchor="middle">et on garde une trace</text>
+  <path d="M318 68 h24 l-10 -9 M342 68 l-10 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="350" y="36" width="300" height="64" rx="4" fill="var(--bloc)"/>
+  <text class="ne-t ne-e" x="500" y="62" text-anchor="middle">On dessine des pictogrammes :</text>
+  <text class="ne-t ne-e" x="500" y="84" text-anchor="middle">un dessin pour chaque chose</text>
+  <path d="M660 68 h24 l-10 -9 M684 68 l-10 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="692" y="36" width="300" height="64" rx="4" fill="var(--bloc)"/>
+  <text class="ne-t ne-e" x="842" y="62" text-anchor="middle">On trace le cunéiforme :</text>
+  <text class="ne-t ne-e" x="842" y="84" text-anchor="middle">des signes en coin, au calame</text>
+  <text class="ne-t ne-d" x="8" y="132">Les marques sont imprimées dans</text>
+  <text class="ne-t ne-d" x="8" y="154">l'argile fraîche, puis la tablette sèche</text>
+  <text class="ne-t ne-d" x="8" y="176">au soleil et se conserve des siècles.</text>
+  <text class="ne-t ne-d" x="350" y="132">Le dessin se comprend sans</text>
+  <text class="ne-t ne-d" x="350" y="154">apprentissage, mais il est long à</text>
+  <text class="ne-t ne-d" x="350" y="176">tracer et ne dit pas les idées.</text>
+  <text class="ne-t ne-d" x="692" y="132">Il faut apprendre près de 600 signes,</text>
+  <text class="ne-t ne-d" x="692" y="154">mais on écrit vite et on peut noter</text>
+  <text class="ne-t ne-d" x="692" y="176">des sons, donc des phrases entières.</text>
+</svg>
