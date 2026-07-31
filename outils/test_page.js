@@ -51,14 +51,27 @@ verifier("s'active avec le mode classe", corps.dataset.diapo === "on" && corps.d
 const visibles = Array.from(document.querySelectorAll(".texte > h2"))
   .filter(h => h.style.display !== "none").length;
 verifier("une seule section visible", visibles === 1, visibles + " visibles");
-const compteur = document.querySelector(".diapo-compteur");
-verifier("compteur affiché", compteur && compteur.textContent.trim().startsWith("1 /"));
+const barre = document.querySelector(".diapo-barre");
+verifier("barre affichée", !!barre);
+const position = barre.querySelector(".diapo-position");
+verifier("compteur renseigné", position.textContent.trim() === "1 / 11", position.textContent);
+verifier("titre de section affiché", barre.querySelector(".diapo-titre").textContent.length > 3);
+verifier("bouton Quitter présent", !!barre.querySelector('[data-d="quitter"]'));
+verifier("bouton de thème présent", barre.querySelector('[data-d="theme"]').textContent === "Sombre");
+barre.querySelector('[data-d="suiv"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("flèche suivante avance", position.textContent.trim() === "2 / 11", position.textContent);
+barre.querySelector('[data-d="prec"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("flèche précédente recule", position.textContent.trim() === "1 / 11", position.textContent);
+barre.querySelector('[data-d="theme"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+verifier("bascule de thème depuis la barre", racine.dataset.sombre === "on");
+verifier("libellé passe à Clair", barre.querySelector('[data-d="theme"]').textContent === "Clair");
+barre.querySelector('[data-d="theme"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
 document.dispatchEvent(new window.KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
-verifier("flèche droite avance", compteur.textContent.trim().startsWith("2 /"), compteur.textContent);
-document.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+verifier("flèche clavier avance aussi", position.textContent.trim() === "2 / 11", position.textContent);
+barre.querySelector('[data-d="quitter"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
 const revenus = Array.from(document.querySelectorAll(".texte > h2"))
   .filter(h => h.style.display !== "none").length;
-verifier("Échap restaure toutes les sections", revenus === h2avant, revenus + " / " + h2avant);
+verifier("Quitter restaure toutes les sections", revenus === h2avant, revenus + " / " + h2avant);
 verifier("attribut diapo retiré", corps.dataset.diapo === undefined);
 
 console.log(`\n${echecs} échec(s).`);

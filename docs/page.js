@@ -51,7 +51,9 @@
   var texte = document.querySelector(".fiche .texte");
   var sections = [];
   var courante = -1;
-  var compteur = null;
+  var barre = null;
+  var position = null;
+  var etiquette = null;
 
   function decouperSections() {
     if (sections.length || !texte) return;
@@ -74,7 +76,8 @@
       s.titre.style.display = visible ? "" : "none";
       s.membres.forEach(function (m) { m.style.display = visible ? "" : "none"; });
     });
-    if (compteur) compteur.textContent = (index + 1) + " / " + sections.length;
+    if (position) position.textContent = (index + 1) + " / " + sections.length;
+    if (etiquette) etiquette.textContent = sections[index].titre.textContent;
     window.scrollTo({ top: 0 });
   }
 
@@ -85,27 +88,58 @@
     });
   }
 
+  function libelleTheme() {
+    return racine.dataset.sombre === "on" ? "Clair" : "Sombre";
+  }
+
+  function creerBarre() {
+    barre = document.createElement("div");
+    barre.className = "diapo-barre";
+    barre.innerHTML =
+      '<button type="button" data-d="prec" aria-label="Section précédente">&#8592;</button>' +
+      '<span class="diapo-position"></span>' +
+      '<button type="button" data-d="suiv" aria-label="Section suivante">&#8594;</button>' +
+      '<span class="diapo-titre"></span>' +
+      '<button type="button" data-d="theme"></button>' +
+      '<button type="button" data-d="quitter">Quitter</button>';
+    document.body.appendChild(barre);
+    position = barre.querySelector(".diapo-position");
+    etiquette = barre.querySelector(".diapo-titre");
+    barre.querySelector('[data-d="theme"]').textContent = libelleTheme();
+
+    barre.addEventListener("click", function (ev) {
+      var bouton = ev.target.closest("button");
+      if (!bouton) return;
+      var action = bouton.dataset.d;
+      if (action === "prec") montrer(courante - 1);
+      if (action === "suiv") montrer(courante + 1);
+      if (action === "quitter") sortirDiapo();
+      if (action === "theme") {
+        var s = document.querySelector('[data-bascule="sombre"]');
+        if (s) s.click(); else {
+          if (racine.dataset.sombre === "on") { delete racine.dataset.sombre; }
+          else { racine.dataset.sombre = "on"; }
+        }
+        bouton.textContent = libelleTheme();
+      }
+    });
+  }
+
   function entrerDiapo() {
     decouperSections();
     if (!sections.length) return;
     corps.dataset.classe = "on";
     corps.dataset.diapo = "on";
-    if (!compteur) {
-      compteur = document.createElement("button");
-      compteur.type = "button";
-      compteur.className = "diapo-compteur";
-      compteur.title = "Section courante. Flèches pour naviguer, Échap pour quitter.";
-      compteur.addEventListener("click", sortirDiapo);
-      document.body.appendChild(compteur);
-    }
-    compteur.style.display = "";
+    if (!barre) creerBarre();
+    barre.style.display = "";
+    barre.querySelector('[data-d="theme"]').textContent = libelleTheme();
     montrer(0);
   }
 
   function sortirDiapo() {
     delete corps.dataset.diapo;
     toutMontrer();
-    if (compteur) compteur.style.display = "none";
+    if (barre) barre.style.display = "none";
     courante = -1;
   }
 

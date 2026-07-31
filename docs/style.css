@@ -272,9 +272,10 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
   counter-reset: chapitre;
 }
 .texte > :first-child { margin-top: 0; }
-.texte > p, .texte > ul, .texte > ol, .texte > h3, .texte > .encadre, .texte > .avis {
-  max-width: 75ch;
-}
+/* Aucune limite de largeur : le texte remplit la page et enveloppe les
+   images flottantes. L'interligne monte d'un cran pour garder les longues
+   lignes lisibles. */
+.texte { line-height: 1.78; }
 
 .texte h2 {
   counter-increment: chapitre; clear: both;
@@ -338,13 +339,15 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 
 /* Par défaut l'image se place à droite et le texte l'enveloppe. */
 @media (min-width: 62rem) {
-  .illustration--flottant { float: right; width: 15rem; margin: .35rem 0 1.3rem 2.25rem; }
-  .illustration--gauche   { float: left;  width: 15rem; margin: .35rem 2.25rem 1.3rem 0; }
+  .illustration--flottant { float: right; width: 19rem; margin: .35rem 0 1.3rem 2.25rem; }
+  .illustration--gauche   { float: left;  width: 19rem; margin: .35rem 2.25rem 1.3rem 0; }
   .illustration--petit    { float: right; width: 12rem;   margin: .35rem 0 1.2rem 2rem; }
 }
-.illustration--large { clear: both; width: 100%; max-width: 38rem; margin: 2rem 0; }
+.illustration--large { float: right; width: 26rem; margin: .4rem 0 1.5rem 2.5rem; }
+@media (max-width: 62rem) { .illustration--large { float: none; width: 100%; margin: 1.5rem 0; } }
 .illustration--large figcaption { max-width: var(--lecture); }
-.illustration--carte { clear: both; width: 100%; max-width: 30rem; margin: 2rem 0; }
+.illustration--carte { float: right; width: 24rem; margin: .4rem 0 1.5rem 2.5rem; }
+@media (max-width: 62rem) { .illustration--carte { float: none; width: 100%; margin: 1.5rem 0; } }
 
 .attente-image {
   display: grid; gap: .5rem; place-items: center; text-align: center;
@@ -575,13 +578,13 @@ body[data-classe="on"] .sommaire, body[data-classe="on"] .suite,
 body[data-classe="on"] .credit { display: none; }
 body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding: 2rem 1.75rem 3rem; }
 body[data-classe="on"] .texte { max-width: none; padding: 2.5rem 3rem; }
-body[data-classe="on"] .texte > p, body[data-classe="on"] .texte > ul,
-body[data-classe="on"] .texte > ol, body[data-classe="on"] .texte > h3,
-body[data-classe="on"] .texte > .encadre { max-width: 34ch; }
+
 body[data-classe="on"] .texte h2 { font-size: 2.3rem; }
 body[data-classe="on"] .texte h3 { font-size: 1.45rem; }
 body[data-classe="on"] .illustration--flottant,
-body[data-classe="on"] .illustration--gauche { width: 24rem; }
+body[data-classe="on"] .illustration--gauche { width: 26rem; }
+body[data-classe="on"] .illustration--large,
+body[data-classe="on"] .illustration--carte { width: 30rem; }
 body[data-classe="on"] .illustration--large { max-width: 46rem; }
 body[data-classe="on"] .entete__interieur { padding-bottom: 1.5rem; }
 
@@ -623,13 +626,36 @@ body[data-diapo="on"] .colonnes { padding-top: 1.5rem; }
 body[data-diapo="on"] .texte { min-height: 82vh; }
 body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top: 0; font-size: 2.6rem; }
 
-.diapo-compteur {
-  position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 50;
-  font-family: var(--donnee); font-size: .9rem;
-  background: var(--encre); color: var(--papier, #fff); border: 0;
-  padding: .5rem 1rem; border-radius: 100px; cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0,0,0,.25); opacity: .85;
+.diapo-barre {
+  position: fixed; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
+  z-index: 60; display: flex; align-items: center; gap: .4rem;
+  background: #1A2530; color: #fff;
+  padding: .5rem .65rem; border-radius: 100px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .35);
+  max-width: calc(100vw - 2rem);
 }
-.diapo-compteur:hover { opacity: 1; }
+.diapo-barre button {
+  font-family: var(--titre); font-weight: 600; font-size: .88rem; color: #fff;
+  background: rgba(255,255,255,.14); border: 0; border-radius: 100px;
+  padding: .45rem .95rem; cursor: pointer; transition: background .15s;
+  white-space: nowrap;
+}
+.diapo-barre button:hover { background: rgba(255,255,255,.3); }
+.diapo-barre [data-d="prec"], .diapo-barre [data-d="suiv"] {
+  width: 2.4rem; height: 2.4rem; padding: 0; display: grid; place-items: center;
+  font-size: 1rem;
+}
+.diapo-position {
+  font-family: var(--donnee); font-size: .92rem; color: #E5AC44;
+  min-width: 4.2rem; text-align: center;
+}
+.diapo-titre {
+  font-family: var(--titre); font-size: .85rem; color: rgba(255,255,255,.75);
+  max-width: 22rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  padding: 0 .4rem;
+}
+.diapo-barre [data-d="quitter"] { background: rgba(229,172,68,.25); }
+.diapo-barre [data-d="quitter"]:hover { background: rgba(229,172,68,.45); }
+@media (max-width: 50rem) { .diapo-titre { display: none; } }
 
-@media print { .actions, .declencheur, .diapo-compteur { display: none !important; } }
+@media print { .actions, .declencheur, .diapo-barre { display: none !important; } }
