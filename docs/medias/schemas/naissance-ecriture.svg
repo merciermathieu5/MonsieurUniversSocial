@@ -1,0 +1,31 @@
+<svg viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="De la marque comptable au cunéiforme">
+  <style>
+    .t { font-family: Archivo, sans-serif; }
+    .e { font-size: 17px; font-weight: 600; fill: var(--bloc-texte); }
+    .d { font-size: 14px; fill: var(--encre); }
+    .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--schema-cle); }
+  </style>
+  <text class="t n" x="8" y="22">VERS -3500</text>
+  <text class="t n" x="320" y="22">PUIS</text>
+  <text class="t n" x="630" y="22">VERS -2800</text>
+  <rect x="8" y="36" width="270" height="60" rx="4" fill="var(--bloc)"/>
+  <text class="t e" x="143" y="62" text-anchor="middle">Compter et garder trace</text>
+  <text class="t e" x="143" y="84" text-anchor="middle">des biens échangés</text>
+  <path d="M288 66 h24 l-10 -9 M312 66 l-10 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="320" y="36" width="270" height="60" rx="4" fill="var(--bloc)"/>
+  <text class="t e" x="455" y="62" text-anchor="middle">Pictogrammes</text>
+  <text class="t e" x="455" y="84" text-anchor="middle">un dessin, une chose</text>
+  <path d="M600 66 h24 l-10 -9 M624 66 l-10 9" stroke="var(--bloc)" stroke-width="2.5" fill="none"/>
+  <rect x="632" y="36" width="260" height="60" rx="4" fill="var(--bloc)"/>
+  <text class="t e" x="762" y="62" text-anchor="middle">Cunéiforme</text>
+  <text class="t e" x="762" y="84" text-anchor="middle">signes en coin, au calame</text>
+  <text class="t d" x="8" y="126">Sur tablette d'argile fraîche.</text>
+  <text class="t d" x="320" y="126">Simple à comprendre,</text>
+  <text class="t d" x="320" y="146">long à tracer.</text>
+  <text class="t d" x="632" y="126">Près de 600 signes.</text>
+  <text class="t d" x="632" y="146">Rapide, mais à apprendre.</text>
+  <rect x="8" y="172" width="884" height="76" rx="4" fill="var(--bloc-pale)"/>
+  <text class="t d" x="30" y="200" fill="var(--bloc-pale-texte)" font-weight="600">L'écriture naît d'un besoin comptable, pas littéraire.</text>
+  <text class="t d" x="30" y="226" fill="var(--bloc-pale-texte)">Le religieux, l'administratif, le juridique et le récit viennent après, une fois l'outil disponible.</text>
+</svg>

@@ -131,7 +131,28 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
 
     rectangles = []
     for element in racine.iter():
-        if sans_espace(element.tag) != "rect":
+        balise = sans_espace(element.tag)
+        if balise == "polygon":
+            # Approximation par la boîte englobante : suffisant pour savoir
+            # quelle couleur se trouve derrière un texte.
+            points = [float(v) for v in re.split(r"[ ,]+", element.get("points", "").strip()) if v]
+            if len(points) < 6:
+                continue
+            xs, ys = points[0::2], points[1::2]
+            proprietes = {}
+            for c in (element.get("class") or "").split():
+                proprietes.update(regles.get(c, {}))
+            remplissage = resoudre(element.get("fill") or proprietes.get("fill", ""), theme)
+            if not remplissage:
+                continue
+            opacite = float(element.get("opacity") or proprietes.get("opacity", 1))
+            rectangles.append({
+                "x": min(xs), "y": min(ys),
+                "l": max(xs) - min(xs), "h": max(ys) - min(ys),
+                "couleur": poser(remplissage, fond_page, opacite),
+            })
+            continue
+        if balise != "rect":
             continue
         proprietes = {}
         for c in (element.get("class") or "").split():
@@ -292,6 +313,7 @@ CLASSES_EMISES = [
     "visionneuse", "diapo-barre", "jalon", "entete__ligne",
     "repere-ligne", "entete__bas", "pastilles",
     "frise__bascule", "sommaire__bascule", "declencheur", "actions",
+    "mascotte", "documents", "galerie",
 ]
 
 

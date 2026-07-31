@@ -129,3 +129,103 @@ varna-or.jpg:
   titre: ''
   licence: ''
   lien: ''
+foyers-civilisation.png:
+  cadrage: carte
+  fiche: 02-emergence-civilisation
+  recherche: map cradles of civilization world
+  role: Situer les huit foyers les uns par rapport aux autres.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+carte-mesopotamie.jpg:
+  cadrage: carte
+  fiche: 02-emergence-civilisation
+  recherche: map Mesopotamia Tigris Euphrates ancient
+  role: Voir les deux fleuves et le tracé du Croissant fertile.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+irrigation.jpg:
+  cadrage: flottant
+  fiche: 02-emergence-civilisation
+  recherche: ancient Mesopotamia irrigation canal relief
+  role: Rendre concret le canal qui fertilise et qui transporte.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+tablette-cuneiforme.jpg:
+  cadrage: flottant
+  fiche: 02-emergence-civilisation
+  recherche: cuneiform clay tablet Sumerian British Museum
+  role: 'Une source d''époque : voir les signes en coin, pas un dessin.'
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+scribe.jpg:
+  cadrage: gauche
+  fiche: 02-emergence-civilisation
+  recherche: Sumerian scribe statue Louvre
+  role: Mettre un visage sur le métier qui donne accès au pouvoir.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+code-hammourabi.jpg:
+  cadrage: large
+  fiche: 02-emergence-civilisation
+  recherche: Code of Hammurabi stele Louvre
+  role: 'La stèle entière : deux mètres de loi exposée à tous.'
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+cite-etat.jpg:
+  cadrage: flottant
+  fiche: 02-emergence-civilisation
+  recherche: Sumerian city state reconstruction Ur
+  role: Voir le palais, les murailles et la ziggourat au même endroit.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+etendard-ur.jpg:
+  cadrage: large
+  fiche: 02-emergence-civilisation
+  recherche: Standard of Ur peace panel British Museum
+  role: Lire les trois registres comme une bande dessinée.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+ziggourat-ur.jpg:
+  cadrage: flottant
+  fiche: 02-emergence-civilisation
+  recherche: Great Ziggurat of Ur Iraq
+  role: L'échelle du bâtiment religieux dans la cité.
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+lapis-lazuli.jpg:
+  cadrage: gauche
+  fiche: 02-emergence-civilisation
+  recherche: lapis lazuli stone raw
+  role: 'Une pierre venue de 2500 km : la preuve matérielle du commerce lointain.'
+  commons: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''

@@ -1,0 +1,29 @@
+<svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La hiérarchie sociale mésopotamienne, du roi aux esclaves">
+  <style>
+    .t { font-family: Archivo, sans-serif; }
+    .r { font-size: 17px; font-weight: 600; }
+    .d { font-size: 14px; fill: var(--encre); }
+    .n { font-family: 'IBM Plex Mono', monospace; font-size: 13px; fill: var(--schema-cle); }
+  </style>
+  <polygon points="450,14 530,80 370,80" fill="var(--bloc)"/>
+  <rect x="330" y="86" width="240" height="56" fill="var(--bloc)" opacity=".85"/>
+  <rect x="290" y="148" width="320" height="56" fill="var(--bloc-pale)"/>
+  <rect x="250" y="210" width="400" height="56" fill="var(--bloc-pale)" opacity=".8"/>
+  <rect x="210" y="272" width="480" height="56" fill="var(--bloc-pale)" opacity=".6"/>
+  <text class="t r" x="450" y="62" text-anchor="middle" fill="var(--bloc-texte)">Le roi</text>
+  <text class="t r" x="450" y="120" text-anchor="middle" fill="var(--bloc-texte)">Scribes, prêtres, soldats</text>
+  <text class="t r" x="450" y="182" text-anchor="middle" fill="var(--bloc-pale-texte)">Artisans et marchands</text>
+  <text class="t r" x="450" y="244" text-anchor="middle" fill="var(--bloc-pale-texte)">Paysans</text>
+  <text class="t r" x="450" y="306" text-anchor="middle" fill="var(--bloc-pale-texte)">Esclaves</text>
+  <text class="t n" x="8" y="62">1</text><text class="t d" x="30" y="62">pouvoir des dieux, armée, administration</text>
+  <text class="t n" x="8" y="120">2</text><text class="t d" x="30" y="120">fonctionnaires de l'État, possèdent des terres</text>
+  <text class="t n" x="8" y="182">3</text><text class="t d" x="30" y="182">contrôlent le commerce et la fabrication</text>
+  <text class="t n" x="8" y="244">4</text><text class="t d" x="30" y="244">cultivent les champs, élèvent le bétail</text>
+  <text class="t n" x="8" y="306">5</text><text class="t d" x="30" y="306">prisonniers de guerre, débiteurs insolvables</text>
+  <line x1="700" y1="20" x2="700" y2="330" stroke="var(--schema-trait)" stroke-width="2"/>
+  <path d="M700 20 v310 l-8 -12 M700 330 l8 -12" stroke="var(--schema-accent)" stroke-width="2.5" fill="none"/>
+  <text class="t d" x="716" y="44" fill="var(--schema-cle)">plus de pouvoir</text>
+  <text class="t d" x="716" y="316" fill="var(--schema-cle)">moins de pouvoir</text>
+  <text class="t d" x="8" y="368">Le scribe doit son rang au fait qu'il sait écrire : l'écriture donne accès au pouvoir.</text>
+</svg>

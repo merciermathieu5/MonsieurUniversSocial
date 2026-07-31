@@ -482,7 +482,38 @@ details.credit > span { display: block; max-width: 34rem; }
 
 /* -------------------------------------------------------------- catalogue */
 
-.entete--section { padding-bottom: 0; }
+.entete--section {
+  position: relative; overflow: hidden;
+  padding-bottom: 0; min-height: 15rem;
+}
+.entete--section::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url(./medias/mascotte/filigrane.png); background-size: 320px;
+  opacity: .12;
+}
+.entete--section .entete__interieur { position: relative; z-index: 2; padding-right: 22rem; }
+/* Le personnage se tient sur le bord bas du bandeau, comme sur l'illustration
+   d'origine où il dépasse de la bande bleue. */
+.mascotte {
+  position: absolute; right: 3.5rem; bottom: 0; height: 15.5rem;
+  z-index: 1; pointer-events: none;
+}
+.documents { margin: 1.4rem 0 1.6rem; display: flex; flex-wrap: wrap; gap: .4rem; align-items: baseline; }
+.documents > span {
+  font-family: var(--donnee); font-size: .66rem; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.55); width: 100%; margin-bottom: .1rem;
+}
+.documents a {
+  font-family: var(--titre); font-weight: 500; font-size: .82rem;
+  background: rgba(255,255,255,.14); color: #fff; text-decoration: none;
+  padding: .25rem .7rem; border-radius: 100px; transition: background .15s;
+}
+.documents a:hover { background: rgba(255,255,255,.28); }
+@media (max-width: 62rem) {
+  .mascotte { display: none; }
+  .entete--section .entete__interieur { padding-right: 0; }
+}
+html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: var(--encre); }
 .catalogue { max-width: var(--large); margin: 0 auto; padding: 2.75rem 1.75rem 4rem; }
 .famille { margin-bottom: 3rem; }
 .famille__titre {

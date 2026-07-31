@@ -156,6 +156,62 @@ Pour les autres territoires, mes exemples tombaient juste : Montréal, Québec
 intra-muros, Manille, Charlevoix, la Colombie-Britannique, les Grands Lacs et
 le Bangladesh sont tous des choix prévus.
 
+## Fiche : L'émergence d'une civilisation
+
+Même méthode : le texte de ta page est repris tel quel, seules les fautes ont été
+corrigées. Ce qui suit attend ta décision.
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « vers 3 300 ans av. J.-C » devient « vers 3300 ans av. J.-C. »
+- « la crue de deux fleuves » devient « la crue des deux fleuves »
+- « il s'y organisent » devient « il s'y organise »
+- « où étaient fabriquées armes » devient « fabriquées les armes »
+- « Ceux-ci qui opéraient » devient « Ceux-ci opéraient »
+- « un marché et des temples et des ziggourats » devient une énumération correcte
+- « Cité-État » uniformisé en « cité-État », sauf en début de phrase
+- « Code Hammourabi » devient « Code d'Hammourabi »
+- Les huit foyers de civilisation passent en tableau, classés par date
+
+### Propositions qui touchent au contenu
+
+**17. Deux dates différentes pour l'écriture.** La mise en contexte donne
+« vers 3300 » et la section 4 donne « vers 3500 ». Il faudrait trancher. La
+recherche situe généralement les premières tablettes vers -3300 à -3200. Je
+proposerais 3300 aux deux endroits.
+
+**18. « La première écriture était née ».** Les pictogrammes sumériens sont un
+système de comptabilité avant d'être une écriture au sens plein. Je proposerais
+« les premiers signes écrits étaient nés ». À garder tel quel si c'est la
+formulation du manuel.
+
+**19. Le nombre d'articles du Code d'Hammourabi.** Le texte dit « plus de 300
+décisions de justice » dans un paragraphe et « 282 articles » dans un autre. Les
+deux chiffres se contredisent. 282 est le nombre habituellement retenu.
+
+**20. La Loi du Talion.** La formule « oeil pour oeil, dent pour dent » vient de
+la Bible, pas du Code d'Hammourabi, même si le principe est le même. Je
+proposerais d'ajouter une note qui le précise : c'est une belle occasion de
+montrer comment une formule voyage d'un texte à l'autre.
+
+**21. Le dernier article cité.** « Cette femme on la jettera à l'eau » est
+brutal et vise spécifiquement une femme. Il est pertinent pour montrer
+l'inégalité devant la loi, mais je te laisse juger s'il convient tel quel en
+première secondaire, ou s'il mérite une mise en contexte.
+
+**22. La section sur l'Égypte antique en réalité virtuelle.** Elle occupe une
+grande partie de ta page d'origine mais concerne l'Égypte, pas la Mésopotamie.
+Je l'ai réduite à deux liens dans « Pour aller plus loin ». Dis-moi si tu veux
+la restaurer en entier, ou en faire une page à part.
+
+**23. Les chroniques d'Evelyne Ferron.** Les liens pointent vers des vidéos
+Facebook, format qui vieillit mal et qui exige souvent un compte. J'ai gardé un
+seul lien. À vérifier qu'il fonctionne encore.
+
+**24. Les liens vers le PFEQ et la Progression.** Comme sur la fiche 01, ils
+pointent vers d'anciennes adresses du ministère. Les bonnes adresses sont
+maintenant sur cdn-contenu.quebec.ca, celles que tu m'as envoyées.
+
 ## Question ouverte sur la géographie
 
 J'avais renommé les pages de géographie pour enlever les répétitions, par exemple

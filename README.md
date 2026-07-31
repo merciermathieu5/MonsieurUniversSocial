@@ -96,6 +96,29 @@ npm install jsdom
 node outils/test_page.js
 ```
 
+## La mascotte
+
+Les fichiers sont dans `medias/mascotte/` : trois poses détourées, le motif du
+bandeau et un filigrane blanc extrait de ce motif.
+
+Chaque matière déclare la sienne dans `site.yml` :
+
+```yaml
+    mascotte: lance.png
+```
+
+Le personnage se pose sur le bord bas du bandeau d'entête de la page d'index de
+la matière, et le filigrane sert de texture derrière. Il disparaît sous 62 rem
+de large, où il n'aurait plus la place.
+
+## Les documents ministériels
+
+Les adresses officielles sont déclarées une seule fois par matière dans
+`site.yml`, sous `documents`, et s'affichent en pastilles sur la page d'index.
+Elles pointent vers cdn-contenu.quebec.ca et quebec.ca, les adresses en vigueur
+depuis le déménagement du site du ministère. Les anciennes adresses en
+education.gouv.qc.ca ne répondent plus.
+
 ## Les concepts
 
 Les concepts affichés dans l'entête de chaque fiche d'histoire sont ceux

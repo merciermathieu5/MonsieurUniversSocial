@@ -8,7 +8,15 @@
     <p class="fil">{{ section.cycle }}</p>
     <h1>{{ section.titre }}</h1>
     <p class="chapeau">{{ section.intro }}</p>
+    {% if section.documents %}
+    <p class="documents"><span>Documents ministériels</span>
+      {% for d in section.documents %}<a href="{{ d.url }}" rel="noopener" target="_blank">{{ d.titre }}</a>{% endfor %}
+    </p>
+    {% endif %}
   </div>
+  {% if section.mascotte %}
+  <img class="mascotte" src="{{ base }}/medias/mascotte/{{ section.mascotte }}" alt="" aria-hidden="true">
+  {% endif %}
 </header>
 
 <div class="catalogue">
