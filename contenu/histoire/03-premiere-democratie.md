@@ -66,7 +66,7 @@ militaires, notamment durant les guerres médiques et la guerre du Péloponnèse
 
 ### L'Attique et le Péloponnèse
 
-![L'Attique et le Péloponnèse, les deux grandes péninsules rivales](../medias/03-premiere-democratie/carte-attique-peloponnese.png)
+![Le Péloponnèse et la cité-État de Sparte](../medias/03-premiere-democratie/carte-attique-peloponnese.png)
 
 L'Attique, une région centrée autour de la cité d'Athènes, était l'une des
 régions les plus influentes de la Grèce antique. Située au sud-est de la
@@ -379,6 +379,8 @@ a en moyenne plus de 28 ans.
 
 ### L'oracle de Delphes
 
+![La tholos du sanctuaire d'Athéna Pronaia, à Delphes, sur les pentes du mont Parnasse](../medias/03-premiere-democratie/delphes.jpg)
+
 L'oracle de Delphes était un des lieux les plus sacrés et respectés de la Grèce
 antique. Situé sur le mont Parnasse, ce sanctuaire était dédié au dieu Apollon.
 Au coeur du site se trouvait la Pythie, une prêtresse qui servait
@@ -393,6 +395,8 @@ diverses interprétations. Cette pratique reflète l'importance des dieux et des
 croyances dans la Grèce antique.
 
 ### L'Odyssée d'Homère
+
+![Ulysse attaché au mât de son navire pour résister au chant des sirènes, vase attique vers -480](../medias/03-premiere-democratie/vase-sirenes.jpg)
 
 L'Odyssée est un des textes les plus célèbres de la littérature antique, écrit
 par Homère, un poète grec qui a vécu il y a environ 2 800 ans. C'est un poème
@@ -423,6 +427,8 @@ sagesse ».
 
 ### Socrate
 
+![Buste de Socrate, copie romaine d'un original grec, musée du Louvre](../medias/03-premiere-democratie/socrate.jpg)
+
 Pour Socrate, la philosophie était une façon de vivre, un chemin pour devenir
 une meilleure personne. Il se promenait dans les rues d'Athènes et posait des
 questions aux gens pour les amener à réfléchir : qu'est-ce que la justice?
@@ -434,6 +440,8 @@ tribunal de l'héliée en -399 et meurt en buvant la ciguë, un poison.
 
 ### Platon
 
+![Buste de Platon, copie du portrait sculpté pour l'Académie d'Athènes](../medias/03-premiere-democratie/platon.jpg)
+
 Platon, un élève de Socrate, a poursuivi ces idées. Il a imaginé un monde idéal
 où tout avait une forme parfaite. Par exemple, il disait qu'il existe une
 « idée » parfaite de la justice, et que tout ce que nous voyons n'en est qu'une
@@ -443,6 +451,8 @@ transmettre sa pensée, il fonde à Athènes une école célèbre, l'Académie, 
 rédige des dialogues qui mettent en scène son maître Socrate.
 
 ### Aristote
+
+![Buste d'Aristote, copie romaine d'un original de Lysippe](../medias/03-premiere-democratie/aristote.jpg)
 
 Aristote, le disciple de Platon, avait une approche différente. Il pensait
 qu'on pouvait comprendre le monde en l'observant attentivement. Il
@@ -475,6 +485,17 @@ place publique d'Athènes, l'agora réunit le marché, les boutiques et les
 
 ::: schema commerce-agora
 :::
+
+### Les mines d'argent du Laurion
+
+Une grande partie de cette richesse commerciale repose sur les mines d'argent
+du Laurion, au sud de l'Attique. L'argent qu'on en extrait fournit à la cité de
+quoi frapper sa monnaie, les tétradrachmes ornés de la chouette d'Athéna,
+acceptés partout en Méditerranée, et c'est aussi lui qui finance la
+construction de la flotte de trières, le coeur de la puissance navale
+athénienne. Des milliers d'esclaves y travaillent, dans des galeries étroites
+et dans des conditions très dures : la prospérité d'Athènes repose largement
+sur leur labeur.
 
 ::: questions
 1. Depuis quand les échanges commerciaux existent-ils dans la mer Égée?

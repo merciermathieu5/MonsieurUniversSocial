@@ -142,7 +142,7 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
             proprietes = {}
             for c in (element.get("class") or "").split():
                 proprietes.update(regles.get(c, {}))
-            remplissage = resoudre(element.get("fill") or proprietes.get("fill", ""), theme)
+            remplissage = resoudre(proprietes.get("fill", "") or element.get("fill"), theme)
             if not remplissage:
                 continue
             opacite = float(element.get("opacity") or proprietes.get("opacity", 1))
@@ -158,7 +158,7 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
         proprietes = {}
         for c in (element.get("class") or "").split():
             proprietes.update(regles.get(c, {}))
-        remplissage = resoudre(element.get("fill") or proprietes.get("fill", ""), theme)
+        remplissage = resoudre(proprietes.get("fill", "") or element.get("fill"), theme)
         if not remplissage:
             continue
         opacite = float(element.get("opacity") or proprietes.get("opacity", 1))
@@ -180,7 +180,7 @@ def controler_schema(chemin: Path, theme_nom: str) -> list[str]:
         proprietes = {}
         for c in classes:
             proprietes.update(regles.get(c, {}))
-        couleur = resoudre(element.get("fill") or proprietes.get("fill", ""), theme)
+        couleur = resoudre(proprietes.get("fill", "") or element.get("fill"), theme)
         if not couleur:
             continue
         taille = float(re.sub(r"[^\d.]", "", element.get("font-size")

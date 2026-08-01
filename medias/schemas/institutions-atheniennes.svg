@@ -6,6 +6,7 @@
     .ia-v { font-size: 13.5px; fill: var(--bloc-texte); }
     .ia-p { font-size: 13px; font-weight: 600; fill: var(--schema-cle); letter-spacing: 1px; }
     .ia-m { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; fill: var(--schema-accent); }
+    .ia-note { font-size: 13.5px; fill: var(--encre); }
   </style>
   <rect x="290" y="14" width="420" height="58" rx="4" fill="var(--bloc)"/>
   <text class="ia-t ia-b" x="500" y="39" text-anchor="middle">Les citoyens d'Athènes</text>
@@ -45,5 +46,5 @@
   <text class="ia-t ia-m" x="830" y="418" text-anchor="middle">Tirage au sort</text>
 
   <line x1="20" y1="440" x2="980" y2="440" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="ia-t ia-v" x="500" y="463" text-anchor="middle" fill="var(--encre)">Le tirage au sort donne à chaque citoyen la même chance d'exercer une charge publique.</text>
+  <text class="ia-t ia-note" x="500" y="463" text-anchor="middle">Le tirage au sort donne à chaque citoyen la même chance d'exercer une charge publique.</text>
 </svg>
