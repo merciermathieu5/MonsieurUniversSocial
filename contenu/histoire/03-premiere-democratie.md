@@ -68,6 +68,8 @@ militaires, notamment durant les guerres médiques et la guerre du Péloponnèse
 
 ![Le Péloponnèse et la cité-État de Sparte](../medias/03-premiere-democratie/carte-attique-peloponnese.png)
 
+![Athènes et l'Attique, entre montagnes et mer Égée](../medias/03-premiere-democratie/carte-attique.png)
+
 L'Attique, une région centrée autour de la cité d'Athènes, était l'une des
 régions les plus influentes de la Grèce antique. Située au sud-est de la
 péninsule balkanique, elle bordait la mer Égée et bénéficiait d'un climat
@@ -84,8 +86,6 @@ Péloponnèse avait un terrain plus varié et fertile que l'Attique. La région
 Sa situation géographique et ses ressources naturelles en faisaient une zone
 stratégiquement et économiquement importante.
 
-![Athènes et l'Attique, entre montagnes et mer Égée](../medias/03-premiere-democratie/carte-attique.png)
-
 ::: questions
 1. Pourquoi la Grèce antique est-elle divisée en cités-États plutôt qu'unie en un seul pays?
 2. Nomme les trois mers qui entourent la Grèce et donne un rôle qu'elles jouent.
@@ -99,12 +99,10 @@ Au 8e siècle av. J.-C. est fondée la cité-État d'Athènes, une cité autonom
 la polis, qui englobe non seulement la ville d'Athènes, mais également les
 territoires avoisinants. Plutôt qu'être dirigée par un roi, Athènes est alors
 gouvernée par un petit groupe de puissants aristocrates : c'est ce qu'on
-appelle une oligarchie.
-
-C'est au cours de cette période oligarchique que se mettent en place les
-fondements de la démocratie athénienne. Des réformateurs instaurent
-progressivement des mesures politiques et législatives qui favoriseront la
-participation des citoyens à la vie publique.
+appelle une oligarchie. C'est au cours de cette période oligarchique que se
+mettent en place les fondements de la démocratie athénienne. Des réformateurs
+instaurent progressivement des mesures politiques et législatives qui
+favoriseront la participation des citoyens à la vie publique.
 
 ::: schema frise-athenes
 :::
@@ -133,6 +131,8 @@ av. J.-C. Le schéma suivant en rassemble les grands événements.
 
 ### Les guerres médiques
 
+![Le stratège Périclès, qui a dirigé Athènes pendant plus de trente ans](../medias/03-premiere-democratie/pericles.jpg)
+
 Entre -499 et -479, la Grèce est le théâtre de conflits majeurs : les guerres
 médiques, qui opposent les cités-États grecques, principalement Athènes et
 Sparte, à l'immense Empire perse. Les Grecs réussissent à repousser les
@@ -148,11 +148,13 @@ frappe les esprits. Dix ans plus tard, la flotte grecque écrase la flotte perse
 dans le détroit de Salamine. Ces affrontements prouvent la détermination et le
 courage des Grecs et renforcent le sentiment d'unité entre les cités-États.
 
-![Le stratège Périclès, qui a dirigé Athènes pendant plus de trente ans](../medias/03-premiere-democratie/pericles.jpg)
-
 ### L'âge d'or d'Athènes
 
 ![La trière, le navire de guerre qui a fait la puissance d'Athènes, ici une reconstitution moderne](../medias/03-premiere-democratie/triere.jpg)
+
+![L'Acropole d'Athènes, la colline sacrée qui domine la ville](../medias/03-premiere-democratie/acropole.jpg)
+
+![Le Parthénon, le temple dédié à la déesse Athéna](../medias/03-premiere-democratie/parthenon.jpg)
 
 Athènes tient son âge d'or en partie de Périclès, un homme politique, mais
 aussi un stratège militaire. Sous son administration, la cité connaît un essor
@@ -163,10 +165,6 @@ période, et leurs oeuvres continuent d'influencer notre monde aujourd'hui.
 Périclès fait aussi reconstruire les temples de l'Acropole détruits par les
 Perses, dont le célèbre Parthénon, et verse une indemnité aux citoyens pauvres
 pour qu'ils puissent participer à la vie politique.
-
-![L'Acropole d'Athènes, la colline sacrée qui domine la ville](../medias/03-premiere-democratie/acropole.jpg)
-
-![Le Parthénon, le temple dédié à la déesse Athéna](../medias/03-premiere-democratie/parthenon.jpg)
 
 ### Visites virtuelles d'Athènes et d'Olympie
 
@@ -219,6 +217,8 @@ France, sont des démocraties représentatives.
 
 ## Les institutions politiques d'Athènes
 
+![La tribune des orateurs sur la colline de la Pnyx, face à l'Acropole](../medias/03-premiere-democratie/pnyx.jpg)
+
 La séparation des pouvoirs, bien que proposée par le philosophe Montesquieu au
 18e siècle, est apparue durant la Grèce antique dans la cité-État d'Athènes.
 Le pouvoir législatif consiste en l'adoption des lois, les règles que doivent
@@ -234,8 +234,6 @@ respecter la loi et juge ceux qui ne l'auraient pas respectée.
 L'ecclésia, l'assemblée de tous les citoyens, se réunit une quarantaine de fois
 par année sur la colline de la Pnyx. Chaque citoyen peut y prendre la parole du
 haut de la tribune avant le vote.
-
-![La tribune des orateurs sur la colline de la Pnyx, face à l'Acropole](../medias/03-premiere-democratie/pnyx.jpg)
 
 ## Les classes sociales athéniennes
 
@@ -274,6 +272,10 @@ société athénienne.
 
 ### Les femmes dans la Grèce antique
 
+![Une scène du gynécée, l'appartement des femmes, sur un vase du Musée national d'Athènes](../medias/03-premiere-democratie/gynecee.jpg)
+
+![Des femmes lavent le linge, vase attique conservé au Louvre](../medias/03-premiere-democratie/lavage-linge.jpg)
+
 Dans la société athénienne du 5e siècle av. J.-C., les femmes, qu'elles soient
 épouses d'un citoyen, métèques ou esclaves, n'ont aucun droit politique, légal
 ou social. Elles sont considérées comme des objets. On leur reconnaît cependant
@@ -290,11 +292,9 @@ vendues à des familles riches et sont à leur service : en échange du gîte et
 la nourriture, elles accomplissent les tâches ménagères et s'occupent des
 enfants.
 
-![Une scène du gynécée, l'appartement des femmes, sur un vase du Musée national d'Athènes](../medias/03-premiere-democratie/gynecee.jpg)
-
-![Des femmes lavent le linge, vase attique conservé au Louvre](../medias/03-premiere-democratie/lavage-linge.jpg)
-
 ### Les enfants de citoyens et l'éducation
+
+![Un maître d'école tenant une tablette de cire, détail d'une coupe du peintre Douris, vers -480](../medias/03-premiere-democratie/coupe-ecole.jpg)
 
 Jusqu'à l'âge de 7 ans, garçons et filles reçoivent la même éducation au
 gynécée, avec leur mère et les esclaves. Ensuite, les garçons sont instruits
@@ -303,8 +303,6 @@ apprend la lecture, l'écriture, le calcul, le chant, la danse et le filage de
 la laine. Vers 14 ans, elles savent tout ce qu'il faut pour devenir une bonne
 épouse et prendre mari. Elles n'ont d'ailleurs pas leur mot à dire dans ce
 mariage, arrangé avec un homme qui peut avoir trois fois leur âge.
-
-![Un maître d'école tenant une tablette de cire, détail d'une coupe du peintre Douris, vers -480](../medias/03-premiere-democratie/coupe-ecole.jpg)
 
 Les enfants, garçons ou filles, apprennent les poèmes d'Homère, l'Iliade et
 l'Odyssée, et les récitent accompagnés de musique. Les garçons apprennent aussi
@@ -562,13 +560,12 @@ d'exercer ses jeunes soldats.
 
 L'Assemblée est le rassemblement des Égaux, réuni à dates fixes. Les projets
 mis en forme par la gérousia lui sont soumis : elle les approuve ou non, sans
-les discuter, et vote les décisions par acclamations.
-
-La gérousia est une assemblée de 28 hommes âgés de plus de 60 ans, élus à vie
-par acclamation à l'Assemblée. Choisis en fonction de leur vertu militaire, les
-gérontes appartiennent pour la plupart aux grandes familles de Sparte. Ils
-jouent un rôle politique éminent : ils sont les seuls à pouvoir préparer les
-lois, gèrent toutes les affaires de politique intérieure et ne rendent pas de
+les discuter, et vote les décisions par acclamations. La gérousia est une
+assemblée de 28 hommes âgés de plus de 60 ans, élus à vie par acclamation à
+l'Assemblée. Choisis en fonction de leur vertu militaire, les gérontes
+appartiennent pour la plupart aux grandes familles de Sparte. Ils jouent un
+rôle politique éminent : ils sont les seuls à pouvoir préparer les lois,
+gèrent toutes les affaires de politique intérieure et ne rendent pas de
 comptes.
 
 Les cinq éphores, enfin, sont chargés de surveiller les rois et les habitants

@@ -431,7 +431,7 @@ details.credit > span { display: block; max-width: 34rem; }
   background: var(--fond-creux); padding: .2rem .5rem; border-radius: var(--rayon);
 }
 
-.video { margin: 2rem 0; clear: both; }
+.video { margin: 2rem 0; display: flow-root; }
 .video iframe {
   width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--rayon);
   background: var(--encre); display: block;

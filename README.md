@@ -286,6 +286,13 @@ composant pour éviter de refaire les mêmes itérations.
 - Deux blocs vidéo consécutifs se jumellent côte à côte; jamais plus de deux
   par rangée. Le vérificateur (section CONSTRUIT) refuse tout duo qui
   contient autre chose que deux vidéos.
+- Une vidéo seule ne passe pas sous les figures flottantes : elle se glisse
+  à côté d'elles (flow-root), pour ne jamais laisser un titre orphelin
+  au-dessus d'un vide. Seuls les duos de vidéos passent sous les flottants.
+- Les deux règles outillées, figures en tête de bloc (outils/figures.py) et
+  paragraphes courts regroupés (outils/paragraphes.py), sont contrôlées sur
+  toutes les fiches par la section ÉDITORIAL du vérificateur, qui affiche la
+  commande de remise d'aplomb en cas d'écart.
 - Les vignettes de galeries sont carrées et remplies (recadrage centré),
   sans zone blanche; les cadrages carte et large gardent leurs proportions.
 - Dans un composant, tout texte posé sur une bande foncée fixe explicitement

@@ -49,24 +49,22 @@ sédentaire et semi-sédentaire au Néolithique.
 
 Au cours du Paléolithique, les êtres humains étaient nomades. Cela signifie
 qu'ils se déplaçaient constamment à la recherche de nourriture et d'abris
-naturels. Ils ont vécu de la chasse, de la cueillette et de la pêche. Ils étaient
-constamment en mouvement pour suivre les troupeaux d'animaux et les saisons.
+naturels. Ils ont vécu de la chasse, de la cueillette et de la pêche. Ils
+étaient constamment en mouvement pour suivre les troupeaux d'animaux et les
+saisons. Les nomades étaient des chasseurs-cueilleurs, ce qui signifie qu'ils
+chassaient des animaux et cueillaient des plantes sauvages comestibles pour se
+nourrir. Leur alimentation était composée à 35 % de viande et d'environ 65 %
+de plantes sauvages, de petits fruits et de racines.
 
-Les nomades étaient des chasseurs-cueilleurs, ce qui signifie qu'ils chassaient
-des animaux et cueillaient des plantes sauvages comestibles pour se nourrir. Leur
-alimentation était composée à 35 % de viande et d'environ 65 % de plantes
-sauvages, de petits fruits et de racines.
-
-Les nomades étaient des chasseurs compétents et utilisaient des outils en pierre
-pour fabriquer des armes, comme des lances et des arcs, pour traquer les animaux.
-Ils se regroupaient en petites communautés, composées de quelques familles qui se
-déplaçaient fréquemment pour trouver de nouvelles ressources.
-
-Leur vie était difficile. Les nomades devaient faire face aux éléments naturels,
-aux prédateurs et aux maladies. Ils prenaient aussi soin les uns des autres.
-Cependant, ils s'adaptaient à leur environnement et savaient comment utiliser les
-ressources disponibles pour survivre. Ils construisaient des abris temporaires,
-comme des tentes en peau d'animaux.
+Les nomades étaient des chasseurs compétents et utilisaient des outils en
+pierre pour fabriquer des armes, comme des lances et des arcs, pour traquer
+les animaux. Ils se regroupaient en petites communautés, composées de quelques
+familles qui se déplaçaient fréquemment pour trouver de nouvelles ressources.
+Leur vie était difficile. Les nomades devaient faire face aux éléments
+naturels, aux prédateurs et aux maladies. Ils prenaient aussi soin les uns des
+autres. Cependant, ils s'adaptaient à leur environnement et savaient comment
+utiliser les ressources disponibles pour survivre. Ils construisaient des
+abris temporaires, comme des tentes en peau d'animaux.
 
 ### La sédentarisation au Néolithique
 
@@ -122,16 +120,18 @@ produit énormément de denrées alimentaires.
 
 ### Le Croissant fertile
 
+![Le Croissant fertile, de la vallée du Nil au golfe Persique](../medias/01-sedentarisation/croissant-fertile.png)
+
+![Le Croissant fertile, carte muette à annoter](../medias/01-sedentarisation/dmaps-croissant-fertile.png)
+
 Le Croissant fertile est une région située au Moyen-Orient, qui s'étend de la
 vallée du Nil en Égypte jusqu'au golfe Persique. Le Nil, le Tigre et l'Euphrate
 ont favorisé la sédentarisation des êtres humains, apportant les sédiments
 nécessaires à la fertilité des sols.
 
-![Le Croissant fertile, de la vallée du Nil au golfe Persique](../medias/01-sedentarisation/croissant-fertile.png)
-
-![Le Croissant fertile, carte muette à annoter](../medias/01-sedentarisation/dmaps-croissant-fertile.png)
-
 ### La présence de métaux influence-t-elle le choix des premiers sites?
+
+![Les principaux sites néolithiques du Proche-Orient](../medias/01-sedentarisation/sites-neolithiques.jpg)
 
 Les premières agglomérations sont établies près de l'eau et de sources de
 matériaux.
@@ -139,19 +139,17 @@ matériaux.
 - Vers 8000 avant notre ère, Jéricho profite des salines (gisements de sel) de la
   mer Morte et du mont Sodome.
 - Vers 7000 avant notre ère, Çatal Höyük est occupée en Anatolie, à proximité d'un
-  volcan riche en obsidienne (lave vitrifiée qui donne des éclats très coupants et
-  les premiers miroirs).
-
-Progressivement, les premières puissances se dessinent, apprivoisant le traitement
-des roches et devenant exportatrices de produits précieux. Dans les plaines, des
-cités s'établissent près des fleuves, des lacs, dans les marais de la Mésopotamie
-ou dans la vallée du Nil, en Égypte. Ce sont les civilisations de l'argile,
-peuplées de potiers qui dépendent souvent d'importations lointaines pour leurs
-besoins minéraux.
-
-![Les principaux sites néolithiques du Proche-Orient](../medias/01-sedentarisation/sites-neolithiques.jpg)
+volcan riche en obsidienne (lave vitrifiée qui donne des éclats très coupants
+et les premiers miroirs). Progressivement, les premières puissances se
+dessinent, apprivoisant le traitement des roches et devenant exportatrices de
+produits précieux. Dans les plaines, des cités s'établissent près des fleuves,
+des lacs, dans les marais de la Mésopotamie ou dans la vallée du Nil, en
+Égypte. Ce sont les civilisations de l'argile, peuplées de potiers qui
+dépendent souvent d'importations lointaines pour leurs besoins minéraux.
 
 ## Les premiers villages
+
+![Le site de Göbekli Tepe, en Turquie, vers -9500](../medias/01-sedentarisation/gobekli-tepe.jpg)
 
 Avant même les premiers villages permanents, des groupes encore nomades se
 rassemblaient déjà pour bâtir. Sur la colline de Göbekli Tepe, en Turquie
@@ -159,8 +157,6 @@ actuelle, des chasseurs-cueilleurs ont dressé vers -9500 d'immenses piliers de
 pierre sculptés, disposés en cercles. Ce chantier a exigé des centaines de bras
 et plusieurs saisons de travail. Il montre que le besoin de se réunir et de
 croire a pu précéder l'agriculture, et non seulement la suivre.
-
-![Le site de Göbekli Tepe, en Turquie, vers -9500](../medias/01-sedentarisation/gobekli-tepe.jpg)
 
 Les villages néolithiques de Mureybet, de Mallaha et de Çatal Höyük sont des sites
 archéologiques importants qui nous permettent de mieux comprendre la vie des
@@ -178,24 +174,27 @@ rectangulaires et on trouve des outils témoignant de la présence d'agriculture
 
 ### Mallaha
 
-À Mallaha, ou Ain Mallaha, on retrouve des vestiges d'habitations creusées dans le
-sol et des murs de pierre. On y retrouve également plusieurs outils en pierre et
-en os, un foyer et des meules de pierre. Grâce aux archéologues, nous avons aussi
-appris que ses habitants chassaient la gazelle et d'autres petits gibiers. Par
-contre, les céréales (blé, orge, etc.) ne semblaient pas faire partie de leur
-alimentation.
-
-Le village aurait été occupé de -10 000 à -8500, dans l'Israël actuel.
+À Mallaha, ou Ain Mallaha, on retrouve des vestiges d'habitations creusées
+dans le sol et des murs de pierre. On y retrouve également plusieurs outils en
+pierre et en os, un foyer et des meules de pierre. Grâce aux archéologues,
+nous avons aussi appris que ses habitants chassaient la gazelle et d'autres
+petits gibiers. Par contre, les céréales (blé, orge, etc.) ne semblaient pas
+faire partie de leur alimentation. Le village aurait été occupé de -10 000 à
+-8500, dans l'Israël actuel.
 
 ### Çatal Höyük
+
+![Maquette de Çatal Höyük : des maisons accolées, aucune rue](../medias/01-sedentarisation/catal-hoyuk-maquette.jpg)
+
+![Reconstitution de l'intérieur d'une habitation](../medias/01-sedentarisation/catal-hoyuk-interieur.jpg)
+
+![Le chantier de fouilles de Çatal Höyük, en Turquie](../medias/01-sedentarisation/catal-hoyuk-site.jpg)
 
 Çatal Höyük était un village situé en Anatolie, dans ce qui est aujourd'hui la
 Turquie. Il a été occupé entre 7400 et 5700 avant notre ère. Les fouilles
 archéologiques ont révélé que Çatal Höyük avait une communauté très développée,
 avec des maisons en brique crue qui étaient construites les unes sur les autres.
 Ce village est l'un des plus importants du Néolithique.
-
-![Maquette de Çatal Höyük : des maisons accolées, aucune rue](../medias/01-sedentarisation/catal-hoyuk-maquette.jpg)
 
 Le village était protégé à l'aide d'une muraille de pierre afin de conserver le
 bétail et leur récolte. De cette manière, il devenait difficile pour les villages
@@ -207,10 +206,6 @@ aucune rue. Les maisons de forme rectangulaire étaient collées les unes aux
 autres. Leurs murs étaient peints de fresques (peintures et gravures) qui nous
 montrent aujourd'hui les animaux qui étaient chassés à l'époque. Finalement, la
 déesse-mère était souvent peinte pour attirer la fécondité.
-
-![Reconstitution de l'intérieur d'une habitation](../medias/01-sedentarisation/catal-hoyuk-interieur.jpg)
-
-![Le chantier de fouilles de Çatal Höyük, en Turquie](../medias/01-sedentarisation/catal-hoyuk-site.jpg)
 
 ::: video 5ebUwqogWc8
 Çatal Höyük, un des premiers grands villages de l'humanité
@@ -224,6 +219,8 @@ déesse-mère était souvent peinte pour attirer la fécondité.
 
 ## La domestication des animaux
 
+![Un troupeau de chèvres : une réserve de nourriture sur pied](../medias/01-sedentarisation/troupeau-chevres.jpg)
+
 L'un de ces changements qui s'est produit lors du Néolithique a été la
 domestication des animaux. Dans la région du Croissant fertile, qui comprend des
 parties de l'Iran, de l'Irak, de la Syrie et de la Turquie, la domestication des
@@ -236,8 +233,6 @@ répondaient aux besoins des humains. Les premiers animaux domestiqués étaient
 chiens, des moutons, des chèvres et des bovins. Ces animaux étaient choisis pour
 leurs spécificités, comme la capacité à être dressés, à produire du lait ou de la
 viande ou à fournir de la laine ou du cuir pour se vêtir.
-
-![Un troupeau de chèvres : une réserve de nourriture sur pied](../medias/01-sedentarisation/troupeau-chevres.jpg)
 
 Cette domestication a de nombreux avantages pour les communautés néolithiques du
 Croissant fertile. Tout d'abord, elle a permis aux humains de contrôler leur accès
@@ -260,6 +255,8 @@ productivité agricole et de faciliter le commerce avec d'autres communautés.
 
 ## La domestication des végétaux
 
+![L'engrain, l'une des premières céréales cultivées](../medias/01-sedentarisation/ble-sauvage.jpg)
+
 Les premières plantes cultivées dans le Croissant fertile sont des céréales et des
 légumineuses : le blé, l'orge, le pois et la lentille. En sélectionnant et en
 ressemant les graines des meilleurs plants, les agriculteurs du Néolithique
@@ -268,24 +265,23 @@ transforment peu à peu les espèces sauvages en espèces cultivées.
 ::: schema domestication
 :::
 
-![L'engrain, l'une des premières céréales cultivées](../medias/01-sedentarisation/ble-sauvage.jpg)
-
 ## Maîtriser l'agriculture
 
-Au Néolithique, les êtres humains ont commencé à maîtriser l'agriculture, ce qui a
-marqué un tournant dans leur mode de vie. Ils sont passés de la cueillette et de
-la chasse à la culture des plantes et à l'élevage des animaux.
-
-Pour faciliter ce travail de la terre, les premiers outils agricoles ont été
-créés. Ces outils étaient souvent fabriqués à partir de pierres polies, d'os ou de
-bois. Ils ont permis aux humains de mieux contrôler leur environnement et de
-produire plus de nourriture, ce qui a conduit à la formation de villages
-permanents. Parmi ces outils essentiels, on retrouve la faucille, la houe, ainsi
-que la meule et la molette.
+Au Néolithique, les êtres humains ont commencé à maîtriser l'agriculture, ce
+qui a marqué un tournant dans leur mode de vie. Ils sont passés de la
+cueillette et de la chasse à la culture des plantes et à l'élevage des
+animaux. Pour faciliter ce travail de la terre, les premiers outils agricoles
+ont été créés. Ces outils étaient souvent fabriqués à partir de pierres
+polies, d'os ou de bois. Ils ont permis aux humains de mieux contrôler leur
+environnement et de produire plus de nourriture, ce qui a conduit à la
+formation de villages permanents. Parmi ces outils essentiels, on retrouve la
+faucille, la houe, ainsi que la meule et la molette.
 
 ::: colonnes3
 
 ### La faucille
+
+![Faucille néolithique : lame de pierre et manche de bois](../medias/01-sedentarisation/faucille.jpg)
 
 Composée d'une lame en pierre ou en os fixée à un manche en bois, la faucille
 servait à couper les tiges des plantes cultivées, comme le blé ou l'orge. Grâce à
@@ -293,9 +289,9 @@ cet outil, les agriculteurs pouvaient récolter de plus grandes quantités de
 céréales plus rapidement, facilitant ainsi le stockage et la consommation de la
 nourriture tout au long de l'année.
 
-![Faucille néolithique : lame de pierre et manche de bois](../medias/01-sedentarisation/faucille.jpg)
-
 ### La houe
+
+![Houe en pierre polie](../medias/01-sedentarisation/houe.jpg)
 
 La houe était un outil agricole destiné à préparer les champs avant la plantation
 des graines. Dotée d'une lame en pierre ou en bois fixée à un manche, elle
@@ -304,9 +300,9 @@ plantes. Elle jouait aussi un rôle important pour désherber les cultures,
 garantissant ainsi un meilleur rendement des champs en limitant la concurrence
 entre les plantes cultivées et les mauvaises herbes.
 
-![Houe en pierre polie](../medias/01-sedentarisation/houe.jpg)
-
 ### La meule et la molette
+
+![Meule à grains : la céréale devient farine](../medias/01-sedentarisation/meule.jpg)
 
 La meule et la molette étaient utilisées ensemble pour moudre les grains de
 céréales en farine. La meule, une grande pierre plate, servait de base. La
@@ -315,8 +311,6 @@ grains. Ce processus de mouture était essentiel pour transformer les céréales
 aliments comestibles, comme le pain ou les galettes, rendant ainsi les produits
 cultivés plus faciles à consommer et à conserver.
 
-![Meule à grains : la céréale devient farine](../medias/01-sedentarisation/meule.jpg)
-
 :::
 
 ## La division du travail
@@ -324,20 +318,21 @@ cultivés plus faciles à consommer et à conserver.
 ### Des surplus alimentaires
 
 Alors que dans les sociétés de chasseurs-cueilleurs, chaque membre de la
-communauté était impliqué dans la recherche de nourriture et dans la fabrication
-d'outils, au Néolithique, certaines personnes se sont consacrées à l'agriculture
-et à l'élevage. Grâce à cela, les premiers regroupements humains ont pu dégager
-des surplus agricoles.
-
-Une des conséquences les plus importantes de la production de surplus alimentaires
-a été la spécialisation des individus dans différents domaines. Les membres de la
-communauté qui ne se vouaient pas à la production de nourriture se tournèrent ainsi
-vers l'artisanat.
+communauté était impliqué dans la recherche de nourriture et dans la
+fabrication d'outils, au Néolithique, certaines personnes se sont consacrées à
+l'agriculture et à l'élevage. Grâce à cela, les premiers regroupements humains
+ont pu dégager des surplus agricoles. Une des conséquences les plus
+importantes de la production de surplus alimentaires a été la spécialisation
+des individus dans différents domaines. Les membres de la communauté qui ne se
+vouaient pas à la production de nourriture se tournèrent ainsi vers
+l'artisanat.
 
 ::: schema surplus
 :::
 
 ### L'artisan
+
+![Poterie néolithique : sans contenant, pas de réserve](../medias/01-sedentarisation/poterie.jpg)
 
 Les objets fabriqués par les artisans sont variés. Ils peuvent être utilisés pour
 l'agriculture, la cuisson, la chasse, la décoration, etc. Certains artisans vont se
@@ -350,9 +345,9 @@ L'avènement de la poterie est un événement particulièrement important pour l
 premiers villages. Les pots et autres récipients sont utiles pour la cuisson de la
 nourriture et pour l'entreposage des surplus agricoles.
 
-![Poterie néolithique : sans contenant, pas de réserve](../medias/01-sedentarisation/poterie.jpg)
-
 ### La hiérarchie sociale
+
+![L'or de la nécropole de Varna : des tombes très inégalement dotées](../medias/01-sedentarisation/varna-or.jpg)
 
 La division des tâches a également entraîné une hiérarchie sociale plus complexe.
 Alors que dans les sociétés de chasseurs-cueilleurs, les décisions étaient souvent
@@ -360,8 +355,6 @@ prises de manière collective, au Néolithique, certaines personnes sont devenue
 chefs ou des dirigeants, chargés de prendre des décisions pour l'ensemble de la
 communauté. Cela a créé une structure sociale plus organisée, avec des individus
 ayant différents niveaux de pouvoir et de responsabilités.
-
-![L'or de la nécropole de Varna : des tombes très inégalement dotées](../medias/01-sedentarisation/varna-or.jpg)
 
 ### L'apparition des premiers échanges
 
@@ -384,6 +377,8 @@ d'échange est appelé le troc.
 
 ![La femme assise de Çatal Höyük, statuette d'argile façonnée vers -6000](../medias/01-sedentarisation/femme-assise-catal-hoyuk.jpg)
 
+![Fresque de Çatal Höyük : des chasseurs entourant un aurochs](../medias/01-sedentarisation/fresque-chasse.jpg)
+
 Les fouilles menées à Çatal Höyük ont révélé que les habitants accordaient une
 grande importance à la mort et aux pratiques funéraires. Les morts étaient enterrés
 à l'intérieur des maisons, sous le sol. Les défunts étaient souvent accompagnés
@@ -394,17 +389,14 @@ des objets retrouvés à proximité des ossements détermine la classe sociale d
 défunt.
 
 Les peintures murales découvertes dans les maisons de Çatal Höyük fournissent
-également des informations sur les croyances religieuses de l'époque. Ces peintures
-représentent souvent des divinités telles que des déesses-mères, des animaux sacrés
-et des symboles de fertilité.
-
-![Fresque de Çatal Höyük : des chasseurs entourant un aurochs](../medias/01-sedentarisation/fresque-chasse.jpg)
-
-Les déesses-mères étaient vénérées dans de nombreuses cultures néolithiques à
-travers le monde. Elles étaient souvent représentées sous la forme de statues ou de
-figurines féminines aux formes généreuses, symbolisant la fertilité et la
-maternité. Ces représentations étaient souvent associées à des rituels de fécondité
-et de fertilité, visant à assurer des récoltes abondantes et des naissances saines.
+également des informations sur les croyances religieuses de l'époque. Ces
+peintures représentent souvent des divinités telles que des déesses-mères, des
+animaux sacrés et des symboles de fertilité. Les déesses-mères étaient
+vénérées dans de nombreuses cultures néolithiques à travers le monde. Elles
+étaient souvent représentées sous la forme de statues ou de figurines
+féminines aux formes généreuses, symbolisant la fertilité et la maternité. Ces
+représentations étaient souvent associées à des rituels de fécondité et de
+fertilité, visant à assurer des récoltes abondantes et des naissances saines.
 
 Les déesses-mères étaient considérées comme les gardiennes de la vie et de la
 continuité de la communauté. Elles étaient perçues comme les protectrices des

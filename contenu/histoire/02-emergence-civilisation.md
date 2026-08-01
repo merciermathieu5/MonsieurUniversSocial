@@ -67,6 +67,10 @@ artisans, des prêtres et des soldats qui ne cultivent pas.
 
 ### Entre le Tigre et l'Euphrate
 
+![La Mésopotamie et le Croissant fertile, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.png)
+
+![Irrigation sur les rives de l'Euphrate au début du 20e siècle](../medias/02-emergence-civilisation/irrigation.jpg)
+
 La Mésopotamie se situe dans le Croissant fertile, au croisement de trois
 continents :
 
@@ -84,10 +88,6 @@ l'Euphrate peuvent être utilisés afin de se déplacer sur le territoire. La
 croissance du nombre de personnes a obligé ces derniers à se regrouper en
 cités-États.
 
-![La Mésopotamie et le Croissant fertile, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.png)
-
-![Irrigation sur les rives de l'Euphrate au début du 20e siècle](../medias/02-emergence-civilisation/irrigation.jpg)
-
 ::: questions
 1. Où se situe la Mésopotamie et que signifie ce nom?
 2. Nomme deux avantages qu'apportent le Tigre et l'Euphrate.
@@ -100,6 +100,8 @@ cités-États.
 :::
 
 ## L'invention de l'écriture
+
+![Tablette cunéiforme enregistrant des rations d'orge](../medias/02-emergence-civilisation/tablette-cuneiforme.jpg)
 
 Vers 3300 av. J.-C., en Mésopotamie, les Sumériens ont voulu conserver les traces
 des biens qu'ils possédaient et qu'ils échangeaient. Ils ont gravé sur des
@@ -124,16 +126,14 @@ parchemin viendront remplacer la tablette d'argile. Ces nouveaux supports
 permettent de tracer plus facilement les symboles et d'améliorer la
 compréhension du message que l'on veut transmettre.
 
-![Tablette cunéiforme enregistrant des rations d'orge](../medias/02-emergence-civilisation/tablette-cuneiforme.jpg)
-
 ### Un métier particulier
+
+![Statue du scribe sumérien Dudu, réplique du musée de Sulaymaniyah](../medias/02-emergence-civilisation/scribe.jpg)
 
 Le scribe écrit à la main des textes administratifs, religieux et juridiques ou
 des documents privés. Puisqu'il est l'une des rares personnes à savoir écrire, il
 possède un statut particulier. Le prestige lié à ce métier lui donne une place
 enviée dans la hiérarchie sociale.
-
-![Statue du scribe sumérien Dudu, réplique du musée de Sulaymaniyah](../medias/02-emergence-civilisation/scribe.jpg)
 
 ::: video yoelGFjNCKs
 L'invention de l'écriture
@@ -159,6 +159,8 @@ révélant la fonction.
 
 ## Babylone : Hammourabi et son code de lois
 
+![La stèle du Code d'Hammourabi](../medias/02-emergence-civilisation/code-hammourabi.jpg)
+
 Au début du 2e millénaire avant notre ère, la cité de Babylone, alors un modeste
 village sur les rives de l'Euphrate, était loin de la cité-État légendaire qu'elle
 allait devenir. C'est sous l'impulsion de son 6e roi, Hammourabi, qui accéda au
@@ -177,8 +179,6 @@ de magnifiques temples, appelés ziggourats, furent construits à la gloire du d
 tutélaire de la ville, Marduk. Grâce à lui, Babylone devint non seulement une
 puissance politique, mais aussi le coeur religieux et intellectuel de la
 Mésopotamie, attirant savants, prêtres et artistes.
-
-![La stèle du Code d'Hammourabi](../medias/02-emergence-civilisation/code-hammourabi.jpg)
 
 L'héritage le plus durable d'Hammourabi est sans conteste son célèbre code de
 lois. Bien qu'il ne s'agisse pas du premier recueil de lois de l'Histoire, il en
@@ -273,6 +273,8 @@ Les cités-États de Mésopotamie
 
 ### L'Étendard d'Ur
 
+![L'Étendard d'Ur, face de la Paix](../medias/02-emergence-civilisation/etendard-ur.jpg)
+
 L'Étendard d'Ur est un coffre de bois de 21,7 cm de haut et 50 cm de long, ajusté
 d'une mosaïque de nacre et de calcaire rouge, sur fond de lapis-lazuli. Il est
 actuellement dans un état restauré, les effets du temps au cours de plusieurs
@@ -283,8 +285,6 @@ désignés sous le nom de « face de la Guerre » et « face de la Paix ». Chac
 quatre côtés comporte trois registres horizontaux, qui se lisent de bas en haut et
 de gauche à droite, sauf pour les deux registres supérieurs où les personnages
 convergent vers le roi.
-
-![L'Étendard d'Ur, face de la Paix](../medias/02-emergence-civilisation/etendard-ur.jpg)
 
 [Explorer l'Étendard d'Ur en image interactive](https://view.genially.com/61f2cfeae371160011977ab0/interactive-image-letendard-dur)
 
@@ -310,6 +310,10 @@ dieux et les humains est l'immortalité des divinités.
 
 ### Les ziggourats et les prêtres
 
+![La ziggourat d'Ur, en Irak](../medias/02-emergence-civilisation/ziggourat-ur.jpg)
+
+![Le vase d'Uruk, une procession d'offrandes à la déesse de la cité](../medias/02-emergence-civilisation/vase-uruk.jpg)
+
 Dans les cités-États mésopotamiennes, le culte, c'est-à-dire l'hommage rendu à
 un dieu, s'exerce dans les ziggourats ou dans les temples. Ces derniers sont
 considérés comme les résidences des dieux. On y pénètre dans le plus grand
@@ -318,22 +322,18 @@ on y dépose des offrandes aux dieux. Ainsi, les prêtres ont un grand rôle à
 jouer dans la société mésopotamienne. En effet, ils sont considérés comme les
 intermédiaires entre la population et les dieux.
 
-![La ziggourat d'Ur, en Irak](../medias/02-emergence-civilisation/ziggourat-ur.jpg)
-
 Le vase d'Uruk, taillé dans l'albâtre vers -3200, montre une procession
 d'habitants qui apportent des paniers de fruits et de grains à la déesse de la
-cité. C'est une image directe du lien entre le surplus agricole, le temple et le
-pouvoir religieux.
-
-![Le vase d'Uruk, une procession d'offrandes à la déesse de la cité](../medias/02-emergence-civilisation/vase-uruk.jpg)
-
-Enlil est l'un des dieux principaux de la religion mésopotamienne. Il est
-considéré comme le roi des dieux, divinité suprême du panthéon mésopotamien. C'est
-lui qui, par ses décisions, attribue la suprématie aux rois humains, qui lui
-accordent donc une place de choix dans leurs offrandes et leurs inscriptions
-commémoratives.
+cité. C'est une image directe du lien entre le surplus agricole, le temple et
+le pouvoir religieux. Enlil est l'un des dieux principaux de la religion
+mésopotamienne. Il est considéré comme le roi des dieux, divinité suprême du
+panthéon mésopotamien. C'est lui qui, par ses décisions, attribue la
+suprématie aux rois humains, qui lui accordent donc une place de choix dans
+leurs offrandes et leurs inscriptions commémoratives.
 
 ## Le commerce en Mésopotamie
+
+![Le lapis-lazuli, importé de la vallée de l'Indus](../medias/02-emergence-civilisation/lapis-lazuli.jpg)
 
 L'économie de la Mésopotamie repose fondamentalement sur l'échange des surplus
 agricoles contre des minerais provenant des régions avoisinantes, comme l'argent
@@ -362,8 +362,6 @@ de roseaux et des galères de bois, pour les longues distances.
 Lorsqu'ils sont obligés de transporter les marchandises à pied, les Mésopotamiens
 font appel aux animaux. En effet, l'âne est souvent utilisé. Ce dernier tire un
 chariot, innovation technique importante et permise grâce à l'invention de la roue.
-
-![Le lapis-lazuli, importé de la vallée de l'Indus](../medias/02-emergence-civilisation/lapis-lazuli.jpg)
 
 ::: video q8wkFFoX0Zw
 Le commerce en Mésopotamie

@@ -366,3 +366,77 @@ D'après les captures d'écran et les demandes reçues :
 3. Les deux règles sont consignées dans le README, section Conventions
    visuelles.
 
+### Retouches du 2 août 2026 (livraison 38)
+
+1. Le titre « L'évolution territoriale » qui flottait au-dessus d'un vide :
+   une vidéo seule se glisse désormais à côté des figures flottantes
+   (flow-root) au lieu de passer dessous. Les duos de vidéos, eux, passent
+   toujours sous les flottants.
+2. Les deux règles éditoriales sont appliquées à toutes les réalités
+   sociales : 32 figures remontées en tête de leur bloc (15 dans la fiche
+   01, 9 dans la 02, 8 dans la 03) par le nouvel outil outils/figures.py,
+   et 10 fusions de paragraphes courts supplémentaires (7, 1 et 2). Les
+   guillemets des citations ont été comptés identiques avant et après.
+3. Le vérificateur gagne une section ÉDITORIAL qui contrôle ces deux règles
+   sur toutes les fiches à chaque passage et affiche la commande de remise
+   d'aplomb en cas d'écart. Le tout est consigné au README.
+
+## Fiche : La christianisation de l'Occident
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « Edward Ribbon » devient « Edward Gibbon », même faute de frappe que dans
+  la fiche 04
+- « Ils auraient, finalement, oubliés » devient « oublié »
+- « pour qu'ils le laisse pénétrer » devient « laissent »
+- « 3e siècle après J-C » devient « 3e siècle »
+- « seraient sans doute d'être mieux acceptés » devient « seraient sans
+  doute mieux acceptés »
+- « dans lequel se dresse église » devient « dans lesquels se dresse
+  l'église »
+- « Collègue Saint-Sacrement » devient « Collège Saint-Sacrement »
+- « Evénement » devient « Événement », « moyen-âge » devient « Moyen Âge »,
+  « noblesses » devient « noblesse », « les vandales » devient
+  « les Vandales »
+- « Ier siècle » devient « 1er siècle » dans le texte, conformément au reste
+  du site; la frise conserve « Ier siècle » comme repère
+- Le paramètre de pistage fbclid a été retiré de l'adresse LearningApps
+
+### Propositions qui touchent au contenu
+
+Réponds par le numéro. Je n'applique que ce que tu approuves.
+
+**1. Le choeur « à l'ouest »**
+
+Le texte des cathédrales place le choeur à l'ouest. Dans la très grande
+majorité des églises médiévales, le choeur et le chevet sont orientés vers
+l'est, la façade vers l'ouest. Je proposerais « à l'est ».
+
+**2. Clovis : 496 ou 498**
+
+Le titre de la section dit « en 498 » et le texte situe la bataille de
+Tolbiac en 496. Les historiens hésitent entre 496 et 508 pour le baptême;
+la frise dit prudemment « vers 498 » pour suivre ton titre. À harmoniser si
+tu préfères une seule date.
+
+**3. Définitions des concepts ajoutées**
+
+Ta page présentait les concepts dans une image devenue inaccessible (403).
+J'ai rédigé une courte définition par concept dans la section Concepts à
+l'étude; à relire et à ajuster à ta guise.
+
+**4. Images de remplacement**
+
+Toutes les images de l'ancien site renvoient 403; la fiche s'appuie donc
+sur neuf images Wikimedia Commons vérifiées (Gérôme, atelier de Raphaël,
+Maître de Saint-Gilles, hommage vassalique, Très Riches Heures, Notre-Dame,
+arcs-boutants, concile de Clermont, procès de la truie) et sur trois
+schémas neufs : frise-christianisation, trois-ordres et
+organisation-clerge.
+
+**5. Liens ministériels**
+
+Comme pour la fiche 04, les liens vers la Progression et le Programme aux
+anciennes adresses ministérielles ne sont pas repris; les documents sont
+déclarés dans site.yml.
+

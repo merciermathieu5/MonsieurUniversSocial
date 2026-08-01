@@ -147,6 +147,13 @@ def traiter(chemin: Path, appliquer: bool) -> int:
     return fusions
 
 
+def compter(chemin: Path) -> int:
+    """Compte sans rien écrire ni imprimer, pour le vérificateur."""
+    import contextlib, io
+    with contextlib.redirect_stdout(io.StringIO()):
+        return traiter(chemin, appliquer=False)
+
+
 def main() -> int:
     args = [a for a in sys.argv[1:] if a != "--appliquer"]
     appliquer = "--appliquer" in sys.argv

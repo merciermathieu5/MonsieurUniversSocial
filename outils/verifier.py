@@ -435,6 +435,32 @@ def controler_classes() -> list[str]:
 DOCS = RACINE / "docs"
 
 
+def controler_editorial() -> list[str]:
+    """Les conventions éditoriales du README s'appliquent à toutes les fiches.
+
+    Deux règles outillées : les figures se placent en tête de leur bloc
+    (outils/figures.py) et les paragraphes courts se regroupent
+    (outils/paragraphes.py). Le vérificateur signale toute fiche en écart et
+    la commande qui la remet d'aplomb.
+    """
+    import figures
+    import paragraphes
+    soucis = []
+    for chemin in sorted((RACINE / "contenu").rglob("*.md")):
+        n = figures.compter(chemin)
+        if n:
+            soucis.append(
+                f"{n} figure(s) pas en tête de bloc : "
+                f"python3 outils/figures.py --appliquer {chemin.relative_to(RACINE)}")
+        n = paragraphes.compter(chemin)
+        if n:
+            soucis.append(
+                f"{n} paragraphe(s) courts à regrouper : "
+                f"python3 outils/paragraphes.py --appliquer {chemin.relative_to(RACINE)}")
+    return soucis
+
+
+
 def controler_construit() -> list[str]:
     """Contrôles structurels sur les pages construites de docs/.
 
@@ -501,6 +527,14 @@ def main() -> int:
     if not contenu:
         print("    ok   rien à signaler")
     soucis += contenu
+
+    print("\nÉDITORIAL")
+    editorial = controler_editorial()
+    for e in editorial:
+        print(f"    {e}")
+    if not editorial:
+        print("    ok   figures en tête de bloc et paragraphes regroupés")
+    soucis += editorial
 
     print("\nCONSTRUIT")
     construit = controler_construit()
