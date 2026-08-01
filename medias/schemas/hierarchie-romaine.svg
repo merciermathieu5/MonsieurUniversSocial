@@ -1,0 +1,42 @@
+<svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La hiérarchie sociale romaine, de l'empereur au sommet jusqu'aux esclaves à la base : empereur, patriciens, plébéiens, affranchis et pérégrins, esclaves">
+  <style>
+    .hr-t { font-family: Archivo, sans-serif; }
+    .hr-b1 { fill: var(--schema-accent); }
+    .hr-b2 { fill: var(--bloc); }
+    .hr-b3 { fill: var(--schema-cle); }
+    .hr-b4 { fill: var(--bloc-pale); }
+    .hr-b5 { fill: var(--matiere-voile); }
+    .hr-t1 { font-size: 14px; font-weight: 600; fill: var(--surface); }
+    .hr-t2 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
+    .hr-t3 { font-size: 14px; font-weight: 600; fill: var(--surface); }
+    .hr-t4 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .hr-t5 { font-size: 14px; font-weight: 600; fill: var(--encre); }
+    .hr-a { font-size: 12.5px; fill: var(--encre-doux); }
+  </style>
+  <rect class="hr-b1" x="40" y="28" width="340" height="52" rx="4"/>
+  <text class="hr-t hr-t1" x="210" y="59" text-anchor="middle">L'empereur et sa famille</text>
+  <line x1="384" y1="54" x2="822" y2="54" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="hr-t hr-a" x="830" y="50">Il dirige l'État, l'armée</text>
+  <text class="hr-t hr-a" x="830" y="68">et la vie religieuse.</text>
+  <rect class="hr-b2" x="40" y="92" width="460" height="52" rx="4"/>
+  <text class="hr-t hr-t2" x="270" y="123" text-anchor="middle">Les patriciens et les grandes familles</text>
+  <line x1="504" y1="118" x2="822" y2="118" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="hr-t hr-a" x="830" y="114">Sénateurs, magistrats et</text>
+  <text class="hr-t hr-a" x="830" y="132">grands propriétaires terriens.</text>
+  <rect class="hr-b3" x="40" y="156" width="560" height="52" rx="4"/>
+  <text class="hr-t hr-t3" x="320" y="187" text-anchor="middle">Les plébéiens, citoyens du peuple</text>
+  <line x1="604" y1="182" x2="822" y2="182" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="hr-t hr-a" x="830" y="178">Paysans, artisans et</text>
+  <text class="hr-t hr-a" x="830" y="196">commerçants des cités.</text>
+  <rect class="hr-b4" x="40" y="220" width="660" height="52" rx="4"/>
+  <text class="hr-t hr-t4" x="370" y="251" text-anchor="middle">Les affranchis et les pérégrins</text>
+  <line x1="704" y1="246" x2="822" y2="246" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="hr-t hr-a" x="830" y="242">Anciens esclaves libérés et</text>
+  <text class="hr-t hr-a" x="830" y="260">hommes libres des provinces.</text>
+  <rect class="hr-b5" x="40" y="284" width="760" height="52" rx="4"/>
+  <text class="hr-t hr-t5" x="420" y="315" text-anchor="middle">Les esclaves, sans aucun droit</text>
+  <line x1="804" y1="310" x2="822" y2="310" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="hr-t hr-a" x="830" y="306">Prisonniers de guerre, personnes</text>
+  <text class="hr-t hr-a" x="830" y="324">achetées ou nées en esclavage.</text>
+</svg>

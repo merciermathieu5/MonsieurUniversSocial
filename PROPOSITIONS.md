@@ -225,3 +225,94 @@ sont dans `contenu/geographie/`.
 Les liens vers le PFEQ et la Progression des apprentissages de l'ancien site
 pointent vers d'anciennes adresses du ministère. Je n'ai pas pu les tester. Ils
 sont à vérifier sur l'ensemble des 27 fiches.
+
+## Fiche : La romanisation
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+Ces changements ne touchent ni aux dates, ni aux faits, ni aux périodes. Les
+citations de Pierre-Luc Brisson sont conservées telles quelles.
+
+- « au 2 siècle » devient « au 2e siècle »
+- « eu une fille » devient « eut une fille »
+- « fit vœux de chasteté » devient « fit voeu de chasteté »
+- « réputé sacrée et inviolable » devient « réputé sacré et inviolable »
+- « naquît » devient « naquit »
+- « Ils seront recueillis par une louve et restèrent » devient « Ils furent
+  recueillis », pour la concordance des temps
+- « une période de paix appelé » devient « appelée »
+- « des villes telle que » devient « telles que »
+- « des ternes » devient « des thermes », faute de frappe évidente
+- « toutes aussi importantes » devient « tout aussi importantes »
+- « peuvent se rendent » devient « peuvent se rendre »
+- « ont pu ainsi exportées » devient « exporter »
+- « Seul l'empereur à le pouvoir » devient « a le pouvoir »
+- « Ils auraient, finalement, oubliés » devient « oublié »
+- « de parts et d'autres » devient « de part et d'autre »
+- « pour qu'ils le laisse pénétrer » devient « laissent »
+- « Edward Ribbon » devient « Edward Gibbon », faute de frappe sur le nom de
+  l'historien
+- « pompiéenne » devient « pompéienne »
+- « 753 à 509 avant J-C », « 55 avant J.-C. » et « Ier siècle avant J-C »
+  passent aux conventions du site : « -753 à -509 », « -55 »,
+  « 1er siècle av. J.-C. »
+- Le « 2e siècle après J-C » du mur d'Hadrien devient « 2e siècle », comme
+  partout ailleurs sur le site pour notre ère
+
+### Propositions qui touchent au contenu
+
+Réponds par le numéro. Je n'applique que ce que tu approuves.
+
+**1. « d'un Colisée »**
+
+Dans la section sur Lutèce et Toulouse, la liste des constructions comprend
+« un Colisée ». Le Colisée désigne l'amphithéâtre Flavien de Rome; pour les
+autres villes, je proposerais « un amphithéâtre ». La même phrase énumère
+aussi « des bains publics » et « des thermes », qui désignent la même chose :
+on pourrait n'en garder qu'un.
+
+**2. « Auguste fera interdire les courses de chars en Italie »**
+
+Je ne trouve pas de source qui appuie cette interdiction : les courses de
+chars prospèrent au contraire sous l'Empire, notamment au Grand Cirque. Je
+proposerais de retirer la phrase, ou de la remplacer par une nuance sur
+l'encadrement des jeux par les empereurs.
+
+**3. « Vers 131, l'empereur exige »**
+
+L'empereur de l'Édit perpétuel n'est pas nommé : c'est Hadrien. Je
+proposerais de le nommer, comme le texte nomme ensuite Justinien.
+
+**4. Répétition de la définition de la romanisation**
+
+Le premier paragraphe de « La romanisation des régions conquises » reprend
+mot pour mot la définition donnée en mise en contexte. J'ai conservé la
+répétition, qui peut servir de rappel; à alléger si tu préfères.
+
+**5. Liens ministériels retirés**
+
+La page pointait vers la Progression des apprentissages et le Programme de
+formation aux anciennes adresses education.gouv.qc.ca, qui ne répondent plus.
+Ces documents sont déjà déclarés dans site.yml et affichés en pastilles sur
+l'index d'histoire : je ne les ai pas repris dans la fiche.
+
+**6. Lien de recherche Google Images retiré**
+
+La section sur la tria nomina contenait un lien vers une recherche Google
+Images « éducation rome ». Ce type d'adresse est instable et ne mène à aucun
+contenu précis : je ne l'ai pas repris. Si une image d'éducation romaine est
+souhaitée à cet endroit, je peux en épingler une de Wikimedia Commons.
+
+**7. Activité Google Mes cartes**
+
+Le fichier Drive « Activité - Ruines romaines - Google Mes cartes.pdf » ne
+peut pas être lié directement depuis le nouveau site. La fiche renvoie plutôt
+vers la section Matériel pédagogique; à ajuster si tu préfères déposer le PDF
+dans le dépôt.
+
+**8. Images des stèles de métiers**
+
+Les photos des stèles du parfumeur et de l'oliarius de l'ancien site n'ont
+pas d'équivalent repérable sur Wikimedia Commons. La section des métiers est
+pour l'instant sans images; dis-moi si tu veux que je reprenne les images de
+l'ancien site par leur adresse, comme pour les cartes.

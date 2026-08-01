@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps de la fondation légendaire de Rome en -753 à la chute de l'Empire romain d'Occident en 476, avec les périodes de la royauté, de la République et de l'Empire">
+  <style>
+    .ro-t { font-family: Archivo, sans-serif; }
+    .ro-e { font-size: 13.5px; fill: var(--encre); }
+    .ro-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
+    .ro-p1 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .ro-p2 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
+    .ro-p3 { font-size: 14px; font-weight: 600; fill: var(--surface); }
+  </style>
+  <rect x="70" y="178" width="190.6" height="34" fill="var(--bloc-pale)"/>
+  <rect x="260.6" y="178" width="376.5" height="34" fill="var(--bloc)"/>
+  <rect x="637.1" y="178" width="392.9" height="34" fill="var(--schema-accent)"/>
+  <text class="ro-t ro-p1" x="165.3" y="200" text-anchor="middle">Royauté romaine</text>
+  <text class="ro-t ro-p2" x="448.8" y="200" text-anchor="middle">République romaine</text>
+  <text class="ro-t ro-p3" x="833.6" y="200" text-anchor="middle">Empire romain</text>
+  <line x1="70" y1="164" x2="70" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="ro-t ro-d" x="8" y="96">-753</text>
+  <text class="ro-t ro-e" x="8" y="117">Selon la légende, Romulus</text>
+  <text class="ro-t ro-e" x="8" y="138">fonde Rome sur le mont</text>
+  <text class="ro-t ro-e" x="8" y="159">Palatin : c'est la royauté.</text>
+  <circle cx="70" cy="178" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="260.6" y1="220" x2="260.6" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="ro-t ro-d" x="260.6" y="248" text-anchor="middle">-509</text>
+  <text class="ro-t ro-e" x="260.6" y="269" text-anchor="middle">Le dernier roi est chassé :</text>
+  <text class="ro-t ro-e" x="260.6" y="290" text-anchor="middle">la République est proclamée.</text>
+  <text class="ro-t ro-e" x="260.6" y="311" text-anchor="middle">Le Sénat dirige la cité.</text>
+  <circle cx="260.6" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="637.1" y1="164" x2="637.1" y2="170" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="ro-t ro-d" x="637.1" y="96" text-anchor="middle">-27</text>
+  <text class="ro-t ro-e" x="637.1" y="117" text-anchor="middle">Auguste devient le premier</text>
+  <text class="ro-t ro-e" x="637.1" y="138" text-anchor="middle">empereur : la Pax romana,</text>
+  <text class="ro-t ro-e" x="637.1" y="159" text-anchor="middle">une longue paix, commence.</text>
+  <circle cx="637.1" cy="178" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="1030" y1="220" x2="1030" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="ro-t ro-d" x="1092" y="248" text-anchor="end">476</text>
+  <text class="ro-t ro-e" x="1092" y="269" text-anchor="end">Le dernier empereur d'Occident</text>
+  <text class="ro-t ro-e" x="1092" y="290" text-anchor="end">est déposé : l'Empire romain</text>
+  <text class="ro-t ro-e" x="1092" y="311" text-anchor="end">d'Occident disparaît.</text>
+  <circle cx="1030" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+</svg>

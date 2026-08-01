@@ -47,6 +47,11 @@ Les positions suivent l'échelle réelle du temps. Les dates s'écrivent avec
 l'espace des milliers (`-3 500`) et `vers` quand la datation est approximative.
 Aucun élément décoratif ne traverse un texte.
 
+La ligne du temps classique se dessine comme une bande d'axe qui porte les
+périodes : chaque segment coloré de la bande porte le nom de sa période, et
+les points d'événements se posent sur les bords de la bande, en haut ou en
+bas selon le côté de leur étiquette, jamais au centre de la bande.
+
 ## Avant de livrer
 
 `python outils/verifier.py` doit passer sans souci sur les schémas : contraste
