@@ -64,6 +64,24 @@
     <div class="frise__contenu" id="frise-piste">
     {# Chaque bloc porte le nom de la réalité sociale, sans date : c'est le nom
        que l'élève doit retenir et reconnaître d'une fiche à l'autre. #}
+    {% if section.parcours_rangees %}
+    {% set ns = namespace(debut=0) %}
+    {% for rangee in section.parcours_rangees %}
+    <p class="frise__cycle{% if loop.index > 1 %} frise__cycle--deux{% endif %}">{{ rangee.titre }}</p>
+    <ol class="frise__piste{% if loop.index > 1 %} frise__piste--deux{% endif %}">
+      {% for f in section.parcours[ns.debut:rangee.fin] %}
+      <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
+        <a href="{{ base }}/{{ f.url }}"
+           {% if f.nom == fiche.nom %}aria-current="page"{% endif %}>
+          <span class="frise__rang">{{ ns.debut + loop.index }}</span>
+          <span class="frise__nom">{{ f.court or f.titre }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+    {% set ns.debut = rangee.fin %}
+    {% endfor %}
+    {% else %}
     <ol class="frise__piste">
       {% for f in section.parcours %}
       <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
@@ -75,6 +93,7 @@
       </li>
       {% endfor %}
     </ol>
+    {% endif %}
     </div>
   </nav>
   {% endif %}

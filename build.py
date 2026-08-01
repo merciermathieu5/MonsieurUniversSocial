@@ -213,14 +213,17 @@ ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
 
 
 def ranger_figures(html: str) -> str:
-    """Une seule image flottante par section.
+    """Une seule image flottante par section ou sous-section.
 
-    Dès qu'une section (un h2) contient deux figures ou plus, elles sont
-    retirées du fil du texte et regroupées en galerie uniforme à la fin de la
-    section, juste avant le bloc de questions s'il y en a un. C'est ce qui
-    empêche les collisions de flottants qui rendaient les pages chaotiques.
+    Dès qu'une section (un h2) ou une sous-section (un h3) contient deux
+    figures ou plus, elles sont retirées du fil du texte et regroupées en
+    galerie uniforme à la fin du bloc, juste avant les questions s'il y en a.
+    C'est ce qui empêche les collisions de flottants qui rendaient les pages
+    chaotiques. Le découpage au h3 garde chaque galerie au plus près des
+    paragraphes qu'elle illustre : les images de l'éducation restent dans la
+    sous-section des enfants au lieu de glisser à la fin des classes sociales.
     """
-    morceaux = re.split(r"(?=<h2)", html)
+    morceaux = re.split(r"(?=<h2|<h3)", html)
     resultat = []
     for morceau in morceaux:
         figures = FIGURE.findall(morceau)

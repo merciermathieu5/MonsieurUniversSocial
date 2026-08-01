@@ -259,6 +259,9 @@ de citoyenneté et portent le titre de citoyen. Quels sont ces critères? Le
 citoyen doit avoir plus de 18 ans, être né de parents athéniens et avoir
 réalisé son service militaire.
 
+::: schema citoyennete-athenienne
+:::
+
 Les citoyens sont les individus qui possèdent le plus de droits dans la société
 athénienne, particulièrement dans le domaine politique. Tous peuvent participer
 à l'assemblée du peuple, l'ecclésia, qui se réunit une quarantaine de fois par
@@ -297,6 +300,8 @@ la laine. Vers 14 ans, elles savent tout ce qu'il faut pour devenir une bonne
 épouse et prendre mari. Elles n'ont d'ailleurs pas leur mot à dire dans ce
 mariage, arrangé avec un homme qui peut avoir trois fois leur âge.
 
+![Une scène d'école sur la coupe du peintre Douris, vers -480 : le maître corrige la tablette d'un élève](../medias/03-premiere-democratie/coupe-ecole.jpg)
+
 Les enfants, garçons ou filles, apprennent les poèmes d'Homère, l'Iliade et
 l'Odyssée, et les récitent accompagnés de musique. Les garçons apprennent aussi
 à chanter, à danser et à jouer d'un instrument. À partir de 14 ans, ils
@@ -304,6 +309,8 @@ pratiquent des sports et participent à des épreuves athlétiques. Ils écouten
 les enseignements des philosophes, composent des discours et s'exercent à
 débattre afin de devenir de bons citoyens. À 18 ans, ils commencent leur
 formation militaire ou travaillent aux affaires de leur père.
+
+![Une poupée articulée en terre cuite, vers -490, semblable aux jouets retrouvés dans les tombes de jeunes filles](../medias/03-premiere-democratie/poupee-articulee.jpg)
 
 Les archéologues ont retrouvé à Corinthe une poupée dansante en terre cuite
 datée d'environ -350. Il s'agit d'un jouet de petite fille offert en offrande

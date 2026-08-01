@@ -248,6 +248,26 @@ a { color: inherit; }
   color: rgba(255,255,255,.82); hyphens: auto;
 }
 .frise__cran.est-ici .frise__nom { font-weight: 700; color: #fff; }
+.frise__cycle {
+  max-width: var(--large); margin: 0 auto; padding: .5rem 1.75rem 0;
+  font-family: var(--donnee); font-size: .66rem; letter-spacing: .14em;
+  text-transform: uppercase; color: rgba(255,255,255,.55);
+}
+.frise__piste { padding-top: .4rem; padding-bottom: .55rem; }
+.frise__piste--deux { padding-bottom: 1.1rem; }
+/* La 2e secondaire se distingue par une teinte terracotta, chaude et bien
+   différente du bleu de la 1re et du vert de la géographie. Le repère doré
+   de la fiche courante reste identique dans les deux rangées. */
+.frise__cycle--deux { color: rgba(233,164,138,.75); }
+.frise__piste--deux .frise__cran > a {
+  background: rgba(201,112,84,.18); border-top-color: rgba(226,142,112,.55);
+}
+.frise__piste--deux .frise__cran > a:hover {
+  background: rgba(201,112,84,.3); border-top-color: rgba(236,160,130,.9);
+}
+.frise__piste--deux .frise__cran.est-ici > a {
+  background: rgba(201,112,84,.26); border-top-color: var(--signal);
+}
 @media (max-width: 62rem) {
   .frise__piste { flex-wrap: wrap; }
   .frise__cran { flex: 1 1 8rem; }

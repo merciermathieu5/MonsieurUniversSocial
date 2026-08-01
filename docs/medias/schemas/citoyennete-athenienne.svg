@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les trois critères donnant accès à la citoyenneté athénienne">
+  <style>
+    .ct-t { font-family: Archivo, sans-serif; }
+    .ct-h { font-size: 13.5px; fill: var(--schema-cle); }
+    .ct-n { font-family: 'IBM Plex Mono', monospace; font-size: 26px; font-weight: 700; fill: var(--bloc-texte); }
+    .ct-v { font-size: 15px; font-weight: 600; fill: var(--bloc-texte); }
+  </style>
+  <text class="ct-t ct-h" x="8" y="22">Pour être citoyen d'Athènes, il faut réunir les trois critères.</text>
+  <rect x="8" y="46" width="317" height="160" rx="6" fill="var(--bloc)"/>
+  <text class="ct-t ct-n" x="166" y="102" text-anchor="middle">1</text>
+  <text class="ct-t ct-v" x="166" y="146" text-anchor="middle">Avoir plus</text>
+  <text class="ct-t ct-v" x="166" y="169" text-anchor="middle">de 18 ans.</text>
+  <rect x="341" y="46" width="317" height="160" rx="6" fill="var(--bloc)"/>
+  <text class="ct-t ct-n" x="499" y="102" text-anchor="middle">2</text>
+  <text class="ct-t ct-v" x="499" y="146" text-anchor="middle">Être né d'un père athénien</text>
+  <text class="ct-t ct-v" x="499" y="169" text-anchor="middle">et d'une mère fille de citoyen.</text>
+  <rect x="674" y="46" width="318" height="160" rx="6" fill="var(--bloc)"/>
+  <text class="ct-t ct-n" x="833" y="102" text-anchor="middle">3</text>
+  <text class="ct-t ct-v" x="833" y="146" text-anchor="middle">Avoir accompli son</text>
+  <text class="ct-t ct-v" x="833" y="169" text-anchor="middle">service militaire.</text>
+</svg>

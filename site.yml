@@ -17,6 +17,11 @@ sections:
     couleur: histoire
     unite: réalité sociale
     parcours_titre: Réalités sociales
+    parcours_rangees:
+      - titre: 1re secondaire
+        fin: 6
+      - titre: 2e secondaire
+        fin: 12
     documents:
       - titre: Programme d'études
         url: https://cdn-contenu.quebec.ca/cdn-contenu/education/pfeq/secondaire/programmes/PFEQ-histoire-education-citoyennete-secondaire.pdf
