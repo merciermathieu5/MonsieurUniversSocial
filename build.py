@@ -38,7 +38,7 @@ manquantes: list[str] = []
 EXTENSIONS_MD = ["extra", "toc", "sane_lists", "md_in_html"]
 
 # ::: questions ... :::  ::: note ... :::  ::: video IDENTIFIANT ... :::
-BLOC = re.compile(r"^::: *(questions|note|savais-tu) *$(.*?)^::: *$",
+BLOC = re.compile(r"^::: *(questions|note|savais-tu|activite) *$(.*?)^::: *$",
                   re.MULTILINE | re.DOTALL)
 VIDEO = re.compile(r"^::: *video +([\w-]+) *$(.*?)^::: *$",
                    re.MULTILINE | re.DOTALL)
@@ -51,6 +51,7 @@ TITRES_BLOC = {
     "questions": "Questions",
     "note": "À retenir",
     "savais-tu": "Savais-tu que",
+    "activite": "Activité",
 }
 
 

@@ -164,6 +164,13 @@ Une anecdote qui accroche.
 :::
 ```
 
+```
+::: activite
+Une activité ou une ressource externe à mettre bien en évidence,
+avec son lien en gras dans le fil du texte.
+:::
+```
+
 Pour une image avec légende :
 
 ```markdown

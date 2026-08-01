@@ -107,10 +107,9 @@ de la fondation légendaire de Rome à la chute de l'Empire romain d'Occident.
 
 À son apogée, au 2e siècle, l'Empire romain encercle complètement la mer
 Méditerranée, que les Romains appellent Mare Nostrum, « notre mer ». La carte
-suivante en donne une vue d'ensemble simplifiée.
+suivante montre son étendue en 96, à la veille de cette apogée.
 
-::: schema carte-empire
-:::
+![L'Empire romain en 96, encerclant la mer Méditerranée](../medias/04-romanisation/carte-empire-96.png)
 
 ## La royauté romaine (-753 à -509)
 
@@ -154,10 +153,6 @@ l'empire de connaître une période de prospérité jusqu'au 2e siècle de notre
 L'évolution territoriale de Rome, de la cité à l'Empire
 :::
 
-::: video oxEQrKC0Q_o
-L'expansion romaine autour de la mer Méditerranée
-:::
-
 ::: questions
 1. Quelles sont les trois grandes périodes de l'histoire romaine et leurs dates?
 2. Que signifie la devise Senatus Populusque Romanus (SPQR)?
@@ -182,7 +177,23 @@ présente les grands groupes sociaux, du plus puissant au plus démuni.
 ::: schema hierarchie-romaine
 :::
 
-### L'adoption et la tria nomina
+### Explore les classes sociales
+
+Chaque groupe de la société romaine vit selon des règles qui lui sont
+propres. Parcours les onglets de l'interface suivante pour découvrir la
+citoyenneté, les patriciens, les plébéiens, les gens libres, les femmes, les
+enfants et les esclaves, puis vérifie ce que tu retiens avec le quiz.
+
+::: composant classes-sociales
+
+::: questions
+1. Nomme les grands groupes de la société romaine, du plus puissant au plus démuni.
+2. Quels sont les deux groupes qui possèdent le statut de citoyen romain?
+3. Quelle est la différence entre un pérégrin et un affranchi?
+4. Nomme les trois voies qui permettent d'obtenir la citoyenneté romaine.
+:::
+
+## L'adoption et la tria nomina
 
 ![Le Togatus Barberini : un patricien romain porte les bustes de ses ancêtres](../medias/04-romanisation/togatus-barberini.jpg)
 
@@ -241,7 +252,12 @@ pages 56-57)
 - Tiberius
 :::
 
-### L'habitation : un exemple de lieu privé
+::: questions
+1. Que sont le praenomen, le nomen et le cognomen?
+2. Pourquoi l'adoption est-elle si importante dans les familles romaines?
+:::
+
+## L'habitation : un exemple de lieu privé
 
 « Selon son rang et son niveau de richesse, le Romain vivait dans une grande
 domus (la maison d'une famille nantie, d'une superficie moyenne de 600 m2) ou
@@ -272,65 +288,16 @@ pages 50 et 55)
 
 ![Une insula d'Ostie, l'immeuble de logements des familles plus modestes](../medias/04-romanisation/insula-ostie.jpg)
 
-### Les thermes : un exemple de lieu public
-
-#### Les thermes romains
-
-Les thermes sont au nombre des monuments caractéristiques de la civilisation
-romaine. Les thermes sont les bâtiments réservés aux bains. Il y a les
-thermes publics et les thermes privés. Les établissements thermaux sont
-particulièrement prisés par les Romains.
-
-Sous l'Empire, les thermes publics sont construits en grand nombre à Rome,
-mais aussi dans toutes les provinces romaines. Chaque cité est dotée de son
-établissement thermal. Les grandes cités romaines comme le petit vicus en
-sont pourvus. Certains établissements sont spectaculaires comme les thermes
-de Caracalla.
-
-![Les ruines des thermes de Caracalla, à Rome](../medias/04-romanisation/thermes-caracalla.jpg)
-
-#### À quoi ça sert?
-
-Les thermes publics ont deux fonctions tout aussi importantes l'une que
-l'autre : l'une sur le plan de l'hygiène et l'autre sur le plan social. Les
-thermes publics romains sont un lieu de rencontre et de détente.
-
-![Les thermes de Caracalla imaginés par le peintre Lawrence Alma-Tadema en 1899](../medias/04-romanisation/thermes-tableau.jpg)
-
-Ils sont fréquentés par tous les Romains. Les établissements ne sont pas
-fréquentés aux mêmes moments par les hommes et les femmes. Certains
-établissements semblent plutôt fréquentés par une catégorie sociale : des
-gens aisés ou alors des gens du peuple.
-
-Les Romains aisés peuvent se rendre quotidiennement aux thermes. Ils y
-passent parfois l'après-midi.
-
-Les Romains se lavent, se baignent, mais se font aussi masser, en profitent
-pour discuter et peuvent faire du sport et même, dans certains
-établissements, consulter les ouvrages de la bibliothèque.
-
-#### Une journée typique aux thermes
-
-![Une journée typique aux thermes, document repris de l'ancien site](../medias/04-romanisation/journee-thermes.png)
-
-::: video tby8PRV01Vs
-Une visite des thermes romains
-:::
-
-::: video OHxmAryo_xo
-Les bains publics dans la Rome antique
-:::
-
 ::: questions
-1. Nomme les grands groupes de la société romaine, du plus puissant au plus démuni.
-2. Que sont le praenomen, le nomen et le cognomen?
-3. Quelle est la différence entre une domus et une insula?
-4. Quelles sont les deux fonctions des thermes publics?
+1. Quelle est la différence entre une domus et une insula?
+2. Qu'est-ce que le laraire et à quoi sert-il?
 :::
 
-### Les métiers
+## Les métiers
 
 Voici quelques métiers romains qui pourraient te surprendre.
+
+![Quelques métiers romains, document repris de l'ancien site](../medias/04-romanisation/metiers-intro.png)
 
 #### Le parfumeur
 
@@ -350,6 +317,8 @@ déodorants à base d'alun, d'iris et de pétales de rose. Du fait de leur
 odeur, on attribue aux parfums des vertus contre différentes maladies, comme
 la fièvre et l'indigestion. Il est d'ailleurs intéressant de noter que la
 profession de parfumeur était souvent rapprochée de celle de médecin.
+
+![Des clientes choisissent leurs parfums dans la boutique du seplasiarius](../medias/04-romanisation/metier-parfumeur.jpg)
 
 #### Le marchand d'huile
 
@@ -371,6 +340,8 @@ il utilise une cupa olearia et transfère de l'huile dans un récipient.
 
 L'huile est transportée et conservée dans des amphores spécifiques.
 
+![La stèle de Cherchel montre l'oliarius qui puise l'huile avec sa cupa olearia](../medias/04-romanisation/metier-oliarius.png)
+
 #### Les foulonniers
 
 Les foulonniers sont les fullones. Ils travaillent dans des fullonica.
@@ -387,7 +358,14 @@ services aux membres de la haute société. Rome est dotée de nombreux ateliers
 de foulons. Les provinces romaines voient également se développer en nombre
 les fullonica. Des ateliers de foulons s'installent en Afrique romaine.
 
-### Les divertissements
+![Des foulonniers au travail, fresque d'une fullonica de Pompéi](../medias/04-romanisation/metier-foulonniers.jpg)
+
+::: questions
+1. Nomme trois métiers romains présentés dans cette section et leur nom latin.
+2. Quelles sont les trois tâches des foulonniers?
+:::
+
+## Les divertissements
 
 Les Romains disposent de nombreux jours de fêtes. Ces jours-là, la majorité
 de la population se rend au cirque ou au théâtre. Toutes les villes romaines
@@ -395,7 +373,53 @@ possèdent leur propre équipement de loisir et c'est également le cas pour de
 nombreux villages. Certains de ces monuments sont de véritables marqueurs de
 la civilisation romaine.
 
-#### Le théâtre d'Aspendos
+Les thermes font aussi partie de ces lieux où les Romains aiment passer leurs
+journées de repos.
+
+### Les thermes
+
+Les thermes sont au nombre des monuments caractéristiques de la civilisation
+romaine. Les thermes sont les bâtiments réservés aux bains. Il y a les
+thermes publics et les thermes privés. Les établissements thermaux sont
+particulièrement prisés par les Romains.
+
+Sous l'Empire, les thermes publics sont construits en grand nombre à Rome,
+mais aussi dans toutes les provinces romaines. Chaque cité est dotée de son
+établissement thermal. Les grandes cités romaines comme le petit vicus en
+sont pourvus. Certains établissements sont spectaculaires comme les thermes
+de Caracalla.
+
+![Les ruines des thermes de Caracalla, à Rome](../medias/04-romanisation/thermes-caracalla.jpg)
+
+Les thermes publics ont deux fonctions tout aussi importantes l'une que
+l'autre : l'une sur le plan de l'hygiène et l'autre sur le plan social. Les
+thermes publics romains sont un lieu de rencontre et de détente.
+
+![Les thermes de Caracalla imaginés par le peintre Lawrence Alma-Tadema en 1899](../medias/04-romanisation/thermes-tableau.jpg)
+
+Ils sont fréquentés par tous les Romains. Les établissements ne sont pas
+fréquentés aux mêmes moments par les hommes et les femmes. Certains
+établissements semblent plutôt fréquentés par une catégorie sociale : des
+gens aisés ou alors des gens du peuple.
+
+Les Romains aisés peuvent se rendre quotidiennement aux thermes. Ils y
+passent parfois l'après-midi.
+
+Les Romains se lavent, se baignent, mais se font aussi masser, en profitent
+pour discuter et peuvent faire du sport et même, dans certains
+établissements, consulter les ouvrages de la bibliothèque.
+
+![Une journée typique aux thermes, de l'arrivée au départ](../medias/04-romanisation/journee-thermes.jpg)
+
+::: video tby8PRV01Vs
+Une visite des thermes romains
+:::
+
+::: video OHxmAryo_xo
+Les bains publics dans la Rome antique
+:::
+
+### Le théâtre d'Aspendos
 
 ![Le théâtre romain d'Aspendos, dans la Turquie actuelle](../medias/04-romanisation/theatre-aspendos.jpg)
 
@@ -410,15 +434,15 @@ Les acteurs jouent sur la scène et parfois sur l'avant-scène. Mais la plupart
 du temps, l'avant-scène est réservée aux spectateurs importants qui disposent
 de sièges confortables.
 
-#### Le cirque romain
+### Le cirque romain
 
 ![Une course de chars sur la mosaïque des Jeux du cirque, conservée à Lyon](../medias/04-romanisation/mosaique-cirque.jpg)
 
 Les jeux du cirque sont des manifestations cultuelles. Ce sont des courses de
 chars et des combats de gladiateurs donnés dans le cirque. Très appréciés
 sous la République, les jeux du cirque prendront une importance considérable
-sous l'Empire. Cependant, Auguste fera interdire les courses de chars en
-Italie.
+sous l'Empire. Les empereurs encadrent d'ailleurs de près l'organisation de
+ces jeux, qui contribuent à leur prestige.
 
 Les chars rivalisent de vitesse. Le conducteur dirige le char et s'efforce de
 le maintenir en équilibre dans les virages. Ces courses sont très violentes
@@ -427,7 +451,7 @@ renversent ou s'accrochent. La foule surexcitée encourage les conducteurs.
 Les meilleurs conducteurs sont considérés comme des héros et peuvent devenir
 riches.
 
-#### L'amphithéâtre
+### L'amphithéâtre
 
 ![Le Colisée de Rome, le plus célèbre amphithéâtre romain](../medias/04-romanisation/colisee.jpg)
 
@@ -448,7 +472,7 @@ Le premier amphithéâtre date du 1er siècle av. J.-C.
 L'amphithéâtre et les jeux romains
 :::
 
-#### Les gladiateurs
+### Les gladiateurs
 
 ![Des combats de gladiateurs sur la mosaïque de Zliten](../medias/04-romanisation/gladiateurs-zliten.jpg)
 
@@ -470,15 +494,14 @@ exportent ces combats sur tout le territoire romain. Certains magistrats
 romains organisent des combats de gladiateurs en Afrique.
 
 ::: questions
-1. Nomme trois métiers romains présentés dans cette section et leur nom latin.
-2. Quelles sont les trois tâches des foulonniers?
-3. Quelle est la différence entre un théâtre, un cirque et un amphithéâtre?
-4. Qui sont les gladiateurs et où sont-ils entraînés?
+1. Quelles sont les deux fonctions des thermes publics?
+2. Quelle est la différence entre un théâtre, un cirque et un amphithéâtre?
+3. Qui sont les gladiateurs et où sont-ils entraînés?
 :::
 
-### La justice : le droit romain
+## La justice : le droit romain
 
-Vers 131, l'empereur exige la création d'un recueil de lois, regroupant les
+Vers 131, l'empereur Hadrien exige la création d'un recueil de lois, regroupant les
 décisions judiciaires émises par les magistrats romains. Ce code, connu sous
 le nom d'Édit perpétuel, est devenu le point de référence obligatoire pour
 tous les magistrats et gouverneurs dans l'exercice de la justice. Ce faisant,
@@ -536,14 +559,13 @@ On y retrouve des articles concernant les éléments suivants :
 
 ### L'exemple des villes de Lutèce et de Toulouse, en Gaule
 
-La romanisation est un concept historique qui désigne un processus
-d'acculturation par l'adoption de la langue latine et de la culture romaine
-dans l'aire d'influence de l'Empire romain.
+Comme tu l'as vu en mise en contexte, la romanisation désigne l'adoption de
+la langue latine et de la culture romaine par les peuples conquis.
 
 L'Empire romain faisait de la romanisation des régions conquises une priorité
 absolue. Ainsi, des villes telles que Lutèce (Paris aujourd'hui) et Toulouse
-ont été romanisées par la construction d'un aqueduc, d'un Colisée, d'un
-gymnase, des bains publics, des thermes, etc.
+ont été romanisées par la construction d'un aqueduc, d'un amphithéâtre, d'un
+gymnase, des thermes, etc.
 
 Deux vidéos partagées sur Facebook permettent de voir des reconstitutions de
 ces villes gallo-romaines :
@@ -556,6 +578,10 @@ La romanisation des régions conquises par Rome
 :::
 
 ## Les infrastructures romaines
+
+Partout où Rome s'installe, elle bâtit. Quatre constructions suffisent à
+reconnaître le passage des Romains : la voie, l'arc de triomphe, le mur
+fortifié et l'aqueduc.
 
 ### La voie romaine
 
@@ -585,9 +611,13 @@ tranchée dans laquelle ils superposent plusieurs couches de matériaux :
 2. une couche intermédiaire constituée de cailloux de taille moyenne;
 3. une troisième couche composée de petits cailloux, de gravier ou de sable.
 
-Pour explorer les déplacements dans l'Empire en suivant les voies romaines,
-tu peux consulter la [carte interactive Orbis de l'Université
-Stanford](https://orbis.stanford.edu/).
+::: activite
+Combien de temps faut-il pour aller de Rome à Alexandrie par la mer? Explore
+la [carte interactive Orbis de l'Université Stanford](https://orbis.stanford.edu/) :
+choisis les villes de départ et d'arrivée, la saison et le moyen de
+transport, puis découvre la durée et le coût du voyage sur les voies
+romaines.
+:::
 
 ### L'arc de triomphe
 
@@ -647,9 +677,6 @@ Le fonctionnement d'un aqueduc romain
 ### Les infrastructures romaines en réalité virtuelle
 
 ![Les infrastructures romaines en réalité virtuelle, document repris de l'ancien site](../medias/04-romanisation/infrastructures-rv.png)
-
-L'activité « Ruines romaines », réalisée avec Google Mes cartes, est
-disponible dans la section Matériel pédagogique de mon site.
 
 ::: questions
 1. Pourquoi dit-on que « tous les chemins mènent à Rome »?

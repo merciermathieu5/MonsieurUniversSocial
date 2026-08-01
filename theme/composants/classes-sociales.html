@@ -1,0 +1,342 @@
+<section class="cls" id="classes-sociales" aria-label="Les classes sociales romaines">
+<style>
+.cls { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.cls__entete { background: var(--matiere-fonce); color: #fff; padding: .9rem 1.4rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cls__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; }
+.cls__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.cls__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem 0; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.cls__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-bottom: none; border-radius: var(--rayon) var(--rayon) 0 0; padding: .5rem .95rem; cursor: pointer; transition: background .15s, color .15s; }
+.cls__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.cls__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.cls__panneau { display: none; padding: 1.4rem 1.6rem 1.3rem; }
+.cls__panneau.est-visible { display: block; }
+.cls__intro { margin: 0 0 1.1rem; font-size: 1.02rem; line-height: 1.65; }
+.cls__sous { margin: 1.2rem 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; color: var(--matiere-fonce); }
+.cls__cartes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .8rem; margin-bottom: 1rem; }
+.cls__carte { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem 1.05rem; }
+.cls__etiquette { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.cls__carte p { margin: 0; font-size: .95rem; line-height: 1.55; }
+.cls__reveler { width: 100%; text-align: left; font-family: var(--titre); font-weight: 600; font-size: .95rem; color: var(--matiere-fonce); background: var(--matiere-voile); border: 1px dashed var(--matiere); border-radius: var(--rayon); padding: .8rem 1.05rem; cursor: pointer; transition: background .15s; }
+.cls__reveler:hover { background: var(--surface-2); }
+.cls__reveler[aria-expanded="true"] { display: none; }
+.cls__cache { display: none; }
+.cls__cache.est-visible { display: block; }
+.cls__liste { margin: .4rem 0 0; padding-left: 1.15rem; }
+.cls__liste li { margin-bottom: .35rem; font-size: .95rem; line-height: 1.5; }
+.cls__retenir { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-fonce); color: #fff; border-radius: var(--rayon); font-size: .95rem; line-height: 1.6; }
+.cls__retenir strong { color: var(--signal); }
+.cls__etapes { margin: 0 0 .4rem; padding: 0; list-style: none; }
+.cls__etape { position: relative; padding: 0 0 .95rem 1.6rem; border-left: 2px solid var(--matiere); margin-left: .45rem; }
+.cls__etape:last-child { padding-bottom: 0; }
+.cls__etape::before { content: ""; position: absolute; left: -.42rem; top: .25rem; width: .72rem; height: .72rem; border-radius: 50%; background: var(--matiere); border: 2px solid var(--surface); }
+.cls__moment { display: block; font-family: var(--titre); font-weight: 700; font-size: .95rem; }
+.cls__age { display: inline-block; font-family: var(--donnee); font-size: .7rem; color: var(--signal); margin-bottom: .2rem; }
+.cls__etape p { margin: 0; font-size: .93rem; line-height: 1.55; }
+.cls__puces { display: flex; flex-wrap: wrap; gap: .5rem; margin: .3rem 0 1rem; padding: 0; list-style: none; }
+.cls__puce { font-family: var(--donnee); font-size: .74rem; background: var(--matiere-voile); color: var(--matiere-fonce); border-radius: 100px; padding: .3rem .8rem; }
+.cls__voies { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: .8rem; }
+.cls__voie { background: var(--surface-2); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .95rem 1.05rem; text-align: left; }
+.cls__romain { display: block; font-family: var(--donnee); font-size: 1rem; color: var(--signal); margin-bottom: .25rem; }
+.cls__question { margin: 0 0 1rem; font-family: var(--titre); font-weight: 700; font-size: 1.08rem; line-height: 1.45; }
+.cls__compteur { font-family: var(--donnee); font-size: .74rem; color: var(--encre-doux); display: block; margin-bottom: .5rem; }
+.cls__options { display: grid; gap: .55rem; margin-bottom: 1rem; }
+.cls__option { text-align: left; font-size: .98rem; line-height: 1.45; color: var(--encre); background: var(--surface-2); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .7rem 1rem; cursor: pointer; transition: border-color .15s, background .15s; }
+.cls__option:hover:not(:disabled) { border-color: var(--matiere); }
+.cls__option:disabled { cursor: default; opacity: .82; }
+.cls__option.est-bonne { border-color: var(--matiere); background: var(--matiere-voile); font-weight: 700; opacity: 1; }
+.cls__option.est-mauvaise { border-color: var(--signal); text-decoration: line-through; }
+.cls__verdict { display: none; margin: 0 0 1rem; font-family: var(--titre); font-weight: 600; font-size: .95rem; }
+.cls__verdict.est-visible { display: block; }
+.cls__nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cls__bouton { font-family: var(--titre); font-weight: 600; font-size: .9rem; color: #fff; background: var(--matiere-fonce); border: 0; border-radius: 100px; padding: .55rem 1.3rem; cursor: pointer; transition: transform .15s; }
+.cls__bouton:hover { transform: translateY(-1px); }
+.cls__bouton[hidden] { display: none; }
+.cls__score { font-family: var(--donnee); font-size: .82rem; color: var(--encre-doux); }
+.cls__bilan { display: none; text-align: center; padding: .6rem 0 .2rem; }
+.cls__bilan.est-visible { display: block; }
+.cls__note { font-family: var(--titre); font-weight: 700; font-size: 2rem; color: var(--matiere-fonce); margin: 0 0 .3rem; }
+.cls__appreciation { margin: 0 0 1rem; font-size: 1rem; }
+html[data-sombre="on"] .cls__entete, html[data-sombre="on"] .cls__retenir, html[data-sombre="on"] .cls__bouton { background: var(--matiere-voile); color: var(--encre); }
+html[data-sombre="on"] .cls__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .cls__onglet.est-actif { color: var(--encre); }
+@media (max-width: 40rem) { .cls__panneau { padding: 1.1rem 1rem 1rem; } .cls__onglets { padding: .7rem .8rem 0; } }
+@media print { .cls__panneau { display: block; page-break-inside: avoid; } .cls__cache { display: block; } .cls__reveler, .cls__onglets, .cls__nav { display: none; } }
+</style>
+<header class="cls__entete">
+<h3 class="cls__titre">Les classes sociales romaines</h3>
+<p class="cls__consigne">Parcours chaque groupe, puis teste-toi avec le quiz</p>
+</header>
+<div class="cls__onglets" role="tablist" aria-label="Groupes sociaux">
+<button class="cls__onglet est-actif" role="tab" aria-selected="true" data-cls-onglet="citoyennete">Citoyenneté</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="patriciens">Patriciens</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="plebeiens">Plébéiens</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="libres">Gens libres</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="femmes">Femmes</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="enfants">Enfants</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="esclaves">Esclaves</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="devenir">Devenir citoyen</button>
+<button class="cls__onglet" role="tab" aria-selected="false" data-cls-onglet="quiz">Quiz</button>
+</div>
+<div class="cls__panneau est-visible" data-cls-panneau="citoyennete" role="tabpanel">
+<p class="cls__intro">Les <strong>patriciens</strong> et les <strong>plébéiens</strong> sont les seuls à avoir le statut de <strong>citoyen romain</strong>. La citoyenneté romaine procure des avantages importants durant la période de l'Empire.</p>
+<div class="cls__cartes">
+<div class="cls__carte">
+<span class="cls__etiquette">Privilèges</span>
+<button class="cls__reveler" aria-expanded="false">Clique pour voir</button>
+<div class="cls__cache">
+<ul class="cls__liste">
+<li>Participer à la vie politique</li>
+<li>Utiliser la cour de justice</li>
+<li>Posséder des terres</li>
+<li>Épouser une fille de citoyen</li>
+</ul>
+</div>
+</div>
+<div class="cls__carte">
+<span class="cls__etiquette">Devoirs</span>
+<button class="cls__reveler" aria-expanded="false">Clique pour voir</button>
+<div class="cls__cache">
+<ul class="cls__liste">
+<li>Participer aux recensements</li>
+<li>Payer des impôts</li>
+<li>Faire son service militaire</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="cls__panneau" data-cls-panneau="patriciens" role="tabpanel">
+<p class="cls__intro">Les patriciens forment le sommet de la hiérarchie sociale romaine.</p>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Statut</span><p>Les patriciens constituent la <strong>classe supérieure</strong> de la société romaine. Ce statut se transmet principalement par la <strong>naissance</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Richesse</span><p>Ils sont principalement de <strong>riches propriétaires terriens</strong> et des <strong>nobles</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Pouvoir</span><p>Ils ont beaucoup de pouvoir dans la société romaine et certains jouissent même d'une certaine <strong>influence sur l'empereur</strong>.</p></div>
+</div>
+</div>
+<div class="cls__panneau" data-cls-panneau="plebeiens" role="tabpanel">
+<p class="cls__intro">Les plébéiens forment le peuple, la majorité de la population romaine.</p>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Composition</span><p>Les plébéiens constituent la <strong>majorité de la population</strong> romaine. Ils sont <strong>artisans, commerçants et paysans</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Droits</span><p>Ils sont très nombreux et partagent les <strong>mêmes droits</strong> que les patriciens en lien avec la citoyenneté.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Limites</span><p>Les plébéiens n'ont par contre <strong>pas la même influence</strong> dans la société ni la même <strong>quantité de richesse</strong>.</p></div>
+</div>
+<p class="cls__retenir">Mêmes <strong>droits</strong> de citoyenneté, mais pas le même <strong>pouvoir</strong> ni la même <strong>richesse</strong>.</p>
+</div>
+<div class="cls__panneau" data-cls-panneau="libres" role="tabpanel">
+<p class="cls__intro">Les gens libres sont <strong>tous les habitants qui ne sont pas des esclaves</strong>. Il est donc possible d'être une personne libre sans être un citoyen. Seuls les patriciens et les plébéiens sont à la fois citoyens et libres.</p>
+<h4 class="cls__sous">Les pérégrins, des étrangers libres</h4>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Qui sont-ils?</span><p>Les pérégrins habitent une <strong>province conquise</strong> par l'armée romaine. Certains sont venus s'installer à Rome pour profiter des avantages de la capitale.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Statut</span><p>Ils sont <strong>libres</strong> mais <strong>pas citoyens</strong>. D'ailleurs, le mot « pérégrin » signifie « étranger ».</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Obligations</span><p>Ils <strong>doivent payer des impôts</strong> et n'ont <strong>aucun droit politique</strong>.</p></div>
+</div>
+<h4 class="cls__sous">Les affranchis, d'anciens esclaves libérés</h4>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Qui sont-ils?</span><p>Les affranchis sont d'<strong>anciens esclaves</strong> à qui leur maître a rendu la liberté.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Relation avec le maître</span><p>Ils deviennent un <strong>« client »</strong> de leur ancien maître, à qui ils doivent encore le <strong>respect et certains services</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Droits et limites</span><p>Ils ont des droits <strong>similaires à ceux de leur ancien maître</strong>, mais <strong>ne peuvent pas être élus</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Leurs enfants</span><p>L'enfant de l'affranchi obtient la <strong>liberté complète</strong> et peut devenir citoyen.</p></div>
+</div>
+<p class="cls__retenir"><strong>Pérégrins et affranchis sont libres mais pas citoyens.</strong> Seuls les enfants des affranchis peuvent accéder à la citoyenneté romaine complète.</p>
+</div>
+<div class="cls__panneau" data-cls-panneau="femmes" role="tabpanel">
+<p class="cls__intro">Les femmes appartiennent à la <strong>classe sociale de leur mari</strong>. Elles ont certaines libertés, mais <strong>n'ont pas les mêmes droits que les hommes</strong>. Elles sont considérées comme des <strong>mineures</strong> tout au long de leur vie.</p>
+<h4 class="cls__sous">La tutelle tout au long de la vie</h4>
+<ol class="cls__etapes">
+<li class="cls__etape"><span class="cls__moment">L'enfance et la jeunesse</span><p>La jeune fille reste sous la <strong>tutelle de son père</strong>. Elle reçoit une éducation orientée vers le mariage et la gestion du foyer.</p></li>
+<li class="cls__etape"><span class="cls__moment">Le mariage</span><p>La femme passe de la tutelle de son père à celle de son <strong>mari</strong>. Son statut social dépend entièrement de celui de son époux.</p></li>
+<li class="cls__etape"><span class="cls__moment">Épouse et mère</span><p>Son rôle principal est de gérer le foyer et d'élever les enfants. Elle peut posséder des biens, mais toujours sous supervision.</p></li>
+<li class="cls__etape"><span class="cls__moment">Le veuvage</span><p>Veuve, la femme peut jouir d'une certaine <strong>indépendance relative</strong>, mais reste soumise à la tutelle d'un proche parent ou du magistrat.</p></li>
+</ol>
+<div class="cls__cartes">
+<div class="cls__carte">
+<span class="cls__etiquette">Libertés</span>
+<button class="cls__reveler" aria-expanded="false">Clique pour voir</button>
+<div class="cls__cache">
+<ul class="cls__liste">
+<li>Gérer le foyer</li>
+<li>Posséder des biens</li>
+<li>Participer à la vie sociale</li>
+<li>Hériter</li>
+</ul>
+</div>
+</div>
+<div class="cls__carte">
+<span class="cls__etiquette">Limitations</span>
+<button class="cls__reveler" aria-expanded="false">Clique pour voir</button>
+<div class="cls__cache">
+<ul class="cls__liste">
+<li>Pas de droits politiques</li>
+<li>Pas de service militaire</li>
+<li>Contrôle de leur mariage</li>
+<li>Obéissance obligatoire</li>
+</ul>
+</div>
+</div>
+</div>
+<p class="cls__retenir"><strong>Le statut social de la femme dépend de celui de son mari.</strong> Une femme de patricien a plus de libertés et de respect qu'une femme de plébéien. Les femmes ne sont jamais citoyennes à part entière, même si elles sont nées de citoyens.</p>
+</div>
+<div class="cls__panneau" data-cls-panneau="enfants" role="tabpanel">
+<p class="cls__intro">La vie de l'enfant romain est divisée en étapes bien définies, chacune marquant une transition importante. L'éducation suit un parcours structuré selon la classe sociale et le sexe de l'enfant, préparant les jeunes à leurs futures responsabilités dans la société romaine.</p>
+<h4 class="cls__sous">Les âges de la vie romaine</h4>
+<ol class="cls__etapes">
+<li class="cls__etape"><span class="cls__moment">Petite enfance</span><span class="cls__age">0 à 7 ans</span><p>L'enfant reste dans le <strong>giron maternel</strong>. Les jeunes enfants des familles riches sont souvent confiés à une <strong>nourrice</strong>. À partir de 5-6 ans, un <strong>esclave lettré</strong> commence à enseigner les rudiments de la <strong>lecture et de l'écriture</strong>.</p></li>
+<li class="cls__etape"><span class="cls__moment">Enfance</span><span class="cls__age">7 à 14-17 ans</span><p>À <strong>7 ans</strong>, l'enfant quitte le giron maternel pour amorcer son <strong>éducation formelle</strong>. Garçons et filles reçoivent une première instruction dans une école (<em>ludus</em>) sur le Forum, dispensée par un <strong>magister ludi</strong> (maître d'école). Les enfants y apprennent les bases du <strong>calcul, de la lecture et de l'écriture</strong>.</p></li>
+<li class="cls__etape"><span class="cls__moment">Jeunesse (adulescentia)</span><span class="cls__age">14-17 à 28-30 ans</span><p>La jeunesse s'étend de l'adolescence jusqu'à l'entrée dans l'âge adulte. C'est une période de formation intensive et de préparation aux responsabilités civiques et sociales.</p></li>
+</ol>
+<h4 class="cls__sous">Les parcours éducatifs selon le sexe</h4>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Garçons : instruction primaire (7-11 ans)</span><p>Les garçons reçoivent la <strong>même formation de base</strong> que les filles : lecture, écriture et calcul.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Garçons : études grammaticales (12-16 ans)</span><p>Les jeunes garçons issus des <strong>familles aisées</strong> poursuivent leurs études avec un <strong>grammairien</strong> (<em>grammaticus</em>), qui les initie au <strong>grec</strong> et à l'<strong>étude des lettres classiques</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Garçons : rhétorique (dès 16 ans)</span><p>L'éducation supérieure est <strong>essentiellement oratoire</strong>. Un <strong>rhéteur</strong> enseigne l'<strong>art du discours</strong>, préparant le jeune citoyen à son rôle futur sur la <strong>scène politique</strong> : démonstration, prestation oratoire, débit, ton et même la posture du corps et le positionnement des mains.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Filles : instruction primaire (7-11 ans)</span><p>Les filles reçoivent une <strong>instruction formelle</strong> identique à celle des garçons : lecture, écriture et calcul, généralement à l'école ou avec des précepteurs.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Filles : fin des études formelles</span><p>Les jeunes Romaines dépassaient rarement cette première instruction. Après 11 ans, leur éducation se concentre sur l'<strong>apprentissage pratique</strong> de la <strong>gestion du foyer, de la broderie, du chant et de la musique</strong>.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Filles : préparation au mariage</span><p>Les filles sont formées pour devenir des <strong>épouses et des mères</strong>. Sous la République, elles sont souvent <strong>fiancées vers 6-7 ans</strong> et <strong>mariées vers 13 ans</strong> dans des mariages politiques arrangés. Sous l'Empire, ces pratiques évoluent graduellement.</p></div>
+</div>
+<p class="cls__retenir">L'éducation romaine était <strong>hautement stratifiée par sexe</strong>. Tandis que les garçons des familles riches pouvaient accéder à une formation complète les préparant au pouvoir politique, les filles étaient préparées au rôle d'épouses et de mères. L'éducation des esclaves était pratiquement inexistante, à moins qu'ils ne possèdent des talents particuliers exploités par leurs maîtres.</p>
+</div>
+<div class="cls__panneau" data-cls-panneau="esclaves" role="tabpanel">
+<p class="cls__intro">Les esclaves sont les <strong>seuls habitants de l'Empire qui n'ont aucun droit</strong>. Ils sont considérés comme des <strong>propriétés</strong> de leur maître jusqu'à la fin de leur vie.</p>
+<h4 class="cls__sous">D'où viennent les esclaves?</h4>
+<p class="cls__intro">Le plus souvent, les esclaves sont d'<strong>anciens soldats capturés</strong> lors d'une défaite face à l'armée romaine. Ils peuvent aussi être nés esclaves (enfants d'esclaves) ou vendus par leurs parents.</p>
+<h4 class="cls__sous">Les tâches des esclaves</h4>
+<ul class="cls__puces">
+<li class="cls__puce">Travaux domestiques</li>
+<li class="cls__puce">Travaux agricoles</li>
+<li class="cls__puce">Entretien de maisons</li>
+<li class="cls__puce">Gladiateurs</li>
+<li class="cls__puce">Métiers divers</li>
+<li class="cls__puce">Services personnels</li>
+</ul>
+<div class="cls__cartes">
+<div class="cls__carte"><span class="cls__etiquette">Sans droits</span><p>Les esclaves n'ont <strong>absolument aucun droit</strong> en tant que personnes. Ils ne peuvent pas participer à la vie politique, posséder des biens ou se marier légalement.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">Propriété du maître</span><p>Les esclaves sont une <strong>propriété</strong> de leur maître. Ils peuvent être vendus, loués ou donnés comme n'importe quel autre bien matériel.</p></div>
+<div class="cls__carte"><span class="cls__etiquette">L'affranchissement, seul espoir de liberté</span><p><strong>Certains esclaves auront la chance d'être affranchis par leur maître.</strong> C'est le <strong>seul moyen</strong> pour un esclave de retrouver la liberté. Une fois affranchi, l'ancien esclave devient un homme libre et peut même, à travers ses enfants, accéder à la citoyenneté romaine.</p></div>
+</div>
+<h4 class="cls__sous">Exemple historique : Lucius Caecilius Iucundus</h4>
+<p class="cls__intro">Lucius Caecilius Iucundus (vers 9 de notre ère, Pompéi) était un <strong>riche banquier</strong> (<em>argentarius</em>) et <strong>commissaire-priseur</strong> (<em>coactor</em>) romain de la ville de Pompéi. Son nom même, « Iucundus », suggère qu'il pourrait avoir des origines serviles. Il est célèbre pour avoir laissé derrière lui des <strong>archives documentaires exceptionnelles</strong> qui offrent un <strong>aperçu unique de la vie économique romaine</strong> du 1er siècle. Ces tablettes de cire et dossiers commerciaux, préservés par l'éruption du Vésuve en 79, nous permettent de comprendre le fonctionnement des banques, du commerce et des transactions financières romaines. Son histoire illustre parfaitement que certains esclaves ou fils d'esclaves pouvaient, après leur affranchissement, atteindre des positions de pouvoir et de richesse considérables dans la société romaine.</p>
+<p class="cls__retenir">Les esclaves forment la <strong>base de la société romaine</strong> en tant que main-d'oeuvre. Bien qu'ils n'aient aucun droit, l'affranchissement offrait une <strong>voie d'ascension sociale</strong> unique dans le monde antique.</p>
+</div>
+<div class="cls__panneau" data-cls-panneau="devenir" role="tabpanel">
+<p class="cls__intro">La citoyenneté romaine procure des avantages importants durant la période de l'Empire. Il était très attrayant pour les gens de tenter d'obtenir ce statut. Heureusement, l'adhésion était <strong>possible</strong> par plusieurs moyens.</p>
+<h4 class="cls__sous">Les trois voies vers la citoyenneté</h4>
+<div class="cls__voies">
+<div class="cls__voie"><span class="cls__romain">I</span><span class="cls__moment">Le service militaire</span><p class="cls__intro">Servir durant <strong>25 années</strong> dans l'armée romaine.</p></div>
+<div class="cls__voie"><span class="cls__romain">II</span><span class="cls__moment">L'achat</span><p class="cls__intro">Les gens <strong>fortunés</strong> peuvent acheter leur citoyenneté.</p></div>
+<div class="cls__voie"><span class="cls__romain">III</span><span class="cls__moment">La décision impériale</span><p class="cls__intro">L'empereur a le pouvoir d'accorder la citoyenneté romaine à <strong>qui il veut</strong>, à une seule personne comme à un peuple entier s'il le souhaite.</p></div>
+</div>
+</div>
+<div class="cls__panneau" data-cls-panneau="quiz" role="tabpanel">
+<span class="cls__compteur" data-cls="compteur"></span>
+<p class="cls__question" data-cls="question"></p>
+<div class="cls__options" data-cls="options"></div>
+<p class="cls__verdict" data-cls="verdict"></p>
+<div class="cls__nav">
+<button class="cls__bouton" data-cls="suivante" hidden>Question suivante</button>
+<span class="cls__score" data-cls="score"></span>
+</div>
+<div class="cls__bilan" data-cls="bilan">
+<p class="cls__note" data-cls="note"></p>
+<p class="cls__appreciation" data-cls="appreciation"></p>
+<button class="cls__bouton" data-cls="recommencer">Recommencer le quiz</button>
+</div>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("classes-sociales");
+  if (!racine) return;
+  var onglets = racine.querySelectorAll(".cls__onglet");
+  var panneaux = racine.querySelectorAll(".cls__panneau");
+  Array.prototype.forEach.call(onglets, function (o) {
+    o.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets, function (x) { x.classList.remove("est-actif"); x.setAttribute("aria-selected", "false"); });
+      Array.prototype.forEach.call(panneaux, function (p) { p.classList.remove("est-visible"); });
+      o.classList.add("est-actif");
+      o.setAttribute("aria-selected", "true");
+      racine.querySelector('[data-cls-panneau="' + o.dataset.clsOnglet + '"]').classList.add("est-visible");
+    });
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".cls__reveler"), function (b) {
+    b.addEventListener("click", function () {
+      b.setAttribute("aria-expanded", "true");
+      b.nextElementSibling.classList.add("est-visible");
+    });
+  });
+  var QUIZ = [
+    { q: "Quels sont les deux groupes qui possèdent le statut de citoyen romain?", o: ["Les esclaves et les patriciens", "Les patriciens et les plébéiens", "Les nobles et les soldats", "Les marchands et les patriciens"], b: 1 },
+    { q: "Quel est un privilège de la citoyenneté romaine?", o: ["Ne pas payer d'impôts", "Commander l'armée", "Posséder des terres", "Éviter le service militaire"], b: 2 },
+    { q: "Comment le statut de patricien se transmet-il principalement?", o: ["Par un vote du peuple", "Par la richesse accumulée", "Par la naissance", "Par décision de l'empereur"], b: 2 },
+    { q: "Quels métiers exercent les plébéiens?", o: ["Sénateurs et généraux", "Artisans, commerçants et paysans", "Prêtres et philosophes", "Gouverneurs et ambassadeurs"], b: 1 },
+    { q: "Qu'est-ce qu'un pérégrin?", o: ["Un ancien esclave libéré", "Un citoyen riche de province", "Un habitant libre d'une province conquise, mais pas citoyen", "Un membre du Sénat"], b: 2 },
+    { q: "Quel est le principal devoir d'un affranchi envers son ancien maître?", o: ["Lui donner la moitié de ses revenus", "Lui obéir sans contester", "Le respect et certains services", "Lui rendre l'esclavage en échange"], b: 2 },
+    { q: "À quelle classe sociale appartient une femme romaine?", o: ["À la classe des femmes indépendantes", "À la classe sociale de son mari", "À la classe des esclaves si elle n'est pas mariée", "À la classe des pérégrins"], b: 1 },
+    { q: "Sous la tutelle de qui se trouve une femme romaine mariée?", o: ["De son père uniquement", "De l'empereur", "De son mari", "D'elle-même si elle est riche"], b: 2 },
+    { q: "À quel âge l'enfant romain quitte-t-il le giron maternel pour son éducation formelle?", o: ["3 ans", "5 ans", "7 ans", "10 ans"], b: 2 },
+    { q: "Où se déroule la première instruction formelle (ludus)?", o: ["À la maison avec un précepteur", "Sur le Forum dans une école", "Au temple avec les prêtres", "À la caserne militaire"], b: 1 },
+    { q: "Qu'enseigne le magister ludi?", o: ["Les bases : lecture, écriture, calcul", "La rhétorique et l'art oratoire", "Le grec et les lettres classiques", "Seulement la philosophie"], b: 0 },
+    { q: "Jusqu'à quel âge les filles romaines reçoivent-elles généralement l'instruction formelle?", o: ["7 ans", "11 ans", "16 ans", "20 ans"], b: 1 },
+    { q: "Combien d'années de service militaire permettent d'obtenir la citoyenneté?", o: ["10 ans", "15 ans", "20 ans", "25 ans"], b: 3 },
+    { q: "Que se passe-t-il pour l'enfant d'un affranchi?", o: ["Il devient automatiquement esclave", "Il obtient la liberté complète et peut devenir citoyen", "Il doit servir son grand-père", "Il devient pérégrin"], b: 1 },
+    { q: "Quel est le statut des esclaves dans l'Empire romain?", o: ["Ils ont les mêmes droits que les affranchis", "Ils sont citoyens mais sans droits politiques", "Ils n'ont absolument aucun droit", "Ils ont les mêmes droits que les pérégrins"], b: 2 },
+    { q: "D'où viennent principalement les esclaves romains?", o: ["De criminels condamnés", "De soldats capturés lors de défaites militaires", "De paysans qui vendent leur liberté", "De naissance uniquement"], b: 1 },
+    { q: "Quel est le seul moyen pour un esclave de retrouver la liberté?", o: ["S'enfuir et se cacher", "Devenir guerrier et gagner sa liberté", "Être affranchi par son maître", "Attendre la mort de son maître"], b: 2 },
+    { q: "Qui était Lucius Caecilius Iucundus?", o: ["Un célèbre gladiateur de Pompéi", "Un général romain conquérant", "Un banquier et commissaire-priseur de Pompéi connu pour ses archives", "Un esclave affranchi par l'empereur"], b: 2 }
+  ];
+  var courante = 0, points = 0;
+  var compteur = racine.querySelector('[data-cls="compteur"]');
+  var question = racine.querySelector('[data-cls="question"]');
+  var options = racine.querySelector('[data-cls="options"]');
+  var verdict = racine.querySelector('[data-cls="verdict"]');
+  var suivante = racine.querySelector('[data-cls="suivante"]');
+  var score = racine.querySelector('[data-cls="score"]');
+  var bilan = racine.querySelector('[data-cls="bilan"]');
+  function poser() {
+    var d = QUIZ[courante];
+    compteur.textContent = "Question " + (courante + 1) + " sur " + QUIZ.length;
+    question.textContent = d.q;
+    options.innerHTML = "";
+    verdict.classList.remove("est-visible");
+    suivante.hidden = true;
+    score.textContent = "Points : " + points;
+    d.o.forEach(function (texte, i) {
+      var b = document.createElement("button");
+      b.className = "cls__option";
+      b.textContent = texte;
+      b.addEventListener("click", function () { repondre(i); });
+      options.appendChild(b);
+    });
+  }
+  function repondre(choix) {
+    var d = QUIZ[courante];
+    Array.prototype.forEach.call(options.children, function (b, i) {
+      b.disabled = true;
+      if (i === d.b) b.classList.add("est-bonne");
+      if (i === choix && choix !== d.b) b.classList.add("est-mauvaise");
+    });
+    if (choix === d.b) { points += 1; verdict.textContent = "Bonne réponse!"; }
+    else { verdict.textContent = "La bonne réponse est en surbrillance."; }
+    verdict.classList.add("est-visible");
+    score.textContent = "Points : " + points;
+    if (courante + 1 < QUIZ.length) { suivante.hidden = false; }
+    else { conclure(); }
+  }
+  function conclure() {
+    racine.querySelector('[data-cls="note"]').textContent = points + " / " + QUIZ.length;
+    var part = points / QUIZ.length;
+    racine.querySelector('[data-cls="appreciation"]').textContent =
+      part === 1 ? "Parfait! Tu maîtrises les classes sociales romaines." :
+      part >= 0.75 ? "Très solide! Relis les onglets des questions manquées." :
+      part >= 0.5 ? "Bon départ. Reprends les onglets, puis retente le quiz." :
+      "Parcours de nouveau chaque onglet avant de recommencer.";
+    bilan.classList.add("est-visible");
+  }
+  suivante.addEventListener("click", function () { courante += 1; poser(); });
+  racine.querySelector('[data-cls="recommencer"]').addEventListener("click", function () {
+    courante = 0; points = 0;
+    bilan.classList.remove("est-visible");
+    poser();
+  });
+  poser();
+})();
+</script>
+</section>

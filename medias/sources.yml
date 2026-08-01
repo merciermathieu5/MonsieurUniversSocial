@@ -502,7 +502,7 @@ insula-ostie.jpg:
   licence: ''
   lien: ''
 thermes-caracalla.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Rome, Italy, The Baths of Caracalla.jpg
   recherche: Baths of Caracalla ruins Rome
@@ -520,7 +520,7 @@ thermes-tableau.jpg:
   licence: ''
   lien: ''
 theatre-aspendos.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Theatre Aspendos.jpg
   recherche: Aspendos Roman theatre Turkey
@@ -529,7 +529,7 @@ theatre-aspendos.jpg:
   licence: ''
   lien: ''
 mosaique-cirque.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Mosaïque des Jeux du cirque - Musée gallo-romain de Fourvière - ensemble.jpg
   recherche: circus games mosaic Lyon chariot race
@@ -547,7 +547,7 @@ colisee.jpg:
   licence: ''
   lien: ''
 gladiateurs-zliten.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Gladiators from the Zliten mosaic 3.JPG
   recherche: Zliten mosaic gladiators
@@ -583,7 +583,7 @@ arc-constantin.jpg:
   licence: ''
   lien: ''
 mur-hadrien.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Hadrian's Wall west of Housesteads 3.jpg
   recherche: Hadrian's Wall Housesteads Northumberland
@@ -592,7 +592,7 @@ mur-hadrien.jpg:
   licence: ''
   lien: ''
 pont-du-gard.jpg:
-  cadrage: large
+  cadrage: flottant
   fiche: 04-romanisation
   commons: File:Pont du Gard BLS.jpg
   recherche: Pont du Gard Roman aqueduct
@@ -629,10 +629,10 @@ carte-empire-ancien-site.png:
   auteur: ''
   licence: ''
   lien: ''
-journee-thermes.png:
+journee-thermes.jpg:
   cadrage: carte
   fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUw6eKLuDNOdnSshjcylNsrTvYcJJeCq1pflSVYDlzVecSGZRblMajvZKZRtx1AUrepoFxHDDBJNIscV-glZvqSohohOd3oswCPVz44v-Wx0mFi1LrdOOxC6FWli-IXSx5a5kgVIi46vHTSHUUyoiPq3Em0LfyckIuef9JVbLpE0ofWKmilzLGUwDZnHekg5p9zv9GkOW-SPcdr=w1280
+  source: locale
   commons: ''
   recherche: ''
   titre: ''
@@ -667,5 +667,54 @@ carte-conceptuelle-romanisation.png:
   recherche: ''
   titre: ''
   auteur: ''
+  licence: ''
+  lien: ''
+metiers-intro.png:
+  cadrage: carte
+  fiche: 04-romanisation
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXvJutfVeytEKqT6U7pjt5jWZ2SjN6yX_KPF7jLr6t9a1A98Uwo4reLX_Itz0ZAQRjMfTlmip6kipZZDbCI7xq288DxBN9BMEQRbKbk0979lJGpg7AaI0EYWD6-92Uocsey8Ll-CPAJ0NjP7BYgT7e_yqfirMp1tt5zZWB5ZkD4upOeLlfFVGtohl8IUoTYbYGx5lPK00jrpI11h7E=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+metier-parfumeur.jpg:
+  cadrage: flottant
+  fiche: 04-romanisation
+  source: locale
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+metier-oliarius.png:
+  cadrage: flottant
+  fiche: 04-romanisation
+  source: locale
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+metier-foulonniers.jpg:
+  cadrage: flottant
+  fiche: 04-romanisation
+  source: locale
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+carte-empire-96.png:
+  cadrage: carte
+  fiche: 04-romanisation
+  commons: File:Roman Empire in 96 AD.png
+  recherche: Roman Empire 96 AD map
+  auteur: ''
+  titre: ''
   licence: ''
   lien: ''

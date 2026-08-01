@@ -57,3 +57,11 @@ bas selon le côté de leur étiquette, jamais au centre de la bande.
 `python outils/verifier.py` doit passer sans souci sur les schémas : contraste
 dans les deux thèmes, débordements du cadre, chevauchements de textes,
 débordements de forme et classes partagées.
+
+## Ce qu'un schéma n'est pas
+
+Les schémas du site restent des diagrammes : lignes du temps, hiérarchies,
+processus, comparaisons. Aucun dessin figuratif et aucune carte géographique
+dessinée à la main : les cartes viennent de Wikimedia Commons, d'un dépôt
+comme d-maps.com ou d'un document repris de l'ancien site, et s'inscrivent
+dans medias/sources.yml comme les autres images.

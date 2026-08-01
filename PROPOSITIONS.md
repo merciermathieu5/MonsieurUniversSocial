@@ -259,60 +259,74 @@ citations de Pierre-Luc Brisson sont conservées telles quelles.
 - Le « 2e siècle après J-C » du mur d'Hadrien devient « 2e siècle », comme
   partout ailleurs sur le site pour notre ère
 
-### Propositions qui touchent au contenu
+### Décisions éditoriales du 1er août 2026
 
-Réponds par le numéro. Je n'applique que ce que tu approuves.
+Toutes appliquées dans la livraison 32 :
 
-**1. « d'un Colisée »**
+1. « d'un Colisée » devient « d'un amphithéâtre » et le doublon
+   « des bains publics, des thermes » est ramené à « des thermes ».
+2. La phrase sur l'interdiction des courses de chars par Auguste,
+   introuvable dans les sources, est remplacée par : « Les empereurs
+   encadrent d'ailleurs de près l'organisation de ces jeux, qui contribuent
+   à leur prestige. »
+3. « Vers 131, l'empereur exige » devient « Vers 131, l'empereur Hadrien
+   exige ».
+4. La répétition mot pour mot de la définition de la romanisation est
+   allégée en un rappel d'une phrase.
+5. Liens ministériels morts non repris dans la fiche; les documents restent
+   déclarés dans site.yml.
+6. Lien de recherche Google Images retiré, sans remplacement.
+7. Activité Google Mes cartes abandonnée : la mention est retirée de la
+   fiche, seule l'image de la section Réalité virtuelle demeure.
+8. Les trois images de la section des métiers (présentation, parfumeur,
+   marchand d'huile) sont reprises de l'ancien site par leur adresse,
+   comme les cartes.
 
-Dans la section sur Lutèce et Toulouse, la liste des constructions comprend
-« un Colisée ». Le Colisée désigne l'amphithéâtre Flavien de Rome; pour les
-autres villes, je proposerais « un amphithéâtre ». La même phrase énumère
-aussi « des bains publics » et « des thermes », qui désignent la même chose :
-on pourrait n'en garder qu'un.
+### Retouches du 1er août 2026, en soirée (livraison 33)
 
-**2. « Auguste fera interdire les courses de chars en Italie »**
+D'après les captures d'écran et les demandes reçues :
 
-Je ne trouve pas de source qui appuie cette interdiction : les courses de
-chars prospèrent au contraire sous l'Empire, notamment au Grand Cirque. Je
-proposerais de retirer la phrase, ou de la remplacer par une nuance sur
-l'encadrement des jeux par les empereurs.
+1. La vidéo YouTube devenue privée (« L'expansion romaine autour de la mer
+   Méditerranée ») est retirée; l'autre vidéo de l'évolution territoriale
+   demeure.
+2. La carte de l'Empire dessinée en SVG est retirée et remplacée par la
+   carte File:Roman Empire in 96 AD.png de Wikimedia Commons, vérifiée. La
+   règle est consignée dans CONVENTIONS.md : plus aucun dessin figuratif ni
+   carte dessinée à la main dans les schémas.
+3. L'interface interactive des classes sociales est convertie en composant
+   du site (theme/composants/classes-sociales.html), au thème du site comme
+   fonctions-ecriture : neuf onglets, cartes à révéler et quiz de 18
+   questions. Trois coquilles du quiz d'origine corrigées : « Les basics »
+   devient « Les bases », « Qui enseigne au magister ludi » devient
+   « Qu'enseigne le magister ludi », « criminals » devient « criminels ».
+4. La société romaine est scindée en sections distinctes : La société
+   romaine (hiérarchie et composant), L'adoption et la tria nomina,
+   L'habitation, Les métiers.
+5. Les thermes sont déplacés dans Les divertissements, dont les images
+   passent en cadrage flottant (une seule grande image conservée, le
+   Colisée); les questions sont redistribuées par section.
+6. Les infrastructures romaines sont allégées : images en flottant, courte
+   introduction, et la carte Orbis de Stanford est mise en évidence dans un
+   nouvel encadré ::: activite (bloc ajouté à build.py, stylé dans le thème
+   et documenté dans le README).
+7. Les images fournies dans les téléchargements seront intégrées à la
+   prochaine étape, en Cowork.
 
-**3. « Vers 131, l'empereur exige »**
+### Intégration des images locales du 1er août 2026, en Cowork
 
-L'empereur de l'Édit perpétuel n'est pas nommé : c'est Hadrien. Je
-proposerais de le nommer, comme le texte nomme ensuite Justinien.
+1. Les quatre images des téléchargements sont intégrées à la fiche :
+   journee-thermes.jpg (cadrage carte, Les thermes), metier-parfumeur.jpg
+   (flottant, Le parfumeur), metier-oliarius.png (flottant, Le marchand
+   d'huile) et metier-foulonniers.jpg (flottant, Les foulonniers, qui
+   n'avait pas d'image). Toutes font moins de 1280 px de largeur, aucune
+   n'a été redimensionnée.
+2. Les trois versions reprises de l'ancien site par leur adresse Google
+   (journee-thermes.png, metier-parfumeur.png, metier-oliarius.png) sont
+   remplacées par ces fichiers locaux : les métiers et la journée aux
+   thermes ne dépendent plus d'aucune adresse de l'ancien site.
+3. Les quatre entrées portent source: locale dans le registre en attendant
+   leurs crédits : images.py ne tentera jamais de les remplacer. Tant que
+   auteur, provenance et licence ne sont pas remplis dans credits.yml,
+   verifier.py signale quatre « crédit incomplet » pour ces images. À
+   résorber en fournissant les crédits.
 
-**4. Répétition de la définition de la romanisation**
-
-Le premier paragraphe de « La romanisation des régions conquises » reprend
-mot pour mot la définition donnée en mise en contexte. J'ai conservé la
-répétition, qui peut servir de rappel; à alléger si tu préfères.
-
-**5. Liens ministériels retirés**
-
-La page pointait vers la Progression des apprentissages et le Programme de
-formation aux anciennes adresses education.gouv.qc.ca, qui ne répondent plus.
-Ces documents sont déjà déclarés dans site.yml et affichés en pastilles sur
-l'index d'histoire : je ne les ai pas repris dans la fiche.
-
-**6. Lien de recherche Google Images retiré**
-
-La section sur la tria nomina contenait un lien vers une recherche Google
-Images « éducation rome ». Ce type d'adresse est instable et ne mène à aucun
-contenu précis : je ne l'ai pas repris. Si une image d'éducation romaine est
-souhaitée à cet endroit, je peux en épingler une de Wikimedia Commons.
-
-**7. Activité Google Mes cartes**
-
-Le fichier Drive « Activité - Ruines romaines - Google Mes cartes.pdf » ne
-peut pas être lié directement depuis le nouveau site. La fiche renvoie plutôt
-vers la section Matériel pédagogique; à ajuster si tu préfères déposer le PDF
-dans le dépôt.
-
-**8. Images des stèles de métiers**
-
-Les photos des stèles du parfumeur et de l'oliarius de l'ancien site n'ont
-pas d'équivalent repérable sur Wikimedia Commons. La section des métiers est
-pour l'instant sans images; dis-moi si tu veux que je reprenne les images de
-l'ancien site par leur adresse, comme pour les cartes.

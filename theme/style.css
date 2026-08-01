@@ -450,6 +450,9 @@ details.credit > span { display: block; max-width: 34rem; }
 .encadre li { margin-bottom: .45rem; }
 .encadre--note { background: #F6EDDC; }
 .encadre--note .encadre__titre { color: #8A6314; }
+.encadre--activite { background: var(--matiere-voile); border-left: 4px solid var(--matiere); }
+.encadre--activite .encadre__titre { color: var(--matiere-fonce); }
+.encadre--activite a { font-weight: 700; }
 .encadre--savais-tu { background: var(--surface-2); }
 .encadre--savais-tu .encadre__titre { color: var(--encre-doux); }
 
