@@ -374,6 +374,12 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 }
 .texte tbody tr:nth-child(even) { background: var(--surface-2); }
 
+.source-texte {
+  font-family: var(--donnee); font-size: .74rem; color: var(--encre-pale);
+  letter-spacing: .02em;
+}
+p.source-texte { margin: -.55rem 0 1.4rem; }
+
 /* --------------------------------------------------------- illustrations */
 
 .illustration { margin: .4rem 0 1.6rem; }

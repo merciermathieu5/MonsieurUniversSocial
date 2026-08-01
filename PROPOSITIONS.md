@@ -350,3 +350,19 @@ D'après les captures d'écran et les demandes reçues :
 6. Ces règles sont consignées dans le README, section Conventions
    visuelles.
 
+### Retouches du 1er août 2026, nuit (livraison 37)
+
+1. Les mentions de sources sont différenciées du texte : build.py détecte
+   les paragraphes (Source ...) et les fins de paragraphes et leur applique
+   la classe source-texte, stylée petite et grise dans le thème. Aucun
+   changement dans les fiches, tout se fait à la construction.
+2. Nouvel outil outils/paragraphes.py : il regroupe les paragraphes de
+   moins de trois lignes (340 caractères) avec leur voisin quand la fusion
+   reste digeste (700 caractères au plus), sans jamais toucher aux
+   citations « », aux mentions de sources, aux annonces de listes ni aux
+   blocs structurés. Appliqué aux fiches 04 (35 fusions, dont les trois
+   paragraphes du mur d'Hadrien devenus un seul) et 02 (9 fusions). Les
+   citations de Brisson ont été vérifiées intactes après application.
+3. Les deux règles sont consignées dans le README, section Conventions
+   visuelles.
+

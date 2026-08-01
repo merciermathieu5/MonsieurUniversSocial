@@ -229,6 +229,20 @@ def jumeler_videos(html: str) -> str:
     return DUO_VIDEOS.sub(r'<div class="videos-duo">\1\2</div>', html)
 
 
+def marquer_sources(html: str) -> str:
+    """Différencie visuellement les mentions de sources du fil du texte.
+
+    Un paragraphe entier de la forme (Source ...) reçoit la classe
+    source-texte; une mention en fin de paragraphe est enveloppée dans un
+    span de la même classe. Le style vit dans theme/style.css.
+    """
+    html = re.sub(r"([^>])(\(Source[^<]*\))</p>",
+                  r'\1<span class="source-texte">\2</span></p>', html)
+    html = re.sub(r"<p>(\(Source[^<]*\))</p>",
+                  r'<p class="source-texte">\1</p>', html)
+    return html
+
+
 def ranger_figures(html: str) -> str:
     """Une seule image flottante par section ou sous-section.
 
@@ -267,8 +281,9 @@ def lire_fiche(chemin: Path, credits: dict) -> dict:
     md = markdown.Markdown(extensions=EXTENSIONS_MD,
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
-    donnees["html"] = jumeler_videos(ranger_figures(habiller_images(
-        md.convert(convertir_blocs(corps.strip(), credits)), credits)))
+    donnees["html"] = marquer_sources(jumeler_videos(ranger_figures(
+        habiller_images(md.convert(convertir_blocs(corps.strip(), credits)),
+                        credits))))
     donnees["sommaire"] = [t for t in md.toc_tokens]
     donnees["nom"] = chemin.stem
     donnees["url"] = f"{donnees['section']}/{chemin.stem}.html"

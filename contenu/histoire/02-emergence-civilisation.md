@@ -75,16 +75,13 @@ continents :
 - L'Afrique
 
 Cette région comporte deux fleuves importants : le Tigre et l'Euphrate. Tout
-d'abord, la terre qui s'y trouve est très fertile grâce au limon apporté par la
-crue des deux fleuves.
-
-De plus, la proximité des cours d'eau permet la construction de canaux qui
-serviront à fertiliser les sols et à augmenter la production agricole. Tous ces
-facteurs contribuent à une production agricole abondante et à une augmentation de
-la population. Finalement, le Tigre et l'Euphrate peuvent être utilisés afin de se
-déplacer sur le territoire.
-
-La croissance du nombre de personnes a obligé ces derniers à se regrouper en
+d'abord, la terre qui s'y trouve est très fertile grâce au limon apporté par
+la crue des deux fleuves. De plus, la proximité des cours d'eau permet la
+construction de canaux qui serviront à fertiliser les sols et à augmenter la
+production agricole. Tous ces facteurs contribuent à une production agricole
+abondante et à une augmentation de la population. Finalement, le Tigre et
+l'Euphrate peuvent être utilisés afin de se déplacer sur le territoire. La
+croissance du nombre de personnes a obligé ces derniers à se regrouper en
 cités-États.
 
 ![La Mésopotamie et le Croissant fertile, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/carte-mesopotamie.png)
@@ -121,12 +118,11 @@ l'écriture cunéiforme est née, et notons qu'elle comporte près de 600 signes
 
 L'écriture cunéiforme, d'abord utilisée dans un but commercial, est devenue
 essentielle pour répondre à différents besoins dans les domaines religieux,
-administratifs, scientifiques, etc.
-
-Les supports sur lesquels l'écriture est produite vont considérablement changer
-avec les années. Le papyrus et le parchemin viendront remplacer la tablette
-d'argile. Ces nouveaux supports permettent de tracer plus facilement les symboles
-et d'améliorer la compréhension du message que l'on veut transmettre.
+administratifs, scientifiques, etc. Les supports sur lesquels l'écriture est
+produite vont considérablement changer avec les années. Le papyrus et le
+parchemin viendront remplacer la tablette d'argile. Ces nouveaux supports
+permettent de tracer plus facilement les symboles et d'améliorer la
+compréhension du message que l'on veut transmettre.
 
 ![Tablette cunéiforme enregistrant des rations d'orge](../medias/02-emergence-civilisation/tablette-cuneiforme.jpg)
 
@@ -235,19 +231,16 @@ Babylone
 
 ## Les cités-États : indépendantes les unes des autres
 
-La Mésopotamie regroupe plusieurs villes qu'on appelle cités-États, c'est-à-dire
-des villes qui possèdent les mêmes pouvoirs qu'un pays actuel.
-
+La Mésopotamie regroupe plusieurs villes qu'on appelle cités-États,
+c'est-à-dire des villes qui possèdent les mêmes pouvoirs qu'un pays actuel.
 Elle est en mesure de prendre toutes ses décisions de façon indépendante par
-rapport aux autres territoires. En d'autres mots, une cité-État possède son propre
-gouvernement, ses propres lois et ses propres institutions.
-
-Même si les cités-États mésopotamiennes ont des modes de fonctionnement
-différents, on y retrouve souvent des institutions et des infrastructures
-semblables. Par exemple, le roi habite généralement dans un palais qui est entouré
-de fortifications. On retrouve également d'autres bâtiments comme un marché, des
+rapport aux autres territoires. En d'autres mots, une cité-État possède son
+propre gouvernement, ses propres lois et ses propres institutions. Même si les
+cités-États mésopotamiennes ont des modes de fonctionnement différents, on y
+retrouve souvent des institutions et des infrastructures semblables. Par
+exemple, le roi habite généralement dans un palais qui est entouré de
+fortifications. On retrouve également d'autres bâtiments comme un marché, des
 temples et des ziggourats.
-
 
 ::: video OSTgxepXwIg
 Les cités-États de Mésopotamie
@@ -306,7 +299,6 @@ convergent vers le roi.
 La religion mésopotamienne est une religion polythéiste, c'est-à-dire qu'elle
 compte plusieurs dieux. Les dieux mésopotamiens représentent les forces de la
 nature, les sentiments et des qualités telles que la ruse et l'intelligence.
-
 De la même manière que la société mésopotamienne, la religion est très
 hiérarchisée. En effet, chaque divinité a son rôle et ses responsabilités. De
 plus, les dieux ne sont pas tous aussi puissants les uns que les autres.
@@ -318,15 +310,13 @@ dieux et les humains est l'immortalité des divinités.
 
 ### Les ziggourats et les prêtres
 
-Dans les cités-États mésopotamiennes, le culte, c'est-à-dire l'hommage rendu à un
-dieu, s'exerce dans les ziggourats ou dans les temples. Ces derniers sont
+Dans les cités-États mésopotamiennes, le culte, c'est-à-dire l'hommage rendu à
+un dieu, s'exerce dans les ziggourats ou dans les temples. Ces derniers sont
 considérés comme les résidences des dieux. On y pénètre dans le plus grand
-respect. Dans ces lieux sacrés, on pratique des cérémonies, des sacrifices et on y
-dépose des offrandes aux dieux.
-
-Ainsi, les prêtres ont un grand rôle à jouer dans la société mésopotamienne. En
-effet, ils sont considérés comme les intermédiaires entre la population et les
-dieux.
+respect. Dans ces lieux sacrés, on pratique des cérémonies, des sacrifices et
+on y dépose des offrandes aux dieux. Ainsi, les prêtres ont un grand rôle à
+jouer dans la société mésopotamienne. En effet, ils sont considérés comme les
+intermédiaires entre la population et les dieux.
 
 ![La ziggourat d'Ur, en Irak](../medias/02-emergence-civilisation/ziggourat-ur.jpg)
 
@@ -361,15 +351,13 @@ exerçant un monopole sur les métaux. Ce contrôle s'étendait des mines jusqu'
 routes commerciales et aux ateliers de forgerons, où étaient fabriquées les armes.
 
 Ce contrôle de l'État a favorisé l'émergence de nouvelles professions
-spécialisées, telles que banquiers, commerçants et investisseurs privés. Ceux-ci
-opéraient depuis des quartiers dédiés, les kârums.
-
-Les marchands et les commerçants utilisaient les atouts de la Mésopotamie afin de
-transporter les marchandises sur de longues distances. En effet, la présence de
-nombreux fleuves dans cette région de la planète facilite les déplacements.
-
-Afin de pouvoir voyager par ceux-ci, les Mésopotamiens construisent des barques
-faites de roseaux et des galères de bois, pour les longues distances.
+spécialisées, telles que banquiers, commerçants et investisseurs privés.
+Ceux-ci opéraient depuis des quartiers dédiés, les kârums. Les marchands et
+les commerçants utilisaient les atouts de la Mésopotamie afin de transporter
+les marchandises sur de longues distances. En effet, la présence de nombreux
+fleuves dans cette région de la planète facilite les déplacements. Afin de
+pouvoir voyager par ceux-ci, les Mésopotamiens construisent des barques faites
+de roseaux et des galères de bois, pour les longues distances.
 
 Lorsqu'ils sont obligés de transporter les marchandises à pied, les Mésopotamiens
 font appel aux animaux. En effet, l'âne est souvent utilisé. Ce dernier tire un

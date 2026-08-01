@@ -297,4 +297,12 @@ composant pour éviter de refaire les mêmes itérations.
 - Les images dont le téléchargement échoue durablement (403 de l'ancien
   Google Site) se retirent du registre et de la fiche plutôt que de rester
   en gabarit d'attente.
+- Les mentions de sources, en paragraphe seul ou en fin de paragraphe, se
+  différencient du fil du texte : build.py leur pose automatiquement la
+  classe source-texte (petite, grise, police de données).
+- Pas de paragraphes de moins de trois lignes qui s'empilent :
+  outils/paragraphes.py regroupe les paragraphes courts quand c'est
+  pertinent (seuils COURT et MAX_FUSION dans l'outil, citations « »,
+  sources et annonces de listes protégées). Rapport sans argument,
+  application avec --appliquer FICHE.
 
