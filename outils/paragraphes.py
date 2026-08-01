@@ -90,6 +90,8 @@ def fusionnable(a: dict, b: dict) -> bool:
         return False
     if ta.startswith("(Source") or tb.startswith("(Source"):
         return False
+    if tb.startswith("**"):
+        return False  # un paragraphe amorcé par un intertitre gras reste distinct
     if ta.endswith(":"):
         return False
     if len(ta) >= COURT and len(tb) >= COURT:

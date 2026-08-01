@@ -1,0 +1,32 @@
+<svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La hiérarchie sociale des bourgs médiévaux : la noblesse, le clergé, la bourgeoisie marchande, le peuple et les esclaves">
+  <style>
+    .hb-t { font-family: Archivo, sans-serif; }
+    .hb-b1 { font-size: 14.5px; font-weight: 700; fill: var(--surface); }
+    .hb-b2 { font-size: 14.5px; font-weight: 600; fill: var(--surface); }
+    .hb-b3 { font-size: 14.5px; font-weight: 600; fill: var(--bloc-texte); }
+    .hb-b4 { font-size: 14.5px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .hb-b5 { font-size: 14.5px; font-weight: 600; fill: var(--encre); }
+    .hb-a { font-size: 12.5px; fill: var(--encre-doux); }
+  </style>
+  <rect x="40" y="28" width="340" height="48" rx="5" fill="var(--schema-accent)"/>
+  <text class="hb-t hb-b1" x="210" y="57" text-anchor="middle">La noblesse, autour du roi</text>
+  <text class="hb-t hb-a" x="830" y="49">Rois, ducs, comtes,</text>
+  <text class="hb-t hb-a" x="830" y="67">barons et seigneurs.</text>
+  <rect x="40" y="92" width="460" height="48" rx="5" fill="var(--schema-cle)"/>
+  <text class="hb-t hb-b2" x="270" y="121" text-anchor="middle">Le clergé de l'Église</text>
+  <text class="hb-t hb-a" x="830" y="113">Archevêques, évêques, prêtres,</text>
+  <text class="hb-t hb-a" x="830" y="131">moines et soeurs.</text>
+  <rect x="40" y="156" width="560" height="48" rx="5" fill="var(--bloc)"/>
+  <text class="hb-t hb-b3" x="320" y="185" text-anchor="middle">La bourgeoisie marchande</text>
+  <text class="hb-t hb-a" x="830" y="177">Marchands, banquiers, guildes</text>
+  <text class="hb-t hb-a" x="830" y="195">et maîtres artisans.</text>
+  <rect x="40" y="220" width="660" height="48" rx="5" fill="var(--bloc-pale)"/>
+  <text class="hb-t hb-b4" x="370" y="249" text-anchor="middle">Le peuple des bourgs</text>
+  <text class="hb-t hb-a" x="830" y="241">Petits artisans, paysans</text>
+  <text class="hb-t hb-a" x="830" y="259">et commerçants.</text>
+  <rect x="40" y="284" width="760" height="48" rx="5" fill="var(--matiere-voile)"/>
+  <text class="hb-t hb-b5" x="420" y="313" text-anchor="middle">Les esclaves, plus rares</text>
+  <text class="hb-t hb-a" x="830" y="305">Présents dans quelques</text>
+  <text class="hb-t hb-a" x="830" y="323">bourgs seulement.</text>
+</svg>

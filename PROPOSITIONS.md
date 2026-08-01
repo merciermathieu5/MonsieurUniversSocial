@@ -471,3 +471,63 @@ déclarés dans site.yml.
    passe au cadrage petit pour alléger la colonne, et sa légende est
    corrigée : elle montre les bas-côtés, non le déambulatoire.
 
+### Raffinement d'outil en passant (livraison 42)
+
+L'outil de regroupement des paragraphes avait avalé l'intertitre en gras du
+changeur dans le paragraphe précédent. Règle ajoutée : un paragraphe amorcé
+par un intertitre en gras n'est jamais absorbé. Consigné au README.
+
+## Fiche : L'essor urbain et commercial
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « comment les religieux » devient « comme les religieux »
+- « s'accroit » devient « s'accroît », « Danzig connait » devient
+  « connaît »
+- « Le migrations urbaines » devient « Les migrations urbaines »
+- « la bourgeoisie marchande qui s'enrichie » devient « s'enrichit »
+- « corvées, sens, etc. » devient « corvées, cens, etc. »
+- « des ducs et des des duchesses » devient « des ducs et des duchesses »,
+  « de petit artisans » devient « de petits artisans »
+- « dubrovnik » devient « Dubrovnik », « Moyen-Âge » devient « Moyen Âge »
+- « il s'y organisent des foires » devient « des foires médiévales s'y
+  organisent »
+- « se développent grand réseau » devient « se développe un grand réseau »,
+  « Les foires de Champagne était » devient « étaient », « produits de
+  luxes » devient « produits de luxe »
+- Le paramètre de pistage a été retiré de l'adresse LearningApps
+
+### Propositions qui touchent au contenu
+
+Réponds par le numéro. Je n'applique que ce que tu approuves.
+
+**1. « Un fleuve tel que la Manche »**
+
+Ta page classait la Manche parmi les fleuves; c'est un bras de mer. J'ai
+écrit « un passage maritime tel que la Manche ». Dis-moi si tu préfères une
+autre formulation.
+
+**2. Le collier d'épaule, texte remplacé**
+
+Sur ta page, le paragraphe du collier d'épaule répétait mot pour mot celui
+du moulin (erreur de copie manifeste). J'ai rédigé un court texte correct
+sur le collier d'épaule : à relire et à valider.
+
+**3. Définitions des concepts ajoutées**
+
+Comme pour la fiche 05, l'image des concepts est inaccessible (403); j'ai
+rédigé une définition par concept, à relire.
+
+**4. Images de remplacement**
+
+Toutes les images de l'ancien site renvoient 403; la fiche s'appuie sur
+huit images Commons vérifiées (Bruges, Venise, Carcassonne, Dubrovnik,
+scène de foire de la BnF, Le Prêteur et sa femme de Metsys, la peste à
+Tournai, le chantier de Saint-Denis) et deux schémas neufs : frise-essor et
+hierarchie-bourg.
+
+**5. Liens ministériels**
+
+Comme pour les fiches précédentes, les liens ministériels morts ne sont pas
+repris.
+

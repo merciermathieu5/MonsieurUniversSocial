@@ -312,6 +312,7 @@ composant pour éviter de refaire les mêmes itérations.
 - Pas de paragraphes de moins de trois lignes qui s'empilent :
   outils/paragraphes.py regroupe les paragraphes courts quand c'est
   pertinent (seuils COURT et MAX_FUSION dans l'outil, citations « »,
-  sources et annonces de listes protégées). Rapport sans argument,
+  sources, annonces de listes et paragraphes amorcés par un intertitre en
+  gras protégés). Rapport sans argument,
   application avec --appliquer FICHE.
 
