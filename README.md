@@ -208,6 +208,9 @@ Titre de la vidéo
 :::
 ```
 
+Deux blocs `::: video` qui se suivent sans texte entre eux se placent
+automatiquement côte à côte, et se replient l'un sous l'autre sur mobile.
+
 ## Récupérer le contenu de l'ancien site
 
 Google ne permet ni d'exporter ni de lire un Google Site par API. Le seul chemin

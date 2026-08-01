@@ -430,6 +430,12 @@ details.credit > span { display: block; max-width: 34rem; }
   width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--rayon);
   background: var(--encre); display: block;
 }
+.videos-duo {
+  clear: both; display: grid; gap: 1.4rem 1.6rem;
+  grid-template-columns: 1fr 1fr; margin: 2rem 0;
+}
+.videos-duo .video { margin: 0; }
+@media (max-width: 52rem) { .videos-duo { grid-template-columns: 1fr; } }
 .video figcaption {
   font-family: var(--titre); font-size: .88rem; color: var(--encre-doux);
   margin-top: .6rem; padding-left: .8rem; border-left: 3px solid var(--matiere);
@@ -483,7 +489,8 @@ details.credit > span { display: block; max-width: 34rem; }
 }
 .colonnage > * { max-width: none !important; }
 .colonnage h3 { margin-top: 0; break-after: avoid; }
-.colonnage p, .colonnage figure, .colonnage ul, .colonnage ol { break-inside: avoid; }
+.colonnage p, .colonnage figure { break-inside: avoid; }
+.colonnage li { break-inside: avoid; }
 .colonnage .illustration {
   float: none !important; width: 100% !important; margin: .6rem 0 1rem !important;
 }
@@ -788,7 +795,7 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 .galerie .illustration { float: none !important; width: auto !important; margin: 0 !important; }
 .galerie img {
   width: 100% !important; height: auto !important;
-  aspect-ratio: 3 / 2; object-fit: contain; background: #fff;
+  aspect-ratio: 1 / 1; object-fit: cover; object-position: center;
   border: 1px solid var(--trait);
 }
 .galerie .illustration--carte img,

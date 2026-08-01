@@ -213,6 +213,20 @@ FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
 
 
+DUO_VIDEOS = re.compile(r'(<figure class="video">.*?</figure>)\s*'
+                        r'(<figure class="video">.*?</figure>)', re.DOTALL)
+
+
+def jumeler_videos(html: str) -> str:
+    """Deux vidéos consécutives se placent côte à côte.
+
+    Dès que deux figures vidéo se suivent sans texte entre elles, elles sont
+    enveloppées dans une grille à deux colonnes qui se replie sur mobile. Une
+    éventuelle troisième vidéo consécutive reste seule sous la paire.
+    """
+    return DUO_VIDEOS.sub(r'<div class="videos-duo">\1\2</div>', html)
+
+
 def ranger_figures(html: str) -> str:
     """Une seule image flottante par section ou sous-section.
 
@@ -251,8 +265,8 @@ def lire_fiche(chemin: Path, credits: dict) -> dict:
     md = markdown.Markdown(extensions=EXTENSIONS_MD,
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
-    donnees["html"] = ranger_figures(habiller_images(
-        md.convert(convertir_blocs(corps.strip(), credits)), credits))
+    donnees["html"] = jumeler_videos(ranger_figures(habiller_images(
+        md.convert(convertir_blocs(corps.strip(), credits)), credits)))
     donnees["sommaire"] = [t for t in md.toc_tokens]
     donnees["nom"] = chemin.stem
     donnees["url"] = f"{donnees['section']}/{chemin.stem}.html"
