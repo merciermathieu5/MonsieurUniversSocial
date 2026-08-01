@@ -272,3 +272,29 @@ des redirections. Une bonne partie du trafic arrive par Google.
 | --- | --- |
 | Histoire, La sédentarisation | Révisée |
 | Les 26 autres | À extraire puis réviser |
+
+## Conventions visuelles
+
+Règles tirées des rétroactions, à respecter dans toute fiche et tout
+composant pour éviter de refaire les mêmes itérations.
+
+- Une figure flottante (flottant, gauche, petit, carte, large) se place en
+  tête de son bloc, juste après le titre de section ou de sous-section :
+  le texte coule à côté de l'image, jamais de grande zone vide.
+- Les portraits très verticaux (statues) prennent le cadrage petit pour ne
+  pas repousser le contenu qui suit.
+- Deux blocs vidéo consécutifs se jumellent côte à côte; jamais plus de deux
+  par rangée. Le vérificateur (section CONSTRUIT) refuse tout duo qui
+  contient autre chose que deux vidéos.
+- Les vignettes de galeries sont carrées et remplies (recadrage centré),
+  sans zone blanche; les cadrages carte et large gardent leurs proportions.
+- Dans un composant, tout texte posé sur une bande foncée fixe explicitement
+  sa couleur et sa marge avec une spécificité supérieure à .texte h3, sinon
+  le thème le rend invisible et gonfle la bande. Les bandes d'en-tête
+  restent minces (padding .55rem).
+- Une liste seule dans un bloc colonnes se resserre (44rem au plus) pour que
+  les colonnes restent voisines.
+- Les images dont le téléchargement échoue durablement (403 de l'ancien
+  Google Site) se retirent du registre et de la fiche plutôt que de rester
+  en gabarit d'attente.
+

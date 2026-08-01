@@ -330,3 +330,23 @@ D'après les captures d'écran et les demandes reçues :
    verifier.py signale quatre « crédit incomplet » pour ces images. À
    résorber en fournissant les crédits.
 
+### Retouches visuelles du 1er août 2026, fin de soirée (livraison 36)
+
+1. Les sept images en 403 de l'ancien Google Site sont retirées du registre
+   et des fiches : dmaps-mesopotamie (fiche 02), repères temps et espace,
+   réalité virtuelle, partage de l'Empire, carte conceptuelle et
+   présentation des métiers (fiche 04). Les sections Réalité virtuelle et
+   Carte conceptuelle, vidées, disparaissent.
+2. Toutes les figures flottantes de la fiche 04 passent en tête de leur
+   bloc : le texte coule à côté des images. Auguste passe au cadrage petit.
+3. La bande d'en-tête des composants est amincie et son titre redevient
+   visible (il héritait de la couleur foncée de .texte h3 sur fond foncé);
+   même correctif appliqué préventivement au carrousel de la fiche 02.
+4. La liste des prénoms romains se resserre : colonnes d'une liste seule
+   limitées à 44rem.
+5. Le vérificateur gagne une section CONSTRUIT qui refuse tout duo de
+   vidéos contenant autre chose que deux vidéos, en réponse à la régression
+   de la livraison 34.
+6. Ces règles sont consignées dans le README, section Conventions
+   visuelles.
+

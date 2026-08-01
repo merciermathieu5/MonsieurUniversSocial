@@ -22,7 +22,6 @@ concepts_valides: true
 statut: brouillon
 image_entete: ""
 ---
-
 ## Mise en contexte
 
 La romanisation est un concept historique qui désigne un processus
@@ -47,12 +46,12 @@ guerres internes.
 
 ### Une légende épique
 
+![Rémus et Romulus furent élevés par une louve : la Louve capitoline, bronze conservé aux Musées du Capitole](../medias/04-romanisation/louve-capitoline.jpg)
+
 La fondation légendaire de Rome a été racontée et embellie par Virgile dans
 L'Énéide. D'après le poète, le héros Énée, fils du roi Anchise et de la déesse
 Vénus, s'est réfugié sur les bords du Tibre après la chute de Troie. Son fils
 Ascagne a fondé la ville d'Albe la Longue.
-
-![Rémus et Romulus furent élevés par une louve : la Louve capitoline, bronze conservé aux Musées du Capitole](../medias/04-romanisation/louve-capitoline.jpg)
 
 Numitor, descendant d'Ascagne et roi d'Albe, eut une fille. Choisissant de
 devenir servante de Vesta, déesse du foyer et du feu domestique, elle fit voeu
@@ -94,6 +93,8 @@ Naissance de Rome : du mythe à la réalité
 
 ## Situer dans le temps et dans l'espace
 
+![L'Empire romain en 96, encerclant la mer Méditerranée](../medias/04-romanisation/carte-empire-96.png)
+
 L'histoire romaine se découpe en trois grandes périodes : la royauté, la
 République et l'Empire. La ligne du temps suivante les replace à l'échelle,
 de la fondation légendaire de Rome à la chute de l'Empire romain d'Occident.
@@ -101,15 +102,9 @@ de la fondation légendaire de Rome à la chute de l'Empire romain d'Occident.
 ::: schema frise-rome
 :::
 
-![Repères dans le temps, document repris de l'ancien site](../medias/04-romanisation/ligne-du-temps-ancien-site.png)
-
-![Repères dans l'espace, document repris de l'ancien site](../medias/04-romanisation/carte-empire-ancien-site.png)
-
 À son apogée, au 2e siècle, l'Empire romain encercle complètement la mer
 Méditerranée, que les Romains appellent Mare Nostrum, « notre mer ». La carte
 suivante montre son étendue en 96, à la veille de cette apogée.
-
-![L'Empire romain en 96, encerclant la mer Méditerranée](../medias/04-romanisation/carte-empire-96.png)
 
 ## La royauté romaine (-753 à -509)
 
@@ -125,14 +120,14 @@ suivante montre son étendue en 96, à la veille de cette apogée.
 
 ## La République romaine (-509 à -27)
 
+![Cicéron dénonce Catilina devant le Sénat romain, fresque de Cesare Maccari](../medias/04-romanisation/senat-romain.jpg)
+
 « Le mot "république" vient du latin res publica, ce qui signifie "la chose
 publique", contrairement à res privata, "la chose privée". Gouverner la cité
 est donc une affaire publique et collective. La devise de la République est
 Senatus Populusque Romanus (SPQR), "le Sénat et le peuple romain". Elle
 symbolise l'union du Sénat, où siègent à l'origine les familles patriciennes,
 et de l'ensemble des citoyens romains. » (Source : Wikipédia)
-
-![Cicéron dénonce Catilina devant le Sénat romain, fresque de Cesare Maccari](../medias/04-romanisation/senat-romain.jpg)
 
 ## L'Empire romain (-27 à 476)
 
@@ -259,6 +254,12 @@ pages 56-57)
 
 ## L'habitation : un exemple de lieu privé
 
+![Plan d'une domus pompéienne](../medias/04-romanisation/plan-domus.png)
+
+![L'atrium de la maison du Ménandre, une riche domus de Pompéi](../medias/04-romanisation/atrium-menandre.jpg)
+
+![Une insula d'Ostie, l'immeuble de logements des familles plus modestes](../medias/04-romanisation/insula-ostie.jpg)
+
 « Selon son rang et son niveau de richesse, le Romain vivait dans une grande
 domus (la maison d'une famille nantie, d'une superficie moyenne de 600 m2) ou
 dans les insulae, des immeubles de logements qui s'élevaient parfois sur
@@ -282,12 +283,6 @@ toge virile pour les garçons, mariage, funérailles. »
 (Source : Pierre-Luc Brisson, Histoire de la Rome antique, Québec, 2020,
 pages 50 et 55)
 
-![Plan d'une domus pompéienne](../medias/04-romanisation/plan-domus.png)
-
-![L'atrium de la maison du Ménandre, une riche domus de Pompéi](../medias/04-romanisation/atrium-menandre.jpg)
-
-![Une insula d'Ostie, l'immeuble de logements des familles plus modestes](../medias/04-romanisation/insula-ostie.jpg)
-
 ::: questions
 1. Quelle est la différence entre une domus et une insula?
 2. Qu'est-ce que le laraire et à quoi sert-il?
@@ -297,9 +292,9 @@ pages 50 et 55)
 
 Voici quelques métiers romains qui pourraient te surprendre.
 
-![Quelques métiers romains, document repris de l'ancien site](../medias/04-romanisation/metiers-intro.png)
-
 #### Le parfumeur
+
+![Des clientes choisissent leurs parfums dans la boutique du seplasiarius](../medias/04-romanisation/metier-parfumeur.jpg)
 
 Le nom latin du parfumeur est seplasiarius. La parfumerie est la seplasia.
 
@@ -318,9 +313,9 @@ odeur, on attribue aux parfums des vertus contre différentes maladies, comme
 la fièvre et l'indigestion. Il est d'ailleurs intéressant de noter que la
 profession de parfumeur était souvent rapprochée de celle de médecin.
 
-![Des clientes choisissent leurs parfums dans la boutique du seplasiarius](../medias/04-romanisation/metier-parfumeur.jpg)
-
 #### Le marchand d'huile
+
+![La stèle de Cherchel montre l'oliarius qui puise l'huile avec sa cupa olearia](../medias/04-romanisation/metier-oliarius.png)
 
 Le marchand d'huile est l'oliarius.
 
@@ -340,9 +335,9 @@ il utilise une cupa olearia et transfère de l'huile dans un récipient.
 
 L'huile est transportée et conservée dans des amphores spécifiques.
 
-![La stèle de Cherchel montre l'oliarius qui puise l'huile avec sa cupa olearia](../medias/04-romanisation/metier-oliarius.png)
-
 #### Les foulonniers
+
+![Des foulonniers au travail, fresque d'une fullonica de Pompéi](../medias/04-romanisation/metier-foulonniers.jpg)
 
 Les foulonniers sont les fullones. Ils travaillent dans des fullonica.
 
@@ -357,8 +352,6 @@ romaines d'Italie voient l'aménagement de fullonica destinés à fournir leurs
 services aux membres de la haute société. Rome est dotée de nombreux ateliers
 de foulons. Les provinces romaines voient également se développer en nombre
 les fullonica. Des ateliers de foulons s'installent en Afrique romaine.
-
-![Des foulonniers au travail, fresque d'une fullonica de Pompéi](../medias/04-romanisation/metier-foulonniers.jpg)
 
 ::: questions
 1. Nomme trois métiers romains présentés dans cette section et leur nom latin.
@@ -378,6 +371,12 @@ journées de repos.
 
 ### Les thermes
 
+![Les ruines des thermes de Caracalla, à Rome](../medias/04-romanisation/thermes-caracalla.jpg)
+
+![Les thermes de Caracalla imaginés par le peintre Lawrence Alma-Tadema en 1899](../medias/04-romanisation/thermes-tableau.jpg)
+
+![Une journée typique aux thermes, de l'arrivée au départ](../medias/04-romanisation/journee-thermes.jpg)
+
 Les thermes sont au nombre des monuments caractéristiques de la civilisation
 romaine. Les thermes sont les bâtiments réservés aux bains. Il y a les
 thermes publics et les thermes privés. Les établissements thermaux sont
@@ -389,13 +388,9 @@ mais aussi dans toutes les provinces romaines. Chaque cité est dotée de son
 sont pourvus. Certains établissements sont spectaculaires comme les thermes
 de Caracalla.
 
-![Les ruines des thermes de Caracalla, à Rome](../medias/04-romanisation/thermes-caracalla.jpg)
-
 Les thermes publics ont deux fonctions tout aussi importantes l'une que
 l'autre : l'une sur le plan de l'hygiène et l'autre sur le plan social. Les
 thermes publics romains sont un lieu de rencontre et de détente.
-
-![Les thermes de Caracalla imaginés par le peintre Lawrence Alma-Tadema en 1899](../medias/04-romanisation/thermes-tableau.jpg)
 
 Ils sont fréquentés par tous les Romains. Les établissements ne sont pas
 fréquentés aux mêmes moments par les hommes et les femmes. Certains
@@ -408,8 +403,6 @@ passent parfois l'après-midi.
 Les Romains se lavent, se baignent, mais se font aussi masser, en profitent
 pour discuter et peuvent faire du sport et même, dans certains
 établissements, consulter les ouvrages de la bibliothèque.
-
-![Une journée typique aux thermes, de l'arrivée au départ](../medias/04-romanisation/journee-thermes.jpg)
 
 ::: video tby8PRV01Vs
 Une visite des thermes romains
@@ -585,6 +578,8 @@ fortifié et l'aqueduc.
 
 ### La voie romaine
 
+![La voie Appienne, une des plus anciennes voies romaines](../medias/04-romanisation/voie-appienne.jpg)
+
 « Tous les chemins mènent à Rome » est une expression populaire qui signifie
 qu'il existe plusieurs manières d'atteindre son but. Cette expression est
 inspirée des fameuses voies romaines qui étaient construites en étoile autour
@@ -594,8 +589,6 @@ chars de se croiser, et on avait également construit des trottoirs sur
 lesquels les piétons pouvaient circuler sans danger. Tous les douze
 kilomètres environ, on trouvait de quoi manger et dormir. En quelque sorte,
 on peut dire que tout convergeait vers Rome.
-
-![La voie Appienne, une des plus anciennes voies romaines](../medias/04-romanisation/voie-appienne.jpg)
 
 Ces routes ont permis l'amélioration du commerce, la transmission facile des
 ordres de l'empereur, le déplacement rapide des légionnaires, le retour des
@@ -674,10 +667,6 @@ tandis que l'eau d'un puits doit être puisée pour être utilisée.
 Le fonctionnement d'un aqueduc romain
 :::
 
-### Les infrastructures romaines en réalité virtuelle
-
-![Les infrastructures romaines en réalité virtuelle, document repris de l'ancien site](../medias/04-romanisation/infrastructures-rv.png)
-
 ::: questions
 1. Pourquoi dit-on que « tous les chemins mènent à Rome »?
 2. Nomme les trois couches de matériaux d'une voie romaine.
@@ -724,9 +713,9 @@ Constantinople, du nom de l'ancien empereur Constantin (272-337). Mais
 l'unité de l'Empire était définitivement brisée, alors qu'il se trouvait
 divisé entre l'Empire romain d'Occident et l'Empire romain d'Orient.
 
-![Le partage de l'Empire entre l'Occident et l'Orient, document repris de l'ancien site](../medias/04-romanisation/partage-empire.png)
-
 ### Les invasions germaniques
+
+![Le sac de Rome par les Vandales de Genséric en 455, tableau de Karl Brioullov](../medias/04-romanisation/sac-de-rome.jpg)
 
 Les invasions germaniques ont joué un rôle déterminant dans la chute de
 l'Empire romain d'Occident. Dès le 3e siècle, des peuples germaniques comme
@@ -737,8 +726,6 @@ Au 4e siècle, la pression des Huns a poussé de nombreuses tribus germaniques
 à s'installer à l'intérieur de l'Empire. Les Wisigoths, par exemple, ont
 pillé Rome en 410. Au 5e siècle, les Vandales ont établi un royaume en
 Afrique du Nord, tandis que les Francs se sont installés en Gaule.
-
-![Le sac de Rome par les Vandales de Genséric en 455, tableau de Karl Brioullov](../medias/04-romanisation/sac-de-rome.jpg)
 
 Ces invasions ont affaibli l'Empire romain, déjà en proie à des problèmes
 internes tels que l'instabilité politique et économique. En 476, le dernier
@@ -760,10 +747,6 @@ Les invasions germaniques et la fin de l'Empire
 4. Nomme trois peuples germaniques qui franchissent les frontières romaines.
 5. Que se passe-t-il en 476?
 :::
-
-## Carte conceptuelle illustrant le concept de la romanisation
-
-![Carte conceptuelle illustrant le concept de la romanisation](../medias/04-romanisation/carte-conceptuelle-romanisation.png)
 
 ## Pour aller plus loin
 

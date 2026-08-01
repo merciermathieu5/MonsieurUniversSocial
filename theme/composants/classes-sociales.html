@@ -1,8 +1,9 @@
 <section class="cls" id="classes-sociales" aria-label="Les classes sociales romaines">
 <style>
 .cls { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
-.cls__entete { background: var(--matiere-fonce); color: #fff; padding: .9rem 1.4rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.cls__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1.05rem; letter-spacing: -.01em; }
+.cls .cls__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cls .cls__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+html[data-sombre="on"] .cls .cls__titre { color: var(--encre); }
 .cls__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 .cls__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem 0; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
 .cls__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-bottom: none; border-radius: var(--rayon) var(--rayon) 0 0; padding: .5rem .95rem; cursor: pointer; transition: background .15s, color .15s; }

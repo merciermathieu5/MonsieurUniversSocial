@@ -432,6 +432,33 @@ def controler_classes() -> list[str]:
     return soucis
 
 
+DOCS = RACINE / "docs"
+
+
+def controler_construit() -> list[str]:
+    """Contrôles structurels sur les pages construites de docs/.
+
+    Chaque duo de vidéos doit contenir exactement deux figures vidéo et rien
+    d'autre : ni illustration, ni titre, ni encadré. Ce garde-fou vient d'une
+    régression réelle où le jumelage avait englouti des pans entiers de page.
+    """
+    soucis = []
+    if not DOCS.exists():
+        return ["docs/ absent : lance build.py avant le vérificateur"]
+    for page in sorted(DOCS.rglob("*.html")):
+        html = page.read_text(encoding="utf-8")
+        for duo in re.findall(r'<div class="videos-duo">(.*?)</div>', html, re.S):
+            videos = duo.count('<figure class="video">')
+            etranger = ('<figure class="illustration' in duo or "<h2" in duo
+                        or "<h3" in duo or '<aside' in duo)
+            if videos != 2 or etranger:
+                soucis.append(
+                    f"duo de vidéos difforme ({videos} vidéo(s)"
+                    f"{', contenu étranger' if etranger else ''}) : "
+                    f"{page.relative_to(DOCS)}")
+    return soucis
+
+
 def main() -> int:
     print("PALETTE")
     soucis = controler_palette()
@@ -474,6 +501,14 @@ def main() -> int:
     if not contenu:
         print("    ok   rien à signaler")
     soucis += contenu
+
+    print("\nCONSTRUIT")
+    construit = controler_construit()
+    for c in construit:
+        print(f"    {c}")
+    if not construit:
+        print("    ok   duos de vidéos bien formés")
+    soucis += construit
 
     print(f"\n{len(soucis)} problème(s).")
     return 1 if soucis else 0

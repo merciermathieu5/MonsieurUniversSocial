@@ -491,6 +491,8 @@ details.credit > span { display: block; max-width: 34rem; }
 .colonnage h3 { margin-top: 0; break-after: avoid; }
 .colonnage p, .colonnage figure { break-inside: avoid; }
 .colonnage li { break-inside: avoid; }
+/* Une liste seule en colonnes se resserre : les noms restent voisins. */
+.colonnage:has(> ul:only-child), .colonnage:has(> ol:only-child) { max-width: 44rem; }
 .colonnage .illustration {
   float: none !important; width: 100% !important; margin: .6rem 0 1rem !important;
 }

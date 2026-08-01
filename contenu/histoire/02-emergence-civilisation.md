@@ -248,7 +248,6 @@ semblables. Par exemple, le roi habite généralement dans un palais qui est ent
 de fortifications. On retrouve également d'autres bâtiments comme un marché, des
 temples et des ziggourats.
 
-![Les principales cités-États de Mésopotamie, entre le Tigre et l'Euphrate](../medias/02-emergence-civilisation/dmaps-mesopotamie.png)
 
 ::: video OSTgxepXwIg
 Les cités-États de Mésopotamie

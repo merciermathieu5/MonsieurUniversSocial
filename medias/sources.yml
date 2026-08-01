@@ -271,17 +271,6 @@ dmaps-croissant-fertile.png:
   auteur: d-maps.com
   licence: Utilisation libre avec mention de la page d'origine
   lien: https://d-maps.com/carte.php?num_car=30687&lang=fr
-dmaps-mesopotamie.png:
-  cadrage: carte
-  fiche: 02-emergence-civilisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQU9VJXj1VV4XBWlIWjmyxBNyvwK23tOXno4jsW-pUW5N758FWexZNDU18MffSl3Nr-0EcrRlAgidIBgLQ49YRJuXET9RqFnin4jEFadjnPuoxboWg18B_JxRj2L12WFurHKYB24RZi_6cfDHAJKKtXIXBBRmWxI71sm=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  depot: d-maps.com
-  auteur: d-maps.com
-  licence: Utilisation libre avec mention de la page d'origine
-  lien: https://d-maps.com/carte.php?num_car=5848&lang=fr
 acropole.jpg:
   cadrage: large
   fiche: 03-premiere-democratie
@@ -457,7 +446,7 @@ senat-romain.jpg:
   licence: ''
   lien: ''
 auguste-prima-porta.jpg:
-  cadrage: flottant
+  cadrage: petit
   fiche: 04-romanisation
   commons: File:Statue-Augustus.jpg
   recherche: Augustus Prima Porta statue Vatican
@@ -609,70 +598,10 @@ sac-de-rome.jpg:
   titre: ''
   licence: ''
   lien: ''
-ligne-du-temps-ancien-site.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXGKlTjaVXRxx_jEP2_Z1VdY03mXl2vOv7qpAJL1LjwAfH-CF7Ix7bvZposvXpJc_yZJxhrSzjcR9h5yIVOQJKNv07og8PYq13hZoE-itslgKfmOyfiFbciXmNrXICaihvlUbvg9jz5Ib4qWyjenjumPoHVgrGE3_7gk1eaNwfLq4Xse-y2gZkoZR6rIPD64_nSKTIvGCvMj1LNv00=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-carte-empire-ancien-site.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVJvwc4bgXtraypQD4A3HZn-HWENCh0C9F3vUA8sO4GyVdTlPQqvhCotTsFzgankORpIevTiBVVxD6R5jdJ-FLkeqglOJrkqxqcfpSEd0ZUsJBUDXkBW6v7HEJEguRTwVCcplBusYXWbjVai6V28N6RmHrK_xW4DOyZgvT-rC9BBnsxpdDCFHnAiY3f9KALcWij0-hEInNE3nvaeJQ=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
 journee-thermes.jpg:
   cadrage: carte
   fiche: 04-romanisation
   source: locale
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-infrastructures-rv.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVmwPvDn2DmJqEnyUr_DvJkriAvgxN0B076g99JiH7XfTog_quin62GHMcyvJT-a2s_AztaUbBX0G_J_bZwvU7lYNwyP9BhROGveWErkT6mk4YwXKTBRWXwZWy-mqP0fYSWXWy28-tCC2OAvLJfOOI35FfRlFSldPGmqfven5senHLJ32uULNHPhhz7-5blzsQf1Jt6LS6_DD59CuOpSaTPzG5DRXf5TlD8PtStX7o=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-partage-empire.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVve4ye4NrUInFpFAmvplLj8z1M5BkIyhOCqZ4PszVCgJcqHf1bheRVUaJYM0kmbQTnhYPvozAmUmnwGIXglZuUjivkFKEPoDEuQNBjQnajMAQJIALjBmKWHxUd1nulYsnfyZCeA0a8lPlzRRXV5LozsBHKNzAuiE2DyH_BLV8f3uJ-J9qmo29rnZXoc_keLkjFnBYB8pJGqtPHGDBjqaZrcn0uH-NCbYkKr28JhCI=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-carte-conceptuelle-romanisation.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVlc7eybyHC1x7YWKKmm698iCQeu4berELa2nKXE70pe5iLbgQe9PnMEuTyDd9sROQLRoBf0rFR0M9bnFNTFRA7WVwsAXluWAXjTrqrgG_ML_VgfEWNzVSgKUS1GvyJ9O6wojLLTOykhduHkMlMm1OSDef_qnZ2e75KOFeiFeL8G_dnz-4TXbKyODL13VIeXjLnQ4G3UVuP_gAqxxHnS9cuaJdu7cys2tBhAbZB-YE=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-metiers-intro.png:
-  cadrage: carte
-  fiche: 04-romanisation
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXvJutfVeytEKqT6U7pjt5jWZ2SjN6yX_KPF7jLr6t9a1A98Uwo4reLX_Itz0ZAQRjMfTlmip6kipZZDbCI7xq288DxBN9BMEQRbKbk0979lJGpg7AaI0EYWD6-92Uocsey8Ll-CPAJ0NjP7BYgT7e_yqfirMp1tt5zZWB5ZkD4upOeLlfFVGtohl8IUoTYbYGx5lPK00jrpI11h7E=w1280
   commons: ''
   recherche: ''
   titre: ''
