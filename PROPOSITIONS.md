@@ -463,3 +463,11 @@ déclarés dans site.yml.
    copistes et scriptorium, avec la miniature du copiste Jean Miélot
    (Commons, vérifiée).
 
+### Retouche du 2 août 2026 (livraison 41)
+
+1. Le vide entre le paragraphe roman et le comparatif : les blocs colonnes
+   se glissent désormais à côté des figures flottantes (flow-root), comme
+   les vidéos seules; règle consignée au README. La photo de Saint-Sernin
+   passe au cadrage petit pour alléger la colonne, et sa légende est
+   corrigée : elle montre les bas-côtés, non le déambulatoire.
+

@@ -289,6 +289,8 @@ composant pour éviter de refaire les mêmes itérations.
 - Une vidéo seule ne passe pas sous les figures flottantes : elle se glisse
   à côté d'elles (flow-root), pour ne jamais laisser un titre orphelin
   au-dessus d'un vide. Seuls les duos de vidéos passent sous les flottants.
+- Les blocs colonnes suivent la même règle : ils se glissent à côté des
+  figures flottantes au lieu de passer dessous en laissant un vide.
 - Les deux règles outillées, figures en tête de bloc (outils/figures.py) et
   paragraphes courts regroupés (outils/paragraphes.py), sont contrôlées sur
   toutes les fiches par la section ÉDITORIAL du vérificateur, qui affiche la

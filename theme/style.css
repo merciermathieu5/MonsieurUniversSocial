@@ -487,7 +487,8 @@ details.credit > span { display: block; max-width: 34rem; }
   line-height: 1.45;
 }
 
-.colonnage { clear: both; margin: 1.6rem 0 1.9rem; }
+.colonnage {
+  display: flow-root; margin: 1.6rem 0 1.9rem; }
 @media (min-width: 55rem) {
   /* Le flux en colonnes se replie tout seul, quel que soit le contenu. */
   .colonnage--2 { column-count: 2; column-gap: 2.5rem; }
