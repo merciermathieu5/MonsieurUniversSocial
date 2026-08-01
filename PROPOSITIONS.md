@@ -440,3 +440,26 @@ Comme pour la fiche 04, les liens vers la Progression et le Programme aux
 anciennes adresses ministérielles ne sont pas repris; les documents sont
 déclarés dans site.yml.
 
+### Retouches du 2 août 2026 (livraison 40)
+
+À la demande, toutes appliquées :
+
+1. L'organigramme du clergé gagne un niveau : les évêques sont séparés des
+   prêtres, les abbés et abbesses des moines et moniales.
+2. Nouvelle sous-section « L'église romane, avant la cathédrale gothique »
+   avec le déambulatoire de Saint-Sernin de Toulouse (Commons, vérifiée) et
+   un tableau comparatif roman/gothique en colonnes.
+3. La frise gagne les chantiers de deux grandes cathédrales, Notre-Dame de
+   Paris (1163) et Chartres (1194); le repère 1492 passe sous la bande pour
+   faire de la place.
+4. Image de voûte sur croisée d'ogives ajoutée : la nef de la cathédrale de
+   Reims (Commons, vérifiée).
+5. Nouveau schéma vertical vassalite : roi, grands seigneurs, petits
+   seigneurs et censitaires, avec les devoirs réciproques de chaque niveau,
+   dont ceux du seigneur envers les censitaires; une phrase du texte précise
+   que les censitaires ne sont pas des vassaux.
+6. Nouvelle section « L'Église, l'éducation et les savoirs » : écoles
+   monastiques et écoles cathédrales, naissance des universités, moines
+   copistes et scriptorium, avec la miniature du copiste Jean Miélot
+   (Commons, vérifiée).
+

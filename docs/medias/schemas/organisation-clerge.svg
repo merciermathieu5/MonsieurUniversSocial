@@ -1,10 +1,11 @@
-<svg viewBox="0 0 1100 330" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="L'organisation du clergé au Moyen Âge : le pape dirige le clergé séculier, évêques et prêtres, et le clergé régulier, abbés, moines et moniales">
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="L'organisation du clergé : le pape dirige le clergé séculier, évêques puis prêtres, et le clergé régulier, abbés et abbesses puis moines et moniales">
   <style>
     .cg-t { font-family: Archivo, sans-serif; }
     .cg-pape { font-size: 15px; font-weight: 700; fill: var(--surface); }
     .cg-b1 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
     .cg-b2 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .cg-n1 { font-size: 13.5px; font-weight: 600; fill: var(--surface); }
     .cg-m { font-size: 13.5px; font-weight: 600; fill: var(--encre); }
     .cg-a { font-size: 12.5px; fill: var(--encre-doux); }
   </style>
@@ -18,14 +19,20 @@
   <text class="cg-t cg-b1" x="310" y="158" text-anchor="middle">Le clergé séculier</text>
   <rect x="600" y="130" width="380" height="44" rx="5" fill="var(--bloc-pale)"/>
   <text class="cg-t cg-b2" x="790" y="158" text-anchor="middle">Le clergé régulier</text>
-  <line x1="310" y1="174" x2="310" y2="200" stroke="var(--schema-trait)" stroke-width="2"/>
-  <line x1="790" y1="174" x2="790" y2="200" stroke="var(--schema-trait)" stroke-width="2"/>
-  <rect x="120" y="200" width="380" height="44" rx="5" fill="var(--matiere-voile)"/>
-  <text class="cg-t cg-m" x="310" y="228" text-anchor="middle">Les évêques et les prêtres</text>
-  <rect x="600" y="200" width="380" height="44" rx="5" fill="var(--matiere-voile)"/>
-  <text class="cg-t cg-m" x="790" y="228" text-anchor="middle">Les abbés, les moines et les moniales</text>
-  <text class="cg-t cg-a" x="310" y="278" text-anchor="middle">Ils vivent dans le siècle,</text>
-  <text class="cg-t cg-a" x="310" y="296" text-anchor="middle">au milieu des fidèles.</text>
-  <text class="cg-t cg-a" x="790" y="278" text-anchor="middle">Ils vivent selon une règle,</text>
-  <text class="cg-t cg-a" x="790" y="296" text-anchor="middle">dans les abbayes et les couvents.</text>
+  <line x1="310" y1="174" x2="310" y2="198" stroke="var(--schema-trait)" stroke-width="2"/>
+  <line x1="790" y1="174" x2="790" y2="198" stroke="var(--schema-trait)" stroke-width="2"/>
+  <rect x="120" y="198" width="380" height="44" rx="5" fill="var(--schema-cle)"/>
+  <text class="cg-t cg-n1" x="310" y="226" text-anchor="middle">Les évêques, chefs des diocèses</text>
+  <rect x="600" y="198" width="380" height="44" rx="5" fill="var(--schema-cle)"/>
+  <text class="cg-t cg-n1" x="790" y="226" text-anchor="middle">Les abbés et les abbesses</text>
+  <line x1="310" y1="242" x2="310" y2="266" stroke="var(--schema-trait)" stroke-width="2"/>
+  <line x1="790" y1="242" x2="790" y2="266" stroke="var(--schema-trait)" stroke-width="2"/>
+  <rect x="120" y="266" width="380" height="44" rx="5" fill="var(--matiere-voile)"/>
+  <text class="cg-t cg-m" x="310" y="294" text-anchor="middle">Les prêtres des paroisses</text>
+  <rect x="600" y="266" width="380" height="44" rx="5" fill="var(--matiere-voile)"/>
+  <text class="cg-t cg-m" x="790" y="294" text-anchor="middle">Les moines et les moniales</text>
+  <text class="cg-t cg-a" x="310" y="348" text-anchor="middle">Ils vivent dans le siècle,</text>
+  <text class="cg-t cg-a" x="310" y="366" text-anchor="middle">au milieu des fidèles.</text>
+  <text class="cg-t cg-a" x="790" y="348" text-anchor="middle">Ils vivent selon une règle,</text>
+  <text class="cg-t cg-a" x="790" y="366" text-anchor="middle">dans les abbayes et les couvents.</text>
 </svg>

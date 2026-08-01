@@ -223,9 +223,16 @@ protection accordée par le seigneur est militaire, mais elle est aussi
 économique, par l'octroi du fief.
 
 Un fief est en général une terre avec tous les droits qui y sont attachés :
-cela peut aller d'un royaume entier à un quart de village. Parfois ce sera
-un moulin, ou une église, ou même une rente en argent. L'important est que
-le fief reste la propriété du suzerain, dont le vassal a l'usage.
+cela peut aller d'un royaume entier à un quart de village. Parfois ce sera un
+moulin, ou une église, ou même une rente en argent. L'important est que le
+fief reste la propriété du suzerain, dont le vassal a l'usage. Le schéma
+suivant résume cette chaîne de dépendances, du roi jusqu'aux paysans. Ces
+derniers, appelés censitaires parce qu'ils paient le cens, ne sont pas des
+vassaux : ils reçoivent du seigneur une terre et sa protection en échange du
+cens, de la taille, des banalités et des corvées.
+
+::: schema vassalite
+:::
 
 ::: questions
 1. Nomme les trois ordres de la société médiévale et ce que fait chacun.
@@ -315,6 +322,29 @@ questions de compréhension pendant le visionnement.
 
 ## Les cathédrales
 
+### L'église romane, avant la cathédrale gothique
+
+![Le déambulatoire de la basilique romane Saint-Sernin de Toulouse](../medias/05-christianisation/eglise-romane.jpg)
+
+Avant les grandes cathédrales gothiques, l'Occident bâtit des églises
+romanes, surtout entre le 10e et le 12e siècle. L'église romane se reconnaît
+à ses arcs en plein cintre, en demi-cercle, et à ses voûtes de pierre en
+berceau, très lourdes : pour les soutenir, il faut des murs épais, renforcés
+de contreforts, percés de petites fenêtres. L'intérieur reste donc sombre et
+massif, à l'image de Saint-Sernin de Toulouse.
+
+::: colonnes
+**L'église romane.** Arcs en plein cintre, voûtes en berceau, murs épais et
+contreforts, petites fenêtres, intérieur sombre, silhouette basse et
+massive.
+
+**La cathédrale gothique.** Arcs brisés et voûtes sur croisée d'ogives,
+arcs-boutants, murs allégés, immenses fenêtres et vitraux, intérieur haut et
+lumineux.
+:::
+
+### Qu'est-ce qu'une cathédrale?
+
 ![La façade de la cathédrale Notre-Dame de Paris](../medias/05-christianisation/notre-dame-paris.jpg)
 
 Une cathédrale, au Moyen Âge comme aujourd'hui, ne se distingue pas
@@ -327,6 +357,8 @@ depuis laquelle l'évêque fait son sermon. Le choeur est installé à l'ouest
 avec l'autel, table monumentale derrière laquelle le prêtre dit la messe.
 
 ### Les voûtes d'ogive et les arcs-boutants
+
+![La nef et ses voûtes sur croisée d'ogives, cathédrale de Reims](../medias/05-christianisation/voute-ogives.jpg)
 
 ![Les arcs-boutants de Notre-Dame de Paris](../medias/05-christianisation/arcs-boutants.jpg)
 
@@ -341,8 +373,38 @@ arrivait, malheureusement, que les voûtes tombent après quelques années. C'es
 pour cela que l'utilisation des arcs-boutants a vu le jour.
 
 ::: questions
-1. Qu'est-ce qui distingue une cathédrale d'une simple église?
-2. À quoi servent les voûtes d'ogive et les arcs-boutants?
+1. Nomme trois différences entre une église romane et une cathédrale gothique.
+2. Qu'est-ce qui distingue une cathédrale d'une simple église?
+3. À quoi servent les voûtes d'ogive et les arcs-boutants?
+:::
+
+## L'Église, l'éducation et les savoirs
+
+![Un copiste au travail dans son atelier, miniature du 15e siècle](../medias/05-christianisation/moine-copiste.jpg)
+
+Au Moyen Âge, l'Église est à peu près la seule à offrir de l'éducation. Les
+monastères et les cathédrales tiennent des écoles : les écoles monastiques
+forment d'abord les futurs moines, tandis que les écoles cathédrales,
+installées près des cathédrales et dirigées par l'évêque, accueillent les
+clercs et quelques fils de familles aisées. On y apprend à lire, à écrire et
+à compter en latin, la langue commune de tous les gens instruits d'Occident.
+Aux 12e et 13e siècles, les plus grandes écoles cathédrales donneront
+naissance aux premières universités, comme celles de Bologne, de Paris et
+d'Oxford.
+
+Les monastères jouent aussi un rôle essentiel dans la conservation des
+savoirs. Dans une salle appelée le scriptorium, les moines copistes
+recopient à la main, pendant des mois, les livres religieux, mais aussi les
+oeuvres des auteurs grecs et romains de l'Antiquité. Sans l'imprimerie, qui
+n'existe pas encore, chaque livre est une pièce unique et précieuse : c'est
+grâce à ce patient travail de copie que de nombreux textes anciens se sont
+rendus jusqu'à nous. Les bibliothèques des monastères comptent ainsi parmi
+les plus grands trésors culturels du Moyen Âge.
+
+::: questions
+1. Qui offre l'éducation au Moyen Âge et dans quelles écoles?
+2. Quelle institution naît des grandes écoles cathédrales aux 12e et 13e siècles?
+3. Que font les moines copistes dans le scriptorium et pourquoi ce travail est-il si important?
 :::
 
 ## Les croisades

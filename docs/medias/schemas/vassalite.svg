@@ -1,0 +1,39 @@
+<svg viewBox="0 0 1100 470" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Le lien de vassalité : le roi, les grands seigneurs, les petits seigneurs et les censitaires, avec les devoirs réciproques de chaque niveau">
+  <style>
+    .va-t { font-family: Archivo, sans-serif; }
+    .va-r { font-size: 15px; font-weight: 700; fill: var(--surface); }
+    .va-g { font-size: 14.5px; font-weight: 600; fill: var(--bloc-texte); }
+    .va-p { font-size: 14.5px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .va-c { font-size: 14.5px; font-weight: 600; fill: var(--encre); }
+    .va-d { font-size: 12.5px; fill: var(--encre); }
+    .va-fleche { stroke: var(--schema-trait); stroke-width: 2.5; fill: none; }
+    .va-pointe { fill: var(--schema-trait); }
+  </style>
+  <rect x="370" y="40" width="360" height="52" rx="5" fill="var(--schema-accent)"/>
+  <text class="va-t va-r" x="550" y="72" text-anchor="middle">Le roi, suzerain suprême</text>
+  <rect x="370" y="150" width="360" height="52" rx="5" fill="var(--bloc)"/>
+  <text class="va-t va-g" x="550" y="182" text-anchor="middle">Les grands seigneurs</text>
+  <rect x="370" y="260" width="360" height="52" rx="5" fill="var(--bloc-pale)"/>
+  <text class="va-t va-p" x="550" y="292" text-anchor="middle">Les petits seigneurs et les chevaliers</text>
+  <rect x="370" y="370" width="360" height="52" rx="5" fill="var(--matiere-voile)"/>
+  <text class="va-t va-c" x="550" y="402" text-anchor="middle">Les paysans, ou censitaires</text>
+  <line class="va-fleche" x1="300" y1="96" x2="300" y2="140"/>
+  <polygon class="va-pointe" points="300,150 294,138 306,138"/>
+  <text class="va-t va-d" x="280" y="121" text-anchor="end">Il protège et donne un fief</text>
+  <line class="va-fleche" x1="800" y1="146" x2="800" y2="102"/>
+  <polygon class="va-pointe" points="800,92 794,104 806,104"/>
+  <text class="va-t va-d" x="820" y="121">Hommage, aide et conseil</text>
+  <line class="va-fleche" x1="300" y1="206" x2="300" y2="250"/>
+  <polygon class="va-pointe" points="300,260 294,248 306,248"/>
+  <text class="va-t va-d" x="280" y="231" text-anchor="end">Il protège et donne un fief</text>
+  <line class="va-fleche" x1="800" y1="256" x2="800" y2="212"/>
+  <polygon class="va-pointe" points="800,202 794,214 806,214"/>
+  <text class="va-t va-d" x="820" y="231">Hommage, aide et conseil</text>
+  <line class="va-fleche" x1="300" y1="316" x2="300" y2="360"/>
+  <polygon class="va-pointe" points="300,370 294,358 306,358"/>
+  <text class="va-t va-d" x="280" y="341" text-anchor="end">Il concède une terre et la protège</text>
+  <line class="va-fleche" x1="800" y1="366" x2="800" y2="322"/>
+  <polygon class="va-pointe" points="800,312 794,324 806,324"/>
+  <text class="va-t va-d" x="820" y="341">Cens, taille, banalités, corvées</text>
+</svg>
