@@ -213,8 +213,10 @@ FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
 
 
-DUO_VIDEOS = re.compile(r'(<figure class="video">.*?</figure>)\s*'
-                        r'(<figure class="video">.*?</figure>)', re.DOTALL)
+# Une vidéo exactement : le contenu ne peut pas franchir sa balise fermante,
+# ce qui interdit à la paire d'engloutir du texte entre deux vidéos éloignées.
+UNE_VIDEO = r'<figure class="video">(?:(?!</figure>).)*</figure>'
+DUO_VIDEOS = re.compile('(' + UNE_VIDEO + r')\s*(' + UNE_VIDEO + ')', re.DOTALL)
 
 
 def jumeler_videos(html: str) -> str:
