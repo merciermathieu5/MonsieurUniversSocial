@@ -411,6 +411,11 @@ def main():
 
         credit = credits.get(nom, {})
         complet = all(credit.get(c) for c in ("auteur", "licence", "lien"))
+        # Si le registre épingle désormais un autre fichier Commons que celui
+        # du crédit, l'image sur le disque n'est plus la bonne : on la refait.
+        if complet and entree.get("commons") and credit.get("commons") \
+                and entree["commons"] != credit["commons"]:
+            complet = False
         if cible.exists() and complet and not args.refaire:
             sautees += 1
             continue

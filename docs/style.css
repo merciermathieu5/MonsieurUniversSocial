@@ -255,18 +255,18 @@ a { color: inherit; }
 }
 .frise__piste { padding-top: .4rem; padding-bottom: .55rem; }
 .frise__piste--deux { padding-bottom: 1.1rem; }
-/* La 2e secondaire se distingue par une teinte terracotta, chaude et bien
-   différente du bleu de la 1re et du vert de la géographie. Le repère doré
-   de la fiche courante reste identique dans les deux rangées. */
-.frise__cycle--deux { color: rgba(233,164,138,.75); }
+/* La 2e secondaire se distingue par un violet ardoise, bien différent du
+   bleu de la 1re, du vert de la géographie et de l'or du repère de la fiche
+   courante, qui reste identique dans les deux rangées. */
+.frise__cycle--deux { color: rgba(190,178,232,.78); }
 .frise__piste--deux .frise__cran > a {
-  background: rgba(201,112,84,.18); border-top-color: rgba(226,142,112,.55);
+  background: rgba(146,130,200,.2); border-top-color: rgba(172,158,222,.55);
 }
 .frise__piste--deux .frise__cran > a:hover {
-  background: rgba(201,112,84,.3); border-top-color: rgba(236,160,130,.9);
+  background: rgba(146,130,200,.33); border-top-color: rgba(194,182,238,.9);
 }
 .frise__piste--deux .frise__cran.est-ici > a {
-  background: rgba(201,112,84,.26); border-top-color: var(--signal);
+  background: rgba(146,130,200,.28); border-top-color: var(--signal);
 }
 @media (max-width: 62rem) {
   .frise__piste { flex-wrap: wrap; }

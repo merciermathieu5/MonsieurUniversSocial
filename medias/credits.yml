@@ -237,11 +237,11 @@ platon.jpg:
   licence: CC BY 2.5
   lien: https://commons.wikimedia.org/wiki/File:Plato_Silanion_Musei_Capitolini_MC1377.jpg
 aristote.jpg:
-  commons: File:Aristotle Altemps Inv8575.jpg
-  titre: Aristotle Altemps Inv8575
-  auteur: After Lysippos
-  licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg
+  commons: File:Kunsthistorisches Museum,Aristoteles.jpg
+  titre: Kunsthistorisches Museum,Aristoteles
+  auteur: Manuela Gößnitzer
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Kunsthistorisches_Museum,Aristoteles.jpg
 poupee-articulee.jpg:
   commons: File:Clay jointed doll, Late Archaic - Early Classical Period, c. 490 BC (28501913101).jpg
   titre: Clay jointed doll, Late Archaic - Early Classical Period, c. 490 BC (28501913101)
@@ -249,8 +249,20 @@ poupee-articulee.jpg:
   licence: Creative Commons Zero
   lien: https://commons.wikimedia.org/wiki/File:Clay_jointed_doll,_Late_Archaic_-_Early_Classical_Period,_c._490_BC_(28501913101).jpg
 coupe-ecole.jpg:
-  commons: File:School cup by Douris Antikensammlung Berlin.jpg
-  titre: School cup by Douris Antikensammlung Berlin
-  auteur: Picture taken by Marcus Cyron
+  commons: File:Douris Man with wax tablet.jpg
+  titre: Douris Man with wax tablet
+  auteur: 'Pottery Fan : photo of greek art created about 500 BC by Douris'
   licence: Creative Commons BY-SA 3.0
-  lien: https://commons.wikimedia.org/wiki/File:School_cup_by_Douris_Antikensammlung_Berlin.jpg
+  lien: https://commons.wikimedia.org/wiki/File:Douris_Man_with_wax_tablet.jpg
+gynecee.jpg:
+  commons: File:NAMA Gynécée 2.jpg
+  titre: NAMA Gynécée 2
+  auteur: Marsyas
+  licence: CC BY-SA 2.5
+  lien: https://commons.wikimedia.org/wiki/File:NAMA_Gyn%C3%A9c%C3%A9e_2.jpg
+lavage-linge.jpg:
+  commons: File:Clothes washing Louvre G547.jpg
+  titre: Clothes washing Louvre G547
+  auteur: Pan Painter
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Clothes_washing_Louvre_G547.jpg

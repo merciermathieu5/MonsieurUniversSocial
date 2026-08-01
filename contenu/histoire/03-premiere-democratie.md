@@ -148,11 +148,11 @@ frappe les esprits. Dix ans plus tard, la flotte grecque écrase la flotte perse
 dans le détroit de Salamine. Ces affrontements prouvent la détermination et le
 courage des Grecs et renforcent le sentiment d'unité entre les cités-États.
 
-![La trière, le navire de guerre qui a fait la puissance d'Athènes, ici une reconstitution moderne](../medias/03-premiere-democratie/triere.jpg)
+![Le stratège Périclès, qui a dirigé Athènes pendant plus de trente ans](../medias/03-premiere-democratie/pericles.jpg)
 
 ### L'âge d'or d'Athènes
 
-![Le stratège Périclès, qui a dirigé Athènes pendant plus de trente ans](../medias/03-premiere-democratie/pericles.jpg)
+![La trière, le navire de guerre qui a fait la puissance d'Athènes, ici une reconstitution moderne](../medias/03-premiere-democratie/triere.jpg)
 
 Athènes tient son âge d'or en partie de Périclès, un homme politique, mais
 aussi un stratège militaire. Sous son administration, la cité connaît un essor
@@ -290,6 +290,10 @@ vendues à des familles riches et sont à leur service : en échange du gîte et
 la nourriture, elles accomplissent les tâches ménagères et s'occupent des
 enfants.
 
+![Une scène du gynécée, l'appartement des femmes, sur un vase du Musée national d'Athènes](../medias/03-premiere-democratie/gynecee.jpg)
+
+![Des femmes lavent le linge, vase attique conservé au Louvre](../medias/03-premiere-democratie/lavage-linge.jpg)
+
 ### Les enfants de citoyens et l'éducation
 
 Jusqu'à l'âge de 7 ans, garçons et filles reçoivent la même éducation au
@@ -300,7 +304,7 @@ la laine. Vers 14 ans, elles savent tout ce qu'il faut pour devenir une bonne
 épouse et prendre mari. Elles n'ont d'ailleurs pas leur mot à dire dans ce
 mariage, arrangé avec un homme qui peut avoir trois fois leur âge.
 
-![Une scène d'école sur la coupe du peintre Douris, vers -480 : le maître corrige la tablette d'un élève](../medias/03-premiere-democratie/coupe-ecole.jpg)
+![Un maître d'école tenant une tablette de cire, détail d'une coupe du peintre Douris, vers -480](../medias/03-premiere-democratie/coupe-ecole.jpg)
 
 Les enfants, garçons ou filles, apprennent les poèmes d'Homère, l'Iliade et
 l'Odyssée, et les récitent accompagnés de musique. Les garçons apprennent aussi
@@ -309,8 +313,6 @@ pratiquent des sports et participent à des épreuves athlétiques. Ils écouten
 les enseignements des philosophes, composent des discours et s'exercent à
 débattre afin de devenir de bons citoyens. À 18 ans, ils commencent leur
 formation militaire ou travaillent aux affaires de leur père.
-
-![Une poupée articulée en terre cuite, vers -490, semblable aux jouets retrouvés dans les tombes de jeunes filles](../medias/03-premiere-democratie/poupee-articulee.jpg)
 
 Les archéologues ont retrouvé à Corinthe une poupée dansante en terre cuite
 datée d'environ -350. Il s'agit d'un jouet de petite fille offert en offrande
@@ -459,7 +461,7 @@ rédige des dialogues qui mettent en scène son maître Socrate.
 
 ### Aristote
 
-![Buste d'Aristote, copie romaine d'un original de Lysippe](../medias/03-premiere-democratie/aristote.jpg)
+![Buste d'Aristote, copie romaine d'un original grec, musée de Vienne](../medias/03-premiere-democratie/aristote.jpg)
 
 Aristote, le disciple de Platon, avait une approche différente. Il pensait
 qu'on pouvait comprendre le monde en l'observant attentivement. Il
