@@ -22,24 +22,21 @@ html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
 .chr__item:last-of-type { padding-bottom: 0; }
 .chr__item.est-cache { display: none; }
 /* Le fil du temps : un trait continu tracé derrière les pastilles. */
-.chr__item::before { content: ""; position: absolute; left: 5.4875rem; top: .35rem; bottom: -.35rem; width: 2px; background: var(--matiere-voile); }
+.chr__item::before { content: ""; position: absolute; left: 5.4875rem; top: .35rem; bottom: -.35rem; width: 2px; background: var(--trait); }
 .chr__item:last-of-type::before { bottom: auto; height: 1.5rem; }
 
 .chr__date { text-align: right; padding-top: .55rem; line-height: 1.15; }
 .chr__mois { display: block; font-family: var(--donnee); font-size: .63rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
 .chr__annee { display: block; font-family: var(--donnee); font-size: 1.02rem; font-weight: 700; color: var(--matiere-fonce); }
-.chr__item[data-camp="quebec"] .chr__annee { color: var(--schema-accent); }
 
 .chr__pastille { position: absolute; left: 5.165rem; top: .78rem; width: .77rem; height: .77rem; border-radius: 50%; background: var(--surface); border: 2.5px solid var(--matiere); box-sizing: border-box; }
-.chr__item[data-camp="quebec"] .chr__pastille { border-color: var(--schema-accent); background: var(--schema-accent); }
 
 .chr__carte { background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
 .chr__carte:hover { border-color: var(--matiere); box-shadow: 0 3px 12px rgba(26,37,48,.08); }
-.chr__item[data-camp="quebec"] .chr__carte:hover { border-color: var(--schema-accent); }
 
 .chr__bouton { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; text-align: left; background: none; border: 0; padding: .72rem 1rem; cursor: pointer; font-family: var(--titre); }
-.chr__nom { margin: 0; font-family: var(--titre); font-weight: 600; font-size: 1rem; color: var(--encre); line-height: 1.3; }
-.chr__etiquette { display: inline-block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-top: .18rem; }
+.chr .chr__nom { display: block; margin: 0; font-family: var(--titre); font-weight: 600; font-size: 1rem; color: var(--encre); line-height: 1.3; }
+.chr .chr__etiquette { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-top: .18rem; }
 .chr__chevron { flex: none; width: .55rem; height: .55rem; border-right: 2px solid var(--encre-pale); border-bottom: 2px solid var(--encre-pale); transform: rotate(45deg) translate(-.1rem, -.1rem); transition: transform .2s, border-color .2s; }
 .chr__bouton:hover .chr__chevron { border-color: var(--matiere); }
 .chr__bouton[aria-expanded="true"] .chr__chevron { transform: rotate(-135deg) translate(-.06rem, -.06rem); border-color: var(--matiere); }
@@ -98,7 +95,7 @@ html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
 
   var LIEUX = {
     colonies: "Dans les Treize colonies",
-    quebec: "Province of Quebec",
+    quebec: "Dans la Province of Quebec",
     monde: "Sur la scène internationale"
   };
 
