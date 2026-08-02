@@ -1180,3 +1180,21 @@ protégés dans l'outil, la fiche est réparée, et la règle est au README.
    siège de Québec, celui sur Jefferson suit la lecture de la Déclaration.
    La section des activités, devenue vide, est retirée.
 
+### Retouches du 2 août 2026 (livraison 71)
+
+1. **La Déclaration est le texte officiel intégral.** Ton PDF est arrivé et
+   je l'ai lu : le module contient désormais la traduction du Département
+   d'État telle quelle, du préambule à l'engagement final sur les vies, les
+   fortunes et l'honneur, sans aucun résumé. Les sept paragraphes de griefs
+   contre George III sont marqués en retrait, dont celui qui vise
+   nommément la province voisine, c'est-à-dire le Québec et l'Acte de
+   Québec. Le texte défile dans la fenêtre et se règle avec A+ et A-.
+2. **La chronologie est simplifiée.** Chaque ligne n'affiche plus que
+   l'année et l'événement; un clic ouvre le descriptif, qui a été
+   sensiblement développé. Les onze événements donnent maintenant le
+   contexte, les acteurs et les conséquences, avec un soin particulier
+   pour ceux qui touchent le Québec.
+3. **Le filtre s'appelle Province of Quebec**, le nom officiel de la
+   colonie à l'époque.
+4. **Les puces des éléments de liste sont retirées** dans la chronologie.
+
