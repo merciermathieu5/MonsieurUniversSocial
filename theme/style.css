@@ -390,6 +390,15 @@ p.source-texte { margin: -.55rem 0 1.4rem; }
   width: 100%; height: auto; display: block;
   border-radius: var(--rayon);
 }
+/* Une figure flottante plus haute que son texte laisse un vide sous le
+   paragraphe, puisque la sous-section suivante repart dessous. On plafonne
+   donc la hauteur des flottants : les portraits très verticaux se réduisent
+   et se centrent dans leur cadre au lieu de dépasser. */
+.illustration--flottant img,
+.illustration--petit img,
+.illustration--gauche img {
+  max-height: 16rem; width: auto; max-width: 100%; margin-inline: auto;
+}
 .illustration figcaption {
   display: grid; gap: .3rem; margin-top: .65rem;
   padding-left: .8rem; border-left: 3px solid var(--matiere);
@@ -409,9 +418,9 @@ details.credit > span { display: block; max-width: 34rem; }
 
 /* Par défaut l'image se place à droite et le texte l'enveloppe. */
 @media (min-width: 62rem) {
-  .illustration--flottant { float: right; width: 19rem; margin: .35rem 0 1.3rem 2.25rem; }
-  .illustration--gauche   { float: left;  width: 19rem; margin: .35rem 2.25rem 1.3rem 0; }
-  .illustration--petit    { float: right; width: 12rem;   margin: .35rem 0 1.2rem 2rem; }
+  .illustration--flottant { float: right; width: 19rem; margin: .35rem 0 .9rem 2.25rem; }
+  .illustration--gauche   { float: left;  width: 19rem; margin: .35rem 2.25rem .9rem 0; }
+  .illustration--petit    { float: right; width: 12rem;   margin: .35rem 0 .9rem 2rem; }
 }
 .illustration--large { float: right; width: 26rem; margin: .4rem 0 1.5rem 2.5rem; }
 @media (max-width: 62rem) { .illustration--large { float: none; width: 100%; margin: 1.5rem 0; } }

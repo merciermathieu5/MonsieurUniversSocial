@@ -281,6 +281,9 @@ composant pour éviter de refaire les mêmes itérations.
 - Les titres de section et de sous-section annulent les flottants qui
   précèdent (clear) : une sous-section ne démarre jamais à côté d'une image
   de la sous-section précédente, sinon sa colonne de texte est écrasée.
+- En contrepartie, la hauteur des figures flottantes est plafonnée (16rem) :
+  une image plus haute que son texte laisserait un vide sous le paragraphe.
+  Les portraits très verticaux se réduisent et se centrent dans leur cadre.
 - Une figure flottante (flottant, gauche, petit, carte, large) se place en
   tête de son bloc, juste après le titre de section ou de sous-section :
   le texte coule à côté de l'image, jamais de grande zone vide.

@@ -741,3 +741,12 @@ diagnostic. Consigné au README.
    Fontainebleau, plus une phrase sur le chantier du château et l'école de
    Fontainebleau. Une question de plus dans le bloc de questions.
 
+### Retouche du 2 août 2026 (livraison 52)
+
+Le clear des sous-titres a réglé l'écrasement des colonnes, mais il a rendu
+visible l'autre moitié du problème : une figure plus haute que son texte
+laisse un vide sous le paragraphe, puisque la sous-section suivante repart
+sous elle. La hauteur des figures flottantes est donc plafonnée à 16rem, et
+les portraits très verticaux, comme Luther et l'Inquisition, se réduisent et
+se centrent dans leur cadre au lieu de dépasser. Les marges basses des
+flottants sont aussi resserrées. Consigné au README.
