@@ -656,3 +656,51 @@ préfères revenir aux listes.
 Comme pour les fiches précédentes, les liens vers la Progression et le
 Programme aux anciennes adresses ministérielles ne sont pas repris.
 
+### Retouches du 2 août 2026 (livraison 48)
+
+À la demande, toutes appliquées :
+
+1. Concepts retirés : art, individu, liberté, Renaissance, responsabilité
+   et science. Restent les huit concepts de ton vocabulaire : esprit
+   critique, géocentrisme, héliocentrisme, humanisme, indulgence,
+   philosophie, raison et Réforme protestante. Les jetons de l'en-tête sont
+   alignés sur cette liste.
+2. La frise est refaite : la Renaissance ne se glisse plus entre deux
+   périodes, elle chevauche le Moyen Âge et les Temps modernes sur une
+   bande distincte. La fin du Moyen Âge est marquée en 1492, et le texte de
+   la section le dit explicitement.
+3. La carte de l'Europe en anglais est remplacée par la carte de l'Italie en
+   1494, en français et beaucoup plus lisible, avec un paragraphe sur le
+   morcellement de la péninsule et la rivalité entre les cités.
+4. Les quatre moyens de diffusion des savoirs se rangent maintenant en deux
+   rangées de deux. La règle est automatique pour tout bloc de quatre
+   cartes et consignée au README.
+5. La vidéo sur la dissection est retirée.
+6. L'École d'Athènes a désormais sa propre sous-section : l'image
+   l'accompagne et ton analyse reprend ta structure d'origine, avec les
+   deux listes de penseurs du côté de Platon et du côté d'Aristote, et la
+   mention d'Apollon et d'Athéna que j'avais omise.
+7. Trois images ajoutées avec leur texte : une séance du concile de Trente,
+   un tribunal de l'Inquisition par Berruguete, et le tableau La France
+   apportant la foi aux Hurons de la Nouvelle-France pour les Jésuites. La
+   Contre-Réforme est éclatée en trois sous-sections illustrées et les
+   questions sont ajustées en conséquence.
+
+### À valider sur ces ajouts
+
+**A. L'image de l'Inquisition.** Le tableau de Berruguete est le classique
+des manuels, mais il montre des condamnés au bûcher. Dis-moi si tu veux une
+image moins dure pour des élèves de 2e secondaire.
+
+**B. L'image des Jésuites (remplacée, livraison 49).** Le tableau La France
+apportant la foi aux Hurons refusait de se télécharger. Il est remplacé par
+une photo de la chapelle de Sainte-Marie-au-pays-des-Hurons, la mission
+jésuite fondée en 1639 et reconstituée aujourd'hui près de Midland, en
+Ontario. Le nom de fichier est entièrement en caractères simples, ce qui
+écarte le risque d'un nouvel échec. Si tu préfères une oeuvre d'époque, je
+peux chercher encore.
+
+**C. Le paragraphe sur la Nouvelle-France.** J'ai ajouté le lien avec
+l'histoire du Québec (Relations des Jésuites, Hurons-Wendats, conséquences
+pour les nations autochtones). À relire, c'est du contenu neuf.
+

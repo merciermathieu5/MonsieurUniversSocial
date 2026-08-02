@@ -311,7 +311,11 @@ composant pour éviter de refaire les mêmes itérations.
   classe source-texte (petite, grise, police de données).
 - Le bloc ::: cartes présente des éléments parallèles (objectifs, volets,
   critères) en encadrés côte à côte : un paragraphe par carte, amorcé par
-  un intertitre en gras qui devient le titre de la carte.
+  un intertitre en gras qui devient le titre de la carte. Quatre cartes se
+  rangent automatiquement en deux rangées de deux, plus lisibles qu'un 3+1.
+- Une oeuvre commentée en profondeur prend sa propre sous-section, avec son
+  image en tête : le texte l'accompagne au lieu d'être renvoyé sous une
+  galerie. Les oeuvres présentées brièvement peuvent, elles, se regrouper.
 - Une énumération de trois éléments et plus se présente en liste à puces,
   pas en phrase-fleuve : plus facile à lire, à retenir et à réviser pour
   les élèves.

@@ -491,6 +491,10 @@ details.credit > span { display: block; max-width: 34rem; }
   display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: 1rem; margin: 1.6rem 0 1.9rem;
 }
+/* Quatre cartes se rangent en deux rangées de deux, plus lisibles qu'un 3+1. */
+.cartes:has(> p:nth-child(4)):not(:has(> p:nth-child(5))) {
+  grid-template-columns: repeat(2, 1fr);
+}
 .cartes > p {
   background: var(--surface); border: 1px solid var(--matiere-voile);
   border-radius: 10px; padding: 1rem 1.15rem 1.1rem; margin: 0;

@@ -9,16 +9,14 @@ debut: 1400
 fin: 1600
 angle: "L'humanisme"
 concepts:
-  - art
   - critique
+  - géocentrisme
+  - héliocentrisme
   - humanisme
-  - individu
-  - liberté
+  - indulgence
   - philosophie
+  - raison
   - Réforme
-  - Renaissance
-  - responsabilité
-  - science
 concepts_valides: true
 statut: brouillon
 image_entete: ""
@@ -42,9 +40,6 @@ certains des fondements de la culture occidentale.
 
 ## Concepts à l'étude
 
-- Art : les oeuvres créées pour leur beauté et leur sens, comme la
-  peinture, la sculpture et l'architecture, qui se transforment à la
-  Renaissance.
 - Esprit critique : s'interroger sur la véracité d'un texte ou d'une
   information, autrement dit ne pas croire tout ce qu'on nous raconte ou
   tout ce qu'on lit.
@@ -55,22 +50,12 @@ certains des fondements de la culture occidentale.
   éducation au centre des préoccupations.
 - Indulgence : la rémission devant Dieu de la peine due pour les péchés,
   que le fidèle obtient à certaines conditions déterminées.
-- Individu : chaque personne prise pour elle-même, avec sa liberté et sa
-  responsabilité face à son destin.
-- Liberté : la possibilité de penser, de croire et d'agir par soi-même,
-  valeur remise au goût du jour par les humanistes.
 - Philosophie : la recherche de la sagesse et de la vérité par le
   raisonnement, à la manière des penseurs grecs et romains.
 - Raison : la faculté qui permet à l'être humain de connaître, de juger et
   d'agir conformément à des principes.
 - Réforme protestante : mouvement religieux qui donna naissance au
   protestantisme.
-- Renaissance : la période des 15e et 16e siècles marquée par le retour aux
-  savoirs de l'Antiquité et par une nouvelle vision de l'être humain.
-- Responsabilité : l'idée que chaque personne répond de ses choix et peut
-  améliorer sa condition par ses efforts.
-- Science : les connaissances sur le monde bâties par l'observation,
-  l'expérimentation et le raisonnement.
 
 ## Situer la Renaissance dans le temps
 
@@ -79,7 +64,10 @@ certains des fondements de la culture occidentale.
 
 La Renaissance est une période que les historiens situent aux 15e et 16e
 siècles et qui a commencé en Italie pour se propager sur tout le reste du
-continent européen. Elle est caractérisée par un retour aux écrits, aux
+continent européen. Comme le montre la ligne du temps, elle commence pendant
+le Moyen Âge, dont les historiens fixent la fin en 1492, et se poursuit
+durant les Temps modernes : elle chevauche les deux périodes plutôt que de
+se glisser entre les deux. Elle est caractérisée par un retour aux écrits, aux
 arts et aux sciences inspirés de l'Antiquité. Avec leurs oeuvres
 artistiques, techniques et philosophiques, les artistes de la Renaissance
 vont bousculer la vision du monde dominée à l'époque par la chrétienté.
@@ -90,7 +78,14 @@ La Renaissance, vidéo de mise en contexte
 
 ## Situer la Renaissance dans l'espace
 
-![L'Europe vers 1500 et ses royaumes](../medias/07-vision-de-lhomme/carte-europe-1500.png)
+![L'Italie en 1494, morcelée en républiques, en duchés et en royaumes](../medias/07-vision-de-lhomme/carte-italie-1494.png)
+
+La Renaissance naît en Italie, qui n'est pas encore un pays unifié. La
+péninsule est alors morcelée en cités et en États rivaux : les républiques
+de Venise, de Florence et de Gênes, le duché de Milan, les États de
+l'Église et le royaume de Naples. Cette rivalité pousse chaque cité à
+attirer les meilleurs artistes et savants, ce qui explique en bonne partie
+le foisonnement artistique de la période.
 
 L'Europe, au 16e siècle, est composée de plusieurs royaumes. En effet, les
 royaumes d'Espagne, du Portugal, de France et d'Angleterre sont déjà bien
@@ -263,10 +258,6 @@ fondateurs de l'anatomie et de la médecine moderne.
 
 (Source : Wikipédia)
 
-::: video wpGMeL_Jxu4
-André Vésale et la naissance de l'anatomie moderne
-:::
-
 ::: video 7WRcxZzO_co
 Qui était André Vésale?
 :::
@@ -322,15 +313,13 @@ pour repérer le point de fuite et les lignes qui guident l'oeil dans un
 tableau de la Renaissance.
 :::
 
-### Quatre chefs-d'oeuvre de la Renaissance
+### Trois chefs-d'oeuvre de la Renaissance
 
 ![La Pietà de Michel-Ange, basilique Saint-Pierre de Rome](../medias/07-vision-de-lhomme/pieta.jpg)
 
 ![La naissance de Vénus, tableau de Sandro Botticelli](../medias/07-vision-de-lhomme/naissance-venus.jpg)
 
 ![La Joconde de Léonard de Vinci, musée du Louvre](../medias/07-vision-de-lhomme/joconde.jpg)
-
-![L'École d'Athènes, fresque de Raphaël au Vatican](../medias/07-vision-de-lhomme/ecole-athenes.jpg)
 
 **La Pietà (1499) de Michel-Ange.** La Pietà représente le thème religieux
 de la « Vierge douloureuse » tenant sur ses genoux le corps de Jésus
@@ -361,23 +350,39 @@ joyeuse. L'arrière-plan est également un cas d'école : la technique du
 sfumato est utilisée pour créer une perspective qui se fond de manière
 douce. (Source : [Paris City Vision](https://www.pariscityvision.com/fr/paris/musees/musee-du-louvre/la-joconde-son-histoire-ses-mysteres))
 
-**L'École d'Athènes (1509-1511) de Raphaël.** L'oeuvre représente une
-assemblée idéale des plus grands esprits de l'Antiquité. C'est une
-manifestation de l'humanisme, qui place la raison humaine et les textes
-antiques au centre de l'apprentissage. Au centre, Platon pointe son doigt
-vers le ciel, ce qui signifie que la vérité se trouve dans le monde des
-idées, au-delà du monde physique. Aristote, à sa gauche, tend la paume vers
-le sol, ce qui symbolise l'empirisme : la vérité s'observe par l'expérience
-et la science. Autour d'eux se trouvent notamment Socrate, qui argumente
-avec un groupe de jeunes, Pythagore, qui écrit dans un livre entouré de
-disciples, Euclide, qui trace une figure géométrique avec un compas, ainsi
-que Zoroastre et Ptolémée, qui tiennent un globe céleste et un globe
-terrestre. Raphaël s'est même peint parmi les savants, s'élevant ainsi au
-rang d'intellectuel.
-
 ::: video I_zTG8UQ7mg
 La Joconde, les secrets d'un tableau iconique
 :::
+
+### L'École d'Athènes de Raphaël (1509-1511)
+
+![L'École d'Athènes, fresque de Raphaël au Vatican](../medias/07-vision-de-lhomme/ecole-athenes.jpg)
+
+L'oeuvre représente une assemblée idéale des plus grands esprits de
+l'Antiquité. C'est une manifestation de l'humanisme, qui place la raison
+humaine et les textes antiques au centre de l'apprentissage. Apollon est
+représenté à gauche, Athéna à droite. Au centre, Platon pointe son doigt vers
+le ciel : la vérité se trouve dans le monde des idées, au-delà du monde
+physique. Aristote, à sa gauche, tend la paume vers le sol, ce qui symbolise
+l'empirisme, c'est-à-dire que la vérité s'observe par l'expérience et par la
+science. Du côté de Platon se trouvent ceux qui s'intéressent à l'invisible et
+aux mathématiques pures :
+
+- Socrate, qu'on voit compter sur ses doigts en argumentant avec un groupe
+  de jeunes;
+- Pythagore, assis au premier plan, qui écrit dans un livre entouré de
+  disciples;
+- Héraclite, isolé, accoudé sur un bloc de marbre au premier plan.
+
+Du côté d'Aristote se trouvent les penseurs liés à la terre et à
+l'observation :
+
+- Euclide, ou peut-être Archimède, penché au sol, qui trace une figure
+  géométrique avec un compas;
+- Zoroastre et Ptolémée, qui tiennent respectivement un globe céleste et un
+  globe terrestre, symbolisant l'astronomie et la géographie;
+- Raphaël lui-même, qui s'est peint parmi les savants, s'élevant ainsi au
+  rang d'intellectuel.
 
 ### Le mécénat
 
@@ -502,28 +507,63 @@ s'achèveront qu'avec l'édit de Nantes.
 Le massacre de la Saint-Barthélemy
 :::
 
-### La Contre-Réforme
+### La Contre-Réforme : le concile de Trente
+
+![Une séance du concile de Trente, tableau du 16e siècle](../medias/07-vision-de-lhomme/concile-trente.jpg)
 
 Face à la création de ces nouvelles Églises dites protestantes, l'Église
 catholique a convoqué le concile de Trente, qui est une assemblée
-d'évêques. Le concile de Trente débute en 1545, trois ans après le
-rétablissement du tribunal de l'Inquisition, chargé de juger les
-hérétiques, c'est-à-dire les personnes qui ne se conforment pas aux
-croyances et aux pratiques catholiques.
+d'évêques. Le concile débute en 1545 et se poursuit, avec de longues
+interruptions, jusqu'en 1563. Les évêques y réaffirment les croyances
+catholiques contestées par les protestants et y imposent une discipline
+plus stricte au clergé : les évêques doivent résider dans leur diocèse, des
+séminaires sont créés pour mieux former les prêtres et la vente des
+indulgences est encadrée. C'est l'ensemble de cette riposte qu'on appelle
+la Contre-Réforme catholique.
+
+### Le tribunal de l'Inquisition et l'Index
+
+![Un tribunal de l'Inquisition, tableau de Pedro Berruguete](../medias/07-vision-de-lhomme/inquisition.jpg)
+
+Le concile de Trente débute trois ans après le rétablissement du tribunal
+de l'Inquisition, chargé de juger les hérétiques, c'est-à-dire les
+personnes qui ne se conforment pas aux croyances et aux pratiques
+catholiques. Les accusés y sont interrogés, parfois torturés, et les peines
+vont de la pénitence publique à la condamnation au bûcher.
 
 L'Église a de plus créé l'Index, une liste de tous les ouvrages que les
 « bons catholiques » ne pourront lire sous peine de brûler en Enfer ou de
-se retrouver devant le tribunal de l'Inquisition. Elle a également créé de
-nouveaux ordres religieux afin de convertir les peuples nouvellement
-découverts en Amérique et, ainsi, augmenter le nombre de fidèles dans
-l'Église. Le plus connu est la Compagnie de Jésus, les Jésuites. C'est ce
-qu'on appela la Contre-Réforme catholique.
+se retrouver devant le tribunal de l'Inquisition. Plusieurs oeuvres
+d'humanistes et de savants s'y retrouvent, dont celles de Galilée.
+
+### Les Jésuites et les missions en Amérique
+
+![La chapelle de la mission jésuite de Sainte-Marie-au-pays-des-Hurons, reconstituée aujourd'hui](../medias/07-vision-de-lhomme/jesuites-nouvelle-france.jpg)
+
+L'Église a également créé de nouveaux ordres religieux afin de convertir
+les peuples nouvellement rencontrés en Amérique et, ainsi, augmenter le
+nombre de fidèles. Le plus connu est la Compagnie de Jésus, les Jésuites,
+fondée en 1540 par Ignace de Loyola.
+
+Cette décision te touche de près : ce sont ces mêmes Jésuites qui
+s'établissent en Nouvelle-France à partir de 1625 pour évangéliser les
+Premières Nations, notamment les Hurons-Wendats. Ils apprennent leurs
+langues, rédigent des dictionnaires et envoient en France les Relations des
+Jésuites, ces récits annuels qui comptent aujourd'hui parmi nos plus
+importantes sources écrites sur le Québec du 17e siècle. Leur venue aura
+toutefois des conséquences lourdes pour les nations autochtones, dont la
+transmission de maladies européennes et le bouleversement de leurs
+croyances. La photo ci-contre montre la chapelle de Sainte-Marie-au-pays-des-Hurons,
+la mission fondée en 1639 en Huronie et reconstituée aujourd'hui : c'est
+là que jésuites et Hurons-Wendats se côtoyaient au quotidien.
 
 ::: questions
 1. Nomme trois critiques adressées au clergé catholique avant la Réforme.
 2. Associe chaque fondateur à son Église : Luther, Calvin et Henri VIII.
 3. Que s'est-il passé dans la nuit du 23 au 24 août 1572?
-4. Nomme deux moyens pris par l'Église catholique lors de la Contre-Réforme.
+4. Nomme deux décisions prises au concile de Trente.
+5. Qu'est-ce que l'Index et à quoi sert le tribunal de l'Inquisition?
+6. Quel lien y a-t-il entre la Contre-Réforme et l'histoire du Québec?
 :::
 
 ## Un projet Scratch avec le RÉCIT

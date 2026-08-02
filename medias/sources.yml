@@ -881,15 +881,6 @@ carte-routes-commerce.jpg:
   titre: ''
   licence: ''
   lien: ''
-carte-europe-1500.png:
-  cadrage: carte
-  fiche: 07-vision-de-lhomme
-  commons: File:Europe1500.svg
-  recherche: Europe 1500 map kingdoms
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
 gutenberg.jpg:
   cadrage: petit
   fiche: 07-vision-de-lhomme
@@ -967,6 +958,42 @@ saint-barthelemy.jpg:
   fiche: 07-vision-de-lhomme
   commons: File:La masacre de San Bartolomé, por François Dubois.jpg
   recherche: massacre Saint-Barthelemy Dubois
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-italie-1494.png:
+  cadrage: carte
+  fiche: 07-vision-de-lhomme
+  commons: File:Map of Italy (1494)-fr.svg
+  recherche: carte Italie 1494 français
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+concile-trente.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Concilio Trento Museo Buonconsiglio.jpg
+  recherche: Concile de Trente Buonconsiglio
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+inquisition.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Pedro Berruguete Saint Dominic Presiding over an Auto-da-fe 1495.jpg
+  recherche: Berruguete auto-da-fe Inquisition
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+jesuites-nouvelle-france.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Sainte-Marie among the Hurons Jesuit chapel.JPG
+  recherche: Sainte-Marie among the Hurons Jesuit chapel
   auteur: ''
   titre: ''
   licence: ''
