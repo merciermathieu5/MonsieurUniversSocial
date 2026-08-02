@@ -564,3 +564,17 @@ repris.
    médiéval, hiérarchie sociale dans l'ordre du schéma). Nouvelle
    convention au README : trois éléments et plus, c'est une liste.
 
+### Retouches du 2 août 2026, midi (livraison 45)
+
+À la demande :
+
+1. Nouveau bloc réutilisable ::: cartes dans le moteur (un paragraphe par
+   carte, intertitre gras en titre), documenté au README. Les trois
+   objectifs de la Paix de Dieu passent des puces à trois encadrés côte à
+   côte.
+2. Nouveau schéma innovations-agricoles : quatre cartes à pictogrammes
+   (moulin à vent, assolement triennal en cercle fléché, collier d'épaule,
+   charrue), chacune avec son titre et sa fonction en une ligne, placées
+   au-dessus des descriptions détaillées. Pictogrammes volontairement
+   géométriques et épurés, dans l'accent du thème.
+

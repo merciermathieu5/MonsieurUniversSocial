@@ -45,6 +45,8 @@ VIDEO = re.compile(r"^::: *video +([\w-]+) *$(.*?)^::: *$",
 SCHEMA = re.compile(r"^::: *schema +([\w-]+) *$(.*?)^::: *$",
                     re.MULTILINE | re.DOTALL)
 COMPOSANT = re.compile(r"^::: *composant +([\w-]+) *$", re.MULTILINE)
+CARTES = re.compile(r"^::: *cartes *$(.*?)^::: *$",
+                    re.MULTILINE | re.DOTALL)
 COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
                       re.MULTILINE | re.DOTALL)
 TITRES_BLOC = {
@@ -126,6 +128,9 @@ def convertir_blocs(texte: str, credits: dict) -> str:
     texte = COMPOSANT.sub(composant, texte)
     texte = SCHEMA.sub(schema, texte)
     texte = VIDEO.sub(video, texte)
+    texte = CARTES.sub(
+        lambda m: f'<div class="cartes" markdown="1">\n{m.group(1).strip()}\n</div>\n',
+        texte)
     texte = COLONNES.sub(colonnes, texte)
     return BLOC.sub(encadre, texte)
 

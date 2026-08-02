@@ -487,6 +487,19 @@ details.credit > span { display: block; max-width: 34rem; }
   line-height: 1.45;
 }
 
+.cartes {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem; margin: 1.6rem 0 1.9rem;
+}
+.cartes > p {
+  background: var(--surface); border: 1px solid var(--matiere-voile);
+  border-radius: 10px; padding: 1rem 1.15rem 1.1rem; margin: 0;
+}
+.cartes > p > strong:first-child {
+  display: block; font-family: var(--titre); letter-spacing: -.01em;
+  color: var(--matiere-fonce); margin-bottom: .4rem;
+}
+
 .colonnage {
   display: flow-root; margin: 1.6rem 0 1.9rem; }
 @media (min-width: 55rem) {
