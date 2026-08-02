@@ -1198,3 +1198,24 @@ protégés dans l'outil, la fiche est réparée, et la règle est au README.
    colonie à l'époque.
 4. **Les puces des éléments de liste sont retirées** dans la chronologie.
 
+### Retouche du 2 août 2026 (livraison 72)
+
+La chronologie était fonctionnelle mais fade, tu avais raison. Elle est
+refaite :
+
+- Les dates se scindent en mois et année. Le mois s'affiche en petites
+  capitales grises au-dessus de l'année en gras, ce qui règle les
+  alignements bancals des dates sur deux lignes.
+- Le fil du temps est un trait continu tracé derrière les pastilles, et non
+  plus un segment décalé. Le trait et les pastilles sont centrés au
+  millième de rem sur le milieu de la gouttière.
+- Les pastilles reprennent la couleur de la catégorie : dorées et pleines
+  pour la Province of Quebec, cerclées de bleu pour le reste.
+- Les cartes ont un contour discret qui s'anime au survol, une ombre douce,
+  et le chevron passe de gros à discret.
+- Chaque titre porte désormais son lieu en petites capitales, si bien qu'on
+  situe l'événement sans avoir à filtrer.
+- Les filtres sont plus légers, en contour plutôt qu'en aplat.
+- Sur mobile, la colonne des dates passe au-dessus du titre et le fil
+  disparaît, plutôt que de comprimer la mise en page.
+

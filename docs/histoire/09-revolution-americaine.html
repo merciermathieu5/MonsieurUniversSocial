@@ -1065,40 +1065,48 @@ html[data-sombre="on"] .chr .chr__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .chr .chr__titre { color: var(--encre); }
 .chr__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
-.chr__filtres { display: flex; gap: .5rem; flex-wrap: wrap; padding: .9rem 1.4rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
-.chr__filtre { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .4rem 1rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
-.chr__filtre:hover { border-color: var(--matiere); }
+.chr__filtres { display: flex; gap: .45rem; flex-wrap: wrap; padding: .85rem 1.4rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.chr__filtre { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--encre-doux); background: transparent; border: 1px solid var(--trait); border-radius: 100px; padding: .35rem .95rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.chr__filtre:hover { border-color: var(--matiere); color: var(--matiere-fonce); }
 .chr__filtre.est-actif { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
-.chr .chr__liste { list-style: none; margin: 0; padding: 1.3rem 1.6rem 1.5rem; position: relative; }
+.chr .chr__liste { list-style: none; margin: 0; padding: 1.5rem 1.6rem 1.6rem; position: relative; }
 .chr .chr__liste li { list-style: none; }
 .chr .chr__liste li::marker { content: ""; }
 .chr .chr__liste li::before { content: none; }
-.chr__liste::before { content: ""; position: absolute; left: 5.9rem; top: 1.5rem; bottom: 1.5rem; width: 2px; background: var(--matiere-voile); }
-.chr__item { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0 2.1rem; margin: 0 0 1.15rem; position: relative; list-style: none; }
-.chr__item::marker { content: ""; }
+.chr__item { display: grid; grid-template-columns: 4.6rem 1fr; column-gap: 1.9rem; margin: 0; position: relative; padding-bottom: 1rem; }
+.chr__item:last-of-type { padding-bottom: 0; }
 .chr__item.est-cache { display: none; }
-.chr__date { font-family: var(--donnee); font-size: .82rem; font-weight: 700; color: var(--schema-accent); text-align: right; padding-top: .75rem; }
-.chr__carte { background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: 0; overflow: hidden; }
-.chr__bouton { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; text-align: left; background: none; border: 0; padding: .75rem 1.05rem; cursor: pointer; font-family: var(--titre); }
-.chr__bouton:hover { background: var(--matiere-voile); }
-.chr__chevron { flex: none; width: .95rem; height: .95rem; border-right: 2px solid var(--matiere); border-bottom: 2px solid var(--matiere); transform: rotate(45deg) translate(-.14rem, -.14rem); transition: transform .18s; }
-.chr__bouton[aria-expanded="true"] .chr__chevron { transform: rotate(-135deg) translate(-.1rem, -.1rem); }
-.chr__detail { display: none; padding: 0 1.05rem .9rem; }
+/* Le fil du temps : un trait continu tracé derrière les pastilles. */
+.chr__item::before { content: ""; position: absolute; left: 5.4875rem; top: .35rem; bottom: -.35rem; width: 2px; background: var(--matiere-voile); }
+.chr__item:last-of-type::before { bottom: auto; height: 1.5rem; }
+.chr__date { text-align: right; padding-top: .55rem; line-height: 1.15; }
+.chr__mois { display: block; font-family: var(--donnee); font-size: .63rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.chr__annee { display: block; font-family: var(--donnee); font-size: 1.02rem; font-weight: 700; color: var(--matiere-fonce); }
+.chr__item[data-camp="quebec"] .chr__annee { color: var(--schema-accent); }
+.chr__pastille { position: absolute; left: 5.165rem; top: .78rem; width: .77rem; height: .77rem; border-radius: 50%; background: var(--surface); border: 2.5px solid var(--matiere); box-sizing: border-box; }
+.chr__item[data-camp="quebec"] .chr__pastille { border-color: var(--schema-accent); background: var(--schema-accent); }
+.chr__carte { background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+.chr__carte:hover { border-color: var(--matiere); box-shadow: 0 3px 12px rgba(26,37,48,.08); }
+.chr__item[data-camp="quebec"] .chr__carte:hover { border-color: var(--schema-accent); }
+.chr__bouton { display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; text-align: left; background: none; border: 0; padding: .72rem 1rem; cursor: pointer; font-family: var(--titre); }
+.chr__nom { margin: 0; font-family: var(--titre); font-weight: 600; font-size: 1rem; color: var(--encre); line-height: 1.3; }
+.chr__etiquette { display: inline-block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-top: .18rem; }
+.chr__chevron { flex: none; width: .55rem; height: .55rem; border-right: 2px solid var(--encre-pale); border-bottom: 2px solid var(--encre-pale); transform: rotate(45deg) translate(-.1rem, -.1rem); transition: transform .2s, border-color .2s; }
+.chr__bouton:hover .chr__chevron { border-color: var(--matiere); }
+.chr__bouton[aria-expanded="true"] .chr__chevron { transform: rotate(-135deg) translate(-.06rem, -.06rem); border-color: var(--matiere); }
+.chr__detail { display: none; padding: 0 1rem .9rem; }
 .chr__detail.est-visible { display: block; }
-.chr__item[data-camp="quebec"] .chr__carte { border-left-color: var(--schema-accent); }
-.chr__point { position: absolute; left: 5.55rem; top: 1.05rem; width: .7rem; height: .7rem; border-radius: 50%; background: var(--matiere); border: 2px solid var(--surface); }
-.chr__item[data-camp="quebec"] .chr__point { background: var(--schema-accent); }
-.chr__nom { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1rem; color: var(--matiere-fonce); }
-.chr__quoi { margin: 0; font-size: .93rem; line-height: 1.6; color: var(--encre); }
-.chr__vide { margin: 0; padding: 1rem 0; font-size: .95rem; color: var(--encre-doux); }
-@media (max-width: 40rem) {
-  .chr__liste { padding: 1rem .9rem 1.2rem; }
-  .chr__liste::before { display: none; }
-  .chr__item { grid-template-columns: 1fr; gap: .3rem; }
-  .chr__date { text-align: left; padding-top: 0; }
-  .chr__point { display: none; }
+.chr__quoi { margin: 0; padding-top: .55rem; border-top: 1px solid var(--matiere-voile); font-size: .93rem; line-height: 1.65; color: var(--encre-doux); }
+.chr__vide { margin: 0; padding: 1.2rem 0 .4rem; font-size: .95rem; color: var(--encre-doux); }
+@media (max-width: 44rem) {
+  .chr .chr__liste { padding: 1rem .9rem 1.1rem; }
+  .chr__item { grid-template-columns: 1fr; column-gap: 0; padding-bottom: .8rem; }
+  .chr__item::before, .chr__pastille { display: none; }
+  .chr__date { text-align: left; padding: 0 0 .3rem; }
+  .chr__mois, .chr__annee { display: inline; font-size: .78rem; }
+  .chr__mois::after { content: " "; }
 }
-@media print { .chr__filtres { display: none; } .chr__item.est-cache { display: grid; } }
+@media print { .chr__filtres, .chr__chevron { display: none; } .chr__detail { display: block; } .chr__item.est-cache { display: grid; } }
 </style>
 <header class="chr__entete">
 <p class="chr__titre" role="heading" aria-level="3">Les événements de la guerre d'indépendance</p>
@@ -1112,29 +1120,34 @@ html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
   if (!racine || racine.dataset.pret) return;
   racine.dataset.pret = "1";
   var EVENEMENTS = [
-    { date: "1774", camp: "colonies", nom: "Le premier Congrès continental",
+    { date: "1774", mois: "septembre", camp: "colonies", nom: "Le premier Congrès continental",
       quoi: "Les délégués de douze des Treize colonies se réunissent à Carpenters' Hall, à Philadelphie, en septembre et en octobre. Ils répondent aux lois intolérables en votant un boycottage des marchandises britanniques à partir du 1er décembre, et conviennent de se réunir de nouveau si Londres ne cède pas. Pour la première fois, les colonies parlent d'une seule voix." },
-    { date: "avril 1775", camp: "colonies", nom: "Lexington et Concord",
+    { date: "1775", mois: "avril", camp: "colonies", nom: "Lexington et Concord",
       quoi: "Le 19 avril, un détachement britannique marche sur Concord pour saisir des armes. À Lexington, une milice de fermiers refuse de se disperser. Personne ne sait qui tire le premier coup de feu, mais la journée fait plusieurs centaines de morts et les troupes britanniques doivent battre en retraite vers Boston. La guerre d'indépendance a commencé." },
-    { date: "mai 1775", camp: "colonies", nom: "Le deuxième Congrès continental",
+    { date: "1775", mois: "mai", camp: "colonies", nom: "Le deuxième Congrès continental",
       quoi: "Réuni à Philadelphie à partir du 10 mai, le Congrès agit désormais comme un véritable gouvernement : il lève une armée continentale, en confie le commandement à George Washington, bat monnaie et conduit la politique étrangère. Il siégera jusqu'en 1781 et adoptera la Déclaration d'indépendance." },
     { date: "1775", camp: "quebec", nom: "Les lettres aux Canadiens",
       quoi: "Le Congrès continental fait imprimer et distribuer des lettres invitant les Canadiens à devenir la quatorzième colonie. L'Acte de Québec de 1774 avait toutefois garanti la religion catholique, les lois civiles françaises et le régime seigneurial : le clergé et les seigneurs appuient donc la Couronne britannique, et la population reste en grande majorité neutre." },
-    { date: "décembre 1775", camp: "quebec", nom: "Le siège de Québec",
+    { date: "1775", mois: "décembre", camp: "quebec", nom: "Le siège de Québec",
       quoi: "Dans la nuit du 31 décembre, en pleine tempête de neige, les troupes de Benedict Arnold et de Richard Montgomery attaquent Québec. Montgomery est tué, Arnold est blessé, et des centaines d'Américains sont faits prisonniers. L'échec met fin à l'espoir d'annexer la province de Québec." },
-    { date: "juillet 1776", camp: "colonies", nom: "La Déclaration d'indépendance",
+    { date: "1776", mois: "juillet", camp: "colonies", nom: "La Déclaration d'indépendance",
       quoi: "Le 4 juillet, le Congrès adopte le texte rédigé principalement par Thomas Jefferson, inspiré de John Locke, de Montesquieu et de Voltaire. Il affirme que tous les hommes sont créés égaux et que le pouvoir vient du consentement des gouvernés, puis énumère les griefs contre le roi George III. Les États-Unis d'Amérique sont nés." },
-    { date: "1777", camp: "colonies", nom: "La victoire de Saratoga",
+    { date: "1777", mois: "octobre", camp: "colonies", nom: "La victoire de Saratoga",
       quoi: "En octobre, une armée britannique entière capitule dans l'État de New York. C'est le tournant de la guerre : la victoire convainc la France que les insurgés peuvent l'emporter et qu'il vaut la peine de les soutenir ouvertement." },
-    { date: "1778", camp: "monde", nom: "L'alliance avec la France",
+    { date: "1778", mois: "février", camp: "monde", nom: "L'alliance avec la France",
       quoi: "La France reconnaît l'indépendance des États-Unis et signe un traité d'alliance. Elle envoie des troupes, une flotte et beaucoup d'argent. L'Espagne puis les Provinces-Unies entrent à leur tour dans le conflit : la guerre devient européenne, et la Grande-Bretagne se retrouve isolée." },
-    { date: "1781", camp: "colonies", nom: "La capitulation de Yorktown",
+    { date: "1781", mois: "octobre", camp: "colonies", nom: "La capitulation de Yorktown",
       quoi: "En Virginie, l'armée de Washington et le corps expéditionnaire français de Rochambeau encerclent le général Cornwallis, pendant que la flotte française lui coupe toute retraite par la mer. Sa capitulation, le 19 octobre, met fin aux grands combats en Amérique." },
-    { date: "1783", camp: "monde", nom: "Le traité de Paris",
+    { date: "1783", mois: "septembre", camp: "monde", nom: "Le traité de Paris",
       quoi: "Le 3 septembre, la Grande-Bretagne reconnaît officiellement l'indépendance des États-Unis et leur cède les terres situées entre les Appalaches et le Mississippi. Ces territoires étaient pourtant réservés aux nations autochtones depuis la Proclamation royale de 1763." },
     { date: "1783", camp: "quebec", nom: "L'arrivée des Loyalistes",
       quoi: "Des dizaines de milliers d'Américains restés fidèles à la Couronne quittent les États-Unis. Environ 7000 s'établissent dans la province de Québec, surtout dans les Cantons-de-l'Est et le Haut-Canada, et beaucoup plus en Nouvelle-Écosse. Anglophones et protestants, ils réclameront bientôt leurs propres institutions : c'est l'une des causes de l'Acte constitutionnel de 1791." }
   ];
+  var LIEUX = {
+    colonies: "Dans les Treize colonies",
+    quebec: "Province of Quebec",
+    monde: "Sur la scène internationale"
+  };
   var FILTRES = [
     { cle: "tous", nom: "Tous les événements" },
     { cle: "colonies", nom: "Dans les Treize colonies" },
@@ -1152,8 +1165,11 @@ html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
   EVENEMENTS.forEach(function (e, i) {
     var item = el("li", "chr__item");
     item.dataset.camp = e.camp;
-    item.appendChild(el("span", "chr__point"));
-    item.appendChild(el("span", "chr__date", e.date));
+    item.appendChild(el("span", "chr__pastille"));
+    var date = el("span", "chr__date");
+    if (e.mois) date.appendChild(el("span", "chr__mois", e.mois));
+    date.appendChild(el("span", "chr__annee", e.date));
+    item.appendChild(date);
     var carte = el("div", "chr__carte");
     var detail = el("div", "chr__detail");
     detail.id = "chr-detail-" + i;
@@ -1162,7 +1178,10 @@ html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
     bouton.type = "button";
     bouton.setAttribute("aria-expanded", "false");
     bouton.setAttribute("aria-controls", detail.id);
-    bouton.appendChild(el("span", "chr__nom", e.nom));
+    var intitule = el("span");
+    intitule.appendChild(el("span", "chr__nom", e.nom));
+    intitule.appendChild(el("span", "chr__etiquette", LIEUX[e.camp]));
+    bouton.appendChild(intitule);
     bouton.appendChild(el("span", "chr__chevron"));
     bouton.addEventListener("click", function () {
       var ouvert = detail.classList.toggle("est-visible");
