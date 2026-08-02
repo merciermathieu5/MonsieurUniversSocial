@@ -578,3 +578,13 @@ repris.
    au-dessus des descriptions détaillées. Pictogrammes volontairement
    géométriques et épurés, dans l'accent du thème.
 
+### Retouche du 2 août 2026 (livraison 46)
+
+1. Règle des majuscules consignée dans les conventions des schémas : tout
+   texte d'un schéma commence par une majuscule, sauf les lignes de
+   continuation d'une phrase repliée. Corrigés : les cinq sous-titres du
+   schéma causes-conséquences, les quatre fonctions des pictogrammes
+   agricoles et le repère Vers 1000 de la frise de l'essor. Dans la
+   foulée, tous les repères de dates des frises plus anciennes (Vers -3500,
+   Vers -750, Peut-être dès -3000...) sont harmonisés à la même règle.
+

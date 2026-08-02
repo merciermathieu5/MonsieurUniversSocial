@@ -15,10 +15,10 @@
   <text class="cc-t cc-h" x="920" y="40" text-anchor="middle">LES TROIS CONSÉQUENCES</text>
   <rect x="40" y="64" width="280" height="64" rx="5" fill="var(--bloc)"/>
   <text class="cc-t cc-b" x="180" y="91" text-anchor="middle">La Paix de Dieu</text>
-  <text class="cc-t cc-bs" x="180" y="112" text-anchor="middle">moins de violence envers les paysans</text>
+  <text class="cc-t cc-bs" x="180" y="112" text-anchor="middle">Moins de violence envers les paysans</text>
   <rect x="40" y="164" width="280" height="64" rx="5" fill="var(--bloc)"/>
   <text class="cc-t cc-b" x="180" y="191" text-anchor="middle">Les techniques agricoles</text>
-  <text class="cc-t cc-bs" x="180" y="212" text-anchor="middle">plus de récoltes, des surplus à vendre</text>
+  <text class="cc-t cc-bs" x="180" y="212" text-anchor="middle">Plus de récoltes, des surplus à vendre</text>
   <rect x="410" y="134" width="280" height="88" rx="5" fill="var(--schema-accent)"/>
   <text class="cc-t cc-c" x="550" y="172" text-anchor="middle">L'essor des bourgs</text>
   <text class="cc-t cc-c" x="550" y="196" text-anchor="middle">et du commerce</text>
@@ -28,13 +28,13 @@
   <polygon class="cc-pointe" points="408,196 396,190 396,202"/>
   <rect x="780" y="44" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
   <text class="cc-t cc-p" x="920" y="71" text-anchor="middle">La bourgeoisie marchande</text>
-  <text class="cc-t cc-ps" x="920" y="92" text-anchor="middle">un nouveau groupe social s'enrichit</text>
+  <text class="cc-t cc-ps" x="920" y="92" text-anchor="middle">Un nouveau groupe social s'enrichit</text>
   <rect x="780" y="146" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
   <text class="cc-t cc-p" x="920" y="173" text-anchor="middle">Les migrations urbaines</text>
-  <text class="cc-t cc-ps" x="920" y="194" text-anchor="middle">des campagnes vers les bourgs</text>
+  <text class="cc-t cc-ps" x="920" y="194" text-anchor="middle">Des campagnes vers les bourgs</text>
   <rect x="780" y="248" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
   <text class="cc-t cc-p" x="920" y="275" text-anchor="middle">Les chartes</text>
-  <text class="cc-t cc-ps" x="920" y="296" text-anchor="middle">des droits écrits pour les habitants</text>
+  <text class="cc-t cc-ps" x="920" y="296" text-anchor="middle">Des droits écrits pour les habitants</text>
   <line class="cc-fleche" x1="690" y1="156" x2="768" y2="82"/>
   <polygon class="cc-pointe" points="776,76 772,89 762,79"/>
   <line class="cc-fleche" x1="690" y1="178" x2="768" y2="178"/>

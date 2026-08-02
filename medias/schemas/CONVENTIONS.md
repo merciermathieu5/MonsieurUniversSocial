@@ -73,3 +73,10 @@ s'inscrit avec `source: locale` dans medias/sources.yml : images.py ne
 tente alors jamais de la remplacer. Tant que l'auteur, la provenance et la
 licence ne sont pas remplis dans credits.yml, verifier.py signale son
 « crédit incomplet »; ces lignes se résorbent en fournissant les crédits.
+
+## Les majuscules
+
+Tout texte d'un schéma commence par une majuscule : titres de blocs,
+sous-titres, annotations, étiquettes et repères de dates (Vers 1000). Seule
+exception : les lignes de continuation d'une même phrase repliée sur
+plusieurs éléments texte, qui gardent naturellement la minuscule.

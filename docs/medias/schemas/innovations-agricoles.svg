@@ -16,7 +16,7 @@
   <line class="ag-p" x1="160" y1="78" x2="184" y2="102"/>
   <line class="ag-p" x1="160" y1="78" x2="136" y2="102"/>
   <text class="ag-t ag-n" x="160" y="182" text-anchor="middle">Le moulin à vent</text>
-  <text class="ag-t ag-s" x="160" y="206" text-anchor="middle">moudre le grain des récoltes</text>
+  <text class="ag-t ag-s" x="160" y="206" text-anchor="middle">Moudre le grain des récoltes</text>
   <rect class="ag-carte" x="310" y="30" width="240" height="200" rx="10"/>
   <circle class="ag-p" cx="430" cy="92" r="38"/>
   <line class="ag-p" x1="430" y1="92" x2="430" y2="54"/>
@@ -25,16 +25,16 @@
   <path class="ag-p" d="M 468 66 A 46 46 0 0 1 476 92"/>
   <polygon class="ag-pf" points="476,100 470,88 482,88"/>
   <text class="ag-t ag-n" x="430" y="182" text-anchor="middle">L'assolement triennal</text>
-  <text class="ag-t ag-s" x="430" y="206" text-anchor="middle">la rotation des cultures</text>
+  <text class="ag-t ag-s" x="430" y="206" text-anchor="middle">La rotation des cultures</text>
   <rect class="ag-carte" x="580" y="30" width="240" height="200" rx="10"/>
   <ellipse class="ag-p" cx="700" cy="92" rx="34" ry="42"/>
   <ellipse class="ag-p" cx="700" cy="92" rx="18" ry="26"/>
   <text class="ag-t ag-n" x="700" y="182" text-anchor="middle">Le collier d'épaule</text>
-  <text class="ag-t ag-s" x="700" y="206" text-anchor="middle">tirer des charges plus lourdes</text>
+  <text class="ag-t ag-s" x="700" y="206" text-anchor="middle">Tirer des charges plus lourdes</text>
   <rect class="ag-carte" x="850" y="30" width="240" height="200" rx="10"/>
   <path class="ag-p" d="M 916 64 L 992 64 L 1004 52"/>
   <path class="ag-p" d="M 948 64 L 948 106 Q 948 126 972 126 L 992 126"/>
   <path class="ag-p" d="M 948 106 L 922 128"/>
   <text class="ag-t ag-n" x="970" y="182" text-anchor="middle">La charrue</text>
-  <text class="ag-t ag-s" x="970" y="206" text-anchor="middle">labourer plus profondément</text>
+  <text class="ag-t ag-s" x="970" y="206" text-anchor="middle">Labourer plus profondément</text>
 </svg>
