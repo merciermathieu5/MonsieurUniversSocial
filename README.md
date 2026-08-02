@@ -281,7 +281,11 @@ composant pour éviter de refaire les mêmes itérations.
 - Les titres de section et de sous-section annulent les flottants qui
   précèdent (clear) : une sous-section ne démarre jamais à côté d'une image
   de la sous-section précédente, sinon sa colonne de texte est écrasée.
-- En contrepartie, la hauteur des figures flottantes est plafonnée (16rem) :
+- Dans une galerie, les vignettes sont recadrées au carré depuis le haut
+  (18 %), pas depuis le centre : un portrait recadré au centre perd sa tête.
+- La légende d'une figure en cadrage étroit (petit) tient en une ou deux
+  lignes : au-delà, elle allonge la figure et creuse un vide sous le texte.
+- En contrepartie, la hauteur des figures flottantes est plafonnée (14rem) :
   une image plus haute que son texte laisserait un vide sous le paragraphe.
   Les portraits très verticaux se réduisent et se centrent dans leur cadre.
 - Une figure flottante (flottant, gauche, petit, carte, large) se place en

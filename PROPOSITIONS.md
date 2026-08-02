@@ -750,3 +750,19 @@ sous elle. La hauteur des figures flottantes est donc plafonnée à 16rem, et
 les portraits très verticaux, comme Luther et l'Inquisition, se réduisent et
 se centrent dans leur cadre au lieu de dépasser. Les marges basses des
 flottants sont aussi resserrées. Consigné au README.
+
+### Retouches du 2 août 2026 (livraison 53)
+
+1. Le portrait de François 1er était décapité : dans une galerie, les
+   vignettes étaient recadrées au carré depuis le centre, ce qui coupe la
+   tête d'un portrait vertical. Le recadrage part désormais du haut (18 %).
+   Règle consignée au README, elle vaut pour toutes les galeries du site.
+2. François 1er et Fontainebleau deviennent deux sous-sections distinctes :
+   chaque image accompagne son propre texte au lieu de former une galerie,
+   et le paragraphe est scindé en conséquence.
+3. Les vides résiduels sont réduits par deux leviers : le plafond de hauteur
+   des flottants passe de 16 à 14rem, et les légendes des cadrages étroits
+   sont raccourcies (Luther, l'Inquisition, Laurent le Magnifique, Érasme,
+   Gutenberg). Une légende de trois lignes dans une colonne de 12rem
+   allongeait la figure d'une centaine de pixels à elle seule.
+

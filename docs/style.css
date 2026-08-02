@@ -397,7 +397,7 @@ p.source-texte { margin: -.55rem 0 1.4rem; }
 .illustration--flottant img,
 .illustration--petit img,
 .illustration--gauche img {
-  max-height: 16rem; width: auto; max-width: 100%; margin-inline: auto;
+  max-height: 14rem; width: auto; max-width: 100%; margin-inline: auto;
 }
 .illustration figcaption {
   display: grid; gap: .3rem; margin-top: .65rem;
@@ -833,7 +833,7 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 .galerie .illustration { float: none !important; width: auto !important; margin: 0 !important; }
 .galerie img {
   width: 100% !important; height: auto !important;
-  aspect-ratio: 1 / 1; object-fit: cover; object-position: center;
+  aspect-ratio: 1 / 1; object-fit: cover; object-position: center 18%;
   border: 1px solid var(--trait);
 }
 .galerie .illustration--carte img,

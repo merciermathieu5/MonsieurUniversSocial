@@ -106,7 +106,7 @@ actuelle au courant du 20e siècle.
 
 ### L'invention du procédé d'impression par Gutenberg vers 1450
 
-![Johannes Gutenberg, inventeur du procédé d'impression à caractères mobiles](../medias/07-vision-de-lhomme/gutenberg.jpg)
+![Johannes Gutenberg, inventeur de l'imprimerie](../medias/07-vision-de-lhomme/gutenberg.jpg)
 
 Au début du Moyen Âge, les livres étaient fabriqués un à un dans des
 monastères spécialisés. À partir des années 1200, les monastères
@@ -173,7 +173,7 @@ italiennes, puis européennes.
 
 ### Le retour aux savoirs de l'Antiquité grecque et romaine
 
-![Érasme de Rotterdam, grand humaniste, peint par Hans Holbein le Jeune](../medias/07-vision-de-lhomme/erasme.jpg)
+![Érasme de Rotterdam, par Hans Holbein le Jeune](../medias/07-vision-de-lhomme/erasme.jpg)
 
 La Renaissance est une période où les intellectuels « retournent » aux
 textes et aux valeurs de l'Antiquité. Ils relisent les textes des grands
@@ -394,7 +394,7 @@ forme d'un hébergement ou d'une pension mensuelle.
 
 ### La famille Médicis, à Florence
 
-![Laurent de Médicis, dit Laurent le Magnifique, portrait de Giorgio Vasari](../medias/07-vision-de-lhomme/laurent-magnifique.jpg)
+![Laurent le Magnifique, par Giorgio Vasari](../medias/07-vision-de-lhomme/laurent-magnifique.jpg)
 
 Les Médicis de Florence sont parmi les familles qui ont le plus subventionné
 les arts en Italie. Par exemple, Cosme de Médicis, banquier florentin, a
@@ -408,20 +408,24 @@ Florence le grand foyer de la Renaissance italienne.
 
 ### François 1er, en France
 
-![François 1er, roi de France, portrait de Jean Clouet](../medias/07-vision-de-lhomme/francois-1er.jpg)
-
-![La cour du Cheval Blanc, au château de Fontainebleau](../medias/07-vision-de-lhomme/fontainebleau.jpg)
+![François 1er, par Jean Clouet](../medias/07-vision-de-lhomme/francois-1er.jpg)
 
 François 1er contribue à la diffusion de la Renaissance italienne en France :
 de nombreux artistes italiens sont au service du souverain, dont Benvenuto
 Cellini et Léonard de Vinci, qui demeure au Clos Lucé près d'Amboise de 1516
-à 1519. Les peintres Rosso Fiorentino et Le Primatice ont aussi travaillé
-dans le château de Fontainebleau, que le roi fait agrandir et décorer par ces
-artistes italiens : le château devient ainsi le premier grand chantier de la
-Renaissance française et donne son nom à toute une école de peinture, l'école
-de Fontainebleau. C'est sous le règne de François 1er que la collection
+à 1519. C'est sous le règne de François 1er que la collection royale
 d'oeuvres d'art, dont la Joconde au prix de 4000 écus d'or, se constitue
 réellement.
+
+### Le château de Fontainebleau
+
+![La cour du Cheval Blanc, à Fontainebleau](../medias/07-vision-de-lhomme/fontainebleau.jpg)
+
+Les peintres Rosso Fiorentino et Le Primatice ont travaillé dans le château
+de Fontainebleau, que le roi fait agrandir et décorer par ces artistes
+italiens. Le château devient ainsi le premier grand chantier de la
+Renaissance française et donne son nom à toute une école de peinture,
+l'école de Fontainebleau.
 
 ::: questions
 1. Nomme deux techniques nouvelles des artistes de la Renaissance.
@@ -442,7 +446,7 @@ symétrie des bâtiments devient la norme.
 
 ## La Réforme protestante
 
-![Martin Luther, fondateur de l'Église luthérienne, peint par Lucas Cranach l'Ancien](../medias/07-vision-de-lhomme/luther.jpg)
+![Martin Luther, par Lucas Cranach l'Ancien](../medias/07-vision-de-lhomme/luther.jpg)
 
 L'Église catholique règne en maître sur l'Europe depuis le milieu du Moyen
 Âge, car elle avait fait des alliances avec les rois afin d'augmenter leur
@@ -538,7 +542,7 @@ la Contre-Réforme catholique.
 
 ### Le tribunal de l'Inquisition et l'Index
 
-![Un tribunal de l'Inquisition, tableau de Pedro Berruguete](../medias/07-vision-de-lhomme/inquisition.jpg)
+![Un tribunal de l'Inquisition, par Pedro Berruguete](../medias/07-vision-de-lhomme/inquisition.jpg)
 
 Le concile de Trente débute trois ans après le rétablissement du tribunal
 de l'Inquisition, chargé de juger les hérétiques, c'est-à-dire les
