@@ -278,6 +278,9 @@ des redirections. Une bonne partie du trafic arrive par Google.
 Règles tirées des rétroactions, à respecter dans toute fiche et tout
 composant pour éviter de refaire les mêmes itérations.
 
+- Les titres de section et de sous-section annulent les flottants qui
+  précèdent (clear) : une sous-section ne démarre jamais à côté d'une image
+  de la sous-section précédente, sinon sa colonne de texte est écrasée.
 - Une figure flottante (flottant, gauche, petit, carte, large) se place en
   tête de son bloc, juste après le titre de section ou de sous-section :
   le texte coule à côté de l'image, jamais de grande zone vide.
@@ -303,6 +306,11 @@ composant pour éviter de refaire les mêmes itérations.
   restent minces (padding .55rem).
 - Une liste seule dans un bloc colonnes se resserre (44rem au plus) pour que
   les colonnes restent voisines.
+- Quand une image refuse de se télécharger, ne pas changer d'image à
+  l'aveugle : lancer python outils/images.py --diagnostic NOM_DU_FICHIER,
+  qui dit si le nom Commons est faux, si le fichier n'a pas de vignette ou
+  si Commons demande simplement de ralentir (HTTP 429), auquel cas relancer
+  suffit.
 - Les images dont le téléchargement échoue durablement (403 de l'ancien
   Google Site) se retirent du registre et de la fiche plutôt que de rester
   en gabarit d'attente.

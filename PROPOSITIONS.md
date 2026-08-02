@@ -704,3 +704,40 @@ peux chercher encore.
 l'histoire du Québec (Relations des Jésuites, Hurons-Wendats, conséquences
 pour les nations autochtones). À relire, c'est du contenu neuf.
 
+### Diagnostic du 2 août 2026 (livraison 50)
+
+L'image des Jésuites échouait deux fois de suite. Plutôt que d'essayer une
+troisième image au hasard, l'outil sait maintenant expliquer l'échec :
+
+    python outils/images.py --diagnostic jesuites-nouvelle-france.jpg
+
+Il vérifie, étape par étape, que le nom Commons existe, que le fichier a
+bien une vignette, et il essaie chaque largeur en affichant le code de
+réponse. Trois causes possibles se distinguent ainsi immédiatement : un nom
+inexact (il propose alors des candidats), un fichier sans vignette, ou un
+simple HTTP 429, c'est-à-dire Commons qui demande de ralentir.
+
+Cette dernière cause est la plus probable ici : l'image des Jésuites est la
+107e et dernière entrée du registre, donc la plus exposée au ralentissement
+imposé après une longue série de téléchargements. L'outil patiente désormais
+deux fois, 30 puis 60 secondes, au lieu d'une seule, avant d'abandonner une
+largeur. Et le message d'échec affiche directement la commande de
+diagnostic. Consigné au README.
+
+### Retouches du 2 août 2026 (livraison 51)
+
+1. Le défaut visuel de la Contre-Réforme est corrigé à la racine : les
+   sous-titres annulaient déjà les flottants au niveau des sections (h2)
+   mais pas des sous-sections (h3). La sous-section des Jésuites démarrait
+   donc à côté de l'image de l'Inquisition qui débordait encore, ce qui
+   écrasait sa colonne de texte. La règle vaut maintenant pour tout le site
+   et elle est consignée au README.
+2. La frise porte les bornes de la Renaissance : Vers 1400 et Vers 1600,
+   marquées aux deux extrémités de la bande, avec leurs points sur le bord.
+3. Le mécénat devient deux sous-sections illustrées. La famille Médicis, à
+   Florence, avec le portrait de Laurent le Magnifique par Vasari et un
+   ajout sur son rôle de poète et de rassembleur. François 1er, en France,
+   avec son portrait par Jean Clouet et la cour du Cheval Blanc de
+   Fontainebleau, plus une phrase sur le chantier du château et l'école de
+   Fontainebleau. Une question de plus dans le bloc de questions.
+

@@ -348,6 +348,9 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
   padding: .2rem .5rem; border-radius: var(--rayon); align-self: start;
 }
 .texte h3 {
+  /* Comme les h2 : une sous-section ne démarre jamais à côté d'une figure
+     de la sous-section précédente, sinon sa colonne de texte est écrasée. */
+  clear: both;
   font-family: var(--titre); font-weight: 600; font-size: 1.18rem;
   letter-spacing: -.01em; margin: 2.3rem 0 .55rem; color: var(--matiere-fonce);
 }

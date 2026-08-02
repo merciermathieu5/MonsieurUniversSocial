@@ -392,27 +392,42 @@ tutelle d'un mécène. Ce dernier soutient financièrement les artistes afin
 qu'ils puissent créer librement leurs oeuvres. Ce soutien peut prendre la
 forme d'un hébergement ou d'une pension mensuelle.
 
-**La famille Médicis.** Les Médicis de Florence sont parmi les familles qui
-ont le plus subventionné les arts en Italie. Par exemple, Cosme de Médicis,
-banquier florentin, a commandé de nombreuses oeuvres d'art, notamment le
-David de Donatello. Son petit-fils, Laurent de Médicis, est également
-devenu le mécène de plusieurs artistes de la Renaissance, dont Le
-Verrocchio, Léonard de Vinci, Sandro Botticelli et Michel-Ange. Laurent de
-Médicis était aussi le dirigeant de la cité de Florence, où il régnait sans
-partage.
+### La famille Médicis, à Florence
 
-**François 1er.** François 1er contribue à la diffusion de la Renaissance
-italienne en France : de nombreux artistes italiens sont au service du
-souverain, dont Benvenuto Cellini et Léonard de Vinci, qui demeure au Clos
-Lucé près d'Amboise de 1516 à 1519. Les peintres Rosso Fiorentino et Le
-Primatice ont aussi travaillé dans le château de Fontainebleau. C'est sous
-le règne de François 1er que la collection d'oeuvres d'art, dont la Joconde
-au prix de 4000 écus d'or, se constitue réellement.
+![Laurent de Médicis, dit Laurent le Magnifique, portrait de Giorgio Vasari](../medias/07-vision-de-lhomme/laurent-magnifique.jpg)
+
+Les Médicis de Florence sont parmi les familles qui ont le plus subventionné
+les arts en Italie. Par exemple, Cosme de Médicis, banquier florentin, a
+commandé de nombreuses oeuvres d'art, notamment le David de Donatello. Son
+petit-fils, Laurent de Médicis, surnommé Laurent le Magnifique, est également
+devenu le mécène de plusieurs artistes de la Renaissance, dont Le Verrocchio,
+Léonard de Vinci, Sandro Botticelli et Michel-Ange. Laurent de Médicis était
+aussi le dirigeant de la cité de Florence, où il régnait sans partage. Poète
+lui-même, il réunissait autour de lui savants et artistes, ce qui a fait de
+Florence le grand foyer de la Renaissance italienne.
+
+### François 1er, en France
+
+![François 1er, roi de France, portrait de Jean Clouet](../medias/07-vision-de-lhomme/francois-1er.jpg)
+
+![La cour du Cheval Blanc, au château de Fontainebleau](../medias/07-vision-de-lhomme/fontainebleau.jpg)
+
+François 1er contribue à la diffusion de la Renaissance italienne en France :
+de nombreux artistes italiens sont au service du souverain, dont Benvenuto
+Cellini et Léonard de Vinci, qui demeure au Clos Lucé près d'Amboise de 1516
+à 1519. Les peintres Rosso Fiorentino et Le Primatice ont aussi travaillé
+dans le château de Fontainebleau, que le roi fait agrandir et décorer par ces
+artistes italiens : le château devient ainsi le premier grand chantier de la
+Renaissance française et donne son nom à toute une école de peinture, l'école
+de Fontainebleau. C'est sous le règne de François 1er que la collection
+d'oeuvres d'art, dont la Joconde au prix de 4000 écus d'or, se constitue
+réellement.
 
 ::: questions
 1. Nomme deux techniques nouvelles des artistes de la Renaissance.
 2. Choisis un des quatre chefs-d'oeuvre présentés et explique ce qui le rend remarquable.
 3. Qu'est-ce qu'un mécène et que fait-il pour les artistes?
+4. Nomme deux artistes soutenus par Laurent le Magnifique et deux artistes venus travailler pour François 1er.
 :::
 
 ## L'architecture à la Renaissance

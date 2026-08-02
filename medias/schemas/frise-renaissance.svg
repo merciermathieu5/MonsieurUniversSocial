@@ -30,6 +30,12 @@
   <text class="re-t re-e" x="722" y="138" text-anchor="middle">publient leurs grandes</text>
   <text class="re-t re-e" x="722" y="159" text-anchor="middle">oeuvres scientifiques.</text>
   <circle cx="722" cy="186" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="150" y1="254" x2="150" y2="262" stroke="var(--schema-accent)" stroke-width="2"/>
+  <circle cx="150" cy="254" r="5.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="re-t re-d" x="150" y="278" text-anchor="middle">Vers 1400</text>
+  <line x1="950" y1="254" x2="950" y2="262" stroke="var(--schema-accent)" stroke-width="2"/>
+  <circle cx="950" cy="254" r="5.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <text class="re-t re-d" x="950" y="278" text-anchor="middle">Vers 1600</text>
   <line x1="618" y1="254" x2="618" y2="270" stroke="var(--schema-trait)" stroke-width="1.5"/>
   <text class="re-t re-d" x="618" y="292" text-anchor="middle">1517</text>
   <text class="re-t re-e" x="618" y="313" text-anchor="middle">Luther publie ses 95</text>

@@ -256,13 +256,16 @@ def recuperer(trouve: dict, titre: str, largeurs: list[int]) -> bytes:
             return essayer(info["vignette"])
         except Exception as erreur:
             if "429" in str(erreur):
-                # Commons demande de ralentir : on patiente puis on réessaie
-                # une fois avant de passer à la largeur suivante.
-                time.sleep(30)
-                try:
-                    return essayer(info["vignette"])
-                except Exception as seconde:
-                    soucis.append(f"{largeur}px : {seconde}")
+                # Commons demande de ralentir. Les dernières images d'un gros
+                # lot sont les plus touchées : on patiente deux fois, de plus
+                # en plus longtemps, avant de passer à la largeur suivante.
+                for attente in (30, 60):
+                    time.sleep(attente)
+                    try:
+                        return essayer(info["vignette"])
+                    except Exception as seconde:
+                        dernier_essai = seconde
+                soucis.append(f"{largeur}px : {dernier_essai}")
             else:
                 soucis.append(f"{largeur}px : {erreur}")
         time.sleep(2)
@@ -306,6 +309,60 @@ def verifier() -> None:
     print(f"\n{bons} valides, {mauvais} à revoir, {absents} absentes.")
 
 
+def diagnostiquer(nom: str, largeur: int) -> None:
+    """Explique étape par étape pourquoi une image ne se récupère pas.
+
+    Sans cela, un échec ne dit que sa dernière cause; on veut savoir si le
+    fichier existe sur Commons, s'il a une vignette, et laquelle des largeurs
+    répond, pour distinguer un mauvais nom d'un simple ralentissement.
+    """
+    registre = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
+    entree = registre.get(nom)
+    if not entree:
+        sys.exit(f"{nom} n'est pas dans medias/sources.yml.")
+    titre = (entree.get("commons") or "").strip()
+    print(f"Diagnostic de {nom}\n")
+    print(f"  registre  fiche {entree.get('fiche', 'divers')}, "
+          f"cadrage {entree.get('cadrage', 'aucun')}")
+    print(f"  commons   {titre or 'aucun nom épinglé'}")
+
+    info = None
+    if titre:
+        try:
+            info = interroger(titre, largeur)
+        except Exception as erreur:
+            print(f"  1. nom exact : l'API a répondu par une erreur ({erreur})")
+        else:
+            print(f"  1. nom exact : {'trouvé' if info else 'AUCUN fichier de ce nom'}")
+    if not info:
+        termes = (entree.get("recherche") or "").strip()
+        print(f"  2. recherche « {termes} »")
+        for candidat in chercher(termes, 5):
+            print(f"       candidat : {candidat}")
+        print("     corrige le champ commons avec un de ces noms, au caractère près")
+        return
+
+    print(f"  2. type    {info['mime']}, {info['poids'] // 1024} ko d'origine")
+    print(f"  3. vignette {'disponible' if info.get('vignette') else 'ABSENTE'}")
+    for essai in (largeur, 1024, 800):
+        detail = interroger(titre, essai)
+        url = (detail or {}).get("vignette")
+        if not url:
+            print(f"     {essai}px : pas de vignette proposée")
+            continue
+        try:
+            reponse = requests.get(url, timeout=90, headers=ENTETES)
+            etat = f"HTTP {reponse.status_code}, {len(reponse.content) // 1024} ko"
+            if reponse.status_code == 429:
+                etat += "  (Commons demande de ralentir : relance dans une minute)"
+        except Exception as erreur:
+            etat = f"pas de réponse ({erreur})"
+        print(f"     {essai}px : {etat}")
+        time.sleep(1)
+    print("\n  Si toutes les largeurs répondent HTTP 200, relance simplement")
+    print("  python outils/images.py : l'image manquante sera reprise.")
+
+
 # --------------------------------------------------------------------- main
 
 def main():
@@ -314,6 +371,8 @@ def main():
     ap.add_argument("--refaire", action="store_true")
     ap.add_argument("--verifier", action="store_true")
     ap.add_argument("--chercher", metavar="TERMES")
+    ap.add_argument("--diagnostic", metavar="IMAGE",
+                    help="explique pourquoi une image précise ne se récupère pas")
     ap.add_argument("--bavard", action="store_true",
                     help="explique chaque tentative de recherche")
     ap.add_argument("--largeur", type=int, default=1400)
@@ -324,6 +383,10 @@ def main():
 
     if args.verifier:
         verifier()
+        return
+
+    if args.diagnostic:
+        diagnostiquer(args.diagnostic, args.largeur)
         return
 
     if args.chercher:
@@ -444,6 +507,7 @@ def main():
                 cible.write_bytes(donnees)
             except Exception as erreur:
                 print(f"  ECHEC  {nom} : {erreur}")
+                print(f"         python outils/images.py --diagnostic {nom}")
                 echecs += 1
                 continue
             time.sleep(1)
