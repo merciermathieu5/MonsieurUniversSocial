@@ -551,3 +551,16 @@ repris.
    bourgs insalubres, un Savais-tu sur Yersin (1894), et les conséquences
    démographiques et sociales de l'épidémie.
 
+### Retouches du 2 août 2026, matin (livraison 44)
+
+1. Le texte en escalier des conséquences de l'épidémie : le rembourrage
+   pouvait laisser un deux-points orphelin en début de ligne, que le moteur
+   markdown prend pour une liste de définitions. L'outil de regroupement
+   soude désormais la ponctuation haute au mot précédent, la ligne fautive
+   est réparée, et le vérificateur signale toute ponctuation orpheline dans
+   les fiches. Consigné au README.
+2. Organisation du texte : les énumérations denses de la fiche 06 passent
+   en listes à puces (lecture de la carte des routes, droits du bourg
+   médiéval, hiérarchie sociale dans l'ordre du schéma). Nouvelle
+   convention au README : trois éléments et plus, c'est une liste.
+

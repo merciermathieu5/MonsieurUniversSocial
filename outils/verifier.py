@@ -447,6 +447,13 @@ def controler_editorial() -> list[str]:
     import paragraphes
     soucis = []
     for chemin in sorted((RACINE / "contenu").rglob("*.md")):
+        for numero, ligne in enumerate(
+                chemin.read_text(encoding="utf-8").split("\n"), 1):
+            if re.match(r"^[:;!?»%](\s|$)", ligne) and not ligne.startswith(":::"):
+                soucis.append(
+                    f"ponctuation orpheline en début de ligne "
+                    f"({chemin.relative_to(RACINE)}, ligne {numero}) : "
+                    f"le moteur markdown la prend pour une liste de définitions")
         n = figures.compter(chemin)
         if n:
             soucis.append(

@@ -123,9 +123,13 @@ def traiter(chemin: Path, appliquer: bool) -> int:
                and unites[j + 2]["type"] == "p"
                and fusionnable(unites[i], unites[j + 2])):
             fusion = texte_de(unites[i]) + " " + texte_de(unites[j + 2])
-            unites[i]["lignes"] = textwrap.wrap(
-                fusion, LARGEUR, break_long_words=False,
-                break_on_hyphens=False)
+            # la ponctuation haute française reste soudée au mot précédent :
+            # un deux-points orphelin en début de ligne devient une liste de
+            # définitions pour le moteur markdown et casse la mise en page
+            fusion = re.sub(r" ([:;!?»%])", "\u00a0\\1", fusion)
+            lignes = textwrap.wrap(fusion, LARGEUR, break_long_words=False,
+                                   break_on_hyphens=False)
+            unites[i]["lignes"] = [l.replace("\u00a0", " ") for l in lignes]
             unites[j + 2]["type"] = "retire"
             unites[j + 1]["type"] = "retire"
             fusions += 1

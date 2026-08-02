@@ -309,6 +309,14 @@ composant pour éviter de refaire les mêmes itérations.
 - Les mentions de sources, en paragraphe seul ou en fin de paragraphe, se
   différencient du fil du texte : build.py leur pose automatiquement la
   classe source-texte (petite, grise, police de données).
+- Une énumération de trois éléments et plus se présente en liste à puces,
+  pas en phrase-fleuve : plus facile à lire, à retenir et à réviser pour
+  les élèves.
+- La ponctuation haute (deux-points, point-virgule) n'ouvre jamais une
+  ligne : le moteur markdown y verrait une liste de définitions et
+  casserait la mise en page. L'outil de regroupement soude la ponctuation
+  au mot précédent et le vérificateur (section ÉDITORIAL) signale toute
+  ponctuation orpheline.
 - Pas de paragraphes de moins de trois lignes qui s'empilent :
   outils/paragraphes.py regroupe les paragraphes courts quand c'est
   pertinent (seuils COURT et MAX_FUSION dans l'outil, citations « »,

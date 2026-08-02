@@ -79,13 +79,16 @@ qui facilite le transport par les voies terrestres.
 
 ![Les grandes routes commerciales de la fin du Moyen Âge](../medias/06-essor-urbain/carte-routes-commerce.jpg)
 
-La carte montre les grandes routes commerciales de la fin du Moyen Âge. En
-noir, les routes de la Hanse relient les ports de la mer du Nord et de la
-mer Baltique, dont Bruges, Londres et Hambourg. En couleur, les routes
-maritimes de Venise et de Gênes sillonnent la Méditerranée et rejoignent la
-mer Noire. Les lignes pointillées suivent les routes terrestres et les
-fleuves : c'est à leur croisement, comme en Champagne, que se tiennent les
-grandes foires.
+La carte montre les grandes routes commerciales de la fin du Moyen Âge.
+Pour la lire :
+
+- en noir, les routes de la Hanse relient les ports de la mer du Nord et de
+  la mer Baltique, dont Bruges, Londres et Hambourg;
+- en bleu et en rouge, les routes maritimes de Venise et de Gênes
+  sillonnent la Méditerranée et rejoignent la mer Noire;
+- en pointillé, les routes terrestres et les fleuves traversent le
+  continent : c'est à leur croisement, comme en Champagne, que se tiennent
+  les grandes foires.
 
 ### La ligne du temps
 
@@ -194,15 +197,18 @@ l'administration du bourg.
 
 ## Le bourg médiéval
 
-Le bourg médiéval obtient progressivement un statut spécial qui permet aux
-habitants d'obtenir plus d'autonomie en plus de certains droits, comme ceux
-d'élire des dirigeants, de tenir un marché ou une foire commerciale, de
-maintenir l'ordre et de rendre la justice, de percevoir des taxes
-municipales pour l'entretien et la défense du bourg, etc. Les habitants,
-aussi appelés bourgeois, sont donc plus directement impliqués dans le
-développement économique et social de leur milieu de vie. Notons,
-finalement, que le bourg est toujours construit autour d'un château ou d'un
-monastère.
+Le bourg médiéval obtient progressivement un statut spécial qui donne aux
+habitants plus d'autonomie et certains droits :
+
+- élire des dirigeants;
+- tenir un marché ou une foire commerciale;
+- maintenir l'ordre et rendre la justice;
+- percevoir des taxes municipales pour l'entretien et la défense du bourg.
+
+Les habitants, aussi appelés bourgeois, sont donc plus directement
+impliqués dans le développement économique et social de leur milieu de
+vie. Notons, finalement, que le bourg est toujours construit autour d'un
+château ou d'un monastère.
 
 ### Quelques bourgs médiévaux
 
@@ -271,19 +277,18 @@ relativement courte, mais elle explique extrêmement bien la situation.
 
 ## La hiérarchie sociale dans les bourgs
 
-Il existe, dans les bourgs, différentes classes sociales. Tout d'abord,
-nous retrouvons la noblesse, composée du roi, des ducs et des duchesses,
-des comtes et des comtesses, des barons et des baronnes ainsi que des
-seigneurs. Ensuite vient le clergé, composé de l'archevêque, des évêques,
-des prêtres, des moines, des soeurs, etc.
+Il existe, dans les bourgs, différentes classes sociales. Du sommet à la
+base de la hiérarchie :
 
-Puis, nous retrouvons la bourgeoisie marchande, composée de grands et de
-petits marchands, de banquiers, de membres de guildes, de maîtres
-artisans, etc. Cette classe sociale émerge durant le Bas Moyen Âge. Le
-peuple, quant à lui, se trouve à l'avant-dernier échelon de la hiérarchie
-sociale : il est composé de petits artisans, de paysans, de commerçants,
-etc. Finalement, il était possible de retrouver des esclaves dans quelques
-bourgs.
+- la noblesse : le roi, les ducs et les duchesses, les comtes et les
+  comtesses, les barons et les baronnes ainsi que les seigneurs;
+- le clergé : l'archevêque, les évêques, les prêtres, les moines, les
+  soeurs, etc.;
+- la bourgeoisie marchande : les grands et les petits marchands, les
+  banquiers, les membres de guildes, les maîtres artisans, etc. Cette
+  classe sociale émerge durant le Bas Moyen Âge;
+- le peuple : les petits artisans, les paysans, les commerçants, etc.;
+- les esclaves, présents dans quelques bourgs seulement.
 
 ::: schema hierarchie-bourg
 :::
@@ -455,8 +460,8 @@ d'ailleurs son nom : Yersinia pestis.
 ### Les conséquences de l'épidémie
 
 En cinq ans, l'Europe perd entre le tiers et la moitié de sa population,
-soit environ 25 millions de personnes. Les campagnes manquent alors de bras
-: les paysans survivants, devenus rares et précieux, obtiennent de
+soit environ 25 millions de personnes. Les campagnes manquent alors de
+bras : les paysans survivants, devenus rares et précieux, obtiennent de
 meilleurs salaires et de meilleures conditions, ce qui affaiblit encore les
 obligations seigneuriales. Le commerce et les foires ralentissent un temps,
 puis l'économie se réorganise. La peste noire referme brutalement le Moyen
