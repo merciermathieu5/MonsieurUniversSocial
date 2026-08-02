@@ -793,3 +793,77 @@ flottants sont aussi resserrées. Consigné au README.
    colonne de François 1er.
 3. Les deux règles sont consignées au README.
 
+## Fiche : L'expansion européenne dans le monde
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « une armée de 80 000 à 10 000 du sultan » : le nombre était visiblement
+  altéré; j'ai écrit « forte de plusieurs dizaines de milliers d'hommes »
+- « Navire utilisée » devient « utilisé », « elle est utilisé » devient
+  « utilisée »
+- « la Chine est est la seule » devient « est la seule »
+- « il a plutôt découvert des terres inconnues » devient « atteint des
+  terres inconnues des Européens », plus juste historiquement
+- « il a réussit à franchir » devient « réussit », « seul un navire réussi »
+  devient « réussit », « ont subit » devient « subi »
+- « Puerto Rico » devient « Porto Rico », « les côtes vénézuélienne »
+  devient « vénézuéliennes »
+- « la prise de constantinople » et « en amérique » prennent leur majuscule
+- « Allo Prof » devient « Alloprof », « Le livre des merveilles » devient
+  « Le Livre des merveilles »
+- Le passage de l'édit de 1495 sur Hispaniola était brouillé dans ta page
+  (deux phrases entremêlées); je ne l'ai pas repris plutôt que d'en
+  inventer le sens. À rétablir si tu as le texte d'origine.
+
+### Propositions qui touchent au contenu
+
+Réponds par le numéro. Je n'applique que ce que tu approuves.
+
+**1. Onze images Commons vérifiées**
+
+Toutes tes images renvoient 403. La fiche s'appuie sur onze images aux noms
+de fichiers simples, pour éviter les échecs de téléchargement : planisphère
+de Cantino, siège de Constantinople (miniature BnF), carte du siège en
+français, caravelle, astrolabe, portulan, Colomb, Magellan, Cartier, Cerro
+Rico de Potosí, Cortés et Moctezuma. Il manque une image de boussole, que
+je n'ai pas trouvée à un nom fiable.
+
+**2. Deux schémas neufs**
+
+frise-explorations (de 1453 à 1545, six repères) et commerce-triangulaire,
+un diagramme des trois trajets avec les marchandises échangées, qui
+remplace l'image devenue inaccessible.
+
+**3. Mise en page pensée d'avance**
+
+Les blocs cartes servent aux séries parallèles (produits de luxe,
+innovations techniques, motivations). Les sept explorateurs sont en
+sous-titres de niveau 4, donc leurs trois portraits se regroupent en une
+galerie en bas de section. Les images qui accompagnent un texte long
+restent flottantes. C'est l'application directe des règles consignées au
+README pendant les fiches 05 à 07.
+
+**4. Formulation sur l'esclavage**
+
+J'ai remplacé « Environ 600 esclaves étaient marqués au fer rouge » par
+« environ 600 d'entre elles », en parlant de personnes réduites en
+esclavage plutôt que d'esclaves, là où c'était possible sans alourdir. Dis
+si tu préfères revenir à ta formulation.
+
+**5. Contenu non repris**
+
+Les exercices autocorrectifs (4.1) et l'exercice interactif du commerce
+triangulaire étaient des images ou des intégrations inaccessibles. Le lien
+Curio sur la chute de Constantinople demande un abonnement, je ne l'ai pas
+repris. Dis-moi si tu veux que je les ajoute autrement.
+
+### Retouche du 2 août 2026 (livraison 57)
+
+Le lien Facebook vers la chronique d'Evelyne Ferron est retiré de la fiche
+06, avec son encadré d'activité. Ses autres références sont conservées : le
+balado de Radio-Canada dans la fiche 08 et l'ouvrage Ferron et Prémont cité
+en source. Quatre autres liens Facebook subsistent dans le site, à retirer
+sur un mot : deux reconstitutions dans la fiche 04 (Lutèce et Toulouse
+antique par Dartagnans), la capsule de Laurent Turcot et le balado de
+Charles Beauchesne dans la fiche 06.
+

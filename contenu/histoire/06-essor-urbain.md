@@ -491,12 +491,6 @@ partagée par Mme Johanne Rodrigue : tu dois placer les grands événements de
 la période sur la ligne du temps.
 :::
 
-::: activite
-Écoute la [chronique de l'historienne Evelyne Ferron](https://www.facebook.com/Evelynehst/videos/266695644457343/)
-sur l'Empire du Mali et le début de la Renaissance, pour faire le pont vers
-la prochaine réalité sociale.
-:::
-
 ## Sources
 
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
