@@ -17,8 +17,9 @@ html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
 .lec__texte p { margin: 0 0 1rem; line-height: 1.75; font-size: inherit; }
 .lec__texte p:last-of-type { margin-bottom: 0; }
 .lec__intro { font-family: var(--titre); font-weight: 600; color: var(--matiere-fonce); border-left: 3px solid var(--matiere); padding-left: .9rem; }
-.lec__article { display: grid; grid-template-columns: auto 1fr; gap: .1rem 1rem; margin: 0 0 1rem; align-items: baseline; }
-.lec__numero { font-family: var(--donnee); font-size: .7em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--matiere); white-space: nowrap; }
+.lec__article { display: grid; grid-template-columns: 3.2rem 1fr; gap: 0 1rem; margin: 0 0 1.15rem; align-items: start; }
+.lec__article p { margin: 0; }
+.lec__numero { font-family: var(--donnee); font-size: .72em; padding-top: .28em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--matiere); white-space: nowrap; }
 .lec__pied { padding: .85rem 1.8rem 1rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
 .lec__source { margin: 0; font-family: var(--donnee); font-size: .72rem; line-height: 1.6; color: var(--encre-doux); }
 .lec__source a { color: var(--matiere); }
@@ -26,7 +27,7 @@ html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
 @media print { .lec__reglages { display: none; } }
 </style>
 <header class="lec__entete">
-<h3 class="lec__titre">Le Bill of Rights, les dix premiers amendements, 1791</h3>
+<p class="lec__titre" role="heading" aria-level="3">Le Bill of Rights, les dix premiers amendements, 1791</p>
 <div class="lec__reglages">
 <span>Taille du texte</span>
 <button class="lec__zoom" type="button" data-lec="moins" aria-label="Réduire la taille du texte">A-</button>

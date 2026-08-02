@@ -1152,3 +1152,31 @@ d'attributs qui posent une classe. Il en a collé trois au milieu du texte
 avant que je m'en aperçoive au contrôle. Les deux cas sont maintenant
 protégés dans l'outil, la fiche est réparée, et la règle est au README.
 
+### Retouches du 2 août 2026 (livraison 70)
+
+1. **Frise.** Chaque événement est maintenant rattaché à son point par un
+   trait, droit ou oblique selon le décalage. La bande porte le libellé
+   complet, L'Époque contemporaine, la plage temporelle ayant été élargie
+   jusqu'en 1800 pour lui laisser la place.
+2. **La galerie fusionnait avec le module**, et la cause était structurelle :
+   le composant contenait un titre de niveau 3, or le moteur découpe les
+   blocs sur les titres de niveau 2 et 3. La galerie venait donc se loger à
+   l'intérieur du composant. Les six composants du site utilisent désormais
+   un paragraphe avec role="heading". Règle consignée au README.
+3. **Les puces des jetons d'idées** sont neutralisées.
+4. **La carte des Treize colonies** passe en cadrage large : elle occupe la
+   largeur du texte, entre la pleine page et la vignette.
+5. **La Déclaration est complète**, dans une zone défilante : préambule,
+   douze griefs représentatifs sur les vingt-sept de l'original, appel aux
+   frères de Grande-Bretagne et proclamation finale. Le pied de page dit
+   exactement ce qui a été abrégé.
+6. **Le Padlet est remplacé** par une chronologie interactive intégrée au
+   site : onze événements de 1774 à 1783, filtrables par catégorie, dont
+   quatre qui concernent directement le Québec, des lettres aux Canadiens
+   jusqu'à l'arrivée des Loyalistes.
+7. **L'espacement du Bill of Rights** est corrigé : colonne de numéro fixe,
+   alignement en haut, marges régulières.
+8. **Les deux balados sont replacés** : celui de Régis Coursin suit le
+   siège de Québec, celui sur Jefferson suit la lecture de la Déclaration.
+   La section des activités, devenue vide, est retirée.
+

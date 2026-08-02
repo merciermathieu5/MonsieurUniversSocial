@@ -13,12 +13,16 @@ html[data-sombre="on"] .lec__reglages span { color: var(--encre-pale); }
 .lec__zoom:disabled { opacity: .45; cursor: default; }
 .lec__taille { font-family: var(--donnee); font-size: .7rem; color: rgba(255,255,255,.8); min-width: 3.1rem; text-align: center; }
 html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
-.lec__texte { padding: 1.5rem 1.8rem 1.2rem; font-size: 1rem; }
+.lec__texte { padding: 1.5rem 1.8rem 1.2rem; font-size: 1rem; max-height: 32rem; overflow-y: auto; scroll-behavior: smooth; }
+.lec__texte:focus-visible { outline: 2px solid var(--matiere); outline-offset: -2px; }
+.lec__grief { margin: 0 0 .55rem; padding-left: 1.1rem; position: relative; }
+.lec__grief::before { content: "\2013"; position: absolute; left: 0; color: var(--matiere); }
 .lec__texte p { margin: 0 0 1rem; line-height: 1.75; font-size: inherit; }
 .lec__texte p:last-of-type { margin-bottom: 0; }
 .lec__intro { font-family: var(--titre); font-weight: 600; color: var(--matiere-fonce); border-left: 3px solid var(--matiere); padding-left: .9rem; }
-.lec__article { display: grid; grid-template-columns: auto 1fr; gap: .1rem 1rem; margin: 0 0 1rem; align-items: baseline; }
-.lec__numero { font-family: var(--donnee); font-size: .7em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--matiere); white-space: nowrap; }
+.lec__article { display: grid; grid-template-columns: 3.2rem 1fr; gap: 0 1rem; margin: 0 0 1.15rem; align-items: start; }
+.lec__article p { margin: 0; }
+.lec__numero { font-family: var(--donnee); font-size: .72em; padding-top: .28em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--matiere); white-space: nowrap; }
 .lec__pied { padding: .85rem 1.8rem 1rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
 .lec__source { margin: 0; font-family: var(--donnee); font-size: .72rem; line-height: 1.6; color: var(--encre-doux); }
 .lec__source a { color: var(--matiere); }
@@ -26,7 +30,7 @@ html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
 @media print { .lec__reglages { display: none; } }
 </style>
 <header class="lec__entete">
-<h3 class="lec__titre">La Déclaration d'indépendance des États-Unis, 4 juillet 1776</h3>
+<p class="lec__titre" role="heading" aria-level="3">La Déclaration d'indépendance des États-Unis, 4 juillet 1776</p>
 <div class="lec__reglages">
 <span>Taille du texte</span>
 <button class="lec__zoom" type="button" data-lec="moins" aria-label="Réduire la taille du texte">A-</button>
@@ -34,15 +38,32 @@ html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
 <button class="lec__zoom" type="button" data-lec="plus" aria-label="Agrandir la taille du texte">A+</button>
 </div>
 </header>
-<div class="lec__texte" data-lec="texte">
-<p class="lec__intro">Extrait du préambule, dans la traduction française publiée par le Département d'État des États-Unis.</p>
+<div class="lec__texte" data-lec="texte" tabindex="0" role="region" aria-label="Texte de la Déclaration">
+<p class="lec__intro">Déclaration unanime des treize États unis d'Amérique, réunis en Congrès le 4 juillet 1776. Traduction française publiée par le Département d'État des États-Unis.</p>
 <p>Lorsque, dans le cours des événements humains, il devient nécessaire pour un peuple de dissoudre les liens politiques qui l'ont attaché à un autre et de prendre, parmi les puissances de la Terre, la place séparée et égale à laquelle les lois de la nature et du Dieu de la nature lui donnent droit, le respect dû à l'opinion de l'humanité oblige à déclarer les causes qui le déterminent à la séparation.</p>
-<p>Nous tenons pour évidentes par elles-mêmes les vérités suivantes : tous les hommes sont créés égaux; ils sont doués par le Créateur de certains droits inaliénables; parmi ces droits se trouvent la vie, la liberté et la recherche du bonheur.</p>
-<p>Les gouvernements sont établis parmi les hommes pour garantir ces droits, et leur juste pouvoir émane du consentement des gouvernés. Toutes les fois qu'une forme de gouvernement devient destructive de ce but, le peuple a le droit de la changer ou de l'abolir et d'établir un nouveau gouvernement, en le fondant sur les principes et en l'organisant en la forme qui lui paraîtront les plus propres à lui donner la sûreté et le bonheur.</p>
-<p>En conséquence, nous, représentants des États-Unis d'Amérique, assemblés en Congrès général, publions et déclarons solennellement que ces colonies unies sont et ont le droit d'être des États libres et indépendants.</p>
+<p>Nous tenons pour évidentes par elles-mêmes les vérités suivantes : tous les hommes sont créés égaux; ils sont doués par le Créateur de certains droits inaliénables; parmi ces droits se trouvent la vie, la liberté et la recherche du bonheur. Les gouvernements sont établis parmi les hommes pour garantir ces droits, et leur juste pouvoir émane du consentement des gouvernés.</p>
+<p>Toutes les fois qu'une forme de gouvernement devient destructive de ce but, le peuple a le droit de la changer ou de l'abolir et d'établir un nouveau gouvernement, en le fondant sur les principes et en l'organisant en la forme qui lui paraîtront les plus propres à lui donner la sûreté et le bonheur. La prudence enseigne, à la vérité, que les gouvernements établis depuis longtemps ne doivent pas être changés pour des causes légères et passagères.</p>
+<p>Mais lorsqu'une longue suite d'abus et d'usurpations, tendant invariablement au même but, marque le dessein de les soumettre au despotisme absolu, il est de leur droit, il est de leur devoir de rejeter un tel gouvernement et de pourvoir, par de nouvelles sauvegardes, à leur sécurité future. Telle a été la patience de ces colonies, et telle est aujourd'hui la nécessité qui les force à changer leur ancien système de gouvernement.</p>
+<p>L'histoire du roi actuel de Grande-Bretagne est l'histoire d'une série d'injustices et d'usurpations répétées, qui toutes avaient pour but direct l'établissement d'une tyrannie absolue sur ces États. Pour le prouver, soumettons les faits au monde impartial.</p>
+<p class="lec__grief">Il a refusé sa sanction aux lois les plus salutaires et les plus nécessaires au bien public.</p>
+<p class="lec__grief">Il a défendu à ses gouverneurs de consentir à des lois d'une importance immédiate et urgente, à moins que leur mise en vigueur ne fût suspendue jusqu'à l'obtention de son assentiment.</p>
+<p class="lec__grief">Il a dissous à plusieurs reprises des chambres de représentants, parce qu'elles s'opposaient avec une mâle fermeté à ses empiètements sur les droits du peuple.</p>
+<p class="lec__grief">Il a entravé l'administration de la justice en refusant sa sanction aux lois nécessaires à l'établissement des pouvoirs judiciaires.</p>
+<p class="lec__grief">Il a rendu les juges dépendants de sa seule volonté pour la durée de leurs charges et pour le montant de leurs traitements.</p>
+<p class="lec__grief">Il a créé une multitude d'emplois nouveaux et envoyé ici des essaims d'employés pour vexer notre peuple et dévorer sa substance.</p>
+<p class="lec__grief">Il a entretenu parmi nous, en temps de paix, des armées permanentes sans le consentement de nos législatures.</p>
+<p class="lec__grief">Il s'est associé à d'autres pour nous soumettre à une juridiction étrangère à nos constitutions et non reconnue par nos lois.</p>
+<p class="lec__grief">Il a imposé des taxes sans notre consentement.</p>
+<p class="lec__grief">Il nous a privés, dans plusieurs cas, du bénéfice du jugement par jury.</p>
+<p class="lec__grief">Il a supprimé nos plus précieuses lois et altéré fondamentalement la forme de nos gouvernements.</p>
+<p class="lec__grief">Il a abdiqué le gouvernement de ce pays en nous déclarant hors de sa protection et en nous faisant la guerre.</p>
+<p>Dans toutes les phases de ces oppressions, nous avons demandé justice dans les termes les plus humbles; à nos pétitions répétées, il n'a été répondu que par des injustices répétées. Un prince dont le caractère est ainsi marqué par les actes qui peuvent signaler un tyran est impropre à gouverner un peuple libre.</p>
+<p>Nous n'avons pas non plus manqué d'égards envers nos frères de la Grande-Bretagne. Nous les avons avertis, nous avons fait appel à leur justice et à leur magnanimité. Ils ont été sourds, eux aussi, à la voix de la justice et de la consanguinité. Nous devons donc consentir à la nécessité qui commande notre séparation, et les regarder, comme le reste de l'humanité, ennemis dans la guerre, amis dans la paix.</p>
+<p>En conséquence, nous, représentants des États-Unis d'Amérique, assemblés en Congrès général, prenant à témoin le juge suprême de l'univers de la droiture de nos intentions, publions et déclarons solennellement, au nom et par l'autorité du bon peuple de ces colonies, que ces colonies unies sont et ont le droit d'être des États libres et indépendants.</p>
+<p>Qu'elles sont dégagées de toute obéissance envers la couronne de Grande-Bretagne, et que tout lien politique entre elles et l'État de Grande-Bretagne est et doit être entièrement dissous. Et, pleins d'une ferme confiance dans la protection de la divine Providence, nous engageons mutuellement au soutien de cette déclaration nos vies, nos fortunes et notre bien le plus sacré, l'honneur.</p>
 </div>
 <div class="lec__pied">
-<p class="lec__source">Traduction officielle du Département d'État des États-Unis. Le texte intégral est disponible en format PDF : <a href="https://www.state.gov/wp-content/uploads/2020/02/French-translation-U.S.-Declaration-of-Independence.pdf" target="_blank" rel="noopener noreferrer">French translation, U.S. Declaration of Independence</a>. Le passage reproduit ici est le préambule, suivi de la proclamation finale; la longue liste des griefs contre le roi George III n'est pas reprise.</p>
+<p class="lec__source">Traduction officielle du Département d'État des États-Unis. Le texte complet en format PDF : <a href="https://www.state.gov/wp-content/uploads/2020/02/French-translation-U.S.-Declaration-of-Independence.pdf" target="_blank" rel="noopener noreferrer">French translation, U.S. Declaration of Independence</a>. La liste des griefs contre le roi George III, qui compte vingt-sept articles dans l'original, est ici présentée en douze articles représentatifs.</p>
 </div>
 <script>
 (function () {

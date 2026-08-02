@@ -416,6 +416,12 @@ et Richard Montgomery, se solde par un échec. Les Américains avaient
 d'ailleurs envoyé des lettres aux Canadiens pour les inviter à se joindre à
 leur cause.
 
+::: activite
+Écoute l'entrevue de l'historien Régis Coursin à Aujourd'hui l'histoire :
+[1775, quand le Québec est presque devenu américain](https://ici.radio-canada.ca/ohdio/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/348592/1775-quebec-presque-devenu-americain-regis-coursin).
+Elle raconte cette invasion et le choix des Canadiens.
+:::
+
 ### La signature de la déclaration d'indépendance
 
 ![Le comité de rédaction présente la Déclaration au Congrès, tableau de John Trumbull](../medias/09-revolution-americaine/declaration-independance.jpg)
@@ -443,6 +449,12 @@ les premières munitions de la guerre d'indépendance qui a suivi.
 
 ::: composant declaration-independance
 
+::: activite
+Pour aller plus loin, écoute l'entrevue d'Aujourd'hui l'histoire sur
+[l'indépendance, Jefferson et la liberté](https://ici.radio-canada.ca/ohdio/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/109493/independance-jefferson-1776-liberte-etats-unis-politique),
+consacrée à la déclaration de 1776.
+:::
+
 ### La déclaration et les idées des Lumières
 
 La déclaration d'indépendance américaine se base en partie sur les idées des
@@ -464,9 +476,7 @@ Richard Henry Lee.
 
 ## Les événements de la guerre d'indépendance américaine
 
-::: integration https://padlet.com/merciermathieu5/la-revolution-americaine-903q08870u60osd9
-Le mur collaboratif des événements de la guerre d'indépendance
-:::
+::: composant guerre-independance
 
 ## Les impacts de la Révolution
 
@@ -535,16 +545,6 @@ Source : Hérodote.net
 1. Nomme une conséquence politique et une conséquence idéologique de la Révolution américaine.
 2. Comment les responsabilités sont-elles partagées dans un système fédéral?
 3. Qu'est-ce que le Bill of Rights et quand est-il publié?
-:::
-
-## Des activités pour t'exercer
-
-::: activite
-Écoute les deux entrevues d'Aujourd'hui l'histoire :
-[1775, quand le Québec est presque devenu américain](https://ici.radio-canada.ca/ohdio/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/348592/1775-quebec-presque-devenu-americain-regis-coursin),
-avec Régis Coursin, puis
-[l'indépendance, Jefferson et la liberté](https://ici.radio-canada.ca/ohdio/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/109493/independance-jefferson-1776-liberte-etats-unis-politique),
-sur la déclaration de 1776.
 :::
 
 ## Sources

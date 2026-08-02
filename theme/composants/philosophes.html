@@ -24,8 +24,10 @@ html[data-sombre="on"] .lum .lum__titre { color: var(--encre); }
 .lum__grille dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: .92rem; line-height: 1.35; }
 .lum__texte p { margin: 0 0 .9rem; font-size: .99rem; line-height: 1.7; }
 .lum__texte p:last-child { margin-bottom: 0; }
-.lum__idees { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 0; padding: 0; }
-.lum__idees li { font-family: var(--titre); font-weight: 600; font-size: .84rem; background: var(--matiere-voile); color: var(--matiere-fonce); padding: .38rem .8rem; border-radius: 100px; }
+.lum .lum__idees { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 0; padding: 0; }
+.lum .lum__idees li::marker { content: ""; }
+.lum .lum__idees li::before { content: none; }
+.lum .lum__idees li { list-style: none; font-family: var(--titre); font-weight: 600; font-size: .84rem; background: var(--matiere-voile); color: var(--matiere-fonce); padding: .38rem .8rem; border-radius: 100px; }
 .lum__pied { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.4rem; border-top: 1px solid var(--trait); background: var(--surface-2); flex-wrap: wrap; }
 .lum__bouton { font-family: var(--titre); font-weight: 600; font-size: .88rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .5rem 1.15rem; cursor: pointer; transition: background .15s, color .15s; }
 .lum__bouton:hover { background: var(--matiere); border-color: var(--matiere); color: #fff; }
@@ -49,7 +51,7 @@ html[data-sombre="on"] .lum__consigne { color: var(--encre-pale); }
 @media print { .lum__galerie, .lum__pied, .lum__defi { display: none; } .lum__panneau { display: block; } }
 </style>
 <header class="lum__entete">
-<h3 class="lum__titre">Les philosophes des Lumières</h3>
+<p class="lum__titre" role="heading" aria-level="3">Les philosophes des Lumières</p>
 <p class="lum__consigne">Choisis un penseur, puis relève le défi</p>
 </header>
 <div class="lum__medias" hidden>

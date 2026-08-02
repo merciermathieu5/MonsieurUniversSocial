@@ -353,6 +353,9 @@ composant pour éviter de refaire les mêmes itérations.
 - Les mentions de sources, en paragraphe seul ou en fin de paragraphe, se
   différencient du fil du texte : build.py leur pose automatiquement la
   classe source-texte (petite, grise, police de données).
+- Un composant ne contient jamais de titre de niveau 2 ou 3 : le moteur
+  découpe les blocs sur ces titres, et une galerie viendrait alors se loger
+  à l'intérieur du composant. Utiliser un paragraphe avec role="heading".
 - Le bloc ::: integration ADRESSE intègre une ressource interactive (Padlet,
   Genially, LearningApps) dans un cadre redimensionnable, doublé d'un lien
   d'ouverture : hors ligne ou si le service tombe, l'adresse reste visible.

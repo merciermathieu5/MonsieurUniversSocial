@@ -1,0 +1,131 @@
+<section class="chr" id="guerre-independance" aria-label="Les événements de la guerre d'indépendance américaine">
+<style>
+.chr { margin: 1.4rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.chr .chr__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.chr .chr__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+html[data-sombre="on"] .chr .chr__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .chr .chr__titre { color: var(--encre); }
+.chr__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .chr__consigne { color: var(--encre-pale); }
+.chr__filtres { display: flex; gap: .5rem; flex-wrap: wrap; padding: .9rem 1.4rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.chr__filtre { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .4rem 1rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.chr__filtre:hover { border-color: var(--matiere); }
+.chr__filtre.est-actif { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+.chr__liste { list-style: none; margin: 0; padding: 1.3rem 1.6rem 1.5rem; position: relative; }
+.chr__liste::before { content: ""; position: absolute; left: 5.9rem; top: 1.5rem; bottom: 1.5rem; width: 2px; background: var(--matiere-voile); }
+.chr__item { display: grid; grid-template-columns: 4.4rem 1fr; gap: 0 2.1rem; margin: 0 0 1.15rem; position: relative; list-style: none; }
+.chr__item::marker { content: ""; }
+.chr__item.est-cache { display: none; }
+.chr__date { font-family: var(--donnee); font-size: .82rem; font-weight: 700; color: var(--schema-accent); text-align: right; padding-top: .75rem; }
+.chr__carte { background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .75rem 1.05rem .85rem; }
+.chr__item[data-camp="quebec"] .chr__carte { border-left-color: var(--schema-accent); }
+.chr__point { position: absolute; left: 5.55rem; top: 1.05rem; width: .7rem; height: .7rem; border-radius: 50%; background: var(--matiere); border: 2px solid var(--surface); }
+.chr__item[data-camp="quebec"] .chr__point { background: var(--schema-accent); }
+.chr__nom { margin: 0 0 .2rem; font-family: var(--titre); font-weight: 700; font-size: 1rem; color: var(--matiere-fonce); }
+.chr__quoi { margin: 0; font-size: .93rem; line-height: 1.6; color: var(--encre); }
+.chr__vide { margin: 0; padding: 1rem 0; font-size: .95rem; color: var(--encre-doux); }
+@media (max-width: 40rem) {
+  .chr__liste { padding: 1rem .9rem 1.2rem; }
+  .chr__liste::before { display: none; }
+  .chr__item { grid-template-columns: 1fr; gap: .3rem; }
+  .chr__date { text-align: left; padding-top: 0; }
+  .chr__point { display: none; }
+}
+@media print { .chr__filtres { display: none; } .chr__item.est-cache { display: grid; } }
+</style>
+<header class="chr__entete">
+<p class="chr__titre" role="heading" aria-level="3">Les événements de la guerre d'indépendance</p>
+<p class="chr__consigne">Filtre la chronologie</p>
+</header>
+<div class="chr__filtres" data-chr="filtres"></div>
+<ul class="chr__liste" data-chr="liste"></ul>
+<script>
+(function () {
+  var racine = document.getElementById("guerre-independance");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+
+  var EVENEMENTS = [
+    { date: "1774", camp: "colonies", nom: "Le premier Congrès continental",
+      quoi: "Les délégués de douze colonies se réunissent à Philadelphie et décident de boycotter les marchandises britanniques." },
+    { date: "avril 1775", camp: "colonies", nom: "Lexington et Concord",
+      quoi: "Une milice locale refuse de se disperser devant les troupes britanniques. Les premiers coups de feu sont tirés : la guerre commence." },
+    { date: "mai 1775", camp: "colonies", nom: "Le deuxième Congrès continental",
+      quoi: "Le Congrès fait office de gouvernement et confie le commandement de l'armée continentale à George Washington." },
+    { date: "1775", camp: "quebec", nom: "Les lettres aux Canadiens",
+      quoi: "Le Congrès invite les Canadiens à se joindre à la cause américaine. Le clergé et les seigneurs choisissent plutôt la fidélité à la Couronne britannique." },
+    { date: "décembre 1775", camp: "quebec", nom: "Le siège de Québec",
+      quoi: "Benedict Arnold et Richard Montgomery tentent de prendre la ville. L'attaque échoue et Montgomery y perd la vie." },
+    { date: "juillet 1776", camp: "colonies", nom: "La Déclaration d'indépendance",
+      quoi: "Le 4 juillet, le Congrès adopte le texte rédigé par Thomas Jefferson. Les États-Unis d'Amérique sont nés." },
+    { date: "1777", camp: "colonies", nom: "La victoire de Saratoga",
+      quoi: "La reddition d'une armée britannique convainc la France que les insurgés peuvent gagner." },
+    { date: "1778", camp: "monde", nom: "L'alliance avec la France",
+      quoi: "La France reconnaît les États-Unis et entre en guerre. Elle fournit des troupes, une flotte et de l'argent." },
+    { date: "1781", camp: "colonies", nom: "La capitulation de Yorktown",
+      quoi: "Cerné par les armées américaine et française, le général Cornwallis capitule. Les combats prennent fin en Amérique." },
+    { date: "1783", camp: "monde", nom: "Le traité de Paris",
+      quoi: "La Grande-Bretagne reconnaît l'indépendance des États-Unis et cède les terres jusqu'au Mississippi." },
+    { date: "1783", camp: "quebec", nom: "L'arrivée des Loyalistes",
+      quoi: "Des dizaines de milliers d'Américains restés fidèles à la Couronne quittent les États-Unis. Plusieurs s'installent dans la province de Québec et en Nouvelle-Écosse." }
+  ];
+
+  var FILTRES = [
+    { cle: "tous", nom: "Tous les événements" },
+    { cle: "colonies", nom: "Dans les Treize colonies" },
+    { cle: "quebec", nom: "Ici, au Québec" },
+    { cle: "monde", nom: "Sur la scène internationale" }
+  ];
+
+  var liste = racine.querySelector('[data-chr="liste"]');
+  var barre = racine.querySelector('[data-chr="filtres"]');
+
+  function el(balise, classe, contenu) {
+    var n = document.createElement(balise);
+    if (classe) n.className = classe;
+    if (contenu) n.textContent = contenu;
+    return n;
+  }
+
+  EVENEMENTS.forEach(function (e) {
+    var item = el("li", "chr__item");
+    item.dataset.camp = e.camp;
+    item.appendChild(el("span", "chr__point"));
+    item.appendChild(el("span", "chr__date", e.date));
+    var carte = el("div", "chr__carte");
+    carte.appendChild(el("p", "chr__nom", e.nom));
+    carte.appendChild(el("p", "chr__quoi", e.quoi));
+    item.appendChild(carte);
+    liste.appendChild(item);
+  });
+
+  var vide = el("p", "chr__vide", "Aucun événement dans cette catégorie.");
+  vide.style.display = "none";
+  liste.appendChild(vide);
+
+  function filtrer(cle) {
+    var visibles = 0;
+    Array.prototype.forEach.call(liste.querySelectorAll(".chr__item"), function (item) {
+      var montrer = cle === "tous" || item.dataset.camp === cle;
+      item.classList.toggle("est-cache", !montrer);
+      if (montrer) visibles++;
+    });
+    vide.style.display = visibles ? "none" : "block";
+    Array.prototype.forEach.call(barre.children, function (b) {
+      b.classList.toggle("est-actif", b.dataset.cle === cle);
+      b.setAttribute("aria-pressed", b.dataset.cle === cle ? "true" : "false");
+    });
+  }
+
+  FILTRES.forEach(function (f) {
+    var b = el("button", "chr__filtre", f.nom);
+    b.type = "button";
+    b.dataset.cle = f.cle;
+    b.addEventListener("click", function () { filtrer(f.cle); });
+    barre.appendChild(b);
+  });
+
+  filtrer("tous");
+})();
+</script>
+</section>
