@@ -1,0 +1,60 @@
+<svg viewBox="0 0 1100 360" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps de la Révolution américaine, de la fin de la guerre de Sept Ans en 1763 au Bill of Rights de 1791">
+  <style>
+    .rv-t { font-family: Archivo, sans-serif; }
+    .rv-e { font-size: 13.5px; fill: var(--encre); }
+    .rv-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
+    .rv-p1 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .rv-p2 { font-size: 14px; font-weight: 700; fill: var(--surface); }
+    .rv-p3 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
+  </style>
+  <rect x="70" y="186" width="240" height="34" fill="var(--bloc-pale)"/>
+  <rect x="310" y="186" width="480" height="34" fill="var(--schema-accent)"/>
+  <rect x="790" y="186" width="240" height="34" fill="var(--bloc)"/>
+  <text class="rv-t rv-p1" x="190" y="208" text-anchor="middle">Les tensions</text>
+  <text class="rv-t rv-p2" x="550" y="208" text-anchor="middle">La Révolution américaine</text>
+  <text class="rv-t rv-p3" x="910" y="208" text-anchor="middle">Les États-Unis</text>
+
+  <line x1="70" y1="164" x2="70" y2="180" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="rv-t rv-d" x="70" y="96" text-anchor="start">1763</text>
+  <text class="rv-t rv-e" x="70" y="117" text-anchor="start">La guerre de Sept Ans</text>
+  <text class="rv-t rv-e" x="70" y="138" text-anchor="start">se termine; la Proclamation</text>
+  <text class="rv-t rv-e" x="70" y="159" text-anchor="start">royale ferme l'Ouest.</text>
+  <circle cx="70" cy="186" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="430" y1="164" x2="430" y2="180" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="rv-t rv-d" x="430" y="96" text-anchor="middle">1773 et 1775</text>
+  <text class="rv-t rv-e" x="430" y="117" text-anchor="middle">Le Boston Tea Party, puis</text>
+  <text class="rv-t rv-e" x="430" y="138" text-anchor="middle">la bataille de Lexington :</text>
+  <text class="rv-t rv-e" x="430" y="159" text-anchor="middle">la guerre commence.</text>
+  <circle cx="410" cy="186" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <circle cx="450" cy="186" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="790" y1="164" x2="790" y2="180" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="rv-t rv-d" x="790" y="96" text-anchor="middle">1783</text>
+  <text class="rv-t rv-e" x="790" y="117" text-anchor="middle">Le traité de Paris</text>
+  <text class="rv-t rv-e" x="790" y="138" text-anchor="middle">reconnaît l'indépendance</text>
+  <text class="rv-t rv-e" x="790" y="159" text-anchor="middle">des États-Unis.</text>
+  <circle cx="790" cy="186" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="330" y1="220" x2="330" y2="236" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="rv-t rv-d" x="330" y="258" text-anchor="middle">1770</text>
+  <text class="rv-t rv-e" x="330" y="279" text-anchor="middle">Le massacre de Boston</text>
+  <text class="rv-t rv-e" x="330" y="300" text-anchor="middle">nourrit la colère contre</text>
+  <text class="rv-t rv-e" x="330" y="321" text-anchor="middle">les autorités britanniques.</text>
+  <circle cx="330" cy="220" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="590" y1="220" x2="590" y2="236" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="rv-t rv-d" x="590" y="258" text-anchor="middle">1776</text>
+  <text class="rv-t rv-e" x="590" y="279" text-anchor="middle">Le 4 juillet, le Congrès</text>
+  <text class="rv-t rv-e" x="590" y="300" text-anchor="middle">adopte la Déclaration</text>
+  <text class="rv-t rv-e" x="590" y="321" text-anchor="middle">d'indépendance.</text>
+  <circle cx="590" cy="220" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="950" y1="220" x2="950" y2="236" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="rv-t rv-d" x="950" y="258" text-anchor="middle">1791</text>
+  <text class="rv-t rv-e" x="950" y="279" text-anchor="middle">Le Bill of Rights ajoute</text>
+  <text class="rv-t rv-e" x="950" y="300" text-anchor="middle">dix amendements sur les</text>
+  <text class="rv-t rv-e" x="950" y="321" text-anchor="middle">droits individuels.</text>
+  <circle cx="950" cy="220" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+</svg>

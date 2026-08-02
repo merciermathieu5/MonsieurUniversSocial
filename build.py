@@ -45,6 +45,8 @@ VIDEO = re.compile(r"^::: *video +([\w-]+) *$(.*?)^::: *$",
 SCHEMA = re.compile(r"^::: *schema +([\w-]+) *$(.*?)^::: *$",
                     re.MULTILINE | re.DOTALL)
 COMPOSANT = re.compile(r"^::: *composant +([\w-]+) *$", re.MULTILINE)
+INTEGRATION = re.compile(r"^::: *integration +(\S+) *$(.*?)^::: *$",
+                         re.MULTILINE | re.DOTALL)
 CARTES = re.compile(r"^::: *cartes *$(.*?)^::: *$",
                     re.MULTILINE | re.DOTALL)
 COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
@@ -128,6 +130,24 @@ def convertir_blocs(texte: str, credits: dict) -> str:
     texte = COMPOSANT.sub(composant, texte)
     texte = SCHEMA.sub(schema, texte)
     texte = VIDEO.sub(video, texte)
+    def integration(m):
+        """Intègre une ressource interactive (Padlet, Genially, LearningApps).
+
+        Un cadre redimensionnable, doublé d'un lien : si le service est
+        inaccessible ou si la page est consultée hors ligne, l'élève garde
+        l'adresse sous les yeux.
+        """
+        url = m.group(1)
+        legende = " ".join(m.group(2).split()) or "Ressource interactive"
+        return (f'<figure class="integration">\n'
+                f'<iframe src="{url}" title="{legende}" loading="lazy"\n'
+                f'        allow="fullscreen" referrerpolicy="no-referrer"></iframe>\n'
+                f'<figcaption class="figure-legende">{legende} '
+                f'<a href="{url}" target="_blank" rel="noopener noreferrer">'
+                f'Ouvrir dans un nouvel onglet</a></figcaption>\n'
+                f'</figure>\n')
+
+    texte = INTEGRATION.sub(integration, texte)
     texte = CARTES.sub(
         lambda m: f'<div class="cartes" markdown="1">\n{m.group(1).strip()}\n</div>\n',
         texte)

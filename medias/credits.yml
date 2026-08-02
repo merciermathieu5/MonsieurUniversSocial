@@ -760,3 +760,66 @@ cabral.jpg:
   auteur: 'Artist: J. da Cunha; Engraver: J. Abrantes (from signatures at bottom)'
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Portrait_of_Pedro_Alvares_Cabral.jpg
+encyclopedie.jpg:
+  commons: File:Encyclopedie frontispice full.jpg
+  titre: Encyclopedie frontispice full
+  auteur: Benoît-Louis Prévost / Charles-Nicolas Cochin
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Encyclopedie_frontispice_full.jpg
+locke.jpg:
+  commons: File:John Locke.jpg
+  titre: John Locke
+  auteur: Godfrey Kneller
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:John_Locke.jpg
+montesquieu.png:
+  commons: File:Montesquieu 1.png
+  titre: Montesquieu 1
+  auteur: After Jacques-Antoine Dassier
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Montesquieu_1.png
+voltaire.jpg:
+  commons: File:Atelier de Nicolas de Largillière, portrait de Voltaire, détail (musée Carnavalet) -002.jpg
+  titre: Atelier de Nicolas de Largillière, portrait de Voltaire, détail (musée Carnavalet) -002
+  auteur: Nicolas de Largillière
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Atelier_de_Nicolas_de_Largilli%C3%A8re,_portrait_de_Voltaire,_d%C3%A9tail_(mus%C3%A9e_Carnavalet)_-002.jpg
+rousseau.jpg:
+  commons: File:Jean-Jacques Rousseau (painted portrait).jpg
+  titre: Jean-Jacques Rousseau (painted portrait)
+  auteur: Maurice Quentin de La Tour
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Jean-Jacques_Rousseau_(painted_portrait).jpg
+carte-treize-colonies.png:
+  commons: File:Thirteen Colonies 1775 map-fr.svg
+  titre: Thirteen Colonies 1775 map-fr
+  auteur: Sémhur
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Thirteen_Colonies_1775_map-fr.svg
+boston-tea-party.jpg:
+  commons: File:Boston Tea Party-Cooper.jpg
+  titre: Boston Tea Party-Cooper
+  auteur: W.D. Cooper
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Boston_Tea_Party-Cooper.jpg
+declaration-independance.jpg:
+  commons: File:Declaration independence.jpg
+  titre: Declaration independence
+  auteur: John Trumbull
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Declaration_of_Independence_(1819),_by_John_Trumbull.jpg
+salon-geoffrin.jpg:
+  commons: File:Salon de Madame Geoffrin.jpg
+  titre: Salon de Madame Geoffrin
+  auteur: Anicet Charles Gabriel Lemonnier
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Salon_de_Madame_Geoffrin.jpg
+massacre-boston.jpg:
+  commons: File:Boston Massacre high-res.jpg
+  titre: Boston Massacre high-res
+  auteur: Engrav'd Printed & Sold by Paul Revere Boston. The print was copied by Revere from a design
+    by Henry Pelham for an engraving eventually published under the title "The Fruits of Arbitrary Power,
+    or the Bloody Massacre," of which only two impressions could be located by Brigham. Revere's print
+    appeared on or about March 28, 1770.
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Boston_Massacre_high-res.jpg

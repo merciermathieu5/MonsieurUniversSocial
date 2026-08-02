@@ -1,0 +1,285 @@
+<section class="lum" id="philosophes" aria-label="Les philosophes des Lumières">
+<style>
+.lum { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.lum .lum__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.lum .lum__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+html[data-sombre="on"] .lum .lum__titre { color: var(--encre); }
+.lum__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.lum__galerie { display: grid; grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr)); gap: .7rem; padding: 1rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.lum__vignette { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); cursor: pointer; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; font-family: var(--titre); }
+.lum__vignette:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,37,48,.16); }
+.lum__vignette.est-actif { border-color: var(--matiere); box-shadow: 0 0 0 2px var(--matiere); }
+.lum__portrait { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center 18%; display: block; background: var(--matiere-voile); }
+.lum__portrait.est-absent { display: none; }
+.lum__initiales { display: none; align-items: center; justify-content: center; aspect-ratio: 1 / 1; font-size: 1.6rem; font-weight: 700; color: var(--matiere-fonce); background: var(--matiere-voile); }
+.lum__portrait.est-absent + .lum__initiales { display: flex; }
+.lum__legende { padding: .45rem .5rem .55rem; font-size: .78rem; font-weight: 600; line-height: 1.25; color: var(--encre); text-align: center; }
+.lum__couronne { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); margin-top: .15rem; }
+.lum__panneau { padding: 1.4rem 1.6rem 1.2rem; }
+.lum__haut { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; border-bottom: 3px solid var(--matiere); padding-bottom: .7rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.lum__nom { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1.35rem; letter-spacing: -.02em; }
+.lum__service { font-family: var(--titre); font-weight: 600; font-size: .74rem; color: #fff; padding: .28rem .8rem; border-radius: 100px; white-space: nowrap; }
+.lum__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: .8rem 1.4rem; margin-bottom: 1.1rem; }
+.lum__grille dt { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .12rem; }
+.lum__grille dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: .92rem; line-height: 1.35; }
+.lum__texte p { margin: 0 0 .9rem; font-size: .99rem; line-height: 1.7; }
+.lum__texte p:last-child { margin-bottom: 0; }
+.lum__idees { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 0; padding: 0; }
+.lum__idees li { font-family: var(--titre); font-weight: 600; font-size: .84rem; background: var(--matiere-voile); color: var(--matiere-fonce); padding: .38rem .8rem; border-radius: 100px; }
+.lum__pied { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.4rem; border-top: 1px solid var(--trait); background: var(--surface-2); flex-wrap: wrap; }
+.lum__bouton { font-family: var(--titre); font-weight: 600; font-size: .88rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .5rem 1.15rem; cursor: pointer; transition: background .15s, color .15s; }
+.lum__bouton:hover { background: var(--matiere); border-color: var(--matiere); color: #fff; }
+.lum__bouton--defi { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+.lum__bouton--defi:hover { background: var(--matiere); }
+.lum__compteur { font-family: var(--donnee); font-size: .74rem; color: var(--encre-doux); }
+.lum__defi { display: none; padding: 1.4rem 1.6rem 1.2rem; }
+.lum__defi.est-visible { display: block; }
+.lum__indice { margin: 0 0 1.1rem; padding: 1rem 1.2rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: 1.05rem; line-height: 1.6; }
+.lum__choix { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .6rem; margin-bottom: 1rem; }
+.lum__choix button { font-family: var(--titre); font-weight: 600; font-size: .9rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .7rem .9rem; cursor: pointer; text-align: left; transition: background .15s, border-color .15s; }
+.lum__choix button:hover:not(:disabled) { border-color: var(--matiere); background: var(--matiere-voile); }
+.lum__choix button:disabled { cursor: default; opacity: .55; }
+.lum__choix button.est-juste { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; opacity: 1; }
+.lum__choix button.est-faux { border-color: var(--signal); background: var(--signal); color: #1A2530; opacity: 1; }
+.lum__verdict { font-size: .95rem; line-height: 1.6; margin: 0 0 .9rem; color: var(--encre); min-height: 3rem; }
+.lum__score { font-family: var(--donnee); font-size: .78rem; color: var(--encre-doux); margin: 0; }
+html[data-sombre="on"] .lum__entete { background: var(--matiere-voile); color: var(--encre); }
+html[data-sombre="on"] .lum__consigne { color: var(--encre-pale); }
+@media (max-width: 40rem) { .lum__panneau, .lum__defi { padding: 1.1rem 1rem 1rem; } .lum__galerie { padding: .8rem; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr)); } }
+@media print { .lum__galerie, .lum__pied, .lum__defi { display: none; } .lum__panneau { display: block; } }
+</style>
+<header class="lum__entete">
+<h3 class="lum__titre">Les philosophes des Lumières</h3>
+<p class="lum__consigne">Choisis un penseur, puis relève le défi</p>
+</header>
+<div class="lum__medias" hidden>
+<img data-lum-portrait="0" src="../medias/09-revolution-americaine/locke.jpg" alt="Portrait de John Locke">
+<img data-lum-portrait="1" src="../medias/09-revolution-americaine/montesquieu.png" alt="Portrait de Montesquieu">
+<img data-lum-portrait="2" src="../medias/09-revolution-americaine/voltaire.jpg" alt="Portrait de Voltaire">
+<img data-lum-portrait="3" src="../medias/09-revolution-americaine/rousseau.jpg" alt="Portrait de Jean-Jacques Rousseau">
+</div>
+<div class="lum__galerie" data-lum="galerie" role="tablist" aria-label="Les sept philosophes"></div>
+<div class="lum__panneau" data-lum="panneau"></div>
+<div class="lum__defi" data-lum="defi">
+<div class="lum__haut"><h4 class="lum__nom">Défi : qui suis-je?</h4></div>
+<p class="lum__indice" data-lum="indice"></p>
+<div class="lum__choix" data-lum="choix"></div>
+<p class="lum__verdict" data-lum="verdict" role="status"></p>
+<p class="lum__score" data-lum="score"></p>
+</div>
+<div class="lum__pied">
+<button class="lum__bouton lum__bouton--defi" type="button" data-lum="basculer">Passer au défi</button>
+<span class="lum__compteur" data-lum="compteur"></span>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("philosophes");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+
+  var PAYS = {
+    angleterre: { nom: "Angleterre", teinte: "#1F4E79" },
+    france: { nom: "France", teinte: "#7A2E2E" },
+    suisse: { nom: "Suisse", teinte: "#2F6B4F" }
+  };
+
+
+  var FICHES = [
+    {
+      nom: "John Locke", pays: "angleterre", initiales: "JL",
+      infos: [["Pays", "Angleterre"], ["Dates", "1632 à 1704"], ["Oeuvre clé", "Traité du gouvernement civil"]],
+      texte: [
+        "John Locke est un philosophe anglais. Il considère que tous les hommes naissent égaux et il s'oppose à la monarchie absolue.",
+        "Il croit aux droits fondamentaux de l'être humain, comme le droit à la vie, à la liberté et à la propriété.",
+        "Il propose une politique fondée sur la liberté individuelle : le libéralisme. Thomas Jefferson s'inspirera directement de ses écrits pour rédiger la Déclaration d'indépendance."
+      ],
+      idees: ["Tous les hommes naissent égaux", "Opposition à la monarchie absolue",
+              "Droit à la vie, à la liberté et à la propriété", "Le libéralisme"],
+      indice: "Anglais, j'affirme que chacun a droit à la vie, à la liberté et à la propriété."
+    },
+    {
+      nom: "Montesquieu", pays: "france", initiales: "M",
+      infos: [["Pays", "France"], ["Dates", "1689 à 1755"], ["Oeuvre clé", "De l'esprit des lois"]],
+      texte: [
+        "Montesquieu est un philosophe français. Il met de l'avant le principe de la séparation des pouvoirs.",
+        "Selon lui, le pouvoir législatif, qui écrit les lois, le pouvoir exécutif, qui les applique, et le pouvoir judiciaire, qui juge, devraient être indépendants les uns des autres.",
+        "Le roi ne devrait posséder que le pouvoir exécutif. Ce principe est aujourd'hui au coeur des démocraties, dont celles du Canada et des États-Unis."
+      ],
+      idees: ["La séparation des pouvoirs", "Un pouvoir législatif indépendant",
+              "Un pouvoir judiciaire indépendant", "Le roi limité à l'exécutif"],
+      indice: "Français, je propose de séparer les pouvoirs législatif, exécutif et judiciaire."
+    },
+    {
+      nom: "Voltaire", pays: "france", initiales: "V",
+      infos: [["Pays", "France"], ["Dates", "1694 à 1778"], ["Oeuvre clé", "Traité sur la tolérance"]],
+      texte: [
+        "Voltaire est un philosophe français. Il défend avant tout la tolérance religieuse.",
+        "Selon lui, l'État ne peut pas imposer une religion, ni interdire la pratique des nombreux cultes.",
+        "Il défend aussi la liberté de croyance et la liberté de pensée des individus. Ses combats contre l'injustice et le fanatisme ont marqué tout le siècle."
+      ],
+      idees: ["La tolérance religieuse", "L'État n'impose aucune religion",
+              "La liberté de croyance", "La liberté de pensée"],
+      indice: "Français, je me bats pour la tolérance religieuse et la liberté de pensée."
+    },
+    {
+      nom: "Jean-Jacques Rousseau", pays: "suisse", initiales: "JR",
+      infos: [["Pays", "Suisse"], ["Dates", "1712 à 1778"], ["Oeuvre clé", "Du contrat social"]],
+      texte: [
+        "Jean-Jacques Rousseau est un philosophe suisse. Il considère que tous les hommes sont égaux.",
+        "Il soutient que le peuple possède le pouvoir : c'est la souveraineté populaire.",
+        "Il écrit Du contrat social, un traité philosophique qui explique que les hommes renoncent à certaines libertés en échange de la vie en société. Cette idée du consentement des gouvernés inspirera les révolutionnaires américains et français."
+      ],
+      idees: ["Tous les hommes sont égaux", "Le peuple possède le pouvoir",
+              "Le contrat social", "Le consentement des gouvernés"],
+      indice: "Suisse, j'écris Du contrat social et j'affirme que le peuple détient le pouvoir."
+    }
+  ];
+
+
+  var galerie = racine.querySelector('[data-lum="galerie"]');
+  var panneau = racine.querySelector('[data-lum="panneau"]');
+  var zoneDefi = racine.querySelector('[data-lum="defi"]');
+  var basculer = racine.querySelector('[data-lum="basculer"]');
+  var compteur = racine.querySelector('[data-lum="compteur"]');
+  var courante = 0;
+
+  function el(balise, classe, contenu) {
+    var n = document.createElement(balise);
+    if (classe) n.className = classe;
+    if (contenu) n.textContent = contenu;
+    return n;
+  }
+
+  FICHES.forEach(function (f, i) {
+    var c = PAYS[f.pays];
+    var v = el("button", "lum__vignette");
+    v.type = "button";
+    v.setAttribute("role", "tab");
+    v.setAttribute("aria-label", f.nom + ", " + c.nom);
+    var img = racine.querySelector('[data-lum-portrait="' + i + '"]');
+    if (img) {
+      img.className = "lum__portrait";
+      img.loading = "lazy";
+      img.onerror = function () { img.classList.add("est-absent"); };
+      v.appendChild(img);
+    }
+    var initiales = el("span", "lum__initiales", f.initiales);
+    v.appendChild(initiales);
+    if (!img) initiales.style.display = "flex";
+    var legende = el("span", "lum__legende", f.nom);
+    legende.appendChild(el("span", "lum__couronne", c.nom));
+    v.appendChild(legende);
+    v.addEventListener("click", function () { montrer(i); });
+    galerie.appendChild(v);
+  });
+
+  function montrer(i) {
+    courante = i;
+    var f = FICHES[i], c = PAYS[f.pays];
+    zoneDefi.classList.remove("est-visible");
+    panneau.style.display = "";
+    basculer.textContent = "Passer au défi";
+    Array.prototype.forEach.call(galerie.children, function (v, j) {
+      v.classList.toggle("est-actif", j === i);
+      v.setAttribute("aria-selected", j === i ? "true" : "false");
+    });
+    panneau.innerHTML = "";
+    var haut = el("div", "lum__haut");
+    haut.appendChild(el("h4", "lum__nom", f.nom));
+    var service = el("span", "lum__service", c.nom);
+    service.style.background = c.teinte;
+    haut.appendChild(service);
+    haut.style.borderBottomColor = c.teinte;
+    panneau.appendChild(haut);
+    var grille = el("dl", "lum__grille");
+    f.infos.forEach(function (paire) {
+      var d = el("div");
+      d.appendChild(el("dt", "", paire[0]));
+      d.appendChild(el("dd", "", paire[1]));
+      grille.appendChild(d);
+    });
+    panneau.appendChild(grille);
+    var texte = el("div", "lum__texte");
+    f.texte.forEach(function (paragraphe) { texte.appendChild(el("p", "", paragraphe)); });
+    panneau.appendChild(texte);
+    var idees = el("ul", "lum__idees");
+    f.idees.forEach(function (idee) { idees.appendChild(el("li", "", idee)); });
+    panneau.appendChild(idees);
+    compteur.textContent = "Elumorateur " + (i + 1) + " sur " + FICHES.length;
+  }
+
+  // ------------------------------------------------------------- le défi
+  var indice = racine.querySelector('[data-lum="indice"]');
+  var choix = racine.querySelector('[data-lum="choix"]');
+  var verdict = racine.querySelector('[data-lum="verdict"]');
+  var score = racine.querySelector('[data-lum="score"]');
+  var ordre = [], rang = 0, reussites = 0;
+
+  function melanger(liste) {
+    var copie = liste.slice();
+    for (var i = copie.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = copie[i]; copie[i] = copie[j]; copie[j] = t;
+    }
+    return copie;
+  }
+
+  function lancerDefi() {
+    ordre = melanger(FICHES.map(function (f, i) { return i; }));
+    rang = 0; reussites = 0;
+    poser();
+  }
+
+  function poser() {
+    if (rang >= ordre.length) {
+      indice.textContent = "Défi terminé.";
+      choix.innerHTML = "";
+      verdict.textContent = reussites + " bonne(s) réponse(s) sur " + ordre.length +
+        (reussites === ordre.length ? ". Sans faute, bravo!" : ". Reprends les fiches pour les revoir.");
+      score.textContent = "";
+      var encore = el("button", "lum__bouton lum__bouton--defi", "Recommencer");
+      encore.type = "button";
+      encore.addEventListener("click", lancerDefi);
+      choix.appendChild(encore);
+      return;
+    }
+    var bonne = ordre[rang];
+    indice.textContent = "« " + FICHES[bonne].indice + " »";
+    verdict.textContent = "";
+    score.textContent = "Question " + (rang + 1) + " sur " + ordre.length + " · " + reussites + " bonne(s) réponse(s)";
+    choix.innerHTML = "";
+    melanger(FICHES.map(function (f, i) { return i; })).forEach(function (i) {
+      var b = el("button", "", FICHES[i].nom);
+      b.type = "button";
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(choix.children, function (a) { a.disabled = true; });
+        if (i === bonne) { b.classList.add("est-juste"); reussites++; }
+        else {
+          b.classList.add("est-faux");
+          Array.prototype.forEach.call(choix.children, function (a) {
+            if (a.textContent === FICHES[bonne].nom) a.classList.add("est-juste");
+          });
+        }
+        verdict.textContent = (i === bonne ? "Juste. " : "Non, c'était " + FICHES[bonne].nom + ". ") +
+          FICHES[bonne].indice;
+        rang++;
+        setTimeout(poser, 2400);
+      });
+      choix.appendChild(b);
+    });
+  }
+
+  basculer.addEventListener("click", function () {
+    var ouvert = zoneDefi.classList.toggle("est-visible");
+    panneau.style.display = ouvert ? "none" : "";
+    basculer.textContent = ouvert ? "Revenir aux fiches" : "Passer au défi";
+    compteur.textContent = ouvert ? "Quatre indices à identifier" : "Elumorateur " + (courante + 1) + " sur " + FICHES.length;
+    if (ouvert && !ordre.length) lancerDefi();
+  });
+
+  var reserve = racine.querySelector(".lum__medias");
+  if (reserve) reserve.remove();
+  montrer(0);
+})();
+</script>
+</section>

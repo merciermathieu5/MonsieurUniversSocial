@@ -1055,3 +1055,100 @@ Vérifié par simulation sur les trois cas : dépôt sous le nom Commons
 accentué, dépôt sous le nom du registre, et fichier étranger correctement
 ignoré.
 
+## Fiche : La Révolution américaine
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « le commerce y était très rentables » devient « rentable »
+- « une assemblée composée des délégués » et les autres définitions de
+  congrès sont conservées telles quelles
+- « Le bilan humain [...] Les morts, chez les populations civiles, est
+  énorme » devient « Le nombre de morts chez les populations civiles est
+  énorme »
+- « les 13 États » devient « les treize États », « 12 autres colonies »
+  devient « douze autres colonies », par cohérence avec le reste du site
+- « Georges Washington » devient « George Washington », son prénom exact
+- « Allo Prof » devient « Alloprof », « Herodote.net » devient
+  « Hérodote.net »
+- « majoritairement britannique » devient « britanniques »
+- « colons américains rejetèrent » : la phrase disait « les habitants des
+  Treize colonies américains », corrigé en « les habitants des Treize
+  colonies »
+- Les ligatures oe sont retirées (oeuvre, coeur)
+
+### Précautions prises, en réponse aux problèmes de la fiche précédente
+
+**1. Identités vérifiées.** Après l'épisode du faux portrait de Kepler,
+j'ai vérifié que chaque fichier représente bien la personne annoncée :
+Locke par Kneller, Montesquieu de Versailles, Voltaire par l'atelier de
+Largillière, Rousseau par La Tour.
+
+**2. Le tableau de Trumbull.** Sa légende dit bien que l'oeuvre montre le
+comité de rédaction présentant la Déclaration au Congrès, et non la
+signature, contrairement à ce qu'on lit souvent. C'est l'erreur la plus
+répandue à propos de ce tableau.
+
+**3. Noms de fichiers.** Tous simples et ASCII, sauf celui de Voltaire, le
+seul portrait fiable que j'aie trouvé; son champ de recherche sert de
+repli, et le dépôt manuel reste possible.
+
+**4. Conventions appliquées d'emblée.** Pas de point après les intertitres
+des encadrés, sources en petit et en gris, figures en tête de bloc,
+sous-titres de niveau 4 pour les étapes du déroulement, contrastes des
+schémas vérifiés, aucune ponctuation orpheline.
+
+### Tes décisions, appliquées (livraison 67)
+
+1. Les deux vidéos fournies sont en place, en duo après le module.
+2. La date de naissance de Locke est corrigée à 1632.
+3. Le jeu d'évasion est retiré.
+4. Les deux entrevues d'Aujourd'hui l'histoire pointent vers leurs adresses
+   exactes, avec le nom de Régis Coursin.
+5. Le lien Canva est abandonné. Le Padlet est intégré de manière
+   interactive, dans un cadre redimensionnable doublé d'un lien
+   d'ouverture. Le bloc ::: integration est nouveau et resservira pour
+   Genially et LearningApps.
+6. Les PDF des systèmes politiques ne sont pas intégrés.
+7. Les exercices interactifs sont remplacés par les blocs de questions déjà
+   présents à la fin de chaque grande section.
+8. Les mises en scène générées par intelligence artificielle sont
+   remplacées par des documents d'époque : la lecture d'une tragédie de
+   Voltaire dans le salon de Madame Geoffrin, peinte par Lemonnier, qui
+   réunit Rousseau, Montesquieu, Diderot et d'Alembert, et la gravure de
+   propagande de Paul Revere sur le massacre de Boston.
+
+### Anciennes propositions, pour mémoire
+
+**1. Deux schémas neufs**
+
+frise-revolution, de 1763 à 1791 avec six repères, et causes-revolution,
+qui montre les cinq causes menant à la rupture puis à la Déclaration de
+1776.
+
+**2. Module interactif des philosophes**
+
+Tes quatre philosophes deviennent un module sur le modèle de celui des
+explorateurs : une fiche par penseur, avec son pays, ses dates, son oeuvre
+clé, ton texte intégral et ses idées en jetons, plus un défi « Qui suis-je?
+». Les liens Genially et les exercices interactifs de ta page n'étaient pas
+accessibles; dis-moi si tu veux que je les ajoute.
+
+**3. Vidéos**
+
+Réglé : tu as fourni les deux adresses. J'avais inscrit deux identifiants
+inventés, ce qui était une faute; ils ont été retirés avant livraison.
+
+**4. Liens à compléter**
+
+Le jeu d'évasion et les deux émissions d'Aujourd'hui l'histoire pointent
+vers des pages générales, faute d'adresses précises sur ta page. Donne-les
+et je les inscris.
+
+**5. Un défaut d'outil corrigé au passage**
+
+L'outil de regroupement des paragraphes protégeait les mentions de la forme
+(Source ...), mais pas celles de la forme Source : Alloprof, ni les lignes
+d'attributs qui posent une classe. Il en a collé trois au milieu du texte
+avant que je m'en aperçoive au contrôle. Les deux cas sont maintenant
+protégés dans l'outil, la fiche est réparée, et la règle est au README.
+

@@ -346,6 +346,9 @@ composant pour éviter de refaire les mêmes itérations.
 - Les mentions de sources, en paragraphe seul ou en fin de paragraphe, se
   différencient du fil du texte : build.py leur pose automatiquement la
   classe source-texte (petite, grise, police de données).
+- Le bloc ::: integration ADRESSE intègre une ressource interactive (Padlet,
+  Genially, LearningApps) dans un cadre redimensionnable, doublé d'un lien
+  d'ouverture : hors ligne ou si le service tombe, l'adresse reste visible.
 - Le bloc ::: cartes présente des éléments parallèles (objectifs, volets,
   critères) en encadrés côte à côte : un paragraphe par carte, amorcé par
   un intertitre en gras qui devient le titre de la carte. Quatre cartes se
@@ -364,7 +367,8 @@ composant pour éviter de refaire les mêmes itérations.
 - Pas de paragraphes de moins de trois lignes qui s'empilent :
   outils/paragraphes.py regroupe les paragraphes courts quand c'est
   pertinent (seuils COURT et MAX_FUSION dans l'outil, citations « »,
-  sources, annonces de listes et paragraphes amorcés par un intertitre en
-  gras protégés). Rapport sans argument,
+  sources (avec ou sans parenthèses), lignes d'attributs {: .classe },
+  annonces de listes et paragraphes amorcés par un intertitre en gras
+  protégés). Rapport sans argument,
   application avec --appliquer FICHE.
 

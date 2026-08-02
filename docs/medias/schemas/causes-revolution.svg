@@ -1,0 +1,56 @@
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les cinq causes de la Révolution américaine : la Proclamation royale, les taxes, la non-représentation, le contrôle économique et le sentiment national, qui mènent à l'indépendance">
+  <style>
+    .cr-t { font-family: Archivo, sans-serif; }
+    .cr-h { font-size: 12.5px; font-weight: 600; letter-spacing: .06em; fill: var(--encre-doux); }
+    .cr-n { font-size: 14px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .cr-s { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .cr-nb { font-size: 14px; font-weight: 700; fill: var(--bloc-texte); }
+    .cr-sb { font-size: 12px; fill: var(--bloc-texte); }
+    .cr-f { font-size: 16px; font-weight: 700; fill: var(--surface); }
+    .cr-fs { font-size: 13px; font-weight: 600; fill: var(--surface); }
+    .cr-fl { stroke: var(--schema-trait); stroke-width: 2.5; fill: none; }
+  </style>
+  <text class="cr-t cr-h" x="40" y="34" text-anchor="start">CINQ CAUSES</text>
+  <text class="cr-t cr-h" x="1060" y="34" text-anchor="end">UN RÉSULTAT</text>
+
+  <rect x="40" y="52" width="330" height="56" rx="6" fill="var(--bloc-pale)"/>
+  <text class="cr-t cr-n" x="60" y="76" text-anchor="start">La Proclamation royale de 1763</text>
+  <text class="cr-t cr-s" x="60" y="96" text-anchor="start">Les terres de l'Ouest sont fermées aux colons</text>
+
+  <rect x="40" y="118" width="330" height="56" rx="6" fill="var(--bloc-pale)"/>
+  <text class="cr-t cr-n" x="60" y="142" text-anchor="start">Des taxes jugées injustifiées</text>
+  <text class="cr-t cr-s" x="60" y="162" text-anchor="start">Sugar Act, Stamp Act et Tea Act</text>
+
+  <rect x="40" y="184" width="330" height="56" rx="6" fill="var(--bloc-pale)"/>
+  <text class="cr-t cr-n" x="60" y="208" text-anchor="start">La non-représentation</text>
+  <text class="cr-t cr-s" x="60" y="228" text-anchor="start">Aucun député des colonies à Londres</text>
+
+  <rect x="40" y="250" width="330" height="56" rx="6" fill="var(--bloc-pale)"/>
+  <text class="cr-t cr-n" x="60" y="274" text-anchor="start">Le contrôle économique</text>
+  <text class="cr-t cr-s" x="60" y="294" text-anchor="start">Commercer seulement avec la métropole</text>
+
+  <rect x="40" y="316" width="330" height="56" rx="6" fill="var(--bloc-pale)"/>
+  <text class="cr-t cr-n" x="60" y="340" text-anchor="start">Un sentiment national</text>
+  <text class="cr-t cr-s" x="60" y="360" text-anchor="start">Les colons se disent désormais Américains</text>
+
+  <line class="cr-fl" x1="380" y1="80" x2="470" y2="190"/>
+  <line class="cr-fl" x1="380" y1="146" x2="470" y2="197"/>
+  <line class="cr-fl" x1="380" y1="212" x2="474" y2="212"/>
+  <line class="cr-fl" x1="380" y1="278" x2="470" y2="227"/>
+  <line class="cr-fl" x1="380" y1="344" x2="470" y2="234"/>
+  <polygon points="486,212 468,204 468,220" fill="var(--schema-trait)"/>
+
+  <rect x="490" y="150" width="270" height="124" rx="8" fill="var(--bloc)"/>
+  <text class="cr-t cr-nb" x="625" y="196" text-anchor="middle">La rupture</text>
+  <text class="cr-t cr-sb" x="625" y="220" text-anchor="middle">Massacre de Boston, Boston Tea</text>
+  <text class="cr-t cr-sb" x="625" y="238" text-anchor="middle">Party, congrès continentaux</text>
+
+  <line class="cr-fl" x1="770" y1="212" x2="846" y2="212"/>
+  <polygon points="862,212 844,204 844,220" fill="var(--schema-trait)"/>
+
+  <rect x="866" y="150" width="194" height="124" rx="8" fill="var(--schema-accent)"/>
+  <text class="cr-t cr-f" x="963" y="190" text-anchor="middle">1776</text>
+  <text class="cr-t cr-fs" x="963" y="216" text-anchor="middle">La Déclaration</text>
+  <text class="cr-t cr-fs" x="963" y="236" text-anchor="middle">d'indépendance</text>
+</svg>

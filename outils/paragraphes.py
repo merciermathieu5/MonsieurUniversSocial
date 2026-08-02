@@ -90,6 +90,13 @@ def fusionnable(a: dict, b: dict) -> bool:
         return False
     if ta.startswith("(Source") or tb.startswith("(Source"):
         return False
+    # Une mention de source, avec ou sans parenthèses, reste un paragraphe
+    # distinct : sa classe est posée par une ligne d'attributs qui suit, et la
+    # fusion la collerait au milieu du texte.
+    if re.match(r"^\(?Sources? ", ta) or re.match(r"^\(?Sources? ", tb):
+        return False
+    if "{:" in ta or "{:" in tb:
+        return False
     if tb.startswith("**"):
         return False  # un paragraphe amorcé par un intertitre gras reste distinct
     if ta.endswith(":"):
