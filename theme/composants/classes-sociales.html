@@ -34,6 +34,9 @@ html[data-sombre="on"] .cls .cls__titre { color: var(--encre); }
 .cls__age { display: inline-block; font-family: var(--donnee); font-size: .7rem; color: var(--signal); margin-bottom: .2rem; }
 .cls__etape p { margin: 0; font-size: .93rem; line-height: 1.55; }
 .cls .cls__puces { display: flex; flex-wrap: wrap; gap: .5rem; margin: .3rem 0 1rem; padding: 0; list-style: none; }
+.cls li { list-style: none; }
+.cls li::marker { content: ""; }
+.cls li::before { content: none; }
 .cls .cls__puces > li { position: static; margin: 0; }
 .cls .cls__puces > li::before { content: none; display: none; }
 .cls__puce { font-family: var(--donnee); font-size: .74rem; background: var(--matiere-voile); color: var(--matiere-fonce); border-radius: 100px; padding: .3rem .8rem; }

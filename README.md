@@ -273,6 +273,21 @@ des redirections. Une bonne partie du trafic arrive par Google.
 | Histoire, La sédentarisation | Révisée |
 | Les 26 autres | À extraire puis réviser |
 
+## Contrôles automatiques
+
+Les conventions ci-dessous ne sont pas seulement écrites : outils/verifier.py
+les applique. Deux sections s'ajoutent aux précédentes.
+
+- COMPOSANTS vérifie chaque fichier de theme/composants : absence de titre de
+  niveau 2 ou 3, neutralisation des puces et du ::marker sur toute liste,
+  display block sur deux textes qui se suivent dans un bouton, repli des
+  images absentes, variante pour le thème sombre sur les fonds foncés.
+- CONVENTIONS vérifie les fiches : pas de point final après l'intertitre d'un
+  encadré ::: cartes, légendes de 55 caractères au plus en cadrage petit.
+
+Toute règle de mise en page signalée deux fois doit devenir un contrôle ici,
+sinon elle réapparaîtra dans le composant suivant.
+
 ## Conventions visuelles
 
 Règles tirées des rétroactions, à respecter dans toute fiche et tout

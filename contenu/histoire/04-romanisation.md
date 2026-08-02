@@ -126,7 +126,7 @@ et de l'ensemble des citoyens romains. » (Source : Wikipédia)
 
 ## L'Empire romain (-27 à 476)
 
-![Auguste, premier empereur romain, statue dite de Prima Porta](../medias/04-romanisation/auguste-prima-porta.jpg)
+![Auguste, statue dite de Prima Porta](../medias/04-romanisation/auguste-prima-porta.jpg)
 
 L'Empire fut fondé par Auguste, qui mit fin à la dernière guerre civile de la
 République romaine. Il s'agit d'un système politique où l'empereur s'appuie

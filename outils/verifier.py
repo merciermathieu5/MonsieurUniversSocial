@@ -21,6 +21,8 @@ from __future__ import annotations
 
 import re
 import sys
+
+import yaml
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -468,6 +470,86 @@ def controler_editorial() -> list[str]:
 
 
 
+COMPOSANTS = RACINE / "theme" / "composants"
+
+
+def controler_composants() -> list[str]:
+    """Vérifie mécaniquement les conventions des composants interactifs.
+
+    Chaque règle ici vient d'un défaut qui a été signalé au moins une fois.
+    Les consigner au README ne suffisait pas : rien ne les vérifiait, et le
+    même défaut revenait dans le composant suivant.
+    """
+    soucis = []
+    if not COMPOSANTS.exists():
+        return soucis
+    for fichier in sorted(COMPOSANTS.glob("*.html")):
+        nom = fichier.name
+        texte = fichier.read_text(encoding="utf-8")
+
+        # 1. Un titre de niveau 2 ou 3 découpe les blocs du moteur : une
+        #    galerie viendrait alors se loger dans le composant.
+        for niveau in ("h2", "h3"):
+            if re.search(rf"<{niveau}[ >]", texte):
+                soucis.append(f"{nom} : contient un <{niveau}>, "
+                              f"utiliser <p role=\"heading\" aria-level=\"3\">")
+
+        # 2. Toute liste doit neutraliser les puces du thème, sinon elles
+        #    réapparaissent au milieu des jetons et des chronologies.
+        if re.search(r"<[uo]l[ >]", texte) or "createElement(\"li\")" in texte or 'el("li"' in texte:
+            if "list-style: none" not in texte:
+                soucis.append(f"{nom} : contient une liste sans list-style: none")
+            if "::marker" not in texte:
+                soucis.append(f"{nom} : liste sans neutralisation de ::marker")
+
+        # 3. Deux éléments de texte qui se suivent dans un bouton doivent
+        #    être en bloc, sinon ils se chevauchent sur la même ligne.
+        paires = re.findall(r'appendChild\(el\("span", "(\w+)__(nom|titre)"[^)]*\)\);\s*'
+                            r'\w+\.appendChild\(el\("span", "\w+__(\w+)"', texte)
+        for prefixe, _, suivant in paires:
+            for classe in (f"{prefixe}__nom", f"{prefixe}__{suivant}"):
+                if not re.search(rf"\.{re.escape(classe)} \{{[^}}]*display: block", texte):
+                    soucis.append(f"{nom} : .{classe} suit ou précède un autre "
+                                  f"texte sans display: block")
+
+        # 4. Un composant qui affiche des images doit gérer leur absence,
+        #    sinon la vignette casse tant que le fichier n'est pas récupéré.
+        if "<img" in texte and "onerror" not in texte and "est-absent" not in texte:
+            soucis.append(f"{nom} : images sans repli en cas d'absence")
+
+        # 5. Le thème sombre doit être prévu pour les bandeaux foncés.
+        if "--matiere-fonce" in texte and 'data-sombre="on"' not in texte:
+            soucis.append(f"{nom} : fond foncé sans variante pour le thème sombre")
+    return soucis
+
+
+def controler_conventions_fiches() -> list[str]:
+    """Contrôle les conventions d'écriture qui se répètent d'une fiche à l'autre."""
+    soucis = []
+    registre = {}
+    fichier_registre = RACINE / "medias" / "sources.yml"
+    if fichier_registre.exists():
+        registre = yaml.safe_load(fichier_registre.read_text(encoding="utf-8")) or {}
+    for chemin in sorted((RACINE / "contenu").rglob("*.md")):
+        texte = chemin.read_text(encoding="utf-8")
+        court = str(chemin.relative_to(RACINE))
+
+        # Pas de point final après l'intertitre d'un encadré ::: cartes.
+        for bloc in re.findall(r"^::: cartes\n(.*?)^:::$", texte, re.M | re.S):
+            for titre in re.findall(r"^\*\*([^*]+\.)\*\*", bloc, re.M):
+                soucis.append(f"{court} : intertitre de carte avec un point final, "
+                              f"« {titre} »")
+
+        # Une légende trop longue dans une colonne étroite allonge la figure
+        # et creuse un vide sous le texte : la règle ne vise que ce cadrage.
+        for legende, source in re.findall(r"^!\[([^\]]+)\]\(([^)]+)\)", texte, re.M):
+            nom_image = source.rsplit("/", 1)[-1]
+            if registre.get(nom_image, {}).get("cadrage") == "petit" and len(legende) > 55:
+                soucis.append(f"{court} : légende de {len(legende)} caractères "
+                              f"pour {nom_image}, en cadrage petit viser 55 au plus")
+    return soucis
+
+
 def controler_construit() -> list[str]:
     """Contrôles structurels sur les pages construites de docs/.
 
@@ -542,6 +624,22 @@ def main() -> int:
     if not editorial:
         print("    ok   figures en tête de bloc et paragraphes regroupés")
     soucis += editorial
+
+    print("\nCOMPOSANTS")
+    composants = controler_composants()
+    for c in composants:
+        print(f"    {c}")
+    if not composants:
+        print("    ok   conventions des composants respectées")
+    soucis += composants
+
+    print("\nCONVENTIONS")
+    conventions = controler_conventions_fiches()
+    for c in conventions:
+        print(f"    {c}")
+    if not conventions:
+        print("    ok   conventions d'écriture respectées")
+    soucis += conventions
 
     print("\nCONSTRUIT")
     construit = controler_construit()

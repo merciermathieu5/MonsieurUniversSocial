@@ -325,7 +325,7 @@ questions de compréhension pendant le visionnement.
 
 ### L'église romane, avant la cathédrale gothique
 
-![Les bas-côtés de la basilique romane Saint-Sernin de Toulouse](../medias/05-christianisation/eglise-romane.jpg)
+![La basilique romane Saint-Sernin de Toulouse](../medias/05-christianisation/eglise-romane.jpg)
 
 Avant les grandes cathédrales gothiques, l'Occident bâtit des églises
 romanes, surtout entre le 10e et le 12e siècle. L'église romane se reconnaît
