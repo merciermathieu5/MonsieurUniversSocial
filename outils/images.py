@@ -224,9 +224,9 @@ def resoudre(entree: dict, largeur: int, bavard: bool = False) -> dict | None:
 
 def essayer(url: str) -> bytes:
     dernier = ""
-    for tentative in range(3):
+    for tentative in range(2):
         if tentative:
-            time.sleep(2 + 3 * tentative)
+            time.sleep(2)
         try:
             reponse = requests.get(url, timeout=90, headers=ENTETES)
         except Exception as erreur:
@@ -256,19 +256,17 @@ def recuperer(trouve: dict, titre: str, largeurs: list[int]) -> bytes:
             return essayer(info["vignette"])
         except Exception as erreur:
             if "429" in str(erreur):
-                # Commons demande de ralentir. Les dernières images d'un gros
-                # lot sont les plus touchées : on patiente deux fois, de plus
-                # en plus longtemps, avant de passer à la largeur suivante.
-                for attente in (30, 60):
-                    time.sleep(attente)
-                    try:
-                        return essayer(info["vignette"])
-                    except Exception as seconde:
-                        dernier_essai = seconde
-                soucis.append(f"{largeur}px : {dernier_essai}")
+                # Commons demande de ralentir : une seule pause courte, une
+                # seule reprise. Deux longues attentes par largeur coûtaient
+                # jusqu'à six minutes par image, pour un gain quasi nul.
+                time.sleep(12)
+                try:
+                    return essayer(info["vignette"])
+                except Exception as seconde:
+                    soucis.append(f"{largeur}px : {seconde}")
             else:
                 soucis.append(f"{largeur}px : {erreur}")
-        time.sleep(2)
+        time.sleep(.4)
     if trouve.get("mime") == "image/svg+xml":
         soucis.append("SVG : seule une vignette est exploitable")
         raise ValueError(" ; ".join(soucis))
@@ -464,7 +462,6 @@ def main():
                 print(f"  ok     {nom}  {len(contenu) // 1024} ko  (ancien site)")
                 reussites += 1
                 sauvegarder()
-                time.sleep(1)
             except Exception as erreur:
                 print(f"  ECHEC  {nom} : {erreur}")
                 print("         En dernier recours : clic droit sur la carte dans le")

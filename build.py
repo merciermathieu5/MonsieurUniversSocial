@@ -339,15 +339,54 @@ def grouper(section: dict) -> list:
     return resultat
 
 
+def synchroniser_medias(source: Path, cible: Path) -> tuple:
+    """Recopie uniquement les médias nouveaux ou modifiés.
+
+    Comparer la taille et la date de modification suffit ici : les images ne
+    sont jamais réécrites sur place, elles sont remplacées. On évite ainsi de
+    recopier des dizaines de mégaoctets à chaque construction.
+    """
+    copies = retires = 0
+    attendus = set()
+    for fichier in source.rglob("*"):
+        if fichier.is_dir() or fichier.name == "sources.yml":
+            continue
+        relatif = fichier.relative_to(source)
+        attendus.add(relatif)
+        destination = cible / relatif
+        if destination.exists():
+            avant, apres = fichier.stat(), destination.stat()
+            if (avant.st_size == apres.st_size
+                    and int(avant.st_mtime) <= int(apres.st_mtime)):
+                continue
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(fichier, destination)
+        copies += 1
+    if cible.exists():
+        for fichier in list(cible.rglob("*")):
+            if fichier.is_dir():
+                continue
+            if fichier.relative_to(cible) not in attendus:
+                fichier.unlink()
+                retires += 1
+    return copies, retires
+
+
 def construire(servir: bool = False, brouillon: bool = False) -> None:
     global BROUILLON
     BROUILLON = brouillon
     manquantes.clear()
     config = yaml.safe_load((RACINE / "site.yml").read_text(encoding="utf-8"))
     sortie = RACINE / config.get("sortie", "public")
+    # On efface les pages construites, mais on garde sortie/medias : recopier
+    # 75 Mo d'images à chaque construction prend des minutes sur un disque
+    # ordinaire, alors que presque rien n'a changé.
     if sortie.exists():
-        shutil.rmtree(sortie)
-    sortie.mkdir(parents=True)
+        for element in sortie.iterdir():
+            if element.name == "medias":
+                continue
+            shutil.rmtree(element) if element.is_dir() else element.unlink()
+    sortie.mkdir(parents=True, exist_ok=True)
 
     sections = charger_tout(config)
 
@@ -388,8 +427,9 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     shutil.copy2(THEME / "style.css", sortie / "style.css")
     shutil.copy2(THEME / "page.js", sortie / "page.js")
     if MEDIAS.exists():
-        shutil.copytree(MEDIAS, sortie / "medias", dirs_exist_ok=True,
-                        ignore=shutil.ignore_patterns("sources.yml"))
+        copies, retires = synchroniser_medias(MEDIAS, sortie / "medias")
+        if copies or retires:
+            print(f"  medias : {copies} copiée(s), {retires} retirée(s)")
     (sortie / ".nojekyll").write_text("", encoding="utf-8")
 
     if manquantes:

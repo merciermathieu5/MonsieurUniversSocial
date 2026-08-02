@@ -1061,11 +1061,11 @@ caravelle.jpg:
   titre: ''
   licence: ''
   lien: ''
-astrolabe.png:
+astrolabe.jpg:
   cadrage: flottant
   fiche: 08-expansion-europeenne
-  commons: File:Astrolabe.png
-  recherche: astrolabe instrument
+  commons: File:Silver-plated Mariner's Astrolabe.jpg
+  recherche: mariner astrolabe navigation instrument
   auteur: ''
   titre: ''
   licence: ''
@@ -1120,6 +1120,87 @@ cortes-moctezuma.jpg:
   fiche: 08-expansion-europeenne
   commons: File:Cortes y moctezuma.jpg
   recherche: Cortes Moctezuma rencontre
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+copernic.jpg:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Nikolaus Kopernikus.jpg
+  recherche: Nicolaus Copernicus portrait Torun
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+galilee.jpg:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Galileo.arp.300pix.jpg
+  recherche: Galileo Galilei Sustermans portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+kepler.jpg:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Johannes Kepler 1610.jpg
+  recherche: Johannes Kepler 1610 portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-tordesillas.jpg:
+  cadrage: carte
+  fiche: 08-expansion-europeenne
+  commons: File:Map of Meridian Line set under the Treaty of Tordesillas.jpg
+  recherche: Treaty of Tordesillas meridian map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+navire-negrier.png:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Slave ship diagram.png
+  recherche: slave ship diagram Brookes stowage
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+dias.jpg:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Bartolomeu-Dias-217x300.jpg
+  recherche: Bartolomeu Dias portrait navigateur
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+vasco-de-gama.png:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Vasco da Gama.png
+  recherche: Vasco da Gama portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+cabot.jpg:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:JohnCabotPainting.jpg
+  recherche: John Cabot portrait painting
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+cabral.png:
+  cadrage: flottant
+  fiche: 08-expansion-europeenne
+  commons: File:Pedro Alvares Cabral.png
+  recherche: Pedro Alvares Cabral portrait
   auteur: ''
   titre: ''
   licence: ''

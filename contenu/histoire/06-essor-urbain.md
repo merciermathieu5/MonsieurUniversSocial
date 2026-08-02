@@ -117,16 +117,16 @@ encourage seigneurs et chevaliers à observer des moments de paix et des
 actions non violentes envers les paysans. Elle vise trois grands objectifs :
 
 ::: cartes
-**Protéger les biens de l'Église.** Les possessions ecclésiastiques, dont
+**Protéger les biens de l'Église** Les possessions ecclésiastiques, dont
 le nombre s'accroît grâce à des donateurs nombreux soucieux d'assurer le
 salut de leur âme après la mort.
 
-**Protéger les plus vulnérables.** Ceux qui ne peuvent pas se défendre :
+**Protéger les plus vulnérables** Ceux qui ne peuvent pas se défendre :
 les religieux (qui n'ont pas le droit de tuer), les paysans (qui ne savent
 pas manier les armes) et les pèlerins (qui réalisent des voyages
 spirituels).
 
-**Protéger les ressources.** Il est interdit de s'attaquer au bétail, aux
+**Protéger les ressources** Il est interdit de s'attaquer au bétail, aux
 moulins et aux animaux de labour, sous peine d'excommunication (l'exclusion
 de l'Église).
 :::

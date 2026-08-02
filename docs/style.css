@@ -384,6 +384,19 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
 }
 .texte tbody tr:nth-child(even) { background: var(--surface-2); }
 
+/* [Texte](url){: .bouton } : un lien mis en avant, par exemple vers une
+   vidéo hébergée ailleurs que sur YouTube. */
+.bouton {
+  display: inline-flex; align-items: center; gap: .5rem;
+  font-family: var(--titre); font-weight: 600; font-size: .92rem;
+  color: #fff; background: var(--matiere-fonce); text-decoration: none;
+  border: 0; border-radius: 100px; padding: .58rem 1.25rem;
+  transition: transform .15s, box-shadow .15s;
+}
+.bouton::after { content: "\2192"; }
+.bouton:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(26,37,48,.25); color: #fff; }
+html[data-sombre="on"] .bouton { background: var(--matiere-voile); color: var(--encre); }
+
 .source-texte {
   font-family: var(--donnee); font-size: .74rem; color: var(--encre-pale);
   letter-spacing: .02em;
@@ -515,12 +528,14 @@ details.credit > span { display: block; max-width: 34rem; }
   grid-template-columns: repeat(2, 1fr);
 }
 .cartes > p {
-  background: var(--surface); border: 1px solid var(--matiere-voile);
-  border-radius: 10px; padding: 1rem 1.15rem 1.1rem; margin: 0;
+  background: var(--matiere-voile); border: 0;
+  border-top: 3px solid var(--matiere);
+  border-radius: 0 0 10px 10px; padding: .95rem 1.15rem 1.1rem; margin: 0;
+  color: var(--encre);
 }
 .cartes > p > strong:first-child {
   display: block; font-family: var(--titre); letter-spacing: -.01em;
-  color: var(--matiere-fonce); margin-bottom: .4rem;
+  color: var(--matiere-fonce); margin-bottom: .4rem; font-size: 1.02rem;
 }
 
 .colonnage {

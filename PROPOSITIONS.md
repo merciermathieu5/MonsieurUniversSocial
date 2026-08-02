@@ -898,3 +898,73 @@ ville à risques naturels, tourisme, forestier, énergétique du Québec,
 autochtone et protégé. Dis-moi lequel ne doit pas être compté, ou si le
 compteur automatique te convient tel quel.
 
+### Retouches du 2 août 2026 (livraison 59), fiche 08
+
+Toutes les demandes sont appliquées :
+
+1. Les concepts commerce et territoire sont retirés.
+2. La frise nomme désormais la période qui suit le Moyen Âge : les Temps
+   modernes. La fin du Moyen Âge est fixée en 1492 et un astérisque, sous
+   la frise, explique que d'autres historiens retiennent 1453, l'année de
+   la prise de Constantinople.
+3. Les portraits de Copernic, de Galilée et de Kepler sont ajoutés sous le
+   texte de la section scientifique.
+4. Les intertitres des encadrés n'ont plus de point final, dans les trois
+   fiches qui en comportent (06, 07 et 08).
+5. Les encadrés prennent la couleur de la matière : fond voilé et filet
+   supérieur de 3 pixels dans la teinte de la section, donc bleu en
+   histoire et vert en géographie.
+6. La capsule Curio a son bouton, un nouveau style de lien réutilisable
+   ailleurs, et la vidéo U7rczI7Yn7o est ajoutée en duo avec la précédente.
+7. L'astrolabe planisphérique est remplacé par un astrolabe de marine, plus
+   proche de l'instrument des navigateurs.
+8. Les motivations gardent leur source, désormais en petit et en gris.
+9. Les sept explorateurs deviennent un module interactif sur le modèle des
+   fonctions de l'écriture : une fiche par explorateur, avec son pavillon,
+   sa grille d'informations, son récit et une question à révéler. La
+   surprise est en huitième position : un défi « Qui suis-je? » qui tire
+   les sept indices au hasard, corrige à chaque réponse et donne un score.
+   Les vidéos de Colomb et de Magellan suivent maintenant le module, au
+   lieu de flotter au milieu des fiches.
+10. La carte du méridien de Tordesillas est ajoutée, ainsi que le plan du
+    navire négrier Brookes de 1788, le document de référence des manuels
+    sur la traite.
+11. Le schéma du commerce triangulaire est refait : trois trajets numérotés
+    et fléchés dans leurs couleurs, les marchandises de chaque étape, la
+    durée et la mortalité de la traversée, et le mercantilisme nommé au
+    centre.
+
+### À valider
+
+**A. Portraits (réglé, livraison 60).** Les sept explorateurs ont
+maintenant leur portrait dans le module : Dias, Colomb, Vasco de Gama,
+Cabot, Cabral, Magellan et Cartier.
+
+**B. Le plan du navire négrier** est conservé, à ta demande. C'est le
+document que les manuels utilisent pour faire comprendre l'entassement des
+personnes déportées.
+
+### Rapidité de construire.bat (livraison 61)
+
+Deux causes, mesurées plutôt que devinées.
+
+1. **La copie des médias.** build.py effaçait tout le dossier docs/ puis
+   recopiait les 75 Mo d'images à chaque construction, soit 148 fichiers,
+   même quand rien n'avait changé. C'est peu coûteux sur un disque rapide,
+   mais très long sur un poste ordinaire, surtout avec un antivirus qui
+   inspecte chaque fichier copié. Désormais, docs/medias est conservé et
+   seuls les fichiers nouveaux ou modifiés sont copiés : 148 copies la
+   première fois, zéro ensuite. La construction annonce ce qu'elle a copié.
+
+2. **Mes attentes après un refus de Commons, et j'en suis responsable.** À
+   la livraison 50, j'avais fait patienter l'outil deux fois, 30 puis 60
+   secondes, à chaque largeur d'image essayée. Additionné aux tentatives
+   internes, cela pouvait coûter près de sept minutes pour une seule image
+   refusée, ce qui explique tes vingt-cinq minutes. L'outil ne fait plus
+   qu'une pause de douze secondes et une seule reprise par largeur, et les
+   tentatives inutiles sont réduites. Le pire cas passe d'environ 390
+   secondes à 49 secondes par image, soit près de 40 minutes économisées
+   sur un lot de six images difficiles.
+
+La règle est consignée au README pour ne pas réintroduire l'un ou l'autre.
+

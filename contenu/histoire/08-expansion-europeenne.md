@@ -11,7 +11,6 @@ fin: 1700
 angle: "Les grandes explorations"
 concepts:
   - colonisation
-  - commerce
   - culture
   - économie-monde
   - empire
@@ -19,7 +18,6 @@ concepts:
   - esclavage
   - Grandes découvertes
   - technologie
-  - territoire
 concepts_valides: true
 statut: brouillon
 image_entete: ""
@@ -42,8 +40,6 @@ politiques et économiques permet de saisir la portée des relations
 
 - Colonisation : la prise de possession d'un territoire par un pays
   étranger, qui l'exploite et y impose son autorité.
-- Commerce : l'achat et la vente de marchandises, ici à l'échelle des
-  océans.
 - Culture : les croyances, les langues et les manières de vivre d'une
   société, bouleversées par la rencontre entre les peuples.
 - Économie-monde : un vaste réseau d'échanges qui relie plusieurs
@@ -57,14 +53,25 @@ politiques et économiques permet de saisir la portée des relations
   16e siècles qui font connaître de nouveaux territoires aux Européens.
 - Technologie : les inventions et les techniques, comme la caravelle ou
   l'astrolabe, qui rendent les longs voyages possibles.
-- Territoire : un espace occupé, contrôlé et aménagé par une société.
 
 ## Situer dans le temps
 
 ::: schema frise-explorations
 :::
 
+\* La plupart des historiens fixent la fin du Moyen Âge en 1492, avec
+l'arrivée de Christophe Colomb en Amérique. D'autres retiennent plutôt
+1453, l'année de la prise de Constantinople par les Ottomans, qui met fin à
+l'Empire romain d'Orient. Les deux dates se défendent : elles marquent
+toutes deux un basculement du monde connu des Européens.
+
 ## Les connaissances scientifiques évoluent
+
+![Nicolas Copernic](../medias/08-expansion-europeenne/copernic.jpg)
+
+![Galilée, par Justus Sustermans](../medias/08-expansion-europeenne/galilee.jpg)
+
+![Johannes Kepler](../medias/08-expansion-europeenne/kepler.jpg)
 
 La période de la Renaissance, comme nous l'avons vu au chapitre précédent,
 amène une nouvelle vision de l'Homme, mais aussi de sa conception du monde
@@ -99,17 +106,17 @@ luxe. Parmi les produits recherchés, il y a les épices, la soie et les
 métaux précieux.
 
 ::: cartes
-**Les épices.** Le poivre, la cannelle, le clou de girofle et la muscade
+**Les épices** Le poivre, la cannelle, le clou de girofle et la muscade
 sont les principales épices recherchées à cette époque. On s'en servait
 comme moyen d'échange, pour ajouter de la saveur aux aliments, comme
 médicament, mais surtout comme moyen de conserver la nourriture.
 
-**La soie.** Les monarques européens ont développé un goût pour la soie
+**La soie** Les monarques européens ont développé un goût pour la soie
 chinoise. Ils cherchent donc à obtenir ce produit par la route de la soie,
 puisque la Chine est la seule à connaître son processus de fabrication. Ce
 tissu peut aussi servir de monnaie d'échange.
 
-**Les métaux précieux.** En Europe, on manque d'or et d'argent depuis le
+**Les métaux précieux** En Europe, on manque d'or et d'argent depuis le
 14e siècle. Les mines européennes et africaines sont épuisées,
 l'augmentation de la population oblige à émettre de plus en plus de monnaie
 et la guerre a vidé les coffres de plusieurs familles royales. Le Livre des
@@ -154,6 +161,17 @@ ou en tentant de contourner l'Afrique. Nous pouvons donc constater que :
 La chute d'une ville, la naissance d'un empire
 :::
 
+::: video U7rczI7Yn7o
+La prise de Constantinople en 1453
+:::
+
+::: activite
+La chaîne Curio propose une capsule de cinq minutes sur la chute de
+Constantinople, accessible avec l'abonnement de l'école.
+
+[Voir la capsule sur Curio](https://curio.ca/fr/catalog/b3d55498-6ed5-4b0b-8ec6-130adbfb9456){: .bouton }
+:::
+
 ::: questions
 1. Pourquoi Constantinople est-elle si importante pour le commerce européen?
 2. Comment Mehmet II a-t-il contourné la Corne d'Or?
@@ -164,7 +182,7 @@ La chute d'une ville, la naissance d'un empire
 
 ![Une caravelle portugaise](../medias/08-expansion-europeenne/caravelle.jpg)
 
-![Un astrolabe](../medias/08-expansion-europeenne/astrolabe.png)
+![Un astrolabe de marine](../medias/08-expansion-europeenne/astrolabe.jpg)
 
 ![Un portulan d'Albino de Canepa (1489)](../medias/08-expansion-europeenne/portulan.jpg)
 
@@ -172,20 +190,20 @@ Sans progrès techniques, aucune de ces expéditions n'aurait été possible.
 Quatre innovations changent tout.
 
 ::: cartes
-**La caravelle.** Navire utilisé par les Portugais et les Espagnols, facile
+**La caravelle** Navire utilisé par les Portugais et les Espagnols, facile
 à manoeuvrer grâce au gouvernail d'étambot. C'est l'embarcation préférée
 des navigateurs pour l'exploration des nouveaux territoires.
 
-**L'astrolabe.** C'est un instrument qui donne la latitude exacte où l'on
+**L'astrolabe** C'est un instrument qui donne la latitude exacte où l'on
 se trouve, grâce à l'angle formé par l'horizon et un corps céleste. Il
 donne également l'heure, le jour comme la nuit.
 
-**La boussole.** Une boussole est un instrument de navigation constitué
+**La boussole** Une boussole est un instrument de navigation constitué
 d'une aiguille magnétisée qui s'aligne sur le champ magnétique de la Terre.
 Elle indique ainsi le nord magnétique et, par le fait même, l'est, le sud
 et l'ouest.
 
-**Le portulan.** Un portulan est une sorte de carte de navigation, utilisée
+**Le portulan** Un portulan est une sorte de carte de navigation, utilisée
 du 13e au 18e siècle. Elle sert essentiellement à repérer les ports, mais
 aussi à connaître les dangers présents près des côtes : courants,
 hauts-fonds, etc.
@@ -204,7 +222,7 @@ maritimes et de nouveaux territoires sont nombreuses. Ces motivations sont
 d'origine économique, religieuse ainsi que politique.
 
 ::: cartes
-**La motivation économique.** Ce sont d'abord des raisons économiques qui
+**La motivation économique** Ce sont d'abord des raisons économiques qui
 poussent les empires coloniaux à se lancer dans de grandes explorations. Le
 commerce des métaux précieux, des épices et de la soie enrichit plusieurs
 pays européens. Ces produits proviennent entre autres de l'Asie. Les
@@ -212,20 +230,21 @@ nombreux conflits en Afrique du Nord et la prise de Constantinople par les
 Turcs en 1453 poussent plusieurs pays à chercher une solution afin de
 continuer à faire du commerce.
 
-**La motivation religieuse.** Les Européens ont aussi des motivations
+**La motivation religieuse** Les Européens ont aussi des motivations
 religieuses. À partir de la découverte de nouveaux territoires, ils
 s'aperçoivent que la religion chrétienne n'est pas répandue partout dans le
 monde. Les autorités religieuses se donnent alors comme mission
 d'évangéliser les peuples qui ne sont pas chrétiens.
 
-**La motivation politique.** Politiquement, les royaumes de l'époque
+**La motivation politique** Politiquement, les royaumes de l'époque
 accumulent beaucoup de pouvoir et de prestige en détenant une grande
 quantité de territoires autour du monde. Le désir d'expansion des grands
 États européens est donc bien réel et représente une motivation politique
 des grandes explorations.
 :::
 
-(Source : Alloprof)
+Source : Alloprof
+{: .source-texte }
 
 ::: questions
 1. Nomme les trois types de motivations des explorateurs européens.
@@ -233,12 +252,6 @@ des grandes explorations.
 :::
 
 ## Les explorateurs et leurs découvertes
-
-![Christophe Colomb](../medias/08-expansion-europeenne/colomb.jpg)
-
-![Fernand de Magellan](../medias/08-expansion-europeenne/magellan.jpg)
-
-![Jacques Cartier, par Théophile Hamel](../medias/08-expansion-europeenne/cartier.jpg)
 
 Dès la fin des années 1400 et pendant plus d'un siècle, la connaissance de
 la géographie de la Terre a progressé à pas de géant. Christophe Colomb,
@@ -253,95 +266,7 @@ ont vu le jour, le commerce s'est développé, des conflits ont éclaté et
 l'esclavage est apparu. Ces rencontres ont posé les jalons de notre monde
 moderne et globalement interdépendant.
 
-#### Bartolomeu Dias
-
-Bartolomeu Dias est un navigateur portugais du 15e siècle, surtout connu
-pour ses expéditions le long de la côte de l'Afrique. En 1487, il est
-chargé par le roi du Portugal de trouver un moyen de contourner l'Afrique
-et d'atteindre les Indes par voie maritime. Son expédition part de Lisbonne
-et longe la côte ouest-africaine. Il atteint la pointe sud de l'Afrique,
-connue aujourd'hui comme le cap de Bonne-Espérance, en février 1488. Il est
-le premier navigateur européen à atteindre cette région, bien qu'il n'ait
-pas réussi à franchir le cap. Sa découverte a été un élément clé dans
-l'établissement de la route des Indes par les Portugais.
-
-#### Christophe Colomb
-
-Christophe Colomb est un explorateur italien au service de l'Espagne. Ses
-voyages ont été financés par les Rois Catholiques d'Espagne, la reine
-Isabelle de Castille et le roi Ferdinand d'Aragon. Sa première expédition
-quitte l'Espagne en 1492 avec trois navires : la Niña, la Pinta et la Santa
-Maria. Son objectif était de trouver une nouvelle route maritime vers les
-Indes en naviguant vers l'ouest.
-
-Bien qu'il ait cru avoir trouvé une route vers les Indes, il a plutôt
-atteint des terres inconnues des Européens, qui correspondent aux Bahamas,
-à Cuba et à Hispaniola, aujourd'hui Haïti et la République dominicaine. Au
-cours de ses autres expéditions, il atteint la Jamaïque, Porto Rico, les
-côtes vénézuéliennes, le Honduras et le Panama. Bien qu'on lui attribue la
-découverte de l'Amérique, il est important de rappeler que ses voyages ont
-également eu des conséquences négatives pour les Autochtones : esclavage et
-épidémies.
-
-#### Vasco de Gama
-
-Vasco de Gama est un célèbre explorateur portugais du 15e siècle, connu
-pour avoir ouvert la voie aux routes commerciales maritimes entre l'Europe
-et les Indes. Sa première expédition a lieu en 1497. Il navigue le long de
-la côte africaine, contourne le cap de Bonne-Espérance et atteint la côte
-ouest de l'Inde en 1498. La découverte d'un passage par le sud de l'Afrique
-a permis d'éviter les routes terrestres, dangereuses et coûteuses. Ses
-expéditions ont contribué à l'expansion de l'empire colonial portugais en
-Asie.
-
-#### Jean Cabot
-
-Jean Cabot était un explorateur italien du 15e siècle. Il a réalisé
-plusieurs expéditions maritimes pour le royaume d'Angleterre. Ses
-principales découvertes incluent les côtes de l'Amérique du Nord, notamment
-le Labrador, Terre-Neuve et le golfe du Saint-Laurent. Ses expéditions les
-plus célèbres ont eu lieu en 1497 et 1498.
-
-#### Pedro Alvares Cabral
-
-Pedro Alvares Cabral est un navigateur portugais du 15e siècle. L'une de
-ses expéditions les plus célèbres a lieu en 1500, lorsqu'il navigue vers
-l'ouest à la recherche d'une nouvelle route maritime vers les Indes. Au
-cours de cette expédition, Cabral atteint le Brésil, qu'il revendique au
-nom du roi du Portugal. Il découvre également l'archipel de Socotra, situé
-au large de la côte de l'actuel Yémen.
-
-#### Fernand de Magellan
-
-Fernand de Magellan est un explorateur portugais au service de la couronne
-espagnole. Il est célèbre pour avoir dirigé la première expédition à
-naviguer autour du monde, la première circumnavigation. Elle commence en
-1519 avec cinq navires. Après une traversée difficile de l'Atlantique,
-l'expédition atteint le continent sud-américain. Magellan découvre le
-détroit qui porte aujourd'hui son nom et réussit à le franchir en 1520.
-
-L'expédition atteint les Philippines en 1521 après une traversée
-tumultueuse de l'océan Pacifique. Magellan y est malheureusement tué lors
-d'une bataille avec les populations locales. L'expédition se termine en
-1522 : seul un navire, le Victoria, réussit à revenir en Espagne. Il
-devient alors le premier navire à faire le tour du monde. Cette expédition
-a également contribué à prouver que la Terre était ronde.
-
-#### Jacques Cartier
-
-Jacques Cartier est un explorateur français du 16e siècle qui a entrepris
-plusieurs expéditions maritimes au nom du royaume de France. Ses voyages
-visaient principalement à trouver une route maritime vers l'Asie en
-contournant le continent américain.
-
-Lors de sa première expédition, en 1534, il explore les côtes de l'Amérique
-du Nord, notamment Terre-Neuve et la baie de Gaspé. Durant sa deuxième
-expédition, de 1535 à 1536, il navigue sur le fleuve Saint-Laurent jusqu'au
-village iroquoien de Stadaconé et atteint Hochelaga. Lors de sa troisième
-expédition, de 1541 à 1542, il tente d'établir une colonie permanente, mais
-il est confronté à des difficultés climatiques et à de mauvaises relations
-avec les Autochtones. Ses expéditions ont ouvert la voie à la colonisation
-française en Amérique du Nord.
+::: composant explorateurs
 
 ::: video T--268qZCY8
 Les voyages de Christophe Colomb
@@ -368,6 +293,8 @@ de l'Amérique a bien changé.
 ## Les conséquences des Grandes explorations
 
 ### Le traité de Tordesillas de 1494
+
+![Le méridien fixé par le traité de Tordesillas](../medias/08-expansion-europeenne/carte-tordesillas.jpg)
 
 Après l'arrivée de Christophe Colomb aux Antilles, l'Espagne et le Portugal
 sont en concurrence pour la colonisation du Nouveau Monde. En 1493, la
@@ -492,6 +419,8 @@ qu'on appelle le mercantilisme.
 (Source : Alloprof)
 
 ### La traite des esclaves
+
+![Le plan du navire négrier Brookes (1788)](../medias/08-expansion-europeenne/navire-negrier.png)
 
 Les navires marchands qui servaient au transport d'esclaves s'appellent
 négriers. Ces navires étaient conçus pour transporter aussi bien les

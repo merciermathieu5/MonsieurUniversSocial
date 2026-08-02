@@ -324,6 +324,10 @@ composant pour éviter de refaire les mêmes itérations.
   restent minces (padding .55rem).
 - Une liste seule dans un bloc colonnes se resserre (44rem au plus) pour que
   les colonnes restent voisines.
+- construire.bat ne recopie plus les médias déjà présents : seuls les
+  fichiers nouveaux ou modifiés sont copiés dans docs/. Ne jamais remettre
+  un shutil.rmtree sur tout le dossier de sortie, c'est ce qui rendait la
+  construction interminable.
 - Quand une image refuse de se télécharger, ne pas changer d'image à
   l'aveugle : lancer python outils/images.py --diagnostic NOM_DU_FICHIER,
   qui dit si le nom Commons est faux, si le fichier n'a pas de vignette ou

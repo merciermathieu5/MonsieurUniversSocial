@@ -141,23 +141,23 @@ Points de repères : Gutenberg et l'imprimerie
 ### Les moyens de diffusion des savoirs
 
 ::: cartes
-**L'imprimerie.** L'invention de l'imprimerie vers 1450-1453 joue un rôle
+**L'imprimerie** L'invention de l'imprimerie vers 1450-1453 joue un rôle
 majeur dans la diffusion du savoir à la fin du Moyen Âge. En effet, cette
 invention de Gutenberg permet la démocratisation du savoir et la
 multiplication des ouvrages antiques.
 
-**Les voyages.** Dès la Renaissance, la pensée humaniste confère au voyage
+**Les voyages** Dès la Renaissance, la pensée humaniste confère au voyage
 et à l'expérience du monde qui s'y acquiert une place centrale dans la
 formation générale de l'homme. Grâce notamment à l'expérimentation et à
 l'observation du monde, les humanistes acquièrent certains savoirs, qu'ils
 peuvent ensuite partager.
 
-**Les correspondances.** À travers les correspondances, plusieurs
+**Les correspondances** À travers les correspondances, plusieurs
 humanistes réussissent à partager leur savoir à travers l'Europe. Les
 correspondances n'ont pas servi uniquement à partager certains savoirs,
 mais aussi à les enrichir et à améliorer la connaissance.
 
-**L'université.** La Renaissance n'a pas dépendu uniquement de l'imprimerie
+**L'université** La Renaissance n'a pas dépendu uniquement de l'imprimerie
 pour apparaître et exister. De grands humanistes de la Renaissance
 italienne sont morts avant l'invention de l'imprimerie. Les découvertes
 majeures des textes de l'Antiquité se sont faites dans les universités
