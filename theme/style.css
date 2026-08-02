@@ -354,6 +354,13 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
   font-family: var(--titre); font-weight: 600; font-size: 1.18rem;
   letter-spacing: -.01em; margin: 2.3rem 0 .55rem; color: var(--matiere-fonce);
 }
+/* Les sous-titres de niveau 4 découpent le texte sans découper le bloc :
+   les figures de leurs sous-parties se regroupent donc en une seule galerie
+   à la fin de la section, au lieu de flotter une à une. */
+.texte h4 {
+  font-family: var(--titre); font-weight: 600; font-size: 1.02rem;
+  letter-spacing: -.005em; margin: 1.9rem 0 .5rem; color: var(--matiere);
+}
 .texte p { margin: 0 0 1.2rem; }
 .texte a { color: var(--matiere); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 .texte strong { font-weight: 600; }

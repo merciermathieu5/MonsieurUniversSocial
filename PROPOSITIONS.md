@@ -766,3 +766,17 @@ flottants sont aussi resserrées. Consigné au README.
    Gutenberg). Une légende de trois lignes dans une colonne de 12rem
    allongeait la figure d'une centaine de pixels à elle seule.
 
+### Retouches du 2 août 2026 (livraison 54)
+
+1. François 1er et Fontainebleau sont réunis dans une seule sous-section :
+   leurs deux images forment de nouveau une galerie en bas, comme tu le
+   préférais, et le texte redevient deux paragraphes suivis.
+2. Ta solution pour la Contre-Réforme est appliquée : les trois images sont
+   côte à côte en bas de la section. Techniquement, les trois sous-parties
+   passent de sous-titres de niveau 3 à des sous-titres de niveau 4, qui
+   structurent le texte sans découper le bloc; les figures se rassemblent
+   donc automatiquement en une seule galerie. Les sous-titres de niveau 4,
+   déjà utilisés dans les fiches 04 et 06, ont enfin leur propre style.
+3. La règle est consignée au README : niveau 4 pour regrouper les figures en
+   bas de section, niveau 3 pour une figure flottante par sous-partie.
+

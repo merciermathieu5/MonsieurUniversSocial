@@ -281,6 +281,11 @@ composant pour éviter de refaire les mêmes itérations.
 - Les titres de section et de sous-section annulent les flottants qui
   précèdent (clear) : une sous-section ne démarre jamais à côté d'une image
   de la sous-section précédente, sinon sa colonne de texte est écrasée.
+- Pour regrouper plusieurs figures en une seule galerie en bas d'une
+  section, découper les sous-parties avec des sous-titres de niveau 4
+  (####) : ils structurent le texte sans découper le bloc, donc leurs
+  figures se rassemblent. Des sous-titres de niveau 3 (###) donneraient au
+  contraire une figure flottante par sous-partie.
 - Dans une galerie, les vignettes sont recadrées au carré depuis le haut
   (18 %), pas depuis le centre : un portrait recadré au centre perd sa tête.
 - La légende d'une figure en cadrage étroit (petit) tient en une ou deux

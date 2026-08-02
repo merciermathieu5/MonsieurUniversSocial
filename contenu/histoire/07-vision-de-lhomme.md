@@ -410,22 +410,18 @@ Florence le grand foyer de la Renaissance italienne.
 
 ![François 1er, par Jean Clouet](../medias/07-vision-de-lhomme/francois-1er.jpg)
 
-François 1er contribue à la diffusion de la Renaissance italienne en France :
-de nombreux artistes italiens sont au service du souverain, dont Benvenuto
-Cellini et Léonard de Vinci, qui demeure au Clos Lucé près d'Amboise de 1516
-à 1519. C'est sous le règne de François 1er que la collection royale
-d'oeuvres d'art, dont la Joconde au prix de 4000 écus d'or, se constitue
-réellement.
-
-### Le château de Fontainebleau
-
 ![La cour du Cheval Blanc, à Fontainebleau](../medias/07-vision-de-lhomme/fontainebleau.jpg)
 
-Les peintres Rosso Fiorentino et Le Primatice ont travaillé dans le château
+François 1er contribue à la diffusion de la Renaissance italienne en France :
+de nombreux artistes italiens sont au service du souverain, dont Benvenuto
+Cellini et Léonard de Vinci, qui demeure au Clos Lucé près d'Amboise de 1516 à
+1519. C'est sous le règne de François 1er que la collection royale d'oeuvres
+d'art, dont la Joconde au prix de 4000 écus d'or, se constitue réellement. Les
+peintres Rosso Fiorentino et Le Primatice ont aussi travaillé dans le château
 de Fontainebleau, que le roi fait agrandir et décorer par ces artistes
-italiens. Le château devient ainsi le premier grand chantier de la
-Renaissance française et donne son nom à toute une école de peinture,
-l'école de Fontainebleau.
+italiens. Le château devient ainsi le premier grand chantier de la Renaissance
+française et donne son nom à toute une école de peinture, l'école de
+Fontainebleau.
 
 ::: questions
 1. Nomme deux techniques nouvelles des artistes de la Renaissance.
@@ -526,7 +522,9 @@ s'achèveront qu'avec l'édit de Nantes.
 Le massacre de la Saint-Barthélemy
 :::
 
-### La Contre-Réforme : le concile de Trente
+### La Contre-Réforme
+
+#### Le concile de Trente
 
 ![Une séance du concile de Trente, tableau du 16e siècle](../medias/07-vision-de-lhomme/concile-trente.jpg)
 
@@ -540,7 +538,7 @@ séminaires sont créés pour mieux former les prêtres et la vente des
 indulgences est encadrée. C'est l'ensemble de cette riposte qu'on appelle
 la Contre-Réforme catholique.
 
-### Le tribunal de l'Inquisition et l'Index
+#### Le tribunal de l'Inquisition et l'Index
 
 ![Un tribunal de l'Inquisition, par Pedro Berruguete](../medias/07-vision-de-lhomme/inquisition.jpg)
 
@@ -555,7 +553,7 @@ L'Église a de plus créé l'Index, une liste de tous les ouvrages que les
 se retrouver devant le tribunal de l'Inquisition. Plusieurs oeuvres
 d'humanistes et de savants s'y retrouvent, dont celles de Galilée.
 
-### Les Jésuites et les missions en Amérique
+#### Les Jésuites et les missions en Amérique
 
 ![La chapelle de la mission jésuite de Sainte-Marie-au-pays-des-Hurons, reconstituée aujourd'hui](../medias/07-vision-de-lhomme/jesuites-nouvelle-france.jpg)
 
