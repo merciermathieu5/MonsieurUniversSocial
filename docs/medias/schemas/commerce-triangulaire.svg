@@ -1,47 +1,49 @@
-<svg viewBox="0 0 1100 560" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Le commerce triangulaire : l'Europe envoie des produits manufacturés en Afrique, l'Afrique fournit des personnes réduites en esclavage à l'Amérique, et l'Amérique renvoie des matières premières à l'Europe, seule à encaisser les profits">
+<svg viewBox="0 0 1100 620" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Le commerce triangulaire : l'Europe expédie des produits manufacturés vers l'Afrique, l'Afrique fournit des personnes réduites en esclavage à l'Amérique, et l'Amérique renvoie des matières premières à l'Europe">
   <style>
     .tg-t { font-family: Archivo, sans-serif; }
-    .tg-nom { font-size: 17px; font-weight: 700; }
+    .tg-nom { font-size: 19px; font-weight: 700; }
     .tg-role { font-size: 12.5px; font-weight: 600; }
-    .tg-etape { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 600; letter-spacing: .08em; fill: var(--schema-accent); }
-    .tg-bien { font-size: 13.5px; fill: var(--encre); }
-    .tg-note { font-size: 12.5px; fill: var(--encre-doux); }
-    .tg-fl { fill: none; stroke-width: 3.5; stroke-linecap: round; }
+    .tg-num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: .1em; fill: var(--schema-accent); }
+    .tg-quoi { font-size: 14px; font-weight: 700; fill: var(--encre); }
+    .tg-det { font-size: 13px; fill: var(--encre-doux); }
+    .tg-cle { font-size: 14px; font-weight: 700; fill: var(--encre); }
+    .tg-route { fill: none; stroke-width: 14; stroke-linecap: round; opacity: .9; }
   </style>
 
-  <path class="tg-fl" d="M 690 132 Q 800 190 856 268" stroke="var(--schema-accent)"/>
-  <polygon points="862,282 848,272 862,264" fill="var(--schema-accent)"/>
-  <path class="tg-fl" d="M 800 356 Q 550 424 300 356" stroke="var(--bloc)"/>
-  <polygon points="286,350 302,346 298,362" fill="var(--bloc)"/>
-  <path class="tg-fl" d="M 244 268 Q 300 190 410 132" stroke="var(--schema-cle)"/>
-  <polygon points="424,124 414,138 406,124" fill="var(--schema-cle)"/>
+  <path class="tg-route" d="M 700 150 Q 830 210 880 300" stroke="var(--schema-accent)"/>
+  <polygon points="884,336 866,300 902,300" fill="var(--schema-accent)"/>
+  <path class="tg-route" d="M 830 430 Q 550 512 270 430" stroke="var(--bloc)"/>
+  <polygon points="236,424 272,410 268,446" fill="var(--bloc)"/>
+  <path class="tg-route" d="M 220 300 Q 270 210 400 150" stroke="var(--schema-cle)"/>
+  <polygon points="432,132 414,166 396,136" fill="var(--schema-cle)"/>
 
-  <rect x="370" y="56" width="360" height="76" rx="8" fill="var(--schema-accent)"/>
-  <text class="tg-t tg-nom" x="550" y="88" text-anchor="middle" fill="var(--surface)">L'Europe</text>
-  <text class="tg-t tg-role" x="550" y="112" text-anchor="middle" fill="var(--surface)">La métropole, seule à encaisser les profits</text>
+  <rect x="360" y="40" width="380" height="86" rx="10" fill="var(--schema-accent)"/>
+  <text class="tg-t tg-nom" x="550" y="76" text-anchor="middle" fill="var(--surface)">L'Europe</text>
+  <text class="tg-t tg-role" x="550" y="100" text-anchor="middle" fill="var(--surface)">La métropole : elle seule encaisse les profits</text>
 
-  <rect x="770" y="282" width="290" height="76" rx="8" fill="var(--bloc)"/>
-  <text class="tg-t tg-nom" x="915" y="314" text-anchor="middle" fill="var(--bloc-texte)">L'Afrique</text>
-  <text class="tg-t tg-role" x="915" y="338" text-anchor="middle" fill="var(--bloc-texte)">Les comptoirs de la traite</text>
+  <rect x="790" y="336" width="270" height="86" rx="10" fill="var(--bloc)"/>
+  <text class="tg-t tg-nom" x="925" y="372" text-anchor="middle" fill="var(--bloc-texte)">L'Afrique</text>
+  <text class="tg-t tg-role" x="925" y="396" text-anchor="middle" fill="var(--bloc-texte)">Les comptoirs de la traite</text>
 
-  <rect x="40" y="282" width="290" height="76" rx="8" fill="var(--bloc)"/>
-  <text class="tg-t tg-nom" x="185" y="314" text-anchor="middle" fill="var(--bloc-texte)">L'Amérique</text>
-  <text class="tg-t tg-role" x="185" y="338" text-anchor="middle" fill="var(--bloc-texte)">Les colonies et leurs plantations</text>
+  <rect x="40" y="336" width="270" height="86" rx="10" fill="var(--bloc)"/>
+  <text class="tg-t tg-nom" x="175" y="372" text-anchor="middle" fill="var(--bloc-texte)">L'Amérique</text>
+  <text class="tg-t tg-role" x="175" y="396" text-anchor="middle" fill="var(--bloc-texte)">Les colonies et leurs plantations</text>
+  <text class="tg-t tg-num" x="834" y="170" text-anchor="start">1RE ÉTAPE</text>
+  <text class="tg-t tg-quoi" x="834" y="192" text-anchor="start">Des armes, des tissus,</text>
+  <text class="tg-t tg-quoi" x="834" y="212" text-anchor="start">de l'alcool et de la verroterie</text>
+  <text class="tg-t tg-det" x="834" y="234" text-anchor="start">Échangés contre des captifs</text>
+  <text class="tg-t tg-num" x="550" y="512" text-anchor="middle">2E ÉTAPE</text>
+  <text class="tg-t tg-quoi" x="550" y="536" text-anchor="middle">Des personnes réduites en esclavage</text>
+  <text class="tg-t tg-det" x="550" y="558" text-anchor="middle">De trois à six semaines entassées dans les cales des navires négriers</text>
+  <text class="tg-t tg-det" x="550" y="578" text-anchor="middle">De 10 à 20 % n'y survivent pas. On appelle ce trajet le passage du milieu</text>
+  <text class="tg-t tg-num" x="266" y="170" text-anchor="end">3E ÉTAPE</text>
+  <text class="tg-t tg-quoi" x="266" y="192" text-anchor="end">Du sucre, du tabac, du rhum,</text>
+  <text class="tg-t tg-quoi" x="266" y="212" text-anchor="end">du café et des métaux précieux</text>
+  <text class="tg-t tg-det" x="266" y="234" text-anchor="end">Produits par le travail forcé</text>
 
-  <text class="tg-t tg-etape" x="810" y="176" text-anchor="start">1RE ÉTAPE</text>
-  <text class="tg-t tg-bien" x="810" y="198" text-anchor="start">Des armes, des tissus</text>
-  <text class="tg-t tg-bien" x="810" y="218" text-anchor="start">et de l'alcool</text>
-
-  <text class="tg-t tg-etape" x="550" y="432" text-anchor="middle">2E ÉTAPE</text>
-  <text class="tg-t tg-bien" x="550" y="454" text-anchor="middle">Des personnes réduites en esclavage, entassées</text>
-  <text class="tg-t tg-bien" x="550" y="474" text-anchor="middle">dans les cales des navires négriers</text>
-  <text class="tg-t tg-note" x="550" y="496" text-anchor="middle">De trois à six semaines de traversée; de 10 à 20 % n'y survivent pas</text>
-
-  <text class="tg-t tg-etape" x="290" y="176" text-anchor="end">3E ÉTAPE</text>
-  <text class="tg-t tg-bien" x="290" y="198" text-anchor="end">Du sucre, du tabac, du rhum,</text>
-  <text class="tg-t tg-bien" x="290" y="218" text-anchor="end">du café et des métaux précieux</text>
-
-  <rect x="392" y="228" width="316" height="34" rx="17" fill="var(--matiere-voile)"/>
-  <text class="tg-t tg-role" x="550" y="250" text-anchor="middle" fill="var(--encre)">Ce système s'appelle le mercantilisme</text>
+  <rect x="386" y="268" width="328" height="76" rx="10" fill="var(--matiere-voile)"/>
+  <text class="tg-t tg-cle" x="550" y="296" text-anchor="middle">Le mercantilisme</text>
+  <text class="tg-t tg-det" x="550" y="318" text-anchor="middle">La colonie fournit et achète,</text>
+  <text class="tg-t tg-det" x="550" y="336" text-anchor="middle">la métropole s'enrichit et domine</text>
 </svg>

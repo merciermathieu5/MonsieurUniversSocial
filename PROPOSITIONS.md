@@ -968,3 +968,36 @@ Deux causes, mesurées plutôt que devinées.
 
 La règle est consignée au README pour ne pas réintroduire l'un ou l'autre.
 
+### Retouches du 2 août 2026 (livraison 62)
+
+1. **Portrait de Kepler corrigé.** Ta capture montrait que l'outil avait
+   retenu « Portrait Confused With Johannes Kepler » : c'est justement un
+   tableau qu'on croyait longtemps représenter Kepler, et qui ne le
+   représente pas. Le registre pointe maintenant le vrai portrait.
+2. **La source ne chevauche plus le schéma.** La mention de source remonte
+   légèrement pour se coller au texte, ce qui la faisait passer sur le
+   dernier encadré quand elle suivait une grille. Corrigé pour les cartes,
+   les colonnes et les galeries.
+3. **L'interface des explorateurs est repensée.** Le carrousel cède la
+   place à une galerie des sept visages, chacun surmonté des couleurs de sa
+   couronne : vert et rouge pour le Portugal, rouge et or pour l'Espagne,
+   rouge et blanc pour l'Angleterre, bleu blanc rouge pour la France. On
+   voit donc d'un coup d'oeil qui navigue pour qui. Un clic ouvre le
+   panneau détaillé, qui reprend intégralement ton texte explicatif
+   d'origine, avec l'étiquette du service dans la couleur de la couronne.
+   Le défi « Qui suis-je? » reste accessible par un bouton.
+4. **Le schéma du commerce triangulaire est refait** en vrai triangle :
+   routes épaisses et colorées, trois étapes numérotées avec les
+   marchandises et leur contrepartie, le passage du milieu nommé et
+   chiffré, et le mercantilisme expliqué au centre plutôt que simplement
+   nommé.
+5. **Les deux vidéos générales** rejoignent la section des explorateurs,
+   avec celles de Colomb et de Magellan.
+
+### À relancer chez toi
+
+Les portraits de Dias et de Cabral ont échoué sur un HTTP 429, c'est-à-dire
+un simple refus temporaire de Commons. Relance python outils/images.py une
+minute plus tard et ils devraient entrer. Le portrait de Kepler doit aussi
+être refait, puisque le registre pointe maintenant un autre fichier.
+

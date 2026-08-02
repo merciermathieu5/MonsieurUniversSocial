@@ -719,11 +719,11 @@ galilee.jpg:
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Galileo.arp.300pix.jpg
 kepler.jpg:
-  commons: File:Portrait Confused With Johannes Kepler 1610.jpg
-  titre: Portrait Confused With Johannes Kepler 1610
-  auteur: Unidentified painter
+  commons: File:JKepler.jpg
+  titre: JKepler
+  auteur: August Köhler [1]
   licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:Portrait_Confused_With_Johannes_Kepler_1610.jpg
+  lien: https://commons.wikimedia.org/wiki/File:JKepler.jpg
 carte-tordesillas.jpg:
   commons: File:Map of Meridian Line set under the Treaty of Tordesillas.jpg
   titre: Map of Meridian Line set under the Treaty of Tordesillas
@@ -748,3 +748,9 @@ cabot.jpg:
   auteur: Giustino Menescardi
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:JohnCabotPainting.jpg
+dias.jpg:
+  commons: File:Bartolomeu-Dias-217x300.jpg
+  titre: Bartolomeu-Dias-217x300
+  auteur: FAK
+  licence: Creative Commons BY-SA 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Bartolomeu-Dias-217x300.jpg

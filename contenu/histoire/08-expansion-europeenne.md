@@ -276,6 +276,14 @@ Les voyages de Christophe Colomb
 Le voyage de Magellan
 :::
 
+::: video DP0_LhNOM4s
+La conquête européenne de l'Amérique
+:::
+
+::: video J_4RlrGerEg
+Les Grandes découvertes
+:::
+
 ::: activite
 Explore la [ligne du temps interactive des voyages de Jacques Cartier](https://view.genial.ly/61f433feda78a700184fb3da),
 puis écoute l'analyse de l'historienne Evelyne Ferron sur
@@ -530,14 +538,6 @@ territoires, de leur autonomie politique, de leurs richesses naturelles et
 de leur identité culturelle. En effet, les Européens les obligeaient à
 parler leur langue et à se convertir à la religion catholique. Elles ont
 donc subi l'acculturation.
-
-::: video DP0_LhNOM4s
-La conquête européenne de l'Amérique
-:::
-
-::: video J_4RlrGerEg
-Les Grandes découvertes
-:::
 
 ::: questions
 1. Pourquoi les Européens ont-ils d'abord appelé les Autochtones des Indiens?
