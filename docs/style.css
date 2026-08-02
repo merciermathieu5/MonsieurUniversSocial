@@ -533,7 +533,7 @@ details.credit > span { display: block; max-width: 34rem; }
 .colonnage > * { max-width: none !important; }
 .colonnage h3 { margin-top: 0; break-after: avoid; }
 .colonnage p, .colonnage figure { break-inside: avoid; }
-.colonnage li { break-inside: avoid; }
+.colonnage li, .colonnage p { break-inside: avoid; }
 /* Une liste seule en colonnes se resserre : les noms restent voisins. */
 .colonnage:has(> ul:only-child), .colonnage:has(> ol:only-child) { max-width: 44rem; }
 .colonnage .illustration {
@@ -839,7 +839,7 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 }
 .galerie .illustration { float: none !important; width: auto !important; margin: 0 !important; }
 .galerie img {
-  width: 100% !important; height: auto !important;
+  width: 100% !important; height: auto !important; max-height: none !important;
   aspect-ratio: 1 / 1; object-fit: cover; object-position: center 18%;
   border: 1px solid var(--trait);
 }

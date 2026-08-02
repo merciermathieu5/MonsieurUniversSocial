@@ -780,3 +780,16 @@ flottants sont aussi resserrées. Consigné au README.
 3. La règle est consignée au README : niveau 4 pour regrouper les figures en
    bas de section, niveau 3 pour une figure flottante par sous-partie.
 
+### Retouches du 2 août 2026 (livraison 55)
+
+1. Le mécénat prend la forme demandée : une colonne pour la famille Médicis,
+   une colonne pour François 1er, et les trois images alignées en dessous, à
+   la même largeur. Laurent le Magnifique est donc recadré au carré comme
+   les deux autres, ce que tu as accepté.
+2. Deux garde-fous posés au passage. Le plafond de hauteur des figures
+   flottantes aurait écrasé le carré des galeries : il est neutralisé à
+   l'intérieur des galeries. Et un paragraphe ne peut plus se couper entre
+   deux colonnes, sinon le texte des Médicis aurait pu déborder dans la
+   colonne de François 1er.
+3. Les deux règles sont consignées au README.
+

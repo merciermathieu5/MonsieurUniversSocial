@@ -392,36 +392,35 @@ tutelle d'un mécène. Ce dernier soutient financièrement les artistes afin
 qu'ils puissent créer librement leurs oeuvres. Ce soutien peut prendre la
 forme d'un hébergement ou d'une pension mensuelle.
 
-### La famille Médicis, à Florence
+### Deux grands mécènes
 
 ![Laurent le Magnifique, par Giorgio Vasari](../medias/07-vision-de-lhomme/laurent-magnifique.jpg)
-
-Les Médicis de Florence sont parmi les familles qui ont le plus subventionné
-les arts en Italie. Par exemple, Cosme de Médicis, banquier florentin, a
-commandé de nombreuses oeuvres d'art, notamment le David de Donatello. Son
-petit-fils, Laurent de Médicis, surnommé Laurent le Magnifique, est également
-devenu le mécène de plusieurs artistes de la Renaissance, dont Le Verrocchio,
-Léonard de Vinci, Sandro Botticelli et Michel-Ange. Laurent de Médicis était
-aussi le dirigeant de la cité de Florence, où il régnait sans partage. Poète
-lui-même, il réunissait autour de lui savants et artistes, ce qui a fait de
-Florence le grand foyer de la Renaissance italienne.
-
-### François 1er, en France
 
 ![François 1er, par Jean Clouet](../medias/07-vision-de-lhomme/francois-1er.jpg)
 
 ![La cour du Cheval Blanc, à Fontainebleau](../medias/07-vision-de-lhomme/fontainebleau.jpg)
 
-François 1er contribue à la diffusion de la Renaissance italienne en France :
-de nombreux artistes italiens sont au service du souverain, dont Benvenuto
-Cellini et Léonard de Vinci, qui demeure au Clos Lucé près d'Amboise de 1516 à
-1519. C'est sous le règne de François 1er que la collection royale d'oeuvres
-d'art, dont la Joconde au prix de 4000 écus d'or, se constitue réellement. Les
-peintres Rosso Fiorentino et Le Primatice ont aussi travaillé dans le château
-de Fontainebleau, que le roi fait agrandir et décorer par ces artistes
-italiens. Le château devient ainsi le premier grand chantier de la Renaissance
-française et donne son nom à toute une école de peinture, l'école de
-Fontainebleau.
+::: colonnes
+**La famille Médicis, à Florence.** Les Médicis de Florence sont parmi les
+familles qui ont le plus subventionné les arts en Italie. Cosme de Médicis,
+banquier florentin, a commandé de nombreuses oeuvres d'art, notamment le
+David de Donatello. Son petit-fils, Laurent de Médicis, surnommé Laurent le
+Magnifique, est devenu le mécène de plusieurs artistes de la Renaissance,
+dont Le Verrocchio, Léonard de Vinci, Sandro Botticelli et Michel-Ange.
+Dirigeant de la cité de Florence, où il régnait sans partage, il était poète
+lui-même et réunissait autour de lui savants et artistes, ce qui a fait de
+Florence le grand foyer de la Renaissance italienne.
+
+**François 1er, en France.** François 1er contribue à la diffusion de la
+Renaissance italienne en France : de nombreux artistes italiens sont au
+service du souverain, dont Benvenuto Cellini et Léonard de Vinci, qui
+demeure au Clos Lucé près d'Amboise de 1516 à 1519. C'est sous son règne que
+la collection royale d'oeuvres d'art, dont la Joconde au prix de 4000 écus
+d'or, se constitue réellement. Les peintres Rosso Fiorentino et Le Primatice
+ont travaillé au château de Fontainebleau, que le roi fait agrandir et
+décorer : le château devient le premier grand chantier de la Renaissance
+française et donne son nom à l'école de Fontainebleau.
+:::
 
 ::: questions
 1. Nomme deux techniques nouvelles des artistes de la Renaissance.

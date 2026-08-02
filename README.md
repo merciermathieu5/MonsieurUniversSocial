@@ -286,6 +286,12 @@ composant pour éviter de refaire les mêmes itérations.
   (####) : ils structurent le texte sans découper le bloc, donc leurs
   figures se rassemblent. Des sous-titres de niveau 3 (###) donneraient au
   contraire une figure flottante par sous-partie.
+- Les figures d'un bloc se placent en tête dans le markdown, mais le moteur
+  les regroupe en galerie à la fin du bloc : deux textes en colonnes suivis
+  de leurs images alignées se composent donc en mettant les images en tête,
+  puis le bloc ::: colonnes.
+- Un paragraphe ne se coupe jamais entre deux colonnes (break-inside), pour
+  qu'un bloc de deux paragraphes donne bien une colonne par paragraphe.
 - Dans une galerie, les vignettes sont recadrées au carré depuis le haut
   (18 %), pas depuis le centre : un portrait recadré au centre perd sa tête.
 - La légende d'une figure en cadrage étroit (petit) tient en une ou deux
