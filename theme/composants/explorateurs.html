@@ -9,8 +9,6 @@ html[data-sombre="on"] .xpl .xpl__titre { color: var(--encre); }
 .xpl__vignette { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 0; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); cursor: pointer; overflow: hidden; transition: transform .15s, box-shadow .15s, border-color .15s; font-family: var(--titre); }
 .xpl__vignette:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(26,37,48,.16); }
 .xpl__vignette.est-actif { border-color: var(--matiere); box-shadow: 0 0 0 2px var(--matiere); }
-.xpl__pavillon { display: flex; height: .5rem; }
-.xpl__pavillon span { flex: 1; }
 .xpl__portrait { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center 18%; display: block; background: var(--matiere-voile); }
 .xpl__portrait.est-absent { display: none; }
 .xpl__initiales { display: none; align-items: center; justify-content: center; aspect-ratio: 1 / 1; font-size: 1.6rem; font-weight: 700; color: var(--matiere-fonce); background: var(--matiere-voile); }
@@ -57,7 +55,7 @@ html[data-sombre="on"] .xpl__consigne { color: var(--encre-pale); }
 <img data-xpl-portrait="1" src="../medias/08-expansion-europeenne/colomb.jpg" alt="Portrait de Christophe Colomb">
 <img data-xpl-portrait="2" src="../medias/08-expansion-europeenne/vasco-de-gama.png" alt="Portrait de Vasco de Gama">
 <img data-xpl-portrait="3" src="../medias/08-expansion-europeenne/cabot.jpg" alt="Portrait de Jean Cabot">
-<img data-xpl-portrait="4" src="../medias/08-expansion-europeenne/cabral.png" alt="Portrait de Pedro Alvares Cabral">
+<img data-xpl-portrait="4" src="../medias/08-expansion-europeenne/cabral.jpg" alt="Portrait de Pedro Alvares Cabral">
 <img data-xpl-portrait="5" src="../medias/08-expansion-europeenne/magellan.jpg" alt="Portrait de Fernand de Magellan">
 <img data-xpl-portrait="6" src="../medias/08-expansion-europeenne/cartier.jpg" alt="Portrait de Jacques Cartier">
 </div>
@@ -81,10 +79,10 @@ html[data-sombre="on"] .xpl__consigne { color: var(--encre-pale); }
   racine.dataset.pret = "1";
 
   var COURONNES = {
-    portugal: { nom: "Portugal", bandes: ["#006600", "#FF0000"], teinte: "#006600" },
-    espagne:  { nom: "Espagne",  bandes: ["#AA151B", "#F1BF00", "#AA151B"], teinte: "#AA151B" },
-    angleterre: { nom: "Angleterre", bandes: ["#FFFFFF", "#CE1124", "#FFFFFF"], teinte: "#CE1124" },
-    france:   { nom: "France",   bandes: ["#002395", "#FFFFFF", "#ED2939"], teinte: "#002395" }
+    portugal: { nom: "Portugal", teinte: "#006600" },
+    espagne:  { nom: "Espagne",  teinte: "#AA151B" },
+    angleterre: { nom: "Angleterre", teinte: "#CE1124" },
+    france:   { nom: "France",   teinte: "#002395" }
   };
 
   var FICHES = [
@@ -100,7 +98,7 @@ html[data-sombre="on"] .xpl__consigne { color: var(--encre-pale); }
     },
     {
       nom: "Christophe Colomb", couronne: "espagne", initiales: "CC",
-      infos: [["Origine", "Italie"], ["Expédition", "1492"], ["Navires", "La Niña, la Pinta, la Santa Maria"]],
+      infos: [["Origine", "Italie"], ["Expédition", "1492"], ["Financement", "Les Rois Catholiques d'Espagne"]],
       texte: [
         "Christophe Colomb est un explorateur italien au service de l'Espagne. Ses voyages ont été financés par les Rois Catholiques d'Espagne, la reine Isabelle de Castille et le roi Ferdinand d'Aragon.",
         "Sa première expédition quitte l'Espagne en 1492 avec trois navires : la Niña, la Pinta et la Santa Maria. Son objectif était de trouver une nouvelle route maritime vers les Indes en naviguant vers l'ouest.",
@@ -140,7 +138,7 @@ html[data-sombre="on"] .xpl__consigne { color: var(--encre-pale); }
     },
     {
       nom: "Fernand de Magellan", couronne: "espagne", initiales: "FM",
-      infos: [["Origine", "Portugal"], ["Expédition", "1519 à 1522"], ["Flotte", "Cinq navires, un seul revenu"]],
+      infos: [["Origine", "Portugal"], ["Expédition", "1519 à 1522"], ["Financement", "La couronne d'Espagne"]],
       texte: [
         "Fernand de Magellan est un explorateur portugais au service de la couronne espagnole. Il est célèbre pour avoir dirigé la première expédition qui a réussi à naviguer autour du monde, la première circumnavigation.",
         "Sa première expédition commence en 1519. Sa flotte était composée de cinq navires. Après une traversée difficile de l'Atlantique, l'expédition a atteint le continent sud-américain. Il a découvert le détroit de Magellan, qu'il a réussi à franchir en 1520.",
@@ -181,13 +179,6 @@ html[data-sombre="on"] .xpl__consigne { color: var(--encre-pale); }
     v.type = "button";
     v.setAttribute("role", "tab");
     v.setAttribute("aria-label", f.nom + ", au service " + (c.nom === "France" ? "de la " : "du ") + c.nom);
-    var pav = el("span", "xpl__pavillon");
-    c.bandes.forEach(function (couleur) {
-      var bande = el("span");
-      bande.style.background = couleur;
-      pav.appendChild(bande);
-    });
-    v.appendChild(pav);
     var img = racine.querySelector('[data-xpl-portrait="' + i + '"]');
     if (img) {
       img.className = "xpl__portrait";

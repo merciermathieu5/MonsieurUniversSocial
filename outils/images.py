@@ -27,6 +27,7 @@ import argparse
 import html
 import re
 import shutil
+import unicodedata
 import sys
 import time
 from pathlib import Path
@@ -217,6 +218,42 @@ def resoudre(entree: dict, largeur: int, bavard: bool = False) -> dict | None:
         time.sleep(.3)
     if bavard:
         print(f"           aucun des {len(candidats)} candidats n'est exploitable")
+    return None
+
+
+def _simplifier(texte: str) -> str:
+    """Nom de fichier ramené à ses lettres et chiffres, sans accent ni casse."""
+    sans_accent = "".join(
+        c for c in unicodedata.normalize("NFD", texte)
+        if unicodedata.category(c) != "Mn")
+    return re.sub(r"[^a-z0-9]", "", sans_accent.lower())
+
+
+def depot_manuel(nom: str, entree: dict, credit: dict) -> Path | None:
+    """Image enregistrée à la main dans Téléchargements ou à la racine.
+
+    On accepte aussi bien le nom local du registre (cabral.jpg) que le nom du
+    fichier sur Commons, avec ou sans accents, espaces ou tirets bas : ce que
+    le navigateur propose spontanément quand on enregistre une image.
+    """
+    extension = Path(nom).suffix.lower()
+    cibles = {_simplifier(Path(nom).stem)}
+    for source in (entree.get("commons"), credit.get("commons")):
+        if source:
+            cibles.add(_simplifier(Path(source.split(":", 1)[-1]).stem))
+    cibles = {c for c in cibles if len(c) >= 6}
+    for dossier in (Path.home() / "Downloads", RACINE):
+        if not dossier.exists():
+            continue
+        for fichier in sorted(dossier.iterdir()):
+            if not fichier.is_file() or fichier.suffix.lower() != extension:
+                continue
+            candidat = _simplifier(fichier.stem)
+            if len(candidat) < 6:
+                continue
+            for attendu in cibles:
+                if candidat == attendu or candidat in attendu or attendu in candidat:
+                    return fichier
     return None
 
 
@@ -480,6 +517,18 @@ def main():
             sautees += 1
             continue
 
+        # Porte de sortie quand Commons refuse obstinément un fichier : si
+        # l'image a été enregistrée à la main sous son nom final, dans
+        # Téléchargements ou à la racine du dépôt, on la range simplement.
+        range_a_la_main = False
+        if not cible.exists():
+            depot = depot_manuel(nom, entree, credit)
+            if depot:
+                dossier.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(depot), str(cible))
+                print(f"  ok     {nom}  rangée depuis {depot.name}")
+                range_a_la_main = True
+
         trouve = None
         try:
             effective = dict(entree)
@@ -497,7 +546,9 @@ def main():
         # Un fichier présent mais sans crédits est retéléchargé : impossible de
         # garantir autrement que l'image sur le disque et le crédit inscrit
         # décrivent bien le même document.
-        if not cible.exists() or not complet or args.refaire:
+        # Une image rangée à la main ne se retélécharge pas : on ne va
+        # chercher sur Commons que ses crédits.
+        if not range_a_la_main and (not cible.exists() or not complet or args.refaire):
             try:
                 donnees = recuperer(trouve, trouve["commons"], [args.largeur, 1024, 800])
                 dossier.mkdir(parents=True, exist_ok=True)

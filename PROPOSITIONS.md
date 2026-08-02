@@ -1001,3 +1001,57 @@ un simple refus temporaire de Commons. Relance python outils/images.py une
 minute plus tard et ils devraient entrer. Le portrait de Kepler doit aussi
 être refait, puisque le registre pointe maintenant un autre fichier.
 
+### Retouches du 2 août 2026 (livraison 63)
+
+1. Les sept explorateurs affichent tous leur financement. Colomb et
+   Magellan montraient leurs navires à la place; le détail des flottes
+   reste dans leur texte, qui le mentionne déjà.
+2. Les bandes aux couleurs des drapeaux sont retirées du haut des
+   vignettes. Le nom de la couronne reste sous chaque portrait, et
+   l'étiquette du service garde sa couleur dans le panneau détaillé.
+3. Le schéma du commerce triangulaire ne chevauche plus ses flèches : le
+   triangle est resserré et les textes des étapes 1 et 3 disposent
+   maintenant d'un couloir dégagé, avec une trentaine de pixels d'écart de
+   chaque côté, vérifié par calcul sur les courbes.
+
+### Le cas de Cabral (livraison 64)
+
+Le diagnostic est net : 129 images passent, une seule échoue, sur les trois
+largeurs de vignette et jusqu'au fichier d'origine. Ce n'est donc pas le
+ralentissement général de Commons, c'est ce fichier précis qui refuse de se
+servir, probablement parce que le rendu de ses vignettes est en défaut du
+côté de Wikimedia.
+
+Deux réponses plutôt qu'une :
+
+1. Le registre pointe désormais un autre portrait de Cabral, en JPEG :
+   File:Portrait of Pedro Alvares Cabral.jpg. Le nom local devient
+   cabral.jpg.
+2. Surtout, l'outil accepte maintenant une image déposée à la main pour
+   n'importe quelle image, pas seulement pour celles de l'ancien Google
+   Site. Enregistre le fichier depuis Commons sous son nom exact du
+   registre, dans Téléchargements ou à la racine du dépôt, relance
+   images.py : il la range et va chercher ses crédits normalement. Tu n'es
+   donc plus jamais bloqué par un fichier récalcitrant. La marche à suivre
+   est au README.
+
+En attendant, le module n'est pas cassé : une fiche sans portrait affiche
+les initiales de l'explorateur dans un cadre aux couleurs du thème.
+
+### Dépôt manuel d'une image (livraison 65)
+
+Le fichier avait bien été déposé à la racine, mais sous le nom que propose
+le navigateur, Pedro_Álvares_Cabral.jpg, alors que l'outil ne cherchait que
+le nom du registre, cabral.jpg. C'était à l'outil de s'adapter.
+
+Il reconnaît désormais une image déposée quel que soit son nom : le nom du
+registre, celui du fichier Commons, avec ou sans accents, espaces ou tirets
+bas. La comparaison ignore la casse et la ponctuation, exige au moins six
+caractères communs pour éviter de ramasser un fichier sans rapport, et se
+limite aux fichiers de même extension. Une image ainsi rangée n'est plus
+retéléchargée : l'outil ne va chercher que ses crédits sur Commons.
+
+Vérifié par simulation sur les trois cas : dépôt sous le nom Commons
+accentué, dépôt sous le nom du registre, et fichier étranger correctement
+ignoré.
+

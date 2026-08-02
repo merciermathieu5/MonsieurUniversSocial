@@ -328,6 +328,13 @@ composant pour éviter de refaire les mêmes itérations.
   fichiers nouveaux ou modifiés sont copiés dans docs/. Ne jamais remettre
   un shutil.rmtree sur tout le dossier de sortie, c'est ce qui rendait la
   construction interminable.
+- Si une image résiste malgré tout, la porte de sortie est manuelle :
+  enregistrer l'image depuis Commons dans le dossier Téléchargements ou à
+  la racine du dépôt, puis relancer images.py. Le nom du fichier n'a pas
+  d'importance : l'outil reconnaît aussi bien le nom du registre
+  (cabral.jpg) que celui de Commons, avec ou sans accents ni tirets bas. Il
+  la range au bon endroit, ne la retélécharge pas, et va seulement chercher
+  ses crédits.
 - Quand une image refuse de se télécharger, ne pas changer d'image à
   l'aveugle : lancer python outils/images.py --diagnostic NOM_DU_FICHIER,
   qui dit si le nom Commons est faux, si le fichier n'a pas de vignette ou
