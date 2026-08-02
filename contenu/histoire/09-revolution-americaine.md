@@ -13,7 +13,6 @@ concepts:
   - citoyen
   - démocratie
   - droits
-  - hiérarchie sociale
   - justice
   - philosophie
   - régime politique
@@ -45,8 +44,6 @@ Source : Alloprof
   l'exerce par ses représentants.
 - Droits : ce que chaque personne peut exiger, comme la liberté ou la
   sûreté, et que l'État doit protéger.
-- Hiérarchie sociale : le classement des groupes d'une société, du plus
-  puissant au plus démuni.
 - Justice : le fait de traiter chacun selon ses droits, par des lois
   appliquées également à tous.
 - Philosophie : la recherche de la vérité et de la sagesse par le
@@ -111,6 +108,10 @@ Elle s'est vendue à 4000 exemplaires au cours de ses 20 premières années.
 ### Les philosophes et leurs idées
 
 ![La lecture d'une tragédie de Voltaire dans le salon de Madame Geoffrin en 1755, par Lemonnier](../medias/09-revolution-americaine/salon-geoffrin.jpg)
+
+![Denis Diderot, maître d'oeuvre de l'Encyclopédie, par Louis-Michel van Loo](../medias/09-revolution-americaine/diderot.jpg)
+
+![Une planche de l'Encyclopédie consacrée à la presse d'imprimerie](../medias/09-revolution-americaine/planche-encyclopedie.png)
 
 Les philosophes des Lumières étaient des partisans de la raison et de la
 liberté individuelle. Ils ont critiqué les institutions politiques et
@@ -267,9 +268,6 @@ et les esclaves des Antilles.
 
 ## Les causes de la Révolution américaine
 
-::: schema causes-revolution
-:::
-
 ### La Proclamation royale de 1763
 
 Après la guerre de Sept Ans, gagnée par les Britanniques, les colons des
@@ -341,6 +339,11 @@ perçoivent désormais la Grande-Bretagne comme un obstacle à leur liberté et 
 leur développement. Ce sentiment national sera renforcé par la victoire des
 Treize colonies dans la guerre d'indépendance.
 
+### D'une cause à l'autre, jusqu'à la rupture
+
+::: schema causes-revolution
+:::
+
 ::: questions
 1. Pourquoi la Proclamation royale de 1763 déçoit-elle les colons?
 2. Nomme les trois taxes imposées par Londres et explique le slogan « pas de taxation sans représentation ».
@@ -373,9 +376,11 @@ armés supplémentaires, également soumis à des menaces verbales et à des
 jets de projectiles. Les soldats tirent alors dans la foule, sans en avoir
 reçu l'ordre.
 
-### Du massacre de Boston à la déclaration d'indépendance
+### En route vers la guerre d'indépendance américaine
 
 #### 1774 : le premier Congrès continental
+
+![La prière d'ouverture du premier Congrès continental, à Philadelphie](../medias/09-revolution-americaine/premier-congres.jpg)
 
 Assemblée composée des délégués des colonies d'Amérique du Nord, qui se
 réunit en septembre et en octobre 1774 à Philadelphie pour discuter de leur
@@ -393,6 +398,8 @@ Lincoln, Menotomy et Cambridge. Ils se soldent par le retrait des troupes
 britanniques et plusieurs centaines de morts au total.
 
 #### 1775 : le deuxième Congrès continental
+
+![Le deuxième Congrès continental nomme George Washington à la tête de l'armée](../medias/09-revolution-americaine/deuxieme-congres.jpg)
 
 Assemblée de délégués des Treize colonies qui siégea du 10 mai 1775 au 1er
 mars 1781. Il adopta la Déclaration d'indépendance des États-Unis du 4
@@ -432,6 +439,10 @@ dans un parc de la ville pour déboulonner une statue de George III qui y
 trônait. La statue a été défaite en morceaux, et le métal a servi à faire
 les premières munitions de la guerre d'indépendance qui a suivi.
 
+### Lire la Déclaration d'indépendance
+
+::: composant declaration-independance
+
 ### La déclaration et les idées des Lumières
 
 La déclaration d'indépendance américaine se base en partie sur les idées des
@@ -449,6 +460,12 @@ Richard Henry Lee.
 1. Que s'est-il passé le 5 mars 1770 et comment les Patriotes s'en servent-ils?
 2. Quel événement marque le début de la guerre d'indépendance?
 3. Quelles idées des Lumières retrouve-t-on dans la Déclaration d'indépendance?
+:::
+
+## Les événements de la guerre d'indépendance américaine
+
+::: integration https://padlet.com/merciermathieu5/la-revolution-americaine-903q08870u60osd9
+Le mur collaboratif des événements de la guerre d'indépendance
 :::
 
 ## Les impacts de la Révolution
@@ -477,6 +494,8 @@ monde, notamment la Révolution française, qui a eu lieu dès 1789. Elle a
 le monde.
 
 ### La formation des États-Unis
+
+![George Washington, premier président des États-Unis, par Gilbert Stuart](../medias/09-revolution-americaine/washington.jpg)
 
 Suivant le principe d'une fédération, les Treize colonies deviennent treize
 États possédant chacun un gouvernement indépendant, mais avec un gouvernement
@@ -510,16 +529,12 @@ le droit de vote.
 Source : Hérodote.net
 {: .source-texte }
 
+::: composant bill-of-rights
+
 ::: questions
 1. Nomme une conséquence politique et une conséquence idéologique de la Révolution américaine.
 2. Comment les responsabilités sont-elles partagées dans un système fédéral?
 3. Qu'est-ce que le Bill of Rights et quand est-il publié?
-:::
-
-## Un mur collaboratif
-
-::: integration https://padlet.com/merciermathieu5/la-revolution-americaine-903q08870u60osd9
-Le mur collaboratif de la Révolution américaine
 :::
 
 ## Des activités pour t'exercer

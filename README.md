@@ -328,6 +328,13 @@ composant pour éviter de refaire les mêmes itérations.
   fichiers nouveaux ou modifiés sont copiés dans docs/. Ne jamais remettre
   un shutil.rmtree sur tout le dossier de sortie, c'est ce qui rendait la
   construction interminable.
+- Quand on choisit soi-même une image ailleurs que sur Commons, son nom n'a
+  aucun rapport avec celui du registre : aucun appariement automatique n'est
+  possible. Lancer alors python outils/images.py --ranger, qui liste les
+  images manquantes et les fichiers en attente, et permet de les associer
+  par numéros (par exemple 3a 7b). L'extension doit correspondre à celle du
+  registre, et les crédits d'une image hors Commons se remplissent à la main
+  dans credits.yml.
 - Si une image résiste malgré tout, la porte de sortie est manuelle :
   enregistrer l'image depuis Commons dans le dossier Téléchargements ou à
   la racine du dépôt, puis relancer images.py. Le nom du fichier n'a pas

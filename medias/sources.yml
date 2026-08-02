@@ -1206,7 +1206,7 @@ cabral.jpg:
   licence: ''
   lien: ''
 encyclopedie.jpg:
-  cadrage: petit
+  cadrage: flottant
   fiche: 09-revolution-americaine
   commons: File:Encyclopedie frontispice full.jpg
   recherche: Encyclopedie frontispice Prevost
@@ -1251,7 +1251,7 @@ rousseau.jpg:
   licence: ''
   lien: ''
 carte-treize-colonies.png:
-  cadrage: carte
+  cadrage: flottant
   fiche: 09-revolution-americaine
   commons: File:Thirteen Colonies 1775 map-fr.svg
   recherche: Treize colonies 1775 carte
@@ -1291,6 +1291,51 @@ massacre-boston.jpg:
   fiche: 09-revolution-americaine
   commons: File:Boston Massacre high-res.jpg
   recherche: Paul Revere Bloody Massacre King Street 1770
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+diderot.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Louis-Michel van Loo 001.jpg
+  recherche: Van Loo portrait Denis Diderot 1767
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+planche-encyclopedie.png:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Planche encyclopédie imprimerie 6 Plan de la presse.jpg
+  recherche: planche Encyclopedie imprimerie presse
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+premier-congres.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Continental Congress prayer.jpg
+  recherche: First Continental Congress prayer Carpenters Hall
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+deuxieme-congres.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Washington promotion by Continental Congress.jpg
+  recherche: Washington commander Continental Congress 1775
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+washington.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Gilbert Stuart Williamstown Portrait of George Washington.jpg
+  recherche: Gilbert Stuart portrait George Washington
   auteur: ''
   titre: ''
   licence: ''

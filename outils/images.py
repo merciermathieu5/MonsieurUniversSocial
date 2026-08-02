@@ -257,6 +257,84 @@ def depot_manuel(nom: str, entree: dict, credit: dict) -> Path | None:
     return None
 
 
+EXTENSIONS_IMAGE = {".jpg", ".jpeg", ".png", ".gif", ".webp"}
+
+
+def fichiers_deposes() -> list:
+    """Images en attente dans Téléchargements ou à la racine du dépôt."""
+    trouves = []
+    for dossier in (Path.home() / "Downloads", RACINE):
+        if not dossier.exists():
+            continue
+        for fichier in sorted(dossier.iterdir()):
+            if fichier.is_file() and fichier.suffix.lower() in EXTENSIONS_IMAGE:
+                trouves.append(fichier)
+    return trouves
+
+
+def ranger(registre: dict, credits: dict) -> None:
+    """Associe à la main une image déposée à une entrée du registre.
+
+    Quand on choisit soi-même une image ailleurs que sur Commons, son nom n'a
+    aucun rapport avec celui du registre : aucune correspondance automatique
+    n'est possible. On apparie donc par numéros.
+    """
+    manquantes = []
+    for nom, entree in registre.items():
+        dossier = MEDIAS / entree.get("fiche", "divers")
+        if not (dossier / nom).exists():
+            manquantes.append((nom, entree, dossier))
+    if not manquantes:
+        print("Aucune image ne manque.")
+        return
+    candidats = fichiers_deposes()
+    if not candidats:
+        print("Aucune image en attente dans Téléchargements ni à la racine du dépôt.")
+        print("Enregistre l'image, puis relance cette commande.")
+        return
+
+    print("Images manquantes :")
+    for i, (nom, entree, _) in enumerate(manquantes, 1):
+        print(f"  {i:2}. {nom}   ({entree.get('fiche', 'divers')})")
+    print("\nImages en attente :")
+    for j, fichier in enumerate(candidats, 1):
+        poids = fichier.stat().st_size // 1024
+        print(f"  {chr(96 + j)}. {fichier.name}   {poids} ko   ({fichier.parent.name})")
+    print("\nAssocie-les, par exemple : 3a 7b 9c   (vide pour quitter)")
+
+    try:
+        reponse = input("> ").strip()
+    except EOFError:
+        return
+    if not reponse:
+        return
+
+    for paire in reponse.replace(",", " ").split():
+        chiffres = "".join(c for c in paire if c.isdigit())
+        lettres = "".join(c for c in paire if c.isalpha()).lower()
+        if not chiffres or not lettres:
+            print(f"  {paire} : format non compris, attendu par exemple 3a")
+            continue
+        i, j = int(chiffres) - 1, ord(lettres[0]) - 97
+        if not (0 <= i < len(manquantes)) or not (0 <= j < len(candidats)):
+            print(f"  {paire} : numéro hors de la liste")
+            continue
+        nom, entree, dossier = manquantes[i]
+        source = candidats[j]
+        cible = dossier / nom
+        if source.suffix.lower() != cible.suffix.lower():
+            print(f"  {nom} : le fichier est en {source.suffix.lower()}, "
+                  f"le registre attend {cible.suffix.lower()}")
+            print(f"         corrige l'extension dans medias/sources.yml, "
+                  f"ou enregistre l'image en {cible.suffix.lower()}")
+            continue
+        dossier.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(source), str(cible))
+        print(f"  ok     {nom}  rangée depuis {source.name}")
+        if not all(credits.get(nom, {}).get(c) for c in ("auteur", "licence", "lien")):
+            print(f"         complète auteur, licence et lien dans medias/credits.yml")
+
+
 # ---------------------------------------------------------- téléchargement
 
 def essayer(url: str) -> bytes:
@@ -406,6 +484,8 @@ def main():
     ap.add_argument("--refaire", action="store_true")
     ap.add_argument("--verifier", action="store_true")
     ap.add_argument("--chercher", metavar="TERMES")
+    ap.add_argument("--ranger", action="store_true",
+                    help="associe à la main une image déposée à une entrée du registre")
     ap.add_argument("--diagnostic", metavar="IMAGE",
                     help="explique pourquoi une image précise ne se récupère pas")
     ap.add_argument("--bavard", action="store_true",
@@ -422,6 +502,13 @@ def main():
 
     if args.diagnostic:
         diagnostiquer(args.diagnostic, args.largeur)
+        return
+
+    if args.ranger:
+        registre = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
+        credits = (yaml.safe_load(CREDITS.read_text(encoding="utf-8"))
+                   if CREDITS.exists() else {}) or {}
+        ranger(registre, credits)
         return
 
     if args.chercher:

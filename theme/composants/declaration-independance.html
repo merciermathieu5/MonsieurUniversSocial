@@ -1,0 +1,69 @@
+<section class="lec" id="declaration-independance" aria-label="Le texte de la Déclaration d'indépendance des États-Unis">
+<style>
+.lec { margin: 1.4rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.lec .lec__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.lec .lec__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+html[data-sombre="on"] .lec .lec__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .lec .lec__titre { color: var(--encre); }
+.lec__reglages { display: flex; align-items: center; gap: .4rem; }
+.lec__reglages span { font-family: var(--donnee); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-right: .3rem; }
+html[data-sombre="on"] .lec__reglages span { color: var(--encre-pale); }
+.lec__zoom { font-family: var(--titre); font-weight: 700; font-size: .88rem; line-height: 1; color: var(--matiere-fonce); background: #fff; border: 0; border-radius: 100px; width: 2.1rem; height: 2.1rem; cursor: pointer; transition: transform .12s, background .12s; }
+.lec__zoom:hover:not(:disabled) { transform: translateY(-1px); background: var(--signal); }
+.lec__zoom:disabled { opacity: .45; cursor: default; }
+.lec__taille { font-family: var(--donnee); font-size: .7rem; color: rgba(255,255,255,.8); min-width: 3.1rem; text-align: center; }
+html[data-sombre="on"] .lec__taille { color: var(--encre-doux); }
+.lec__texte { padding: 1.5rem 1.8rem 1.2rem; font-size: 1rem; }
+.lec__texte p { margin: 0 0 1rem; line-height: 1.75; font-size: inherit; }
+.lec__texte p:last-of-type { margin-bottom: 0; }
+.lec__intro { font-family: var(--titre); font-weight: 600; color: var(--matiere-fonce); border-left: 3px solid var(--matiere); padding-left: .9rem; }
+.lec__article { display: grid; grid-template-columns: auto 1fr; gap: .1rem 1rem; margin: 0 0 1rem; align-items: baseline; }
+.lec__numero { font-family: var(--donnee); font-size: .7em; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--matiere); white-space: nowrap; }
+.lec__pied { padding: .85rem 1.8rem 1rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
+.lec__source { margin: 0; font-family: var(--donnee); font-size: .72rem; line-height: 1.6; color: var(--encre-doux); }
+.lec__source a { color: var(--matiere); }
+@media (max-width: 40rem) { .lec__texte { padding: 1.2rem 1rem 1rem; } .lec__pied { padding: .8rem 1rem; } }
+@media print { .lec__reglages { display: none; } }
+</style>
+<header class="lec__entete">
+<h3 class="lec__titre">La Déclaration d'indépendance des États-Unis, 4 juillet 1776</h3>
+<div class="lec__reglages">
+<span>Taille du texte</span>
+<button class="lec__zoom" type="button" data-lec="moins" aria-label="Réduire la taille du texte">A-</button>
+<span class="lec__taille" data-lec="taille" role="status">100 %</span>
+<button class="lec__zoom" type="button" data-lec="plus" aria-label="Agrandir la taille du texte">A+</button>
+</div>
+</header>
+<div class="lec__texte" data-lec="texte">
+<p class="lec__intro">Extrait du préambule, dans la traduction française publiée par le Département d'État des États-Unis.</p>
+<p>Lorsque, dans le cours des événements humains, il devient nécessaire pour un peuple de dissoudre les liens politiques qui l'ont attaché à un autre et de prendre, parmi les puissances de la Terre, la place séparée et égale à laquelle les lois de la nature et du Dieu de la nature lui donnent droit, le respect dû à l'opinion de l'humanité oblige à déclarer les causes qui le déterminent à la séparation.</p>
+<p>Nous tenons pour évidentes par elles-mêmes les vérités suivantes : tous les hommes sont créés égaux; ils sont doués par le Créateur de certains droits inaliénables; parmi ces droits se trouvent la vie, la liberté et la recherche du bonheur.</p>
+<p>Les gouvernements sont établis parmi les hommes pour garantir ces droits, et leur juste pouvoir émane du consentement des gouvernés. Toutes les fois qu'une forme de gouvernement devient destructive de ce but, le peuple a le droit de la changer ou de l'abolir et d'établir un nouveau gouvernement, en le fondant sur les principes et en l'organisant en la forme qui lui paraîtront les plus propres à lui donner la sûreté et le bonheur.</p>
+<p>En conséquence, nous, représentants des États-Unis d'Amérique, assemblés en Congrès général, publions et déclarons solennellement que ces colonies unies sont et ont le droit d'être des États libres et indépendants.</p>
+</div>
+<div class="lec__pied">
+<p class="lec__source">Traduction officielle du Département d'État des États-Unis. Le texte intégral est disponible en format PDF : <a href="https://www.state.gov/wp-content/uploads/2020/02/French-translation-U.S.-Declaration-of-Independence.pdf" target="_blank" rel="noopener noreferrer">French translation, U.S. Declaration of Independence</a>. Le passage reproduit ici est le préambule, suivi de la proclamation finale; la longue liste des griefs contre le roi George III n'est pas reprise.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("declaration-independance");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  var texte = racine.querySelector('[data-lec="texte"]');
+  var affichage = racine.querySelector('[data-lec="taille"]');
+  var moins = racine.querySelector('[data-lec="moins"]');
+  var plus = racine.querySelector('[data-lec="plus"]');
+  var PALIERS = [0.9, 1, 1.15, 1.3, 1.5, 1.75];
+  var rang = 1;
+  function appliquer() {
+    texte.style.fontSize = PALIERS[rang] + "rem";
+    affichage.textContent = Math.round(PALIERS[rang] / PALIERS[1] * 100) + " %";
+    moins.disabled = rang === 0;
+    plus.disabled = rang === PALIERS.length - 1;
+  }
+  moins.addEventListener("click", function () { if (rang > 0) { rang--; appliquer(); } });
+  plus.addEventListener("click", function () { if (rang < PALIERS.length - 1) { rang++; appliquer(); } });
+  appliquer();
+})();
+</script>
+</section>
