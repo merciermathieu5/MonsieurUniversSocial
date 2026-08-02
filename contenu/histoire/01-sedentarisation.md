@@ -3,8 +3,9 @@ titre: "La sédentarisation"
 court: "Sédentarisation"
 section: histoire
 ordre: 1
-groupe: antiquite
+groupe: sec1
 periode: "Vers -10 000 à -3500"
+epoque: "Préhistoire"
 debut: -10000
 fin: -3500
 angle: "L'organisation sociale et économique"

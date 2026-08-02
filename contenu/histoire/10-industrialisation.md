@@ -3,8 +3,9 @@ titre: "L'industrialisation : une révolution économique et sociale"
 court: "Industrialisation"
 section: histoire
 ordre: 10
-groupe: moderne
+groupe: sec2
 periode: "XVIIIe et XIXe siècles"
+epoque: "Époque contemporaine"
 debut: 1750
 fin: 1900
 angle: "La transformation économique et sociale"

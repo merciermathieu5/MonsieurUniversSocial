@@ -3,8 +3,9 @@ titre: "La christianisation de l'Occident"
 court: "Christianisation de l'Occident"
 section: histoire
 ordre: 5
-groupe: moyen-age
+groupe: sec1
 periode: "Ve au XIe siècle"
+epoque: "Moyen Âge"
 debut: 476
 fin: 1100
 angle: "L'influence de l'Église"

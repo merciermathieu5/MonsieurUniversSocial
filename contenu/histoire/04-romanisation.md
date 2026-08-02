@@ -3,8 +3,9 @@ titre: "La romanisation"
 court: "Romanisation"
 section: histoire
 ordre: 4
-groupe: antiquite
+groupe: sec1
 periode: "-509 à 476"
+epoque: "Antiquité"
 debut: -509
 fin: 476
 angle: "L'expansion de l'Empire romain"

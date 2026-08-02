@@ -3,8 +3,9 @@ titre: "L'émergence d'une civilisation"
 court: "Émergence d'une civilisation"
 section: histoire
 ordre: 2
-groupe: antiquite
+groupe: sec1
 periode: "Vers -3500 à -500"
+epoque: "Antiquité"
 debut: -3500
 fin: -500
 angle: "Le rôle de l'écriture"

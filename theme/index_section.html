@@ -28,7 +28,7 @@
       <li class="carte{% if f.vide %} carte--attente{% endif %}">
         <a href="{{ base }}/{{ f.url }}">
           <span class="carte__repere donnee">
-            {{ f.periode or f.echelle or '—' }}
+            {{ f.epoque or f.periode or f.echelle or '—' }}
           </span>
           <span class="carte__titre">{{ f.titre }}</span>
           {% if f.resume and not f.vide %}

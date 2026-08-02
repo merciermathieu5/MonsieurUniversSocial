@@ -3,8 +3,9 @@ titre: "La reconnaissance des libertés et des droits civils"
 court: "Libertés et droits civils"
 section: histoire
 ordre: 12
-groupe: moderne
+groupe: sec2
 periode: "XXe siècle"
+epoque: "Époque contemporaine"
 debut: 1900
 fin: 2000
 angle: "Les revendications et les droits"

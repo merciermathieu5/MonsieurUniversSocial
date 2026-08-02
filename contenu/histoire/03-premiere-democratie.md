@@ -3,8 +3,9 @@ titre: "Une première expérience de démocratie"
 court: "Première expérience de démocratie"
 section: histoire
 ordre: 3
-groupe: antiquite
+groupe: sec1
 periode: "Ve siècle av. J.-C."
+epoque: "Antiquité"
 debut: -500
 fin: -400
 angle: "La participation des citoyens à la vie politique"

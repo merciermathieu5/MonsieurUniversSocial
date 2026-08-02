@@ -3,8 +3,9 @@ titre: "L'expansion européenne dans le monde"
 court: "Expansion européenne dans le monde"
 section: histoire
 ordre: 8
-groupe: moderne
+groupe: sec2
 periode: "XVe au XVIIe siècle"
+epoque: "Temps modernes"
 debut: 1400
 fin: 1700
 angle: "Les grandes explorations"

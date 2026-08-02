@@ -16,6 +16,7 @@ sections:
     cycle: Premier cycle du secondaire
     couleur: histoire
     unite: réalité sociale
+    unite_pluriel: réalités sociales
     parcours_titre: Réalités sociales
     parcours_rangees:
       - titre: 1re secondaire
@@ -37,12 +38,10 @@ sections:
       Néolithique jusqu'à la reconnaissance des libertés et des droits civils.
     # Sert à grouper les fiches sur la page d'index.
     groupes:
-      - cle: antiquite
-        titre: Des premières sociétés à l'Antiquité
-      - cle: moyen-age
-        titre: Le Moyen Âge et la Renaissance
-      - cle: moderne
-        titre: Le monde moderne et contemporain
+      - cle: sec1
+        titre: 1re secondaire
+      - cle: sec2
+        titre: 2e secondaire
       - cle: outils
         titre: Pour commencer
 
@@ -52,6 +51,7 @@ sections:
     cycle: Premier cycle du secondaire
     couleur: geographie
     unite: territoire
+    unite_pluriel: territoires
     parcours_titre: Territoires
     documents:
       - titre: Progression des apprentissages

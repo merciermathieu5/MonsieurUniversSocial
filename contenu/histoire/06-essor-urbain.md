@@ -3,8 +3,9 @@ titre: "L'essor urbain et commercial"
 court: "Essor urbain et commercial"
 section: histoire
 ordre: 6
-groupe: moyen-age
+groupe: sec1
 periode: "XIe au XIVe siècle"
+epoque: "Moyen Âge"
 debut: 1100
 fin: 1400
 angle: "La renaissance des villes"

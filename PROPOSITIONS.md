@@ -867,3 +867,34 @@ sur un mot : deux reconstitutions dans la fiche 04 (Lutèce et Toulouse
 antique par Dartagnans), la capsule de Laurent Turcot et le balado de
 Charles Beauchesne dans la fiche 06.
 
+### Retouches du 2 août 2026 (livraison 58)
+
+1. Le nom « Monsieur Univers social » est agrandi dans le bandeau et la
+   mention « Premier cycle du secondaire » y est retirée, puisqu'elle
+   revient juste en dessous dans la ligne de l'accueil.
+2. Les compteurs de l'accueil ne parlent plus de fiches : ils annoncent
+   « 12 réalités sociales » et « 12 territoires ». Le nombre est calculé
+   automatiquement, en excluant les fiches du groupe Pour commencer
+   (Notions de base en histoire, Canada politique et coordonnées
+   géographiques en géographie), donc il restera juste si tu ajoutes une
+   fiche.
+3. Les réalités sociales sont désormais classées par année du secondaire :
+   1re secondaire de la sédentarisation à l'essor urbain, 2e secondaire du
+   renouvellement de la vision de l'homme aux libertés et droits civils.
+   Cette répartition reprend celle qui était déjà déclarée dans site.yml
+   pour le parcours.
+4. Les cartes affichent la période historique au lieu des années :
+   Préhistoire, Antiquité, Moyen Âge, Renaissance, Temps modernes, Époque
+   contemporaine. Un champ epoque a été ajouté au début de chaque fiche
+   d'histoire; les dates précises restent affichées dans l'en-tête de la
+   fiche elle-même.
+
+### À trancher
+
+**Le nombre de territoires.** Tu as parlé de 11 territoires en géographie,
+mais j'en compte 12 hors Pour commencer : métropole, ville patrimoniale,
+ville à risques naturels, tourisme, forestier, énergétique du Québec,
+énergétique de l'Alberta, industriel, agricole national, agricole à risque,
+autochtone et protégé. Dis-moi lequel ne doit pas être compté, ou si le
+compteur automatique te convient tel quel.
+

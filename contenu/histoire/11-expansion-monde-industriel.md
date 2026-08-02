@@ -3,8 +3,9 @@ titre: "L'expansion du monde industriel"
 court: "Expansion du monde industriel"
 section: histoire
 ordre: 11
-groupe: moderne
+groupe: sec2
 periode: "1850 à 1914"
+epoque: "Époque contemporaine"
 debut: 1850
 fin: 1914
 angle: "L'impérialisme et la colonisation"

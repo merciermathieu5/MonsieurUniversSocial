@@ -3,8 +3,9 @@ titre: "La Révolution américaine"
 court: "Révolution américaine"
 section: histoire
 ordre: 9
-groupe: moderne
+groupe: sec2
 periode: "1763 à 1791"
+epoque: "Temps modernes"
 debut: 1763
 fin: 1791
 angle: "Les revendications et les droits"

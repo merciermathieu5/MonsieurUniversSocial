@@ -3,8 +3,9 @@ titre: "Le renouvellement de la vision de l'homme"
 court: "Renouvellement de la vision de l'homme"
 section: histoire
 ordre: 7
-groupe: moyen-age
+groupe: sec2
 periode: "XVe et XVIe siècles"
+epoque: "Renaissance"
 debut: 1400
 fin: 1600
 angle: "L'humanisme"

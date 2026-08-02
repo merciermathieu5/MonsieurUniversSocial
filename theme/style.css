@@ -94,7 +94,7 @@ a { color: inherit; }
   gap: 1.5rem; flex-wrap: wrap;
 }
 .marque { text-decoration: none; display: grid; line-height: 1.2; color: #fff; }
-.marque__nom { font-family: var(--titre); font-weight: 700; font-size: 1.02rem; letter-spacing: -.015em; }
+.marque__nom { font-family: var(--titre); font-weight: 700; font-size: 1.36rem; letter-spacing: -.02em; }
 .marque__note {
   font-family: var(--donnee); font-size: .68rem; text-transform: uppercase;
   letter-spacing: .1em; color: rgba(255,255,255,.55);
