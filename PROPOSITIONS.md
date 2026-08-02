@@ -531,3 +531,23 @@ hierarchie-bourg.
 Comme pour les fiches précédentes, les liens ministériels morts ne sont pas
 repris.
 
+### Retouches du 2 août 2026 (livraison 43)
+
+À la demande, toutes appliquées :
+
+1. Deux images en tête de la mise en contexte : un marché médiéval du 15e
+   siècle et la ville animée des Effets du bon gouvernement de Lorenzetti
+   (Commons, vérifiées).
+2. Nouvelle sous-section « Les routes du Grand commerce » avec la carte des
+   routes commerciales de la fin du Moyen Âge tirée de Wikipédia (Hanse,
+   Venise et Gênes, routes terrestres) et un paragraphe de lecture de la
+   carte.
+3. Le développement urbain et commercial s'ouvre sur un nouveau schéma
+   causes-consequences : deux causes à gauche, l'essor au centre à
+   l'accent, trois conséquences à droite, pour que les élèves saisissent la
+   structure d'un coup d'oeil avant le détail.
+4. La peste noire devient une section complète : arrivée par les routes du
+   commerce (Caffa, Messine, 1347), la maladie et son impact dans les
+   bourgs insalubres, un Savais-tu sur Yersin (1894), et les conséquences
+   démographiques et sociales de l'épidémie.
+

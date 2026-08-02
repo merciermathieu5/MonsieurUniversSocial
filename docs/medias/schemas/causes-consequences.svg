@@ -1,0 +1,44 @@
+<svg viewBox="0 0 1100 340" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les deux causes de l'essor des bourgs et du commerce, la Paix de Dieu et les techniques agricoles, et ses trois conséquences, la bourgeoisie marchande, les migrations urbaines et les chartes">
+  <style>
+    .cc-t { font-family: Archivo, sans-serif; }
+    .cc-h { font-size: 12.5px; font-weight: 600; letter-spacing: .06em; fill: var(--encre-doux); }
+    .cc-b { font-size: 14px; font-weight: 700; fill: var(--bloc-texte); }
+    .cc-bs { font-size: 12px; fill: var(--bloc-texte); }
+    .cc-c { font-size: 15px; font-weight: 700; fill: var(--surface); }
+    .cc-p { font-size: 14px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .cc-ps { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .cc-fleche { stroke: var(--schema-trait); stroke-width: 2.5; fill: none; }
+    .cc-pointe { fill: var(--schema-trait); }
+  </style>
+  <text class="cc-t cc-h" x="180" y="40" text-anchor="middle">LES DEUX CAUSES</text>
+  <text class="cc-t cc-h" x="920" y="40" text-anchor="middle">LES TROIS CONSÉQUENCES</text>
+  <rect x="40" y="64" width="280" height="64" rx="5" fill="var(--bloc)"/>
+  <text class="cc-t cc-b" x="180" y="91" text-anchor="middle">La Paix de Dieu</text>
+  <text class="cc-t cc-bs" x="180" y="112" text-anchor="middle">moins de violence envers les paysans</text>
+  <rect x="40" y="164" width="280" height="64" rx="5" fill="var(--bloc)"/>
+  <text class="cc-t cc-b" x="180" y="191" text-anchor="middle">Les techniques agricoles</text>
+  <text class="cc-t cc-bs" x="180" y="212" text-anchor="middle">plus de récoltes, des surplus à vendre</text>
+  <rect x="410" y="134" width="280" height="88" rx="5" fill="var(--schema-accent)"/>
+  <text class="cc-t cc-c" x="550" y="172" text-anchor="middle">L'essor des bourgs</text>
+  <text class="cc-t cc-c" x="550" y="196" text-anchor="middle">et du commerce</text>
+  <line class="cc-fleche" x1="320" y1="96" x2="398" y2="160"/>
+  <polygon class="cc-pointe" points="406,166 392,164 398,153"/>
+  <line class="cc-fleche" x1="320" y1="196" x2="398" y2="196"/>
+  <polygon class="cc-pointe" points="408,196 396,190 396,202"/>
+  <rect x="780" y="44" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="cc-t cc-p" x="920" y="71" text-anchor="middle">La bourgeoisie marchande</text>
+  <text class="cc-t cc-ps" x="920" y="92" text-anchor="middle">un nouveau groupe social s'enrichit</text>
+  <rect x="780" y="146" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="cc-t cc-p" x="920" y="173" text-anchor="middle">Les migrations urbaines</text>
+  <text class="cc-t cc-ps" x="920" y="194" text-anchor="middle">des campagnes vers les bourgs</text>
+  <rect x="780" y="248" width="280" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="cc-t cc-p" x="920" y="275" text-anchor="middle">Les chartes</text>
+  <text class="cc-t cc-ps" x="920" y="296" text-anchor="middle">des droits écrits pour les habitants</text>
+  <line class="cc-fleche" x1="690" y1="156" x2="768" y2="82"/>
+  <polygon class="cc-pointe" points="776,76 772,89 762,79"/>
+  <line class="cc-fleche" x1="690" y1="178" x2="768" y2="178"/>
+  <polygon class="cc-pointe" points="778,178 766,172 766,184"/>
+  <line class="cc-fleche" x1="690" y1="200" x2="768" y2="274"/>
+  <polygon class="cc-pointe" points="776,280 762,277 772,267"/>
+</svg>

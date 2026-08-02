@@ -25,6 +25,10 @@ image_entete: ""
 
 ## Mise en contexte
 
+![Un marché médiéval, enluminure du 15e siècle](../medias/06-essor-urbain/contexte-marche.jpg)
+
+![La ville animée des Effets du bon gouvernement, fresque d'Ambrogio Lorenzetti à Sienne (1338)](../medias/06-essor-urbain/contexte-ville.jpg)
+
 Avec l'essor du commerce et de l'urbanisation au Moyen Âge, la bourgeoisie
 se développe. L'émergence de ce groupe social, qui s'impose progressivement
 dans la hiérarchie sociale, est un des facteurs conduisant à la fin du Moyen
@@ -71,12 +75,31 @@ tel que la Manche, incite les marchands à s'y réunir. Notons finalement que
 le harnais et les fers à cheval favorisent le déplacement en charrette, ce
 qui facilite le transport par les voies terrestres.
 
+### Les routes du Grand commerce
+
+![Les grandes routes commerciales de la fin du Moyen Âge](../medias/06-essor-urbain/carte-routes-commerce.jpg)
+
+La carte montre les grandes routes commerciales de la fin du Moyen Âge. En
+noir, les routes de la Hanse relient les ports de la mer du Nord et de la
+mer Baltique, dont Bruges, Londres et Hambourg. En couleur, les routes
+maritimes de Venise et de Gênes sillonnent la Méditerranée et rejoignent la
+mer Noire. Les lignes pointillées suivent les routes terrestres et les
+fleuves : c'est à leur croisement, comme en Champagne, que se tiennent les
+grandes foires.
+
 ### La ligne du temps
 
 ::: schema frise-essor
 :::
 
 ## Le développement urbain et commercial
+
+Le schéma suivant donne la vue d'ensemble : deux causes mènent à l'essor
+des bourgs et du commerce, qui entraîne à son tour trois grandes
+conséquences. Les sections qui suivent expliquent chacun de ces éléments.
+
+::: schema causes-consequences
+:::
 
 ### Les causes
 
@@ -393,7 +416,7 @@ lettre de change est, pour ainsi dire, l'ancêtre du chèque.
 4. À quoi servent le changeur et la lettre de change?
 :::
 
-## La peste noire, en supplément
+## La peste noire
 
 ![Les habitants de Tournai enterrent les victimes de la peste, miniature de Pierart dou Tielt (vers 1353)](../medias/06-essor-urbain/peste-tournai.jpg)
 
@@ -402,6 +425,42 @@ la population européenne. Des millions de personnes, des riches comme des
 pauvres, ont péri à la suite d'affreuses souffrances, de la Russie jusqu'à
 l'Afrique du Nord. L'épidémie, désastreuse à tous les points de vue, a
 bouleversé le portrait démographique et économique du continent.
+
+### Arrivée par les routes du commerce
+
+La peste voyage sur les mêmes routes que les marchandises. Partie d'Asie
+centrale, elle suit les caravanes jusqu'aux ports de la mer Noire. En 1347,
+des navires marchands génois venus de Caffa accostent à Messine, en Sicile,
+avec des équipages déjà malades : en quelques mois, l'épidémie gagne les
+grands ports de la Méditerranée, puis remonte les routes commerciales vers
+l'intérieur du continent. Les mêmes réseaux qui enrichissent l'Europe
+transportent ainsi la maladie.
+
+### Une maladie foudroyante
+
+La peste se transmet surtout par les puces des rats noirs, nombreux sur les
+navires et dans les villes. Le malade est pris de fièvre et voit apparaître
+des bubons, des ganglions enflés et douloureux; la mort survient souvent en
+quelques jours. Les bourgs, où l'on vit entassés dans des rues insalubres,
+sont frappés de plein fouet. Les médecins de l'époque, qui ignorent tout
+des microbes, sont impuissants : on accuse l'air corrompu, on fuit les
+villes, on cherche des coupables.
+
+::: savais-tu
+Le microbe responsable de la peste n'a été découvert qu'en 1894, plus de
+cinq siècles après la peste noire, par Alexandre Yersin. Le bacille porte
+d'ailleurs son nom : Yersinia pestis.
+:::
+
+### Les conséquences de l'épidémie
+
+En cinq ans, l'Europe perd entre le tiers et la moitié de sa population,
+soit environ 25 millions de personnes. Les campagnes manquent alors de bras
+: les paysans survivants, devenus rares et précieux, obtiennent de
+meilleurs salaires et de meilleures conditions, ce qui affaiblit encore les
+obligations seigneuriales. Le commerce et les foires ralentissent un temps,
+puis l'économie se réorganise. La peste noire referme brutalement le Moyen
+Âge central et annonce les grands bouleversements de la fin du Moyen Âge.
 
 ::: activite
 Pour aller plus loin, écoute [l'entrevue de l'historien Michel Hébert](https://ici.radio-canada.ca/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/19793/histo-peste-noire-moyen-age)
