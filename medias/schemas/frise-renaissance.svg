@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps de la Renaissance, de la fin du Moyen Âge aux Temps modernes, avec l'imprimerie, les 95 thèses de Luther, les publications de Copernic et de Vésale et le massacre de la Saint-Barthélemy">
+  <style>
+    .re-t { font-family: Archivo, sans-serif; }
+    .re-e { font-size: 13.5px; fill: var(--encre); }
+    .re-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
+    .re-p1 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .re-p2 { font-size: 14px; font-weight: 600; fill: var(--surface); }
+    .re-p3 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
+  </style>
+  <rect x="70" y="178" width="160" height="34" fill="var(--bloc-pale)"/>
+  <rect x="230" y="178" width="640" height="34" fill="var(--schema-accent)"/>
+  <rect x="870" y="178" width="160" height="34" fill="var(--bloc)"/>
+  <text class="re-t re-p1" x="150" y="200" text-anchor="middle">Le Moyen Âge</text>
+  <text class="re-t re-p2" x="550" y="200" text-anchor="middle">La Renaissance</text>
+  <text class="re-t re-p3" x="950" y="200" text-anchor="middle">Les Temps modernes</text>
+  <line x1="390" y1="164" x2="390" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="re-t re-d" x="390" y="96" text-anchor="middle">Vers 1450</text>
+  <text class="re-t re-e" x="390" y="117" text-anchor="middle">Gutenberg met au point</text>
+  <text class="re-t re-e" x="390" y="138" text-anchor="middle">l'imprimerie à caractères</text>
+  <text class="re-t re-e" x="390" y="159" text-anchor="middle">mobiles en Europe.</text>
+  <circle cx="390" cy="178" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="604.4" y1="220" x2="604.4" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="re-t re-d" x="604.4" y="248" text-anchor="middle">1517</text>
+  <text class="re-t re-e" x="604.4" y="269" text-anchor="middle">Luther publie ses 95</text>
+  <text class="re-t re-e" x="604.4" y="290" text-anchor="middle">thèses : la Réforme</text>
+  <text class="re-t re-e" x="604.4" y="311" text-anchor="middle">protestante éclate.</text>
+  <circle cx="604.4" cy="212" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="687.6" y1="164" x2="687.6" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="re-t re-d" x="687.6" y="96" text-anchor="middle">1543</text>
+  <text class="re-t re-e" x="687.6" y="117" text-anchor="middle">Copernic et Vésale</text>
+  <text class="re-t re-e" x="687.6" y="138" text-anchor="middle">publient leurs grandes</text>
+  <text class="re-t re-e" x="687.6" y="159" text-anchor="middle">oeuvres scientifiques.</text>
+  <circle cx="687.6" cy="178" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="780.4" y1="220" x2="780.4" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="re-t re-d" x="780.4" y="248" text-anchor="middle">1572</text>
+  <text class="re-t re-e" x="780.4" y="269" text-anchor="middle">Le massacre de la</text>
+  <text class="re-t re-e" x="780.4" y="290" text-anchor="middle">Saint-Barthélemy frappe</text>
+  <text class="re-t re-e" x="780.4" y="311" text-anchor="middle">les protestants à Paris.</text>
+  <circle cx="780.4" cy="212" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+</svg>

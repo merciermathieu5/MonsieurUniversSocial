@@ -578,6 +578,7 @@ repris.
    au-dessus des descriptions détaillées. Pictogrammes volontairement
    géométriques et épurés, dans l'accent du thème.
 
+
 ### Retouche du 2 août 2026 (livraison 46)
 
 1. Règle des majuscules consignée dans les conventions des schémas : tout
@@ -587,4 +588,71 @@ repris.
    agricoles et le repère Vers 1000 de la frise de l'essor. Dans la
    foulée, tous les repères de dates des frises plus anciennes (Vers -3500,
    Vers -750, Peut-être dès -3000...) sont harmonisés à la même règle.
+
+## Fiche : Le renouvellement de la vision de l'homme
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « L'Europe, au 16e siècle, est composé » devient « est composée »
+- « se trouve le royaume de Naples ainsi que les États de l'Église » devient
+  « se trouvent »
+- « le mouvement prenant de plus en plus d'ampleur » devient « prend de plus
+  en plus d'ampleur »
+- « Ils ne tardent pas à faire l'objet de persécutions » devient « Elles ne
+  tardent pas », puisque le sujet est « plusieurs familles »
+- « ne respectent pas leur vœux » devient « leurs voeux »
+- « dont les péchés sont absouts » devient « absous »
+- « La naissance de Venus » devient « La naissance de Vénus »
+- « Rafael » devient « Raphaël », « Vikipédia.org » devient « Wikipédia »,
+  « Allo Prof » devient « Alloprof »
+- « Moyen-Âge » devient « Moyen Âge », « apparaitre » devient « apparaître »
+- « Basilique St-Pierre de Rome » devient « basilique Saint-Pierre de Rome »
+- « Le Concile de Trente débute en 1545, 3 ans après » devient « trois ans »
+- Les ligatures oe sont retirées partout (oeuvre, voeux, moeurs, soeurs)
+
+### Propositions qui touchent au contenu
+
+Réponds par le numéro. Je n'applique que ce que tu approuves.
+
+**1. « Le style gothique moyenâgeux est oublié »**
+
+J'ai écrit « est délaissé » : le gothique n'a pas été oublié, il cesse
+d'être à la mode. Dis-moi si tu préfères ta formulation d'origine.
+
+**2. Définitions des concepts ajoutées**
+
+Comme pour les fiches 05 et 06, l'image des concepts est inaccessible
+(403). J'ai rédigé une définition par concept, en reprenant telles quelles
+tes définitions du vocabulaire (esprit critique, raison, Réforme
+protestante, héliocentrisme, géocentrisme, indulgence) et en rédigeant les
+autres. À relire.
+
+**3. Images de remplacement**
+
+Toutes les images de l'ancien site renvoient 403, y compris les portraits
+d'humanistes réalisés par M. Harold Michaud et l'exemple de scène Scratch.
+La fiche s'appuie sur dix images Wikimedia Commons vérifiées : la carte de
+l'Europe vers 1500, Gutenberg, Érasme par Holbein, la Pietà, La naissance
+de Vénus, La Joconde, L'École d'Athènes, le dôme de Florence, Luther par
+Cranach et le massacre de la Saint-Barthélemy de François Dubois. Si tu
+retrouves les images de M. Michaud, je les réintègre avec plaisir.
+
+**4. Deux schémas neufs**
+
+frise-renaissance (Moyen Âge, Renaissance à l'accent, Temps modernes, avec
+1450, 1517, 1543 et 1572) et modeles-astronomiques (géocentrisme et
+héliocentrisme côte à côte), ce dernier remplaçant tes deux images de
+modèles devenues inaccessibles.
+
+**5. L'École d'Athènes**
+
+Ton texte présentait Platon et Aristote, puis deux listes de penseurs. J'ai
+gardé toute l'information, mais en un seul paragraphe suivi, pour rester
+dans le format des quatre chefs-d'oeuvre présentés ensemble. Dis-moi si tu
+préfères revenir aux listes.
+
+**6. Liens ministériels**
+
+Comme pour les fiches précédentes, les liens vers la Progression et le
+Programme aux anciennes adresses ministérielles ne sont pas repris.
 

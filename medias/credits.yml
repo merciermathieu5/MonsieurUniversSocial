@@ -531,3 +531,63 @@ carte-routes-commerce.jpg:
   auteur: Lampman
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Late_Medieval_Trade_Routes.jpg
+carte-europe-1500.png:
+  commons: File:Europe1500.svg
+  titre: Europe1500
+  auteur: BoH
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Europe1500.svg
+gutenberg.jpg:
+  commons: File:Anonymous portrait of Johannes Gutenberg dated 1440, Gutenberg Museum.JPG
+  titre: Anonymous portrait of Johannes Gutenberg dated 1440, Gutenberg Museum
+  auteur: Unidentified painter
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Anonymous_portrait_of_Johannes_Gutenberg_dated_1440,_Gutenberg_Museum.JPG
+erasme.jpg:
+  commons: File:Holbein-erasmus.jpg
+  titre: Holbein-erasmus
+  auteur: Hans Holbein the Younger
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Holbein-erasmus.jpg
+pieta.jpg:
+  commons: File:Michelangelo's Pietà Saint Peter's Basilica Vatican City.jpg
+  titre: Michelangelo's Pietà Saint Peter's Basilica Vatican City
+  auteur: Jebulon
+  licence: Creative Commons Zero
+  lien: https://commons.wikimedia.org/wiki/File:Michelangelo%27s_Piet%C3%A0_Saint_Peter%27s_Basilica_Vatican_City.jpg
+naissance-venus.jpg:
+  commons: File:Sandro Botticelli - La nascita di Venere - Google Art Project - edited.jpg
+  titre: Sandro Botticelli - La nascita di Venere - Google Art Project - edited
+  auteur: Sandro Botticelli
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg
+joconde.jpg:
+  commons: File:Mona Lisa, by Leonardo da Vinci, from C2RMF retouched.jpg
+  titre: Mona Lisa, by Leonardo da Vinci, from C2RMF retouched
+  auteur: Leonardo da Vinci
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg
+ecole-athenes.jpg:
+  commons: File:"The School of Athens" by Raffaello Sanzio da Urbino.jpg
+  titre: '"The School of Athens" by Raffaello Sanzio da Urbino'
+  auteur: Raphael
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg
+dome-florence.jpg:
+  commons: File:Florence Cathedral (Duomo).jpg
+  titre: Florence Cathedral (Duomo)
+  auteur: Kevin Poh
+  licence: Creative Commons BY 2.0
+  lien: https://commons.wikimedia.org/wiki/File:Florence_Cathedral_(Duomo).jpg
+luther.jpg:
+  commons: File:Lucas Cranach d.Ä. - Martin Luther, 1528 (Veste Coburg).jpg
+  titre: Lucas Cranach d.Ä. - Martin Luther, 1528 (Veste Coburg)
+  auteur: Lucas Cranach the Elder
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Lucas_Cranach_d.%C3%84._-_Martin_Luther,_1528_(Veste_Coburg).jpg
+saint-barthelemy.jpg:
+  commons: File:La masacre de San Bartolomé, por François Dubois.jpg
+  titre: La masacre de San Bartolomé, por François Dubois
+  auteur: François Dubois 1529-1584
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:La_masacre_de_San_Bartolom%C3%A9,_por_Fran%C3%A7ois_Dubois.jpg

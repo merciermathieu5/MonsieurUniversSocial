@@ -881,3 +881,93 @@ carte-routes-commerce.jpg:
   titre: ''
   licence: ''
   lien: ''
+carte-europe-1500.png:
+  cadrage: carte
+  fiche: 07-vision-de-lhomme
+  commons: File:Europe1500.svg
+  recherche: Europe 1500 map kingdoms
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+gutenberg.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Anonymous portrait of Johannes Gutenberg dated 1440, Gutenberg Museum.JPG
+  recherche: portrait Johannes Gutenberg
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+erasme.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Holbein-erasmus.jpg
+  recherche: Erasmus Holbein portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+pieta.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Michelangelo's Pietà Saint Peter's Basilica Vatican City.jpg
+  recherche: Michelangelo Pieta Saint Peter
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+naissance-venus.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Sandro Botticelli - La nascita di Venere - Google Art Project - edited.jpg
+  recherche: Botticelli Birth of Venus
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+joconde.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Mona Lisa, by Leonardo da Vinci, from C2RMF retouched.jpg
+  recherche: Mona Lisa Leonardo C2RMF
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ecole-athenes.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:"The School of Athens" by Raffaello Sanzio da Urbino.jpg
+  recherche: Raphael School of Athens
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+dome-florence.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:Florence Cathedral (Duomo).jpg
+  recherche: Florence cathedral dome Brunelleschi
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+luther.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Lucas Cranach d.Ä. - Martin Luther, 1528 (Veste Coburg).jpg
+  recherche: Martin Luther Cranach portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+saint-barthelemy.jpg:
+  cadrage: flottant
+  fiche: 07-vision-de-lhomme
+  commons: File:La masacre de San Bartolomé, por François Dubois.jpg
+  recherche: massacre Saint-Barthelemy Dubois
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''

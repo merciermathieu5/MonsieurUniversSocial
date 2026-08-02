@@ -1,0 +1,29 @@
+<svg viewBox="0 0 1100 430" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Comparaison des deux modèles astronomiques : le géocentrisme, avec la Terre au centre, et l'héliocentrisme de Copernic, avec le Soleil au centre">
+  <style>
+    .as-t { font-family: Archivo, sans-serif; }
+    .as-h1 { font-size: 14.5px; font-weight: 700; fill: var(--bloc-texte); }
+    .as-h2 { font-size: 14.5px; font-weight: 700; fill: var(--surface); }
+    .as-e { font-size: 13px; font-weight: 600; fill: var(--encre); }
+    .as-c { font-size: 12.5px; fill: var(--encre-doux); }
+    .as-orbite { fill: none; stroke: var(--schema-trait); stroke-width: 1.5; stroke-dasharray: 5 5; }
+  </style>
+  <rect x="70" y="36" width="420" height="44" rx="5" fill="var(--bloc)"/>
+  <text class="as-t as-h1" x="280" y="64" text-anchor="middle">Le géocentrisme</text>
+  <rect x="610" y="36" width="420" height="44" rx="5" fill="var(--schema-accent)"/>
+  <text class="as-t as-h2" x="820" y="64" text-anchor="middle">L'héliocentrisme</text>
+  <circle class="as-orbite" cx="280" cy="245" r="60"/>
+  <circle class="as-orbite" cx="280" cy="245" r="95"/>
+  <circle cx="280" cy="245" r="22" fill="var(--bloc)"/>
+  <text class="as-t as-e" x="280" y="290" text-anchor="middle">La Terre</text>
+  <circle cx="347" cy="178" r="14" fill="var(--schema-accent)"/>
+  <text class="as-t as-e" x="368" y="172">Le Soleil</text>
+  <circle class="as-orbite" cx="820" cy="245" r="60"/>
+  <circle class="as-orbite" cx="820" cy="245" r="95"/>
+  <circle cx="820" cy="245" r="22" fill="var(--schema-accent)"/>
+  <text class="as-t as-e" x="820" y="290" text-anchor="middle">Le Soleil</text>
+  <circle cx="753" cy="312" r="12" fill="var(--bloc)"/>
+  <text class="as-t as-e" x="733" y="320" text-anchor="end">La Terre</text>
+  <text class="as-t as-c" x="280" y="400" text-anchor="middle">La Terre immobile au centre; le Soleil tourne autour d'elle.</text>
+  <text class="as-t as-c" x="820" y="400" text-anchor="middle">Le Soleil au centre; la Terre tourne autour de lui.</text>
+</svg>
