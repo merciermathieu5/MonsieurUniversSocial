@@ -2203,3 +2203,27 @@ Effet secondaire attendu : `lois-antijuives.svg` et `privation-etapes.svg`
 définissaient les mêmes classes CSS `.nz-d`, `.nz-e` et `.nz-t`, ce que le
 vérificateur signalait depuis deux livraisons. Ces trois problèmes disparaissent
 avec eux.
+
+### La hauteur du cadre du Musée de l'Holocauste (livraison 90)
+
+Le cadre tirait sa hauteur de sa largeur : `aspect-ratio: 4 / 3` sur une colonne
+de texte large donnait plus de 800 pixels de haut, et davantage encore en mode
+classe, où la colonne s'élargit. Plus la fenêtre était grande, plus le cadre
+grandissait. Sur ta capture, le titre de l'année est coupé en haut et la
+chronologie déborde de l'écran.
+
+Le rapport de forme est remplacé par une hauteur bornée :
+
+- 30 rem sur écran large, soit environ 480 pixels, quelle que soit la largeur
+- 24 rem sous 44 rem de large
+- un plafond à 75 % de la hauteur de la fenêtre, pour qu'il ne dépasse jamais
+  l'écran sur un portable ou au projecteur
+- `resize: vertical`, pour que tu puisses l'étirer d'un glissement si une année
+  chargée demande plus de place
+
+C'est aussi ce qui rend vraie la promesse de « cadre redimensionnable » que le
+README et `build.py` annoncent depuis la livraison 85, sans que le CSS ne la
+tienne.
+
+Si 30 rem reste trop haut ou devient trop court une fois la chronologie chargée,
+donne-moi la hauteur que tu veux et je l'inscris.
