@@ -1923,3 +1923,52 @@ basculer le bloc en simple encadré `activite` si tu préfères.
 Elles restent les moins illustrées. Si tu veux des photographies de la vie juive
 d'avant-guerre, portraits de famille, écoles, commerces, dis-le et je cherche
 dans cette direction plutôt que dans les archives des camps.
+
+### Pourquoi Bolívar se retéléchargeait sans fin (livraison 86)
+
+**La cause vient de mes livraisons, pas de ton dépôt.**
+
+`images.py` saute une image quand trois conditions sont réunies : le fichier est
+sur le disque, `medias/credits.yml` contient son auteur, sa licence et son lien,
+et le nom Commons inscrit dans les crédits correspond à celui du registre. Il
+suffit qu'une seule manque pour qu'il retélécharge.
+
+J'ai vérifié le nom Commons de Bolívar, il est exact au caractère près :
+`File:José Gil de Castro - Simón Bolívar - Google Art Project.jpg`. Ce n'était
+donc pas ça. En comparant `sources.yml` et `credits.yml` dans ton dépôt, voici
+ce que j'ai trouvé :
+
+- fiche 09, 15 images, **0** sans crédit
+- fiche 10, 21 images, 1 sans crédit, le montage McCord qui n'en a pas besoin
+- fiche 11, 14 images, **9 sans crédit**, dont `bolivar.jpg`,
+  `livingstone-stanley.jpg`, `rhodes-colosse.jpg`, `leopold-ii.jpg`,
+  `punch-congo.jpg`, `tirailleurs-senegalais.jpg`, `caoutchouc-congo.jpg`,
+  `canal-suez.jpg` et `ecole-livingstonia.jpg`
+
+Ces neuf-là se retéléchargent à chaque lancement, parce que leurs crédits ne
+sont jamais dans le fichier. Et ils n'y sont jamais parce que **mes zips
+contiennent un `credits.yml` périmé qui écrase le tien**. Tu lances `images.py`,
+il écrit les crédits, tu déposes ma livraison suivante, et le fichier repart à
+son état d'avant.
+
+**Correction appliquée : `medias/credits.yml` est retiré de mes zips.** Ton
+fichier restera intact au prochain dépôt. Un seul lancement d'`images.py`
+remplira les neuf entrées manquantes, et la boucle s'arrêtera.
+
+Si tu veux vérifier après coup, `python outils/images.py` doit afficher
+« déjà complètes » pour ces neuf images au deuxième lancement d'affilée.
+
+### Deux autres corrections (livraison 86)
+
+**Le cadre d'intégration est moins haut.** Le rapport passe de 4/3 à 16/9 sur
+écran large, et de 3/4 à 4/3 sur mobile. La chronologie du Musée est un
+défilement horizontal, elle n'a pas besoin de hauteur. La fiche 12 est la seule
+à utiliser un bloc `::: integration` pour l'instant, donc le changement ne
+touche rien d'autre.
+
+**L'interface comparative passe après l'apartheid.** Elle n'est plus une
+sous-section de la ségrégation sud-africaine mais une section à part entière,
+placée entre « Lutter contre l'apartheid » et « La privation des libertés et des
+droits ». L'élève a vu les deux régimes au complet avant qu'on lui demande de
+les comparer. Deux phrases d'introduction annoncent ce qu'il va trouver dans les
+onglets.

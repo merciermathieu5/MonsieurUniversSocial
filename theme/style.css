@@ -399,10 +399,10 @@ html[data-sombre="on"] .bouton { background: var(--matiere-voile); color: var(--
 
 .integration { margin: 1.8rem 0; clear: both; }
 .integration iframe {
-  width: 100%; aspect-ratio: 4 / 3; border: 1px solid var(--trait);
+  width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--trait);
   border-radius: var(--rayon); background: var(--surface-2); display: block;
 }
-@media (max-width: 44rem) { .integration iframe { aspect-ratio: 3 / 4; } }
+@media (max-width: 44rem) { .integration iframe { aspect-ratio: 4 / 3; } }
 .integration figcaption { margin-top: .5rem; }
 .integration figcaption a { color: var(--matiere); }
 @media print { .integration iframe { display: none; } }

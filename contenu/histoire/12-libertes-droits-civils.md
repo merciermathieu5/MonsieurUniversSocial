@@ -311,10 +311,6 @@ Le régime d'apartheid
 Vivre sous l'apartheid
 :::
 
-### Deux régimes, les mêmes mécanismes
-
-::: composant segregation-comparee
-
 ::: questions
 1. En quelle année le régime d'apartheid est-il instauré?
 2. Qu'est-ce qu'un bantoustan?
@@ -406,6 +402,14 @@ revient sur son parcours.
    sur l'île Robben?
 3. Combien d'années séparent son arrestation de son élection?
 :::
+
+## Deux régimes, les mêmes mécanismes
+
+Maintenant que les deux régimes sont connus, tu peux les mettre côte à côte.
+Chaque onglet compare un aspect, des lois elles-mêmes jusqu'à la manière dont
+chacun a pris fin.
+
+::: composant segregation-comparee
 
 ## La privation des libertés et des droits
 
