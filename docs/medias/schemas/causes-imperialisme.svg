@@ -1,0 +1,47 @@
+<svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les quatre moteurs de la course coloniale, économique, politique, technique et idéologique, qui mènent au partage de l'Afrique">
+  <style>
+    .mo-t { font-family: Archivo, sans-serif; }
+    .mo-h { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .mo-e { font-size: 13px; fill: var(--bloc-pale-texte); }
+    .mo-r { font-size: 20px; font-weight: 700; fill: var(--bloc-texte); }
+    .mo-s { font-size: 14px; fill: var(--bloc-texte); }
+    .mo-l { stroke: var(--schema-trait); stroke-width: 2; fill: none; }
+  </style>
+
+  <rect x="20" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="mo-t mo-h" x="145" y="76" text-anchor="middle">Le besoin économique</text>
+  <text class="mo-t mo-e" x="145" y="104" text-anchor="middle">Les usines réclament du</text>
+  <text class="mo-t mo-e" x="145" y="124" text-anchor="middle">caoutchouc, du coton et</text>
+  <text class="mo-t mo-e" x="145" y="144" text-anchor="middle">des métaux.</text>
+
+  <rect x="290" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="mo-t mo-h" x="415" y="76" text-anchor="middle">La rivalité politique</text>
+  <text class="mo-t mo-e" x="415" y="104" text-anchor="middle">Chaque État veut plus de</text>
+  <text class="mo-t mo-e" x="415" y="124" text-anchor="middle">territoires que son</text>
+  <text class="mo-t mo-e" x="415" y="144" text-anchor="middle">voisin.</text>
+
+  <rect x="560" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="mo-t mo-h" x="685" y="76" text-anchor="middle">L'avance technique</text>
+  <text class="mo-t mo-e" x="685" y="104" text-anchor="middle">La vapeur, le rail et les</text>
+  <text class="mo-t mo-e" x="685" y="124" text-anchor="middle">armes à répétition rendent</text>
+  <text class="mo-t mo-e" x="685" y="144" text-anchor="middle">la conquête possible.</text>
+
+  <rect x="830" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="mo-t mo-h" x="955" y="76" text-anchor="middle">La justification</text>
+  <text class="mo-t mo-e" x="955" y="104" text-anchor="middle">La mission civilisatrice</text>
+  <text class="mo-t mo-e" x="955" y="124" text-anchor="middle">et le darwinisme social</text>
+  <text class="mo-t mo-e" x="955" y="144" text-anchor="middle">servent d'excuse.</text>
+
+  <path class="mo-l" d="M 145 160 L 145 230"/>
+  <path class="mo-l" d="M 415 160 L 415 230"/>
+  <path class="mo-l" d="M 685 160 L 685 230"/>
+  <path class="mo-l" d="M 955 160 L 955 230"/>
+  <path class="mo-l" d="M 145 230 L 955 230"/>
+  <path class="mo-l" d="M 550 230 L 550 288"/>
+  <path d="M 538 288 L 562 288 L 550 306 Z" fill="var(--schema-trait)"/>
+
+  <rect x="20" y="310" width="1060" height="86" rx="6" fill="var(--bloc)"/>
+  <text class="mo-t mo-r" x="550" y="348" text-anchor="middle">La course au partage de l'Afrique</text>
+  <text class="mo-t mo-s" x="550" y="376" text-anchor="middle">En moins de trente ans, presque tout le continent passe sous domination.</text>
+</svg>

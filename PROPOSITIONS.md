@@ -1500,3 +1500,103 @@ propre, dis-le et je renomme l'entrée en `.jpg` des deux côtés.
 
 Il ne reste qu'un orphelin sur le disque, `10-industrialisation/ancienne-facon.png`,
 à supprimer une fois le montage du RÉCIT téléchargé.
+
+## Fiche : L'expansion du monde industriel
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « la seconde moitié du 19 siècle » devient « du 19e siècle »
+- « ce qui les amènent à trouver » devient « ce qui les amène à chercher »
+- « d'autres y ont vu leur chute » devient « d'autres y ont connu leur chute »
+- « les populations indigènes d'Afrique » devient « les populations d'Afrique »
+- « qui ont abouties » devient « qui ont abouti »
+- « est marqué par une exploitation » devient « est marquée »
+- « les États européens se sont séparés l'Afrique » devient « se sont partagé
+  l'Afrique »
+- « qui ne respectent les populations locales » devient « qui ne respectent
+  pas »
+- « de meilleurs conditions de vie » devient « de meilleures conditions »
+- « Ces infrastructures de transport vise » devient « visent »
+- « Allo Prof » devient « Alloprof », « Encyclopédie Universalis » devient
+  « Encyclopædia Universalis »
+- Les nombres passent à l'espace des milliers : 80 000 et 15 000
+- Les sept puissances coloniales et les ressources convoitées passent en
+  listes à puces
+
+### Tes décisions, appliquées (livraison 80)
+
+1. **Périmètre tenu.** Le dossier va de l'indépendance de l'Amérique latine
+   jusqu'aux tirailleurs sénégalais de 1914. Aucun contenu sur le déroulement
+   de la Grande Guerre : ni Sarajevo, ni le jeu des alliances, ni les
+   tranchées, ni les quatre capsules de Laurent Turcot, ni le balado. La
+   décolonisation africaine de 1950 à 1976 n'y est pas non plus.
+2. **L'Amérique latine est le déclencheur**, et la fiche le dit en toutes
+   lettres : la section s'intitule « Le déclencheur : l'indépendance de
+   l'Amérique latine » et se termine sur la phrase qui fait le pont vers
+   l'Afrique.
+3. **L'Afrique précoloniale ouvre la fiche**, avant même l'exploration, avec
+   tes deux vidéos en duo. J'ai ajouté un paragraphe qui invite l'élève à
+   garder cette idée en tête pour lire les textes européens de l'époque.
+4. **Tes choix éditoriaux sont conservés** pour le Congo. La section repose
+   sur le portrait de Léopold II et sur la caricature de Punch du 28 novembre
+   1906, où il est un serpent de caoutchouc. Aucune photographie de victimes
+   mutilées.
+5. **Le génocide des Héréros est nommé.** Le corps du texte garde ton récit,
+   et un encadré `note` explique le désert de l'Omaheke, les camps, la
+   reconnaissance par les historiens comme premier génocide du 20e siècle et
+   la reconnaissance officielle par l'Allemagne en 2021.
+6. **Le Rwanda est nuancé en encadré.** Ton texte est intact. La note
+   distingue ce que la colonisation belge a mis en place, dont l'inscription
+   de la distinction sur les cartes d'identité, de la responsabilité des
+   personnes qui ont planifié et exécuté le génocide quatre-vingts ans plus
+   tard.
+7. **La formule sur les viviers à chair fraîche est conservée**, telle quelle,
+   dans le fil du texte.
+8. **Quatre vidéos**, celles qui restent dans le périmètre : les deux sur
+   l'Afrique précoloniale et les deux sur la conférence de Berlin, chacune en
+   duo.
+9. **Seule l'analyse iconographique est gardée**, sous forme de lien dans un
+   encadré `activite`, avec trois questions d'observation. Le module Canva et
+   le Genially d'Ann Martin ne sont pas repris.
+10. **L'en-tête garde ses six concepts.** L'assimilation est définie dans le
+    texte, à la fin de la section des concepts, et reprise en encadré
+    `::: cartes` face à l'acculturation.
+11. **Trois schémas, aucune carte dessinée** : `frise-imperialisme` avec sept
+    repères de 1825 à 1914, `causes-imperialisme` avec les quatre moteurs de
+    la course, et `consequences-colonialisme` qui éclate les effets en quatre
+    volets, l'humain en accent doré. Le partage du continent est montré par
+    une vraie carte de Commons.
+
+### Deux ajouts de ma part, à approuver ou à retirer
+
+**1. Une note sur le mot exploration.** Après la présentation de Livingstone et
+de Stanley, un encadré rappelle qu'ils sont arrivés dans des régions habitées,
+guidés par des porteurs et des interprètes africains dont les noms n'ont pas
+été retenus, et que le mot exploration décrit ce que les Européens
+apprenaient, non ce qui existait.
+
+**2. Une note sur la table de Berlin.** Quatorze États représentés, aucun
+africain.
+
+### À valider
+
+**1. La photographie des Héréros**
+
+`File:Herero and Nama prisoners.jpg` montre des prisonniers enchaînés. C'est
+sobre au regard du sujet, et c'est un document, pas une mise en scène. Mais
+c'est dur, et c'est projeté au tableau. Dis-moi si tu la gardes.
+
+**2. Six images de ta page n'ont pas d'équivalent vérifié**
+
+Je n'ai inscrit que ce dont j'ai pu confirmer le nom de fichier au caractère
+près : dix images. Manquent une carte de l'Afrique vers 1880, une vue de
+chantier ferroviaire colonial, le canal de Suez, une école coloniale et deux
+scènes de travail forcé. Je peux les chercher à la prochaine livraison, ou tu
+déposes les tiennes à la main.
+
+**3. L'estimation des pertes au Congo**
+
+Ton texte donne « environ 50 pour cent » et « minimum 10 millions ». Je les ai
+conservés tels quels et j'ai mis le débat en encadré, en précisant ce qui n'est
+pas discuté : le système de quotas, les mutilations, l'effondrement
+démographique et le retrait du Congo à Léopold II par la Belgique en 1908.

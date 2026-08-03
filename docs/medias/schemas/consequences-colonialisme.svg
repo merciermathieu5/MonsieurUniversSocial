@@ -1,0 +1,51 @@
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les conséquences du colonialisme sur les sociétés africaines, sur le plan humain, économique, culturel et politique">
+  <style>
+    .sq-t { font-family: Archivo, sans-serif; }
+    .sq-b { font-size: 19px; font-weight: 700; fill: var(--bloc-texte); }
+    .sq-h { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .sq-e { font-size: 13px; fill: var(--bloc-pale-texte); }
+    .sq-a { font-size: 15px; font-weight: 700; fill: var(--surface); }
+    .sq-f { font-size: 13px; fill: var(--surface); }
+    .sq-l { stroke: var(--schema-trait); stroke-width: 2; fill: none; }
+  </style>
+
+  <rect x="330" y="20" width="440" height="60" rx="6" fill="var(--bloc)"/>
+  <text class="sq-t sq-b" x="550" y="58" text-anchor="middle">La domination coloniale</text>
+
+  <path class="sq-l" d="M 550 80 L 550 106"/>
+  <path class="sq-l" d="M 155 106 L 945 106"/>
+  <path class="sq-l" d="M 155 106 L 155 138"/>
+  <path class="sq-l" d="M 420 106 L 420 138"/>
+  <path class="sq-l" d="M 680 106 L 680 138"/>
+  <path class="sq-l" d="M 945 106 L 945 138"/>
+
+  <rect x="20" y="140" width="270" height="130" rx="6" fill="var(--schema-accent)"/>
+  <text class="sq-t sq-a" x="155" y="176" text-anchor="middle">Sur les personnes</text>
+  <text class="sq-t sq-f" x="155" y="204" text-anchor="middle">Travail forcé, violences</text>
+  <text class="sq-t sq-f" x="155" y="224" text-anchor="middle">et chutes de population,</text>
+  <text class="sq-t sq-f" x="155" y="244" text-anchor="middle">au Congo comme ailleurs.</text>
+
+  <rect x="300" y="140" width="240" height="130" rx="6" fill="var(--bloc-pale)"/>
+  <text class="sq-t sq-h" x="420" y="176" text-anchor="middle">Sur l'économie</text>
+  <text class="sq-t sq-e" x="420" y="204" text-anchor="middle">Les ressources partent</text>
+  <text class="sq-t sq-e" x="420" y="224" text-anchor="middle">vers l'Europe, les rails</text>
+  <text class="sq-t sq-e" x="420" y="244" text-anchor="middle">mènent aux ports.</text>
+
+  <rect x="560" y="140" width="240" height="130" rx="6" fill="var(--bloc-pale)"/>
+  <text class="sq-t sq-h" x="680" y="176" text-anchor="middle">Sur la culture</text>
+  <text class="sq-t sq-e" x="680" y="204" text-anchor="middle">L'école impose la langue</text>
+  <text class="sq-t sq-e" x="680" y="224" text-anchor="middle">du colonisateur, ce qui</text>
+  <text class="sq-t sq-e" x="680" y="244" text-anchor="middle">mène à l'acculturation.</text>
+
+  <rect x="820" y="140" width="260" height="130" rx="6" fill="var(--bloc-pale)"/>
+  <text class="sq-t sq-h" x="950" y="176" text-anchor="middle">Sur les frontières</text>
+  <text class="sq-t sq-e" x="950" y="204" text-anchor="middle">Des tracés faits à Berlin</text>
+  <text class="sq-t sq-e" x="950" y="224" text-anchor="middle">séparent ou réunissent</text>
+  <text class="sq-t sq-e" x="950" y="244" text-anchor="middle">des peuples entiers.</text>
+
+  <path class="sq-l" d="M 550 270 L 550 306"/>
+  <path d="M 538 306 L 562 306 L 550 324 Z" fill="var(--schema-trait)"/>
+  <rect x="180" y="328" width="740" height="54" rx="6" fill="var(--bloc)"/>
+  <text class="sq-t sq-b" x="550" y="362" text-anchor="middle">Des effets qui durent après les indépendances</text>
+</svg>
