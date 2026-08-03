@@ -1800,3 +1800,62 @@ précise de 1988.
 *La liste de Schindler*, *Le pianiste* et *La dame en or* sont regroupés dans un
 seul encadré `activite`, avec une phrase chacun. Tes résumés complets ne sont
 pas repris.
+
+### Reprise de la fiche 12 après ta relecture (livraison 84)
+
+**Les droits civils étaient avalés par la puce « Ségrégation ».** Tu avais
+raison, et la cause est mécanique : `paragraphes.py` avait fusionné
+l'énumération des droits civils dans la dernière puce de la liste des concepts.
+Elle est maintenant à sa place, en ouverture de « Ce que la ségrégation
+impose », suivie d'une phrase qui fait le lien : la ségrégation retire une
+partie de ces droits à un groupe désigné par la loi.
+
+**La ligne du temps ne parle plus que des luttes des Noirs.** Les lois de
+Nuremberg et tout ce qui touche à la guerre en sont retirés. Elle passe de six
+à dix repères, sur quatre rangées au lieu de deux, ce qui permet de tenir la
+densité des années 1954 à 1968 :
+
+- 1948, le régime d'apartheid est instauré
+- 1954, la ségrégation scolaire est jugée illégale
+- 1955, Rosa Parks refuse de céder sa place
+- 1957, neuf élèves entrent à la Little Rock Central High
+- 1960, le massacre de Sharpeville
+- 1963, la marche sur Washington
+- 1964, le Civil Rights Act
+- 1968, l'assassinat de Martin Luther King
+- 1990, la libération de Nelson Mandela
+- 1991, l'abrogation des lois de l'apartheid
+
+**Le tableau comparatif est étoffé.** Il passe de quatre à six critères, avec
+l'ajout des personnes visées, où la différence est nette entre une minorité aux
+États-Unis et une majorité en Afrique du Sud, et des figures marquantes.
+
+**L'intertitre mal formulé est remplacé.** « Qui le régime désigne comme juif »
+devient « La définition juridique imposée par le régime ».
+
+**Le schéma des étapes cède la place à la chronologie du Musée de l'Holocauste
+Montréal.** `privation-etapes` est supprimé. `lois-antijuives` le remplace et
+suit ta source année par année, de 1933 à 1939 : la fonction publique, le
+barreau, le quota universitaire de 1,5 %, les arts et la presse, la propriété
+agricole, puis l'armée et Nuremberg, puis le conseil fiscal, les vétérinaires,
+les écoles de Berlin et le témoignage en justice, puis l'avalanche de 1938 en
+accent doré, jusqu'aux billets de loterie de 1939. Le crédit renvoie au Musée.
+
+**L'exode devient les départs massifs.** Ta remarque est juste et je n'y avais
+pas pensé.
+
+**Quatre images de plus**, ce qui porte la fiche de six à dix : un panneau de
+salle d'attente réservée de 1943, une manifestation contre l'intégration de
+Little Rock, une vue aérienne du quartier du ghetto de Varsovie après sa
+destruction et la villa de Wannsee.
+
+### À valider
+
+**Il manque encore quatre images.** Je n'inscris que ce dont je peux confirmer
+le nom de fichier au caractère près. Manquent Selma, Sharpeville, l'île Robben
+et Auschwitz. La section sur les camps reste sans image, ce qui est le trou le
+plus visible. Je les cherche à la prochaine livraison.
+
+**La vue du ghetto de Varsovie** montre le quartier détruit, donc après les
+faits que raconte la section. La légende le dit. Si tu préfères une vue du mur
+ou de la vie dans le ghetto, dis-le et je cherche.

@@ -63,12 +63,7 @@ Guerre mondiale.
 - Répression : l'ensemble des moyens employés par une autorité pour arrêter un
   mouvement, une opposition ou une revendication.
 - Ségrégation : la séparation imposée de groupes de personnes dans les lieux,
-les services et les droits. Les droits civils comprennent notamment le droit
-au respect de la vie privée et familiale, du domicile et de la correspondance,
-le droit à l'image, le droit à la liberté et à la sûreté, le droit de
-circulation, le droit à la liberté de pensée, de conscience et de religion, le
-droit à la liberté d'expression, de réunion et d'association, le droit au
-mariage et le droit de fonder une famille.
+les services et les droits.
 
 ## Situer dans le temps
 
@@ -89,6 +84,16 @@ Source : Service national du RÉCIT, domaine de l'univers social
 {: .source-texte }
 
 ### Ce que la ségrégation impose
+
+![Un panneau de salle d'attente réservée, en Caroline du Nord, 1943](../medias/12-libertes-droits-civils/panneau-segregation.jpg)
+
+Les droits civils comprennent notamment le droit au respect de la vie privée et
+familiale, du domicile et de la correspondance, le droit à l'image, le droit à
+la liberté et à la sûreté, le droit de circulation, le droit à la liberté de
+pensée, de conscience et de religion, le droit à la liberté d'expression, de
+réunion et d'association, le droit au mariage et le droit de fonder une
+famille. La ségrégation retire une partie de ces droits à un groupe désigné par
+la loi.
 
 La ségrégation raciale correspond à la séparation physique des personnes selon
 leur race, dans les activités quotidiennes, dans la vie professionnelle, dans
@@ -171,6 +176,8 @@ Le boycottage des autobus de Montgomery
 :::
 
 ### La crise de Little Rock, en 1957
+
+![Une manifestation contre l'intégration de la Little Rock Central High, en 1959](../medias/12-libertes-droits-civils/little-rock.jpg)
 
 En 1957, neuf étudiants et étudiantes afro-américains s'inscrivent à la Little
 Rock Central High, une école réservée aux Blancs située dans la capitale de
@@ -504,7 +511,7 @@ Voici les interdictions que cette loi impose aux Juifs :
   âgées de moins de 45 ans;
 - il leur est interdit d'arborer le drapeau du Reich.
 
-### Qui le régime désigne comme juif
+### La définition juridique imposée par le régime
 
 Le régime se tourne vers la généalogie. Les personnes ayant au moins trois
 grands-parents nés dans la communauté juive sont désignées comme juives. Ce
@@ -525,10 +532,17 @@ Slovaquie, la Bulgarie, la France et la Croatie avaient adopté une législation
 antijuive comparable.
 :::
 
-### Les étapes de la privation
+### Les lois antijuives, de 1933 à 1939
 
-::: schema privation-etapes
+Les lois de Nuremberg ne sont pas un point de départ. Elles s'inscrivent dans
+une suite de mesures qui retirent un droit à la fois, profession par
+profession, lieu par lieu.
+
+::: schema lois-antijuives
 :::
+
+Source : Musée de l'Holocauste Montréal, chronologie des lois antijuives
+{: .source-texte }
 
 ::: questions
 1. Quelle différence la loi sur la citoyenneté établit-elle entre un citoyen et
@@ -539,7 +553,7 @@ antijuive comparable.
    communauté juive?
 :::
 
-## L'exode
+## Les départs massifs
 
 En janvier 1933, il y avait environ 523 000 Juifs en Allemagne, soit moins de 1
 pour cent de la population du pays. Cette population était surtout urbaine et
@@ -583,6 +597,8 @@ population.
 
 ## Le ghetto de Varsovie
 
+![Le quartier du ghetto de Varsovie après sa destruction, vue aérienne](../medias/12-libertes-droits-civils/ghetto-varsovie.jpg)
+
 Le 12 octobre 1940, les autorités allemandes ordonnent la création d'un ghetto
 à Varsovie. Tous les résidents juifs de la capitale polonaise doivent s'y
 installer, dans une zone séparée du reste de la ville en novembre. Le ghetto
@@ -604,6 +620,8 @@ Source : Encyclopédie multimédia de la Shoah, United States Holocaust Memorial
 {: .source-texte }
 
 ## La conférence de Wannsee
+
+![La villa de Wannsee, aujourd'hui un lieu de mémoire](../medias/12-libertes-droits-civils/wannsee.jpg)
 
 Le 20 janvier 1942, quinze hauts fonctionnaires du parti et de l'administration
 allemande se réunissent dans une villa de Wannsee, en banlieue de Berlin, pour

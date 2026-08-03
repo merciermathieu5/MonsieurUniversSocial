@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+<svg viewBox="0 0 1100 550" xmlns="http://www.w3.org/2000/svg" role="img"
      aria-label="Tableau comparatif des lois Jim Crow et de l'apartheid selon quatre critères identiques">
   <style>
     .jc-t { font-family: Archivo, sans-serif; }
@@ -47,4 +47,22 @@
   <rect x="700" y="314" width="380" height="64" rx="5" fill="var(--surface)"/>
   <text class="jc-t jc-e" x="890" y="341" text-anchor="middle">Des négociations entre</text>
   <text class="jc-t jc-e" x="890" y="362" text-anchor="middle">Mandela et de Klerk.</text>
+
+  <rect x="20" y="390" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="428" text-anchor="middle">Les personnes visées</text>
+  <rect x="300" y="390" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="417" text-anchor="middle">Les Afro-Américains, une</text>
+  <text class="jc-t jc-e" x="490" y="438" text-anchor="middle">minorité de la population.</text>
+  <rect x="700" y="390" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="417" text-anchor="middle">Les populations noire, métisse</text>
+  <text class="jc-t jc-e" x="890" y="438" text-anchor="middle">et indienne, la majorité.</text>
+
+  <rect x="20" y="466" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="504" text-anchor="middle">Les figures marquantes</text>
+  <rect x="300" y="466" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="493" text-anchor="middle">Rosa Parks, Claudette Colvin</text>
+  <text class="jc-t jc-e" x="490" y="514" text-anchor="middle">et Martin Luther King.</text>
+  <rect x="700" y="466" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="493" text-anchor="middle">Nelson Mandela, emprisonné</text>
+  <text class="jc-t jc-e" x="890" y="514" text-anchor="middle">pendant 27 ans.</text>
 </svg>

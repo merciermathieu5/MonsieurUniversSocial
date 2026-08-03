@@ -1008,12 +1008,13 @@ ecole-wuga.jpg:
   auteur: Walther Dobbertin
   licence: CC BY-SA 3.0 de
   lien: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_105-DOA0184,_Deutsch-Ostafrika,_Wuga,_Schule.jpg
-rhodes-colosse.jpg:
-  commons: File:Rhodes Colossus Punch 1892.jpg
-  titre: Rhodes Colossus Punch 1892
-  auteur: Edward Linley Sambourne
+bolivar.jpg:
+  commons: File:José Gil de Castro - Simón Bolívar - Google Art Project.jpg
+  titre: José Gil de Castro - Simón Bolívar - Google Art Project
+  auteur: José Gil de Castro (Lima, 1785 - Lima, 1837) – painter (Peruvian) Born in Lima. Died in Lima.
+    Details on Google Art Project
   licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:Rhodes_Colossus_Punch_1892.jpg
+  lien: https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Gil_de_Castro_-_Sim%C3%B3n_Bol%C3%ADvar_-_Google_Art_Project.jpg
 ecole-livingstonia.jpg:
   commons: File:The school children of Livingstonia.jpg
   titre: The school children of Livingstonia
@@ -1053,16 +1054,28 @@ tableau-nuremberg.jpg:
     government agency apparently part of the Reichs- und Preußisches Ministerium des Innern)
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Nuremberg_laws_Racial_Chart.jpg
-bolivar.jpg:
-  commons: File:José Gil de Castro - Simón Bolívar - Google Art Project.jpg
-  titre: José Gil de Castro - Simón Bolívar - Google Art Project
-  auteur: José Gil de Castro (Lima, 1785 - Lima, 1837) – painter (Peruvian) Born in Lima. Died in Lima.
-    Details on Google Art Project
+panneau-segregation.jpg:
+  commons: File:1943 Colored Waiting Room Sign.jpg
+  titre: 1943 Colored Waiting Room Sign
+  auteur: Esther Bubley
   licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Gil_de_Castro_-_Sim%C3%B3n_Bol%C3%ADvar_-_Google_Art_Project.jpg
-livingstone-stanley.jpg:
-  commons: File:Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855.jpg
-  titre: Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855
-  auteur: Auteur inconnu
-  licence: Creative Commons BY 4.0
-  lien: https://commons.wikimedia.org/wiki/File:Henry_Morton_Stanley_meeting_David_Livingstone_at_Ujiji,_in_Wellcome_V0006855.jpg
+  lien: https://commons.wikimedia.org/wiki/File:1943_Colored_Waiting_Room_Sign.jpg
+little-rock.jpg:
+  commons: File:Little rock integration protest.tif
+  titre: Little rock integration protest
+  auteur: John T. Bledsoe
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Little_rock_integration_protest.tif
+wannsee.jpg:
+  commons: File:Haus der Wannsee-Konferenz 02-2014.jpg
+  titre: Haus der Wannsee-Konferenz 02-2014
+  auteur: A.Savin
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Haus_der_Wannsee-Konferenz_02-2014.jpg
+ghetto-varsovie.jpg:
+  commons: File:Aerial photograph of the destroyed Warsaw Ghetto.jpg
+  titre: Aerial photograph of the destroyed Warsaw Ghetto
+  auteur: No original autorship, made by automatic camera installed on the plane. Released to the public
+    domain
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_the_destroyed_Warsaw_Ghetto.jpg

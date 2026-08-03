@@ -1,48 +1,78 @@
-<svg viewBox="0 0 1100 380" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Ligne du temps des droits civils au 20e siècle, des lois de Nuremberg de 1935 à l'élection de Nelson Mandela en 1994">
+<svg viewBox="0 0 1100 470" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps des luttes pour les droits des Noirs, de l'instauration de l'apartheid en 1948 à l'abrogation de ses lois en 1991 et à l'élection de Nelson Mandela en 1994">
   <style>
     .dc-t { font-family: Archivo, sans-serif; }
-    .dc-e { font-size: 13.5px; fill: var(--encre); }
+    .dc-e { font-size: 13px; fill: var(--encre); }
     .dc-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
     .dc-p { font-size: 14px; font-weight: 700; fill: var(--surface); }
     .dc-l { stroke: var(--schema-trait); stroke-width: 1.5; fill: none; }
   </style>
-  <rect x="70" y="190" width="960" height="34" fill="var(--schema-accent)"/>
-  <text class="dc-t dc-p" x="550" y="212" text-anchor="middle">L'Époque contemporaine</text>
+  <rect x="70" y="225" width="960" height="34" fill="var(--schema-accent)"/>
+  <text class="dc-t dc-p" x="550" y="247" text-anchor="middle">L'Époque contemporaine</text>
 
-  <path class="dc-l" d="M 139 190 L 139 168"/>
-  <text class="dc-t dc-d" x="139" y="102" text-anchor="middle">1935</text>
-  <text class="dc-t dc-e" x="139" y="123" text-anchor="middle">Les lois de Nuremberg</text>
-  <text class="dc-t dc-e" x="139" y="144" text-anchor="middle">sont adoptées.</text>
-  <circle cx="139" cy="190" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 128 225 L 128 130"/>
+  <text class="dc-t dc-d" x="128" y="72" text-anchor="middle">1948</text>
+  <text class="dc-t dc-e" x="128" y="93" text-anchor="middle">Le régime d'apartheid</text>
+  <text class="dc-t dc-e" x="128" y="114" text-anchor="middle">est instauré.</text>
+  <circle cx="128" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <path class="dc-l" d="M 413 190 L 413 168"/>
-  <text class="dc-t dc-d" x="413" y="102" text-anchor="middle">1955</text>
-  <text class="dc-t dc-e" x="413" y="123" text-anchor="middle">Rosa Parks refuse de</text>
-  <text class="dc-t dc-e" x="413" y="144" text-anchor="middle">céder sa place.</text>
-  <circle cx="413" cy="190" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 300 225 L 300 130"/>
+  <text class="dc-t dc-d" x="300" y="72" text-anchor="middle">1957</text>
+  <text class="dc-t dc-e" x="300" y="93" text-anchor="middle">Neuf élèves entrent à</text>
+  <text class="dc-t dc-e" x="300" y="114" text-anchor="middle">Little Rock Central High.</text>
+  <circle cx="300" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <path class="dc-l" d="M 893 190 L 893 168"/>
-  <text class="dc-t dc-d" x="893" y="102" text-anchor="middle">1990</text>
-  <text class="dc-t dc-e" x="893" y="123" text-anchor="middle">Nelson Mandela sort</text>
-  <text class="dc-t dc-e" x="893" y="144" text-anchor="middle">de résidence surveillée.</text>
-  <circle cx="893" cy="190" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 512 225 L 512 130"/>
+  <text class="dc-t dc-d" x="512" y="72" text-anchor="middle">1968</text>
+  <text class="dc-t dc-e" x="512" y="93" text-anchor="middle">Martin Luther King est</text>
+  <text class="dc-t dc-e" x="512" y="114" text-anchor="middle">assassiné à Memphis.</text>
+  <circle cx="512" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <path class="dc-l" d="M 317 224 L 317 246"/>
-  <text class="dc-t dc-d" x="317" y="278" text-anchor="middle">1948</text>
-  <text class="dc-t dc-e" x="317" y="299" text-anchor="middle">L'apartheid est instauré</text>
-  <text class="dc-t dc-e" x="317" y="320" text-anchor="middle">en Afrique du Sud.</text>
-  <circle cx="317" cy="224" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 1011 225 L 1011 130"/>
+  <text class="dc-t dc-d" x="1030" y="72" text-anchor="end">1994</text>
+  <text class="dc-t dc-e" x="1030" y="93" text-anchor="end">Mandela devient président</text>
+  <text class="dc-t dc-e" x="1030" y="114" text-anchor="end">de l'Afrique du Sud.</text>
+  <circle cx="1011" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <path class="dc-l" d="M 536 224 L 536 246"/>
-  <text class="dc-t dc-d" x="536" y="278" text-anchor="middle">1964</text>
-  <text class="dc-t dc-e" x="536" y="299" text-anchor="middle">Le Civil Rights Act est</text>
-  <text class="dc-t dc-e" x="536" y="320" text-anchor="middle">signé le 2 juillet.</text>
-  <circle cx="536" cy="224" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 243 225 L 243 208"/>
+  <text class="dc-t dc-d" x="243" y="150" text-anchor="middle">1954</text>
+  <text class="dc-t dc-e" x="243" y="171" text-anchor="middle">La ségrégation scolaire</text>
+  <text class="dc-t dc-e" x="243" y="192" text-anchor="middle">est jugée illégale.</text>
+  <circle cx="243" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <path class="dc-l" d="M 948 224 L 948 236 L 972 254"/>
-  <text class="dc-t dc-d" x="1030" y="278" text-anchor="end">1994</text>
-  <text class="dc-t dc-e" x="1030" y="299" text-anchor="end">Mandela devient</text>
-  <text class="dc-t dc-e" x="1030" y="320" text-anchor="end">président.</text>
-  <circle cx="948" cy="224" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <path class="dc-l" d="M 416 225 L 416 208"/>
+  <text class="dc-t dc-d" x="416" y="150" text-anchor="middle">1963</text>
+  <text class="dc-t dc-e" x="416" y="171" text-anchor="middle">La marche sur Washington</text>
+  <text class="dc-t dc-e" x="416" y="192" text-anchor="middle">a lieu le 28 août.</text>
+  <circle cx="416" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <path class="dc-l" d="M 934 225 L 934 208"/>
+  <text class="dc-t dc-d" x="934" y="150" text-anchor="middle">1990</text>
+  <text class="dc-t dc-e" x="934" y="171" text-anchor="middle">Nelson Mandela est</text>
+  <text class="dc-t dc-e" x="934" y="192" text-anchor="middle">libéré le 11 février.</text>
+  <circle cx="934" cy="225" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <path class="dc-l" d="M 262 259 L 262 276"/>
+  <text class="dc-t dc-d" x="262" y="292" text-anchor="middle">1955</text>
+  <text class="dc-t dc-e" x="262" y="313" text-anchor="middle">Rosa Parks refuse de</text>
+  <text class="dc-t dc-e" x="262" y="334" text-anchor="middle">céder sa place.</text>
+  <circle cx="262" cy="259" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <path class="dc-l" d="M 435 259 L 435 276"/>
+  <text class="dc-t dc-d" x="435" y="292" text-anchor="middle">1964</text>
+  <text class="dc-t dc-e" x="435" y="313" text-anchor="middle">Le Civil Rights Act est</text>
+  <text class="dc-t dc-e" x="435" y="334" text-anchor="middle">signé le 2 juillet.</text>
+  <circle cx="435" cy="259" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <path class="dc-l" d="M 953 259 L 953 276"/>
+  <text class="dc-t dc-d" x="953" y="292" text-anchor="middle">1991</text>
+  <text class="dc-t dc-e" x="953" y="313" text-anchor="middle">Les lois de l'apartheid</text>
+  <text class="dc-t dc-e" x="953" y="334" text-anchor="middle">sont abrogées.</text>
+  <circle cx="953" cy="259" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <path class="dc-l" d="M 358 259 L 358 354"/>
+  <text class="dc-t dc-d" x="358" y="370" text-anchor="middle">1960</text>
+  <text class="dc-t dc-e" x="358" y="391" text-anchor="middle">Le massacre de Sharpeville</text>
+  <text class="dc-t dc-e" x="358" y="412" text-anchor="middle">fait 69 morts.</text>
+  <circle cx="358" cy="259" r="5.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 </svg>
