@@ -1859,3 +1859,67 @@ plus visible. Je les cherche à la prochaine livraison.
 **La vue du ghetto de Varsovie** montre le quartier détruit, donc après les
 faits que raconte la section. La légende le dit. Si tu préfères une vue du mur
 ou de la vie dans le ghetto, dis-le et je cherche.
+
+### Interface interactive, intégration et photographies (livraison 85)
+
+**Le tableau comparatif devient un composant interactif.** `jim-crow-apartheid`
+est supprimé. À sa place, `theme/composants/segregation-comparee.html`, sur le
+modèle des composants existants : six onglets, et pour chacun deux colonnes de
+trois à quatre lignes, plus une ligne « Ce qui diffère » qui nomme l'écart entre
+les deux régimes.
+
+Le contenu est précis plutôt que général :
+
+- **Le territoire et la période** : lois d'États depuis 1877 contre lois
+  nationales depuis les élections de 1948
+- **Les personnes visées** : environ un habitant sur dix aux États-Unis, près de
+  la moitié dans certains comtés du Sud, contre une minorité blanche d'environ
+  un habitant sur cinq en Afrique du Sud. La règle dite d'une seule goutte de
+  sang d'un côté, la loi sur l'enregistrement de la population de 1950 de
+  l'autre
+- **Les lois principales** : Plessy contre Ferguson en 1896 contre le bloc de
+  1949 à 1952, mariages mixtes, enregistrement, quartiers, laissez-passer
+- **Le contrôle du droit de vote** : taxe électorale, test d'alphabétisation et
+  clause du grand-père contre le retrait de la nationalité par la loi de 1970
+  sur la citoyenneté des bantoustans
+- **Les formes de lutte** : 381 jours de boycottage, sit-in, Freedom Rides,
+  Selma contre la campagne de défi de 1952, Sharpeville, Soweto et le passage à
+  la lutte armée
+- **La sortie du régime** : Brown en 1954 puis le Congrès contre la négociation
+  de 1990 et la commission vérité et réconciliation de 1995
+
+**La chronologie du Musée est intégrée.** `lois-antijuives` est supprimé. Le
+bloc `::: integration` affiche maintenant ta ligne du temps interactive dans un
+cadre, doublée du lien qui s'affiche si le service est inaccessible ou si la
+page est consultée hors ligne.
+
+**Trois photographies de plus**, ce qui porte la fiche à treize :
+
+- le boycottage des commerces juifs à Berlin, le 1er avril 1933, qui ouvre
+  justement la chronologie du Musée
+- les premiers enfants du Kindertransport à leur arrivée à Harwich, en 1938
+- des enfants de familles juives polonaises débarquant à Londres, en février
+  1939
+
+Sur ton point de fond, il est juste et il a guidé le choix : ces images montrent
+des personnes, des visages d'enfants qui arrivent quelque part, et non des corps
+photographiés par leurs persécuteurs. C'est aussi pour cette raison que les
+sections du ghetto et des camps restent moins illustrées : l'essentiel des
+photographies disponibles de ces lieux a été pris par les bourreaux, et je
+préfère te laisser trancher plutôt que d'imposer ce regard.
+
+### À valider
+
+**1. L'affichage de l'iframe du Musée**
+
+Je n'ai pas pu tester d'ici si histoire.museeholocauste.ca autorise
+l'intégration dans un cadre : le domaine est hors du réseau accessible à mon
+environnement. Si le cadre reste blanc chez toi, c'est que le site refuse
+l'iframe. Le lien sous le cadre fonctionnera de toute façon, et je pourrai
+basculer le bloc en simple encadré `activite` si tu préfères.
+
+**2. Les sections du ghetto et des camps**
+
+Elles restent les moins illustrées. Si tu veux des photographies de la vie juive
+d'avant-guerre, portraits de famille, écoles, commerces, dis-le et je cherche
+dans cette direction plutôt que dans les archives des camps.

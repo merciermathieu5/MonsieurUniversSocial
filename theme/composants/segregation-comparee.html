@@ -1,0 +1,148 @@
+<section class="sgc" id="segregation-comparee" aria-label="Comparaison des lois Jim Crow et de l'apartheid">
+<style>
+.sgc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.sgc .sgc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.sgc .sgc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.sgc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.sgc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.sgc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.sgc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.sgc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.sgc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.sgc__panneau.est-visible { display: block; }
+.sgc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.sgc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.sgc__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .45rem; }
+.sgc__cote p { margin: 0; font-size: .95rem; line-height: 1.6; }
+.sgc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.sgc__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .sgc .sgc__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .sgc .sgc__titre { color: var(--encre); }
+html[data-sombre="on"] .sgc__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .sgc__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .sgc__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .sgc__panneau { padding: 1.1rem 1rem 1rem; } .sgc__onglets { padding: .7rem .8rem; } }
+@media print { .sgc__panneau { display: block; page-break-inside: avoid; } .sgc__onglets { display: none; } }
+</style>
+
+<div class="sgc__entete">
+  <p class="sgc__titre" role="heading" aria-level="3">Deux régimes, les mêmes mécanismes</p>
+  <p class="sgc__consigne">Choisis un aspect</p>
+</div>
+
+<div class="sgc__onglets" role="tablist" aria-label="Aspects comparés"></div>
+<div class="sgc__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("segregation-comparee");
+  if (!racine) { return; }
+  var aspects = [
+    {
+      cle: "territoire",
+      nom: "Le territoire et la période",
+      us: "Les lois relèvent de chaque État, pas du gouvernement fédéral. Elles s'installent dans le Sud à partir de 1877, à la fin de la Reconstruction, en Alabama, au Mississippi, en Arkansas et ailleurs. Elles sont démantelées entre 1954 et 1968.",
+      sa: "Le régime relève du gouvernement central et s'applique à tout le pays. Il commence avec la victoire du Parti national aux élections de 1948. Il est démantelé en 1990 et 1991, et les premières élections ouvertes à tous ont lieu en 1994.",
+      ecart: "Aux États-Unis, la ségrégation est régionale et vient des États. En Afrique du Sud, elle est nationale et vient du gouvernement."
+    },
+    {
+      cle: "personnes",
+      nom: "Les personnes visées",
+      us: "Les Afro-Américains forment environ un habitant sur dix du pays vers 1950, mais près de la moitié de la population dans certains comtés du Sud. Le classement repose sur la règle dite d'une seule goutte de sang : une ascendance africaine connue suffit.",
+      sa: "La loi sur l'enregistrement de la population, en 1950, classe chaque personne dans un groupe : Blancs, Noirs, Métis, puis Indiens. Les Blancs représentent alors environ un habitant sur cinq. Le régime fait donc gouverner la majorité par une minorité.",
+      ecart: "Aux États-Unis, une majorité impose des lois à une minorité. En Afrique du Sud, c'est l'inverse."
+    },
+    {
+      cle: "lois",
+      nom: "Les lois principales",
+      us: "L'arrêt Plessy contre Ferguson, en 1896, autorise des installations séparées à condition qu'elles soient dites égales. Chaque État vote ensuite ses propres textes : mariages mixtes interdits, écoles séparées, wagons, salles d'attente et fontaines réservés.",
+      sa: "Quatre lois structurent le régime : l'interdiction des mariages mixtes en 1949, l'enregistrement de la population et l'attribution des quartiers par groupe en 1950, puis l'obligation du laissez-passer intérieur en 1952.",
+      ecart: "Aux États-Unis, la ségrégation s'appuie sur une décision de justice et des lois d'États. En Afrique du Sud, sur un bloc de lois votées en quatre ans."
+    },
+    {
+      cle: "vote",
+      nom: "Le contrôle du droit de vote",
+      us: "Le droit de vote n'est pas retiré par la Constitution, il est rendu inaccessible : taxe électorale, test d'alphabétisation, clause du grand-père. À Selma, en 1965, 2 pour cent des électeurs noirs de la ville sont inscrits sur les listes.",
+      sa: "Les électeurs noirs sont retirés des listes communes. En 1970, la loi sur la citoyenneté des bantoustans leur retire la nationalité sud-africaine et les rattache d'office à un territoire séparé, où ils sont censés voter.",
+      ecart: "Aux États-Unis, on empêche de s'inscrire. En Afrique du Sud, on retire la citoyenneté elle-même."
+    },
+    {
+      cle: "lutte",
+      nom: "Les formes de lutte",
+      us: "Le boycottage des autobus de Montgomery dure 381 jours. Viennent ensuite les sit-in aux comptoirs, les Freedom Rides, la marche sur Washington de 1963 et les marches de Selma. La stratégie combine action non violente et recours devant les tribunaux.",
+      sa: "La campagne de défi de 1952, la protestation contre les laissez-passer à Sharpeville en 1960 et le soulèvement de Soweto en 1976. Après Sharpeville, le Congrès national africain se dote d'une branche armée. À l'étranger, boycottages et sanctions.",
+      ecart: "Les deux mouvements commencent par la non-violence. En Afrique du Sud, la répression de 1960 conduit une partie du mouvement à la lutte armée."
+    },
+    {
+      cle: "sortie",
+      nom: "La sortie du régime",
+      us: "L'arrêt Brown contre Board of Education, en 1954, déclare la ségrégation scolaire contraire à la Constitution. Le Congrès vote ensuite le Civil Rights Act en 1964, le Voting Rights Act en 1965, puis la loi sur le logement en 1968.",
+      sa: "En février 1990, le président de Klerk légalise le Congrès national africain et libère Nelson Mandela. Les lois de l'apartheid sont abrogées en 1991. Une commission vérité et réconciliation est mise sur pied en 1995.",
+      ecart: "Aux États-Unis, la sortie passe par les tribunaux et le Congrès. En Afrique du Sud, par une négociation entre deux adversaires."
+    }
+  ];
+
+  var onglets = racine.querySelector(".sgc__onglets");
+  var contenu = racine.querySelector(".sgc__contenu");
+
+  function bloc(lieu, texte) {
+    var cote = document.createElement("div");
+    cote.className = "sgc__cote";
+    var etiquette = document.createElement("span");
+    etiquette.className = "sgc__lieu";
+    etiquette.textContent = lieu;
+    var p = document.createElement("p");
+    p.textContent = texte;
+    cote.appendChild(etiquette);
+    cote.appendChild(p);
+    return cote;
+  }
+
+  aspects.forEach(function (aspect, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "sgc__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = aspect.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "sgc-panneau-" + aspect.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "sgc__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "sgc-panneau-" + aspect.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", aspect.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "sgc__colonnes";
+    colonnes.appendChild(bloc("Les lois Jim Crow", aspect.us));
+    colonnes.appendChild(bloc("L'apartheid", aspect.sa));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "sgc__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui diffère. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(aspect.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

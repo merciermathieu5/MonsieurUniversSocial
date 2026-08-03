@@ -1015,6 +1015,24 @@ bolivar.jpg:
     Details on Google Art Project
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Gil_de_Castro_-_Sim%C3%B3n_Bol%C3%ADvar_-_Google_Art_Project.jpg
+livingstone-stanley.jpg:
+  commons: File:Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855.jpg
+  titre: Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855
+  auteur: Auteur inconnu
+  licence: Creative Commons BY 4.0
+  lien: https://commons.wikimedia.org/wiki/File:Henry_Morton_Stanley_meeting_David_Livingstone_at_Ujiji,_in_Wellcome_V0006855.jpg
+rhodes-colosse.jpg:
+  commons: File:Rhodes Colossus Punch 1892.jpg
+  titre: Rhodes Colossus Punch 1892
+  auteur: Edward Linley Sambourne
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Rhodes_Colossus_Punch_1892.jpg
+tirailleurs-senegalais.jpg:
+  commons: File:Tirailleurs du 8e bataillon sénégalais du Maroc envoyés en France, 12 septembre 1914.jpg
+  titre: Tirailleurs du 8e bataillon sénégalais du Maroc envoyés en France, 12 septembre 1914
+  auteur: Jacques Provot
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Tirailleurs_du_8e_bataillon_s%C3%A9n%C3%A9galais_du_Maroc_envoy%C3%A9s_en_France,_12_septembre_1914.jpg
 ecole-livingstonia.jpg:
   commons: File:The school children of Livingstonia.jpg
   titre: The school children of Livingstonia
@@ -1066,12 +1084,6 @@ little-rock.jpg:
   auteur: John T. Bledsoe
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Little_rock_integration_protest.tif
-wannsee.jpg:
-  commons: File:Haus der Wannsee-Konferenz 02-2014.jpg
-  titre: Haus der Wannsee-Konferenz 02-2014
-  auteur: A.Savin
-  licence: Creative Commons BY-SA 3.0
-  lien: https://commons.wikimedia.org/wiki/File:Haus_der_Wannsee-Konferenz_02-2014.jpg
 ghetto-varsovie.jpg:
   commons: File:Aerial photograph of the destroyed Warsaw Ghetto.jpg
   titre: Aerial photograph of the destroyed Warsaw Ghetto
@@ -1079,3 +1091,21 @@ ghetto-varsovie.jpg:
     domain
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Aerial_photograph_of_the_destroyed_Warsaw_Ghetto.jpg
+wannsee.jpg:
+  commons: File:Haus der Wannsee-Konferenz 02-2014.jpg
+  titre: Haus der Wannsee-Konferenz 02-2014
+  auteur: A.Savin
+  licence: Creative Commons BY-SA 3.0
+  lien: https://commons.wikimedia.org/wiki/File:Haus_der_Wannsee-Konferenz_02-2014.jpg
+enfants-kindertransport.jpg:
+  commons: File:Bundesarchiv Bild 183-1987-0928-501, England, Jüdische Flüchtlingskinder.jpg
+  titre: Bundesarchiv Bild 183-1987-0928-501, England, Jüdische Flüchtlingskinder
+  auteur: Unknown author Unknown author
+  licence: CC BY-SA 3.0 de
+  lien: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-1987-0928-501,_England,_J%C3%BCdische_Fl%C3%BCchtlingskinder.jpg
+refugies-londres.jpg:
+  commons: File:Bundesarchiv Bild 183-S69279, London, Ankunft jüdische Flüchtlinge.jpg
+  titre: Bundesarchiv Bild 183-S69279, London, Ankunft jüdische Flüchtlinge
+  auteur: Unknown Unknown
+  licence: CC BY-SA 3.0 de
+  lien: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_183-S69279,_London,_Ankunft_j%C3%BCdische_Fl%C3%BCchtlinge.jpg
