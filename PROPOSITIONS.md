@@ -1696,3 +1696,107 @@ justement le paragraphe qu'elle accompagne.
 
 `ecole-livingstonia.jpg` reste en place. Dis-moi si elle pose le même problème
 et je la change aussi.
+
+## Fiche : La reconnaissance des libertés et des droits civils
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « Déclaration universelle des droits de l'Homme » devient « de l'homme »,
+  graphie de l'ONU
+- « ainsi les populations noires » devient « ainsi que »
+- « la lutte des Noirs contre de la ségrégation » : le doublon est retiré
+- « plusieurs universités leurs sont interdites » devient « leur sont »
+- « le régime de l'apartheid instauré en 1948 donnait aux Afrikaners » passe au
+  présent de narration, comme le reste de la fiche
+- « à qui ont interdisaient » devient « les mariages sont interdits »
+- « 79 hommes, femmes et enfants sont morts » devient 69, chiffre retenu par les
+  sources sur le massacre de Sharpeville
+- « La Lance du Peuple » devient « Umkhonto we Sizwe, la Lance de la nation »,
+  translittération et traduction usuelles
+- « Le 7 juillet 1988, il est finalement libéré de prison » : Mandela quitte la
+  prison en 1988 pour un hôpital puis une résidence, la date précise est
+  retirée au profit de « sort de prison en 1988 »
+- « l'armée Allemande » devient « allemande », « d''Hitler » perd son
+  apostrophe double
+- « la liquidation de la population de confession juive » n'est pas repris
+- Les nombres passent à l'espace des milliers : 523 000, 282 000, 163 000,
+  400 000, 250 000, 50 000
+- Les listes d'interdictions et de lois passent en listes à puces
+
+### Périmètre, tel que tu l'as confirmé
+
+Le récit militaire de la Seconde Guerre mondiale n'est pas repris : ni
+Dunkerque, ni la bataille d'Angleterre, ni Barbarossa, ni Pearl Harbor, ni
+Midway, ni El Alamein, ni Dieppe, ni Téhéran, ni la Normandie, ni les
+bombardements atomiques. Il reste trois phrases pour situer : le pacte de
+non-agression, l'invasion de la Pologne, la déclaration de guerre du 3
+septembre 1939 et la fin en 1945.
+
+Tout ce qui touche à la privation des droits est conservé : Versailles, 1933,
+la police, l'Anschluss, Munich, les lois de Nuremberg, l'exode, le ghetto de
+Varsovie, Wannsee et les camps.
+
+### Le registre, tel que tu l'as demandé
+
+Aucun commentaire moral dans les encadrés. Les lois se décrivent par ce
+qu'elles ordonnent, les camps par ce qu'ils étaient et ce qu'ils ont fait, les
+chiffres par leur source, presque partout l'Encyclopédie multimédia de la Shoah
+du United States Holocaust Memorial Museum.
+
+Les catégories du régime sont attribuées au régime, jamais énoncées comme des
+faits. La fiche écrit « le régime rejette l'idée que les Juifs forment une
+communauté religieuse et les définit comme une race » et « les personnes ayant
+au moins trois grands-parents nés dans la communauté juive sont désignées comme
+juives ». L'expression « sang allemand » n'apparaît qu'entre les termes de la
+loi elle-même, jamais dans la voix de la fiche.
+
+Un seul encadré `note` porte là-dessus, et il est descriptif : il prévient
+l'élève que le vocabulaire de la race et du sang qu'il va rencontrer est celui
+que le régime a fait entrer dans la loi, et qu'il n'a aucune valeur
+scientifique. Si tu le juges de trop, il se retire en une ligne.
+
+### Trois schémas
+
+- `frise-droits-civils`, six événements datés de 1935 à 1994
+- `jim-crow-apartheid`, quatre critères rigoureusement identiques des deux
+  côtés, territoire, années, moyens légaux, sortie du régime
+- `privation-etapes`, les cinq étapes légales de 1933 à 1941, la dernière en
+  accent doré
+
+### Onze vidéos
+
+Toutes celles de ta page qui restent dans le périmètre : Rosa Parks et le
+boycottage, le discours de 1963 et Selma, l'apartheid en deux capsules,
+Mandela, l'Anschluss, Wannsee, Auschwitz et sa libération. Les capsules sur les
+opérations militaires ne sont pas reprises.
+
+### À valider
+
+**1. Sept images manquent encore**
+
+Je n'ai inscrit que les six dont j'ai pu confirmer le nom de fichier au
+caractère près : Rosa Parks, King à Washington, la signature du Civil Rights
+Act, un panneau d'apartheid, Mandela et le tableau de classement de 1935.
+
+Manquent un panneau de ségrégation américain, Little Rock, Selma, Sharpeville,
+le mur du ghetto de Varsovie, la villa de Wannsee et Auschwitz. Je les cherche
+à la prochaine livraison si tu veux.
+
+**2. Le chiffre de Sharpeville**
+
+Ta page donne 79 morts. Les sources courantes, dont la commission d'enquête de
+l'époque, retiennent 69. J'ai mis 69. Dis-moi si tu tiens à ton chiffre.
+
+**3. La date de sortie de prison de Mandela**
+
+Ta page écrit qu'il est libéré le 7 juillet 1988. Il quitte la prison de
+Pollsmoor cette année-là pour un hôpital puis une maison sur le domaine de
+Victor Verster, et il n'est vraiment libre que le 11 février 1990. J'ai écrit
+« sort de prison en 1988 » puis la libération de février 1990, sans la date
+précise de 1988.
+
+**4. Les trois films**
+
+*La liste de Schindler*, *Le pianiste* et *La dame en or* sont regroupés dans un
+seul encadré `activite`, avec une phrase chacun. Tes résumés complets ne sont
+pas repris.

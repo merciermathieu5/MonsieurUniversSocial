@@ -1664,3 +1664,58 @@ ecole-wuga.jpg:
   titre: ''
   licence: ''
   lien: ''
+rosa-parks.jpg:
+  cadrage: flottant
+  fiche: 12-libertes-droits-civils
+  commons: File:Rosa Parks being fingerprinted by Deputy Sheriff D.H. Lackey after
+    being arrested on February 22, 1956, during the Montgomery bus boycott.jpg
+  recherche: Rosa Parks fingerprinted 1956 Montgomery bus boycott
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+martin-luther-king.jpg:
+  cadrage: petit
+  fiche: 12-libertes-droits-civils
+  commons: File:Martin Luther King - March on Washington.jpg
+  recherche: Martin Luther King March on Washington 1963
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+civil-rights-act.jpg:
+  cadrage: large
+  fiche: 12-libertes-droits-civils
+  commons: File:Lyndon Johnson signing Civil Rights Act, July 2, 1964.jpg
+  recherche: Lyndon Johnson signing Civil Rights Act 1964
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+panneau-apartheid.jpg:
+  cadrage: flottant
+  fiche: 12-libertes-droits-civils
+  commons: File:ApartheidSignEnglishAfrikaans.jpg
+  recherche: apartheid sign English Afrikaans
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+mandela.jpg:
+  cadrage: petit
+  fiche: 12-libertes-droits-civils
+  commons: File:Nelson Mandela 1994.jpg
+  recherche: Nelson Mandela 1994 Washington
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+tableau-nuremberg.jpg:
+  cadrage: large
+  fiche: 12-libertes-droits-civils
+  commons: File:Nuremberg laws Racial Chart.jpg
+  recherche: Nuremberg laws racial chart 1935
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
