@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1100 250" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les trois catégories de lieux de pouvoir d'une métropole, avec ce qu'elles regroupent et un exemple montréalais pour chacune">
+  <style>
+    .lp-t { font-family: Archivo, sans-serif; }
+    .lp-b1 { font-size: 14.5px; font-weight: 700; fill: var(--surface); }
+    .lp-b2 { font-size: 14.5px; font-weight: 600; fill: var(--surface); }
+    .lp-b3 { font-size: 14.5px; font-weight: 600; fill: var(--bloc-texte); }
+    .lp-a { font-size: 12.5px; fill: var(--encre-doux); }
+  </style>
+
+  <rect x="40" y="20" width="330" height="56" rx="5" fill="var(--schema-accent)"/>
+  <text class="lp-t lp-b1" x="205" y="44" text-anchor="middle">Le pouvoir politique</text>
+  <text class="lp-t lp-b1" x="205" y="62" text-anchor="middle">et administratif</text>
+  <text class="lp-t lp-a" x="400" y="36">Les lieux où se prennent les décisions publiques.</text>
+  <text class="lp-t lp-a" x="400" y="55">Hôtel de ville, ministères, consulats, organisations internationales.</text>
+  <text class="lp-t lp-a" x="400" y="74">À Montréal : le siège de l'Organisation de l'aviation civile, depuis 1946.</text>
+
+  <rect x="40" y="96" width="330" height="56" rx="5" fill="var(--schema-cle)"/>
+  <text class="lp-t lp-b2" x="205" y="120" text-anchor="middle">Le pouvoir économique</text>
+  <text class="lp-t lp-b2" x="205" y="138" text-anchor="middle">et financier</text>
+  <text class="lp-t lp-a" x="400" y="112">Le quartier central des affaires, repérable à ses gratte-ciel.</text>
+  <text class="lp-t lp-a" x="400" y="131">Sièges sociaux, places boursières, institutions bancaires.</text>
+  <text class="lp-t lp-a" x="400" y="150">À Montréal : la tour de la Bourse, la Banque Nationale, le Canadien National.</text>
+
+  <rect x="40" y="172" width="330" height="56" rx="5" fill="var(--bloc)"/>
+  <text class="lp-t lp-b3" x="205" y="196" text-anchor="middle">Le pouvoir culturel</text>
+  <text class="lp-t lp-b3" x="205" y="214" text-anchor="middle">et de savoirs</text>
+  <text class="lp-t lp-a" x="400" y="188">Les lieux qui produisent et diffusent la culture et les savoirs.</text>
+  <text class="lp-t lp-a" x="400" y="207">Universités, hôpitaux universitaires, musées, sièges de médias.</text>
+  <text class="lp-t lp-a" x="400" y="226">À Montréal : McGill, l'UQAM, le CHUM, le CUSM, le Mila.</text>
+</svg>

@@ -311,11 +311,6 @@ Le régime d'apartheid
 Vivre sous l'apartheid
 :::
 
-### Deux régimes, les mêmes mécanismes
-
-::: schema jim-crow-apartheid
-:::
-
 ::: questions
 1. En quelle année le régime d'apartheid est-il instauré?
 2. Qu'est-ce qu'un bantoustan?
@@ -407,6 +402,14 @@ revient sur son parcours.
    sur l'île Robben?
 3. Combien d'années séparent son arrestation de son élection?
 :::
+
+## Deux régimes, les mêmes mécanismes
+
+Maintenant que les deux régimes sont connus, tu peux les mettre côte à côte.
+Chaque onglet compare un aspect, des lois elles-mêmes jusqu'à la manière dont
+chacun a pris fin.
+
+::: composant segregation-comparee
 
 ## La privation des libertés et des droits
 
@@ -534,15 +537,15 @@ antijuive comparable.
 
 ### Les lois antijuives, de 1933 à 1939
 
+![Le boycottage des commerces juifs, à Berlin, le 1er avril 1933](../medias/12-libertes-droits-civils/boycott-1933.jpg)
+
 Les lois de Nuremberg ne sont pas un point de départ. Elles s'inscrivent dans
 une suite de mesures qui retirent un droit à la fois, profession par
 profession, lieu par lieu.
 
-::: schema lois-antijuives
+::: integration https://histoire.museeholocauste.ca/fr/chronologie/lois-antijuives
+La chronologie des lois antijuives du Musée de l'Holocauste Montréal
 :::
-
-Source : Musée de l'Holocauste Montréal, chronologie des lois antijuives
-{: .source-texte }
 
 ::: questions
 1. Quelle différence la loi sur la citoyenneté établit-elle entre un citoyen et
@@ -554,6 +557,10 @@ Source : Musée de l'Holocauste Montréal, chronologie des lois antijuives
 :::
 
 ## Les départs massifs
+
+![Les premiers enfants du Kindertransport arrivent à Harwich, en Angleterre, en 1938](../medias/12-libertes-droits-civils/enfants-kindertransport.jpg)
+
+![Des enfants de familles juives polonaises débarquent à Londres, en février 1939](../medias/12-libertes-droits-civils/refugies-londres.jpg)
 
 En janvier 1933, il y avait environ 523 000 Juifs en Allemagne, soit moins de 1
 pour cent de la population du pays. Cette population était surtout urbaine et

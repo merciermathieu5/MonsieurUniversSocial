@@ -1860,6 +1860,119 @@ plus visible. Je les cherche à la prochaine livraison.
 faits que raconte la section. La légende le dit. Si tu préfères une vue du mur
 ou de la vie dans le ghetto, dis-le et je cherche.
 
+### Interface interactive, intégration et photographies (livraison 85)
+
+**Le tableau comparatif devient un composant interactif.** `jim-crow-apartheid`
+est supprimé. À sa place, `theme/composants/segregation-comparee.html`, sur le
+modèle des composants existants : six onglets, et pour chacun deux colonnes de
+trois à quatre lignes, plus une ligne « Ce qui diffère » qui nomme l'écart entre
+les deux régimes.
+
+Le contenu est précis plutôt que général :
+
+- **Le territoire et la période** : lois d'États depuis 1877 contre lois
+  nationales depuis les élections de 1948
+- **Les personnes visées** : environ un habitant sur dix aux États-Unis, près de
+  la moitié dans certains comtés du Sud, contre une minorité blanche d'environ
+  un habitant sur cinq en Afrique du Sud. La règle dite d'une seule goutte de
+  sang d'un côté, la loi sur l'enregistrement de la population de 1950 de
+  l'autre
+- **Les lois principales** : Plessy contre Ferguson en 1896 contre le bloc de
+  1949 à 1952, mariages mixtes, enregistrement, quartiers, laissez-passer
+- **Le contrôle du droit de vote** : taxe électorale, test d'alphabétisation et
+  clause du grand-père contre le retrait de la nationalité par la loi de 1970
+  sur la citoyenneté des bantoustans
+- **Les formes de lutte** : 381 jours de boycottage, sit-in, Freedom Rides,
+  Selma contre la campagne de défi de 1952, Sharpeville, Soweto et le passage à
+  la lutte armée
+- **La sortie du régime** : Brown en 1954 puis le Congrès contre la négociation
+  de 1990 et la commission vérité et réconciliation de 1995
+
+**La chronologie du Musée est intégrée.** `lois-antijuives` est supprimé. Le
+bloc `::: integration` affiche maintenant ta ligne du temps interactive dans un
+cadre, doublée du lien qui s'affiche si le service est inaccessible ou si la
+page est consultée hors ligne.
+
+**Trois photographies de plus**, ce qui porte la fiche à treize :
+
+- le boycottage des commerces juifs à Berlin, le 1er avril 1933, qui ouvre
+  justement la chronologie du Musée
+- les premiers enfants du Kindertransport à leur arrivée à Harwich, en 1938
+- des enfants de familles juives polonaises débarquant à Londres, en février
+  1939
+
+Sur ton point de fond, il est juste et il a guidé le choix : ces images montrent
+des personnes, des visages d'enfants qui arrivent quelque part, et non des corps
+photographiés par leurs persécuteurs. C'est aussi pour cette raison que les
+sections du ghetto et des camps restent moins illustrées : l'essentiel des
+photographies disponibles de ces lieux a été pris par les bourreaux, et je
+préfère te laisser trancher plutôt que d'imposer ce regard.
+
+### À valider
+
+**1. L'affichage de l'iframe du Musée**
+
+Je n'ai pas pu tester d'ici si histoire.museeholocauste.ca autorise
+l'intégration dans un cadre : le domaine est hors du réseau accessible à mon
+environnement. Si le cadre reste blanc chez toi, c'est que le site refuse
+l'iframe. Le lien sous le cadre fonctionnera de toute façon, et je pourrai
+basculer le bloc en simple encadré `activite` si tu préfères.
+
+**2. Les sections du ghetto et des camps**
+
+Elles restent les moins illustrées. Si tu veux des photographies de la vie juive
+d'avant-guerre, portraits de famille, écoles, commerces, dis-le et je cherche
+dans cette direction plutôt que dans les archives des camps.
+
+### Pourquoi Bolívar se retéléchargeait sans fin (livraison 86)
+
+**La cause vient de mes livraisons, pas de ton dépôt.**
+
+`images.py` saute une image quand trois conditions sont réunies : le fichier est
+sur le disque, `medias/credits.yml` contient son auteur, sa licence et son lien,
+et le nom Commons inscrit dans les crédits correspond à celui du registre. Il
+suffit qu'une seule manque pour qu'il retélécharge.
+
+J'ai vérifié le nom Commons de Bolívar, il est exact au caractère près :
+`File:José Gil de Castro - Simón Bolívar - Google Art Project.jpg`. Ce n'était
+donc pas ça. En comparant `sources.yml` et `credits.yml` dans ton dépôt, voici
+ce que j'ai trouvé :
+
+- fiche 09, 15 images, **0** sans crédit
+- fiche 10, 21 images, 1 sans crédit, le montage McCord qui n'en a pas besoin
+- fiche 11, 14 images, **9 sans crédit**, dont `bolivar.jpg`,
+  `livingstone-stanley.jpg`, `rhodes-colosse.jpg`, `leopold-ii.jpg`,
+  `punch-congo.jpg`, `tirailleurs-senegalais.jpg`, `caoutchouc-congo.jpg`,
+  `canal-suez.jpg` et `ecole-livingstonia.jpg`
+
+Ces neuf-là se retéléchargent à chaque lancement, parce que leurs crédits ne
+sont jamais dans le fichier. Et ils n'y sont jamais parce que **mes zips
+contiennent un `credits.yml` périmé qui écrase le tien**. Tu lances `images.py`,
+il écrit les crédits, tu déposes ma livraison suivante, et le fichier repart à
+son état d'avant.
+
+**Correction appliquée : `medias/credits.yml` est retiré de mes zips.** Ton
+fichier restera intact au prochain dépôt. Un seul lancement d'`images.py`
+remplira les neuf entrées manquantes, et la boucle s'arrêtera.
+
+Si tu veux vérifier après coup, `python outils/images.py` doit afficher
+« déjà complètes » pour ces neuf images au deuxième lancement d'affilée.
+
+### Deux autres corrections (livraison 86)
+
+**Le cadre d'intégration est moins haut.** Le rapport passe de 4/3 à 16/9 sur
+écran large, et de 3/4 à 4/3 sur mobile. La chronologie du Musée est un
+défilement horizontal, elle n'a pas besoin de hauteur. La fiche 12 est la seule
+à utiliser un bloc `::: integration` pour l'instant, donc le changement ne
+touche rien d'autre.
+
+**L'interface comparative passe après l'apartheid.** Elle n'est plus une
+sous-section de la ségrégation sud-africaine mais une section à part entière,
+placée entre « Lutter contre l'apartheid » et « La privation des libertés et des
+droits ». L'élève a vu les deux régimes au complet avant qu'on lui demande de
+les comparer. Deux phrases d'introduction annoncent ce qu'il va trouver dans les
+onglets.
+
 ### Trois gabarits supprimés (livraison 87)
 
 - `contenu/histoire/00-notions-de-base.md`
@@ -1908,3 +2021,185 @@ Pour mémoire, dans l'ordre où je compte les traiter :
 3. Le territoire touristique
 4. Le territoire agricole national
 5. Le territoire protégé, le parc naturel
+
+## Fiche : La métropole
+
+### Première fiche de géographie (livraison 89)
+
+`contenu/geographie/02-metropole.md` passe du gabarit à `brouillon`. Neuf
+sections : Mise en contexte, Concepts à l'étude, Situer Montréal, La population
+de la métropole, Se déplacer dans la métropole, Habiter la métropole, L'étalement
+urbain, Montréal un lieu de pouvoir, Les activités et les services. La quinzaine
+de titres de ta page se range dessous en sous-sections.
+
+Les quatre concepts prescrits que ta page ne définissait pas sont ajoutés :
+aménagement, concentration, croissance et déséquilibre. « Territoire urbain » et
+« ville », qui ne sont pas dans la Progression, sortent de la liste. Bidonville
+est défini et rattaché aux autres études de cas du programme, puisque Montréal
+n'en compte pas.
+
+### Les chiffres mis à jour
+
+**1. L'unité de territoire est nommée partout.** C'était le défaut de fond de la
+page : « Montréal » y désignait tantôt la ville, tantôt l'île. Une nouvelle
+section « Situer Montréal » pose les trois territoires en encadré `cartes`, avec
+leurs chiffres respectifs, et la section sur la densité les reprend en liste.
+
+- Ville de Montréal : 1 913 561 habitants sur 363,8 km², environ 5 260 hab./km²
+- Agglomération de Montréal, l'île : 2 170 228 habitants sur 496,9 km², environ
+  4 370 hab./km²
+- Région métropolitaine : 82 municipalités sur environ 4 360 km², près de
+  4,3 millions d'habitants, moins de 1 000 hab./km²
+
+**2. Le Plateau-Mont-Royal.** Les « près de 44 000 hab./km² » sont remplacés par
+12 792 hab./km², chiffre du profil sociodémographique de l'arrondissement,
+104 000 habitants sur 8,1 km². Parc-Extension, à 18 802 hab./km², arrive en
+appui. Je n'ai trouvé aucune source pour le 44 000.
+
+**3. La densité comparée.** « Deuxième ville la plus dense au Canada » devient
+« parmi les grandes villes canadiennes, seule Vancouver est plus dense », avec
+la précision que Côte-Saint-Luc, Westmount et Montréal-Ouest dépassent la ville
+de Montréal.
+
+**4. La RMM.** 65 municipalités et 4 000 km² deviennent 82 municipalités et
+environ 4 360 km². Les cinq secteurs sont nommés.
+
+**5. Le métro.** 71 km deviennent 69,2 km. L'achalandage de 2018 devient environ
+978 000 déplacements un jour de semaine à la fin de 2025. Le prolongement de la
+ligne bleue est mentionné.
+
+**6. Le REM.** Sous-section neuve : les trois antennes avec leurs dates de mise
+en service, les 23 stations sur 63 km, les trois correspondances au métro et
+l'antenne de l'aéroport annoncée pour 2027.
+
+**7. L'aéroport.** Les 14,8 millions de passagers de 2014 deviennent
+22,4 millions en 2025, avec 156 destinations en vol direct et la station du REM
+attendue en 2027.
+
+**8. L'urbanisation mondiale.** « Plus de 50 % » devient 58 % en 2025, selon les
+définitions nationales. Un encadré `note` explique que l'ONU a changé de méthode
+en 2025 et que la même population donne 45 % ou 81 % selon la définition
+retenue. C'est l'occasion de montrer qu'un chiffre dépend de son instrument de
+mesure.
+
+**9. Le logement.** Les prix de novembre 2024 deviennent ceux d'avril 2026 :
+645 000 $ pour le prix médian d'une unifamiliale dans la région métropolitaine
+et 865 000 $ pour un plex, d'après l'APCIQ. Le loyer moyen d'environ 1 350 $ et
+le taux d'inoccupation de 2,9 % viennent du baromètre de l'APCIQ, à partir des
+données de la SCHL.
+
+**10. La loi de 1978.** Le titre exact, *Loi sur la protection du territoire
+agricole*, et la date de sanction, le 22 décembre 1978, remplacent « la loi sur
+le zonage agricole de 1978 ».
+
+**11. L'AMA.** Le bureau principal est situé à la Place Victoria, dans la tour
+de la Bourse, ouvert au début de 2002. L'entente court au moins jusqu'à la fin
+de 2031. La loi québécoise de 2018 sur l'immunité est ajoutée.
+
+### Deux chiffres que j'ai retirés plutôt que corrigés
+
+**12. Les langues, « le français (53 %) ou l'anglais (13 %) ».** Je n'ai pas pu
+établir de quelle variable il s'agit, langue maternelle, langue parlée à la
+maison ou première langue officielle parlée, ni de quel territoire. Je les ai
+remplacés par des données du recensement de 2021 que je peux attribuer : 69,8 %
+de la population montréalaise parle deux langues ou plus, 23,7 % en parle au
+moins trois, le taux de bilinguisme français-anglais atteint 56,4 % contre 7,4 %
+à Toronto, et les trois principaux lieux de naissance des immigrants sont Haïti,
+l'Algérie et la France. Si tes pourcentages viennent d'un manuel, donne-moi la
+référence et je les remets.
+
+**13. L'autoroute 40 « au troisième rang des routes les plus congestionnées au
+Canada ».** Je n'ai retrouvé ni le palmarès ni son année. La congestion reste
+décrite, sans le rang.
+
+### Deux ajouts
+
+**14. L'OACI.** Le dossier du RÉCIT rappelle que Montréal abrite le siège de
+l'Organisation de l'aviation civile internationale depuis 1946. C'est un exemple
+de lieu de pouvoir politique international plus ancien et plus solide que l'AMA,
+et il est cité dans la section sur le pouvoir politique.
+
+**15. La gestion des déchets.** Le document 13 du RÉCIT donne 758 kg de déchets
+par personne par année dans le Grand Montréal en 2020, et le fait que plus de la
+moitié des ordures sont enfouies hors du territoire de la CMM. C'est un des
+enjeux que ta mise en contexte annonce sans le traiter ensuite.
+
+### Vingt-deux images
+
+Onze viennent des deux dossiers du RÉCIT, avec leurs crédits remplis à la main :
+le contexte, la comparaison des densités, la carte des ponts, l'intersection
+Sainte-Catherine, le Festival de jazz, la Bibliothèque nationale de France, le
+siège de l'ONU, la Bourse de New York, la gare Grand Central, le stade des
+Yankees et l'enfouissement des déchets.
+
+Huit sont reprises de ton Google Site par leur adresse directe : la carte de
+l'île, les deux graphiques de population, la carte du métro, le plan du Réso,
+le réseau routier, l'étalement urbain et le plan isométrique. Leurs champs de
+crédit sont vides, je ne connais ni l'auteur ni la source.
+
+Trois viennent de Commons, noms vérifiés au caractère près :
+`File:Montreal at Night - NASA Earth Observatory.jpg`,
+`File:Montreal - QC - Skyline.jpg` et `File:Stations REM.png`.
+
+### Deux schémas
+
+- `lieux-pouvoir-montreal`, les trois catégories de lieux de pouvoir, chacune
+  avec ce qu'elle regroupe et un exemple montréalais
+- `ville-banlieue`, cinq critères identiques des deux côtés : densité, forme du
+  bâti, déplacements quotidiens, prix médian et zone agricole protégée
+
+### Ce que le zip 88 avait fait reculer, remis en place
+
+En comparant ton dépôt et le zip, j'ai trouvé que le zip 88 avait été construit
+sur une base antérieure à la livraison 85. Il ramenait donc la fiche 12 à son
+état de la livraison 84 :
+
+- le composant interactif `segregation-comparee` disparaissait au profit de
+  l'ancien schéma `jim-crow-apartheid`
+- le bloc `::: integration` de la chronologie du Musée de l'Holocauste
+  disparaissait au profit de l'ancien schéma `lois-antijuives`
+- trois photographies disparaissaient : le boycottage de 1933, le Kindertransport
+  et les réfugiés à Londres
+- `PROPOSITIONS.md` perdait les sections des livraisons 85 et 86
+
+J'ai repris ces quatre éléments depuis ton dépôt. J'ai gardé du zip 88 tout ce
+qu'il avance vraiment : les suppressions de gabarits, le retrait de l'Alberta,
+`site.yml` et la retouche du rapport d'affichage de `.integration`.
+
+Par ailleurs, `build.py` retire du HTML toute image absente du disque. Comme mes
+livraisons ne contiennent pas tes images téléchargées, le `docs/` du zip 88
+publiait la fiche 12 sans ses onze images et la fiche 11 sans deux des siennes.
+Pour cette livraison, j'ai versé ton dossier `medias/` et ton `credits.yml` dans
+mon arbre avant de construire, ce qui rend les 220 images au `docs/` livré.
+
+### À valider
+
+**16. Les extensions des images du RÉCIT.** Le lien de téléchargement ne dit pas
+le format. J'ai inscrit `.jpg` pour les onze. Si `images.py` t'annonce un
+décalage, dis-le et je bascule les noms concernés en `.png`.
+
+**17. Les deux graphiques de population.** Tu m'as confirmé qu'ils sont de ta
+création. Le registre porte maintenant ton nom, le titre du graphique, le dépôt
+« Monsieur Univers social » et l'adresse du site. Il manque une seule chose pour
+que la mention s'affiche sous l'image : `build.py` ne compose le crédit que si
+le champ `licence` est rempli. Je ne l'ai pas inventé. Dis-moi ce que tu veux y
+lire, par exemple Creative Commons BY-NC-SA comme le RÉCIT, ou une simple
+mention de réutilisation en classe, et je l'inscris en une ligne.
+
+**18. La licence des documents du RÉCIT.** Deux documents ne portent que
+« Service national du RÉCIT, domaine de l'univers social », sans licence
+explicite. J'ai inscrit Creative Commons BY-NC-SA, la licence que le RÉCIT
+affiche ailleurs sur le même site. À confirmer.
+
+### Trois schémas orphelins supprimés
+
+Vérification faite, aucune fiche n'utilisait plus `privation-etapes.svg`,
+`lois-antijuives.svg` ni `jim-crow-apartheid.svg`. Les deux premiers avaient
+cédé la place à la chronologie intégrée du Musée de l'Holocauste, le troisième
+au composant `segregation-comparee`. Les trois fichiers sont retirés de
+`medias/schemas/` et `build.py` les a nettoyés dans `docs/`.
+
+Effet secondaire attendu : `lois-antijuives.svg` et `privation-etapes.svg`
+définissaient les mêmes classes CSS `.nz-d`, `.nz-e` et `.nz-t`, ce que le
+vérificateur signalait depuis deux livraisons. Ces trois problèmes disparaissent
+avec eux.

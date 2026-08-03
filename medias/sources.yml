@@ -1755,3 +1755,260 @@ wannsee.jpg:
   titre: ''
   licence: ''
   lien: ''
+contexte-metropole.jpg:
+  cadrage: large
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2684
+  depot: Service national du RÉCIT, univers social
+  auteur: "Service national du RÉCIT, domaine de l'univers social"
+  titre: "Contexte, dossier documentaire Territoire urbain : la métropole"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/contexte-metropole
+densite-comparee.jpg:
+  cadrage: large
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2686
+  depot: Service national du RÉCIT, univers social
+  auteur: "Service national du RÉCIT, d'après Taxiarchos228"
+  titre: "Nombre d'habitants au km2, avec le centre-ville de Montréal vu du mont Royal (2009)"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-1-nombre-d-habitants-au-km2
+services-paris.jpg:
+  cadrage: gauche
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3126
+  depot: Service national du RÉCIT, univers social
+  auteur: "Thesupermat"
+  titre: "Vue globale de la BNF (2009), reprise dans le dossier du RÉCIT"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-3-concentration-services
+grand-central.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3128
+  depot: Service national du RÉCIT, univers social
+  auteur: "Alex Proimos"
+  titre: "Grand Central Terminal (2011), repris dans le dossier du RÉCIT"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-4-transport
+jazz-montreal.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3134
+  depot: Service national du RÉCIT, univers social
+  auteur: "Matias Garabedian"
+  titre: "Festival international de jazz de Montréal (2012), repris dans le dossier du RÉCIT"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-7-evenements-culturels
+bourse-new-york.jpg:
+  cadrage: gauche
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3138
+  depot: Service national du RÉCIT, univers social
+  auteur: "Bones64"
+  titre: "Bourse de New York (2016), Pixabay, reprise dans le dossier du RÉCIT"
+  licence: Libre de droits
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-9-des-lieux-de-pouvoir-financier
+stade-yankees.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3140
+  depot: Service national du RÉCIT, univers social
+  auteur: "Y2kcrazyjoker4"
+  titre: "Vue aérienne du stade des Yankees de New York (2002), reprise dans le dossier du RÉCIT"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-8-equipes-sportives-a-new-york
+siege-onu.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3142
+  depot: Service national du RÉCIT, univers social
+  auteur: "qwesy qwesy"
+  titre: "Le siège des Nations unies, repris dans le dossier du RÉCIT"
+  licence: Creative Commons BY-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-10-des-lieux-de-pouvoir-politique
+dechets-grand-montreal.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3146
+  depot: Service national du RÉCIT, univers social
+  auteur: "Service national du RÉCIT, domaine de l'univers social"
+  titre: "Enfouissement des déchets, dossier Territoire urbain : la métropole"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-13-enfouissement-des-dechets
+ponts-montreal.jpg:
+  cadrage: carte
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3451
+  depot: Service national du RÉCIT, univers social
+  auteur: "Service national du RÉCIT, domaine de l'univers social"
+  titre: "Entrer et sortir de Montréal, dossier Montréal, se déplacer dans une métropole"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-1-entrer-et-sortir-de-montreal
+sainte-catherine.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3457
+  depot: Service national du RÉCIT, univers social
+  auteur: "D. Benjamin Miller"
+  titre: "Intersection of Ste-Catherine and City Councillors, Montréal (2023)"
+  licence: Creative Commons Universal Public Domain Dedication
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-5-montreal-capitale-economique-de-la-province
+carte-ile-montreal.png:
+  cadrage: carte
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUU1zrGCMxgd2n2Dtf1_1c8Xxv5LHNO3wtxAU6AeuPM-lPPwFMg_ndfE7fXDTIfWyi5Ddo6dbz0tuvpRpWQ5ohYBpFjBerpPhkY7AVzD6kvjCyLL7riya5n-wUC0LwcF3DGU8Pp0I6lhoK4wsYUIkz_8K8sPI-DHiCNGwDC6j7rkFTnbyvIhRf9_RYrVLHQSdwSKlvZt7NbS0f07B4=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+population-montreal.png:
+  cadrage: flottant
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUvJL5VSxLuT01v7mzWMKqJKn6yS2XRge9cpvsCvYwCKVIk6v78KUAgo40tylvQ92fVdCXRd2QiPwyfQx8lyNwKpqf13jhFARdbi2x8_XcN5LVlkfKv4gDWIXZHMtftF2TYtWjV997rAzntJYcABNgjHWNJUAZRgqJSGsevyEmlRAqqM4T1kponmZHMG5hi8kpA1GyKGw5rT9sT1yiuIx_8s7iV4c7c9IGPptn1RFc=w1280
+  commons: ''
+  recherche: ''
+  depot: Monsieur Univers social
+  auteur: Mathieu Mercier
+  titre: "L'évolution de la population de la ville de Montréal"
+  licence: ''
+  lien: https://merciermathieu5.github.io/muniverssocial
+population-rmm.png:
+  cadrage: flottant
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUhIwclYCYPjyIZh7ZYcrCEGZ8AN3lxP-SbK4Tqmu2GQAd4T-DMjWIPQJJJ-3dX235RpjRtQeW4Hl0bXkI7NEIGIzZzSHqVlezgKx_SQf2YSxzYMBNxSd1zR9zSgZyKDhFQpgpqoGPaUL8DMWKrpGrkvjavo6a8XmxrGMR_94ghfcRJIDDwuUq8s9SQqwc4Cx5ZKRZ57vBskKv8_8E8Y1dOf78GxlXolFAEcfW-muE=w1280
+  commons: ''
+  recherche: ''
+  depot: Monsieur Univers social
+  auteur: Mathieu Mercier
+  titre: "L'évolution de la population de la région métropolitaine de Montréal"
+  licence: ''
+  lien: https://merciermathieu5.github.io/muniverssocial
+carte-metro-montreal.png:
+  cadrage: carte
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUwbb7I3HNc76WUVCb7obJ-75wkfoIyh-KA504kJfB--8eBN80Mp9TmTcn0AYRD8wrcr7qVNHPGWz4V7jLvEYZV_DjMWjvIjdkOIH6st9ZPC9hMy6G9pV_pSOxsJXyWlY794_8JKtehmUmDzDwGXYWKyw1TF288-LudeQBaJU8KYvW7mnzdXL8NTCGeRiXPFQdAuspO12gkXlMCksA=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+plan-reso.png:
+  cadrage: carte
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXKyyMqNykWCaB_Hr1sulzKwNgGaGcsXwNwddrk15UhPiLdK5Kk8H3dEIYl-Y9fyhxs-2SHwnTOSObavLxuVlEG9rNluKy5zC-RvXCnj7G-ia3ej17dCyv6lMsxrKkjQRdIsReZYRF9787QKFAyGJcsDTbqBG_aqh97wpRzqQm9AI2Y3oYUqpCz5lQMUgjOc3EcOFoObne9hcORF0M=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+reseau-routier-rmm.png:
+  cadrage: carte
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXZfRwvay_G70rr0nu7t8pJJpJJGkqYvPdJrPoZ1lmuXbDqfrgX0O6NTfqAfIhL3vsyQsRchGM_OYMW2VeH-antwY2Ftk7enCSBIAvBWKlXnWkG8FuhTE_BhEvf6Zxc2UrvrjRam-fOhdXBsjphTd650lsg4y9lFJI4BioBwajmKJznGE4uJq0HGzindnym_p7RA6yaXSLBMBl1_08=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+etalement-urbain.png:
+  cadrage: flottant
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQWA1-FV3v_qA0wW9Q9Gf-FPTEbG5cz7St1uCrrSdxUCPI54Yehkz-TR01GbPbNzC8hGoMZRxZ9DIUhYCyMnxsQsvNahswJP4nPZCXtGp1pkgO0h6zr0Dkxx9PsFuMCi5Xmdq9eeTbtr80z7-yI840WrwOpJEShnUl9DlcnQtWNZ0_WuVGxXAbV0EjfgdhvATRLjR3nBeYYLiGONYd8=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+plan-isometrique.png:
+  cadrage: large
+  fiche: 02-metropole
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUd9T38GBKsTIJvKJSmSUwzA7ESBIAyr0z3TSfHowZFagrJlJ6eyntbPHBCWExF0M-nQmfstb0-0QgO02aghyOiSzZczU00oTw6pFG1uEn-hRv0SP9QCv8jwh8d4aJiRnkkGuzMXy6euDu1ycl3Yrh9fUn6uut9PndeBkXAi1Lpl0idCNDkqpUR0YMY1NFJkrwuFZhNuZ8HIVUpMMRXyEHyabIacCYdzTM_suqORmg=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+montreal-nuit-satellite.jpg:
+  cadrage: large
+  fiche: 02-metropole
+  commons: "File:Montreal at Night - NASA Earth Observatory.jpg"
+  recherche: Montreal at night NASA Earth Observatory
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+centre-ville-mont-royal.jpg:
+  cadrage: flottant
+  fiche: 02-metropole
+  commons: "File:Montreal - QC - Skyline.jpg"
+  recherche: Montreal skyline seen from Mount Royal
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+stations-rem.png:
+  cadrage: carte
+  fiche: 02-metropole
+  commons: "File:Stations REM.png"
+  recherche: Stations REM Montreal network map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+enfants-kindertransport.jpg:
+  cadrage: flottant
+  fiche: 12-libertes-droits-civils
+  commons: "File:Bundesarchiv Bild 183-1987-0928-501, England, Jüdische Flüchtlingskinder.jpg"
+  recherche: Bundesarchiv England jüdische Flüchtlingskinder Harwich 1938
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+refugies-londres.jpg:
+  cadrage: flottant
+  fiche: 12-libertes-droits-civils
+  commons: "File:Bundesarchiv Bild 183-S69279, London, Ankunft jüdische Flüchtlinge.jpg"
+  recherche: Bundesarchiv London Ankunft jüdische Flüchtlinge 1939
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+boycott-1933.jpg:
+  cadrage: flottant
+  fiche: 12-libertes-droits-civils
+  commons: "File:Bundesarchiv Bild 102-14468, Berlin, NS-Boykott gegen jüdische Geschäfte.jpg"
+  recherche: Bundesarchiv Berlin NS-Boykott jüdische Geschäfte 1933
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
