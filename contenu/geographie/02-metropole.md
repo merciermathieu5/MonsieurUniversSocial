@@ -8,10 +8,6 @@ echelle: "Locale"
 enjeu: "L'aménagement et la gestion d'une grande ville"
 etudes_de_cas:
   - Montréal (obligatoire)
-  - Le Caire
-  - Mexico
-  - New York
-  - Sydney
 concepts:
   - aménagement
   - banlieue
@@ -67,8 +63,8 @@ territoire ne change pas, c'est l'instrument de mesure qui change.
   économique.
 - Bidonville : une agglomération de bâtiments sans hygiène, faits de tôle et de
   matériaux de récupération, où vit la population la plus pauvre et la plus à
-  risque. Montréal n'en compte pas, mais tu en trouveras dans d'autres
-  métropoles au programme, comme Le Caire ou Mexico.
+  risque. Montréal n'en compte pas, mais on en trouve dans de nombreuses
+  grandes métropoles du monde.
 - Concentration : le regroupement d'un grand nombre d'éléments sur un même
   territoire, qu'il s'agisse d'habitants, d'emplois, de services ou de lieux de
   pouvoir.
@@ -292,10 +288,6 @@ plus vieux que le métro d'une cinquantaine d'années. Il a fallu le réaménage
 complet pour y faire passer les nouvelles voitures.
 :::
 
-::: video lljZd_q_g_k
-L'inauguration de l'antenne Deux-Montagnes, en novembre 2025
-:::
-
 ### Les autres réseaux de transport
 
 #### Le réseau d'autobus et le Réso
@@ -310,6 +302,10 @@ commerciaux et 80 % des immeubles de bureaux du centre-ville aux transports en
 commun. On y accède par plus de 200 entrées. Trente-deux kilomètres de
 galeries souterraines le composent et on y trouve plus de 1 700 boutiques et
 plus de 200 restaurants. Environ 500 000 personnes l'empruntent chaque jour.
+
+::: video 1NF1PnoedUM
+Le Réseau express métropolitain
+:::
 
 #### Le réseau routier
 

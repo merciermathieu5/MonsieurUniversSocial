@@ -2317,3 +2317,43 @@ la dépose. Le site en ligne compte encore 27 fiches au lieu de 23.
 Puis `python build.py`, qui nettoie `docs/` tout seul. Il traîne aussi un
 fichier `Pedro_Alvares_Cabral.jpg` à la racine du dépôt, avec des accents
 abîmés, resté d'un dépôt manuel.
+
+### Trois retouches (livraison 92)
+
+**La vidéo du REM est remplacée et déplacée.** La capsule d'inauguration de
+Rail Fans Canada sort de la fiche. `1NF1PnoedUM` la remplace et se place dans
+« Le réseau d'autobus et le Réso », comme demandé.
+
+**L'entête ne garde que Montréal.** Le Caire, Mexico, New York et Sydney sont
+retirés du champ `etudes_de_cas`. La mention « obligatoire » reste, parce
+qu'elle dit une chose du programme et non de ton choix : dis-le si tu la veux
+partie elle aussi.
+
+Une conséquence à signaler : la définition de bidonville renvoyait aux « autres
+métropoles au programme, comme Le Caire ou Mexico », une liste qui n'apparaît
+plus dans l'entête. Elle devient « on en trouve dans de nombreuses grandes
+métropoles du monde », sans nommer de cas retiré.
+
+**Le fichier Cabral est retiré de la livraison.** `Pedro_Alvares_Cabral.jpg`
+n'est plus dans le zip. Il reste à supprimer à la main dans ton dépôt, comme le
+reste de la liste ci-dessus : une décompression n'efface rien.
+
+### À valider
+
+**La légende de la nouvelle vidéo.** Je n'ai pas pu vérifier son titre depuis
+mon environnement. J'ai mis « Le transport collectif dans la métropole », qui
+décrit la sous-section plutôt que la vidéo elle-même. Donne-moi le titre exact
+et je le corrige.
+
+### Deux ajustements (livraison 93)
+
+**Le cadre d'intégration gagne un peu de hauteur.** Le plafond passe de 32 rem à
+36 rem, soit environ 64 pixels de plus en bas. Le rapport 16 : 9 et le plancher
+de 17 rem ne bougent pas, `resize: vertical` non plus.
+
+**La légende de la vidéo est corrigée.** `1NF1PnoedUM` devient « Le Réseau
+express métropolitain », d'après ce que tu m'as dit de son contenu.
+
+Une question qui reste : la capsule porte sur le REM mais tu m'avais demandé de
+la placer auprès du transport par autobus, et elle y est. Si tu préfères qu'elle
+remonte dans la sous-section « Le REM », dis-le et je la déplace.
