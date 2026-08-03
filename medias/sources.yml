@@ -1625,3 +1625,42 @@ tirailleurs-senegalais.jpg:
   titre: ''
   licence: ''
   lien: ''
+caoutchouc-congo.jpg:
+  cadrage: flottant
+  fiche: 11-expansion-monde-industriel
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=471
+  depot: Service national du RÉCIT, univers social
+  auteur: Photographie publiée par Mark Twain
+  titre: King Leopold's Soliloquy, Boston, The P. R. Warren Co, 1905, page 40
+  licence: Domaine public
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-6-le-systeme-d-exploitation-du-caoutchouc
+canal-suez.jpg:
+  cadrage: flottant
+  fiche: 11-expansion-monde-industriel
+  commons: File:COLLECTIE TROPENMUSEUM Een baggermolen en schepen in het Suezkanaal
+    TMnr 60008663.jpg
+  recherche: Tropenmuseum baggermolen schepen Suezkanaal
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ecole-livingstonia.jpg:
+  cadrage: flottant
+  fiche: 11-expansion-monde-industriel
+  commons: File:The school children of Livingstonia.jpg
+  recherche: school children of Livingstonia Malawi
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ecole-village.jpg:
+  cadrage: flottant
+  fiche: 11-expansion-monde-industriel
+  commons: 'File:"A Village School, Livingstonia", Malawi, ca.1910 (imp-cswc-GB-237-CSWC47-LS4-1-035).jpg'
+  recherche: A Village School Livingstonia Malawi 1910
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''

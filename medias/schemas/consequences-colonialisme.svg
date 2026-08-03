@@ -1,5 +1,5 @@
-<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Les conséquences du colonialisme sur les sociétés africaines, sur le plan humain, économique, culturel et politique">
+<svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les conséquences de la domination coloniale sur les personnes, l'économie, la culture et les frontières">
   <style>
     .sq-t { font-family: Archivo, sans-serif; }
     .sq-b { font-size: 19px; font-weight: 700; fill: var(--bloc-texte); }
@@ -22,15 +22,15 @@
 
   <rect x="20" y="140" width="270" height="130" rx="6" fill="var(--schema-accent)"/>
   <text class="sq-t sq-a" x="155" y="176" text-anchor="middle">Sur les personnes</text>
-  <text class="sq-t sq-f" x="155" y="204" text-anchor="middle">Travail forcé, violences</text>
-  <text class="sq-t sq-f" x="155" y="224" text-anchor="middle">et chutes de population,</text>
-  <text class="sq-t sq-f" x="155" y="244" text-anchor="middle">au Congo comme ailleurs.</text>
+  <text class="sq-t sq-f" x="155" y="204" text-anchor="middle">Travail forcé, châtiments</text>
+  <text class="sq-t sq-f" x="155" y="224" text-anchor="middle">corporels et forte baisse</text>
+  <text class="sq-t sq-f" x="155" y="244" text-anchor="middle">de la population.</text>
 
   <rect x="300" y="140" width="240" height="130" rx="6" fill="var(--bloc-pale)"/>
   <text class="sq-t sq-h" x="420" y="176" text-anchor="middle">Sur l'économie</text>
-  <text class="sq-t sq-e" x="420" y="204" text-anchor="middle">Les ressources partent</text>
-  <text class="sq-t sq-e" x="420" y="224" text-anchor="middle">vers l'Europe, les rails</text>
-  <text class="sq-t sq-e" x="420" y="244" text-anchor="middle">mènent aux ports.</text>
+  <text class="sq-t sq-e" x="420" y="204" text-anchor="middle">Mines, plantations et</text>
+  <text class="sq-t sq-e" x="420" y="224" text-anchor="middle">voies ferrées servent</text>
+  <text class="sq-t sq-e" x="420" y="244" text-anchor="middle">l'exportation.</text>
 
   <rect x="560" y="140" width="240" height="130" rx="6" fill="var(--bloc-pale)"/>
   <text class="sq-t sq-h" x="680" y="176" text-anchor="middle">Sur la culture</text>
@@ -40,12 +40,7 @@
 
   <rect x="820" y="140" width="260" height="130" rx="6" fill="var(--bloc-pale)"/>
   <text class="sq-t sq-h" x="950" y="176" text-anchor="middle">Sur les frontières</text>
-  <text class="sq-t sq-e" x="950" y="204" text-anchor="middle">Des tracés faits à Berlin</text>
+  <text class="sq-t sq-e" x="950" y="204" text-anchor="middle">Les tracés fixés après 1885</text>
   <text class="sq-t sq-e" x="950" y="224" text-anchor="middle">séparent ou réunissent</text>
-  <text class="sq-t sq-e" x="950" y="244" text-anchor="middle">des peuples entiers.</text>
-
-  <path class="sq-l" d="M 550 270 L 550 306"/>
-  <path d="M 538 306 L 562 306 L 550 324 Z" fill="var(--schema-trait)"/>
-  <rect x="180" y="328" width="740" height="54" rx="6" fill="var(--bloc)"/>
-  <text class="sq-t sq-b" x="550" y="362" text-anchor="middle">Des effets qui durent après les indépendances</text>
+  <text class="sq-t sq-e" x="950" y="244" text-anchor="middle">des peuples.</text>
 </svg>

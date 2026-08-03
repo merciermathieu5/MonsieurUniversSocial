@@ -1,5 +1,5 @@
 <svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Les quatre moteurs de la course coloniale, économique, politique, technique et idéologique, qui mènent au partage de l'Afrique">
+     aria-label="Les quatre facteurs de la course coloniale, économique, politique, technique et idéologique, qui mènent au partage de l'Afrique">
   <style>
     .mo-t { font-family: Archivo, sans-serif; }
     .mo-h { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
@@ -10,28 +10,28 @@
   </style>
 
   <rect x="20" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
-  <text class="mo-t mo-h" x="145" y="76" text-anchor="middle">Le besoin économique</text>
-  <text class="mo-t mo-e" x="145" y="104" text-anchor="middle">Les usines réclament du</text>
-  <text class="mo-t mo-e" x="145" y="124" text-anchor="middle">caoutchouc, du coton et</text>
-  <text class="mo-t mo-e" x="145" y="144" text-anchor="middle">des métaux.</text>
+  <text class="mo-t mo-h" x="145" y="76" text-anchor="middle">Le facteur économique</text>
+  <text class="mo-t mo-e" x="145" y="104" text-anchor="middle">Les industries européennes</text>
+  <text class="mo-t mo-e" x="145" y="124" text-anchor="middle">importent du caoutchouc,</text>
+  <text class="mo-t mo-e" x="145" y="144" text-anchor="middle">du coton et des métaux.</text>
 
   <rect x="290" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
-  <text class="mo-t mo-h" x="415" y="76" text-anchor="middle">La rivalité politique</text>
-  <text class="mo-t mo-e" x="415" y="104" text-anchor="middle">Chaque État veut plus de</text>
-  <text class="mo-t mo-e" x="415" y="124" text-anchor="middle">territoires que son</text>
-  <text class="mo-t mo-e" x="415" y="144" text-anchor="middle">voisin.</text>
+  <text class="mo-t mo-h" x="415" y="76" text-anchor="middle">Le facteur politique</text>
+  <text class="mo-t mo-e" x="415" y="104" text-anchor="middle">Les États rivalisent pour</text>
+  <text class="mo-t mo-e" x="415" y="124" text-anchor="middle">le nombre de colonies et</text>
+  <text class="mo-t mo-e" x="415" y="144" text-anchor="middle">les points stratégiques.</text>
 
   <rect x="560" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
-  <text class="mo-t mo-h" x="685" y="76" text-anchor="middle">L'avance technique</text>
-  <text class="mo-t mo-e" x="685" y="104" text-anchor="middle">La vapeur, le rail et les</text>
-  <text class="mo-t mo-e" x="685" y="124" text-anchor="middle">armes à répétition rendent</text>
-  <text class="mo-t mo-e" x="685" y="144" text-anchor="middle">la conquête possible.</text>
+  <text class="mo-t mo-h" x="685" y="76" text-anchor="middle">Le facteur technique</text>
+  <text class="mo-t mo-e" x="685" y="104" text-anchor="middle">Bateaux à vapeur, chemins</text>
+  <text class="mo-t mo-e" x="685" y="124" text-anchor="middle">de fer, quinine et armes</text>
+  <text class="mo-t mo-e" x="685" y="144" text-anchor="middle">à répétition.</text>
 
   <rect x="830" y="40" width="250" height="120" rx="6" fill="var(--bloc-pale)"/>
-  <text class="mo-t mo-h" x="955" y="76" text-anchor="middle">La justification</text>
-  <text class="mo-t mo-e" x="955" y="104" text-anchor="middle">La mission civilisatrice</text>
-  <text class="mo-t mo-e" x="955" y="124" text-anchor="middle">et le darwinisme social</text>
-  <text class="mo-t mo-e" x="955" y="144" text-anchor="middle">servent d'excuse.</text>
+  <text class="mo-t mo-h" x="955" y="76" text-anchor="middle">Le facteur idéologique</text>
+  <text class="mo-t mo-e" x="955" y="104" text-anchor="middle">La mission civilisatrice et</text>
+  <text class="mo-t mo-e" x="955" y="124" text-anchor="middle">le darwinisme social sont</text>
+  <text class="mo-t mo-e" x="955" y="144" text-anchor="middle">invoqués pour justifier.</text>
 
   <path class="mo-l" d="M 145 160 L 145 230"/>
   <path class="mo-l" d="M 415 160 L 415 230"/>
@@ -43,5 +43,5 @@
 
   <rect x="20" y="310" width="1060" height="86" rx="6" fill="var(--bloc)"/>
   <text class="mo-t mo-r" x="550" y="348" text-anchor="middle">La course au partage de l'Afrique</text>
-  <text class="mo-t mo-s" x="550" y="376" text-anchor="middle">En moins de trente ans, presque tout le continent passe sous domination.</text>
+  <text class="mo-t mo-s" x="550" y="376" text-anchor="middle">En 1884, l'Europe occupe environ le cinquième du continent. En 1913, tout sauf deux États.</text>
 </svg>

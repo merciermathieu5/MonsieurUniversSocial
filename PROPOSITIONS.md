@@ -1600,3 +1600,82 @@ Ton texte donne « environ 50 pour cent » et « minimum 10 millions ». Je les 
 conservés tels quels et j'ai mis le débat en encadré, en précisant ce qui n'est
 pas discuté : le système de quotas, les mutilations, l'effondrement
 démographique et le retrait du Congo à Léopold II par la Belgique en 1908.
+
+### Reprise de la fiche 11 après ta relecture (livraison 81)
+
+**La ligne du temps est refaite.** Sept phrases générales ont cédé la place à
+six événements datés et vérifiables, aucun n'étant une paraphrase : le Grito de
+Dolores en 1810, la bataille d'Ayacucho en 1824, l'ouverture du canal de Suez
+le 17 novembre 1869, la signature de l'Acte général de Berlin le 26 février
+1885, le soulèvement héréro de 1904 et l'envoi des tirailleurs sénégalais en
+France en 1914. « La guerre éclate » et « L'Amérique latine devient
+indépendante » ont disparu.
+
+**Berlin ne trace aucune frontière.** Tu as raison et l'erreur venait de moi.
+Trois endroits sont corrigés :
+
+- l'encadré dit maintenant que la conférence fixe deux règles, la liberté de
+  commerce et de navigation dans les bassins du Congo et du Niger et
+  l'obligation d'occuper effectivement un territoire, et que les frontières
+  viennent ensuite, par des traités signés deux à deux;
+- l'intertitre devient « Les frontières tracées après la conférence de
+  Berlin », ce qui nomme la conférence et dit le bon ordre;
+- le corps du texte ne prétend plus que les États se sont partagé l'Afrique à
+  Berlin;
+- le schéma des conséquences parle des tracés fixés après 1885.
+
+**Les schémas cessent de faire parler les usines.** « Les usines réclament »
+devient « Les industries européennes importent ». « Servent d'excuse » devient
+« sont invoqués pour justifier », ce qui dit qui invoque et pour quoi. Les
+quatre titres deviennent des facteurs, économique, politique, technique et
+idéologique. La bande de résultat porte deux chiffres au lieu d'une impression :
+environ le cinquième du continent en 1884, tout sauf deux États en 1913.
+
+**Les phrases d'opinion sont retirées.**
+
+- « C'est un bon exemple d'une idée détournée de son auteur », supprimée.
+- « Des effets qui durent après les indépendances », supprimée; le schéma se
+  termine sur les quatre volets.
+- « Attention à la ligne droite » et « L'histoire fournit un terrain, elle ne
+  dicte pas les gestes », supprimées. La note sur le Rwanda ne garde que des
+  faits : l'inscription de la mention hutu ou tutsi sur les cartes d'identité à
+  partir de 1933, et le jugement des responsables de 1994 par le Tribunal pénal
+  international pour le Rwanda.
+- La note sur l'exploration ne discute plus du sens du mot. Elle nomme Abdullah
+  Susi et James Chuma, compagnons de Livingstone, qui transportent son corps
+  jusqu'à la côte de l'océan Indien après sa mort en 1873.
+- Le paragraphe qui disait à l'élève quoi penser des textes européens est
+  remplacé par des repères : l'empire du Mali et Tombouctou, le royaume du
+  Bénin, le royaume ashanti, le califat de Sokoto, l'Éthiopie chrétienne depuis
+  le 4e siècle et le royaume du Kongo en contact avec le Portugal dès 1483.
+
+**L'analyse iconographique** ne porte plus de consignes. Le lien est là, avec
+une phrase qui dit ce qu'il contient.
+
+**Le canal de Suez a retrouvé sa place.** Il a maintenant son propre
+développement dans « Le travail forcé » : le creusement de 1859 à 1869, la
+corvée égyptienne abandonnée en 1864 et remplacée par les dragues, l'ouverture
+du 17 novembre 1869, la vente des parts égyptiennes au Royaume-Uni en 1875 et
+l'occupation britannique de 1882. Une photographie du canal ouvre la section, et
+l'ouverture figure sur la frise.
+
+**Le Congo.** La photographie du document 6 du RÉCIT est intégrée, avec son
+crédit exact : Mark Twain, *King Leopold's Soliloquy*, Boston, 1905, page 40,
+domaine public, reprise du Service national du RÉCIT. Elle se télécharge par le
+champ `url`, tu n'as rien à déposer. Le témoignage de Léon Bangéli est renvoyé à
+la page du RÉCIT dans un encadré `activite` plutôt que recopié.
+
+**Deux écoles coloniales** sont ajoutées à la section sur l'assimilation : les
+écoliers de la mission de Livingstonia et une école de village de la même
+mission, vers 1910.
+
+**Les tirailleurs sénégalais** sont bien au registre depuis la livraison 80,
+sous `tirailleurs-senegalais.jpg`, avec la photographie datée du 12 septembre
+1914 du 8e bataillon envoyé du Maroc vers la France. Si elle ne s'affichait pas
+chez toi, c'est qu'`images.py` n'avait pas encore tourné.
+
+### À valider
+
+**Le trajet de Susi et Chuma.** Je n'ai pas chiffré la distance, faute de
+pouvoir vérifier le nombre exact. Si tu tiens à un ordre de grandeur, dis-le et
+je le cherche.

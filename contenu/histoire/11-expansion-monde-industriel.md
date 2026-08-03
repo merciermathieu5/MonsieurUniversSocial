@@ -56,10 +56,14 @@ habitent et peuplent l'Afrique. Il s'agit du berceau de l'humanité et l'être
 humain s'y trouve depuis plusieurs dizaines de milliers d'années. Des empires
 y ont existé, d'autres y ont connu leur chute. Le commerce y est florissant et
 de nombreux échanges s'y font. Néanmoins, ce n'est pas l'image qu'en ont
-donnée les colonisateurs européens. Garde cette idée en tête pour toute la
-suite. Chaque fois qu'un texte européen de l'époque décrira un continent vide,
-sauvage ou sans histoire, tu sauras qu'il décrit d'abord ce que ses auteurs
-voulaient y voir.
+donnée les colonisateurs européens.
+
+Quelques repères. L'empire du Mali domine l'Afrique de l'Ouest aux 13e et 14e
+siècles, et sa ville de Tombouctou abrite des écoles et des bibliothèques
+réputées. Le royaume du Bénin, le royaume ashanti et le califat de Sokoto
+occupent la région aux siècles suivants. Le royaume d'Éthiopie, chrétien depuis
+le 4e siècle, traverse toute la période sans être conquis. Le royaume du Kongo,
+lui, échange avec le Portugal dès 1483.
 
 ::: video 7ONlia22750
 L'Afrique avant la colonisation
@@ -147,10 +151,11 @@ Source : Alloprof
 {: .source-texte }
 
 ::: note
-Ces deux hommes n'ont pas découvert l'Afrique : ils y sont arrivés dans des
-régions habitées, guidés par des porteurs et des interprètes africains dont les
-noms ont rarement été retenus. Le mot exploration décrit ce que les Européens
-apprenaient, pas ce qui existait.
+Les expéditions européennes reposent sur des caravanes de porteurs, de guides
+et d'interprètes africains. Deux d'entre eux sont connus par leur nom : Abdullah
+Susi et James Chuma, compagnons de Livingstone. À la mort de celui-ci en 1873,
+ils transportent son corps jusqu'à la côte de l'océan Indien, un trajet de
+plusieurs mois, avant qu'il ne soit rapatrié à Londres.
 :::
 
 ::: questions
@@ -217,15 +222,16 @@ Source : Encyclopédie Universalis
 
 ::: note
 Quatorze États étaient représentés autour de la table. Aucun n'était africain.
-Les frontières tracées à Berlin l'ont été sur des cartes que les négociateurs
-ne connaissaient qu'en partie.
+La conférence ne trace aucune frontière. Elle fixe deux règles : la liberté de
+commerce et de navigation dans les bassins du Congo et du Niger, et
+l'obligation d'occuper effectivement un territoire pour pouvoir le revendiquer.
+Les frontières viennent ensuite, au fil des occupations et des traités signés
+deux à deux entre puissances européennes.
 :::
 
 ::: activite
-Observe la scène en détail avec
-[l'analyse iconographique de la conférence de Berlin](https://view.genial.ly/643d842a219fc20018b61dec/interactive-image-la-conference-de-berlin-de-1884-85).
-Demande-toi qui est présent, qui est absent et ce que montre la grande carte
-au mur.
+[L'analyse iconographique de la conférence de Berlin](https://view.genial.ly/643d842a219fc20018b61dec/interactive-image-la-conference-de-berlin-de-1884-85)
+présente la gravure en détail.
 :::
 
 ::: video 9zT-1mVi41Q
@@ -252,9 +258,10 @@ d'entre elles se partagent le territoire :
 - le Portugal;
 - l'Espagne.
 
-Deux États seulement échappent à ce partage, l'Éthiopie et le Liberia. En 1880,
-les Européens contrôlaient environ le cinquième du continent. Trente ans plus
-tard, il ne leur échappe presque plus rien.
+Deux États seulement échappent à ce partage, l'Éthiopie et le Liberia. À
+l'ouverture de la conférence de Berlin, en 1884, les Européens occupaient
+environ le cinquième du continent, surtout des comptoirs côtiers. Trente ans
+plus tard, il ne leur échappe presque plus rien.
 
 ::: questions
 1. Qui organise la conférence de Berlin, et pourquoi?
@@ -280,8 +287,7 @@ survivre et de se reproduire.
 Spencer lui-même n'était pas raciste au sens où ses successeurs l'ont été : sa
 doctrine est surtout une défense du libéralisme radical. Mais sa pensée a été
 récupérée pour justifier le colonialisme, les politiques eugénistes et même
-certaines idéologies d'extrême droite au cours du 20e siècle. C'est un bon
-exemple d'une idée détournée de son auteur.
+certaines idéologies d'extrême droite au cours du 20e siècle.
 :::
 
 ### La mission civilisatrice
@@ -301,6 +307,10 @@ Source : Alloprof
 {: .source-texte }
 
 ### L'assimilation et l'acculturation
+
+![Les écoliers de la mission de Livingstonia, au Malawi](../medias/11-expansion-monde-industriel/ecole-livingstonia.jpg)
+
+![Une école de village à Livingstonia, vers 1910](../medias/11-expansion-monde-industriel/ecole-village.jpg)
 
 Hormis la supériorité militaire, les Européens utilisent l'éducation afin
 d'assimiler les populations d'Afrique. Les populations africaines acceptent
@@ -337,12 +347,24 @@ au détriment de sa propre culture
 
 ### Le travail forcé
 
+![Une drague et des navires dans le canal de Suez](../medias/11-expansion-monde-industriel/canal-suez.jpg)
+
 Dans les différentes colonies africaines, les puissances européennes exploitent
 les ressources naturelles que sont les métaux, le cacao et le caoutchouc. Pour
 ce faire, elles aménagent des mines, des plantations, des champs ainsi que des
-infrastructures de transport, comme des canaux et des voies ferrées. Le canal
-de Suez en est un exemple. Ces infrastructures visent l'exportation des
-ressources naturelles vers l'Europe, là où se trouvent les manufactures.
+infrastructures de transport, comme des canaux et des voies ferrées. Ces
+infrastructures visent l'exportation des ressources naturelles vers l'Europe,
+là où se trouvent les manufactures.
+
+Le canal de Suez en est le meilleur exemple. Creusé entre 1859 et 1869 à
+travers l'isthme qui sépare la Méditerranée de la mer Rouge, il raccourcit de
+plusieurs milliers de kilomètres la route entre l'Europe et l'Asie, puisque les
+navires n'ont plus à contourner l'Afrique. Le chantier emploie des dizaines de
+milliers d'Égyptiens, d'abord réquisitionnés par la corvée, jusqu'à ce que
+celle-ci soit abandonnée en 1864 et remplacée par des machines à draguer. Le
+canal est ouvert à la navigation le 17 novembre 1869. En 1875, l'Égypte, très
+endettée, vend ses parts de la compagnie au gouvernement britannique, et le
+Royaume-Uni occupe le pays en 1882 pour protéger la voie d'eau.
 
 Ce sont les Africains qui exploitent ces ressources naturelles et qui
 construisent les infrastructures. En effet, les métropoles contraignent les
@@ -355,6 +377,8 @@ corporels, coups de fouet et mutilations.
 ![Léopold II, roi des Belges](../medias/11-expansion-monde-industriel/leopold-ii.jpg)
 
 ![Léopold II en serpent de caoutchouc, caricature de Punch, 1906](../medias/11-expansion-monde-industriel/punch-congo.jpg)
+
+![Des enfants mutilés du Congo, photographie publiée en 1905](../medias/11-expansion-monde-industriel/caoutchouc-congo.jpg)
 
 La colonisation du Congo au 19e siècle est marquée par une exploitation brutale
 des ressources naturelles et une violence extrême à l'encontre de la
@@ -377,6 +401,15 @@ population d'environ 50 pour cent, ce qui pourrait représenter une perte
 minimale de 10 millions de vies. Ce déclin est attribué à une combinaison de
 facteurs, notamment la violence des colonisateurs, la famine et les maladies.
 
+::: activite
+Le document
+[Le système d'exploitation du caoutchouc](https://documents.recitus.qc.ca/1er-cyle/document/document-6-le-systeme-d-exploitation-du-caoutchouc)
+du Service national du RÉCIT donne le témoignage de Léon Bangéli, du village de
+Litumba. Il y décrit l'arrivée des Européens, la fabrication du latex en boules,
+le panier de caoutchouc exigé de chaque village et le soldat installé sur place
+pour le percevoir.
+:::
+
 ::: note
 Ces chiffres sont des estimations, et les historiens ne s'entendent pas sur
 leur ampleur exacte. Aucun recensement fiable n'existait avant la colonisation,
@@ -386,24 +419,23 @@ mutilations et celle de l'effondrement démographique. Le scandale fut assez
 grand pour que la Belgique retire le Congo à son roi en 1908.
 :::
 
-### Les frontières héritées de Berlin
+### Les frontières tracées après la conférence de Berlin
 
-Lors de la conférence de Berlin, les États européens se sont partagé l'Afrique.
-Ce faisant, ils ont créé des colonies qui ne tiennent pas compte des peuples
-qui y vivent, ce qui crée des tensions. Profitant de ces tensions, les Belges
+Dans les années qui suivent la conférence de Berlin, les États européens
+occupent le continent et fixent entre eux les limites de leurs possessions, par
+des traités signés deux à deux. Ces frontières sont tracées sans tenir compte
+des peuples qui vivent là, ce qui crée des tensions. Profitant de ces tensions, les Belges
 favorisent les Tutsis au détriment des Hutus dans la colonie du Ruanda-Urundi.
 La création de frontières qui ne respectent pas les populations locales, puis
 les avantages accordés par les Belges aux Tutsis, ont favorisé l'émergence de
 la crise contemporaine et du génocide de 1994 au Rwanda.
 
 ::: note
-Attention à la ligne droite. La colonisation belge a durci et figé une
-distinction sociale qui existait avant elle, notamment en l'inscrivant sur les
-cartes d'identité. Cela a créé les conditions d'un affrontement, mais cela
-n'explique pas à lui seul le génocide de 1994 : celui-ci a été planifié et
-exécuté par des personnes bien réelles, quatre-vingts ans plus tard, qui en
-portent la responsabilité. L'histoire fournit un terrain, elle ne dicte pas les
-gestes.
+La colonisation belge a durci et figé une distinction sociale qui existait
+avant elle, notamment en inscrivant la mention hutu ou tutsi sur les cartes
+d'identité à partir de 1933. Le génocide de 1994 a pour sa part été planifié et
+exécuté quatre-vingts ans plus tard, par des personnes et des organisations
+identifiées, jugées depuis par le Tribunal pénal international pour le Rwanda.
 :::
 
 ### Collaborer
