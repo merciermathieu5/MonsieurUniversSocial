@@ -1,31 +1,48 @@
-<svg viewBox="0 0 1100 250" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Les trois catégories de lieux de pouvoir d'une métropole, avec ce qu'elles regroupent et un exemple montréalais pour chacune">
+<svg viewBox="0 0 1100 285" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les trois catégories de lieux de pouvoir d'une métropole, lues sur trois colonnes : ce qui s'y décide, les lieux concernés et un exemple montréalais">
   <style>
     .lp-t { font-family: Archivo, sans-serif; }
+    .lp-c { font-size: 12px; font-weight: 600; fill: var(--schema-cle); }
     .lp-b1 { font-size: 14.5px; font-weight: 700; fill: var(--surface); }
     .lp-b2 { font-size: 14.5px; font-weight: 600; fill: var(--surface); }
     .lp-b3 { font-size: 14.5px; font-weight: 600; fill: var(--bloc-texte); }
     .lp-a { font-size: 12.5px; fill: var(--encre-doux); }
   </style>
 
-  <rect x="40" y="20" width="330" height="56" rx="5" fill="var(--schema-accent)"/>
-  <text class="lp-t lp-b1" x="205" y="44" text-anchor="middle">Le pouvoir politique</text>
-  <text class="lp-t lp-b1" x="205" y="62" text-anchor="middle">et administratif</text>
-  <text class="lp-t lp-a" x="400" y="36">Les lieux où se prennent les décisions publiques.</text>
-  <text class="lp-t lp-a" x="400" y="55">Hôtel de ville, ministères, consulats, organisations internationales.</text>
-  <text class="lp-t lp-a" x="400" y="74">À Montréal : le siège de l'Organisation de l'aviation civile, depuis 1946.</text>
+  <text class="lp-t lp-c" x="395" y="26">Ce qui s'y décide</text>
+  <text class="lp-t lp-c" x="640" y="26">Les lieux</text>
+  <text class="lp-t lp-c" x="870" y="26">À Montréal</text>
+  <line x1="395" y1="38" x2="1092" y2="38" stroke="var(--schema-trait)"/>
+  <line x1="625" y1="48" x2="625" y2="262" stroke="var(--schema-trait)"/>
+  <line x1="855" y1="48" x2="855" y2="262" stroke="var(--schema-trait)"/>
 
-  <rect x="40" y="96" width="330" height="56" rx="5" fill="var(--schema-cle)"/>
-  <text class="lp-t lp-b2" x="205" y="120" text-anchor="middle">Le pouvoir économique</text>
-  <text class="lp-t lp-b2" x="205" y="138" text-anchor="middle">et financier</text>
-  <text class="lp-t lp-a" x="400" y="112">Le quartier central des affaires, repérable à ses gratte-ciel.</text>
-  <text class="lp-t lp-a" x="400" y="131">Sièges sociaux, places boursières, institutions bancaires.</text>
-  <text class="lp-t lp-a" x="400" y="150">À Montréal : la tour de la Bourse, la Banque Nationale, le Canadien National.</text>
+  <rect x="40" y="52" width="330" height="56" rx="5" fill="var(--schema-accent)"/>
+  <text class="lp-t lp-b1" x="205" y="76" text-anchor="middle">Le pouvoir politique</text>
+  <text class="lp-t lp-b1" x="205" y="94" text-anchor="middle">et administratif</text>
+  <text class="lp-t lp-a" x="395" y="72">Les décisions publiques</text>
+  <text class="lp-t lp-a" x="395" y="91">et les règles.</text>
+  <text class="lp-t lp-a" x="640" y="72">Hôtel de ville,</text>
+  <text class="lp-t lp-a" x="640" y="91">ministères, consulats.</text>
+  <text class="lp-t lp-a" x="870" y="72">Le siège de l'OACI,</text>
+  <text class="lp-t lp-a" x="870" y="91">depuis 1946.</text>
 
-  <rect x="40" y="172" width="330" height="56" rx="5" fill="var(--bloc)"/>
-  <text class="lp-t lp-b3" x="205" y="196" text-anchor="middle">Le pouvoir culturel</text>
-  <text class="lp-t lp-b3" x="205" y="214" text-anchor="middle">et de savoirs</text>
-  <text class="lp-t lp-a" x="400" y="188">Les lieux qui produisent et diffusent la culture et les savoirs.</text>
-  <text class="lp-t lp-a" x="400" y="207">Universités, hôpitaux universitaires, musées, sièges de médias.</text>
-  <text class="lp-t lp-a" x="400" y="226">À Montréal : McGill, l'UQAM, le CHUM, le CUSM, le Mila.</text>
+  <rect x="40" y="128" width="330" height="56" rx="5" fill="var(--schema-cle)"/>
+  <text class="lp-t lp-b2" x="205" y="152" text-anchor="middle">Le pouvoir économique</text>
+  <text class="lp-t lp-b2" x="205" y="170" text-anchor="middle">et financier</text>
+  <text class="lp-t lp-a" x="395" y="148">L'argent, les entreprises</text>
+  <text class="lp-t lp-a" x="395" y="167">et les échanges.</text>
+  <text class="lp-t lp-a" x="640" y="148">Quartier central des</text>
+  <text class="lp-t lp-a" x="640" y="167">affaires, bourses, banques.</text>
+  <text class="lp-t lp-a" x="870" y="148">La tour de la Bourse,</text>
+  <text class="lp-t lp-a" x="870" y="167">la Banque Nationale.</text>
+
+  <rect x="40" y="204" width="330" height="56" rx="5" fill="var(--bloc)"/>
+  <text class="lp-t lp-b3" x="205" y="228" text-anchor="middle">Le pouvoir culturel</text>
+  <text class="lp-t lp-b3" x="205" y="246" text-anchor="middle">et de savoirs</text>
+  <text class="lp-t lp-a" x="395" y="224">La culture, la recherche</text>
+  <text class="lp-t lp-a" x="395" y="243">et l'information.</text>
+  <text class="lp-t lp-a" x="640" y="224">Universités, musées,</text>
+  <text class="lp-t lp-a" x="640" y="243">sièges de médias.</text>
+  <text class="lp-t lp-a" x="870" y="224">McGill, l'UQAM, le CHUM,</text>
+  <text class="lp-t lp-a" x="870" y="243">le Mila.</text>
 </svg>

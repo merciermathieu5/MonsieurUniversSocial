@@ -399,11 +399,12 @@ html[data-sombre="on"] .bouton { background: var(--matiere-voile); color: var(--
 
 .integration { margin: 1.8rem 0; clear: both; }
 .integration iframe {
-  width: 100%; height: 30rem; max-height: 75vh; border: 1px solid var(--trait);
+  width: 100%; aspect-ratio: 16 / 9;
+  min-height: 17rem; max-height: 32rem;
+  border: 1px solid var(--trait);
   border-radius: var(--rayon); background: var(--surface-2); display: block;
   resize: vertical;
 }
-@media (max-width: 44rem) { .integration iframe { height: 24rem; } }
 .integration figcaption { margin-top: .5rem; }
 .integration figcaption a { color: var(--matiere); }
 @media print { .integration iframe { display: none; } }

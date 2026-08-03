@@ -1766,17 +1766,6 @@ contexte-metropole.jpg:
   titre: "Contexte, dossier documentaire Territoire urbain : la métropole"
   licence: Creative Commons BY-NC-SA
   lien: https://documents.recitus.qc.ca/1er-cyle/document/contexte-metropole
-densite-comparee.jpg:
-  cadrage: large
-  fiche: 02-metropole
-  commons: ''
-  recherche: ''
-  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2686
-  depot: Service national du RÉCIT, univers social
-  auteur: "Service national du RÉCIT, d'après Taxiarchos228"
-  titre: "Nombre d'habitants au km2, avec le centre-ville de Montréal vu du mont Royal (2009)"
-  licence: Creative Commons BY-SA
-  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-1-nombre-d-habitants-au-km2
 services-paris.jpg:
   cadrage: gauche
   fiche: 02-metropole
@@ -1821,17 +1810,15 @@ bourse-new-york.jpg:
   titre: "Bourse de New York (2016), Pixabay, reprise dans le dossier du RÉCIT"
   licence: Libre de droits
   lien: https://documents.recitus.qc.ca/1er-cyle/document/document-9-des-lieux-de-pouvoir-financier
-stade-yankees.jpg:
+stade-yankees-vue.jpg:
   cadrage: flottant
   fiche: 02-metropole
-  commons: ''
-  recherche: ''
-  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3140
-  depot: Service national du RÉCIT, univers social
-  auteur: "Y2kcrazyjoker4"
-  titre: "Vue aérienne du stade des Yankees de New York (2002), reprise dans le dossier du RÉCIT"
-  licence: Creative Commons BY-SA
-  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-8-equipes-sportives-a-new-york
+  commons: "File:Yankee Stadium aerial from Blackhawk.jpg"
+  recherche: Yankee Stadium aerial view New York
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
 siege-onu.jpg:
   cadrage: flottant
   fiche: 02-metropole
@@ -1887,7 +1874,7 @@ carte-ile-montreal.png:
   licence: ''
   lien: ''
 population-montreal.png:
-  cadrage: flottant
+  cadrage: carte
   fiche: 02-metropole
   url: https://lh3.googleusercontent.com/sitesv/AG8ngQUvJL5VSxLuT01v7mzWMKqJKn6yS2XRge9cpvsCvYwCKVIk6v78KUAgo40tylvQ92fVdCXRd2QiPwyfQx8lyNwKpqf13jhFARdbi2x8_XcN5LVlkfKv4gDWIXZHMtftF2TYtWjV997rAzntJYcABNgjHWNJUAZRgqJSGsevyEmlRAqqM4T1kponmZHMG5hi8kpA1GyKGw5rT9sT1yiuIx_8s7iV4c7c9IGPptn1RFc=w1280
   commons: ''
@@ -1898,7 +1885,7 @@ population-montreal.png:
   licence: ''
   lien: https://merciermathieu5.github.io/muniverssocial
 population-rmm.png:
-  cadrage: flottant
+  cadrage: carte
   fiche: 02-metropole
   url: https://lh3.googleusercontent.com/sitesv/AG8ngQUhIwclYCYPjyIZh7ZYcrCEGZ8AN3lxP-SbK4Tqmu2GQAd4T-DMjWIPQJJJ-3dX235RpjRtQeW4Hl0bXkI7NEIGIzZzSHqVlezgKx_SQf2YSxzYMBNxSd1zR9zSgZyKDhFQpgpqoGPaUL8DMWKrpGrkvjavo6a8XmxrGMR_94ghfcRJIDDwuUq8s9SQqwc4Cx5ZKRZ57vBskKv8_8E8Y1dOf78GxlXolFAEcfW-muE=w1280
   commons: ''

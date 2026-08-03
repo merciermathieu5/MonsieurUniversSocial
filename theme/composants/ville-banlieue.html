@@ -1,0 +1,168 @@
+<section class="vbc" id="ville-banlieue" aria-label="Comparaison du centre-ville et de la banlieue">
+<style>
+.vbc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.vbc .vbc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vbc .vbc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.vbc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.vbc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.vbc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.vbc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vbc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.vbc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.vbc__panneau.est-visible { display: block; }
+.vbc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.vbc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.vbc__cote--banlieue { border-left-color: var(--encre-pale); }
+.vbc__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.vbc__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.vbc__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.vbc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.vbc__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .vbc .vbc__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .vbc .vbc__titre { color: var(--encre); }
+html[data-sombre="on"] .vbc__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .vbc__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .vbc__chiffre { color: var(--encre); }
+html[data-sombre="on"] .vbc__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .vbc__panneau { padding: 1.1rem 1rem 1rem; } .vbc__onglets { padding: .7rem .8rem; } .vbc__chiffre { font-size: 1.25rem; } }
+@media print { .vbc__panneau { display: block; page-break-inside: avoid; } .vbc__onglets { display: none; } }
+</style>
+
+<div class="vbc__entete">
+  <p class="vbc__titre" role="heading" aria-level="3">Le centre-ville ou la banlieue</p>
+  <p class="vbc__consigne">Choisis un critère</p>
+</div>
+
+<div class="vbc__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="vbc__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("ville-banlieue");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "territoire",
+      nom: "Le territoire",
+      villeChiffre: "496,9 km\u00b2",
+      villeDetail: "L'agglom\u00e9ration de Montr\u00e9al, c'est-\u00e0-dire l'\u00eele, r\u00e9unit la ville de Montr\u00e9al et 15 autres municipalit\u00e9s.",
+      banlieueChiffre: "4 360 km\u00b2",
+      banlieueDetail: "La r\u00e9gion m\u00e9tropolitaine regroupe 82 municipalit\u00e9s r\u00e9parties en cinq secteurs, dont Laval, Longueuil et les deux couronnes.",
+      ecart: "La r\u00e9gion m\u00e9tropolitaine est presque neuf fois plus \u00e9tendue que l'\u00eele."
+    },
+    {
+      cle: "densite",
+      nom: "La densit\u00e9 de population",
+      villeChiffre: "5 260 hab./km\u00b2",
+      villeDetail: "Densit\u00e9 de la ville de Montr\u00e9al. Elle atteint 12 792 hab./km\u00b2 sur le Plateau-Mont-Royal.",
+      banlieueChiffre: "moins de 1 000 hab./km\u00b2",
+      banlieueDetail: "Densit\u00e9 de l'ensemble de la r\u00e9gion m\u00e9tropolitaine, banlieues comprises.",
+      ecart: "Le m\u00eame nombre d'habitants occupe beaucoup plus de terrain en banlieue. C'est la d\u00e9finition m\u00eame de l'\u00e9talement urbain."
+    },
+    {
+      cle: "bati",
+      nom: "La forme du b\u00e2ti",
+      villeChiffre: "Plex et copropri\u00e9t\u00e9s",
+      villeDetail: "Immeubles \u00e0 logements et plex de deux ou trois \u00e9tages, sur de petits lots align\u00e9s le long de la rue.",
+      banlieueChiffre: "Maisons unifamiliales",
+      banlieueDetail: "Maisons d\u00e9tach\u00e9es avec terrain, sur de plus grands lots, desservies par des rues courbes et des culs-de-sac.",
+      ecart: "Un plex loge plusieurs m\u00e9nages sur le terrain qu'une unifamiliale occupe seule."
+    },
+    {
+      cle: "deplacements",
+      nom: "Les d\u00e9placements",
+      villeChiffre: "4 r\u00e9seaux",
+      villeDetail: "Le m\u00e9tro, le REM, les autobus et le R\u00e9so desservent l'\u00eele et se rejoignent au centre-ville.",
+      banlieueChiffre: "94 % en automobile",
+      banlieueDetail: "Environ 100 000 personnes entrent chaque jour dans la r\u00e9gion depuis les municipalit\u00e9s voisines, presque toutes en voiture.",
+      ecart: "Plus on s'\u00e9loigne, moins le transport collectif dessert, et plus l'automobile devient le seul choix pratique."
+    },
+    {
+      cle: "prix",
+      nom: "Le prix m\u00e9dian",
+      villeChiffre: "865 000 $",
+      villeDetail: "Prix m\u00e9dian d'un plex dans la r\u00e9gion m\u00e9tropolitaine en avril 2026, selon l'APCIQ.",
+      banlieueChiffre: "645 000 $",
+      banlieueDetail: "Prix m\u00e9dian d'une maison unifamiliale dans la m\u00eame r\u00e9gion et au m\u00eame moment.",
+      ecart: "Les deux chiffres portent sur toute la r\u00e9gion : ils comparent deux types de propri\u00e9t\u00e9, pas deux endroits."
+    },
+    {
+      cle: "agricole",
+      nom: "La zone agricole",
+      villeChiffre: "2 zones",
+      villeDetail: "Deux petites zones agricoles subsistent \u00e0 l'ouest de l'\u00eele, dont L'\u00cele-Bizard et le secteur de Sainte-Anne-de-Bellevue.",
+      banlieueChiffre: "plus de 2 200 km\u00b2",
+      banlieueDetail: "Superficie prot\u00e9g\u00e9e par la Loi sur la protection du territoire agricole dans la r\u00e9gion m\u00e9tropolitaine.",
+      ecart: "C'est en banlieue que l'\u00e9talement urbain et l'agriculture se disputent le m\u00eame sol."
+    }
+  ];
+
+  var onglets = racine.querySelector(".vbc__onglets");
+  var contenu = racine.querySelector(".vbc__contenu");
+
+  function cote(lieu, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "vbc__cote" + (modificateur ? " vbc__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "vbc__lieu";
+    etiquette.textContent = lieu;
+    var nombre = document.createElement("span");
+    nombre.className = "vbc__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "vbc__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "vbc__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "vbc-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "vbc__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "vbc-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "vbc__colonnes";
+    colonnes.appendChild(cote("Le centre-ville", critere.villeChiffre, critere.villeDetail, ""));
+    colonnes.appendChild(cote("La banlieue", critere.banlieueChiffre, critere.banlieueDetail, "banlieue"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "vbc__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

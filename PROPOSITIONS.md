@@ -2227,3 +2227,93 @@ tienne.
 
 Si 30 rem reste trop haut ou devient trop court une fois la chronologie chargée,
 donne-moi la hauteur que tu veux et je l'inscris.
+
+### Retouches de la fiche Métropole et du cadre d'intégration (livraison 91)
+
+Reparti du dépôt GitHub, commit `c4caeab`.
+
+**Le cadre d'intégration passe en 16 : 9, avec deux bornes.** Ta question était
+la bonne, mais 16 : 9 seul ramènerait le défaut d'origine : la hauteur se déduit
+de la largeur, donc plus l'écran est grand, plus le cadre grandit. La règle
+combine maintenant les deux :
+
+    aspect-ratio: 16 / 9;
+    min-height: 17rem;
+    max-height: 32rem;
+
+Le cadre garde une forme de paysage à toutes les largeurs, ne descend jamais
+sous 17 rem sur mobile et ne dépasse jamais 32 rem au projecteur. `resize:
+vertical` reste là pour l'étirer d'un glissement.
+
+**Section 04.** La capture du tableau des densités est retirée de la fiche et du
+registre. Les deux graphiques passent du cadrage `flottant` au cadrage `carte` :
+c'était la cause de leur affichage tronqué, puisque dans une galerie les
+vignettes sont recadrées au carré, sauf en cadrage `carte` et `large`. Ils
+s'afficheront maintenant en entier, côte à côte.
+
+**Les trois images du bas de la section 05 sont regroupées.** Le réseau
+d'autobus et le Réso, le réseau routier et l'aéroport passent en sous-titres de
+niveau 4 sous un nouveau titre « Les autres réseaux de transport ». Le moteur
+rassemble alors leurs trois figures en une galerie unique à la fin du bloc, au
+lieu de trois flottants qui se suivent en escalier.
+
+**Deux vidéos ajoutées.** Celle de la crise du logement, `tY4vwVbmECM`, qui se
+jumelle d'elle-même avec la capsule de Radio-Canada. Et une pour le REM, dont je
+reparle plus bas.
+
+**Le comparateur devient interactif.** `medias/schemas/ville-banlieue.svg` est
+supprimé, remplacé par `theme/composants/ville-banlieue.html`, sur le modèle de
+`segregation-comparee` : six onglets au lieu de cinq lignes figées, et pour
+chacun deux fiches avec un chiffre en grand, une explication, puis une ligne
+« Ce qui change » qui nomme l'écart. Le critère du territoire est ajouté, pour
+poser les superficies avant de comparer les densités.
+
+**Le schéma des lieux de pouvoir est réorganisé en trois colonnes titrées.**
+Les trois lignes de texte anonymes deviennent trois colonnes lisibles en
+travers : « Ce qui s'y décide », « Les lieux » et « À Montréal », séparées par
+des filets. L'élève lit maintenant une grille, pas trois paragraphes empilés.
+
+**La capture des équipes sportives est remplacée.** `stade-yankees.jpg` était
+une capture d'écran d'un tableau, pas une photographie du stade, et sa légende
+mentait. L'entrée cède la place à `stade-yankees-vue.jpg`, la vue aérienne du
+stade sur Commons, dont le RÉCIT cite lui-même le nom de fichier. Nouveau nom de
+fichier volontaire, pour que `images.py` télécharge la bonne image au lieu de
+sauter l'ancienne.
+
+### À valider
+
+**1. La vidéo du REM.** Ton message dit « ajoute cette vidéo pour le REM » mais
+l'adresse n'est pas arrivée, seule celle de la crise du logement était présente.
+J'ai mis en attendant l'inauguration de l'antenne Deux-Montagnes par CDPQ Infra,
+`lljZd_q_g_k`, en novembre 2025. Donne-moi la tienne et je la remplace.
+
+**2. Le « côte à côte avec le réseau de bus ».** Sans savoir quelle vidéo tu
+voulais mettre en face, je n'ai pas pu former le duo. La capsule du REM est
+seule dans sa sous-section. Donne-moi la deuxième adresse et je les jumelle.
+
+**3. Les trois images regroupées.** J'ai compris tes deux captures comme
+désignant le Réso, le réseau routier et la gare Grand Central. Si tu pensais à
+trois autres images, dis-le.
+
+### Des fichiers que le zip ne peut pas effacer
+
+Une décompression ajoute et remplace, elle ne supprime jamais. Tout ce que les
+livraisons précédentes avaient retiré est donc revenu dans le dépôt au moment de
+la dépose. Le site en ligne compte encore 27 fiches au lieu de 23.
+
+À supprimer à la main, une seule fois :
+
+    contenu/histoire/00-notions-de-base.md
+    contenu/geographie/00-canada-politique.md
+    contenu/geographie/01-coordonnees-geographiques.md
+    contenu/geographie/08-territoire-energetique-alberta.md
+    medias/schemas/privation-etapes.svg
+    medias/schemas/lois-antijuives.svg
+    medias/schemas/jim-crow-apartheid.svg
+    medias/schemas/ville-banlieue.svg
+    medias/02-metropole/densite-comparee.jpg
+    medias/02-metropole/stade-yankees.jpg
+
+Puis `python build.py`, qui nettoie `docs/` tout seul. Il traîne aussi un
+fichier `Pedro_Alvares_Cabral.jpg` à la racine du dépôt, avec des accents
+abîmés, resté d'un dépôt manuel.

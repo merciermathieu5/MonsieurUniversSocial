@@ -158,8 +158,6 @@ l'ouest du Canada et les États-Unis.
 
 ## La population de la métropole
 
-![Comparer le nombre d'habitants au kilomètre carré](../medias/02-metropole/densite-comparee.jpg)
-
 ![La population de la ville de Montréal](../medias/02-metropole/population-montreal.png)
 
 ![La population de la région métropolitaine](../medias/02-metropole/population-rmm.png)
@@ -294,7 +292,13 @@ plus vieux que le métro d'une cinquantaine d'années. Il a fallu le réaménage
 complet pour y faire passer les nouvelles voitures.
 :::
 
-### Le réseau d'autobus et le Réso
+::: video lljZd_q_g_k
+L'inauguration de l'antenne Deux-Montagnes, en novembre 2025
+:::
+
+### Les autres réseaux de transport
+
+#### Le réseau d'autobus et le Réso
 
 ![Le Montréal souterrain](../medias/02-metropole/plan-reso.png)
 
@@ -307,7 +311,7 @@ commun. On y accède par plus de 200 entrées. Trente-deux kilomètres de
 galeries souterraines le composent et on y trouve plus de 1 700 boutiques et
 plus de 200 restaurants. Environ 500 000 personnes l'empruntent chaque jour.
 
-### Le réseau routier
+#### Le réseau routier
 
 ![Les autoroutes de la région métropolitaine](../medias/02-metropole/reseau-routier-rmm.png)
 
@@ -318,7 +322,7 @@ gère environ 2 705 km de routes, dont 1 754 km d'autoroutes. La congestion
 routière reste une difficulté quotidienne dans la région, en particulier sur
 l'autoroute Métropolitaine et aux abords des ponts aux heures de pointe.
 
-### L'aéroport international Montréal-Trudeau
+#### L'aéroport international Montréal-Trudeau
 
 ![La gare Grand Central, à New York](../medias/02-metropole/grand-central.jpg)
 
@@ -348,8 +352,7 @@ Source : Service national du RÉCIT, domaine de l'univers social
 
 ## Habiter la métropole : le centre-ville ou la banlieue
 
-::: schema ville-banlieue
-:::
+::: composant ville-banlieue
 
 Montréal est en croissance. Elle attire des travailleurs, des étudiants, des
 familles et des personnes immigrantes, et les municipalités de la région
@@ -400,6 +403,10 @@ Se loger dans la métropole
 
 ::: video rYaMLZUgzM0
 Creux historique des logements à louer
+:::
+
+::: video tY4vwVbmECM
+La crise du logement à Montréal
 :::
 
 ### Choisir la banlieue
@@ -617,7 +624,7 @@ Visite guidée du Quartier des spectacles
 
 ## Les activités et les services
 
-![Le stade des Yankees, à New York](../medias/02-metropole/stade-yankees.jpg)
+![Le stade des Yankees, à New York, vu du ciel](../medias/02-metropole/stade-yankees-vue.jpg)
 
 Quand il est question de Montréal, le terme concentration revient sans cesse. S'y
 concentrent les emplois, les entreprises, les habitants, les infrastructures de
