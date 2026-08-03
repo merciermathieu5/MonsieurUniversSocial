@@ -1860,115 +1860,51 @@ plus visible. Je les cherche à la prochaine livraison.
 faits que raconte la section. La légende le dit. Si tu préfères une vue du mur
 ou de la vie dans le ghetto, dis-le et je cherche.
 
-### Interface interactive, intégration et photographies (livraison 85)
+### Trois gabarits supprimés (livraison 87)
 
-**Le tableau comparatif devient un composant interactif.** `jim-crow-apartheid`
-est supprimé. À sa place, `theme/composants/segregation-comparee.html`, sur le
-modèle des composants existants : six onglets, et pour chacun deux colonnes de
-trois à quatre lignes, plus une ligne « Ce qui diffère » qui nomme l'écart entre
-les deux régimes.
+- `contenu/histoire/00-notions-de-base.md`
+- `contenu/geographie/00-canada-politique.md`
+- `contenu/geographie/01-coordonnees-geographiques.md`
 
-Le contenu est précis plutôt que général :
+Le groupe `outils`, intitulé « Pour commencer », devenait vide dans les deux
+sections. Il est retiré de `site.yml` des deux côtés, sinon les pages d'index
+auraient affiché un titre suivi de rien. Vérifié après reconstruction : le
+libellé n'apparaît plus ni dans `docs/histoire/index.html` ni dans
+`docs/geographie/index.html`.
 
-- **Le territoire et la période** : lois d'États depuis 1877 contre lois
-  nationales depuis les élections de 1948
-- **Les personnes visées** : environ un habitant sur dix aux États-Unis, près de
-  la moitié dans certains comtés du Sud, contre une minorité blanche d'environ
-  un habitant sur cinq en Afrique du Sud. La règle dite d'une seule goutte de
-  sang d'un côté, la loi sur l'enregistrement de la population de 1950 de
-  l'autre
-- **Les lois principales** : Plessy contre Ferguson en 1896 contre le bloc de
-  1949 à 1952, mariages mixtes, enregistrement, quartiers, laissez-passer
-- **Le contrôle du droit de vote** : taxe électorale, test d'alphabétisation et
-  clause du grand-père contre le retrait de la nationalité par la loi de 1970
-  sur la citoyenneté des bantoustans
-- **Les formes de lutte** : 381 jours de boycottage, sit-in, Freedom Rides,
-  Selma contre la campagne de défi de 1952, Sharpeville, Soweto et le passage à
-  la lutte armée
-- **La sortie du régime** : Brown en 1954 puis le Congrès contre la négociation
-  de 1990 et la commission vérité et réconciliation de 1995
+Le site passe de 27 à 24 fiches. `build.py` a bien supprimé les trois pages
+devenues orphelines dans `docs/`. `liens.py` vérifie 722 liens dans 27 pages,
+aucun brisé. Le vérificateur passe de 28 à 25 problèmes, tous des images à
+télécharger ou des crédits à récolter.
 
-**La chronologie du Musée est intégrée.** `lois-antijuives` est supprimé. Le
-bloc `::: integration` affiche maintenant ta ligne du temps interactive dans un
-cadre, doublée du lien qui s'affiche si le service est inaccessible ou si la
-page est consultée hors ligne.
+**Un détail à trancher.** La géographie commence maintenant à `02-metropole`,
+puisque les numéros 00 et 01 ont disparu. Les douze territoires restants gardent
+leurs numéros de 02 à 13. Renuméroter de 01 à 12 changerait les noms de fichiers
+et donc les adresses des pages. Je ne l'ai pas fait. Dis-moi si tu préfères la
+suite continue.
 
-**Trois photographies de plus**, ce qui porte la fiche à treize :
+### Le territoire énergétique de l'Alberta est retiré (livraison 88)
 
-- le boycottage des commerces juifs à Berlin, le 1er avril 1933, qui ouvre
-  justement la chronologie du Musée
-- les premiers enfants du Kindertransport à leur arrivée à Harwich, en 1938
-- des enfants de familles juives polonaises débarquant à Londres, en février
-  1939
+`contenu/geographie/08-territoire-energetique-alberta.md` est supprimé. Aucune
+référence résiduelle ailleurs dans le dépôt. Le site passe de 24 à 23 fiches et
+`build.py` a nettoyé la page dans `docs/`.
 
-Sur ton point de fond, il est juste et il a guidé le choix : ces images montrent
-des personnes, des visages d'enfants qui arrivent quelque part, et non des corps
-photographiés par leurs persécuteurs. C'est aussi pour cette raison que les
-sections du ghetto et des camps restent moins illustrées : l'essentiel des
-photographies disponibles de ces lieux a été pris par les bourreaux, et je
-préfère te laisser trancher plutôt que d'imposer ce regard.
+La géographie compte donc onze territoires, et les numéros vont de 02 à 13 avec
+deux trous, en 00, 01 et 08. Comme convenu, je ne renumérote pas : cela
+changerait les adresses des pages.
 
-### À valider
+### Classement de la géographie
 
-**1. L'affichage de l'iframe du Musée**
+Décision prise : on garde le classement par type de territoire, urbain, région,
+agricole, autochtone et protégé. L'index de géographie ne sera pas regroupé par
+année comme celui d'histoire.
 
-Je n'ai pas pu tester d'ici si histoire.museeholocauste.ca autorise
-l'intégration dans un cadre : le domaine est hors du réseau accessible à mon
-environnement. Si le cadre reste blanc chez toi, c'est que le site refuse
-l'iframe. Le lien sous le cadre fonctionnera de toute façon, et je pourrai
-basculer le bloc en simple encadré `activite` si tu préfères.
+### Les cinq territoires de 1re secondaire
 
-**2. Les sections du ghetto et des camps**
+Pour mémoire, dans l'ordre où je compte les traiter :
 
-Elles restent les moins illustrées. Si tu veux des photographies de la vie juive
-d'avant-guerre, portraits de famille, écoles, commerces, dis-le et je cherche
-dans cette direction plutôt que dans les archives des camps.
-
-### Pourquoi Bolívar se retéléchargeait sans fin (livraison 86)
-
-**La cause vient de mes livraisons, pas de ton dépôt.**
-
-`images.py` saute une image quand trois conditions sont réunies : le fichier est
-sur le disque, `medias/credits.yml` contient son auteur, sa licence et son lien,
-et le nom Commons inscrit dans les crédits correspond à celui du registre. Il
-suffit qu'une seule manque pour qu'il retélécharge.
-
-J'ai vérifié le nom Commons de Bolívar, il est exact au caractère près :
-`File:José Gil de Castro - Simón Bolívar - Google Art Project.jpg`. Ce n'était
-donc pas ça. En comparant `sources.yml` et `credits.yml` dans ton dépôt, voici
-ce que j'ai trouvé :
-
-- fiche 09, 15 images, **0** sans crédit
-- fiche 10, 21 images, 1 sans crédit, le montage McCord qui n'en a pas besoin
-- fiche 11, 14 images, **9 sans crédit**, dont `bolivar.jpg`,
-  `livingstone-stanley.jpg`, `rhodes-colosse.jpg`, `leopold-ii.jpg`,
-  `punch-congo.jpg`, `tirailleurs-senegalais.jpg`, `caoutchouc-congo.jpg`,
-  `canal-suez.jpg` et `ecole-livingstonia.jpg`
-
-Ces neuf-là se retéléchargent à chaque lancement, parce que leurs crédits ne
-sont jamais dans le fichier. Et ils n'y sont jamais parce que **mes zips
-contiennent un `credits.yml` périmé qui écrase le tien**. Tu lances `images.py`,
-il écrit les crédits, tu déposes ma livraison suivante, et le fichier repart à
-son état d'avant.
-
-**Correction appliquée : `medias/credits.yml` est retiré de mes zips.** Ton
-fichier restera intact au prochain dépôt. Un seul lancement d'`images.py`
-remplira les neuf entrées manquantes, et la boucle s'arrêtera.
-
-Si tu veux vérifier après coup, `python outils/images.py` doit afficher
-« déjà complètes » pour ces neuf images au deuxième lancement d'affilée.
-
-### Deux autres corrections (livraison 86)
-
-**Le cadre d'intégration est moins haut.** Le rapport passe de 4/3 à 16/9 sur
-écran large, et de 3/4 à 4/3 sur mobile. La chronologie du Musée est un
-défilement horizontal, elle n'a pas besoin de hauteur. La fiche 12 est la seule
-à utiliser un bloc `::: integration` pour l'instant, donc le changement ne
-touche rien d'autre.
-
-**L'interface comparative passe après l'apartheid.** Elle n'est plus une
-sous-section de la ségrégation sud-africaine mais une section à part entière,
-placée entre « Lutter contre l'apartheid » et « La privation des libertés et des
-droits ». L'élève a vu les deux régimes au complet avant qu'on lui demande de
-les comparer. Deux phrases d'introduction annoncent ce qu'il va trouver dans les
-onglets.
+1. La métropole
+2. La ville soumise à des risques naturels
+3. Le territoire touristique
+4. Le territoire agricole national
+5. Le territoire protégé, le parc naturel

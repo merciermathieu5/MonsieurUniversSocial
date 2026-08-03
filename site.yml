@@ -42,8 +42,6 @@ sections:
         titre: 1re secondaire
       - cle: sec2
         titre: 2e secondaire
-      - cle: outils
-        titre: Pour commencer
 
   geographie:
     titre: Géographie et éducation à la citoyenneté
@@ -63,8 +61,6 @@ sections:
       Les types de territoires du programme, étudiés à partir de cas concrets
       d'ici et d'ailleurs.
     groupes:
-      - cle: outils
-        titre: Pour commencer
       - cle: urbain
         titre: Territoire urbain
       - cle: region
