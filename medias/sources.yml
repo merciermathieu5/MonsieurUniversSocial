@@ -1304,6 +1304,33 @@ diderot.jpg:
   titre: ''
   licence: ''
   lien: ''
+planche-encyclopedie.png:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Planche encyclopédie imprimerie 6 Plan de la presse.jpg
+  recherche: planche Encyclopedie imprimerie presse
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+premier-congres.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Continental Congress prayer.jpg
+  recherche: First Continental Congress prayer Carpenters Hall
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+deuxieme-congres.jpg:
+  cadrage: flottant
+  fiche: 09-revolution-americaine
+  commons: File:Washington promotion by Continental Congress.jpg
+  recherche: Washington commander Continental Congress 1775
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
 washington.jpg:
   cadrage: flottant
   fiche: 09-revolution-americaine
@@ -1497,9 +1524,12 @@ chaine-ford.jpg:
 ancienne-nouvelle-facon.png:
   cadrage: large
   fiche: 10-industrialisation
-  source: locale
-  depot: Musée McCord Stewart
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=950
+  depot: Service national du RÉCIT, univers social
   auteur: John Henry Walker
-  titre: "L'ancienne façon et La nouvelle façon (1880), M930.50.5.142 et M930.50.5.262"
+  titre: "L'ancienne façon et La nouvelle façon (1880), Musée McCord M930.50.5.142\
+    \ et M930.50.5.262"
   licence: Creative Commons BY-NC-ND
-  lien: https://www.musee-mccord-stewart.ca/
+  lien: https://documents.recitus.qc.ca/document/document/document-1-l-ancienne-et-la-nouvelle-facon

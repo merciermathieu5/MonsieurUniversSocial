@@ -323,7 +323,7 @@ population.
 
 ## De la production artisanale à la production industrielle
 
-![L'ancienne façon et la nouvelle façon, gravures de John Henry Walker, 1880](../medias/10-industrialisation/ancienne-nouvelle-facon.png)
+![L'ancienne façon en 1780 et la nouvelle en 1880, gravures de John Henry Walker](../medias/10-industrialisation/ancienne-nouvelle-facon.png)
 
 Avant l'industrialisation, les biens sont produits par l'artisan et, parfois, par
 son apprenti. L'apprentissage est long, mais l'apprenti sera en mesure de
@@ -337,7 +337,13 @@ tâches qu'ils effectuent sont simples et répétitives, et elles ne nécessiten
 aucune formation particulière. En répétant la même tâche toute la journée, les
 nombreux ouvriers d'une usine sont capables de produire énormément de biens, et
 ce, à faible coût. L'ouvrier est cependant facilement remplaçable, ce qui fait
-qu'il est faiblement payé et doit accepter un très bas salaire.
+qu'il est faiblement payé et doit accepter un très bas salaire. Les deux
+gravures de John Henry Walker mettent ce basculement en chiffres : à l'ancienne
+façon, en 1780, l'atelier sort deux paires par jour; à la nouvelle, en 1880, il
+en sort trois cents.
+
+Source : Service national du RÉCIT, domaine de l'univers social
+{: .source-texte }
 
 ### Les secteurs industriels
 
@@ -543,27 +549,9 @@ remonte aux premières grèves ouvrières et explique comment elles sont devenue
 moyen de pression reconnu.
 :::
 
-### Un écho au Canada
+### Le gouvernement légifère
 
 ![La police montée intervient pendant la grève générale de Winnipeg, en 1919](../medias/10-industrialisation/greve-winnipeg.jpg)
-
-::: savais-tu
-Il y a plus de cent ans, le 15 mai 1919, environ 30 000 personnes cessaient de
-travailler et se mettaient en grève à Winnipeg. Ce conflit du travail, qui a duré
-six semaines, est le plus célèbre du Canada. Malgré la défaite des grévistes et
-une fin de conflit tragique, la grève générale de 1919 a eu des effets concrets,
-qui se font encore sentir aujourd'hui. Elle a marqué un jalon important dans
-l'histoire du syndicalisme canadien et elle est devenue un événement majeur de la
-mémoire collective de l'époque.
-:::
-
-::: activite
-Le dossier de Radio-Canada
-[Il y a 100 ans, Winnipeg se mettait en grève générale](https://ici.radio-canada.ca/communication/141/100-ans-winnipeg-greve-generale-1919)
-raconte les six semaines du conflit et son héritage.
-:::
-
-### Le gouvernement légifère
 
 En réaction aux grèves ouvrières, le gouvernement britannique met en place
 plusieurs lois qui permettent d'améliorer les conditions de travail des ouvriers.
@@ -577,6 +565,23 @@ En voici quelques exemples :
   dans les mines;
 - 1871 : loi qui reconnaît légalement les syndicats;
 - 1910 : établissement du salaire minimum.
+
+::: savais-tu
+Le mouvement ouvrier ne s'arrête pas à l'Angleterre. Il y a plus de cent ans,
+le 15 mai 1919, environ 30 000 personnes cessaient de travailler et se
+mettaient en grève à Winnipeg. Ce conflit du travail, qui a duré six semaines,
+est le plus célèbre du Canada. Malgré la défaite des grévistes et une fin de
+conflit tragique, la grève générale de 1919 a eu des effets concrets, qui se
+font encore sentir aujourd'hui. Elle a marqué un jalon important dans
+l'histoire du syndicalisme canadien et elle est devenue un événement majeur de
+la mémoire collective de l'époque.
+:::
+
+::: activite
+Le dossier de Radio-Canada
+[Il y a 100 ans, Winnipeg se mettait en grève générale](https://ici.radio-canada.ca/communication/141/100-ans-winnipeg-greve-generale-1919)
+raconte les six semaines du conflit et son héritage.
+:::
 
 ::: questions
 1. Pourquoi un ouvrier seul a-t-il peu de poids devant son patron?

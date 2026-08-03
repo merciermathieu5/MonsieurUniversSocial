@@ -1379,3 +1379,124 @@ qui réunit *L'ancienne façon* et *La nouvelle façon* côte à côte.
 La section n'a plus de galerie : la figure reste en tête du bloc et le texte
 sur l'artisan et sur l'ouvrier coule dessous, ce qui est plus juste puisque
 c'est justement la comparaison des deux gravures qui porte l'explication.
+
+### Validation contre le dépôt GitHub (livraison 78)
+
+Le dépôt est `merciermathieu5/MonsieurUniversSocial`, pas `muniverssocial` :
+c'est la casse du nom qui faisait échouer mon clone. Comparaison faite,
+`contenu/histoire/09`, `contenu/histoire/10`, `medias/sources.yml`, `README.md`
+et `PROPOSITIONS.md` sont identiques à la livraison 77, et les quatre schémas
+neufs y sont. Le travail de Cowork s'y ajoute : les images des fiches 09 et 10
+sont sur le disque et `medias/credits.yml` est rempli.
+
+Point de départ mesuré sur le vrai dépôt : `verifier.py` donne 8 problèmes,
+soit sept `crédit incomplet` antérieurs aux fiches 09 et 10 et le montage
+McCord manquant. Après mes changements, toujours 8, et `liens.py` passe de
+quatre liens brisés à zéro.
+
+### Le gouvernement légifère rejoint l'écho canadien (livraison 78)
+
+Ta capture montrait le défaut : la sous-section « Un écho au Canada » ne
+contenait que la photo flottante et deux encadrés, or un encadré ne se glisse
+pas à côté d'un flottant, il passe dessous. D'où la grande colonne vide à
+gauche de la photo de Winnipeg.
+
+Les deux sous-sections n'en font plus qu'une, sous le titre « Le gouvernement
+légifère ». La photo reste en tête du bloc, et c'est la liste des cinq lois
+britanniques qui vient couler à côté d'elle : le vide est comblé par du
+contenu, pas par un rustine de mise en page. L'encadré de Winnipeg suit,
+précédé d'une phrase de transition, « Le mouvement ouvrier ne s'arrête pas à
+l'Angleterre », et le dossier de Radio-Canada ferme la marche.
+
+Le titre « Un écho au Canada » disparaît donc. C'est cohérent avec ta décision
+du départ : Winnipeg devait être un encadré, pas une section. Si tu préfères
+l'inverse, c'est-à-dire garder le titre canadien et faire remonter les lois
+sous « La naissance du syndicalisme », dis-le et j'inverse.
+
+### L'ancienne et la nouvelle façon, version RÉCIT (livraison 78)
+
+L'image vient maintenant du Service national du RÉCIT, *Document 1 :
+L'ancienne et la nouvelle façon*, du dossier « Les changements de la production
+industrielle ». C'est une meilleure source que l'ancien Google Site : elle est
+pérenne, elle est du RÉCIT et elle est citable.
+
+- L'entrée du registre perd `source: locale` et gagne un champ `url`, le même
+  mécanisme que les cartes d-maps. `images.py` la téléchargera donc tout seul,
+  tu n'as plus rien à déposer à la main.
+- Le crédit nomme John Henry Walker, les deux cotes du McCord, la licence
+  Creative Commons BY-NC-ND et renvoie à la page du RÉCIT.
+- **Le document apporte deux chiffres que ta page Google n'avait pas** : deux
+  paires par jour à l'ancienne façon en 1780, trois cents par jour à la
+  nouvelle en 1880. Ils sont versés dans le texte, avec la mention de source,
+  et la légende de la figure porte désormais les deux dates.
+
+### À valider
+
+**1. Deux paires de quoi?**
+
+Le RÉCIT écrit « 2 paires par jour » et « 300 paires par jour » sans nommer le
+produit. J'ai gardé « paires » tel quel plutôt que d'écrire « chaussures » sans
+en être sûr. Si les deux gravures montrent bien un atelier de cordonnerie,
+dis-le et je précise, la phrase y gagnera beaucoup.
+
+**2. L'extension du fichier RÉCIT**
+
+L'adresse de téléchargement est un `download.php?fileid=950`, qui ne dit pas le
+format. Le registre attend un `.png`. Si `images.py` refuse le fichier avec « la
+réponse n'est pas une image », ou si le fichier récupéré se révèle être un JPEG,
+signale-le et je change l'extension du registre. Repli immédiat : déposer le
+fichier à la racine du dépôt sous le nom `ancienne-nouvelle-facon.png`, la
+branche `url` d'`images.py` le range sans rien télécharger.
+
+**3. Quatre fichiers orphelins**
+
+Ils sont sur le disque mais plus au registre, donc invisibles au site et
+recopiés pour rien dans `docs/` :
+
+- `09-revolution-americaine/planche-encyclopedie.png`, 565 ko
+- `09-revolution-americaine/premier-congres.jpg`, 293 ko
+- `09-revolution-americaine/deuxieme-congres.jpg`, 273 ko
+- `10-industrialisation/ancienne-facon.png`, 130 ko
+
+Les trois premiers sont ceux que tu m'avais fait retirer du registre parce
+qu'ils échouaient en HTTP 429. **Ils se sont finalement téléchargés.** Comme
+je te le disais alors, le 429 était une limite de débit, pas une absence. Veux-
+tu que je les réinscrive au registre et que je remette leurs trois figures dans
+la fiche 09? Le texte n'a pas bougé, l'opération est immédiate.
+
+Le quatrième est l'ancien demi-montage McCord, rendu inutile par la source
+RÉCIT. À supprimer une fois le nouveau fichier téléchargé.
+
+### Les trois images de la fiche 09 sont réinscrites (livraison 79)
+
+Elles sont revenues au registre à leur place d'origine, entre `diderot.jpg` et
+`washington.jpg`, et leurs trois figures sont de retour dans la fiche :
+
+- `planche-encyclopedie.png`, dans « Les philosophes et leurs idées », qui
+  retrouve sa galerie de trois figures;
+- `premier-congres.jpg` et `deuxieme-congres.jpg`, sous leurs sous-titres de
+  1774 et de 1775, qui se regroupent de nouveau en galerie au bas de « En route
+  vers la guerre d'indépendance américaine ».
+
+Le nom Commons de la planche est vérifié, `File:Planche encyclopédie imprimerie
+6 Plan de la presse.jpg`, et les trois fichiers sont déjà sur le disque.
+
+**Trois lignes de plus au vérificateur, et c'est normal.** Le total passe de 8
+à 11 problèmes, les trois nouveaux étant des `crédit incomplet`. Les fichiers
+existent, mais `medias/credits.yml` n'a jamais reçu leurs entrées : ils avaient
+été téléchargés avant que je ne retire les entrées du registre, et le crédit
+n'avait pas suivi. Un `python outils/images.py` réglera les trois.
+
+Une conséquence à connaître : comme le crédit manque, `images.py` va les
+retélécharger, par la règle qui veut qu'un fichier présent sans crédit ne soit
+pas fiable. Si le 429 revient, les fichiers déjà sur le disque ne sont pas
+touchés, seul le crédit reste vide. Rien n'est perdu.
+
+**Une bizarrerie à surveiller.** `planche-encyclopedie.png` est un vrai PNG sur
+le disque, alors que le fichier Commons épinglé est un `.jpg`. Après le
+retéléchargement, le fichier portera peut-être des octets JPEG sous une
+extension `.png`. Les navigateurs s'en accommodent, mais si tu veux que ce soit
+propre, dis-le et je renomme l'entrée en `.jpg` des deux côtés.
+
+Il ne reste qu'un orphelin sur le disque, `10-industrialisation/ancienne-facon.png`,
+à supprimer une fois le montage du RÉCIT téléchargé.

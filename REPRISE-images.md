@@ -42,8 +42,15 @@ est `James Watt by Henry Howard.jpg`, que la fonction reconnaît par le champ
 
 ## L'impasse de ancienne-nouvelle-facon.png
 
-Son entrée porte `source: locale`, sans champ `commons` ni `url` : le montage
-n'est téléchargeable de nulle part et doit venir de vous, depuis l'ancien
+**Résolue le 3 août 2026.** L'entrée du registre ne porte plus `source: locale`
+mais un champ `url` qui pointe vers le document du Service national du RÉCIT,
+*Document 1 : L'ancienne et la nouvelle façon*. `images.py` la télécharge donc
+comme il le fait pour les cartes d-maps, sans passer par Commons, et le crédit
+inscrit à la main dans `medias/sources.yml` est conservé tel quel. Le
+paragraphe ci-dessous ne vaut plus que pour mémoire.
+
+Son entrée portait `source: locale`, sans champ `commons` ni `url` : le montage
+n'était téléchargeable de nulle part et devait venir de vous, depuis l'ancien
 Google Site ou refait à partir des deux gravures du McCord. `verifier.py`
 continuera d'afficher `carte à déposer à la main : ancienne-nouvelle-facon.png`
 tant qu'il manque, et `images.py` le signalera comme `À DÉPOSER` — et non comme
