@@ -39,34 +39,34 @@ ville de San Francisco, en Californie.
 
 ![Les concepts liés à la ville soumise à des risques naturels](../medias/04-ville-risques-naturels/concepts-risques.png)
 
-- Aménagement : l'ensemble des interventions par lesquelles on organise un
+- **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire. Dans une ville à risque, il s'agit des normes de construction, des
   secteurs où l'on interdit de bâtir et des voies d'évacuation.
-- Banlieue : une agglomération située autour de la ville principale, assez
+- **Banlieue** : une agglomération située autour de la ville principale, assez
   éloignée pour avoir son indépendance politique, assez rapprochée pour
   participer à sa vie sociale et économique.
-- Concentration : le regroupement d'un grand nombre d'habitants, de bâtiments et
+- **Concentration** : le regroupement d'un grand nombre d'habitants, de bâtiments et
   d'activités sur un même territoire. Plus la concentration est forte, plus un
   même phénomène naturel menace de monde à la fois.
-- Densité de population : le nombre d'habitants par kilomètre carré. On l'obtient
+- **Densité de population** : le nombre d'habitants par kilomètre carré. On l'obtient
   en divisant la population totale par la superficie totale.
-- Environnement : l'ensemble des relations qui existent entre l'humain et ce qui
+- **Environnement** : l'ensemble des relations qui existent entre l'humain et ce qui
   compose son milieu de vie. Ces composantes sont physiques, chimiques,
   biologiques, écologiques, sociales et culturelles.
-- Étalement urbain : l'expansion du territoire urbain en périphérie des villes,
+- **Étalement urbain** : l'expansion du territoire urbain en périphérie des villes,
   produite principalement par le développement des banlieues et la construction
   des autoroutes.
-- Instabilité : le fait que les plaques tectoniques se déplacent et que leurs
+- **Instabilité** : le fait que les plaques tectoniques se déplacent et que leurs
   bordures ne sont jamais fixes.
-- Niveau de développement : la richesse et les moyens dont dispose un pays. Il
+- **Niveau de développement** : la richesse et les moyens dont dispose un pays. Il
   explique une bonne part des écarts observés d'un territoire à l'autre devant
   les catastrophes.
-- Prévention : l'ensemble des mesures qui permettent de prévoir une catastrophe
+- **Prévention** : l'ensemble des mesures qui permettent de prévoir une catastrophe
   éventuelle ou d'en diminuer les effets sur un territoire à risque.
-- Risque naturel : la menace que fait peser un phénomène naturel sur des
+- **Risque naturel** : la menace que fait peser un phénomène naturel sur des
   personnes ou sur des biens. Il n'y a de risque que là où il y a quelque chose
   à perdre.
-- Urbanisation : le phénomène par lequel une population se concentre de plus en
+- **Urbanisation** : le phénomène par lequel une population se concentre de plus en
   plus dans les villes, ce qui entraîne le développement de la ville, de ses
   services et de ses activités.
 

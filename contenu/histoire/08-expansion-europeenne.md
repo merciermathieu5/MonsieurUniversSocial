@@ -38,20 +38,20 @@ politiques et économiques permet de saisir la portée des relations
 
 ## Concepts à l'étude
 
-- Colonisation : la prise de possession d'un territoire par un pays
+- **Colonisation** : la prise de possession d'un territoire par un pays
   étranger, qui l'exploite et y impose son autorité.
-- Culture : les croyances, les langues et les manières de vivre d'une
+- **Culture** : les croyances, les langues et les manières de vivre d'une
   société, bouleversées par la rencontre entre les peuples.
-- Économie-monde : un vaste réseau d'échanges qui relie plusieurs
+- **Économie-monde** : un vaste réseau d'échanges qui relie plusieurs
   continents autour d'un centre dominant.
-- Empire : l'ensemble des territoires soumis à l'autorité d'un même État.
-- Enjeu : ce qu'on peut gagner ou perdre dans une situation, par exemple
+- **Empire** : l'ensemble des territoires soumis à l'autorité d'un même État.
+- **Enjeu** : ce qu'on peut gagner ou perdre dans une situation, par exemple
   l'accès aux épices ou aux métaux précieux.
-- Esclavage : la condition d'une personne traitée comme une marchandise,
+- **Esclavage** : la condition d'une personne traitée comme une marchandise,
   privée de liberté et forcée de travailler sans salaire.
-- Grandes découvertes : les expéditions maritimes européennes des 15e et
+- **Grandes découvertes** : les expéditions maritimes européennes des 15e et
   16e siècles qui font connaître de nouveaux territoires aux Européens.
-- Technologie : les inventions et les techniques, comme la caravelle ou
+- **Technologie** : les inventions et les techniques, comme la caravelle ou
   l'astrolabe, qui rendent les longs voyages possibles.
 
 ## Situer dans le temps

@@ -46,23 +46,23 @@ Guerre mondiale.
 
 ## Concepts à l'étude
 
-- Censure : le contrôle exercé par une autorité sur ce qui peut être publié,
+- **Censure** : le contrôle exercé par une autorité sur ce qui peut être publié,
   dit ou diffusé.
-- Démocratisation : le passage d'un régime où le pouvoir est réservé à
+- **Démocratisation** : le passage d'un régime où le pouvoir est réservé à
   quelques-uns vers un régime où il est exercé par l'ensemble des citoyens.
-- Discrimination : le fait de traiter une personne ou un groupe moins bien que
+- **Discrimination** : le fait de traiter une personne ou un groupe moins bien que
   les autres à cause de ce qu'ils sont.
-- Dissidence : le refus, par une personne ou un groupe, d'obéir à l'autorité
+- **Dissidence** : le refus, par une personne ou un groupe, d'obéir à l'autorité
   établie ou à l'idéologie officielle.
-- Droits : ce qu'une personne peut légitimement exiger, et que l'État doit
+- **Droits** : ce qu'une personne peut légitimement exiger, et que l'État doit
   protéger.
-- Égalité : le principe voulant que toutes les personnes aient la même valeur
+- **Égalité** : le principe voulant que toutes les personnes aient la même valeur
   et les mêmes droits.
-- Liberté : la possibilité d'agir, de penser et de s'exprimer sans contrainte
+- **Liberté** : la possibilité d'agir, de penser et de s'exprimer sans contrainte
   imposée par une autorité.
-- Répression : l'ensemble des moyens employés par une autorité pour arrêter un
+- **Répression** : l'ensemble des moyens employés par une autorité pour arrêter un
   mouvement, une opposition ou une revendication.
-- Ségrégation : la séparation imposée de groupes de personnes dans les lieux,
+- **Ségrégation** : la séparation imposée de groupes de personnes dans les lieux,
 les services et les droits.
 
 ## Situer dans le temps

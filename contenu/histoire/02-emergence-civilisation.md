@@ -386,7 +386,6 @@ Quatre applications proposées par Mme Johanne Rodrigue et M. Mathieu Mercier.
 ## Pour aller plus loin
 
 - [Babylone, joyau de l'Ancien monde](https://www.nationalgeographic.fr/histoire/babylone-joyau-de-lancien-monde), National Geographic
-- [Visite 3D de la tombe de Ramsès VI](https://my.matterport.com/show/?m=NeiMEZa9d93)
 
 ## Sources
 

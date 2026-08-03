@@ -54,38 +54,38 @@ territoire ne change pas, c'est l'instrument de mesure qui change.
 
 ## Concepts à l'étude
 
-- Aménagement : l'ensemble des interventions par lesquelles on organise un
+- **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire, en y installant des logements, des routes, des parcs et des
   services.
-- Banlieue : une agglomération située autour de la ville principale. Les
+- **Banlieue** : une agglomération située autour de la ville principale. Les
   banlieues sont assez éloignées de la ville pour avoir leur indépendance
   politique, tout en étant assez rapprochées pour participer à sa vie sociale et
   économique.
-- Bidonville : une agglomération de bâtiments sans hygiène, faits de tôle et de
+- **Bidonville** : une agglomération de bâtiments sans hygiène, faits de tôle et de
   matériaux de récupération, où vit la population la plus pauvre et la plus à
   risque. Montréal n'en compte pas, mais on en trouve dans de nombreuses
   grandes métropoles du monde.
-- Concentration : le regroupement d'un grand nombre d'éléments sur un même
+- **Concentration** : le regroupement d'un grand nombre d'éléments sur un même
   territoire, qu'il s'agisse d'habitants, d'emplois, de services ou de lieux de
   pouvoir.
-- Croissance : l'augmentation de la population ou de la superficie bâtie d'une
+- **Croissance** : l'augmentation de la population ou de la superficie bâtie d'une
   ville pendant une période donnée.
-- Densité de population : le nombre d'habitants par kilomètre carré. On
+- **Densité de population** : le nombre d'habitants par kilomètre carré. On
   l'obtient en divisant la population totale par la superficie totale. Par
   exemple 700 hab./km².
-- Déséquilibre : l'écart entre deux parties d'un même territoire dans la
+- **Déséquilibre** : l'écart entre deux parties d'un même territoire dans la
   répartition de la population, des services ou des richesses.
-- Étalement urbain : l'expansion du territoire urbain en périphérie des villes,
+- **Étalement urbain** : l'expansion du territoire urbain en périphérie des villes,
   produite principalement par le développement des banlieues et la construction
   des autoroutes.
-- Métropole : une grande ville qui se distingue par sa forte densité de
+- **Métropole** : une grande ville qui se distingue par sa forte densité de
   population, son pôle économique majeur, son effervescence culturelle et
   médiatique et ses nombreux services offerts à la population, comme les
   hôpitaux, les transports en commun, les médias et les universités. Au Québec,
   il s'agit de Montréal.
-- Multiethnicité : la présence, sur un même territoire, de populations venues de
+- **Multiethnicité** : la présence, sur un même territoire, de populations venues de
   nombreux pays et parlant de nombreuses langues.
-- Urbanisation : le phénomène par lequel une population se concentre de plus en
+- **Urbanisation** : le phénomène par lequel une population se concentre de plus en
   plus dans les villes. Il entraîne le développement de la ville ainsi que des
   services et des activités qui s'y trouvent.
 

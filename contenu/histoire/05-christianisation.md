@@ -36,23 +36,23 @@ référence identitaire pour de nombreuses sociétés.
 
 ## Concepts à l'étude
 
-- Chrétienté : l'ensemble des territoires et des peuples qui partagent la
+- **Chrétienté** : l'ensemble des territoires et des peuples qui partagent la
   religion chrétienne.
-- Croisade : une expédition à la fois militaire et religieuse organisée par
+- **Croisade** : une expédition à la fois militaire et religieuse organisée par
   l'Église pour délivrer la Terre sainte.
-- Culture : les croyances, les arts et les manières de vivre que les membres
+- **Culture** : les croyances, les arts et les manières de vivre que les membres
   d'une société ont en commun.
-- Éducation : la transmission des savoirs, assurée au Moyen Âge surtout par
+- **Éducation** : la transmission des savoirs, assurée au Moyen Âge surtout par
   l'Église et ses écoles.
-- Église : l'institution qui regroupe et dirige les chrétiens, avec le pape
+- **Église** : l'institution qui regroupe et dirige les chrétiens, avec le pape
   à sa tête.
-- Féodalité : l'organisation de la société autour des liens entre seigneurs
+- **Féodalité** : l'organisation de la société autour des liens entre seigneurs
   et vassaux, en échange de terres et de protection.
-- Occident : le territoire et la civilisation de l'Europe de l'Ouest, unis
+- **Occident** : le territoire et la civilisation de l'Europe de l'Ouest, unis
   par l'héritage romain et la religion chrétienne.
-- Pouvoir : la capacité de commander et de se faire obéir, partagée au Moyen
+- **Pouvoir** : la capacité de commander et de se faire obéir, partagée au Moyen
   Âge entre les rois, les seigneurs et l'Église.
-- Science : les connaissances sur le monde, conservées et copiées au Moyen
+- **Science** : les connaissances sur le monde, conservées et copiées au Moyen
   Âge dans les monastères.
 
 ## Situer dans le temps

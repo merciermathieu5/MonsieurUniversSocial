@@ -47,24 +47,24 @@ Nord au milieu du 19e siècle.
 
 ## Concepts à l'étude
 
-- Capitalisme : régime économique et social qui met de l'avant la propriété
+- **Capitalisme** : régime économique et social qui met de l'avant la propriété
   privée des moyens de production. Une grande importance est accordée à la
   recherche de profit ainsi qu'à ceux et celles qui détiennent le capital.
-- Classes sociales : les grands groupes qui composent une société et qui se
+- **Classes sociales** : les grands groupes qui composent une société et qui se
   distinguent par leur richesse, leur travail et leur influence.
-- Législation : l'ensemble des lois qu'un État se donne, ici pour encadrer le
+- **Législation** : l'ensemble des lois qu'un État se donne, ici pour encadrer le
   travail dans les usines et dans les mines.
-- Libéralisme : courant de pensée qui défend la liberté d'entreprise, la
+- **Libéralisme** : courant de pensée qui défend la liberté d'entreprise, la
   propriété privée et la non-intervention de l'État dans l'économie.
-- Mode de production : processus de fabrication des biens.
-- Révolution : un changement profond et rapide de l'organisation d'une société.
-- Socialisme : idéologie qui propose la propriété collective des moyens de
+- **Mode de production** : processus de fabrication des biens.
+- **Révolution** : un changement profond et rapide de l'organisation d'une société.
+- **Socialisme** : idéologie qui propose la propriété collective des moyens de
   production. Dans un régime socialiste, l'État est propriétaire des usines, des
   manufactures, des grandes surfaces agricoles de même que des moyens de
   communication. Le socialisme s'oppose au capitalisme.
-- Syndicalisme : regroupement de personnes exerçant une même profession en vue
+- **Syndicalisme** : regroupement de personnes exerçant une même profession en vue
   de la défense de leurs intérêts.
-- Urbanisation : le développement rapide des villes et de leur population.
+- **Urbanisation** : le développement rapide des villes et de leur population.
 
 Deux autres mots reviennent sans cesse dans les pages qui suivent. Le capital
 est la somme d'argent investie dans une entreprise industrielle ou commerciale.

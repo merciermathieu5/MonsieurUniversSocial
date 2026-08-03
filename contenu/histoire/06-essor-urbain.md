@@ -38,23 +38,23 @@ la tradition.
 
 ## Concepts à l'étude
 
-- Bourg : une petite ville, souvent née autour d'un château ou d'un
+- **Bourg** : une petite ville, souvent née autour d'un château ou d'un
   monastère, où se tient le marché des villages environnants.
-- Bourgeoisie : le groupe social des habitants des bourgs, marchands,
+- **Bourgeoisie** : le groupe social des habitants des bourgs, marchands,
   banquiers et maîtres artisans, qui s'enrichit grâce au commerce.
-- Capital : l'argent et les biens accumulés qu'on peut investir pour faire
+- **Capital** : l'argent et les biens accumulés qu'on peut investir pour faire
   du commerce et s'enrichir davantage.
-- Charte : une entente écrite, négociée avec le seigneur, qui accorde des
+- **Charte** : une entente écrite, négociée avec le seigneur, qui accorde des
   droits et des libertés aux habitants d'un bourg.
-- Droit : ce qu'une personne est autorisée à faire ou à exiger, comme tenir
+- **Droit** : ce qu'une personne est autorisée à faire ou à exiger, comme tenir
   un marché ou élire des dirigeants.
-- Grand commerce : les échanges de marchandises à grande distance, entre
+- **Grand commerce** : les échanges de marchandises à grande distance, entre
   l'Europe, l'Asie et l'Afrique, par les foires, les routes et les mers.
-- Hiérarchie sociale : le classement des groupes d'une société, du plus
+- **Hiérarchie sociale** : le classement des groupes d'une société, du plus
   puissant au plus démuni.
-- Institution : une organisation durable qui encadre la vie en société,
+- **Institution** : une organisation durable qui encadre la vie en société,
   comme une corporation ou une administration de bourg.
-- Urbanisation : la croissance des villes et l'augmentation de la part de
+- **Urbanisation** : la croissance des villes et l'augmentation de la part de
   la population qui y vit.
 
 ## Situer dans le temps et dans l'espace

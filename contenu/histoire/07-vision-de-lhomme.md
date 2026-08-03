@@ -41,21 +41,21 @@ certains des fondements de la culture occidentale.
 
 ## Concepts à l'étude
 
-- Esprit critique : s'interroger sur la véracité d'un texte ou d'une
+- **Esprit critique** : s'interroger sur la véracité d'un texte ou d'une
   information, autrement dit ne pas croire tout ce qu'on nous raconte ou
   tout ce qu'on lit.
-- Géocentrisme : théorie faisant de la Terre le centre de l'Univers.
-- Héliocentrisme : système d'après lequel le Soleil est considéré comme le
+- **Géocentrisme** : théorie faisant de la Terre le centre de l'Univers.
+- **Héliocentrisme** : système d'après lequel le Soleil est considéré comme le
   centre de l'Univers, à l'opposé du géocentrisme.
-- Humanisme : la façon de penser qui place l'être humain, sa raison et son
+- **Humanisme** : la façon de penser qui place l'être humain, sa raison et son
   éducation au centre des préoccupations.
-- Indulgence : la rémission devant Dieu de la peine due pour les péchés,
+- **Indulgence** : la rémission devant Dieu de la peine due pour les péchés,
   que le fidèle obtient à certaines conditions déterminées.
-- Philosophie : la recherche de la sagesse et de la vérité par le
+- **Philosophie** : la recherche de la sagesse et de la vérité par le
   raisonnement, à la manière des penseurs grecs et romains.
-- Raison : la faculté qui permet à l'être humain de connaître, de juger et
+- **Raison** : la faculté qui permet à l'être humain de connaître, de juger et
   d'agir conformément à des principes.
-- Réforme protestante : mouvement religieux qui donna naissance au
+- **Réforme protestante** : mouvement religieux qui donna naissance au
   protestantisme.
 
 ## Situer la Renaissance dans le temps

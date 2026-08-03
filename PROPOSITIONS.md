@@ -2495,3 +2495,50 @@ Ligne de base du vérificateur avant de commencer : 16 problèmes. Après : 23. 
 delta de 7 correspond exactement aux sept nouvelles images. Aucun problème hors
 images. `liens.py` vérifie 724 liens, aucun brisé. Les deux suites Node passent
 à 0 échec.
+
+### Les concepts passent en gras (livraison 96)
+
+Dans la section « Concepts à l'étude » de chaque fiche, le terme défini est
+maintenant en gras, ce qui le détache de sa définition et rend la liste
+repérable d'un coup d'oeil. Quatre-vingt-neuf concepts dans dix fiches : les
+deux fiches de géographie et les fiches 05 à 12 en histoire.
+
+Les fiches 01 à 04 en histoire, de la sédentarisation à la romanisation, n'ont
+pas encore de section « Concepts à l'étude ». Elles seront traitées quand cette
+section y sera écrite.
+
+**Les images de la fiche 04 sont arrivées.** Les cinq reprises du Google Site et
+les deux images de l'USGS sont sur le disque. Le vérificateur tombe à 20
+problèmes, dont 19 crédits incomplets et une seule image absente,
+`carte-metro-montreal.png`, que Cowork n'avait pas rapportée à la livraison
+précédente. Aucun problème hors images.
+
+**Les suppressions manuelles sont à refaire.** Comme chaque fois, la dépose a
+ramené ce qui avait été retiré : les quatre gabarits et les quatre schémas
+orphelins. Je les ai retirés de nouveau de mon côté. La liste tient toujours :
+
+    contenu/histoire/00-notions-de-base.md
+    contenu/geographie/00-canada-politique.md
+    contenu/geographie/01-coordonnees-geographiques.md
+    contenu/geographie/08-territoire-energetique-alberta.md
+    medias/schemas/privation-etapes.svg
+    medias/schemas/lois-antijuives.svg
+    medias/schemas/jim-crow-apartheid.svg
+    medias/schemas/ville-banlieue.svg
+    medias/02-metropole/densite-comparee.jpg
+    medias/02-metropole/stade-yankees.jpg
+
+### Le lien mort de la fiche 02 (livraison 97)
+
+Tu avais raison, la visite 3D de la tombe de Ramsès VI ne répond plus. J'ai
+testé l'adresse Matterport avec et sans le paramètre `&mls=1` que d'autres sites
+ajoutent : les deux renvoient une erreur 404. Le modèle a été retiré, ce n'est
+donc pas une adresse mal formée mais une ressource disparue.
+
+Le lien est supprimé de « Pour aller plus loin ». Je ne l'ai pas remplacé,
+parce que cette visite portait de toute façon sur l'Égypte et non sur la
+Mésopotamie, ce que la livraison 22 signalait déjà. Si tu veux une ressource
+immersive sur la Mésopotamie à la place, dis-le et j'en cherche une que je peux
+tester.
+
+`liens.py` ne voyait pas ce problème : il ne vérifie que les liens internes.

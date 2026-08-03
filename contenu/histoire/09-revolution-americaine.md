@@ -38,24 +38,24 @@ Source : Alloprof
 
 ## Concepts à l'étude
 
-- Citoyen : une personne qui appartient à une société politique et qui y
+- **Citoyen** : une personne qui appartient à une société politique et qui y
   possède des droits, comme celui de voter.
-- Démocratie : un régime politique où le pouvoir appartient au peuple, qui
+- **Démocratie** : un régime politique où le pouvoir appartient au peuple, qui
   l'exerce par ses représentants.
-- Droits : ce que chaque personne peut exiger, comme la liberté ou la
+- **Droits** : ce que chaque personne peut exiger, comme la liberté ou la
   sûreté, et que l'État doit protéger.
-- Justice : le fait de traiter chacun selon ses droits, par des lois
+- **Justice** : le fait de traiter chacun selon ses droits, par des lois
   appliquées également à tous.
-- Philosophie : la recherche de la vérité et de la sagesse par le
+- **Philosophie** : la recherche de la vérité et de la sagesse par le
   raisonnement, au coeur du Siècle des Lumières.
-- Régime politique : la manière dont le pouvoir est organisé et exercé dans
+- **Régime politique** : la manière dont le pouvoir est organisé et exercé dans
   un État.
-- Révolution : un changement profond et rapide de l'organisation politique
+- **Révolution** : un changement profond et rapide de l'organisation politique
   d'une société.
-- Séparation des pouvoirs : le principe selon lequel les pouvoirs
+- **Séparation des pouvoirs** : le principe selon lequel les pouvoirs
   législatif, exécutif et judiciaire doivent être indépendants les uns des
   autres.
-- Siècle des Lumières : le mouvement du 18e siècle qui place la raison, la
+- **Siècle des Lumières** : le mouvement du 18e siècle qui place la raison, la
   tolérance et la liberté au centre de la pensée.
 
 ## Situer dans le temps

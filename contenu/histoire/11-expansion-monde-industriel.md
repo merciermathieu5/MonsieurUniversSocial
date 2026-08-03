@@ -32,17 +32,17 @@ social des territoires dominés.
 
 ## Concepts à l'étude
 
-- Acculturation : le fait d'adopter plusieurs aspects d'une culture étrangère
+- **Acculturation** : le fait d'adopter plusieurs aspects d'une culture étrangère
   au détriment de sa propre culture.
-- Colonisation : l'occupation et l'exploitation d'un territoire par un État
+- **Colonisation** : l'occupation et l'exploitation d'un territoire par un État
   étranger, qui y impose son autorité.
-- Discrimination : le fait de traiter une personne ou un groupe moins bien que
+- **Discrimination** : le fait de traiter une personne ou un groupe moins bien que
   les autres à cause de ce qu'ils sont.
-- Impérialisme : une politique qui vise l'expansion d'un pays par la domination
+- **Impérialisme** : une politique qui vise l'expansion d'un pays par la domination
   d'un territoire étranger. Un pays soumet un territoire par la force et
   exploite sa population et ses ressources.
-- Métropole : l'État qui possède et administre des colonies.
-- Nationalisme : l'attachement à une nation, qui peut mener un peuple à
+- **Métropole** : l'État qui possède et administre des colonies.
+- **Nationalisme** : l'attachement à une nation, qui peut mener un peuple à
 réclamer son indépendance ou pousser un État à vouloir dominer les autres. Un
 septième mot revient sans cesse dans cette réalité sociale. L'assimilation est
 le fait, pour un pays colonisateur, de chercher à intégrer un groupe dans sa
