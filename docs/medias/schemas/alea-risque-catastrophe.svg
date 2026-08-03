@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La chaîne qui mène de l'aléa au risque puis à la catastrophe, et le rôle de la vulnérabilité dans la gravité du bilan">
+  <style>
+    .ar-t { font-family: Archivo, sans-serif; }
+    .ar-cond { font-size: 11px; font-weight: 600; fill: var(--encre-doux); }
+    .ar-h1 { font-size: 17px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .ar-h2 { font-size: 17px; font-weight: 700; fill: var(--surface); }
+    .ar-p1 { font-size: 12.5px; fill: var(--bloc-pale-texte); }
+    .ar-p2 { font-size: 12.5px; fill: var(--surface); }
+    .ar-vt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .ar-vp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <text class="ar-t ar-cond" x="367" y="45" text-anchor="middle">avec un enjeu</text>
+  <text class="ar-t ar-cond" x="732" y="45" text-anchor="middle">si ça survient</text>
+
+  <rect x="40" y="60" width="290" height="90" rx="5" fill="var(--bloc-pale)"/>
+  <text class="ar-t ar-h1" x="60" y="93">L'aléa</text>
+  <text class="ar-t ar-p1" x="60" y="117">Le phénomène naturel lui-même :</text>
+  <text class="ar-t ar-p1" x="60" y="136">un volcan, une faille, un typhon.</text>
+
+  <path d="M 340 105 L 388 105 M 380 99 L 388 105 L 380 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="405" y="60" width="290" height="90" rx="5" fill="var(--schema-cle)"/>
+  <text class="ar-t ar-h2" x="425" y="93">Le risque</text>
+  <text class="ar-t ar-p2" x="425" y="117">L'aléa menace des personnes</text>
+  <text class="ar-t ar-p2" x="425" y="136">ou des biens.</text>
+
+  <path d="M 705 105 L 753 105 M 745 99 L 753 105 L 745 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="770" y="60" width="290" height="90" rx="5" fill="var(--schema-accent)"/>
+  <text class="ar-t ar-h2" x="790" y="93">La catastrophe</text>
+  <text class="ar-t ar-p2" x="790" y="117">Le risque se réalise : des</text>
+  <text class="ar-t ar-p2" x="790" y="136">dégâts, des blessés, des morts.</text>
+
+  <rect x="40" y="195" width="1020" height="66" rx="5" fill="var(--matiere-voile)"/>
+  <text class="ar-t ar-vt" x="62" y="222">La vulnérabilité décide de la gravité</text>
+  <text class="ar-t ar-vp" x="62" y="245">À aléa égal, le bilan dépend de la densité de population, des normes de construction, des moyens d'alerte et des secours.</text>
+</svg>

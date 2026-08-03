@@ -1,0 +1,68 @@
+<svg viewBox="0 0 1100 550" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Tableau comparatif des lois Jim Crow et de l'apartheid selon quatre critères identiques">
+  <style>
+    .jc-t { font-family: Archivo, sans-serif; }
+    .jc-h { font-size: 18px; font-weight: 700; fill: var(--bloc-texte); }
+    .jc-c { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .jc-e { font-size: 13px; fill: var(--encre); }
+  </style>
+
+  <rect x="300" y="20" width="380" height="46" rx="5" fill="var(--bloc)"/>
+  <text class="jc-t jc-h" x="490" y="50" text-anchor="middle">Les lois Jim Crow</text>
+  <rect x="700" y="20" width="380" height="46" rx="5" fill="var(--bloc)"/>
+  <text class="jc-t jc-h" x="890" y="50" text-anchor="middle">L'apartheid</text>
+
+  <rect x="20" y="86" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="124" text-anchor="middle">Le territoire</text>
+  <rect x="300" y="86" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="113" text-anchor="middle">Les États du Sud des</text>
+  <text class="jc-t jc-e" x="490" y="134" text-anchor="middle">États-Unis.</text>
+  <rect x="700" y="86" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="113" text-anchor="middle">L'Afrique du Sud,</text>
+  <text class="jc-t jc-e" x="890" y="134" text-anchor="middle">tout le pays.</text>
+
+  <rect x="20" y="162" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="200" text-anchor="middle">Les années</text>
+  <rect x="300" y="162" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="189" text-anchor="middle">De 1877 à 1964, puis</text>
+  <text class="jc-t jc-e" x="490" y="210" text-anchor="middle">1968 pour le logement.</text>
+  <rect x="700" y="162" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="189" text-anchor="middle">De 1948 à 1991, puis</text>
+  <text class="jc-t jc-e" x="890" y="210" text-anchor="middle">élections libres en 1994.</text>
+
+  <rect x="20" y="238" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="276" text-anchor="middle">Les moyens légaux</text>
+  <rect x="300" y="238" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="265" text-anchor="middle">Séparation des lieux,</text>
+  <text class="jc-t jc-e" x="490" y="286" text-anchor="middle">entraves au vote.</text>
+  <rect x="700" y="238" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="265" text-anchor="middle">Séparation des lieux,</text>
+  <text class="jc-t jc-e" x="890" y="286" text-anchor="middle">passeport intérieur.</text>
+
+  <rect x="20" y="314" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="352" text-anchor="middle">La sortie du régime</text>
+  <rect x="300" y="314" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="341" text-anchor="middle">Des lois fédérales votées</text>
+  <text class="jc-t jc-e" x="490" y="362" text-anchor="middle">après vingt ans de lutte.</text>
+  <rect x="700" y="314" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="341" text-anchor="middle">Des négociations entre</text>
+  <text class="jc-t jc-e" x="890" y="362" text-anchor="middle">Mandela et de Klerk.</text>
+
+  <rect x="20" y="390" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="428" text-anchor="middle">Les personnes visées</text>
+  <rect x="300" y="390" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="417" text-anchor="middle">Les Afro-Américains, une</text>
+  <text class="jc-t jc-e" x="490" y="438" text-anchor="middle">minorité de la population.</text>
+  <rect x="700" y="390" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="417" text-anchor="middle">Les populations noire, métisse</text>
+  <text class="jc-t jc-e" x="890" y="438" text-anchor="middle">et indienne, la majorité.</text>
+
+  <rect x="20" y="466" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="jc-t jc-c" x="150" y="504" text-anchor="middle">Les figures marquantes</text>
+  <rect x="300" y="466" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="490" y="493" text-anchor="middle">Rosa Parks, Claudette Colvin</text>
+  <text class="jc-t jc-e" x="490" y="514" text-anchor="middle">et Martin Luther King.</text>
+  <rect x="700" y="466" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="jc-t jc-e" x="890" y="493" text-anchor="middle">Nelson Mandela, emprisonné</text>
+  <text class="jc-t jc-e" x="890" y="514" text-anchor="middle">pendant 27 ans.</text>
+</svg>

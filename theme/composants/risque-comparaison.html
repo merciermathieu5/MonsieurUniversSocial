@@ -1,0 +1,168 @@
+<section class="rqc" id="risque-comparaison" aria-label="Comparaison de San Francisco et de Manille devant le risque naturel">
+<style>
+.rqc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.rqc .rqc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.rqc .rqc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.rqc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.rqc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.rqc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.rqc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.rqc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.rqc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.rqc__panneau.est-visible { display: block; }
+.rqc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.rqc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.rqc__cote--manille { border-left-color: var(--encre-pale); }
+.rqc__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.rqc__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.rqc__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.rqc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.rqc__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .rqc .rqc__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .rqc .rqc__titre { color: var(--encre); }
+html[data-sombre="on"] .rqc__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .rqc__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .rqc__chiffre { color: var(--encre); }
+html[data-sombre="on"] .rqc__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .rqc__panneau { padding: 1.1rem 1rem 1rem; } .rqc__onglets { padding: .7rem .8rem; } .rqc__chiffre { font-size: 1.25rem; } }
+@media print { .rqc__panneau { display: block; page-break-inside: avoid; } .rqc__onglets { display: none; } }
+</style>
+
+<div class="rqc__entete">
+  <p class="rqc__titre" role="heading" aria-level="3">Le même aléa, deux catastrophes</p>
+  <p class="rqc__consigne">Choisis un critère</p>
+</div>
+
+<div class="rqc__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="rqc__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("risque-comparaison");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "alea",
+      nom: "L'al\u00e9a dominant",
+      sfChiffre: "Les s\u00e9ismes",
+      sfDetail: "La faille de San Andreas traverse la ville. Le littoral est aussi expos\u00e9 aux tsunamis d'origine lointaine.",
+      mnChiffre: "Les typhons",
+      mnDetail: "Manille re\u00e7oit typhons et inondations chaque ann\u00e9e, en plus des s\u00e9ismes et des volcans de la ceinture de feu.",
+      ecart: "\u00c0 San Francisco l'al\u00e9a est rare et brutal. \u00c0 Manille il revient chaque ann\u00e9e, ce qui change compl\u00e8tement la fa\u00e7on de s'y pr\u00e9parer."
+    },
+    {
+      cle: "population",
+      nom: "La population expos\u00e9e",
+      sfChiffre: "842 000",
+      sfDetail: "Habitants de la ville de San Francisco. La r\u00e9gion de la baie en compte environ 7,7 millions.",
+      mnChiffre: "20 millions",
+      mnDetail: "Habitants du Grand Manille, soit environ 14 % de la population des Philippines sur un seul territoire urbain.",
+      ecart: "Un m\u00eame \u00e9v\u00e9nement menace beaucoup plus de monde \u00e0 Manille, simplement parce qu'il y a plus de monde."
+    },
+    {
+      cle: "densite",
+      nom: "La densit\u00e9",
+      sfChiffre: "7 200 hab./km\u00b2",
+      sfDetail: "Deuxi\u00e8me grande ville la plus dense des \u00c9tats-Unis, derri\u00e8re New York.",
+      mnChiffre: "40 000 hab./km\u00b2",
+      mnDetail: "L'une des villes les plus denses du monde. Montr\u00e9al, \u00e0 titre de comparaison, tourne autour de 4 000 hab./km\u00b2.",
+      ecart: "Plus la densit\u00e9 est forte, plus l'\u00e9vacuation est lente et plus l'incendie ou l'inondation se propagent vite."
+    },
+    {
+      cle: "construction",
+      nom: "Les normes de construction",
+      sfChiffre: "Obligatoires",
+      sfDetail: "Les nouvelles constructions doivent respecter des normes parasismiques, et la ville \u00e9vite de b\u00e2tir sur les sols les plus fragiles.",
+      mnChiffre: "Souvent absentes",
+      mnDetail: "Une partie de la population habite des quartiers b\u00e2tis sans norme, parfois des maisons sur pilotis le long du littoral.",
+      ecart: "C'est ici que le niveau de d\u00e9veloppement se voit le mieux : construire solide co\u00fbte cher, et tout le monde n'en a pas les moyens."
+    },
+    {
+      cle: "alerte",
+      nom: "L'alerte",
+      sfChiffre: "Quelques secondes",
+      sfDetail: "ShakeAlert d\u00e9tecte la premi\u00e8re onde d'un s\u00e9isme d\u00e9j\u00e0 commenc\u00e9 et pr\u00e9vient avant l'arriv\u00e9e de la seconde, plus destructrice.",
+      mnChiffre: "Toutes les six heures",
+      mnDetail: "L'agence gouvernementale PAGASA suit les typhons par radar et \u00e9met des bulletins r\u00e9guliers pendant une catastrophe.",
+      ecart: "Un typhon se voit venir plusieurs jours \u00e0 l'avance, un s\u00e9isme jamais. Le type d'al\u00e9a commande le type d'alerte."
+    },
+    {
+      cle: "bilan",
+      nom: "Un bilan r\u00e9el",
+      sfChiffre: "63 morts",
+      sfDetail: "S\u00e9isme de 1989 : 63 morts, 3 757 bless\u00e9s et de 5,6 \u00e0 6 milliards de dollars de d\u00e9g\u00e2ts.",
+      mnChiffre: "1,95 million de sinistr\u00e9s",
+      mnDetail: "Inondations de 2012 : 80 % de la capitale sous les eaux, pr\u00e8s de deux millions de personnes touch\u00e9es et 300 000 \u00e9vacu\u00e9es.",
+      ecart: "Dans un pays d\u00e9velopp\u00e9, la catastrophe se compte surtout en dollars. Ailleurs, elle se compte surtout en personnes."
+    }
+  ];
+
+  var onglets = racine.querySelector(".rqc__onglets");
+  var contenu = racine.querySelector(".rqc__contenu");
+
+  function cote(lieu, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "rqc__cote" + (modificateur ? " rqc__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "rqc__lieu";
+    etiquette.textContent = lieu;
+    var nombre = document.createElement("span");
+    nombre.className = "rqc__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "rqc__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "rqc__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "rqc-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "rqc__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "rqc-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "rqc__colonnes";
+    colonnes.appendChild(cote("San Francisco", critere.sfChiffre, critere.sfDetail, ""));
+    colonnes.appendChild(cote("Manille", critere.mnChiffre, critere.mnDetail, "manille"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "rqc__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

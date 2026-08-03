@@ -2365,3 +2365,133 @@ de la section, et les deux se jumellent côte à côte. La sous-section « Le r�
 d'autobus et le Réso » n'a plus de vidéo.
 
 La fiche compte maintenant 19 vidéos, dont 8 duos.
+
+## Fiche : La ville soumise à des risques naturels
+
+### Deuxième fiche de géographie (livraison 95)
+
+`contenu/geographie/04-ville-risques-naturels.md` passe du gabarit à
+`brouillon`. Sept sections : Mise en contexte, Concepts à l'étude, Les types de
+risques naturels, San Francisco une ville qui tremble, Les séismes de 1906 et de
+1989, Se préparer aux séismes, Le niveau de développement et la vulnérabilité.
+L'entête ne garde que San Francisco.
+
+Comme convenu, seuls les onze concepts prescrits sont définis. Ta page en
+définissait neuf, dont quatre hors programme et six manquants. Aléa, catastrophe
+naturelle et vulnérabilité restent nécessaires pour lire la fiche : ils sont
+posés par le schéma et par un encadré `note` qui prévient l'élève qu'ils ne font
+pas partie de la liste.
+
+### Les corrections de fond
+
+**1. Manille est aux Philippines**, pas en Indonésie. Corrigé.
+
+**2. Le « Big One » ne détachera pas la Californie.** Le passage est réécrit sur
+ce que les scientifiques annoncent vraiment : environ une chance sur deux qu'un
+séisme de magnitude 7 ou plus frappe la région de la baie d'ici trente ans. Un
+encadré `note` explique pourquoi l'engloutissement est impossible, et il
+s'appuie sur ce que ta page disait déjà deux paragraphes plus haut : San Andreas
+est un décrochement, les deux plaques glissent côte à côte sans que l'une passe
+sous l'autre.
+
+**3. Les sismologues n'avertissent pas « quelques minutes avant ».** La section
+« Étudier les séismes » distingue maintenant prévoir et alerter. ShakeAlert ne
+prévoit rien : il détecte la première onde d'un séisme déjà commencé et prévient
+avant l'arrivée de la seconde, plus destructrice. Cela donne quelques secondes,
+parfois quelques dizaines. Un encadré `savais-tu` montre ce qu'on peut faire de
+ces secondes : retenir un train avant un tunnel, ouvrir la porte d'une caserne,
+faire descendre les ascenseurs.
+
+**4. L'échelle de Richter n'a pas de maximum.** Comme tu l'as demandé, la note
+explique que les manuels l'ont longtemps présentée de 1 à 9, que c'est une
+simplification commode puisque aucun séisme mesuré n'a dépassé 9,5, et que les
+organismes emploient aujourd'hui la magnitude de moment.
+
+### Les chiffres
+
+**5. Le séisme de 1906.** 8,5 devient 7,8 à 7,9. La note fait la nuance que tu
+voulais : ce n'est pas une erreur de calcul mais un changement d'instrument, les
+premières estimations utilisant les ondes de surface, qui donnent des valeurs
+plus élevées pour les très gros séismes. C'est ce qui explique le 8,3 que l'on
+lit souvent.
+
+**6. Le tsunami de 1906.** Vérifié comme demandé, et le résultat est net. Le
+marégraphe du Presidio a bien enregistré un tsunami ce jour-là, mais d'une
+amplitude d'environ 7,6 centimètres, soit trois pouces. Il a été étudié
+précisément par l'USGS, justement parce qu'il était minuscule et de forme
+inhabituelle. Trois pouces, trois mètres : la ligne est retirée.
+
+**7. Le séisme de 1989.** 67 morts devient 63, avec 3 757 blessés et 12 053
+personnes privées de logement. Les dégâts passent à une fourchette de 5,6 à
+6 milliards, en signalant que certaines sources montent à 10 milliards en
+comptant toutes les pertes.
+
+**8. Les populations, avec leur territoire nommé.** La ville de San Francisco
+compte environ 842 000 habitants sur 121 km², soit près de 7 200 hab./km², ce
+qui en fait la deuxième grande ville la plus dense des États-Unis. L'aire
+métropolitaine de San Francisco, Oakland et Fremont réunit 4,65 millions
+d'habitants. La région de la baie, neuf comtés, atteint 7,7 millions. Le
+13,6 millions de ta page ne correspond à aucun de ces découpages.
+
+**9. Les 20 % de la Californie.** Rattaché à la région de la baie, comme tu l'as
+tranché : ses 7,7 millions d'habitants représentent environ le cinquième des
+Californiens.
+
+### Sept images
+
+Deux viennent de l'USGS, dans le domaine public, avec crédits remplis : le
+panorama de San Francisco en ruines pris d'un cerf-volant en mai 1906, par
+George R. Lawrence, et l'immeuble effondré du quartier Marina en 1989,
+photographié par C. E. Meyer.
+
+Cinq sont reprises de ton Google Site par leur adresse directe, sans crédit : le
+schéma des concepts, la carte des États-Unis, la carte de la ceinture de feu, la
+carte de la faille de San Andreas et la photo des dégâts de 1989. Les vignettes
+des définitions ne sont pas reprises, comme convenu.
+
+Elles se rangent en deux galeries de trois : les trois cartes à la fin de
+« San Francisco, une ville qui tremble », les trois photographies à la fin des
+« Séismes de 1906 et de 1989 ».
+
+### Les vidéos, ce que j'ai gardé
+
+Onze capsules sur les douze de ta page, réparties par type de risque et par
+séisme, dont trois duos côte à côte.
+
+J'ai écarté les deux liens vers des vidéos Facebook de National Geographic, sur
+la faille et sur le Big One. On avait déjà tranché ce format sur la fiche 02 :
+il vieillit mal et demande souvent un compte.
+
+J'ai aussi laissé de côté « Et si la Californie était avalée par la Terre? »,
+faute de pouvoir vérifier son contenu depuis mon environnement. Si cette capsule
+démonte le mythe, elle a toute sa place à côté de l'encadré sur le Big One. Si
+elle le raconte, elle contredirait la fiche. Dis-moi et je l'ajoute.
+
+### Deux schémas
+
+- `alea-risque-catastrophe`, la chaîne en trois temps, avec les conditions de
+  passage d'une case à l'autre et un bandeau sur la vulnérabilité, qui décide de
+  la gravité à aléa égal
+- `theme/composants/risque-comparaison.html`, un comparateur interactif à six
+  onglets entre San Francisco et Manille : l'aléa dominant, la population
+  exposée, la densité, les normes de construction, l'alerte et un bilan réel.
+  C'est là que l'enjeu du niveau de développement se lit d'un coup d'oeil.
+
+### Deux ajouts de ma part, à retirer si tu n'en veux pas
+
+**10. Le quartier Marina.** J'explique pourquoi le secteur le plus touché en
+1989 était à cent kilomètres de l'épicentre : il est bâti en partie sur des
+remblais déversés dans la baie, des sols meubles et gorgés d'eau qui se
+comportent comme un liquide pendant une secousse. C'est le lien direct entre
+planification urbaine et bilan, et il donne une des questions de la section.
+
+**11. Le déplacement de la plaque pacifique**, environ cinq centimètres par
+année vers le nord-ouest. Un chiffre concret pour rendre le décrochement
+tangible, et il sert dans la note sur le Big One.
+
+### Le compte
+
+Ligne de base du vérificateur avant de commencer : 16 problèmes. Après : 23. Le
+delta de 7 correspond exactement aux sept nouvelles images. Aucun problème hors
+images. `liens.py` vérifie 724 liens, aucun brisé. Les deux suites Node passent
+à 0 échec.

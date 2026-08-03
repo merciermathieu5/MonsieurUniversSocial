@@ -1,0 +1,46 @@
+<svg viewBox="0 0 1000 440" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Comparaison du centre-ville et de la banlieue selon cinq critères identiques : densité, forme du bâti, déplacements, prix médian et zone agricole protégée">
+  <style>
+    .vb-t { font-family: Archivo, sans-serif; }
+    .vb-col { font-size: 21px; font-weight: 700; }
+    .vb-cle { font-size: 14px; font-weight: 600; fill: var(--schema-cle); }
+    .vb-v { font-size: 15px; fill: var(--encre); }
+  </style>
+  <rect x="286" y="8" width="340" height="46" rx="4" fill="var(--bloc)"/>
+  <rect x="642" y="8" width="350" height="46" rx="4" fill="var(--bloc-pale)"/>
+  <text class="vb-t vb-col" x="456" y="39" text-anchor="middle" fill="var(--bloc-texte)">Le centre-ville</text>
+  <text class="vb-t vb-col" x="817" y="39" text-anchor="middle" fill="var(--bloc-pale-texte)">La banlieue</text>
+
+  <text class="vb-t vb-cle" x="8" y="94">Densité de population</text>
+  <text class="vb-t vb-v" x="300" y="94">Ville de Montréal : environ</text>
+  <text class="vb-t vb-v" x="300" y="114">5 260 hab./km².</text>
+  <text class="vb-t vb-v" x="656" y="94">Région métropolitaine : moins</text>
+  <text class="vb-t vb-v" x="656" y="114">de 1 000 hab./km².</text>
+  <line x1="8" y1="134" x2="992" y2="134" stroke="var(--schema-trait)"/>
+
+  <text class="vb-t vb-cle" x="8" y="170">Forme du bâti</text>
+  <text class="vb-t vb-v" x="300" y="170">Plex, immeubles à logements et</text>
+  <text class="vb-t vb-v" x="300" y="190">copropriétés, sur de petits lots.</text>
+  <text class="vb-t vb-v" x="656" y="170">Maisons unifamiliales avec</text>
+  <text class="vb-t vb-v" x="656" y="190">terrain, sur de plus grands lots.</text>
+  <line x1="8" y1="210" x2="992" y2="210" stroke="var(--schema-trait)"/>
+
+  <text class="vb-t vb-cle" x="8" y="246">Déplacements quotidiens</text>
+  <text class="vb-t vb-v" x="300" y="246">Métro, REM, autobus et Réso</text>
+  <text class="vb-t vb-v" x="300" y="266">desservent l'île.</text>
+  <text class="vb-t vb-v" x="656" y="246">100 000 personnes entrent</text>
+  <text class="vb-t vb-v" x="656" y="266">chaque jour, dont 94 % en auto.</text>
+  <line x1="8" y1="286" x2="992" y2="286" stroke="var(--schema-trait)"/>
+
+  <text class="vb-t vb-cle" x="8" y="322">Prix médian, région, avril 2026</text>
+  <text class="vb-t vb-v" x="300" y="322">Plex : 865 000 $.</text>
+  <text class="vb-t vb-v" x="656" y="322">Maison unifamiliale :</text>
+  <text class="vb-t vb-v" x="656" y="342">645 000 $.</text>
+  <line x1="8" y1="362" x2="992" y2="362" stroke="var(--schema-trait)"/>
+
+  <text class="vb-t vb-cle" x="8" y="398">Zone agricole protégée</text>
+  <text class="vb-t vb-v" x="300" y="398">Deux petites zones à l'ouest</text>
+  <text class="vb-t vb-v" x="300" y="418">de l'île, dont L'Île-Bizard.</text>
+  <text class="vb-t vb-v" x="656" y="398">Plus de 2 200 km² dans la</text>
+  <text class="vb-t vb-v" x="656" y="418">région métropolitaine.</text>
+</svg>

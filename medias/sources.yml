@@ -1999,3 +1999,75 @@ boycott-1933.jpg:
   titre: ''
   licence: ''
   lien: ''
+sf-ruines-1906.jpg:
+  cadrage: large
+  fiche: 04-ville-risques-naturels
+  commons: ''
+  recherche: ''
+  url: https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/thumbnails/image/San_Francisco_in_ruin_edit2.jpg
+  depot: U.S. Geological Survey
+  auteur: "George R. Lawrence"
+  titre: "San Francisco en ruines, panorama pris d'un cerf-volant le 28 mai 1906"
+  licence: Domaine public
+  lien: https://www.usgs.gov/media/images/san-francisco-ruins-1906
+marina-1989.jpg:
+  cadrage: flottant
+  fiche: 04-ville-risques-naturels
+  commons: ''
+  recherche: ''
+  url: https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/thumbnails/image/LomaPrietaSFDivisideroCollapseMeyer.jpg
+  depot: U.S. Geological Survey
+  auteur: "C. E. Meyer"
+  titre: "Immeuble effondre et zone incendiee, quartier Marina, apres le seisme du 17 octobre 1989"
+  licence: Domaine public
+  lien: https://www.usgs.gov/media/images/marina-district-san-francisco-after-1989-loma-prieta-earthquake
+concepts-risques.png:
+  cadrage: large
+  fiche: 04-ville-risques-naturels
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXW5XlMsOrA9XXXFwVFGVwcJiraDE8vjFTHo3K7dV0dwkg5VUHl1BOg0BjK8IAKxsv5KrKA8d7kOMkpnMj1RPJAE34QpyLhtr6Wq4gqwcDfyhKm6nYskrapKUrr5TNhvi3COH_tJdTUKkg_T0MORGlFuWecqKkcPV4zLkqg8oRz2SnLCNKQhwAzjFLkN6zvHAZpxpseLiNsIB-tldc=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+carte-etats-unis.png:
+  cadrage: carte
+  fiche: 04-ville-risques-naturels
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQWyWvdTGqOA2lokQilMQ9JeHTuU4YeGYi48w48aGeZm051BZgj8HyvF6y77R54fHNAJ__9pEnDJv3bF-f895kl5tLKFyId7ZLIWwIxu0WS1RUu7TH1QPr3cs9LM7usl9zNq8k_qVt23sGJkRi6uElJRHK1klkmL43FciJDHJq_VNikxZVvTHX4NTJyCjnJQbhTcH1_R2vhtAMbOWsw=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+ceinture-feu-pacifique.png:
+  cadrage: carte
+  fiche: 04-ville-risques-naturels
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXfacDQWzjAy7q3d707cn6JK562ZMxKC484eha_YrAf0ydXA-nFoveAyVQrl2hvBUBXr0uQFGVygmS_ukMx7WduwP3Wrks-zE3V1-17Nj7Jf28W-h9opTOj_K8n35L2R8VcyBb9NUXVOlbgsT-yTSZTQSB6fodbCQecAVJFpzMA5-SwTgWrV9dw28Bcm2TqFbuht7MPG0HhPrkeJ1M=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+faille-san-andreas.png:
+  cadrage: carte
+  fiche: 04-ville-risques-naturels
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUc5Xejz4wB5UD8ULk1uw9ynRlyUH_bggQQZ4Vs4IsDsaGxMprfSSlQKwgnGabPSuOAZjZg2g-B3UGH9A4XyJsjGYdMpqRxmPNLKLwA3Aq3Y-TEKj_6C7W5y_MRahKzjtB_PZXbLj90GIVYFRhAcRxcz_SQFeGB-BlF_CE4wAxhsm63lPCzXxRHQkp6wuFu0p29_EnpDBLi9S3KzdggVncOuWfzDea1S6Ovw13iTRk=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
+seisme-1989-degats.png:
+  cadrage: flottant
+  fiche: 04-ville-risques-naturels
+  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXEpxNF96dhXKJ8IyXH2Blbd80mhs9hDUS2iQg2CWGnMd0rr4ovFOVi-_H1dKAZLAtu6YnOsurvMN_xruzQyKC5AwKPClLOZkvpdvypyQ1WC39I1Wpzxj3OvYpGXeY5OeNB0vMfFqIb3vXVlOfcFj6zapCo3ZzlXwQ2kDpbB8kfjOwr_iBZH4UzzLLxDvkUPYUAxL-mx2R7j5ha=w1280
+  commons: ''
+  recherche: ''
+  titre: ''
+  auteur: ''
+  licence: ''
+  lien: ''
