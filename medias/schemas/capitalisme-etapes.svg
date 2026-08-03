@@ -1,0 +1,54 @@
+<svg viewBox="0 0 1100 440" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Le cycle du capitalisme en six étapes, du capital investi jusqu'au profit réinvesti">
+  <style>
+    .ke-t { font-family: Archivo, sans-serif; }
+    .ke-h { font-size: 16px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .ke-e { font-size: 13px; fill: var(--bloc-pale-texte); }
+    .ke-h6 { font-size: 16px; font-weight: 700; fill: var(--surface); }
+    .ke-e6 { font-size: 13px; fill: var(--surface); }
+    .ke-l { stroke: var(--schema-trait); stroke-width: 2; fill: none; }
+  </style>
+
+  <rect x="20" y="40" width="320" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ke-t ke-h" x="180" y="76" text-anchor="middle">1. Le capital</text>
+  <text class="ke-t ke-e" x="180" y="106" text-anchor="middle">Le bourgeois investit son argent</text>
+  <text class="ke-t ke-e" x="180" y="128" text-anchor="middle">dans la création d'une usine.</text>
+
+  <rect x="390" y="40" width="320" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ke-t ke-h" x="550" y="76" text-anchor="middle">2. Les moyens de production</text>
+  <text class="ke-t ke-e" x="550" y="106" text-anchor="middle">Il achète les machines, le bâtiment</text>
+  <text class="ke-t ke-e" x="550" y="128" text-anchor="middle">et la matière première.</text>
+
+  <rect x="760" y="40" width="320" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ke-t ke-h" x="920" y="76" text-anchor="middle">3. La main-d'oeuvre</text>
+  <text class="ke-t ke-e" x="920" y="106" text-anchor="middle">Il embauche des ouvriers et leur</text>
+  <text class="ke-t ke-e" x="920" y="128" text-anchor="middle">verse un salaire.</text>
+
+  <rect x="20" y="260" width="320" height="120" rx="6" fill="var(--schema-accent)"/>
+  <text class="ke-t ke-h6" x="180" y="296" text-anchor="middle">6. Le profit</text>
+  <text class="ke-t ke-e6" x="180" y="326" text-anchor="middle">Ce qui reste est réinvesti pour</text>
+  <text class="ke-t ke-e6" x="180" y="348" text-anchor="middle">produire encore plus.</text>
+
+  <rect x="390" y="260" width="320" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ke-t ke-h" x="550" y="296" text-anchor="middle">5. La vente</text>
+  <text class="ke-t ke-e" x="550" y="326" text-anchor="middle">Les biens sont vendus sur le marché,</text>
+  <text class="ke-t ke-e" x="550" y="348" text-anchor="middle">à un prix concurrentiel.</text>
+
+  <rect x="760" y="260" width="320" height="120" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ke-t ke-h" x="920" y="296" text-anchor="middle">4. La production</text>
+  <text class="ke-t ke-e" x="920" y="326" text-anchor="middle">L'usine fabrique des biens</text>
+  <text class="ke-t ke-e" x="920" y="348" text-anchor="middle">en très grande quantité.</text>
+
+  <path class="ke-l" d="M 340 100 L 372 100"/>
+  <path d="M 372 90 L 390 100 L 372 110 Z" fill="var(--schema-trait)"/>
+  <path class="ke-l" d="M 710 100 L 742 100"/>
+  <path d="M 742 90 L 760 100 L 742 110 Z" fill="var(--schema-trait)"/>
+  <path class="ke-l" d="M 920 160 L 920 242"/>
+  <path d="M 910 242 L 930 242 L 920 260 Z" fill="var(--schema-trait)"/>
+  <path class="ke-l" d="M 760 320 L 728 320"/>
+  <path d="M 728 310 L 710 320 L 728 330 Z" fill="var(--schema-trait)"/>
+  <path class="ke-l" d="M 390 320 L 358 320"/>
+  <path d="M 358 310 L 340 320 L 358 330 Z" fill="var(--schema-trait)"/>
+  <path class="ke-l" d="M 180 260 L 180 210 L 180 178"/>
+  <path d="M 170 178 L 190 178 L 180 160 Z" fill="var(--schema-trait)"/>
+</svg>

@@ -1,0 +1,50 @@
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Tableau comparatif du taylorisme et du fordisme selon quatre critères, le geste de l'ouvrier, l'organisation, le salaire et le but visé">
+  <style>
+    .tf-t { font-family: Archivo, sans-serif; }
+    .tf-h { font-size: 18px; font-weight: 700; fill: var(--bloc-texte); }
+    .tf-c { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .tf-e { font-size: 13px; fill: var(--encre); }
+  </style>
+
+  <rect x="300" y="20" width="380" height="46" rx="5" fill="var(--bloc)"/>
+  <text class="tf-t tf-h" x="490" y="50" text-anchor="middle">Le taylorisme</text>
+  <rect x="700" y="20" width="380" height="46" rx="5" fill="var(--bloc)"/>
+  <text class="tf-t tf-h" x="890" y="50" text-anchor="middle">Le fordisme</text>
+
+  <rect x="20" y="86" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="tf-t tf-c" x="150" y="124" text-anchor="middle">Le geste de l'ouvrier</text>
+  <rect x="300" y="86" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="490" y="113" text-anchor="middle">Découpé, chronométré</text>
+  <text class="tf-t tf-e" x="490" y="134" text-anchor="middle">et imposé d'en haut.</text>
+  <rect x="700" y="86" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="890" y="113" text-anchor="middle">Découpé, chronométré</text>
+  <text class="tf-t tf-e" x="890" y="134" text-anchor="middle">et rythmé par la chaîne.</text>
+
+  <rect x="20" y="162" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="tf-t tf-c" x="150" y="200" text-anchor="middle">L'organisation</text>
+  <rect x="300" y="162" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="490" y="189" text-anchor="middle">Chaque ouvrier tient</text>
+  <text class="tf-t tf-e" x="490" y="210" text-anchor="middle">un poste et une tâche.</text>
+  <rect x="700" y="162" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="890" y="189" text-anchor="middle">La chaîne amène la pièce</text>
+  <text class="tf-t tf-e" x="890" y="210" text-anchor="middle">à l'ouvrier, qui reste en place.</text>
+
+  <rect x="20" y="238" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="tf-t tf-c" x="150" y="276" text-anchor="middle">Le salaire</text>
+  <rect x="300" y="238" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="490" y="265" text-anchor="middle">Payé au rendement,</text>
+  <text class="tf-t tf-e" x="490" y="286" text-anchor="middle">pièce par pièce.</text>
+  <rect x="700" y="238" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="890" y="265" text-anchor="middle">Cinq dollars par jour,</text>
+  <text class="tf-t tf-e" x="890" y="286" text-anchor="middle">pour huit heures de travail.</text>
+
+  <rect x="20" y="314" width="260" height="64" rx="5" fill="var(--bloc-pale)"/>
+  <text class="tf-t tf-c" x="150" y="352" text-anchor="middle">Le but visé</text>
+  <rect x="300" y="314" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="490" y="341" text-anchor="middle">Supprimer les gestes</text>
+  <text class="tf-t tf-e" x="490" y="362" text-anchor="middle">inutiles et gagner du temps.</text>
+  <rect x="700" y="314" width="380" height="64" rx="5" fill="var(--surface)"/>
+  <text class="tf-t tf-e" x="890" y="341" text-anchor="middle">Produire en masse pour</text>
+  <text class="tf-t tf-e" x="890" y="362" text-anchor="middle">vendre en masse.</text>
+</svg>

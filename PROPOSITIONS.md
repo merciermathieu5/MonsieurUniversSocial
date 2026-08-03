@@ -1219,3 +1219,163 @@ refaite :
 - Sur mobile, la colonne des dates passe au-dessus du titre et le fil
   disparaît, plutôt que de comprimer la mise en page.
 
+
+## Fiche : L'industrialisation
+
+### Corrections déjà faites, sans incidence sur le contenu
+
+- « Allo Prof » devient « Alloprof », par cohérence avec la fiche 09
+- « Les lois sur l'enclosures de 1727 » devient « Les lois sur les enclosures »
+- « une réalité qui touchera plusieurs pays » : le verbe est mis au futur
+  simple, « atteindra », le texte disait « touchera » deux fois dans la même
+  phrase que « touche »
+- « tel que le Bengale » devient « comme le Bengale », « des régions
+  productrices tel que » ne s'accordait pas
+- « contribue a augmenter » devient « contribue à augmenter »
+- « Les entreprises doivent être libre » devient « libres »
+- « qu'ils ont eux même fabriqué » devient « qu'ils avaient eux-mêmes
+  fabriqués »
+- « le gouvernement de de Benjamin Disraeli » : le doublon est retiré
+- « plusieurs lois qui permet » devient « qui permettent »
+- « L'houille » devient « La houille »
+- « organisation syndicales » devient « organisations syndicales »
+- « mourraient » devient « mouraient », aux trois occurrences
+- « Le pays de Galles » sans majuscule à pays, « l'Europe de l'Ouest » avec
+  majuscule à Ouest
+- Les ligatures oe sont retirées (main-d'oeuvre, oeuvre)
+- Les nombres passent à l'espace des milliers : 1 349 km, 7 000 kilomètres,
+  1 200 000 membres, 2 000 tonnes
+- Les énumérations de trois éléments et plus passent en listes à puces :
+  les villes anglaises, les voies ferrées, les lois britanniques
+
+### Ce que tu as tranché, appliqué (livraison 75)
+
+1. **Le dépôt privé.** Le clone a échoué, j'ai travaillé sur le zip 74. Je ne
+   livre que le zip, tu déposes toi-même.
+2. **Newcomen.** Le faux portrait est écarté. La fiche montre la gravure de sa
+   machine atmosphérique, et un encadré `note` explique franchement à l'élève
+   pourquoi il ne verra pas son visage : aucun portrait ne nous est parvenu,
+   seulement deux lettres de sa main.
+3. **Stephenson.** Ton texte sur George est conservé tel quel pour les débuts
+   du rail. La Rocket est légendée au nom de Robert, et un encadré `note`
+   distingue le père du fils.
+4. **Les gravures McCord.** *L'ancienne façon* et *La nouvelle façon* de John
+   Henry Walker sont en place, en ouverture de la section sur les modes de
+   production. Elles sont inscrites au registre avec `source: locale`, donc
+   images.py ne tentera jamais de les remplacer, et leurs crédits sont
+   remplis à la main : auteur, cotes M930.50.5.142 et M930.50.5.262, licence
+   Creative Commons BY-NC-ND, lien vers le Musée McCord Stewart. Le
+   vérificateur les signale comme « à déposer à la main » tant que les deux
+   fichiers ne sont pas dans medias/10-industrialisation/.
+5. **Ailleurs dans le monde.** Les trois images sont gardées : la vallée
+   industrielle de Cleveland, le chevalement de la fosse Arenberg des mines
+   d'Anzin et le canal de Lachine à Montréal en 1826.
+6. **Quatre schémas neufs**, tous validés par le vérificateur dans les deux
+   thèmes : `frise-industrialisation` (huit repères de 1712 à 1910),
+   `causes-industrialisation` (les cinq conditions qui convergent),
+   `capitalisme-etapes` (le cycle en six étapes, le profit en accent doré) et
+   `taylorisme-fordisme` (quatre critères rigoureusement identiques des deux
+   côtés).
+7. **Le fordisme** est resté sans réponse de ta part. Voir la section
+   suivante.
+8. **Winnipeg** est un encadré `savais-tu`, dans une courte sous-partie
+   « Un écho au Canada » qui accueille la photo et le dossier de
+   Radio-Canada. C'est le seul contenu canadien de la fiche et il reste à sa
+   place, en ouverture plutôt qu'en section pleine.
+9. **Les quatre vidéos** sont en place, chacune près de son texte : la
+   mule-jenny dans les inventions, Germinal dans le charbon, Les temps
+   modernes dans la classe ouvrière, le fordisme à la fin. Le reportage sur
+   les grèves est sur Dailymotion, donc le bloc `::: video` ne peut pas le
+   prendre : il devient un lien dans un encadré `activite`, comme les deux
+   animations gif des machines et la vue panoramique de Saltaire.
+10. **Le jeu d'évasion Genially et le schéma ThingLink** sont retirés.
+11. **Les concepts.** L'en-tête garde ses neuf concepts, inchangés. Le capital
+    et la consommation sont définis dans le fil du texte, à la fin de la
+    section des concepts, sans toucher à l'en-tête.
+
+### La question 7, restée sans réponse
+
+Tu n'as pas tranché sur le fordisme. J'ai appliqué ma proposition : il reste
+en dernière section, et son premier paragraphe annonce en toutes lettres que
+cette partie va plus loin que le programme. Dis-moi si tu préfères le retirer.
+
+### À valider
+
+**1. La carte des bassins houillers**
+
+Ta page en montrait une, à droite du texte sur le charbon. Je n'ai trouvé sur
+Commons aucune carte des bassins houillers anglais dont je puisse garantir le
+nom de fichier, alors je n'en ai inscrit aucune plutôt que d'en inventer une.
+Le texte parle donc des bassins sans les montrer. Si tu as la carte d'origine,
+dépose-la et je l'inscris en `source: locale`.
+
+**2. La fosse Arenberg**
+
+C'est une photo d'aujourd'hui, pas une vue d'époque : le chevalement est
+conservé, la mine ne tourne plus. La légende le dit sans détour. Si tu
+préfères une gravure du 19e siècle pour la France, dis-le.
+
+**3. Le nombre de villes en 1750**
+
+Ta page donne Londres à 550 000 habitants, Birmingham à 84 700, Liverpool à
+80 000 et Manchester à 70 000, sans préciser l'année. Ces ordres de grandeur
+correspondent aux environs de 1750-1780. Veux-tu que j'ajoute l'année dans le
+texte?
+
+**4. Les enclosures de 1727**
+
+La date de 1727 vient de ta page et elle y est présentée comme celle des lois
+sur l'enclosure. Dans les faits, les enclosures s'étalent sur plus de deux
+siècles et le Parlement en vote des centaines, l'acte général datant de 1801.
+Je n'ai rien changé, comme convenu, mais je te le signale : c'est le genre de
+date qu'un élève retiendra comme unique.
+
+**5. Manchester entre 1801 et 1831**
+
+Ta page écrit que la population passe de 90 000 à 237 000 habitants. Conservé
+tel quel.
+
+### Retrait de trois images de la fiche 09 (livraison 76)
+
+Trois images de la Révolution américaine refusaient de se télécharger. Elles
+sont retirées du registre et de la fiche, comme le prévoit le README :
+
+- `planche-encyclopedie.png`, la planche de l'imprimerie
+- `premier-congres.jpg`, la prière d'ouverture du premier Congrès continental
+- `deuxieme-congres.jpg`, la nomination de Washington
+
+Le texte n'a pas bougé, seules les lignes d'appel d'image ont disparu. La
+sous-section des philosophes garde ses deux autres figures en galerie, et
+celle des congrès n'en a plus du tout : les paragraphes y coulent désormais
+sur toute la largeur.
+
+**Une réserve, à ton jugement.** Le code d'erreur était HTTP 429, pas 403 ni
+404. Le 429 signifie que Commons demande de ralentir, pas que le fichier est
+introuvable : le README prévoit qu'une simple relance suffit dans ce cas. Les
+trois entrées sont donc peut-être valides. Si tu veux les remettre, dis-le et
+je les réinscris telles quelles.
+
+À noter, `cleveland-industrie.jpg` échouait au même moment avec le même code,
+mais c'est une image de la fiche 10 et non de la Révolution américaine. Je
+l'ai laissée en place.
+
+### Correction sur les gravures McCord (livraison 77)
+
+Erreur de ma part, corrigée. Ta page ne porte qu'une seule balise d'image à
+cet endroit, suivie d'une ligne de source qui nomme les deux gravures et
+leurs deux cotes. J'ai lu deux fichiers là où il n'y en a qu'un : le montage
+qui réunit *L'ancienne façon* et *La nouvelle façon* côte à côte.
+
+- Les deux entrées `ancienne-facon.png` et `nouvelle-facon.png` sont
+  remplacées par une seule, `ancienne-nouvelle-facon.png`.
+- Le cadrage passe de `flottant` à `large` : l'image occupe la largeur du
+  texte, ce qui convient à un montage de deux estampes à comparer.
+- Le crédit nomme toujours les deux oeuvres et les deux cotes, M930.50.5.142
+  et M930.50.5.262, avec la licence Creative Commons BY-NC-ND et le renvoi au
+  Musée McCord Stewart.
+- Tu n'as donc plus qu'un seul fichier à déposer dans
+  `medias/10-industrialisation/`, sous le nom `ancienne-nouvelle-facon.png`.
+
+La section n'a plus de galerie : la figure reste en tête du bloc et le texte
+sur l'artisan et sur l'ouvrier coule dessous, ce qui est plus juste puisque
+c'est justement la comparaison des deux gravures qui porte l'explication.

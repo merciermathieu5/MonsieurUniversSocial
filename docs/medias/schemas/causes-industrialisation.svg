@@ -1,0 +1,49 @@
+<svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les cinq conditions réunies en Angleterre, enclosures, charbon, inventions, banques et colonies, qui mènent à l'industrialisation">
+  <style>
+    .ci-t { font-family: Archivo, sans-serif; }
+    .ci-h { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .ci-e { font-size: 13px; fill: var(--bloc-pale-texte); }
+    .ci-r { font-size: 20px; font-weight: 700; fill: var(--bloc-texte); }
+    .ci-s { font-size: 14px; fill: var(--bloc-texte); }
+    .ci-l { stroke: var(--schema-trait); stroke-width: 2; fill: none; }
+  </style>
+
+  <rect x="20" y="40" width="196" height="110" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ci-t ci-h" x="118" y="75" text-anchor="middle">Les enclosures</text>
+  <text class="ci-t ci-e" x="118" y="102" text-anchor="middle">Des paysans sans terre</text>
+  <text class="ci-t ci-e" x="118" y="122" text-anchor="middle">arrivent en ville.</text>
+
+  <rect x="236" y="40" width="196" height="110" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ci-t ci-h" x="334" y="75" text-anchor="middle">Le charbon</text>
+  <text class="ci-t ci-e" x="334" y="102" text-anchor="middle">Les bassins houillers</text>
+  <text class="ci-t ci-e" x="334" y="122" text-anchor="middle">fournissent l'énergie.</text>
+
+  <rect x="452" y="40" width="196" height="110" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ci-t ci-h" x="550" y="75" text-anchor="middle">Les inventions</text>
+  <text class="ci-t ci-e" x="550" y="102" text-anchor="middle">La vapeur remplace</text>
+  <text class="ci-t ci-e" x="550" y="122" text-anchor="middle">la force des bras.</text>
+
+  <rect x="668" y="40" width="196" height="110" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ci-t ci-h" x="766" y="75" text-anchor="middle">Les banques</text>
+  <text class="ci-t ci-e" x="766" y="102" text-anchor="middle">Le crédit finance</text>
+  <text class="ci-t ci-e" x="766" y="122" text-anchor="middle">la construction.</text>
+
+  <rect x="884" y="40" width="196" height="110" rx="6" fill="var(--bloc-pale)"/>
+  <text class="ci-t ci-h" x="982" y="75" text-anchor="middle">Les colonies</text>
+  <text class="ci-t ci-e" x="982" y="102" text-anchor="middle">L'empire fournit</text>
+  <text class="ci-t ci-e" x="982" y="122" text-anchor="middle">matières et marchés.</text>
+
+  <path class="ci-l" d="M 118 150 L 118 220"/>
+  <path class="ci-l" d="M 334 150 L 334 220"/>
+  <path class="ci-l" d="M 550 150 L 550 220"/>
+  <path class="ci-l" d="M 766 150 L 766 220"/>
+  <path class="ci-l" d="M 982 150 L 982 220"/>
+  <path class="ci-l" d="M 118 220 L 982 220"/>
+  <path class="ci-l" d="M 550 220 L 550 288"/>
+  <path d="M 538 288 L 562 288 L 550 306 Z" fill="var(--schema-trait)"/>
+
+  <rect x="20" y="310" width="1060" height="86" rx="6" fill="var(--bloc)"/>
+  <text class="ci-t ci-r" x="550" y="348" text-anchor="middle">L'industrialisation de l'Angleterre</text>
+  <text class="ci-t ci-s" x="550" y="376" text-anchor="middle">Une économie agricole devient une économie industrielle.</text>
+</svg>

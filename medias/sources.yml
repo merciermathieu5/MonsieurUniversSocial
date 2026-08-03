@@ -1304,33 +1304,6 @@ diderot.jpg:
   titre: ''
   licence: ''
   lien: ''
-planche-encyclopedie.png:
-  cadrage: flottant
-  fiche: 09-revolution-americaine
-  commons: File:Planche encyclopédie imprimerie 6 Plan de la presse.jpg
-  recherche: planche Encyclopedie imprimerie presse
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
-premier-congres.jpg:
-  cadrage: flottant
-  fiche: 09-revolution-americaine
-  commons: File:Continental Congress prayer.jpg
-  recherche: First Continental Congress prayer Carpenters Hall
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
-deuxieme-congres.jpg:
-  cadrage: flottant
-  fiche: 09-revolution-americaine
-  commons: File:Washington promotion by Continental Congress.jpg
-  recherche: Washington commander Continental Congress 1775
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
 washington.jpg:
   cadrage: flottant
   fiche: 09-revolution-americaine
@@ -1340,3 +1313,193 @@ washington.jpg:
   titre: ''
   licence: ''
   lien: ''
+carte-angleterre.png:
+  cadrage: carte
+  fiche: 10-industrialisation
+  commons: File:England in the UK and Europe.svg
+  recherche: England in the United Kingdom and Europe map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+cleveland-industrie.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Industrial Valley - Cleveland.jpg
+  recherche: Industrial Valley Cleveland Flats
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+anzin-arenberg.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Wallers - Fosse Arenberg des mines d'Anzin (395).JPG
+  recherche: Wallers fosse Arenberg mines Anzin chevalement
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+montreal-lachine.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Lachine Canal, Montreal, 1826.jpg
+  recherche: Lachine Canal Montreal 1826
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+machine-newcomen.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Newcomen atmospheric engine (Heat Engines, 1913).jpg
+  recherche: Newcomen atmospheric engine diagram Heat Engines 1913
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+watt.jpg:
+  cadrage: petit
+  fiche: 10-industrialisation
+  commons: File:James Watt by Henry Howard.jpg
+  recherche: James Watt portrait Henry Howard National Portrait Gallery
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+machine-watt.png:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: "File:SteamEngine Boulton&Watt 1784.png"
+  recherche: Boulton Watt steam engine 1784 Thurston
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+crompton.jpg:
+  cadrage: petit
+  fiche: 10-industrialisation
+  commons: File:Samuel Crompton, inventor of the spinning mule LCCN2005696488.jpg
+  recherche: Samuel Crompton inventor spinning mule
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+mule-jenny.png:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Baines 1835-Mule Jenny.png
+  recherche: Baines 1835 mule jenny spinning
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+mine-hurrier.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Hurrier Cobden 1853 (v2).jpg
+  recherche: hurrier coal mine Cobden 1853
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+locomotive-rocket.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: "File:Stephenson's Rocket drawing.jpg"
+  recherche: Stephenson Rocket drawing Mechanics Magazine 1829
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+manchester-kersal.jpg:
+  cadrage: large
+  fiche: 10-industrialisation
+  commons: File:Wyld, William - Manchester from Kersal Moor, with rustic figures and goats
+    - Google Art Project.jpg
+  recherche: Wyld Manchester from Kersal Moor
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+filature-coton.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Powerloom weaving in 1835.jpg
+  recherche: powerloom weaving 1835 Baines Allom
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+coalbrookdale.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Philipp Jakob Loutherbourg d. J. 002.jpg
+  recherche: Loutherbourg Coalbrookdale by Night 1801
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+quartier-ouvrier.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Dore London.jpg
+  recherche: Gustave Dore Over London by Rail
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+banque-angleterre.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:Microcosm of London Plate 007 - Bank of England (colour).jpg
+  recherche: Microcosm of London Bank of England Rowlandson Pugin
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+adam-smith.jpg:
+  cadrage: petit
+  fiche: 10-industrialisation
+  commons: File:Adam Smith The Muir portrait.jpg
+  recherche: Adam Smith Muir portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+karl-marx.jpg:
+  cadrage: petit
+  fiche: 10-industrialisation
+  commons: File:Karl Marx 001.jpg
+  recherche: Karl Marx portrait photograph
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+greve-winnipeg.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:RNWMP operations in Winnipeg General Strike, 1919.jpg
+  recherche: RNWMP Winnipeg General Strike 1919
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+chaine-ford.jpg:
+  cadrage: flottant
+  fiche: 10-industrialisation
+  commons: File:A-line1913.jpg
+  recherche: Ford assembly line 1913 Highland Park
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ancienne-nouvelle-facon.png:
+  cadrage: large
+  fiche: 10-industrialisation
+  source: locale
+  depot: Musée McCord Stewart
+  auteur: John Henry Walker
+  titre: "L'ancienne façon et La nouvelle façon (1880), M930.50.5.142 et M930.50.5.262"
+  licence: Creative Commons BY-NC-ND
+  lien: https://www.musee-mccord-stewart.ca/

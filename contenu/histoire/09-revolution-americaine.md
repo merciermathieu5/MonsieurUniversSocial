@@ -111,8 +111,6 @@ Elle s'est vendue à 4000 exemplaires au cours de ses 20 premières années.
 
 ![Denis Diderot, maître d'oeuvre de l'Encyclopédie, par Louis-Michel van Loo](../medias/09-revolution-americaine/diderot.jpg)
 
-![Une planche de l'Encyclopédie consacrée à la presse d'imprimerie](../medias/09-revolution-americaine/planche-encyclopedie.png)
-
 Les philosophes des Lumières étaient des partisans de la raison et de la
 liberté individuelle. Ils ont critiqué les institutions politiques et
 sociales de leur époque qui leur semblaient oppressives, c'est-à-dire
@@ -380,8 +378,6 @@ reçu l'ordre.
 
 #### 1774 : le premier Congrès continental
 
-![La prière d'ouverture du premier Congrès continental, à Philadelphie](../medias/09-revolution-americaine/premier-congres.jpg)
-
 Assemblée composée des délégués des colonies d'Amérique du Nord, qui se
 réunit en septembre et en octobre 1774 à Philadelphie pour discuter de leur
 réponse aux lois intolérables votées par le parlement britannique quelques
@@ -398,8 +394,6 @@ Lincoln, Menotomy et Cambridge. Ils se soldent par le retrait des troupes
 britanniques et plusieurs centaines de morts au total.
 
 #### 1775 : le deuxième Congrès continental
-
-![Le deuxième Congrès continental nomme George Washington à la tête de l'armée](../medias/09-revolution-americaine/deuxieme-congres.jpg)
 
 Assemblée de délégués des Treize colonies qui siégea du 10 mai 1775 au 1er
 mars 1781. Il adopta la Déclaration d'indépendance des États-Unis du 4
