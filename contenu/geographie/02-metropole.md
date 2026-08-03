@@ -252,6 +252,10 @@ Source : Service national du RÉCIT, domaine de l'univers social
 Se déplacer à Montréal
 :::
 
+::: video 1NF1PnoedUM
+Le Réseau express métropolitain
+:::
+
 ### Le métro
 
 ![Le réseau du métro de Montréal](../medias/02-metropole/carte-metro-montreal.png)
@@ -302,10 +306,6 @@ commerciaux et 80 % des immeubles de bureaux du centre-ville aux transports en
 commun. On y accède par plus de 200 entrées. Trente-deux kilomètres de
 galeries souterraines le composent et on y trouve plus de 1 700 boutiques et
 plus de 200 restaurants. Environ 500 000 personnes l'empruntent chaque jour.
-
-::: video 1NF1PnoedUM
-Le Réseau express métropolitain
-:::
 
 #### Le réseau routier
 

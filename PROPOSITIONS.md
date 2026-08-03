@@ -2357,3 +2357,11 @@ express métropolitain », d'après ce que tu m'as dit de son contenu.
 Une question qui reste : la capsule porte sur le REM mais tu m'avais demandé de
 la placer auprès du transport par autobus, et elle y est. Si tu préfères qu'elle
 remonte dans la sous-section « Le REM », dis-le et je la déplace.
+
+### La vidéo du REM change de place (livraison 94)
+
+Elle rejoint la capsule « Se déplacer à Montréal » de Tram McGill, en ouverture
+de la section, et les deux se jumellent côte à côte. La sous-section « Le réseau
+d'autobus et le Réso » n'a plus de vidéo.
+
+La fiche compte maintenant 19 vidéos, dont 8 duos.
