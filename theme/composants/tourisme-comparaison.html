@@ -1,0 +1,168 @@
+<section class="tcp" id="tourisme-comparaison" aria-label="Comparaison de la Gaspésie et de l'Île-de-France comme territoires touristiques">
+<style>
+.tcp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.tcp .tcp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tcp .tcp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.tcp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.tcp__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.tcp__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.tcp__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.tcp__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.tcp__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.tcp__panneau.est-visible { display: block; }
+.tcp__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.tcp__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.tcp__cote--idf { border-left-color: var(--encre-pale); }
+.tcp__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.tcp__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.tcp__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.tcp__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.tcp__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .tcp .tcp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .tcp .tcp__titre { color: var(--encre); }
+html[data-sombre="on"] .tcp__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .tcp__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .tcp__chiffre { color: var(--encre); }
+html[data-sombre="on"] .tcp__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .tcp__panneau { padding: 1.1rem 1rem 1rem; } .tcp__onglets { padding: .7rem .8rem; } .tcp__chiffre { font-size: 1.25rem; } }
+@media print { .tcp__panneau { display: block; page-break-inside: avoid; } .tcp__onglets { display: none; } }
+</style>
+
+<div class="tcp__entete">
+  <p class="tcp__titre" role="heading" aria-level="3">Deux territoires touristiques, six critères</p>
+  <p class="tcp__consigne">Choisis un critère</p>
+</div>
+
+<div class="tcp__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="tcp__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("tourisme-comparaison");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "attrait",
+      nom: "Le type d'attrait",
+      gaChiffre: "La nature",
+      gaDetail: "Un littoral, des montagnes et une faune sauvage. Le rocher Perc\u00e9 et l'\u00eele Bonaventure en sont les embl\u00e8mes, et trois parcs nationaux structurent l'offre.",
+      idChiffre: "Le patrimoine b\u00e2ti",
+      idDetail: "Des monuments et des mus\u00e9es h\u00e9rit\u00e9s de si\u00e8cles de pouvoir politique et religieux : la tour Eiffel, Notre-Dame, Versailles, le Louvre.",
+      ecart: "Un attrait naturel se d\u00e9grade quand on le pi\u00e9tine et ne se reconstruit pas. Un monument s'use aussi, mais il se restaure."
+    },
+    {
+      cle: "volume",
+      nom: "Le volume de visiteurs",
+      gaChiffre: "945 100",
+      gaDetail: "Visiteurs re\u00e7us d'avril 2025 \u00e0 mars 2026, en hausse de 5 %, pour une population r\u00e9sidente de moins de 80 000 personnes.",
+      idChiffre: "49,1 millions",
+      idDetail: "Visiteurs re\u00e7us en 2025, dont plus de 23 millions venus de l'\u00e9tranger, pour une population r\u00e9sidente d'environ 12 millions.",
+      ecart: "En Gasp\u00e9sie il arrive plus de douze visiteurs par habitant, en \u00cele-de-France environ quatre. Le rapport au territoire n'est pas le m\u00eame."
+    },
+    {
+      cle: "saisonnalite",
+      nom: "La saisonnalit\u00e9",
+      gaChiffre: "Trois mois",
+      gaDetail: "Le taux d'occupation des h\u00e9bergements passe de 59 % en juin \u00e0 79 % en juillet, puis retombe. Beaucoup d'emplois n'existent que de juin \u00e0 septembre.",
+      idChiffre: "Toute l'ann\u00e9e",
+      idDetail: "Le tourisme d'affaires, les congr\u00e8s et les salons remplissent les h\u00f4tels hors saison. La fr\u00e9quentation varie sans jamais s'interrompre.",
+      ecart: "Une saison courte oblige \u00e0 gagner en trois mois ce qu'il faut pour vivre douze mois. C'est la fragilit\u00e9 principale de la Gasp\u00e9sie."
+    },
+    {
+      cle: "amenagements",
+      nom: "Les am\u00e9nagements",
+      gaChiffre: "Une route",
+      gaDetail: "La boucle de la route 132 fait environ 885 kilom\u00e8tres et dessert presque tout. S'y ajoutent l'a\u00e9roport de Gasp\u00e9, les traversiers et les parcs nationaux.",
+      idChiffre: "Un r\u00e9seau",
+      idDetail: "Plus de 380 lignes de m\u00e9tro, de RER, de tramway et d'autobus, deux a\u00e9roports internationaux, le TGV et environ 2 455 h\u00f4tels.",
+      ecart: "Quand tout passe par une seule route, un bouchon \u00e0 Perc\u00e9 bloque la r\u00e9gion. Un r\u00e9seau maill\u00e9 absorbe la foule beaucoup mieux."
+    },
+    {
+      cle: "retombees",
+      nom: "Les retomb\u00e9es",
+      gaChiffre: "613,5 M$",
+      gaDetail: "Retomb\u00e9es \u00e9conomiques de 2025-2026, en hausse de 9 % sur un an et de 42 % depuis 2021. Le tourisme a remplac\u00e9 la p\u00eache et les mines.",
+      idChiffre: "24 milliards d'euros",
+      idDetail: "Consommation touristique de 2025, un record. Les visiteurs \u00e9trangers en fournissent pr\u00e8s de 16 milliards, les Fran\u00e7ais 8 milliards.",
+      ecart: "Les deux montants disent la m\u00eame chose \u00e0 des \u00e9chelles diff\u00e9rentes : le tourisme est devenu un pilier de l'\u00e9conomie locale."
+    },
+    {
+      cle: "enjeu",
+      nom: "L'enjeu principal",
+      gaChiffre: "La d\u00e9pendance",
+      gaDetail: "Une \u00e9conomie qui repose sur une seule industrie et sur trois mois d'\u00e9t\u00e9. Un impr\u00e9vu, et les revenus de l'ann\u00e9e s'effondrent.",
+      idChiffre: "Le surtourisme",
+      idDetail: "Une pression constante sur les sites les plus c\u00e9l\u00e8bres et sur le logement, que la location de courte dur\u00e9e retire du march\u00e9 r\u00e9sidentiel.",
+      ecart: "Les deux r\u00e9gions se plaignent du logement, mais pas pour la m\u00eame raison : trop peu de visiteurs l'hiver ici, trop toute l'ann\u00e9e l\u00e0-bas."
+    }
+  ];
+
+  var onglets = racine.querySelector(".tcp__onglets");
+  var contenu = racine.querySelector(".tcp__contenu");
+
+  function cote(lieu, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "tcp__cote" + (modificateur ? " tcp__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "tcp__lieu";
+    etiquette.textContent = lieu;
+    var nombre = document.createElement("span");
+    nombre.className = "tcp__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "tcp__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "tcp__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "tcp-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "tcp__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "tcp-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "tcp__colonnes";
+    colonnes.appendChild(cote("La Gaspésie", critere.gaChiffre, critere.gaDetail, ""));
+    colonnes.appendChild(cote("L'Île-de-France", critere.idChiffre, critere.idDetail, "idf"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "tcp__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

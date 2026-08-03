@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La chaîne qui relie le foyer émetteur au foyer récepteur par le flux touristique, et le fait qu'un même territoire peut jouer les deux rôles">
+  <style>
+    .ft-t { font-family: Archivo, sans-serif; }
+    .ft-cond { font-size: 11px; font-weight: 600; fill: var(--encre-doux); }
+    .ft-h1 { font-size: 17px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .ft-h2 { font-size: 17px; font-weight: 700; fill: var(--surface); }
+    .ft-p1 { font-size: 12.5px; fill: var(--bloc-pale-texte); }
+    .ft-p2 { font-size: 12.5px; fill: var(--surface); }
+    .ft-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .ft-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <text class="ft-t ft-cond" x="367" y="45" text-anchor="middle">S'ils en ont les moyens</text>
+  <text class="ft-t ft-cond" x="732" y="45" text-anchor="middle">S'il y a un attrait</text>
+
+  <rect x="40" y="60" width="290" height="90" rx="5" fill="var(--bloc-pale)"/>
+  <text class="ft-t ft-h1" x="60" y="93">Le foyer émetteur</text>
+  <text class="ft-t ft-p1" x="60" y="117">La région d'où partent les</text>
+  <text class="ft-t ft-p1" x="60" y="136">touristes, où ils vivent l'année.</text>
+
+  <path d="M 340 105 L 388 105 M 380 99 L 388 105 L 380 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="405" y="60" width="290" height="90" rx="5" fill="var(--schema-cle)"/>
+  <text class="ft-t ft-h2" x="425" y="93">Le flux touristique</text>
+  <text class="ft-t ft-p2" x="425" y="117">Le déplacement des touristes</text>
+  <text class="ft-t ft-p2" x="425" y="136">de l'un vers l'autre.</text>
+
+  <path d="M 705 105 L 753 105 M 745 99 L 753 105 L 745 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="770" y="60" width="290" height="90" rx="5" fill="var(--schema-accent)"/>
+  <text class="ft-t ft-h2" x="790" y="93">Le foyer récepteur</text>
+  <text class="ft-t ft-p2" x="790" y="117">La région qui les accueille</text>
+  <text class="ft-t ft-p2" x="790" y="136">et qui s'aménage pour eux.</text>
+
+  <rect x="40" y="195" width="1020" height="66" rx="5" fill="var(--matiere-voile)"/>
+  <text class="ft-t ft-bt" x="62" y="222">Un même territoire joue souvent les deux rôles</text>
+  <text class="ft-t ft-bp" x="62" y="245">La France reçoit plus de touristes que tout autre pays, et les Français comptent parmi ceux qui voyagent le plus à l'étranger.</text>
+</svg>

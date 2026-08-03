@@ -2542,3 +2542,218 @@ immersive sur la Mésopotamie à la place, dis-le et j'en cherche une que je peu
 tester.
 
 `liens.py` ne voyait pas ce problème : il ne vérifie que les liens internes.
+
+## Fiche : Le territoire touristique
+
+### Troisième fiche de géographie (livraison 98)
+
+`contenu/geographie/05-territoire-touristique.md` passe du gabarit à
+`brouillon`. L'entête ne garde que la Gaspésie, marquée obligatoire, et
+l'Île-de-France. Les neuf concepts prescrits sont définis, terme en gras comme
+dans les autres fiches.
+
+**Le plan compte neuf sections, pas huit.** Tes huit sections y sont dans
+l'ordre demandé. La section neuve sur l'acculturation, la commercialisation et
+la multinationale ne pouvait pas se loger ailleurs : elle met ces trois concepts
+au travail sur tes deux cas, elle a donc besoin que les deux cas soient déjà
+présentés. Elle s'appelle « Le tourisme, une industrie mondiale » et ferme la
+fiche. Dis-le si tu préfères la replier en sous-section de l'un des huit.
+
+### Les corrections de fait
+
+**1. Les départements français.** 101 au total, dont 96 en France
+métropolitaine et cinq d'outre-mer. La note explique la différence, puis pose
+que l'Île-de-France en réunit huit.
+
+**2. Notre-Dame.** La construction commence au 12e siècle, en 1163, ce qui rend
+enfin cohérent le 850e anniversaire de 2013. Réouverture les 7 et 8 décembre
+2024, plus de huit millions de visiteurs depuis, tours accessibles depuis
+septembre 2025.
+
+**3. Vaux-le-Vicomte.** Le Vau à l'architecture, Le Brun à la décoration, Le
+Nôtre aux jardins. Mansart avait une quinzaine d'années à l'époque : il ne
+rejoint Versailles qu'en 1678. Le passage sur Versailles est réécrit autour de
+cette équipe.
+
+**4. La tour Eiffel.** 330 mètres depuis le 15 mars 2022, une antenne posée par
+hélicoptère lui ayant fait gagner six mètres. La concession courait vingt ans,
+jusqu'en 1909 : la tour n'était donc pas promise à la démolition au lendemain de
+l'Exposition. C'est à cette échéance qu'Eiffel devait avoir prouvé son utilité.
+
+**5. Le Machu Picchu.** L'affirmation « en péril » est retirée. Une note explique
+que l'UNESCO l'a envisagé en 1999, en 2008 puis en 2015 avec échéance reportée à
+2017, sans jamais inscrire le site, et que « sous surveillance » n'est pas la
+même chose. J'ai retiré le plafond de 5 000 visiteurs par jour plutôt que de le
+reprendre : je n'ai pas pu confirmer sa valeur actuelle. La note dit que le
+nombre est plafonné, sans le chiffrer.
+
+### Les trois vérifications
+
+**6. Les sept zones de l'Île-de-France.** Ta page mélangeait bien deux
+dispositifs sans rapport, et l'un des deux était décrit à l'envers.
+
+Les zones touristiques internationales sont au nombre de douze à Paris depuis
+septembre 2015, en application de la loi du 6 août 2015. Elles ont élargi sept
+anciennes zones touristiques municipales : voilà d'où venait ton chiffre. Elles
+ne touchent pas à la circulation, elles autorisent l'ouverture du dimanche et en
+soirée jusqu'à minuit.
+
+La zone à trafic limité est le second dispositif, en vigueur depuis le 5
+novembre 2024 dans les quatre premiers arrondissements. Elle vise la congestion
+et la pollution. Mais elle interdit le trafic de transit, c'est-à-dire le fait
+de traverser sans s'arrêter, et autorise au contraire le trafic de destination.
+Ta page disait exactement l'inverse, qu'on ne pouvait ni s'y arrêter ni s'y
+stationner. Les deux dispositifs sont maintenant séparés dans une note.
+
+**7. Les données du tourisme gaspésien.** Les 255 M$ de 2018 sont remplacés.
+D'avril 2025 à mars 2026 : plus de 945 100 visiteurs, en hausse de 5 %, et
+613,5 M$ de retombées, en hausse de 9 %. Depuis 2021, les retombées ont progressé
+de 42 %. Pour la saison estivale de 2025 seule : près de 711 000 visiteurs et
+468 M$. Provenance : 70 % du Québec, 12 % des Maritimes, 10 % de l'Ontario, ce
+qui fait du Québec le principal foyer émetteur de la Gaspésie.
+
+Le taux d'occupation méritait mieux qu'un remplacement de chiffre. En juin 2025
+il était de 59 %, en juillet de 79 %. Mais il a reculé certaines années où la
+fréquentation montait, parce que l'offre d'hébergement a grimpé d'environ 10 %
+en un an : plus d'établissements se partageaient une clientèle pourtant plus
+nombreuse. Une note en fait un exercice de lecture, dans l'esprit de celle sur
+l'urbanisation mondiale de la fiche 02.
+
+**8. Le dossier du RÉCIT.** Il se prêtait très bien à l'importation. J'en ai tiré
+quatre images citables avec leurs crédits complets, la capsule de Radio-Canada
+sur le tourisme de masse, et trois exemples qui manquaient à ta page : la baie de
+Maya, Venise et le parc Joffre Lakes.
+
+### Les chiffres
+
+**9. Les retombées de l'Île-de-France.** Tes deux chiffres ne se contredisent
+pas, ils mesurent deux choses différentes, et le bilan de 2025 le montre
+proprement. La consommation touristique francilienne a atteint près de
+24 milliards d'euros en 2025, dont près de 16 milliards venus des visiteurs
+étrangers et 8 milliards des clientèles françaises. Ton « 8 milliards » est donc
+une part, pas un total. J'ai organisé la section autour du chiffre de 2025 et
+ajouté une note qui explique le piège, puisque c'est exactement la leçon de
+méthode que la fiche 02 pose déjà avec Montréal.
+
+Au passage, les données de 2025 remplacent celles de 2024 : 49,1 millions de
+visiteurs dont plus de 23 millions d'étrangers, 9 millions au Louvre, et une
+croissance plus rapide en grande couronne qu'à Paris.
+
+**10. Les chiffres mondiaux, avec source et année.** 435 millions de touristes
+internationaux en 1990, environ 1,46 milliard en 2024, 1,52 milliard en 2025,
+soit un record et une hausse de 4 %. Source : ONU Tourisme, Baromètre du tourisme
+mondial, janvier 2026. Le top 10 est attribué à ONU Tourisme, données de 2024.
+
+**11. La route 132.** Plus de 1 600 kilomètres au total, ce qui en fait la plus
+longue route du Québec, et environ 885 kilomètres pour la seule boucle
+gaspésienne. La distinction est faite dans la phrase. À signaler : la longueur
+de la boucle varie selon les sources, de 844 à plus de 930 kilomètres selon
+l'endroit où l'on coupe. J'ai gardé tes 885, qui sont le chiffre touristique
+courant.
+
+**12. Les distinctions de la Gaspésie.** Ramenées à cinq, les plus récentes,
+chacune attribuée à sa source et à son année, en liste dans un encadré
+`savais-tu`. J'y ajoute une ligne qui fait remarquer que la plus récente remonte
+à 2015. C'est un constat de date, pas un jugement.
+
+### Seize images
+
+Huit sont reprises de ton Google Site par leur adresse directe, celles qui
+portent du contenu : le schéma des concepts, la carte de la Gaspésie, le schéma
+des enjeux, le résumé, la carte de l'Île-de-France et trois cartes de transport.
+Leurs champs de crédit sont vides.
+
+Quatre viennent du dossier du RÉCIT, crédits remplis à la main : le graphique de
+l'OMT sur la mondialisation du tourisme, la baie de Maya par Maksym Kozlenko, le
+paquebot devant le bassin de Saint-Marc par Wolfgang Moroder et le rocher Percé
+par Dennis Jarvis.
+
+Quatre viennent de Commons, noms vérifiés au caractère près :
+`File:Tour Eiffel Wikimedia Commons.jpg`,
+`File:Arc de Triomphe, Paris 21 October 2010.jpg`,
+`File:Paris, Notre Dame -- 2014 -- 1458-65.jpg` et
+`File:Versailles chateau.jpg`.
+
+Les photos d'illustration des huit formes de tourisme, du Grand Tour, de Thomas
+Cook, du phare de La Martre, des Chic-Chocs, de Gespeg, de l'île Bonaventure et
+de la baie des Chaleurs ne sont pas reprises. Je n'ai pas pu confirmer de nom de
+fichier Commons pour elles depuis mon environnement, et je préfère laisser le
+trou que d'inventer. Les sous-titres de niveau 4 sont en place : le jour où tu
+me donnes des noms vérifiés, les figures se rassembleront d'elles-mêmes en
+galeries.
+
+### Deux schémas
+
+- `flux-touristique.svg`, la chaîne foyer émetteur, flux touristique, foyer
+  récepteur, avec la condition de passage au-dessus de chaque flèche et un
+  bandeau sur le fait qu'un même territoire joue souvent les deux rôles
+- `theme/composants/tourisme-comparaison.html`, comparateur interactif à six
+  onglets entre la Gaspésie et l'Île-de-France : le type d'attrait, le volume de
+  visiteurs, la saisonnalité, les aménagements, les retombées et l'enjeu
+  principal. Bâti sur `risque-comparaison.html`, il passe le vérificateur
+
+### Les vidéos et les encadrés
+
+**13. Je ne trouve que sept capsules YouTube sur ta page, pas onze.**
+`lib80ev1iAY`, `7Vk-Sx8HS5U`, `C8KuEucX9Y8`, `FSHzMdfu-60`, `b0wixo_5lXs`,
+`k5xjwcPPbBg` et `A1fVOw5nmC8`. J'ai ajouté `mLza8mGze-o`, la capsule de
+Radio-Canada sur le tourisme de masse citée par le dossier du RÉCIT, ce qui en
+fait huit. Donne-moi les trois manquantes et je les place. Il est possible que
+des intégrations ne soient pas ressorties de la page publiée.
+
+Les deux vidéos Facebook, Dartagnans sur la tour Eiffel et TV5 sur Notre-Dame,
+sont en liens dans des encadrés `activite`, comme demandé. L'EdPuzzle sur le
+tourisme de masse et le Padlet de la revue de l'actualité aussi. Pas
+d'intégration en cadre.
+
+### À valider
+
+**14. La carte de la Gaspésie.** Ta page porte deux images sous le titre « La
+Gaspésie » : une juste sous le titre, une autre après la liste des
+caractéristiques. Je ne peux pas les afficher depuis mon environnement. J'ai
+retenu la seconde comme étant la carte, parce qu'elle suit la description
+géographique de la péninsule. Si c'est l'autre, l'échange se fait en une ligne
+dans `medias/sources.yml`.
+
+**15. Les trois cartes de transport.** Même raisonnement. J'ai pris les deux
+images qui suivent le paragraphe sur le réseau de transport en commun et celle
+qui suit le paragraphe sur les aéroports et le TGV. J'ai laissé de côté la
+quatrième, celle qui accompagnait le passage sur les sept zones, puisque ce
+passage est réécrit et que je ne sais pas ce qu'elle montre.
+
+**16. Les extensions des images du RÉCIT.** Le lien de téléchargement ne dit pas
+le format. J'ai inscrit `.jpg` pour les quatre, comme à la livraison 89. Si
+`images.py` t'annonce un décalage, dis-le et je bascule.
+
+### Le compte
+
+Ligne de base du vérificateur avant de commencer : 20 problèmes, une fois les
+dix fichiers de la liste retirés. Après : 36. Le delta de 16 correspond
+exactement aux seize nouvelles images. Aucun problème hors images : les neuf
+sections passent, dont SCHÉMAS, COMPOSANTS et CONVENTIONS. `liens.py` vérifie
+732 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+### Les suppressions manuelles sont encore à refaire
+
+La dépose a de nouveau ramené les dix fichiers. Ils étaient tous présents dans le
+dépôt en ligne à la livraison 97, et les trois schémas orphelins expliquaient à
+eux seuls trois des problèmes du vérificateur, sous forme de classes CSS
+partagées. Je les ai retirés de mon côté. La liste ne change pas :
+
+    contenu/histoire/00-notions-de-base.md
+    contenu/geographie/00-canada-politique.md
+    contenu/geographie/01-coordonnees-geographiques.md
+    contenu/geographie/08-territoire-energetique-alberta.md
+    medias/schemas/privation-etapes.svg
+    medias/schemas/lois-antijuives.svg
+    medias/schemas/jim-crow-apartheid.svg
+    medias/schemas/ville-banlieue.svg
+    medias/02-metropole/densite-comparee.jpg
+    medias/02-metropole/stade-yankees.jpg
+
+### Les dossiers ouverts, non traités cette fois
+
+`carte-metro-montreal.png` manque toujours à la fiche 02. Les fiches 01 à 04 en
+histoire n'ont toujours pas de section « Concepts à l'étude ». Je n'ai pas
+cherché de ressource immersive sur la Mésopotamie : la fiche du jour a pris tout
+l'espace. Ces trois chantiers restent en attente.
