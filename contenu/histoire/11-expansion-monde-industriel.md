@@ -310,7 +310,7 @@ Source : Alloprof
 
 ![Les écoliers de la mission de Livingstonia, au Malawi](../medias/11-expansion-monde-industriel/ecole-livingstonia.jpg)
 
-![Une école de village à Livingstonia, vers 1910](../medias/11-expansion-monde-industriel/ecole-village.jpg)
+![Une salle de classe à Wuga, en Afrique orientale allemande](../medias/11-expansion-monde-industriel/ecole-wuga.jpg)
 
 Hormis la supériorité militaire, les Européens utilisent l'éducation afin
 d'assimiler les populations d'Afrique. Les populations africaines acceptent

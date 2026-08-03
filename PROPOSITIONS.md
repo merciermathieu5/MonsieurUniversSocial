@@ -1679,3 +1679,20 @@ chez toi, c'est qu'`images.py` n'avait pas encore tourné.
 **Le trajet de Susi et Chuma.** Je n'ai pas chiffré la distance, faute de
 pouvoir vérifier le nombre exact. Si tu tiens à un ordre de grandeur, dis-le et
 je le cherche.
+
+### Remplacement de l'école de village (livraison 82)
+
+`ecole-village.jpg` est retirée. C'était une diapositive de lanterne magique de
+la mission de Livingstonia, colorisée à la main, où des enfants sont alignés
+devant un mur pour la photographie. Le document dit plus long sur le regard du
+photographe que sur l'école coloniale, et il ne se projette pas devant un
+groupe.
+
+À sa place, `ecole-wuga.jpg`, tirée du Bundesarchiv :
+`File:Bundesarchiv Bild 105-DOA0184, Deutsch-Ostafrika, Wuga, Schule.jpg`. On y
+voit une salle de classe de l'Afrique orientale allemande, avec une carte
+affichée au mur. C'est l'école comme instrument d'assimilation, ce que dit
+justement le paragraphe qu'elle accompagne.
+
+`ecole-livingstonia.jpg` reste en place. Dis-moi si elle pose le même problème
+et je la change aussi.

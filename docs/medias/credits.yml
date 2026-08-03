@@ -972,12 +972,12 @@ premier-congres.jpg:
     of Representatives
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Continental_Congress_prayer.jpg
-livingstone-stanley.jpg:
-  commons: File:Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855.jpg
-  titre: Henry Morton Stanley meeting David Livingstone at Ujiji, in Wellcome V0006855
-  auteur: Auteur inconnu
-  licence: Creative Commons BY 4.0
-  lien: https://commons.wikimedia.org/wiki/File:Henry_Morton_Stanley_meeting_David_Livingstone_at_Ujiji,_in_Wellcome_V0006855.jpg
+deuxieme-congres.jpg:
+  commons: File:Washington promotion by Continental Congress.jpg
+  titre: Washington promotion by Continental Congress
+  auteur: Unknown artist, painting printed by Currier & Ives, 1876, part of the Library of Congress collection
+  licence: Domaine public
+  lien: https://commons.wikimedia.org/wiki/File:Washington_promotion_by_Continental_Congress.jpg
 conference-berlin.jpg:
   commons: File:Kongokonferenz.jpg
   titre: Kongokonferenz
@@ -1002,15 +1002,9 @@ herero-prisonniers.jpg:
   auteur: Unknown author Unknown author
   licence: Domaine public
   lien: https://commons.wikimedia.org/wiki/File:Herero_and_Nama_prisoners.jpg
-ecole-village.jpg:
-  commons: File:"A Village School, Livingstonia", Malawi, ca.1910 (imp-cswc-GB-237-CSWC47-LS4-1-035).jpg
-  titre: '"A Village School, Livingstonia", Malawi, ca.1910 (imp-cswc-GB-237-CSWC47-LS4-1-035)'
-  auteur: Unknown author Unknown author
-  licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:%22A_Village_School,_Livingstonia%22,_Malawi,_ca.1910_(imp-cswc-GB-237-CSWC47-LS4-1-035).jpg
-rhodes-colosse.jpg:
-  commons: File:Rhodes Colossus Punch 1892.jpg
-  titre: Rhodes Colossus Punch 1892
-  auteur: Edward Linley Sambourne
-  licence: Domaine public
-  lien: https://commons.wikimedia.org/wiki/File:Rhodes_Colossus_Punch_1892.jpg
+ecole-wuga.jpg:
+  commons: File:Bundesarchiv Bild 105-DOA0184, Deutsch-Ostafrika, Wuga, Schule.jpg
+  titre: Bundesarchiv Bild 105-DOA0184, Deutsch-Ostafrika, Wuga, Schule
+  auteur: Walther Dobbertin
+  licence: CC BY-SA 3.0 de
+  lien: https://commons.wikimedia.org/wiki/File:Bundesarchiv_Bild_105-DOA0184,_Deutsch-Ostafrika,_Wuga,_Schule.jpg
