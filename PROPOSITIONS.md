@@ -4215,3 +4215,87 @@ images : les neuf sections passent. `figures.py` et `paragraphes.py` sans écart
 
 Cette livraison contient aussi la fiche elle-même, apportée par la 115, puisque
 les deux sont bâties sur le même arbre.
+
+### Allègement des images (livraison 117)
+
+`outils/alleger.py` redimensionne et recompresse les images du site. Sur ton
+dépôt, il fait passer `medias/` de 165 Mo à 60,1 Mo, soit **2,7 fois moins**,
+et la fiche la plus lourde de 13,9 Mo à 5,4 Mo.
+
+    python outils/alleger.py              # essai, n'écrit rien
+    python outils/alleger.py --appliquer
+    python outils/alleger.py --liste      # voir aussi --largeur et --qualite
+
+**Je te livre l'outil, pas les images.** Elles pèsent 60 Mo une fois allégées,
+et 120 Mo avec leur copie dans `docs/`. Autant que tu lances la commande chez toi
+en trente secondes. La marche à suivre est celle des autres outils : dépose ce
+zip, lance `python outils/alleger.py --appliquer`, puis `python build.py`.
+
+J'ai fait tourner la chaîne complète sur la version allégée avant de restaurer
+mes originaux : 285 images relues sans erreur, `verifier.py` inchangé à 36
+problèmes, `liens.py` à 786 liens sans brisure, les deux suites Node à 0 échec.
+
+### Les trois garde-fous de l'outil
+
+**Les noms et les extensions ne changent jamais.** C'était la contrainte
+principale. Un JPEG reste un JPEG, un PNG reste un PNG, et le nom de fichier est
+identique. Rien ne casse : ni les références dans les fiches, ni `sources.yml`,
+ni surtout ton `credits.yml`, qui aurait cessé de correspondre et déclenché un
+retéléchargement complet.
+
+**Un fichier n'est jamais remplacé par plus lourd que lui.** Ce n'est pas
+théorique : `plan-reso.png` pèse 370 Ko à l'origine et 2 368 Ko une fois
+redimensionné, parce que l'original est une image à palette que le
+redimensionnement fait basculer en couleurs vraies. L'outil garde l'original dans
+ces cas, et ils sont dix-huit sur deux cent quatre-vingt-quatre.
+
+**Les cartes gardent une largeur plus grande**, 2 000 pixels au lieu de 1 400.
+L'outil les repère par leur cadrage dans le registre. Le texte d'une carte doit
+rester lisible quand l'élève l'agrandit dans la visionneuse.
+
+### Deux décisions techniques qui expliquent le résultat
+
+**On borne le plus grand côté, pas la largeur.** Mon premier essai ne
+redimensionnait que sur la largeur, et les images en hauteur passaient au
+travers. La correction a fait gagner un tiers de plus.
+
+**Les PNG passent en palette de 256 couleurs.** C'est là que se trouvait le gros
+du gain caché. Les PNG du site sont presque tous des cartes, des schémas et des
+gravures, et une palette les allège de trois à six fois sans que cela se voie.
+`carte-amazonie.png` passe de 2 560 à 802 Ko, `faille-san-andreas.png` de 1 312 à
+399 Ko. Un JPEG aurait cassé les aplats et les traits fins, une palette non.
+L'option `--sans-palette` permet de désactiver ce traitement si une image te
+paraît abîmée.
+
+### Le chargement différé
+
+`build.py` pose maintenant `loading="lazy"` et `decoding="async"` sur les images
+de contenu, ce qu'il faisait déjà pour les vidéos mais pas pour elles. Le
+navigateur ne télécharge une image qu'au moment où le lecteur s'en approche. Sur
+une fiche qui en compte vingt, un élève qui lit le tiers du texte n'en charge que
+le tiers.
+
+Ce détail compte autant que la compression pour ta facture de bande passante,
+parce que la plupart des visiteurs ne descendent pas au bas d'une page.
+
+### Ce que ça donne sur la limite de GitHub
+
+Avant : une page servait de 8 à 14 Mo, soit environ 10 000 pages vues par mois
+avant les 100 Go.
+
+Après : une page sert de 2 à 5 Mo, et le chargement différé fait qu'une visite
+moyenne en télécharge une partie seulement. Compte plutôt 40 000 à 60 000 pages
+vues par mois, soit quatre à six fois plus de marge.
+
+Si un jour ça ne suffit plus, la suite est Cloudflare Pages, dont l'offre
+gratuite ne plafonne pas la bande passante et qui se branche directement sur ton
+dépôt GitHub. Ton domaine `muniverssocial.ca` s'y rattache sans changer ton
+flux de travail.
+
+### Une correction honnête
+
+Je t'avais annoncé un facteur treize. Le vrai facteur est 2,7. Mon estimation
+reposait sur quatre fichiers exceptionnellement lourds, dont un de 7,8 Mo, et je
+l'ai généralisée à tort à l'ensemble. La majorité de tes images faisaient déjà
+1 600 pixels ou moins et étaient raisonnablement compressées. Le gain reste
+réel, mais il n'a pas l'ampleur que j'avais avancée.

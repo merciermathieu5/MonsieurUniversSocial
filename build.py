@@ -215,6 +215,12 @@ def habiller_images(html: str, credits: dict) -> str:
         source = credits.get(nom, {})
         cadrage = source.get("cadrage", "flottant")
 
+        # Le navigateur ne télécharge une image qu'au moment où le lecteur
+        # s'en approche. Sur une fiche qui en compte vingt, un élève qui lit
+        # le tiers du texte n'en charge que le tiers.
+        if "loading=" not in balise:
+            balise = balise.replace("<img ", '<img loading="lazy" decoding="async" ', 1)
+
         credit = composer_credit(source)
 
         existe = (MEDIAS / src.split("medias/")[-1]).exists() if "medias/" in src else False
