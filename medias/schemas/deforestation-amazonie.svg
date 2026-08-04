@@ -1,0 +1,34 @@
+<svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagramme à barres de la déforestation annuelle en Amazonie brésilienne, de 13 038 kilomètres carrés en 2020-2021 à 5 796 kilomètres carrés en 2024-2025">
+  <style>
+    .da-t { font-family: Archivo, sans-serif; }
+    .da-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .da-n { font-size: 15px; font-weight: 600; fill: var(--encre); }
+    .da-v { font-size: 15px; font-weight: 700; fill: var(--encre); }
+  </style>
+
+  <text class="da-t da-u" x="20" y="26">Kilomètres carrés déboisés dans l'Amazonie brésilienne</text>
+  <text class="da-t da-u" x="20" y="46">Année de référence, du 1er août au 31 juillet</text>
+
+  <path d="M189 64V290" stroke="var(--schema-trait)" stroke-width="1" fill="none"/>
+
+  <rect x="190" y="72" width="780" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="da-t da-n" x="175" y="92" text-anchor="end">2020-2021</text>
+  <text class="da-t da-v" x="982" y="92">13 038</text>
+
+  <rect x="190" y="118" width="692" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="da-t da-n" x="175" y="138" text-anchor="end">2021-2022</text>
+  <text class="da-t da-v" x="894" y="138">11 568</text>
+
+  <rect x="190" y="164" width="539" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="da-t da-n" x="175" y="184" text-anchor="end">2022-2023</text>
+  <text class="da-t da-v" x="741" y="184">9 001</text>
+
+  <rect x="190" y="210" width="390" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="da-t da-n" x="175" y="230" text-anchor="end">2023-2024</text>
+  <text class="da-t da-v" x="592" y="230">6 518</text>
+
+  <rect x="190" y="256" width="347" height="30" rx="3" fill="var(--schema-accent)"/>
+  <text class="da-t da-n" x="175" y="276" text-anchor="end">2024-2025</text>
+  <text class="da-t da-v" x="549" y="276">5 796</text>
+</svg>

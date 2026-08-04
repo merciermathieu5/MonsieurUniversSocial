@@ -3337,3 +3337,303 @@ livraison 104. Le delta reste celui des douze images de la fiche 03. Les neuf
 sections passent, dont CONSTRUIT qui valide les deux duos. `figures.py` et
 `paragraphes.py` sans écart. `liens.py` vérifie 744 liens internes, aucun brisé.
 Les deux suites Node passent à 0 échec.
+
+## Fiche : Le territoire forestier
+
+### Cinquième fiche de géographie (livraison 108)
+
+`contenu/geographie/06-territoire-forestier.md` passe du gabarit à `brouillon`.
+Dix sections de contenu autour de la forêt amazonienne, ton étude de cas.
+L'entête ne garde que l'Amazonie. Les neuf concepts prescrits sont définis, terme
+en gras.
+
+**Aucune image de ton Google Site**, comme demandé. Les six viennent de Wikimedia
+Commons, noms vérifiés au caractère près. Je n'ai pas touché à
+`panneau-apartheid.jpg` non plus.
+
+### Les chiffres remis à jour
+
+**1. La déforestation.** Ta page s'arrêtait à 2005 avec « 17 % de la forêt
+amazonienne déboisée, soit 600 000 km² ». Les données officielles donnent
+aujourd'hui environ 729 000 km² déboisés dans le biome amazonien, toujours à peu
+près 17 % du total, dont 300 000 au cours des vingt dernières années. Et depuis
+1970, plus de 700 000 km² ont disparu.
+
+**2. La courbe s'est inversée, et ta page ne le disait pas.** C'est le changement
+le plus important de la fiche. Entre août 2024 et juillet 2025, 5 796 km² ont été
+déboisés, une baisse de 11 % sur un an et le plus bas total depuis onze ans,
+quatrième baisse consécutive. Le pic récent était de 13 038 km² en 2020-2021. La
+déforestation a donc reculé de plus de moitié en quatre ans. Source : programme
+PRODES de l'Institut national de recherches spatiales du Brésil, publié en
+octobre 2025.
+
+**3. La coupe à blanc n'est pas l'incendie.** Un encadré `note` prévient que les
+statistiques officielles comptent la coupe à blanc et pas les feux, alors que
+ceux-ci ont détruit une part considérable de forêt. Deux chiffres décrivent la
+même forêt et racontent deux histoires. C'est la même leçon de méthode que les
+taux d'occupation en Gaspésie et les 8 milliards de l'Île-de-France.
+
+**4. Les statistiques françaises sont retirées.** Ta page donnait « 70 millions
+de tonnes de CO2 captées par année » et « 8 gigatonnes captées dans la forêt
+française ». Le second chiffre ne concorde avec rien de ce que j'ai pu vérifier,
+et les deux portent sur la France dans un cours québécois. Le rôle écologique est
+réécrit sans eux, autour du puits de carbone, de la filtration et de l'érosion.
+
+**5. La valeur de 400 milliards de dollars** pour les produits forestiers
+mondiaux est retirée : je n'ai pas retrouvé sa source ni son année.
+
+**6. Le tiers des forêts tropicales sud-américaines disparu depuis 1974** est
+remplacé par le chiffre vérifiable des 700 000 km² perdus depuis 1970.
+
+### Trois ajouts
+
+**7. Les territoires autochtones protègent la forêt.** Plus du tiers de
+l'Amazonie est reconnu officiellement comme territoire autochtone, et les taux de
+déforestation y sont nettement plus bas qu'ailleurs. Ta page présentait les
+Autochtones comme des habitants; la fiche en fait des acteurs de la protection,
+ce qui change la lecture de la section suivante.
+
+**8. Le seuil de bascule.** Un encadré `note` rapporte l'étude parue dans
+*Nature* en mai 2026 : les deux tiers de la forêt pourraient passer à un état de
+savane si le réchauffement dépasse 1,5 à 1,9 degré et si la déforestation atteint
+22 à 28 %. C'est ce qui donne son poids à chaque point de pourcentage.
+
+**9. La déforestation, première source d'émissions du Brésil**, devant
+l'agriculture intensive et l'énergie. Cela explique pourquoi la courbe intéresse
+bien au-delà du Brésil.
+
+### Un schéma et trois blocs de cartes
+
+- `medias/schemas/deforestation-amazonie.svg`, un diagramme à barres des cinq
+  dernières années de référence du programme PRODES. La barre de 2024-2025 prend
+  l'accent doré, puisque c'est le résultat à retenir. Les valeurs se lisent hors
+  des barres, donc le contraste tient dans les deux thèmes
+- Les six continents et leurs types de forêts en `::: cartes`, plus compact que
+  la liste continent par continent
+- Les trois rôles de la forêt, économique, écologique et social, en `::: cartes`
+- La coupe sélective et la coupe à blanc en `::: cartes`, côte à côte
+
+### Six images, toutes de Commons
+
+- `File:Amazon Manaus forest.jpg`, la canopée vue d'une tour de mesure
+- `File:Aerial view of the Amazon Rainforest.jpg`, le fleuve et la forêt du ciel
+- `File:Architecture in Manaus, Brazil. March 2024 01.jpg`
+- `File:Amazon Theatre, Teatro Amazonas. Manaus, Brazil. 01.jpg`, l'opéra bâti à
+  l'époque du caoutchouc, placé dans la section qui raconte ce boom
+- `File:Rondônia Deforestation Composite (July 2016), Brazil (35120418435).jpg`,
+  le motif en arêtes de poisson vu par satellite, en cadrage carte
+- `File:Fires and Deforestation on the Amazon Frontier, Rondonia, Brazil - August 12, 2007.jpg`
+
+### À valider
+
+**10. Les légendes des cinq capsules.** Je n'ai pas pu vérifier leur contenu, et
+l'expérience de la fiche 03 m'a appris à le dire clairement. J'ai gardé chaque
+vidéo dans la section où elle se trouve sur ta page, ce qui est plus sûr que de
+deviner l'ordre, mais **les légendes décrivent la section, pas la vidéo** :
+`I6dFgYLJIys` sous la route transamazonienne, `beQwppF8D6Q` et `8ihlk4BBZkw` en
+duo sous les coupes, `SygOlp_5xiA` et `lJW4j7yfFcI` en duo sous les conséquences.
+Envoie-moi des captures comme la dernière fois et je corrige les cinq légendes.
+
+**11. La population de Manaus.** Ta page donne 1,8 million d'habitants. Le
+chiffre a vieilli, mais je n'ai pas de donnée récente que je puisse attribuer,
+alors je l'ai retiré plutôt que d'en inventer une. La fiche décrit Manaus comme
+la plus grande ville de l'Amazonie et le troisième pôle industriel du Brésil,
+sans la chiffrer.
+
+**12. La vidéo Dailymotion « L'Amazonie sur le grill »** et les trois articles de
+presse sur Raoni ne sont pas repris : le bloc `::: video` ne prend que des
+identifiants YouTube, et les articles de 2020 sur son hospitalisation ont vieilli.
+Si tu veux la Dailymotion, elle irait en encadré `activite`, comme les vidéos
+Facebook de la fiche 05.
+
+### Une observation sur l'image d'apartheid, puis je n'y reviens plus
+
+Tu m'as dit de cesser, et je cesse. Une seule chose au cas où elle te serait
+utile : le registre demande `File:ApartheidSignEnglishAfrikaans.jpg` alors que
+`credits.yml` a enregistré `File:Apartheid.jpg`. Ce sont deux fichiers
+différents. Si la légende « Un panneau de plage réservée, en anglais et en
+afrikaans » ne correspond pas à ce que tu vois, c'est de là que ça vient.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 36 problèmes. Après : 42. Le delta de 6
+correspond exactement aux six nouvelles images. Aucun problème hors images : les
+neuf sections passent, dont SCHÉMAS avec le diagramme de la déforestation.
+`figures.py` a remonté une figure, `paragraphes.py` a fait onze fusions, et les
+deux repassent sans écart. `liens.py` vérifie 744 liens internes, aucun brisé.
+Les deux suites Node passent à 0 échec. Il reste six gabarits en géographie au
+lieu de sept.
+
+### Le territoire forestier, deuxième passe (livraison 109)
+
+Trois réponses de ta part, trois changements.
+
+**Aucune image du Google Site, même les cartes.** La règle est claire et vaut
+pour la suite. À signaler : les fiches 02, 03 et 05 en contiennent encore, seize
+en tout, reprises par leur adresse directe. Je n'y touche pas sans que tu le
+demandes, mais si tu veux les remplacer par des équivalents de Commons un jour,
+c'est un chantier à part entière et il vaut mieux le prévoir comme tel.
+
+**Douze images au lieu de six**, toutes de Wikimedia Commons, noms vérifiés au
+caractère près. La répartition en brouillon donne trois cadrages carte, quatre
+flottants, quatre à gauche et un large, plus le schéma. Les six nouvelles :
+
+- `File:Amazon biome outline map.svg`, une carte qui trace le biome amazonien et
+  le bassin de l'Amazone d'un même coup d'oeil. C'est exactement la distinction
+  que la section pose entre 5,5 et 7,4 millions de kilomètres carrés
+- `File:Rubber tree leaves.JPG`, les feuilles de l'hévéa
+- `File:Barco chegando (6126927092).jpg`, un bateau arrivant à Manaus, placé
+  dans l'écotourisme puisque le bateau y est le principal moyen de transport
+- `File:Drivers of forest loss in Brazilian amazon 2001-2013.jpg`, ce qui cause
+  la perte de forêt
+- `File:Deforestation in Brazil (deforestation-brazil).jpg`
+- `File:Climate Conditions Determine Amazon Fire Risk.jpg`
+
+Le théâtre de Manaus quitte la section des Autochtones, où je l'avais mal placé,
+pour rejoindre celle du caoutchouc qui l'a fait bâtir.
+
+**Les cinq capsules sont retirées de la fiche**, en attendant tes captures. Je ne
+les perds pas, les voici avec l'endroit où elles se trouvent sur ta page :
+
+- `I6dFgYLJIys`, sous la route transamazonienne
+- `beQwppF8D6Q` et `8ihlk4BBZkw`, sous la coupe à blanc
+- `SygOlp_5xiA` et `lJW4j7yfFcI`, sous les activités et leurs conséquences
+
+Envoie-moi les captures et je les replace avec leurs vrais titres, en duos là où
+ça s'y prête.
+
+### À valider
+
+**1. L'extension de la carte.** Le fichier de Commons est un SVG, mais je l'ai
+inscrit au registre sous le nom `carte-amazonie.png`, en pariant sur le fait que
+`images.py` récupère la vignette matricielle plutôt que le vecteur. Si l'outil
+t'annonce un décalage, dis-le et je bascule l'entrée en `.svg`.
+
+**2. Ce que je n'ai pas trouvé sur Commons.** Quatre sujets me manquent et je
+préfère le dire plutôt que de meubler : la mangrove et ses palétuviers, la faune
+amazonienne, un portrait de Raoni Metuktire et la route transamazonienne. Les
+sections correspondantes tiennent sans image. Si tu tiens à en avoir, donne-moi
+des noms de fichiers vérifiés et je les inscris.
+
+### Sur ma façon de travailler
+
+Tu as raison sur le fond. Depuis le choix du territoire, je ne t'ai plus rien
+demandé et j'ai empilé les incertitudes dans les « À valider », ce qui revient à
+te faire corriger après coup ce qui aurait dû se décider avant. Les légendes de
+vidéos de la fiche 03 en sont l'exemple : la question coûtait trente secondes,
+l'erreur t'a coûté deux allers-retours. Je pose les questions avant, désormais,
+quand la réponse change le travail plutôt que le détail.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 36 problèmes. Après : 48. Le delta de 12
+correspond exactement aux douze images de la fiche 06. Aucun problème hors
+images : les neuf sections passent. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec.
+
+### Les Uru-Eu-Wau-Wau, l'écotourisme et la politique actuelle (livraison 110)
+
+**Les cinq capsules retrouvent leurs vrais titres**, grâce à tes captures. Trois
+d'entre elles tombaient ailleurs que là où je les aurais mises à l'aveugle, ce
+qui confirme qu'il valait mieux attendre.
+
+| Identifiant | Titre réel | Chaîne | Section |
+| --- | --- | --- | --- |
+| `I6dFgYLJIys` | Comment cette route a détruit la forêt amazonienne | AVRE, Explore Media | La route transamazonienne |
+| `SygOlp_5xiA` | Pourquoi cet éleveur va continuer à déboiser | Envoyé spécial | Exploiter la forêt |
+| `lJW4j7yfFcI` | Les fermes XXL du Mato Grosso empiètent sur la forêt | france tv | Exploiter la forêt |
+| `8ihlk4BBZkw` | Déforestation en Amazonie, causes et conséquences | MarajoAndo Cultura | La déforestation |
+| `beQwppF8D6Q` | Jair Bolsonaro est-il une menace pour l'Amazonie | Le Monde | Ce qui explique le retournement |
+
+Les deux reportages sur l'élevage et le soja se jumellent côte à côte, puisqu'ils
+traitent du même sujet. Le reportage Dailymotion **L'Amazonie sur le grill**
+rejoint la fiche en encadré `activite`, à côté de la capsule sur la
+transamazonienne : le bloc `::: video` ne prend que des identifiants YouTube,
+mais rien n'empêche un lien.
+
+### Une section neuve sur les Uru-Eu-Wau-Wau
+
+Elle se place entre les habitants de l'Amazonie et l'exploitation de la forêt,
+parce qu'elle fait le pont entre les deux. Trois sous-sections :
+
+- **Le territoire**, homologué en 1991 au Rondônia, environ 19 000 kilomètres
+  carrés, soit près des deux tiers de la Gaspésie. Trois peuples en contact,
+  les Uru-Eu-Wau-Wau, les Amondawa et les Oro Win, et au moins trois groupes en
+  isolement volontaire confirmés par la FUNAI
+- **Un peuple qui a failli disparaître**, de 250 personnes à 80 après le premier
+  contact de 1981, environ 85 aujourd'hui selon l'Institut socio-environnemental,
+  183 habitants pour tout le territoire
+- **Des envahisseurs et des drones**, l'accaparement de terres d'un côté, la
+  surveillance par drone, caméra et GPS de l'autre
+
+La comparaison avec la Gaspésie n'est pas un ornement : elle donne à l'élève une
+échelle qu'il connaît depuis la fiche 05. Cent quatre-vingt-trois personnes pour
+un territoire grand comme les deux tiers de la Gaspésie, l'image porte mieux que
+n'importe quel chiffre en hectares.
+
+Un encadré `savais-tu` raconte *The Territory*, le film de 2022 tourné en partie
+par les jeunes du territoire eux-mêmes pendant la pandémie, primé à Sundance. Il
+répond directement à la question de section sur ce que change un drone.
+
+Une image s'ajoute, `File:Indigenous Land Uru-eu-wau-wau area, Rondônia.jpg`, ce
+qui porte la fiche à treize.
+
+### L'écotourisme, développé
+
+La section tenait en un paragraphe général. Elle gagne deux sous-sections
+appuyées sur un cas concret, la réserve de Mamirauá.
+
+- **La réserve**, première réserve de développement durable du Brésil, créée en
+  1996, environ 11 000 kilomètres carrés de forêt de várzea entre le Solimões, le
+  Japurá et l'Auati-Paraná. Le niveau de l'eau y monte et descend de dix à douze
+  mètres selon la saison. Zone humide reconnue par la convention de Ramsar depuis
+  1993. L'hôtel flottant de 1998, jamais plus de vingt personnes à la fois,
+  énergie solaire et eaux usées traitées par micro-organismes
+- **Le tourisme de base communautaire**, et c'est là que la section devient
+  intéressante. Le personnel vient des communautés riveraines, onze en tirent un
+  revenu, et chacun travaille en rotation d'environ dix jours par mois avant de
+  retourner à la pêche et à l'agriculture familiale
+
+Ce dernier point répond directement à l'enjeu de la dépendance touristique que la
+fiche 05 pose pour la Gaspésie. Deux fiches, deux territoires, deux réponses
+opposées au même problème : c'est exactement le genre de comparaison que le
+programme demande.
+
+Un encadré `savais-tu` raconte le bûcheron du Rio Negro devenu exploitant
+d'écotourisme après la création d'une réserve. Le même homme, la même forêt,
+deux façons d'en vivre.
+
+### La présidence actuelle
+
+Une sous-section neuve, « Ce qui explique le retournement », relie la courbe du
+diagramme aux décisions politiques.
+
+De 2019 à 2022, sous Jair Bolsonaro, les budgets des agences environnementales
+sont coupés et les invasions de terres autochtones atteignent des sommets. C'est
+la période du pic, 13 038 kilomètres carrés en 2020-2021.
+
+Depuis janvier 2023, sous le troisième mandat de Luiz Inácio Lula da Silva, les
+agences sont refinancées, les amendes de l'IBAMA remontent, le Fonds Amazonie est
+relancé, un ministère des Peuples autochtones est créé et confié à Sônia
+Guajajara, la FUNAI est dirigée pour la première fois par une personne autochtone
+et seize territoires autochtones sont homologués. Le Brésil a accueilli la COP30
+à Belém en novembre 2025, et l'Observatoire du climat calcule une baisse de
+16,7 % des émissions de gaz à effet de serre du pays en une année.
+
+**Le débat va dans un encadré `note`, pas dans le corps du texte**, comme les
+conventions du dépôt l'exigent. Il rappelle que le Congrès a limité la
+reconnaissance des territoires aux terres occupées en 1988, ce qui a ralenti les
+démarcations, que des organisations autochtones jugent l'appui gouvernemental en
+partie symbolique, et qu'une élection présidentielle a lieu en octobre 2026 avec
+la politique amazonienne parmi ses sujets. La note se termine par une question
+plutôt que par une conclusion : qu'est-ce qui pourrait faire remonter la courbe.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 36 problèmes. Après : 49. Le delta de 13
+correspond exactement aux treize images de la fiche 06. Aucun problème hors
+images : les neuf sections passent. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec. La fiche compte maintenant douze sections, cinq capsules dont un duo,
+un schéma et quatorze figures.
