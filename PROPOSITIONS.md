@@ -4395,3 +4395,31 @@ internes, aucun brisé. Les deux suites Node passent à 0 échec.
 
 Cette livraison contient aussi le fichier `docs/_headers` de la livraison 118,
 qui n'avait pas encore été déposée.
+
+### Le bandeau des Grands Lacs et l'encadré en double (livraison 120)
+
+**Le bandeau occupe maintenant sa largeur.** Mes trois lignes coupaient à environ
+110 caractères alors que le bloc en accepte près de 150, ce qui laissait un tiers
+de la surface vide à droite. Le texte est recomposé sur des lignes plus longues :
+le remplissage passe de 73 à 94 % de la largeur utile.
+
+J'ai vérifié les quatre autres schémas qui portent un bandeau. Ceux de la chaîne
+hydroélectrique et des gestes patrimoniaux affichent 73 et 74 %, mais leur corps
+tient sur une seule ligne : elle s'arrête là où la phrase finit, ce qui est
+normal et ne produit aucun bloc en escalier. Le défaut ne concernait que ce
+schéma-ci.
+
+**L'encadré `savais-tu` sur SMHÉO est retiré.** Tu as raison, il répétait mot
+pour mot ce que le bandeau du schéma venait de dire, à trois paragraphes
+d'intervalle. La phrase mnémotechnique « Super ! Mon héros est Obélix » n'est pas
+perdue : elle rejoint le bandeau, qui gagnait justement de la place à remplir.
+
+Les deux corrections se répondent, et c'est ce qui les rend satisfaisantes. Le
+bandeau manquait de matière, l'encadré en avait en trop.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé depuis la
+livraison précédente. Le delta de 4 reste celui des quatre images ajoutées.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 798 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.

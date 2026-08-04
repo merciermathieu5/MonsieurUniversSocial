@@ -178,12 +178,6 @@ emmagasinent une part considérable de l'eau douce de surface de la planète,
 souvent estimée à un cinquième. La région compte en plus une multitude de lacs
 plus petits, de cours d'eau et quelque 35 000 îles.
 
-::: savais-tu
-Pour retenir les cinq lacs d'ouest en est, essaie une phrase dont les initiales
-donnent SMHÉO : **S**upérieur, **M**ichigan, **H**uron, **É**rié, **O**ntario.
-Par exemple, « Super ! Mon héros est Obélix ».
-:::
-
 Le lac Supérieur est le plus grand des cinq, avec 83 300 kilomètres carrés, ce
 qui en fait le deuxième lac de la planète après la mer Caspienne. Le lac Huron
 suit avec 59 800 kilomètres carrés, puis le lac Michigan, le seul à se trouver

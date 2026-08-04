@@ -44,7 +44,7 @@
 
   <rect x="30" y="176" width="1040" height="94" rx="5" fill="var(--matiere-voile)"/>
   <text class="gl-t gl-bt" x="52" y="202">Retiens l'ordre avec SMHÉO</text>
-  <text class="gl-t gl-bp" x="52" y="226">Supérieur, Michigan, Huron, Érié, Ontario. L'eau descend d'ouest en est, mais pas en ligne droite : le Michigan</text>
-  <text class="gl-t gl-bp" x="52" y="246">et le Supérieur se déversent tous deux dans le Huron, qui alimente l'Érié, lequel tombe dans l'Ontario par les</text>
-  <text class="gl-t gl-bp" x="52" y="266">chutes du Niagara. C'est là que le canal Welland devient indispensable aux navires.</text>
+  <text class="gl-t gl-bp" x="52" y="226">Supérieur, Michigan, Huron, Érié, Ontario. Invente une phrase dont les initiales donnent SMHÉO, par exemple « Super ! Mon héros est Obélix ».</text>
+  <text class="gl-t gl-bp" x="52" y="246">L'eau descend d'ouest en est, mais pas en ligne droite : le Michigan et le Supérieur se déversent tous deux dans le Huron, qui alimente l'Érié,</text>
+  <text class="gl-t gl-bp" x="52" y="266">lequel tombe dans l'Ontario par les chutes du Niagara. C'est là que le canal Welland devient indispensable aux navires qui remontent vers l'ouest.</text>
 </svg>
