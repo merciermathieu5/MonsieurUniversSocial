@@ -345,6 +345,12 @@ raconte le combat de Jean Garon pour faire accepter cette loi.
 
 ## La ferme et ses bâtiments
 
+![La grange octogonale Adolphe-Gagnon, à Saint-Fabien](../medias/10-territoire-agricole-national/grange-octogonale.jpg)
+
+![Un silo à grains en douves de bois cerclées](../medias/10-territoire-agricole-national/silo-grains.jpg)
+
+![Une serre des Fermes Lufa, sur un toit de Montréal](../medias/10-territoire-agricole-national/serre-lufa.jpg)
+
 Une exploitation agricole a besoin de plusieurs bâtiments pour fonctionner. La
 **grange** sert au stockage et permet de travailler à couvert; on la construit
 souvent à l'écart des autres bâtiments pour éviter la propagation d'un incendie.
@@ -360,6 +366,20 @@ S'ajoutent deux aménagements moins visibles mais essentiels : les canaux
 d'**irrigation**, qui apportent l'eau là où elle manque, et le **drainage**, qui
 l'évacue là où elle est en excès. La plupart des sols agricoles québécois ont
 besoin d'un drainage artificiel.
+
+::: savais-tu
+La grange de la photo se trouve à Saint-Fabien, dans le Bas-Saint-Laurent.
+Construite en 1888 pour l'agriculteur Adolphe Gagnon, elle est la plus ancienne
+grange octogonale du Québec et la seule de la région. Sa forme n'était pas un
+caprice : elle permettait de nourrir les animaux depuis un point central, sans
+avoir à faire le tour du bâtiment. Classée immeuble patrimonial en 2006, elle est
+devenue un musée en 2009.
+
+La serre, elle, montre l'autre bout de l'histoire. Les Fermes Lufa cultivent des
+légumes sur des toits d'immeubles de Montréal, en pleine ville. Le même bâtiment
+sert le même but depuis toujours, produire hors saison, mais il a changé
+d'endroit.
+:::
 
 Source : Wikipédia
 {: .source-texte }
@@ -485,32 +505,35 @@ géolocaliser les principales régions agricoles.
    californiens.
 :::
 
-## Le projet Minecraft du RÉCIT
+## Trois types de ferme, trois séries d'enjeux
 
-Le Service national du RÉCIT propose une tâche où les élèves aménagent une terre
-agricole du Québec. Chaque équipe choisit son type de ferme, laitière,
-monoculture de maïs ou de soya, ou culture maraîchère diversifiée, se documente
-sur ses fonctions et ses enjeux, puis la construit dans Minecraft.
+Toutes les exploitations n'affrontent pas les mêmes difficultés. Le type de
+production détermine les problèmes qu'un agriculteur devra régler, et c'est là
+que les concepts d'environnement et de productivité se rencontrent. La **ferme
+laitière** doit gérer l'eau qu'elle consomme, ses émissions de méthane et son
+fumier, qui peut contaminer les eaux souterraines s'il est mal entreposé. La
+**monoculture de maïs ou de soya** affronte la dégradation des sols, la
+pollution par les fertilisants et les pesticides, et des effets sur la
+biodiversité. Elle dépend aussi entièrement de la météo : certaines années les
+terres reçoivent trop d'eau, d'autres elles subissent la sécheresse.
 
-Chaque type de ferme porte ses propres enjeux. La **ferme laitière** doit gérer
-l'eau, ses émissions de méthane et son fumier, qui peut contaminer les eaux
-souterraines. La **monoculture de maïs ou de soya** affronte la dégradation des
-sols, la pollution par les fertilisants et les pesticides, et des conditions
-climatiques qui varient beaucoup d'une année à l'autre. La **ferme maraîchère**
-est la plus exposée aux extrêmes climatiques, comme la saison 2023 l'a montré, et
-doit financer des technologies coûteuses pour rester concurrentielle.
+La **ferme maraîchère** est la plus exposée aux extrêmes climatiques. La saison
+2023 l'a montré, quand des pluies constantes ont ruiné des récoltes entières.
+Elle doit en plus financer des technologies coûteuses pour rester
+concurrentielle.
 
 ::: activite
-Toute la tâche se trouve sur la page
-**[Enjeux du territoire agricole, Minecraft](https://www.recitus.qc.ca/ressources/secondaire/publication/enjeux-territoire-agricole-minecraft)**
-du RÉCIT en univers social.
+Le RÉCIT en univers social propose une tâche où l'élève choisit un de ces trois
+types de ferme, se documente sur ses enjeux, puis l'aménage dans Minecraft. Tout
+se trouve sur la page
+**[Enjeux du territoire agricole, Minecraft](https://www.recitus.qc.ca/ressources/secondaire/publication/enjeux-territoire-agricole-minecraft)**.
 :::
 
 ::: questions
-1. Choisis un type de ferme et nomme les trois bâtiments dont tu as absolument
-   besoin, avec leur fonction.
-2. Ton terrain longe une rivière. Qu'est-ce que la loi et le bon sens t'obligent
-   à prévoir?
+1. Choisis un type de ferme et nomme l'enjeu qui te paraît le plus difficile à
+   régler. Explique pourquoi.
+2. Les trois types subissent les changements climatiques, mais pas de la même
+   façon. Compare la ferme laitière et la ferme maraîchère sur ce point.
 :::
 
 ## Sources

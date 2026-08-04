@@ -54,15 +54,18 @@
   <text class="ea-t ea-d" x="640" y="118">Très demandé en Asie</text>
 
   <g transform="translate(594,154)">
-    <path class="ea-j" d="M6 22C3 22 2 19 4 16C6 13 9 11 13 11C18 11 22 14 22 18C22 21 20 22 18 22Z"/>
-    <circle class="ea-j" cx="16" cy="7" r="4"/>
-    <path class="ea-j" d="M20 6L24 7L20 9 M16 3V1"/>
+    <path class="ea-j" d="M6.5 9C2.5 8 1.5 4 3.5 2.5C5.5 4.5 6.5 6.5 7 8"/>
+    <path class="ea-j" d="M19.5 9C23.5 8 24.5 4 22.5 2.5C20.5 4.5 19.5 6.5 19 8"/>
+    <path class="ea-j" d="M7 8.5C7 5.5 10 4 13 4C16 4 19 5.5 19 8.5C19 12 18.5 15 16.5 17.5C15 19.5 11 19.5 9.5 17.5C7.5 15 7 12 7 8.5Z"/>
+    <path class="ea-j" d="M10 14.5C10 12.5 16 12.5 16 14.5C16 16.5 14.5 17.5 13 17.5C11.5 17.5 10 16.5 10 14.5Z"/>
+    <circle class="ea-j" cx="10.4" cy="9.6" r="0.9"/>
+    <circle class="ea-j" cx="15.6" cy="9.6" r="0.9"/>
   </g>
   <text class="ea-t ea-n" x="640" y="169">Le boeuf et la volaille</text>
   <text class="ea-t ea-d" x="640" y="188">Vers le Japon et les États-Unis</text>
 
   <g transform="translate(594,224)">
-    <path class="ea-j" d="M13 1L16 8L21 5L19 11L25 12L20 16L23 21L16 19L13 25L10 19L3 21L6 16L1 12L7 11L5 5L10 8Z"/>
+    <path class="ea-j" d="M13 25V18L7 19.5L8 16L2 11.5L4 10.5L2.5 6.5L7 7.5L8 5.5L11 9L9.5 2L13 4L16.5 2L15 9L18 5.5L19 7.5L23.5 6.5L22 10.5L24 11.5L18 16L19 19.5L13 18"/>
   </g>
   <text class="ea-t ea-n" x="640" y="239">Les produits de l'érable</text>
   <text class="ea-t ea-d" x="640" y="258">Dans de nombreux pays</text>

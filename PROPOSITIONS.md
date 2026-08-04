@@ -4680,3 +4680,92 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 36. Le delta de 14
 correspond exactement aux quatorze images de la fiche 10. `figures.py` et
 `paragraphes.py` sans écart. `liens.py` vérifie 802 liens internes, aucun brisé.
 Les deux suites Node passent à 0 échec.
+
+### Pictogrammes et restructuration (livraison 125)
+
+**La feuille d'érable est une vraie feuille.** Mon dessin précédent était une
+étoile à dix branches, qui se lisait comme une étoile. Le nouveau tracé suit la
+silhouette de la feuille d'érable, avec sa tige au bas, ses deux lobes
+inférieurs et sa pointe centrale.
+
+**Le boeuf remplace le canard.** Tu as raison, mon oiseau avec son bec ressemblait
+à un canard plutôt qu'à de la volaille, et surtout la ligne dit « le boeuf et la
+volaille ». C'est maintenant une tête de bovin, avec ses cornes, son mufle et ses
+naseaux, ce qui correspond au premier mot de la ligne.
+
+### Sur ta question, la section 13
+
+Tu as raison de la poser : il y avait bien une redondance, mais pas là où on
+pourrait le croire.
+
+La section 13 contenait deux choses différentes. D'un côté la présentation de la
+tâche du RÉCIT, qui refaisait la liste des bâtiments déjà donnée en section 10,
+et dont la question de fin demandait à l'élève de nommer trois bâtiments, ce que
+la section 10 venait de faire. De l'autre, les **trois types de ferme avec leurs
+enjeux propres**, un contenu qui n'existe nulle part ailleurs dans la fiche.
+
+Plutôt que de supprimer la section, je l'ai recentrée sur ce qui n'était pas en
+double. Elle s'appelle maintenant « Trois types de ferme, trois séries
+d'enjeux » et développe ce que chaque production affronte : le méthane et le
+fumier pour la laitière, la dégradation des sols et les pesticides pour la
+monoculture, les extrêmes climatiques pour la maraîchère. La tâche Minecraft
+descend en encadré `activite`, à sa juste place d'activité plutôt que de section.
+
+Les questions de fin sont réécrites pour ne plus refaire celles de la section 10.
+Elles demandent maintenant de choisir l'enjeu le plus difficile à régler et de
+comparer deux types de ferme devant les changements climatiques.
+
+Le gain n'est pas seulement d'avoir retiré une redondance. Cette section apporte
+à la fiche le seul passage qui relie explicitement le concept d'environnement au
+concept de productivité, ce qui manquait.
+
+### Les images des bâtiments, toujours introuvables
+
+Deux nouvelles recherches sur Commons pour une grange, un silo, une serre ou un
+poulailler n'ont rien rendu de vérifiable. Mes hypothèses de noms de catégories
+tombent à côté et je ne peux pas les parcourir depuis mon environnement.
+
+Ta méthode d'hier a parfaitement fonctionné : deux liens Wikipédia et les images
+étaient inscrites en trois minutes. Envoie-moi trois liens du même genre pour la
+grange, le silo et la serre, et la section 10 sera illustrée dans la foulée.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 36, inchangé depuis la
+livraison précédente. Le delta de 14 reste celui des quatorze images de la fiche
+10. `figures.py` et `paragraphes.py` sans écart après deux fusions appliquées.
+`liens.py` vérifie 802 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec.
+
+### Les trois bâtiments (livraison 126)
+
+Tes trois liens ont réglé la chose en quelques minutes. La section 10 est
+illustrée et la fiche passe à dix-sept images.
+
+- `File:Grange Adolphe-Gagnon.jpg`
+- `File:Silo - height extension by adding hoops and staves.jpg`
+- `File:Lufa Farms Greenhouse Staff.jpg`
+
+**Ta grange vaut mieux qu'une légende.** Elle est à Saint-Fabien, dans le
+Bas-Saint-Laurent, donc sur le territoire de ton centre de services scolaire. Un
+encadré `savais-tu` le raconte : construite en 1888 pour l'agriculteur Adolphe
+Gagnon, c'est la plus ancienne grange octogonale du Québec et la seule de la
+région, classée immeuble patrimonial en 2006 et devenue musée en 2009.
+
+L'encadré ajoute la raison de cette forme, qui n'était pas un caprice
+d'architecte : le plan octogonal permettait de nourrir les animaux depuis un
+point central, sans faire le tour du bâtiment. Un élève de Rivière-du-Loup peut
+aller la voir.
+
+**Et la serre ferme la boucle.** Les Fermes Lufa cultivent sur des toits
+d'immeubles de Montréal. Le même bâtiment sert le même but depuis toujours,
+produire hors saison, mais il a changé d'endroit. Mis côte à côte, la grange de
+1888 et la serre sur un toit disent en deux images ce que le texte met un
+paragraphe à expliquer.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 39. Le delta de 17
+correspond exactement aux dix-sept images de la fiche 10. `figures.py` et
+`paragraphes.py` sans écart. `liens.py` vérifie 802 liens internes, aucun brisé.
+Les deux suites Node passent à 0 échec.
