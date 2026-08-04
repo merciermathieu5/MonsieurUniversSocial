@@ -2091,26 +2091,6 @@ carte-gaspesie.jpg:
   auteur: ''
   licence: ''
   lien: ''
-enjeux-gaspesie.png:
-  cadrage: large
-  fiche: 05-territoire-touristique
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQXeGFe4HuAVC9bRi9VFFVzqix_QcBb5_7Ux8FwlMqiZp33po-AvOudC2zwpk2-n722zv8Ae4VjlUpPG-nXop255eN-C3TPeEgfqG2LH_ndKRZ7TblLfVcSVx4lqm5DhgAnZlGlj33qYo99nTKBNI4yH3udkNEvtSD5sIFSe3GuLFZZI7GynzwGfAOMdUyAU1CiUIUaHSXgdMXmjNJ6WOQCCOOXcARni0Qde7i1l=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-resume-gaspesie.png:
-  cadrage: large
-  fiche: 05-territoire-touristique
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUI6WLCF50BmvF94BEGuAmiKN4lOOBEW-XoKGVqpvJuC3LWnGFuuqQXtb_G-huvIoWW56q3pebv6SC8D_kSHHtStIl55ate41-zXLvVH72H32wbvvY-smSKiAY4xQHdbMbXl6TkdUwpel4W_3EtmnE-OA-oVXJLdn9s90ftNyUwbc5xPmxJpW5_lmleInufHAGTfX4GiG647HDTJv-5oKnwGEOGL6PSejslGJUBBG4=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
 carte-idf.gif:
   cadrage: carte
   fiche: 05-territoire-touristique
@@ -2125,26 +2105,6 @@ reseau-transport-idf.png:
   cadrage: carte
   fiche: 05-territoire-touristique
   url: https://lh3.googleusercontent.com/sitesv/AG8ngQWkWD4IprvU6c9H1t0M1KQKEsWPIlsLoxORDwA_D1AySl0Td1mOo3u8Tk9s5EiZ-UOEPeC4Jy-0HC3jQuc9npSkZYm-iJAnjeTyG8yobXzG7WpnRIeedZvNytpEyZLGMTxNfqFeSCjfcgWmsNHsmUB0qAVx2na627ijynpWXK-1wFl2PjOUF1ay99kRf5phNAmSvAriKups_v8yJms=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-plan-transport-idf.png:
-  cadrage: carte
-  fiche: 05-territoire-touristique
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVnsutm5PJveA6D4qaeKtSS6bADz_Wlyp5feRr93ByMg2cKDdBkDlKWnLMI9fWm1AK9u5ePM2clbgZPv9eQxeX4uqEbu2aSvoW-lTCCcPz8mxH1jemde5tcLGPNMOfJgDOsGwwNR_Mnz-egyPky74eOxkEPyGxjmL8Bblm2mLz7smCjQKCZJcVfBhlqLO76-CILzjoyEu2zPwrVMnE5xBfI8IxbOZICLLJCM9iQP8U=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-liaisons-idf.png:
-  cadrage: carte
-  fiche: 05-territoire-touristique
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQVPXl9VaT5khxXu8oSUF5kQniGHGVv0vF9Ui_FrecPCM84u0Yhbp-j1tdMDhTG-wO0eiIB7p6IQjkAJOaDlVkCKuDmPzcY85YaK4Z0PyhntcvkR4xth1fzKvbCw8xiWqyybPYY_CDrcSPsFKbY8gPSicCIfdni37e4luYRVwzDBL07741pNaIE0j_4XsTkAAd7main-f0bq9PB30eHI1xxLYqePAYjLi3lvup4ZRn0=w1280
   commons: ''
   recherche: ''
   titre: ''
@@ -2227,6 +2187,15 @@ versailles.jpg:
   fiche: 05-territoire-touristique
   commons: "File:Versailles chateau.jpg"
   recherche: Chateau de Versailles palace
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+tgv-gare-lyon.jpg:
+  cadrage: flottant
+  fiche: 05-territoire-touristique
+  commons: "File:TGV Lyria Gare Lyon Paris 1.jpg"
+  recherche: TGV Lyria Gare de Lyon Paris
   auteur: ''
   titre: ''
   licence: ''

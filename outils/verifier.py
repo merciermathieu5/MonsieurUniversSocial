@@ -501,6 +501,9 @@ def controler_composants() -> list[str]:
                 soucis.append(f"{nom} : contient une liste sans list-style: none")
             if "::marker" not in texte:
                 soucis.append(f"{nom} : liste sans neutralisation de ::marker")
+            if "li::before" not in texte:
+                soucis.append(f"{nom} : liste sans neutralisation de li::before, "
+                              f"la puce ronde du thème réapparaît")
 
         # 3. Deux éléments de texte qui se suivent dans un bouton doivent
         #    être en bloc, sinon ils se chevauchent sur la même ligne.

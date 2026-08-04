@@ -6,6 +6,7 @@
 .fto__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 .fto__grille { list-style: none; margin: 0; padding: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: .75rem; }
 .fto__grille > li::marker { content: ""; }
+.fto li::before { content: none; display: none; }
 .fto__carte { list-style: none; display: flex; gap: .8rem; align-items: flex-start; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem; }
 .fto__carte::marker { content: ""; }
 .fto__picto { flex: 0 0 auto; width: 2.1rem; height: 2.1rem; color: var(--matiere-fonce); }

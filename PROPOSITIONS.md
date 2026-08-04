@@ -2832,3 +2832,85 @@ SCHÉMAS avec le nouveau diagramme et COMPOSANTS avec la nouvelle grille.
 internes, aucun brisé. Les deux suites Node passent à 0 échec.
 
 Rien à supprimer à la main cette fois, la liste des dix est réglée.
+
+### Puces, cartes d'enjeux et diagramme circulaire (livraison 101)
+
+Reparti du dépôt en ligne, commit `1ed8d0f`, livraison 100.
+
+**Les points parasites du composant.** Tu les avais vus, ils étaient réels. Le
+thème dessine la puce de liste avec `.texte ul > li::before`, une pastille ronde
+positionnée en absolu, et non avec `::marker`. Ma neutralisation ne visait donc
+pas la bonne cible. Corrigé par `.fto li::before { content: none; display: none; }`,
+sur le modèle de `classes-sociales.html` et de `guerre-independance.html`, qui
+faisaient déjà les choses correctement. J'étais le seul fautif des trois.
+
+**Le vérificateur apprend la règle.** Comme le README le demande pour toute règle
+de mise en page qui réapparaît, la section COMPOSANTS contrôle maintenant qu'un
+composant contenant une liste neutralise aussi `li::before`, en plus de
+`list-style` et de `::marker`. Les deux autres composants à liste passaient déjà.
+
+**Les attraits de la Gaspésie.** Je n'ai pas trouvé de nom de fichier Commons
+que je puisse confirmer pour l'île Bonaventure, les Chic-Chocs, le phare de La
+Martre, Gespeg ni la baie des Chaleurs. J'ai donc pris le minimum que tu
+acceptes : un encadré `activite` en fin de section, avec quatre liens vérifiés
+qui couvrent les six attraits.
+
+- Sépaq, parc national de l'Île-Bonaventure-et-du-Rocher-Percé
+- Site d'interprétation Micmac de Gespeg, son site officiel
+- Route des phares du Québec maritime, pour La Martre
+- Tourisme Gaspésie, pour les Chic-Chocs et la baie des Chaleurs
+
+La photographie du rocher Percé, reprise du dossier du RÉCIT, reste en tête de
+section. Au passage, l'adresse de Tourisme Gaspésie était fausse dans les
+sources : le domaine est `tourisme-gaspesie.com`, avec un trait d'union.
+
+**Le schéma des enjeux disparaît.** `resume-gaspesie.png` sort de la fiche et du
+registre, comme demandé, et `enjeux-gaspesie.png` avec lui : c'était le même
+contenu, et il n'était jamais arrivé sur le disque. Le fichier
+`medias/05-territoire-touristique/resume-gaspesie.png` reste sur le disque, tu
+peux le supprimer à la main si tu n'en veux plus la trace.
+
+**Les enjeux passent en cartes, des deux côtés.** Les quatre sous-titres de
+niveau 4 de la Gaspésie et les quatre de l'Île-de-France deviennent des encadrés
+`::: cartes`, qui se rangent d'eux-mêmes en deux rangées de deux. Chaque carte
+garde un vrai paragraphe, pas une puce. Un texte d'amorce ouvre chaque bloc.
+
+Ce que le passage en cartes rend visible et que l'empilement cachait : les deux
+régions affrontent les mêmes quatre familles d'enjeux, mais pour des raisons
+presque inverses. L'amorce de l'Île-de-France le dit maintenant en une phrase,
+ici le problème n'est jamais le manque de visiteurs.
+
+**Les retombées de l'Île-de-France en diagramme circulaire.**
+`medias/schemas/retombees-idf.svg`, un anneau à deux parts sur les 24 milliards
+d'euros de 2025 : près de 16 milliards des visiteurs internationaux, 8 milliards
+des clientèles françaises. Le total s'inscrit au centre. L'accent doré va à la
+part des 8 milliards, puisque c'est celle que l'on prend souvent pour le total,
+et la légende le dit. Les textes se lisent hors des parts, donc le contraste
+tient dans les deux thèmes.
+
+**Deux images pour les déplacements.** La section en portait trois, toutes
+absentes. Il en reste deux : `reseau-transport-idf.png`, la carte du réseau
+reprise de ton site, et `tgv-gare-lyon.jpg`, nouvelle, tirée de Commons sous le
+nom vérifié `File:TGV Lyria Gare Lyon Paris 1.jpg`. `plan-transport-idf.png` et
+`liaisons-idf.png` sortent du registre.
+
+### À valider
+
+**1. La carte du réseau de transport** n'est toujours pas arrivée. Si elle
+résiste, donne-moi un nom Commons vérifié pour une photo de métro parisien et je
+complète la paire, ce qui rendrait la section plus vivante qu'une carte de plus.
+
+**2. Les attraits gaspésiens en images.** Si tu peux me confirmer des noms de
+fichiers Commons, ou déposer toi-même des photos dans
+`medias/05-territoire-touristique/`, les six attraits passeraient des liens aux
+images. `python outils/images.py --ranger` permet d'associer des fichiers dont le
+nom ne correspond pas au registre.
+
+### Le compte
+
+Ligne de base : 28 problèmes. Après : 25. **Delta de moins trois**, qui
+s'explique exactement : quatre entrées retirées du registre, une ajoutée. Aucun
+problème hors images. Les neuf sections passent, dont SCHÉMAS avec le nouveau
+diagramme circulaire et COMPOSANTS avec son contrôle supplémentaire.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 743 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.

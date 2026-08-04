@@ -308,6 +308,7 @@ le plus à l'étranger.</p>
 .fto__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 .fto__grille { list-style: none; margin: 0; padding: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: .75rem; }
 .fto__grille > li::marker { content: ""; }
+.fto li::before { content: none; display: none; }
 .fto__carte { list-style: none; display: flex; gap: .8rem; align-items: flex-start; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem; }
 .fto__carte::marker { content: ""; }
 .fto__picto { flex: 0 0 auto; width: 2.1rem; height: 2.1rem; color: var(--matiere-fonce); }
@@ -717,6 +718,18 @@ température moyenne d'environ 22 degrés Celsius l'été, une rareté sous ces
 latitudes. Elle fait partie du Club des plus belles baies du monde depuis 2004.
 Des municipalités de la baie ont mis sur pied un circuit des plages pour aider
 les visiteurs à organiser leur séjour.</p>
+<aside class="encadre encadre--activite">
+<p class="encadre__titre">Activité</p>
+<p>Chacun de ces attraits se visite aussi en ligne. Le
+<strong><a href="https://www.sepaq.com/pq/bon/">parc national de l'Île-Bonaventure-et-du-Rocher-Percé</a></strong>
+présente le rocher, l'île et sa colonie de fous de Bassan. Le
+<strong><a href="https://www.micmacgespeg.ca/">Site d'interprétation Micmac de Gespeg</a></strong> raconte
+la nation mi'gmaq de Gaspé dans ses propres mots. La
+<strong><a href="https://www.quebecmaritime.ca/circuits-et-sejours/la-route-des-phares">Route des phares</a></strong>
+mène de phare en phare le long de la côte, dont celui de La Martre. Et
+<strong><a href="https://www.tourisme-gaspesie.com/">Tourisme Gaspésie</a></strong> couvre les monts
+Chic-Chocs comme la baie des Chaleurs.</p>
+</aside>
 <h3 id="les-amenagements-touristiques">Les aménagements touristiques</h3>
 <p>Tout, en Gaspésie, dépend d'abord d'une route. La route 132 est la plus longue du
 Québec avec plus de 1 600 kilomètres au total, et c'est sa boucle gaspésienne,
@@ -767,34 +780,31 @@ peuvent donc pointer dans des directions opposées sans qu'aucun ne soit faux.</
 </figure>
 
 <h3 id="les-enjeux-du-tourisme-en-gaspesie">Les enjeux du tourisme en Gaspésie</h3>
-
-<figure class="illustration illustration--large"><img alt="Le tourisme en Gaspésie, en résumé" src="../medias/05-territoire-touristique/resume-gaspesie.png" /><figcaption><span class="figure-legende">Le tourisme en Gaspésie, en résumé</span></figcaption></figure>
-<h4 id="lenjeu-environnemental">L'enjeu environnemental</h4>
-<p>Le tourisme, surtout l'été, met de la pression sur des milieux naturels fragiles.
-Au rocher Percé, le piétinement intensif abîme la végétation et accélère
-l'érosion des falaises, ce qui oblige à entretenir les sentiers en continu. À
-l'île Bonaventure, le nombre de visiteurs est limité pour protéger la colonie de
-fous de Bassan pendant la reproduction.</p>
-<h4 id="lenjeu-economique">L'enjeu économique</h4>
-<p>L'économie gaspésienne dépend beaucoup du tourisme, et cette dépendance crée une
-fragilité. Beaucoup d'emplois en restauration et en hébergement n'existent que de
-juin à septembre. L'hiver, le chômage augmente. Un événement imprévu suffit à
-faire chuter les revenus de toute une année : la pandémie de 2020 l'a montré,
-faute d'une économie assez diversifiée pour absorber le choc.</p>
-<h4 id="lenjeu-social">L'enjeu social</h4>
-<p>L'arrivée massive de visiteurs et de nouveaux résidents change la vie
-quotidienne. À Percé et à Sainte-Anne-des-Monts, des maisons ont été achetées
-pour être converties en locations de courte durée, ce qui a fait monter les prix
-et compliqué l'accès au logement pour les Gaspésiens comme pour les travailleurs
-saisonniers. Les jeunes quittent alors la région pour étudier ou pour trouver un
-emploi à l'année, et la population vieillit.</p>
-<h4 id="lenjeu-territorial">L'enjeu territorial</h4>
-<p>Des infrastructures conçues pour une petite population doivent accueillir des
-dizaines de milliers de visiteurs. L'été, la route 132 est congestionnée, en
-particulier aux abords de Percé, les stationnements débordent et les commerces
-peinent à servir tout le monde. Les réseaux d'aqueduc, les égouts et la collecte
-des déchets, dimensionnés pour les résidents permanents, ne suffisent plus en
-haute saison.</p>
+<p>Le tourisme a sauvé l'économie gaspésienne, mais il pèse sur le territoire de
+quatre façons différentes. Ces quatre enjeux ne se traitent pas séparément :
+chacun nourrit les autres.</p>
+<div class="cartes">
+<p><strong>L'enjeu environnemental</strong> porte sur des milieux fragiles que la fréquentation
+d'été abîme. Au rocher Percé, le piétinement intensif use la végétation et
+accélère l'érosion des falaises, ce qui oblige à entretenir les sentiers en
+continu. À l'île Bonaventure, le nombre de visiteurs est plafonné pour protéger
+la colonie de fous de Bassan pendant la reproduction.</p>
+<p><strong>L'enjeu économique</strong> tient à la dépendance envers une seule industrie et une
+seule saison. Beaucoup d'emplois en restauration et en hébergement n'existent que
+de juin à septembre, et le chômage remonte l'hiver. Un événement imprévu suffit à
+faire chuter les revenus de toute une année, comme l'a montré la pandémie de
+2020.</p>
+<p><strong>L'enjeu social</strong> se joue sur le logement. À Percé et à Sainte-Anne-des-Monts,
+des maisons ont été achetées pour être converties en locations de courte durée,
+ce qui a fait monter les prix et compliqué l'accès au logement pour les
+Gaspésiens comme pour les travailleurs saisonniers. Les jeunes partent étudier ou
+travailler ailleurs, et la population vieillit.</p>
+<p><strong>L'enjeu territorial</strong> vient d'infrastructures conçues pour une petite
+population. L'été, la route 132 se congestionne aux abords de Percé, les
+stationnements débordent et les commerces peinent à servir tout le monde. Les
+réseaux d'aqueduc, les égouts et la collecte des déchets, dimensionnés pour les
+résidents permanents, ne suffisent plus en haute saison.</p>
+</div>
 <aside class="encadre encadre--questions">
 <p class="encadre__titre">Questions</p>
 <ol>
@@ -923,8 +933,7 @@ et d'aqueducs à l'échelle de toute la région.</p>
 <div class="galerie"><figure class="illustration illustration--petit"><img alt="La tour Eiffel, vue du Champ-de-Mars" src="../medias/05-territoire-touristique/tour-eiffel.jpg" /><figcaption><span class="figure-legende">La tour Eiffel, vue du Champ-de-Mars</span><details class="credit"><summary>Source</summary><span>Benh LIEU SONG, Tour Eiffel Wikimedia Commons, <a href="https://commons.wikimedia.org/wiki/File:Tour_Eiffel_Wikimedia_Commons.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Domaine public.</span></details></figcaption></figure><figure class="illustration illustration--flottant"><img alt="L'Arc de triomphe de l'Étoile" src="../medias/05-territoire-touristique/arc-triomphe.jpg" /><figcaption><span class="figure-legende">L'Arc de triomphe de l'Étoile</span><details class="credit"><summary>Source</summary><span>Jiuguang Wang, Arc de Triomphe, Paris 21 October 2010, <a href="https://commons.wikimedia.org/wiki/File:Arc_de_Triomphe,_Paris_21_October_2010.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 2.0.</span></details></figcaption></figure><figure class="illustration illustration--flottant"><img alt="La cathédrale Notre-Dame de Paris" src="../medias/05-territoire-touristique/notre-dame.jpg" /><figcaption><span class="figure-legende">La cathédrale Notre-Dame de Paris</span><details class="credit"><summary>Source</summary><span>Dietmar Rabich, Paris, Notre Dame -- 2014 -- 1458-65, <a href="https://commons.wikimedia.org/wiki/File:Paris,_Notre_Dame_--_2014_--_1458-65.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 4.0.</span></details></figcaption></figure><figure class="illustration illustration--flottant"><img alt="Le château de Versailles" src="../medias/05-territoire-touristique/versailles.jpg" /><figcaption><span class="figure-legende">Le château de Versailles</span><details class="credit"><summary>Source</summary><span>Marc Vassal, Versailles chateau, <a href="https://commons.wikimedia.org/wiki/File:Versailles_chateau.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 3.0.</span></details></figcaption></figure></div>
 <h3 id="se-deplacer-en-ile-de-france">Se déplacer en Île-de-France</h3>
 
-
-
+<figure class="illustration illustration--flottant"><img alt="Un TGV en gare de Lyon, à Paris" src="../medias/05-territoire-touristique/tgv-gare-lyon.jpg" /><figcaption><span class="figure-legende">Un TGV en gare de Lyon, à Paris</span><details class="credit"><summary>Source</summary><span>Chabe01, TGV Lyria Gare Lyon Paris 1, <a href="https://commons.wikimedia.org/wiki/File:TGV_Lyria_Gare_Lyon_Paris_1.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 4.0.</span></details></figcaption></figure>
 <p>L'Île-de-France dispose d'un vaste réseau de transport en commun géré par
 Île-de-France Mobilités : le métro, le RER, le Transilien, le tramway,
 l'autobus et, depuis 2025, un téléphérique urbain. L'ensemble compte plus de
@@ -951,17 +960,46 @@ destination : on peut y entrer pour un hôtel, un restaurant ou un musée. Son b
 est de réduire la congestion et la pollution.</p>
 </aside>
 <h3 id="les-retombees-economiques_1">Les retombées économiques</h3>
+<figure class="schema"><svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagramme circulaire de la consommation touristique en Île-de-France en 2025, près de 16 milliards d'euros venus des visiteurs internationaux et 8 milliards des clientèles françaises, pour un total de 24 milliards">
+  <style>
+    .rd-t { font-family: Archivo, sans-serif; }
+    .rd-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .rd-c { font-size: 22px; font-weight: 700; fill: var(--encre); }
+    .rd-s { font-size: 13px; fill: var(--encre-doux); }
+    .rd-l { font-size: 16px; font-weight: 700; fill: var(--encre); }
+    .rd-d { font-size: 14px; fill: var(--encre); }
+  </style>
+
+  <text class="rd-t rd-u" x="20" y="26">Consommation touristique en Île-de-France en 2025</text>
+
+  <path d="M300 65 A150 150 0 1 1 170.1 290 L220.3 261 A92 92 0 1 0 300 123 Z"
+        fill="var(--schema-cle)"/>
+  <path d="M170.1 290 A150 150 0 0 1 300 65 L300 123 A92 92 0 0 0 220.3 261 Z"
+        fill="var(--schema-accent)"/>
+
+  <text class="rd-t rd-c" x="300" y="210" text-anchor="middle">24 milliards</text>
+  <text class="rd-t rd-s" x="300" y="232" text-anchor="middle">d'euros au total</text>
+
+  <rect x="560" y="146" width="22" height="22" rx="3" fill="var(--schema-cle)"/>
+  <text class="rd-t rd-l" x="596" y="163">Les visiteurs internationaux</text>
+  <text class="rd-t rd-d" x="596" y="187">Près de 16 milliards d'euros, soit les deux tiers du total.</text>
+  <text class="rd-t rd-d" x="596" y="208">Ils sont plus de 23 millions à venir chaque année.</text>
+
+  <rect x="560" y="248" width="22" height="22" rx="3" fill="var(--schema-accent)"/>
+  <text class="rd-t rd-l" x="596" y="265">Les clientèles françaises</text>
+  <text class="rd-t rd-d" x="596" y="289">8 milliards d'euros, soit un tiers du total.</text>
+  <text class="rd-t rd-d" x="596" y="310">C'est ce chiffre que l'on prend souvent pour le total.</text>
+</svg>
+</figure>
+
 <p>L'industrie touristique francilienne doit être assez développée pour recevoir
 près de 50 millions de visiteurs par année. En 2025, la région a accueilli
 49,1 millions de touristes, dont plus de 23 millions venus de l'étranger, et
 demeure la première destination touristique mondiale. Le parc hôtelier compte
 environ 2 455 hôtels et, avec les auberges, les gîtes et les résidences de
-tourisme, plus de 145 000 chambres.</p>
-<p>La consommation touristique a atteint près de 24 milliards d'euros en 2025, un
-record. Les visiteurs internationaux en fournissent près de 16 milliards, soit
-près des deux tiers, et les clientèles françaises 8 milliards. Le musée du Louvre
-demeure le site le plus fréquenté de la région, avec 9 millions de visiteurs en
-2025.</p>
+tourisme, plus de 145 000 chambres. Le musée du Louvre demeure le site le plus
+fréquenté de la région, avec 9 millions de visiteurs en 2025.</p>
 <p class="source-texte">Source : Choose Paris Region et Comité régional du tourisme Paris Île-de-France,
 bilan de 2025</p>
 <aside class="encadre encadre--note">
@@ -978,31 +1016,34 @@ vite dans la grande couronne que dans la capitale, avec des hausses de 12 % en
 Essonne et dans le Val-de-Marne, et de 11 % en Seine-et-Marne comme dans les
 Yvelines.</p>
 <h3 id="les-enjeux-du-tourisme-en-ile-de-france">Les enjeux du tourisme en Île-de-France</h3>
-<h4 id="lenjeu-environnemental_1">L'enjeu environnemental</h4>
-<p>La concentration des visiteurs sur quelques sites pèse sur le patrimoine et sur
-la qualité de l'air. L'usure des monuments les plus fréquentés impose des
-restaurations continues, et le trafic routier lié aux autocars et aux navettes
-d'aéroport a motivé des mesures de restriction comme la zone à trafic limité.</p>
-<h4 id="lenjeu-economique_1">L'enjeu économique</h4>
-<p>L'Île-de-France ne connaît pas la dépendance saisonnière de la Gaspésie, mais
-elle reste vulnérable aux chocs. La fréquentation internationale a chuté après
-les attentats de 2015, puis pendant la pandémie. Une part importante des emplois
-de l'hôtellerie, de la restauration et du commerce dépend d'une clientèle
-étrangère que la région ne contrôle pas.</p>
-<h4 id="lenjeu-social_1">L'enjeu social</h4>
-<p>Le surtourisme et le logement sont les deux enjeux les plus discutés. Dans les
-quartiers centraux, la location de courte durée retire des appartements du marché
+<p>L'Île-de-France affronte les mêmes quatre familles d'enjeux que la Gaspésie,
+mais avec des causes presque inverses : ici le problème n'est jamais le manque de
+visiteurs.</p>
+<div class="cartes">
+<p><strong>L'enjeu environnemental</strong> vient de la concentration des visiteurs sur quelques
+sites. L'usure des monuments les plus fréquentés impose des restaurations
+continues. Le trafic des autocars et des navettes d'aéroport pèse sur la qualité
+de l'air, ce qui a motivé des mesures de restriction comme la zone à trafic
+limité de 2024.</p>
+<p><strong>L'enjeu économique</strong> n'est pas la dépendance saisonnière, puisque les congrès
+et le tourisme d'affaires remplissent les hôtels toute l'année. C'est la
+vulnérabilité aux chocs. La fréquentation internationale a chuté après les
+attentats de 2015, puis pendant la pandémie, et une large part des emplois de
+l'hôtellerie et du commerce dépend d'une clientèle étrangère que la région ne
+contrôle pas.</p>
+<p><strong>L'enjeu social</strong> est celui du surtourisme et du logement. Dans les quartiers
+centraux, la location de courte durée retire des appartements du marché
 résidentiel et pousse les loyers vers le haut, ce qui éloigne les habitants du
-centre. Certains quartiers voient leurs commerces de proximité remplacés par des
-boutiques de souvenirs et des enseignes destinées aux visiteurs. Les résidents
-signalent aussi l'affluence, le bruit et les files d'attente devant chez eux.</p>
-<h4 id="lenjeu-territorial_1">L'enjeu territorial</h4>
-<p>L'espace disponible est la contrainte principale. Les sites emblématiques ne
-peuvent pas s'agrandir, alors que la fréquentation, elle, augmente. La réponse a
-consisté à étaler les visiteurs dans le temps, par des réservations à heure fixe,
-et dans l'espace, en développant l'offre en grande couronne. Les hausses de
-fréquentation de l'Essonne, de la Seine-et-Marne et des Yvelines montrent que
-cette stratégie de répartition produit des effets.</p>
+centre. Des commerces de proximité cèdent la place à des boutiques de souvenirs,
+et les résidents signalent l'affluence, le bruit et les files d'attente devant
+chez eux.</p>
+<p><strong>L'enjeu territorial</strong> est celui de l'espace. Les sites emblématiques ne peuvent
+pas s'agrandir alors que la fréquentation augmente. La réponse consiste à étaler
+les visiteurs dans le temps, par des réservations à heure fixe, et dans l'espace,
+en développant l'offre en grande couronne. Les hausses de fréquentation de
+l'Essonne, de la Seine-et-Marne et des Yvelines montrent que cette stratégie
+produit des effets.</p>
+</div>
 <aside class="encadre encadre--questions">
 <p class="encadre__titre">Questions</p>
 <ol>
@@ -1218,7 +1259,7 @@ la congestion des sentiers et le manque de stationnement ont conduit la province
 <li><a href="https://histoire.recitus.qc.ca/">Service national du RÉCIT en univers social</a></li>
 <li><a href="https://documents.recitus.qc.ca/1er-cyle/dossier/territoire-touristique-et-reseaux-sociaux">Territoire touristique et réseaux sociaux, dossier du RÉCIT</a></li>
 <li><a href="https://www.untourism.int/un-tourism-world-tourism-barometer-data">ONU Tourisme, Baromètre du tourisme mondial</a></li>
-<li><a href="https://www.tourismegaspesie.com/">Tourisme Gaspésie</a></li>
+<li><a href="https://www.tourisme-gaspesie.com/">Tourisme Gaspésie</a></li>
 <li><a href="https://pro.visitparisregion.com/chiffres-du-tourisme/conjoncture/bilans">Choose Paris Region, les chiffres du tourisme</a></li>
 <li><a href="https://www.paris.fr/pages/paris-cree-une-zone-apaisee-dans-le-centre-de-la-capitale-20426">Ville de Paris, la zone à trafic limité</a></li>
 </ul>

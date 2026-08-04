@@ -1,0 +1,31 @@
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagramme circulaire de la consommation touristique en Île-de-France en 2025, près de 16 milliards d'euros venus des visiteurs internationaux et 8 milliards des clientèles françaises, pour un total de 24 milliards">
+  <style>
+    .rd-t { font-family: Archivo, sans-serif; }
+    .rd-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .rd-c { font-size: 22px; font-weight: 700; fill: var(--encre); }
+    .rd-s { font-size: 13px; fill: var(--encre-doux); }
+    .rd-l { font-size: 16px; font-weight: 700; fill: var(--encre); }
+    .rd-d { font-size: 14px; fill: var(--encre); }
+  </style>
+
+  <text class="rd-t rd-u" x="20" y="26">Consommation touristique en Île-de-France en 2025</text>
+
+  <path d="M300 65 A150 150 0 1 1 170.1 290 L220.3 261 A92 92 0 1 0 300 123 Z"
+        fill="var(--schema-cle)"/>
+  <path d="M170.1 290 A150 150 0 0 1 300 65 L300 123 A92 92 0 0 0 220.3 261 Z"
+        fill="var(--schema-accent)"/>
+
+  <text class="rd-t rd-c" x="300" y="210" text-anchor="middle">24 milliards</text>
+  <text class="rd-t rd-s" x="300" y="232" text-anchor="middle">d'euros au total</text>
+
+  <rect x="560" y="146" width="22" height="22" rx="3" fill="var(--schema-cle)"/>
+  <text class="rd-t rd-l" x="596" y="163">Les visiteurs internationaux</text>
+  <text class="rd-t rd-d" x="596" y="187">Près de 16 milliards d'euros, soit les deux tiers du total.</text>
+  <text class="rd-t rd-d" x="596" y="208">Ils sont plus de 23 millions à venir chaque année.</text>
+
+  <rect x="560" y="248" width="22" height="22" rx="3" fill="var(--schema-accent)"/>
+  <text class="rd-t rd-l" x="596" y="265">Les clientèles françaises</text>
+  <text class="rd-t rd-d" x="596" y="289">8 milliards d'euros, soit un tiers du total.</text>
+  <text class="rd-t rd-d" x="596" y="310">C'est ce chiffre que l'on prend souvent pour le total.</text>
+</svg>

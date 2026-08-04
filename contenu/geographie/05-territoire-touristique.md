@@ -371,6 +371,18 @@ latitudes. Elle fait partie du Club des plus belles baies du monde depuis 2004.
 Des municipalités de la baie ont mis sur pied un circuit des plages pour aider
 les visiteurs à organiser leur séjour.
 
+::: activite
+Chacun de ces attraits se visite aussi en ligne. Le
+**[parc national de l'Île-Bonaventure-et-du-Rocher-Percé](https://www.sepaq.com/pq/bon/)**
+présente le rocher, l'île et sa colonie de fous de Bassan. Le
+**[Site d'interprétation Micmac de Gespeg](https://www.micmacgespeg.ca/)** raconte
+la nation mi'gmaq de Gaspé dans ses propres mots. La
+**[Route des phares](https://www.quebecmaritime.ca/circuits-et-sejours/la-route-des-phares)**
+mène de phare en phare le long de la côte, dont celui de La Martre. Et
+**[Tourisme Gaspésie](https://www.tourisme-gaspesie.com/)** couvre les monts
+Chic-Chocs comme la baie des Chaleurs.
+:::
+
 ### Les aménagements touristiques
 
 Tout, en Gaspésie, dépend d'abord d'une route. La route 132 est la plus longue du
@@ -429,43 +441,35 @@ Le tourisme en Gaspésie
 
 ### Les enjeux du tourisme en Gaspésie
 
-![Les enjeux du tourisme en Gaspésie](../medias/05-territoire-touristique/enjeux-gaspesie.png)
+Le tourisme a sauvé l'économie gaspésienne, mais il pèse sur le territoire de
+quatre façons différentes. Ces quatre enjeux ne se traitent pas séparément :
+chacun nourrit les autres.
 
-![Le tourisme en Gaspésie, en résumé](../medias/05-territoire-touristique/resume-gaspesie.png)
+::: cartes
+**L'enjeu environnemental** porte sur des milieux fragiles que la fréquentation
+d'été abîme. Au rocher Percé, le piétinement intensif use la végétation et
+accélère l'érosion des falaises, ce qui oblige à entretenir les sentiers en
+continu. À l'île Bonaventure, le nombre de visiteurs est plafonné pour protéger
+la colonie de fous de Bassan pendant la reproduction.
 
-#### L'enjeu environnemental
+**L'enjeu économique** tient à la dépendance envers une seule industrie et une
+seule saison. Beaucoup d'emplois en restauration et en hébergement n'existent que
+de juin à septembre, et le chômage remonte l'hiver. Un événement imprévu suffit à
+faire chuter les revenus de toute une année, comme l'a montré la pandémie de
+2020.
 
-Le tourisme, surtout l'été, met de la pression sur des milieux naturels fragiles.
-Au rocher Percé, le piétinement intensif abîme la végétation et accélère
-l'érosion des falaises, ce qui oblige à entretenir les sentiers en continu. À
-l'île Bonaventure, le nombre de visiteurs est limité pour protéger la colonie de
-fous de Bassan pendant la reproduction.
+**L'enjeu social** se joue sur le logement. À Percé et à Sainte-Anne-des-Monts,
+des maisons ont été achetées pour être converties en locations de courte durée,
+ce qui a fait monter les prix et compliqué l'accès au logement pour les
+Gaspésiens comme pour les travailleurs saisonniers. Les jeunes partent étudier ou
+travailler ailleurs, et la population vieillit.
 
-#### L'enjeu économique
-
-L'économie gaspésienne dépend beaucoup du tourisme, et cette dépendance crée une
-fragilité. Beaucoup d'emplois en restauration et en hébergement n'existent que de
-juin à septembre. L'hiver, le chômage augmente. Un événement imprévu suffit à
-faire chuter les revenus de toute une année : la pandémie de 2020 l'a montré,
-faute d'une économie assez diversifiée pour absorber le choc.
-
-#### L'enjeu social
-
-L'arrivée massive de visiteurs et de nouveaux résidents change la vie
-quotidienne. À Percé et à Sainte-Anne-des-Monts, des maisons ont été achetées
-pour être converties en locations de courte durée, ce qui a fait monter les prix
-et compliqué l'accès au logement pour les Gaspésiens comme pour les travailleurs
-saisonniers. Les jeunes quittent alors la région pour étudier ou pour trouver un
-emploi à l'année, et la population vieillit.
-
-#### L'enjeu territorial
-
-Des infrastructures conçues pour une petite population doivent accueillir des
-dizaines de milliers de visiteurs. L'été, la route 132 est congestionnée, en
-particulier aux abords de Percé, les stationnements débordent et les commerces
-peinent à servir tout le monde. Les réseaux d'aqueduc, les égouts et la collecte
-des déchets, dimensionnés pour les résidents permanents, ne suffisent plus en
-haute saison.
+**L'enjeu territorial** vient d'infrastructures conçues pour une petite
+population. L'été, la route 132 se congestionne aux abords de Percé, les
+stationnements débordent et les commerces peinent à servir tout le monde. Les
+réseaux d'aqueduc, les égouts et la collecte des déchets, dimensionnés pour les
+résidents permanents, ne suffisent plus en haute saison.
+:::
 
 ::: questions
 1. Nomme un enjeu de la Gaspésie qui vient de la nature du territoire et un autre
@@ -603,9 +607,7 @@ Les jardins de Versailles
 
 ![Le réseau de transport en commun de l'Île-de-France](../medias/05-territoire-touristique/reseau-transport-idf.png)
 
-![Le plan des lignes de l'Île-de-France](../medias/05-territoire-touristique/plan-transport-idf.png)
-
-![Les liaisons aériennes et ferroviaires de l'Île-de-France](../medias/05-territoire-touristique/liaisons-idf.png)
+![Un TGV en gare de Lyon, à Paris](../medias/05-territoire-touristique/tgv-gare-lyon.jpg)
 
 L'Île-de-France dispose d'un vaste réseau de transport en commun géré par
 Île-de-France Mobilités : le métro, le RER, le Transilien, le tramway,
@@ -637,18 +639,16 @@ est de réduire la congestion et la pollution.
 
 ### Les retombées économiques
 
+::: schema retombees-idf
+:::
+
 L'industrie touristique francilienne doit être assez développée pour recevoir
 près de 50 millions de visiteurs par année. En 2025, la région a accueilli
 49,1 millions de touristes, dont plus de 23 millions venus de l'étranger, et
 demeure la première destination touristique mondiale. Le parc hôtelier compte
 environ 2 455 hôtels et, avec les auberges, les gîtes et les résidences de
-tourisme, plus de 145 000 chambres.
-
-La consommation touristique a atteint près de 24 milliards d'euros en 2025, un
-record. Les visiteurs internationaux en fournissent près de 16 milliards, soit
-près des deux tiers, et les clientèles françaises 8 milliards. Le musée du Louvre
-demeure le site le plus fréquenté de la région, avec 9 millions de visiteurs en
-2025.
+tourisme, plus de 145 000 chambres. Le musée du Louvre demeure le site le plus
+fréquenté de la région, avec 9 millions de visiteurs en 2025.
 
 Source : Choose Paris Region et Comité régional du tourisme Paris Île-de-France,
 bilan de 2025
@@ -670,38 +670,38 @@ Yvelines.
 
 ### Les enjeux du tourisme en Île-de-France
 
-#### L'enjeu environnemental
+L'Île-de-France affronte les mêmes quatre familles d'enjeux que la Gaspésie,
+mais avec des causes presque inverses : ici le problème n'est jamais le manque de
+visiteurs.
 
-La concentration des visiteurs sur quelques sites pèse sur le patrimoine et sur
-la qualité de l'air. L'usure des monuments les plus fréquentés impose des
-restaurations continues, et le trafic routier lié aux autocars et aux navettes
-d'aéroport a motivé des mesures de restriction comme la zone à trafic limité.
+::: cartes
+**L'enjeu environnemental** vient de la concentration des visiteurs sur quelques
+sites. L'usure des monuments les plus fréquentés impose des restaurations
+continues. Le trafic des autocars et des navettes d'aéroport pèse sur la qualité
+de l'air, ce qui a motivé des mesures de restriction comme la zone à trafic
+limité de 2024.
 
-#### L'enjeu économique
+**L'enjeu économique** n'est pas la dépendance saisonnière, puisque les congrès
+et le tourisme d'affaires remplissent les hôtels toute l'année. C'est la
+vulnérabilité aux chocs. La fréquentation internationale a chuté après les
+attentats de 2015, puis pendant la pandémie, et une large part des emplois de
+l'hôtellerie et du commerce dépend d'une clientèle étrangère que la région ne
+contrôle pas.
 
-L'Île-de-France ne connaît pas la dépendance saisonnière de la Gaspésie, mais
-elle reste vulnérable aux chocs. La fréquentation internationale a chuté après
-les attentats de 2015, puis pendant la pandémie. Une part importante des emplois
-de l'hôtellerie, de la restauration et du commerce dépend d'une clientèle
-étrangère que la région ne contrôle pas.
-
-#### L'enjeu social
-
-Le surtourisme et le logement sont les deux enjeux les plus discutés. Dans les
-quartiers centraux, la location de courte durée retire des appartements du marché
+**L'enjeu social** est celui du surtourisme et du logement. Dans les quartiers
+centraux, la location de courte durée retire des appartements du marché
 résidentiel et pousse les loyers vers le haut, ce qui éloigne les habitants du
-centre. Certains quartiers voient leurs commerces de proximité remplacés par des
-boutiques de souvenirs et des enseignes destinées aux visiteurs. Les résidents
-signalent aussi l'affluence, le bruit et les files d'attente devant chez eux.
+centre. Des commerces de proximité cèdent la place à des boutiques de souvenirs,
+et les résidents signalent l'affluence, le bruit et les files d'attente devant
+chez eux.
 
-#### L'enjeu territorial
-
-L'espace disponible est la contrainte principale. Les sites emblématiques ne
-peuvent pas s'agrandir, alors que la fréquentation, elle, augmente. La réponse a
-consisté à étaler les visiteurs dans le temps, par des réservations à heure fixe,
-et dans l'espace, en développant l'offre en grande couronne. Les hausses de
-fréquentation de l'Essonne, de la Seine-et-Marne et des Yvelines montrent que
-cette stratégie de répartition produit des effets.
+**L'enjeu territorial** est celui de l'espace. Les sites emblématiques ne peuvent
+pas s'agrandir alors que la fréquentation augmente. La réponse consiste à étaler
+les visiteurs dans le temps, par des réservations à heure fixe, et dans l'espace,
+en développant l'offre en grande couronne. Les hausses de fréquentation de
+l'Essonne, de la Seine-et-Marne et des Yvelines montrent que cette stratégie
+produit des effets.
+:::
 
 ::: questions
 1. Compare l'enjeu du logement en Gaspésie et en Île-de-France. Qu'est-ce qui se
@@ -765,6 +765,6 @@ Source : Radio-Canada, 2019
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
 - [Territoire touristique et réseaux sociaux, dossier du RÉCIT](https://documents.recitus.qc.ca/1er-cyle/dossier/territoire-touristique-et-reseaux-sociaux)
 - [ONU Tourisme, Baromètre du tourisme mondial](https://www.untourism.int/un-tourism-world-tourism-barometer-data)
-- [Tourisme Gaspésie](https://www.tourismegaspesie.com/)
+- [Tourisme Gaspésie](https://www.tourisme-gaspesie.com/)
 - [Choose Paris Region, les chiffres du tourisme](https://pro.visitparisregion.com/chiffres-du-tourisme/conjoncture/bilans)
 - [Ville de Paris, la zone à trafic limité](https://www.paris.fr/pages/paris-cree-une-zone-apaisee-dans-le-centre-de-la-capitale-20426)
