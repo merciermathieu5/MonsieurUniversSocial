@@ -1,0 +1,168 @@
+<section class="glc" id="grands-lacs-comparaison" aria-label="Comparaison du territoire industriel des Grands Lacs entre les années 1970 et aujourd'hui">
+<style>
+.glc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.glc .glc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.glc .glc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.glc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.glc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.glc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.glc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.glc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.glc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.glc__panneau.est-visible { display: block; }
+.glc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.glc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.glc__cote--auj { border-left-color: var(--encre-pale); }
+.glc__quand { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.glc__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.glc__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.glc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.glc__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .glc .glc__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .glc .glc__titre { color: var(--encre); }
+html[data-sombre="on"] .glc__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .glc__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .glc__chiffre { color: var(--encre); }
+html[data-sombre="on"] .glc__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .glc__panneau { padding: 1.1rem 1rem 1rem; } .glc__onglets { padding: .7rem .8rem; } .glc__chiffre { font-size: 1.25rem; } }
+@media print { .glc__panneau { display: block; page-break-inside: avoid; } .glc__onglets { display: none; } }
+</style>
+
+<div class="glc__entete">
+  <p class="glc__titre" role="heading" aria-level="3">Les Grands Lacs, avant et maintenant</p>
+  <p class="glc__consigne">Choisis un critère</p>
+</div>
+
+<div class="glc__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="glc__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("grands-lacs-comparaison");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "ville",
+      nom: "La ville de Détroit",
+      avChiffre: "1,85 million",
+      avDetail: "C'est la population de la ville de D\u00e9troit \u00e0 son sommet, en 1950. Elle est alors la quatri\u00e8me ville des \u00c9tats-Unis, portée par l'automobile.",
+      aujChiffre: "640 000",
+      aujDetail: "La ville a perdu pr\u00e8s des deux tiers de sa population. Elle s'est plac\u00e9e sous la protection de la loi sur les faillites en 2013, avec une dette de 18,5 milliards de dollars.",
+      ecart: "Attention au pi\u00e8ge. L'aire m\u00e9tropolitaine de D\u00e9troit, elle, n'a jamais \u00e9t\u00e9 aussi peupl\u00e9e : 6,3 millions d'habitants en 2020. Ce n'est pas la r\u00e9gion qui s'est vid\u00e9e, c'est le centre qui s'est vid\u00e9 vers ses banlieues."
+    },
+    {
+      cle: "emplois",
+      nom: "Les emplois d'usine",
+      avChiffre: "300 000",
+      avDetail: "Emplois manufacturiers dans la seule ville de D\u00e9troit en 1960. La moiti\u00e9 des emplois automobiles am\u00e9ricains se trouvaient alors dans la ceinture manufacturi\u00e8re.",
+      aujChiffre: "Environ 25 000",
+      aujDetail: "Douze fois moins. Les usines ne sont pas toutes disparues, mais elles emploient beaucoup moins de monde pour produire autant, gr\u00e2ce \u00e0 l'automatisation.",
+      ecart: "Une usine qui reste ouverte ne garantit plus les emplois d'avant. Produire davantage avec moins de personnes est le changement le plus profond du si\u00e8cle."
+    },
+    {
+      cle: "acteurs",
+      nom: "Qui domine l'automobile",
+      avChiffre: "Les Big Three",
+      avDetail: "General Motors, Ford et Chrysler se partageaient le march\u00e9 am\u00e9ricain. Quatre-vingts pour cent de leurs usines se trouvaient au Michigan, en Ohio et en Indiana.",
+      aujChiffre: "Un march\u00e9 partag\u00e9",
+      aujDetail: "Les constructeurs japonais, cor\u00e9ens et allemands produisent aussi aux \u00c9tats-Unis, surtout dans le sud-est, o\u00f9 les salaires sont plus bas et la syndicalisation plus faible.",
+      ecart: "La premi\u00e8re d\u00e9localisation n'a pas travers\u00e9 l'oc\u00e9an : elle est descendue vers le sud des \u00c9tats-Unis, \u00e0 quelques heures de route."
+    },
+    {
+      cle: "attire",
+      nom: "Ce qui attire les usines",
+      avChiffre: "Le fer et le charbon",
+      avDetail: "Les mines du lac Sup\u00e9rieur, le charbon de l'Appalache et la navigation sur les lacs rendaient l'acier bon march\u00e9 sur place.",
+      aujChiffre: "L'électricité et les batteries",
+      aujDetail: "La fili\u00e8re du v\u00e9hicule \u00e9lectrique cherche de l'\u00e9lectricit\u00e9 abondante, des min\u00e9raux critiques et des usines de batteries. Les centres de donn\u00e9es aussi.",
+      ecart: "Les six facteurs de localisation n'ont pas chang\u00e9, mais ce qu'ils d\u00e9signent a chang\u00e9. La mati\u00e8re premi\u00e8re d'hier \u00e9tait le minerai, celle d'aujourd'hui est le lithium."
+    },
+    {
+      cle: "menace",
+      nom: "Ce qui les menace",
+      avChiffre: "La concurrence",
+      avDetail: "\u00c0 partir des ann\u00e9es 1970, les voitures japonaises, plus petites et moins gourmandes, prennent des parts de march\u00e9. Les co\u00fbts de production am\u00e9ricains sont trop \u00e9lev\u00e9s.",
+      aujChiffre: "Les frontières",
+      aujDetail: "Depuis 2025, des tarifs douaniers de 25 % sur les v\u00e9hicules et de 50 % sur l'acier et l'aluminium red\u00e9coupent un march\u00e9 qui \u00e9tait devenu continental.",
+      ecart: "C'est un renversement complet. Pendant cinquante ans, l'enjeu \u00e9tait d'ouvrir les fronti\u00e8res pour produire moins cher. Aujourd'hui, ce sont les fronti\u00e8res qui d\u00e9cident."
+    },
+    {
+      cle: "lacs",
+      nom: "L'état des lacs",
+      avChiffre: "Le lac mort",
+      avDetail: "Dans les ann\u00e9es 1960 et 1970, le lac \u00c9ri\u00e9 est si pollu\u00e9 qu'on le dit mort. Une rivi\u00e8re qui s'y jette, la Cuyahoga, prend feu \u00e0 plusieurs reprises.",
+      aujChiffre: "Des algues et du plastique",
+      aujDetail: "Les rejets industriels ont beaucoup diminu\u00e9, mais les engrais agricoles nourrissent des algues toxiques, et les microplastiques s'accumulent dans les cinq lacs.",
+      ecart: "La pollution n'a pas disparu, elle a chang\u00e9 de source. On voyait autrefois d'o\u00f9 elle venait, aujourd'hui elle arrive de partout \u00e0 la fois."
+    }
+  ];
+
+  var onglets = racine.querySelector(".glc__onglets");
+  var contenu = racine.querySelector(".glc__contenu");
+
+  function cote(quand, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "glc__cote" + (modificateur ? " glc__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "glc__quand";
+    etiquette.textContent = quand;
+    var nombre = document.createElement("span");
+    nombre.className = "glc__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "glc__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "glc__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "glc-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "glc__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "glc-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "glc__colonnes";
+    colonnes.appendChild(cote("L'âge d'or industriel", critere.avChiffre, critere.avDetail, ""));
+    colonnes.appendChild(cote("Aujourd'hui", critere.aujChiffre, critere.aujDetail, "auj"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "glc__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

@@ -1,0 +1,144 @@
+<section class="sac" id="secteurs-activite" aria-label="Les trois secteurs d'activité économique">
+<style>
+.sac { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.sac .sac__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.sac .sac__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.sac__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.sac__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.sac__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.sac__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.sac__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.sac__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.sac__panneau.est-visible { display: block; }
+.sac__def { margin: 0 0 1rem; font-size: 1rem; line-height: 1.6; }
+.sac__grille { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .75rem; }
+.sac li::before { content: none; display: none; }
+.sac__grille > li::marker { content: ""; }
+.sac__bloc { list-style: none; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .9rem 1.1rem; }
+.sac__bloc::marker { content: ""; }
+.sac__bloc--ici { border-left-color: var(--encre-pale); }
+.sac__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.sac__texte { display: block; margin: 0; font-size: .93rem; line-height: 1.55; }
+.sac__part { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.sac__part strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .sac .sac__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .sac .sac__titre { color: var(--encre); }
+html[data-sombre="on"] .sac__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .sac__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .sac__part strong { color: var(--encre); }
+@media (max-width: 40rem) { .sac__panneau { padding: 1.1rem 1rem 1rem; } .sac__onglets { padding: .7rem .8rem; } }
+@media print { .sac__panneau { display: block; page-break-inside: avoid; } .sac__onglets { display: none; } }
+</style>
+
+<div class="sac__entete">
+  <p class="sac__titre" role="heading" aria-level="3">Les trois secteurs d'activité</p>
+  <p class="sac__consigne">Choisis un secteur</p>
+</div>
+
+<div class="sac__onglets" role="tablist" aria-label="Secteurs d'activité"></div>
+<div class="sac__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("secteurs-activite");
+  if (!racine) { return; }
+  var secteurs = [
+    {
+      cle: "primaire",
+      nom: "Le secteur primaire",
+      def: "Il rassemble les activit\u00e9s qui tirent directement les ressources de la terre, de l'eau ou de la for\u00eat : l'agriculture, la p\u00eache, l'exploitation foresti\u00e8re et l'exploitation mini\u00e8re.",
+      blocs: [
+        ["Des exemples", "Une mine de fer, une ferme laiti\u00e8re, une coupe de bois, un bateau de p\u00eache."],
+        ["Autour des Grands Lacs", "Les mines de fer du lac Sup\u00e9rieur ont fourni la mati\u00e8re premi\u00e8re des aci\u00e9ries, et les plaines du sud comptent parmi les meilleures terres agricoles du continent."]
+      ],
+      part: "C'est le secteur qui emploie le moins de monde dans un pays industrialis\u00e9, mais rien ne fonctionne sans lui : les deux autres secteurs travaillent ce qu'il extrait."
+    },
+    {
+      cle: "secondaire",
+      nom: "Le secteur secondaire",
+      def: "Il regroupe les activit\u00e9s qui transforment les mati\u00e8res premi\u00e8res venues du secteur primaire en produits finis. C'est le secteur des usines.",
+      blocs: [
+        ["Des exemples", "Une aci\u00e9rie, une usine d'assemblage automobile, une papeti\u00e8re, une aluminerie."],
+        ["Autour des Grands Lacs", "C'est le coeur du territoire : l'automobile \u00e0 D\u00e9troit et \u00e0 Windsor, l'acier \u00e0 Hamilton et \u00e0 Cleveland, la chimie \u00e0 Sarnia."]
+      ],
+      part: "C'est ce secteur qui d\u00e9finit un territoire industriel. C'est aussi celui que la d\u00e9localisation et les tarifs douaniers touchent en premier."
+    },
+    {
+      cle: "tertiaire",
+      nom: "Le secteur tertiaire",
+      def: "Il regroupe toutes les activit\u00e9s qui produisent des services plut\u00f4t que des objets : le commerce, le transport, la sant\u00e9, l'enseignement, la finance, le tourisme.",
+      blocs: [
+        ["Des exemples", "Un h\u00f4pital, une banque, une \u00e9cole, un port qui manutentionne des conteneurs, une entreprise de logiciels."],
+        ["Autour des Grands Lacs", "Toronto et Chicago sont devenues des places financi\u00e8res majeures, et les centres de donn\u00e9es s'installent l\u00e0 o\u00f9 l'\u00e9lectricit\u00e9 est abondante."]
+      ],
+      part: "Dans les pays d\u00e9velopp\u00e9s, c'est de loin le secteur qui occupe le plus de personnes. Quand une r\u00e9gion industrielle se reconvertit, c'est souvent vers lui qu'elle se tourne."
+    }
+  ];
+
+  var onglets = racine.querySelector(".sac__onglets");
+  var contenu = racine.querySelector(".sac__contenu");
+
+  secteurs.forEach(function (secteur, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "sac__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = secteur.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "sac-panneau-" + secteur.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "sac__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "sac-panneau-" + secteur.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", secteur.nom);
+
+    var def = document.createElement("p");
+    def.className = "sac__def";
+    def.textContent = secteur.def;
+    panneau.appendChild(def);
+
+    var grille = document.createElement("ul");
+    grille.className = "sac__grille";
+    secteur.blocs.forEach(function (paire, rang) {
+      var item = document.createElement("li");
+      item.className = "sac__bloc" + (rang === 1 ? " sac__bloc--ici" : "");
+      var quoi = document.createElement("span");
+      quoi.className = "sac__quoi";
+      quoi.textContent = paire[0];
+      var texte = document.createElement("span");
+      texte.className = "sac__texte";
+      texte.textContent = paire[1];
+      item.appendChild(quoi);
+      item.appendChild(texte);
+      grille.appendChild(item);
+    });
+    panneau.appendChild(grille);
+
+    var part = document.createElement("p");
+    part.className = "sac__part";
+    var mot = document.createElement("strong");
+    mot.textContent = "À retenir. ";
+    part.appendChild(mot);
+    part.appendChild(document.createTextNode(secteur.part));
+    panneau.appendChild(part);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

@@ -1,0 +1,48 @@
+<svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les six facteurs de localisation qui expliquent l'installation des industries sur un territoire">
+  <style>
+    .fl-t { font-family: Archivo, sans-serif; }
+    .fl-h1 { font-size: 16px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .fl-h2 { font-size: 16px; font-weight: 700; fill: var(--bloc-texte); }
+    .fl-h3 { font-size: 16px; font-weight: 700; fill: var(--surface); }
+    .fl-p1 { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .fl-p2 { font-size: 12px; fill: var(--bloc-texte); }
+    .fl-p3 { font-size: 12px; fill: var(--surface); }
+    .fl-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .fl-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <rect x="40" y="30" width="330" height="110" rx="5" fill="var(--bloc-pale)"/>
+  <text class="fl-t fl-h1" x="60" y="62">Les matières premières</text>
+  <text class="fl-t fl-p1" x="60" y="88">Minerais, eau, bois. Le fer de la région</text>
+  <text class="fl-t fl-p1" x="60" y="106">a fixé la sidérurgie sur place.</text>
+
+  <rect x="395" y="30" width="330" height="110" rx="5" fill="var(--bloc)"/>
+  <text class="fl-t fl-h2" x="415" y="62">Les sources d'énergie</text>
+  <text class="fl-t fl-p2" x="415" y="88">Électricité et hydrocarbures. Une usine</text>
+  <text class="fl-t fl-p2" x="415" y="106">qui s'arrête coûte très cher.</text>
+
+  <rect x="750" y="30" width="330" height="110" rx="5" fill="var(--schema-cle)"/>
+  <text class="fl-t fl-h3" x="770" y="62">La main-d'oeuvre</text>
+  <text class="fl-t fl-p3" x="770" y="88">Des ouvriers qualifiés, et des écoles</text>
+  <text class="fl-t fl-p3" x="770" y="106">et des universités pour les former.</text>
+
+  <rect x="40" y="170" width="330" height="110" rx="5" fill="var(--schema-cle)"/>
+  <text class="fl-t fl-h3" x="60" y="202">Les marchés</text>
+  <text class="fl-t fl-p3" x="60" y="228">Des consommateurs proches. Quarante</text>
+  <text class="fl-t fl-p3" x="60" y="246">millions de personnes vivent ici.</text>
+
+  <rect x="395" y="170" width="330" height="110" rx="5" fill="var(--bloc-pale)"/>
+  <text class="fl-t fl-h1" x="415" y="202">Les infrastructures</text>
+  <text class="fl-t fl-p1" x="415" y="228">Ports, chemins de fer, autoroutes. La</text>
+  <text class="fl-t fl-p1" x="415" y="246">voie maritime ouvre sur l'Atlantique.</text>
+
+  <rect x="750" y="170" width="330" height="110" rx="5" fill="var(--bloc)"/>
+  <text class="fl-t fl-h2" x="770" y="202">L'aide gouvernementale</text>
+  <text class="fl-t fl-p2" x="770" y="228">Subventions, allègements fiscaux et</text>
+  <text class="fl-t fl-p2" x="770" y="246">accords de libre-échange.</text>
+
+  <rect x="40" y="320" width="1040" height="66" rx="5" fill="var(--matiere-voile)"/>
+  <text class="fl-t fl-bt" x="62" y="347">Aucun de ces facteurs ne suffit à lui seul</text>
+  <text class="fl-t fl-bp" x="62" y="370">Une région attire les industries quand plusieurs facteurs se rencontrent au même endroit. Les Grands Lacs les réunissaient tous les six.</text>
+</svg>

@@ -2575,3 +2575,120 @@ carte-reseau-transport.png:
   titre: "Carte du reseau de transport d'electricite"
   licence: Droits reserves a des fins educatives
   lien: https://www.hydroquebec.com/comprendre/transport/grandes-distances.html
+ecluse-welland.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Welland Canal Lock 1 Port Weller.JPG"
+  recherche: Welland Canal Lock Port Weller
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-grands-lacs.png:
+  cadrage: carte
+  fiche: 09-territoire-industriel
+  commons: "File:Great Lakes and St. Lawrence Seaway map 1959.png"
+  recherche: Great Lakes St Lawrence Seaway map 1959
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+bassin-grands-lacs.png:
+  cadrage: carte
+  fiche: 09-territoire-industriel
+  commons: "File:Sub-basins Great Lakes Basin.png"
+  recherche: sub-basins Great Lakes Basin
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+mine-taconite.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Cliffs Northshore Mining Taconite Plant Viewpoint, Silver Bay, Minnesota (39057179320).jpg"
+  recherche: Cliffs Northshore Mining Taconite Silver Bay
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-fer-1902.jpg:
+  cadrage: carte
+  fiche: 09-territoire-industriel
+  commons: "File:Distribution of the iron ores mined in the Lake Superior Region in year 1902 (8347361874).jpg"
+  recherche: distribution iron ores Lake Superior 1902
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ecluses-soo.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Freighter approaching the Soo Locks (14659035049).jpg"
+  recherche: freighter approaching Soo Locks
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ecluses-soo-19e.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Soo Locks 19th Century.jpg"
+  recherche: Soo Locks 19th century
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+dechargeur-minerai.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Hulett Ore Unloader at Work (14090804785).jpg"
+  recherche: Hulett ore unloader at work
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+laquier-duluth.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:USEPA GL collection 136 LakerAtDuluthOreDock.jpg"
+  recherche: laker Duluth ore dock USEPA
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+port-sault-1884.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Harbour, Sault St. Marie, ON, 1884 (2918688901).jpg"
+  recherche: Harbour Sault Ste Marie 1884
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+usine-packard-1904.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Packard factory plant circa 1904.jpg"
+  recherche: Packard factory plant 1904
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+usine-packard-ruines.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Abandoned Packard Plant in Detroit, Michigan.jpg"
+  recherche: abandoned Packard plant Detroit
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+usine-packard-interieur.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Dilapidated Packard Plant, Detroit, Michigan (21559267280).jpg"
+  recherche: dilapidated Packard plant Detroit interior
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''

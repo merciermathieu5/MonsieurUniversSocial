@@ -4002,3 +4002,216 @@ crédits, moins les deux images retirées ailleurs. Aucun problème hors images 
 les neuf sections passent. `figures.py` et `paragraphes.py` sans écart.
 `liens.py` vérifie 774 liens internes, aucun brisé. Les deux suites Node passent
 à 0 échec. La fiche compte dix capsules et six encadrés `activite`.
+
+## Fiche : Le territoire industriel des Grands Lacs
+
+### Septième fiche de géographie (livraison 115)
+
+`contenu/geographie/09-territoire-industriel.md` passe du gabarit à `brouillon`.
+Onze sections de contenu, les dix concepts prescrits définis. L'entête garde la
+région des Grands Lacs et remplace la deuxième étude de cas par l'aluminium
+québécois, comme convenu.
+
+### Ce qui était le plus dépassé, et qui l'est moins
+
+**1. Les chiffres de l'automobile.** Trois affirmations de ta page ne tenaient
+pas.
+
+- « Environ 10 % du PIB américain » : la filière automobile complète représente
+  environ 1 000 milliards de dollars par an, soit près de 5 % du PIB, et les
+  trois constructeurs historiques environ 3 %. Le chiffre était donc à peu près
+  du double
+- « 3 millions d'employés, plus de 150 milliards en salaires » : ces deux
+  chiffres viennent d'une étude du Center for Automotive Research de 2009, et ne
+  portaient que sur les Big Three, emplois indirects compris. Aujourd'hui la
+  filière emploie directement près de 10 millions de personnes
+- « 14 millions de voitures produites annuellement » : je n'ai pas retrouvé de
+  source pour ce chiffre et je l'ai retiré
+
+Un encadré `note` explique d'où viennent ces chiffres et rappelle de toujours
+vérifier l'année et le périmètre. C'est plus utile que de les corriger en
+silence.
+
+**2. La délocalisation n'a pas d'abord traversé l'océan.** Ta page attribue le
+déclin à la concurrence asiatique. C'est vrai, mais incomplet : les constructeurs
+japonais, coréens et allemands ont bâti leurs usines américaines dans le sud-est
+des États-Unis, où les salaires sont plus bas et la syndicalisation plus faible,
+et cette production représente environ 15 % du total national. La première
+délocalisation est descendue vers le sud, à quelques heures de route.
+
+**3. Le port de Toronto est surestimé.** Un encadré `note` le dit sans détour :
+Toronto sert surtout au vrac et aux croisières, c'est Hamilton qui abrite la
+sidérurgie canadienne des Grands Lacs. Quand on parle du port industriel de la
+région du côté canadien, c'est de Hamilton qu'il s'agit.
+
+**4. Les tarifs douaniers, en encadré `note`** comme tu l'as demandé, dans la
+section automobile. Tarifs de 25 % sur les véhicules et pièces non conformes à
+l'ACEUM, 50 % sur l'acier, l'aluminium et le cuivre. Environ 6 500 emplois
+automobiles perdus au Canada et 15 800 aux États-Unis entre février 2025 et mai
+2026. La révision de l'accord du 1er juillet 2026 n'a pas abouti, l'accord est
+passé à un examen annuel.
+
+La note dit ce que cela renverse, puis laisse le débat ouvert : les syndicats et
+les constructeurs réclament la fin des tarifs sectoriels, d'autres y voient un
+moyen de ramener des usines. Aucune conclusion n'est tirée à la place de l'élève.
+
+**5. Les 22 % de l'eau douce mondiale.** J'ai écrit « souvent estimée à un
+cinquième » plutôt qu'un pourcentage précis : les sources oscillent entre 18 et
+22 % selon qu'on parle de l'eau douce totale ou de l'eau douce de surface.
+
+### L'étude de cas québécoise
+
+L'aluminium ferme la fiche et fait écho à tout ce qui précède. Huit des neuf
+alumineries canadiennes sont au Québec, exploitées par Rio Tinto, Alcoa et
+Alouette, avec plus de 7 700 emplois en région. Le facteur de localisation
+décisif est l'électricité, ce qui relie directement la fiche 07 : le premier
+lingot canadien a été coulé à Shawinigan en 1901 à côté d'une centrale, et
+Alouette n'existe que grâce à Churchill Falls.
+
+Le passage le plus instructif est la réaction aux tarifs. Le secteur envoie 96 %
+de ses exportations aux États-Unis. Frappé de 50 % en 2025, il a redirigé une
+partie du métal vers l'Europe, où les expéditions sont passées de 99 907 tonnes
+en 2024 à 505 430 tonnes en 2025, cinq fois plus. Les exportations métallurgiques
+québécoises ont chuté de 36 % en volume, mais les alumineries tournent encore à
+95 % de capacité, sans mise à pied. C'est la mondialisation qui joue dans les
+deux sens.
+
+### Les trois visuels
+
+**`medias/schemas/facteurs-localisation.svg`**, les six facteurs en deux rangées
+de trois, avec un bandeau qui pose la règle : aucun ne suffit à lui seul, et les
+Grands Lacs les réunissaient tous les six.
+
+**`theme/composants/secteurs-activite.html`**, trois onglets. Chacun donne la
+définition, des exemples et une application aux Grands Lacs, puis une ligne « À
+retenir ». Celle du secteur secondaire fait le lien avec la suite : c'est lui qui
+définit un territoire industriel, et c'est lui que la délocalisation et les
+tarifs touchent en premier.
+
+**`theme/composants/grands-lacs-comparaison.html`**, six critères entre l'âge
+d'or industriel et aujourd'hui : la ville de Détroit, les emplois d'usine, qui
+domine l'automobile, ce qui attire les usines, ce qui les menace et l'état des
+lacs.
+
+Le critère « ce qui attire les usines » porte l'idée que je trouve la plus
+forte : les six facteurs n'ont pas changé, mais ce qu'ils désignent a changé. La
+matière première d'hier était le minerai de fer, celle d'aujourd'hui est le
+lithium.
+
+### La nuance sur Détroit
+
+Ta page, comme la plupart des manuels, présente Détroit comme un pur déclin. Le
+chiffre est réel, la ville a perdu près des deux tiers de sa population depuis
+1950 et ses emplois manufacturiers sont passés de 300 000 en 1960 à environ
+25 000. Mais son aire métropolitaine n'a jamais été aussi peuplée : 6,3 millions
+d'habitants en 2020, en légère hausse depuis 2010.
+
+La région ne s'est donc pas vidée, c'est le centre qui s'est vidé vers ses
+banlieues. Un encadré `note` le dit et renvoie à l'étalement urbain, vu dans la
+fiche 02. C'est exactement le genre de piège de lecture que les autres fiches
+signalent déjà.
+
+### Une seule image, et c'est peu
+
+Je n'ai pu confirmer qu'un seul nom de fichier Commons pour cette fiche,
+`File:Welland Canal Lock 1 Port Weller.JPG`. Les catégories de Commons ne sont
+pas consultables depuis mon environnement, et mes recherches sur Détroit,
+Hamilton, la sidérurgie et les alumineries n'ont rien rendu de vérifiable.
+
+La fiche tient visuellement grâce au schéma et aux deux composants, mais une
+image sur douze sections, c'est faible et je le sais. Deux pistes si tu veux
+corriger : me donner des noms de fichiers vérifiés, ou me laisser faire une passe
+d'images dédiée sur cette fiche, comme celle qu'on avait faite pour la fiche 06.
+
+### Les cinq capsules
+
+Toutes viennent de ta page et occupent la même section que chez toi. Comme la
+dernière fois, **les légendes décrivent la section, pas la vidéo**, sauf pour
+`3DdU7c66E9g` dont ta page donne le titre, « Pourquoi s'habiller pollue la
+planète ». Envoie-moi des captures pour les quatre autres.
+
+Quatre des onze liens d'articles sur les enjeux environnementaux sont repris dans
+un encadré `activite`, ceux qui couvrent le mieux les deux pollutions, celle des
+algues et celle du plastique. Les sept autres faisaient double emploi.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 23 problèmes. Après : 24. Le delta de 1
+correspond exactement à la seule nouvelle image. Aucun problème hors images : les
+neuf sections passent. `figures.py` et `paragraphes.py` sans écart, sept fusions
+appliquées. `liens.py` vérifie 786 liens internes, aucun brisé. Les deux suites
+Node passent à 0 échec. Il reste quatre gabarits en géographie au lieu de cinq.
+
+### Treize images pour le territoire industriel (livraison 116)
+
+Une image devient treize. J'ai changé de méthode de recherche, et c'est ce qui a
+tout débloqué : au lieu de chercher des fichiers un par un, j'ai visé les pages
+de catégories de Commons, qui énumèrent leur contenu avec les noms exacts et les
+dimensions. Les résultats de recherche affichent alors des listes entières de
+fichiers vérifiables. Je note la méthode ici pour les prochaines fiches.
+
+**Situer le territoire**
+
+- `File:Great Lakes and St. Lawrence Seaway map 1959.png`, la carte du système
+  complet, datée de l'année même de l'ouverture de la voie maritime
+- `File:Sub-basins Great Lakes Basin.png`, les sous-bassins
+
+**Les facteurs de localisation**, comme demandé
+
+- `File:Cliffs Northshore Mining Taconite Plant Viewpoint, Silver Bay, Minnesota (39057179320).jpg`,
+  une usine de bouletage du minerai, pour les matières premières
+- `File:Distribution of the iron ores mined in the Lake Superior Region in year 1902 (8347361874).jpg`,
+  une carte de 1902 qui montre d'où venait le fer. Elle explique en une image
+  pourquoi la sidérurgie s'est fixée là
+
+**La voie maritime**
+
+- `File:Freighter approaching the Soo Locks (14659035049).jpg`
+- `File:Soo Locks 19th Century.jpg`, les mêmes écluses au 19e siècle
+- `File:Welland Canal Lock 1 Port Weller.JPG`, déjà inscrite
+
+**Les infrastructures**
+
+- `File:Hulett Ore Unloader at Work (14090804785).jpg`, un déchargeur qui vide un
+  navire de son minerai
+- `File:USEPA GL collection 136 LakerAtDuluthOreDock.jpg`, un laquier au quai à
+  minerai de Duluth
+- `File:Harbour, Sault St. Marie, ON, 1884 (2918688901).jpg`
+
+**Les usines délocalisées**, le meilleur de la récolte
+
+- `File:Packard factory plant circa 1904.jpg`
+- `File:Abandoned Packard Plant in Detroit, Michigan.jpg`
+- `File:Dilapidated Packard Plant, Detroit, Michigan (21559267280).jpg`
+
+Les deux premières forment une paire de plus d'un siècle : la même usine à son
+ouverture et à l'abandon. L'usine Packard de Détroit, dessinée par Albert Kahn,
+s'étendait sur 325 000 mètres carrés, a fermé en 1958 et sa démolition a commencé
+en 2022. C'est l'emblème du déclin de la ville, et les deux images le racontent
+sans qu'un paragraphe ait à le faire.
+
+**Ce que je n'ai pas trouvé.** Aucune image utilisable sur l'ACEUM ou l'ALENA :
+Commons a des photos de signature de traité, mais rien qui aide un élève de
+première secondaire à comprendre un accord commercial. La carte des trois pays
+membres n'existe pas sous une forme vérifiable. Je préfère laisser la note sur
+les tarifs porter cette partie sans illustration plutôt que d'ajouter une image
+qui n'apprendrait rien. Même chose pour une aluminerie québécoise et une chaîne
+de montage automobile.
+
+### Le placement
+
+Treize figures : trois en cadrage carte, six flottantes, quatre à gauche, plus le
+schéma des six facteurs et les deux composants. La répartition suit le texte,
+avec les paires historiques placées côte à côte pour que la comparaison se fasse
+d'elle-même.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 23 problèmes. Après : 36. Le delta de 13
+correspond exactement aux treize images de la fiche 09. Aucun problème hors
+images : les neuf sections passent. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` vérifie 786 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec.
+
+Cette livraison contient aussi la fiche elle-même, apportée par la 115, puisque
+les deux sont bâties sur le même arbre.
