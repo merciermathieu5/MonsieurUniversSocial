@@ -4423,3 +4423,34 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé depuis
 livraison précédente. Le delta de 4 reste celui des quatre images ajoutées.
 `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 798 liens
 internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+### Le schéma des cinq lacs, deuxième passe (livraison 121)
+
+Deux défauts subsistaient, tous deux dans le même registre : un élément qui ne
+voulait rien dire.
+
+**La dernière flèche pointait dans le vide.** Elle sortait du lac Ontario pour
+s'arrêter en plein blanc, pendant que la mention « Vers le Saint-Laurent »
+flottait en haut à droite, à quarante pixels de la flèche qu'elle était censée
+expliquer. Le fleuve est maintenant écrit au bout de la flèche, sur deux lignes,
+à la hauteur des boîtes. La flèche mène quelque part.
+
+**L'alternance des couleurs n'encodait rien.** Un lac foncé, un pâle, un foncé,
+un pâle, puis un cinquième dans une troisième teinte : l'élève cherche une règle
+qui n'existe pas. Les cinq lacs prennent maintenant la même couleur, sauf
+l'Ontario, en accent doré, et cette exception a une raison qui se lit dans le
+bandeau : c'est le seul qui ouvre sur le Saint-Laurent, donc sur le Québec et
+sur l'Atlantique.
+
+La troisième ligne du bandeau est réécrite pour le dire. Elle finissait sur le
+canal Welland, elle finit maintenant sur ce qui relie ce territoire au nôtre.
+
+Les boîtes rétrécissent de 170 à 150 pixels pour dégager la place du fleuve, et
+le titre passe de « D'ouest en est » à « Les cinq lacs, d'ouest en est », plus
+explicite maintenant qu'il est seul en haut.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé. Le delta de
+4 reste celui des quatre images ajoutées à la livraison 119. `liens.py` vérifie
+798 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
