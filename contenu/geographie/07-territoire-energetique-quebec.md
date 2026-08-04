@@ -4,7 +4,7 @@ section: geographie
 ordre: 7
 groupe: region
 type_territoire: "Territoire région"
-echelle: "Régionale"
+echelle: "Régional"
 enjeu: "La production hydroélectrique et ses effets"
 etudes_de_cas:
   - La Jamésie

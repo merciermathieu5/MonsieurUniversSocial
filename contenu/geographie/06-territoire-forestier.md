@@ -4,7 +4,7 @@ section: geographie
 ordre: 6
 groupe: region
 type_territoire: "Territoire région"
-echelle: "Régionale"
+echelle: "Régional"
 enjeu: "L'exploitation durable de la forêt"
 etudes_de_cas:
   - L'Amazonie

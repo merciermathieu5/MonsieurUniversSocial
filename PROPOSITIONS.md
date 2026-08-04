@@ -4769,3 +4769,40 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 39. Le delta de 17
 correspond exactement aux dix-sept images de la fiche 10. `figures.py` et
 `paragraphes.py` sans écart. `liens.py` vérifie 802 liens internes, aucun brisé.
 Les deux suites Node passent à 0 échec.
+
+### L'échelle s'accorde avec le territoire (livraison 127)
+
+Le champ `echelle` de l'entête portait des formes féminines qui s'accordaient
+avec le mot « échelle » plutôt qu'avec le mot « territoire ». Or il ne s'affiche
+jamais accompagné d'une étiquette : dans l'entête d'une fiche il se lit
+« Territoire région · Régionale · L'exploitation durable de la forêt », et dans
+l'index il apparaît seul dans la pastille de la carte. Rien ne rappelait le mot
+« échelle » à l'élève, et l'accord tombait donc à faux.
+
+Les trois valeurs passent au masculin :
+
+| Avant | Après | Fiches |
+| --- | --- | --- |
+| Locale | **Local** | La métropole, la ville patrimoniale, la ville à risques |
+| Régionale | **Régional** | Les cinq territoires région |
+| Nationale | **National** | Agricole national, milieu à risque, autochtone |
+
+**J'ai inclus « Nationale », que tu n'avais pas nommée.** Ta règle vaut pour
+elle aussi, et corriger deux formes sur trois aurait laissé une incohérence
+visible dans l'index, où les trois pastilles se lisent l'une sous l'autre.
+
+L'entête donne maintenant « Territoire agricole · National · Nourrir la
+population et protéger les terres », qui se tient.
+
+Les seules formes féminines qui subsistent dans le site sont des noms propres,
+comme la Banque Nationale dans la fiche de la métropole. Elles restent telles
+quelles.
+
+Au passage, j'ai remis à la bonne largeur une ligne de la fiche 02 que la passe
+des virgules de la livraison 123 avait laissée trop longue.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 39, inchangé. Le delta de
+17 reste celui des images de la fiche 10. `liens.py` vérifie 802 liens internes,
+aucun brisé. Les deux suites Node passent à 0 échec.

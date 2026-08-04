@@ -4,7 +4,7 @@ section: geographie
 ordre: 3
 groupe: urbain
 type_territoire: "Territoire urbain"
-echelle: "Locale"
+echelle: "Local"
 enjeu: "La conservation du patrimoine en milieu urbain"
 etudes_de_cas:
   - Québec intra-muros (obligatoire)

@@ -4,7 +4,7 @@ section: geographie
 ordre: 12
 groupe: autochtone
 type_territoire: "Territoire autochtone"
-echelle: "Nationale"
+echelle: "National"
 enjeu: "L'autonomie et la gestion du territoire"
 etudes_de_cas:
   - Le Nunavut

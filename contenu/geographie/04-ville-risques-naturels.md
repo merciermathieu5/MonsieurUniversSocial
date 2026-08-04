@@ -4,7 +4,7 @@ section: geographie
 ordre: 4
 groupe: urbain
 type_territoire: "Territoire urbain"
-echelle: "Locale"
+echelle: "Local"
 enjeu: "Vivre avec le risque naturel"
 etudes_de_cas:
   - San Francisco

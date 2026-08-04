@@ -4,7 +4,7 @@ section: geographie
 ordre: 13
 groupe: protege
 type_territoire: "Territoire protégé"
-echelle: "Régionale"
+echelle: "Régional"
 enjeu: "Concilier la protection et la fréquentation"
 etudes_de_cas:
   - Un parc naturel du Québec ou du Canada

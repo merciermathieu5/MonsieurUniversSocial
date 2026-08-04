@@ -4,7 +4,7 @@ section: geographie
 ordre: 10
 groupe: agricole
 type_territoire: "Territoire agricole"
-echelle: "Nationale"
+echelle: "National"
 enjeu: "Nourrir la population et protéger les terres"
 etudes_de_cas:
   - Le territoire agricole du Québec (obligatoire)

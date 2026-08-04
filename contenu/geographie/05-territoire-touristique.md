@@ -4,7 +4,7 @@ section: geographie
 ordre: 5
 groupe: region
 type_territoire: "Territoire région"
-echelle: "Régionale"
+echelle: "Régional"
 enjeu: "Le développement du tourisme et ses effets"
 etudes_de_cas:
   - La Gaspésie (obligatoire)

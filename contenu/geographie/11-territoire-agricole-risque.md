@@ -4,7 +4,7 @@ section: geographie
 ordre: 11
 groupe: agricole
 type_territoire: "Territoire agricole"
-echelle: "Nationale"
+echelle: "National"
 enjeu: "Cultiver dans une zone d'inondations"
 etudes_de_cas:
   - Le Bangladesh

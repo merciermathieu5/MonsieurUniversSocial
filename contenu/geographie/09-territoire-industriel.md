@@ -4,7 +4,7 @@ section: geographie
 ordre: 9
 groupe: region
 type_territoire: "Territoire région"
-echelle: "Régionale"
+echelle: "Régional"
 enjeu: "L'industrialisation et la reconversion"
 etudes_de_cas:
   - La région des Grands Lacs américains et canadiens
