@@ -1,0 +1,168 @@
+<section class="ecp" id="energie-comparaison" aria-label="Comparaison de la Jamésie et de la Côte-Nord comme territoires énergétiques">
+<style>
+.ecp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.ecp .ecp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ecp .ecp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.ecp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.ecp__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.ecp__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.ecp__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.ecp__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ecp__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.ecp__panneau.est-visible { display: block; }
+.ecp__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.ecp__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.ecp__cote--nord { border-left-color: var(--encre-pale); }
+.ecp__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.ecp__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.ecp__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.ecp__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.ecp__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .ecp .ecp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .ecp .ecp__titre { color: var(--encre); }
+html[data-sombre="on"] .ecp__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .ecp__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .ecp__chiffre { color: var(--encre); }
+html[data-sombre="on"] .ecp__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .ecp__panneau { padding: 1.1rem 1rem 1rem; } .ecp__onglets { padding: .7rem .8rem; } .ecp__chiffre { font-size: 1.25rem; } }
+@media print { .ecp__panneau { display: block; page-break-inside: avoid; } .ecp__onglets { display: none; } }
+</style>
+
+<div class="ecp__entete">
+  <p class="ecp__titre" role="heading" aria-level="3">Deux territoires énergétiques, six critères</p>
+  <p class="ecp__consigne">Choisis un critère</p>
+</div>
+
+<div class="ecp__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="ecp__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("energie-comparaison");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "situation",
+      nom: "La situation",
+      jaChiffre: "Le Nord-du-Qu\u00e9bec",
+      jaDetail: "La Jam\u00e9sie occupe la partie sud de la plus vaste r\u00e9gion administrative du Qu\u00e9bec, qui couvre \u00e0 elle seule plus de la moiti\u00e9 du territoire qu\u00e9b\u00e9cois.",
+      cnChiffre: "Le nord-est",
+      cnDetail: "La C\u00f4te-Nord longe la rive nord du Saint-Laurent, du Saguenay jusqu'au Labrador. Elle repr\u00e9sente environ 21 % de la superficie du Qu\u00e9bec.",
+      ecart: "Les deux r\u00e9gions sont immenses et presque vides. C'est ce qui a rendu possible l'inondation de milliers de kilom\u00e8tres carr\u00e9s."
+    },
+    {
+      cle: "eau",
+      nom: "L'eau",
+      jaChiffre: "La Grande Rivi\u00e8re",
+      jaDetail: "Six grandes rivi\u00e8res coulent vers la baie James. La Grande Rivi\u00e8re parcourt plus de 800 kilom\u00e8tres en longeant le 53e parall\u00e8le, avec un d\u00e9bit fort et r\u00e9gulier.",
+      cnChiffre: "La Manicouagan",
+      cnDetail: "Une vingtaine de grandes rivi\u00e8res descendent vers le fleuve. La Manicouagan, la Romaine et la Sainte-Marguerite portent l'essentiel des am\u00e9nagements.",
+      ecart: "M\u00eame recette des deux c\u00f4t\u00e9s : de grandes rivi\u00e8res, un fort d\u00e9nivel\u00e9 et un d\u00e9bit que la neige fondue recharge chaque printemps."
+    },
+    {
+      cle: "complexe",
+      nom: "Le complexe principal",
+      jaChiffre: "Robert-Bourassa",
+      jaDetail: "Anciennement La Grande-2. Un barrage de 162 m\u00e8tres, 29 digues, un \u00e9vacuateur de crues surnomm\u00e9 l'escalier du G\u00e9ant et une centrale creus\u00e9e \u00e0 137 m\u00e8tres sous terre.",
+      cnChiffre: "Manic-5",
+      cnDetail: "Le barrage Daniel-Johnson, 214 m\u00e8tres de haut et 1 314 m\u00e8tres de long, avec ses 14 contreforts et ses 13 vo\u00fbtes. C'est le plus grand barrage de ce type au monde.",
+      ecart: "Deux prouesses techniques diff\u00e9rentes : l'une mise sur le volume de terre remblay\u00e9e, l'autre sur la finesse du b\u00e9ton."
+    },
+    {
+      cle: "puissance",
+      nom: "La puissance",
+      jaChiffre: "7 722 MW",
+      jaDetail: "Les centrales Robert-Bourassa et La Grande-2-A r\u00e9unies. Le complexe La Grande au complet d\u00e9passe 16 000 MW avec ses neuf centrales.",
+      cnChiffre: "2 660 MW",
+      cnDetail: "Les centrales Manic-5 et Manic-5-PA r\u00e9unies. Avec la Romaine, la Sainte-Marguerite et les autres, la C\u00f4te-Nord fournit environ le tiers de l'\u00e9lectricit\u00e9 du Qu\u00e9bec.",
+      ecart: "La Jam\u00e9sie l'emporte sur un seul site, la C\u00f4te-Nord par l'accumulation de plusieurs complexes construits sur soixante ans."
+    },
+    {
+      cle: "ententes",
+      nom: "Les ententes autochtones",
+      jaChiffre: "1975 et 2002",
+      jaDetail: "La Convention de la Baie-James et du Nord qu\u00e9b\u00e9cois avec les Cris et les Inuit, puis la Paix des Braves, qui pr\u00e9voit plus de 3,6 milliards de dollars sur cinquante ans.",
+      cnChiffre: "1978 et 2008",
+      cnDetail: "La Convention du Nord-Est qu\u00e9b\u00e9cois avec les Naskapis, puis trois ententes avec quatre communaut\u00e9s innues dans le cadre du projet de la Romaine.",
+      ecart: "Dans les deux cas, l'entente pr\u00e9c\u00e8de ou accompagne le chantier. Sans elle, le projet ne se fait pas."
+    },
+    {
+      cle: "enjeu",
+      nom: "L'enjeu principal",
+      jaChiffre: "Le territoire inond\u00e9",
+      jaDetail: "Des rivi\u00e8res d\u00e9tourn\u00e9es, des terres de chasse noy\u00e9es et du mercure dans la chair des poissons. Un mode de vie cri vieux de milliers d'ann\u00e9es en a \u00e9t\u00e9 boulevers\u00e9.",
+      cnChiffre: "L'acceptabilit\u00e9",
+      cnDetail: "Faut-il harnacher d'autres rivi\u00e8res? La Magpie a re\u00e7u en 2021 le statut de personne juridique, ce qui lui donne des droits \u00e0 faire valoir devant les tribunaux.",
+      ecart: "L'enjeu s'est d\u00e9plac\u00e9. Dans les ann\u00e9es 1970 on discutait des cons\u00e9quences apr\u00e8s coup, aujourd'hui on discute du projet avant qu'il existe."
+    }
+  ];
+
+  var onglets = racine.querySelector(".ecp__onglets");
+  var contenu = racine.querySelector(".ecp__contenu");
+
+  function cote(lieu, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "ecp__cote" + (modificateur ? " ecp__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "ecp__lieu";
+    etiquette.textContent = lieu;
+    var nombre = document.createElement("span");
+    nombre.className = "ecp__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "ecp__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "ecp__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "ecp-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "ecp__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "ecp-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "ecp__colonnes";
+    colonnes.appendChild(cote("La Jamésie", critere.jaChiffre, critere.jaDetail, ""));
+    colonnes.appendChild(cote("La Côte-Nord", critere.cnChiffre, critere.cnDetail, "nord"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "ecp__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

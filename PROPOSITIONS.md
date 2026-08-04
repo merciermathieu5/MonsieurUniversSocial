@@ -3721,3 +3721,210 @@ internes, aucun brisé. Les deux suites Node passent à 0 échec.
 
 La fiche compte maintenant dix-sept figures, deux composants interactifs, un
 schéma, cinq capsules et deux blocs de cartes.
+
+## Fiche : Le territoire énergétique du Québec
+
+### Sixième fiche de géographie (livraison 112)
+
+`contenu/geographie/07-territoire-energetique-quebec.md` passe du gabarit à
+`brouillon`. Onze sections de contenu, la Jamésie et la Côte-Nord traitées à
+parts égales, les dix concepts prescrits définis.
+
+### Les quatre visuels demandés
+
+**1. `medias/schemas/chaine-hydroelectrique.svg`**, la chaîne en quatre maillons
+tirée de ta section 3.3 : le barrage, la centrale, le transport, la
+consommation. Le bandeau du bas ajoute l'évacuateur de crues, qui ne fait pas
+partie de la chaîne mais la protège. Les définitions viennent du dossier du
+RÉCIT.
+
+**2. `medias/schemas/frise-hydroelectricite.svg`**, la ligne du temps de 1944 à
+2035, à l'échelle réelle. Trois périodes, les débuts, les grands chantiers, les
+ententes et la transition, et cinq repères datés : 1944 la création
+d'Hydro-Québec, 1963 la nationalisation, 1975 la Convention, 2002 la Paix des
+Braves, 2022 l'achèvement de la Romaine.
+
+**3. `theme/composants/energie-comparaison.html`**, comparateur Jamésie contre
+Côte-Nord à six critères : la situation, l'eau, le complexe principal, la
+puissance, les ententes autochtones et l'enjeu principal. Le dernier critère
+porte la meilleure ligne de la fiche : l'enjeu s'est déplacé, on discutait des
+conséquences après coup dans les années 1970, on discute du projet avant qu'il
+existe aujourd'hui.
+
+**4. `theme/composants/developpement-durable.html`**, tes trois critères en
+onglets. Chacun pose une question, présente ce qui plaide pour et ce qui plaide
+contre, puis laisse l'élève trancher. Aucun encadré ne conclut à sa place, comme
+tu me l'as demandé dès la première fiche.
+
+### Les chiffres de la section 1, entièrement refaits
+
+Ta section sur les besoins énergétiques reposait sur des pourcentages que je n'ai
+pas réussi à retrouver ni à recouper : 75 % de l'énergie résidentielle issue de
+l'hydroélectricité, 48 % de l'énergie utile aux entreprises, 50 % des entreprises
+fonctionnant à l'hydroélectricité, 60 % des besoins institutionnels. Je les ai
+tous retirés plutôt que de les reprendre.
+
+Le portrait que j'ai reconstruit est à la fois vérifiable et plus intéressant :
+
+- Le Québec produit environ 213 TWh, le tiers de la production canadienne, dont
+  94 % d'hydroélectricité et 5 % d'éolien
+- Mais l'électricité n'est pas toute l'énergie. En 2022, la consommation totale
+  atteignait 496 TWh et les énergies fossiles en comblaient encore 52 %
+- Par secteur : industrie 37 %, transports 31 %, résidentiel 19 %, commercial et
+  institutionnel 14 %
+- Le Québec consomme 22,9 MWh d'électricité par habitant, premier au Canada, 57 %
+  au-dessus de la moyenne
+
+**Ce que ce recadrage apporte.** Le concept de dépendance énergétique devient
+lisible : le Québec est autonome pour son électricité et complètement dépendant
+pour son pétrole. C'est cette moitié fossile que la transition vise, et c'est ce
+qui explique la suite.
+
+### Le Plan d'action 2035, qui manquait
+
+Ta section « Manquerons-nous d'électricité ? » ne portait que deux capsules. Elle
+a maintenant du contenu : 60 TWh de plus d'ici 2035, soit 8 000 à 9 000 MW, et de
+150 à 200 TWh d'ici 2050, ce qui reviendrait à doubler la production. Hydro-Québec
+compare elle-même ces 60 TWh à trois de ses plus grands ouvrages réunis,
+Robert-Bourassa, Manic-5 et la Romaine. Ce sont exactement les deux territoires de
+la fiche, ce qui donne à l'élève une échelle qu'il vient de lire.
+
+Le débat va dans un encadré `note` : le moratoire réclamé par des organisations
+environnementales, la question de l'acceptabilité sur les territoires autochtones,
+et l'argument inverse selon lequel la décarbonation est impossible sans nouvelle
+production. La note se termine en disant que le débat porte moins sur le besoin
+que sur la façon d'y répondre.
+
+### Trois ajouts que ta page n'avait pas
+
+**Le complexe de la Romaine**, achevé en septembre 2022 sur la Côte-Nord :
+1 550 MW, quatre centrales, 8 TWh par année, 3,5 milliards de retombées dont 1,3
+pour la région, trois ententes avec quatre communautés innues. C'est le plus
+récent grand chantier du Québec et il manquait complètement.
+
+**La rivière Magpie**, à qui la MRC de Minganie et le Conseil des Innus
+d'Ekuanitshit ont accordé en 2021 le statut de personne juridique. Un encadré
+`savais-tu` en tire la question : au lieu de demander seulement ce qu'un projet
+rapporte, on demande aussi ce que la rivière aurait à dire.
+
+**Les Naskapis et le lac Cambrien**, tirés du dossier du RÉCIT. Depuis 2018, la
+Nation naskapie, les Inuit, Kativik et Québec cherchent ensemble des solutions de
+rechange au développement hydroélectrique du lac Cambrien. C'est le pendant
+contemporain de la Convention de 1975 : un projet dont on discute avant qu'il
+existe.
+
+### Dix images
+
+Six de Commons, noms vérifiés au caractère près :
+
+- `File:Radisson, Quebec, Canada.jpg`
+- `File:Évacuateur de crues R-B.jpg`, l'escalier du Géant
+- `File:Barrage Daniel-Johnson2.jpg`
+- `File:Manic-5 and Manic-5-PA overview.jpg`
+- `File:Pylônes près de Chapais04.JPG`
+- `File:Vue aérienne de la centrale hydroélectrique d'Isle-Maligne à Alma (Québec).jpg`
+
+Quatre du dossier du RÉCIT, crédits remplis à la main : le schéma d'Hydro-Québec
+« De la centrale à la maison », les voitures électriques en recharge, la carte du
+territoire ancestral naskapi et la vue de Kawawachikamach par Benjamin Jancewicz.
+
+À signaler : deux de ces noms Commons, l'évacuateur de crues et les pylônes de
+Chapais, je les ai trouvés grâce aux crédits du dossier du RÉCIT, pas par
+recherche directe. Les catégories de Commons ne sont pas consultables depuis mon
+environnement, ce qui limite beaucoup ma récolte. Dix images au lieu de la
+douzaine visée.
+
+### Les liens
+
+Tu m'as donné la page du projet Minecraft du RÉCIT. Elle m'a rendu deux capsules
+vérifiées, `ZbH004HiroM` pour la présentation du projet et `0yXeKpaRT1U` pour
+l'expérimentation en classe, ainsi que la tâche complète. La fiche s'achève sur
+une section qui leur est consacrée.
+
+**Ce qui manque encore**, et que tu avais retenu :
+
+- Les quatre exercices interactifs, aux sections 2, 2.4, 3.3 et 3.5
+- Les deux capsules de Radio-Canada de ta section 1.1
+- Le documentaire Curio sur la perspective autochtone
+- La page sur les bornes de recharge
+- L'article de La Presse de Réjean Bourdeau sur la Paix des Braves, cité en
+  source sans adresse
+
+Envoie-moi les adresses et je les place. Les exercices interactifs iraient en
+blocs `::: integration` s'ils s'y prêtent, comme la chronologie du Musée de
+l'Holocauste, ou en encadrés `activite` sinon.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 34. Le delta de 10
+correspond exactement aux dix nouvelles images. Aucun problème hors images : les
+neuf sections passent. Le vérificateur a d'ailleurs attrapé un défaut de
+contraste en mode sombre sur le deuxième bloc du schéma de la chaîne, du texte
+clair sur un fond moyen, que j'ai corrigé avant de livrer. `figures.py` a remonté
+une figure, `paragraphes.py` a fait douze fusions, et les deux repassent sans
+écart. `liens.py` vérifie 773 liens internes, aucun brisé. Les deux suites Node
+passent à 0 échec. Il reste cinq gabarits en géographie au lieu de six.
+
+### Les capsules, les liens et les cartes (livraison 113)
+
+Les exercices interactifs sont abandonnés, comme demandé.
+
+**Sept capsules s'ajoutent aux deux du projet Minecraft.** La fiche en compte
+neuf, dont trois duos jumelés côte à côte.
+
+| Identifiant | Titre | Section |
+| --- | --- | --- |
+| `UlpG1rU5xjI` | Hydro-Québec, de nouvelles centrales et plus de puissance | Manquerons-nous d'électricité |
+| `1qji-dnJe_4` | Hydro-Québec va bâtir des mégaparcs éoliens | Manquerons-nous d'électricité |
+| `7HYgBjDY7FE` | 1972, le développement hydroélectrique de la Baie-James | Le projet du siècle |
+| `Lk_N5960XlE` | Les bâtisseurs d'eau de la Baie-James | Le projet du siècle |
+| `7vB_savB4iw` | Visite de la centrale Robert-Bourassa en réalité virtuelle | L'aménagement Robert-Bourassa |
+| `2r5RD6X1Aus` | L'oeil du Québec | Un chapelet de rivières |
+| `F4p1EXmk0IA` | Visite du barrage Daniel-Johnson en réalité virtuelle | Manic-5 |
+
+Cette fois j'ai les vrais titres avant de placer, et le placement suit le
+contenu. Les deux capsules d'archives sur la Baie-James se jumellent, tout comme
+les deux sur le plan d'Hydro-Québec. Les deux visites en réalité virtuelle
+restent séparées, chacune sous l'ouvrage qu'elle montre.
+
+**Trois liens en encadrés `activite`** : le dossier de Radio-Canada sur le réseau
+de bornes de recharge, sous la section qui parle d'électrification des
+transports; l'émission 24.60 sur les nouveaux barrages, juste après la note qui
+présente le débat; et le documentaire de Curio sur l'aventure de la Baie-James,
+sous le projet du siècle, où la perspective autochtone trouve sa place.
+
+### Les quatre cartes
+
+**La carte du réseau de transport** que tu m'as envoyée est versée directement
+dans `medias/07-territoire-energetique-quebec/`, donc elle n'a pas à être
+téléchargée. Pour le crédit, j'ai suivi ce que le RÉCIT fait lui-même avec le
+matériel d'Hydro-Québec : auteur Hydro-Québec, licence « droits réservés à des
+fins éducatives », avec un lien vers la page du transport à très haute tension.
+Si tu as mieux comme source, l'entrée se corrige en trois lignes.
+
+**Les trois cartes des territoires équivalents** ouvrent une sous-section neuve,
+« Trois territoires dans une seule région ». Le texte qui les accompagne dit ce
+que trois cartes côte à côte permettent de voir et qu'un paragraphe seul ne
+montre pas : la Jamésie et Kativik forment des blocs continus, alors qu'Eeyou
+Istchee se présente en petites taches dispersées à l'intérieur de la Jamésie. Un
+même territoire est donc administré par deux autorités superposées.
+
+**À vérifier au premier lancement d'`images.py`.** Wikidata me donne le nom exact
+de la carte de la Jamésie, `Quebec MRC Jamésie location map.svg`. Pour Kativik et
+Eeyou Istchee, j'ai appliqué le même patron de nommage sans pouvoir le confirmer,
+les catégories de Commons n'étant pas consultables depuis mon environnement. Si
+`images.py --diagnostic` signale un nom introuvable, c'est de là que ça vient.
+J'ai aussi inscrit les trois sous une extension `.png` en pariant sur la vignette
+matricielle, comme pour la carte de l'Amazonie de la fiche 06.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 37. Le delta de 13
+correspond aux quatorze images de la fiche moins la carte du réseau, qui est déjà
+sur le disque avec ses crédits complets. Aucun problème hors images : les neuf
+sections passent, dont CONSTRUIT qui valide les trois duos de capsules.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 774 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+Il ne reste plus qu'un lien manquant dans cette fiche : l'article de La Presse de
+Réjean Bourdeau sur la Paix des Braves, cité en source sans adresse.

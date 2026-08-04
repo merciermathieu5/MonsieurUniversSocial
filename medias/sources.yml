@@ -2461,3 +2461,137 @@ reserve-mamiraua.jpg:
   titre: ''
   licence: ''
   lien: ''
+radisson.jpg:
+  cadrage: flottant
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Radisson, Quebec, Canada.jpg"
+  recherche: Radisson Quebec Canada
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+evacuateur-crues.jpg:
+  cadrage: gauche
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Évacuateur de crues R-B.jpg"
+  recherche: evacuateur de crues Robert-Bourassa
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+barrage-daniel-johnson.jpg:
+  cadrage: flottant
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Barrage Daniel-Johnson2.jpg"
+  recherche: barrage Daniel-Johnson Manic-5
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+manic5-vue.jpg:
+  cadrage: gauche
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Manic-5 and Manic-5-PA overview.jpg"
+  recherche: Manic-5 Manic-5-PA overview
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+pylones-chapais.jpg:
+  cadrage: flottant
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Pylônes près de Chapais04.JPG"
+  recherche: pylones pres de Chapais
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+centrale-vue-aerienne.jpg:
+  cadrage: gauche
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Vue aérienne de la centrale hydroélectrique d'Isle-Maligne à Alma (Québec).jpg"
+  recherche: centrale Isle-Maligne Alma Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+voitures-electriques.jpg:
+  cadrage: flottant
+  fiche: 07-territoire-energetique-quebec
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3526
+  depot: Service national du RECIT, univers social
+  auteur: Frimufilms
+  titre: "Two charging electric cars at charge station in the city, repris dans le dossier du RECIT"
+  licence: Creative Commons
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-2-les-grands-centres-energivores
+parcours-electricite.jpg:
+  cadrage: large
+  fiche: 07-territoire-energetique-quebec
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3520
+  depot: Service national du RECIT, univers social
+  auteur: Hydro-Quebec
+  titre: "De la centrale a la maison, repris dans le dossier du RECIT"
+  licence: Droits reserves a des fins educatives
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/amorce-le-territoire-energetique2
+territoire-naskapi.jpg:
+  cadrage: flottant
+  fiche: 07-territoire-energetique-quebec
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3532
+  depot: Service national du RECIT, univers social
+  auteur: Service national du RECIT, univers social
+  titre: "Territoire ancestral naskapi"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-1-territoire-ancestral
+kawawachikamach.jpg:
+  cadrage: gauche
+  fiche: 07-territoire-energetique-quebec
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=3538
+  depot: Service national du RECIT, univers social
+  auteur: Benjamin Jancewicz
+  titre: "The Naskapi Nation of Kawawachikamach for a height of 500 meters (2021)"
+  licence: Droits reserves a des fins educatives
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/b-document-4-des-retombees-pour-les-communautes
+carte-jamesie.png:
+  cadrage: carte
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Quebec MRC Jamésie location map.svg"
+  recherche: Quebec MRC Jamesie location map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-kativik.png:
+  cadrage: carte
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Quebec MRC Kativik location map.svg"
+  recherche: Quebec MRC Kativik location map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-eeyou-istchee.png:
+  cadrage: carte
+  fiche: 07-territoire-energetique-quebec
+  commons: "File:Quebec MRC Eeyou Istchee location map.svg"
+  recherche: Quebec MRC Eeyou Istchee location map
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-reseau-transport.png:
+  cadrage: carte
+  fiche: 07-territoire-energetique-quebec
+  commons: ''
+  recherche: ''
+  auteur: Hydro-Quebec
+  titre: "Carte du reseau de transport d'electricite"
+  licence: Droits reserves a des fins educatives
+  lien: https://www.hydroquebec.com/comprendre/transport/grandes-distances.html

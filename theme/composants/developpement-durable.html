@@ -1,0 +1,145 @@
+<section class="ddu" id="developpement-durable" aria-label="Les trois critères du développement durable appliqués à un projet hydroélectrique">
+<style>
+.ddu { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.ddu .ddu__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ddu .ddu__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.ddu__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.ddu__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.ddu__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.ddu__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.ddu__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ddu__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.ddu__panneau.est-visible { display: block; }
+.ddu__question { margin: 0 0 1rem; font-family: var(--titre); font-weight: 700; font-size: 1.05rem; line-height: 1.35; letter-spacing: -.01em; color: var(--matiere-fonce); }
+.ddu__grille { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: .75rem; }
+.ddu li::before { content: none; display: none; }
+.ddu__grille > li::marker { content: ""; }
+.ddu__cas { list-style: none; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .9rem 1.1rem; }
+.ddu__cas::marker { content: ""; }
+.ddu__cas--contre { border-left-color: var(--encre-pale); }
+.ddu__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.ddu__texte { display: block; margin: 0; font-size: .93rem; line-height: 1.55; }
+.ddu__ouvert { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.ddu__ouvert strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .ddu .ddu__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .ddu .ddu__titre { color: var(--encre); }
+html[data-sombre="on"] .ddu__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .ddu__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .ddu__question { color: var(--encre); }
+html[data-sombre="on"] .ddu__ouvert strong { color: var(--encre); }
+@media (max-width: 40rem) { .ddu__panneau { padding: 1.1rem 1rem 1rem; } .ddu__onglets { padding: .7rem .8rem; } }
+@media print { .ddu__panneau { display: block; page-break-inside: avoid; } .ddu__onglets { display: none; } }
+</style>
+
+<div class="ddu__entete">
+  <p class="ddu__titre" role="heading" aria-level="3">Un projet est-il durable? Trois questions</p>
+  <p class="ddu__consigne">Choisis un critère</p>
+</div>
+
+<div class="ddu__onglets" role="tablist" aria-label="Critères du développement durable"></div>
+<div class="ddu__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("developpement-durable");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "env",
+      nom: "L'environnement",
+      question: "Le projet respecte-t-il les milieux naturels?",
+      cas: [
+        ["Ce qui plaide pour", "L'hydro\u00e9lectricit\u00e9 est renouvelable et n'\u00e9met presque pas de gaz \u00e0 effet de serre une fois la centrale en service. Hydro-Qu\u00e9bec m\u00e8ne des \u00e9tudes d'impact et des suivis, et finance des mesures de compensation."],
+        ["Ce qui plaide contre", "Le projet de la Baie-James a noy\u00e9 des milliers de kilom\u00e8tres carr\u00e9s, d\u00e9tourn\u00e9 des rivi\u00e8res et lib\u00e9r\u00e9 du mercure dans l'eau. La faune y a recul\u00e9 et la chair des poissons en porte encore la trace."]
+      ],
+      ouvert: "Une \u00e9nergie renouvelable peut-elle d\u00e9truire un milieu naturel? R\u00e9ponds en distinguant la ressource et l'am\u00e9nagement qui l'exploite."
+    },
+    {
+      cle: "eco",
+      nom: "La rentabilit\u00e9",
+      question: "Le projet produit-il de la richesse?",
+      cas: [
+        ["Ce qui plaide pour", "Le chantier de la Romaine a g\u00e9n\u00e9r\u00e9 environ 3,5 milliards de dollars de retomb\u00e9es, dont 1,3 milliard pour la seule C\u00f4te-Nord, et employ\u00e9 jusqu'\u00e0 2 000 personnes. Les bas tarifs attirent des industries."],
+        ["Ce qui plaide contre", "Un grand barrage co\u00fbte des milliards et met des d\u00e9cennies \u00e0 se rembourser. Les emplois de chantier disparaissent une fois les travaux finis, et une centrale en service demande peu de personnel."]
+      ],
+      ouvert: "Une retomb\u00e9e \u00e9conomique se mesure sur combien d'ann\u00e9es? Compare un chantier de dix ans et une centrale qui dure un si\u00e8cle."
+    },
+    {
+      cle: "social",
+      nom: "L'acceptabilit\u00e9",
+      question: "Les communaut\u00e9s concern\u00e9es sont-elles d'accord?",
+      cas: [
+        ["Ce qui plaide pour", "Des ententes ont \u00e9t\u00e9 sign\u00e9es : la Convention de 1975 avec les Cris et les Inuit, celle de 1978 avec les Naskapis, la Paix des Braves en 2002 et trois ententes innues \u00e0 la Romaine. Elles pr\u00e9voient des compensations et des emplois."],
+        ["Ce qui plaide contre", "Ces ententes s'accompagnent souvent d'un abandon de revendications territoriales. Depuis 2018, la Nation naskapie cherche avec Qu\u00e9bec des solutions de rechange au projet du lac Cambrien, et la rivi\u00e8re Magpie s'est vu reconna\u00eetre des droits en 2021."]
+      ],
+      ouvert: "Signer une entente \u00e9quivaut-il \u00e0 \u00eatre d'accord? Nomme ce qu'une communaut\u00e9 gagne et ce qu'elle c\u00e8de dans ce genre de n\u00e9gociation."
+    }
+  ];
+
+  var onglets = racine.querySelector(".ddu__onglets");
+  var contenu = racine.querySelector(".ddu__contenu");
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "ddu__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "ddu-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "ddu__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "ddu-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var question = document.createElement("p");
+    question.className = "ddu__question";
+    question.textContent = critere.question;
+    panneau.appendChild(question);
+
+    var grille = document.createElement("ul");
+    grille.className = "ddu__grille";
+    critere.cas.forEach(function (paire, rang) {
+      var item = document.createElement("li");
+      item.className = "ddu__cas" + (rang === 1 ? " ddu__cas--contre" : "");
+      var quoi = document.createElement("span");
+      quoi.className = "ddu__quoi";
+      quoi.textContent = paire[0];
+      var texte = document.createElement("span");
+      texte.className = "ddu__texte";
+      texte.textContent = paire[1];
+      item.appendChild(quoi);
+      item.appendChild(texte);
+      grille.appendChild(item);
+    });
+    panneau.appendChild(grille);
+
+    var ouvert = document.createElement("p");
+    ouvert.className = "ddu__ouvert";
+    var mot = document.createElement("strong");
+    mot.textContent = "À toi de trancher. ";
+    ouvert.appendChild(mot);
+    ouvert.appendChild(document.createTextNode(critere.ouvert));
+    panneau.appendChild(ouvert);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>
