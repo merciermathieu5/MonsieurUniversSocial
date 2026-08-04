@@ -368,8 +368,7 @@ hommes indiens et métis peuvent porter des pantalons et des chaussures.
 Condamnés aux travaux forcés, Mandela et ses compagnons passent plus de dix ans
 à casser des cailloux dans une carrière de chaux. À son arrivée, il a droit à
 une lettre et à une visite de 30 minutes tous les six mois. On lui refuse
-l'autorisation d'assister aux funérailles de sa mère, décédée en 1968, et de
-l'un de ses fils, mort dans un accident de voiture en 1969. Il attend 21 ans
+l'autorisation d'assister aux funérailles de sa mère, décédée en 1968 et de l'un de ses fils, mort dans un accident de voiture en 1969. Il attend 21 ans
 avant de pouvoir serrer de nouveau sa femme Winnie dans ses bras. Ses deux
 filles doivent attendre d'avoir 16 ans pour le voir.
 
@@ -442,8 +441,7 @@ l'incorporation d'organisations paramilitaires du parti. L'État augmente les
 effectifs, intensifie la formation et modernise l'équipement. Le régime
 accorde aux forces de l'ordre toute latitude en matière d'arrestations,
 d'incarcérations et de traitement des prisonniers. La police procède à des
-arrestations sans disposer des preuves requises pour une condamnation, et sans
-supervision judiciaire.
+arrestations sans disposer des preuves requises pour une condamnation et sans supervision judiciaire.
 
 Source : Encyclopédie multimédia de la Shoah, United States Holocaust Memorial Museum
 {: .source-texte }

@@ -115,7 +115,7 @@ Comment se forme une avalanche
 
 Les inondations résultent généralement de variations naturelles du niveau des
 rivières, des lacs et des océans. Selon Sécurité publique Canada, elles
-constituent le danger naturel le plus commun au pays, et l'un des plus coûteux.
+constituent le danger naturel le plus commun au pays et l'un des plus coûteux.
 Une pluie torrentielle en provoque, surtout quand le sol est encore gelé ou déjà
 saturé. Une crue soudaine, qui laisse très peu de temps pour avertir la
 population, peut venir d'un ouragan, d'une tempête violente ou de la rupture

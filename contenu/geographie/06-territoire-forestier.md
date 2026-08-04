@@ -82,7 +82,7 @@ chose.
 
 Un territoire forestier est une région organisée autour de l'exploitation de
 la forêt. Cette exploitation prend deux orientations distinctes :
-l'exploitation par l'industrie forestière, qui récolte le bois, et
+l'exploitation par l'industrie forestière, qui récolte le bois et
 l'exploitation récréative, qui met la forêt en valeur pour la chasse, la
 pêche, la randonnée, l'observation de la faune ou le canotage. Tous les
 territoires forestiers présentent le même défi : gérer la ressource de façon

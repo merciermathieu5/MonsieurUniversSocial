@@ -175,7 +175,7 @@ empire.
 Mais la renommée d'Hammourabi ne repose pas uniquement sur ses conquêtes. Il fut
 également un grand bâtisseur qui transforma sa capitale. Sous son règne de 43 ans,
 Babylone connut un développement urbain sans précédent. De nouveaux canaux furent
-creusés pour l'irrigation et le transport, des fortifications furent érigées, et
+creusés pour l'irrigation et le transport, des fortifications furent érigées et
 de magnifiques temples, appelés ziggourats, furent construits à la gloire du dieu
 tutélaire de la ville, Marduk. Grâce à lui, Babylone devint non seulement une
 puissance politique, mais aussi le coeur religieux et intellectuel de la

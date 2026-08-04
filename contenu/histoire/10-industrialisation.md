@@ -131,7 +131,7 @@ canadienne. Le développement du pays s'appuie sur la construction du chemin de
 fer transcontinental et l'exploitation des matières premières.
 
 ::: questions
-1. Dans quel pays l'industrialisation commence-t-elle, et à quel moment?
+1. Dans quel pays l'industrialisation commence-t-elle et à quel moment?
 2. Nomme deux villes anglaises qui deviennent des pôles industriels.
 3. Quelle mesure canadienne de 1879 protège l'économie du pays?
 :::
@@ -467,7 +467,7 @@ Au 18e siècle, l'économiste et philosophe Adam Smith propose un nouveau
 courant de pensée, fondé sur le droit de propriété de John Locke. Ce courant
 de pensée est le libéralisme économique. Celui-ci se base sur le droit de
 posséder des biens, sur les libertés individuelles et sur la liberté
-d'entreprise. L'entreprise, et l'entrepreneur du même coup, doit être libre
+d'entreprise. L'entreprise et l'entrepreneur du même coup, doit être libre
 d'agir selon sa volonté, puisqu'elle est créatrice de richesse. Ses principes
 tiennent en trois idées :
 

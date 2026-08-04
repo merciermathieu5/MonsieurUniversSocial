@@ -695,7 +695,7 @@ chez eux.
 
 **L'enjeu territorial** est celui de l'espace. Les sites emblématiques ne peuvent
 pas s'agrandir alors que la fréquentation augmente. La réponse consiste à étaler
-les visiteurs dans le temps, par des réservations à heure fixe, et dans l'espace,
+les visiteurs dans le temps, par des réservations à heure fixe et dans l'espace,
 en développant l'offre en grande couronne. Les hausses de fréquentation de
 l'Essonne, de la Seine-et-Marne et des Yvelines montrent que cette stratégie
 produit des effets.

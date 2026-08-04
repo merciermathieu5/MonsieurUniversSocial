@@ -266,7 +266,7 @@ d'excréments, certains défèquent dans la rue; les ouvroirs des particuliers
 et les eaux stagnantes des pluies créent des terreaux d'immondices.
 Circuler dans la rue représente un réel danger et une expérience
 désagréable, entre les boues, les eaux et les saletés qui envahissent la
-chaussée, et la circulation d'animaux (cochons, volailles, chevaux, chiens
+chaussée et la circulation d'animaux (cochons, volailles, chevaux, chiens
 errants, etc.) et de marchands ambulants.
 
 (Source : Wikipédia)

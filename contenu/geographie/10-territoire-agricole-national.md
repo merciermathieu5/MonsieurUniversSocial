@@ -74,6 +74,14 @@ agricole du Québec, puis de celui de la Californie.
 
 ## L'industrie agroalimentaire
 
+![Un champ de maïs en fleur](../medias/10-territoire-agricole-national/champ-mais.jpg)
+
+![Un troupeau de vaches laitières](../medias/10-territoire-agricole-national/vaches-laitieres.jpg)
+
+![La traite mécanisée dans une étable](../medias/10-territoire-agricole-national/traite-mecanisee.jpg)
+
+![Un marché public maraîcher, ici boulevard de Reuilly à Paris](../medias/10-territoire-agricole-national/marche-maraicher.jpg)
+
 ::: schema chaine-agroalimentaire
 :::
 
@@ -105,6 +113,13 @@ d'anciens dépôts marins, ce qui rend les sols extrêmement fertiles. Plus de
 80 % de la population québécoise vit autour de ces terres, si bien que la
 ville côtoie forcément la campagne.
 
+::: activite
+L'**[Atlas du Canada](https://atlas.gc.ca/phys/fr/index.html)** offre une carte
+interactive des régions physiographiques. Repère les basses-terres du
+Saint-Laurent, puis compare leur étendue à celle du Bouclier canadien qui les
+borde au nord.
+:::
+
 ::: note
 Le chiffre à retenir est celui-ci : **seulement 2 % du territoire québécois a une
 fonction agricole**. C'est très peu, et c'est ce qui explique tout le reste de
@@ -113,6 +128,8 @@ développement urbain et l'inquiétude sur l'autonomie alimentaire.
 :::
 
 ### Un climat à quatre saisons
+
+![Les prévisions d'allongement de la saison de croissance au Canada](../medias/10-territoire-agricole-national/saison-croissance.jpg)
 
 Dans les basses-terres, le climat continental humide donne des étés chauds et des
 hivers rigoureux, avec des moyennes d'environ 22 degrés en été et de moins 9
@@ -147,6 +164,10 @@ Source : l'Encyclopédie canadienne
 
 ## Deux façons d'avoir découpé les terres
 
+![Les seigneuries du Bas-Canada](../medias/10-territoire-agricole-national/seigneuries-bas-canada.jpg)
+
+![Les cantons de l'Est](../medias/10-territoire-agricole-national/cantons-de-lest.jpg)
+
 La colonisation du Québec a connu deux régimes, le régime français de 1608 à
 1760 et le régime britannique de 1763 à 1867. Chacun avait sa manière de diviser
 les terres, et les deux découpages se lisent encore aujourd'hui dans le paysage
@@ -159,7 +180,7 @@ seigneurie comprend le manoir seigneurial, les censives concédées aux habitant
 et la terre de la fabrique, réservée à l'église.
 
 **Le canton**, d'origine britannique, divise le territoire en lots ou en
-concessions. Les terres sont carrées, d'environ 16 kilomètres de côté, et la
+concessions. Les terres sont carrées, d'environ 16 kilomètres de côté et la
 présence d'un cours d'eau n'est pas obligatoire. Le canton comprend lui aussi une
 terre de la fabrique.
 
@@ -222,19 +243,16 @@ Le portrait de l'industrie agroalimentaire québécoise
 De l'importance d'acheter local
 :::
 
-### Ce qu'il faut importer
+### Ce qu'il faut importer et ce qu'il exporte
+
+::: schema echanges-alimentaires
+:::
 
 Le climat, la durée de la saison végétative et la surface disponible obligent les
 producteurs à faire des choix. Ce que le territoire ne peut pas produire, il faut
-l'importer : le chocolat, le cacao, le sucre et une partie des poissons viennent
-d'Asie; les boissons alcoolisées, les cafés, les thés et les épices viennent
-d'Europe; les fruits et les noix viennent d'Afrique et d'Amérique du Sud.
-
-### Ce qu'il exporte, et ce que ça coûte
-
-Le Québec exporte aussi. Le porc québécois est très demandé en Asie, et le boeuf,
-le poulet et les produits de l'érable partent vers le Japon, les États-Unis et
-d'autres pays.
+l'importer. À l'inverse, le Québec vend à l'étranger ce qu'il produit en
+abondance : le porc, très demandé en Asie, le boeuf et la volaille vers le Japon
+et les États-Unis, et les produits de l'érable dans de nombreux pays.
 
 ::: note
 Cette dépendance aux marchés étrangers s'est révélée coûteuse depuis 2025, et
@@ -346,6 +364,17 @@ besoin d'un drainage artificiel.
 Source : Wikipédia
 {: .source-texte }
 
+::: activite
+Le RÉCIT en univers social propose un
+**[document de travail sur le territoire agricole](https://docs.google.com/document/d/1uB3FmxyEQFNyZrgb47dDuJSYK_UxpS7DGTlJpKMxMLY/edit)**,
+à remplir en observant une exploitation.
+:::
+
+::: questions
+1. Nomme trois bâtiments d'une ferme laitière et explique à quoi sert chacun.
+2. Pourquoi la serre a-t-elle une importance particulière au Québec?
+:::
+
 ## La bande riveraine
 
 Une bande riveraine est l'ensemble des formations boisées, buissonnantes et
@@ -450,8 +479,8 @@ géolocaliser les principales régions agricoles.
 ::: questions
 1. Compare le Québec et la Californie sur trois points : le climat, l'eau et la
    main-d'oeuvre.
-2. La Vallée Centrale reçoit moins de pluie que le désert de certaines régions,
-   et pourtant elle nourrit une partie de l'Amérique. Explique comment.
+2. La Vallée Centrale reçoit moins de pluie que bien des régions sèches, et
+   pourtant elle nourrit une partie de l'Amérique. Explique comment.
 3. Reprends le concept d'équité et applique-le aux travailleurs des champs
    californiens.
 :::
@@ -477,26 +506,6 @@ Toute la tâche se trouve sur la page
 du RÉCIT en univers social.
 :::
 
-::: video SWV_oq87QEQ
-Tutoriel d'une étable en production laitière, première partie
-:::
-
-::: video dCsMnPb9I34
-Tutoriel d'une étable en production laitière, deuxième partie
-:::
-
-::: video Fv57-3bqHfI
-Tutoriel d'une grange, première partie
-:::
-
-::: video fYdi-Ur3Tyw
-Tutoriel d'une grange, deuxième partie
-:::
-
-::: video WNA3xJqcTk4
-Tutoriel d'un silo à grains
-:::
-
 ::: questions
 1. Choisis un type de ferme et nomme les trois bâtiments dont tu as absolument
    besoin, avec leur fonction.
@@ -509,7 +518,8 @@ Tutoriel d'un silo à grains
 - [Service national du RÉCIT en univers social](https://www.recitus.qc.ca/)
 - [Territoire agricole national, Californie, dossier du RÉCIT](https://documents.recitus.qc.ca/1er-cyle/dossier/californie)
 - [Enjeux du territoire agricole, projet Minecraft du RÉCIT](https://www.recitus.qc.ca/ressources/secondaire/publication/enjeux-territoire-agricole-minecraft)
+- [Atlas du Canada, régions physiographiques](https://atlas.gc.ca/phys/fr/index.html)
 - [Alloprof, le territoire agricole du Québec](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/le-territoire-agricole-du-quebec-g1047)
 - [Statistique Canada, Recensement de l'agriculture](https://www.statcan.gc.ca/fr/sujets-debut/agriculture_et_alimentation)
 - [Commission de protection du territoire agricole du Québec](https://www.cptaq.gouv.qc.ca/)
-- [Union des producteurs agricoles, protection du territoire agricole](https://www.upa.qc.ca/producteur/outils-et-ressources/amenagement-et-territoire/protection-du-territoire-agricole)
+- [Ressources naturelles Canada, forêts et changements climatiques](https://ressources-naturelles.canada.ca/nos-ressources-naturelles/forets/changements-climatiques-forets/impacts-adaptation-forestiere)

@@ -63,8 +63,7 @@ deux territoires québécois, la Jamésie au Nord-du-Québec et la Côte-Nord.
 - **Ressource** : ce qu'un territoire possède et que l'on peut mettre en valeur.
   Ici, c'est l'eau, ou plus exactement la force de l'eau qui descend.
 - **Source d'énergie** : ce à partir de quoi on produit de l'énergie. On les
-  classe en sources renouvelables, comme l'eau, le vent et le soleil, et en
-  sources non renouvelables, comme le pétrole, le gaz et le charbon.
+  classe en sources renouvelables, comme l'eau, le vent et le soleil et en sources non renouvelables, comme le pétrole, le gaz et le charbon.
 
 ::: questions
 1. Le Québec est autonome pour son électricité et dépendant pour son pétrole.
@@ -287,7 +286,7 @@ L'aménagement Robert-Bourassa se dresse sur la Grande Rivière, à cinq
 kilomètres de la localité de Radisson. Construit en deux temps entre 1973 et
 1992, il comprend un réservoir, un barrage principal de 162 mètres de haut et
 de 2 835 mètres de long, 29 digues, un évacuateur de crues et deux centrales.
-Les centrales Robert-Bourassa, avec 5 616 mégawatts, et La Grande-2-A, avec 2
+Les centrales Robert-Bourassa, avec 5 616 mégawatts et La Grande-2-A, avec 2
 106 mégawatts, totalisent 7 722 mégawatts. La première est la plus puissante
 centrale hydroélectrique du Canada. Elle est creusée à 137 mètres sous terre
 et compte 16 turbines. Au plus fort des travaux, en 1977, le chantier

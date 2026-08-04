@@ -1,0 +1,72 @@
+<svg viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ce que le Québec importe et ce qu'il exporte en produits alimentaires, par grandes catégories">
+  <style>
+    .ea-t { font-family: Archivo, sans-serif; }
+    .ea-c { font-size: 13px; font-weight: 700; fill: var(--encre); }
+    .ea-n { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .ea-d { font-size: 12px; fill: var(--encre-doux); }
+    .ea-i { fill: none; stroke: var(--matiere-fonce); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+    .ea-j { fill: none; stroke: var(--schema-accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+
+  <rect x="30" y="30" width="500" height="350" rx="6" fill="var(--bloc-pale)" opacity="0.35"/>
+  <rect x="570" y="30" width="500" height="280" rx="6" fill="var(--matiere-voile)"/>
+
+  <text class="ea-t ea-c" x="52" y="60">Ce que le Québec doit importer</text>
+  <text class="ea-t ea-c" x="592" y="60">Ce qu'il exporte</text>
+
+  <g transform="translate(54,84)">
+    <rect class="ea-i" x="2" y="4" width="22" height="18" rx="2"/>
+    <path class="ea-i" d="M9 4V22 M16 4V22 M2 13H24"/>
+  </g>
+  <text class="ea-t ea-n" x="100" y="99">Le chocolat, le cacao et le sucre</text>
+  <text class="ea-t ea-d" x="100" y="118">Surtout d'Asie</text>
+
+  <g transform="translate(54,154)">
+    <path class="ea-i" d="M4 9H19V17C19 20 17 22 14 22H9C6 22 4 20 4 17Z"/>
+    <path class="ea-i" d="M19 12H22C24 12 24 17 22 17H19"/>
+    <path class="ea-i" d="M9 2V6 M14 2V6"/>
+  </g>
+  <text class="ea-t ea-n" x="100" y="169">Les cafés, les thés et les épices</text>
+  <text class="ea-t ea-d" x="100" y="188">Surtout d'Europe</text>
+
+  <g transform="translate(54,224)">
+    <path class="ea-i" d="M13 8C10 5 4 6 4 13C4 19 8 23 11 23C12 23 12 22 13 22C14 22 14 23 15 23C18 23 22 19 22 13C22 6 16 5 13 8Z"/>
+    <path class="ea-i" d="M13 8V4 M13 5C15 2 19 2 19 2C19 5 16 6 13 5Z"/>
+  </g>
+  <text class="ea-t ea-n" x="100" y="239">Les fruits et les noix</text>
+  <text class="ea-t ea-d" x="100" y="258">D'Afrique et d'Amérique du Sud</text>
+
+  <g transform="translate(54,294)">
+    <path class="ea-i" d="M2 14C6 8 12 6 17 8C21 10 23 14 23 14C23 14 21 18 17 20C12 22 6 20 2 14Z"/>
+    <path class="ea-i" d="M23 14L26 9V19Z"/>
+    <circle class="ea-i" cx="8" cy="12.5" r="1.2"/>
+  </g>
+  <text class="ea-t ea-n" x="100" y="309">Les poissons et les fruits de mer</text>
+  <text class="ea-t ea-d" x="100" y="328">Surtout d'Asie</text>
+
+  <g transform="translate(594,84)">
+    <circle class="ea-j" cx="13" cy="13" r="11"/>
+    <ellipse class="ea-j" cx="9" cy="13" rx="1.6" ry="2.6"/>
+    <ellipse class="ea-j" cx="17" cy="13" rx="1.6" ry="2.6"/>
+  </g>
+  <text class="ea-t ea-n" x="640" y="99">Le porc</text>
+  <text class="ea-t ea-d" x="640" y="118">Très demandé en Asie</text>
+
+  <g transform="translate(594,154)">
+    <path class="ea-j" d="M6 22C3 22 2 19 4 16C6 13 9 11 13 11C18 11 22 14 22 18C22 21 20 22 18 22Z"/>
+    <circle class="ea-j" cx="16" cy="7" r="4"/>
+    <path class="ea-j" d="M20 6L24 7L20 9 M16 3V1"/>
+  </g>
+  <text class="ea-t ea-n" x="640" y="169">Le boeuf et la volaille</text>
+  <text class="ea-t ea-d" x="640" y="188">Vers le Japon et les États-Unis</text>
+
+  <g transform="translate(594,224)">
+    <path class="ea-j" d="M13 1L16 8L21 5L19 11L25 12L20 16L23 21L16 19L13 25L10 19L3 21L6 16L1 12L7 11L5 5L10 8Z"/>
+  </g>
+  <text class="ea-t ea-n" x="640" y="239">Les produits de l'érable</text>
+  <text class="ea-t ea-d" x="640" y="258">Dans de nombreux pays</text>
+
+  <text class="ea-t ea-d" x="592" y="340">Ces exportations dépendent de quelques marchés seulement.</text>
+  <text class="ea-t ea-d" x="592" y="360">Quand l'un se ferme, il faut vite en trouver un autre.</text>
+</svg>

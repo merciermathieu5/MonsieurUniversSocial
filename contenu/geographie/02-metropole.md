@@ -407,7 +407,7 @@ La crise du logement à Montréal
 
 Depuis les années 1950, beaucoup de ménages quittent l'île pour s'installer en
 banlieue. Ils invoquent le coût plus bas d'une propriété, la présence de parcs
-et d'espaces verts, et une densité de population plus faible. Ce mouvement porte
+et d'espaces verts et une densité de population plus faible. Ce mouvement porte
 un nom : l'étalement urbain.
 
 ::: questions
@@ -544,8 +544,7 @@ Source : Service national du RÉCIT, domaine de l'univers social
 Les universités, les grands musées et les sièges des médias forment des pôles
 d'influence culturels qui participent à la diffusion de la culture et des
 savoirs. Montréal compte deux hôpitaux universitaires, le CUSM et le CHUM,
-ainsi que deux universités francophones, l'Université de Montréal et l'UQAM,
-et deux universités anglophones, McGill et Concordia. La métropole se présente
+ainsi que deux universités francophones, l'Université de Montréal et l'UQAM et deux universités anglophones, McGill et Concordia. La métropole se présente
 aussi comme un pôle de l'intelligence artificielle, autour du Mila, l'Institut
 québécois d'intelligence artificielle.
 

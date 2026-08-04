@@ -237,7 +237,7 @@ cens, de la taille, des banalités et des corvées.
 
 ::: questions
 1. Nomme les trois ordres de la société médiévale et ce que fait chacun.
-2. Quels sont les devoirs du vassal envers son suzerain, et du suzerain envers son vassal?
+2. Quels sont les devoirs du vassal envers son suzerain et du suzerain envers son vassal?
 3. Qu'est-ce qu'un fief?
 :::
 

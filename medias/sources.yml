@@ -2787,3 +2787,67 @@ graphique-production-californie.jpg:
   titre: "La production californienne, d'apres le California Department of Food and Agriculture"
   licence: Creative Commons BY-NC-SA
   lien: https://documents.recitus.qc.ca/1er-cyle/document/document-6-la-production-californienne
+vaches-laitieres.jpg:
+  cadrage: gauche
+  fiche: 10-territoire-agricole-national
+  commons: "File:Holstein cows large.jpg"
+  recherche: Holstein cows large USDA
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+traite-mecanisee.jpg:
+  cadrage: flottant
+  fiche: 10-territoire-agricole-national
+  commons: "File:Cow milking machine in action DSC04132.jpg"
+  recherche: cow milking machine in action
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+seigneuries-bas-canada.jpg:
+  cadrage: carte
+  fiche: 10-territoire-agricole-national
+  commons: "File:Seigneuries-du-Bas-Canada.jpg"
+  recherche: seigneuries du Bas-Canada carte
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+cantons-de-lest.jpg:
+  cadrage: carte
+  fiche: 10-territoire-agricole-national
+  commons: "File:Cantons de l'est.jpg"
+  recherche: cantons de l'est carte
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+saison-croissance.jpg:
+  cadrage: large
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://ressources-naturelles.canada.ca/sites/nrcan/files/forest/saison-croissance-previsions_1500.jpg
+  auteur: Ressources naturelles Canada
+  titre: "Previsions d'allongement de la saison de croissance au Canada"
+  licence: Droits reserves a des fins educatives
+  lien: https://ressources-naturelles.canada.ca/nos-ressources-naturelles/forets/changements-climatiques-forets/impacts-adaptation-forestiere
+champ-mais.jpg:
+  cadrage: gauche
+  fiche: 10-territoire-agricole-national
+  commons: "File:Corntassel 7095.jpg"
+  recherche: corn tassel maize field
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+marche-maraicher.jpg:
+  cadrage: flottant
+  fiche: 10-territoire-agricole-national
+  commons: "File:Marché boulevard de Reuilly septembre 2018 7.jpg"
+  recherche: marche boulevard de Reuilly 2018
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''

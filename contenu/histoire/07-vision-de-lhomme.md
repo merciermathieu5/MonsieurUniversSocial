@@ -201,8 +201,7 @@ autres.
 
 Les humanistes étaient des penseurs qui mettaient l'accent sur la
 connaissance, la raison et la philosophie. Ils cherchaient à redécouvrir
-les textes anciens, en particulier ceux de l'Antiquité grecque et romaine,
-et à les étudier de manière critique. Ils mettaient également de l'avant
+les textes anciens, en particulier ceux de l'Antiquité grecque et romaine et à les étudier de manière critique. Ils mettaient également de l'avant
 l'idée que l'homme pouvait améliorer sa condition et réaliser son plein
 potentiel grâce à l'éducation et à l'usage de la raison.
 

@@ -53,7 +53,7 @@ même enjeu à une autre échelle.
 - **Développement** : l'amélioration des conditions de vie d'une population, que
   l'activité économique rend possible mais ne garantit pas.
 - **Industrialisation** : l'implantation progressive d'usines sur un territoire
-  donné, et les transformations sociales qui l'accompagnent.
+  donné et les transformations sociales qui l'accompagnent.
 - **Mondialisation** : la libre circulation des marchandises, des capitaux, des
   services, des personnes, des techniques et de l'information à l'échelle de la
   planète.
@@ -232,8 +232,7 @@ canadiennes et deux écluses américaines.
 
 Des navires venus du monde entier peuvent ainsi pénétrer au centre de l'Amérique
 du Nord. Deux ouvrages rendent la chose possible : le canal Welland, qui
-contourne les chutes du Niagara entre le lac Ontario et le lac Érié, et les
-écluses de Sault-Sainte-Marie, entre le lac Huron et le lac Supérieur.
+contourne les chutes du Niagara entre le lac Ontario et le lac Érié et les écluses de Sault-Sainte-Marie, entre le lac Huron et le lac Supérieur.
 
 Source : Corporation de gestion de la Voie maritime du Saint-Laurent
 {: .source-texte }
@@ -339,7 +338,7 @@ sud-est représente environ 15 % du total national.
 ::: note
 Depuis 2025, l'enjeu a changé de nature. Les États-Unis imposent des tarifs
 douaniers de 25 % sur les véhicules et les pièces qui ne sont pas conformes à
-l'Accord Canada, États-Unis, Mexique, et de 50 % sur l'acier, l'aluminium et le
+l'Accord Canada, États-Unis, Mexique et de 50 % sur l'acier, l'aluminium et le
 cuivre. Le Canada a maintenu des contre-tarifs sur les mêmes produits. Entre
 février 2025 et mai 2026, environ 6 500 emplois de l'automobile ont été perdus
 au Canada et 15 800 aux États-Unis. La révision de l'accord, prévue le 1er

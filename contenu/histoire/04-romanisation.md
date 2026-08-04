@@ -121,8 +121,7 @@ suivante montre son étendue en 96, à la veille de cette apogée.
 publique", contrairement à res privata, "la chose privée". Gouverner la cité
 est donc une affaire publique et collective. La devise de la République est
 Senatus Populusque Romanus (SPQR), "le Sénat et le peuple romain". Elle
-symbolise l'union du Sénat, où siègent à l'origine les familles patriciennes,
-et de l'ensemble des citoyens romains. » (Source : Wikipédia)
+symbolise l'union du Sénat, où siègent à l'origine les familles patriciennes et de l'ensemble des citoyens romains. » (Source : Wikipédia)
 
 ## L'Empire romain (-27 à 476)
 

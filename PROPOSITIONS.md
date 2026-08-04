@@ -4564,3 +4564,119 @@ hors images : les neuf sections passent. `figures.py` a remonté trois figures,
 `paragraphes.py` a fait huit fusions, et les deux repassent sans écart.
 `liens.py` vérifie 802 liens internes, aucun brisé. Les deux suites Node passent
 à 0 échec. Il reste trois gabarits en géographie au lieu de quatre.
+
+### Retouches du territoire agricole (livraison 123)
+
+**Le bandeau des Grands Lacs respire.** Sa hauteur passe de 94 à 106 pixels, ce
+qui laisse une marge sous la dernière ligne au lieu de quatre pixels.
+
+**Les cinq tutoriels Minecraft sont retirés.** La section garde le lien vers la
+tâche du RÉCIT, où ils se trouvent de toute façon.
+
+**Quatre ressources que tu m'as données sont en place** : l'Atlas du Canada pour
+les régions physiographiques, en encadré `activite`; la carte des prévisions de
+saison de croissance de Ressources naturelles Canada; la carte des seigneuries du
+Bas-Canada et celle des cantons de l'Est, toutes deux de Commons.
+
+Sur l'Atlas du Canada, j'ai choisi l'encadré `activite` plutôt que le bloc
+`::: integration`. Les sites gouvernementaux refusent souvent d'être affichés
+dans un cadre, et on vient d'en faire l'expérience avec la carte de l'UNESCO. Si
+tu veux tenter l'intégration, dis-le et je bascule en une ligne.
+
+**Un schéma neuf pour les échanges**, `medias/schemas/echanges-alimentaires.svg`,
+avec les pictogrammes demandés. À gauche ce que le Québec importe, avec une
+tablette pour le chocolat et le cacao, une tasse pour les cafés et les thés, une
+pomme pour les fruits et les noix, un poisson pour les produits de la mer. À
+droite ce qu'il exporte, avec un groin pour le porc, une volaille et une feuille
+d'érable. Deux lignes ferment le bloc sur la fragilité de cette dépendance à
+quelques marchés, ce qui prépare la note sur les tarifs chinois.
+
+**Le document du RÉCIT sur les bâtiments** rejoint la section 10 en encadré
+`activite`. Je n'ai pas pu en lire le contenu : les documents Google exigent
+JavaScript et ne me rendent que leur titre. Si tu veux que j'en reprenne des
+éléments dans le texte, copie-moi les passages utiles.
+
+### Les images du Québec
+
+Deux sur trois seulement. `File:Holstein cows large.jpg` pour les vaches
+laitières et `File:Cow milking machine in action DSC04132.jpg` pour la traite,
+placées à la fin de la section 03 comme demandé.
+
+**Le champ de maïs et le marché public maraîcher me manquent.** Trois recherches
+sur Commons n'ont rien rendu de vérifiable pour ces deux sujets. Les catégories
+que j'ai essayées n'existent pas sous les noms attendus, et je ne peux pas les
+parcourir depuis mon environnement. Donne-moi deux noms de fichiers et je les
+inscris en deux lignes.
+
+### Les virgules avant « et »
+
+J'ai regardé les 202 occurrences du site, et la réponse est moins simple que
+prévu. **La grande majorité ne sont pas des énumérations.** Ce sont des virgules
+qui séparent deux propositions ayant chacune leur sujet, cas où le français les
+conserve normalement :
+
+> Il compte 14 contreforts et 13 voûtes, et sa silhouette est visible depuis la
+> route 389.
+
+Les retirer donnerait « 14 contreforts et 13 voûtes et sa silhouette est
+visible », qui se lit moins bien que l'original.
+
+J'ai tenté deux passes automatiques avant de renoncer. La première, fondée sur la
+longueur du segment, a produit cinq faux positifs. La seconde, fondée sur le mot
+qui suit « et », en a produit une douzaine : « et le chômage remonte l'hiver »
+commence par un déterminant mais reste une proposition. Aucune règle mécanique ne
+distingue de façon fiable un membre d'énumération d'une proposition sans analyser
+le verbe.
+
+**J'ai donc relu les 202 cas et retiré 20 virgules à la main**, celles qui
+fermaient vraiment une énumération : « l'exploitation par l'industrie forestière
+et l'exploitation récréative », « en sources renouvelables et en sources non
+renouvelables », « les centrales Robert-Bourassa et La Grande-2-A », « de 25 %
+sur les véhicules et de 50 % sur l'acier ». Il en reste 174, toutes des
+coordinations de propositions.
+
+Si tu veux quand même les retirer toutes, dis-le et je le fais, mais je préférais
+te montrer ce que ça donne avant de toucher à 174 phrases du site.
+
+### Un incident, réglé
+
+En annulant ma deuxième passe automatique, j'ai lancé `git checkout` sur
+`contenu/`, ce qui a aussi restauré le gabarit de la fiche 10, un fichier suivi
+par le dépôt. La fiche écrite à la livraison 122 a été effacée. Je l'ai réécrite
+au complet, avec toutes tes modifications intégrées d'emblée. Rien n'est perdu,
+mais la leçon vaut d'être notée : ne jamais annuler en bloc sur un dossier qui
+contient du travail non déposé.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 34. Le delta de 12
+correspond exactement aux douze images de la fiche 10, sept du dossier de la
+Californie et cinq nouvelles. Aucun problème hors images : les neuf sections
+passent, dont SCHÉMAS avec le schéma des échanges. `figures.py` a remonté huit
+figures, `paragraphes.py` a fait huit fusions, et les deux repassent sans écart.
+`liens.py` vérifie 802 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec. La fiche compte quatorze sections, trois capsules, cinq encadrés
+`activite` et trois schémas.
+
+### Les deux dernières images du Québec (livraison 124)
+
+`File:Corntassel 7095.jpg` et `File:Marché boulevard de Reuilly septembre 2018 7.jpg`
+complètent la section 03. La fiche passe à quatorze images.
+
+**Je les ai placées dans l'ordre de la chaîne agroalimentaire** plutôt que dans
+celui où tu me les avais nommées : le champ de maïs et les vaches pour la
+production, la traite pour la transformation, le marché pour la distribution. La
+section se termine ainsi sur les mêmes quatre maillons que le schéma qui l'ouvre,
+et l'élève voit la chaîne deux fois, en diagramme puis en photographies.
+
+**Une précision dans la légende.** Le marché que tu as choisi est celui du
+boulevard de Reuilly, à Paris. La légende le dit, pour qu'un élève ne croie pas
+regarder un marché québécois. L'image illustre parfaitement la fonction, mais
+autant nommer le lieu.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 36. Le delta de 14
+correspond exactement aux quatorze images de la fiche 10. `figures.py` et
+`paragraphes.py` sans écart. `liens.py` vérifie 802 liens internes, aucun brisé.
+Les deux suites Node passent à 0 échec.

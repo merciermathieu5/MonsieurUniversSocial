@@ -43,7 +43,7 @@
   <text class="gl-t gl-fl" x="962" y="93">Le fleuve</text>
   <text class="gl-t gl-fl" x="962" y="111">Saint-Laurent</text>
 
-  <rect x="30" y="176" width="1040" height="94" rx="5" fill="var(--matiere-voile)"/>
+  <rect x="30" y="176" width="1040" height="106" rx="5" fill="var(--matiere-voile)"/>
   <text class="gl-t gl-bt" x="52" y="202">Retiens l'ordre avec SMHÉO</text>
   <text class="gl-t gl-bp" x="52" y="226">Supérieur, Michigan, Huron, Érié, Ontario. Invente une phrase dont les initiales donnent SMHÉO, par exemple « Super ! Mon héros est Obélix ».</text>
   <text class="gl-t gl-bp" x="52" y="246">L'eau descend d'ouest en est, mais pas en ligne droite : le Michigan et le Supérieur se déversent tous deux dans le Huron, qui alimente l'Érié,</text>
