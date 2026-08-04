@@ -1,0 +1,168 @@
+<section class="mcu" id="modes-culture" aria-label="Comparaison de l'agriculture intensive et de l'agriculture extensive">
+<style>
+.mcu { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.mcu .mcu__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mcu .mcu__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mcu__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.mcu__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.mcu__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.mcu__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mcu__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.mcu__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.mcu__panneau.est-visible { display: block; }
+.mcu__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.mcu__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.mcu__cote--ext { border-left-color: var(--encre-pale); }
+.mcu__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.mcu__resume { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.mcu__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.mcu__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.mcu__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .mcu .mcu__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mcu .mcu__titre { color: var(--encre); }
+html[data-sombre="on"] .mcu__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .mcu__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .mcu__resume { color: var(--encre); }
+html[data-sombre="on"] .mcu__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .mcu__panneau { padding: 1.1rem 1rem 1rem; } .mcu__onglets { padding: .7rem .8rem; } .mcu__resume { font-size: 1.05rem; } }
+@media print { .mcu__panneau { display: block; page-break-inside: avoid; } .mcu__onglets { display: none; } }
+</style>
+
+<div class="mcu__entete">
+  <p class="mcu__titre" role="heading" aria-level="3">Deux façons de cultiver, six critères</p>
+  <p class="mcu__consigne">Choisis un critère</p>
+</div>
+
+<div class="mcu__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="mcu__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("modes-culture");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "surface",
+      nom: "La surface",
+      inRes: "Beaucoup sur peu",
+      inDet: "On cherche \u00e0 tirer le maximum de chaque hectare. Le rendement par unit\u00e9 de surface est le premier objectif.",
+      exRes: "Peu sur beaucoup",
+      exDet: "Le rendement \u00e0 l'hectare est faible, alors il faut de grandes \u00e9tendues pour nourrir un troupeau ou r\u00e9colter assez.",
+      ecart: "Les deux peuvent produire la m\u00eame quantit\u00e9 totale. Ce qui les s\u00e9pare, c'est la surface qu'il faut pour y arriver."
+    },
+    {
+      cle: "techniques",
+      nom: "Les techniques",
+      inRes: "Machines et technologie",
+      inDet: "Tracteurs, moissonneuses, syst\u00e8mes de traite automatis\u00e9s, capteurs et donn\u00e9es. L'investissement de d\u00e9part est \u00e9lev\u00e9.",
+      exRes: "Savoir-faire traditionnel",
+      exDet: "Des techniques transmises et peu m\u00e9canis\u00e9es, qui demandent peu de capital mais beaucoup de travail et de connaissance du milieu.",
+      ecart: "L'agriculture intensive remplace des bras par des machines. C'est ce qui explique qu'une ferme puisse s'agrandir sans embaucher."
+    },
+    {
+      cle: "intrants",
+      nom: "Les intrants",
+      inRes: "Engrais et pesticides",
+      inDet: "On ajoute au sol ce qu'il ne fournit pas seul. Au Qu\u00e9bec, la r\u00e9glementation encadre et limite l'usage des pesticides.",
+      exRes: "Presque rien d'ajout\u00e9",
+      exDet: "On travaille avec ce que le milieu offre. Le sol se repose, les troupeaux se d\u00e9placent, la fertilit\u00e9 se refait d'elle-m\u00eame.",
+      ecart: "Un intrant est ce qu'on apporte de l'ext\u00e9rieur. Plus on en met, plus on produit, mais plus on risque de polluer l'eau et le sol."
+    },
+    {
+      cle: "but",
+      nom: "Le but poursuivi",
+      inRes: "Nourrir et vendre",
+      inDet: "Produire assez pour nourrir une population nombreuse, et d\u00e9gager un profit qui permette de rembourser la machinerie.",
+      exRes: "Nourrir et durer",
+      exDet: "Subvenir aux besoins d'un groupe sans \u00e9puiser le milieu, parce qu'il faudra encore pouvoir y vivre dans dix ans.",
+      ecart: "Les deux nourrissent. La question est de savoir sur quelle dur\u00e9e on compte : la saison prochaine ou la g\u00e9n\u00e9ration suivante."
+    },
+    {
+      cle: "ou",
+      nom: "Où on la pratique",
+      inRes: "Les pays développés",
+      inDet: "L\u00e0 o\u00f9 le capital, les march\u00e9s et les infrastructures existent. Au Qu\u00e9bec, c'est le mod\u00e8le dominant dans les basses-terres.",
+      exRes: "Les milieux difficiles",
+      exDet: "L\u00e0 o\u00f9 le sol, l'eau ou le climat ne permettent pas mieux : le Sahel, les steppes, les zones s\u00e8ches d'Afrique de l'Est.",
+      ecart: "L'agriculture extensive n'est pas un choix d\u00e9pass\u00e9. C'est souvent la seule fa\u00e7on de tirer quelque chose d'un milieu pauvre."
+    },
+    {
+      cle: "effets",
+      nom: "Les effets",
+      inRes: "Rendement et pollution",
+      inDet: "L'\u00e9levage porcin canadien, tr\u00e8s productif, est critiqu\u00e9 pour la pollution des sols, les rejets dans les cours d'eau et la r\u00e9sistance aux antibiotiques.",
+      exRes: "Douceur et fragilité",
+      exDet: "Peu d'impact sur le milieu, mais une production qui d\u00e9pend enti\u00e8rement du climat. Une s\u00e9cheresse et le troupeau meurt.",
+      ecart: "Aucun des deux mod\u00e8les n'est parfait. L'un pollue davantage, l'autre nourrit moins de monde. C'est l\u00e0 tout le d\u00e9bat."
+    }
+  ];
+
+  var onglets = racine.querySelector(".mcu__onglets");
+  var contenu = racine.querySelector(".mcu__contenu");
+
+  function cote(quoi, resume, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "mcu__cote" + (modificateur ? " mcu__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "mcu__quoi";
+    etiquette.textContent = quoi;
+    var titre = document.createElement("span");
+    titre.className = "mcu__resume";
+    titre.textContent = resume;
+    var texte = document.createElement("p");
+    texte.className = "mcu__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(titre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "mcu__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "mcu-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "mcu__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "mcu-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "mcu__colonnes";
+    colonnes.appendChild(cote("Agriculture intensive", critere.inRes, critere.inDet, ""));
+    colonnes.appendChild(cote("Agriculture extensive", critere.exRes, critere.exDet, "ext"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "mcu__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui change. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

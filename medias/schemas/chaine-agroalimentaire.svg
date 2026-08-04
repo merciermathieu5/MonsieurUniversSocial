@@ -1,0 +1,52 @@
+<svg viewBox="0 0 1100 300" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="La chaîne agroalimentaire, de la production au champ jusqu'à la consommation, en passant par la transformation et la distribution">
+  <style>
+    .qa-t { font-family: Archivo, sans-serif; }
+    .qa-c { font-size: 11px; font-weight: 600; fill: var(--encre-doux); }
+    .qa-h1 { font-size: 16px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .qa-h2 { font-size: 16px; font-weight: 700; fill: var(--bloc-texte); }
+    .qa-h3 { font-size: 16px; font-weight: 700; fill: var(--surface); }
+    .qa-p1 { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .qa-p2 { font-size: 12px; fill: var(--bloc-texte); }
+    .qa-p3 { font-size: 12px; fill: var(--surface); }
+    .qa-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .qa-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <text class="qa-t qa-c" x="292" y="45" text-anchor="middle">Puis</text>
+  <text class="qa-t qa-c" x="567" y="45" text-anchor="middle">Puis</text>
+  <text class="qa-t qa-c" x="842" y="45" text-anchor="middle">Enfin</text>
+
+  <rect x="40" y="60" width="230" height="90" rx="5" fill="var(--bloc-pale)"/>
+  <text class="qa-t qa-h1" x="58" y="92">La production</text>
+  <text class="qa-t qa-p1" x="58" y="115">Le champ et l'étable.</text>
+  <text class="qa-t qa-p1" x="58" y="133">On cultive et on élève.</text>
+
+  <path d="M 278 105 L 308 105 M 300 99 L 308 105 L 300 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="315" y="60" width="230" height="90" rx="5" fill="var(--bloc)"/>
+  <text class="qa-t qa-h2" x="333" y="92">La transformation</text>
+  <text class="qa-t qa-p2" x="333" y="115">L'usine change le lait en</text>
+  <text class="qa-t qa-p2" x="333" y="133">fromage, le blé en farine.</text>
+
+  <path d="M 553 105 L 583 105 M 575 99 L 583 105 L 575 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="590" y="60" width="230" height="90" rx="5" fill="var(--schema-cle)"/>
+  <text class="qa-t qa-h3" x="608" y="92">La distribution</text>
+  <text class="qa-t qa-p3" x="608" y="115">Le camion et le magasin</text>
+  <text class="qa-t qa-p3" x="608" y="133">portent le produit au client.</text>
+
+  <path d="M 828 105 L 858 105 M 850 99 L 858 105 L 850 111" fill="none"
+        stroke="var(--schema-trait)" stroke-width="2"/>
+
+  <rect x="865" y="60" width="230" height="90" rx="5" fill="var(--schema-accent)"/>
+  <text class="qa-t qa-h3" x="883" y="92">La consommation</text>
+  <text class="qa-t qa-p3" x="883" y="115">L'assiette. Le produit</text>
+  <text class="qa-t qa-p3" x="883" y="133">remplit sa fonction : nourrir.</text>
+
+  <rect x="40" y="195" width="1055" height="66" rx="5" fill="var(--matiere-voile)"/>
+  <text class="qa-t qa-bt" x="62" y="222">La mise en marché, c'est le passage d'un maillon à l'autre</text>
+  <text class="qa-t qa-bp" x="62" y="245">Chaque étape ajoute de la valeur au produit et crée des emplois. L'ensemble de ces quatre maillons forme ce qu'on appelle l'industrie agroalimentaire.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg viewBox="0 0 1100 320" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagramme à barres du nombre d'exploitations agricoles au Québec, de 118 086 en 1871 à un sommet de 154 669 en 1941, puis un recul jusqu'à 29 380 en 2021">
+  <style>
+    .fq-t { font-family: Archivo, sans-serif; }
+    .fq-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .fq-n { font-size: 15px; font-weight: 600; fill: var(--encre); }
+    .fq-v { font-size: 15px; font-weight: 700; fill: var(--encre); }
+  </style>
+
+  <text class="fq-t fq-u" x="20" y="26">Nombre d'exploitations agricoles au Québec</text>
+  <text class="fq-t fq-u" x="20" y="46">Recensement de l'agriculture</text>
+
+  <path d="M149 64V290" stroke="var(--schema-trait)" stroke-width="1" fill="none"/>
+
+  <rect x="150" y="72" width="595" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="fq-t fq-n" x="135" y="92" text-anchor="end">1871</text>
+  <text class="fq-t fq-v" x="757" y="92">118 086</text>
+
+  <rect x="150" y="118" width="780" height="30" rx="3" fill="var(--schema-accent)"/>
+  <text class="fq-t fq-n" x="135" y="138" text-anchor="end">1941</text>
+  <text class="fq-t fq-v" x="942" y="138">154 669</text>
+
+  <rect x="150" y="164" width="309" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="fq-t fq-n" x="135" y="184" text-anchor="end">1971</text>
+  <text class="fq-t fq-v" x="471" y="184">61 257</text>
+
+  <rect x="150" y="210" width="162" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="fq-t fq-n" x="135" y="230" text-anchor="end">2001</text>
+  <text class="fq-t fq-v" x="324" y="230">32 139</text>
+
+  <rect x="150" y="256" width="148" height="30" rx="3" fill="var(--schema-cle)"/>
+  <text class="fq-t fq-n" x="135" y="276" text-anchor="end">2021</text>
+  <text class="fq-t fq-v" x="310" y="276">29 380</text>
+</svg>

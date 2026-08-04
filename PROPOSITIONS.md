@@ -4454,3 +4454,113 @@ explicite maintenant qu'il est seul en haut.
 Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé. Le delta de
 4 reste celui des quatre images ajoutées à la livraison 119. `liens.py` vérifie
 798 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+## Fiche : Le territoire agricole national
+
+### Huitième fiche de géographie (livraison 122)
+
+`contenu/geographie/10-territoire-agricole-national.md` passe du gabarit à
+`brouillon`. Treize sections de contenu, les neuf concepts prescrits définis,
+le Québec en étude principale et la Californie en second cas, comme convenu.
+
+### Les trois visuels
+
+**`medias/schemas/chaine-agroalimentaire.svg`**, la chaîne en quatre maillons :
+production, transformation, distribution, consommation. Le bandeau dit ce que
+recouvre la mise en marché et que l'ensemble des quatre porte le nom d'industrie
+agroalimentaire.
+
+**`medias/schemas/fermes-quebec.svg`**, le diagramme que tu voulais. Cinq barres
+sourcées : 118 086 exploitations en 1871, un sommet de **154 669 en 1941** en
+accent doré, puis 61 257 en 1971, 32 139 en 2001 et 29 380 en 2021. Le sommet de
+1941 saute aux yeux, et c'est exactement le point que ton texte demandait à
+l'élève de constater.
+
+Un encadré `note` accompagne le diagramme avec la nuance qui compte : moins de
+fermes ne veut pas dire moins d'agriculture. En 2021, une exploitation cultivait
+en moyenne 91 hectares. Moins de gens cultivent plus de terre avec plus de
+machines, ce qui est la définition même de la productivité, un des concepts
+prescrits.
+
+**`theme/composants/modes-culture.html`**, l'intensive contre l'extensive en six
+critères : la surface, les techniques, les intrants, le but poursuivi, où on la
+pratique et les effets. La ligne du dernier critère refuse de trancher : l'un
+pollue davantage, l'autre nourrit moins de monde, et c'est là tout le débat.
+
+### L'actualité commerciale, entièrement refaite
+
+Tes quatre articles de 2019 sur le porc et la Chine sortent. Un encadré `note`
+raconte à leur place ce qui s'est passé depuis, et c'est une bien meilleure
+histoire :
+
+- Octobre 2024, le Canada impose 100 % sur les véhicules électriques chinois
+- 20 mars 2025, la Chine riposte sur l'agriculture : 100 % sur l'huile et le
+  tourteau de canola et les pois, 25 % sur le porc et les produits de la mer
+- 14 août 2025, elle ajoute 75,8 % d'antidumping sur les graines de canola
+- Les producteurs réorientent vers l'Europe, le Japon et l'Asie émergente, avec
+  un bond de 161 % vers ces destinations, sans compenser entièrement : le volume
+  total recule de 7,4 % en 2025
+- Janvier 2026, une entente à Pékin. Le Canada accepte jusqu'à 49 000 véhicules
+  électriques chinois à droits réduits, la Chine suspend ou réduit ses droits
+- Juillet 2026, elle impose tout de même 73,5 % sur l'amidon de pois
+
+La note se termine sur le mécanisme, qui est le vrai apprentissage : ce ne sont
+pas les agriculteurs qui ont provoqué ce conflit, il portait sur des automobiles.
+Ce sont eux qui en ont payé le prix. Une question de section leur demande de
+comparer cette réaction à celle de l'aluminium québécois, vue dans la fiche 09.
+Les deux secteurs ont fait exactement la même chose : rediriger vers l'Europe.
+
+### La Californie
+
+Le RÉCIT a un dossier documentaire complet sur ce territoire, avec sept documents
+crédités que j'ai tous repris. La section suit leur logique et pose le paradoxe
+central : Fresno, au coeur de la région la plus fertile de l'État, reçoit environ
+260 millimètres de pluie par année, moitié moins que San Francisco. La réponse
+est la Sierra Nevada, qui arrête les nuages et dont la fonte des neiges alimente
+les fleuves au printemps.
+
+S'y ajoutent les 1 200 barrages, le Shasta Dam de 1938-1944, les 90 % du vin
+américain, et la main-d'oeuvre : environ 70 % des 400 000 travailleurs présents
+aux récoltes n'ont pas de statut légal. Une question de section demande à l'élève
+d'appliquer le concept d'équité à cette situation.
+
+### Sept images, toutes du RÉCIT
+
+Trois cartes et schémas du Service national du RÉCIT sous licence Creative
+Commons BY-NC-SA, et trois photographies de Flickr reprises par le RÉCIT avec
+leurs crédits : le Shasta Dam par Ron Lute, les vignobles de Dry Creek Valley par
+Don McCullough et la récolte du céleri par Dan Long. Plus le graphique de la
+production californienne.
+
+**Ce qui manque, et il faut le dire :** aucune image du côté québécois. Mes
+recherches sur Commons pour une ferme, une grange ou un rang québécois n'ont rien
+rendu de vérifiable, et les catégories de Commons restent inaccessibles depuis
+mon environnement. La fiche est donc illustrée pour la Californie et pas pour le
+Québec, ce qui est déséquilibré. Donne-moi des noms de fichiers ou laisse-moi
+faire une passe dédiée.
+
+### Les huit capsules
+
+Toutes viennent de ta page et occupent la même section que chez toi. Deux sur
+l'agroalimentaire québécois, une sur la bande riveraine, et les cinq tutoriels
+Minecraft, jumelés deux par deux.
+
+**Les légendes décrivent la section, pas la vidéo**, sauf là où ta page donne le
+titre. L'ordre des tutoriels suit le tien, mais je ne peux pas garantir que
+`SWV_oq87QEQ` soit bien la première partie de l'étable. Envoie-moi des captures
+et je corrige.
+
+### Un contrôle qui a servi
+
+Le vérificateur a attrapé une collision : mon préfixe `ag-` était déjà pris par
+`innovations-agricoles.svg`, dans une fiche d'histoire. Deux schémas affichés sur
+la même page auraient mélangé leurs styles. Le préfixe est passé à `qa-`.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 29. Le delta de 7
+correspond exactement aux sept images du dossier de la Californie. Aucun problème
+hors images : les neuf sections passent. `figures.py` a remonté trois figures,
+`paragraphes.py` a fait huit fusions, et les deux repassent sans écart.
+`liens.py` vérifie 802 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec. Il reste trois gabarits en géographie au lieu de quatre.

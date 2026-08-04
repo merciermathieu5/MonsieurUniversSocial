@@ -2710,3 +2710,80 @@ microplastique.jpg:
   titre: ''
   licence: ''
   lien: ''
+carte-regions-californie.jpg:
+  cadrage: carte
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2119
+  depot: Service national du RECIT, univers social
+  auteur: Service national du RECIT, univers social
+  titre: "Les principales regions agricoles de la Californie"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-4-les-principales-regions-agricoles-de-la-californie
+carte-exportations-californie.jpg:
+  cadrage: carte
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2111
+  depot: Service national du RECIT, univers social
+  auteur: Service national du RECIT, univers social
+  titre: "Les exportations californiennes, d'apres le California Department of Food and Agriculture"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/amorce-les-exportations-californiennes
+schema-climat-californie.jpg:
+  cadrage: large
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2121
+  depot: Service national du RECIT, univers social
+  auteur: Service national du RECIT, univers social
+  titre: "Le climat californien, schema inspire du U.S. Geological Survey"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-5-le-climat-californien
+shasta-dam.jpg:
+  cadrage: gauche
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2115
+  depot: Service national du RECIT, univers social
+  auteur: Ron Lute
+  titre: "Shasta Dam (2014), repris dans le dossier du RECIT"
+  licence: Creative Commons BY-NC
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-2-le-systeme-d-irrigation
+vignobles-dry-creek.jpg:
+  cadrage: flottant
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2113
+  depot: Service national du RECIT, univers social
+  auteur: Don McCullough
+  titre: "Les vignobles de Dry Creek Valley au coucher du soleil (2010)"
+  licence: Creative Commons BY-NC-ND
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-1-la-production-vinicole
+celeri-californie.jpg:
+  cadrage: gauche
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2117
+  depot: Service national du RECIT, univers social
+  auteur: Dan Long
+  titre: "Celery (2008), repris dans le dossier du RECIT"
+  licence: Creative Commons BY-NC
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-3-la-main-d-oeuvre-agricole
+graphique-production-californie.jpg:
+  cadrage: large
+  fiche: 10-territoire-agricole-national
+  commons: ''
+  recherche: ''
+  url: https://documents.recitus.qc.ca/components/com_gdwgestion/download.php?fileid=2123
+  depot: Service national du RECIT, univers social
+  auteur: Service national du RECIT, univers social
+  titre: "La production californienne, d'apres le California Department of Food and Agriculture"
+  licence: Creative Commons BY-NC-SA
+  lien: https://documents.recitus.qc.ca/1er-cyle/document/document-6-la-production-californienne
