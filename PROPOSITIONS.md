@@ -4916,3 +4916,85 @@ plutôt qu'une classe, corrigé avant livraison. `figures.py` a remonté une fig
 `paragraphes.py` a fait quatorze fusions. `liens.py` vérifie 819 liens internes,
 aucun brisé. Les deux suites Node passent à 0 échec. Il ne reste que deux gabarits
 en géographie.
+
+### Retouches du territoire à risque (livraison 129)
+
+**Le titre devient « Le territoire agricole soumis à des risques naturels ».** Il
+apparaît partout, dans l'index, dans la frise de navigation et dans l'entête de
+la fiche. Le nom de fichier ne change pas, donc aucun lien ne casse.
+
+**La carte de l'Asie** ouvre la section qui situe le Bangladesh,
+`File:Asie-fr.svg`. Un élève de première secondaire a besoin de voir où est le
+pays avant qu'on lui parle de son delta.
+
+### Le doublon, et lequel j'ai retiré
+
+Tu as l'oeil. Aucun identifiant n'était répété dans la fiche, mais deux adresses
+différentes menaient bien à la même vidéo.
+
+`76fB2XaiOk4`, celle de ta page, est la capsule d'Oxfam France « Nipa,
+rizicultrice bangladaise, au coeur du climat de mousson », tirée du documentaire
+*Une planète. Une civilisation* de Gaël Derive. Or `mYl4e9ZrEtQ`, que j'avais
+ajoutée depuis le dossier du RÉCIT, est créditée au même Gaël Derive et au même
+documentaire : c'est le même segment, remis en ligne ailleurs.
+
+**J'ai retiré la mienne et gardé la tienne.** Et j'ai corrigé sa légende, qui
+disait « La mousson et les rizières » alors que le vrai titre nomme Nipa. Le
+portrait d'une personne vaut mieux qu'un intitulé général pour une fiche qui parle
+de gens qui cultivent sous la mousson.
+
+**La capsule Minecraft `eogW1MMVb44` est retirée**, elle n'est plus disponible.
+La section garde le lien vers le dossier du RÉCIT, où la tâche se trouve
+entièrement.
+
+### Le Sahel n'est plus aveugle
+
+`File:Map of the Sahel.png` ouvre la section et `File:Sahel Scene - Dori - Sahel
+Region - Burkina Faso.jpg` illustre le paysage. Deux capsules s'y ajoutent,
+`zcWzkL-mmK0` et `LbFefdUM55Q`.
+
+**À valider :** je n'ai pas leurs titres, et je les ai placées dans la section du
+Sahel parce que ta demande suivait celle des images sahéliennes. Leurs légendes
+décrivent donc le sujet de la section, pas la vidéo. Si elles vont ailleurs ou si
+les titres ne correspondent pas, envoie-moi deux captures.
+
+Il reste aussi `OGcrgnADJ68` et `KBDWqt5BZsg`, dans la section des cyclones, dont
+je n'ai toujours pas les titres.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 30. Le delta de 8
+correspond exactement aux huit images de la fiche 11. Aucun problème hors images.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 819 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec. La fiche compte
+douze capsules, contre douze avant : deux retirées, deux ajoutées.
+
+### Les deux capsules des cyclones (livraison 130)
+
+Tes deux adresses m'ont permis de retrouver les titres.
+
+- `OGcrgnADJ68` : **Le puissant cyclone Mocha frappe le Bangladesh et la
+  Birmanie**, France 24, mai 2023
+- `KBDWqt5BZsg` : un reportage de mai 2024 sur le cyclone **Remal**, qui a privé
+  des centaines de milliers de personnes d'électricité. Il est en anglais, et la
+  légende le dit à l'élève plutôt que de le lui faire découvrir en cliquant
+
+**J'en ai profité pour les raccrocher au diagramme.** Une phrase les précède
+maintenant : ces deux cyclones sont récents, Mocha en 2023 et Remal en 2024, et
+l'élève est invité à comparer ce qu'il y voit avec la dernière barre du
+diagramme.
+
+Le gain est réel. Le diagramme s'arrêtait à Amphan en 2020 et pouvait laisser
+croire que l'histoire s'arrête là. Les deux capsules montrent que les cyclones
+continuent de frapper, et que le nombre de victimes reste sans commune mesure
+avec 1970. La démonstration du bandeau se vérifie sous les yeux de l'élève, sur
+des images d'il y a deux ans.
+
+Toutes les légendes de la fiche portent maintenant un vrai titre, sauf les deux
+capsules du Sahel dont j'attends confirmation.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 30, inchangé. Le delta de
+8 reste celui des huit images. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` sans lien brisé. Les deux suites Node passent à 0 échec.

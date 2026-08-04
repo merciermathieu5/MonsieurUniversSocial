@@ -1,5 +1,5 @@
 ---
-titre: "Un territoire agricole en milieu à risque : le Bangladesh"
+titre: "Le territoire agricole soumis à des risques naturels"
 section: geographie
 ordre: 11
 groupe: agricole
@@ -79,6 +79,8 @@ exactement ce que le programme te demande.
 
 ## Situer le Bangladesh
 
+![Le Bangladesh en Asie du Sud](../medias/11-territoire-agricole-risque/asie.png)
+
 ![Des travailleurs dans une rizière du Bangladesh](../medias/11-territoire-agricole-risque/rizieres-bangladesh.jpg)
 
 Le Bangladesh est situé en Asie du Sud, au nord-est de l'Inde. Sa capitale est
@@ -134,7 +136,7 @@ En Asie du Sud, une mousson 2025 dévastatrice
 :::
 
 ::: video 76fB2XaiOk4
-La mousson et les rizières
+Nipa, rizicultrice bangladaise, au coeur du climat de mousson
 :::
 
 ### Les crues
@@ -175,12 +177,15 @@ aussi indirectes à cause des maladies et des blessures, une interruption de
 l'approvisionnement en eau potable et en nourriture, et une coupure des
 routes, des ponts, de l'électricité et du téléphone.
 
+Les deux capsules suivantes montrent deux cyclones récents, Mocha en mai 2023 et
+Remal en mai 2024. Compare ce que tu y vois avec la dernière barre du diagramme.
+
 ::: video OGcrgnADJ68
-Un cyclone frappe le Bangladesh
+Le puissant cyclone Mocha frappe le Bangladesh et la Birmanie
 :::
 
 ::: video KBDWqt5BZsg
-Les dégâts d'un cyclone dans le delta
+Après le cyclone Remal, des centaines de milliers de personnes privées d'électricité, en anglais
 :::
 
 ::: note
@@ -257,10 +262,6 @@ supérieure de 50 % à celle de la monoculture de riz.
 
 Retiens l'idée : ici, cultiver deux choses à la fois rapporte plus que d'en
 cultiver une seule très bien.
-:::
-
-::: video mYl4e9ZrEtQ
-L'importance de la culture du riz
 :::
 
 ::: video CRWAZAA4meE
@@ -385,6 +386,8 @@ Bangladesh, en première ligne de la crise climatique
 
 ## Le Sahel, le problème inverse
 
+![Le Sahel, une bande de terres au sud du Sahara](../medias/11-territoire-agricole-risque/carte-sahel.png)
+
 Le Sahel est une bande de terres arides et semi-arides située au sud du
 Sahara, qui traverse l'Afrique du Sénégal à Djibouti. Il compte plus de 135
 millions d'habitants et, comme le Bangladesh, il vit de son agriculture :
@@ -401,6 +404,8 @@ développement agricole
 
 ### Un risque qui vient des deux côtés
 
+![Un paysage sahélien près de Dori, au Burkina Faso](../medias/11-territoire-agricole-risque/paysage-sahel.jpg)
+
 Le risque naturel est la sécheresse et sa variabilité : une saison des pluies
 qui commence en septembre plutôt qu'en juillet suffit à ruiner une récolte.
 S'y ajoutent des causes humaines : l'urbanisation, la surexploitation des
@@ -409,6 +414,14 @@ cultivables du Sahel sont dans un état de dégradation avancée, et la
 désertification touche environ 45 % de la superficie du continent africain. On
 estime à 29,2 millions le nombre de Sahéliens en situation d'insécurité
 alimentaire.
+
+::: video zcWzkL-mmK0
+Vivre de la terre au Sahel
+:::
+
+::: video LbFefdUM55Q
+La désertification et la lutte pour les sols
+:::
 
 ### La Grande Muraille verte
 
@@ -453,10 +466,6 @@ Le dossier documentaire complet du RÉCIT,
 **[Adapter le territoire ou s'adapter au territoire?](https://documents.recitus.qc.ca/1er-cyle/dossier/l-agriculture-dans-les-territoires-a-risque)**,
 réunit dix documents sur le Bangladesh et propose de réaliser une maquette, qu'on
 peut rendre interactive avec Scratch et Makey Makey ou Micro:bit.
-:::
-
-::: video eogW1MMVb44
-La construction d'une rizière dans Minecraft
 :::
 
 ::: questions

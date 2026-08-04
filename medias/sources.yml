@@ -2931,3 +2931,30 @@ bassins-crevettes.jpg:
   titre: ''
   licence: ''
   lien: ''
+asie.png:
+  cadrage: carte
+  fiche: 11-territoire-agricole-risque
+  commons: "File:Asie-fr.svg"
+  recherche: carte Asie francais
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+carte-sahel.png:
+  cadrage: carte
+  fiche: 11-territoire-agricole-risque
+  commons: "File:Map of the Sahel.png"
+  recherche: map of the Sahel
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+paysage-sahel.jpg:
+  cadrage: gauche
+  fiche: 11-territoire-agricole-risque
+  commons: "File:Sahel Scene - Dori - Sahel Region - Burkina Faso.jpg"
+  recherche: Sahel scene Dori Burkina Faso
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
