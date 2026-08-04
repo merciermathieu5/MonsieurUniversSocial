@@ -4299,3 +4299,99 @@ reposait sur quatre fichiers exceptionnellement lourds, dont un de 7,8 Mo, et je
 l'ai généralisée à tort à l'ensemble. La majorité de tes images faisaient déjà
 1 600 pixels ou moins et étaient raisonnablement compressées. Le gain reste
 réel, mais il n'a pas l'ampleur que j'avais avancée.
+
+### Retouches du territoire industriel (livraison 119)
+
+**Le schéma des facteurs a ses pictogrammes.** Chaque bloc porte une icône
+dessinée en trait, de la même couleur que son texte, donc lisible dans les deux
+thèmes : une montagne pour les matières premières, un éclair pour l'énergie, deux
+silhouettes pour la main-d'oeuvre, un sac pour les marchés, un camion sur sa
+route pour les infrastructures, un édifice à colonnes pour l'aide
+gouvernementale.
+
+**Et des phrases complètes.** Les fragments deviennent des propositions qui
+expliquent le facteur au lieu de l'énumérer. « Minerais, eau, bois » devient
+« Une usine s'installe près de ce qu'elle transforme, parce que déplacer du
+minerai coûte plus cher que déplacer le produit. » Le bloc grandit de 110 à 140
+pixels pour les accueillir.
+
+**L'encadré du RÉCIT change de section.** Tu as raison, il parlait de construire
+une maquette des Grands Lacs alors qu'il se trouvait dans la section générale sur
+les facteurs de localisation. Il ouvre maintenant « Pourquoi les industries ont
+choisi cette région ».
+
+**La carte des gisements de 1902 est retirée.** Une carte au trait fin, en
+anglais et vieille de plus d'un siècle, demande plus de travail à un élève de
+première secondaire qu'elle ne lui apprend. À sa place, un laquier chargé de
+minerai au quai de Duluth : on y voit la ressource, le navire et le port dans une
+seule image.
+
+**Un cargo accompagne la voie maritime**, `File:Freighter travelling through the
+Soo Locks (14658981350).jpg`, à côté de la vue des écluses.
+
+**La carte des sous-bassins cède la place à un schéma.** Tu voulais une image qui
+identifie chacun des lacs, et je n'ai trouvé aucune carte annotée en français sur
+Commons. J'ai donc construit `medias/schemas/chaine-grands-lacs.svg` : les cinq
+lacs dans l'ordre d'ouest en est, chacun nommé avec sa superficie, reliés par des
+flèches jusqu'au Saint-Laurent.
+
+Le bandeau du bas fait deux choses que la carte colorée ne faisait pas. Il donne
+le moyen mnémotechnique SMHÉO, et il corrige une simplification que la rangée
+pourrait laisser croire : le Michigan et le Supérieur se déversent tous deux dans
+le Huron, l'eau ne descend pas en ligne droite. Il finit sur les chutes du
+Niagara, ce qui explique pourquoi le canal Welland existe.
+
+**L'usine Packard est vue de l'extérieur**, la légende est corrigée. À signaler :
+le fichier s'appelle encore `usine-packard-interieur.jpg`. Je ne l'ai pas renommé
+pour ne pas désynchroniser ton `credits.yml`, mais le nom est trompeur. Dis-le si
+tu préfères que je le change, avec la manipulation que ça implique de ton côté.
+
+**Trois images pour les enjeux environnementaux**, comme demandé :
+
+- `File:Algal bloom in Lake Erie (8740853887).jpg`, les algues bleues
+- `File:Native Great Lakes unionid mussel encrusted with zebra mussels (8741976384).jpg`.
+  Celle-là vaut mieux qu'une simple photo de moule zébrée : on y voit une moule
+  indigène des Grands Lacs entièrement recouverte par l'espèce envahissante. Le
+  problème se comprend sans légende
+- `File:Microplastic.jpg`, les microbilles
+
+### Deux demandes que je n'ai pas pu remplir
+
+**L'image de Doug Ford.** Je n'ai pas réussi à confirmer un seul nom de fichier
+Commons. La catégorie existe et contient trois fichiers, mais son contenu ne
+m'est pas accessible : les pages de Commons sont en cache seul depuis mon
+environnement, et mes recherches ne rendent que des articles de presse. Donne-moi
+un nom de fichier vérifié et je l'inscris en deux lignes.
+
+Une remarque au passage, à prendre ou à laisser. Illustrer l'aide gouvernementale
+par le portrait d'un chef de gouvernement en exercice personnalise une politique
+publique autour d'une figure partisane. Tes propres conventions demandent de
+garder les points débattus dans des encadrés `note` et de laisser l'élève
+conclure. Si tu tiens à l'image, je suggère une légende strictement factuelle qui
+nomme une aide précise et son montant, plutôt qu'une légende qui présente
+l'homme.
+
+**L'image d'une aluminerie québécoise.** Même problème, aucun nom vérifiable pour
+Alcoa Baie-Comeau, Rio Tinto Alma, Arvida ou Alouette. La section sur l'aluminium
+reste sans image.
+
+### Un ménage à faire chez toi
+
+Deux fichiers ne sont plus au registre mais restent sur ton disque. Tu peux les
+supprimer :
+
+```
+medias/09-territoire-industriel/carte-fer-1902.jpg
+medias/09-territoire-industriel/bassin-grands-lacs.png
+```
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 26. Le delta de 4
+correspond exactement aux quatre nouvelles images. Aucun problème hors images :
+les neuf sections passent, dont SCHÉMAS avec les deux schémas retouchés ou
+créés. `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 798 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+Cette livraison contient aussi le fichier `docs/_headers` de la livraison 118,
+qui n'avait pas encore été déposée.

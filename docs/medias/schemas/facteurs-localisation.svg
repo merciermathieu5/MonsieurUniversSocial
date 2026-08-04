@@ -1,5 +1,5 @@
-<svg viewBox="0 0 1100 420" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Les six facteurs de localisation qui expliquent l'installation des industries sur un territoire">
+<svg viewBox="0 0 1100 440" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les six facteurs de localisation qui expliquent où une industrie s'installe : les matières premières, les sources d'énergie, la main-d'oeuvre, les marchés, les infrastructures et l'aide gouvernementale">
   <style>
     .fl-t { font-family: Archivo, sans-serif; }
     .fl-h1 { font-size: 16px; font-weight: 700; fill: var(--bloc-pale-texte); }
@@ -8,41 +8,79 @@
     .fl-p1 { font-size: 12px; fill: var(--bloc-pale-texte); }
     .fl-p2 { font-size: 12px; fill: var(--bloc-texte); }
     .fl-p3 { font-size: 12px; fill: var(--surface); }
+    .fl-i1 { fill: none; stroke: var(--bloc-pale-texte); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .fl-i2 { fill: none; stroke: var(--bloc-texte); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .fl-i3 { fill: none; stroke: var(--surface); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
     .fl-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
     .fl-bp { font-size: 12.5px; fill: var(--encre); }
   </style>
 
-  <rect x="40" y="30" width="330" height="110" rx="5" fill="var(--bloc-pale)"/>
-  <text class="fl-t fl-h1" x="60" y="62">Les matières premières</text>
-  <text class="fl-t fl-p1" x="60" y="88">Minerais, eau, bois. Le fer de la région</text>
-  <text class="fl-t fl-p1" x="60" y="106">a fixé la sidérurgie sur place.</text>
+  <rect x="40" y="30" width="330" height="140" rx="5" fill="var(--bloc-pale)"/>
+  <g transform="translate(60,46)">
+    <path class="fl-i1" d="M1 21 L8 7 L13 15 L17 10 L24 21 Z"/>
+    <path class="fl-i1" d="M8 7 L11 12"/>
+  </g>
+  <text class="fl-t fl-h1" x="96" y="64">Les matières premières</text>
+  <text class="fl-t fl-p1" x="60" y="97">Une usine s'installe près de ce qu'elle</text>
+  <text class="fl-t fl-p1" x="60" y="117">transforme, parce que déplacer du minerai</text>
+  <text class="fl-t fl-p1" x="60" y="137">coûte plus cher que déplacer le produit.</text>
 
-  <rect x="395" y="30" width="330" height="110" rx="5" fill="var(--bloc)"/>
-  <text class="fl-t fl-h2" x="415" y="62">Les sources d'énergie</text>
-  <text class="fl-t fl-p2" x="415" y="88">Électricité et hydrocarbures. Une usine</text>
-  <text class="fl-t fl-p2" x="415" y="106">qui s'arrête coûte très cher.</text>
+  <rect x="395" y="30" width="330" height="140" rx="5" fill="var(--bloc)"/>
+  <g transform="translate(415,46)">
+    <path class="fl-i2" d="M14 1 L5 13 L11 13 L9 23 L19 10 L13 10 Z"/>
+  </g>
+  <text class="fl-t fl-h2" x="451" y="64">Les sources d'énergie</text>
+  <text class="fl-t fl-p2" x="415" y="97">Certaines industries consomment tant</text>
+  <text class="fl-t fl-p2" x="415" y="117">d'électricité qu'elles s'installent là où</text>
+  <text class="fl-t fl-p2" x="415" y="137">elle est abondante et bon marché.</text>
 
-  <rect x="750" y="30" width="330" height="110" rx="5" fill="var(--schema-cle)"/>
-  <text class="fl-t fl-h3" x="770" y="62">La main-d'oeuvre</text>
-  <text class="fl-t fl-p3" x="770" y="88">Des ouvriers qualifiés, et des écoles</text>
-  <text class="fl-t fl-p3" x="770" y="106">et des universités pour les former.</text>
+  <rect x="750" y="30" width="330" height="140" rx="5" fill="var(--schema-cle)"/>
+  <g transform="translate(770,46)">
+    <circle class="fl-i3" cx="8" cy="7" r="4"/>
+    <path class="fl-i3" d="M1 22 C1 15 15 15 15 22"/>
+    <circle class="fl-i3" cx="18" cy="9" r="3.4"/>
+    <path class="fl-i3" d="M13 22 C13 16 25 16 25 22"/>
+  </g>
+  <text class="fl-t fl-h3" x="806" y="64">La main-d'oeuvre</text>
+  <text class="fl-t fl-p3" x="770" y="97">Il faut des ouvriers qualifiés, donc des</text>
+  <text class="fl-t fl-p3" x="770" y="117">écoles et des universités pour les former</text>
+  <text class="fl-t fl-p3" x="770" y="137">et les garder dans la région.</text>
 
-  <rect x="40" y="170" width="330" height="110" rx="5" fill="var(--schema-cle)"/>
-  <text class="fl-t fl-h3" x="60" y="202">Les marchés</text>
-  <text class="fl-t fl-p3" x="60" y="228">Des consommateurs proches. Quarante</text>
-  <text class="fl-t fl-p3" x="60" y="246">millions de personnes vivent ici.</text>
+  <rect x="40" y="200" width="330" height="140" rx="5" fill="var(--schema-cle)"/>
+  <g transform="translate(60,216)">
+    <path class="fl-i3" d="M3 8 H23 L21 23 H5 Z"/>
+    <path class="fl-i3" d="M9 8 V5 C9 2 17 2 17 5 V8"/>
+  </g>
+  <text class="fl-t fl-h3" x="96" y="234">Les marchés</text>
+  <text class="fl-t fl-p3" x="60" y="267">Plus les clients sont proches, moins le</text>
+  <text class="fl-t fl-p3" x="60" y="287">transport coûte cher. Quarante millions</text>
+  <text class="fl-t fl-p3" x="60" y="307">de personnes vivent autour des lacs.</text>
 
-  <rect x="395" y="170" width="330" height="110" rx="5" fill="var(--bloc-pale)"/>
-  <text class="fl-t fl-h1" x="415" y="202">Les infrastructures</text>
-  <text class="fl-t fl-p1" x="415" y="228">Ports, chemins de fer, autoroutes. La</text>
-  <text class="fl-t fl-p1" x="415" y="246">voie maritime ouvre sur l'Atlantique.</text>
+  <rect x="395" y="200" width="330" height="140" rx="5" fill="var(--bloc-pale)"/>
+  <g transform="translate(415,216)">
+    <path class="fl-i1" d="M1 20 H25"/>
+    <path class="fl-i1" d="M4 20 V10 H14 V20"/>
+    <path class="fl-i1" d="M14 14 H21 L24 18 V20"/>
+    <circle class="fl-i1" cx="8" cy="20.5" r="2"/>
+    <circle class="fl-i1" cx="20" cy="20.5" r="2"/>
+  </g>
+  <text class="fl-t fl-h1" x="451" y="234">Les infrastructures</text>
+  <text class="fl-t fl-p1" x="415" y="267">Ports, canaux, chemins de fer et</text>
+  <text class="fl-t fl-p1" x="415" y="287">autoroutes relient l'usine à ses</text>
+  <text class="fl-t fl-p1" x="415" y="307">fournisseurs comme à ses acheteurs.</text>
 
-  <rect x="750" y="170" width="330" height="110" rx="5" fill="var(--bloc)"/>
-  <text class="fl-t fl-h2" x="770" y="202">L'aide gouvernementale</text>
-  <text class="fl-t fl-p2" x="770" y="228">Subventions, allègements fiscaux et</text>
-  <text class="fl-t fl-p2" x="770" y="246">accords de libre-échange.</text>
+  <rect x="750" y="200" width="330" height="140" rx="5" fill="var(--bloc)"/>
+  <g transform="translate(770,216)">
+    <path class="fl-i2" d="M2 9 L13 3 L24 9 Z"/>
+    <path class="fl-i2" d="M5 11 V20 M11 11 V20 M17 11 V20 M23 11 V20"/>
+    <path class="fl-i2" d="M2 22 H24"/>
+  </g>
+  <text class="fl-t fl-h2" x="806" y="234">L'aide gouvernementale</text>
+  <text class="fl-t fl-p2" x="770" y="267">Subventions, allègements fiscaux et</text>
+  <text class="fl-t fl-p2" x="770" y="287">accords de libre-échange peuvent faire</text>
+  <text class="fl-t fl-p2" x="770" y="307">pencher la décision vers une région.</text>
 
-  <rect x="40" y="320" width="1040" height="66" rx="5" fill="var(--matiere-voile)"/>
-  <text class="fl-t fl-bt" x="62" y="347">Aucun de ces facteurs ne suffit à lui seul</text>
-  <text class="fl-t fl-bp" x="62" y="370">Une région attire les industries quand plusieurs facteurs se rencontrent au même endroit. Les Grands Lacs les réunissaient tous les six.</text>
+  <rect x="40" y="370" width="1040" height="56" rx="5" fill="var(--matiere-voile)"/>
+  <text class="fl-t fl-bt" x="62" y="394">Aucun de ces facteurs ne suffit à lui seul</text>
+  <text class="fl-t fl-bp" x="62" y="414">Une région attire les industries quand plusieurs facteurs se rencontrent au même endroit. Les Grands Lacs les réunissaient tous les six.</text>
 </svg>

@@ -76,7 +76,7 @@ même enjeu à une autre échelle.
 
 ![Une usine de bouletage du minerai de fer, au Minnesota](../medias/09-territoire-industriel/mine-taconite.jpg)
 
-![La répartition du minerai de fer extrait autour du lac Supérieur en 1902](../medias/09-territoire-industriel/carte-fer-1902.jpg)
+![Un laquier chargé de minerai au quai de Duluth](../medias/09-territoire-industriel/laquier-duluth.jpg)
 
 ::: schema facteurs-localisation
 :::
@@ -85,13 +85,6 @@ Une industrie ne s'installe pas au hasard. Elle choisit une région plutôt qu'u
 autre en fonction de ce qu'on appelle les facteurs de localisation. Il y en a
 six, et une région devient un territoire industriel quand plusieurs d'entre eux
 se rencontrent au même endroit.
-
-::: activite
-Le RÉCIT en univers social propose une tâche de trois périodes,
-**[Les caractéristiques du territoire industriel avec Icograms](https://www.recitus.qc.ca/ressources/secondaire/publication/quelles-sont-les-caracteristiques-du-territoire-industriel)**,
-où l'élève construit une maquette isométrique du territoire industriel des
-Grands Lacs.
-:::
 
 ::: questions
 1. Classe les six facteurs du plus difficile au plus facile à déplacer. Lequel
@@ -173,6 +166,9 @@ n'apparaît sur aucune étiquette.
 
 ## Situer les Grands Lacs
 
+::: schema chaine-grands-lacs
+:::
+
 ![Les Grands Lacs et la voie maritime du Saint-Laurent](../medias/09-territoire-industriel/carte-grands-lacs.png)
 
 Les Grands Lacs forment le plus important réseau de lacs du Canada. Situés au
@@ -196,8 +192,6 @@ marche.
 
 ### Une concentration humaine sans équivalent
 
-![Les sous-bassins du bassin des Grands Lacs](../medias/09-territoire-industriel/bassin-grands-lacs.png)
-
 Environ 8,5 millions de Canadiens vivent dans le bassin des Grands Lacs,
 notamment à Toronto, Kingston, Sarnia, Hamilton et Thunder Bay, et 30,7 millions
 d'Américains dans sa partie sud, à Milwaukee, Chicago, Détroit, Cleveland et
@@ -217,9 +211,19 @@ Source : Alloprof
 
 ## Pourquoi les industries ont choisi cette région
 
+::: activite
+Le RÉCIT en univers social propose une tâche de trois périodes,
+**[Les caractéristiques du territoire industriel avec Icograms](https://www.recitus.qc.ca/ressources/secondaire/publication/quelles-sont-les-caracteristiques-du-territoire-industriel)**,
+où l'élève construit une maquette isométrique du territoire industriel des
+Grands Lacs.
+:::
+
+
 ### La géographie et la voie maritime
 
 ![Un laquier s'approche des écluses de Sault-Sainte-Marie](../medias/09-territoire-industriel/ecluses-soo.jpg)
+
+![Un cargo franchit les écluses de Sault-Sainte-Marie](../medias/09-territoire-industriel/cargo-ecluses.jpg)
 
 ![Les écluses de Sault-Sainte-Marie au 19e siècle](../medias/09-territoire-industriel/ecluses-soo-19e.jpg)
 
@@ -258,8 +262,6 @@ frontière, la rendent aussi qualifiée. Une entreprise qui s'installe ici trouv
 ### Les infrastructures
 
 ![Un déchargeur Hulett vide un navire de son minerai](../medias/09-territoire-industriel/dechargeur-minerai.jpg)
-
-![Un laquier au quai à minerai de Duluth](../medias/09-territoire-industriel/laquier-duluth.jpg)
 
 ![Le port de Sault-Sainte-Marie en 1884](../medias/09-territoire-industriel/port-sault-1884.jpg)
 
@@ -329,7 +331,7 @@ d'un chiffre avant de le reprendre.
 
 ![L'usine Packard abandonnée, un siècle plus tard](../medias/09-territoire-industriel/usine-packard-ruines.jpg)
 
-![L'intérieur de l'usine Packard laissée à l'abandon](../medias/09-territoire-industriel/usine-packard-interieur.jpg)
+![L'usine Packard vue de l'extérieur, un siècle après](../medias/09-territoire-industriel/usine-packard-interieur.jpg)
 
 À partir des années 1970, les voitures japonaises, plus petites et moins
 gourmandes en essence, prennent des parts de marché. Les coûts de production
@@ -390,6 +392,12 @@ métropole : il porte le nom d'étalement urbain.
 :::
 
 ## Les enjeux environnementaux
+
+![Des algues bleues envahissent le lac Érié](../medias/09-territoire-industriel/algues-erie.jpg)
+
+![Une moule indigène des Grands Lacs recouverte de moules zébrées](../medias/09-territoire-industriel/moule-zebree.jpg)
+
+![Des microbilles de plastique tenues dans une main](../medias/09-territoire-industriel/microplastique.jpg)
 
 Les industries de la région sont polluantes, et elles se trouvent au bord de
 la plus grande réserve d'eau douce de surface du continent. C'est la

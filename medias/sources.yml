@@ -2593,29 +2593,11 @@ carte-grands-lacs.png:
   titre: ''
   licence: ''
   lien: ''
-bassin-grands-lacs.png:
-  cadrage: carte
-  fiche: 09-territoire-industriel
-  commons: "File:Sub-basins Great Lakes Basin.png"
-  recherche: sub-basins Great Lakes Basin
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
 mine-taconite.jpg:
   cadrage: flottant
   fiche: 09-territoire-industriel
   commons: "File:Cliffs Northshore Mining Taconite Plant Viewpoint, Silver Bay, Minnesota (39057179320).jpg"
   recherche: Cliffs Northshore Mining Taconite Silver Bay
-  auteur: ''
-  titre: ''
-  licence: ''
-  lien: ''
-carte-fer-1902.jpg:
-  cadrage: carte
-  fiche: 09-territoire-industriel
-  commons: "File:Distribution of the iron ores mined in the Lake Superior Region in year 1902 (8347361874).jpg"
-  recherche: distribution iron ores Lake Superior 1902
   auteur: ''
   titre: ''
   licence: ''
@@ -2688,6 +2670,42 @@ usine-packard-interieur.jpg:
   fiche: 09-territoire-industriel
   commons: "File:Dilapidated Packard Plant, Detroit, Michigan (21559267280).jpg"
   recherche: dilapidated Packard plant Detroit interior
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+cargo-ecluses.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Freighter travelling through the Soo Locks (14658981350).jpg"
+  recherche: freighter travelling through Soo Locks
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+algues-erie.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Algal bloom in Lake Erie (8740853887).jpg"
+  recherche: algal bloom Lake Erie
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+moule-zebree.jpg:
+  cadrage: gauche
+  fiche: 09-territoire-industriel
+  commons: "File:Native Great Lakes unionid mussel encrusted with zebra mussels (8741976384).jpg"
+  recherche: native Great Lakes mussel encrusted zebra mussels
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+microplastique.jpg:
+  cadrage: flottant
+  fiche: 09-territoire-industriel
+  commons: "File:Microplastic.jpg"
+  recherche: microplastic beads hand
   auteur: ''
   titre: ''
   licence: ''
