@@ -3303,3 +3303,37 @@ Les neuf sections passent, dont CONSTRUIT qui valide le duo de Pimachiowin Aki.
 `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 744 liens
 internes, aucun brisé. Les deux suites Node passent à 0 échec. La fiche compte
 maintenant cinq vidéos, dont un duo, et une ressource intégrée.
+
+### La carte retirée, les capsules de l'UNESCO jumelées (livraison 107)
+
+**L'intégration de la carte est retirée.** Ta capture est sans appel : le cadre
+reste vide, avec l'icône de document brisé du navigateur. Le service de l'UNESCO
+refuse d'être affiché dans un cadre d'un autre site, ce qui est une protection
+courante et que rien du côté du dépôt ne peut contourner. Le bloc
+`::: integration` n'est pas en cause, il fonctionne toujours pour la chronologie
+du Musée de l'Holocauste dans la fiche 12.
+
+Je n'ai pas remplacé l'intégration par un simple lien, parce que l'adresse
+elle-même reste douteuse : ouverte depuis mon environnement,
+`whc.unesco.org/fr/carte-interactive/` sert la page de commande de la carte
+murale. Si tu trouves l'adresse exacte de la carte que montre ta capture, elle
+tiendrait très bien dans l'encadré `activite` du haut de section, à côté du lien
+vers la Liste du patrimoine mondial.
+
+**Les deux capsules de l'UNESCO sont côte à côte.** `FxjxQreqm0k`, le
+court-métrage explicatif, et `ojjH7YGAa6I`, sur les sites naturels, sont
+maintenant consécutives dans « L'UNESCO et la Convention de 1972 », ce qui suffit
+au moteur pour les jumeler. La sous-section « Le patrimoine naturel » perd donc
+sa capsule, mais les deux vidéos se retrouvent là où elles étaient sur ta page
+d'origine.
+
+La fiche compte maintenant cinq vidéos et deux duos : celui de l'UNESCO et celui
+de Pimachiowin Aki.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 36, inchangé depuis la
+livraison 104. Le delta reste celui des douze images de la fiche 03. Les neuf
+sections passent, dont CONSTRUIT qui valide les deux duos. `figures.py` et
+`paragraphes.py` sans écart. `liens.py` vérifie 744 liens internes, aucun brisé.
+Les deux suites Node passent à 0 échec.

@@ -115,10 +115,6 @@ n'ont pas façonnés. Ce sont des sites dont la valeur est jugée exceptionnelle
 pour la science et pour la biodiversité, mais aussi pour leur beauté. Une forêt
 ancienne, un récif corallien ou un massif montagneux peuvent en faire partie.
 
-::: video ojjH7YGAa6I
-Les sites naturels du patrimoine mondial de l'UNESCO
-:::
-
 ### Pimachiowin Aki, les deux à la fois
 
 Certains sites ne se rangent ni tout à fait dans une catégorie ni tout à fait
@@ -159,8 +155,8 @@ Une inscription n'est pas qu'un honneur. Elle engage le pays à protéger le sit
 Le patrimoine mondial expliqué en court-métrage
 :::
 
-::: integration https://whc.unesco.org/fr/carte-interactive/
-La carte interactive des biens inscrits au patrimoine mondial
+::: video ojjH7YGAa6I
+Les sites naturels du patrimoine mondial de l'UNESCO
 :::
 
 ### L'Organisation des villes du patrimoine mondial
