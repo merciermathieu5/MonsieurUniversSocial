@@ -2757,3 +2757,78 @@ partagées. Je les ai retirés de mon côté. La liste ne change pas :
 histoire n'ont toujours pas de section « Concepts à l'étude ». Je n'ai pas
 cherché de ressource immersive sur la Mésopotamie : la fiche du jour a pris tout
 l'espace. Ces trois chantiers restent en attente.
+
+### Pictogrammes, diagramme et vidéos permutées (livraison 100)
+
+Reparti du dépôt en ligne, commit `2e21aca`, livraison 99. Les dix fichiers de
+la liste n'y sont plus : tu les as bien supprimés à la main, et les trois
+problèmes de classes CSS partagées ont disparu avec eux.
+
+**Les formes de tourisme passent en composant.** Les huit sous-titres de niveau
+4 et leurs paragraphes laissent la place à `theme/composants/formes-tourisme.html`,
+une grille de huit cartes. Chacune porte un pictogramme dessiné en SVG, le nom
+de la forme et sa définition en une ou deux lignes. La section tient maintenant
+sur un écran au lieu de trois, ce qui la rend projetable d'un coup.
+
+Les pictogrammes sont des tracés au trait, sans remplissage, qui prennent la
+couleur du thème et basculent donc correctement en mode sombre : un soleil et
+une vague pour le balnéaire, un fronton à colonnes pour le culturel, une chaîne
+de montagnes pour l'aventure, une grande roue pour le divertissement, une
+feuille pour l'écotourisme, une médaille pour le sportif, une stèle pour la
+mémoire et un épi de blé pour l'agrotourisme.
+
+Ce qui a été condensé plutôt que perdu : la question d'aménagement propre au
+tourisme de mémoire, accueillir des foules dans un lieu de recueillement, passe
+dans un encadré `note` sous la grille. Les deux questions de la section ne
+bougent pas.
+
+**Le top 10 passe en diagramme.** La liste à puces devient
+`medias/schemas/top-destinations.svg`, un diagramme à barres horizontales. La
+barre de la France prend l'accent doré, réservé à ce que l'élève doit retenir,
+les neuf autres la couleur clé. Les valeurs et les noms de pays se lisent hors
+des barres, sur le fond de page, ce qui règle la question du contraste dans les
+deux thèmes. L'unité est posée une seule fois en tête plutôt que répétée dix
+fois.
+
+Le texte qui suit le diagramme dit ce que la liste ne disait pas : la France
+reçoit près de trois fois plus de touristes que le Japon, dixième du
+classement, et les grands foyers récepteurs se concentrent sur très peu de
+territoires.
+
+**Les vidéos des séismes sont permutées.** Tu as raison, `4ERvsmnTb6w` et
+`PgFGeZC5TQI` étaient inversées dans la fiche 04. J'ai échangé les deux
+identifiants en laissant chaque légende avec sa sous-section : `PgFGeZC5TQI`
+accompagne maintenant le séisme de 1906 et `4ERvsmnTb6w` celui de 1989. À
+signaler : je ne peux pas lire une vidéo YouTube depuis mon environnement, je
+me fie donc entièrement à ta lecture des légendes. Si l'échange est à refaire
+dans l'autre sens, c'est une ligne.
+
+### Ce que Cowork a rapporté, et ce qui manque
+
+Douze des seize images de la fiche 05 sont sur le disque. Deux avaient une autre
+extension que celle prévue au registre, ce qui les faisait passer pour absentes.
+Corrigé dans le registre et dans la fiche :
+
+- `carte-gaspesie.png` devient `carte-gaspesie.jpg`
+- `carte-idf.png` devient `carte-idf.gif`
+
+Quatre manquent encore, toutes reprises de ton Google Site :
+`enjeux-gaspesie.png`, `reseau-transport-idf.png`, `plan-transport-idf.png` et
+`liaisons-idf.png`. Je les laisse au registre plutôt que de les retirer : ce
+sont le schéma des enjeux et les trois cartes de transport, du contenu que tu as
+demandé. Le générateur les omet proprement du site en attendant. Si elles
+résistent durablement, dis-le et je les sors du registre et de la fiche.
+
+`carte-metro-montreal.png` manque toujours à la fiche 02.
+
+### Le compte
+
+Ligne de base du vérificateur au départ : 28 problèmes. Après : 28. **Delta de
+zéro.** Les deux cartes aux extensions corrigées sont simplement passées de la
+colonne « image absente » à la colonne « crédit incomplet », ce qui laisse le
+total inchangé. Aucun problème hors images : les neuf sections passent, dont
+SCHÉMAS avec le nouveau diagramme et COMPOSANTS avec la nouvelle grille.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 744 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+Rien à supprimer à la main cette fois, la liste des dix est réglée.

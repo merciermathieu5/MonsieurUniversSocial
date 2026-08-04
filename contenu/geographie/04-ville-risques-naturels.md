@@ -318,7 +318,7 @@ l'USGS retient 7,8 à 7,9. Deux chiffres différents peuvent donc décrire le m�
 séisme.
 :::
 
-::: video 4ERvsmnTb6w
+::: video PgFGeZC5TQI
 Le séisme de 1906
 :::
 
@@ -338,7 +338,7 @@ San Francisco.
 Source : U.S. Geological Survey et California Geological Survey
 {: .source-texte }
 
-::: video PgFGeZC5TQI
+::: video 4ERvsmnTb6w
 Le séisme de 1989
 :::
 

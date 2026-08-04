@@ -1,0 +1,53 @@
+<svg viewBox="0 0 1100 440" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagramme à barres des dix pays ayant reçu le plus de touristes internationaux en 2024, de la France avec 102 millions au Japon avec 37 millions">
+  <style>
+    .td-t { font-family: Archivo, sans-serif; }
+    .td-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .td-n { font-size: 15px; font-weight: 600; fill: var(--encre); }
+    .td-v { font-size: 15px; font-weight: 700; fill: var(--encre); }
+  </style>
+
+  <text class="td-t td-u" x="20" y="26">Millions de touristes internationaux reçus en 2024</text>
+
+  <path d="M189 40V418" stroke="var(--schema-trait)" stroke-width="1" fill="none"/>
+
+  <rect x="190" y="48" width="755" height="24" rx="3" fill="var(--schema-accent)"/>
+  <text class="td-t td-n" x="175" y="65" text-anchor="end">France</text>
+  <text class="td-t td-v" x="957" y="65">102</text>
+
+  <rect x="190" y="86" width="696" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="103" text-anchor="end">Espagne</text>
+  <text class="td-t td-v" x="898" y="103">94</text>
+
+  <rect x="190" y="124" width="533" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="141" text-anchor="end">États-Unis</text>
+  <text class="td-t td-v" x="735" y="141">72</text>
+
+  <rect x="190" y="162" width="451" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="179" text-anchor="end">Turquie</text>
+  <text class="td-t td-v" x="653" y="179">61</text>
+
+  <rect x="190" y="200" width="429" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="217" text-anchor="end">Italie</text>
+  <text class="td-t td-v" x="631" y="217">58</text>
+
+  <rect x="190" y="238" width="340" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="255" text-anchor="end">Chine</text>
+  <text class="td-t td-v" x="542" y="255">46</text>
+
+  <rect x="190" y="276" width="333" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="293" text-anchor="end">Mexique</text>
+  <text class="td-t td-v" x="535" y="293">45</text>
+
+  <rect x="190" y="314" width="289" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="331" text-anchor="end">Royaume-Uni</text>
+  <text class="td-t td-v" x="491" y="331">39</text>
+
+  <rect x="190" y="352" width="281" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="369" text-anchor="end">Allemagne</text>
+  <text class="td-t td-v" x="483" y="369">38</text>
+
+  <rect x="190" y="390" width="274" height="24" rx="3" fill="var(--schema-cle)"/>
+  <text class="td-t td-n" x="175" y="407" text-anchor="end">Japon</text>
+  <text class="td-t td-v" x="476" y="407">37</text>
+</svg>

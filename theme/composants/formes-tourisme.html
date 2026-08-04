@@ -1,0 +1,146 @@
+<section class="fto" id="formes-tourisme" aria-label="Les huit formes de tourisme les plus répandues">
+<style>
+.fto { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.fto .fto__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.fto .fto__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.fto__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.fto__grille { list-style: none; margin: 0; padding: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); gap: .75rem; }
+.fto__grille > li::marker { content: ""; }
+.fto__carte { list-style: none; display: flex; gap: .8rem; align-items: flex-start; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem; }
+.fto__carte::marker { content: ""; }
+.fto__picto { flex: 0 0 auto; width: 2.1rem; height: 2.1rem; color: var(--matiere-fonce); }
+.fto__picto svg { width: 100%; height: 100%; display: block; }
+.fto__corps { min-width: 0; }
+.fto__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); margin-bottom: .25rem; }
+.fto__def { display: block; margin: 0; font-size: .92rem; line-height: 1.55; }
+html[data-sombre="on"] .fto .fto__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .fto .fto__titre { color: var(--encre); }
+html[data-sombre="on"] .fto__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .fto__picto { color: var(--encre); }
+html[data-sombre="on"] .fto__nom { color: var(--encre); }
+@media (max-width: 40rem) { .fto__grille { padding: .85rem; gap: .6rem; } .fto__carte { padding: .75rem .8rem; } }
+@media print { .fto__grille { grid-template-columns: repeat(2, 1fr); } .fto__carte { page-break-inside: avoid; } }
+</style>
+
+<div class="fto__entete">
+  <p class="fto__titre" role="heading" aria-level="3">Huit façons de faire du tourisme</p>
+  <p class="fto__consigne">Un attrait, un aménagement</p>
+</div>
+
+<ul class="fto__grille">
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="3.2"/>
+        <path d="M12 1.8v1.7M4.9 8H3.2M20.8 8h-1.7M7 3l1.2 1.2M15.8 11.8 17 13M7 13l1.2-1.2M15.8 4.2 17 3"/>
+        <path d="M2 19q2.5-2.2 5 0t5 0 5 0 5 0"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme balnéaire</span>
+      <span class="fto__def">La plage, la mer et le soleil. C'est la forme la plus répandue dans le monde, et celle qui demande le plus d'hébergement sur un même littoral.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9.5 12 4l9 5.5"/>
+        <path d="M5.4 9.9v7.8M9.8 9.9v7.8M14.2 9.9v7.8M18.6 9.9v7.8"/>
+        <path d="M3.4 20.4h17.2"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme culturel</span>
+      <span class="fto__def">Le patrimoine d'une région et, par extension, le mode de vie de ses habitants. C'est la forme dominante en Île-de-France.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1.8 19.6 8.6 8l3.6 6.2L15.4 9.6l6.8 10z"/>
+        <circle cx="18.2" cy="4.6" r="2"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme d'aventure</span>
+      <span class="fto__def">Des activités qui comportent une part de risque et de nouveauté : escalade, kayak de mer, expédition en territoire éloigné.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="9.8" r="7"/>
+        <circle cx="12" cy="9.8" r="1.5"/>
+        <path d="M12 2.8v14M5 9.8h14M7.1 4.9l9.8 9.8M16.9 4.9 7.1 14.7"/>
+        <path d="M9.2 20.4 12 15.2l2.8 5.2z"/>
+        <path d="M6.6 20.4h10.8"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme de divertissement</span>
+      <span class="fto__def">Voyager pour s'amuser. Les parcs d'attractions sont eux-mêmes des aménagements géants, bâtis pour des millions de personnes par année.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.4 3.6c0 9-4.8 13.4-10.2 13.4-1.6 0-3.1-.4-4.3-1.2C6.3 8.4 11.4 4.3 20.4 3.6z"/>
+        <path d="M3.6 20.4c1.7-4.4 4.2-7.7 7.7-10.2"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">L'écotourisme</span>
+      <span class="fto__def">La découverte de la nature, dans le respect du milieu et de la culture locale. Il suppose une limite volontaire du nombre de visiteurs.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="15.2" r="5.4"/>
+        <circle cx="12" cy="15.2" r="2.1"/>
+        <path d="M8.7 10.4 5.6 3.6M15.3 10.4l3.1-6.8"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme sportif</span>
+      <span class="fto__def">Voyager pour pratiquer un sport ou pour assister à un événement d'envergure, comme un match du Canadien quand on vient de l'extérieur.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8.4 19.8V7.4a3.6 3.6 0 0 1 7.2 0v12.4"/>
+        <path d="M5.8 20.4h12.4"/>
+        <path d="M10.2 11.2h3.6M10.2 14.4h3.6"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">Le tourisme de mémoire</span>
+      <span class="fto__def">Les lieux d'événements historiques marquants, souvent tragiques : la crête de Vimy, les plages de Normandie, Auschwitz-Birkenau.</span>
+    </span>
+  </li>
+
+  <li class="fto__carte">
+    <span class="fto__picto" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 20.8V8.4"/>
+        <path d="M12 8.4c0-2.3 1.4-3.8 3.4-4.2-.2 2.3-1.4 3.8-3.4 4.2zM12 8.4c0-2.3-1.4-3.8-3.4-4.2.2 2.3 1.4 3.8 3.4 4.2z"/>
+        <path d="M12 13.2c0-2.3 1.4-3.8 3.4-4.2-.2 2.3-1.4 3.8-3.4 4.2zM12 13.2c0-2.3-1.4-3.8-3.4-4.2.2 2.3 1.4 3.8 3.4 4.2z"/>
+        <path d="M12 18c0-2.3 1.4-3.8 3.4-4.2-.2 2.3-1.4 3.8-3.4 4.2zM12 18c0-2.3-1.4-3.8-3.4-4.2.2 2.3 1.4 3.8 3.4 4.2z"/>
+      </svg>
+    </span>
+    <span class="fto__corps">
+      <span class="fto__nom">L'agrotourisme</span>
+      <span class="fto__def">Les savoir-faire agricoles d'un territoire, ses paysages et ses spécialités : fromageries, vignobles, cabanes à sucre et fermes ouvertes.</span>
+    </span>
+  </li>
+
+</ul>
+</section>

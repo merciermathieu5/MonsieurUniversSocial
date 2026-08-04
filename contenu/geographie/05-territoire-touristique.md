@@ -107,63 +107,20 @@ le plus à l'étranger.
 
 ## Les formes de tourisme
 
-On ne voyage pas tous pour les mêmes raisons. Chaque forme de tourisme demande
-des attraits différents, donc des aménagements différents. Une même région peut
-en combiner plusieurs.
+::: composant formes-tourisme
 
-#### Le tourisme balnéaire
+On ne voyage pas tous pour les mêmes raisons. Chaque forme de tourisme repose sur
+un attrait différent, donc sur des aménagements différents, et une même région en
+combine souvent plusieurs. La Gaspésie mêle écotourisme, tourisme d'aventure et
+agrotourisme. L'Île-de-France combine tourisme culturel, tourisme de
+divertissement et tourisme de mémoire.
 
-Le tourisme balnéaire tient en trois mots : la plage, la mer et le soleil. C'est
-la forme de tourisme la plus répandue dans le monde. Elle demande un littoral
-accessible, un climat fiable et une grande capacité d'hébergement, ce qui
-explique les fortes concentrations d'hôtels sur certaines côtes.
-
-#### Le tourisme culturel
-
-Le tourisme culturel a pour but de découvrir le patrimoine d'une région et, par
-extension, le mode de vie de ses habitants. Musées, monuments, sites
-archéologiques, quartiers historiques et festivals en sont les attraits. C'est
-la forme dominante en Île-de-France.
-
-#### Le tourisme d'aventure
-
-Le tourisme d'aventure regroupe les activités et les expériences qui comportent
-une part de risque et de nouveauté. Escalade, kayak de mer, expédition en
-territoire éloigné : le voyageur y cherche l'effort autant que le paysage.
-
-#### Le tourisme de divertissement
-
-Le tourisme de divertissement consiste à voyager pour s'amuser. Les parcs
-d'attractions et les parcs aquatiques en sont les exemples les plus nets. Ces
-équipements sont eux-mêmes des aménagements touristiques de très grande taille,
-construits pour recevoir des millions de personnes par année.
-
-#### L'écotourisme
-
-L'écotourisme est centré sur la découverte de la nature, dans le respect de
-l'environnement et de la culture locale. Il suppose une limite volontaire : on
-accepte de recevoir moins de visiteurs pour préserver ce qu'ils viennent voir.
-
-#### Le tourisme sportif
-
-Le tourisme sportif consiste à voyager pour pratiquer un sport ou pour assister
-à un événement sportif d'envergure. Assister à un match du Canadien de Montréal
-quand on vient de l'extérieur de la ville en est une forme.
-
-#### Le tourisme de mémoire
-
-Le tourisme de mémoire conduit les visiteurs sur les lieux d'événements
-historiques marquants, souvent tragiques, pour les comprendre et les
-commémorer. La crête de Vimy et les plages du débarquement de Normandie, en
-France, ou le camp d'Auschwitz-Birkenau, en Pologne, en sont des exemples. Ces
-sites posent une question d'aménagement particulière : ils doivent accueillir des
-foules tout en demeurant des lieux de recueillement.
-
-#### L'agrotourisme
-
-L'agrotourisme fait découvrir les savoir-faire agricoles d'un territoire, ses
-paysages, ses pratiques sociales et ses spécialités culinaires. Fromageries,
-vignobles, cabanes à sucre et fermes ouvertes en sont les attraits.
+::: note
+Le tourisme de mémoire pose une question d'aménagement que les autres formes ne
+connaissent pas. Ces sites doivent accueillir des foules tout en demeurant des
+lieux de recueillement, ce qui oblige à travailler la circulation, le silence et
+la distance autant que la capacité d'accueil.
+:::
 
 ::: questions
 1. Classe ces huit formes de tourisme en deux familles : celles qui reposent sur
@@ -248,18 +205,13 @@ d'achat. Voyager demeure pourtant hors de portée pour la majorité de l'humanit
 
 ### Où vont les touristes
 
-Voici les dix pays qui ont reçu le plus de touristes internationaux en 2024.
+::: schema top-destinations
+:::
 
-- France : 102 millions
-- Espagne : 94 millions
-- États-Unis : 72 millions
-- Turquie : 61 millions
-- Italie : 58 millions
-- Chine : 46 millions
-- Mexique : 45 millions
-- Royaume-Uni : 39 millions
-- Allemagne : 38 millions
-- Japon : 37 millions
+La France domine ce classement depuis plus de trente ans, et l'écart avec le
+dixième rang est considérable : elle reçoit près de trois fois plus de touristes
+que le Japon. Les grands foyers récepteurs se concentrent donc sur un très petit
+nombre de territoires.
 
 Source : ONU Tourisme, données de 2024
 {: .source-texte }
@@ -329,7 +281,7 @@ Le tourisme de masse et ses effets
 
 ## La Gaspésie
 
-![La péninsule gaspésienne](../medias/05-territoire-touristique/carte-gaspesie.png)
+![La péninsule gaspésienne](../medias/05-territoire-touristique/carte-gaspesie.jpg)
 
 La Gaspésie est une péninsule de 30 341 kilomètres carrés, bordée par le fleuve
 Saint-Laurent au nord, le golfe du Saint-Laurent à l'est et la baie des Chaleurs
@@ -524,7 +476,7 @@ haute saison.
 
 ## L'Île-de-France
 
-![La région Île-de-France et ses départements](../medias/05-territoire-touristique/carte-idf.png)
+![La région Île-de-France et ses départements](../medias/05-territoire-touristique/carte-idf.gif)
 
 L'Île-de-France est la région française où se trouve Paris. Située au nord du
 pays, elle couvre 12 012 kilomètres carrés de terres fertiles et de relief plat,
