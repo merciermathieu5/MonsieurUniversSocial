@@ -2200,3 +2200,39 @@ tgv-gare-lyon.jpg:
   titre: ''
   licence: ''
   lien: ''
+chateau-frontenac.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:Château Frontenac, Vieux-Québec.jpg"
+  recherche: Chateau Frontenac Vieux Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+place-royale.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:Place Royale at night, Vieux-Québec, Quebec ville, Canada.jpg"
+  recherche: Place Royale Vieux Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+terrasse-dufferin.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:La terrasse Dufferin et le Château Frontenac, Québec.jpg"
+  recherche: terrasse Dufferin Chateau Frontenac Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+dufferin-1895.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:Vue vers le Chateau Frontenac et la terrasse Dufferin, vers 1895.jpg"
+  recherche: Chateau Frontenac terrasse Dufferin 1895
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''

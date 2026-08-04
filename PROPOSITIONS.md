@@ -2914,3 +2914,176 @@ problème hors images. Les neuf sections passent, dont SCHÉMAS avec le nouveau
 diagramme circulaire et COMPOSANTS avec son contrôle supplémentaire.
 `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 743 liens
 internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+### La navigation des territoires et les livraisons minces (livraison 102)
+
+Reparti du dépôt en ligne, commit `f9520b8`, livraison 101.
+
+**La frise des territoires passe sur deux rangées.** Le gabarit
+`theme/fiche.html` savait déjà le faire : il lit `parcours_rangees` dans
+`site.yml` et découpe le parcours en rangées titrées, avec un violet ardoise
+pour la seconde. Seule la section géographie n'avait pas ce champ, ses onze
+territoires s'alignant donc sur une seule ligne. Deux rangées suffisaient, je
+n'ai rien eu à coder.
+
+Le découpage suit la frontière des types de territoires, pas une année scolaire,
+parce que c'est la seule information que tes en-têtes portent réellement :
+
+- Territoire urbain et territoire région, sept territoires
+- Territoire agricole, autochtone et protégé, quatre territoires
+
+Si tu préfères « 1re secondaire » et « 2e secondaire » comme en histoire,
+c'est deux lignes à changer dans `site.yml`, et la coupure peut se déplacer en
+changeant le `fin` de la première rangée.
+
+**Un outil de livraison mince.** `outils/livrer.py` compare l'arbre de travail à
+la dernière révision publiée et ne zippe que les fichiers nouveaux ou modifiés.
+
+    python outils/livrer.py 102              # le cas normal
+    python outils/livrer.py 102 --complet    # tout l'arbre
+    python outils/livrer.py 102 --liste      # montre le contenu sans zipper
+
+Les chiffres de cette livraison disent pourquoi il valait la peine : quatorze
+fichiers, 0,27 Mo, contre 286 Mo pour l'arbre complet. Le rapport est de mille
+pour un. Presque tout le poids des livraisons précédentes venait de tes 220
+images, déposées à l'identique par-dessus elles-mêmes.
+
+L'outil garde les mêmes exclusions que la commande `zip` : les deux
+`credits.yml`, le dossier `.git`, les artefacts npm et les `.DS_Store`. Il
+ajoute une chose que le zip ne savait pas faire. Une décompression n'efface
+jamais rien, c'est la cause de la liste des dix fichiers qui revenait à chaque
+livraison. `livrer.py` détecte les suppressions et écrit `SUPPRIMER.txt` à la
+racine de l'archive, avec la liste exacte. Le problème ne se traitera plus de
+mémoire.
+
+Le zip complet reste disponible avec `--complet`, pour repartir de zéro ou
+reconstruire ton dépôt.
+
+### En attente
+
+**Le prochain territoire.** Deux lectures possibles de ta demande, et je préfère
+demander plutôt que d'écrire une fiche entière au mauvais endroit. La fiche 03,
+la ville patrimoniale, est le seul territoire urbain encore en gabarit et elle
+précède celles qui sont faites. La fiche 06, le territoire forestier, est la
+suivante dans l'ordre où tu progresses depuis la 04. Les deux sont des gabarits
+de vingt-six lignes.
+
+Note retenue pour la suite : privilégier Wikimedia Commons et les dossiers du
+RÉCIT pour les images, et ne revenir au Google Site que pour ce qui n'existe
+nulle part ailleurs. La récolte des adresses de ton site est laborieuse et les
+trois quarts des images qui manquent encore en viennent.
+
+## Fiche : La ville patrimoniale
+
+### Quatrième fiche de géographie (livraison 103)
+
+`contenu/geographie/03-ville-patrimoniale.md` passe du gabarit à `brouillon`.
+Huit sections : Mise en contexte, Concepts à l'étude, Qu'est-ce que le
+patrimoine, Québec intra-muros, Les traces de trois régimes, Conserver
+restaurer reconstituer, Entre continuité et changement, Concilier le patrimoine
+et le tourisme. L'entête ne garde que Québec intra-muros, avec sa mention
+obligatoire.
+
+Cette livraison emporte aussi ce que la 102 apportait, la frise sur deux rangées
+et `outils/livrer.py`, puisqu'elle est bâtie sur le même arbre. Si tu as déjà
+déposé la 102, ces fichiers sont identiques et la dépose ne change rien.
+
+**Les douze concepts prescrits sont définis**, terme en gras. Ta page en
+définissait six, dont un hors programme et sept manquants. La reconstitution
+reste nécessaire pour lire la fiche : elle est posée par le schéma et par un
+encadré `note` qui prévient l'élève qu'elle ne fait pas partie de la liste,
+comme on l'avait fait pour l'aléa dans la fiche 04.
+
+### Ce que j'ai vérifié
+
+**1. Les remparts.** Tes 4,6 kilomètres sont confirmés. J'ai ajouté ce qui va
+avec et que ta page ne disait pas : quatre portes, trois tours Martello et une
+citadelle en forme d'étoile.
+
+**2. L'église Notre-Dame-des-Victoires.** Ta page donne 1688. Les travaux
+commencent en 1687 et s'achèvent en 1723. J'ai écrit les deux dates plutôt que
+l'une des deux, et j'ai nuancé « la plus vieille église de pierre d'Amérique du
+Nord » en « souvent présentée comme », parce que la formule circule sans être
+tranchée.
+
+**3. La terrasse Dufferin.** Ta page ne donnait ni date ni dimensions. Elle est
+inaugurée en 1879, mesure environ 425 mètres et surplombe le fleuve d'une
+soixantaine de mètres.
+
+**4. Le Vieux-Québec couvre 5 % du territoire de la ville.** Je n'ai pas retrouvé
+la source de ce chiffre et je l'ai retiré plutôt que de le reprendre. Si tu l'as
+tiré d'un manuel, donne-moi la référence et je le remets.
+
+**5. Les 300 villes de l'Organisation des villes du patrimoine mondial.** Je n'ai
+pas pu confirmer ce nombre ni les 164 millions d'habitants. La fiche décrit
+l'organisation, sa fondation le 8 septembre 1993 à Fès et ses trois objectifs,
+sans les chiffrer. J'ai ajouté que son secrétariat général est à Québec, ce qui
+donne un lien direct avec ton étude de cas.
+
+### Ce que j'ai ajouté
+
+**6. Le patrimoine comme décision.** La section d'ouverture pose que le
+patrimoine n'est pas une qualité que les choses possèdent, mais un choix qu'une
+société fait et peut défaire. C'est ce qui rend les enjeux compréhensibles
+ensuite.
+
+**7. Le même mur pour deux camps.** Les fortifications sont commencées en 1745
+par les Français contre les Britanniques, puis complétées après 1760 par les
+Britanniques contre une invasion américaine. Ta page donnait les deux faits sans
+les rapprocher. C'est un bon exemple de continuité et de changement dans le même
+objet, et une des questions de section s'appuie dessus.
+
+**8. Une comparaison de deux photographies.** La vue de la terrasse Dufferin
+vers 1895 est dans le domaine public. Placée dans la section sur la continuité et
+le changement, elle se compare à la vue actuelle de la section précédente. Un
+encadré `note` en fait un exercice.
+
+### Un schéma et un bloc de cartes
+
+- `medias/schemas/conserver-restaurer.svg`, les trois gestes du patrimoine bâti,
+  avec la condition de passage au-dessus de chaque flèche et un bandeau sur le
+  degré d'intervention, qui grandit de gauche à droite
+- Les quatre enjeux de la ville patrimoniale en encadré `::: cartes` : la
+  conservation, le site, le tourisme et le patrimoine religieux. Le dernier
+  reprend l'enjeu de ton projet de baladodiffusion
+
+### Quatre images, toutes de Commons
+
+Noms vérifiés au caractère près, crédits récupérés automatiquement :
+
+- `File:Château Frontenac, Vieux-Québec.jpg`
+- `File:Place Royale at night, Vieux-Québec, Quebec ville, Canada.jpg`
+- `File:La terrasse Dufferin et le Château Frontenac, Québec.jpg`
+- `File:Vue vers le Chateau Frontenac et la terrasse Dufferin, vers 1895.jpg`
+
+Comme demandé, je ne suis pas allé chercher une seule image sur ton Google Site.
+Le dossier du RÉCIT sur le patrimoine urbain est cité en encadré `activite` et
+dans les sources, mais je n'ai pas pu ouvrir sa page depuis mon environnement,
+donc je n'en ai tiré aucune image.
+
+### À valider
+
+**9. Les vidéos.** L'extraction de ta page n'a rendu aucune adresse YouTube
+cette fois, alors que la page mentionne une visite en réalité virtuelle et
+plusieurs vues du Vieux-Québec. La fiche n'a donc aucune vidéo. Donne-moi les
+identifiants et je les place.
+
+**10. Tes deux projets.** Le projet encyclopédique sur une ville du patrimoine
+mondial et le projet de baladodiffusion sur le patrimoine religieux sont des PDF
+hébergés sur ton site, dont l'extraction n'a pas rendu les adresses. Ils
+mériteraient chacun un encadré `activite`. Donne-moi les liens.
+
+**11. Le quartier qui se vide.** J'affirme qu'un quartier patrimonial peut
+perdre ses habitants tout en restant plein de monde, sans mettre de chiffre
+dessus. C'est un phénomène documenté, mais je n'ai pas de donnée que je puisse
+attribuer pour le Vieux-Québec. Si tu en as une, elle rendrait cet enjeu plus
+concret.
+
+### Le compte
+
+Ligne de base du vérificateur : 24 problèmes. Après : 28. Le delta de 4
+correspond exactement aux quatre nouvelles images. Aucun problème hors images :
+les neuf sections passent, dont SCHÉMAS avec `conserver-restaurer.svg`.
+`figures.py` et `paragraphes.py` sans écart, sept fusions appliquées.
+`liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node
+passent à 0 échec. Il reste sept gabarits en géographie au lieu de huit.

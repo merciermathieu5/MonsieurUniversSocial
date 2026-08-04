@@ -51,6 +51,11 @@ sections:
     unite: territoire
     unite_pluriel: territoires
     parcours_titre: Territoires
+    parcours_rangees:
+      - titre: Territoire urbain et territoire région
+        fin: 7
+      - titre: Territoire agricole, autochtone et protégé
+        fin: 11
     documents:
       - titre: Progression des apprentissages
         url: https://cdn-contenu.quebec.ca/cdn-contenu/education/pfeq/secondaire/progressions-apprentissages/PFEQ-progression-apprentissages-geographie-secondaire.pdf
