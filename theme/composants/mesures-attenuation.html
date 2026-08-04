@@ -1,0 +1,154 @@
+<section class="mat" id="mesures-attenuation" aria-label="Les mesures d'atténuation des risques naturels au Bangladesh">
+<style>
+.mat { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.mat .mat__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mat .mat__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mat__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.mat__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.mat__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.mat__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mat__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.mat__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.mat__panneau.est-visible { display: block; }
+.mat__qui { margin: 0 0 1rem; font-family: var(--donnee); font-size: .68rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.mat__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.mat__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.mat__cote--limite { border-left-color: var(--encre-pale); }
+.mat__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.mat__texte { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.mat__bilan { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.mat__bilan strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .mat .mat__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mat .mat__titre { color: var(--encre); }
+html[data-sombre="on"] .mat__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .mat__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .mat__bilan strong { color: var(--encre); }
+@media (max-width: 40rem) { .mat__panneau { padding: 1.1rem 1rem 1rem; } .mat__onglets { padding: .7rem .8rem; } }
+@media print { .mat__panneau { display: block; page-break-inside: avoid; } .mat__onglets { display: none; } }
+</style>
+
+<div class="mat__entete">
+  <p class="mat__titre" role="heading" aria-level="3">Cinq façons de réduire les dégâts</p>
+  <p class="mat__consigne">Choisis une mesure</p>
+</div>
+
+<div class="mat__onglets" role="tablist" aria-label="Mesures d'atténuation"></div>
+<div class="mat__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("mesures-attenuation");
+  if (!racine) { return; }
+  var mesures = [
+    {
+      cle: "abris",
+      nom: "Les abris collectifs",
+      qui: "Mis en place par l'État",
+      marche: "Quatre mille abris ont été b\u00e2tis le long des c\u00f4tes, sur pilotis \u00e0 quatre m\u00e8tres du sol pour laisser passer les vagues et les d\u00e9bris. Chacun peut recevoir de 500 \u00e0 5 000 personnes et contient des r\u00e9serves d'eau, de nourriture et des toilettes. Les escaliers ont \u00e9t\u00e9 \u00e9largis pour que la foule y entre vite.",
+      limite: "Un abri sauve des vies, pas des r\u00e9coltes. Les champs, le b\u00e9tail et les maisons restent expos\u00e9s. Et il faut avoir eu le temps de s'y rendre, donc avoir \u00e9t\u00e9 pr\u00e9venu.",
+      bilan: "C'est la mesure qui explique le mieux l'effondrement du nombre de victimes depuis 1970."
+    },
+    {
+      cle: "pilotis",
+      nom: "Les maisons sur pilotis",
+      qui: "Construites par les familles, souvent avec l'aide d'organisations non gouvernementales",
+      marche: "Une maison sur\u00e9lev\u00e9e de plus d'un m\u00e8tre et demi r\u00e9siste aux inondations annuelles. La famille reste chez elle au lieu de tout perdre et de devoir repartir de z\u00e9ro chaque ann\u00e9e.",
+      limite: "La sur\u00e9l\u00e9vation ne prot\u00e8ge en rien contre la disparition de la terre elle-m\u00eame. Quand la berge s'effondre, la maison sur pilotis s'en va avec elle.",
+      bilan: "Se prot\u00e9ger de l'eau qui monte n'est pas se prot\u00e9ger de la terre qui part."
+    },
+    {
+      cle: "digues",
+      nom: "Les digues",
+      qui: "B\u00e2ties par les paysans eux-mêmes",
+      marche: "Moins co\u00fbteuses que tout le reste, elles ne demandent que de la terre, du travail et une bonne entente entre voisins. C'est la mesure que les paysans choisissent le plus souvent.",
+      limite: "Lors du cyclone Amphan, en 2020, le raz-de-mar\u00e9e a d\u00e9truit plusieurs centaines de kilom\u00e8tres de digues. Les habitants ont tent\u00e9 en vain de les consolider avec des sacs de sable, et l'eau sal\u00e9e a d\u00e9vast\u00e9 des dizaines de milliers d'hectares.",
+      bilan: "Une digue qui c\u00e8de peut faire plus de d\u00e9g\u00e2ts qu'une absence de digue, parce qu'on s'y \u00e9tait fi\u00e9."
+    },
+    {
+      cle: "mangroves",
+      nom: "Les mangroves",
+      qui: "Une protection naturelle, à condition de la laisser vivre",
+      marche: "Les racines tr\u00e8s denses des pal\u00e9tuviers absorbent les ondes de temp\u00eate et cassent la force des vagues. Les Sundarbans, la plus vaste mangrove du monde, couvrent plus de 10 000 kilom\u00e8tres carr\u00e9s au coeur du delta.",
+      limite: "Cette barri\u00e8re recule. La coupe ill\u00e9gale du bois, les barrages en amont qui r\u00e9duisent l'eau douce et les bassins de crevettes la grignotent. \u00c0 l'\u00e9chelle du monde, les mangroves sont pass\u00e9es de 200 000 \u00e0 environ 140 000 kilom\u00e8tres carr\u00e9s.",
+      bilan: "C'est la seule mesure qui se d\u00e9truit toute seule quand on n'y prend pas garde. Les autres, au moins, il faut les d\u00e9molir."
+    },
+    {
+      cle: "alerte",
+      nom: "L'alerte",
+      qui: "Organisée par l'État, relayée par radio et haut-parleurs",
+      marche: "Pr\u00e9voir la trajectoire d'un cyclone et pr\u00e9venir la population \u00e0 temps. Avant l'arriv\u00e9e de Sidr en 2007, environ 1,5 million de personnes des secteurs les plus expos\u00e9s avaient \u00e9t\u00e9 \u00e9vacu\u00e9es.",
+      limite: "Une alerte ne vaut que si elle est re\u00e7ue, comprise et suivie. Il faut des radios, des routes praticables et un endroit o\u00f9 aller.",
+      bilan: "C'est la mesure la moins co\u00fbteuse et la plus efficace, mais elle d\u00e9pend de toutes les autres."
+    }
+  ];
+
+  var onglets = racine.querySelector(".mat__onglets");
+  var contenu = racine.querySelector(".mat__contenu");
+
+  function cote(quoi, texte, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "mat__cote" + (modificateur ? " mat__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "mat__quoi";
+    etiquette.textContent = quoi;
+    var corps = document.createElement("p");
+    corps.className = "mat__texte";
+    corps.textContent = texte;
+    boite.appendChild(etiquette);
+    boite.appendChild(corps);
+    return boite;
+  }
+
+  mesures.forEach(function (mesure, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "mat__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = mesure.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "mat-panneau-" + mesure.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "mat__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "mat-panneau-" + mesure.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", mesure.nom);
+
+    var qui = document.createElement("p");
+    qui.className = "mat__qui";
+    qui.textContent = mesure.qui;
+    panneau.appendChild(qui);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "mat__colonnes";
+    colonnes.appendChild(cote("Comment ça marche", mesure.marche, ""));
+    colonnes.appendChild(cote("Ce que ça ne règle pas", mesure.limite, "limite"));
+    panneau.appendChild(colonnes);
+
+    var bilan = document.createElement("p");
+    bilan.className = "mat__bilan";
+    var mot = document.createElement("strong");
+    mot.textContent = "À retenir. ";
+    bilan.appendChild(mot);
+    bilan.appendChild(document.createTextNode(mesure.bilan));
+    panneau.appendChild(bilan);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

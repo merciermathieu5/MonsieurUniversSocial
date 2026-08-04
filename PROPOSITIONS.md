@@ -4806,3 +4806,113 @@ des virgules de la livraison 123 avait laissée trop longue.
 Ligne de base du dépôt en ligne : 22 problèmes. Après : 39, inchangé. Le delta de
 17 reste celui des images de la fiche 10. `liens.py` vérifie 802 liens internes,
 aucun brisé. Les deux suites Node passent à 0 échec.
+
+## Fiche : Un territoire agricole en milieu à risque
+
+### Neuvième fiche de géographie (livraison 128)
+
+`contenu/geographie/11-territoire-agricole-risque.md` passe du gabarit à
+`brouillon`. Douze sections de contenu, les dix concepts prescrits définis, le
+Bangladesh en étude principale et le Sahel en second cas.
+
+### Le concept qui manquait
+
+Ta page ne nommait ni le **risque naturel** ni le **risque artificiel**, deux
+concepts prescrits, alors que tout ton contenu les portait déjà. La fiche en fait
+sa colonne vertébrale.
+
+Un encadré `note` pose la distinction en une phrase : un risque naturel existe
+sans nous, un risque artificiel, nous l'avons fabriqué. Puis chaque section y
+revient. L'érosion des berges a quatre causes, dont deux humaines, et une question
+demande à l'élève de les trier. La section sur les crevettes s'appelle « Quand
+l'agriculture crée le risque » et montre le mécanisme : personne n'a décidé de
+stériliser ces terres, chacun a simplement choisi la culture la plus rentable.
+
+C'était l'idée de ta propre mise en contexte, « l'activité agricole peut
+contribuer à l'accroissement des milieux à risque », qui n'était ensuite jamais
+reprise.
+
+### Les trois visuels
+
+**`medias/schemas/cycle-mousson.svg`**, la mousson en deux saisons de trois
+étapes. L'été, l'océan reste frais, la terre surchauffe, le vent souffle de la mer
+vers la terre. L'hiver, l'inverse. Le bandeau porte l'essentiel : la mousson n'est
+pas une catastrophe, c'est une saison, et sans elle il n'y a pas de riz. C'est son
+excès qui devient un risque.
+
+**`medias/schemas/cyclones-bangladesh.svg`**, les victimes des quatre grands
+cyclones. Plus de 500 000 en 1970, 143 000 en 1991, environ 3 000 en 2007,
+environ 100 en 2020.
+
+Les deux dernières barres sont presque invisibles à l'échelle, et **c'est
+volontaire**. Le bandeau l'explique : les cyclones n'ont pas faibli, Amphan
+comptait parmi les plus puissants jamais enregistrés dans le golfe du Bengale. Ce
+sont les abris, les digues et l'alerte qui ont changé. Un même aléa ne fait plus
+le même nombre de victimes, ce qui est la définition de la vulnérabilité.
+
+**`theme/composants/mesures-attenuation.html`**, cinq mesures en onglets : les
+abris collectifs, les maisons sur pilotis, les digues, les mangroves et l'alerte.
+Chaque panneau dit qui la met en place, comment elle fonctionne, **et ce qu'elle
+ne règle pas**. C'est cette seconde colonne qui donne sa valeur au composant : une
+maison sur pilotis résiste à la crue mais s'en va avec la berge qui s'effondre;
+une digue qui cède fait plus de dégâts qu'une absence de digue, parce qu'on s'y
+était fié.
+
+### Le Sahel, choisi pour son contraste
+
+Le second cas fonctionne parce qu'il est l'exact inverse du premier. Le Bangladesh
+reçoit deux mètres de pluie par année, le Sahel de 200 à 600 millimètres. L'un a
+trop d'eau, l'autre pas assez, et les deux ont le même problème : cultiver malgré
+tout.
+
+Les données sont récentes : plus de 135 millions d'habitants, l'agriculture et le
+pastoralisme employant environ 70 % de la population active, 95 % de l'agriculture
+africaine dépendant de la seule pluie, 30 % des terres cultivables sahéliennes en
+dégradation avancée, 29,2 millions de personnes en insécurité alimentaire.
+
+La Grande Muraille verte ferme la section, avec ses onze pays et son objectif de
+100 millions d'hectares pour 2030. Un encadré `note` dit où le projet en est
+vraiment, environ 4 millions d'hectares restaurés, et surtout **comment il a
+changé de nature** : on croyait planter un mur d'arbres d'un océan à l'autre, on
+sait maintenant qu'une bande plantée d'un coup ne survit pas et que ce qui
+fonctionne, ce sont des mosaïques de parcelles restaurées avec les communautés.
+
+### Douze capsules
+
+Tes dix y sont toutes, dans leur section d'origine. **Huit ont leur vrai titre**,
+que ta page donnait ou que le dossier du RÉCIT a confirmé. Deux me manquent,
+`OGcrgnADJ68` et `KBDWqt5BZsg`, celles de la section sur les cyclones : leurs
+légendes décrivent la section. Envoie-moi deux captures et je corrige.
+
+J'en ai ajouté deux du dossier du RÉCIT, qui complètent bien les tiennes :
+`mXyrcFzYgzM` de TV5MONDE sur les déplacés climatiques, et `mYl4e9ZrEtQ` de Gaël
+Derive sur la culture du riz.
+
+### Cinq images, et une lacune
+
+Quatre viennent du dossier du RÉCIT avec leurs crédits complets, et une de
+Commons, `File:Chingri gher at khulna - 10.jpg`, qui montre les bassins de
+crevettes. J'ai écarté le document 5 du dossier, une photo de saline sous licence
+tous droits réservés et prise en Thaïlande.
+
+**La section sur le Sahel n'a aucune image.** Il me faudrait une vue de paysage
+sahélien et une de la Grande Muraille verte. Comme les fois précédentes, deux
+liens Wikipédia de ta part règleraient la chose en trois minutes.
+
+### Une remarque qui va te faire plaisir
+
+Le dossier documentaire officiel du RÉCIT sur ce territoire cite ta page comme
+source, sous la mention « Extrait de Monsieur Univers social, Territoire agricole
+en milieu à risque : le Bangladesh (2020) ». C'est le document 9, celui sur les
+abris anticycloniques.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 27. Le delta de 5
+correspond exactement aux cinq images. Aucun problème hors images : les neuf
+sections passent. Le vérificateur a d'ailleurs attrapé un défaut de contraste sur
+le troisième bloc du schéma de la mousson, où j'avais posé une couleur en ligne
+plutôt qu'une classe, corrigé avant livraison. `figures.py` a remonté une figure,
+`paragraphes.py` a fait quatorze fusions. `liens.py` vérifie 819 liens internes,
+aucun brisé. Les deux suites Node passent à 0 échec. Il ne reste que deux gabarits
+en géographie.

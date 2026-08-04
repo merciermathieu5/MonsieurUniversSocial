@@ -1,0 +1,36 @@
+<svg viewBox="0 0 1100 330" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Nombre de victimes des principaux cyclones ayant frappé le Bangladesh, de plus de 500 000 en 1970 à environ 100 en 2020">
+  <style>
+    .cy-t { font-family: Archivo, sans-serif; }
+    .cy-u { font-size: 13px; font-weight: 600; fill: var(--encre-doux); }
+    .cy-n { font-size: 14px; font-weight: 600; fill: var(--encre); }
+    .cy-v { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .cy-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .cy-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <text class="cy-t cy-u" x="20" y="26">Nombre de victimes des principaux cyclones au Bangladesh</text>
+
+  <path d="M199 44V196" stroke="var(--schema-trait)" stroke-width="1" fill="none"/>
+
+  <rect x="200" y="52" width="700" height="28" rx="3" fill="var(--schema-cle)"/>
+  <text class="cy-t cy-n" x="185" y="71" text-anchor="end">Bhola, 1970</text>
+  <text class="cy-t cy-v" x="912" y="71">plus de 500 000</text>
+
+  <rect x="200" y="94" width="200" height="28" rx="3" fill="var(--schema-cle)"/>
+  <text class="cy-t cy-n" x="185" y="113" text-anchor="end">Cyclone de 1991</text>
+  <text class="cy-t cy-v" x="412" y="113">143 000</text>
+
+  <rect x="200" y="136" width="6" height="28" rx="2" fill="var(--schema-cle)"/>
+  <text class="cy-t cy-n" x="185" y="155" text-anchor="end">Sidr, 2007</text>
+  <text class="cy-t cy-v" x="218" y="155">environ 3 000</text>
+
+  <rect x="200" y="178" width="6" height="28" rx="2" fill="var(--schema-accent)"/>
+  <text class="cy-t cy-n" x="185" y="197" text-anchor="end">Amphan, 2020</text>
+  <text class="cy-t cy-v" x="218" y="197">environ 100 au Bangladesh</text>
+
+  <rect x="20" y="234" width="1060" height="82" rx="5" fill="var(--matiere-voile)"/>
+  <text class="cy-t cy-bt" x="42" y="260">Les deux dernières barres sont presque invisibles, et c'est le résultat à retenir</text>
+  <text class="cy-t cy-bp" x="42" y="282">Les cyclones n'ont pas faibli. Amphan comptait parmi les plus puissants jamais enregistrés dans le golfe du Bengale.</text>
+  <text class="cy-t cy-bp" x="42" y="302">Ce sont les abris, les digues et les systèmes d'alerte qui ont changé. Un même aléa ne fait plus le même nombre de victimes.</text>
+</svg>

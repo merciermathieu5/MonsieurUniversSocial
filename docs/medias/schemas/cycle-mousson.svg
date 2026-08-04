@@ -1,0 +1,58 @@
+<svg viewBox="0 0 1100 430" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Le cycle de la mousson en trois étapes, l'été où le vent souffle de la mer vers la terre et apporte la pluie, l'hiver où il souffle de la terre vers la mer et assèche">
+  <style>
+    .ms-t { font-family: Archivo, sans-serif; }
+    .ms-c { font-size: 12px; font-weight: 700; fill: var(--encre-doux); }
+    .ms-h1 { font-size: 15px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .ms-h2 { font-size: 15px; font-weight: 700; fill: var(--bloc-texte); }
+    .ms-p1 { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .ms-p2 { font-size: 12px; fill: var(--bloc-texte); }
+    .ms-h3 { font-size: 15px; font-weight: 700; fill: var(--surface); }
+    .ms-p3 { font-size: 12px; fill: var(--surface); }
+    .ms-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .ms-bp { font-size: 12.5px; fill: var(--encre); }
+    .ms-f { fill: none; stroke: var(--schema-trait); stroke-width: 2; }
+  </style>
+
+  <text class="ms-t ms-c" x="40" y="44">L'été, de juin à septembre</text>
+
+  <rect x="40" y="58" width="300" height="96" rx="5" fill="var(--bloc)"/>
+  <text class="ms-t ms-h2" x="58" y="86">L'océan reste frais</text>
+  <text class="ms-t ms-p2" x="58" y="109">L'eau chauffe lentement, la terre</text>
+  <text class="ms-t ms-p2" x="58" y="128">beaucoup plus vite.</text>
+  <path class="ms-f" d="M348 106H378 M371 100L378 106L371 112"/>
+
+  <rect x="390" y="58" width="300" height="96" rx="5" fill="var(--bloc)"/>
+  <text class="ms-t ms-h2" x="408" y="86">La terre surchauffe</text>
+  <text class="ms-t ms-p2" x="408" y="109">L'air chaud monte et laisse un vide</text>
+  <text class="ms-t ms-p2" x="408" y="128">que l'air marin vient combler.</text>
+  <path class="ms-f" d="M698 106H728 M721 100L728 106L721 112"/>
+
+  <rect x="740" y="58" width="300" height="96" rx="5" fill="var(--schema-cle)"/>
+  <text class="ms-t ms-h3" x="758" y="86">Le vent apporte la pluie</text>
+  <text class="ms-t ms-p3" x="758" y="109">Il souffle de la mer vers la terre,</text>
+  <text class="ms-t ms-p3" x="758" y="128">chargé d'humidité. Il pleut.</text>
+
+  <text class="ms-t ms-c" x="40" y="204">L'hiver, de novembre à février</text>
+
+  <rect x="40" y="218" width="300" height="96" rx="5" fill="var(--bloc-pale)"/>
+  <text class="ms-t ms-h1" x="58" y="246">La terre se refroidit</text>
+  <text class="ms-t ms-p1" x="58" y="269">Le continent perd sa chaleur</text>
+  <text class="ms-t ms-p1" x="58" y="288">plus vite que l'océan.</text>
+  <path class="ms-f" d="M348 266H378 M371 260L378 266L371 272"/>
+
+  <rect x="390" y="218" width="300" height="96" rx="5" fill="var(--bloc-pale)"/>
+  <text class="ms-t ms-h1" x="408" y="246">L'air descend</text>
+  <text class="ms-t ms-p1" x="408" y="269">L'air froid et lourd s'accumule</text>
+  <text class="ms-t ms-p1" x="408" y="288">au-dessus des terres.</text>
+  <path class="ms-f" d="M698 266H728 M721 260L728 266L721 272"/>
+
+  <rect x="740" y="218" width="300" height="96" rx="5" fill="var(--bloc-pale)"/>
+  <text class="ms-t ms-h1" x="758" y="246">Le vent assèche</text>
+  <text class="ms-t ms-p1" x="758" y="269">Il souffle de la terre vers la mer.</text>
+  <text class="ms-t ms-p1" x="758" y="288">La saison sèche commence.</text>
+
+  <rect x="40" y="344" width="1000" height="62" rx="5" fill="var(--matiere-voile)"/>
+  <text class="ms-t ms-bt" x="62" y="370">La mousson n'est pas une catastrophe, c'est une saison</text>
+  <text class="ms-t ms-bp" x="62" y="392">Sans elle, pas de riz : le pays entier vit de ces pluies. C'est son excès, et non son existence, qui devient un risque.</text>
+</svg>
