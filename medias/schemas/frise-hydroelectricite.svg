@@ -1,5 +1,5 @@
 <svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
-     aria-label="Ligne du temps de l'hydroélectricité québécoise, de la création d'Hydro-Québec en 1944 à l'horizon 2035 du plan d'action">
+     aria-label="Ligne du temps de l'hydroélectricité québécoise, de la création d'Hydro-Québec en 1944 à aujourd'hui">
   <style>
     .fh-t { font-family: Archivo, sans-serif; }
     .fh-e { font-size: 13.5px; fill: var(--encre); }
@@ -9,13 +9,13 @@
     .fh-p3 { font-size: 14px; font-weight: 600; fill: var(--surface); }
   </style>
 
-  <rect x="70" y="178" width="200" height="34" fill="var(--bloc-pale)"/>
-  <rect x="270" y="178" width="412" height="34" fill="var(--bloc)"/>
-  <rect x="682" y="178" width="348" height="34" fill="var(--schema-cle)"/>
+  <rect x="70" y="178" width="176" height="34" fill="var(--bloc-pale)"/>
+  <rect x="246" y="178" width="433" height="34" fill="var(--bloc)"/>
+  <rect x="679" y="178" width="351" height="34" fill="var(--schema-cle)"/>
 
-  <text class="fh-t fh-p1" x="170" y="200" text-anchor="middle">Les débuts</text>
-  <text class="fh-t fh-p2" x="476" y="200" text-anchor="middle">Les grands chantiers</text>
-  <text class="fh-t fh-p3" x="856" y="200" text-anchor="middle">Ententes et transition</text>
+  <text class="fh-t fh-p1" x="158" y="200" text-anchor="middle">Les débuts</text>
+  <text class="fh-t fh-p2" x="462" y="200" text-anchor="middle">Manic-Outardes et la Baie-James</text>
+  <text class="fh-t fh-p3" x="854" y="200" text-anchor="middle">La Romaine et l'éolien</text>
 
   <line x1="70" y1="164" x2="70" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
   <text class="fh-t fh-d" x="8" y="96">1944</text>
@@ -23,30 +23,27 @@
   <text class="fh-t fh-e" x="8" y="138">Hydro-Québec.</text>
   <circle cx="70" cy="178" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <line x1="397" y1="164" x2="397" y2="170" stroke="var(--schema-accent)" stroke-width="2.5"/>
-  <text class="fh-t fh-d" x="397" y="96" text-anchor="middle">1975</text>
-  <text class="fh-t fh-e" x="397" y="117" text-anchor="middle">Convention de la Baie-James</text>
-  <text class="fh-t fh-e" x="397" y="138" text-anchor="middle">et du Nord québécois.</text>
-  <circle cx="397" cy="178" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="433" y1="164" x2="433" y2="170" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="fh-t fh-d" x="433" y="96" text-anchor="middle">1975</text>
+  <text class="fh-t fh-e" x="433" y="117" text-anchor="middle">Convention de la Baie-James</text>
+  <text class="fh-t fh-e" x="433" y="138" text-anchor="middle">et du Nord québécois.</text>
+  <circle cx="433" cy="178" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
 
-  <line x1="893" y1="164" x2="893" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="fh-t fh-d" x="893" y="96" text-anchor="middle">2022</text>
-  <text class="fh-t fh-e" x="893" y="117" text-anchor="middle">Le complexe de la Romaine</text>
-  <text class="fh-t fh-e" x="893" y="138" text-anchor="middle">est achevé.</text>
-  <circle cx="893" cy="178" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="984" y1="164" x2="984" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="fh-t fh-d" x="984" y="96" text-anchor="middle">2022</text>
+  <text class="fh-t fh-e" x="984" y="117" text-anchor="middle">Le complexe de la Romaine</text>
+  <text class="fh-t fh-e" x="984" y="138" text-anchor="middle">est achevé.</text>
+  <circle cx="984" cy="178" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <line x1="270" y1="220" x2="270" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="fh-t fh-d" x="270" y="248" text-anchor="middle">1963</text>
-  <text class="fh-t fh-e" x="270" y="269" text-anchor="middle">Nationalisation de</text>
-  <text class="fh-t fh-e" x="270" y="290" text-anchor="middle">l'électricité au Québec.</text>
-  <circle cx="270" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+  <line x1="293" y1="220" x2="293" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="fh-t fh-d" x="293" y="248" text-anchor="middle">1963</text>
+  <text class="fh-t fh-e" x="293" y="269" text-anchor="middle">Nationalisation de</text>
+  <text class="fh-t fh-e" x="293" y="290" text-anchor="middle">l'électricité au Québec.</text>
+  <circle cx="293" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
 
-  <line x1="682" y1="220" x2="682" y2="226" stroke="var(--schema-accent)" stroke-width="2.5"/>
-  <text class="fh-t fh-d" x="682" y="248" text-anchor="middle">2002</text>
-  <text class="fh-t fh-e" x="682" y="269" text-anchor="middle">La Paix des Braves est</text>
-  <text class="fh-t fh-e" x="682" y="290" text-anchor="middle">signée avec les Cris.</text>
-  <circle cx="682" cy="212" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
-
-  <line x1="1030" y1="220" x2="1030" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
-  <text class="fh-t fh-d" x="1092" y="248" text-anchor="end">2035</text>
+  <line x1="749" y1="220" x2="749" y2="226" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="fh-t fh-d" x="749" y="248" text-anchor="middle">2002</text>
+  <text class="fh-t fh-e" x="749" y="269" text-anchor="middle">La Paix des Braves est</text>
+  <text class="fh-t fh-e" x="749" y="290" text-anchor="middle">signée avec les Cris.</text>
+  <circle cx="749" cy="212" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
 </svg>

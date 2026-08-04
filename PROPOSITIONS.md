@@ -3928,3 +3928,77 @@ internes, aucun brisé. Les deux suites Node passent à 0 échec.
 
 Il ne reste plus qu'un lien manquant dans cette fiche : l'article de La Presse de
 Réjean Bourdeau sur la Paix des Braves, cité en source sans adresse.
+
+### Corrections de la fiche 07 et nettoyage des images (livraison 114)
+
+**L'encadré qui s'affichait en texte brut.** Tu as raison de trouver ça bizarre :
+je l'avais logé à l'intérieur du bloc `::: savais-tu` sur les centres de données.
+Un bloc ouvert dans un autre bloc n'est pas interprété, il ressort tel quel avec
+ses deux-points. L'encadré est maintenant posé après la fermeture du `savais-tu`.
+Les six encadrés `activite` de la fiche rendent correctement et il ne reste plus
+un seul `:::` littéral dans le HTML.
+
+C'est le genre de piège qui mérite un contrôle. Si tu veux, j'ajoute au
+vérificateur une règle qui refuse un bloc ouvert à l'intérieur d'un autre. Dis-le
+et je le fais à la prochaine livraison.
+
+**Le schéma de la chaîne arrivait trop tôt.** Il ouvrait la section sur les
+besoins énergétiques, avant que l'élève ait lu un seul mot sur les barrages. Il
+descend à la section « De la centrale à la maison », où le texte parle
+justement du transport et des infrastructures.
+
+**Le bandeau de l'évacuateur de crues** est réécrit. Il disait qu'un cinquième
+ouvrage veillait sur les quatre autres, ce qui ne dit rien de précis. Il dit
+maintenant ce que l'ouvrage fait : il ne produit pas d'électricité, et quand le
+réservoir monte trop haut, il ouvre à l'eau en trop une sortie contrôlée.
+
+**La ligne du temps, trois corrections.**
+
+- « Les grands chantiers » devient « Manic-Outardes et la Baie-James ». Tu as
+  raison, une période qui ne nomme pas d'ouvrage n'apprend rien
+- « Ententes et transition » devient « La Romaine et l'éolien », même logique
+- Le repère 2035 disparaît et la bande s'arrête à aujourd'hui. Toute l'échelle est
+  recalculée en conséquence, les cinq repères datés se replacent
+
+**Deux ressources s'ajoutent.** La capsule `o3a4Nqwgtiw` rejoint la section
+Manic-5, en duo avec la visite en réalité virtuelle. À signaler : je n'ai pas pu
+vérifier son titre, la légende décrit donc la section et non la vidéo. Envoie-moi
+une capture si elle tombe à côté. Et le documentaire de Radio-Canada avec Roy
+Dupuis sur la rivière Magpie prend un encadré `activite` juste sous celui qui
+raconte le statut de personne juridique de la rivière. Les deux se répondent
+bien.
+
+**La formulation sur la population.** Tu as raison, « immenses et presque vides »
+efface les gens qui y vivent, à commencer par les nations autochtones. Le
+comparateur dit maintenant que les deux régions couvrent d'immenses superficies
+pour une population peu nombreuse, groupée dans quelques villes et villages, et
+ajoute qu'elles sont parcourues et habitées depuis des millénaires par les
+nations autochtones, ce qu'une carte de densité ne montre pas. La question de
+section qui reprenait la même formule est reformulée elle aussi.
+
+### Les trois images qui échouaient
+
+**`panneau-apartheid.jpg`.** Le diagnostic confirme ce que j'avais signalé à la
+livraison 108 : le registre demandait `File:ApartheidSignEnglishAfrikaans.jpg`
+alors que `File:Apartheid.jpg` avait été retenu. `images.py` repartait donc à la
+chasse d'une image déjà sur ton disque, et se faisait renvoyer un 429. J'ai aligné
+le registre sur le nom retenu. La recherche devrait cesser d'elle-même. Je n'ai
+touché ni à l'image ni à sa légende.
+
+**`carte-metro-montreal.png` et `reseau-transport-idf.png`** répondent 403 de
+façon durable, et ce sont des images du Google Site, que tu as écarté comme
+source. Les conventions du dépôt disent de retirer du registre et de la fiche les
+images dont le téléchargement échoue durablement plutôt que de les laisser en
+attente. Elles sortent donc des deux, la première de la fiche 02, la seconde de
+la fiche 05. Si tu les récupères un jour par clic droit, dis-le et je les remets
+en deux lignes.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 35, contre 37 à la
+livraison précédente. Le delta de 11 s'explique exactement : quatorze images pour
+la fiche 07, moins la carte du réseau déjà présente sur le disque avec ses
+crédits, moins les deux images retirées ailleurs. Aucun problème hors images :
+les neuf sections passent. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` vérifie 774 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec. La fiche compte dix capsules et six encadrés `activite`.

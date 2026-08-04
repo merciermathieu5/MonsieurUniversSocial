@@ -75,9 +75,6 @@ deux territoires québécois, la Jamésie au Nord-du-Québec et la Côte-Nord.
 
 ## Les besoins énergétiques du Québec
 
-::: schema chaine-hydroelectrique
-:::
-
 Le Québec produit environ 213 térawattheures d'électricité par année, soit à peu
 près le tiers de toute la production canadienne. C'est la province qui en produit
 le plus. L'hydroélectricité en fournit environ 94 %, l'éolien 5 %, et le reste
@@ -128,14 +125,14 @@ données en sont une autre : ces immenses entrepôts d'ordinateurs consomment
 énormément. Une seule entreprise américaine en exploite quatre au Québec, trois à
 Montréal et un à Québec.
 
+Source : Service national du RÉCIT en univers social
+{: .source-texte }
+:::
+
 ::: activite
 Le dossier **[Le réseau public de bornes de recharge au Québec](https://ici.radio-canada.ca/info/2024/voitures-electriques/reseau-public-bornes-recharge-quebec/)**
 de Radio-Canada permet de voir où se trouvent les bornes et si leur nombre suit
 la croissance du parc de véhicules électriques.
-:::
-
-Source : Service national du RÉCIT en univers social
-{: .source-texte }
 :::
 
 ### Manquerons-nous d'électricité
@@ -398,6 +395,10 @@ centrales qu'il alimente totalisent 2 660 mégawatts.
 Visite du barrage Daniel-Johnson en réalité virtuelle
 :::
 
+::: video o3a4Nqwgtiw
+Le barrage Daniel-Johnson et le complexe Manic-Outardes
+:::
+
 ### Le complexe de la Romaine
 
 Le plus récent grand chantier du Québec se trouve lui aussi sur la Côte-Nord. Le
@@ -421,6 +422,12 @@ l'aménagement : au lieu de demander seulement ce qu'un projet rapporte, on
 demande aussi ce que la rivière, elle, aurait à dire.
 :::
 
+::: activite
+Dans le documentaire **[Roy Dupuis, la rivière Magpie et l'hydroélectricité](https://ici.radio-canada.ca/tele/doc-humanite/site/episodes/807086/roy-dupuis-riviere-magpie-hydroelectricite)**,
+diffusé à Radio-Canada, le comédien descend la rivière et rencontre celles et
+ceux qui veulent la protéger.
+:::
+
 ::: questions
 1. Compare la superficie de la Côte-Nord et sa population avec celles de ta
    région. Que cela change-t-il pour l'aménagement du territoire?
@@ -429,6 +436,9 @@ demande aussi ce que la rivière, elle, aurait à dire.
 :::
 
 ## De la centrale à la maison
+
+::: schema chaine-hydroelectrique
+:::
 
 ![Le parcours de l'électricité, de la centrale jusqu'à la maison](../medias/07-territoire-energetique-quebec/parcours-electricite.jpg)
 
@@ -495,8 +505,9 @@ par critère avant de répondre aux questions.
 ::: questions
 1. Choisis le critère qui distingue le plus les deux territoires et explique ton
    choix.
-2. Les deux régions sont immenses et très peu peuplées. En quoi cela a-t-il rendu
-   les grands aménagements possibles?
+2. Les deux régions couvrent d'immenses superficies pour une population peu
+   nombreuse. Nomme un avantage et une difficulté que cela crée pour un grand
+   chantier.
 :::
 
 ## Hydroélectricité et développement durable

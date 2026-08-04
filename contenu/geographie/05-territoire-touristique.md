@@ -605,8 +605,6 @@ Les jardins de Versailles
 
 ### Se déplacer en Île-de-France
 
-![Le réseau de transport en commun de l'Île-de-France](../medias/05-territoire-touristique/reseau-transport-idf.png)
-
 ![Un TGV en gare de Lyon, à Paris](../medias/05-territoire-touristique/tgv-gare-lyon.jpg)
 
 L'Île-de-France dispose d'un vaste réseau de transport en commun géré par

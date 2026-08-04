@@ -258,8 +258,6 @@ Le Réseau express métropolitain
 
 ### Le métro
 
-![Le réseau du métro de Montréal](../medias/02-metropole/carte-metro-montreal.png)
-
 Le métro de Montréal dessert l'île de Montréal ainsi que Laval et Longueuil.
 Il est inauguré le 14 octobre 1966, pendant le mandat du maire Jean Drapeau.
 Le réseau compte alors 26 stations réparties sur trois lignes. Aujourd'hui, il

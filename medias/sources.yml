@@ -1695,7 +1695,7 @@ civil-rights-act.jpg:
 panneau-apartheid.jpg:
   cadrage: flottant
   fiche: 12-libertes-droits-civils
-  commons: File:ApartheidSignEnglishAfrikaans.jpg
+  commons: File:Apartheid.jpg
   recherche: apartheid sign English Afrikaans
   auteur: ''
   titre: ''
@@ -1895,16 +1895,6 @@ population-rmm.png:
   titre: "L'évolution de la population de la région métropolitaine de Montréal"
   licence: ''
   lien: https://merciermathieu5.github.io/muniverssocial
-carte-metro-montreal.png:
-  cadrage: carte
-  fiche: 02-metropole
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQUwbb7I3HNc76WUVCb7obJ-75wkfoIyh-KA504kJfB--8eBN80Mp9TmTcn0AYRD8wrcr7qVNHPGWz4V7jLvEYZV_DjMWjvIjdkOIH6st9ZPC9hMy6G9pV_pSOxsJXyWlY794_8JKtehmUmDzDwGXYWKyw1TF288-LudeQBaJU8KYvW7mnzdXL8NTCGeRiXPFQdAuspO12gkXlMCksA=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
 plan-reso.png:
   cadrage: carte
   fiche: 02-metropole
@@ -2095,16 +2085,6 @@ carte-idf.gif:
   cadrage: carte
   fiche: 05-territoire-touristique
   url: https://lh3.googleusercontent.com/sitesv/AG8ngQUKWpwQd7ykpSA_Gtm174tQkk-whlL8snl3AVs0iD8fUrhje4sc-Tfvt_tXH425PH_Djq3NzjsuP7Vedp-ePjaLcQlfuBoJ1wmlUtUqXMHHj3zAB0dyfS1YL0YleenRumbnivcsQik2y0k7PekUFpcXhs0CTejh7rgqkmNNT1ifwChuKPP53JIEZhz95uMvItQonXUP-cipHH2ZNTg=w1280
-  commons: ''
-  recherche: ''
-  titre: ''
-  auteur: ''
-  licence: ''
-  lien: ''
-reseau-transport-idf.png:
-  cadrage: carte
-  fiche: 05-territoire-touristique
-  url: https://lh3.googleusercontent.com/sitesv/AG8ngQWkWD4IprvU6c9H1t0M1KQKEsWPIlsLoxORDwA_D1AySl0Td1mOo3u8Tk9s5EiZ-UOEPeC4Jy-0HC3jQuc9npSkZYm-iJAnjeTyG8yobXzG7WpnRIeedZvNytpEyZLGMTxNfqFeSCjfcgWmsNHsmUB0qAVx2na627ijynpWXK-1wFl2PjOUF1ay99kRf5phNAmSvAriKups_v8yJms=w1280
   commons: ''
   recherche: ''
   titre: ''
