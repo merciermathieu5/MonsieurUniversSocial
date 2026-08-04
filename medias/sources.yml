@@ -2210,7 +2210,7 @@ chateau-frontenac.jpg:
   licence: ''
   lien: ''
 place-royale.jpg:
-  cadrage: flottant
+  cadrage: gauche
   fiche: 03-ville-patrimoniale
   commons: "File:Place Royale at night, Vieux-Québec, Quebec ville, Canada.jpg"
   recherche: Place Royale Vieux Quebec
@@ -2219,7 +2219,7 @@ place-royale.jpg:
   licence: ''
   lien: ''
 terrasse-dufferin.jpg:
-  cadrage: flottant
+  cadrage: gauche
   fiche: 03-ville-patrimoniale
   commons: "File:La terrasse Dufferin et le Château Frontenac, Québec.jpg"
   recherche: terrasse Dufferin Chateau Frontenac Quebec
@@ -2232,6 +2232,78 @@ dufferin-1895.jpg:
   fiche: 03-ville-patrimoniale
   commons: "File:Vue vers le Chateau Frontenac et la terrasse Dufferin, vers 1895.jpg"
   recherche: Chateau Frontenac terrasse Dufferin 1895
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+ursulines.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:Le monastère des ursulines.JPG"
+  recherche: monastere Ursulines Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+place-armes.jpg:
+  cadrage: gauche
+  fiche: 03-ville-patrimoniale
+  commons: "File:Château Frontenac, Québec, North view from Place des Armes 20170413 1.jpg"
+  recherche: Place d Armes Quebec Chateau Frontenac
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+maison-jacquet.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:07175 Maison François-Jacquet-Dit-Langevin - 001.JPG"
+  recherche: maison Jacquet Langevin Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+fortifications.jpg:
+  cadrage: gauche
+  fiche: 03-ville-patrimoniale
+  commons: "File:88 William England - Upper City and citadel of Quebec.jpg"
+  recherche: Upper City citadel Quebec ramparts
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+citadelle-1830.jpg:
+  cadrage: flottant
+  fiche: 03-ville-patrimoniale
+  commons: "File:Le plan incline de la citadelle de Quebec - James Pattison Cockburn - 1830.jpg"
+  recherche: Cockburn citadelle Quebec 1830
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+escalier-casse-cou.jpg:
+  cadrage: gauche
+  fiche: 03-ville-patrimoniale
+  commons: "File:Breakneck Steps, Quebec City, 1870.jpg"
+  recherche: Breakneck Steps Quebec 1870
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+funiculaire.jpg:
+  cadrage: petit
+  fiche: 03-ville-patrimoniale
+  commons: "File:Funiculaire, Vieux-Quebec (14808597653).jpg"
+  recherche: funiculaire Vieux Quebec
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+petit-champlain.jpg:
+  cadrage: gauche
+  fiche: 03-ville-patrimoniale
+  commons: "File:Vieux Quebec. La rue du Petit-Champlain (9).JPG"
+  recherche: rue Petit Champlain Vieux Quebec
   auteur: ''
   titre: ''
   licence: ''

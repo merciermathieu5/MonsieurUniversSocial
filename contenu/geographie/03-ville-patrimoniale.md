@@ -35,8 +35,7 @@ culturelle de la planète. Cette protection crée des enjeux d'organisation
 particuliers : il faut conserver le patrimoine dans une ville qui continue de
 grandir, et composer avec les contraintes du site où elle a été bâtie. Sur
 cette page, il sera question de Québec intra-muros, c'est-à-dire de la partie
-du Vieux-Québec située à l'intérieur des remparts. C'est le seul ensemble
-fortifié encore debout en Amérique du Nord.
+du Vieux-Québec située à l'intérieur des remparts.
 
 ## Concepts à l'étude
 
@@ -48,8 +47,8 @@ fortifié encore debout en Amérique du Nord.
   participer à sa vie sociale et économique.
 - **Changement** : l'état de ce qui évolue, se modifie et ne reste pas
   identique. Un bâtiment ancien peut changer d'usage sans changer d'apparence.
-- **Concentration** : le regroupement d'un grand nombre d'habitants, de
-  bâtiments et d'activités sur un même territoire.
+- **Concentration** : le regroupement d'un grand nombre d'habitants, de bâtiments
+  et d'activités sur un même territoire.
 - **Conservation** : l'action de maintenir un bien, un site ou un paysage dans
   son état, de manière à préserver ses richesses patrimoniales.
 - **Continuité** : le caractère de ce qui se poursuit dans le temps et dans
@@ -73,10 +72,10 @@ fortifié encore debout en Amérique du Nord.
 
 ::: note
 Un treizième mot revient dans cette fiche sans faire partie de la liste du
-programme : la reconstitution. Elle consiste à rebâtir un édifice disparu ou
-très endommagé, à partir de documents écrits ou d'images anciennes. Le schéma de
-la section « Conserver, restaurer, reconstituer » la place à côté des deux
-autres, parce qu'on ne peut pas comprendre le Vieux-Québec sans elle.
+programme : la reconstitution. Elle consiste à rebâtir un édifice disparu ou très
+endommagé, à partir de documents écrits ou d'images anciennes. Le schéma de la
+section « Conserver, restaurer, reconstituer » la place à côté des deux autres,
+parce qu'on ne peut pas comprendre le Vieux-Québec sans elle.
 :::
 
 ::: questions
@@ -87,75 +86,131 @@ autres, parce qu'on ne peut pas comprendre le Vieux-Québec sans elle.
 
 ## Qu'est-ce que le patrimoine
 
-Le patrimoine n'est pas une qualité que les choses possèdent d'elles-mêmes.
-C'est une décision : une société regarde un bâtiment, un paysage ou un objet,
-lui reconnaît une valeur et choisit de le transmettre. Ce qui était hier une
-vieille bâtisse peut devenir demain un monument protégé, et l'inverse arrive
-aussi.
+Le patrimoine désigne tout objet ou tout ensemble, naturel ou culturel, qu'une
+société reconnaît pour sa valeur unique, historique, esthétique ou culturelle.
+De cette reconnaissance découle une nécessité : le protéger, le conserver, se
+l'approprier, le mettre en valeur et le transmettre. Le patrimoine n'est donc
+pas une qualité que les choses possèdent d'elles-mêmes. C'est une décision.
+Une société regarde un bâtiment, un paysage ou un objet, lui reconnaît une
+valeur et choisit de le garder. Ce qui était hier une vieille bâtisse peut
+devenir demain un monument protégé, et l'inverse arrive aussi.
 
-### Le patrimoine culturel et le patrimoine naturel
+::: activite
+Tu peux consulter la **[Liste du patrimoine mondial de l'UNESCO](https://whc.unesco.org/fr/list/)**,
+qui recense tous les sites inscrits, pays par pays. L'**[arrondissement historique
+du Vieux-Québec](https://whc.unesco.org/fr/list/300/)** y porte le numéro 300.
+:::
 
-Le patrimoine culturel a été façonné par les humains : bâtiments, places,
-fortifications, oeuvres d'art. Le patrimoine naturel désigne des paysages et des
-milieux que les humains n'ont pas créés, mais dont la valeur est jugée
-exceptionnelle pour la science, la biodiversité ou la beauté.
+### Le patrimoine culturel
 
-Certains sites sont les deux à la fois. Pimachiowin Aki, qui signifie « le pays
-qui donne la vie » en anishinaabemowin, est le premier site mixte du Canada
-inscrit au patrimoine mondial. Cette vaste forêt boréale intacte, gérée par des
-communautés autochtones, montre que l'environnement et l'identité culturelle
-d'un peuple ne se séparent pas toujours.
+Les sites patrimoniaux culturels ont été façonnés par les humains. Il peut
+s'agir de bâtiments, de places, de fortifications, de quartiers entiers ou
+d'oeuvres d'art, conçus par des êtres humains et jugés d'une valeur inestimable
+pour la société. Le Vieux-Québec appartient à cette catégorie.
 
-### L'UNESCO et la Liste du patrimoine mondial
+### Le patrimoine naturel
 
-L'UNESCO, l'Organisation des Nations unies pour l'éducation, la science et la
-culture, encourage les pays à repérer, à protéger et à conserver les éléments
-de leur patrimoine. Elle a mis sur pied la Convention pour la protection du
-patrimoine mondial en 1972, qui permet aux pays membres de proposer des biens
-historiques, culturels ou naturels pour la Liste du patrimoine mondial. Une
-inscription n'est pas qu'un honneur. Elle engage le pays à protéger le site, à
-en rendre compte et à accepter un regard extérieur sur sa gestion.
+Les sites patrimoniaux naturels sont des paysages et des milieux que les humains
+n'ont pas façonnés. Ce sont des sites dont la valeur est jugée exceptionnelle
+pour la science et pour la biodiversité, mais aussi pour leur beauté. Une forêt
+ancienne, un récif corallien ou un massif montagneux peuvent en faire partie.
+
+::: video ojjH7YGAa6I
+Les sites naturels du patrimoine mondial de l'UNESCO
+:::
+
+### Pimachiowin Aki, les deux à la fois
+
+Certains sites ne se rangent ni tout à fait dans une catégorie ni tout à fait
+dans l'autre. Pimachiowin Aki, qui signifie « le pays qui donne la vie » en
+anishinaabemowin, la langue ojibwée, est le premier site mixte du Canada inscrit
+au patrimoine mondial.
+
+Ce vaste écosystème de forêt boréale intacte, dont des communautés autochtones
+assurent l'intendance, combine des valeurs patrimoniales naturelles et
+culturelles. Il constitue un exemple remarquable de l'indivisibilité de
+l'environnement et de l'identité culturelle des peuples autochtones : chez les
+Anishinaabeg, le territoire et la culture ne se pensent pas séparément.
+
+::: video lpkRvRehrOc
+Pimachiowin Aki, le premier site mixte du patrimoine mondial
+:::
+
+::: video czMSITNV5tQ
+Pimachiowin Aki inscrit au patrimoine mondial, en anglais
+:::
+
+### L'UNESCO et la Convention de 1972
+
+Un organisme participe à toutes les étapes qui mènent à nommer, à protéger et
+à restaurer les éléments du patrimoine mondial : l'UNESCO, l'Organisation des
+Nations unies pour l'éducation, la science et la culture. Sa mission en
+matière de patrimoine consiste surtout à encourager les pays à sélectionner, à
+protéger et à conserver les éléments de leur patrimoine. Pour mieux y
+parvenir, l'UNESCO a mis sur pied la Convention pour la protection du
+patrimoine mondial en 1972. Cette convention permet aux pays membres
+d'inscrire certains biens historiques, culturels et naturels sur la Liste du
+patrimoine mondial.
+
+Une inscription n'est pas qu'un honneur. Elle engage le pays à protéger le site,
+à rendre compte de son état et à accepter un regard extérieur sur sa gestion.
+
+::: video FxjxQreqm0k
+Le patrimoine mondial expliqué en court-métrage
+:::
+
+::: integration https://whc.unesco.org/fr/carte-interactive/
+La carte interactive des biens inscrits au patrimoine mondial
+:::
 
 ### L'Organisation des villes du patrimoine mondial
 
 Fondée le 8 septembre 1993 à Fès, au Maroc, l'Organisation des villes du
-patrimoine mondial réunit des villes qui abritent un site inscrit par l'UNESCO.
-Elle poursuit trois objectifs : favoriser la mise en oeuvre de la Convention du
-patrimoine mondial, encourager l'échange d'expertise sur la conservation et
-développer un sentiment de solidarité entre ses villes membres. Son secrétariat
-général se trouve à Québec.
+patrimoine mondial réunit les villes qui abritent sur leur territoire un site
+inscrit par l'UNESCO. Son secrétariat général se trouve à Québec. Elle
+poursuit trois objectifs :
+
+- favoriser la mise en oeuvre de la Convention du patrimoine mondial
+- encourager la coopération et l'échange d'information et d'expertise en matière
+  de conservation et de gestion du patrimoine
+- développer un sens de la solidarité parmi ses villes membres
 
 ::: questions
 1. Pourquoi dit-on que le patrimoine est une décision plutôt qu'une qualité?
-2. Donne un exemple de site qui pourrait être à la fois culturel et naturel, et
-   justifie ton choix.
+2. Pimachiowin Aki est classé comme un site mixte. Explique, dans tes mots,
+   pourquoi il ne pouvait pas être seulement naturel ni seulement culturel.
 :::
 
 ## Québec intra-muros
 
-![Le Château Frontenac domine le Vieux-Québec](../medias/03-ville-patrimoniale/chateau-frontenac.jpg)
-
-![La place Royale, dans la Basse-Ville](../medias/03-ville-patrimoniale/place-royale.jpg)
+![Le Château Frontenac domine la Haute-Ville](../medias/03-ville-patrimoniale/chateau-frontenac.jpg)
 
 Intra-muros signifie à l'intérieur des murs. Les murs du Vieux-Québec sont des
 remparts qui s'étendent sur environ 4,6 kilomètres et qui enserrent la
-Haute-Ville. Leur construction commence en 1745, pour défendre la ville contre
-une invasion. Quatre portes, trois tours Martello et une citadelle en forme
-d'étoile complètent l'ensemble. Québec a été fondée en 1608 par Samuel de
-Champlain, ce qui en fait la plus vieille ville francophone d'Amérique du
-Nord. C'est pour donner un statut particulier à son patrimoine urbain que
-l'UNESCO a inscrit l'arrondissement historique du Vieux-Québec sur la Liste du
-patrimoine mondial, en 1985.
+Haute-Ville. Une première enceinte est bâtie dès 1690. Celle que tu vois
+aujourd'hui est reconstruite plus à l'ouest à partir de 1745, sur les plans de
+l'ingénieur Gaspard-Joseph Chaussegros de Léry, puis agrandie par les
+Britanniques dans les années 1820 et 1830. Quatre portes, trois tours Martello et
+une citadelle en forme d'étoile complètent l'ensemble.
+
+Québec a été fondée en 1608 par Samuel de Champlain, ce qui en fait la plus
+vieille ville francophone d'Amérique du Nord. C'est pour donner un statut
+particulier à son patrimoine urbain que l'UNESCO a inscrit l'arrondissement
+historique du Vieux-Québec sur la Liste du patrimoine mondial, en 1985. Le bien
+protégé couvre 135 hectares.
+
+::: schema frise-vieux-quebec
+:::
 
 ### Le Cap Diamant, un site qui commande tout
 
-Le Cap Diamant est une falaise d'environ 90 mètres de haut. Il a d'abord servi
-de protection naturelle : son relief rendait la ville difficile à attaquer. Un
-seul côté était vulnérable, et c'est là que l'on a bâti les remparts.
+Le Cap Diamant est une falaise d'environ 90 mètres de haut. Il a d'abord servi de
+protection naturelle : son relief rendait la ville difficile à attaquer. Un seul
+côté était vulnérable, et c'est là que l'on a bâti les remparts.
 
-Ce cap partage aussi le Vieux-Québec en deux. La Haute-Ville occupe le sommet,
-la Basse-Ville s'étend à ses pieds, le long du fleuve. Cette séparation n'était
-pas seulement physique : la Haute-Ville accueillait les bâtiments religieux et
+Ce cap partage aussi le Vieux-Québec en deux. La Haute-Ville occupe le sommet, la
+Basse-Ville s'étend à ses pieds, le long du fleuve. Cette séparation n'était pas
+seulement physique : la Haute-Ville accueillait les bâtiments religieux et
 administratifs, la Basse-Ville les activités commerciales et portuaires. Le site
 a donc décidé de l'organisation de la ville, et il continue de le faire, puisque
 tout déplacement entre les deux passe encore par un escalier, une côte ou le
@@ -169,89 +224,119 @@ funiculaire.
 
 ## Les traces de trois régimes
 
-![La terrasse Dufferin et le Château Frontenac aujourd'hui](../medias/03-ville-patrimoniale/terrasse-dufferin.jpg)
+La valeur patrimoniale du Vieux-Québec tient à une concentration rare : plusieurs
+époques y ont laissé leurs traces sans que les suivantes les effacent. On y lit
+le régime français, le régime britannique et la période contemporaine, souvent
+dans la même rue.
 
-La valeur patrimoniale du Vieux-Québec tient à une concentration rare :
-plusieurs époques y ont laissé leurs traces sans que les suivantes les effacent.
-On y lit le régime français, de 1608 à 1760, le régime britannique, de 1760 à
-1867, puis la période contemporaine.
+### La place Royale
 
-#### La place Royale
+![La place Royale et l'église Notre-Dame-des-Victoires](../medias/03-ville-patrimoniale/place-royale.jpg)
 
 C'est là que Champlain a fondé Québec en 1608. On y trouve l'église
-Notre-Dame-des-Victoires, commencée en 1687 et achevée en 1723, souvent
-présentée comme la plus vieille église de pierre d'Amérique du Nord, ainsi
-qu'un buste du roi Louis XIV. Un vaste chantier de restauration s'ouvre à la
-fin des années 1950. La moitié de la place est refaite dans un esprit
-Nouvelle-France, tout en pierre, du côté du fleuve. Cette vision est
-contestée, et la suite des travaux respecte davantage l'évolution réelle des
-bâtiments : du côté de la falaise, les édifices gardent leurs influences
-britanniques, la brique notamment. La place raconte donc deux façons de
-restaurer.
+Notre-Dame-des-Victoires, commencée en 1687 et achevée en 1723, souvent présentée
+comme la plus vieille église de pierre d'Amérique du Nord, ainsi qu'un buste du
+roi Louis XIV. Son nom rappelle deux victoires françaises, en 1690 et en 1711.
 
-#### Le monastère des Ursulines
+Un vaste chantier de restauration s'ouvre à la fin des années 1950. La moitié de
+la place est refaite dans un esprit Nouvelle-France, tout en pierre, du côté du
+fleuve. Cette vision est contestée, et la suite des travaux respecte davantage
+l'évolution réelle des bâtiments : du côté de la falaise, les édifices gardent
+leurs influences britanniques, la brique notamment. La place raconte donc deux
+façons de restaurer.
 
-Le monastère est construit et reconstruit entre le 17e et le 20e siècle, et
-plusieurs bâtiments remontent à 1639. Lors du siège de Québec, en 1759, il est
-en partie détruit par les bombes. Après la capitulation, les religieuses
-acceptent de soigner les officiers et les soldats britanniques, parce que
-l'Hôtel-Dieu et l'Hôpital général débordent. En échange, elles obtiennent la
-permission de reprendre leur enseignement. Le monastère a toujours été un lieu
-d'enseignement, et un musée y a été aménagé.
+### Le monastère des Ursulines
 
-#### La place d'Armes
+![Le monastère des Ursulines de Québec](../medias/03-ville-patrimoniale/ursulines.jpg)
 
-Aménagée entre 1640 et 1648, elle sert de terrain d'exercice à l'armée
-française, puis aux troupes britanniques après 1760. Elle a porté beaucoup de
-noms. En 1832, on la ceinture d'une chaîne pour protéger sa pelouse et ses
-arbres, ce qui lui vaut d'être appelée le Ring par les anglophones et le Rond de
-chaîne par les francophones. Elle devient un parc public en 1865 et retrouve
-progressivement son nom.
+Fondé en 1639, le monastère est la plus ancienne institution d'enseignement
+pour les filles en Amérique du Nord. Il est construit et reconstruit entre le
+17e et le 20e siècle, et plusieurs bâtiments remontent aux premières
+décennies. Lors du siège de Québec, en 1759, il est en partie détruit par les
+bombes. Après la capitulation, les religieuses acceptent de soigner les
+officiers et les soldats britanniques, parce que l'Hôtel-Dieu et l'Hôpital
+général débordent. En échange, elles obtiennent la permission de reprendre
+leur enseignement. Le monastère a toujours été un lieu d'enseignement, et un
+musée y a été aménagé.
 
-#### La maison Jacquet
+### La place d'Armes
+
+![La place d'Armes, devant le Château Frontenac](../medias/03-ville-patrimoniale/place-armes.jpg)
+
+Aménagée entre 1640 et 1648 par le gouverneur Charles Huault de Montmagny, elle
+sert de terrain d'exercice à l'armée française, puis aux troupes britanniques
+après 1760. Elle a porté beaucoup de noms. En 1832, on la ceinture d'une chaîne
+pour protéger sa pelouse et ses arbres, ce qui lui vaut d'être appelée le Ring
+par les anglophones et le Rond de chaîne par les francophones. Elle devient un
+parc public en 1865 et retrouve progressivement son nom. Le monument de la Foi y
+est érigé en 1915.
+
+### La maison Jacquet
+
+![La maison François-Jacquet-dit-Langevin, rue Saint-Louis](../medias/03-ville-patrimoniale/maison-jacquet.jpg)
 
 Vers 1675, la plupart des habitants vivent en Basse-Ville, près du fleuve.
-Quelques-uns obtiennent pourtant des terrains au sommet du cap. C'est le cas du
-maître couvreur François Jacquet, à qui les Ursulines concèdent un terrain en
-1674. Il y bâtit une maison de bois, puis la reconstruit en pierre vers 1690.
+Quelques-uns obtiennent pourtant des terrains au sommet du cap. C'est le cas
+du maître couvreur François Jacquet dit Langevin, à qui les Ursulines
+concèdent un terrain en 1674. Il y bâtit une maison de bois, puis la
+reconstruit en pierre vers 1690. Ce carré de maison est l'un des rares à avoir
+gardé les caractéristiques de la Nouvelle-France. Il se trouve aujourd'hui en
+retrait de la rue, parce que le tracé de la rue Saint-Louis a été modifié
+depuis. Longtemps une résidence, le bâtiment a été classé monument historique
+en 1957 et abrite maintenant un restaurant.
 
-Ce carré de maison est l'un des rares à avoir gardé les caractéristiques de la
-Nouvelle-France. Il se trouve aujourd'hui en retrait de la rue, parce que le
-tracé de la rue Saint-Louis a été modifié depuis. Longtemps une résidence, le
-bâtiment abrite maintenant un restaurant.
+### Les fortifications
 
-#### Les fortifications
+![La Haute-Ville et ses fortifications au 19e siècle](../medias/03-ville-patrimoniale/fortifications.jpg)
 
-Québec est la seule ville d'Amérique du Nord à avoir conservé ses fortifications.
-Elles comprennent les remparts, les portes et les constructions défensives comme
-les casernes et les postes de garde. Commencées en 1745 par les Français pour se
-protéger des Britanniques, elles sont complétées après 1760 par les
-Britanniques eux-mêmes, cette fois contre une éventuelle invasion américaine.
-Le même mur a donc servi deux camps opposés.
+Les fortifications comprennent les remparts, les portes et les constructions
+défensives comme les casernes et les postes de garde. Commencées en 1745 par
+les Français pour se protéger des Britanniques, elles sont complétées après
+1760 par les Britanniques eux-mêmes, cette fois contre une éventuelle invasion
+américaine. Le même mur a donc servi deux camps opposés. Le système de défense
+de Québec s'est construit sur plus de deux siècles et demi, de 1608 à 1871. Il
+en reste aujourd'hui les 4,6 kilomètres de remparts, la Citadelle, trois tours
+Martello et le fort numéro 1 à Lévis.
 
-#### La Citadelle
+::: note
+Tu liras souvent que Québec est la seule ville fortifiée d'Amérique du Nord à
+avoir gardé ses remparts. La formule mérite une précision. L'UNESCO écrit qu'elle
+est l'exemple de ville coloniale fortifiée le plus complet au nord du Mexique.
+Campeche, au Mexique, a elle aussi conservé une partie de ses fortifications.
+Québec reste donc unique en son genre, mais dans une aire géographique qu'il faut
+nommer.
+:::
 
-Cette forteresse est construite entre 1819 et 1832 par l'armée britannique, sur
-le point le plus haut du Cap Diamant, de manière à dominer les environs. Sa
-forme en étoile et sa muraille de pierre en font un ouvrage militaire classique.
-Elle sert encore de quartier général au Royal 22e Régiment, abrite un musée
-consacré à son histoire et constitue la résidence secondaire du gouverneur
-général du Canada.
+### La Citadelle
 
-#### La terrasse Dufferin
+![La citadelle de Québec vue par James Pattison Cockburn en 1830](../medias/03-ville-patrimoniale/citadelle-1830.jpg)
+
+Cette forteresse est bâtie par l'armée britannique à partir de 1820, sur le
+point le plus haut du Cap Diamant, de manière à dominer les environs. Les
+travaux se poursuivent jusque vers 1850. Sa forme en étoile et sa muraille de
+pierre en font un ouvrage militaire classique, conçu pour parer une attaque
+américaine. Les Britanniques l'occupent jusqu'en 1871, année où ils la
+remettent au gouvernement canadien. Elle sert encore de quartier général au
+Royal 22e Régiment, abrite un musée consacré à son histoire et constitue la
+résidence secondaire du gouverneur général du Canada.
+
+### La terrasse Dufferin
+
+![La terrasse Dufferin, au pied du Château Frontenac](../medias/03-ville-patrimoniale/terrasse-dufferin.jpg)
 
 C'est une promenade de bois construite au-dessus des remparts, sur les ruines du
-château Saint-Louis, et inaugurée en 1879. Longue d'environ 425 mètres, perchée
-à une soixantaine de mètres au-dessus du fleuve, elle relie le Château Frontenac
-à la Citadelle et offre une vue sur la Basse-Ville.
+château Saint-Louis, et inaugurée en 1879. Longue d'environ 425 mètres, perchée à
+une soixantaine de mètres au-dessus du fleuve, elle relie le Château Frontenac à
+la Citadelle et offre une vue sur la Basse-Ville. Elle est donc plus ancienne que
+le Château Frontenac lui-même, ouvert en 1893.
 
 ::: savais-tu
 La conservation de tout cet ensemble a failli ne pas avoir lieu. À la fin du 19e
 siècle, plusieurs auraient voulu raser les murs et les tours de garde pour
-moderniser la ville. C'est Lord Dufferin, alors gouverneur général du Canada,
-qui a convaincu la reine Victoria de préserver l'architecture militaire de
-Québec, et même de fournir les fonds pour rebâtir une des portes. La terrasse
-qui porte son nom rappelle cette décision.
+moderniser la ville. C'est Lord Dufferin, alors gouverneur général du Canada, qui
+a convaincu la reine Victoria de préserver l'architecture militaire de Québec, et
+même de fournir les fonds pour rebâtir une des portes. La terrasse qui porte son
+nom rappelle cette décision.
 :::
 
 ::: questions
@@ -271,21 +356,26 @@ Entretenir un arrondissement historique demande des travaux constants, et ces
 travaux ne sont pas les mêmes selon l'état du bâtiment. Un site historique qui
 n'est pas détérioré demande surtout de la protection : il faut défendre les
 matériaux exposés aux intempéries, réparer ce qui s'use et remplacer les
-composantes en fin de vie. On conserve. Un site détérioré demande davantage.
-Il faut ajouter ou transformer des parties du bâtiment existant, tout en
-respectant les caractéristiques du bâtiment d'origine. On restaure. Quand une
-partie a complètement disparu, on peut la rebâtir à partir de documents écrits
-ou d'images anciennes. On reconstitue.
+composantes en fin de vie. On conserve.
 
-Dans les trois cas, le but reste le même : la conservation. La restauration et
-la reconstitution ne sont pas des fins en elles-mêmes, ce sont des moyens de
-faire durer un ensemble.
+Un site détérioré demande davantage. Il faut ajouter ou transformer des
+parties du bâtiment existant, tout en respectant les caractéristiques du
+bâtiment d'origine. On restaure. Quand une partie a complètement disparu, on
+peut la rebâtir à partir de documents écrits ou d'images anciennes. On
+reconstitue : les portes Saint-Louis, Saint-Jean et Prescott ont toutes les
+trois été refaites de cette façon. Dans les trois cas, le but reste le même :
+la conservation. La restauration et la reconstitution ne sont pas des fins en
+elles-mêmes, ce sont des moyens de faire durer un ensemble.
+
+::: video wQdlwdapCe4
+Une maison d'exception du site patrimonial du Vieux-Québec
+:::
 
 ::: questions
 1. Un incendie détruit le toit d'une maison ancienne, mais ses murs de pierre
    tiennent. Parle-t-on de conservation, de restauration ou de reconstitution?
-2. Pourquoi reconstituer un bâtiment disparu peut-il soulever un débat, alors
-   que le conserver n'en soulève pas?
+2. Pourquoi reconstituer un bâtiment disparu peut-il soulever un débat, alors que
+   le conserver n'en soulève pas?
 :::
 
 ## Entre continuité et changement
@@ -306,11 +396,11 @@ décor sans habitants? Ou faut-il accepter que ses bâtiments servent à autre c
 au risque de perdre une part de ce qu'ils racontaient?
 
 ::: note
-Compare cette photographie de la terrasse Dufferin, prise vers 1895, avec celle
-de la section précédente. Le Château Frontenac vient alors d'ouvrir, en 1893. Ce
-que tu vois de commun entre les deux images tient de la continuité, ce qui a
-bougé tient du changement. C'est le genre d'exercice que font les spécialistes du
-patrimoine avant d'autoriser des travaux.
+Compare cette photographie, prise vers 1895, avec celle de la terrasse Dufferin
+plus haut. Le Château Frontenac vient alors d'ouvrir, en 1893. Ce que tu vois de
+commun entre les deux images tient de la continuité, ce qui a bougé tient du
+changement. C'est le genre d'exercice que font les spécialistes du patrimoine
+avant d'autoriser des travaux.
 :::
 
 ::: questions
@@ -325,16 +415,38 @@ patrimoine avant d'autoriser des travaux.
 Le Vieux-Québec reçoit chaque année beaucoup plus de visiteurs qu'il ne compte de
 résidents. Pour les accueillir, l'arrondissement s'est aménagé : il a fallu leur
 permettre de séjourner, de manger, de circuler et d'atteindre les attraits. Ces
-aménagements se glissent entre des bâtiments protégés, ce qui limite fortement
-ce que l'on peut construire.
+aménagements se glissent entre des bâtiments protégés, ce qui limite fortement ce
+que l'on peut construire.
 
-- L'escalier du Casse-Cou, vraisemblablement le plus ancien escalier de la
-  ville, est le plus connu de la trentaine d'escaliers qui relient la Basse-Ville
-  à la Haute-Ville.
-- Le funiculaire, un ascenseur incliné de 64 mètres de longueur pour 59 mètres
-  de hauteur, relie le quartier Petit Champlain à la terrasse Dufferin.
-- Le terminal de croisière, dans la Basse-Ville, débarque des croisiéristes au
-  pied même du quartier historique.
+### L'escalier du Casse-Cou
+
+![L'escalier du Casse-Cou photographié en 1870](../medias/03-ville-patrimoniale/escalier-casse-cou.jpg)
+
+Près d'une trentaine d'escaliers relient la Basse-Ville à la Haute-Ville.
+L'escalier du Casse-Cou est le plus célèbre et vraisemblablement le plus ancien
+de Québec. Son nom dit assez ce que le dénivelé du Cap Diamant impose à ceux qui
+le montent à pied.
+
+### Le funiculaire
+
+![Le funiculaire relie la Basse-Ville à la Haute-Ville](../medias/03-ville-patrimoniale/funiculaire.jpg)
+
+Le funiculaire du Vieux-Québec est un ascenseur incliné en service depuis 1879.
+Sa voie mesure 64 mètres pour un dénivelé de 59 mètres, avec une pente qui
+atteint 100 pour cent. Il relie la rue du Petit-Champlain, dans la Basse-Ville, à
+la terrasse Dufferin. C'est un aménagement moderne posé dans un décor ancien, et
+c'est exactement ce qui le rend intéressant à discuter.
+
+### Le quartier du Petit-Champlain
+
+![La rue du Petit-Champlain, dans la Basse-Ville](../medias/03-ville-patrimoniale/petit-champlain.jpg)
+
+Ce quartier tient son nom de sa rue principale. Il a été habité pendant des
+décennies par des ouvriers et des artisans. Il est aujourd'hui un secteur très
+fréquenté par les touristes, avec ses restaurants, ses boutiques et ses lieux
+d'animation. Le bâti n'a presque pas changé, la population qui l'occupe, si.
+Un terminal de croisière, aménagé dans la Basse-Ville, débarque par ailleurs
+des croisiéristes au pied même du quartier historique.
 
 ### Les enjeux d'une ville patrimoniale
 
@@ -350,14 +462,14 @@ stationnement. Le site qui a protégé la ville des envahisseurs la protège
 aujourd'hui des bulldozers, mais il complique aussi la vie quotidienne.
 
 **L'enjeu du tourisme** est celui de l'équilibre. Les visiteurs font vivre le
-quartier et financent en partie son entretien, mais l'affluence use les lieux,
-et les commerces qui leur sont destinés remplacent peu à peu ceux qui servaient
-les résidents. Un quartier peut se vider de ses habitants tout en restant plein.
+quartier et financent en partie son entretien, mais l'affluence use les lieux, et
+les commerces qui leur sont destinés remplacent peu à peu ceux qui servaient les
+résidents. Un quartier peut se vider de ses habitants tout en restant plein.
 
-**L'enjeu du patrimoine religieux** se pose partout au Québec. Églises,
-chapelles et couvents ont été bâtis pour des communautés qui ont fondu. Que
-faire d'un bâtiment protégé dont l'usage a disparu? Le convertir, le vendre, le
-laisser vide ou le démolir sont autant de réponses, et chacune a ses partisans.
+**L'enjeu du patrimoine religieux** se pose partout au Québec. Églises, chapelles
+et couvents ont été bâtis pour des communautés qui ont fondu. Que faire d'un
+bâtiment protégé dont l'usage a disparu? Le convertir, le vendre, le laisser vide
+ou le démolir sont autant de réponses, et chacune a ses partisans.
 :::
 
 ::: activite
@@ -377,5 +489,7 @@ urbain mondial, avec des documents à analyser.
 
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
 - [Patrimoine urbain et cartographie numérique, dossier du RÉCIT](https://documents.recitus.qc.ca/1er-cyle/dossier/patrimoine-urbain-et-cartographie-numerique)
+- [UNESCO, Liste du patrimoine mondial](https://whc.unesco.org/fr/list/)
+- [Parcs Canada, lieu historique national des Fortifications-de-Québec](https://parks.canada.ca/lhn-nhs/qc/fortifications)
 - [Alloprof, le territoire urbain patrimonial](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/territoire-urbain-la-ville-patrimoniale-g1016)
 - [Ville de Québec](https://www.ville.quebec.qc.ca/)

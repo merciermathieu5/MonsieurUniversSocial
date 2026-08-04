@@ -1,0 +1,54 @@
+<svg viewBox="0 0 1100 352" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Ligne du temps du Vieux-Québec de 1608 à aujourd'hui, avec le régime français de 1608 à 1760, le régime militaire de 1760 à 1763, le régime britannique de 1763 à 1867 et la période contemporaine depuis 1867">
+  <style>
+    .vq-t { font-family: Archivo, sans-serif; }
+    .vq-e { font-size: 13.5px; fill: var(--encre); }
+    .vq-d { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; fill: var(--schema-accent); }
+    .vq-p1 { font-size: 14px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .vq-p2 { font-size: 14px; font-weight: 600; fill: var(--bloc-texte); }
+    .vq-p3 { font-size: 14px; font-weight: 600; fill: var(--surface); }
+  </style>
+
+  <rect x="70" y="178" width="349.1" height="34" fill="var(--bloc-pale)"/>
+  <rect x="419.1" y="178" width="6.9" height="34" fill="var(--schema-accent)"/>
+  <rect x="426" y="178" width="238.9" height="34" fill="var(--bloc)"/>
+  <rect x="664.9" y="178" width="365.2" height="34" fill="var(--schema-cle)"/>
+
+  <text class="vq-t vq-p1" x="244.6" y="200" text-anchor="middle">Régime français</text>
+  <text class="vq-t vq-p2" x="545.5" y="200" text-anchor="middle">Régime britannique</text>
+  <text class="vq-t vq-p3" x="847.5" y="200" text-anchor="middle">Période contemporaine</text>
+
+  <line x1="70" y1="164" x2="70" y2="170" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="vq-t vq-d" x="8" y="96">1608</text>
+  <text class="vq-t vq-e" x="8" y="117">Samuel de Champlain fonde</text>
+  <text class="vq-t vq-e" x="8" y="138">Québec au pied du Cap Diamant.</text>
+  <circle cx="70" cy="178" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="422.6" y1="164" x2="422.6" y2="170" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="vq-t vq-d" x="422.6" y="96" text-anchor="middle">1760 à 1763</text>
+  <text class="vq-t vq-e" x="422.6" y="117" text-anchor="middle">Régime militaire, la ville est</text>
+  <text class="vq-t vq-e" x="422.6" y="138" text-anchor="middle">administrée par l'armée.</text>
+  <circle cx="422.6" cy="178" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="936" y1="164" x2="936" y2="170" stroke="var(--schema-accent)" stroke-width="2.5"/>
+  <text class="vq-t vq-d" x="936" y="96" text-anchor="middle">1985</text>
+  <text class="vq-t vq-e" x="936" y="117" text-anchor="middle">Le Vieux-Québec est inscrit</text>
+  <text class="vq-t vq-e" x="936" y="138" text-anchor="middle">sur la Liste du patrimoine</text>
+  <text class="vq-t vq-e" x="936" y="159" text-anchor="middle">mondial de l'UNESCO.</text>
+  <circle cx="936" cy="178" r="6.5" fill="var(--schema-accent)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="419.1" y1="220" x2="419.1" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="vq-t vq-d" x="419.1" y="248" text-anchor="middle">1760</text>
+  <text class="vq-t vq-e" x="419.1" y="269" text-anchor="middle">La ville capitule devant</text>
+  <text class="vq-t vq-e" x="419.1" y="290" text-anchor="middle">les troupes britanniques.</text>
+  <circle cx="419.1" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="664.9" y1="220" x2="664.9" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="vq-t vq-d" x="664.9" y="248" text-anchor="middle">1867</text>
+  <text class="vq-t vq-e" x="664.9" y="269" text-anchor="middle">La Confédération. Québec devient</text>
+  <text class="vq-t vq-e" x="664.9" y="290" text-anchor="middle">capitale de la province.</text>
+  <circle cx="664.9" cy="212" r="6.5" fill="var(--bloc)" stroke="var(--surface)" stroke-width="2"/>
+
+  <line x1="1030.1" y1="220" x2="1030.1" y2="226" stroke="var(--schema-trait)" stroke-width="1.5"/>
+  <text class="vq-t vq-d" x="1092" y="248" text-anchor="end">2026</text>
+</svg>

@@ -15,6 +15,7 @@ supprimés depuis la dernière révision ne peuvent donc pas voyager dans le zip
 ils sont listés dans SUPPRIMER.txt, à la racine de l'archive.
 """
 
+import signal
 import subprocess
 import sys
 import zipfile
@@ -131,4 +132,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    # Sans cela, rediriger la sortie vers `head` fait planter l'outil.
+    if hasattr(signal, "SIGPIPE"):
+        signal.signal(signal.SIGPIPE, signal.SIG_DFL)
     raise SystemExit(main())

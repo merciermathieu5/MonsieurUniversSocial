@@ -3087,3 +3087,219 @@ les neuf sections passent, dont SCHÉMAS avec `conserver-restaurer.svg`.
 `figures.py` et `paragraphes.py` sans écart, sept fusions appliquées.
 `liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node
 passent à 0 échec. Il reste sept gabarits en géographie au lieu de huit.
+
+### La ville patrimoniale, deuxième passe (livraison 104)
+
+**Ta mise en contexte est rétablie et développée.** Elle avait bien été reprise,
+mais condensée en deux paragraphes de la section « Qu'est-ce que le
+patrimoine », ce qui la rendait invisible. Elle occupe maintenant cinq
+sous-sections :
+
+- Le patrimoine culturel
+- Le patrimoine naturel
+- Pimachiowin Aki, les deux à la fois
+- L'UNESCO et la Convention de 1972
+- L'Organisation des villes du patrimoine mondial
+
+Pimachiowin Aki a sa propre sous-section, avec ce que ta page en disait : le
+sens du nom en anishinaabemowin, le premier site mixte du Canada, la forêt
+boréale sous intendance autochtone et l'indivisibilité de l'environnement et de
+l'identité culturelle. Les trois objectifs de l'OVPM sont en liste, comme chez
+toi.
+
+**Les liens vers l'UNESCO sont là**, dans un encadré `activite` en tête de
+section : la Liste du patrimoine mondial, et l'arrondissement historique du
+Vieux-Québec qui y porte le numéro 300.
+
+**La ligne du temps est refaite.** `medias/schemas/frise-vieux-quebec.svg`
+reprend tes quatre périodes, cette fois à l'échelle réelle du temps, comme les
+conventions du dépôt l'exigent. Le régime militaire de 1760 à 1763 apparaît donc
+comme une bande de sept pixels, ce qui dit visuellement à quel point il fut
+court, et son étiquette monte au-dessus de la bande avec un repère. Cinq
+événements datés se posent sur les bords : 1608, 1760, 1760-1763, 1867 et 1985,
+l'inscription à l'UNESCO. La période contemporaine court jusqu'à 2026 plutôt que
+2022.
+
+**Une image par attrait.** Les sept attraits passaient en sous-titres de niveau
+4, ce qui rassemblait leurs figures en une galerie au bas de la section. Ils
+passent en niveau 3, ce qui donne une figure flottante par attrait, avec le
+texte qui coule à côté. En brouillon, la fiche affiche maintenant douze
+illustrations individuelles et aucune galerie, en alternance gauche et droite.
+
+### Douze images, toutes de Commons
+
+Quatre étaient déjà là, huit s'ajoutent. Noms vérifiés au caractère près :
+
+- `File:Le monastère des ursulines.JPG`
+- `File:Château Frontenac, Québec, North view from Place des Armes 20170413 1.jpg`
+- `File:07175 Maison François-Jacquet-Dit-Langevin - 001.JPG`
+- `File:88 William England - Upper City and citadel of Quebec.jpg`
+- `File:Le plan incline de la citadelle de Quebec - James Pattison Cockburn - 1830.jpg`
+- `File:Breakneck Steps, Quebec City, 1870.jpg`
+- `File:Funiculaire, Vieux-Quebec (14808597653).jpg`
+- `File:Vieux Quebec. La rue du Petit-Champlain (9).JPG`
+
+Trois d'entre elles sont d'époque et ce n'est pas un pis-aller. La citadelle est
+peinte par James Pattison Cockburn en 1830, donc pendant sa construction.
+L'escalier du Casse-Cou est photographié en 1870. La vue de la Haute-Ville
+fortifiée par William England date du 19e siècle. Elles donnent à voir ce que les
+photos d'aujourd'hui ne montrent plus.
+
+Le quartier du Petit-Champlain gagne sa propre sous-section, puisqu'il illustre
+mieux que tout le reste l'enjeu du tourisme : le bâti n'a presque pas changé, la
+population qui l'occupe, si.
+
+### Trois précisions de fait
+
+**1. Les remparts ont trois âges.** Une première enceinte est bâtie en 1690,
+celle que l'on voit est reconstruite plus à l'ouest à partir de 1745 sur les
+plans de Chaussegros de Léry, puis agrandie par les Britanniques dans les années
+1820 et 1830.
+
+**2. « La seule ville fortifiée d'Amérique du Nord » demande une nuance.**
+L'UNESCO écrit que le Vieux-Québec est l'exemple de ville coloniale fortifiée le
+plus complet **au nord du Mexique**. Campeche a elle aussi gardé une partie des
+siennes. Un encadré `note` pose la précision sans retirer la fierté.
+
+**3. La Citadelle.** Ta page donne 1819 à 1832. Les sources que j'ai consultées
+donnent un chantier ouvert en 1820 et poursuivi jusque vers 1850, avec remise au
+gouvernement canadien en 1871. J'ai écrit « à partir de 1820 » et « jusque vers
+1850 ». Si tu tiens à tes dates, dis-le.
+
+S'ajoutent le classement de la maison Jacquet en 1957, le bien UNESCO de 135
+hectares, la place d'Armes aménagée par le gouverneur Montmagny, le monument de
+la Foi de 1915, les portes Saint-Louis, Saint-Jean et Prescott reconstituées, et
+le fait que la terrasse Dufferin, de 1879, précède le Château Frontenac de 1893.
+
+### À valider
+
+**4. Les vidéos de l'UNESCO.** Tu me demandes le texte et les vidéos de cette
+section. Le texte y est en entier. Les vidéos, non : l'extraction de ta page ne
+rend aucun identifiant YouTube, ni pour la Convention du patrimoine mondial, ni
+pour les sites naturels du patrimoine mondial, ni pour la visite en réalité
+virtuelle. Donne-moi les adresses et je les place, ce sont trois lignes.
+
+**5. Les adresses de l'UNESCO.** J'ai composé `whc.unesco.org/fr/list/` et
+`whc.unesco.org/fr/list/300/` à partir de la version anglaise que j'ai pu
+consulter. Le patron d'adresse est celui du site, mais je n'ai pas pu ouvrir la
+version française depuis mon environnement. Vérifie les deux liens au premier
+essai.
+
+**6. Tes deux projets** restent sans lien, comme à la livraison précédente : le
+projet encyclopédique et la baladodiffusion sur le patrimoine religieux.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 36. Le delta de 12
+correspond exactement aux douze images de la fiche 03. Aucun problème hors
+images : les neuf sections passent, dont SCHÉMAS avec les deux nouveaux schémas.
+`figures.py` et `paragraphes.py` sans écart, douze fusions appliquées.
+`liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec.
+
+Cette livraison contient aussi ce que les 102 et 103 apportaient, puisqu'elle est
+bâtie sur le même arbre que le dépôt en ligne, resté à la 101.
+
+### Les vidéos de l'UNESCO et la carte interactive (livraison 105)
+
+**Les quatre capsules sont placées.** Je n'ai pas pu vérifier leur contenu depuis
+mon environnement : YouTube m'a renvoyé une erreur 429 et aucune recherche n'a
+rendu leurs titres. Je les ai donc réparties par déduction, en appariant l'ordre
+dans lequel tu me les as données à l'ordre des quatre éléments vidéo de ta page.
+L'appariement se tient, mais vérifie-le au premier visionnement.
+
+| Identifiant | Placement | Légende retenue |
+| --- | --- | --- |
+| `lpkRvRehrOc` | L'UNESCO et la Convention de 1972 | La Convention du patrimoine mondial de l'UNESCO |
+| `czMSITNV5tQ` | L'UNESCO et la Convention de 1972 | Les sites naturels du patrimoine mondial de l'UNESCO |
+| `FxjxQreqm0k` | La terrasse Dufferin | La terrasse Dufferin, histoire et animation |
+| `ojjH7YGAa6I` | Concilier le patrimoine et le tourisme | Le Vieux-Québec en réalité virtuelle |
+
+Les deux premières se jumellent d'elles-mêmes côte à côte, puisque le moteur
+apparie deux blocs vidéo consécutifs. Les deux autres sont seules dans leur
+sous-section. Si un identifiant est au mauvais endroit, l'échange se fait en une
+ligne, comme pour les deux séismes de la fiche 04.
+
+**La carte interactive est intégrée.** Elle prend un bloc `::: integration`,
+juste sous les deux capsules de l'UNESCO. Le bloc affiche la carte dans un cadre
+redimensionnable et double toujours l'intégration d'un lien d'ouverture, ce qui
+la rend utilisable même si le service refuse l'intégration en cadre. C'est le
+même dispositif que la chronologie du Musée de l'Holocauste dans la fiche 12.
+
+**Un doute sur l'adresse, à vérifier au premier essai.** J'ai retenu
+`whc.unesco.org/fr/carte-interactive/`, qui est l'adresse que la navigation du
+site de l'UNESCO donne elle-même sous l'intitulé « Carte interactive ». Mais
+quand je l'ai ouverte depuis mon environnement, elle m'a servi la page de
+commande de la carte murale, pas la carte interactive. Le site emploie un
+paramètre `?-interactive` que mon outil n'a peut-être pas transmis : la version
+anglaise du menu pointe vers `whc.unesco.org/en/map/?-interactive`. Deux
+solutions de rechange si le lien tombe au mauvais endroit :
+
+- `https://whc.unesco.org/fr/carte/?-interactive`
+- `https://whc.unesco.org/fr/wh-gis/`, le Navigateur des sites de l'UNESCO, qui
+  est un système d'information géographique en ligne
+
+**L'adresse de la Liste est confirmée.** Tu m'as validé
+`https://whc.unesco.org/fr/list/`, qui était l'un des deux liens que j'avais
+composés à la livraison précédente. Il reste à confirmer
+`https://whc.unesco.org/fr/list/300/` pour l'arrondissement historique.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 36, comme à la livraison
+104. Les quatre vidéos et l'intégration n'ajoutent aucun problème, et le delta
+reste celui des douze images de la fiche 03. Les neuf sections passent, dont
+CONSTRUIT qui valide le duo de vidéos. `figures.py` et `paragraphes.py` sans
+écart. `liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node
+passent à 0 échec.
+
+Il reste tes deux projets en PDF, le projet encyclopédique et la baladodiffusion
+sur le patrimoine religieux, dont je n'ai toujours pas les adresses.
+
+### Les vidéos remises au bon endroit (livraison 106)
+
+Mon appariement de la livraison 105 était faux sur les quatre. Tes captures d'écran
+donnent le lien de partage sous chaque vidéo, ce qui règle la question sans
+ambiguïté. J'avais supposé que l'ordre de ta liste suivait l'ordre de ta page :
+il n'en était rien.
+
+| Identifiant | Vrai titre | Chaîne | Section |
+| --- | --- | --- | --- |
+| `FxjxQreqm0k` | Le patrimoine mondial expliqué, court-métrage | Commission autrichienne pour l'UNESCO | L'UNESCO et la Convention de 1972 |
+| `ojjH7YGAa6I` | Sites naturels du patrimoine mondial de l'UNESCO | UNESCO | Le patrimoine naturel |
+| `lpkRvRehrOc` | Le premier et le seul site mixte du patrimoine mondial | Historica Canada | Pimachiowin Aki |
+| `czMSITNV5tQ` | Pimachiowin Aki is now a UNESCO World Heritage Site | Boreal Conservation | Pimachiowin Aki |
+| `wQdlwdapCe4` | Maison d'exception, site patrimonial du Vieux-Québec | QuebecVille | Conserver, restaurer, reconstituer |
+
+Le placement suit maintenant le contenu réel de chaque capsule, ce qui vaut
+mieux que la répartition d'origine. Les deux vidéos sur Pimachiowin Aki
+atterrissent dans la sous-section qui lui est consacrée et s'y jumellent côte à
+côte, ce que le moteur fait de lui-même pour deux blocs vidéo consécutifs. La
+capsule de l'UNESCO sur les sites naturels rejoint la sous-section « Le
+patrimoine naturel », où elle illustre exactement le propos.
+
+**Une capsule est en anglais.** `czMSITNV5tQ`, de Boreal Conservation, porte un
+titre anglais. Sa légende le signale à l'élève plutôt que de le laisser
+découvrir en cliquant. Dis-le si tu préfères la retirer.
+
+**Une cinquième capsule s'ajoute.** `wQdlwdapCe4`, de la chaîne QuebecVille,
+n'était pas dans ta liste de la livraison précédente. Je l'ai placée dans
+« Conserver, restaurer, reconstituer » plutôt que dans la sous-section de la
+maison Jacquet : son titre parle d'une maison d'exception sans dire laquelle, et
+je préfère ne pas laisser croire à l'élève qu'il s'agit de celle du texte. Si
+c'est bien la maison Jacquet, dis-le et je la déplace.
+
+**Deux éléments de ta page restent sans adresse.** La capsule « Terrasse
+Dufferin, histoire et animation » et la visite « Le Vieux-Québec en réalité
+virtuelle » ne correspondent à aucun des cinq identifiants. Ce sont peut-être des
+liens plutôt que des vidéos. La sous-section de la terrasse Dufferin n'a donc
+plus de capsule, et la fiche n'a aucun lien vers la visite virtuelle.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 24 problèmes. Après : 36, comme aux deux
+livraisons précédentes. Le delta reste celui des douze images de la fiche 03.
+Les neuf sections passent, dont CONSTRUIT qui valide le duo de Pimachiowin Aki.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 744 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec. La fiche compte
+maintenant cinq vidéos, dont un duo, et une ressource intégrée.
