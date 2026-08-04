@@ -3637,3 +3637,87 @@ images : les neuf sections passent. `figures.py` et `paragraphes.py` sans écart
 `liens.py` vérifie 744 liens internes, aucun brisé. Les deux suites Node passent
 à 0 échec. La fiche compte maintenant douze sections, cinq capsules dont un duo,
 un schéma et quatorze figures.
+
+### Images, forêts interactives et frise recolorée (livraison 111)
+
+**Quatre images de plus, toutes de Commons**, ce qui porte la fiche 06 à dix-sept.
+
+Trois pour la section 6, « La forêt amazonienne », une par sous-section qui en
+manquait :
+
+- `File:Meeting of waters from the air manaus brazil.JPG`, la rencontre des eaux
+  du Rio Negro et du Solimões vue du ciel, dans la sous-section sur le fleuve.
+  Les deux eaux coulent côte à côte sans se mélanger sur six kilomètres, à cause
+  de leur différence de température, de vitesse et de charge en sédiments. C'est
+  un phénomène qui se voit sur la photo, donc qui se raconte tout seul
+- `File:Red mangrove, Rhizophora mangle flowers.jpg`, dans la sous-section sur
+  les mangroves. À signaler : ce sont les fleurs du palétuvier, pas une vue de
+  mangrove. Je n'ai trouvé aucune photo de mangrove amazonienne dont je puisse
+  vérifier le nom, et la légende dit exactement ce que l'image montre
+- `File:Amazon river dolphin.jpg`, le dauphin rose, dans la biodiversité
+
+Une pour Mamirauá, `File:Reserva Sustentavel Mamiraua ThiagoALacerda (09).jpg`.
+
+Au passage, « onze communautés » devient « une dizaine » : les sources oscillent
+entre dix et onze, et je préfère l'approximation à un chiffre que je ne peux pas
+trancher.
+
+### Les forêts du monde passent en interface interactive
+
+`theme/composants/forets-monde.html` remplace le bloc `::: cartes` des six
+continents. Six onglets, un par continent, et dans chacun les deux ou trois
+types de forêts en fiches côte à côte.
+
+Le passage en composant a permis d'ajouter quelque chose que les cartes ne
+portaient pas : une ligne **Ce qui explique** ferme chaque panneau et nomme le
+facteur qui commande la répartition. En Amérique du Nord c'est la température du
+nord au sud, en Amérique du Sud la longueur de la saison sèche, en Asie
+l'altitude qui imite la latitude. La ligne européenne fait remarquer que la
+taïga scandinave et la taïga canadienne se ressemblent parce qu'elles partagent
+la latitude, pas le continent. L'élève ne lit plus une liste, il lit une règle.
+
+### La frise, deux corrections
+
+**Les crans ont tous la même largeur.** La piste passait par un `flex: 1 1 0`,
+qui répartissait chaque rangée sur toute la largeur : la rangée de quatre avait
+donc des crans presque deux fois plus larges que la rangée de sept. Elle passe en
+grille, avec autant de colonnes que la rangée la plus fournie. `build.py` calcule
+ce nombre et le pose en variable CSS sur la frise : sept en géographie, six en
+histoire. La rangée courte occupe maintenant les quatre premières colonnes et
+laisse le reste vide, ce qui est la bonne façon de montrer qu'elle est plus
+courte.
+
+**Les couleurs suivent le type de territoire.** Chaque cran porte désormais une
+classe tirée de son champ `groupe`, et cinq teintes se répartissent les onze
+territoires :
+
+| Type | Teinte | Territoires |
+| --- | --- | --- |
+| Territoire urbain | Bleu | La métropole, la ville patrimoniale, la ville à risques |
+| Territoire région | Corail | Touristique, forestier, énergétique, industriel |
+| Territoire agricole | Vert lime | National, milieu à risque |
+| Territoire autochtone | Violet | Québec et Canada |
+| Territoire protégé | Cyan | Le parc naturel |
+
+Trois contraintes ont guidé le choix. Les cinq teintes devaient rester
+distinctes sur le vert foncé du bandeau, aucune ne devait s'approcher de l'or qui
+marque la fiche courante, et le repère doré devait continuer de l'emporter sur
+la couleur du type. Les valeurs se trouvent dans `theme/style.css`, sous le
+commentaire qui les explique, et se changent en cinq lignes si une teinte ne te
+plaît pas.
+
+L'histoire n'est pas touchée : ses rangées découpent des années scolaires et non
+des types, et son bleu et son violet de cycle restent en place.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 36 problèmes. Après : 53. Le delta de 17
+correspond exactement aux dix-sept images de la fiche 06. Aucun problème hors
+images : les neuf sections passent, dont PALETTE, qui mesure le contraste de
+chaque texte sur son fond réel dans les deux thèmes et n'a rien à redire aux
+cinq nouvelles couleurs, et COMPOSANTS, qui valide la nouvelle interface.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 744 liens
+internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+La fiche compte maintenant dix-sept figures, deux composants interactifs, un
+schéma, cinq capsules et deux blocs de cartes.

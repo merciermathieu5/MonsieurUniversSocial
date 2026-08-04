@@ -61,7 +61,7 @@
       <span class="frise__compteur donnee">{{ fiche.position }} / {{ section.parcours|length }}</span>
       <span class="frise__chevron" aria-hidden="true">&#9662;</span>
     </button>
-    <div class="frise__contenu" id="frise-piste">
+    <div class="frise__contenu" id="frise-piste" style="--crans: {{ section.crans_max }}">
     {# Chaque bloc porte le nom de la réalité sociale, sans date : c'est le nom
        que l'élève doit retenir et reconnaître d'une fiche à l'autre. #}
     {% if section.parcours_rangees %}
@@ -70,7 +70,7 @@
     <p class="frise__cycle{% if loop.index > 1 %} frise__cycle--deux{% endif %}">{{ rangee.titre }}</p>
     <ol class="frise__piste{% if loop.index > 1 %} frise__piste--deux{% endif %}">
       {% for f in section.parcours[ns.debut:rangee.fin] %}
-      <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
+      <li class="frise__cran{% if f.groupe %} frise__cran--{{ f.groupe }}{% endif %}{% if f.nom == fiche.nom %} est-ici{% endif %}">
         <a href="{{ base }}/{{ f.url }}"
            {% if f.nom == fiche.nom %}aria-current="page"{% endif %}>
           <span class="frise__rang">{{ ns.debut + loop.index }}</span>
@@ -84,7 +84,7 @@
     {% else %}
     <ol class="frise__piste">
       {% for f in section.parcours %}
-      <li class="frise__cran{% if f.nom == fiche.nom %} est-ici{% endif %}">
+      <li class="frise__cran{% if f.groupe %} frise__cran--{{ f.groupe }}{% endif %}{% if f.nom == fiche.nom %} est-ici{% endif %}">
         <a href="{{ base }}/{{ f.url }}"
            {% if f.nom == fiche.nom %}aria-current="page"{% endif %}>
           <span class="frise__rang">{{ loop.index }}</span>

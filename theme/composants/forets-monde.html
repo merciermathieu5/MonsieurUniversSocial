@@ -1,0 +1,165 @@
+<section class="fdm" id="forets-monde" aria-label="Les types de forêts, continent par continent">
+<style>
+.fdm { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.fdm .fdm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.fdm .fdm__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.fdm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.fdm__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.fdm__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.fdm__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.fdm__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.fdm__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.fdm__panneau.est-visible { display: block; }
+.fdm__grille { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .75rem; }
+.fdm li::before { content: none; display: none; }
+.fdm__grille > li::marker { content: ""; }
+.fdm__type { list-style: none; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .9rem 1.1rem; }
+.fdm__type::marker { content: ""; }
+.fdm__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); margin-bottom: .3rem; }
+.fdm__def { display: block; margin: 0; font-size: .93rem; line-height: 1.55; }
+.fdm__cle { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.fdm__cle strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .fdm .fdm__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .fdm .fdm__titre { color: var(--encre); }
+html[data-sombre="on"] .fdm__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .fdm__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .fdm__nom { color: var(--encre); }
+html[data-sombre="on"] .fdm__cle strong { color: var(--encre); }
+@media (max-width: 40rem) { .fdm__panneau { padding: 1.1rem 1rem 1rem; } .fdm__onglets { padding: .7rem .8rem; } }
+@media print { .fdm__panneau { display: block; page-break-inside: avoid; } .fdm__onglets { display: none; } }
+</style>
+
+<div class="fdm__entete">
+  <p class="fdm__titre" role="heading" aria-level="3">Les forêts, continent par continent</p>
+  <p class="fdm__consigne">Choisis un continent</p>
+</div>
+
+<div class="fdm__onglets" role="tablist" aria-label="Continents"></div>
+<div class="fdm__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("forets-monde");
+  if (!racine) { return; }
+  var continents = [
+    {
+      cle: "nord",
+      nom: "L'Am\u00e9rique du Nord",
+      types: [
+        ["La toundra", "Au nord du continent, en Alaska et au Canada. Les arbres y sont rares et la v\u00e9g\u00e9tation se compose de mousses, de lichens et d'herbes."],
+        ["La ta\u00efga", "La for\u00eat bor\u00e9ale couvre une grande partie du Canada et de l'Alaska. Les sapins, les \u00e9pinettes et les pins y dominent, sous de longs hivers."],
+        ["La for\u00eat temp\u00e9r\u00e9e", "Dans l'est des \u00c9tats-Unis et le sud-est du Canada. Ch\u00eanes, \u00e9rables et h\u00eatres s'y m\u00ealent \u00e0 des conif\u00e8res."]
+      ],
+      cle_texte: "Du nord au sud, c'est la temp\u00e9rature qui commande : plus il fait doux, plus les feuillus remplacent les conif\u00e8res."
+    },
+    {
+      cle: "sud",
+      nom: "L'Am\u00e9rique du Sud",
+      types: [
+        ["La for\u00eat tropicale humide", "L'Amazonie en est le biome le plus embl\u00e9matique. Chaleur constante et pluies abondantes y produisent la for\u00eat la plus dense de la plan\u00e8te."],
+        ["La for\u00eat de nuages", "Dans les r\u00e9gions montagneuses, envelopp\u00e9e en permanence par les nuages. L'humidit\u00e9 y vient de l'air autant que de la pluie."],
+        ["Le Cerrado et le Gran Chaco", "Au Br\u00e9sil, au Paraguay et en Argentine. Des savanes bois\u00e9es et des for\u00eats s\u00e8ches, l\u00e0 o\u00f9 la saison s\u00e8che s'allonge."]
+      ],
+      cle_texte: "Ici c'est la pluie qui d\u00e9cide. Le Cerrado commence l\u00e0 o\u00f9 la saison s\u00e8che devient trop longue pour la for\u00eat dense."
+    },
+    {
+      cle: "europe",
+      nom: "L'Europe",
+      types: [
+        ["La ta\u00efga", "Dans le nord de la Scandinavie, de la Finlande et de la Russie. Les conif\u00e8res y dominent sous un climat froid, comme au Canada."],
+        ["La for\u00eat mixte et temp\u00e9r\u00e9e", "En France, en Allemagne, au Royaume-Uni et en Pologne. Feuillus et conif\u00e8res s'y c\u00f4toient sous un climat temp\u00e9r\u00e9."]
+      ],
+      cle_texte: "La ta\u00efga europ\u00e9enne et la ta\u00efga canadienne se ressemblent parce qu'elles partagent la m\u00eame latitude, pas le m\u00eame continent."
+    },
+    {
+      cle: "afrique",
+      nom: "L'Afrique",
+      types: [
+        ["La for\u00eat tropicale humide", "Le bassin du Congo abrite la deuxi\u00e8me plus grande for\u00eat tropicale du monde, surtout en R\u00e9publique d\u00e9mocratique du Congo, au Gabon et au Cameroun."],
+        ["La savane", "Des herbes hautes et des arbres clairsem\u00e9s. Le Serengeti et le parc Kruger en sont les exemples les plus connus."]
+      ],
+      cle_texte: "Le bassin du Congo joue pour l'Afrique le r\u00f4le que l'Amazonie joue pour l'Am\u00e9rique du Sud, \u00e0 une \u00e9chelle plus petite."
+    },
+    {
+      cle: "asie",
+      nom: "L'Asie",
+      types: [
+        ["La for\u00eat tropicale humide", "En Asie du Sud-Est, riche en esp\u00e8ces end\u00e9miques. Fortes pr\u00e9cipitations et temp\u00e9ratures chaudes toute l'ann\u00e9e."],
+        ["Les for\u00eats de montagne", "Dans les r\u00e9gions montagneuses, o\u00f9 la v\u00e9g\u00e9tation change avec l'altitude : temp\u00e9r\u00e9e en bas, conif\u00e8res plus haut."],
+        ["Les for\u00eats temp\u00e9r\u00e9es et subtropicales", "En Chine, en Cor\u00e9e et au Japon. Arbres \u00e0 feuilles caduques et conif\u00e8res, sous des pluies abondantes."]
+      ],
+      cle_texte: "En montagne, on retrouve en montant les m\u00eames \u00e9tages de for\u00eat qu'en allant vers le nord. L'altitude imite la latitude."
+    },
+    {
+      cle: "oceanie",
+      nom: "L'Oc\u00e9anie",
+      types: [
+        ["La for\u00eat tropicale humide", "En Nouvelle-Guin\u00e9e et dans le nord-est de l'Australie. Tr\u00e8s diversifi\u00e9e, avec de nombreuses esp\u00e8ces end\u00e9miques."],
+        ["Les for\u00eats temp\u00e9r\u00e9es", "Dans le sud-est de l'Australie et en Nouvelle-Z\u00e9lande, sous un climat temp\u00e9r\u00e9 aux pluies r\u00e9guli\u00e8res."]
+      ],
+      cle_texte: "L'isolement de ces \u00eeles explique le nombre d'esp\u00e8ces qu'on ne trouve nulle part ailleurs."
+    }
+  ];
+
+  var onglets = racine.querySelector(".fdm__onglets");
+  var contenu = racine.querySelector(".fdm__contenu");
+
+  continents.forEach(function (continent, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "fdm__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = continent.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "fdm-panneau-" + continent.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "fdm__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "fdm-panneau-" + continent.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", continent.nom);
+
+    var grille = document.createElement("ul");
+    grille.className = "fdm__grille";
+    continent.types.forEach(function (paire) {
+      var item = document.createElement("li");
+      item.className = "fdm__type";
+      var nom = document.createElement("span");
+      nom.className = "fdm__nom";
+      nom.textContent = paire[0];
+      var def = document.createElement("span");
+      def.className = "fdm__def";
+      def.textContent = paire[1];
+      item.appendChild(nom);
+      item.appendChild(def);
+      grille.appendChild(item);
+    });
+    panneau.appendChild(grille);
+
+    var cle = document.createElement("p");
+    cle.className = "fdm__cle";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui explique. ";
+    cle.appendChild(mot);
+    cle.appendChild(document.createTextNode(continent.cle_texte));
+    panneau.appendChild(cle);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

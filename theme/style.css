@@ -227,9 +227,13 @@ a { color: inherit; }
 .frise__bascule[aria-expanded="true"] + .frise__contenu { display: block; }
 .frise__piste {
   list-style: none; margin: 0 auto; padding: .35rem 1.75rem 1.1rem;
-  max-width: var(--large); display: flex; gap: 5px;
+  max-width: var(--large); gap: 5px;
+  /* Une grille plutôt qu'un flex : toutes les rangées comptent le même nombre
+     de colonnes, donc un cran garde la même largeur d'une rangée à l'autre,
+     même quand la seconde en contient moins. */
+  display: grid; grid-template-columns: repeat(var(--crans, 12), minmax(0, 1fr));
 }
-.frise__cran { flex: 1 1 0; min-width: 0; }
+.frise__cran { min-width: 0; }
 .frise__cran > a {
   display: flex; flex-direction: column; gap: .3rem; height: 100%;
   padding: .5rem .55rem .6rem; border-radius: var(--rayon);
@@ -267,6 +271,47 @@ a { color: inherit; }
 }
 .frise__piste--deux .frise__cran.est-ici > a {
   background: rgba(146,130,200,.28); border-top-color: var(--signal);
+}
+
+/* Chaque type de territoire porte sa couleur, pour que l'élève repère d'un
+   coup d'oeil à quelle famille appartient la fiche qu'il ouvre. Cinq teintes
+   franchement distinctes sur le vert foncé du bandeau, et aucune proche de
+   l'or du repère de la fiche courante. Seule la géographie est concernée :
+   les rangées d'histoire découpent des années scolaires, pas des types. */
+.frise__piste .frise__cran--urbain > a {
+  background: rgba(120,170,230,.18); border-top-color: rgba(120,170,230,.62);
+}
+.frise__piste .frise__cran--urbain > a:hover {
+  background: rgba(120,170,230,.3); border-top-color: rgba(150,192,240,.92);
+}
+.frise__piste .frise__cran--region > a {
+  background: rgba(232,152,124,.18); border-top-color: rgba(232,152,124,.62);
+}
+.frise__piste .frise__cran--region > a:hover {
+  background: rgba(232,152,124,.3); border-top-color: rgba(244,176,152,.92);
+}
+.frise__piste .frise__cran--agricole > a {
+  background: rgba(168,210,118,.18); border-top-color: rgba(168,210,118,.62);
+}
+.frise__piste .frise__cran--agricole > a:hover {
+  background: rgba(168,210,118,.3); border-top-color: rgba(190,226,146,.92);
+}
+.frise__piste .frise__cran--autochtone > a {
+  background: rgba(182,158,228,.18); border-top-color: rgba(182,158,228,.62);
+}
+.frise__piste .frise__cran--autochtone > a:hover {
+  background: rgba(182,158,228,.3); border-top-color: rgba(202,184,240,.92);
+}
+.frise__piste .frise__cran--protege > a {
+  background: rgba(108,202,202,.18); border-top-color: rgba(108,202,202,.62);
+}
+.frise__piste .frise__cran--protege > a:hover {
+  background: rgba(108,202,202,.3); border-top-color: rgba(142,220,220,.92);
+}
+
+/* Le repère de la fiche courante reste l'or, quel que soit le type. */
+.frise__piste .frise__cran.est-ici > a {
+  background: rgba(255,255,255,.2); border-top-color: var(--signal);
 }
 @media (max-width: 62rem) {
   .frise__piste { flex-wrap: wrap; }

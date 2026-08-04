@@ -115,38 +115,7 @@ mondiale est constituée de forêts naturelles, par opposition aux plantations.
 Source : Organisation des Nations unies pour l'alimentation et l'agriculture
 {: .source-texte }
 
-::: cartes
-**L'Amérique du Nord** porte trois grands ensembles. La toundra, au nord, où les
-arbres sont rares et la végétation faite de mousses, de lichens et d'herbes. La
-taïga, ou forêt boréale, qui couvre une grande partie du Canada et de l'Alaska,
-dominée par les sapins, les épinettes et les pins. La forêt tempérée enfin, dans
-l'est des États-Unis et le sud-est du Canada, où poussent chênes, érables et
-hêtres.
-
-**L'Amérique du Sud** abrite la forêt amazonienne, forêt tropicale humide et
-biome le plus emblématique du continent. S'y ajoutent les forêts de nuages des
-régions montagneuses, enveloppées d'humidité, ainsi que le Cerrado et le Gran
-Chaco, faits de savanes boisées et de forêts sèches.
-
-**L'Europe** compte la taïga dans le nord de la Scandinavie, de la Finlande et
-de la Russie, où dominent les conifères. Plus au sud, en France, en Allemagne, au
-Royaume-Uni et en Pologne, s'étendent des forêts mixtes et tempérées où feuillus
-et conifères se côtoient.
-
-**L'Afrique** possède la deuxième plus grande forêt tropicale du monde, dans le
-bassin du Congo, principalement en République démocratique du Congo, au Gabon et
-au Cameroun. La savane, faite d'herbes hautes et d'arbres clairsemés, occupe
-d'autres régions et abrite une faune variée.
-
-**L'Asie** réunit des forêts tropicales humides en Asie du Sud-Est, riches en
-espèces endémiques, des forêts de montagne dont la végétation change avec
-l'altitude, et des forêts tempérées et subtropicales humides en Chine, en Corée
-et au Japon.
-
-**L'Océanie** porte des forêts tropicales très diversifiées en Nouvelle-Guinée
-et dans le nord-est de l'Australie, ainsi que des forêts tempérées dans le
-sud-est de l'Australie et en Nouvelle-Zélande.
-:::
+::: composant forets-monde
 
 ::: questions
 1. Quel facteur explique le mieux la différence entre la taïga canadienne et la
@@ -212,6 +181,8 @@ cordillère des Andes, à l'ouest, jusqu'à l'océan Atlantique, à l'est.
 
 ### Le fleuve Amazone
 
+![La rencontre des eaux du Rio Negro et du Solimões, près de Manaus](../medias/06-territoire-forestier/rencontre-des-eaux.jpg)
+
 L'Amazone prend sa source au Pérou, dans la cordillère des Andes, et se jette
 dans l'Atlantique au nord du Brésil, à hauteur de l'équateur. Sur son parcours
 de plus de 6 000 kilomètres, il traverse le Pérou, la Colombie et le Brésil.
@@ -236,6 +207,8 @@ et l'Indonésie.
 
 ### Les mangroves amazoniennes
 
+![Les fleurs du palétuvier rouge, l'arbre des mangroves](../medias/06-territoire-forestier/mangrove-paletuvier.jpg)
+
 La mangrove est un écosystème de marais qui se forme à l'embouchure de
 certains fleuves, comme celle de l'Amazone. Ses arbres les plus
 caractéristiques sont les palétuviers, dont les racines aériennes retiennent
@@ -246,6 +219,8 @@ berges. Ces milieux comptent parmi les écosystèmes les plus productifs de la
 planète.
 
 ### Une biodiversité exceptionnelle
+
+![Le dauphin rose de l'Amazone, ou boto](../medias/06-territoire-forestier/dauphin-rose.jpg)
 
 L'Amazonie héberge une biodiversité phénoménale.
 
@@ -579,6 +554,8 @@ Source : Alloprof
 {: .source-texte }
 
 #### La réserve de Mamirauá, un cas concret
+
+![La réserve de développement durable de Mamirauá](../medias/06-territoire-forestier/reserve-mamiraua.jpg)
 
 Mamirauá, dans l'État d'Amazonas, est la première réserve de développement
 durable créée au Brésil, en 1996. Elle couvre environ 11 000 kilomètres carrés

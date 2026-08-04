@@ -341,7 +341,17 @@ def charger_tout(config: dict) -> dict:
             f["precedent"] = parcours[i - 1] if i > 0 else None
             f["suivant"] = parcours[i + 1] if i < len(parcours) - 1 else None
             f["position"] = i + 1
-        sections[cle] = dict(meta, cle=cle, fiches=fiches, parcours=parcours)
+        # Les crans de la frise gardent la même largeur d'une rangée à l'autre :
+        # la grille compte autant de colonnes que la rangée la plus fournie.
+        rangees = meta.get("parcours_rangees") or []
+        debut, crans_max = 0, len(parcours)
+        if rangees:
+            crans_max = 1
+            for rangee in rangees:
+                crans_max = max(crans_max, rangee["fin"] - debut)
+                debut = rangee["fin"]
+        sections[cle] = dict(meta, cle=cle, fiches=fiches, parcours=parcours,
+                             crans_max=crans_max)
     return sections
 
 
