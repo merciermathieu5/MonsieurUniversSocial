@@ -80,6 +80,7 @@ l'article sur le site du média, dans un nouvel onglet.</p>
 .act__carte::marker { content: ""; }
 .act__haut { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
 .act__type { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #8A2E3B; border-radius: 100px; padding: .15rem .6rem; }
+.act__chapeau { display: block; font-family: var(--donnee); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); margin-top: .25rem; }
 .act__source { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
 .act__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--encre); margin-top: .2rem; }
 .act__note { display: block; font-size: .86rem; line-height: 1.4; color: var(--encre); }
@@ -117,22 +118,22 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
 <p class="act__vide" id="act-vide">Aucun article n'est encore proposé. Reviens bientôt.</p>
 <div class="act__source-liste" id="act-source">
   <ul data-matiere="geographie">
-    <li data-fiche="06" data-source="La Presse" data-date="2026-08-05" data-note="Feux de forêt"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites">Le territoire forestier</a></li>
-    <li data-fiche="04" data-source="La Presse" data-date="2026-08-05" data-note="Inondations"><a href="https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=international">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-05" data-note="Éruption volcanique"><a href="https://ici.radio-canada.ca/nouvelle/2273358/guatemala-volcan-fuego-eruption">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="07" data-source="Radio-Canada" data-date="2026-08-04" data-note="Transport du pétrole"><a href="https://ici.radio-canada.ca/nouvelle/2273346/oleoduc-canada-projet-interet-national">Le territoire énergétique du Québec</a></li>
-    <li data-fiche="04" data-source="La Presse" data-date="2026-08-04" data-note="Risque naturel"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-08-04/pluies-diluviennes/des-villes-demandent-l-aide-de-quebec-pour-identifier-les-zones-inondables.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=grand-montreal">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="04" data-source="La Presse" data-date="2026-08-04" data-note="Risque naturel"><a href="https://www.lapresse.ca/actualites/regional/2026-08-04/glissement-de-terrain-a-l-ascension/j-ai-peur-que-tout-parte.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=regional">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="11" data-source="La Presse" data-date="2026-08-03" data-note="Risque naturel"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-03/el-nino/le-perou-lance-des-travaux-de-prevention-des-crues.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=environnement">Le territoire agricole soumis à des risques naturels</a></li>
-    <li data-fiche="06" data-source="La Presse" data-date="2026-08-03" data-note="Feux de forêt"><a href="https://www.lapresse.ca/actualites/national/2026-08-03/colombie-britannique/les-ordres-d-evacuation-s-etendent-en-raison-des-incendies-de-foret.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=national">Le territoire forestier</a></li>
-    <li data-fiche="04" data-source="La Presse" data-date="2026-08-03" data-note="Inondations"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/inondations-a-montreal/plus-d-une-centaine-de-residants-reclament-une-solution.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=grand-montreal">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="06" data-source="La Presse" data-date="2026-07-31" data-note="Feux de forêt"><a href="https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=national">Le territoire forestier</a></li>
-    <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-note="Métropole"><a href="https://www.lapresse.ca/actualites/environnement/2026-07-31/elles-l-ont-fait/s-attaquer-a-une-autre-penurie-de-logements.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=environnement">La métropole</a></li>
-    <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-note="Métropole"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-31/reseau-cyclable/montreal-veut-ameliorer-la-cohabitation-sur-quatre-pistes.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=grand-montreal">La métropole</a></li>
-    <li data-fiche="09" data-source="La Presse" data-date="2026-07-30" data-note="Industriel"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-30/emissions-de-particules/le-geant-de-la-ferraille-aim-force-de-capter-ses-rejets.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=grand-montreal">Le territoire industriel des Grands Lacs</a></li>
-    <li data-fiche="06" data-source="La Presse" data-date="2026-07-29" data-note="Feux de forêt"><a href="https://www.lapresse.ca/actualites/national/2026-07-29/incendies-de-foret-en-colombie-britannique/evacuations-destructions-et-inquietudes-pour-clinton.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=national">Le territoire forestier</a></li>
-    <li data-fiche="06" data-source="La Presse" data-date="2026-07-28" data-note="Feux de forêt"><a href="https://www.lapresse.ca/actualites/national/2026-07-28/colombie-britannique/des-habitations-detruites-par-les-incendies-de-foret.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=national">Le territoire forestier</a></li>
-    <li data-fiche="12" data-source="La Presse" data-date="2026-06-09" data-note="Autochtone"><a href="https://www.lapresse.ca/actualites/regional/2026-06-09/projet-novador-en-abitibi-temiscamingue/une-communaute-autochtone-veut-faire-annuler-le-permis-d-exploration-d-un-geant-minier.php?utm_source=rss&amp;utm_medium=fil&amp;utm_campaign=actualites&amp;utm_content=regional">Le territoire autochtone du Québec et du Canada</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-08-05" data-territoire="Le territoire forestier" data-chapeau="Ontario et Territoires du Nord-Ouest"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php">Le réchauffement climatique a doublé la probabilité des incendies de forêt</a></li>
+    <li data-fiche="04" data-source="La Presse" data-date="2026-08-05" data-territoire="La ville soumise à des risques naturels" data-chapeau="Inde"><a href="https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php">Plus de 100 morts dans des inondations et glissements de terrain depuis juillet</a></li>
+    <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-05" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2273358/guatemala-volcan-fuego-eruption">Guatemala : alerte maximale en raison d’une éruption du volcan Fuego, 1700 évacués</a></li>
+    <li data-fiche="07" data-source="Radio-Canada" data-date="2026-08-04" data-territoire="Le territoire énergétique du Québec" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2273346/oleoduc-canada-projet-interet-national">Ottawa s’apprête à classer l’oléoduc vers la C.-B. comme projet d’intérêt national</a></li>
+    <li data-fiche="04" data-source="La Presse" data-date="2026-08-04" data-territoire="La ville soumise à des risques naturels" data-chapeau="Pluies diluviennes"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-08-04/pluies-diluviennes/des-villes-demandent-l-aide-de-quebec-pour-identifier-les-zones-inondables.php">Des villes demandent l’aide de Québec pour identifier les zones inondables</a></li>
+    <li data-fiche="04" data-source="La Presse" data-date="2026-08-04" data-territoire="La ville soumise à des risques naturels" data-chapeau="Glissement de terrain à L’Ascension"><a href="https://www.lapresse.ca/actualites/regional/2026-08-04/glissement-de-terrain-a-l-ascension/j-ai-peur-que-tout-parte.php">« J’ai peur que tout parte »</a></li>
+    <li data-fiche="11" data-source="La Presse" data-date="2026-08-03" data-territoire="Le territoire agricole soumis à des risques naturels" data-chapeau="El Niño"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-03/el-nino/le-perou-lance-des-travaux-de-prevention-des-crues.php">Le Pérou lance des travaux de prévention des crues</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-08-03" data-territoire="Le territoire forestier" data-chapeau="Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-08-03/colombie-britannique/les-ordres-d-evacuation-s-etendent-en-raison-des-incendies-de-foret.php">Les ordres d’évacuation s’étendent en raison des incendies de forêt</a></li>
+    <li data-fiche="04" data-source="La Presse" data-date="2026-08-03" data-territoire="La ville soumise à des risques naturels" data-chapeau="Inondations à Montréal"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/inondations-a-montreal/plus-d-une-centaine-de-residants-reclament-une-solution.php">Plus d’une centaine de résidants réclament une solution</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-07-31" data-territoire="Le territoire forestier" data-chapeau="Incendies de forêt en Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php">De nouveaux ordres d’évacuation au lac Pearl</a></li>
+    <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-territoire="La métropole" data-chapeau="Elles l’ont fait"><a href="https://www.lapresse.ca/actualites/environnement/2026-07-31/elles-l-ont-fait/s-attaquer-a-une-autre-penurie-de-logements.php">S’attaquer à une autre pénurie de logements</a></li>
+    <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-territoire="La métropole" data-chapeau="Réseau cyclable"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-31/reseau-cyclable/montreal-veut-ameliorer-la-cohabitation-sur-quatre-pistes.php">Montréal veut améliorer la cohabitation sur quatre pistes</a></li>
+    <li data-fiche="09" data-source="La Presse" data-date="2026-07-30" data-territoire="Le territoire industriel des Grands Lacs" data-chapeau="Émissions de particules"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-30/emissions-de-particules/le-geant-de-la-ferraille-aim-force-de-capter-ses-rejets.php">Le géant de la ferraille AIM forcé de capter ses rejets</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-07-29" data-territoire="Le territoire forestier" data-chapeau="Incendies de forêt en Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-07-29/incendies-de-foret-en-colombie-britannique/evacuations-destructions-et-inquietudes-pour-clinton.php">Évacuations, destructions et inquiétudes pour Clinton</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-07-28" data-territoire="Le territoire forestier" data-chapeau="Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-07-28/colombie-britannique/des-habitations-detruites-par-les-incendies-de-foret.php">Des habitations détruites par les incendies de forêt</a></li>
+    <li data-fiche="12" data-source="La Presse" data-date="2026-06-09" data-territoire="Le territoire autochtone du Québec et du Canada" data-chapeau="Projet Novador en Abitibi-Témiscamingue"><a href="https://www.lapresse.ca/actualites/regional/2026-06-09/projet-novador-en-abitibi-temiscamingue/une-communaute-autochtone-veut-faire-annuler-le-permis-d-exploration-d-un-geant-minier.php">Une communauté autochtone veut faire annuler le permis d’exploration d’un géant minier</a></li>
   </ul>
 </div>
 <script>
@@ -177,7 +178,8 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     if (!lien) continue;
     ARTICLES.push({
       fiche: items[i].dataset.fiche,
-      note: items[i].dataset.note || "",
+      territoire: items[i].dataset.territoire || "",
+      chapeau: items[i].dataset.chapeau || "",
       date: items[i].dataset.date || "",
       media: items[i].dataset.source || "",
       titre: lien.textContent.trim(),
@@ -208,7 +210,7 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     for (var i = 0; i < ARTICLES.length; i++) {
       if (vus[ARTICLES[i].fiche]) continue;
       vus[ARTICLES[i].fiche] = 1;
-      liste.push({ cle: ARTICLES[i].fiche, nom: ARTICLES[i].titre });
+      liste.push({ cle: ARTICLES[i].fiche, nom: ARTICLES[i].territoire });
     }
     liste.sort(function (a, b) { return a.cle < b.cle ? -1 : 1; });
     menu.textContent = "";
@@ -232,7 +234,7 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     return ARTICLES.filter(function (a) {
       if (choix !== "tout" && a.fiche !== choix) return false;
       if (!mots.length) return true;
-      var foin = sansAccent([a.titre, a.note, a.media].join(" "));
+      var foin = sansAccent([a.titre, a.chapeau, a.territoire, a.media].join(" "));
       return mots.every(function (mot) { return foin.indexOf(mot) !== -1; });
     });
   }
@@ -242,10 +244,10 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     haut.appendChild(el("span", "act__type", "Article"));
     haut.appendChild(el("span", "act__source", a.media));
     li.appendChild(haut);
+    if (a.chapeau) li.appendChild(el("span", "act__chapeau", a.chapeau));
     li.appendChild(el("span", "act__nom", a.titre));
-    if (a.note) li.appendChild(el("span", "act__note", a.note));
     li.appendChild(el("span", "act__fiche",
-                      "Fiche " + a.fiche + " · " + enClair(a.date)));
+                      a.territoire + " · " + enClair(a.date)));
     var pied = el("div", "act__pied");
     var ouvrir = el("a", "act__bouton", "Lire l'article");
     ouvrir.href = a.adresse;

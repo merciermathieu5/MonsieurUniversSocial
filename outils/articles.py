@@ -13,17 +13,17 @@ script fait toute la mécanique. Ici le registre est contenu\\articles.yml.
       fiche: "06"
       media: "La Presse"
       date: "2026-08-05"
-      apercu: "Le titre du média, pour ton jugement seulement"
-      note: ""            <- ta phrase. Tant qu'elle est vide, rien n'est publié.
+      titre: "Le réchauffement a doublé la probabilité des incendies de forêt"
+      garder: ""          <- O pour publier, N pour refuser
+      note: ""            <- facultatif, remplace le titre si tu l'écris
 
---chercher ajoute des propositions avec une note vide. Tu écris une phrase pour
-celles que tu gardes, tu effaces les lignes des autres. Le passage suivant les
-publie. Effacer une entrée déjà publiée la retire de la page.
+--chercher ajoute des propositions avec un champ garder vide. Tu écris O ou N
+sur chacune. Tant que le champ est vide, l'entrée dort au registre sans
+paraître nulle part.
 
-Pourquoi la note n'est pas remplie automatiquement : le seul texte disponible
-serait le titre du média, et Radio-Canada comme La Presse réservent leurs fils
-à l'usage personnel. Une phrase de toi dit en plus à l'élève pourquoi cet
-article se rattache à ce territoire, ce qu'un titre ne fait jamais.
+Écris N plutôt que d'effacer une entrée : effacée, elle serait retrouvée dans
+le fil au passage suivant et reproposée. Le N est une pierre tombale, et il
+est nettoyé en même temps que les articles périmés.
 
 Dépendances : pip install PyYAML
 """
@@ -63,13 +63,18 @@ EN_TETE_REGISTRE = """\
 #
 # Rempli par outils/articles.py --chercher, publié par outils/articles.py.
 #
-# Une entrée n'est publiée que si sa note est écrite. La note est TA phrase :
-# elle dit à l'élève pourquoi cet article éclaire ce territoire. Le champ
-# apercu contient le titre du média, pour ton jugement seulement, et n'est
-# jamais publié.
+# Un seul champ à remplir : garder.
 #
-# Pour refuser une proposition, efface son entrée. Elle ne reviendra pas.
-# Pour retirer un article publié, efface son entrée.
+#     garder: "O"   l'article paraît sur la page
+#     garder: "N"   l'article est refusé, pour de bon
+#     garder: ""    en attente, ne paraît nulle part
+#
+# Écris N plutôt que d'effacer l'entrée. Une entrée effacée serait retrouvée
+# dans le fil au passage suivant et reproposée. Le N tient lieu de pierre
+# tombale et disparaît en même temps que les articles périmés.
+#
+# Le champ note est facultatif : écris une phrase et elle remplacera le titre
+# du média sur la carte. Laisse-la vide et c'est le titre qui paraît.
 #
 # Les liens morts et les articles périmés sont retirés automatiquement au
 # passage suivant de --chercher.
@@ -91,6 +96,34 @@ def contient(terme: str, texte: str) -> bool:
 def clef(adresse: str) -> str:
     """L'adresse dépouillée de ses paramètres, pour reconnaître un doublon."""
     return adresse.split("?")[0].rstrip("/")
+
+
+def nettoyer(adresse: str) -> str:
+    """Retire les marqueurs de provenance ajoutés par les fils.
+
+    Un lien public n'a pas à traîner utm_source=rss : c'est long, laid, et ça
+    attribue faussement la visite à une campagne. Les autres paramètres sont
+    gardés, certains sites en ont besoin.
+    """
+    if "?" not in adresse:
+        return adresse
+    base, question, reste = adresse.partition("?")
+    gardes = [p for p in reste.split("&")
+              if p and not p.lower().startswith("utm_")]
+    return base + ("?" + "&".join(gardes) if gardes else "")
+
+
+def couper_titre(titre: str) -> tuple[str, str]:
+    """Sépare le chapeau du titre : « Section | Titre » donne les deux.
+
+    La Presse préfixe ses titres du sujet traité. Gardé tel quel, ce préfixe
+    alourdit la carte; séparé, il devient un repère géographique utile.
+    """
+    if " | " in titre:
+        chapeau, _, reste = titre.partition(" | ")
+        if len(chapeau) <= 60 and reste.strip():
+            return chapeau.strip(), reste.strip()
+    return "", titre.strip()
 
 
 def lire_fil(nom: str, adresse: str) -> tuple[list[dict], str]:
@@ -163,7 +196,20 @@ def charger_registre() -> list[dict]:
     if not REGISTRE.exists():
         return []
     donnees = yaml.safe_load(REGISTRE.read_text(encoding="utf-8")) or {}
-    return donnees.get("articles") or []
+    articles = donnees.get("articles") or []
+    # Nettoyage à la lecture, pas seulement à la collecte : les entrées déjà
+    # au registre doivent en profiter sans attendre un passage réseau.
+    for a in articles:
+        a["adresse"] = nettoyer(a.get("adresse", ""))
+        # Reprise de l'ancien registre, où le champ s'appelait apercu et où
+        # écrire une note valait acceptation. Ces notes étaient des étiquettes
+        # écrites pour un autre affichage : la validation est conservée, le
+        # texte est effacé pour laisser paraître le titre du média.
+        if "apercu" in a and "garder" not in a:
+            a["titre"] = a.pop("apercu")
+            a["garder"] = "O" if (a.get("note") or "").strip() else ""
+            a["note"] = ""
+    return articles
 
 
 def ecrire_registre(articles: list[dict]) -> None:
@@ -178,7 +224,8 @@ def ecrire_registre(articles: list[dict]) -> None:
         lignes.append(f"    fiche: {guillemets(a['fiche'])}")
         lignes.append(f"    media: {guillemets(a.get('media', ''))}")
         lignes.append(f"    date: {guillemets(a.get('date', ''))}")
-        lignes.append(f"    apercu: {guillemets(a.get('apercu', ''))}")
+        lignes.append(f"    titre: {guillemets(a.get('titre', ''))}")
+        lignes.append(f"    garder: {guillemets(a.get('garder', ''))}")
         lignes.append(f"    note: {guillemets(a.get('note', ''))}")
         if a.get("echecs"):
             lignes.append(f"    echecs: {a['echecs']}")
@@ -240,10 +287,10 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
             continue
         _, numero, nom, _, _ = candidats[0]
         registre.append({
-            "adresse": entree["lien"], "fiche": numero,
+            "adresse": nettoyer(entree["lien"]), "fiche": numero,
             "media": media_de(entree["source"]),
             "date": en_iso(entree["date"]),
-            "apercu": entree["titre"], "note": "",
+            "titre": entree["titre"], "garder": "", "note": "",
         })
         ajoutes += 1
     print(f"\n{ajoutes} proposition(s) ajoutée(s), {vetos} écartée(s) par le veto")
@@ -255,20 +302,24 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
         if a.get("date", "") and a["date"] < limite:
             retires.append((a, f"périmé, plus de {jours} jours"))
             continue
+        # Un refus n'a pas besoin d'être contrôlé : il ne mène nulle part.
+        if (a.get("garder") or "").strip().upper().startswith("N"):
+            gardes.append(a)
+            continue
         etat = controler_lien(a["adresse"])
         if etat == "mort":
             a["echecs"] = a.get("echecs", 0) + 1
             if a["echecs"] >= 2:
                 retires.append((a, "lien mort, confirmé deux fois"))
                 continue
-            print(f"    lien suspect, à reconfirmer : {a['apercu'][:60]}")
+            print(f"    lien suspect, à reconfirmer : {a['titre'][:60]}")
         elif etat == "vivant":
             a.pop("echecs", None)
         else:
-            print(f"    non concluant, gardé : {etat} · {a['apercu'][:50]}")
+            print(f"    non concluant, gardé : {etat} · {a['titre'][:50]}")
         gardes.append(a)
     for a, raison in retires:
-        print(f"    retiré ({raison}) : {a['apercu'][:60]}")
+        print(f"    retiré ({raison}) : {a['titre'][:60]}")
     if retires:
         print(f"\n{len(retires)} article(s) retiré(s)")
     return gardes
@@ -276,21 +327,28 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
 
 def publier(lexique: dict, registre: list[dict]) -> int:
     noms = {n: r["nom"] for n, r in (lexique.get("geographie") or {}).items()}
-    prets = [a for a in registre if (a.get("note") or "").strip()]
+    prets = [a for a in registre
+             if (a.get("garder") or "").strip().upper().startswith("O")]
     prets.sort(key=lambda a: a.get("date", ""), reverse=True)
 
     lignes = []
     for a in prets:
         nom = noms.get(a["fiche"], "")
         if not nom:
-            print(f"    ignoré, fiche {a['fiche']} inconnue : {a['apercu'][:50]}")
+            print(f"    ignoré, fiche {a['fiche']} inconnue : {a['titre'][:50]}")
             continue
+        # La note écrite à la main l'emporte sur le titre du média.
+        chapeau, titre = couper_titre(a.get("titre", ""))
+        if (a.get("note") or "").strip():
+            chapeau, titre = "", a["note"].strip()
         lignes.append(
             f'    <li data-fiche="{html.escape(a["fiche"])}" '
             f'data-source="{html.escape(a.get("media", ""))}" '
             f'data-date="{html.escape(a.get("date", ""))}" '
-            f'data-note="{html.escape(a["note"].strip(), quote=True)}">'
-            f'<a href="{html.escape(a["adresse"])}">{html.escape(nom)}</a></li>')
+            f'data-territoire="{html.escape(nom, quote=True)}" '
+            f'data-chapeau="{html.escape(chapeau, quote=True)}">'
+            f'<a href="{html.escape(a["adresse"])}">'
+            f'{html.escape(titre)}</a></li>')
 
     texte = COMPOSANT.read_text(encoding="utf-8")
     motif = re.compile(r'(<ul data-matiere="geographie">).*?(</ul>)', re.S)
@@ -301,10 +359,14 @@ def publier(lexique: dict, registre: list[dict]) -> int:
         motif.sub(lambda m: m.group(1) + corps + "\n  " + m.group(2), texte),
         encoding="utf-8")
 
-    attente = len(registre) - len(prets)
+    refuses = sum(1 for a in registre
+                  if (a.get("garder") or "").strip().upper().startswith("N"))
+    attente = len(registre) - len(prets) - refuses
     print(f"\n{len(lignes)} article(s) publié(s) dans la page")
     if attente:
-        print(f"{attente} en attente de ta phrase dans contenu/articles.yml")
+        print(f"{attente} en attente d'un O ou d'un N dans contenu/articles.yml")
+    if refuses:
+        print(f"{refuses} refusé(s), gardés au registre pour ne pas revenir")
     return 0
 
 

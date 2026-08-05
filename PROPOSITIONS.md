@@ -5775,3 +5775,59 @@ suites Node à 0 échec, l'essai des ressources à 47 contrôles. La publication
 été éprouvée sur un registre d'essai : deux articles écrits dans la page, un
 troisième laissé en attente faute de phrase, apostrophes échappées correctement
 et tri par date décroissante vérifié au rendu.
+
+### Validation par O ou N, titres publiés (livraison 147)
+
+Le registre ne demande plus d'écrire une phrase. Un `O` publie, un `N` refuse,
+un champ vide laisse l'entrée dormir. Le titre du média devient le titre de la
+carte, ce qui règle un défaut que le premier essai réel a rendu criant : seize
+articles validés donnaient cinq cartes « Feux de forêt » rigoureusement
+identiques sous le territoire forestier, et quatre cartes « Risque naturel »
+couvrant un volcan, des inondations, un glissement de terrain et des zones
+inondables. Le titre distingue, l'étiquette ne distinguait rien.
+
+Le champ note survit comme surcharge facultative : écrite, elle remplace le
+titre du média. Vide, c'est le titre qui paraît.
+
+### Ce que ce choix engage
+
+Publier les titres fait entrer le site dans une zone grise. Radio-Canada
+envisage explicitement l'affichage sur un site personnel avec mention de la
+source, La Presse limite à l'usage personnel. Un site pédagogique gratuit, sans
+publicité, qui nomme le média et renvoie chez lui, correspond à la pratique
+courante d'un répertoire de liens. Ce n'est pas une autorisation écrite.
+
+La garantie qui compte reste intacte : rien ne paraît sans qu'une personne ait
+lu le titre et tapé O. L'automatisation retire la corvée d'écriture, pas la
+lecture.
+
+### Trois corrections au passage
+
+Une consigne fausse est réparée. Effacer une entrée ne la refusait pas : au
+passage suivant, `--chercher` la retrouvait dans le fil et la reproposait. Le
+`N` tient maintenant lieu de pierre tombale et disparaît avec les périmés.
+
+Les marqueurs `utm_source` et compagnie sont retirés des adresses, à la collecte
+comme au chargement du registre, pour que les entrées déjà enregistrées en
+profitent sans attendre un passage réseau. Vingt-deux des vingt-quatre adresses
+en traînaient.
+
+Les titres de la forme « Section | Titre » sont coupés en deux : le préfixe
+devient un chapeau discret au-dessus du titre, ce qui donne un repère
+géographique au lieu d'alourdir la ligne.
+
+### Reprise de l'ancien registre
+
+Les entrées à l'ancien schéma sont converties à la lecture, sans manoeuvre. Le
+champ apercu devient titre, et une note déjà écrite vaut acceptation, donc
+garder O. Le texte de ces notes est effacé : il avait été écrit pour un
+affichage qui n'existe plus. Les seize articles validés le restent, les huit en
+attente aussi.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes dans 28 pages, aucun brisé. Les deux
+suites Node à 0 échec, l'essai des ressources à 47 contrôles et celui de
+l'actualité porté à 21, dont la vérification que les cinq articles de forêt
+portent cinq titres distincts et qu'aucune adresse publiée ne traîne de
+marqueur de provenance.
