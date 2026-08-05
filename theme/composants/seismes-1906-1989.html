@@ -9,14 +9,14 @@
 .cmp__puce--1989 { background: #2B5773; outline: 1px solid rgba(255,255,255,.45); }
 .cmp__choix { padding: .9rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); display: grid; gap: .55rem; }
 .cmp__famille { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
-.cmp__etiquette { flex: 0 0 9.5rem; margin: 0; font-family: var(--donnee); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.cmp__etiquette { flex: 0 0 12.6rem; white-space: nowrap; margin: 0; font-family: var(--donnee); font-size: .62rem; letter-spacing: .07em; text-transform: uppercase; color: var(--encre-pale); }
 .cmp__bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
 .cmp__bouton:hover { border-color: var(--matiere); }
 .cmp__bouton[aria-pressed="true"] { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
 .cmp__panneau { padding: 1.2rem 1.2rem 1.1rem; }
 .cmp__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.12rem; letter-spacing: -.01em; color: var(--encre); }
 .cmp__unite { display: block; font-family: var(--donnee); font-size: .62rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); margin: .15rem 0 .9rem; }
-.cmp__barre { display: grid; grid-template-columns: 3.2rem 1fr; align-items: center; gap: .6rem; margin-bottom: .45rem; }
+.cmp__barre { display: grid; grid-template-columns: 3.2rem minmax(6rem, 21rem) auto; align-items: center; gap: .75rem; margin-bottom: .5rem; }
 .cmp__annee { font-family: var(--donnee); font-size: .74rem; letter-spacing: .05em; color: var(--encre-doux); }
 .cmp__piste { position: relative; height: 1.6rem; background: var(--surface-2); border: 1px solid var(--trait); border-radius: 3px; }
 .cmp__remplissage { position: absolute; top: -1px; bottom: -1px; left: -1px; border: 1px solid rgba(0,0,0,.28); border-radius: 3px 0 0 3px; }
@@ -27,7 +27,7 @@
 .cmp__marge--1989 { color: #2B5773; }
 /* La valeur vit hors de la piste : posée dessus, elle devenait illisible sur
    les barres foncées, et aucune couleur de texte ne convient aux deux. */
-.cmp__valeur { display: block; margin-top: .2rem; font-family: var(--donnee); font-size: .82rem; color: var(--encre); }
+.cmp__valeur { font-family: var(--donnee); font-size: .82rem; line-height: 1.3; color: var(--encre); }
 .cmp__inconnu { font-family: var(--corps); font-style: italic; color: var(--encre-doux); }
 .cmp__mot { display: block; margin-top: .9rem; padding-top: .8rem; border-top: 1px solid var(--trait); font-size: .9rem; line-height: 1.55; color: var(--encre); }
 .cmp__source { margin: 0; padding: 0 1.2rem 1.1rem; font-size: .78rem; line-height: 1.5; color: var(--encre-doux); }
@@ -39,7 +39,7 @@ html[data-sombre="on"] .cmp__remplissage--1906, html[data-sombre="on"] .cmp__puc
 html[data-sombre="on"] .cmp__remplissage--1989, html[data-sombre="on"] .cmp__puce--1989 { background: #35719C; }
 html[data-sombre="on"] .cmp__marge--1906 { color: #E3B15A; }
 html[data-sombre="on"] .cmp__marge--1989 { color: #35719C; }
-@media (max-width: 40rem) { .cmp__etiquette { flex-basis: 100%; } .cmp__barre { grid-template-columns: 2.8rem 1fr; } }
+@media (max-width: 40rem) { .cmp__etiquette { flex-basis: 100%; } .cmp__barre { grid-template-columns: 2.8rem 1fr; gap: .4rem .6rem; } .cmp__valeur { grid-column: 2; } }
 /* À l'impression, un seul indicateur visible ferait perdre les huit autres. */
 @media print { .cmp__choix { display: none; } .cmp__panneau { padding: .8rem 1.2rem; page-break-inside: avoid; border-bottom: 1px solid var(--trait); } .cmp__panneau[hidden] { display: block !important; } }
 </style>
@@ -119,7 +119,6 @@ html[data-sombre="on"] .cmp__marge--1989 { color: #35719C; }
   function maximum(v) { return v == null ? 0 : (Array.isArray(v) ? v[1] : v); }
   function minimum(v) { return v == null ? 0 : (Array.isArray(v) ? v[0] : v); }
   function barre(annee, valeur, texte, plafond) {
-    var bloc = document.createElement("div");
     var rangee = el("div", "cmp__barre");
     rangee.appendChild(el("span", "cmp__annee", annee));
     var piste = el("div", "cmp__piste");
@@ -137,11 +136,10 @@ html[data-sombre="on"] .cmp__marge--1989 { color: #35719C; }
       }
     }
     rangee.appendChild(piste);
-    bloc.appendChild(rangee);
-    var etiquette = el("span", "cmp__valeur", annee + " : " + texte);
+    var etiquette = el("span", "cmp__valeur", texte);
     if (valeur == null) etiquette.className += " cmp__inconnu";
-    bloc.appendChild(etiquette);
-    return bloc;
+    rangee.appendChild(etiquette);
+    return rangee;
   }
   function panneau(indicateur) {
     var bloc = el("div", "cmp__panneau");

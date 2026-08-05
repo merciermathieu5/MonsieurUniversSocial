@@ -5926,3 +5926,23 @@ l'ordre des deux barres est fixe et chacune est étiquetée.
 0 échec, les essais des ressources et de l'actualité au vert, et 16 contrôles
 jsdom sur le comparateur, dont la vérification qu'un seul panneau reste visible
 après chaque clic et qu'aucune valeur ne se trouve à l'intérieur d'une piste.
+
+### Agencement des boutons et des barres (livraison 150)
+
+L'étiquette « Ce que la faille a fait » se cassait sur deux lignes et décalait sa
+rangée de boutons par rapport à l'autre. La colonne des étiquettes passe de 9,5
+à 12,6 rem, avec interdiction de retour à la ligne et un interlettrage un peu
+resserré. Les deux rangées s'alignent maintenant.
+
+Les barres passent de deux lignes à une : année, piste, valeur, sur la même
+rangée. La valeur ne répète donc plus son année, qui se lit déjà à gauche. La
+piste est bornée à 21 rem, parce qu'au-delà l'oeil ne compare plus deux
+longueurs, il suit une bande jusqu'au bout de l'écran. Sur petit écran, la
+valeur redescend sous la piste en restant alignée sur elle.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes, aucun brisé. Les deux suites Node à
+0 échec et 10 contrôles jsdom sur l'agencement, dont la vérification que chaque
+rangée porte bien ses trois éléments dans l'ordre et qu'aucune valeur n'est
+retournée à l'intérieur d'une piste.
