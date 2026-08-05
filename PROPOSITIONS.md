@@ -5628,3 +5628,20 @@ thème sombre puisque les tons foncés s'y confondaient avec la surface.
 
 Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
 Node à 0 échec, et l'essai jsdom passe à 47 contrôles.
+
+### Les cahiers passent en mode lecteur (livraison 143)
+
+`/preview` avait été choisi pour la propreté de l'affichage, sans habillage
+Google. C'était le mauvais arbitrage : cette forme retire aussi la barre
+d'outils, donc ni impression ni création de copie. Un cahier de modelage sert
+justement à être imprimé ou repris, alors les dix adresses passent à `/view`,
+le mode lecteur, qui garde le menu Fichier.
+
+Une réserve à connaître : l'apparition des commandes Imprimer et Créer une copie
+dépend aussi d'un réglage de partage côté Drive, celui qui autorise les lecteurs
+à télécharger, imprimer et copier. Il ne se lit pas depuis l'extérieur, donc il
+n'a pas pu être vérifié ici. S'il est désactivé sur un cahier, le mode lecteur
+s'affichera sans ces commandes.
+
+Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
+Node à 0 échec, essai jsdom à 47 contrôles.
