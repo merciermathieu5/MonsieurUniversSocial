@@ -99,7 +99,7 @@ a { color: inherit; }
   font-family: var(--donnee); font-size: .68rem; text-transform: uppercase;
   letter-spacing: .1em; color: rgba(255,255,255,.55);
 }
-.matieres { display: flex; gap: .3rem; }
+.matieres { display: flex; gap: .3rem; flex-wrap: wrap; }
 .matieres__lien {
   font-family: var(--titre); font-weight: 600; font-size: .88rem;
   text-decoration: none; padding: .42rem .95rem; border-radius: 100px;
@@ -108,6 +108,9 @@ a { color: inherit; }
 .matieres__lien:hover { background: rgba(255,255,255,.12); color: #fff; }
 .matieres__lien--histoire.est-actif { background: #4A6E9B; color: #fff; }
 .matieres__lien--geographie.est-actif { background: #5B8A66; color: #fff; }
+/* Ni bleu ni vert : la page des ressources ne relève d'aucune des deux
+   matières, son état actif reste donc à l'encre du bandeau. */
+.matieres__lien--ressources.est-actif { background: rgba(255,255,255,.22); color: #fff; }
 
 /* ------------------------------------------------------- entête en bandeau */
 

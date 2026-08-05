@@ -421,6 +421,7 @@ CLASSES_EMISES = [
     "frise__bascule", "sommaire__bascule", "declencheur", "actions",
     "mascotte", "documents", "galerie",
     "entete--page", "page__corps", "ouverture__acces",
+    "matieres__lien--ressources",
 ]
 
 

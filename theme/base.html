@@ -25,6 +25,9 @@
          class="matieres__lien matieres__lien--{{ s.couleur }}{% if section and section.cle == cle %} est-actif{% endif %}"
          {% if section and section.cle == cle %}aria-current="page"{% endif %}>{{ s.court }}</a>
       {% endfor %}
+      <a href="{{ base }}/ressources.html"
+         class="matieres__lien matieres__lien--ressources{% if page and page.nom == 'ressources' %} est-actif{% endif %}"
+         {% if page and page.nom == 'ressources' %}aria-current="page"{% endif %}>Ressources pédagogiques</a>
     </nav>
   </div>
 </header>

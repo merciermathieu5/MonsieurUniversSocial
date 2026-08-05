@@ -5550,3 +5550,27 @@ esprit : le contrôle `concepts_valides` saute `contenu/pages/`, puisqu'une page
 hors matière ne porte aucun concept du programme et aurait été signalée à vie;
 et les trois classes nouvelles rejoignent `CLASSES_EMISES`, pour que leur
 disparition du CSS soit détectée comme les autres.
+
+### Les cartes portent le nom de la réalité sociale (livraison 140)
+
+Les titres reconstitués depuis les adresses Kahoot disparaissent. Chaque carte
+porte désormais le nom de la réalité sociale ou du territoire, et la ligne du
+dessous donne le repère : « Fiche 04 · 1re secondaire ».
+
+Le changement a permis de retirer une duplication qui traînait. Le nom n'est
+plus écrit qu'une fois, dans le texte du lien de la liste en clair, là où un
+élève sans JavaScript le lit aussi. La table `FICHES` du composant ne garde donc
+que le thème et l'adresse de chaque fiche, elle ne porte plus de titre. Il n'y a
+plus de deuxième endroit où un nom pourrait se désaccorder.
+
+`Ressources pédagogiques` rejoint le bandeau, après Géographie, donc sur toutes
+les pages. Son état actif reste à l'encre du bandeau plutôt qu'au bleu ou au
+vert : la page ne relève d'aucune des deux matières, et lui donner une couleur
+de matière en aurait fait une troisième porte. Le lien posé sous les portes de
+l'accueil reste en place, il ne gêne pas.
+
+Le compte : 22 problèmes, inchangé. `liens.py` passe de 853 à 880 liens internes
+dans 27 pages, les 27 nouveaux étant le lien de bandeau sur chaque page, aucun
+brisé. `figures.py` et `paragraphes.py` sans écart, les deux suites Node à 0
+échec, et 29 contrôles jsdom sur la page construite, dont la vérification qu'il
+ne subsiste aucun titre tiré d'une adresse.
