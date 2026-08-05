@@ -25,7 +25,7 @@ articles:
     date: "2026-08-05"
     titre: "Ontario et Territoires du Nord-Ouest | Le réchauffement climatique a doublé la probabilité des incendies de forêt"
     garder: "O"
-    note: ""
+    note: "O"
 
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php"
     fiche: "04"
@@ -41,6 +41,14 @@ articles:
     date: "2026-08-05"
     titre: "Guatemala : alerte maximale en raison d’une éruption du volcan Fuego, 1700 évacués"
     garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/guatemala/l-activite-du-volcan-de-fuego-ralentit-mais-le-risque-est-toujours-la.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Guatemala | L’activité du volcan de Fuego ralentit mais le risque est toujours là"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ruelles-vertes/a-trois-rivieres-une-ruelle-ou-on-se-sent-bien.php"
