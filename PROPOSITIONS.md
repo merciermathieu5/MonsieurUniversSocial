@@ -5728,3 +5728,50 @@ vérification qu'aucun titre de presse n'est repris.
 
 La page est livrée vide. Elle ne doit pas être poussée avant d'avoir reçu ses
 premiers articles, sinon le bandeau mène à une page sans contenu.
+
+### Les articles rejoignent construire.bat (livraison 146)
+
+`outils/articles.py` remplace `outils/actualite_essai.py`, retiré. Il suit le
+modèle de `outils/images.py` : un registre rempli en clair, un outil qui fait
+toute la mécanique. Le registre est `contenu/articles.yml`.
+
+`construire.bat` enchaîne maintenant les images, les articles et la
+construction. Un double-clic lit les fils, ajoute les propositions, contrôle
+les liens, retire les morts et les périmés, puis reconstruit le site.
+
+### Ce qui n'est pas automatisé, et pourquoi
+
+Une seule chose reste manuelle : la phrase qui accompagne chaque article. Deux
+raisons, et aucune n'est un excès de prudence.
+
+Le seul texte disponible pour la remplir automatiquement serait le titre du
+média. Or Radio-Canada et La Presse réservent leurs fils à l'usage personnel,
+et c'est précisément en n'en reprenant rien que cette page reste défendable.
+
+Le veto par mots-clés ne suffit pas à garder seul une page lue par des élèves
+de 12 ans. Le rapport du 5 août le prouve : « Un véhicule percute un gym à
+Laval, deux jeunes meurent en fuyant la police » et « Des frappes russes font
+au moins 17 morts » n'ont pas été arrêtés par le veto, ils sont passés à côté
+faute de terme de géographie. Et « Inde, plus de 100 morts dans des
+inondations » a été retenu comme proposition valable. Un veto n'attrapera
+jamais un bilan humain formulé autrement qu'avec ses mots.
+
+Une entrée dont la note est vide reste donc au registre sans jamais paraître.
+Effacer l'entrée la refuse, écrire la phrase la publie.
+
+### Le retrait, lui, est entièrement automatique
+
+Aucun jugement n'est requis pour constater qu'un lien est mort, alors le script
+s'en charge. Un 404 ou un 410 doit être confirmé à deux passages avant le
+retrait, une redirection vers une racine de section compte comme une
+disparition même en code 200, et un refus de robot ou une panne ne retirent
+jamais rien. Les articles de plus d'un an partent aussi, seuil réglable par
+`--jours`.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes dans 28 pages, aucun brisé. Les deux
+suites Node à 0 échec, l'essai des ressources à 47 contrôles. La publication a
+été éprouvée sur un registre d'essai : deux articles écrits dans la page, un
+troisième laissé en attente faute de phrase, apostrophes échappées correctement
+et tri par date décroissante vérifié au rendu.
