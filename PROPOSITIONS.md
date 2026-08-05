@@ -4998,3 +4998,126 @@ capsules du Sahel dont j'attends confirmation.
 Ligne de base du dépôt en ligne : 22 problèmes. Après : 30, inchangé. Le delta de
 8 reste celui des huit images. `figures.py` et `paragraphes.py` sans écart.
 `liens.py` sans lien brisé. Les deux suites Node passent à 0 échec.
+
+## Fiche : Le territoire autochtone du Québec et du Canada
+
+### Dixième fiche de géographie (livraison 131)
+
+`contenu/geographie/12-territoire-autochtone.md` passe du gabarit à `brouillon`.
+Quatorze sections, les huit concepts prescrits, Eeyou Istchee et le Nunavut en
+études de cas.
+
+### Ce que ton document a changé
+
+Ta présentation de l'AQEUS n'a pas seulement modifié le vocabulaire de la fiche,
+elle en a modifié la construction. Quatre principes en sortent, et chacun se voit
+dans le texte.
+
+**Les nations existent au présent.** Ta diapositive « Comment éviter que les
+élèves aient une vision passéiste des Autochtones? » est devenue le premier des
+trois réflexes de la mise en contexte, et la fiche se termine sur une section
+« Des nations bien vivantes » qui présente Eva Ottawa, Louis-Karl Picard-Sioui,
+Alanis Obomsawin, Stanley Vollant et Elisapie Isaac, avec le 30 septembre.
+
+**Les nations sont diverses.** La section sur les onze nations les nomme dans
+leur langue et avertit du piège : « algonquien » et « iroquoien » sont des
+familles de langues, pas des nations. Dire d'une personne qu'elle est
+algonquienne revient à dire d'un Espagnol qu'il est latin.
+
+**Deux lectures d'un même événement.** C'est ton modèle de l'alliance de 1603,
+appliqué à la Convention de la Baie-James. Un encadré `note` pose côte à côte la
+lecture gouvernementale, une réussite qui règle les revendications et débloque un
+chantier, et la lecture crie, un accord signé sous contrainte après qu'une
+injonction eut forcé la négociation. La note se termine ainsi : les deux lectures
+sont exactes, les deux camps ne mesuraient pas la même chose. Une question de
+section demande à l'élève de rédiger les deux phrases lui-même.
+
+**La dépossession territoriale.** Un encadré s'arrête sur le mot « réserve » et
+sur ce qu'il dit : sur un territoire immense, on a réservé de petites parcelles à
+ceux qui l'occupaient en entier. C'est présenté comme le fil qui relie presque
+tous les événements de la page.
+
+### La terminologie
+
+Une section entière, « Nommer les choses correctement », reprend ta diapositive
+« Les bons concepts dans le bon contexte » : peuples autochtones, Premières
+Nations, autochtone, allochtone, et le statut de « Amérindien » et de « Indien ».
+
+Un encadré `savais-tu` explique que **inuit** signifie « les humains », qu'il est
+déjà pluriel et qu'on n'y ajoute pas de s, qu'une personne est **un Inuk**, et il
+donne les autodésignations : Kanien'kehá:ka, Wendat, Anishinabeg, Wolastoqiyik,
+Eeyouch. Toute la fiche applique ces formes.
+
+### Les trois visuels
+
+**`medias/schemas/trois-groupes-autochtones.svg`**, les trois groupes reconnus
+par la Constitution avec les chiffres de 2021. Son bandeau porte l'avertissement
+qui compte : ce sont des catégories juridiques, pas des identités vécues, et une
+personne se dit d'abord innue ou wendat.
+
+**`medias/schemas/frise-ententes-autochtones.svg`**, de 1975 à 2027 : Convention
+de la Baie-James, Convention du Nord-Est québécois, Accord du Nunavut, création
+du Nunavut, Paix des Braves, entente de dévolution, transfert effectif. Le
+bandeau dit ce que la frise seule ne montrerait pas : aucune de ces ententes n'a
+été offerte, chacune a suivi une contestation portée par la nation elle-même.
+
+**`theme/composants/territoires-autochtones.html`**, Eeyou Istchee et le Nunavut
+en sept critères. Le premier critère est **le nom**, parce que les deux
+territoires portent celui que leur donnent leurs habitants, ce qui est rare sur
+une carte du Canada.
+
+### Une actualité que ta page n'avait pas
+
+Le **18 janvier 2024**, le Canada, le Nunavut et Nunavut Tunngavik inc. ont signé
+l'entente de dévolution qui transfère au territoire le contrôle des terres, des
+eaux et des ressources minérales. Le transfert prend effet le **1er avril 2027**.
+C'est l'aboutissement du processus commencé en 1993 et le dernier grand transfert
+de pouvoir sur les terres dans le Nord canadien. Le gouvernement du Nunavut parle
+d'**Avatittinnik Kamatsiarniq**, la gérance de l'environnement.
+
+### Des chiffres corrigés
+
+Ta page donnait 64 % pour la part des Premières Nations dans la population
+autochtone. Le recensement de 2021 donne **58,0 %**. Les autres chiffres sont
+repris de la même source : 1 807 250 Autochtones au Canada, 1 048 405 membres des
+Premières Nations, 624 220 Métis, 70 545 Inuit, dont 30 865 au Nunavut.
+
+Iqaluit passe d'« environ 8 000 » à environ 7 500 habitants, et la route de la
+Baie-James porte son nom actuel, **route Billy-Diamond**, avec un encadré sur ce
+que ce changement de nom signifie.
+
+### La toponymie, et ta région
+
+Une section reprend ta diapositive sur le patrimoine toponymique. **Kataskomiq**,
+l'une des deux réserves de la Première Nation Wolastoqiyik Wahsipekuk, et
+**Pihcunekanuk**, le nom wolastoqey de la rivière Saint-François. Puis les
+circonscriptions renommées, dont Montmagny-Témiscouata-Kataskomiq.
+
+C'est le passage le plus local de toute la fiche : tes élèves habitent cette
+circonscription.
+
+### Ce qui manque
+
+**Aucune image.** Le delta du vérificateur est de 0 parce que la fiche n'en
+contient pas une seule. C'est la première fois, et c'est le plus gros défaut de
+cette livraison. Il faudrait au minimum une carte des onze nations, une vue
+d'Eeyou Istchee ou d'une communauté crie, une d'Iqaluit et une du Nunavut.
+
+Vu le sujet, je préfère que les images viennent de toi ou de sources autochtones
+plutôt que de mes recherches à l'aveugle. Envoie-moi des liens comme les fois
+précédentes.
+
+**Huit titres de capsules sur quinze me manquent** : `FryjH7Q7s8M`,
+`I6qKlqoGW84`, `aSplkxNArRY`, `Kcgjs89kNig`, `XnkUMC2mZ0c`, `AQ_zirn6opg`,
+`JiV6XbxJiw8` et `VX4ocV4BSQI`. Leurs légendes décrivent la section. J'ai aussi
+laissé de côté le lien Vimeo, que le site ne sait pas afficher.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 22, inchangé, faute
+d'images. Aucun problème hors images : les neuf sections passent, dont SCHÉMAS
+avec les deux nouveaux. Le vérificateur a d'ailleurs attrapé un débordement de
+24 pixels sur le dernier jalon de la frise, corrigé par un ancrage à droite.
+`figures.py` et `paragraphes.py` sans écart après douze fusions. `liens.py`
+vérifie 827 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
+Il ne reste qu'un gabarit en géographie, le parc naturel.

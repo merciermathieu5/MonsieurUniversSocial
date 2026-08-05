@@ -1,0 +1,177 @@
+<section class="tau" id="territoires-autochtones" aria-label="Comparaison d'Eeyou Istchee et du Nunavut">
+<style>
+.tau { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.tau .tau__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tau .tau__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.tau__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.tau__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.tau__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.tau__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.tau__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.tau__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.tau__panneau.est-visible { display: block; }
+.tau__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.tau__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.tau__cote--nu { border-left-color: var(--encre-pale); }
+.tau__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.tau__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.3rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.tau__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.tau__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.tau__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .tau .tau__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .tau .tau__titre { color: var(--encre); }
+html[data-sombre="on"] .tau__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .tau__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .tau__chiffre { color: var(--encre); }
+html[data-sombre="on"] .tau__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .tau__panneau { padding: 1.1rem 1rem 1rem; } .tau__onglets { padding: .7rem .8rem; } .tau__chiffre { font-size: 1.1rem; } }
+@media print { .tau__panneau { display: block; page-break-inside: avoid; } .tau__onglets { display: none; } }
+</style>
+
+<div class="tau__entete">
+  <p class="tau__titre" role="heading" aria-level="3">Eeyou Istchee et le Nunavut, sept critères</p>
+  <p class="tau__consigne">Choisis un critère</p>
+</div>
+
+<div class="tau__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="tau__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("territoires-autochtones");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "nom",
+      nom: "Le nom",
+      eiC: "Eeyou Istchee",
+      eiD: "« La terre du peuple » en langue crie. Les Eeyouch, ou Eenouch selon la communaut\u00e9, se nomment eux-m\u00eames ainsi. Le mot « Cri » vient du fran\u00e7ais, d\u00e9form\u00e9 de Kiristinon.",
+      nuC: "Nunavut",
+      nuD: "« Notre terre » en inuktitut. Ses habitants sont les Nunavummiut. Le territoire porte le nom que ses habitants lui donnent, ce qui est rare sur une carte du Canada.",
+      ecart: "Les deux territoires portent un nom dans la langue de ceux qui y vivent. Ce n'est pas un d\u00e9tail : nommer un lieu, c'est affirmer qu'il est \u00e0 soi."
+    },
+    {
+      cle: "superficie",
+      nom: "La superficie",
+      eiC: "Plus de 400 000 km²",
+      eiD: "Le territoire traditionnel s'\u00e9tend sur la rive est de la baie James et au sud-est de la baie d'Hudson. Il d\u00e9borde en Ontario. C'est environ les deux tiers de la France.",
+      nuC: "1 936 113 km²",
+      nuD: "Vingt et un pour cent de la superficie du Canada, plus 157 077 kilom\u00e8tres carr\u00e9s d'eau. C'est le plus vaste des territoires et des provinces du pays.",
+      ecart: "Le Nunavut est presque cinq fois plus grand, mais les deux territoires ont un point commun : une immensit\u00e9 pour tr\u00e8s peu d'habitants."
+    },
+    {
+      cle: "population",
+      nom: "La population",
+      eiC: "Onze communautés",
+      eiD: "Parmi elles, Chisasibi, Mistissini, Waskaganish, Waswanipi, Wemindji, Whapmagoostui, Eastmain, Nemaska et Oujé-Bougoumou. Plus de 300 zones de trappage y sont rattach\u00e9es.",
+      nuC: "Vingt-cinq collectivités",
+      nuD: "Au recensement de 2021, 30 865 Inuit vivaient au Nunavut, soit 43,7 % de tous les Inuit du Canada. Iqaluit, la capitale, en compte environ 7 500.",
+      ecart: "Dans les deux cas, la population est jeune. L'\u00e2ge moyen des Inuit au Nunavut est de 26,5 ans, contre 42,1 ans pour la population non autochtone du Qu\u00e9bec."
+    },
+    {
+      cle: "entente",
+      nom: "L'entente fondatrice",
+      eiC: "1975, puis 2002",
+      eiD: "La Convention de la Baie-James et du Nord qu\u00e9b\u00e9cois, sign\u00e9e sous la pression du chantier hydro\u00e9lectrique, puis la Paix des Braves, n\u00e9goci\u00e9e apr\u00e8s vingt ans de contestations judiciaires.",
+      nuC: "1993, puis 2024",
+      nuD: "L'Accord sur les revendications territoriales du Nunavut, n\u00e9goci\u00e9 pendant plus de dix ans, puis l'entente de d\u00e9volution qui transf\u00e8re la gestion des terres et des ressources.",
+      ecart: "Aucune de ces ententes n'a \u00e9t\u00e9 offerte. Chacune a suivi une contestation, un recours ou une n\u00e9gociation men\u00e9e par la nation elle-m\u00eame."
+    },
+    {
+      cle: "gouverne",
+      nom: "Qui gouverne",
+      eiC: "Un gouvernement de nation",
+      eiD: "Le Gouvernement de la nation crie administre le territoire, avec des pouvoirs \u00e9tendus en \u00e9ducation, en sant\u00e9 et en d\u00e9veloppement, \u00e0 l'int\u00e9rieur de la province de Qu\u00e9bec.",
+      nuC: "Un gouvernement public",
+      nuD: "Le Nunavut a une assembl\u00e9e l\u00e9gislative \u00e9lue par tous les r\u00e9sidents, autochtones ou non. Comme les Inuit forment la grande majorit\u00e9, ce gouvernement est de fait inuit.",
+      ecart: "Deux mod\u00e8les diff\u00e9rents. Eeyou Istchee est un gouvernement de nation dans une province; le Nunavut est un territoire ordinaire du Canada dont la population est presque enti\u00e8rement inuite."
+    },
+    {
+      cle: "deplacer",
+      nom: "Se déplacer",
+      eiC: "Par la route",
+      eiD: "La route Billy-Diamond, longue de 620 kilom\u00e8tres et pav\u00e9e, la route du Nord et la Transta\u00efga desservent le territoire. Air Creebec, propri\u00e9t\u00e9 des Cris depuis 1988, compl\u00e8te le r\u00e9seau.",
+      nuC: "Par avion seulement",
+      nuD: "Aucune route ne relie le Nunavut au sud. Chaque collectivit\u00e9 a une piste, mais l'aller-retour Montr\u00e9al-Iqaluit co\u00fbte pr\u00e8s de 2 500 dollars. Les cargos ne viennent qu'en \u00e9t\u00e9.",
+      ecart: "C'est la diff\u00e9rence la plus lourde de cons\u00e9quences. Elle explique le prix des aliments, l'acc\u00e8s aux soins et la difficult\u00e9 de recruter du personnel."
+    },
+    {
+      cle: "enjeu",
+      nom: "L'enjeu d'aujourd'hui",
+      eiC: "Le développement des ressources",
+      eiD: "Les barrages, les mines et les coupes foresti\u00e8res continuent. La question n'est plus de savoir s'ils auront lieu, mais qui d\u00e9cide et qui en tire les retomb\u00e9es.",
+      nuC: "La dévolution et le climat",
+      nuD: "En 2027, le Nunavut prendra en charge ses terres et ses ressources. En m\u00eame temps, le perg\u00e9lisol d\u00e9gel\u00e8 sous les maisons et le passage du Nord-Ouest s'ouvre \u00e0 la navigation.",
+      ecart: "Les deux territoires posent la m\u00eame question au reste du pays : qui d\u00e9cide de ce qui se passe sur un territoire, ceux qui y vivent ou ceux qui en ont besoin?"
+    }
+  ];
+
+  var onglets = racine.querySelector(".tau__onglets");
+  var contenu = racine.querySelector(".tau__contenu");
+
+  function cote(quoi, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "tau__cote" + (modificateur ? " tau__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "tau__quoi";
+    etiquette.textContent = quoi;
+    var nombre = document.createElement("span");
+    nombre.className = "tau__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "tau__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "tau__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "tau-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "tau__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "tau-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "tau__colonnes";
+    colonnes.appendChild(cote("Eeyou Istchee", critere.eiC, critere.eiD, ""));
+    colonnes.appendChild(cote("Nunavut", critere.nuC, critere.nuD, "nu"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "tau__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce qui rapproche et ce qui sépare. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

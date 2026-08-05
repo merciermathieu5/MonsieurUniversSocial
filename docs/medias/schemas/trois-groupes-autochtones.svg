@@ -1,0 +1,50 @@
+<svg viewBox="0 0 1100 410" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Les trois groupes de peuples autochtones reconnus par la Constitution canadienne : les Premières Nations, les Inuit et les Métis, avec leur population au recensement de 2021">
+  <style>
+    .gp-t { font-family: Archivo, sans-serif; }
+    .gp-h1 { font-size: 17px; font-weight: 700; fill: var(--bloc-pale-texte); }
+    .gp-h2 { font-size: 17px; font-weight: 700; fill: var(--bloc-texte); }
+    .gp-h3 { font-size: 17px; font-weight: 700; fill: var(--surface); }
+    .gp-p1 { font-size: 12px; fill: var(--bloc-pale-texte); }
+    .gp-p2 { font-size: 12px; fill: var(--bloc-texte); }
+    .gp-p3 { font-size: 12px; fill: var(--surface); }
+    .gp-c1 { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 600; fill: var(--bloc-pale-texte); }
+    .gp-c2 { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 600; fill: var(--bloc-texte); }
+    .gp-c3 { font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; font-weight: 600; fill: var(--surface); }
+    .gp-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .gp-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <rect x="40" y="52" width="330" height="196" rx="5" fill="var(--bloc)"/>
+  <text class="gp-t gp-h2" x="60" y="84">Les Premières Nations</text>
+  <text class="gp-t gp-p2" x="60" y="110">Toutes les communautés autochtones</text>
+  <text class="gp-t gp-p2" x="60" y="128">autres que les Métis et les Inuit.</text>
+  <text class="gp-t gp-p2" x="60" y="146">Chacune est une nation distincte, avec</text>
+  <text class="gp-t gp-p2" x="60" y="164">sa langue et son territoire.</text>
+  <text class="gp-t gp-c2" x="60" y="200">1 048 405 au Canada</text>
+  <text class="gp-t gp-c2" x="60" y="222">116 555 au Québec</text>
+
+  <rect x="395" y="52" width="330" height="196" rx="5" fill="var(--schema-cle)"/>
+  <text class="gp-t gp-h3" x="415" y="84">Les Inuit</text>
+  <text class="gp-t gp-p3" x="415" y="110">Peuple de l'Arctique. Le mot inuit</text>
+  <text class="gp-t gp-p3" x="415" y="128">signifie « les humains » et il est déjà</text>
+  <text class="gp-t gp-p3" x="415" y="146">pluriel : on n'écrit donc pas de s. Une</text>
+  <text class="gp-t gp-p3" x="415" y="164">seule personne est un Inuk.</text>
+  <text class="gp-t gp-c3" x="415" y="200">70 545 au Canada</text>
+  <text class="gp-t gp-c3" x="415" y="222">15 800 au Québec</text>
+
+  <rect x="750" y="52" width="330" height="196" rx="5" fill="var(--bloc-pale)"/>
+  <text class="gp-t gp-h1" x="770" y="84">Les Métis</text>
+  <text class="gp-t gp-p1" x="770" y="110">Peuple né des unions anciennes entre</text>
+  <text class="gp-t gp-p1" x="770" y="128">des femmes des Premières Nations et</text>
+  <text class="gp-t gp-p1" x="770" y="146">des hommes venus d'Europe. Ils ne</text>
+  <text class="gp-t gp-p1" x="770" y="164">possèdent pas de réserves.</text>
+  <text class="gp-t gp-c1" x="770" y="200">624 220 au Canada</text>
+  <text class="gp-t gp-c1" x="770" y="222">61 015 au Québec</text>
+
+  <rect x="40" y="278" width="1040" height="108" rx="5" fill="var(--matiere-voile)"/>
+  <text class="gp-t gp-bt" x="62" y="304">« Peuples autochtones » désigne les trois ensemble</text>
+  <text class="gp-t gp-bp" x="62" y="328">Ce sont les descendants de ceux qui occupaient le territoire avant l'arrivée des Européens. La Constitution canadienne reconnaît</text>
+  <text class="gp-t gp-bp" x="62" y="348">ces trois groupes depuis 1982. Le recensement de 2021 dénombre 1 807 250 Autochtones au Canada, soit 5 % de la population.</text>
+  <text class="gp-t gp-bp" x="62" y="368">Attention : ces trois cases sont des catégories juridiques, pas des identités vécues. Une personne se dit d'abord innue ou wendat.</text>
+</svg>
