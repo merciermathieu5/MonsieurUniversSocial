@@ -5318,3 +5318,137 @@ passent. `figures.py` sans écart, `paragraphes.py` après neuf fusions.
 à 0 échec.
 
 **Plus aucun gabarit en géographie.**
+
+### Les cartes du RÉCIT : où j'ai cherché (livraison 135)
+
+Tu as raison, elles existent. Mais elles ne sont pas là où je peux les prendre,
+et je préfère te dire exactement ce que j'ai vérifié plutôt que de te faire
+chercher à l'aveugle.
+
+**Ce que j'ai parcouru :**
+
+- La page de la ressource sur recitus.qc.ca. Elle ne contient qu'une vignette et
+  une « carte à télécharger » qui est le monde Minecraft, pas une carte
+  géographique
+- Toute la catégorie Géographie de documents.recitus.qc.ca, soit douze dossiers.
+  Il y a bien un dossier pour le territoire agricole, un pour le forestier, un
+  pour l'urbain à risque, un pour le touristique et quatre pour les territoires
+  autochtones, mais **aucun pour le territoire protégé**
+- Les deux premières pages de la liste complète des dossiers du 1er cycle, même
+  résultat
+
+**Où elles sont, selon toute vraisemblance :** dans le document de l'élève de la
+tâche Minecraft, un fichier Google Docs. C'est le troisième document Google que
+je bute cette semaine, après l'Atlas du Canada et celui sur les bâtiments
+agricoles : **ils exigent JavaScript et ne me rendent que leur titre.**
+
+Deux façons de débloquer : tu m'envoies les images en pièce jointe comme tu l'as
+fait pour les signatures de 1975 et 2002, ou tu me donnes les adresses Commons
+des cartes équivalentes.
+
+### Ce que j'ai ajouté au passage
+
+La tâche du RÉCIT elle-même manquait à la fiche. Elle n'était mentionnée que dans
+les sources, alors qu'elle mérite un encadré `activite` : cinq périodes, un
+dossier documentaire et un monde Minecraft aux caractéristiques de l'archipel, où
+l'élève aménage le territoire en conciliant le tourisme et la protection.
+
+C'est exactement la question de la fiche, posée sous forme de tâche.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 23, inchangé. Le delta de
+1 reste celui de la seule image. `figures.py` et `paragraphes.py` sans écart.
+`liens.py` sans lien brisé. Les deux suites Node passent à 0 échec.
+
+### Le territoire protégé prend ses images (livraison 136)
+
+La fiche passe d'une image à douze, et de sept capsules à neuf.
+
+**Huit pour les Galápagos.** La vue satellite et la vue d'avion de Santa Cruz
+ouvrent la section qui situe l'archipel, l'image SPOT accompagne la géologie, le
+crabe de Tortuga Bay ouvre la faune, l'iguane marin et les fous à pieds bleus
+illustrent leur propre section, et deux images servent la section sur la
+protection : **le sentier aménagé de Tagus Cove et la ville de Puerto Ayora**.
+
+Ce dernier couple n'est pas décoratif. Le sentier montre l'aménagement qui
+canalise les visiteurs, et Puerto Ayora montre les 3 % de terres où vivent les
+habitants. Les deux photos disent ensemble ce que le texte affirme : on ne
+protège pas contre les gens, on protège avec eux.
+
+**Trois pour Anticosti**, la carte du golfe, la rivière à l'Huile et le cerf de
+Virginie, ce dernier placé exactement dans la section qui explique le problème
+qu'il pose.
+
+### L'article de Radio-Canada, autrement
+
+Je n'ai pas pu prendre les deux photos d'André Desrochers : le texte de la page
+ne me livre pas leurs adresses, et les images de Radio-Canada restent sous droits
+de toute façon. **Mais le contenu de l'article vaut mieux que ses photos**, et il
+manquait complètement à la fiche.
+
+Un encadré `note` explique désormais **pourquoi** l'extinction a eu lieu. L'équipe
+codirigée par André Desrochers, de l'Université d'Ottawa, a analysé les isotopes
+d'uranium des roches calcaires de l'île, sensibles à l'oxygène dissous dans les
+océans. Au moment même où la biodiversité s'effondre, la concentration chute.
+Il y a 444 millions d'années, environ **85 % de la vie marine a disparu en
+suffoquant**.
+
+Et le chercheur en tire lui-même le parallèle qui rend la fiche brûlante : nous
+réchauffons les océans, et des océans plus chauds retiennent moins d'oxygène.
+C'est le même homme qui a dirigé le comité scientifique de la candidature à
+l'UNESCO.
+
+L'article lui-même est en encadré `activite`, ce qui renvoie l'élève aux photos
+de fossiles là où elles sont, sur le site de Radio-Canada.
+
+### Deux capsules à valider
+
+`gOM5bSNJuYE` et `YCZ525UTyjk` sont placées dans la section d'Anticosti. Je n'ai
+pas leurs titres, et leurs légendes décrivent la section. Envoie-moi deux
+captures si elles ne conviennent pas.
+
+### À faire chez toi avant de publier
+
+Lance **`python outils/images.py`** pour télécharger les onze nouvelles images :
+mon environnement n'a pas accès à Wikimedia. Trois sections en profiteront
+doublement, parce que le mécanisme de galerie appariera automatiquement les
+images qui vont par deux, comme pour les signatures de la fiche 12.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 34. Le delta de 12
+correspond exactement aux douze images de la fiche, toutes encore absentes du
+disque. Aucun problème hors images. `figures.py` et `paragraphes.py` sans écart
+après application. `liens.py` sans lien brisé. Les deux suites Node passent à
+0 échec.
+
+### Les deux capsules d'Anticosti (livraison 137)
+
+Tes captures m'ont donné les titres, et elles m'ont surtout révélé que ces deux
+capsules **se répondent**.
+
+- `gOM5bSNJuYE` : **L'île d'Anticosti s'ajoute à la liste du Patrimoine mondial
+  de l'UNESCO**, Radio-Canada, septembre 2023, six minutes
+- `YCZ525UTyjk` : **Anticosti à l'UNESCO, suivi un an plus tard**, Radio-Canada,
+  septembre 2024, deux minutes et demie. La vignette annonce la couleur : encore
+  beaucoup de travail à faire
+
+J'ai ajouté une phrase avant elles pour que l'élève saisisse le lien : la
+première annonce l'inscription, la seconde y revient un an après et constate ce
+qui reste à faire. **Une inscription au patrimoine mondial n'est pas une fin,
+c'est un engagement à tenir.**
+
+C'est le meilleur point final possible pour cette fiche, et pour la section
+géographie au complet. Tout le reste de la page décrit des mesures de protection;
+ces deux capsules montrent qu'entre la mesure annoncée et la mesure appliquée, il
+y a un an d'écart et beaucoup d'ouvrage.
+
+Toutes les légendes de la fiche portent maintenant un vrai titre.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 34, inchangé. Le delta de
+12 reste celui des images, à récupérer chez toi avec `python outils/images.py`.
+`figures.py` et `paragraphes.py` sans écart. `liens.py` sans lien brisé. Les deux
+suites Node passent à 0 échec.

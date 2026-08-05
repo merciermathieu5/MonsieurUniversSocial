@@ -85,6 +85,10 @@ qu'un territoire pouvait avoir besoin d'être protégé.
 
 ## Situer les Galápagos
 
+![L'archipel des Galápagos vu par satellite](../medias/13-territoire-protege/galapagos-satellite.jpg)
+
+![L'île Santa Cruz vue d'avion](../medias/13-territoire-protege/santa-cruz-avion.jpg)
+
 L'archipel se trouve dans l'océan Pacifique, à environ 1 000 kilomètres des
 côtes de l'Équateur, à cheval sur l'équateur terrestre. Il compte 127 îles,
 îlots et rochers, dont 19 de grande taille, et seulement quatre sont habitées.
@@ -94,6 +98,8 @@ de nombreux cratères, dont celui du volcan Wolf, actif, qui culmine à 1 707
 mètres.
 
 ### Une géologie qui explique tout le reste
+
+![Les Galápagos vues par le satellite SPOT](../medias/13-territoire-protege/galapagos-spot.jpg)
 
 Trois plaques tectoniques majeures se rencontrent au fond de l'océan à cet
 endroit : Nazca, Cocos et Pacifique. C'est ce qui produit le volcanisme et les
@@ -113,6 +119,8 @@ Source : UNESCO
 :::
 
 ## Une faune qu'on ne voit nulle part ailleurs
+
+![Un crabe des Galápagos sur la baie Tortuga](../medias/13-territoire-protege/crabe-tortuga.jpg)
 
 Une espèce **endémique** est une espèce qu'on ne trouve qu'à un seul endroit.
 Les Galápagos en comptent un nombre remarquable pour un archipel aussi jeune :
@@ -155,6 +163,8 @@ et
 
 ### L'iguane marin
 
+![Un iguane marin des Galápagos](../medias/13-territoire-protege/iguane-marin.jpg)
+
 L'iguane marin, *Amblyrhynchus cristatus*, est le seul lézard au monde à mener
 une vie amphibie. Adulte, il se nourrit uniquement d'algues rouges et vertes
 qu'il broute sur les fonds marins. Il dépend donc entièrement des côtes,
@@ -174,6 +184,8 @@ L'iguane marin, seul lézard en mer
 :::
 
 ### Le fou à pieds bleus
+
+![Un couple de fous à pieds bleus, sur l'île Española](../medias/13-territoire-protege/fous-pieds-bleus.jpg)
 
 Cet oiseau marin mesure environ 81 centimètres et pèse 1,5 kilogramme, pour
 une envergure pouvant atteindre 165 centimètres. Ses yeux jaunes, placés de
@@ -229,6 +241,10 @@ L'idée a mûri lentement, à partir de collections rapportées et comparées.
 
 ## Protéger, et ce que ça coûte
 
+![Des visiteurs gravissent le sentier aménagé de Tagus Cove](../medias/13-territoire-protege/sentier-tagus.jpg)
+
+![Puerto Ayora, sur l'île Santa Cruz](../medias/13-territoire-protege/puerto-ayora.jpg)
+
 ::: composant moyens-protection
 
 L'archipel est protégé depuis 1959, année où le parc national est créé sur 97 %
@@ -279,6 +295,10 @@ semelle.
 
 ## Anticosti, un patrimoine québécois
 
+![L'île d'Anticosti dans le golfe du Saint-Laurent](../medias/13-territoire-protege/carte-golfe.png)
+
+![La rivière à l'Huile, sur l'île d'Anticosti](../medias/13-territoire-protege/riviere-huile.jpg)
+
 Le 19 septembre 2023, le Comité du patrimoine mondial réuni à Riyad a inscrit
 l'île d'Anticosti sur la Liste du patrimoine mondial. C'est le premier site
 naturel du Québec à y figurer. L'île se trouve dans le golfe du Saint-Laurent.
@@ -305,6 +325,49 @@ d'aires strictement protégées : un parc national du Québec, deux réserves
 Source : Parcs Canada et UNESCO
 {: .source-texte }
 
+::: note
+Une découverte faite à Anticosti explique **pourquoi** cette extinction a eu lieu.
+
+Une équipe internationale codirigée par André Desrochers, professeur à
+l'Université d'Ottawa, a analysé les isotopes d'uranium contenus dans les roches
+calcaires de l'île. Ces isotopes sont sensibles à la quantité d'oxygène dissoute
+dans les océans. Les chercheurs ont constaté qu'au moment même où la biodiversité
+marine s'effondre, la concentration de cet isotope chute brusquement.
+
+Autrement dit, il y a environ 444 millions d'années, près de **85 % de la vie
+marine a disparu en suffoquant**, faute d'oxygène.
+
+André Desrochers en tire lui-même un parallèle avec aujourd'hui : nous réchauffons
+les océans, et des océans plus chauds retiennent moins d'oxygène. Une leçon à
+tirer d'une extinction vieille de 444 millions d'années.
+
+C'est le même chercheur qui a dirigé le comité scientifique de la candidature de
+l'île à l'UNESCO.
+
+Source : Radio-Canada
+{: .source-texte }
+:::
+
+Les deux capsules qui suivent se répondent. La première annonce l'inscription, en
+septembre 2023. La seconde y revient un an plus tard et constate qu'il reste
+beaucoup à faire. Une inscription au patrimoine mondial n'est pas une fin, c'est
+un engagement à tenir.
+
+::: activite
+Le reportage
+**[Les fossiles d'Anticosti permettent une percée scientifique](https://ici.radio-canada.ca/nouvelle/1102421/fossilles-anticosti-percee-scientifique)**
+raconte cette recherche et montre les fossiles photographiés par André
+Desrochers.
+:::
+
+::: video gOM5bSNJuYE
+L'île d'Anticosti s'ajoute à la liste du Patrimoine mondial de l'UNESCO
+:::
+
+::: video YCZ525UTyjk
+Anticosti à l'UNESCO, suivi un an plus tard
+:::
+
 ::: savais-tu
 Les chutes Vauréal, sur la rivière du même nom, tombent de 76 mètres, soit une
 vingtaine de mètres de plus que les chutes Niagara. Elles coulent au fond d'un
@@ -313,6 +376,8 @@ canyon dont les parois exposent précisément les couches fossilifères qui ont 
 :::
 
 ### Un cerf devenu un problème
+
+![Un cerf de Virginie sur l'île d'Anticosti](../medias/13-territoire-protege/cerf-anticosti.jpg)
 
 Vers la fin du 19e siècle, le propriétaire de l'île, l'industriel français
 Henri Menier, y fait introduire 220 cerfs de Virginie. L'espèce n'était pas
@@ -339,6 +404,14 @@ concilier avec la nature, ce sont les habitants eux-mêmes.
    ou artificiel? Justifie ta réponse.
 2. Nomme deux solutions possibles au dilemme d'Anticosti et une conséquence de
    chacune.
+:::
+
+::: activite
+Le RÉCIT en univers social propose la tâche
+**[Comment concilier l'activité touristique et la protection des îles Galápagos?](https://www.recitus.qc.ca/ressources/secondaire/publication/protege-galapagos)**,
+cinq périodes avec un dossier documentaire et un monde Minecraft aux
+caractéristiques de l'archipel. L'élève y aménage le territoire en conciliant le
+tourisme et la protection du parc.
 :::
 
 ## Comparer les deux territoires
