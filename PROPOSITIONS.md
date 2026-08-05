@@ -5831,3 +5831,66 @@ suites Node à 0 échec, l'essai des ressources à 47 contrôles et celui de
 l'actualité porté à 21, dont la vérification que les cinq articles de forêt
 portent cinq titres distincts et qu'aucune adresse publiée ne traîne de
 marqueur de provenance.
+
+## Fiche : La ville soumise à des risques naturels
+
+### Comparateur des séismes de 1906 et de 1989 (livraison 148)
+
+Neuf indicateurs en diagrammes à bandes, séparés en deux familles qui sont
+celles du programme : ce que la faille a fait, ce que la ville a subi. Chaque
+indicateur porte sa propre échelle, parce que comparer 477 kilomètres et
+63 morts sur un axe commun n'aurait aucun sens.
+
+### Trois faussetés évitées
+
+Un diagramme naïf sur les indicateurs demandés en aurait enseigné trois.
+
+La magnitude ne se met pas en bandes. L'échelle est logarithmique : 7,9 contre
+6,9 donnerait deux barres presque égales pour un séisme trente fois plus
+énergétique. La magnitude est donc affichée en clair, sans barre, et c'est
+l'énergie libérée qui prend la ligne suivante, en multiples de 1989. Le rapport
+est calculé de la formule usuelle, ce qui donne 22 à 32 fois selon qu'on retient
+7,8 ou 7,9 pour 1906.
+
+Le coût ne se compare pas en dollars de chaque époque. 400 millions contre
+6 milliards ferait croire à un rapport de quinze. Ramenés à la même monnaie,
+1906 vaut de 4,8 à 10 milliards et 1989 de 14,5 à 15,6, donc 1989 passe devant.
+Le récit s'inverse selon l'axe choisi, et c'est la version en dollars constants
+qui est retenue.
+
+Le bilan de 1906 n'est pas un chiffre, c'est un litige. Le chiffre officiel est
+resté 478 pendant des décennies, Hansen et Condon ont établi plus de 3 000
+morts, et les non-comptés étaient surtout des immigrants. La barre va donc de
+478 à 3 000 en hachuré, et l'explication dit pourquoi. Un bilan n'est pas
+seulement mesuré, il est aussi construit.
+
+### Une donnée absente n'est pas un zéro
+
+Aucun décompte fiable des blessés de 1906 n'existe. La ligne n'affiche aucune
+barre et porte la mention « donnée inconnue » en italique, jamais une barre de
+longueur nulle qui se lirait comme un zéro.
+
+### Pas de bascule vers les chiffres par habitant
+
+Elle avait été envisagée et elle est écartée. Les 225 000 sans-abri de 1906 sont
+des résidents de San Francisco, les 12 053 déplacés de 1989 se répartissent sur
+toute la région de la baie, Oakland et Santa Cruz comprises, et c'est à Oakland
+que sont mortes 42 des 63 victimes. Un ratio aurait exigé un dénominateur commun
+qui n'existe pas, donc corriger trois faussetés en fabriquant une quatrième. La
+remarque est dans un bloc note, où elle se dit en une phrase honnête.
+
+### Deux couleurs séparées par la clarté
+
+Le premier choix de teintes, un brun et un vert, avait la même luminance : un
+rapport de 1,02, donc deux barres indistinguables à l'impression en noir et
+blanc et pour une partie des daltoniens. Les teintes retenues sont séparées de
+5,2, et chaque barre porte de toute façon son année en toutes lettres.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes dans 28 pages, aucun brisé.
+`figures.py` et `paragraphes.py` sans écart, les deux suites Node à 0 échec.
+Le comparateur a été éprouvé à part, 11 contrôles jsdom sur la fiche construite,
+dont l'absence de barre pour la magnitude, l'absence de barre pour les blessés
+de 1906 et la vérification que la barre de 1989 dépasse bien celle de 1906 sur
+le coût en dollars constants.

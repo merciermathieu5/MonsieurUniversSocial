@@ -342,6 +342,29 @@ Source : U.S. Geological Survey et California Geological Survey
 Le séisme de 1989
 :::
 
+#### Comparer les deux séismes
+
+::: composant seismes-1906-1989
+
+::: note
+Les deux colonnes ne couvrent pas exactement le même territoire. En 1906, les
+sans-abri sont des résidents de San Francisco, une ville d'environ 400 000
+habitants. En 1989, l'épicentre se trouve à une centaine de kilomètres au sud
+et les dégâts se répartissent sur toute la région de la baie, Oakland et Santa
+Cruz comprises. C'est d'ailleurs à Oakland, sous une autoroute effondrée, que
+sont mortes 42 des 63 victimes. Compare donc les ordres de grandeur, pas les
+chiffres à l'unité près.
+:::
+
+::: questions
+1. Le séisme de 1906 a libéré de vingt à trente fois plus d'énergie que celui
+   de 1989, mais il a fait bien plus que trente fois plus de morts. Nomme deux
+   raisons qui tiennent à la ville et non au séisme.
+2. Le coût des dégâts est plus élevé en 1989 qu'en 1906 une fois ramené à la
+   même monnaie. Explique pourquoi une ville mieux préparée peut quand même
+   coûter plus cher.
+:::
+
 #### Le « Big One »
 
 Les scientifiques ne prédisent pas un séisme, ils en calculent la probabilité.

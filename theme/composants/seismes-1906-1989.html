@@ -1,0 +1,183 @@
+<section class="cmp" id="seismes-1906-1989" aria-label="Comparateur des séismes de 1906 et de 1989">
+<style>
+.cmp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.cmp .cmp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cmp .cmp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.cmp__legende { display: flex; gap: 1rem; font-family: var(--donnee); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+.cmp__puce { display: inline-block; width: .7rem; height: .7rem; border-radius: 2px; margin-right: .3rem; vertical-align: -1px; }
+.cmp__puce--1906 { background: #5C2B14; outline: 1px solid rgba(255,255,255,.5); }
+.cmp__puce--1989 { background: #8FB89A; }
+.cmp__famille { margin: 0; padding: .9rem 1.2rem .2rem; font-family: var(--titre); font-weight: 700; font-size: .92rem; color: var(--encre); }
+.cmp__precision { margin: 0; padding: 0 1.2rem .6rem; font-size: .84rem; line-height: 1.45; color: var(--encre-doux); }
+.cmp__liste { list-style: none; margin: 0; padding: 0 1.2rem 1rem; }
+.cmp .cmp__liste > li::marker { content: ""; }
+.cmp .cmp__liste > li::before { content: none; display: none; }
+.cmp__ligne { list-style: none; margin: 0 0 .9rem; padding: .7rem .85rem; background: var(--surface-2); border: 1px solid var(--trait); border-radius: var(--rayon); }
+.cmp__ligne::marker { content: ""; }
+.cmp__nom { display: block; font-family: var(--titre); font-weight: 600; font-size: .92rem; color: var(--encre); margin-bottom: .5rem; }
+.cmp__unite { display: block; font-family: var(--donnee); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.cmp__barre { display: grid; grid-template-columns: 3.1rem 1fr; align-items: center; gap: .5rem; margin-bottom: .3rem; }
+.cmp__annee { font-family: var(--donnee); font-size: .7rem; letter-spacing: .05em; color: var(--encre-doux); }
+.cmp__piste { position: relative; height: 1.35rem; background: var(--surface); border: 1px solid var(--trait); border-radius: 3px; overflow: hidden; }
+.cmp__remplissage { position: absolute; inset: 0 auto 0 0; border-radius: 2px 0 0 2px; }
+.cmp__remplissage--1906 { background: #5C2B14; }
+.cmp__remplissage--1989 { background: #8FB89A; }
+.cmp__marge { position: absolute; top: 0; bottom: 0; opacity: .45; background-image: repeating-linear-gradient(135deg, currentColor 0 3px, transparent 3px 7px); }
+.cmp__marge--1906 { color: #5C2B14; }
+.cmp__marge--1989 { color: #8FB89A; }
+.cmp__valeur { position: relative; z-index: 1; display: block; padding: .18rem .5rem; font-family: var(--donnee); font-size: .74rem; color: var(--encre); }
+.cmp__inconnu { font-style: italic; color: var(--encre-doux); }
+.cmp__mot { display: block; margin-top: .45rem; font-size: .86rem; line-height: 1.5; color: var(--encre); }
+.cmp__mot[hidden] { display: none; }
+.cmp__declencheur { margin-top: .3rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: none; border: none; padding: .15rem 0; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.cmp__declencheur:hover { color: var(--matiere); }
+.cmp__source { margin: 0; padding: 0 1.2rem 1.1rem; font-size: .78rem; line-height: 1.5; color: var(--encre-doux); }
+html[data-sombre="on"] .cmp .cmp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .cmp .cmp__titre { color: var(--encre); }
+html[data-sombre="on"] .cmp__legende { color: var(--encre-pale); }
+html[data-sombre="on"] .cmp__remplissage--1906 { background: #B8763F; }
+html[data-sombre="on"] .cmp__marge--1906 { color: #B8763F; }
+html[data-sombre="on"] .cmp__puce--1906 { background: #B8763F; }
+@media (max-width: 40rem) { .cmp__barre { grid-template-columns: 2.7rem 1fr; } }
+@media print { .cmp__declencheur { display: none; } .cmp__mot { display: block; } .cmp__ligne { page-break-inside: avoid; } }
+</style>
+<div class="cmp__entete">
+  <p class="cmp__titre" role="heading" aria-level="3">Comparer 1906 et 1989</p>
+  <p class="cmp__legende">
+    <span><span class="cmp__puce cmp__puce--1906"></span>1906</span>
+    <span><span class="cmp__puce cmp__puce--1989"></span>1989</span>
+  </p>
+</div>
+<p class="cmp__famille" role="heading" aria-level="4">Ce que la faille a fait</p>
+<p class="cmp__precision">L'aléa, c'est-à-dire le phénomène lui-même, indépendamment de ce qu'il rencontre.</p>
+<ul class="cmp__liste" id="cmp-alea"></ul>
+<p class="cmp__famille" role="heading" aria-level="4">Ce que la ville a subi</p>
+<p class="cmp__precision">La vulnérabilité, c'est-à-dire ce que le territoire et ses habitants ont encaissé.</p>
+<ul class="cmp__liste" id="cmp-vulnerabilite"></ul>
+<p class="cmp__source">Sources : U.S. Geological Survey, California Geological Survey, Hansen et Condon pour l'estimation du bilan de 1906. Les barres hachurées marquent une fourchette, pas une précision.</p>
+<script>
+(function () {
+  var racine = document.getElementById("seismes-1906-1989");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  // Chaque indicateur porte son échelle : comparer 477 km et 63 morts sur un
+  // axe commun n'aurait aucun sens. La barre dit donc le rapport entre 1906 et
+  // 1989 pour cette ligne, jamais entre deux lignes différentes.
+  //
+  // Une valeur est soit un nombre, soit [min, max] pour une fourchette, soit
+  // null quand la donnée n'existe pas. Un null n'affiche aucune barre : une
+  // barre absente ne doit jamais pouvoir se lire comme un zéro.
+  var INDICATEURS = {
+    alea: [
+      { nom: "Magnitude de moment", unite: "échelle Mw, sans barre",
+        a1906: [7.8, 7.9], a1989: 6.9, sansBarre: true,
+        texte: "7,8 à 7,9", texte89: "6,9",
+        mot: "L'échelle est logarithmique, alors deux barres se ressemblant à 13 % près donneraient une fausse idée. C'est l'énergie libérée, à la ligne suivante, qui se met en barres sans mentir." },
+      { nom: "Énergie libérée", unite: "en multiples de 1989",
+        a1906: [22, 32], a1989: 1,
+        texte: "22 à 32 fois", texte89: "1 fois",
+        mot: "Un point de magnitude vaut environ 32 fois plus d'énergie. Voilà le vrai écart entre les deux séismes, celui que la magnitude cache." },
+      { nom: "Longueur de la rupture", unite: "kilomètres de faille",
+        a1906: 477, a1989: 40,
+        texte: "477 km", texte89: "40 km",
+        mot: "En 1906, la faille a cédé du sud de San Juan Bautista jusqu'au cap Mendocino. En 1989, seulement sur la portion la plus au sud de cette même cassure." },
+      { nom: "Durée de la secousse", unite: "secondes",
+        a1906: [45, 60], a1989: [8, 15],
+        texte: "45 à 60 s", texte89: "8 à 15 s",
+        mot: "Plus la secousse dure, plus les bâtiments encaissent de cycles. Quatre fois plus longtemps, c'est quatre fois plus d'occasions de céder." }
+    ],
+    vulnerabilite: [
+      { nom: "Morts", unite: "bilan humain",
+        a1906: [478, 3000], a1989: 63,
+        texte: "478 à plus de 3 000", texte89: "63",
+        mot: "Le chiffre officiel de 1906 est resté 478 pendant des décennies. Les historiens Hansen et Condon ont établi plus de 3 000 morts. Les non-comptés étaient surtout des immigrants, et les autorités avaient intérêt à minimiser pour faire revenir le commerce. Un bilan n'est pas seulement mesuré, il est aussi construit." },
+      { nom: "Blessés", unite: "personnes",
+        a1906: null, a1989: 3757,
+        texte: "donnée inconnue", texte89: "3 757",
+        mot: "Aucun décompte fiable n'a été tenu en 1906. L'absence de barre signale une donnée manquante, pas un zéro." },
+      { nom: "Personnes sans toit", unite: "personnes",
+        a1906: [225000, 300000], a1989: 12053,
+        texte: "225 000 à 300 000", texte89: "12 053",
+        mot: "C'est l'écart le plus parlant. En 1906, plus de la moitié des quelque 400 000 habitants de la ville se retrouvent à la rue. En 1989, les déplacés se comptent par milliers, sur une région bien plus peuplée." },
+      { nom: "Bâtiments détruits", unite: "bâtiments",
+        a1906: 28000, a1989: 963,
+        texte: "environ 28 000", texte89: "963",
+        mot: "La barre ne compte que les bâtiments détruits. En 1989, il faut y ajouter 18 306 logements endommagés sans être perdus. Et en 1906, l'essentiel de la destruction vient des incendies, pas de la secousse : les conduites d'eau ayant cédé, les pompiers n'avaient plus rien pour combattre le feu." },
+      { nom: "Coût des dégâts", unite: "en dollars d'aujourd'hui",
+        a1906: [4.8, 10], a1989: [14.5, 15.6],
+        texte: "4,8 à 10 milliards", texte89: "14,5 à 15,6 milliards",
+        mot: "En dollars de l'époque, 1906 coûte 400 millions et 1989 près de 6 milliards, ce qui ferait croire à un rapport de quinze. Ramenés à la même monnaie, les deux se rapprochent, et 1989 passe même devant : une ville plus riche a plus à perdre." }
+    ]
+  };
+
+  function el(balise, classe, texte) {
+    var noeud = document.createElement(balise);
+    if (classe) noeud.className = classe;
+    if (texte != null) noeud.textContent = texte;
+    return noeud;
+  }
+  function maximum(valeur) {
+    if (valeur == null) return 0;
+    return Array.isArray(valeur) ? valeur[1] : valeur;
+  }
+  function minimum(valeur) {
+    if (valeur == null) return 0;
+    return Array.isArray(valeur) ? valeur[0] : valeur;
+  }
+  function barre(annee, valeur, texte, plafond) {
+    var rangee = el("div", "cmp__barre");
+    rangee.appendChild(el("span", "cmp__annee", annee));
+    var piste = el("div", "cmp__piste");
+    if (valeur != null && plafond > 0) {
+      var bas = Math.max(minimum(valeur) / plafond * 100, 1.5);
+      var haut = Math.max(maximum(valeur) / plafond * 100, 1.5);
+      var plein = el("div", "cmp__remplissage cmp__remplissage--" + annee);
+      plein.style.width = bas + "%";
+      piste.appendChild(plein);
+      if (haut > bas) {
+        var marge = el("div", "cmp__marge cmp__marge--" + annee);
+        marge.style.left = bas + "%";
+        marge.style.width = (haut - bas) + "%";
+        piste.appendChild(marge);
+      }
+    }
+    var etiquette = el("span", "cmp__valeur", texte);
+    if (valeur == null) etiquette.className += " cmp__inconnu";
+    piste.appendChild(etiquette);
+    rangee.appendChild(piste);
+    return rangee;
+  }
+  function ligne(indicateur) {
+    var li = el("li", "cmp__ligne");
+    var nom = el("span", "cmp__nom", indicateur.nom);
+    li.appendChild(nom);
+    li.appendChild(el("span", "cmp__unite", indicateur.unite));
+    var plafond = indicateur.sansBarre ? 0
+      : Math.max(maximum(indicateur.a1906), maximum(indicateur.a1989));
+    li.appendChild(barre("1906", indicateur.sansBarre ? null : indicateur.a1906,
+                         indicateur.texte, plafond));
+    li.appendChild(barre("1989", indicateur.sansBarre ? null : indicateur.a1989,
+                         indicateur.texte89, plafond));
+    var mot = el("span", "cmp__mot", indicateur.mot);
+    mot.hidden = true;
+    var bouton = el("button", "cmp__declencheur", "Ce que ça veut dire");
+    bouton.type = "button";
+    bouton.setAttribute("aria-expanded", "false");
+    bouton.addEventListener("click", function () {
+      mot.hidden = !mot.hidden;
+      bouton.setAttribute("aria-expanded", mot.hidden ? "false" : "true");
+      bouton.textContent = mot.hidden ? "Ce que ça veut dire" : "Masquer";
+    });
+    li.appendChild(bouton);
+    li.appendChild(mot);
+    return li;
+  }
+  ["alea", "vulnerabilite"].forEach(function (famille) {
+    var hote = document.getElementById("cmp-" + (famille === "alea" ? "alea" : "vulnerabilite"));
+    INDICATEURS[famille].forEach(function (indicateur) {
+      hote.appendChild(ligne(indicateur));
+    });
+  });
+})();
+</script>
+</section>

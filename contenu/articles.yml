@@ -19,13 +19,45 @@
 # passage suivant de --chercher.
 
 articles:
+  - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-05/crime-organise-chez-les-autochtones/quebec-va-s-attaquer-aux-reseaux-criminels.php"
+    fiche: "12"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Crime organisé chez les Autochtones | Québec « va s’attaquer » aux réseaux criminels"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-05/nouveaux-droits-de-douane/carney-refuse-de-se-prononcer-sur-l-issue-des-negos-a-l-approche-de-l-echeance.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Nouveaux droits de douane | Carney refuse de se prononcer sur l’issue des négos à l’approche de l’échéance"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php"
     fiche: "06"
     media: "La Presse"
     date: "2026-08-05"
     titre: "Ontario et Territoires du Nord-Ouest | Le réchauffement climatique a doublé la probabilité des incendies de forêt"
     garder: "O"
-    note: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-05/colombie-britannique/les-degats-causes-par-les-incendies-de-foret-s-aggravent.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Colombie-Britannique | Les dégâts causés par les incendies de forêt s’aggravent"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/justice-et-faits-divers/2026-08-05/monteregie/la-grenade-decouverte-dans-un-camping-ne-contenait-pas-d-explosifs.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Montérégie | La grenade découverte dans un camping ne contenait pas d’explosifs"
+    garder: "N"
+    note: ""
 
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php"
     fiche: "04"
@@ -43,12 +75,28 @@ articles:
     garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/guatemala/l-activite-du-volcan-de-fuego-ralentit-mais-le-risque-est-toujours-la.php"
+  - adresse: "https://www.lapresse.ca/actualites/regional/2026-08-05/glissement-de-terrain-a-l-ascension/la-vie-reprend-son-cours-dans-les-hautes-laurentides.php"
     fiche: "04"
     media: "La Presse"
     date: "2026-08-05"
-    titre: "Guatemala | L’activité du volcan de Fuego ralentit mais le risque est toujours là"
-    garder: ""
+    titre: "Glissement de terrain à l’Ascension | La vie reprend son cours dans les Hautes-Laurentides"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/double-seisme-au-venezuela/les-douloureux-bilans-contradictoires-du-nombre-de-disparus.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Double séisme au Venezuela | Les douloureux bilans contradictoires du nombre de disparus"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/guatemala/fin-de-l-eruption-du-volcan-de-fuego.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Guatemala | Fin de l’éruption du volcan de Fuego"
+    garder: "0"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ruelles-vertes/a-trois-rivieres-une-ruelle-ou-on-se-sent-bien.php"
@@ -72,7 +120,7 @@ articles:
     media: "La Presse"
     date: "2026-08-04"
     titre: "Droits de douane | Le ministre LeBlanc retourne à Washington pour rencontrer son homologue américain"
-    garder: "N"
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2273346/oleoduc-canada-projet-interet-national"
@@ -128,7 +176,7 @@ articles:
     media: "La Presse"
     date: "2026-08-03"
     titre: "Boucherville | Casse-tête à venir sur l’autoroute 20"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-08-02/parc-national-de-frontenac/rever-sous-les-etoiles.php"
@@ -136,7 +184,7 @@ articles:
     media: "La Presse"
     date: "2026-08-02"
     titre: "Parc national de Frontenac | Rêver sous les étoiles"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-01/les-jeux-olympiques-de-montreal-designes-evenement-historique.php"
@@ -144,7 +192,7 @@ articles:
     media: "La Presse"
     date: "2026-08-01"
     titre: "Les Jeux olympiques de Montréal désignés « évènement historique »"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php"
@@ -200,7 +248,7 @@ articles:
     media: "La Presse"
     date: "2026-07-28"
     titre: "Conduite d’eau Atwater | Incursion dans un chantier névralgique pour Montréal"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/national/2026-07-27/traverse-frontaliere/le-pont-gordie-howe-ouvert-a-la-circulation.php"
@@ -208,7 +256,7 @@ articles:
     media: "La Presse"
     date: "2026-07-27"
     titre: "Traverse frontalière | Le pont Gordie-Howe ouvert à la circulation"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/regional/2026-06-09/projet-novador-en-abitibi-temiscamingue/une-communaute-autochtone-veut-faire-annuler-le-permis-d-exploration-d-un-geant-minier.php"
