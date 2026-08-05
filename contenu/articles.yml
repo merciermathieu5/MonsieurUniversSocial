@@ -24,7 +24,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Crime organisé chez les Autochtones | Québec « va s’attaquer » aux réseaux criminels"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-05/nouveaux-droits-de-douane/carney-refuse-de-se-prononcer-sur-l-issue-des-negos-a-l-approche-de-l-echeance.php"
@@ -32,7 +32,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Nouveaux droits de douane | Carney refuse de se prononcer sur l’issue des négos à l’approche de l’échéance"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php"
@@ -48,7 +48,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Colombie-Britannique | Les dégâts causés par les incendies de forêt s’aggravent"
-    garder: "O"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/justice-et-faits-divers/2026-08-05/monteregie/la-grenade-decouverte-dans-un-camping-ne-contenait-pas-d-explosifs.php"
@@ -56,7 +56,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Montérégie | La grenade découverte dans un camping ne contenait pas d’explosifs"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php"
@@ -80,7 +80,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Glissement de terrain à l’Ascension | La vie reprend son cours dans les Hautes-Laurentides"
-    garder: "O"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/double-seisme-au-venezuela/les-douloureux-bilans-contradictoires-du-nombre-de-disparus.php"
@@ -88,7 +88,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Double séisme au Venezuela | Les douloureux bilans contradictoires du nombre de disparus"
-    garder: "O"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/guatemala/fin-de-l-eruption-du-volcan-de-fuego.php"
@@ -96,7 +96,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Guatemala | Fin de l’éruption du volcan de Fuego"
-    garder: "0"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ruelles-vertes/a-trois-rivieres-une-ruelle-ou-on-se-sent-bien.php"
@@ -104,7 +104,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Ruelles vertes | À Trois-Rivières, une ruelle où « on se sent bien »"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-04/dicaprio-et-bezos-lancent-un-projet-pour-sauver-des-especes-menacees.php"
@@ -112,7 +112,7 @@ articles:
     media: "La Presse"
     date: "2026-08-04"
     titre: "DiCaprio et Bezos lancent un projet pour sauver des espèces menacées"
-    garder: "N"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-04/droits-de-douane/le-ministre-leblanc-retourne-a-washington-pour-rencontrer-son-homologue-americain.php"
@@ -120,7 +120,7 @@ articles:
     media: "La Presse"
     date: "2026-08-04"
     titre: "Droits de douane | Le ministre LeBlanc retourne à Washington pour rencontrer son homologue américain"
-    garder: "O"
+    garder: ""
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2273346/oleoduc-canada-projet-interet-national"

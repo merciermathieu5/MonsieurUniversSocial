@@ -5894,3 +5894,35 @@ Le comparateur a été éprouvé à part, 11 contrôles jsdom sur la fiche const
 dont l'absence de barre pour la magnitude, l'absence de barre pour les blessés
 de 1906 et la vérification que la barre de 1989 dépasse bien celle de 1906 sur
 le coût en dollars constants.
+
+### Un indicateur à la fois, et des couleurs revues (livraison 149)
+
+Neuf diagrammes empilés se regardaient sans se comparer. Le comparateur n'en
+montre plus qu'un, choisi par un bouton, et les boutons restent groupés par
+famille : quatre pour l'aléa, cinq pour la vulnérabilité. L'explication n'est
+plus repliée derrière un bouton, puisqu'il y a maintenant la place de l'afficher.
+
+À l'impression, les neuf panneaux redeviennent visibles et la rangée de boutons
+disparaît. Un seul indicateur sur papier aurait fait perdre les huit autres.
+
+### Le défaut de lisibilité
+
+La valeur était écrite par-dessus la barre. Sur les teintes foncées, cela
+donnait de l'encre sombre sur du brun sombre, illisible. J'avais mesuré la
+séparation entre les deux barres et oublié le texte posé dessus, alors qu'aucune
+couleur de texte ne peut convenir à la fois à une barre pleine et à une piste
+vide. La valeur est maintenant écrite sous la piste, sur le fond de la page, et
+porte son année en toutes lettres.
+
+Ce déplacement libère le choix des teintes, qui n'ont plus à porter du texte.
+L'ocre et le bleu profond retenus se séparent de 2,8 en clair et de 2,7 en
+sombre, avec un liseré sombre sur chaque barre pour que le bord reste net dans
+les deux thèmes. La lecture ne repose de toute façon pas sur la couleur seule :
+l'ordre des deux barres est fixe et chacune est étiquetée.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes, aucun brisé. Les deux suites Node à
+0 échec, les essais des ressources et de l'actualité au vert, et 16 contrôles
+jsdom sur le comparateur, dont la vérification qu'un seul panneau reste visible
+après chaque clic et qu'aucune valeur ne se trouve à l'intérieur d'une piste.
