@@ -5602,3 +5602,29 @@ le champ de recherche ramène les dix cahiers d'un coup.
 
 Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Les deux
 suites Node à 0 échec, et l'essai jsdom passe à 40 contrôles.
+
+### Deux menus déroulants à la place du filtre de thème (livraison 142)
+
+Le filtre de thème proposait « 1re secondaire » et « 2e secondaire » d'un côté,
+les cinq types de territoire de l'autre. Deux niveaux pour dix réalités
+sociales, ça ne réduisait presque rien. Il est remplacé par un menu déroulant
+« Réalité sociale » et un menu « Territoire », qui visent directement la fiche.
+
+Les menus ne listent que les fiches qui portent au moins une ressource. Offrir
+« L'essor urbain et commercial » alors qu'aucune ressource ne s'y rattache
+n'aurait mené qu'à une liste vide, sans expliquer pourquoi.
+
+Sur « Tout », les deux menus restent offerts, ce qui permet de viser une fiche
+sans passer par le filtre de matière. Un seul menu à la fois porte un choix :
+en changer un remet l'autre à zéro. Sans cette remise à zéro, un choix laissé
+dans le menu caché aurait continué de filtrer en sourdine.
+
+La pastille de famille prend sa couleur : violet pour Kahoot, ocre pour Cahier
+de l'élève. Ni le bleu de l'histoire ni le vert de la géographie, parce que la
+famille n'est pas la matière, et les confondre ferait croire qu'un cahier
+n'existe que d'un côté. Les deux teintes ont été mesurées, blanc sur violet à
+8,7 pour 1 et blanc sur ocre à 5,9 pour 1, avec des variantes éclaircies en
+thème sombre puisque les tons foncés s'y confondaient avec la surface.
+
+Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
+Node à 0 échec, et l'essai jsdom passe à 47 contrôles.
