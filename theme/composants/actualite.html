@@ -1,0 +1,207 @@
+<section class="act" id="actualite" aria-label="Articles d'actualité par territoire">
+<style>
+.act { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.act .act__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.act .act__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.act__compte { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.act__reglages { padding: 1rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); display: grid; gap: .75rem; }
+.act__rangee { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.act__etiquette { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); flex: 0 0 5.5rem; }
+.act__menu { font-family: var(--corps); font-size: .9rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .38rem .6rem; max-width: 22rem; }
+.act__menu:focus { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.act__recherche { font-family: var(--corps); font-size: .95rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .4rem .7rem; min-width: 14rem; flex: 1 1 14rem; }
+.act__recherche:focus { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.act__grille { list-style: none; margin: 0; padding: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: .75rem; }
+.act .act__grille > li::marker { content: ""; }
+.act .act__grille > li::before { content: none; display: none; }
+.act__carte { list-style: none; margin: 0; display: flex; flex-direction: column; gap: .3rem; background: var(--surface-2); border: 1px solid var(--trait); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem .8rem; }
+.act__carte::marker { content: ""; }
+.act__haut { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
+.act__type { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #8A2E3B; border-radius: 100px; padding: .15rem .6rem; }
+.act__source { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.act__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--encre); margin-top: .2rem; }
+.act__note { display: block; font-size: .86rem; line-height: 1.4; color: var(--encre); }
+.act__fiche { display: block; font-size: .84rem; line-height: 1.4; color: var(--encre-doux); }
+.act__pied { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-top: .5rem; }
+.act .act__bouton { font-family: var(--titre); font-weight: 600; font-size: .85rem; color: #fff; background: #8A2E3B; border: 1px solid #8A2E3B; border-radius: 100px; padding: .4rem 1rem; text-decoration: none; transition: background .15s; }
+.act .act__bouton:hover { background: #A03B49; text-decoration: none; }
+.act .act__lien { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--encre-doux); text-decoration: underline; text-underline-offset: 2px; }
+.act .act__lien:hover { color: var(--matiere); }
+.act__vide { margin: 0; padding: 2rem 1.2rem 2.4rem; text-align: center; color: var(--encre-doux); font-size: .95rem; }
+.act__source-liste { padding: 1.1rem 1.4rem 1.4rem; }
+html[data-sombre="on"] .act .act__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .act .act__titre { color: var(--encre); }
+html[data-sombre="on"] .act__compte { color: var(--encre-pale); }
+html[data-sombre="on"] .act__type { background: #B04C5A; color: #fff; }
+html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B04C5A; color: #fff; }
+@media (max-width: 40rem) { .act__grille { padding: .85rem; } .act__etiquette { flex-basis: 100%; } }
+@media print { .act__reglages { display: none; } .act__grille { grid-template-columns: repeat(2, 1fr); } .act__carte { page-break-inside: avoid; } }
+</style>
+<div class="act__entete">
+  <p class="act__titre" role="heading" aria-level="3">Articles par territoire</p>
+  <p class="act__compte" id="act-compte">Aucun article</p>
+</div>
+<div class="act__reglages" id="act-reglages" hidden>
+  <div class="act__rangee">
+    <span class="act__etiquette"><label for="act-territoire">Territoire</label></span>
+    <select id="act-territoire" class="act__menu"></select>
+  </div>
+  <div class="act__rangee">
+    <span class="act__etiquette"><label for="act-recherche">Recherche</label></span>
+    <input type="search" id="act-recherche" class="act__recherche" placeholder="Un mot du territoire ou de la description" autocomplete="off">
+  </div>
+</div>
+<ul class="act__grille" id="act-grille" hidden></ul>
+<p class="act__vide" id="act-vide">Aucun article n'est encore proposé. Reviens bientôt.</p>
+<div class="act__source-liste" id="act-source">
+  <ul data-matiere="geographie">
+  </ul>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("actualite");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  // Même principe qu'aux ressources : la liste en clair est la source unique.
+  // Sans JavaScript l'élève garde ses liens, et outils/liens.py --externes peut
+  // les éprouver. Les adresses de presse meurent plus vite que les autres, donc
+  // ce contrôle compte davantage ici qu'ailleurs.
+  //
+  // Géographie seulement : l'histoire a été écartée parce qu'un mot-clé ne sait
+  // pas lire une date et rangeait les articles à des siècles de leur fiche.
+  var FICHES = {
+    "02": "geographie/02-metropole.html",
+    "03": "geographie/03-ville-patrimoniale.html",
+    "04": "geographie/04-ville-risques-naturels.html",
+    "05": "geographie/05-territoire-touristique.html",
+    "06": "geographie/06-territoire-forestier.html",
+    "07": "geographie/07-territoire-energetique-quebec.html",
+    "09": "geographie/09-territoire-industriel.html",
+    "10": "geographie/10-territoire-agricole-national.html",
+    "11": "geographie/11-territoire-agricole-risque.html",
+    "12": "geographie/12-territoire-autochtone.html",
+    "13": "geographie/13-territoire-protege.html"
+  };
+  var MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet",
+              "août", "septembre", "octobre", "novembre", "décembre"];
+  var source = document.getElementById("act-source");
+  var grille = document.getElementById("act-grille");
+  var vide = document.getElementById("act-vide");
+  var compte = document.getElementById("act-compte");
+  var reglages = document.getElementById("act-reglages");
+  var recherche = document.getElementById("act-recherche");
+  var menu = document.getElementById("act-territoire");
+  var choix = "tout";
+  var ARTICLES = [];
+  var items = source.querySelectorAll("li[data-fiche]");
+  for (var i = 0; i < items.length; i++) {
+    var lien = items[i].querySelector("a");
+    if (!lien) continue;
+    ARTICLES.push({
+      fiche: items[i].dataset.fiche,
+      note: items[i].dataset.note || "",
+      date: items[i].dataset.date || "",
+      media: items[i].dataset.source || "",
+      titre: lien.textContent.trim(),
+      adresse: lien.getAttribute("href")
+    });
+  }
+  // Le plus récent en premier : sur une page d'actualité, l'ordre du fichier
+  // n'a aucun sens pour l'élève.
+  ARTICLES.sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+
+  function el(balise, classe, texte) {
+    var noeud = document.createElement(balise);
+    if (classe) noeud.className = classe;
+    if (texte != null) noeud.textContent = texte;
+    return noeud;
+  }
+  function sansAccent(texte) {
+    return (texte || "").toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+  function enClair(iso) {
+    var bouts = (iso || "").split("-");
+    if (bouts.length !== 3) return iso;
+    var mois = MOIS[parseInt(bouts[1], 10) - 1];
+    return parseInt(bouts[2], 10) + " " + (mois || "") + " " + bouts[0];
+  }
+  function garnirMenu() {
+    var vus = {}, liste = [];
+    for (var i = 0; i < ARTICLES.length; i++) {
+      if (vus[ARTICLES[i].fiche]) continue;
+      vus[ARTICLES[i].fiche] = 1;
+      liste.push({ cle: ARTICLES[i].fiche, nom: ARTICLES[i].titre });
+    }
+    liste.sort(function (a, b) { return a.cle < b.cle ? -1 : 1; });
+    menu.textContent = "";
+    var tous = document.createElement("option");
+    tous.value = "tout";
+    tous.textContent = "Tous";
+    menu.appendChild(tous);
+    for (var j = 0; j < liste.length; j++) {
+      var o = document.createElement("option");
+      o.value = liste[j].cle;
+      o.textContent = liste[j].nom;
+      menu.appendChild(o);
+    }
+    menu.addEventListener("change", function () {
+      choix = menu.value;
+      dessiner();
+    });
+  }
+  function retenus() {
+    var mots = sansAccent(recherche.value).split(/\s+/).filter(Boolean);
+    return ARTICLES.filter(function (a) {
+      if (choix !== "tout" && a.fiche !== choix) return false;
+      if (!mots.length) return true;
+      var foin = sansAccent([a.titre, a.note, a.media].join(" "));
+      return mots.every(function (mot) { return foin.indexOf(mot) !== -1; });
+    });
+  }
+  function carte(a) {
+    var li = el("li", "act__carte");
+    var haut = el("div", "act__haut");
+    haut.appendChild(el("span", "act__type", "Article"));
+    haut.appendChild(el("span", "act__source", a.media));
+    li.appendChild(haut);
+    li.appendChild(el("span", "act__nom", a.titre));
+    if (a.note) li.appendChild(el("span", "act__note", a.note));
+    li.appendChild(el("span", "act__fiche",
+                      "Fiche " + a.fiche + " · " + enClair(a.date)));
+    var pied = el("div", "act__pied");
+    var ouvrir = el("a", "act__bouton", "Lire l'article");
+    ouvrir.href = a.adresse;
+    ouvrir.target = "_blank";
+    ouvrir.rel = "noopener noreferrer";
+    ouvrir.setAttribute("aria-label", "Lire l'article sur le site de " + a.media);
+    pied.appendChild(ouvrir);
+    if (FICHES[a.fiche]) {
+      var lien = el("a", "act__lien", "Revoir la fiche");
+      lien.href = FICHES[a.fiche];
+      pied.appendChild(lien);
+    }
+    li.appendChild(pied);
+    return li;
+  }
+  function dessiner() {
+    var liste = retenus();
+    grille.textContent = "";
+    for (var i = 0; i < liste.length; i++) grille.appendChild(carte(liste[i]));
+    grille.hidden = liste.length === 0;
+    vide.hidden = liste.length !== 0;
+    vide.textContent = ARTICLES.length === 0
+      ? "Aucun article n'est encore proposé. Reviens bientôt."
+      : "Aucun article ne correspond à ta recherche.";
+    compte.textContent = liste.length === 0
+      ? "Aucun article"
+      : liste.length + (liste.length > 1 ? " articles" : " article");
+  }
+  source.hidden = true;
+  reglages.hidden = ARTICLES.length === 0;
+  recherche.addEventListener("input", dessiner);
+  garnirMenu();
+  dessiner();
+})();
+</script>
+</section>

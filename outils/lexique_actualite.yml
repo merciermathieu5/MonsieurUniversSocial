@@ -1,0 +1,164 @@
+# Lexique de classement des articles d'actualité, géographie seulement.
+#
+# L'histoire a été retirée après essai : un mot-clé ne sait pas lire une date.
+# « épave », « empire », « colonisation », « démocratie » rangeaient des
+# articles sous la bonne réalité sociale avec quatre siècles d'écart. Le défaut
+# ne se répare pas en ajoutant des termes, alors la page s'en tient aux
+# territoires, qui eux parlent du présent.
+#
+# Chaque territoire porte deux listes. Un terme « fort » décide presque à lui
+# seul, un terme « faible » ne décide de rien tout seul. Un article n'est
+# proposé que s'il touche au moins un terme fort ET atteint 2 points, le fort
+# valant 2 et le faible 1.
+#
+# La comparaison se fait sans accents, en minuscules, sur le titre, et tolère
+# le pluriel sur chaque mot : écrire « coupe forestiere » au singulier suffit.
+#
+# Écrire des termes longs plutôt que courts. « foret » attrape « la foret des
+# sondages », « coupe forestiere » n'attrape que ce qu'on veut.
+
+# Les fils à interroger. Les cinq de La Presse ont répondu, les adresses de
+# Radio-Canada en rss.radio-canada.ca sont mortes : ce sous-domaine ne répond
+# plus du tout. Va lire les adresses courantes sur ici.radio-canada.ca/info/rss
+# et colle-les ici, l'outil n'a pas besoin d'être modifié.
+fils:
+  "La Presse · actualités": https://www.lapresse.ca/actualites/rss
+  "La Presse · environnement": https://www.lapresse.ca/actualites/environnement/rss
+  "La Presse · national": https://www.lapresse.ca/actualites/national/rss
+  "La Presse · international": https://www.lapresse.ca/international/rss
+  "La Presse · affaires": https://www.lapresse.ca/affaires/rss
+  # Ajouts à éprouver : l'outil dira lesquels répondent, retire les muets.
+  "La Presse · Grand Montréal": https://www.lapresse.ca/actualites/grand-montreal/rss
+  "La Presse · politique": https://www.lapresse.ca/actualites/politique/rss
+  "La Presse · sciences": https://www.lapresse.ca/actualites/sciences/rss
+  "La Presse · régional": https://www.lapresse.ca/actualites/regional/rss
+  "La Presse · voyage": https://www.lapresse.ca/voyage/rss
+  "La Presse · économie": https://www.lapresse.ca/affaires/economie/rss
+  # Radio-Canada. Le sous-domaine rss.radio-canada.ca est mort et sa page de
+  # fils bloque l'accès automatisé, donc ces adresses sont des candidates à
+  # éprouver, pas des certitudes. L'outil dira lesquelles répondent. La voie
+  # sûre : ouvrir ici.radio-canada.ca/info/rss dans un navigateur, faire un
+  # clic droit sur chaque fil, copier l'adresse et la coller ici.
+  "Radio-Canada · grands titres": https://ici.radio-canada.ca/rss/4159
+  "Radio-Canada · environnement": https://ici.radio-canada.ca/rss/environnement
+  "Radio-Canada · science": https://ici.radio-canada.ca/rss/science
+  "Radio-Canada · régions": https://ici.radio-canada.ca/rss/regions
+
+# Veto de sécurité. Un seul de ces termes dans un titre écarte l'article avant
+# le classement, quel que soit son score. La page s'adresse à des élèves de 12
+# à 14 ans et un fil de nouvelles brut charrie de tout.
+exclure:
+  - meurtre
+  - homicide
+  - agression sexuelle
+  - agression armee
+  - violence conjugale
+  - proces pour
+  - accuse de
+  - corps retrouve
+  - accident mortel
+  - fusillade
+  - attentat
+  - suicide
+  - surdose
+  - maltraitance
+  - pornographie
+  - tuerie
+  - poignarde
+  - tue par balle
+  - otage
+  - torture
+
+geographie:
+  "02":
+    nom: La métropole
+    forts: [metropole, etalement urbain, transport collectif, densification,
+            congestion routiere, agglomeration, itinerance, crise du logement,
+            megapole, banlieue, transport en commun, reseau express metropolitain,
+            communaute metropolitaine, gentrification, transport structurant,
+            tramway, grand montreal, periurbain, societe de transport,
+            metro de montreal, logement social, mobilite durable,
+            autoroute, cyclable, penurie de logement, ruelle verte,
+            revitalisation, conduite d eau, requalification]
+    faibles: [montreal, toronto, urbanisme, quartier, logement, arrondissement]
+  "03":
+    nom: La ville patrimoniale
+    forts: [patrimoine bati, vieux-quebec, vieux-montreal, site patrimonial,
+            patrimoine mondial, unesco, batiment patrimonial, fortification,
+            patrimoine religieux, restauration du patrimoine,
+            arrondissement historique, classement patrimonial,
+            eglise desacralisee, conservation du patrimoine,
+            evenement historique, monument historique]
+    faibles: [patrimoine, eglise, vieille ville, monument, facade]
+  "04":
+    nom: La ville soumise à des risques naturels
+    forts: [seisme, tremblement de terre, faille sismique, tsunami, eruption,
+            volcan, ouragan, typhon, plan d evacuation, secousse, zone inondable,
+            glissement de terrain, erosion cotiere, submersion cotiere,
+            securite civile, digue, inondation]
+    faibles: [risque naturel, ville cotiere, pluie diluvienne]
+  "05":
+    nom: Le territoire touristique
+    forts: [surtourisme, tourisme de masse, achalandage touristique, croisieriste,
+            hebergement touristique, industrie touristique,
+            saison touristique, location de courte duree, capacite d accueil,
+            croisiere, affluence touristique, camping, escapade,
+            destination touristique, attrait touristique]
+    faibles: [tourisme, touriste, visiteur, plage, sentier, hotellerie, gaspesie]
+  "06":
+    nom: Le territoire forestier
+    forts: [deforestation, coupe forestiere, amazonie, foret boreale,
+            feu de foret, incendie de foret, amenagement forestier,
+            industrie forestiere, caribou forestier, papetiere, scierie,
+            coupe a blanc, regime forestier, reboisement, tordeuse,
+            bois d oeuvre, certification forestiere]
+    faibles: [foret, bois, arbre, sylviculture, boise]
+  "07":
+    nom: Le territoire énergétique du Québec
+    forts: [hydro-quebec, barrage, centrale hydroelectrique, parc eolien,
+            filiere batterie, ligne de transport d electricite, la romaine,
+            eolienne, production d electricite, hydroelectricite,
+            surplus energetique, poste electrique, energie eolienne,
+            transition energetique, energie renouvelable, oleoduc, gazoduc]
+    faibles: [energie, electricite, tarif, gaz naturel]
+  "09":
+    nom: Le territoire industriel des Grands Lacs
+    forts: [grands lacs, voie maritime du saint-laurent, siderurgie, acierie,
+            desindustrialisation, zone industrielle, port de montreal,
+            secteur manufacturier, aluminerie, porte-conteneurs,
+            chaine d approvisionnement, usine automobile, tarif douanier,
+            droit de douane, chaine de montage, traverse frontaliere,
+            ferraille, pollution industrielle]
+    faibles: [usine, industrie, manufacturier, exportation, saint-laurent,
+              windsor, detroit]
+  "10":
+    nom: Le territoire agricole national
+    forts: [terre agricole, zone agricole, cptaq, releve agricole,
+            accaparement des terres, souverainete alimentaire,
+            agriculture peri-urbaine, union des producteurs agricoles,
+            autonomie alimentaire, zonage agricole, producteur agricole,
+            serriculture, garde-manger, gestion de l offre,
+            production laitiere, serre agricole]
+    faibles: [agriculture, ferme, agriculteur, recolte, culture, elevage]
+  "11":
+    nom: Le territoire agricole soumis à des risques naturels
+    forts: [mousson, bangladesh, salinisation, erosion des berges,
+            secheresse agricole, submersion, delta du gange, riziere,
+            perte de recolte, gel tardif, grele, crue printaniere,
+            el nino, prevention des crues]
+    faibles: [inondation, secheresse, recolte, crue, mauvaise saison]
+  "12":
+    nom: Le territoire autochtone du Québec et du Canada
+    forts: [premiere nation, autochtone, inuit, revendication territoriale,
+            territoire ancestral, assemblee des premieres nations, innu,
+            crie, atikamekw, mohawk, naskapi, huronne-wendat, conseil de bande,
+            titre ancestral, pensionnat]
+    faibles: [communaute, nation, reserve, consultation, entente]
+  "13":
+    nom: "Le territoire protégé : le parc naturel"
+    forts: [aire protegee, aire marine protegee, parc national,
+            reserve de biosphere, galapagos, espece en voie de disparition,
+            espece menacee, espece en peril, braconnage,
+            conservation de la biodiversite, refuge faunique, reserve faunique,
+            habitat essentiel, sepaq]
+    faibles: [biodiversite, parc, faune, nature, habitat]

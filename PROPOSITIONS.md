@@ -5680,3 +5680,51 @@ jusqu'ici et n'apparaissait donc pas au menu déroulant.
 
 Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
 Node à 0 échec, essai jsdom à 53 contrôles.
+
+## Page : Actualité
+
+### Une page de territoires, pas de réalités sociales (livraison 145)
+
+La page n'accueille que de la géographie. L'histoire a été écartée après essai,
+et pour une raison qui ne se répare pas : un mot-clé ne sait pas lire une date.
+Le classement rangeait un article sur l'épave du Terra Nova, un navire de 1910,
+sous « L'expansion européenne dans le monde », qui porte sur les 15e et 16e
+siècles. Ajouter des termes n'aurait rien changé à ce plafond.
+
+Le composant reprend le modèle des ressources, liste de liens en clair que le
+script transforme en cartes, avec deux différences. Il n'y a qu'un menu, celui
+des territoires, puisqu'il n'y a plus deux matières à départager. Et les cartes
+se trient par date décroissante : sur une page d'actualité, l'ordre du fichier
+n'a aucun sens pour l'élève.
+
+### Ce que la page ne publie pas
+
+Radio-Canada et La Presse réservent leurs fils à l'usage personnel. La page ne
+reprend donc ni leurs titres ni leurs résumés : elle porte le nom du territoire,
+une phrase écrite par l'enseignant, le nom du média, la date et un lien. Le
+titre de presse n'apparaît que dans la console de l'outil d'essai, pour le
+jugement de l'enseignant, et ne descend jamais dans le fichier.
+
+C'est aussi le meilleur choix pédagogique. Une phrase de l'enseignant dit à
+l'élève pourquoi cet article se rattache à ce territoire, ce qu'un titre de
+presse ne fait jamais.
+
+### Un garde-fou nouveau dans le vérificateur
+
+`outils/actualite_essai.py` propose des lignes dont la mention reste à écrire,
+marquée « À DÉCRIRE ». Une ligne collée sans être complétée afficherait ce
+marqueur à l'élève, ce qui est pire qu'un article absent. `verifier.py` refuse
+désormais tout marqueur de rédaction dans le site construit. Le contrôle a été
+éprouvé en le faisant échouer volontairement : il fait passer la ligne de base
+de 22 à 23, puis revient à 22 une fois le marqueur retiré.
+
+### Le compte
+
+22 problèmes, inchangé. `liens.py` passe de 880 à 914 liens internes dans 28
+pages, les 34 nouveaux étant la page elle-même et son lien de bandeau sur
+chaque page, aucun brisé. Les deux suites Node à 0 échec, l'essai des ressources
+à 47 contrôles et un nouvel essai de la page d'actualité à 18 contrôles, dont la
+vérification qu'aucun titre de presse n'est repris.
+
+La page est livrée vide. Elle ne doit pas être poussée avant d'avoir reçu ses
+premiers articles, sinon le bandeau mène à une page sans contenu.

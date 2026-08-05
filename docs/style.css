@@ -111,6 +111,7 @@ a { color: inherit; }
 /* Ni bleu ni vert : la page des ressources ne relève d'aucune des deux
    matières, son état actif reste donc à l'encre du bandeau. */
 .matieres__lien--ressources.est-actif { background: rgba(255,255,255,.22); color: #fff; }
+.matieres__lien--actualite.est-actif { background: rgba(255,255,255,.22); color: #fff; }
 
 /* ------------------------------------------------------- entête en bandeau */
 

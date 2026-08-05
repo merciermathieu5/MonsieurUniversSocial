@@ -421,7 +421,7 @@ CLASSES_EMISES = [
     "frise__bascule", "sommaire__bascule", "declencheur", "actions",
     "mascotte", "documents", "galerie",
     "entete--page", "page__corps", "ouverture__acces",
-    "matieres__lien--ressources",
+    "matieres__lien--ressources", "matieres__lien--actualite",
 ]
 
 
@@ -559,6 +559,21 @@ def controler_conventions_fiches() -> list[str]:
     return soucis
 
 
+def controler_marqueurs() -> list[str]:
+    """Refuse tout marqueur de rédaction resté dans le site construit.
+
+    outils/actualite_essai.py propose des lignes dont la mention est à écrire
+    par l'enseignant. Une ligne collée sans être complétée afficherait
+    « À DÉCRIRE » à l'élève, ce qui est pire qu'un article manquant.
+    """
+    soucis = []
+    for page in sorted(DOCS.rglob("*.html")):
+        if "À DÉCRIRE" in page.read_text(encoding="utf-8"):
+            soucis.append(f"{page.relative_to(DOCS)} : mention « À DÉCRIRE » "
+                          f"non remplacée")
+    return soucis
+
+
 def controler_construit() -> list[str]:
     """Contrôles structurels sur les pages construites de docs/.
 
@@ -651,11 +666,11 @@ def main() -> int:
     soucis += conventions
 
     print("\nCONSTRUIT")
-    construit = controler_construit()
+    construit = controler_construit() + controler_marqueurs()
     for c in construit:
         print(f"    {c}")
     if not construit:
-        print("    ok   duos de vidéos bien formés")
+        print("    ok   duos de vidéos bien formés, aucun marqueur de rédaction")
     soucis += construit
 
     print(f"\n{len(soucis)} problème(s).")
