@@ -5452,3 +5452,36 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 34, inchangé. Le de
 12 reste celui des images, à récupérer chez toi avec `python outils/images.py`.
 `figures.py` et `paragraphes.py` sans écart. `liens.py` sans lien brisé. Les deux
 suites Node passent à 0 échec.
+
+### Les deux images qui refusaient de descendre (livraison 138)
+
+Dix images sur douze se sont téléchargées, donc le problème tenait bien aux deux
+noms et non à l'outil.
+
+**La cause probable : tes deux liens pointent vers des redirections.** Un fichier
+renommé sur Commons laisse derrière lui son ancien nom, que le navigateur suit
+sans qu'on s'en aperçoive. `images.py` épingle le titre exact et interroge l'API
+sans suivre les redirections, ce qui est le bon comportement : c'est ce qui
+garantit qu'on sait toujours quel fichier précis on utilise.
+
+**Les deux noms vérifiés**, relevés dans la catégorie Tortuga Bay de Commons avec
+leurs dimensions et leur licence :
+
+- `crabe-tortuga.jpg` → `File:Crab walking on Tortuga Bay in the Galapagos photo
+  by Alvaro Sevilla Design.JPG`, 4 000 × 3 000
+- `iguane-marin.jpg` → `File:Galapagos Island of Santa Cruz - Tortuga Bay Marine
+  Iguana.JPG`, 4 000 × 3 000, Creative Commons BY-SA 3.0
+
+Les deux viennent du même photographe et du même lieu que les autres images de
+Santa Cruz, ce qui donne une cohérence visuelle à la section. Les légendes
+n'avaient pas besoin d'être modifiées, elles restent exactes.
+
+Relance `python outils/images.py` : ces deux-là devraient descendre comme les
+autres.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 34, inchangé chez moi
+puisque aucune image n'est sur mon disque. Chez toi, le compte devrait tomber à
+22 une fois les deux dernières récupérées. `figures.py` et `paragraphes.py` sans
+écart. `liens.py` sans lien brisé. La suite Node passe à 0 échec.
