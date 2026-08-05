@@ -192,6 +192,10 @@ villages et les terres cries. **Eeyou Istchee** couvre le territoire de
 l'Administration régionale crie. **Kativik** couvre le Nunavik, où vivent les
 Inuit du Québec, ainsi que le village naskapi de Kawawachikamach, soit toute la
 portion au nord du 55e parallèle sauf les terres cries de Whapmagoostui.
+
+Les cartes de ces trois entités se trouvent dans la fiche
+[Le territoire énergétique du Québec](07-territoire-energetique-quebec.html),
+qui traite du même Nord depuis le point de vue de l'hydroélectricité.
 :::
 
 ::: questions
@@ -201,6 +205,8 @@ portion au nord du 55e parallèle sauf les terres cries de Whapmagoostui.
 :::
 
 ## Les grandes ententes
+
+![La signature de la Convention de la Baie-James, en 1975](../medias/12-territoire-autochtone/signature-cbjnq-1975.jpg)
 
 ::: schema frise-ententes-autochtones
 :::
@@ -234,7 +240,9 @@ que les deux camps ne mesuraient pas la même chose.
 Dans les années 1980 et 1990, les Cris soutiennent devant les tribunaux que le
 Québec ne respecte pas la Convention et qu'il ne les consulte pas assez sur
 l'exploitation hydroélectrique, minière et forestière. De nouvelles
-négociations s'ouvrent, et la **Paix des Braves** est signée en 2002. Cette
+négociations s'ouvrent, et la **Paix des Braves** est signée en 2002. ![La
+signature de la Paix des Braves, en
+2002](../medias/12-territoire-autochtone/paix-des-braves-2002.jpg) Cette
 entente de nation à nation prévoit une part des retombées de 3,6 milliards de
 dollars sur 50 ans, une plus grande autonomie financière et la collaboration
 des Cris au développement du Nord. Elle met fin aux contestations judiciaires
@@ -259,17 +267,23 @@ l'ampleur de celui de la Baie-James transforme tout un territoire. Des rivières
 ont été détournées, d'autres ont vu leur débit fortement modifié, et des terres
 entourant les lacs ont été inondées.
 
-**Sur le plan social**, l'inondation touche des territoires de chasse, de pêche
+### Sur le plan social
+
+L'inondation touche des territoires de chasse, de pêche
 et de piégeage. Le lien entre la culture crie et ces activités est très fort,
 si bien qu'une indemnité financière ne remplace pas ce qui est perdu. Un mode de
 vie qui s'est construit sur des millénaires en est durablement affecté.
 
-**Sur le plan environnemental**, la mise en eau d'un réservoir met en circulation
+### Sur le plan environnemental
+
+La mise en eau d'un réservoir met en circulation
 le mercure présent dans les sols et la végétation inondés. La teneur en mercure
 des poissons augmente, un phénomène qui peut durer de 10 à 35 ans selon les
 espèces et les réservoirs. Les gens qui mangent ces poissons sont touchés.
 
-**Sur le plan économique**, les ententes ont apporté des emplois de chantier, des
+### Sur le plan économique
+
+Les ententes ont apporté des emplois de chantier, des
 indemnités et des revenus durables. Air Creebec, fondée en 1982 et entièrement
 propriété crie depuis 1988, emploie aujourd'hui plus de 400 personnes, dont un
 tiers sont membres des Premières Nations. C'est le résultat direct de cette
@@ -316,6 +330,12 @@ La Transtaïga
 
 ## Le Nunavut
 
+![Le Nunavut dans l'ensemble du Canada](../medias/12-territoire-autochtone/nunavut-canada.png)
+
+![Les trois régions du Nunavut](../medias/12-territoire-autochtone/regions-nunavut.png)
+
+![La montagne Nuluujaak, sur l'île de Baffin](../medias/12-territoire-autochtone/montagne-nuluujaak.jpg)
+
 Le Nunavut signifie « notre terre » en inuktitut, et ses habitants sont les
 **Nunavummiut**. C'est le plus récent, le plus vaste et le plus nordique des
 territoires du Canada, officiellement créé le 1er avril 1999.
@@ -335,6 +355,8 @@ Le Nunavut, un territoire du Nord canadien
 :::
 
 ### Iqaluit
+
+![L'Assemblée législative du Nunavut, à Iqaluit](../medias/12-territoire-autochtone/assemblee-legislative.jpg)
 
 Iqaluit est la capitale, située près de la pointe nord-est de la baie
 Frobisher, au sud de l'île de Baffin. Elle compte environ 7 500 habitants, ce
@@ -446,6 +468,8 @@ et
 
 ### Construire sur un sol qui dégèle
 
+![Une maison sur pilotis d'acier, au Nunavut](../medias/12-territoire-autochtone/maison-pilotis-nunavut.jpg)
+
 Au Nunavut, on bâtit en tenant compte du pergélisol, ce sol gelé en permanence
 qui doit rester solide sous la maison. Or les changements climatiques le font
 dégeler dans des régions où cela ne se produisait pas, ce qui rend les
@@ -453,6 +477,14 @@ fondations instables. Il serait impossible de couler une fondation classique
 dans le pergélisol : le béton en serait irrémédiablement endommagé. Plusieurs
 bâtiments d'Iqaluit reposent donc sur des pilotis d'acier ancrés jusqu'à une
 trentaine de pieds de profondeur, ce qui les protège des mouvements du sol.
+
+::: video Gs6R1gZMDxM
+Le pergélisol et son dégel
+:::
+
+::: video WIdbin_nIPs
+Bâtir sur un sol qui dégèle
+:::
 
 ::: questions
 1. Explique en trois étapes comment le réchauffement du climat finit par fissurer

@@ -5121,3 +5121,68 @@ avec les deux nouveaux. Le vérificateur a d'ailleurs attrapé un débordement d
 `figures.py` et `paragraphes.py` sans écart après douze fusions. `liens.py`
 vérifie 827 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
 Il ne reste qu'un gabarit en géographie, le parc naturel.
+
+### Le territoire autochtone prend ses images (livraison 132)
+
+La fiche passe de zéro à sept images.
+
+**Les deux signatures encadrent la section des ententes.** Celle de 1975 ouvre le
+récit de la Convention de la Baie-James, celle de 2002 précède la Paix des
+Braves. Mises en séquence, elles disent quelque chose que le texte ne dit pas :
+vingt-sept ans séparent deux photos où les mêmes nations sont assises à la même
+table, mais pas dans la même position.
+
+**Quatre images pour le Nunavut**, celles que tu m'as données :
+`File:Nunavut in Canada 2.svg` et `File:Map of the Nunavut regions.png` ouvrent
+la section, `File:Nuluujaak Mountain.jpg` montre le paysage de l'île de Baffin,
+et `File:Leg Building Iqaluit 2000-08-27.jpg` ouvre la sous-section sur la
+capitale. L'Assemblée législative à côté du texte sur le gouvernement, c'est le
+bon endroit.
+
+**La maison sur pilotis et les deux capsules** rejoignent la section sur le
+pergélisol. La photo montre exactement ce que le texte décrit, des pilotis
+d'acier sous un bâtiment ordinaire.
+
+### Trois crédits à compléter
+
+Les trois images que tu as fournies sont inscrites avec `auteur: A CONFIRMER` et
+`licence: A CONFIRMER`. Le vérificateur les signalera tant qu'elles resteront
+ainsi, et c'est voulu.
+
+La photo de la maison sur pilotis porte une **signature de photographe visible en
+bas à droite**. Sur un sujet où la question des droits et de la représentation
+compte particulièrement, il vaut mieux nommer l'auteur avant publication.
+
+### Le premier lien entre deux fiches du site
+
+L'encadré sur la Jamésie, Eeyou Istchee et Kativik renvoie maintenant à la fiche
+**Le territoire énergétique du Québec**, qui porte déjà les trois cartes. La
+phrase précise pourquoi on y va : elle traite du même Nord depuis le point de vue
+de l'hydroélectricité.
+
+C'est le premier renvoi d'une fiche à l'autre dans tout le site. `liens.py` le
+vérifie comme les autres et le trouve valide, sur 831 liens contrôlés. Le
+mécanisme fonctionne, si tu veux qu'on en pose ailleurs.
+
+Reprendre les trois cartes aurait signifié les dupliquer sur le disque et dans le
+registre sous d'autres noms. Le renvoi coûte une ligne et garde une seule source.
+
+### La section 7 réorganisée
+
+« Le développement hydroélectrique, deux lectures » était un bloc de trois
+paragraphes en gras qui se lisaient d'affilée. Elle a maintenant trois
+sous-titres, **Sur le plan social**, **Sur le plan environnemental** et **Sur le
+plan économique**, qui reprennent les trois piliers du développement durable.
+
+L'élève voit désormais la structure avant de lire, et la question de fin qui lui
+demande quel pilier est le moins respecté devient répondable en regardant la
+page.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 26. Le delta de 4
+correspond aux quatre images de Commons; les trois images fournies sont déjà sur
+le disque et ne comptent pas comme absentes, mais leurs crédits restent à
+compléter. Aucun problème hors images. `figures.py` a remonté une figure,
+`paragraphes.py` a fait une fusion. `liens.py` vérifie 831 liens internes, aucun
+brisé. Les deux suites Node passent à 0 échec.
