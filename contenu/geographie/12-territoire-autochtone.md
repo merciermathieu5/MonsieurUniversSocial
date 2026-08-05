@@ -208,6 +208,8 @@ qui traite du même Nord depuis le point de vue de l'hydroélectricité.
 
 ![La signature de la Convention de la Baie-James, en 1975](../medias/12-territoire-autochtone/signature-cbjnq-1975.jpg)
 
+![La signature de la Paix des Braves, en 2002](../medias/12-territoire-autochtone/paix-des-braves-2002.jpg)
+
 ::: schema frise-ententes-autochtones
 :::
 
@@ -240,9 +242,7 @@ que les deux camps ne mesuraient pas la même chose.
 Dans les années 1980 et 1990, les Cris soutiennent devant les tribunaux que le
 Québec ne respecte pas la Convention et qu'il ne les consulte pas assez sur
 l'exploitation hydroélectrique, minière et forestière. De nouvelles
-négociations s'ouvrent, et la **Paix des Braves** est signée en 2002. ![La
-signature de la Paix des Braves, en
-2002](../medias/12-territoire-autochtone/paix-des-braves-2002.jpg) Cette
+négociations s'ouvrent, et la **Paix des Braves** est signée en 2002. Cette
 entente de nation à nation prévoit une part des retombées de 3,6 milliards de
 dollars sur 50 ans, une plus grande autonomie financière et la collaboration
 des Cris au développement du Nord. Elle met fin aux contestations judiciaires

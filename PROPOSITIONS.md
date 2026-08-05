@@ -5186,3 +5186,34 @@ le disque et ne comptent pas comme absentes, mais leurs crédits restent à
 compléter. Aucun problème hors images. `figures.py` a remonté une figure,
 `paragraphes.py` a fait une fusion. `liens.py` vérifie 831 liens internes, aucun
 brisé. Les deux suites Node passent à 0 échec.
+
+### Les deux signatures côte à côte (livraison 133)
+
+C'est fait, et le site s'en charge tout seul : dès qu'une section contient deux
+illustrations ou plus, `build.py` les retire du fil du texte et les regroupe en
+galerie à la fin du bloc, juste avant les questions. Il suffisait que les deux
+photos se trouvent dans la même section.
+
+**Elles n'y étaient pas vraiment.** La photo de 2002 avait été absorbée au milieu
+d'une phrase par la fusion des paragraphes de la livraison précédente : elle se
+retrouvait entre « est signée en 2002. » et « Cette entente de nation à nation
+prévoit », donc rendue comme une image en ligne plutôt que comme une figure. Le
+mécanisme de galerie ne la comptait pas, et elle s'affichait seule au fil du
+texte.
+
+Elle est maintenant placée juste après celle de 1975, et les deux forment la
+galerie attendue. Le rendu les montre en deux colonnes de même hauteur, ce qui
+sert exactement ton propos : les mêmes nations, la même table, vingt-sept ans
+d'écart.
+
+**Une leçon pour la suite.** Une image doit être isolée par des lignes vides
+avant de lancer `paragraphes.py --appliquer`, sinon l'outil la considère comme
+faisant partie de la phrase voisine. Je surveillerai ce cas, qui ne s'était pas
+présenté jusqu'ici parce que je plaçais toujours les images en tête de section.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé. Le delta de
+4 reste celui des images de Commons, et les trois crédits fournis restent à
+compléter. `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 831
+liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
