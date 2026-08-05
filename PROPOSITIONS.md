@@ -5217,3 +5217,104 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 26, inchangé. Le de
 4 reste celui des images de Commons, et les trois crédits fournis restent à
 compléter. `figures.py` et `paragraphes.py` sans écart. `liens.py` vérifie 831
 liens internes, aucun brisé. Les deux suites Node passent à 0 échec.
+
+## Fiche : Le territoire protégé, le parc naturel
+
+### Onzième fiche de géographie, et la dernière (livraison 134)
+
+`contenu/geographie/13-territoire-protege.md` passe du gabarit à `brouillon`. Dix
+sections, les six concepts prescrits, les Galápagos et Anticosti en études de cas.
+
+**Il ne reste plus un seul gabarit en géographie.** Les treize fiches sont
+écrites.
+
+### Anticosti, et le contraste qu'elle apporte
+
+Le second cas fonctionne mieux que je ne l'espérais, parce qu'il oppose deux
+raisons de protéger. **Les Galápagos protègent la vie d'aujourd'hui**, des
+espèces qui n'existent nulle part ailleurs. **Anticosti protège la vie disparue**,
+le registre fossilifère le plus complet de la première extinction de masse du
+vivant, entre 447 et 437 millions d'années avant nous. Plus de 1 440 espèces
+fossiles y sont connues.
+
+Une question de section demande à l'élève d'expliquer pourquoi le mot patrimoine
+convient aux deux. C'est la question la plus riche de la fiche.
+
+Anticosti apporte aussi un dilemme que les Galápagos ne posent pas de la même
+façon. Le cerf de Virginie, introduit avec 220 bêtes par Henri Menier, s'est
+multiplié au point de modifier la régénération de la forêt. Mais la chasse au
+cerf est la principale activité économique de l'île. Un encadré `note` le dit
+sans trancher : **à Anticosti, ce ne sont pas les touristes qu'il faut concilier
+avec la nature, ce sont les habitants eux-mêmes.**
+
+### Trois corrections à ta page
+
+**Les Espagnols n'ont pas découvert les îles au 17e siècle.** L'évêque Tomás de
+Berlanga y est dérouté par les courants en **1535**.
+
+**Darwin n'y était pas en 1839.** Il y passe cinq semaines en **1835**, ce que ta
+section précédente disait correctement. Un encadré `note` prévient de deux
+confusions fréquentes : Darwin n'a pas découvert les îles, et il n'a pas eu son
+idée sur place, puisque *L'Origine des espèces* ne paraît qu'en 1859, vingt-quatre
+ans plus tard.
+
+**La réserve marine passe de 133 000 à 138 000 kilomètres carrés entre deux
+paragraphes de ta page.** Le bon chiffre est 133 000 depuis 1998, après 70 000 en
+1986. La réserve Hermandad y ajoute 60 000 kilomètres carrés en 2022.
+
+### Les trois visuels
+
+**`medias/schemas/frise-protection.svg`**, huit dates de 1535 à 2024, y compris
+l'inscription d'Anticosti en 2023. Les intervalles ne sont pas à l'échelle et le
+bandeau le dit, parce que ce n'est pas le point : quatre siècles sans aucune
+protection, puis six mesures en soixante-cinq ans. L'idée même de protéger est
+récente.
+
+**`theme/composants/moyens-protection.html`**, six moyens en onglets : le statut
+légal, les aires marines, l'encadrement du tourisme, le prix d'entrée, les
+espèces envahissantes, la recherche et l'éducation. Chaque panneau oppose « Ce
+qu'on fait » à « **Ce qui résiste** ». La ligne sur le tourisme porte l'essentiel
+de la fiche : on ne protège pas contre les gens, on protège avec eux.
+
+**`theme/composants/deux-parcs.html`**, les Galápagos et Anticosti en six
+critères, dont le premier est « Pourquoi c'est protégé ».
+
+### Deux faits que ta page n'avait pas
+
+**Les Galápagos portent le numéro 1 de la Liste du patrimoine mondial.** C'est le
+tout premier site inscrit, en 1978. Un encadré `savais-tu` le signale.
+
+**Les chutes Vauréal tombent de 76 mètres**, une vingtaine de plus que les chutes
+Niagara, et elles coulent au fond d'un canyon dont les parois exposent
+précisément les couches fossilifères qui ont valu à l'île son inscription.
+
+### Ce qui manque
+
+**Une seule image**, la tortue géante de Santa Cruz. C'est le plus gros défaut de
+la livraison.
+
+**Les cartes du RÉCIT que tu voulais n'existent pas sous cette forme.** J'ai
+cherché : la ressource du RÉCIT pour ce territoire est une tâche Minecraft, et sa
+« carte à télécharger » est un monde de jeu, pas une carte géographique. Le
+dossier documentaire du RÉCIT couvre le territoire agricole à risque et la
+Californie, mais pas le territoire protégé. Si tu pensais à une autre ressource,
+donne-moi l'adresse.
+
+Il faudrait au minimum une carte de situation de l'archipel, une carte
+d'Anticosti dans le golfe, un iguane marin, un fou à pieds bleus et une falaise
+fossilifère. Comme les fois précédentes, des liens Wikipédia régleraient ça en
+quelques minutes.
+
+**Deux titres de capsules me manquent**, `zJ6kaQAeVww` et `GbmmijWJNdA`, ceux des
+sections sur la pêche illégale et le tourisme. Les cinq autres portent le titre
+que ta page donnait.
+
+### Le compte
+
+Ligne de base du dépôt en ligne : 22 problèmes. Après : 23. Le delta de 1
+correspond à la seule image. Aucun problème hors images : les neuf sections
+passent. `figures.py` sans écart, `paragraphes.py` après neuf fusions.
+`liens.py` vérifie 835 liens internes, aucun brisé. Les deux suites Node passent
+à 0 échec.
+
+**Plus aucun gabarit en géographie.**

@@ -1,0 +1,168 @@
+<section class="dp" id="deux-parcs" aria-label="Comparaison des îles Galápagos et de l'île d'Anticosti">
+<style>
+.dp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.dp .dp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.dp .dp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.dp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.dp__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.dp__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.dp__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.dp__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.dp__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.dp__panneau.est-visible { display: block; }
+.dp__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.dp__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.dp__cote--anti { border-left-color: var(--encre-pale); }
+.dp__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.dp__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.25rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
+.dp__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.dp__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.dp__ecart strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .dp .dp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .dp .dp__titre { color: var(--encre); }
+html[data-sombre="on"] .dp__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .dp__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .dp__chiffre { color: var(--encre); }
+html[data-sombre="on"] .dp__ecart strong { color: var(--encre); }
+@media (max-width: 40rem) { .dp__panneau { padding: 1.1rem 1rem 1rem; } .dp__onglets { padding: .7rem .8rem; } .dp__chiffre { font-size: 1.08rem; } }
+@media print { .dp__panneau { display: block; page-break-inside: avoid; } .dp__onglets { display: none; } }
+</style>
+
+<div class="dp__entete">
+  <p class="dp__titre" role="heading" aria-level="3">Les Galápagos et Anticosti, six critères</p>
+  <p class="dp__consigne">Choisis un critère</p>
+</div>
+
+<div class="dp__onglets" role="tablist" aria-label="Critères comparés"></div>
+<div class="dp__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("deux-parcs");
+  if (!racine) { return; }
+  var criteres = [
+    {
+      cle: "pourquoi",
+      nom: "Pourquoi c'est protégé",
+      gaC: "Pour la vie d'aujourd'hui",
+      gaD: "Des esp\u00e8ces qui n'existent nulle part ailleurs : tortues g\u00e9antes, iguanes marins, cormorans qui ne volent pas, pinsons de Darwin. L'isolement de l'archipel a produit une \u00e9volution unique, encore observable.",
+      anC: "Pour la vie disparue",
+      anD: "Le registre fossilif\u00e8re le plus complet de la premi\u00e8re extinction de masse du vivant, il y a 447 \u00e0 437 millions d'ann\u00e9es. Plus de 1 440 esp\u00e8ces fossiles y sont connues.",
+      ecart: "C'est le contraste le plus instructif des deux fiches. Les Gal\u00e1pagos prot\u00e8gent ce qui vit, Anticosti prot\u00e8ge ce qui est mort depuis 440 millions d'ann\u00e9es. Le mot patrimoine couvre les deux."
+    },
+    {
+      cle: "superficie",
+      nom: "La superficie",
+      gaC: "8 000 km² de terres",
+      gaD: "Cent vingt-sept \u00eeles, \u00eelots et rochers, dont 19 grandes et 4 habit\u00e9es. Le parc national couvre 97 % des terres, et les r\u00e9serves marines ajoutent environ 193 000 km\u00b2 d'oc\u00e9an.",
+      anC: "9 289 km²",
+      anD: "La plus grande \u00eele du Qu\u00e9bec, avec plus de 550 kilom\u00e8tres de littoral. Le bien inscrit couvre les couches fossiles le long des c\u00f4tes et des rivi\u00e8res Vaur\u00e9al et Jupiter.",
+      ecart: "Les deux territoires font \u00e0 peu pr\u00e8s la m\u00eame taille sur terre. Ce qui les distingue, c'est l'immensit\u00e9 marine des Gal\u00e1pagos autour."
+    },
+    {
+      cle: "menace",
+      nom: "Ce qui menace",
+      gaC: "Le nombre de visiteurs",
+      gaD: "Le tourisme de masse, la p\u00eache ill\u00e9gale aux abords de la r\u00e9serve, la croissance de la population r\u00e9sidente et surtout les esp\u00e8ces envahissantes que les bateaux et les avions transportent.",
+      anC: "Un cerf introduit",
+      anD: "Le cerf de Virginie, introduit par Henri Menier avec 220 b\u00eates, s'est multipli\u00e9 au point de modifier la composition et la r\u00e9g\u00e9n\u00e9ration de la for\u00eat. L'\u00eele a le plus haut taux de succ\u00e8s de chasse en Am\u00e9rique du Nord.",
+      ecart: "Dans les deux cas, la menace principale a \u00e9t\u00e9 apport\u00e9e par l'humain, volontairement ou non. Ni le cerf ni la ch\u00e8vre n'\u00e9taient l\u00e0 avant."
+    },
+    {
+      cle: "qui",
+      nom: "Qui décide",
+      gaC: "L'Équateur",
+      gaD: "Le Service du parc national des Gal\u00e1pagos, sous l'autorit\u00e9 de l'\u00c9quateur. L'UNESCO formule des recommandations et peut inscrire un site sur la liste du patrimoine en p\u00e9ril, mais elle ne gouverne pas.",
+      anC: "Le Québec et la municipalité",
+      anD: "Un parc national du Qu\u00e9bec, deux r\u00e9serves \u00e9cologiques et une r\u00e9serve de biodiversit\u00e9. La candidature a \u00e9t\u00e9 port\u00e9e par la Municipalit\u00e9 de L'\u00cele-d'Anticosti, la MRC de Minganie et les deux gouvernements.",
+      ecart: "L'UNESCO ne prot\u00e8ge rien elle-m\u00eame. Elle reconna\u00eet, elle surveille et elle fait pression, mais ce sont les \u00c9tats qui appliquent."
+    },
+    {
+      cle: "frequentation",
+      nom: "La fréquentation",
+      gaC: "Des centaines de milliers",
+      gaD: "L'affluence a longtemps cru sans arr\u00eat. Pour les autorit\u00e9s, elle approche du maximum supportable, d'o\u00f9 le doublement du droit d'entr\u00e9e en 2024 et l'id\u00e9e d'inscrire un plafond dans la loi.",
+      anC: "Quelques milliers",
+      anD: "L'\u00eele compte environ 200 r\u00e9sidents permanents et re\u00e7oit surtout des chasseurs, des p\u00eacheurs et des chercheurs. On y acc\u00e8de par avion ou par traversier, et la saison est courte.",
+      ecart: "Un parc peut mourir d'avoir trop de visiteurs ou d'en avoir trop peu. Sans fr\u00e9quentation, il n'y a ni revenus ni raison politique de prot\u00e9ger."
+    },
+    {
+      cle: "etudie",
+      nom: "Ce qu'on y étudie",
+      gaC: "L'évolution en marche",
+      gaD: "La station Charles-Darwin, ouverte en 1964, m\u00e8ne des recherches et un programme d'\u00e9levage qui a permis de rel\u00e2cher plus de 7 000 tortues g\u00e9antes.",
+      anC: "L'extinction et le cerf",
+      anD: "Des g\u00e9ologues du monde entier y pr\u00e9l\u00e8vent des \u00e9chantillons, et un programme de l'Universit\u00e9 Laval \u00e9tudie depuis 2001 les relations entre le cerf, la for\u00eat et les autres esp\u00e8ces.",
+      ecart: "Les deux \u00eeles servent de laboratoire \u00e0 ciel ouvert. C'est m\u00eame l'argument principal de leur inscription au patrimoine mondial."
+    }
+  ];
+
+  var onglets = racine.querySelector(".dp__onglets");
+  var contenu = racine.querySelector(".dp__contenu");
+
+  function cote(quoi, chiffre, detail, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "dp__cote" + (modificateur ? " dp__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "dp__quoi";
+    etiquette.textContent = quoi;
+    var nombre = document.createElement("span");
+    nombre.className = "dp__chiffre";
+    nombre.textContent = chiffre;
+    var texte = document.createElement("p");
+    texte.className = "dp__detail";
+    texte.textContent = detail;
+    boite.appendChild(etiquette);
+    boite.appendChild(nombre);
+    boite.appendChild(texte);
+    return boite;
+  }
+
+  criteres.forEach(function (critere, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "dp__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = critere.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "dp-panneau-" + critere.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "dp__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "dp-panneau-" + critere.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", critere.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "dp__colonnes";
+    colonnes.appendChild(cote("Les Galápagos", critere.gaC, critere.gaD, ""));
+    colonnes.appendChild(cote("Anticosti", critere.anC, critere.anD, "anti"));
+    panneau.appendChild(colonnes);
+
+    var ecart = document.createElement("p");
+    ecart.className = "dp__ecart";
+    var mot = document.createElement("strong");
+    mot.textContent = "Ce que la comparaison révèle. ";
+    ecart.appendChild(mot);
+    ecart.appendChild(document.createTextNode(critere.ecart));
+    panneau.appendChild(ecart);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>

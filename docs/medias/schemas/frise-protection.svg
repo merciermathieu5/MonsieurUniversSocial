@@ -1,0 +1,74 @@
+<svg viewBox="0 0 1100 330" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Frise des dates clés de la protection des territoires naturels, de la découverte des Galápagos en 1535 à la hausse du droit d'entrée en 2024, en passant par l'inscription d'Anticosti au patrimoine mondial en 2023">
+  <style>
+    .tp-t { font-family: Archivo, sans-serif; }
+    .tp-a { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 700; fill: var(--encre); }
+    .tp-n { font-size: 12px; font-weight: 600; fill: var(--encre); }
+    .tp-d { font-size: 11px; fill: var(--encre-doux); }
+    .tp-l { stroke: var(--schema-trait); stroke-width: 2; fill: none; }
+    .tp-p { stroke: var(--schema-trait); stroke-width: 1.4; fill: none; }
+    .tp-bt { font-size: 14.5px; font-weight: 700; fill: var(--encre); }
+    .tp-bp { font-size: 12.5px; fill: var(--encre); }
+  </style>
+
+  <path class="tp-l" d="M40 150H1060"/>
+
+  <path class="tp-p" d="M60 150V128"/>
+  <circle cx="60" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="60" y="74">1535</text>
+  <text class="tp-t tp-n" x="60" y="94">Berlanga aborde</text>
+  <text class="tp-t tp-n" x="60" y="109">l'archipel par hasard</text>
+  <text class="tp-t tp-d" x="60" y="124">Galápagos</text>
+
+  <path class="tp-p" d="M200 150V172"/>
+  <circle cx="200" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="200" y="194">1835</text>
+  <text class="tp-t tp-n" x="200" y="212">Darwin y passe</text>
+  <text class="tp-t tp-n" x="200" y="227">cinq semaines</text>
+  <text class="tp-t tp-d" x="200" y="242">Galápagos</text>
+
+  <path class="tp-p" d="M340 150V128"/>
+  <circle cx="340" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="340" y="74">1959</text>
+  <text class="tp-t tp-n" x="340" y="94">Parc national,</text>
+  <text class="tp-t tp-n" x="340" y="109">97 % du territoire</text>
+  <text class="tp-t tp-d" x="340" y="124">Galápagos</text>
+
+  <path class="tp-p" d="M480 150V172"/>
+  <circle cx="480" cy="150" r="5" fill="var(--schema-accent)"/>
+  <text class="tp-t tp-a" x="480" y="194">1978</text>
+  <text class="tp-t tp-n" x="480" y="212">Premier site inscrit</text>
+  <text class="tp-t tp-n" x="480" y="227">au patrimoine mondial</text>
+  <text class="tp-t tp-d" x="480" y="242">Galápagos</text>
+
+  <path class="tp-p" d="M620 150V128"/>
+  <circle cx="620" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="620" y="74">1998</text>
+  <text class="tp-t tp-n" x="620" y="94">Réserve marine portée</text>
+  <text class="tp-t tp-n" x="620" y="109">à 133 000 km²</text>
+  <text class="tp-t tp-d" x="620" y="124">Galápagos</text>
+
+  <path class="tp-p" d="M760 150V172"/>
+  <circle cx="760" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="760" y="194">2022</text>
+  <text class="tp-t tp-n" x="760" y="212">Réserve Hermandad,</text>
+  <text class="tp-t tp-n" x="760" y="227">60 000 km² de plus</text>
+  <text class="tp-t tp-d" x="760" y="242">Galápagos</text>
+
+  <path class="tp-p" d="M900 150V128"/>
+  <circle cx="900" cy="150" r="5" fill="var(--schema-accent)"/>
+  <text class="tp-t tp-a" x="900" y="74">2023</text>
+  <text class="tp-t tp-n" x="900" y="94">Inscrite au</text>
+  <text class="tp-t tp-n" x="900" y="109">patrimoine mondial</text>
+  <text class="tp-t tp-d" x="900" y="124">Anticosti</text>
+
+  <path class="tp-p" d="M1040 150V172"/>
+  <circle cx="1040" cy="150" r="5" fill="var(--schema-cle)"/>
+  <text class="tp-t tp-a" x="1050" y="194" text-anchor="end">2024</text>
+  <text class="tp-t tp-n" x="1050" y="212" text-anchor="end">Droit d'entrée doublé</text>
+  <text class="tp-t tp-d" x="1050" y="229" text-anchor="end">Galápagos</text>
+
+  <rect x="40" y="266" width="1020" height="52" rx="5" fill="var(--matiere-voile)"/>
+  <text class="tp-t tp-bt" x="62" y="290">Les intervalles ne sont pas à l'échelle</text>
+  <text class="tp-t tp-bp" x="62" y="310">Regarde plutôt le rythme : quatre siècles sans aucune protection, puis six mesures en soixante-cinq ans. L'idée de protéger est récente.</text>
+</svg>

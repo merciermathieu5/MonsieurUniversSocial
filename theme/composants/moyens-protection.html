@@ -1,0 +1,150 @@
+<section class="mp" id="moyens-protection" aria-label="Les moyens de protection d'un parc naturel">
+<style>
+.mp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.mp .mp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mp .mp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.mp__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.mp__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.mp__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mp__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.mp__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.mp__panneau.est-visible { display: block; }
+.mp__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
+.mp__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.mp__cote--frein { border-left-color: var(--encre-pale); }
+.mp__quoi { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.mp__texte { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
+.mp__bilan { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
+.mp__bilan strong { color: var(--matiere-fonce); }
+html[data-sombre="on"] .mp .mp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mp .mp__titre { color: var(--encre); }
+html[data-sombre="on"] .mp__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .mp__onglet.est-actif { color: var(--encre); }
+html[data-sombre="on"] .mp__bilan strong { color: var(--encre); }
+@media (max-width: 40rem) { .mp__panneau { padding: 1.1rem 1rem 1rem; } .mp__onglets { padding: .7rem .8rem; } }
+@media print { .mp__panneau { display: block; page-break-inside: avoid; } .mp__onglets { display: none; } }
+</style>
+
+<div class="mp__entete">
+  <p class="mp__titre" role="heading" aria-level="3">Six façons de protéger un parc</p>
+  <p class="mp__consigne">Choisis un moyen</p>
+</div>
+
+<div class="mp__onglets" role="tablist" aria-label="Moyens de protection"></div>
+<div class="mp__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("moyens-protection");
+  if (!racine) { return; }
+  var moyens = [
+    {
+      cle: "statut",
+      nom: "Le statut légal",
+      fait: "Cr\u00e9er un parc national et l'inscrire dans la loi. Aux Gal\u00e1pagos, le parc couvre 97 % de la superficie des \u00eeles depuis 1959, et les habitations sont confin\u00e9es aux 3 % restants. Un statut donne des gardiens, un budget et des r\u00e8gles opposables.",
+      frein: "Un statut sur papier ne suffit pas. Il faut du personnel pour faire respecter les r\u00e8gles, sur un territoire souvent immense et difficile d'acc\u00e8s.",
+      bilan: "C'est la base de tout le reste. Sans statut, aucune des cinq autres mesures n'est possible."
+    },
+    {
+      cle: "marine",
+      nom: "Les aires marines",
+      fait: "\u00c9tendre la protection sous l'eau. La r\u00e9serve marine des Gal\u00e1pagos est pass\u00e9e de 70 000 km\u00b2 en 1986 \u00e0 133 000 en 1998, puis la r\u00e9serve Hermandad y a ajout\u00e9 60 000 km\u00b2 en 2022, formant un corridor vers le Costa Rica.",
+      frein: "En juillet 2020, environ 300 navires de p\u00eache se sont regroup\u00e9s \u00e0 la limite de la zone prot\u00e9g\u00e9e et ont \u00e9teint leur balise de positionnement pendant quelques jours. Surveiller 193 000 km\u00b2 d'oc\u00e9an est autrement plus difficile que surveiller une \u00eele.",
+      bilan: "Une fronti\u00e8re trac\u00e9e sur l'eau n'arr\u00eate personne toute seule. Ce sont les satellites qui la rendent r\u00e9elle."
+    },
+    {
+      cle: "tourisme",
+      nom: "L'encadrement du tourisme",
+      fait: "Canaliser les visiteurs plut\u00f4t que les interdire. Aux Gal\u00e1pagos, on circule par itin\u00e9raires balis\u00e9s, avec des sentiers, des passerelles et des escaliers, accompagn\u00e9 d'un guide. Le principal a\u00e9roport fonctionne aux \u00e9nergies renouvelables.",
+      frein: "Le tourisme est aussi ce qui fait vivre les habitants. Trop restreindre, c'est priver de revenus ceux qu'on veut convaincre de prot\u00e9ger.",
+      bilan: "Tout l'enjeu du territoire prot\u00e9g\u00e9 tient dans cette phrase : on ne prot\u00e8ge pas contre les gens, on prot\u00e8ge avec eux."
+    },
+    {
+      cle: "prix",
+      nom: "Le prix d'entrée",
+      fait: "Faire payer l'acc\u00e8s pour financer la conservation et freiner l'affluence. En 2024, le droit d'entr\u00e9e au parc des Gal\u00e1pagos est pass\u00e9 de 100 \u00e0 200 dollars pour les visiteurs \u00e9trangers, et de 5 \u00e0 30 dollars pour les \u00c9quatoriens.",
+      frein: "Un prix \u00e9lev\u00e9 trie les visiteurs par la richesse et non par le respect du milieu. Un touriste fortun\u00e9 n'ab\u00eeme pas moins qu'un autre.",
+      bilan: "La mesure devait rapporter jusqu'\u00e0 40 millions de dollars par ann\u00e9e aux administrations locales. C'est un outil de financement autant qu'un frein."
+    },
+    {
+      cle: "envahissantes",
+      nom: "Les espèces envahissantes",
+      fait: "Emp\u00eacher l'arriv\u00e9e d'esp\u00e8ces \u00e9trang\u00e8res et \u00e9liminer celles qui sont install\u00e9es. L'UNESCO recommande de r\u00e9duire les points d'acc\u00e8s, d'imposer une quarantaine aux bateaux et de renforcer l'inspection au d\u00e9part comme \u00e0 l'arriv\u00e9e.",
+      frein: "Les d\u00e9g\u00e2ts sont d\u00e9j\u00e0 faits. Des ch\u00e8vres introduites ont \u00e9puis\u00e9 la v\u00e9g\u00e9tation dont vivaient les esp\u00e8ces sauvages, et des chiens errants ont d\u00e9cim\u00e9 des groupes d'iguanes.",
+      bilan: "C'est la menace la moins visible et la plus grave. Une graine dans une semelle de botte peut faire plus de d\u00e9g\u00e2ts qu'un autobus de touristes."
+    },
+    {
+      cle: "recherche",
+      nom: "La recherche et l'éducation",
+      fait: "Comprendre avant d'agir, et faire comprendre. La station de recherche Charles-Darwin, inaugur\u00e9e en 1964, accueille environ 125 000 visiteurs par ann\u00e9e et a permis de rel\u00e2cher plus de 7 000 tortues g\u00e9antes dans leur habitat.",
+      frein: "La recherche est lente et co\u00fbteuse, et ses r\u00e9sultats arrivent parfois apr\u00e8s la disparition de l'esp\u00e8ce qu'on \u00e9tudiait.",
+      bilan: "C'est la seule mesure qui agit sur les visiteurs plut\u00f4t que sur le territoire. Un touriste qui comprend devient un alli\u00e9 en rentrant chez lui."
+    }
+  ];
+
+  var onglets = racine.querySelector(".mp__onglets");
+  var contenu = racine.querySelector(".mp__contenu");
+
+  function cote(quoi, texte, modificateur) {
+    var boite = document.createElement("div");
+    boite.className = "mp__cote" + (modificateur ? " mp__cote--" + modificateur : "");
+    var etiquette = document.createElement("span");
+    etiquette.className = "mp__quoi";
+    etiquette.textContent = quoi;
+    var corps = document.createElement("p");
+    corps.className = "mp__texte";
+    corps.textContent = texte;
+    boite.appendChild(etiquette);
+    boite.appendChild(corps);
+    return boite;
+  }
+
+  moyens.forEach(function (moyen, index) {
+    var onglet = document.createElement("button");
+    onglet.type = "button";
+    onglet.className = "mp__onglet" + (index === 0 ? " est-actif" : "");
+    onglet.textContent = moyen.nom;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "mp-panneau-" + moyen.cle);
+    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
+    onglets.appendChild(onglet);
+
+    var panneau = document.createElement("div");
+    panneau.className = "mp__panneau" + (index === 0 ? " est-visible" : "");
+    panneau.id = "mp-panneau-" + moyen.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-label", moyen.nom);
+
+    var colonnes = document.createElement("div");
+    colonnes.className = "mp__colonnes";
+    colonnes.appendChild(cote("Ce qu'on fait", moyen.fait, ""));
+    colonnes.appendChild(cote("Ce qui résiste", moyen.frein, "frein"));
+    panneau.appendChild(colonnes);
+
+    var bilan = document.createElement("p");
+    bilan.className = "mp__bilan";
+    var mot = document.createElement("strong");
+    mot.textContent = "À retenir. ";
+    bilan.appendChild(mot);
+    bilan.appendChild(document.createTextNode(moyen.bilan));
+    panneau.appendChild(bilan);
+
+    contenu.appendChild(panneau);
+
+    onglet.addEventListener("click", function () {
+      Array.prototype.forEach.call(onglets.children, function (autre) {
+        autre.classList.remove("est-actif");
+        autre.setAttribute("aria-selected", "false");
+      });
+      Array.prototype.forEach.call(contenu.children, function (autre) {
+        autre.classList.remove("est-visible");
+      });
+      onglet.classList.add("est-actif");
+      onglet.setAttribute("aria-selected", "true");
+      panneau.classList.add("est-visible");
+    });
+  });
+})();
+</script>
+</section>
