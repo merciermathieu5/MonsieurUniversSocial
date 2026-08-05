@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="fr-CA" data-couleur="neutre">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ressources pédagogiques | Monsieur Univers social</title>
+<meta name="description" content="Des questionnaires interactifs et d&#39;autres ressources pour réviser, classés par matière et par thème.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css?v=d6f5acf1">
+</head>
+<body>
+
+<a class="saut" href="#contenu">Aller au contenu</a>
+
+<header class="bandeau">
+  <div class="bandeau__interieur">
+    <a class="marque" href="./index.html">
+      <span class="marque__nom">Monsieur Univers social</span>
+    </a>
+    <nav class="matieres" aria-label="Matières">
+      <a href="./histoire/index.html"
+         class="matieres__lien matieres__lien--histoire"
+>Histoire</a>
+      <a href="./geographie/index.html"
+         class="matieres__lien matieres__lien--geographie"
+>Géographie</a>
+    </nav>
+  </div>
+</header>
+
+<main id="contenu">
+<article class="page">
+
+  <header class="entete entete--page">
+    <div class="entete__interieur">
+      <p class="fil">Histoire et géographie · Premier cycle du secondaire</p>
+      <h1>Ressources pédagogiques</h1>
+      <p class="chapeau">Des questionnaires interactifs et d&#39;autres ressources pour réviser, classés par matière et par thème.</p>
+      <div class="actions">
+        <button type="button" class="declencheur" data-bascule="sombre"
+                aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page__corps">
+    <div class="texte">
+      <h2 id="trouver-une-ressource">Trouver une ressource</h2>
+<p>Chaque ressource est rattachée à une réalité sociale en histoire ou à un type
+de territoire en géographie. Choisis d'abord ta matière, puis ton thème, et la
+liste se réduit à ce qui te concerne. Le champ de recherche fonctionne aussi
+sur le titre, si tu sais déjà ce que tu cherches. Un bouton ouvre la ressource
+dans un nouvel onglet, sur le site de son fournisseur.</p>
+<section class="res" id="ressources" aria-label="Répertoire des ressources pédagogiques">
+<style>
+.res { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.res .res__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.res .res__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.res__compte { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.res__reglages { padding: 1rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); display: grid; gap: .75rem; }
+.res__rangee { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.res__etiquette { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); flex: 0 0 5.5rem; }
+.res__filtre { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.res__filtre:hover { border-color: var(--matiere); }
+.res__filtre[aria-pressed="true"] { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+.res__recherche { font-family: var(--corps); font-size: .95rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .4rem .7rem; min-width: 14rem; flex: 1 1 14rem; }
+.res__recherche:focus { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.res__grille { list-style: none; margin: 0; padding: 1.1rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: .75rem; }
+.res .res__grille > li::marker { content: ""; }
+.res .res__grille > li::before { content: none; display: none; }
+.res__carte { list-style: none; margin: 0; display: flex; flex-direction: column; gap: .3rem; background: var(--surface-2); border: 1px solid var(--trait); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem .8rem; }
+.res__carte::marker { content: ""; }
+.res__haut { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
+.res__type { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: var(--matiere-fonce); border-radius: 100px; padding: .15rem .6rem; }
+.res__matiere { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.res__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--encre); margin-top: .2rem; }
+.res__fiche { display: block; font-size: .84rem; line-height: 1.4; color: var(--encre-doux); }
+.res__note { display: block; font-size: .88rem; line-height: 1.5; color: var(--encre); }
+.res__pied { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-top: .5rem; }
+.res .res__bouton { font-family: var(--titre); font-weight: 600; font-size: .85rem; color: #fff; background: var(--matiere-fonce); border: 1px solid var(--matiere-fonce); border-radius: 100px; padding: .4rem 1rem; text-decoration: none; transition: background .15s; }
+.res .res__bouton:hover { background: var(--matiere); text-decoration: none; }
+.res .res__lien { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--encre-doux); text-decoration: underline; text-underline-offset: 2px; }
+.res .res__lien:hover { color: var(--matiere); }
+.res__vide { margin: 0; padding: 2rem 1.2rem 2.4rem; text-align: center; color: var(--encre-doux); font-size: .95rem; }
+.res__source { padding: 1.1rem 1.4rem 1.4rem; }
+.res__source .res__groupe { margin: 1rem 0 .4rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; }
+html[data-sombre="on"] .res .res__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .res .res__titre { color: var(--encre); }
+html[data-sombre="on"] .res__compte { color: var(--encre-pale); }
+html[data-sombre="on"] .res__filtre[aria-pressed="true"] { background: var(--matiere-voile); border-color: var(--matiere); color: var(--encre); }
+html[data-sombre="on"] .res__type { background: var(--matiere-voile); color: var(--encre); }
+html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); border-color: var(--matiere); color: var(--encre); }
+@media (max-width: 40rem) { .res__grille { padding: .85rem; } .res__etiquette { flex-basis: 100%; } }
+@media print { .res__reglages { display: none; } .res__grille { grid-template-columns: repeat(2, 1fr); } .res__carte { page-break-inside: avoid; } }
+</style>
+<div class="res__entete">
+  <p class="res__titre" role="heading" aria-level="3">Répertoire des ressources</p>
+  <p class="res__compte" id="res-compte">Aucune ressource</p>
+</div>
+<div class="res__reglages" id="res-reglages" hidden>
+  <div class="res__rangee" id="res-matieres" role="group" aria-label="Filtrer par matière">
+    <span class="res__etiquette">Matière</span>
+  </div>
+  <div class="res__rangee" id="res-themes" role="group" aria-label="Filtrer par thème">
+    <span class="res__etiquette">Thème</span>
+  </div>
+  <div class="res__rangee">
+    <span class="res__etiquette"><label for="res-recherche">Recherche</label></span>
+    <input type="search" id="res-recherche" class="res__recherche" placeholder="Un mot du titre ou de la fiche" autocomplete="off">
+  </div>
+</div>
+<ul class="res__grille" id="res-grille" hidden></ul>
+<p class="res__vide" id="res-vide" hidden></p>
+<div class="res__source" id="res-source">
+  <p class="res__groupe" role="heading" aria-level="4">Histoire</p>
+  <ul data-matiere="histoire">
+    <li data-fiche="01" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-sedentarisation/0647bb3a-ad48-4bd3-ae7a-3aafb713c284">La sédentarisation</a></li>
+    <li data-fiche="02" data-type="Kahoot"><a href="https://create.kahoot.it/share/l-emergence-d-une-civilisation/7870170d-7efa-46b4-a997-f477d6aef887">L'émergence d'une civilisation</a></li>
+    <li data-fiche="03" data-type="Kahoot"><a href="https://create.kahoot.it/share/une-premiere-experience-de-democratie/e754217c-550a-44d0-bb7b-ee9b93f3812e">Une première expérience de démocratie</a></li>
+    <li data-fiche="04" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-romanisation-1re-secondaire/3ca59a43-0077-45c8-b07f-f7937c5ce546">La romanisation, 1re secondaire</a></li>
+    <li data-fiche="05" data-type="Kahoot"><a href="https://create.kahoot.it/share/moyen-age-revision/2d274655-2580-4ed1-9539-38874a89525e">Moyen Âge, révision</a></li>
+    <li data-fiche="07" data-type="Kahoot"><a href="https://create.kahoot.it/share/humanisme-renaissance/52d610f6-b632-4329-ab5c-947ab11666dd">Humanisme et Renaissance</a></li>
+    <li data-fiche="08" data-type="Kahoot"><a href="https://create.kahoot.it/share/kahoot-grandes-explorations/dac95738-43f8-4160-a1cb-ad1b16d086bc">Grandes explorations</a></li>
+    <li data-fiche="09" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-revolution-americaine/3a73dd15-7693-42d8-b4ad-f1af38b65e29">La Révolution américaine</a></li>
+    <li data-fiche="10" data-type="Kahoot"><a href="https://create.kahoot.it/share/industrialisation-version-2026/806a9340-36f9-40a2-9766-79f2a9839599">Industrialisation, version 2026</a></li>
+    <li data-fiche="11" data-type="Kahoot"><a href="https://create.kahoot.it/share/revision-expansion-industrielle-secondaire-2/261c1f4b-06eb-4a51-b354-aebd052cda71">Révision, expansion industrielle, 2e secondaire</a></li>
+  </ul>
+  <p class="res__groupe" role="heading" aria-level="4">Géographie</p>
+  <ul data-matiere="geographie">
+    <li data-fiche="02" data-type="Kahoot"><a href="https://create.kahoot.it/share/metropole/7ffd4c56-5efc-401b-b497-156f9d14387d">Métropole</a></li>
+    <li data-fiche="03" data-type="Kahoot"><a href="https://create.kahoot.it/share/quebec-intra-muros/87bf9581-7839-4b79-bd80-99b1e3ebaeab">Québec intra-muros</a></li>
+    <li data-fiche="04" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-urbain-soumis-aux-risques-naturels-san-francisco/b3f72c94-50a1-4137-94b2-1e1cf85f951a">Territoire urbain soumis aux risques naturels, San Francisco</a></li>
+    <li data-fiche="05" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-touristique/b9bed82e-9e91-49cb-a37f-ad5083a2cd21">Territoire touristique</a></li>
+    <li data-fiche="06" data-type="Kahoot"><a href="https://create.kahoot.it/share/le-territoire-forestier-de-l-amazonie/81bd3971-dccf-42f5-8d69-b610ede1e565">Le territoire forestier de l'Amazonie</a></li>
+    <li data-fiche="11" data-type="Kahoot"><a href="https://create.kahoot.it/share/gec-territoire-agricole-soumis-aux-risques-naturels-le-bangladesh/9a7ace75-25a0-467b-8545-810675cfaa9f">Territoire agricole soumis aux risques naturels, le Bangladesh</a></li>
+    <li data-fiche="12" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-autochtone-2e-secondaire/4e3459ae-f3cd-4fe9-a5cb-22fdea9ce19b">Territoire autochtone, 2e secondaire</a></li>
+    <li data-fiche="13" data-type="Kahoot"><a href="https://create.kahoot.it/share/le-territoire-protege-parc-naturel-galapagos/059f7f18-7a9e-4237-aca1-57e127546696">Le territoire protégé, parc naturel des Galapagos</a></li>
+  </ul>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("ressources");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  // Amélioration progressive. Le répertoire vit dans la liste res__source, en
+  // clair, avec de vraies adresses : sans JavaScript l'élève garde ses liens,
+  // et outils/liens.py --externes peut les tester. Le script lit cette liste,
+  // la masque, puis rebâtit des cartes filtrables à partir des mêmes données.
+  // Une seule source de vérité, jamais deux listes à tenir d'accord.
+  var MATIERES = {
+    histoire: {
+      nom: "Histoire",
+      themes: [
+        { cle: "sec1", nom: "1re secondaire" },
+        { cle: "sec2", nom: "2e secondaire" }
+      ]
+    },
+    geographie: {
+      nom: "Géographie",
+      themes: [
+        { cle: "urbain", nom: "Territoire urbain" },
+        { cle: "region", nom: "Territoire région" },
+        { cle: "agricole", nom: "Territoire agricole" },
+        { cle: "autochtone", nom: "Territoire autochtone" },
+        { cle: "protege", nom: "Territoire protégé" }
+      ]
+    }
+  };
+  // Les fiches du site, par matière et par numéro : titre, thème et adresse.
+  // Une entrée du répertoire ne porte que son numéro de fiche, le reste est
+  // déduit ici. Les thèmes reprennent les regroupements de site.yml.
+  var FICHES = {
+    histoire: {
+      "01": ["La sédentarisation", "sec1", "histoire/01-sedentarisation.html"],
+      "02": ["L'émergence d'une civilisation", "sec1", "histoire/02-emergence-civilisation.html"],
+      "03": ["Une première expérience de démocratie", "sec1", "histoire/03-premiere-democratie.html"],
+      "04": ["La romanisation", "sec1", "histoire/04-romanisation.html"],
+      "05": ["La christianisation de l'Occident", "sec1", "histoire/05-christianisation.html"],
+      "06": ["L'essor urbain et commercial", "sec1", "histoire/06-essor-urbain.html"],
+      "07": ["Le renouvellement de la vision de l'homme", "sec2", "histoire/07-vision-de-lhomme.html"],
+      "08": ["L'expansion européenne dans le monde", "sec2", "histoire/08-expansion-europeenne.html"],
+      "09": ["La Révolution américaine", "sec2", "histoire/09-revolution-americaine.html"],
+      "10": ["L'industrialisation", "sec2", "histoire/10-industrialisation.html"],
+      "11": ["L'expansion du monde industriel", "sec2", "histoire/11-expansion-monde-industriel.html"],
+      "12": ["La reconnaissance des libertés et des droits civils", "sec2", "histoire/12-libertes-droits-civils.html"]
+    },
+    geographie: {
+      "02": ["La métropole", "urbain", "geographie/02-metropole.html"],
+      "03": ["La ville patrimoniale", "urbain", "geographie/03-ville-patrimoniale.html"],
+      "04": ["La ville soumise à des risques naturels", "urbain", "geographie/04-ville-risques-naturels.html"],
+      "05": ["Le territoire touristique", "region", "geographie/05-territoire-touristique.html"],
+      "06": ["Le territoire forestier", "region", "geographie/06-territoire-forestier.html"],
+      "07": ["Le territoire énergétique du Québec", "region", "geographie/07-territoire-energetique-quebec.html"],
+      "09": ["Le territoire industriel des Grands Lacs", "region", "geographie/09-territoire-industriel.html"],
+      "10": ["Le territoire agricole national", "agricole", "geographie/10-territoire-agricole-national.html"],
+      "11": ["Le territoire agricole soumis à des risques naturels", "agricole", "geographie/11-territoire-agricole-risque.html"],
+      "12": ["Le territoire autochtone du Québec et du Canada", "autochtone", "geographie/12-territoire-autochtone.html"],
+      "13": ["Le territoire protégé : le parc naturel", "protege", "geographie/13-territoire-protege.html"]
+    }
+  };
+  var source = document.getElementById("res-source");
+  var grille = document.getElementById("res-grille");
+  var vide = document.getElementById("res-vide");
+  var compte = document.getElementById("res-compte");
+  var reglages = document.getElementById("res-reglages");
+  var recherche = document.getElementById("res-recherche");
+  var rangeeMatieres = document.getElementById("res-matieres");
+  var rangeeThemes = document.getElementById("res-themes");
+  var matiereActive = "tout";
+  var themeActif = "tout";
+  var RESSOURCES = [];
+  var listes = source.querySelectorAll("ul[data-matiere]");
+  for (var l = 0; l < listes.length; l++) {
+    var items = listes[l].querySelectorAll("li[data-fiche]");
+    for (var i = 0; i < items.length; i++) {
+      var lien = items[i].querySelector("a");
+      if (!lien) continue;
+      RESSOURCES.push({
+        matiere: listes[l].dataset.matiere,
+        fiche: items[i].dataset.fiche,
+        type: items[i].dataset.type || "Ressource",
+        note: items[i].dataset.note || "",
+        titre: lien.textContent.trim(),
+        adresse: lien.getAttribute("href")
+      });
+    }
+  }
+  function el(balise, classe, texte) {
+    var noeud = document.createElement(balise);
+    if (classe) noeud.className = classe;
+    if (texte != null) noeud.textContent = texte;
+    return noeud;
+  }
+  function fiche(r) {
+    var table = FICHES[r.matiere] || {};
+    return table[r.fiche] || null;
+  }
+  function sansAccent(texte) {
+    return (texte || "").toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+  function bouton(rangee, cle, nom, actif, action) {
+    var b = el("button", "res__filtre", nom);
+    b.type = "button";
+    b.setAttribute("aria-pressed", actif ? "true" : "false");
+    b.addEventListener("click", function () { action(cle); });
+    rangee.appendChild(b);
+    return b;
+  }
+  function dessinerFiltres() {
+    var anciens = rangeeMatieres.querySelectorAll(".res__filtre");
+    var i;
+    for (i = 0; i < anciens.length; i++) anciens[i].remove();
+    bouton(rangeeMatieres, "tout", "Tout", matiereActive === "tout", choisirMatiere);
+    for (var cle in MATIERES) {
+      if (!Object.prototype.hasOwnProperty.call(MATIERES, cle)) continue;
+      bouton(rangeeMatieres, cle, MATIERES[cle].nom, matiereActive === cle, choisirMatiere);
+    }
+    var vieux = rangeeThemes.querySelectorAll(".res__filtre");
+    for (i = 0; i < vieux.length; i++) vieux[i].remove();
+    bouton(rangeeThemes, "tout", "Tous", themeActif === "tout", choisirTheme);
+    // Hors d'une matière précise, les thèmes des deux se mélangeraient : on ne
+    // propose alors que « Tous », et la matière fait le premier tri.
+    if (matiereActive !== "tout") {
+      var themes = MATIERES[matiereActive].themes;
+      for (i = 0; i < themes.length; i++) {
+        bouton(rangeeThemes, themes[i].cle, themes[i].nom,
+               themeActif === themes[i].cle, choisirTheme);
+      }
+    }
+    rangeeThemes.hidden = matiereActive === "tout";
+  }
+  function choisirMatiere(cle) {
+    matiereActive = cle;
+    themeActif = "tout";
+    dessinerFiltres();
+    dessiner();
+  }
+  function choisirTheme(cle) {
+    themeActif = cle;
+    dessinerFiltres();
+    dessiner();
+  }
+  function retenues() {
+    var mots = sansAccent(recherche.value).split(/\s+/).filter(Boolean);
+    return RESSOURCES.filter(function (r) {
+      if (matiereActive !== "tout" && r.matiere !== matiereActive) return false;
+      var f = fiche(r);
+      if (themeActif !== "tout" && (!f || f[1] !== themeActif)) return false;
+      if (!mots.length) return true;
+      var foin = sansAccent([r.titre, r.note, r.type, r.fiche,
+                             f ? f[0] : ""].join(" "));
+      return mots.every(function (mot) { return foin.indexOf(mot) !== -1; });
+    });
+  }
+  function carte(r) {
+    var f = fiche(r);
+    var li = el("li", "res__carte");
+    var haut = el("div", "res__haut");
+    haut.appendChild(el("span", "res__type", r.type));
+    haut.appendChild(el("span", "res__matiere", (MATIERES[r.matiere] || {}).nom || ""));
+    li.appendChild(haut);
+    li.appendChild(el("span", "res__nom", r.titre));
+    li.appendChild(el("span", "res__fiche", f ? r.fiche + " · " + f[0] : "Fiche à préciser"));
+    if (r.note) li.appendChild(el("span", "res__note", r.note));
+    var pied = el("div", "res__pied");
+    var ouvrir = el("a", "res__bouton", "Ouvrir");
+    ouvrir.href = r.adresse;
+    ouvrir.target = "_blank";
+    ouvrir.rel = "noopener noreferrer";
+    ouvrir.setAttribute("aria-label", "Ouvrir " + r.titre + " dans un nouvel onglet");
+    pied.appendChild(ouvrir);
+    if (f) {
+      var lien = el("a", "res__lien", "Revoir la fiche");
+      lien.href = f[2];
+      pied.appendChild(lien);
+    }
+    li.appendChild(pied);
+    return li;
+  }
+  function dessiner() {
+    var liste = retenues();
+    grille.textContent = "";
+    for (var i = 0; i < liste.length; i++) grille.appendChild(carte(liste[i]));
+    grille.hidden = liste.length === 0;
+    vide.hidden = liste.length !== 0;
+    vide.textContent = RESSOURCES.length === 0
+      ? "Aucune ressource n'est encore publiée dans ce répertoire."
+      : "Aucune ressource ne correspond à ta recherche.";
+    compte.textContent = liste.length === 0
+      ? "Aucune ressource"
+      : liste.length + (liste.length > 1 ? " ressources" : " ressource");
+  }
+  source.hidden = true;
+  reglages.hidden = false;
+  recherche.addEventListener("input", dessiner);
+  dessinerFiltres();
+  dessiner();
+})();
+</script>
+</section>
+
+<aside class="encadre encadre--note">
+<p class="encadre__titre">À retenir</p>
+<p>Les questionnaires servent à te tester, pas à remplacer ta lecture de la fiche.
+Reprends la fiche de la réalité sociale ou du territoire avant de te lancer, tu
+verras la différence sur ton résultat.</p>
+</aside>
+    </div>
+  </div>
+
+</article>
+</main>
+
+<footer class="pied">
+  <div class="pied__interieur">
+    <p class="pied__signature">Monsieur Univers social <span>par Mathieu Mercier</span></p>
+    <p class="pied__detail">Ressources d&#39;histoire et de géographie pour le premier cycle du secondaire, au Centre de services scolaire de Kamouraska - Rivière-du-Loup.</p>
+    <p class="pied__detail"><a href="mailto:mmercier@csskamloup.gouv.qc.ca">mmercier@csskamloup.gouv.qc.ca</a></p>
+  </div>
+</footer>
+
+<script src="./page.js?v=d6f5acf1" defer></script>
+
+</body>
+</html>

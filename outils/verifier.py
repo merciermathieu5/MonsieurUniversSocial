@@ -363,7 +363,11 @@ def controler_contenu() -> list[str]:
             elif not entree.get("licence"):
                 soucis.append(f"crédit incomplet : {nom}")
 
+    # Les pages de contenu/pages/ ne relèvent d'aucune matière : elles ne
+    # portent aucun concept du programme, donc rien à valider contre lui.
     for fiche in sorted((RACINE / "contenu").rglob("*.md")):
+        if fiche.parent.name == "pages":
+            continue
         entete = fiche.read_text(encoding="utf-8").split("---")[1]
         donnees = yaml.safe_load(entete) or {}
         if not donnees.get("concepts_valides"):
@@ -416,6 +420,7 @@ CLASSES_EMISES = [
     "repere-ligne", "entete__bas", "pastilles",
     "frise__bascule", "sommaire__bascule", "declencheur", "actions",
     "mascotte", "documents", "galerie",
+    "entete--page", "page__corps", "ouverture__acces",
 ]
 
 

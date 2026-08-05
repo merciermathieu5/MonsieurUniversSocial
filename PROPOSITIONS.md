@@ -5485,3 +5485,68 @@ Ligne de base du dépôt en ligne : 22 problèmes. Après : 34, inchangé chez m
 puisque aucune image n'est sur mon disque. Chez toi, le compte devrait tomber à
 22 une fois les deux dernières récupérées. `figures.py` et `paragraphes.py` sans
 écart. `liens.py` sans lien brisé. La suite Node passe à 0 échec.
+
+## Page : Ressources pédagogiques
+
+### Une page hors matière, et la route qui manquait pour l'accueillir (livraison 139)
+
+`build.py` ne connaissait que trois routes : l'accueil, l'index de section et la
+fiche. Tout ce qui vit dans `contenu/<section>/` devient une fiche de cette
+matière, si bien qu'une page qui parle des deux à la fois n'avait aucun
+emplacement. C'est ce qui bloquait, et non l'affichage des questionnaires.
+
+La route ajoutée est volontairement étroite. Les fichiers de `contenu/pages/`
+sortent à la racine du site, à côté de `index.html`, et n'entrent dans aucun
+index de matière. Leur seul accès est le lien posé sous les deux portes de
+l'accueil, en retrait, parce que ce n'est pas une troisième matière.
+
+Au passage, la chaîne de mise en forme est sortie de `lire_fiche` vers une
+fonction `mettre_en_forme` que les deux routes partagent. Sans ça, un composant
+se serait comporté différemment sur une fiche et sur une page, et le jour où
+l'écart se serait vu, il aurait été long à trouver.
+
+### Le répertoire est une liste de liens, que le script transforme
+
+Le premier jet gardait les ressources dans un tableau JavaScript. Trois défauts,
+tous découverts avant la livraison :
+
+- sans JavaScript, l'élève ne voyait rien du tout;
+- `outils/liens.py --externes` ne peut pas lire un tableau JavaScript, donc les
+  dix-huit adresses Kahoot n'auraient jamais été testées par personne;
+- la liste de repli qu'on aurait pu ajouter en doublon aurait dérivé dès la
+  dix-neuvième ressource.
+
+Le composant part donc d'une vraie liste de liens en clair, dans le HTML, avec
+la matière et le numéro de fiche en attributs. Le script la lit, la masque, puis
+rebâtit des cartes filtrables à partir des mêmes données. Une seule source de
+vérité, un repli gratuit, et les adresses redeviennent testables.
+
+### Les titres viennent des adresses, à vérifier
+
+Kahoot refuse l'accès automatisé, donc aucun des dix-huit titres n'a pu être lu
+à la source. Ils sont reconstitués depuis le fragment lisible de chaque adresse,
+avec les accents et la ponctuation remis. Deux méritent un oeil : « Grandes
+explorations » perd le mot « kahoot » qui ouvrait son adresse, et « Territoire
+agricole soumis aux risques naturels, le Bangladesh » perd le préfixe « gec ».
+Corriger un titre se fait dans `theme/composants/ressources.html`, sur la ligne
+de la ressource, sans toucher au reste.
+
+### Cinq fiches sans questionnaire
+
+Histoire 06 et 12, géographie 07, 09 et 10 n'ont pas de Kahoot. Rien ne le
+signale sur la page : une fiche sans ressource n'apparaît simplement pas dans le
+répertoire, ce qui vaut mieux qu'une case vide qui donne l'impression d'un oubli.
+
+### Le compte
+
+Ligne de base avant : 22 problèmes. Après : 22, inchangé. `figures.py` et
+`paragraphes.py` sans écart. `liens.py` : 853 liens internes dans 27 pages,
+aucun brisé. `test_page.js` et `test_carrousel.js` à 0 échec. Le répertoire lui
+même a été éprouvé à part, 22 contrôles jsdom sur la page construite, tous au
+vert, y compris l'existence réelle des dix-huit fiches visées par les renvois.
+
+Deux ajustements au vérificateur, tous deux nécessaires et tous deux dans son
+esprit : le contrôle `concepts_valides` saute `contenu/pages/`, puisqu'une page
+hors matière ne porte aucun concept du programme et aurait été signalée à vie;
+et les trois classes nouvelles rejoignent `CLASSES_EMISES`, pour que leur
+disparition du CSS soit détectée comme les autres.

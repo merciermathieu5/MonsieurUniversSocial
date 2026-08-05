@@ -641,6 +641,15 @@ details.credit > span { display: block; max-width: 34rem; }
   padding-bottom: 0; min-height: 15rem;
 }
 .entete--section .entete__interieur { padding-right: 23rem; }
+
+/* ------------------------------------------------ pages hors matière
+   Une page qui ne relève ni de l'histoire ni de la géographie n'a pas de
+   mascotte à loger : l'intérieur reprend donc toute la largeur, et le corps
+   se passe de la colonne du sommaire. */
+.entete--page .entete__interieur { padding: 2.2rem 2rem 1.8rem; }
+.entete--page .chapeau { margin-bottom: 1.4rem; }
+.entete--page .actions { justify-content: flex-start; }
+.page__corps { max-width: none; margin: 0; padding: 2.5rem 2rem 4rem; }
 /* Le personnage a les pieds sur la bordure basse du bandeau : il est plus
    haut que la bande, si bien que le haut du bâton se fait couper par le
    débordement de l'entête. C'est voulu, cela l'ancre au sol. */
@@ -725,6 +734,16 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 }
 .ouverture__texte { font-size: 1.18rem; color: rgba(255,255,255,.78); max-width: var(--lecture); margin: 0 0 3rem; }
 .ouverture__portes { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); }
+/* Sous les deux portes, l'accès aux pages qui valent pour les deux matières.
+   Volontairement en retrait : ce n'est pas une troisième matière. */
+.ouverture__acces { display: grid; gap: .2rem; margin: 1.5rem 0 0; }
+.ouverture__acces a {
+  font-family: var(--titre); font-weight: 600; font-size: 1.02rem;
+  color: #fff; text-decoration: none; justify-self: start;
+  border-bottom: 2px solid rgba(255,255,255,.45); padding-bottom: .1rem;
+}
+.ouverture__acces a:hover { border-bottom-color: #fff; }
+.ouverture__acces span { color: rgba(255,255,255,.7); font-size: .95rem; }
 .porte {
   display: grid; gap: .55rem; text-decoration: none; color: var(--encre);
   padding: 1.75rem 1.9rem; border-radius: var(--rayon); background: var(--surface);

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titre %}{{ page.titre }} | {{ site.titre }}{% endblock %}
+{% block description %}{{ page.chapeau or site.description }}{% endblock %}
+
+{# Une page hors matière : elle n'appartient ni à l'histoire ni à la
+   géographie, donc pas de frise, pas de parcours, pas de mascotte et pas de
+   navigation précédent-suivant. La palette reste celle de :root, ce qui donne
+   des accents à l'encre plutôt qu'au bleu ou au vert d'une matière. #}
+{% block corps %}
+<article class="page">
+
+  <header class="entete entete--page">
+    <div class="entete__interieur">
+      {% if page.surtitre %}
+      <p class="fil">{{ page.surtitre }}</p>
+      {% endif %}
+      <h1>{{ page.titre }}</h1>
+      {% if page.chapeau %}
+      <p class="chapeau">{{ page.chapeau }}</p>
+      {% endif %}
+      <div class="actions">
+        <button type="button" class="declencheur" data-bascule="sombre"
+                aria-pressed="false"><span aria-hidden="true">&#9681;</span> Thème sombre</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="page__corps">
+    <div class="texte">
+      {{ page.html|safe }}
+    </div>
+  </div>
+
+</article>
+{% endblock %}

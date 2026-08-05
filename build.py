@@ -28,6 +28,7 @@ except ImportError:
 
 RACINE = Path(__file__).resolve().parent
 CONTENU = RACINE / "contenu"
+PAGES = CONTENU / "pages"
 THEME = RACINE / "theme"
 MEDIAS = RACINE / "medias"
 SCHEMAS = MEDIAS / "schemas"
@@ -302,20 +303,48 @@ def ranger_figures(html: str) -> str:
     return "".join(resultat)
 
 
-def lire_fiche(chemin: Path, credits: dict) -> dict:
+def ouvrir(chemin: Path) -> tuple[dict, str]:
+    """Sépare l'en-tête YAML du corps Markdown."""
     brut = chemin.read_text(encoding="utf-8")
     if not brut.startswith("---"):
         raise ValueError(f"{chemin.name} n'a pas d'en-tête YAML.")
     _, entete, corps = brut.split("---", 2)
-    donnees = yaml.safe_load(entete) or {}
+    return (yaml.safe_load(entete) or {}), corps.strip()
 
+
+def mettre_en_forme(corps: str, credits: dict) -> tuple[str, list]:
+    """Fait passer un corps Markdown dans toute la chaîne de mise en forme.
+
+    Fiches et pages hors matière partagent exactement le même traitement :
+    blocs :::, figures créditées, galeries, duos de vidéos et sources. C'est
+    ce qui garantit qu'un composant se comporte pareil des deux côtés.
+    """
     md = markdown.Markdown(extensions=EXTENSIONS_MD,
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
-    donnees["html"] = marquer_sources(jumeler_videos(ranger_figures(
-        habiller_images(md.convert(convertir_blocs(corps.strip(), credits)),
-                        credits))))
-    donnees["sommaire"] = [t for t in md.toc_tokens]
+    html = marquer_sources(jumeler_videos(ranger_figures(
+        habiller_images(md.convert(convertir_blocs(corps, credits)), credits))))
+    return html, [t for t in md.toc_tokens]
+
+
+def lire_page(chemin: Path, credits: dict) -> dict:
+    """Lit une page hors matière, déposée dans contenu/pages/.
+
+    Ces pages sortent à la racine du site et n'appartiennent à aucune des deux
+    matières : ni frise, ni parcours, ni concepts, ni voisin précédent ou
+    suivant. Elles servent à ce qui vaut pour les deux, comme la page des
+    ressources pédagogiques. La palette reste neutre, faute de section.
+    """
+    donnees, corps = ouvrir(chemin)
+    donnees["html"], donnees["sommaire"] = mettre_en_forme(corps, credits)
+    donnees["nom"] = chemin.stem
+    donnees["url"] = f"{chemin.stem}.html"
+    return donnees
+
+
+def lire_fiche(chemin: Path, credits: dict) -> dict:
+    donnees, corps = ouvrir(chemin)
+    donnees["html"], donnees["sommaire"] = mettre_en_forme(corps, credits)
     donnees["nom"] = chemin.stem
     donnees["url"] = f"{donnees['section']}/{chemin.stem}.html"
 
@@ -460,6 +489,19 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
                 encoding="utf-8")
             total += 1
 
+    # Pages hors matière. Elles sortent à la racine, à côté de l'accueil, et
+    # n'entrent dans aucun index de section : leur seul accès est le lien
+    # posé sur la page d'accueil.
+    credits = charger_credits()
+    gabarit_page = env.get_template("page.html")
+    pages = 0
+    for chemin in sorted(PAGES.glob("*.md")) if PAGES.exists() else []:
+        page = lire_page(chemin, credits)
+        (sortie / f"{page['nom']}.html").write_text(
+            gabarit_page.render(**contexte, page=page, base="."),
+            encoding="utf-8")
+        pages += 1
+
     shutil.copy2(THEME / "style.css", sortie / "style.css")
     shutil.copy2(THEME / "page.js", sortie / "page.js")
     if MEDIAS.exists():
@@ -478,7 +520,8 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     from datetime import datetime
     marque = datetime.now().strftime("%Y-%m-%d %H:%M")
     (sortie / "version.txt").write_text(marque, encoding="utf-8")
-    print(f"  {total} fiches construites dans {sortie.relative_to(RACINE)}/ ({marque})")
+    print(f"  {total} fiches et {pages} page(s) construites dans "
+          f"{sortie.relative_to(RACINE)}/ ({marque})")
     if a_faire:
         print(f"  {a_faire} fiches contiennent encore des sections à remplir.")
 
