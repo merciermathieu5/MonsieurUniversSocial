@@ -52,7 +52,9 @@ aria-current="page">Ressources pédagogiques</a>
     <div class="texte">
       <h2 id="trouver-une-ressource">Trouver une ressource</h2>
 <p>Chaque ressource est rattachée à une réalité sociale en histoire ou à un type
-de territoire en géographie. Choisis d'abord ta matière, puis ton thème, et la
+de territoire en géographie. Tu y trouveras des questionnaires Kahoot pour te
+tester, et des cahiers de modelage qui te montrent comment mener chaque
+opération intellectuelle. Choisis d'abord ta matière, puis ton thème, et la
 liste se réduit à ce qui te concerne. Le champ de recherche fonctionne aussi
 sur le titre, si tu sais déjà ce que tu cherches. Un bouton ouvre la ressource
 dans un nouvel onglet, sur le site de son fournisseur.</p>
@@ -80,7 +82,7 @@ dans un nouvel onglet, sur le site de son fournisseur.</p>
 .res__matiere { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
 .res__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--encre); margin-top: .2rem; }
 .res__fiche { display: block; font-size: .84rem; line-height: 1.4; color: var(--encre-doux); }
-.res__note { display: block; font-size: .88rem; line-height: 1.5; color: var(--encre); }
+.res__note { display: block; font-size: .86rem; line-height: 1.4; color: var(--encre); }
 .res__pied { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin-top: .5rem; }
 .res .res__bouton { font-family: var(--titre); font-weight: 600; font-size: .85rem; color: #fff; background: var(--matiere-fonce); border: 1px solid var(--matiere-fonce); border-radius: 100px; padding: .4rem 1rem; text-decoration: none; transition: background .15s; }
 .res .res__bouton:hover { background: var(--matiere); text-decoration: none; }
@@ -119,27 +121,37 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
 <div class="res__source" id="res-source">
   <p class="res__groupe" role="heading" aria-level="4">Histoire</p>
   <ul data-matiere="histoire">
-    <li data-fiche="01" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-sedentarisation/0647bb3a-ad48-4bd3-ae7a-3aafb713c284">La sédentarisation</a></li>
-    <li data-fiche="02" data-type="Kahoot"><a href="https://create.kahoot.it/share/l-emergence-d-une-civilisation/7870170d-7efa-46b4-a997-f477d6aef887">L'émergence d'une civilisation</a></li>
-    <li data-fiche="03" data-type="Kahoot"><a href="https://create.kahoot.it/share/une-premiere-experience-de-democratie/e754217c-550a-44d0-bb7b-ee9b93f3812e">Une première expérience de démocratie</a></li>
-    <li data-fiche="04" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-romanisation-1re-secondaire/3ca59a43-0077-45c8-b07f-f7937c5ce546">La romanisation</a></li>
-    <li data-fiche="05" data-type="Kahoot"><a href="https://create.kahoot.it/share/moyen-age-revision/2d274655-2580-4ed1-9539-38874a89525e">La christianisation de l'Occident</a></li>
-    <li data-fiche="07" data-type="Kahoot"><a href="https://create.kahoot.it/share/humanisme-renaissance/52d610f6-b632-4329-ab5c-947ab11666dd">Le renouvellement de la vision de l'homme</a></li>
-    <li data-fiche="08" data-type="Kahoot"><a href="https://create.kahoot.it/share/kahoot-grandes-explorations/dac95738-43f8-4160-a1cb-ad1b16d086bc">L'expansion européenne dans le monde</a></li>
-    <li data-fiche="09" data-type="Kahoot"><a href="https://create.kahoot.it/share/la-revolution-americaine/3a73dd15-7693-42d8-b4ad-f1af38b65e29">La Révolution américaine</a></li>
-    <li data-fiche="10" data-type="Kahoot"><a href="https://create.kahoot.it/share/industrialisation-version-2026/806a9340-36f9-40a2-9766-79f2a9839599">L'industrialisation : une révolution économique et sociale</a></li>
-    <li data-fiche="11" data-type="Kahoot"><a href="https://create.kahoot.it/share/revision-expansion-industrielle-secondaire-2/261c1f4b-06eb-4a51-b354-aebd052cda71">L'expansion du monde industriel</a></li>
+    <li data-fiche="01" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/la-sedentarisation/0647bb3a-ad48-4bd3-ae7a-3aafb713c284">La sédentarisation</a></li>
+    <li data-fiche="01" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1CVeUPJE3c-pkN8x9cRNfsVCWlBYXaWz-MMJunjjv8K4/preview">La sédentarisation</a></li>
+    <li data-fiche="02" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/l-emergence-d-une-civilisation/7870170d-7efa-46b4-a997-f477d6aef887">L'émergence d'une civilisation</a></li>
+    <li data-fiche="02" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1b-FkF72OwAqJbk3n_ou_cZ_3k74NSHU_2ShFnCGEomY/preview">L'émergence d'une civilisation</a></li>
+    <li data-fiche="03" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/une-premiere-experience-de-democratie/e754217c-550a-44d0-bb7b-ee9b93f3812e">Une première expérience de démocratie</a></li>
+    <li data-fiche="03" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/17MM0YazMXmk7hKHc94vN8o1NGtn9Yzq6E9s_pj2qbrE/preview">Une première expérience de démocratie</a></li>
+    <li data-fiche="04" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/la-romanisation-1re-secondaire/3ca59a43-0077-45c8-b07f-f7937c5ce546">La romanisation</a></li>
+    <li data-fiche="04" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/18bkjBVIm4PaVey2cVGLMHieLMzbVp2dyrNJs1fFVLM4/preview">La romanisation</a></li>
+    <li data-fiche="05" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/moyen-age-revision/2d274655-2580-4ed1-9539-38874a89525e">La christianisation de l'Occident</a></li>
+    <li data-fiche="05" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1ikWZZRJM9LmKM1LkX6ibKx9sTxwKx7sjJ2f5RgmlMx0/preview">La christianisation de l'Occident</a></li>
+    <li data-fiche="07" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/humanisme-renaissance/52d610f6-b632-4329-ab5c-947ab11666dd">Le renouvellement de la vision de l'homme</a></li>
+    <li data-fiche="07" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1XNFnw2StPPPtjWVgLZYcXTlFh44LnIlxjYBLiCxi_48/preview">Le renouvellement de la vision de l'homme</a></li>
+    <li data-fiche="08" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/kahoot-grandes-explorations/dac95738-43f8-4160-a1cb-ad1b16d086bc">L'expansion européenne dans le monde</a></li>
+    <li data-fiche="08" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1in-liGPfHmo_V_BHulKEFIZZPzt8tB1jAgka_PW1M0I/preview">L'expansion européenne dans le monde</a></li>
+    <li data-fiche="09" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/la-revolution-americaine/3a73dd15-7693-42d8-b4ad-f1af38b65e29">La Révolution américaine</a></li>
+    <li data-fiche="09" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1YhENmsr8fcB7AnVVd_0OeRFJT1hkCqxhtwD1UGDvlAI/preview">La Révolution américaine</a></li>
+    <li data-fiche="10" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/industrialisation-version-2026/806a9340-36f9-40a2-9766-79f2a9839599">L'industrialisation : une révolution économique et sociale</a></li>
+    <li data-fiche="10" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/14cFc0iplCfPYjCDRD3rIe1f72h-kNpHZuGNy45E5g3k/preview">L'industrialisation : une révolution économique et sociale</a></li>
+    <li data-fiche="11" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/revision-expansion-industrielle-secondaire-2/261c1f4b-06eb-4a51-b354-aebd052cda71">L'expansion du monde industriel</a></li>
+    <li data-fiche="11" data-type="Cahier" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/15Eo5Srt-YkkKyUZAdqDC3i9l-C3ZWxBl0pebOlM88mA/preview">L'expansion du monde industriel</a></li>
   </ul>
   <p class="res__groupe" role="heading" aria-level="4">Géographie</p>
   <ul data-matiere="geographie">
-    <li data-fiche="02" data-type="Kahoot"><a href="https://create.kahoot.it/share/metropole/7ffd4c56-5efc-401b-b497-156f9d14387d">La métropole</a></li>
-    <li data-fiche="03" data-type="Kahoot"><a href="https://create.kahoot.it/share/quebec-intra-muros/87bf9581-7839-4b79-bd80-99b1e3ebaeab">La ville patrimoniale</a></li>
-    <li data-fiche="04" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-urbain-soumis-aux-risques-naturels-san-francisco/b3f72c94-50a1-4137-94b2-1e1cf85f951a">La ville soumise à des risques naturels</a></li>
-    <li data-fiche="05" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-touristique/b9bed82e-9e91-49cb-a37f-ad5083a2cd21">Le territoire touristique</a></li>
-    <li data-fiche="06" data-type="Kahoot"><a href="https://create.kahoot.it/share/le-territoire-forestier-de-l-amazonie/81bd3971-dccf-42f5-8d69-b610ede1e565">Le territoire forestier</a></li>
-    <li data-fiche="11" data-type="Kahoot"><a href="https://create.kahoot.it/share/gec-territoire-agricole-soumis-aux-risques-naturels-le-bangladesh/9a7ace75-25a0-467b-8545-810675cfaa9f">Le territoire agricole soumis à des risques naturels</a></li>
-    <li data-fiche="12" data-type="Kahoot"><a href="https://create.kahoot.it/share/territoire-autochtone-2e-secondaire/4e3459ae-f3cd-4fe9-a5cb-22fdea9ce19b">Le territoire autochtone du Québec et du Canada</a></li>
-    <li data-fiche="13" data-type="Kahoot"><a href="https://create.kahoot.it/share/le-territoire-protege-parc-naturel-galapagos/059f7f18-7a9e-4237-aca1-57e127546696">Le territoire protégé : le parc naturel</a></li>
+    <li data-fiche="02" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/metropole/7ffd4c56-5efc-401b-b497-156f9d14387d">La métropole</a></li>
+    <li data-fiche="03" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/quebec-intra-muros/87bf9581-7839-4b79-bd80-99b1e3ebaeab">La ville patrimoniale</a></li>
+    <li data-fiche="04" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/territoire-urbain-soumis-aux-risques-naturels-san-francisco/b3f72c94-50a1-4137-94b2-1e1cf85f951a">La ville soumise à des risques naturels</a></li>
+    <li data-fiche="05" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/territoire-touristique/b9bed82e-9e91-49cb-a37f-ad5083a2cd21">Le territoire touristique</a></li>
+    <li data-fiche="06" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/le-territoire-forestier-de-l-amazonie/81bd3971-dccf-42f5-8d69-b610ede1e565">Le territoire forestier</a></li>
+    <li data-fiche="11" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/gec-territoire-agricole-soumis-aux-risques-naturels-le-bangladesh/9a7ace75-25a0-467b-8545-810675cfaa9f">Le territoire agricole soumis à des risques naturels</a></li>
+    <li data-fiche="12" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/territoire-autochtone-2e-secondaire/4e3459ae-f3cd-4fe9-a5cb-22fdea9ce19b">Le territoire autochtone du Québec et du Canada</a></li>
+    <li data-fiche="13" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/le-territoire-protege-parc-naturel-galapagos/059f7f18-7a9e-4237-aca1-57e127546696">Le territoire protégé : le parc naturel</a></li>
   </ul>
 </div>
 <script>
@@ -314,9 +326,9 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
     haut.appendChild(el("span", "res__matiere", (MATIERES[r.matiere] || {}).nom || ""));
     li.appendChild(haut);
     li.appendChild(el("span", "res__nom", r.titre));
+    if (r.note) li.appendChild(el("span", "res__note", r.note));
     li.appendChild(el("span", "res__fiche", f ? "Fiche " + r.fiche + " · " + nomTheme(r.matiere, f[0])
                                               : "Fiche " + r.fiche));
-    if (r.note) li.appendChild(el("span", "res__note", r.note));
     var pied = el("div", "res__pied");
     var ouvrir = el("a", "res__bouton", "Ouvrir");
     ouvrir.href = r.adresse;

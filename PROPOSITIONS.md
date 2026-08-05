@@ -5574,3 +5574,31 @@ dans 27 pages, les 27 nouveaux étant le lien de bandeau sur chaque page, aucun
 brisé. `figures.py` et `paragraphes.py` sans écart, les deux suites Node à 0
 échec, et 29 contrôles jsdom sur la page construite, dont la vérification qu'il
 ne subsiste aucun titre tiré d'une adresse.
+
+### Les cahiers de modelage rejoignent le répertoire (livraison 141)
+
+Dix cahiers de l'élève, cinq par niveau, tirés du Drive. Ils se rattachent aux
+mêmes réalités sociales que les Kahoots, soit 01 à 05 et 07 à 11. Les deux
+dossiers Corrigés sont écartés, ainsi que le dossier « Suivi des opérations
+intellectuelles », dont le titre demande lui-même une validation préalable.
+
+Les adresses fournies par Drive posaient deux problèmes, réglés avant la
+publication. Elles pointaient vers `/edit`, ce qui aurait déposé l'élève dans
+l'éditeur avec un bandeau de lecture seule, alors que `/preview` ouvre une
+lecture propre et fonctionne sans compte Google. Elles traînaient surtout un
+identifiant du compte Google propriétaire dans leurs paramètres, qui n'a rien à
+faire sur un site public : il est retiré, et un contrôle automatique vérifie
+désormais qu'aucun ne réapparaisse.
+
+Le partage a été vérifié fichier par fichier avant d'écrire quoi que ce soit.
+Les dix sont en lecture pour tout le monde, donc aucun élève ne tombera sur un
+mur de demande d'accès. C'est un contrôle à refaire à la main si un cahier est
+déplacé ou recréé, le site n'a aucun moyen de le voir.
+
+Chaque réalité sociale porte maintenant deux cartes de même titre. Une mention
+sous le titre les sépare : « Questionnaire interactif » ou « Modelage des
+opérations intellectuelles ». Elle est aussi cherchable, donc « modelage » dans
+le champ de recherche ramène les dix cahiers d'un coup.
+
+Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Les deux
+suites Node à 0 échec, et l'essai jsdom passe à 40 contrôles.

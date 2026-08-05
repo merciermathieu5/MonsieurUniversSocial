@@ -9,7 +9,9 @@ chapeau: >-
 ## Trouver une ressource
 
 Chaque ressource est rattachée à une réalité sociale en histoire ou à un type
-de territoire en géographie. Choisis d'abord ta matière, puis ton thème, et la
+de territoire en géographie. Tu y trouveras des questionnaires Kahoot pour te
+tester, et des cahiers de modelage qui te montrent comment mener chaque
+opération intellectuelle. Choisis d'abord ta matière, puis ton thème, et la
 liste se réduit à ce qui te concerne. Le champ de recherche fonctionne aussi
 sur le titre, si tu sais déjà ce que tu cherches. Un bouton ouvre la ressource
 dans un nouvel onglet, sur le site de son fournisseur.
