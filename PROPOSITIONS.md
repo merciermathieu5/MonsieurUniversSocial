@@ -5645,3 +5645,38 @@ s'affichera sans ces commandes.
 
 Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
 Node à 0 échec, essai jsdom à 47 contrôles.
+
+### Jeux sérieux et deux cahiers repris (livraison 144)
+
+Trois jeux ajoutés, chacun vérifié en ligne avant d'être inscrit : Lugal pour
+l'émergence d'une civilisation, Demokratia pour la première expérience de
+démocratie, Legatus pour la romanisation. Nouvelle famille, nouvelle couleur de
+pastille, un vert pétrole mesuré à 7,3 pour 1 en blanc, avec sa variante
+éclaircie en thème sombre.
+
+Deux PDF s'ajoutent aux cahiers de l'élève. Le contenu des deux a été lu avant
+publication, pas seulement leur titre, et c'est ce qui a évité deux erreurs.
+
+Le fichier nommé `révision_globale_hec1_ens.pdf` faisait craindre une version
+enseignante, donc un corrigé. Lecture faite, le `ens` désigne l'ensemble : le
+document porte un champ « Élève » à chaque page et ne contient aucune réponse.
+Il est bien de la bonne catégorie.
+
+Ce même document n'est pas de nous : il est de Sébastien Bergeron, du Centre de
+services scolaire des Bois-Francs, 2020. Son auteur est donc nommé dans la
+mention de la carte. Reprendre le travail d'un collègue sans le nommer aurait
+été indéfendable sur un site public.
+
+Il couvre les six réalités sociales de la 1re secondaire, pas une seule. Plutôt
+que d'étendre le modèle à des ressources multi-fiches, ce qui aurait demandé de
+réintroduire les titres de fiches dans le composant, il est inscrit six fois,
+une par réalité sociale qu'il couvre réellement. L'élève qui choisit « La
+romanisation » le voit, celui qui choisit « L'essor urbain et commercial »
+aussi. Effet de bord assumé : sur la vue complète, la même adresse revient six
+fois. Trente-huit entrées pour trente-trois adresses distinctes.
+
+La fiche 06 entre au répertoire par cette porte, elle n'avait aucune ressource
+jusqu'ici et n'apparaissait donc pas au menu déroulant.
+
+Le compte : 22 problèmes, inchangé. 880 liens internes, aucun brisé. Deux suites
+Node à 0 échec, essai jsdom à 53 contrôles.

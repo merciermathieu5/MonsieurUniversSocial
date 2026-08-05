@@ -24,6 +24,7 @@
    croire qu'un cahier n'existe que d'un côté. */
 .res__type--kahoot { background: #5B3A8A; }
 .res__type--cahier-de-l-eleve { background: #8A5A1E; }
+.res__type--jeu-serieux { background: #17605F; }
 .res__menu { font-family: var(--corps); font-size: .9rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .38rem .6rem; max-width: 22rem; }
 .res__menu:focus { outline: 2px solid var(--matiere); outline-offset: 1px; }
 .res__couple { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
@@ -47,6 +48,7 @@ html[data-sombre="on"] .res__filtre[aria-pressed="true"] { background: var(--mat
 html[data-sombre="on"] .res__type { background: var(--matiere-voile); color: var(--encre); }
 html[data-sombre="on"] .res__type--kahoot { background: #7B5AAA; color: #fff; }
 html[data-sombre="on"] .res__type--cahier-de-l-eleve { background: #96631F; color: #fff; }
+html[data-sombre="on"] .res__type--jeu-serieux { background: #2E8A8D; color: #fff; }
 html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); border-color: var(--matiere); color: var(--encre); }
 @media (max-width: 40rem) { .res__grille { padding: .85rem; } .res__etiquette { flex-basis: 100%; } }
 @media print { .res__reglages { display: none; } .res__grille { grid-template-columns: repeat(2, 1fr); } .res__carte { page-break-inside: avoid; } }
@@ -81,14 +83,24 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
   <ul data-matiere="histoire">
     <li data-fiche="01" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/la-sedentarisation/0647bb3a-ad48-4bd3-ae7a-3aafb713c284">La sédentarisation</a></li>
     <li data-fiche="01" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1CVeUPJE3c-pkN8x9cRNfsVCWlBYXaWz-MMJunjjv8K4/view">La sédentarisation</a></li>
+    <li data-fiche="01" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">La sédentarisation</a></li>
     <li data-fiche="02" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/l-emergence-d-une-civilisation/7870170d-7efa-46b4-a997-f477d6aef887">L'émergence d'une civilisation</a></li>
     <li data-fiche="02" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1b-FkF72OwAqJbk3n_ou_cZ_3k74NSHU_2ShFnCGEomY/view">L'émergence d'une civilisation</a></li>
+    <li data-fiche="02" data-type="Jeu sérieux" data-note="Lugal, un livre-jeu en Mésopotamie"><a href="https://merciermathieu5.github.io/Lugal/">L'émergence d'une civilisation</a></li>
+    <li data-fiche="02" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">L'émergence d'une civilisation</a></li>
     <li data-fiche="03" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/une-premiere-experience-de-democratie/e754217c-550a-44d0-bb7b-ee9b93f3812e">Une première expérience de démocratie</a></li>
     <li data-fiche="03" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/17MM0YazMXmk7hKHc94vN8o1NGtn9Yzq6E9s_pj2qbrE/view">Une première expérience de démocratie</a></li>
+    <li data-fiche="03" data-type="Jeu sérieux" data-note="Demokratia, gouverner Athènes au nom du peuple"><a href="https://merciermathieu5.github.io/democratie/">Une première expérience de démocratie</a></li>
+    <li data-fiche="03" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">Une première expérience de démocratie</a></li>
     <li data-fiche="04" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/la-romanisation-1re-secondaire/3ca59a43-0077-45c8-b07f-f7937c5ce546">La romanisation</a></li>
     <li data-fiche="04" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/18bkjBVIm4PaVey2cVGLMHieLMzbVp2dyrNJs1fFVLM4/view">La romanisation</a></li>
+    <li data-fiche="04" data-type="Jeu sérieux" data-note="Legatus, gouverner une province romaine"><a href="https://merciermathieu5.github.io/Legatus/">La romanisation</a></li>
+    <li data-fiche="04" data-type="Cahier de l'élève" data-note="Analyse de sources primaires, qui a tué Jules César"><a href="https://drive.google.com/file/d/1pwo_seiqeDWR6TufDlMWZxCymTfrSExS/view">La romanisation</a></li>
+    <li data-fiche="04" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">La romanisation</a></li>
     <li data-fiche="05" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/moyen-age-revision/2d274655-2580-4ed1-9539-38874a89525e">La christianisation de l'Occident</a></li>
     <li data-fiche="05" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1ikWZZRJM9LmKM1LkX6ibKx9sTxwKx7sjJ2f5RgmlMx0/view">La christianisation de l'Occident</a></li>
+    <li data-fiche="05" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">La christianisation de l'Occident</a></li>
+    <li data-fiche="06" data-type="Cahier de l'élève" data-note="Révision globale de la 1re secondaire, document de Sébastien Bergeron"><a href="https://drive.google.com/file/d/1DB0-dFPA2e1A2x26pjtSdoOt-QsaIHkm/view">L'essor urbain et commercial</a></li>
     <li data-fiche="07" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/humanisme-renaissance/52d610f6-b632-4329-ab5c-947ab11666dd">Le renouvellement de la vision de l'homme</a></li>
     <li data-fiche="07" data-type="Cahier de l'élève" data-note="Modelage des opérations intellectuelles"><a href="https://docs.google.com/document/d/1XNFnw2StPPPtjWVgLZYcXTlFh44LnIlxjYBLiCxi_48/view">Le renouvellement de la vision de l'homme</a></li>
     <li data-fiche="08" data-type="Kahoot" data-note="Questionnaire interactif"><a href="https://create.kahoot.it/share/kahoot-grandes-explorations/dac95738-43f8-4160-a1cb-ad1b16d086bc">L'expansion européenne dans le monde</a></li>
