@@ -5946,3 +5946,33 @@ valeur redescend sous la piste en restant alignée sur elle.
 0 échec et 10 contrôles jsdom sur l'agencement, dont la vérification que chaque
 rangée porte bien ses trois éléments dans l'ordre et qu'aucune valeur n'est
 retournée à l'intérieur d'une piste.
+
+### Filtre par catégorie sur la page des ressources (livraison 151)
+
+Une rangée s'ajoute entre la matière et les menus de fiches : Toutes, Cahier de
+l'élève, Jeu sérieux, Kahoot. Les catégories sont déduites des données plutôt
+qu'écrites en dur, donc une quatrième famille apparaîtra d'elle-même le jour où
+une ressource en portera une.
+
+Chaque bouton porte une pastille de la couleur de sa famille, la même que celle
+de la carte. Le filtre et la carte se reconnaissent ainsi sans lecture.
+
+### Les combinaisons vides sont fermées d'avance
+
+Un cahier de modelage n'existe qu'en histoire, un jeu sérieux aussi. Choisir la
+géographie puis Cahier de l'élève aurait donné une liste vide sans expliquer
+pourquoi. Les boutons dont la catégorie n'est plus atteignable sont donc
+désactivés, avec une infobulle qui le dit, et une catégorie déjà choisie qui
+devient inatteignable retombe sur Toutes.
+
+Le calcul des catégories offertes ignore volontairement le filtre de catégorie
+lui-même. Sans cette précaution, une seule serait restée active dès le premier
+choix, et les deux autres se seraient éteintes.
+
+### Le compte
+
+22 problèmes, inchangé. 914 liens internes dans 28 pages, aucun brisé.
+`figures.py` et `paragraphes.py` sans écart, les deux suites Node à 0 échec, et
+15 contrôles jsdom sur le filtre, dont les trois décomptes par catégorie, la
+désactivation en géographie et la combinaison avec le menu des réalités
+sociales.

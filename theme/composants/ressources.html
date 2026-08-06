@@ -8,7 +8,13 @@
 .res__rangee { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
 .res__etiquette { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); flex: 0 0 5.5rem; }
 .res__filtre { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
-.res__filtre:hover { border-color: var(--matiere); }
+.res__filtre:hover:not([disabled]) { border-color: var(--matiere); }
+.res__filtre[disabled] { opacity: .42; cursor: not-allowed; }
+.res__grain { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; margin-right: .4rem; vertical-align: 0; }
+.res__grain--kahoot { background: #5B3A8A; }
+.res__grain--cahier-de-l-eleve { background: #8A5A1E; }
+.res__grain--jeu-serieux { background: #17605F; }
+.res__filtre[aria-pressed="true"] .res__grain { outline: 1px solid rgba(255,255,255,.7); }
 .res__filtre[aria-pressed="true"] { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
 .res__recherche { font-family: var(--corps); font-size: .95rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .4rem .7rem; min-width: 14rem; flex: 1 1 14rem; }
 .res__recherche:focus { outline: 2px solid var(--matiere); outline-offset: 1px; }
@@ -60,6 +66,9 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
 <div class="res__reglages" id="res-reglages" hidden>
   <div class="res__rangee" id="res-matieres" role="group" aria-label="Filtrer par matière">
     <span class="res__etiquette">Matière</span>
+  </div>
+  <div class="res__rangee" id="res-categories" role="group" aria-label="Filtrer par catégorie">
+    <span class="res__etiquette">Catégorie</span>
   </div>
   <div class="res__rangee" id="res-fiches">
     <span class="res__couple" id="res-couple-histoire">
@@ -193,6 +202,7 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
   var reglages = document.getElementById("res-reglages");
   var recherche = document.getElementById("res-recherche");
   var rangeeMatieres = document.getElementById("res-matieres");
+  var rangeeCategories = document.getElementById("res-categories");
   var menus = {
     histoire: document.getElementById("res-histoire"),
     geographie: document.getElementById("res-geographie")
@@ -202,6 +212,7 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
     geographie: document.getElementById("res-couple-geographie")
   };
   var matiereActive = "tout";
+  var categorieActive = "tout";
   // Un seul menu à la fois porte un choix : changer l'un remet l'autre à zéro.
   // Sans ça, un choix laissé dans le menu caché continuerait de filtrer en
   // sourdine, et l'élève ne verrait pas pourquoi sa liste est vide.
@@ -286,13 +297,33 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
     return (texte || "").toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
-  function bouton(rangee, cle, nom, actif, action) {
-    var b = el("button", "res__filtre", nom);
+  function bouton(rangee, cle, nom, actif, action, grain) {
+    var b = el("button", "res__filtre");
+    if (grain) b.appendChild(el("span", "res__grain res__grain--" + glisser(grain)));
+    b.appendChild(document.createTextNode(nom));
     b.type = "button";
     b.setAttribute("aria-pressed", actif ? "true" : "false");
     b.addEventListener("click", function () { action(cle); });
     rangee.appendChild(b);
     return b;
+  }
+  function categories() {
+    var vues = {}, liste = [];
+    for (var i = 0; i < RESSOURCES.length; i++) {
+      if (vues[RESSOURCES[i].type]) continue;
+      vues[RESSOURCES[i].type] = 1;
+      liste.push(RESSOURCES[i].type);
+    }
+    return liste.sort(function (a, b) { return a.localeCompare(b, "fr"); });
+  }
+  function offertes() {
+    // Les catégories encore atteignables compte tenu des autres filtres. La
+    // catégorie elle-même est ignorée dans ce calcul, sinon une seule
+    // resterait offerte dès qu'on en choisit une.
+    var vues = {};
+    var lot = retenues(true);
+    for (var i = 0; i < lot.length; i++) vues[lot[i].type] = 1;
+    return vues;
   }
   function dessinerFiltres() {
     var anciens = rangeeMatieres.querySelectorAll(".res__filtre");
@@ -307,6 +338,26 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
     // sociale ou un territoire sans passer par le filtre de matière.
     couples.histoire.hidden = matiereActive === "geographie";
     couples.geographie.hidden = matiereActive === "histoire";
+
+    var anciennes = rangeeCategories.querySelectorAll(".res__filtre");
+    for (i = 0; i < anciennes.length; i++) anciennes[i].remove();
+    var possibles = offertes();
+    bouton(rangeeCategories, "tout", "Toutes", categorieActive === "tout",
+           choisirCategorie);
+    var liste = categories();
+    for (i = 0; i < liste.length; i++) {
+      var b = bouton(rangeeCategories, liste[i], liste[i],
+                     categorieActive === liste[i], choisirCategorie, liste[i]);
+      if (!possibles[liste[i]]) {
+        b.disabled = true;
+        b.title = "Aucune ressource de cette catégorie avec les filtres actuels";
+      }
+    }
+  }
+  function choisirCategorie(cle) {
+    categorieActive = cle;
+    dessinerFiltres();
+    dessiner();
   }
   function choisirMatiere(cle) {
     matiereActive = cle;
@@ -314,13 +365,19 @@ html[data-sombre="on"] .res .res__bouton { background: var(--matiere-voile); bor
     choix.geographie = "tout";
     menus.histoire.value = "tout";
     menus.geographie.value = "tout";
+    // Un cahier n'existe qu'en histoire : rester sur cette catégorie après
+    // avoir choisi la géographie donnerait une liste vide sans le dire.
+    if (categorieActive !== "tout" && !offertes()[categorieActive]) {
+      categorieActive = "tout";
+    }
     dessinerFiltres();
     dessiner();
   }
-  function retenues() {
+  function retenues(sansCategorie) {
     var mots = sansAccent(recherche.value).split(/\s+/).filter(Boolean);
     return RESSOURCES.filter(function (r) {
       if (matiereActive !== "tout" && r.matiere !== matiereActive) return false;
+      if (!sansCategorie && categorieActive !== "tout" && r.type !== categorieActive) return false;
       var f = fiche(r);
       if (choix.histoire !== "tout") {
         if (r.matiere !== "histoire" || r.fiche !== choix.histoire) return false;
