@@ -19,12 +19,52 @@
 # passage suivant de --chercher.
 
 articles:
+  - adresse: "https://www.lapresse.ca/affaires/2026-08-06/droits-de-douane/carney-garde-son-calme-face-a-une-nouvelle-tirade-de-trump.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-06"
+    titre: "Droits de douane | Carney garde son calme face à une nouvelle tirade de Trump"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-06/colombie-britannique/les-incendies-de-foret-s-etendent-a-la-region-metropolitaine-de-vancouver.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-06"
+    titre: "Colombie-Britannique | Les incendies de forêt s’étendent à la région métropolitaine de Vancouver"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-06/liens-entre-le-climat-et-les-incendies-de-foret/une-scientifique-preoccupee-par-le-silence-des-politiciens.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-06"
+    titre: "Liens entre le climat et les incendies de forêt | Une scientifique préoccupée par le silence des politiciens"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-06/quebec/une-activite-d-incendies-de-foret-superieure-a-la-moyenne-en-juillet.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-06"
+    titre: "Québec | Une activité d’incendies de forêt supérieure à la moyenne en juillet"
+    garder: "0"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2273818/feu-foret-parc-belcarra-vancouver"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-08-06"
+    titre: "À l’est de Vancouver, un feu de forêt préoccupe le village d’Anmore"
+    garder: "O"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-05/crime-organise-chez-les-autochtones/quebec-va-s-attaquer-aux-reseaux-criminels.php"
     fiche: "12"
     media: "La Presse"
     date: "2026-08-05"
     titre: "Crime organisé chez les Autochtones | Québec « va s’attaquer » aux réseaux criminels"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-05/nouveaux-droits-de-douane/carney-refuse-de-se-prononcer-sur-l-issue-des-negos-a-l-approche-de-l-echeance.php"
@@ -32,7 +72,15 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Nouveaux droits de douane | Carney refuse de se prononcer sur l’issue des négos à l’approche de l’échéance"
-    garder: ""
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-05/nouveaux-droits-de-douane/carney-refuse-de-se-prononcer-sur-l-issue-des-negociations-a-l-approche-de-l-echeance.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-05"
+    titre: "Nouveaux droits de douane | Carney refuse de se prononcer sur l’issue des négociations à l’approche de l’échéance"
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php"
@@ -48,7 +96,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Colombie-Britannique | Les dégâts causés par les incendies de forêt s’aggravent"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/justice-et-faits-divers/2026-08-05/monteregie/la-grenade-decouverte-dans-un-camping-ne-contenait-pas-d-explosifs.php"
@@ -56,7 +104,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Montérégie | La grenade découverte dans un camping ne contenait pas d’explosifs"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php"
@@ -80,7 +128,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Glissement de terrain à l’Ascension | La vie reprend son cours dans les Hautes-Laurentides"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/double-seisme-au-venezuela/les-douloureux-bilans-contradictoires-du-nombre-de-disparus.php"
@@ -88,7 +136,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Double séisme au Venezuela | Les douloureux bilans contradictoires du nombre de disparus"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-05/guatemala/fin-de-l-eruption-du-volcan-de-fuego.php"
@@ -96,7 +144,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Guatemala | Fin de l’éruption du volcan de Fuego"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-05/ruelles-vertes/a-trois-rivieres-une-ruelle-ou-on-se-sent-bien.php"
@@ -104,7 +152,7 @@ articles:
     media: "La Presse"
     date: "2026-08-05"
     titre: "Ruelles vertes | À Trois-Rivières, une ruelle où « on se sent bien »"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-04/dicaprio-et-bezos-lancent-un-projet-pour-sauver-des-especes-menacees.php"
@@ -112,7 +160,7 @@ articles:
     media: "La Presse"
     date: "2026-08-04"
     titre: "DiCaprio et Bezos lancent un projet pour sauver des espèces menacées"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-04/droits-de-douane/le-ministre-leblanc-retourne-a-washington-pour-rencontrer-son-homologue-americain.php"
@@ -120,7 +168,7 @@ articles:
     media: "La Presse"
     date: "2026-08-04"
     titre: "Droits de douane | Le ministre LeBlanc retourne à Washington pour rencontrer son homologue américain"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2273346/oleoduc-canada-projet-interet-national"
