@@ -59,6 +59,14 @@ articles:
     garder: "N"
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/en-bref/1-10731331/comment-pluies-diluviennes-ont-provoque-inondations-majeures-en-haute-mauricie"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-07"
+    titre: "Comment les pluies diluviennes ont provoqué des inondations majeures en Haute-Mauricie"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/2026-08-06/droits-de-douane/carney-garde-son-calme-face-a-une-nouvelle-tirade-de-trump.php"
     fiche: "09"
     media: "La Presse"
@@ -211,6 +219,14 @@ articles:
     garder: "N"
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/phare-ouest/segments/rattrapage/2443994/un-ocean-a-autre-avec-lyne-morissette"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-08-04"
+    titre: "« On est en train de vider notre garde-manger maritime »"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-04/droits-de-douane/le-ministre-leblanc-retourne-a-washington-pour-rencontrer-son-homologue-americain.php"
     fiche: "09"
     media: "La Presse"
@@ -235,6 +251,14 @@ articles:
     garder: "O"
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/la-croisee/segments/rattrapage/2443954/comment-adapter-nos-villes-aux-risques-inondations"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-04"
+    titre: "Comment mieux protéger nos villes et nos habitations des inondations urbaines?"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-03/el-nino/le-perou-lance-des-travaux-de-prevention-des-crues.php"
     fiche: "11"
     media: "La Presse"
@@ -257,6 +281,22 @@ articles:
     date: "2026-08-03"
     titre: "Inondations à Montréal | Plus d’une centaine de résidants réclament une solution"
     garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10728446/un-rare-seisme-secoue-ville-quebec"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-03"
+    titre: "Un rare séisme secoue la ville de Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2442728/un-tremblement-terre-magnitude-28-secoue-region-quebec"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-03"
+    titre: "La ville de Québec secouée par un séisme"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/boucherville/casse-tete-a-venir-sur-l-autoroute-20.php"

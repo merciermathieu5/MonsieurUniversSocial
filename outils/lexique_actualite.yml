@@ -34,15 +34,28 @@ fils:
   "La Presse · régional": https://www.lapresse.ca/actualites/regional/rss
   "La Presse · voyage": https://www.lapresse.ca/voyage/rss
   "La Presse · économie": https://www.lapresse.ca/affaires/economie/rss
-  # Radio-Canada. Le sous-domaine rss.radio-canada.ca est mort et sa page de
-  # fils bloque l'accès automatisé, donc ces adresses sont des candidates à
-  # éprouver, pas des certitudes. L'outil dira lesquelles répondent. La voie
-  # sûre : ouvrir ici.radio-canada.ca/info/rss dans un navigateur, faire un
-  # clic droit sur chaque fil, copier l'adresse et la coller ici.
+  # Radio-Canada ne sert ses fils que sous des numéros, jamais sous des mots :
+  # rss/environnement, rss/science et rss/regions ont toujours répondu 404,
+  # seul le rss/4159 des grands titres passait. Les numéros des autres fils ne
+  # sont publiés nulle part de fiable, alors chaque entrée donne des candidates
+  # essayées dans l'ordre, la page de section en dernier recours : la page
+  # n'est pas un fil, mais l'outil y lit l'adresse du fil qu'elle annonce et
+  # la suit. Quand une adresse répond, --chercher et --sonder te la donnent à
+  # épingler ici, à la place de la liste. Pour tout éprouver d'un coup, sans
+  # rien écrire : py outils\articles.py --sonder
   "Radio-Canada · grands titres": https://ici.radio-canada.ca/rss/4159
-  "Radio-Canada · environnement": https://ici.radio-canada.ca/rss/environnement
-  "Radio-Canada · science": https://ici.radio-canada.ca/rss/science
-  "Radio-Canada · régions": https://ici.radio-canada.ca/rss/regions
+  "Radio-Canada · environnement":
+    # Le numéro 92408 vient d'un répertoire tiers, à confirmer par la sonde.
+    - https://ici.radio-canada.ca/rss/92408
+    - https://ici.radio-canada.ca/environnement
+  "Radio-Canada · science":
+    - https://ici.radio-canada.ca/science
+  "Radio-Canada · régions":
+    - https://ici.radio-canada.ca/regions
+  # Pour ancrer la page dans la région des élèves, un fil de proximité se
+  # trouve de la même façon : décommente et laisse la sonde faire.
+  # "Radio-Canada · Bas-Saint-Laurent":
+  #   - https://ici.radio-canada.ca/bas-saint-laurent
 
 # Veto de sécurité. Un seul de ces termes dans un titre écarte l'article avant
 # le classement, quel que soit son score. La page s'adresse à des élèves de 12

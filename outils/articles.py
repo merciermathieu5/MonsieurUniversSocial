@@ -5,6 +5,7 @@ Tient le registre des articles d'actualité et remplit la page tout seul.
     python outils\\articles.py --chercher    lit les fils, propose, contrôle les liens
     python outils\\articles.py               écrit les articles validés dans la page
     python outils\\articles.py --diagnostic  montre les rejets et pourquoi
+    python outils\\articles.py --sonder      éprouve chaque fil, sans toucher au registre
 
 Même principe que outils\\images.py : tu écris en clair dans un registre, le
 script fait toute la mécanique. Ici le registre est contenu\\articles.yml.
@@ -36,6 +37,7 @@ import re
 import sys
 import unicodedata
 import urllib.error
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta
@@ -126,21 +128,33 @@ def couper_titre(titre: str) -> tuple[str, str]:
     return "", titre.strip()
 
 
-def lire_fil(nom: str, adresse: str) -> tuple[list[dict], str]:
+def candidats_de(adresse) -> list[str]:
+    """Les adresses d'un fil du lexique, qu'il en donne une ou plusieurs."""
+    if isinstance(adresse, str):
+        return [adresse]
+    return [str(a) for a in (adresse or []) if a]
+
+
+def telecharger(adresse: str) -> tuple[bytes, str]:
+    """La réponse brute, ou la raison du silence."""
     requete = urllib.request.Request(adresse, headers=ENTETES)
     try:
         with urllib.request.urlopen(requete, timeout=20) as reponse:
-            brut = reponse.read()
+            return reponse.read(), ""
     except urllib.error.HTTPError as erreur:
         raison = ("refus de robot, le fil est probablement vivant"
                   if erreur.code in (403, 429) else "fil introuvable")
-        return [], f"{erreur.code}, {raison}"
+        return b"", f"{erreur.code}, {raison}"
     except Exception as erreur:
-        return [], f"injoignable, {type(erreur).__name__}"
+        return b"", f"injoignable, {type(erreur).__name__}"
+
+
+def extraire_entrees(brut: bytes, nom: str) -> list[dict] | None:
+    """Les articles d'un fil, ou None si la réponse n'est pas du XML."""
     try:
         racine = ET.fromstring(brut)
     except ET.ParseError:
-        return [], "réponse illisible, ce n'est pas du XML"
+        return None
 
     entrees = []
     for item in racine.iter():
@@ -158,7 +172,80 @@ def lire_fil(nom: str, adresse: str) -> tuple[list[dict], str]:
         if titre and lien:
             entrees.append({"titre": titre, "lien": lien, "date": quand,
                             "source": nom})
-    return entrees, ""
+    return entrees
+
+
+def decouvrir_fils(brut: bytes, base: str) -> list[str]:
+    """Les fils annoncés par une page, dans l'ordre où elle les donne.
+
+    Une page de section n'est pas un fil, mais elle dit où est le sien :
+    d'abord dans ses balises <link rel="alternate">, sinon dans toute
+    adresse en /rss/ semée dans son code. Trois candidates au plus, la
+    première annonce d'une page étant presque toujours la bonne.
+    """
+    texte = brut.decode("utf-8", errors="replace")
+    trouves: list[str] = []
+
+    def ajouter(adresse: str) -> None:
+        adresse = html.unescape(adresse.strip())
+        if adresse.startswith("//"):
+            adresse = "https:" + adresse
+        elif adresse.startswith("/"):
+            adresse = urllib.parse.urljoin(base, adresse)
+        if adresse.startswith("http") and adresse not in trouves:
+            trouves.append(adresse)
+
+    for balise in re.findall(r"<link\b[^>]*>", texte, flags=re.I):
+        if not re.search(r"rel\s*=\s*[\"']?alternate", balise, flags=re.I):
+            continue
+        if not re.search(r"type\s*=\s*[\"'][^\"']*(rss|atom|xml)",
+                         balise, flags=re.I):
+            continue
+        cible = re.search(r"href\s*=\s*[\"']([^\"']+)", balise, flags=re.I)
+        if cible:
+            ajouter(cible.group(1))
+    for adresse in re.findall(r"(?:https?:)?//[^\s\"'<>()]*?/rss/\d+", texte):
+        ajouter(adresse)
+    for adresse in re.findall(r"[\"'](/rss/\d+)[\"']", texte):
+        ajouter(adresse)
+    return trouves[:3]
+
+
+def lire_fil(nom: str, adresse) -> tuple[list[dict], str, str]:
+    """Les articles, la raison du silence et l'adresse qui a répondu.
+
+    Le lexique peut donner une adresse de fil, une liste de candidates
+    essayées dans l'ordre, ou une page de section : la page n'est pas un
+    fil, mais l'outil y lit l'adresse du fil annoncé et la suit, un seul
+    niveau de poursuite, pas de furetage. L'adresse retournée est celle
+    qui a livré les articles, à épingler dans le lexique quand elle
+    diffère de la première candidate.
+    """
+    echecs = []
+    for candidate in candidats_de(adresse):
+        brut, raison = telecharger(candidate)
+        if raison:
+            echecs.append(f"{candidate} : {raison}")
+            continue
+        entrees = extraire_entrees(brut, nom)
+        if entrees:
+            return entrees, "", candidate
+        annonces = decouvrir_fils(brut, candidate)
+        if not annonces:
+            echecs.append(f"{candidate} : fil vide" if entrees is not None
+                          else f"{candidate} : pas un fil, et la page "
+                               "n'en annonce aucun")
+            continue
+        for annonce in annonces:
+            brut, raison = telecharger(annonce)
+            if raison:
+                echecs.append(f"{annonce} : {raison}")
+                continue
+            entrees = extraire_entrees(brut, nom)
+            if entrees:
+                return entrees, "", annonce
+            echecs.append(f"{annonce} : fil vide ou illisible")
+    return [], " ; ".join(echecs) or "adresse absente du lexique", ""
 
 
 def en_iso(date_rss: str) -> str:
@@ -259,18 +346,29 @@ def controler_lien(adresse: str) -> str:
 
 def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
     fils = lexique.get("fils") or {}
-    entrees, muets = [], []
+    entrees, muets, epingles = [], [], []
     for nom, adresse in fils.items():
-        lot, note = lire_fil(nom, adresse)
+        lot, note, retenue = lire_fil(nom, adresse)
         entrees.extend(lot)
         if note:
             muets.append((nom, note))
+        elif retenue != (candidats_de(adresse) or [""])[0]:
+            epingles.append((nom, retenue))
 
     print(f"\n{len(entrees)} articles lus dans {len(fils) - len(muets)} fils")
     if muets:
         print("\nFILS SANS RÉPONSE")
         for nom, note in muets:
-            print(f"    {nom} : {note}")
+            print(f"    {nom}")
+            for essai in note.split(" ; "):
+                print(f"        {essai}")
+    if epingles:
+        print("\nADRESSES TROUVÉES EN COURS DE ROUTE")
+        print("    Le fil a répondu à une autre adresse que la première du")
+        print("    lexique. Épingle-la dans outils/lexique_actualite.yml")
+        print("    pour économiser le détour au prochain passage.")
+        for nom, retenue in epingles:
+            print(f"    {nom} : {retenue}")
 
     connus = {clef(a["adresse"]) for a in registre}
     vus, ajoutes, vetos = set(), 0, 0
@@ -374,7 +472,7 @@ def diagnostic(lexique: dict) -> int:
     fils = lexique.get("fils") or {}
     entrees = []
     for nom, adresse in fils.items():
-        lot, _ = lire_fil(nom, adresse)
+        lot, _, _ = lire_fil(nom, adresse)
         entrees.extend(lot)
     print(f"\n{len(entrees)} articles lus\n")
     print("Un article sans terme fort est écarté. Les termes faibles touchés\n"
@@ -394,17 +492,44 @@ def diagnostic(lexique: dict) -> int:
     return 0
 
 
+def sonder(lexique: dict) -> int:
+    """Éprouve chaque fil du lexique et dit lequel répond, à quelle adresse.
+
+    Rien n'est écrit : ni registre, ni page. C'est l'outil à lancer quand
+    un fil se tait, ou avant d'épingler une adresse dans le lexique.
+    """
+    fils = lexique.get("fils") or {}
+    vivants = 0
+    for nom, adresse in fils.items():
+        print(f"\n{nom}")
+        lot, note, retenue = lire_fil(nom, adresse)
+        if lot:
+            vivants += 1
+            print(f"    ok, {len(lot)} article(s) : {retenue}")
+            if retenue != (candidats_de(adresse) or [""])[0]:
+                print(f"    adresse à épingler dans le lexique : {retenue}")
+        else:
+            for essai in note.split(" ; "):
+                print(f"    {essai}")
+    print(f"\n{vivants} fil(s) vivant(s) sur {len(fils)}")
+    return 0
+
+
 def main() -> int:
     a = argparse.ArgumentParser()
     a.add_argument("--chercher", action="store_true",
                    help="lit les fils, propose, contrôle les liens")
     a.add_argument("--diagnostic", action="store_true",
                    help="montre les rejets et pourquoi")
+    a.add_argument("--sonder", action="store_true",
+                   help="éprouve chaque fil, sans toucher au registre")
     a.add_argument("--jours", type=int, default=365,
                    help="âge maximal d'un article, en jours")
     arguments = a.parse_args()
 
     lexique = yaml.safe_load(LEXIQUE.read_text(encoding="utf-8"))
+    if arguments.sonder:
+        return sonder(lexique)
     if arguments.diagnostic:
         return diagnostic(lexique)
 
