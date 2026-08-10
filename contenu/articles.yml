@@ -19,6 +19,46 @@
 # passage suivant de --chercher.
 
 articles:
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2274498/chine-typhon-dolphin-pluie-vols"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-10"
+    titre: "Chine : le typhon Dolphin provoque de fortes pluies et s’affaiblit"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2274467/oleoduc-delta-alberta-interet-national"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-09"
+    titre: "Les Premières Nations de la Colombie-Britannique exigent l’arrêt du projet d’oléoduc"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-09/colombie-britannique/une-femme-de-80-ans-a-perdu-la-vie-en-raison-d-un-incendie-de-foret.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-09"
+    titre: "Colombie-Britannique | Une femme de 80 ans a perdu la vie en raison d’un incendie de forêt"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-08/colombie-britannique/la-grc-fait-etat-d-un-deces-potentiellement-lie-aux-incendies-de-foret.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-08"
+    titre: "Colombie-Britannique | La GRC fait état d’un décès potentiellement lié aux incendies de forêt"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/sciences/2026-08-07/etude/les-femmes-enceintes-sont-de-plus-en-plus-exposees-aux-pm2-5-par-les-incendies-de-foret.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-07"
+    titre: "Étude | Les femmes enceintes sont de plus en plus exposées aux PM2,5 par les incendies de forêt"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/2026-08-06/droits-de-douane/carney-garde-son-calme-face-a-une-nouvelle-tirade-de-trump.php"
     fiche: "09"
     media: "La Presse"
@@ -57,6 +97,14 @@ articles:
     date: "2026-08-06"
     titre: "À l’est de Vancouver, un feu de forêt préoccupe le village d’Anmore"
     garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-06/colombie-britannique/de-nouvelles-evacuations-dues-aux-incendies-de-foret.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-06"
+    titre: "Colombie-Britannique | De nouvelles évacuations dues aux incendies de forêt"
+    garder: ""
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-05/crime-organise-chez-les-autochtones/quebec-va-s-attaquer-aux-reseaux-criminels.php"
@@ -187,14 +235,6 @@ articles:
     garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/actualites/regional/2026-08-04/glissement-de-terrain-a-l-ascension/j-ai-peur-que-tout-parte.php"
-    fiche: "04"
-    media: "La Presse"
-    date: "2026-08-04"
-    titre: "Glissement de terrain à L’Ascension | « J’ai peur que tout parte »"
-    garder: "O"
-    note: ""
-
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-03/el-nino/le-perou-lance-des-travaux-de-prevention-des-crues.php"
     fiche: "11"
     media: "La Presse"
@@ -224,6 +264,14 @@ articles:
     media: "La Presse"
     date: "2026-08-03"
     titre: "Boucherville | Casse-tête à venir sur l’autoroute 20"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/autoroute-20-a-boucherville/des-fermetures-lors-des-week-ends-d-aout.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-03"
+    titre: "Autoroute 20 à Boucherville | Des fermetures lors des week-ends d’août"
     garder: ""
     note: ""
 
