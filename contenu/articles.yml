@@ -19,6 +19,86 @@
 # passage suivant de --chercher.
 
 articles:
+  - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-13/application-des-droits-de-douane/le-ministre-dominic-leblanc-a-washington-a-l-approche-de-la-date-limite.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-13"
+    titre: "Application des droits de douane | Le ministre Dominic LeBlanc à Washington à l’approche de la date limite"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-13/canada/les-nouveaux-droits-de-douane-americains-pourraient-creer-des-tensions-entre-les-provinces.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-13"
+    titre: "Canada | Les nouveaux droits de douane américains pourraient créer des tensions entre les provinces"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-12/seisme-en-colombie/une-rescapee-sortie-des-decombres-le-bilan-revu-a-baisse.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-12"
+    titre: "Séisme en Colombie | Une rescapée sortie des décombres, le bilan revu à baisse"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2274885/seisme-colombie-bilan-decombres"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-12"
+    titre: "Séisme en Colombie : deuil de trois jours en hommage aux 216 victimes"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-12/seisme-en-colombie/le-bilan-monte-a-265-morts-la-recherche-de-survivants-dans-une-phase-decisive.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-12"
+    titre: "Séisme en Colombie | Le bilan monte à 265 morts, la recherche de survivants dans une phase décisive"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2274976/parti-quebecois-plan-environnement-ecologie"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-08-12"
+    titre: "Le PQ promet un accès illimité au transport collectif pour 95 $ par mois"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-11/droits-de-douane/un-accord-commercial-pourrait-etre-soumis-a-donald-trump-des-lundi.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-11"
+    titre: "Droits de douane | Un accord commercial pourrait être soumis à Donald Trump dès lundi"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-11/seisme-en-colombie/le-bilan-grimpe-a-240-morts-la-recherche-de-survivants-se-poursuit.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-11"
+    titre: "Séisme en Colombie | Le bilan grimpe à 240 morts, la recherche de survivants se poursuit"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-11/quebec-solidaire-veut-un-superministre-pour-lutter-contre-l-itinerance.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-11"
+    titre: "Québec solidaire veut un « superministre » pour lutter contre l’itinérance"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-10/colombie-britannique/la-grc-enquete-sur-l-incendie-de-foret-meurtrier-de-summerland.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-10"
+    titre: "Colombie-Britannique | La GRC enquête sur l’incendie de forêt meurtrier de Summerland"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2274498/chine-typhon-dolphin-pluie-vols"
     fiche: "04"
     media: "Radio-Canada"
@@ -64,7 +144,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-07"
     titre: "Comment les pluies diluviennes ont provoqué des inondations majeures en Haute-Mauricie"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/2026-08-06/droits-de-douane/carney-garde-son-calme-face-a-une-nouvelle-tirade-de-trump.php"
@@ -112,7 +192,7 @@ articles:
     media: "La Presse"
     date: "2026-08-06"
     titre: "Colombie-Britannique | De nouvelles évacuations dues aux incendies de forêt"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/politique/2026-08-05/crime-organise-chez-les-autochtones/quebec-va-s-attaquer-aux-reseaux-criminels.php"
@@ -224,7 +304,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-04"
     titre: "« On est en train de vider notre garde-manger maritime »"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-04/droits-de-douane/le-ministre-leblanc-retourne-a-washington-pour-rencontrer-son-homologue-americain.php"
@@ -256,7 +336,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-04"
     titre: "Comment mieux protéger nos villes et nos habitations des inondations urbaines?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-03/el-nino/le-perou-lance-des-travaux-de-prevention-des-crues.php"
@@ -288,7 +368,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-03"
     titre: "Un rare séisme secoue la ville de Québec"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2442728/un-tremblement-terre-magnitude-28-secoue-region-quebec"
@@ -296,7 +376,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-03"
     titre: "La ville de Québec secouée par un séisme"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/boucherville/casse-tete-a-venir-sur-l-autoroute-20.php"
@@ -304,7 +384,7 @@ articles:
     media: "La Presse"
     date: "2026-08-03"
     titre: "Boucherville | Casse-tête à venir sur l’autoroute 20"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/autoroute-20-a-boucherville/des-fermetures-lors-des-week-ends-d-aout.php"
@@ -312,7 +392,7 @@ articles:
     media: "La Presse"
     date: "2026-08-03"
     titre: "Autoroute 20 à Boucherville | Des fermetures lors des week-ends d’août"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-08-02/parc-national-de-frontenac/rever-sous-les-etoiles.php"
@@ -320,7 +400,7 @@ articles:
     media: "La Presse"
     date: "2026-08-02"
     titre: "Parc national de Frontenac | Rêver sous les étoiles"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-01/les-jeux-olympiques-de-montreal-designes-evenement-historique.php"
@@ -328,7 +408,7 @@ articles:
     media: "La Presse"
     date: "2026-08-01"
     titre: "Les Jeux olympiques de Montréal désignés « évènement historique »"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php"
@@ -337,7 +417,7 @@ articles:
     date: "2026-07-31"
     titre: "Incendies de forêt en Colombie-Britannique | De nouveaux ordres d’évacuation au lac Pearl"
     garder: "O"
-    note: ""
+    note: "O"
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-07-31/elles-l-ont-fait/s-attaquer-a-une-autre-penurie-de-logements.php"
     fiche: "02"
@@ -384,7 +464,7 @@ articles:
     media: "La Presse"
     date: "2026-07-28"
     titre: "Conduite d’eau Atwater | Incursion dans un chantier névralgique pour Montréal"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/national/2026-07-27/traverse-frontaliere/le-pont-gordie-howe-ouvert-a-la-circulation.php"
@@ -392,7 +472,7 @@ articles:
     media: "La Presse"
     date: "2026-07-27"
     titre: "Traverse frontalière | Le pont Gordie-Howe ouvert à la circulation"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/regional/2026-06-09/projet-novador-en-abitibi-temiscamingue/une-communaute-autochtone-veut-faire-annuler-le-permis-d-exploration-d-un-geant-minier.php"
