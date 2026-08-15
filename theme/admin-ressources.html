@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration des ressources</title>
+<!--
+  Interface d'administration du répertoire des ressources pédagogiques.
+
+  Cette page parle directement à l'API GitHub depuis le navigateur. Elle lit
+  le bloc res-source dans theme/composants/ressources.html, le présente sous
+  forme de tableau modifiable, puis réécrit le bloc dans les DEUX fichiers qui
+  le portent (le composant source et docs/ressources.html) en un seul commit.
+  Cloudflare Pages redéploie tout seul à la réception du commit.
+
+  Aucun secret ne vit dans ce fichier. L'accès passe par un fine-grained
+  personal access token GitHub limité à ce dépôt, permission Contents en
+  lecture-écriture, collé à l'ouverture. Il reste en mémoire de session et
+  disparaît à la fermeture de l'onglet.
+
+  Garde-fou central : au chargement, la page re-sérialise ce qu'elle a lu et
+  refuse toute modification si le résultat n'est pas identique octet pour
+  octet au fichier d'origine. Si le format du bloc évolue un jour, la page
+  se met d'elle-même hors service au lieu de risquer une corruption.
+-->
+<style>
+:root {
+  --encre: #26221c; --encre-doux: #57503f; --encre-pale: #8a8272;
+  --fond: #f6f3ec; --surface: #fffdf8; --surface-2: #efe9dd;
+  --trait: #d8d0bf; --accent: #1f4e5f; --accent-fonce: #143540;
+  --alerte: #8a2f2b; --ok: #2f6b3a; --rayon: 6px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: var(--fond); color: var(--encre); line-height: 1.5; }
+main { max-width: 62rem; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+h1 { font-size: 1.35rem; letter-spacing: -.01em; margin: 0 0 .2rem; }
+.sous-titre { margin: 0 0 1.4rem; color: var(--encre-doux); font-size: .95rem; }
+.panneau { background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 1.1rem 1.2rem; margin: 0 0 1rem; }
+.panneau h2 { font-size: 1rem; margin: 0 0 .6rem; }
+label { display: block; font-size: .82rem; color: var(--encre-doux); margin: .6rem 0 .15rem; font-family: system-ui, sans-serif; letter-spacing: .02em; }
+input[type="text"], input[type="url"], input[type="password"], input[type="search"], select {
+  width: 100%; font-family: system-ui, sans-serif; font-size: .95rem; color: var(--encre);
+  background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .45rem .6rem;
+}
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+button { font-family: system-ui, sans-serif; font-weight: 600; font-size: .88rem; border-radius: 100px;
+  padding: .45rem 1.1rem; cursor: pointer; border: 1px solid var(--accent-fonce);
+  background: var(--accent-fonce); color: #fff; transition: background .15s; }
+button:hover { background: var(--accent); }
+button.secondaire { background: transparent; color: var(--accent-fonce); }
+button.secondaire:hover { background: var(--surface-2); }
+button.danger { background: transparent; border-color: var(--alerte); color: var(--alerte); }
+button.danger:hover { background: #f6e4e2; }
+button[disabled] { opacity: .45; cursor: not-allowed; }
+.rangee { display: flex; gap: .8rem; flex-wrap: wrap; align-items: end; }
+.rangee > div { flex: 1 1 12rem; }
+.rangee > .etroit { flex: 0 1 9rem; }
+.message { padding: .7rem .9rem; border-radius: var(--rayon); font-size: .9rem; margin: 0 0 1rem;
+  font-family: system-ui, sans-serif; display: none; }
+.message.visible { display: block; }
+.message--erreur { background: #f6e4e2; border: 1px solid var(--alerte); color: var(--alerte); }
+.message--ok { background: #e3efe4; border: 1px solid var(--ok); color: var(--ok); }
+.message--info { background: var(--surface-2); border: 1px solid var(--trait); color: var(--encre-doux); }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+th { font-family: system-ui, sans-serif; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--encre-pale); text-align: left; padding: .4rem .5rem; border-bottom: 2px solid var(--trait); }
+td { padding: .45rem .5rem; border-bottom: 1px solid var(--trait); vertical-align: top; }
+tr.modifie td { background: #fdf6de; }
+tr.nouveau td { background: #e9f2e6; }
+td .type { display: inline-block; font-family: system-ui, sans-serif; font-size: .62rem; letter-spacing: .07em;
+  text-transform: uppercase; color: #fff; background: var(--encre-pale); border-radius: 100px; padding: .12rem .55rem; }
+td .type--kahoot { background: #5B3A8A; }
+td .type--cahier-de-l-eleve { background: #8A5A1E; }
+td .type--jeu-serieux { background: #17605F; }
+td .note { display: block; color: var(--encre-doux); font-size: .82rem; }
+td .adresse { display: block; font-family: ui-monospace, monospace; font-size: .72rem; color: var(--encre-pale);
+  word-break: break-all; max-width: 26rem; }
+td.actions { white-space: nowrap; text-align: right; }
+td.actions button { padding: .25rem .7rem; font-size: .78rem; }
+.barre-etat { position: sticky; bottom: 0; background: var(--accent-fonce); color: #fff; border-radius: var(--rayon);
+  padding: .7rem 1rem; display: none; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  font-family: system-ui, sans-serif; font-size: .9rem; box-shadow: 0 -2px 12px rgba(0,0,0,.15); }
+.barre-etat.visible { display: flex; }
+.barre-etat button { background: #fff; color: var(--accent-fonce); border-color: #fff; }
+.barre-etat button:hover { background: var(--surface-2); }
+.filtres { display: flex; gap: .6rem; flex-wrap: wrap; margin: 0 0 .8rem; }
+.filtres select, .filtres input { width: auto; flex: 0 1 auto; }
+.filtres input[type="search"] { flex: 1 1 12rem; }
+.aide { font-size: .82rem; color: var(--encre-doux); font-family: system-ui, sans-serif; margin: .5rem 0 0; }
+.aide code { font-family: ui-monospace, monospace; font-size: .78rem; background: var(--surface-2); padding: .05rem .3rem; border-radius: 3px; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Administration des ressources pédagogiques</h1>
+  <p class="sous-titre">Ajoute, modifie ou retire des liens du répertoire, puis publie en un commit.</p>
+
+  <p class="message" id="msg" role="status"></p>
+
+  <!-- Écran 1 : le jeton -->
+  <section class="panneau" id="ecran-jeton">
+    <h2>Connexion</h2>
+    <label for="jeton">Jeton d'accès GitHub (fine-grained, dépôt MonsieurUniversSocial, permission Contents en lecture-écriture)</label>
+    <input type="password" id="jeton" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
+    <p class="aide">Le jeton reste en mémoire de session : il disparaît à la fermeture de l'onglet et n'est jamais écrit dans le dépôt. Il se crée sur GitHub dans Settings, Developer settings, Fine-grained tokens.</p>
+    <p style="margin-top:.8rem"><button id="btn-connexion">Charger le répertoire</button></p>
+  </section>
+
+  <!-- Écran 2 : le répertoire -->
+  <section id="ecran-repertoire" hidden>
+
+    <section class="panneau" id="panneau-formulaire">
+      <h2 id="titre-formulaire">Ajouter une ressource</h2>
+      <div class="rangee">
+        <div class="etroit">
+          <label for="f-matiere">Matière</label>
+          <select id="f-matiere">
+            <option value="histoire">Histoire</option>
+            <option value="geographie">Géographie</option>
+          </select>
+        </div>
+        <div>
+          <label for="f-fiche">Fiche</label>
+          <select id="f-fiche"></select>
+        </div>
+        <div>
+          <label for="f-type">Type</label>
+          <select id="f-type"></select>
+        </div>
+      </div>
+      <div class="rangee" id="rangee-titre" hidden>
+        <div>
+          <label for="f-titre">Titre de la fiche (aucune ressource ne la mentionne encore, écris le titre exact)</label>
+          <input type="text" id="f-titre" autocomplete="off">
+        </div>
+      </div>
+      <div class="rangee" id="rangee-type-libre" hidden>
+        <div>
+          <label for="f-type-libre">Nouveau type (la pastille sera grise tant que sa couleur n'est pas ajoutée au composant)</label>
+          <input type="text" id="f-type-libre" autocomplete="off">
+        </div>
+      </div>
+      <label for="f-note">Note (une ligne qui décrit la ressource, visible sur la carte)</label>
+      <input type="text" id="f-note" autocomplete="off" placeholder="Questionnaire interactif">
+      <label for="f-adresse">Adresse de la ressource</label>
+      <input type="url" id="f-adresse" autocomplete="off" spellcheck="false" placeholder="https://...">
+      <p style="margin-top:.9rem">
+        <button id="btn-valider">Ajouter à la liste</button>
+        <button class="secondaire" id="btn-annuler-edition" hidden>Annuler la modification</button>
+      </p>
+    </section>
+
+    <section class="panneau">
+      <h2>Répertoire (<span id="compte">0</span> ressources)</h2>
+      <div class="filtres">
+        <select id="filtre-matiere">
+          <option value="">Toutes les matières</option>
+          <option value="histoire">Histoire</option>
+          <option value="geographie">Géographie</option>
+        </select>
+        <select id="filtre-type"><option value="">Tous les types</option></select>
+        <input type="search" id="filtre-texte" placeholder="Un mot du titre, de la note ou de l'adresse">
+      </div>
+      <table>
+        <thead><tr><th>Fiche</th><th>Ressource</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody id="corps-table"></tbody>
+      </table>
+    </section>
+
+    <div class="barre-etat" id="barre-etat">
+      <span id="resume-changements"></span>
+      <span>
+        <button class="secondaire" id="btn-abandonner" style="color:#fff;border-color:#fff;background:transparent">Tout abandonner</button>
+        <button id="btn-publier">Publier</button>
+      </span>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var DEPOT = { proprietaire: "merciermathieu5", nom: "MonsieurUniversSocial", branche: "main" };
+  var FICHIERS = ["theme/composants/ressources.html", "docs/ressources.html"];
+  var API = "https://api.github.com";
+
+  // ------------------------------------------------------------------
+  // Fonctions pures : lecture et écriture du bloc res-source.
+  // Elles sont exposées sur window.AdminRessources pour le test jsdom.
+  // ------------------------------------------------------------------
+
+  var DEBUT_BLOC = '<div class="res__source" id="res-source">';
+  var FIN_BLOC = "</div>";
+
+  function decoderEntites(texte) {
+    return texte
+      .replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+      .replace(/&amp;/g, "&");
+  }
+  function encoderAttribut(texte) {
+    return texte
+      .replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function encoderTexte(texte) {
+    return texte
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // Repère le bloc res-source dans le fichier complet. La fin est le premier
+  // </div> après la dernière liste : le bloc ne contient aucun autre div.
+  function bornesBloc(texte) {
+    var debut = texte.indexOf(DEBUT_BLOC);
+    if (debut < 0) return null;
+    var fin = texte.indexOf(FIN_BLOC, debut);
+    if (fin < 0) return null;
+    return { debut: debut, fin: fin + FIN_BLOC.length };
+  }
+
+  // Transforme le bloc en structure : groupes ordonnés, chacun avec son
+  // entête affichée et ses entrées dans l'ordre du fichier.
+  function analyserBloc(bloc) {
+    var groupes = [];
+    var motifGroupe = /<p class="res__groupe"[^>]*>([^<]*)<\/p>\s*<ul data-matiere="([^"]*)">([\s\S]*?)<\/ul>/g;
+    var m;
+    while ((m = motifGroupe.exec(bloc)) !== null) {
+      var entrees = [];
+      var motifEntree = /<li data-fiche="([^"]*)" data-type="([^"]*)" data-note="([^"]*)"><a href="([^"]*)">([^<]*)<\/a><\/li>/g;
+      var e;
+      while ((e = motifEntree.exec(m[3])) !== null) {
+        entrees.push({
+          matiere: m[2],
+          fiche: decoderEntites(e[1]),
+          type: decoderEntites(e[2]),
+          note: decoderEntites(e[3]),
+          adresse: decoderEntites(e[4]),
+          titre: decoderEntites(e[5])
+        });
+      }
+      groupes.push({ matiere: m[2], entete: decoderEntites(m[1]), entrees: entrees });
+    }
+    return groupes;
+  }
+
+  // Reconstruit le bloc, octet pour octet dans le format du dépôt.
+  function serialiserBloc(groupes) {
+    var lignes = [DEBUT_BLOC];
+    for (var g = 0; g < groupes.length; g++) {
+      var groupe = groupes[g];
+      lignes.push('  <p class="res__groupe" role="heading" aria-level="4">'
+        + encoderTexte(groupe.entete) + "</p>");
+      lignes.push('  <ul data-matiere="' + encoderAttribut(groupe.matiere) + '">');
+      for (var i = 0; i < groupe.entrees.length; i++) {
+        var r = groupe.entrees[i];
+        lignes.push('    <li data-fiche="' + encoderAttribut(r.fiche)
+          + '" data-type="' + encoderAttribut(r.type)
+          + '" data-note="' + encoderAttribut(r.note)
+          + '"><a href="' + encoderAttribut(r.adresse) + '">'
+          + encoderTexte(r.titre) + "</a></li>");
+      }
+      lignes.push("  </ul>");
+    }
+    lignes.push(FIN_BLOC);
+    return lignes.join("\n");
+  }
+
+  // Extrait le catalogue FICHES du script du composant : par matière, la
+  // liste des numéros connus et l'adresse de chaque fiche.
+  function analyserFiches(texteFichier) {
+    var fiches = { histoire: {}, geographie: {} };
+    var zone = texteFichier.indexOf("var FICHES = {");
+    if (zone < 0) return fiches;
+    var finZone = texteFichier.indexOf("};", zone);
+    var segment = texteFichier.slice(zone, finZone);
+    var matiere = null;
+    var lignes = segment.split("\n");
+    for (var i = 0; i < lignes.length; i++) {
+      var ligne = lignes[i];
+      var m = ligne.match(/^\s*(histoire|geographie): \{/);
+      if (m) { matiere = m[1]; continue; }
+      var e = ligne.match(/"(\d+)": \["([^"]*)", "([^"]*)"\]/);
+      if (e && matiere) fiches[matiere][e[1]] = { theme: e[2], adresse: e[3] };
+    }
+    return fiches;
+  }
+
+  // Position d'insertion d'une nouvelle entrée : à la suite des entrées de la
+  // même fiche, sinon après la dernière fiche de numéro inférieur.
+  function positionInsertion(entrees, entree) {
+    var position = entrees.length;
+    var numero = parseInt(entree.fiche, 10);
+    for (var i = entrees.length - 1; i >= 0; i--) {
+      var courant = parseInt(entrees[i].fiche, 10);
+      if (courant <= numero) { position = i + 1; break; }
+      position = i;
+    }
+    return position;
+  }
+
+  function glisser(texte) {
+    return (texte || "").toLowerCase().normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
+  }
+
+  window.AdminRessources = {
+    bornesBloc: bornesBloc, analyserBloc: analyserBloc,
+    serialiserBloc: serialiserBloc, analyserFiches: analyserFiches,
+    positionInsertion: positionInsertion,
+    encoderAttribut: encoderAttribut, decoderEntites: decoderEntites
+  };
+
+  // ------------------------------------------------------------------
+  // À partir d'ici, la page vivante : rien de tout ceci ne s'exécute
+  // dans le test jsdom, qui n'appelle que les fonctions ci-dessus.
+  // ------------------------------------------------------------------
+  if (!document.getElementById("ecran-jeton")) return;
+
+  var etat = {
+    jeton: null,
+    fichiers: {},        // chemin -> texte complet
+    headSha: null,       // commit de tête au chargement
+    groupes: [],         // structure modifiable
+    ajouts: 0, modifications: 0, retraits: 0,
+    fichesConnues: { histoire: {}, geographie: {} },
+    titres: { histoire: {}, geographie: {} },   // numéro -> titre, tirés des entrées
+    enEdition: null      // référence de l'entrée en cours de modification
+  };
+
+  var el = function (id) { return document.getElementById(id); };
+
+  function message(texte, genre) {
+    var m = el("msg");
+    m.textContent = texte;
+    m.className = "message visible message--" + (genre || "info");
+    if (genre === "ok") setTimeout(function () { m.className = "message"; }, 6000);
+  }
+
+  function api(chemin, options) {
+    options = options || {};
+    options.headers = {
+      "Authorization": "Bearer " + etat.jeton,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+    if (options.corps) {
+      options.method = options.method || "POST";
+      options.body = JSON.stringify(options.corps);
+      options.headers["Content-Type"] = "application/json";
+      delete options.corps;
+    }
+    return fetch(API + chemin, options).then(function (r) {
+      if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) {
+        throw new Error("GitHub " + r.status + (d.message ? " : " + d.message : ""));
+      });
+      return r.json();
+    });
+  }
+
+  function decoderBase64(b64) {
+    var brut = atob(b64.replace(/\n/g, ""));
+    var octets = new Uint8Array(brut.length);
+    for (var i = 0; i < brut.length; i++) octets[i] = brut.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(octets);
+  }
+  function encoderBase64(texte) {
+    var octets = new TextEncoder().encode(texte);
+    var brut = "";
+    for (var i = 0; i < octets.length; i++) brut += String.fromCharCode(octets[i]);
+    return btoa(brut);
+  }
+
+  // ---------------- Chargement ----------------
+
+  function charger() {
+    var jeton = el("jeton").value.trim();
+    if (!jeton) { message("Colle d'abord ton jeton GitHub.", "erreur"); return; }
+    etat.jeton = jeton;
+    try { sessionStorage.setItem("jeton-admin", jeton); } catch (e) {}
+    el("btn-connexion").disabled = true;
+    message("Chargement du répertoire...");
+
+    var base = "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom;
+    Promise.all([
+      api(base + "/git/ref/heads/" + DEPOT.branche),
+      api(base + "/contents/" + FICHIERS[0] + "?ref=" + DEPOT.branche),
+      api(base + "/contents/" + FICHIERS[1] + "?ref=" + DEPOT.branche)
+    ]).then(function (reponses) {
+      etat.headSha = reponses[0].object.sha;
+      etat.fichiers[FICHIERS[0]] = decoderBase64(reponses[1].content);
+      etat.fichiers[FICHIERS[1]] = decoderBase64(reponses[2].content);
+
+      // Le garde-fou : lecture puis réécriture doivent redonner l'original,
+      // dans les deux fichiers. Sinon on refuse de servir.
+      for (var f = 0; f < FICHIERS.length; f++) {
+        var texte = etat.fichiers[FICHIERS[f]];
+        var bornes = bornesBloc(texte);
+        if (!bornes) throw new Error("Bloc res-source introuvable dans " + FICHIERS[f]);
+        var original = texte.slice(bornes.debut, bornes.fin);
+        var refait = serialiserBloc(analyserBloc(original));
+        if (refait !== original) {
+          throw new Error("Le format du bloc dans " + FICHIERS[f]
+            + " ne correspond plus à ce que cette page sait réécrire. "
+            + "Par prudence, aucune modification n'est permise.");
+        }
+      }
+
+      var t = etat.fichiers[FICHIERS[0]];
+      var b = bornesBloc(t);
+      etat.groupes = analyserBloc(t.slice(b.debut, b.fin));
+
+      etat.fichesConnues = analyserFiches(t);
+      relerverTitres();
+      garnirFormulaire();
+      garnirFiltres();
+      dessinerTable();
+      el("ecran-jeton").hidden = true;
+      el("ecran-repertoire").hidden = false;
+      message("Répertoire chargé : " + compterEntrees() + " ressources.", "ok");
+    }).catch(function (e) {
+      el("btn-connexion").disabled = false;
+      message(e.message, "erreur");
+    });
+  }
+
+  function compterEntrees() {
+    var n = 0;
+    for (var g = 0; g < etat.groupes.length; g++) n += etat.groupes[g].entrees.length;
+    return n;
+  }
+
+  function relerverTitres() {
+    etat.titres = { histoire: {}, geographie: {} };
+    for (var g = 0; g < etat.groupes.length; g++) {
+      var groupe = etat.groupes[g];
+      for (var i = 0; i < groupe.entrees.length; i++) {
+        var r = groupe.entrees[i];
+        if (!etat.titres[groupe.matiere][r.fiche]) etat.titres[groupe.matiere][r.fiche] = r.titre;
+      }
+    }
+  }
+
+  function typesExistants() {
+    var vus = {}, liste = [];
+    for (var g = 0; g < etat.groupes.length; g++) {
+      for (var i = 0; i < etat.groupes[g].entrees.length; i++) {
+        var type = etat.groupes[g].entrees[i].type;
+        if (!vus[type]) { vus[type] = 1; liste.push(type); }
+      }
+    }
+    return liste;
+  }
+
+  // ---------------- Formulaire ----------------
+
+  function garnirFormulaire() {
+    garnirFiches();
+    var menuType = el("f-type");
+    menuType.textContent = "";
+    var types = typesExistants();
+    for (var i = 0; i < types.length; i++) {
+      var o = document.createElement("option");
+      o.value = types[i]; o.textContent = types[i];
+      menuType.appendChild(o);
+    }
+    var libre = document.createElement("option");
+    libre.value = "__libre__"; libre.textContent = "Autre type...";
+    menuType.appendChild(libre);
+  }
+
+  function garnirFiches() {
+    var matiere = el("f-matiere").value;
+    var menu = el("f-fiche");
+    menu.textContent = "";
+    var numeros = Object.keys(etat.fichesConnues[matiere]).sort();
+    for (var i = 0; i < numeros.length; i++) {
+      var numero = numeros[i];
+      var o = document.createElement("option");
+      o.value = numero;
+      var titre = etat.titres[matiere][numero];
+      o.textContent = numero + (titre ? " - " + titre : " - (titre à saisir)");
+      menu.appendChild(o);
+    }
+    ajusterChampTitre();
+  }
+
+  function ajusterChampTitre() {
+    var matiere = el("f-matiere").value;
+    var numero = el("f-fiche").value;
+    var connu = etat.titres[matiere][numero];
+    el("rangee-titre").hidden = !!connu;
+    if (!connu) chercherTitreSurLeSite(matiere, numero);
+  }
+
+  // La page vit sur le même domaine que le site : quand aucune ressource ne
+  // donne encore le titre d'une fiche, on va le lire dans la page elle-même.
+  function chercherTitreSurLeSite(matiere, numero) {
+    var fiche = etat.fichesConnues[matiere][numero];
+    if (!fiche) return;
+    fetch(fiche.adresse).then(function (r) { return r.ok ? r.text() : ""; })
+      .then(function (html) {
+        var m = html.match(/<h1[^>]*>([^<]*)<\/h1>/);
+        if (m && !el("f-titre").value) el("f-titre").value = m[1].trim();
+      }).catch(function () {});
+  }
+
+  function lireFormulaire() {
+    var matiere = el("f-matiere").value;
+    var numero = el("f-fiche").value;
+    var type = el("f-type").value;
+    if (type === "__libre__") type = el("f-type-libre").value.trim();
+    var titre = etat.titres[matiere][numero] || el("f-titre").value.trim();
+    var note = el("f-note").value.trim();
+    var adresse = el("f-adresse").value.trim();
+    if (!numero) { message("Choisis une fiche.", "erreur"); return null; }
+    if (!type) { message("Précise le type de la ressource.", "erreur"); return null; }
+    if (!titre) { message("Le titre de la fiche est requis.", "erreur"); return null; }
+    if (!/^https?:\/\//.test(adresse)) { message("L'adresse doit commencer par https://", "erreur"); return null; }
+    return { matiere: matiere, fiche: numero, type: type, note: note, titre: titre, adresse: adresse };
+  }
+
+  function viderFormulaire() {
+    el("f-note").value = "";
+    el("f-adresse").value = "";
+    el("f-titre").value = "";
+    el("f-type-libre").value = "";
+    el("rangee-type-libre").hidden = true;
+    el("f-type").value = el("f-type").options[0] ? el("f-type").options[0].value : "";
+    etat.enEdition = null;
+    el("titre-formulaire").textContent = "Ajouter une ressource";
+    el("btn-valider").textContent = "Ajouter à la liste";
+    el("btn-annuler-edition").hidden = true;
+  }
+
+  function groupePour(matiere) {
+    for (var g = 0; g < etat.groupes.length; g++) {
+      if (etat.groupes[g].matiere === matiere) return etat.groupes[g];
+    }
+    return null;
+  }
+
+  function valider() {
+    var entree = lireFormulaire();
+    if (!entree) return;
+    if (etat.enEdition) {
+      var ancienne = etat.enEdition;
+      var groupeAncien = groupePour(ancienne.matiere);
+      var indice = groupeAncien.entrees.indexOf(ancienne);
+      if (ancienne.matiere === entree.matiere && ancienne.fiche === entree.fiche) {
+        entree.marque = ancienne.marque === "nouveau" ? "nouveau" : "modifie";
+        groupeAncien.entrees[indice] = entree;
+      } else {
+        groupeAncien.entrees.splice(indice, 1);
+        var groupe = groupePour(entree.matiere);
+        entree.marque = ancienne.marque === "nouveau" ? "nouveau" : "modifie";
+        groupe.entrees.splice(positionInsertion(groupe.entrees, entree), 0, entree);
+      }
+      if (entree.marque === "modifie" && !ancienne.compteApart) etat.modifications++;
+      message("Modification enregistrée. Rien n'est publié tant que tu ne cliques pas Publier.", "ok");
+    } else {
+      var groupeCible = groupePour(entree.matiere);
+      entree.marque = "nouveau";
+      groupeCible.entrees.splice(positionInsertion(groupeCible.entrees, entree), 0, entree);
+      etat.ajouts++;
+      message("Ressource ajoutée à la liste. Rien n'est publié tant que tu ne cliques pas Publier.", "ok");
+    }
+    relerverTitres();
+    viderFormulaire();
+    garnirFiches();
+    garnirFiltres();
+    dessinerTable();
+  }
+
+  // ---------------- Tableau ----------------
+
+  function garnirFiltres() {
+    var menu = el("filtre-type");
+    var valeur = menu.value;
+    menu.textContent = "";
+    var tout = document.createElement("option");
+    tout.value = ""; tout.textContent = "Tous les types";
+    menu.appendChild(tout);
+    var types = typesExistants();
+    for (var i = 0; i < types.length; i++) {
+      var o = document.createElement("option");
+      o.value = types[i]; o.textContent = types[i];
+      menu.appendChild(o);
+    }
+    menu.value = valeur || "";
+  }
+
+  function dessinerTable() {
+    var corps = el("corps-table");
+    corps.textContent = "";
+    var fMatiere = el("filtre-matiere").value;
+    var fType = el("filtre-type").value;
+    var fTexte = el("filtre-texte").value.trim().toLowerCase();
+    var total = 0;
+    for (var g = 0; g < etat.groupes.length; g++) {
+      var groupe = etat.groupes[g];
+      if (fMatiere && groupe.matiere !== fMatiere) continue;
+      for (var i = 0; i < groupe.entrees.length; i++) {
+        var r = groupe.entrees[i];
+        if (fType && r.type !== fType) continue;
+        if (fTexte) {
+          var botte = (r.titre + " " + r.note + " " + r.adresse).toLowerCase();
+          if (botte.indexOf(fTexte) < 0) continue;
+        }
+        corps.appendChild(ligne(groupe, r));
+        total++;
+      }
+    }
+    el("compte").textContent = String(compterEntrees());
+    if (total === 0) {
+      var tr = document.createElement("tr");
+      var td = document.createElement("td");
+      td.colSpan = 3; td.textContent = "Aucune ressource ne correspond aux filtres.";
+      tr.appendChild(td); corps.appendChild(tr);
+    }
+    dessinerBarre();
+  }
+
+  function ligne(groupe, r) {
+    var tr = document.createElement("tr");
+    if (r.marque) tr.className = r.marque;
+
+    var tdFiche = document.createElement("td");
+    tdFiche.textContent = (groupe.matiere === "histoire" ? "H" : "G") + r.fiche;
+    var titre = document.createElement("span");
+    titre.className = "note"; titre.textContent = r.titre;
+    tdFiche.appendChild(titre);
+
+    var tdRessource = document.createElement("td");
+    var badge = document.createElement("span");
+    badge.className = "type type--" + glisser(r.type);
+    badge.textContent = r.type;
+    tdRessource.appendChild(badge);
+    var note = document.createElement("span");
+    note.className = "note"; note.textContent = r.note;
+    tdRessource.appendChild(note);
+    var adresse = document.createElement("span");
+    adresse.className = "adresse"; adresse.textContent = r.adresse;
+    tdRessource.appendChild(adresse);
+
+    var tdActions = document.createElement("td");
+    tdActions.className = "actions";
+    var bModifier = document.createElement("button");
+    bModifier.className = "secondaire"; bModifier.textContent = "Modifier";
+    bModifier.addEventListener("click", function () { commencerEdition(r); });
+    var bRetirer = document.createElement("button");
+    bRetirer.className = "danger"; bRetirer.textContent = "Retirer";
+    bRetirer.addEventListener("click", function () { retirer(groupe, r); });
+    tdActions.appendChild(bModifier);
+    tdActions.appendChild(document.createTextNode(" "));
+    tdActions.appendChild(bRetirer);
+
+    tr.appendChild(tdFiche); tr.appendChild(tdRessource); tr.appendChild(tdActions);
+    return tr;
+  }
+
+  function commencerEdition(r) {
+    etat.enEdition = r;
+    el("f-matiere").value = r.matiere;
+    garnirFiches();
+    el("f-fiche").value = r.fiche;
+    var menuType = el("f-type");
+    var connu = false;
+    for (var i = 0; i < menuType.options.length; i++) {
+      if (menuType.options[i].value === r.type) connu = true;
+    }
+    if (connu) { menuType.value = r.type; el("rangee-type-libre").hidden = true; }
+    else { menuType.value = "__libre__"; el("rangee-type-libre").hidden = false; el("f-type-libre").value = r.type; }
+    el("f-note").value = r.note;
+    el("f-adresse").value = r.adresse;
+    ajusterChampTitre();
+    if (!etat.titres[r.matiere][r.fiche]) el("f-titre").value = r.titre;
+    el("titre-formulaire").textContent = "Modifier la ressource";
+    el("btn-valider").textContent = "Enregistrer la modification";
+    el("btn-annuler-edition").hidden = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function retirer(groupe, r) {
+    if (!window.confirm("Retirer « " + r.type + " - " + r.titre + " » du répertoire ?")) return;
+    var indice = groupe.entrees.indexOf(r);
+    if (indice < 0) return;
+    groupe.entrees.splice(indice, 1);
+    if (r.marque === "nouveau") etat.ajouts--; else etat.retraits++;
+    if (etat.enEdition === r) viderFormulaire();
+    relerverTitres();
+    garnirFiches();
+    garnirFiltres();
+    dessinerTable();
+  }
+
+  function dessinerBarre() {
+    var morceaux = [];
+    if (etat.ajouts) morceaux.push(etat.ajouts + (etat.ajouts > 1 ? " ajouts" : " ajout"));
+    if (etat.modifications) morceaux.push(etat.modifications + (etat.modifications > 1 ? " modifications" : " modification"));
+    if (etat.retraits) morceaux.push(etat.retraits + (etat.retraits > 1 ? " retraits" : " retrait"));
+    var barre = el("barre-etat");
+    if (morceaux.length === 0) { barre.className = "barre-etat"; return; }
+    el("resume-changements").textContent = "Changements en attente : " + morceaux.join(", ") + ".";
+    barre.className = "barre-etat visible";
+  }
+
+  // ---------------- Publication ----------------
+
+  function messageCommit() {
+    var morceaux = [];
+    if (etat.ajouts) morceaux.push(etat.ajouts + (etat.ajouts > 1 ? " ajouts" : " ajout"));
+    if (etat.modifications) morceaux.push(etat.modifications + (etat.modifications > 1 ? " modifications" : " modification"));
+    if (etat.retraits) morceaux.push(etat.retraits + (etat.retraits > 1 ? " retraits" : " retrait"));
+    return "Ressources : " + morceaux.join(", ");
+  }
+
+  function publier() {
+    var bouton = el("btn-publier");
+    bouton.disabled = true;
+    message("Publication en cours...");
+    var base = "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom;
+    var nouveauBloc = serialiserBloc(nettoyerMarques(etat.groupes));
+
+    // Le dépôt a-t-il bougé depuis le chargement ? On ne publie jamais
+    // par-dessus un commit qu'on n'a pas vu.
+    api(base + "/git/ref/heads/" + DEPOT.branche).then(function (ref) {
+      if (ref.object.sha !== etat.headSha) {
+        throw new Error("Le dépôt a changé depuis le chargement de cette page. "
+          + "Recharge la page avant de publier, tes changements en attente seront à refaire.");
+      }
+      // Les deux fichiers, avec le bloc remplacé.
+      var contenus = FICHIERS.map(function (chemin) {
+        var texte = etat.fichiers[chemin];
+        var bornes = bornesBloc(texte);
+        return texte.slice(0, bornes.debut) + nouveauBloc + texte.slice(bornes.fin);
+      });
+      return Promise.all(contenus.map(function (contenu) {
+        return api(base + "/git/blobs", { corps: { content: encoderBase64(contenu), encoding: "base64" } });
+      })).then(function (blobs) {
+        return api(base + "/git/commits/" + etat.headSha).then(function (commitTete) {
+          return api(base + "/git/trees", { corps: {
+            base_tree: commitTete.tree.sha,
+            tree: FICHIERS.map(function (chemin, i) {
+              return { path: chemin, mode: "100644", type: "blob", sha: blobs[i].sha };
+            })
+          } });
+        });
+      }).then(function (arbre) {
+        return api(base + "/git/commits", { corps: {
+          message: messageCommit(), tree: arbre.sha, parents: [etat.headSha]
+        } });
+      }).then(function (commit) {
+        return api(base + "/git/refs/heads/" + DEPOT.branche, {
+          method: "PATCH", corps: { sha: commit.sha }
+        }).then(function () { return commit; });
+      });
+    }).then(function (commit) {
+      message("Publié : " + messageCommit() + " (commit " + commit.sha.slice(0, 7)
+        + "). Cloudflare déploie dans les prochaines minutes.", "ok");
+      etat.ajouts = etat.modifications = etat.retraits = 0;
+      etat.headSha = commit.sha;
+      // Repartir de l'état publié : les marques disparaissent et les
+      // fichiers en mémoire reçoivent le nouveau bloc.
+      FICHIERS.forEach(function (chemin) {
+        var texte = etat.fichiers[chemin];
+        var bornes = bornesBloc(texte);
+        etat.fichiers[chemin] = texte.slice(0, bornes.debut) + nouveauBloc + texte.slice(bornes.fin);
+      });
+      etat.groupes = nettoyerMarques(etat.groupes);
+      dessinerTable();
+      bouton.disabled = false;
+    }).catch(function (e) {
+      message(e.message, "erreur");
+      bouton.disabled = false;
+    });
+  }
+
+  function nettoyerMarques(groupes) {
+    return groupes.map(function (groupe) {
+      return { matiere: groupe.matiere, entete: groupe.entete,
+        entrees: groupe.entrees.map(function (r) {
+          return { matiere: r.matiere, fiche: r.fiche, type: r.type,
+            note: r.note, titre: r.titre, adresse: r.adresse };
+        }) };
+    });
+  }
+
+  function abandonner() {
+    if (!window.confirm("Abandonner tous les changements en attente ?")) return;
+    var t = etat.fichiers[FICHIERS[0]];
+    var b = bornesBloc(t);
+    etat.groupes = analyserBloc(t.slice(b.debut, b.fin));
+    etat.ajouts = etat.modifications = etat.retraits = 0;
+    relerverTitres();
+    viderFormulaire();
+    garnirFiches();
+    garnirFiltres();
+    dessinerTable();
+    message("Changements abandonnés, retour à l'état publié.", "ok");
+  }
+
+  // ---------------- Branchements ----------------
+
+  el("btn-connexion").addEventListener("click", charger);
+  el("jeton").addEventListener("keydown", function (e) { if (e.key === "Enter") charger(); });
+  el("f-matiere").addEventListener("change", garnirFiches);
+  el("f-fiche").addEventListener("change", ajusterChampTitre);
+  el("f-type").addEventListener("change", function () {
+    el("rangee-type-libre").hidden = el("f-type").value !== "__libre__";
+  });
+  el("btn-valider").addEventListener("click", valider);
+  el("btn-annuler-edition").addEventListener("click", viderFormulaire);
+  el("btn-publier").addEventListener("click", publier);
+  el("btn-abandonner").addEventListener("click", abandonner);
+  el("filtre-matiere").addEventListener("change", dessinerTable);
+  el("filtre-type").addEventListener("change", dessinerTable);
+  el("filtre-texte").addEventListener("input", dessinerTable);
+
+  try {
+    var garde = sessionStorage.getItem("jeton-admin");
+    if (garde) el("jeton").value = garde;
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

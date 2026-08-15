@@ -504,6 +504,10 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
 
     shutil.copy2(THEME / "style.css", sortie / "style.css")
     shutil.copy2(THEME / "page.js", sortie / "page.js")
+    # L'interface d'administration des ressources. Elle vit dans theme/ pour
+    # survivre au grand ménage du début de construction, et se publie telle
+    # quelle : sans jeton GitHub, elle ne donne accès à rien.
+    shutil.copy2(THEME / "admin-ressources.html", sortie / "admin-ressources.html")
     if MEDIAS.exists():
         copies, retires = synchroniser_medias(MEDIAS, sortie / "medias")
         if copies or retires:

@@ -41,6 +41,26 @@ build.py                le générateur
 docs/                   le site construit, c'est ce que GitHub Pages publie
 ```
 
+## Administrer les ressources à distance
+
+La page `admin-ressources.html`, publiée avec le site, permet d'ajouter, de
+modifier ou de retirer des liens du répertoire des ressources pédagogiques
+sans passer par un clone local. Elle lit le bloc `res-source` par l'API
+GitHub, présente les entrées en tableau, puis réécrit le bloc dans
+`theme/composants/ressources.html` et `docs/ressources.html` en un seul
+commit. Cloudflare Pages redéploie à la réception.
+
+L'accès passe par un fine-grained personal access token limité à ce dépôt,
+permission Contents en lecture-écriture, collé à l'ouverture de la page. Il
+vit en mémoire de session et n'est jamais écrit nulle part. Sans jeton, la
+page ne donne accès à rien.
+
+Garde-fou : au chargement, la page relit puis réécrit le bloc et exige un
+résultat identique octet pour octet à l'original, dans les deux fichiers.
+Si le format du bloc évolue, elle se met d'elle-même hors service au lieu
+de risquer une corruption. `node outils/test_admin.js` applique le même
+contrôle, plus l'insertion triée et l'échappement des caractères.
+
 ## Modifier une fiche
 
 Ouvre le fichier, change le texte, relance `python3 build.py`. C'est tout.
