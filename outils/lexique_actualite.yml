@@ -48,6 +48,16 @@ fils:
   "Radio-Canada · Bas-Saint-Laurent": https://ici.radio-canada.ca/info/rss/bas-saint-laurent/en-continu
   "Radio-Canada · Gaspésie": https://ici.radio-canada.ca/info/rss/gaspesie-iles-de-la-madeleine/en-continu
 
+  # Journal de Montréal, fils demandés et éprouvés le 15 août 2026, 15 ou
+  # 16 items chacun. Le fil environnement bouge lentement (parfois rien
+  # pendant des semaines) : normal, pas une panne. Transport urbain n'a pas
+  # été ajouté : son fil appartenait à la défunte section 24 heures et
+  # répond 404 partout.
+  "Journal de Montréal · transports": https://www.journaldemontreal.com/actualite/transports/rss.xml
+  "Journal de Montréal · environnement": https://www.journaldemontreal.com/actualite/environnement/rss.xml
+  "Journal de Montréal · société": https://www.journaldemontreal.com/actualite/societe/rss.xml
+  "Journal de Montréal · Asie-Pacifique": https://www.journaldemontreal.com/monde/asie-pacifique/rss.xml
+
 # Veto de sécurité. Un seul de ces termes dans un titre écarte l'article avant
 # le classement, quel que soit son score. La page s'adresse à des élèves de 12
 # à 14 ans et un fil de nouvelles brut charrie de tout.
