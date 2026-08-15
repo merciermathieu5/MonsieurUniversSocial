@@ -112,6 +112,9 @@ button.attente:hover { background: var(--surface-2); }
     <h2>Connexion</h2>
     <label for="jeton">Jeton d'accès GitHub (le même que pour les ressources)</label>
     <input type="password" id="jeton" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
+    <label style="display:flex;gap:.45rem;align-items:center;margin-top:.6rem;font-family:system-ui,sans-serif;font-size:.85rem;color:var(--encre)">
+      <input type="checkbox" id="retenir" style="width:auto"> Se souvenir du jeton sur cet appareil
+    </label>
     <p class="aide">La récolte des fils de presse reste sur ton poste (articles.py --chercher); ici tu juges ce qui a été récolté et la page Actualité se met à jour en un commit.</p>
     <p style="margin-top:.8rem"><button id="btn-connexion">Charger le registre</button></p>
   </section>
@@ -401,6 +404,12 @@ button.attente:hover { background: var(--surface-2); }
     if (!jeton) { message("Colle d'abord ton jeton GitHub.", "erreur"); return; }
     etat.jeton = jeton;
     try { sessionStorage.setItem("jeton-admin", jeton); } catch (e) {}
+    // La case décide du souvenir durable : cochée, le jeton reste dans ce
+    // navigateur; décochée, tout souvenir durable est effacé.
+    try {
+      if (el("retenir").checked) localStorage.setItem("jeton-admin", jeton);
+      else localStorage.removeItem("jeton-admin");
+    } catch (e) {}
     el("btn-connexion").disabled = true;
     message("Chargement du registre...");
     var base = "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom;
@@ -684,8 +693,10 @@ button.attente:hover { background: var(--surface-2); }
   el("filtre-texte").addEventListener("input", dessiner);
 
   try {
-    var garde = sessionStorage.getItem("jeton-admin");
+    var retenu = localStorage.getItem("jeton-admin");
+    var garde = retenu || sessionStorage.getItem("jeton-admin");
     if (garde) el("jeton").value = garde;
+    if (retenu) el("retenir").checked = true;
   } catch (e) {}
 })();
 </script>

@@ -57,8 +57,9 @@ commit. Cloudflare Pages redéploie à la réception.
 
 L'accès passe par un fine-grained personal access token limité à ce dépôt,
 permission Contents en lecture-écriture, collé à l'ouverture de la page. Il
-vit en mémoire de session et n'est jamais écrit nulle part. Sans jeton, la
-page ne donne accès à rien.
+vit en mémoire de session, ou dans le navigateur si la case « Se souvenir du
+jeton sur cet appareil » est cochée, et n'est jamais écrit dans le dépôt.
+Sans jeton, les pages ne donnent accès à rien.
 
 Garde-fou : au chargement, la page relit puis réécrit le bloc et exige un
 résultat identique octet pour octet à l'original, dans les deux fichiers.

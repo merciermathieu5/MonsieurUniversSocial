@@ -104,7 +104,10 @@ td.actions button { padding: .25rem .7rem; font-size: .78rem; }
     <h2>Connexion</h2>
     <label for="jeton">Jeton d'accès GitHub (fine-grained, dépôt MonsieurUniversSocial, permission Contents en lecture-écriture)</label>
     <input type="password" id="jeton" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
-    <p class="aide">Le jeton reste en mémoire de session : il disparaît à la fermeture de l'onglet et n'est jamais écrit dans le dépôt. Il se crée sur GitHub dans Settings, Developer settings, Fine-grained tokens.</p>
+    <label style="display:flex;gap:.45rem;align-items:center;margin-top:.6rem;font-family:system-ui,sans-serif;font-size:.85rem;color:var(--encre)">
+      <input type="checkbox" id="retenir" style="width:auto"> Se souvenir du jeton sur cet appareil
+    </label>
+    <p class="aide">Case cochée, le jeton est retenu dans ce navigateur et le champ se préremplit à ta prochaine visite : à éviter sur un poste partagé. Décochée, il ne vit qu'en mémoire de session et tout souvenir durable est effacé à la connexion suivante. Dans les deux cas, il n'est jamais écrit dans le dépôt. Il se crée sur GitHub dans Settings, Developer settings, Fine-grained tokens.</p>
     <p style="margin-top:.8rem"><button id="btn-connexion">Charger le répertoire</button></p>
   </section>
 
@@ -381,6 +384,12 @@ td.actions button { padding: .25rem .7rem; font-size: .78rem; }
     if (!jeton) { message("Colle d'abord ton jeton GitHub.", "erreur"); return; }
     etat.jeton = jeton;
     try { sessionStorage.setItem("jeton-admin", jeton); } catch (e) {}
+    // La case décide du souvenir durable : cochée, le jeton reste dans ce
+    // navigateur; décochée, tout souvenir durable est effacé.
+    try {
+      if (el("retenir").checked) localStorage.setItem("jeton-admin", jeton);
+      else localStorage.removeItem("jeton-admin");
+    } catch (e) {}
     el("btn-connexion").disabled = true;
     message("Chargement du répertoire...");
 
@@ -821,8 +830,10 @@ td.actions button { padding: .25rem .7rem; font-size: .78rem; }
   el("filtre-texte").addEventListener("input", dessinerTable);
 
   try {
-    var garde = sessionStorage.getItem("jeton-admin");
+    var retenu = localStorage.getItem("jeton-admin");
+    var garde = retenu || sessionStorage.getItem("jeton-admin");
     if (garde) el("jeton").value = garde;
+    if (retenu) el("retenir").checked = true;
   } catch (e) {}
 })();
 </script>
