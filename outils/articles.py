@@ -300,23 +300,45 @@ def charger_registre() -> list[dict]:
 
 
 def ecrire_registre(articles: list[dict]) -> None:
-    """Écrit le registre à la main pour garder l'en-tête et un diff lisible."""
+    """Écrit le registre à la main pour garder l'en-tête et un diff lisible.
+
+    Trois sections, séparées par des bandeaux commentés : ce qui attend ton
+    jugement se lit en tête de fichier, sans chercher parmi les entrées déjà
+    tranchées. À l'intérieur de chaque section, l'ordre reste le même
+    qu'avant, du plus récent au plus ancien.
+    """
     def guillemets(valeur: str) -> str:
         return '"' + str(valeur or "").replace("\\", "\\\\").replace('"', '\\"') + '"'
 
+    def statut(a: dict) -> str:
+        garder = (a.get("garder") or "").strip().upper()
+        if garder.startswith("O"):
+            return "O"
+        if garder.startswith("N"):
+            return "N"
+        return ""
+
+    SECTIONS = [("", "À JUGER"), ("O", "PUBLIÉS (O)"), ("N", "REFUSÉS (N)")]
     lignes = [EN_TETE_REGISTRE, "articles:"]
-    for a in sorted(articles, key=lambda x: (x.get("date", ""), x.get("fiche", "")),
-                    reverse=True):
-        lignes.append(f"  - adresse: {guillemets(a['adresse'])}")
-        lignes.append(f"    fiche: {guillemets(a['fiche'])}")
-        lignes.append(f"    media: {guillemets(a.get('media', ''))}")
-        lignes.append(f"    date: {guillemets(a.get('date', ''))}")
-        lignes.append(f"    titre: {guillemets(a.get('titre', ''))}")
-        lignes.append(f"    garder: {guillemets(a.get('garder', ''))}")
-        lignes.append(f"    note: {guillemets(a.get('note', ''))}")
-        if a.get("echecs"):
-            lignes.append(f"    echecs: {a['echecs']}")
+    tries = sorted(articles, key=lambda x: (x.get("date", ""), x.get("fiche", "")),
+                   reverse=True)
+    for code, bandeau in SECTIONS:
+        retenus = [a for a in tries if statut(a) == code]
+        if not retenus:
+            continue
         lignes.append("")
+        lignes.append(f"  # ---------------- {bandeau} ----------------")
+        for a in retenus:
+            lignes.append(f"  - adresse: {guillemets(a['adresse'])}")
+            lignes.append(f"    fiche: {guillemets(a['fiche'])}")
+            lignes.append(f"    media: {guillemets(a.get('media', ''))}")
+            lignes.append(f"    date: {guillemets(a.get('date', ''))}")
+            lignes.append(f"    titre: {guillemets(a.get('titre', ''))}")
+            lignes.append(f"    garder: {guillemets(a.get('garder', ''))}")
+            lignes.append(f"    note: {guillemets(a.get('note', ''))}")
+            if a.get("echecs"):
+                lignes.append(f"    echecs: {a['echecs']}")
+            lignes.append("")
     REGISTRE.write_text("\n".join(lignes).rstrip() + "\n", encoding="utf-8")
 
 
@@ -460,6 +482,13 @@ def publier(lexique: dict, registre: list[dict]) -> int:
     refuses = sum(1 for a in registre
                   if (a.get("garder") or "").strip().upper().startswith("N"))
     attente = len(registre) - len(prets) - refuses
+    # Une valeur illisible (le chiffre 0 pour la lettre O, une faute de
+    # frappe) laisserait l'article en attente sans un mot : autant le dire.
+    for a in registre:
+        garder = (a.get("garder") or "").strip()
+        if garder and not garder.upper().startswith(("O", "N")):
+            print(f"    garder illisible « {garder} », traité comme en "
+                  f"attente : {a['titre'][:50]}")
     print(f"\n{len(lignes)} article(s) publié(s) dans la page")
     if attente:
         print(f"{attente} en attente d'un O ou d'un N dans contenu/articles.yml")

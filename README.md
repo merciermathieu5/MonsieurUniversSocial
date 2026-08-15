@@ -43,9 +43,14 @@ docs/                   le site construit, c'est ce que GitHub Pages publie
 
 ## Administrer les ressources à distance
 
-La page `admin-ressources.html`, publiée avec le site, permet d'ajouter, de
-modifier ou de retirer des liens du répertoire des ressources pédagogiques
-sans passer par un clone local. Elle lit le bloc `res-source` par l'API
+Deux pages publiées avec le site permettent de travailler sans clone local.
+`admin-ressources.html` ajoute, modifie ou retire des liens du répertoire des
+ressources pédagogiques. `admin-actualite.html` juge les articles récoltés
+par `articles.py --chercher` : vert publié, rouge refusé, neutre en attente,
+avec la note qui remplace le titre du média; sa publication réécrit le
+registre `contenu/articles.yml` et la liste de la page Actualité dans le
+composant et dans `docs/`, en un commit. La récolte des fils de presse, elle,
+reste sur ton poste. Elle lit le bloc `res-source` par l'API
 GitHub, présente les entrées en tableau, puis réécrit le bloc dans
 `theme/composants/ressources.html` et `docs/ressources.html` en un seul
 commit. Cloudflare Pages redéploie à la réception.
@@ -58,8 +63,10 @@ page ne donne accès à rien.
 Garde-fou : au chargement, la page relit puis réécrit le bloc et exige un
 résultat identique octet pour octet à l'original, dans les deux fichiers.
 Si le format du bloc évolue, elle se met d'elle-même hors service au lieu
-de risquer une corruption. `node outils/test_admin.js` applique le même
-contrôle, plus l'insertion triée et l'échappement des caractères.
+de risquer une corruption. `node outils/test_admin.js` et
+`node outils/test_admin_actualite.js` appliquent les mêmes contrôles, plus
+l'insertion triée, l'échappement des caractères et l'identité à l'octet
+avec ce qu'écrivent `ecrire_registre()` et `publier()`.
 
 ## Modifier une fiche
 
