@@ -81,7 +81,10 @@ l'article sur le site du média, dans un nouvel onglet.</p>
 .act__haut { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
 .act__type { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #8A2E3B; border-radius: 100px; padding: .15rem .6rem; }
 .act__chapeau { display: block; font-family: var(--donnee); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); margin-top: .25rem; }
-.act__source { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: var(--encre-pale); }
+.act__source { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #6E6759; border-radius: 100px; padding: .15rem .6rem; }
+.act__source--la-presse { background: #1F4E79; }
+.act__source--radio-canada { background: #7A4A21; }
+.act__source--journal-de-montreal { background: #17605F; }
 .act__nom { display: block; font-family: var(--titre); font-weight: 700; font-size: 1rem; line-height: 1.25; letter-spacing: -.01em; color: var(--encre); margin-top: .2rem; }
 .act__note { display: block; font-size: .86rem; line-height: 1.4; color: var(--encre); }
 .act__fiche { display: block; font-size: .84rem; line-height: 1.4; color: var(--encre-doux); }
@@ -110,6 +113,10 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     <select id="act-territoire" class="act__menu"></select>
   </div>
   <div class="act__rangee">
+    <span class="act__etiquette"><label for="act-media">Média</label></span>
+    <select id="act-media" class="act__menu"></select>
+  </div>
+  <div class="act__rangee">
     <span class="act__etiquette"><label for="act-recherche">Recherche</label></span>
     <input type="search" id="act-recherche" class="act__recherche" placeholder="Un mot du territoire ou de la description" autocomplete="off">
   </div>
@@ -118,9 +125,12 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
 <p class="act__vide" id="act-vide">Aucun article n'est encore proposé. Reviens bientôt.</p>
 <div class="act__source-liste" id="act-source">
   <ul data-matiere="geographie">
+    <li data-fiche="04" data-source="Journal de Montréal" data-date="2026-08-15" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://www.journaldemontreal.com/2026/08/15/seisme-de-magnitude-69-en-indonesie-le-deuxieme-en-une-journee">Séisme de magnitude 6,9 en Indonésie: le deuxième en une journée</a></li>
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-15" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://www.lapresse.ca/international/asie-et-oceanie/2026-08-15/un-second-seisme-secoue-l-indonesie-au-moins-40-morts.php">Un second séisme secoue l’Indonésie, au moins 40 morts</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-15" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2275555/seisme-magnitude-77-indonesie">Séisme de magnitude 7,7 dans l’est de l’Indonésie : au moins 47 morts</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-15" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2275571/italie-volcan-sicile-aeroport-ouverture">Réouverture de l’aéroport de Catane, en Sicile, après l’éruption du volcan Etna</a></li>
+    <li data-fiche="04" data-source="Journal de Montréal" data-date="2026-08-14" data-territoire="La ville soumise à des risques naturels" data-chapeau="EN IMAGES"><a href="https://www.journaldemontreal.com/2026/08/14/en-images--le-midwest-americain-ravage-par-des-inondations-provoquant-evacuations-et-etats-dalerte">Le Midwest américain ravagé par des inondations provoquant évacuations et états d’alerte</a></li>
+    <li data-fiche="04" data-source="Journal de Montréal" data-date="2026-08-14" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://www.journaldemontreal.com/2026/08/14/seisme-de-magnitude-77-en-indonesie">Séisme de magnitude 7,7 dans l&#x27;est de l&#x27;Indonésie : au moins 38 morts</a></li>
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-14" data-territoire="La ville soumise à des risques naturels" data-chapeau="Indonésie"><a href="https://www.lapresse.ca/international/asie-et-oceanie/2026-08-14/indonesie/un-puissant-seisme-fait-au-moins-un-mort.php">Un puissant séisme fait au moins un mort</a></li>
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-12" data-territoire="La ville soumise à des risques naturels" data-chapeau="Séisme en Colombie"><a href="https://www.lapresse.ca/international/amerique-latine/2026-08-12/seisme-en-colombie/une-rescapee-sortie-des-decombres-le-bilan-revu-a-baisse.php">Une rescapée sortie des décombres, le bilan revu à baisse</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-12" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2274885/seisme-colombie-bilan-decombres">Séisme en Colombie : deuil de trois jours en hommage aux 216 victimes</a></li>
@@ -129,12 +139,14 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-11" data-territoire="La ville soumise à des risques naturels" data-chapeau="Séisme en Colombie"><a href="https://www.lapresse.ca/international/amerique-latine/2026-08-11/seisme-en-colombie/le-bilan-grimpe-a-240-morts-la-recherche-de-survivants-se-poursuit.php">Le bilan grimpe à 240 morts, la recherche de survivants se poursuit</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-10" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2274498/chine-typhon-dolphin-pluie-vols">Chine : le typhon Dolphin provoque de fortes pluies et s’affaiblit</a></li>
     <li data-fiche="12" data-source="Radio-Canada" data-date="2026-08-09" data-territoire="Le territoire autochtone du Québec et du Canada" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2274467/oleoduc-delta-alberta-interet-national">Les Premières Nations de la Colombie-Britannique exigent l’arrêt du projet d’oléoduc</a></li>
+    <li data-fiche="04" data-source="Journal de Montréal" data-date="2026-08-09" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://www.journaldemontreal.com/2026/08/09/chine--vols-annules-et-evacuations-a-lapproche-du-typhon-dolphin">Vols suspendus et évacuations en Chine, où le typhon Dolphin a touché terre</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-07" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/en-bref/1-10731331/comment-pluies-diluviennes-ont-provoque-inondations-majeures-en-haute-mauricie">Comment les pluies diluviennes ont provoqué des inondations majeures en Haute-Mauricie</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-06" data-territoire="Le territoire forestier" data-chapeau="Québec"><a href="https://www.lapresse.ca/actualites/2026-08-06/quebec/une-activite-d-incendies-de-foret-superieure-a-la-moyenne-en-juillet.php">Une activité d’incendies de forêt supérieure à la moyenne en juillet</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-06" data-territoire="Le territoire forestier" data-chapeau="Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/2026-08-06/colombie-britannique/les-incendies-de-foret-s-etendent-a-la-region-metropolitaine-de-vancouver.php">Les incendies de forêt s’étendent à la région métropolitaine de Vancouver</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-06" data-territoire="Le territoire forestier" data-chapeau="Liens entre le climat et les incendies de forêt"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-06/liens-entre-le-climat-et-les-incendies-de-foret/une-scientifique-preoccupee-par-le-silence-des-politiciens.php">Une scientifique préoccupée par le silence des politiciens</a></li>
     <li data-fiche="06" data-source="Radio-Canada" data-date="2026-08-06" data-territoire="Le territoire forestier" data-chapeau=""><a href="https://ici.radio-canada.ca/nouvelle/2273818/feu-foret-parc-belcarra-vancouver">À l’est de Vancouver, un feu de forêt préoccupe le village d’Anmore</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-06" data-territoire="Le territoire forestier" data-chapeau="Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-08-06/colombie-britannique/de-nouvelles-evacuations-dues-aux-incendies-de-foret.php">De nouvelles évacuations dues aux incendies de forêt</a></li>
+    <li data-fiche="02" data-source="Journal de Montréal" data-date="2026-08-06" data-territoire="La métropole" data-chapeau=""><a href="https://www.journaldemontreal.com/2026/08/05/metro-de-montreal--la-ligne-verte-seulement-desservie-par-les-vieux-trains-des-2031">Métro de Montréal : la ligne verte (seulement) desservie par les vieux trains dès 2031</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-05" data-territoire="Le territoire forestier" data-chapeau="Ontario et Territoires du Nord-Ouest"><a href="https://www.lapresse.ca/actualites/environnement/2026-08-05/ontario-et-territoires-du-nord-ouest/le-rechauffement-climatique-a-double-la-probabilite-des-incendies-de-foret.php">Le réchauffement climatique a doublé la probabilité des incendies de forêt</a></li>
     <li data-fiche="06" data-source="La Presse" data-date="2026-08-05" data-territoire="Le territoire forestier" data-chapeau="Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-08-05/colombie-britannique/les-degats-causes-par-les-incendies-de-foret-s-aggravent.php">Les dégâts causés par les incendies de forêt s’aggravent</a></li>
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-05" data-territoire="La ville soumise à des risques naturels" data-chapeau="Inde"><a href="https://www.lapresse.ca/international/asie-et-oceanie/2026-08-05/inde/plus-de-100-morts-dans-des-inondations-et-glissements-de-terrain-depuis-juillet.php">Plus de 100 morts dans des inondations et glissements de terrain depuis juillet</a></li>
@@ -197,7 +209,9 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
   var reglages = document.getElementById("act-reglages");
   var recherche = document.getElementById("act-recherche");
   var menu = document.getElementById("act-territoire");
+  var menuMedia = document.getElementById("act-media");
   var choix = "tout";
+  var choixMedia = "tout";
   var ARTICLES = [];
   var items = source.querySelectorAll("li[data-fiche]");
   for (var i = 0; i < items.length; i++) {
@@ -225,6 +239,10 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
   function sansAccent(texte) {
     return (texte || "").toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  }
+  function glisser(texte) {
+    return sansAccent(texte).replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
   }
   function enClair(iso) {
     var bouts = (iso || "").split("-");
@@ -256,10 +274,36 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
       dessiner();
     });
   }
+  function garnirMenuMedia() {
+    var vus = {}, liste = [];
+    for (var i = 0; i < ARTICLES.length; i++) {
+      var nom = ARTICLES[i].media;
+      if (!nom || vus[nom]) continue;
+      vus[nom] = 1;
+      liste.push(nom);
+    }
+    liste.sort(function (a, b) { return sansAccent(a) < sansAccent(b) ? -1 : 1; });
+    menuMedia.textContent = "";
+    var tous = document.createElement("option");
+    tous.value = "tout";
+    tous.textContent = "Tous";
+    menuMedia.appendChild(tous);
+    for (var j = 0; j < liste.length; j++) {
+      var o = document.createElement("option");
+      o.value = liste[j];
+      o.textContent = liste[j];
+      menuMedia.appendChild(o);
+    }
+    menuMedia.addEventListener("change", function () {
+      choixMedia = menuMedia.value;
+      dessiner();
+    });
+  }
   function retenus() {
     var mots = sansAccent(recherche.value).split(/\s+/).filter(Boolean);
     return ARTICLES.filter(function (a) {
       if (choix !== "tout" && a.fiche !== choix) return false;
+      if (choixMedia !== "tout" && a.media !== choixMedia) return false;
       if (!mots.length) return true;
       var foin = sansAccent([a.titre, a.chapeau, a.territoire, a.media].join(" "));
       return mots.every(function (mot) { return foin.indexOf(mot) !== -1; });
@@ -269,7 +313,8 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     var li = el("li", "act__carte");
     var haut = el("div", "act__haut");
     haut.appendChild(el("span", "act__type", "Article"));
-    haut.appendChild(el("span", "act__source", a.media));
+    haut.appendChild(el("span", "act__source"
+      + (a.media ? " act__source--" + glisser(a.media) : ""), a.media));
     li.appendChild(haut);
     if (a.chapeau) li.appendChild(el("span", "act__chapeau", a.chapeau));
     li.appendChild(el("span", "act__nom", a.titre));
@@ -307,6 +352,7 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
   reglages.hidden = ARTICLES.length === 0;
   recherche.addEventListener("input", dessiner);
   garnirMenu();
+  garnirMenuMedia();
   dessiner();
 })();
 </script>
