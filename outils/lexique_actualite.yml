@@ -27,35 +27,26 @@ fils:
   "La Presse · national": https://www.lapresse.ca/actualites/national/rss
   "La Presse · international": https://www.lapresse.ca/international/rss
   "La Presse · affaires": https://www.lapresse.ca/affaires/rss
-  # Ajouts à éprouver : l'outil dira lesquels répondent, retire les muets.
+  # Éprouvés le 15 août 2026, dix items chacun. Voyage et régional portent
+  # les territoires que les grands titres ignorent : touristique, protégé,
+  # forestier régional. Politique et économie ont été retirés volontairement :
+  # ils chargeaient la page de commerce et de partis sans jamais nommer un
+  # territoire, et le fil affaires suffit pour l'industriel.
   "La Presse · Grand Montréal": https://www.lapresse.ca/actualites/grand-montreal/rss
-  "La Presse · politique": https://www.lapresse.ca/actualites/politique/rss
   "La Presse · sciences": https://www.lapresse.ca/actualites/sciences/rss
   "La Presse · régional": https://www.lapresse.ca/actualites/regional/rss
   "La Presse · voyage": https://www.lapresse.ca/voyage/rss
-  "La Presse · économie": https://www.lapresse.ca/affaires/economie/rss
-  # Radio-Canada ne sert ses fils que sous des numéros, jamais sous des mots :
-  # rss/environnement, rss/science et rss/regions ont toujours répondu 404,
-  # seul le rss/4159 des grands titres passait. Les numéros des autres fils ne
-  # sont publiés nulle part de fiable, alors chaque entrée donne des candidates
-  # essayées dans l'ordre, la page de section en dernier recours : la page
-  # n'est pas un fil, mais l'outil y lit l'adresse du fil qu'elle annonce et
-  # la suit. Quand une adresse répond, --chercher et --sonder te la donnent à
-  # épingler ici, à la place de la liste. Pour tout éprouver d'un coup, sans
-  # rien écrire : py outils\articles.py --sonder
-  "Radio-Canada · grands titres": https://ici.radio-canada.ca/rss/4159
-  "Radio-Canada · environnement":
-    # Le numéro 92408 vient d'un répertoire tiers, à confirmer par la sonde.
-    - https://ici.radio-canada.ca/rss/92408
-    - https://ici.radio-canada.ca/environnement
-  "Radio-Canada · science":
-    - https://ici.radio-canada.ca/science
-  "Radio-Canada · régions":
-    - https://ici.radio-canada.ca/regions
-  # Pour ancrer la page dans la région des élèves, un fil de proximité se
-  # trouve de la même façon : décommente et laisse la sonde faire.
-  # "Radio-Canada · Bas-Saint-Laurent":
-  #   - https://ici.radio-canada.ca/bas-saint-laurent
+  # Radio-Canada a abandonné ses fils numérotés : les adresses sont
+  # maintenant en clair, sous /info/rss/. La liste complète (51 fils, dont
+  # chaque région) vit sur ici.radio-canada.ca/info/rss. Les cinq d'ici ont
+  # été éprouvés le 15 août 2026, de 22 à 50 items chacun. Bas-Saint-Laurent
+  # ancre la page dans la région des élèves; Gaspésie nourrit le territoire
+  # touristique, retire sa ligne si elle apporte trop de faits divers.
+  "Radio-Canada · grands titres": https://ici.radio-canada.ca/info/rss/info/a-la-une
+  "Radio-Canada · environnement": https://ici.radio-canada.ca/info/rss/environnement/en-continu
+  "Radio-Canada · science": https://ici.radio-canada.ca/info/rss/science/en-continu
+  "Radio-Canada · Bas-Saint-Laurent": https://ici.radio-canada.ca/info/rss/bas-saint-laurent/en-continu
+  "Radio-Canada · Gaspésie": https://ici.radio-canada.ca/info/rss/gaspesie-iles-de-la-madeleine/en-continu
 
 # Veto de sécurité. Un seul de ces termes dans un titre écarte l'article avant
 # le classement, quel que soit son score. La page s'adresse à des élèves de 12
@@ -101,7 +92,8 @@ geographie:
             patrimoine religieux, restauration du patrimoine,
             arrondissement historique, classement patrimonial,
             eglise desacralisee, conservation du patrimoine,
-            evenement historique, monument historique]
+            evenement historique, monument historique, lieu historique,
+            site historique, basilique]
     faibles: [patrimoine, eglise, vieille ville, monument, facade]
   "04":
     nom: La ville soumise à des risques naturels
@@ -116,15 +108,18 @@ geographie:
             hebergement touristique, industrie touristique,
             saison touristique, location de courte duree, capacite d accueil,
             croisiere, affluence touristique, camping, escapade,
-            destination touristique, attrait touristique]
-    faibles: [tourisme, touriste, visiteur, plage, sentier, hotellerie, gaspesie]
+            destination touristique, attrait touristique, plein air,
+            randonnee, pourvoirie, station de ski, idee de sortie]
+    faibles: [tourisme, touriste, visiteur, plage, sentier, hotellerie, gaspesie,
+              sejour, itineraire]
   "06":
     nom: Le territoire forestier
     forts: [deforestation, coupe forestiere, amazonie, foret boreale,
             feu de foret, incendie de foret, amenagement forestier,
             industrie forestiere, caribou forestier, papetiere, scierie,
             coupe a blanc, regime forestier, reboisement, tordeuse,
-            bois d oeuvre, certification forestiere]
+            bois d oeuvre, certification forestiere, sopfeu,
+            feu a ciel ouvert, feux a ciel ouvert]
     faibles: [foret, bois, arbre, sylviculture, boise]
   "07":
     nom: Le territoire énergétique du Québec
@@ -139,8 +134,8 @@ geographie:
     forts: [grands lacs, voie maritime du saint-laurent, siderurgie, acierie,
             desindustrialisation, zone industrielle, port de montreal,
             secteur manufacturier, aluminerie, porte-conteneurs,
-            chaine d approvisionnement, usine automobile, tarif douanier,
-            droit de douane, chaine de montage, traverse frontaliere,
+            chaine d approvisionnement, usine automobile,
+            chaine de montage, traverse frontaliere,
             ferraille, pollution industrielle]
     faibles: [usine, industrie, manufacturier, exportation, saint-laurent,
               windsor, detroit]
@@ -151,7 +146,7 @@ geographie:
             agriculture peri-urbaine, union des producteurs agricoles,
             autonomie alimentaire, zonage agricole, producteur agricole,
             serriculture, garde-manger, gestion de l offre,
-            production laitiere, serre agricole]
+            production laitiere, serre agricole, maraicher, terre en friche]
     faibles: [agriculture, ferme, agriculteur, recolte, culture, elevage]
   "11":
     nom: Le territoire agricole soumis à des risques naturels
