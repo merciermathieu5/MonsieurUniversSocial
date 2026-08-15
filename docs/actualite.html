@@ -79,7 +79,6 @@ l'article sur le site du média, dans un nouvel onglet.</p>
 .act__carte { list-style: none; margin: 0; display: flex; flex-direction: column; gap: .3rem; background: var(--surface-2); border: 1px solid var(--trait); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .85rem .95rem .8rem; }
 .act__carte::marker { content: ""; }
 .act__haut { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
-.act__type { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #8A2E3B; border-radius: 100px; padding: .15rem .6rem; }
 .act__chapeau { display: block; font-family: var(--donnee); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); margin-top: .25rem; }
 .act__source { display: block; font-family: var(--donnee); font-size: .6rem; letter-spacing: .09em; text-transform: uppercase; color: #fff; background: #6E6759; border-radius: 100px; padding: .15rem .6rem; }
 .act__source--la-presse { background: #1F4E79; }
@@ -98,7 +97,6 @@ l'article sur le site du média, dans un nouvel onglet.</p>
 html[data-sombre="on"] .act .act__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .act .act__titre { color: var(--encre); }
 html[data-sombre="on"] .act__compte { color: var(--encre-pale); }
-html[data-sombre="on"] .act__type { background: #B04C5A; color: #fff; }
 html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B04C5A; color: #fff; }
 @media (max-width: 40rem) { .act__grille { padding: .85rem; } .act__etiquette { flex-basis: 100%; } }
 @media print { .act__reglages { display: none; } .act__grille { grid-template-columns: repeat(2, 1fr); } .act__carte { page-break-inside: avoid; } }
@@ -163,7 +161,7 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
     <li data-fiche="04" data-source="La Presse" data-date="2026-08-03" data-territoire="La ville soumise à des risques naturels" data-chapeau="Inondations à Montréal"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-08-03/inondations-a-montreal/plus-d-une-centaine-de-residants-reclament-une-solution.php">Plus d’une centaine de résidants réclament une solution</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-03" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/info/videos/1-10728446/un-rare-seisme-secoue-ville-quebec">Un rare séisme secoue la ville de Québec</a></li>
     <li data-fiche="04" data-source="Radio-Canada" data-date="2026-08-03" data-territoire="La ville soumise à des risques naturels" data-chapeau=""><a href="https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2442728/un-tremblement-terre-magnitude-28-secoue-region-quebec">La ville de Québec secouée par un séisme</a></li>
-    <li data-fiche="06" data-source="La Presse" data-date="2026-07-31" data-territoire="Le territoire forestier" data-chapeau=""><a href="https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php">O</a></li>
+    <li data-fiche="06" data-source="La Presse" data-date="2026-07-31" data-territoire="Le territoire forestier" data-chapeau="Incendies de forêt en Colombie-Britannique"><a href="https://www.lapresse.ca/actualites/national/2026-07-31/incendies-de-foret-en-colombie-britannique/de-nouveaux-ordres-d-evacuation-au-lac-pearl.php">De nouveaux ordres d’évacuation au lac Pearl</a></li>
     <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-territoire="La métropole" data-chapeau="Elles l’ont fait"><a href="https://www.lapresse.ca/actualites/environnement/2026-07-31/elles-l-ont-fait/s-attaquer-a-une-autre-penurie-de-logements.php">S’attaquer à une autre pénurie de logements</a></li>
     <li data-fiche="02" data-source="La Presse" data-date="2026-07-31" data-territoire="La métropole" data-chapeau="Réseau cyclable"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-31/reseau-cyclable/montreal-veut-ameliorer-la-cohabitation-sur-quatre-pistes.php">Montréal veut améliorer la cohabitation sur quatre pistes</a></li>
     <li data-fiche="09" data-source="La Presse" data-date="2026-07-30" data-territoire="Le territoire industriel des Grands Lacs" data-chapeau="Émissions de particules"><a href="https://www.lapresse.ca/actualites/grand-montreal/2026-07-30/emissions-de-particules/le-geant-de-la-ferraille-aim-force-de-capter-ses-rejets.php">Le géant de la ferraille AIM forcé de capter ses rejets</a></li>
@@ -312,7 +310,6 @@ html[data-sombre="on"] .act .act__bouton { background: #B04C5A; border-color: #B
   function carte(a) {
     var li = el("li", "act__carte");
     var haut = el("div", "act__haut");
-    haut.appendChild(el("span", "act__type", "Article"));
     haut.appendChild(el("span", "act__source"
       + (a.media ? " act__source--" + glisser(a.media) : ""), a.media));
     li.appendChild(haut);
