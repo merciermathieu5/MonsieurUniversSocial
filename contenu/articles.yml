@@ -104,7 +104,7 @@ articles:
     media: "La Presse"
     date: "2026-08-13"
     titre: "Drones importés | Trump impose des droits de douane allant jusqu’à 100 %"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-13/droits-de-douane/christine-frechette-fait-le-point-avec-les-grands-acteurs-economiques.php"
@@ -112,7 +112,7 @@ articles:
     media: "La Presse"
     date: "2026-08-13"
     titre: "Droits de douane | Christine Fréchette fait le point avec les grands acteurs économiques"
-    garder: ""
+    garder: "N"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-12/seisme-en-colombie/une-rescapee-sortie-des-decombres-le-bilan-revu-a-baisse.php"
