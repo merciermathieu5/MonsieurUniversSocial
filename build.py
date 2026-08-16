@@ -472,11 +472,15 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     # toujours sans index.html : c'est docs/ qui est la racine du site publie.
     adresses: list[str] = []
 
+    # Toutes les ecritures ci-dessous passent newline="\n". Sans ca, Python
+    # traduit \n en \r\n sous Windows : le meme build.py produirait des octets
+    # differents sur un poste Windows et sur le robot GitHub, et docs/
+    # basculerait sans fin d'un format de fin de ligne a l'autre.
     # Accueil
     (sortie / "index.html").write_text(
         env.get_template("accueil.html").render(**contexte, base=".",
                                                 canonique="/"),
-        encoding="utf-8")
+        encoding="utf-8", newline="\n")
     adresses.append("/")
 
     # Index de section et fiches
@@ -490,14 +494,14 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
             gabarit_index.render(**contexte, section=section,
                                  groupes=grouper(section), base="..",
                                  canonique=f"/{cle}/"),
-            encoding="utf-8")
+            encoding="utf-8", newline="\n")
         adresses.append(f"/{cle}/")
         for fiche in section["fiches"]:
             (dossier / f"{fiche['nom']}.html").write_text(
                 gabarit_fiche.render(**contexte, section=section,
                                      fiche=fiche, base="..",
                                      canonique=f"/{cle}/{fiche['nom']}.html"),
-                encoding="utf-8")
+                encoding="utf-8", newline="\n")
             adresses.append(f"/{cle}/{fiche['nom']}.html")
             total += 1
 
@@ -512,7 +516,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
         (sortie / f"{page['nom']}.html").write_text(
             gabarit_page.render(**contexte, page=page, base=".",
                                 canonique=f"/{page['nom']}.html"),
-            encoding="utf-8")
+            encoding="utf-8", newline="\n")
         adresses.append(f"/{page['nom']}.html")
         pages += 1
 
@@ -528,7 +532,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
         copies, retires = synchroniser_medias(MEDIAS, sortie / "medias")
         if copies or retires:
             print(f"  medias : {copies} copiée(s), {retires} retirée(s)")
-    (sortie / ".nojekyll").write_text("", encoding="utf-8")
+    (sortie / ".nojekyll").write_text("", encoding="utf-8", newline="\n")
 
     # Sitemap et robots.txt. Ils sont regeneres comme le reste : le sitemap ne
     # peut donc pas se desynchroniser des pages reellement construites.
@@ -548,12 +552,12 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
                       f"    <lastmod>{jour}</lastmod>\n  </url>")
     lignes.append("</urlset>")
     (sortie / "sitemap.xml").write_text("\n".join(lignes) + "\n",
-                                        encoding="utf-8")
+                                        encoding="utf-8", newline="\n")
     (sortie / "robots.txt").write_text(
         "User-agent: *\n"
         "Allow: /\n"
         f"\nSitemap: {racine_url}/sitemap.xml\n",
-        encoding="utf-8")
+        encoding="utf-8", newline="\n")
     print(f"  sitemap.xml : {len(adresses)} adresses")
 
     if manquantes:
@@ -565,7 +569,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     a_faire = sum(1 for s in sections.values() for f in s["fiches"] if f["vide"])
     from datetime import datetime
     marque = datetime.now().strftime("%Y-%m-%d %H:%M")
-    (sortie / "version.txt").write_text(marque, encoding="utf-8")
+    (sortie / "version.txt").write_text(marque, encoding="utf-8", newline="\n")
     print(f"  {total} fiches et {pages} page(s) construites dans "
           f"{sortie.relative_to(RACINE)}/ ({marque})")
     if a_faire:
