@@ -115,12 +115,15 @@ button.attente:hover { background: var(--surface-2); }
     <label style="display:flex;gap:.45rem;align-items:center;margin-top:.6rem;font-family:system-ui,sans-serif;font-size:.85rem;color:var(--encre)">
       <input type="checkbox" id="retenir" style="width:auto"> Se souvenir du jeton sur cet appareil
     </label>
-    <p class="aide">La récolte des fils de presse reste sur ton poste (articles.py --chercher); ici tu juges ce qui a été récolté et la page Actualité se met à jour en un commit.</p>
+    <p class="aide">Le bouton « Chercher les nouvelles » fait lire les fils de presse par GitHub, sans passer par ton poste; ici tu juges ce qui a été récolté et la page Actualité se met à jour en un commit. La récolte depuis ton poste (construire.bat) reste possible et donne le même résultat.</p>
     <p style="margin-top:.8rem"><button id="btn-connexion">Charger le registre</button></p>
   </section>
 
   <section id="ecran-registre" hidden>
     <p class="compteurs" id="compteurs"></p>
+    <p style="margin:.2rem 0 .9rem">
+      <button class="secondaire" id="btn-chercher">Chercher les nouvelles</button>
+    </p>
     <div class="filtres">
       <select id="filtre-statut">
         <option value="">Tous les statuts</option>
@@ -154,6 +157,7 @@ button.attente:hover { background: var(--surface-2); }
   var PAGE = "docs/actualite.html";
   var LEXIQUE = "outils/lexique_actualite.yml";
   var API = "https://api.github.com";
+  var WORKFLOW = "actualite.yml";
 
   // ------------------------------------------------------------------
   // Fonctions pures, exposées sur window.AdminActualite pour le test.
@@ -684,6 +688,99 @@ button.attente:hover { background: var(--surface-2); }
     message("Retour à l'état publié.", "ok");
   }
 
+  // ------------------------------------------------------------------
+  // Recherche des nouvelles par GitHub, sans passer par le poste.
+  // Le bouton déclenche .github/workflows/actualite.yml, qui lit les fils,
+  // reconstruit le site et committe ce qu'il trouve.
+  // ------------------------------------------------------------------
+
+  function cheminWorkflow() {
+    return "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom
+         + "/actions/workflows/" + WORKFLOW;
+  }
+
+  function chercherNouvelles() {
+    var chemin = cheminWorkflow();
+    el("btn-chercher").disabled = true;
+    message("Recherche demandée à GitHub...");
+    // On relève d'abord la dernière exécution connue. Sans ce repère, le
+    // suivi confondrait celle d'hier, déjà terminée, avec celle qu'on vient
+    // de demander, et annoncerait la fin avant même le départ.
+    api(chemin + "/runs?per_page=1")
+      .then(function (d) {
+        var derniere = (d.workflow_runs || [])[0];
+        return derniere ? derniere.id : 0;
+      })
+      .catch(function () { return 0; })
+      .then(function (avant) {
+        // L'API répond 204 sans corps : on ne passe pas par api(), qui attend
+        // du JSON et s'étranglerait sur une réponse vide.
+        return fetch(API + chemin + "/dispatches", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + etat.jeton,
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ ref: DEPOT.branche })
+        }).then(function (r) {
+          if (r.status === 204) { surveiller(avant); return; }
+          if (r.status === 403 || r.status === 404) {
+            throw new Error(
+              "GitHub " + r.status + " : ton jeton n'a pas le droit de lancer "
+              + "un workflow. Il lui faut la portée « workflow » sur un jeton "
+              + "classique, ou « Actions : lecture et écriture » sur un jeton "
+              + "granulaire. Le reste de cette console continue de marcher.");
+          }
+          return r.json().catch(function () { return {}; }).then(function (d) {
+            throw new Error("GitHub " + r.status + (d.message ? " : " + d.message : ""));
+          });
+        });
+      })
+      .catch(function (e) {
+        message(e.message, "erreur");
+        el("btn-chercher").disabled = false;
+      });
+  }
+
+  function surveiller(avant) {
+    var chemin = cheminWorkflow();
+    var essais = 0;
+    var minuteur = setInterval(function () {
+      essais++;
+      if (essais > 48) {            // quatre minutes, puis on rend la main
+        clearInterval(minuteur);
+        el("btn-chercher").disabled = false;
+        message("La recherche s'éternise. Va voir l'onglet Actions du dépôt.", "erreur");
+        return;
+      }
+      api(chemin + "/runs?per_page=1").then(function (d) {
+        var course = (d.workflow_runs || [])[0];
+        if (!course || course.id === avant) {
+          message("Recherche demandée, GitHub n'a pas encore démarré...");
+          return;
+        }
+        if (course.status !== "completed") {
+          message("Recherche en cours sur GitHub (" + course.status + ")...");
+          return;
+        }
+        clearInterval(minuteur);
+        el("btn-chercher").disabled = false;
+        if (course.conclusion !== "success") {
+          message("La recherche a échoué (" + course.conclusion
+                + "). Le détail est dans l'onglet Actions.", "erreur");
+          return;
+        }
+        message("Recherche terminée. Rechargement du registre...", "ok");
+        charger();
+      }).catch(function () {
+        // Un hoquet réseau ne doit pas interrompre la surveillance.
+      });
+    }, 5000);
+  }
+
+  el("btn-chercher").addEventListener("click", chercherNouvelles);
   el("btn-connexion").addEventListener("click", charger);
   el("jeton").addEventListener("keydown", function (e) { if (e.key === "Enter") charger(); });
   el("btn-publier").addEventListener("click", publier);
