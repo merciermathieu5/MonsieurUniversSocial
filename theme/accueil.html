@@ -13,7 +13,7 @@
     </p>
     <div class="ouverture__portes">
       {% for cle, s in sections.items() %}
-      <a class="porte porte--{{ s.couleur }}" href="{{ base }}/{{ cle }}/index.html">
+      <a class="porte porte--{{ s.couleur }}" href="{{ base }}/{{ cle }}/">
         <span class="porte__compte donnee">{{ s.fiches|rejectattr("groupe", "equalto", "outils")|list|length }} {{ s.unite_pluriel or "fiches" }}</span>
         <span class="porte__titre">{{ s.court }}</span>
         <span class="porte__texte">{{ s.intro }}</span>

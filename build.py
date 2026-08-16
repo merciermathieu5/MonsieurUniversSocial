@@ -466,10 +466,18 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     empreinte = hashlib.md5((THEME / "style.css").read_bytes()).hexdigest()[:8]
     env.globals["v"] = empreinte
 
+    # Les adresses canoniques des pages construites, dans l'ordre de
+    # construction. Elles servent au sitemap et, une par une, a la balise
+    # <link rel="canonical"> posee par theme/base.html. Toujours absolues,
+    # toujours sans index.html : c'est docs/ qui est la racine du site publie.
+    adresses: list[str] = []
+
     # Accueil
     (sortie / "index.html").write_text(
-        env.get_template("accueil.html").render(**contexte, base="."),
+        env.get_template("accueil.html").render(**contexte, base=".",
+                                                canonique="/"),
         encoding="utf-8")
+    adresses.append("/")
 
     # Index de section et fiches
     gabarit_index = env.get_template("index_section.html")
@@ -480,13 +488,17 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
         dossier.mkdir(parents=True, exist_ok=True)
         (dossier / "index.html").write_text(
             gabarit_index.render(**contexte, section=section,
-                                 groupes=grouper(section), base=".."),
+                                 groupes=grouper(section), base="..",
+                                 canonique=f"/{cle}/"),
             encoding="utf-8")
+        adresses.append(f"/{cle}/")
         for fiche in section["fiches"]:
             (dossier / f"{fiche['nom']}.html").write_text(
                 gabarit_fiche.render(**contexte, section=section,
-                                     fiche=fiche, base=".."),
+                                     fiche=fiche, base="..",
+                                     canonique=f"/{cle}/{fiche['nom']}.html"),
                 encoding="utf-8")
+            adresses.append(f"/{cle}/{fiche['nom']}.html")
             total += 1
 
     # Pages hors matière. Elles sortent à la racine, à côté de l'accueil, et
@@ -498,8 +510,10 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     for chemin in sorted(PAGES.glob("*.md")) if PAGES.exists() else []:
         page = lire_page(chemin, credits)
         (sortie / f"{page['nom']}.html").write_text(
-            gabarit_page.render(**contexte, page=page, base="."),
+            gabarit_page.render(**contexte, page=page, base=".",
+                                canonique=f"/{page['nom']}.html"),
             encoding="utf-8")
+        adresses.append(f"/{page['nom']}.html")
         pages += 1
 
     shutil.copy2(THEME / "style.css", sortie / "style.css")
@@ -515,6 +529,32 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
         if copies or retires:
             print(f"  medias : {copies} copiée(s), {retires} retirée(s)")
     (sortie / ".nojekyll").write_text("", encoding="utf-8")
+
+    # Sitemap et robots.txt. Ils sont regeneres comme le reste : le sitemap ne
+    # peut donc pas se desynchroniser des pages reellement construites.
+    # Les trois interfaces d'administration n'y figurent pas : elles sont
+    # copiees telles quelles, jamais rendues, donc absentes d'adresses. Elles
+    # portent deja <meta name="robots" content="noindex, nofollow"> et on ne
+    # les bloque pas dans robots.txt, sinon les moteurs ne liraient jamais ce
+    # noindex.
+    from datetime import date
+    racine_url = config.get("url", "").rstrip("/")
+    jour = date.today().isoformat()
+    lignes = ['<?xml version="1.0" encoding="UTF-8"?>',
+              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for adresse in adresses:
+        loc = (racine_url + adresse).replace("&", "&amp;")
+        lignes.append(f"  <url>\n    <loc>{loc}</loc>\n"
+                      f"    <lastmod>{jour}</lastmod>\n  </url>")
+    lignes.append("</urlset>")
+    (sortie / "sitemap.xml").write_text("\n".join(lignes) + "\n",
+                                        encoding="utf-8")
+    (sortie / "robots.txt").write_text(
+        "User-agent: *\n"
+        "Allow: /\n"
+        f"\nSitemap: {racine_url}/sitemap.xml\n",
+        encoding="utf-8")
+    print(f"  sitemap.xml : {len(adresses)} adresses")
 
     if manquantes:
         uniques = sorted(set(manquantes))

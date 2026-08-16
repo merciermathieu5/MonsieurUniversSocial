@@ -9,7 +9,7 @@
     <div class="entete__interieur">
       <div class="entete__ligne">
         <p class="fil">
-          <a href="{{ base }}/{{ section.cle }}/index.html">{{ section.titre }}</a>
+          <a href="{{ base }}/{{ section.cle }}/">{{ section.titre }}</a>
         </p>
         {% if fiche.position %}
         <p class="jalon"><span class="donnee">{{ "%02d"|format(fiche.position) }} / {{ section.parcours|length }}</span> {{ section.unite }}s</p>
