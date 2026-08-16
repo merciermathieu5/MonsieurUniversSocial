@@ -20,6 +20,80 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/08/15/la-lumineuse-histoire-du-verre"
+    fiche: "12"
+    media: "Journal de Montréal"
+    date: "2026-08-16"
+    titre: "Comment les perles de verre vénitiennes ont transformé les traditions artisanales autochtones au Canada"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-16/seisme-en-indonesie/des-milliers-d-evacues-en-attente-d-aide.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-16"
+    titre: "Séisme en Indonésie | Des milliers d’évacués en attente d’aide"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2275648/indonesie-milliers-evacues-aide-seisme"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-16"
+    titre: "Indonésie : des milliers d’évacués en attente d’aide après le puissant séisme"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2275645/ouragan-lala-pluies-hawai"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-16"
+    titre: "L’ouragan Lala s’éloigne d’Hawaï, risques d’inondations dangereuses"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2275639/colombie-seisme-trump-tarifs-aide"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-16"
+    titre: "La Colombie demande à Trump une suspension des droits de douane après le séisme"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/16/louragan-lala-seloigne-dhawai"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-16"
+    titre: "L'ouragan Lala s'éloigne d'Hawaï"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/16/indonesie-des-milliers-devacues-en-attente-daide-apres-le-puissant-seisme"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-16"
+    titre: "Indonésie: des milliers d'évacués en attente d'aide après le puissant séisme"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2274578/toronto-metro-montreal-aspirateur-dechets"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-08-16"
+    titre: "Dou-dou-dou : le son du métro de Montréal fait une apparition dans les rues de Toronto"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-08-15/l-ouragan-lala-s-eloigne-d-hawaii-risque-d-inondations-dangereuses.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-15"
+    titre: "L’ouragan Lala s’éloigne d’Hawaii, risque d’inondations dangereuses"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/08/15/seisme-de-magnitude-69-en-indonesie-le-deuxieme-en-une-journee"
     fiche: "04"
