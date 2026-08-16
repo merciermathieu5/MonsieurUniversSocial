@@ -1,0 +1,111 @@
+# Recherche des nouvelles, sans passer par ton poste.
+#
+# C'est l'équivalent en ligne des deux dernières lignes de construire.bat :
+# articles.py --chercher va lire les fils de presse, puis build.py reconstruit
+# le site. Ce qui est trouvé arrive dans contenu/articles.yml, section
+# À JUGER, et t'attend dans admin-actualite.html.
+#
+# Déclenchement à la main : onglet Actions du dépôt, « Chercher les
+# actualités », bouton « Run workflow ». Un bouton dans la console
+# d'administration pourra appeler la même chose plus tard, par l'API.
+#
+# Pourquoi ce workflow reconstruit lui-même le site au lieu de laisser
+# construire.yml s'en charger : ce dernier porte la condition
+#     if: github.actor != 'github-actions[bot]'
+# qui l'empêche de réagir aux commits du robot. Sans elle il boucherait à
+# l'infini, mais elle signifie aussi qu'un commit posé ici ne le réveillerait
+# pas. On fait donc le travail complet d'un seul tenant.
+#
+# images.py n'est pas lancé ici, comme dans construire.yml : les nouvelles
+# images passent par ton poste.
+
+name: Chercher les actualités
+
+on:
+  workflow_dispatch:
+  # Une fois que tu auras vérifié que les fils répondent depuis GitHub,
+  # retire le # des deux lignes suivantes pour une recherche automatique.
+  # L'heure est en UTC : 10 h UTC = 6 h à Montréal l'été, 5 h l'hiver.
+  # schedule:
+  #   - cron: "0 10 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualite
+  cancel-in-progress: false
+
+jobs:
+  chercher:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prendre le dépôt
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dépendances
+        run: pip install -r requirements.txt
+
+      - name: Compter les articles avant
+        id: avant
+        run: |
+          n=$(grep -c '^  - adresse:' contenu/articles.yml || echo 0)
+          echo "total=$n" >> "$GITHUB_OUTPUT"
+
+      - name: Chercher les nouvelles
+        run: python outils/articles.py --chercher
+
+      - name: Reconstruire le site
+        run: python build.py
+
+      - name: Rapport
+        run: |
+          # Le décompte se fait sur le champ garder, pas sur l'en-tête
+          # « À JUGER » : celui-ci est en tête de fichier, un intervalle awk
+          # partant de là ramasserait tout le registre.
+          avant=${{ steps.avant.outputs.total }}
+          apres=$(grep -c '^  - adresse:' contenu/articles.yml || echo 0)
+          attente=$(grep -c '^    garder: ""' contenu/articles.yml || echo 0)
+          publies=$(grep -c '^    garder: "O"' contenu/articles.yml || echo 0)
+          refuses=$(grep -c '^    garder: "N"' contenu/articles.yml || echo 0)
+          nouveaux=$((apres - avant))
+          {
+            echo "## Recherche d'actualités"
+            echo ""
+            echo "**$nouveaux article(s) ajouté(s).**"
+            echo ""
+            echo "| État | Articles |"
+            echo "|---|---:|"
+            echo "| En attente de jugement | $attente |"
+            echo "| Publiés | $publies |"
+            echo "| Refusés | $refuses |"
+            echo "| Total | $apres |"
+            echo ""
+            if [ "$nouveaux" -le 0 ]; then
+              echo "Aucun article ajouté. Si cela se répète jour après jour, les"
+              echo "fils refusent peut-être l'adresse IP de GitHub. Pour comparer,"
+              echo "lance \`py outils\\articles.py --sonder\` depuis ton poste :"
+              echo "si les fils répondent chez toi mais pas ici, c'est le blocage."
+            else
+              echo "Les nouveautés t'attendent dans **admin-actualite.html**,"
+              echo "section À JUGER."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Committer s'il y a du nouveau
+        run: |
+          if git diff --quiet contenu/articles.yml theme/composants/actualite.html docs; then
+            echo "Rien à committer : aucune nouveauté."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add contenu/articles.yml theme/composants/actualite.html docs
+          git commit -m "Nouvelles propositions d'actualité"
+          git pull --rebase origin main
+          git push
