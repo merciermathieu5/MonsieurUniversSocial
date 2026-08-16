@@ -339,7 +339,12 @@ def ecrire_registre(articles: list[dict]) -> None:
             if a.get("echecs"):
                 lignes.append(f"    echecs: {a['echecs']}")
             lignes.append("")
-    REGISTRE.write_text("\n".join(lignes).rstrip() + "\n", encoding="utf-8")
+    # newline="\n" comme dans build.py : sans lui, Python traduit \n en \r\n
+    # sous Windows. Le registre basculerait alors d'un format a l'autre selon
+    # que la recherche a tourne sur ton poste ou sur le robot GitHub, et le
+    # test jsdom, qui compare octet pour octet, echouerait sur ta machine.
+    REGISTRE.write_text("\n".join(lignes).rstrip() + "\n",
+                        encoding="utf-8", newline="\n")
 
 
 def controler_lien(adresse: str) -> str:
@@ -477,7 +482,7 @@ def publier(lexique: dict, registre: list[dict]) -> int:
     corps = ("\n" + "\n".join(lignes)) if lignes else ""
     COMPOSANT.write_text(
         motif.sub(lambda m: m.group(1) + corps + "\n  " + m.group(2), texte),
-        encoding="utf-8")
+        encoding="utf-8", newline="\n")
 
     refuses = sum(1 for a in registre
                   if (a.get("garder") or "").strip().upper().startswith("N"))

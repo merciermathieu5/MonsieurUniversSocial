@@ -26,8 +26,8 @@ on:
   # Une fois que tu auras vérifié que les fils répondent depuis GitHub,
   # retire le # des deux lignes suivantes pour une recherche automatique.
   # L'heure est en UTC : 10 h UTC = 6 h à Montréal l'été, 5 h l'hiver.
-  # schedule:
-  #   - cron: "0 10 * * 1-5"
+  schedule:
+    - cron: "0 10 * * 1-5"
 
 permissions:
   contents: write
