@@ -1,0 +1,75 @@
+# Reconstruction automatique du site à chaque changement de contenu.
+#
+# Dès qu'un push touche le contenu, le thème, les médias ou build.py, ce
+# workflow reconstruit docs/ avec le même build.py que sur ton poste et
+# committe le résultat s'il diffère. Cloudflare Pages redéploie sur ce
+# second commit. La construction est déterministe : reconstruire deux fois
+# donne les mêmes octets, donc aucun commit inutile.
+#
+# C'est le chaînon qui permet à la console des fiches (admin-fiches.html)
+# de publier du texte sans poste local, et qui met fin aux pages en retard
+# quand un fichier de contenu est modifié à la main puis poussé.
+#
+# Garde-fous :
+#   - si build.py échoue, rien n'est commité et l'exécution vire au rouge
+#     (GitHub t'envoie un courriel);
+#   - verifier.py tourne en rapport informatif, lisible dans le journal;
+#   - le commit du robot ne touche que docs/, que les déclencheurs ignorent,
+#     donc aucune boucle possible, et l'acteur est filtré par prudence;
+#   - images.py n'est pas lancé ici : les dérivés d'images sont versionnés,
+#     une retouche de texte n'en a pas besoin. Les nouvelles images passent
+#     par ton poste, comme avant.
+
+name: Construire le site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "contenu/**"
+      - "theme/**"
+      - "medias/**"
+      - "site.yml"
+      - "build.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: construire
+  cancel-in-progress: false
+
+jobs:
+  construire:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prendre le dépôt
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dépendances
+        run: pip install -r requirements.txt
+
+      - name: Construire
+        run: python build.py
+
+      - name: Vérifier (rapport informatif, ne bloque pas)
+        run: python outils/verifier.py || true
+
+      - name: Committer docs si la page a changé
+        run: |
+          if git diff --quiet docs; then
+            echo "Rien à committer : docs/ est déjà à jour."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git commit -m "Reconstruction automatique"
+          git pull --rebase origin main
+          git push

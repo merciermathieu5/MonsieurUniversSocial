@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Administration du texte des fiches</title>
+<!--
+  Console d'édition du texte des fiches, troisième de la famille.
+
+  Elle liste les fiches Markdown de contenu/, ouvre celle qu'on choisit et
+  n'offre à l'édition QUE la prose : paragraphes, listes, définitions,
+  questions. Le front matter YAML, les marqueurs :::, les titres, les
+  images, les tableaux et le HTML restent affichés pour le contexte mais
+  verrouillés. La publication committe le seul fichier .md; le workflow
+  GitHub Actions (construire.yml) reconstruit docs/ et Cloudflare
+  redéploie, le tout en deux ou trois minutes, sans aucun poste local.
+
+  Aucune IA n'intervient nulle part dans cette chaîne : c'est ton build.py
+  qui refait la page, à l'octet près comme sur ton poste.
+
+  Garde-fous : le découpage doit se réassembler octet pour octet avant que
+  quoi que ce soit soit modifiable; une retouche ne peut pas introduire de
+  ligne structurelle (:::, image, titre, séparateur, tableau, HTML); et un
+  commit arrivé entre le chargement et la publication bloque l'écriture.
+-->
+<style>
+:root {
+  --encre: #26221c; --encre-doux: #57503f; --encre-pale: #8a8272;
+  --fond: #f6f3ec; --surface: #fffdf8; --surface-2: #efe9dd;
+  --trait: #d8d0bf; --accent: #1f4e5f; --accent-fonce: #143540;
+  --alerte: #8a2f2b; --ok: #2f6b3a; --rayon: 6px;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Georgia, "Times New Roman", serif; background: var(--fond); color: var(--encre); line-height: 1.5; }
+main { max-width: 54rem; margin: 0 auto; padding: 1.5rem 1rem 5rem; }
+h1 { font-size: 1.35rem; letter-spacing: -.01em; margin: 0 0 .2rem; }
+.sous-titre { margin: 0 0 1.4rem; color: var(--encre-doux); font-size: .95rem; }
+.panneau { background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: 1.1rem 1.2rem; margin: 0 0 1rem; }
+.panneau h2 { font-size: 1rem; margin: 0 0 .6rem; }
+label { display: block; font-size: .82rem; color: var(--encre-doux); margin: .6rem 0 .15rem; font-family: system-ui, sans-serif; }
+input[type="password"], select {
+  width: 100%; font-family: system-ui, sans-serif; font-size: .95rem; color: var(--encre);
+  background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .45rem .6rem;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+button { font-family: system-ui, sans-serif; font-weight: 600; font-size: .88rem; border-radius: 100px;
+  padding: .45rem 1.1rem; cursor: pointer; border: 1px solid var(--accent-fonce);
+  background: var(--accent-fonce); color: #fff; transition: background .15s; }
+button:hover { background: var(--accent); }
+button.secondaire { background: transparent; color: var(--accent-fonce); }
+button.secondaire:hover { background: var(--surface-2); }
+button[disabled] { opacity: .45; cursor: not-allowed; }
+.message { padding: .7rem .9rem; border-radius: var(--rayon); font-size: .9rem; margin: 0 0 1rem;
+  font-family: system-ui, sans-serif; display: none; white-space: pre-line; }
+.message.visible { display: block; }
+.message--erreur { background: #f6e4e2; border: 1px solid var(--alerte); color: var(--alerte); }
+.message--ok { background: #e3efe4; border: 1px solid var(--ok); color: var(--ok); }
+.message--info { background: var(--surface-2); border: 1px solid var(--trait); color: var(--encre-doux); }
+.aide { font-size: .82rem; color: var(--encre-doux); font-family: system-ui, sans-serif; margin: .5rem 0 0; }
+.fiche-entete { display: flex; align-items: baseline; gap: .8rem; flex-wrap: wrap; margin: 0 0 .9rem; }
+.fiche-entete h2 { margin: 0; font-size: 1.05rem; }
+.fiche-entete .statut { font-family: system-ui, sans-serif; font-size: .68rem; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--encre-pale); }
+.verrou { margin: 0; padding: .3rem .7rem; font-family: ui-monospace, monospace; font-size: .74rem;
+  line-height: 1.45; color: var(--encre-pale); background: var(--surface-2); border-left: 3px solid var(--trait);
+  white-space: pre-wrap; word-break: break-word; }
+.verrou--replie { max-height: 6.2rem; overflow: hidden; position: relative; cursor: pointer; }
+.verrou--replie::after { content: "... (cliquer pour déplier)"; position: absolute; bottom: 0; left: 0; right: 0;
+  padding: .15rem .7rem; background: var(--surface-2); font-family: system-ui, sans-serif; font-size: .7rem; }
+textarea.texte { width: 100%; font-family: Georgia, serif; font-size: .92rem; line-height: 1.5;
+  color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon);
+  padding: .5rem .7rem; resize: vertical; min-height: 2.6rem; margin: .35rem 0; display: block; }
+textarea.texte.est-change { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.barre-etat { position: sticky; bottom: 0; background: var(--accent-fonce); color: #fff; border-radius: var(--rayon);
+  padding: .7rem 1rem; display: none; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+  font-family: system-ui, sans-serif; font-size: .9rem; box-shadow: 0 -2px 12px rgba(0,0,0,.15); }
+.barre-etat.visible { display: flex; }
+.barre-etat button { background: #fff; color: var(--accent-fonce); border-color: #fff; }
+.barre-etat button:hover { background: var(--surface-2); }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Administration du texte des fiches</h1>
+  <p class="sous-titre">Retouche la prose d'une fiche; la structure, elle, reste sous verrou.</p>
+
+  <p class="message" id="msg" role="status"></p>
+
+  <section class="panneau" id="ecran-jeton">
+    <h2>Connexion</h2>
+    <label for="jeton">Jeton d'accès GitHub (le même que pour les autres consoles)</label>
+    <input type="password" id="jeton" autocomplete="off" spellcheck="false" placeholder="github_pat_...">
+    <label style="display:flex;gap:.45rem;align-items:center;margin-top:.6rem;font-family:system-ui,sans-serif;font-size:.85rem;color:var(--encre)">
+      <input type="checkbox" id="retenir" style="width:auto"> Se souvenir du jeton sur cet appareil
+    </label>
+    <p class="aide">Après publication, le workflow reconstruit la page et Cloudflare la déploie : compte deux ou trois minutes avant de voir la retouche en ligne. Aucune IA n'intervient dans cette chaîne.</p>
+    <p style="margin-top:.8rem"><button id="btn-connexion">Choisir une fiche</button></p>
+  </section>
+
+  <section class="panneau" id="ecran-choix" hidden>
+    <h2>La fiche à retoucher</h2>
+    <label for="choix-fiche">Fiche</label>
+    <select id="choix-fiche"></select>
+    <p style="margin-top:.8rem"><button id="btn-ouvrir">Ouvrir</button></p>
+  </section>
+
+  <section id="ecran-fiche" hidden>
+    <div class="panneau">
+      <div class="fiche-entete">
+        <h2 id="fiche-titre"></h2>
+        <span class="statut" id="fiche-statut"></span>
+      </div>
+      <p class="aide">Les zones grises sont la charpente : front matter, blocs, titres, images. Elles se déplient d'un clic pour lecture, mais rien n'y est modifiable. Tout le reste s'édite directement.</p>
+      <div id="segments"></div>
+    </div>
+    <div class="barre-etat" id="barre-etat">
+      <span id="resume-changements"></span>
+      <span>
+        <button class="secondaire" id="btn-abandonner" style="color:#fff;border-color:#fff;background:transparent">Tout abandonner</button>
+        <button id="btn-publier">Publier</button>
+      </span>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var DEPOT = { proprietaire: "merciermathieu5", nom: "MonsieurUniversSocial", branche: "main" };
+  var DOSSIERS = ["contenu/histoire", "contenu/geographie"];
+  var API = "https://api.github.com";
+
+  // ------------------------------------------------------------------
+  // Fonctions pures, exposées sur window.AdminFiches pour le test jsdom.
+  // ------------------------------------------------------------------
+
+  // Une ligne est structurelle si elle ouvre ou ferme un bloc, pose une
+  // image, un titre, un séparateur, un tableau ou du HTML. La prose,
+  // les listes et les questions numérotées ne commencent jamais ainsi.
+  function estStructurelle(ligne) {
+    return /^(:::|!\[|#{1,6}(\s|$)|---\s*$|\||<)/.test(ligne);
+  }
+
+  // Découpe le fichier en morceaux : verrous (structure, front matter,
+  // lignes vides) et textes (prose éditable). Réassemblés tels quels,
+  // les morceaux redonnent le fichier d'origine, à l'octet.
+  function decouper(texte) {
+    var lignes = texte.split("\n");
+    var morceaux = [];
+    var i = 0;
+
+    function pousser(type, contenu) {
+      var dernier = morceaux[morceaux.length - 1];
+      if (dernier && dernier.type === type) dernier.contenu += "\n" + contenu;
+      else morceaux.push({ type: type, contenu: contenu });
+    }
+
+    // Le front matter : de la première ligne --- à sa jumelle, inclusivement.
+    if (lignes[0] === "---") {
+      var fin = lignes.indexOf("---", 1);
+      if (fin > 0) {
+        morceaux.push({ type: "verrou",
+                        contenu: lignes.slice(0, fin + 1).join("\n") });
+        i = fin + 1;
+      }
+    }
+    for (; i < lignes.length; i++) {
+      var ligne = lignes[i];
+      if (ligne.trim() === "" || estStructurelle(ligne)) pousser("verrou", ligne);
+      else pousser("texte", ligne);
+    }
+    return morceaux;
+  }
+
+  function assembler(morceaux) {
+    var bouts = [];
+    for (var i = 0; i < morceaux.length; i++) bouts.push(morceaux[i].contenu);
+    return bouts.join("\n");
+  }
+
+  // Une retouche est admissible si elle reste de la prose : aucune ligne
+  // structurelle, aucun retour chariot Windows.
+  function validerTexte(texte) {
+    if (texte.indexOf("\r") !== -1) {
+      return "un retour de ligne Windows s'est glissé dans le texte";
+    }
+    var lignes = texte.split("\n");
+    for (var i = 0; i < lignes.length; i++) {
+      if (estStructurelle(lignes[i])) {
+        return "la ligne « " + lignes[i].slice(0, 40)
+          + " » ressemble à de la structure (bloc, image, titre, tableau); "
+          + "cette console ne modifie que le texte";
+      }
+    }
+    return "";
+  }
+
+  // Le titre et le statut du front matter, pour l'entête de l'écran.
+  function champFrontMatter(texte, champ) {
+    var m = texte.match(new RegExp('^' + champ + ':\\s*"?([^"\\n]*)"?\\s*$', "m"));
+    return m ? m[1].trim() : "";
+  }
+
+  window.AdminFiches = {
+    decouper: decouper, assembler: assembler,
+    estStructurelle: estStructurelle, validerTexte: validerTexte,
+    champFrontMatter: champFrontMatter
+  };
+
+  // ------------------------------------------------------------------
+  // La page vivante. Le test jsdom s'arrête ici.
+  // ------------------------------------------------------------------
+  if (!document.getElementById("ecran-jeton")) return;
+
+  var etat = { jeton: null, chemin: "", sha: "", morceaux: [], origine: [] };
+  var el = function (id) { return document.getElementById(id); };
+
+  function message(texte, genre) {
+    var m = el("msg");
+    m.textContent = texte;
+    m.className = "message visible message--" + (genre || "info");
+    if (genre === "ok") setTimeout(function () { m.className = "message"; }, 9000);
+  }
+
+  function api(chemin, options) {
+    options = options || {};
+    options.headers = {
+      "Authorization": "Bearer " + etat.jeton,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28"
+    };
+    if (options.corps) {
+      options.method = options.method || "POST";
+      options.body = JSON.stringify(options.corps);
+      options.headers["Content-Type"] = "application/json";
+      delete options.corps;
+    }
+    return fetch(API + chemin, options).then(function (r) {
+      if (!r.ok) return r.json().catch(function () { return {}; }).then(function (d) {
+        var e = new Error("GitHub " + r.status + (d.message ? " : " + d.message : ""));
+        e.statut = r.status;
+        throw e;
+      });
+      return r.json();
+    });
+  }
+  function decoderBase64(b64) {
+    var brut = atob(b64.replace(/\n/g, ""));
+    var octets = new Uint8Array(brut.length);
+    for (var i = 0; i < brut.length; i++) octets[i] = brut.charCodeAt(i);
+    return new TextDecoder("utf-8").decode(octets);
+  }
+  function encoderBase64(texte) {
+    var octets = new TextEncoder().encode(texte);
+    var brut = "";
+    for (var i = 0; i < octets.length; i++) brut += String.fromCharCode(octets[i]);
+    return btoa(brut);
+  }
+
+  // ---------------- Connexion et choix ----------------
+
+  function connexion() {
+    var jeton = el("jeton").value.trim();
+    if (!jeton) { message("Colle d'abord ton jeton GitHub.", "erreur"); return; }
+    etat.jeton = jeton;
+    try { sessionStorage.setItem("jeton-admin", jeton); } catch (e) {}
+    try {
+      if (el("retenir").checked) localStorage.setItem("jeton-admin", jeton);
+      else localStorage.removeItem("jeton-admin");
+    } catch (e) {}
+    el("btn-connexion").disabled = true;
+    message("Lecture de la liste des fiches...");
+    var base = "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom + "/contents/";
+    Promise.all(DOSSIERS.map(function (d) {
+      return api(base + d + "?ref=" + DEPOT.branche);
+    })).then(function (listes) {
+      var menu = el("choix-fiche");
+      menu.textContent = "";
+      for (var d = 0; d < listes.length; d++) {
+        var groupe = document.createElement("optgroup");
+        groupe.label = DOSSIERS[d].indexOf("histoire") >= 0 ? "Histoire" : "Géographie";
+        for (var i = 0; i < listes[d].length; i++) {
+          var entree = listes[d][i];
+          if (!/\.md$/.test(entree.name)) continue;
+          var o = document.createElement("option");
+          o.value = entree.path;
+          o.textContent = entree.name.replace(/\.md$/, "");
+          groupe.appendChild(o);
+        }
+        menu.appendChild(groupe);
+      }
+      el("ecran-jeton").hidden = true;
+      el("ecran-choix").hidden = false;
+      message("Choisis la fiche à retoucher.", "ok");
+    }).catch(function (e) {
+      el("btn-connexion").disabled = false;
+      message(e.message, "erreur");
+    });
+  }
+
+  function ouvrir() {
+    var chemin = el("choix-fiche").value;
+    if (!chemin) return;
+    message("Ouverture de la fiche...");
+    var base = "/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom;
+    api(base + "/contents/" + chemin + "?ref=" + DEPOT.branche).then(function (r) {
+      var texte = decoderBase64(r.content);
+      var morceaux = decouper(texte);
+      if (assembler(morceaux) !== texte) {
+        throw new Error("Le découpage de cette fiche ne se réassemble pas à "
+          + "l'identique. Par prudence, rien n'est modifiable.");
+      }
+      etat.chemin = chemin;
+      etat.sha = r.sha;
+      etat.morceaux = morceaux;
+      etat.origine = morceaux.map(function (m) { return m.contenu; });
+      el("fiche-titre").textContent = champFrontMatter(texte, "titre") || chemin;
+      var statut = champFrontMatter(texte, "statut");
+      el("fiche-statut").textContent = statut ? "statut : " + statut : "";
+      dessiner();
+      el("ecran-choix").hidden = true;
+      el("ecran-fiche").hidden = false;
+      message("Fiche ouverte. Retouche le texte, puis publie.", "ok");
+    }).catch(function (e) { message(e.message, "erreur"); });
+  }
+
+  // ---------------- Édition ----------------
+
+  function dessiner() {
+    var conteneur = el("segments");
+    conteneur.textContent = "";
+    etat.morceaux.forEach(function (morceau, i) {
+      if (morceau.type === "verrou") {
+        if (morceau.contenu.trim() === "") return; // l'air entre deux morceaux
+        var pre = document.createElement("pre");
+        var long = morceau.contenu.split("\n").length > 5;
+        pre.className = "verrou" + (long ? " verrou--replie" : "");
+        pre.textContent = morceau.contenu;
+        if (long) pre.addEventListener("click", function () {
+          pre.classList.remove("verrou--replie");
+        });
+        conteneur.appendChild(pre);
+      } else {
+        var zone = document.createElement("textarea");
+        zone.className = "texte";
+        zone.value = morceau.contenu;
+        zone.rows = Math.max(2, morceau.contenu.split("\n").length + 1);
+        zone.addEventListener("input", function () {
+          etat.morceaux[i].contenu = zone.value;
+          zone.classList.toggle("est-change", zone.value !== etat.origine[i]);
+          zone.rows = Math.max(2, zone.value.split("\n").length + 1);
+          barre();
+        });
+        conteneur.appendChild(zone);
+      }
+    });
+    barre();
+  }
+
+  function retouches() {
+    var n = 0;
+    for (var i = 0; i < etat.morceaux.length; i++) {
+      if (etat.morceaux[i].contenu !== etat.origine[i]) n++;
+    }
+    return n;
+  }
+
+  function barre() {
+    var n = retouches();
+    var b = el("barre-etat");
+    if (!n) { b.className = "barre-etat"; return; }
+    el("resume-changements").textContent =
+      n + (n > 1 ? " passages retouchés" : " passage retouché") + ", rien n'est publié encore.";
+    b.className = "barre-etat visible";
+  }
+
+  function publier() {
+    var problemes = [];
+    etat.morceaux.forEach(function (m, i) {
+      if (m.type !== "texte" || m.contenu === etat.origine[i]) return;
+      var souci = validerTexte(m.contenu);
+      if (souci) problemes.push(souci);
+    });
+    if (problemes.length) {
+      message("Publication refusée :\n" + problemes.join("\n"), "erreur");
+      return;
+    }
+    var bouton = el("btn-publier");
+    bouton.disabled = true;
+    message("Publication en cours...");
+    var nom = etat.chemin.split("/").pop().replace(/\.md$/, "");
+    var n = retouches();
+    api("/repos/" + DEPOT.proprietaire + "/" + DEPOT.nom + "/contents/" + etat.chemin, {
+      method: "PUT",
+      corps: {
+        message: "Fiche " + nom + " : " + n + (n > 1 ? " retouches" : " retouche") + " de texte",
+        content: encoderBase64(assembler(etat.morceaux)),
+        sha: etat.sha,
+        branch: DEPOT.branche
+      }
+    }).then(function (r) {
+      etat.sha = r.content.sha;
+      etat.origine = etat.morceaux.map(function (m) { return m.contenu; });
+      dessiner();
+      message("Publié (commit " + r.commit.sha.slice(0, 7) + "). Le workflow "
+        + "reconstruit la page : compte deux ou trois minutes avant de la voir "
+        + "en ligne.", "ok");
+      bouton.disabled = false;
+    }).catch(function (e) {
+      bouton.disabled = false;
+      if (e.statut === 409 || e.statut === 422) {
+        message("La fiche a changé sur GitHub depuis son ouverture ici. "
+          + "Recharge la page avant de publier, tes retouches seront à refaire.", "erreur");
+      } else {
+        message(e.message, "erreur");
+      }
+    });
+  }
+
+  function abandonner() {
+    if (!window.confirm("Abandonner toutes les retouches non publiées ?")) return;
+    etat.morceaux = etat.morceaux.map(function (m, i) {
+      return { type: m.type, contenu: etat.origine[i] };
+    });
+    dessiner();
+    message("Retour au texte publié.", "ok");
+  }
+
+  el("btn-connexion").addEventListener("click", connexion);
+  el("jeton").addEventListener("keydown", function (e) { if (e.key === "Enter") connexion(); });
+  el("btn-ouvrir").addEventListener("click", ouvrir);
+  el("btn-publier").addEventListener("click", publier);
+  el("btn-abandonner").addEventListener("click", abandonner);
+
+  try {
+    var retenu = localStorage.getItem("jeton-admin");
+    var garde = retenu || sessionStorage.getItem("jeton-admin");
+    if (garde) el("jeton").value = garde;
+    if (retenu) el("retenir").checked = true;
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>

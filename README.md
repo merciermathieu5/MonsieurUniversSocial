@@ -50,7 +50,11 @@ par `articles.py --chercher` : vert publié, rouge refusé, neutre en attente,
 avec la note qui remplace le titre du média; sa publication réécrit le
 registre `contenu/articles.yml` et la liste de la page Actualité dans le
 composant et dans `docs/`, en un commit. La récolte des fils de presse, elle,
-reste sur ton poste. Elle lit le bloc `res-source` par l'API
+reste sur ton poste. `admin-fiches.html` retouche la prose d'une fiche : le
+front matter, les blocs `:::`, les titres, les images, les tableaux et le
+HTML restent sous verrou, et la publication committe le seul `.md`; le
+workflow `construire.yml` reconstruit alors `docs/` avec `build.py` et
+Cloudflare redéploie, sans poste local et sans aucune IA dans la chaîne. Elle lit le bloc `res-source` par l'API
 GitHub, présente les entrées en tableau, puis réécrit le bloc dans
 `theme/composants/ressources.html` et `docs/ressources.html` en un seul
 commit. Cloudflare Pages redéploie à la réception.

@@ -509,6 +509,7 @@ def construire(servir: bool = False, brouillon: bool = False) -> None:
     # quelles : sans jeton GitHub, elles ne donnent accès à rien.
     shutil.copy2(THEME / "admin-ressources.html", sortie / "admin-ressources.html")
     shutil.copy2(THEME / "admin-actualite.html", sortie / "admin-actualite.html")
+    shutil.copy2(THEME / "admin-fiches.html", sortie / "admin-fiches.html")
     if MEDIAS.exists():
         copies, retires = synchroniser_medias(MEDIAS, sortie / "medias")
         if copies or retires:
