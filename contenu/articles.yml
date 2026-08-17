@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2275508/drone-brulage-bcwildfire-brunswick-creek-boston-bar-colombie-britannique"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-08-17"
+    titre: "Voici comment BC Wildfire a utilisé un drone contre un feu de forêt"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-17/en-inde-le-reve-d-une-metropole-parfaite.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-17"
+    titre: "En Inde, le rêve d’une métropole parfaite"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/08/15/la-lumineuse-histoire-du-verre"
     fiche: "12"
