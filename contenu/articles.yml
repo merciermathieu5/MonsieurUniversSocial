@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2453234/quelle-suite-pour-parc-eolien-baie-sables"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-08-17"
+    titre: "Quelle suite pour le parc éolien de Baie-des-Sables?"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2275508/drone-brulage-bcwildfire-brunswick-creek-boston-bar-colombie-britannique"
     fiche: "06"
