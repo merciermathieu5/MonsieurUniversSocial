@@ -20,21 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-08-17/dans-un-parc-national-au-texas/l-administration-trump-suspend-un-projet-critique-de-securisation-de-la-frontiere.php"
-    fiche: "13"
-    media: "La Presse"
-    date: "2026-08-17"
-    titre: "Dans un parc national au Texas | L’administration Trump suspend un projet critiqué de sécurisation de la frontière"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2275781/indemnisation-enfants-premieres-nations-jordan-apn-autochtones"
-    fiche: "12"
+  # ---------------- PUBLIÉS (O) ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2453234/quelle-suite-pour-parc-eolien-baie-sables"
+    fiche: "07"
     media: "Radio-Canada"
     date: "2026-08-17"
-    titre: "Plus de 1,2 G$ versés en indemnisation à des enfants des Premières Nations"
-    garder: ""
+    titre: "Quelle suite pour le parc éolien de Baie-des-Sables?"
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-17/aide-a-l-industrie-forestiere/une-majorite-de-petits-acteurs-exclus.php"
@@ -42,16 +34,6 @@ articles:
     media: "La Presse"
     date: "2026-08-17"
     titre: "Aide à l’industrie forestière | Une majorité de petits acteurs exclus"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2453234/quelle-suite-pour-parc-eolien-baie-sables"
-    fiche: "07"
-    media: "Radio-Canada"
-    date: "2026-08-17"
-    titre: "Quelle suite pour le parc éolien de Baie-des-Sables?"
     garder: "O"
     note: ""
 
@@ -513,6 +495,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-08-17/dans-un-parc-national-au-texas/l-administration-trump-suspend-un-projet-critique-de-securisation-de-la-frontiere.php"
+    fiche: "13"
+    media: "La Presse"
+    date: "2026-08-17"
+    titre: "Dans un parc national au Texas | L’administration Trump suspend un projet critiqué de sécurisation de la frontière"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2275781/indemnisation-enfants-premieres-nations-jordan-apn-autochtones"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-17"
+    titre: "Plus de 1,2 G$ versés en indemnisation à des enfants des Premières Nations"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2275639/colombie-seisme-trump-tarifs-aide"
     fiche: "04"
     media: "Radio-Canada"
