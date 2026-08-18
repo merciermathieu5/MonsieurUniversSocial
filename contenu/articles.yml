@@ -29,6 +29,30 @@ articles:
     garder: ""
     note: ""
 
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-18/incendie-de-foret-en-colombie-britannique/au-moins-150-batiments-endommages-ou-detruits-par-les-flammes-a-summerland.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Incendie de forêt en Colombie-Britannique | Au moins 150 bâtiments endommagés ou détruits par les flammes à Summerland"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-18/etude/pour-se-regenerer-l-amazonie-compte-sur-une-poignee-d-especes-d-arbres.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Étude | Pour se régénérer, l’Amazonie compte sur une poignée d’espèces d’arbres"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
+    garder: ""
+    note: ""
+
 
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2453234/quelle-suite-pour-parc-eolien-baie-sables"
