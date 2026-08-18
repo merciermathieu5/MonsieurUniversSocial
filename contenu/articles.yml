@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/vieux-port-de-montreal/une-privatisation-denoncee.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Vieux-Port de Montréal | Une « privatisation » dénoncée"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2453234/quelle-suite-pour-parc-eolien-baie-sables"
     fiche: "07"
