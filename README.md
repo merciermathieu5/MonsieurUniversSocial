@@ -1,7 +1,7 @@
 # Monsieur Univers social
 
 Site pédagogique d'histoire et de géographie, premier cycle du secondaire.
-Contenu en Markdown, site statique généré en Python, hébergé sur GitHub Pages.
+Contenu en Markdown, site statique généré en Python, hébergé sur Cloudflare Pages.
 
 Une fiche par réalité sociale, une fiche par territoire. Un fichier, une page.
 
@@ -19,7 +19,7 @@ python3 build.py --servir    # construit et ouvre un aperçu local
 Le site se construit dans `docs/` et s'ouvre sur http://localhost:8000.
 Le dossier `docs/` est régénéré à chaque construction, ne le modifie jamais à la
 main. Il est versionné, contrairement à l'habitude, parce que c'est lui que
-GitHub Pages publie.
+Cloudflare Pages publie.
 
 ## Où est quoi
 
@@ -38,7 +38,7 @@ outils/extraire.py      récupération du contenu de l'ancien Google Site
 outils/liens.py         vérification des liens internes
 site.yml                titre du site, menus, regroupements
 build.py                le générateur
-docs/                   le site construit, c'est ce que GitHub Pages publie
+docs/                   le site construit, c'est ce que Cloudflare Pages publie
 ```
 
 ## Administrer les ressources à distance
@@ -259,26 +259,29 @@ volontaire, la révision est le but de l'opération.
 
 ## Publier
 
-Le contenu de ce dossier va **à la racine du dépôt GitHub**, pas dans un
-sous-dossier. Si tu vois `README.md` s'afficher à la place du site, c'est le
-signe que Pages sert la racine au lieu de `docs/`.
+Le site est servi par **Cloudflare Pages**, projet `muniverssocial`, connecté à
+ce dépôt. Deux domaines y sont déclarés : `muniverssocial.ca`, l'adresse
+publique, et `www.muniverssocial.ca`, qui redirige vers elle par une règle
+Cloudflare (Rules, puis Redirect Rules).
 
-### Réglage, une seule fois
+Cette redirection n'est pas facultative. Cloudflare Pages sert tous ses
+domaines personnalisés à égalité et n'en fait rediriger aucun de lui-même :
+sans la règle, deux adresses servent le même site et Google y voit deux sites
+identiques.
 
-Réglages du dépôt, section Pages :
+GitHub Pages ne sert pas ce site. Le champ Custom domain de ses réglages est
+vide, et c'est très bien ainsi.
 
-- Source : **Deploy from a branch**
-- Branche : **main**, dossier : **/docs**
-
-Aucune intégration continue nécessaire. Tu construis chez toi, tu pousses, c'est
-en ligne.
+### Le cycle normal
 
 ```bash
 python build.py
 python outils\liens.py       # aucun lien interne brisé
-python outils\verifier.py    # contrastes, schémas, crédits
+python outils\verifier.py    # contrastes, schémas, crédits, canoniques
 git add -A && git commit -m "Mise à jour" && git push
 ```
+
+Cloudflare redéploie à la réception du push.
 
 `verifier.py` mesure le contraste de chaque couple fond / texte du site et de
 chaque texte des schémas, dans le thème clair comme dans le thème sombre, et
@@ -286,12 +289,33 @@ signale les débordements hors cadre. Il existe parce que l'oeil ne suffit pas :
 un texte blanc sur un rectangle à 45 pour cent d'opacité paraît correct dans
 l'éditeur et devient illisible au projecteur.
 
-### Variante avec GitHub Actions
+### Ce que GitHub fait tout seul
 
-Si tu préfères que GitHub construise à ta place, `.github/workflows/deploy.yml`
-est déjà là. Règle alors Source sur **GitHub Actions** au lieu de la branche. Le
-fichier doit se trouver à `.github/workflows/` **à la racine du dépôt**, sinon
-GitHub ne le voit pas.
+`.github/workflows/construire.yml` se déclenche quand un push touche
+`contenu/`, `theme/`, `medias/`, `site.yml` ou `build.py`. Il reconstruit
+`docs/` avec le même `build.py`, lance `verifier.py` en rapport informatif
+lisible dans le journal, et committe le résultat s'il diffère. Cloudflare
+redéploie sur ce second commit.
+
+Conséquence à ne pas oublier : **fais un fetch avant de repousser**, sinon tu
+te ramasses un conflit sur `docs/`.
+
+`.github/workflows/actualite.yml` récolte les fils de presse.
+
+### Les adresses canoniques
+
+`site.yml` déclare `url`. Cette seule valeur alimente la balise
+`<link rel="canonical">` de chaque page, chaque `<loc>` du sitemap et la ligne
+`Sitemap` du `robots.txt`. Elle doit nommer l'adresse qui répond 200 sans
+redirection, jamais une adresse qui redirige : Google écarte une canonique qui
+redirige, et il les écarte toutes d'un coup.
+
+La section `CANONIQUES` de `verifier.py` le contrôle, puis interroge le réseau
+pour éprouver les deux écritures du domaine. C'est le seul contrôle du
+vérificateur qui ne se contente pas de la cohérence interne, et c'est
+volontaire : en août 2026, les vingt-huit pages, le sitemap et le robots.txt
+étaient parfaitement d'accord entre eux sur une adresse fausse. Une
+vérification interne ne pouvait pas le voir.
 
 ### Adresses de page
 

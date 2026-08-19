@@ -10,19 +10,20 @@ Trois adresses servent le même contenu :
 | Adresse | Réponse | Rôle |
 | --- | --- | --- |
 | `https://muniverssocial.ca/` | 200 | l'adresse publique retenue |
-| `https://www.muniverssocial.ca/` | 200 | doublon, devrait rediriger |
-| `https://merciermathieu5.github.io/MonsieurUniversSocial/` | 200 | doublon, copie GitHub Pages |
+| `https://www.muniverssocial.ca/` | 200, puis 301 | corrigé, voir Dénouement |
+| `https://merciermathieu5.github.io/MonsieurUniversSocial/` | 200 | copie retirée, voir Ménage |
 
-Aucune ne redirige vers une autre. Le champ **Custom domain** des réglages
-Pages est vide : GitHub Pages ne sert donc pas le domaine, il ne sert que sa
-propre adresse. C'est Cloudflare qui répond sur `muniverssocial.ca`, ce qui
+Au moment du diagnostic, aucune ne redirigeait vers une autre. Le champ
+**Custom domain** des réglages Pages est vide : GitHub Pages ne sert donc pas
+le domaine, il ne sert que sa propre adresse. C'est Cloudflare qui répond sur `muniverssocial.ca`, ce qui
 explique le comportement observé : deux domaines personnalisés servis en
 parallèle, sans redirection de l'un vers l'autre.
 
-Ce qui tient l'ensemble aujourd'hui, ce sont les balises canoniques. Chaque
-page, quelle que soit l'adresse par laquelle on l'atteint, déclare
-`https://muniverssocial.ca/...`. Google consolide donc les trois copies sur
-une seule. C'est fonctionnel, mais c'est un filet, pas une architecture.
+Ce qui tenait l'ensemble, c'étaient les balises canoniques. Chaque page,
+quelle que soit l'adresse par laquelle on l'atteint, déclare
+`https://muniverssocial.ca/...`. Google consolidait donc les trois copies sur
+une seule. Fonctionnel, mais c'était un filet, pas une architecture. La
+redirection décrite plus bas est l'architecture.
 
 ## Le diagnostic faux, et comment il a été pris
 
@@ -96,6 +97,9 @@ C'est voulu : elle décrit un vrai défaut.
 
 ## Ce qui reste à faire en ligne
 
+Toutes ces étapes ont été menées le 19 août. Elles sont conservées ici comme
+trace du raisonnement.
+
 1. **Pousser sur `main`.**
 
 2. **Trouver ce qui sert le domaine.** Tableau de bord Cloudflare, section
@@ -118,14 +122,49 @@ C'est voulu : elle décrit un vrai défaut.
 
 6. **Valider la correction** sur le motif « page en double », et sur lui seul.
 
-## Un point laissé ouvert
+## Dénouement
 
-La copie `merciermathieu5.github.io/MonsieurUniversSocial/` est publique et
-indexable. Ses canoniques pointent vers le domaine, donc Google la consolide
-correctement, mais elle reste une troisième copie en ligne.
+L'étape 2 a confirmé le mécanisme : projet Cloudflare Pages `muniverssocial`,
+lié à ce dépôt, avec les deux domaines déclarés et actifs en parallèle. Rien
+n'était cassé dans le code, il manquait une règle de redirection.
 
-Si le site est bien servi par Cloudflare et non par GitHub Pages, le workflow
-`.github/workflows/deploy.yml` publie pour rien. Le bouton **Unpublish site**
-des réglages Pages retirerait la copie. À trancher une fois que l'étape 2
-aura confirmé qui sert quoi : tant que ce n'est pas établi, ne touche pas à
-ce bouton, c'est peut-être la seule chose qui tienne le site debout.
+Elle a été créée à partir du modèle **Redirect from WWW to root**, en 301,
+avec conservation du chemin et de la chaîne de requête. Cloudflare avertissait
+que la règle risquait de ne pas s'appliquer, faute d'enregistrement DNS
+proxifié pour le www. Fausse alerte : l'enregistrement existait, géré par
+Pages, et l'interface des règles ne le reconnaissait pas.
+
+Vérification finale sur le poste :
+
+```
+CANONIQUES
+    ok   pages, sitemap et robots.txt sur le même hôte
+         https://muniverssocial.ca/ répond 200 sans redirection,
+         https://www.muniverssocial.ca/ répond 301, redirige vers
+         https://muniverssocial.ca/
+```
+
+## Ménage : GitHub Pages
+
+Cloudflare construisant directement depuis le dépôt, GitHub Pages ne servait
+qu'une troisième copie du site, à
+`merciermathieu5.github.io/MonsieurUniversSocial/`. Ses canoniques pointaient
+vers le domaine, donc Google la consolidait correctement, mais elle publiait
+pour rien à chaque push.
+
+`.github/workflows/deploy.yml` est donc retiré, et la section « Publier » du
+`README.md` réécrite : elle décrivait un hébergement GitHub Pages qui n'a
+jamais servi ce domaine, et proposait un réglage *Deploy from a branch*
+trompeur.
+
+Reste un geste manuel : **Settings, Pages, Unpublish site**, pour retirer la
+copie déjà en ligne. Sans ça, elle demeure figée sur sa dernière version au
+lieu de disparaître.
+
+## Ce qui va bouger dans la Search Console
+
+Le motif « Page avec redirection » va gonfler dans les prochaines semaines.
+Google connaît des adresses en www et découvrira qu'elles redirigent
+désormais. C'est le signe que la règle fonctionne, pas une dégradation.
+
+Les 25 pages jamais explorées relèvent de la patience, pas de la technique.
