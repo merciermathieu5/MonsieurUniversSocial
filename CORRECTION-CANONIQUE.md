@@ -1,48 +1,77 @@
-# Correction des adresses canoniques
+# Adresses canoniques : ce qui a été trouvé, corrigé, et ce qui reste
 
-19 août 2026
+19 août 2026. Document refait de zéro : les deux premières versions
+reposaient sur un diagnostic faux, décrit plus bas.
 
-## Le problème
+## L'état réel du site
 
-`site.yml` déclarait `url: https://muniverssocial.ca`, alors que GitHub Pages
-sert le site sur `https://www.muniverssocial.ca`. Le domaine nu redirige vers
-le www.
+Trois adresses servent le même contenu :
 
-Cette valeur unique alimente trois choses :
+| Adresse | Réponse | Rôle |
+| --- | --- | --- |
+| `https://muniverssocial.ca/` | 200 | l'adresse publique retenue |
+| `https://www.muniverssocial.ca/` | 200 | doublon, devrait rediriger |
+| `https://merciermathieu5.github.io/MonsieurUniversSocial/` | 200 | doublon, copie GitHub Pages |
 
-- la balise `<link rel="canonical">` de `theme/base.html`
-- chaque `<loc>` du `sitemap.xml`
-- la ligne `Sitemap:` du `robots.txt`
+Aucune ne redirige vers une autre. Le champ **Custom domain** des réglages
+Pages est vide : GitHub Pages ne sert donc pas le domaine, il ne sert que sa
+propre adresse. C'est Cloudflare qui répond sur `muniverssocial.ca`, ce qui
+explique le comportement observé : deux domaines personnalisés servis en
+parallèle, sans redirection de l'un vers l'autre.
 
-Les 28 pages annonçaient donc une adresse canonique qui redirige, et les 28
-entrées du sitemap redirigeaient aussi. Google écarte systématiquement une
-canonique qui redirige. Résultat dans la Search Console du 16 août : 2 pages
-dans l'index, 31 hors index, dont la page d'accueil en « page en double sans
-URL canonique sélectionnée par l'utilisateur ».
+Ce qui tient l'ensemble aujourd'hui, ce sont les balises canoniques. Chaque
+page, quelle que soit l'adresse par laquelle on l'atteint, déclare
+`https://muniverssocial.ca/...`. Google consolide donc les trois copies sur
+une seule. C'est fonctionnel, mais c'est un filet, pas une architecture.
 
-Le piège de cette panne est qu'elle est parfaitement cohérente. Canoniques,
-sitemap et robots.txt sortaient tous de la même valeur, donc ils
-s'accordaient entre eux du premier au dernier caractère. Aucun contrôle
-interne ne pouvait la voir.
+## Le diagnostic faux, et comment il a été pris
 
-## Ce qui a été corrigé
+Le premier diagnostic affirmait que le domaine nu redirigeait vers le www, et
+que les canoniques pointaient donc vers une adresse qui redirige. Faux. Cette
+affirmation venait d'une métadonnée d'un outil de récupération de pages, prise
+pour une mesure.
+
+`site.yml` a été basculé au www sur cette base. C'est ce que corrige la
+présente version : `url` revient au domaine nu.
+
+Ce qui a permis de s'en apercevoir : le contrôle réseau ajouté à
+`outils/verifier.py`, qui interroge les deux écritures du domaine. À sa
+première exécution réelle, il a signalé que le domaine nu répondait 200 au
+lieu de rediriger. Le garde-fou écrit contre une panne a servi à démolir le
+diagnostic qui l'avait fait écrire.
+
+## Ce que dit la Search Console, relu à froid
+
+Le rapport du 16 août ne décrit pas une panne. Il décrit un site jeune.
+
+- **25 pages « Détectée, actuellement non indexée »**, découvertes le 18 août,
+  jamais explorées. Un sitemap tout neuf sur un domaine sans historique. Le
+  temps règle ça.
+- **2 pages « Explorée, actuellement non indexée »**, les deux formes de la
+  fiche 02. Banal pour un domaine sans autorité.
+- **3 pages « Page avec redirection »** : `http://muniverssocial.ca/`,
+  `http://www.muniverssocial.ca/`, `https://muniverssocial.ca/index.html`.
+  Comportement normal. **Ne rien valider sur ce motif.**
+- **1 page « en double sans URL canonique sélectionnée par l'utilisateur »**,
+  la page d'accueil, exploration du 10 août, détection le 11. À vérifier avec
+  l'inspection d'URL en direct : si Google voit maintenant la balise, le
+  constat se dissipera de lui-même.
+
+## Fichiers modifiés
 
 | Fichier | Modification |
 | --- | --- |
-| `site.yml` | `url` passe au www, avec le commentaire qui explique pourquoi |
-| `theme/base.html` | le commentaire annonçait « sans www », devenu faux |
-| `outils/verifier.py` | nouveau contrôle `CANONIQUES` |
-| `docs/` (28 pages) | canonique réécrite sur le bon hôte |
+| `site.yml` | `url` au domaine nu, avec un commentaire qui dit pourquoi |
+| `theme/base.html` | commentaire remis à jour, les trois adresses nommées |
+| `outils/verifier.py` | nouvelle section de contrôle `CANONIQUES` |
+| `docs/` (28 pages) | canonique réécrite sur le domaine nu |
 | `docs/sitemap.xml` | 28 `<loc>` réécrites |
 | `docs/robots.txt` | ligne `Sitemap:` réécrite |
 
-`docs/` est régénéré de toute façon par `build.py` au prochain push. Il est
-réécrit ici pour que la sortie versionnée cesse de contredire la source.
+## Le contrôle ajouté
 
-## Le nouveau contrôle
-
-`outils/verifier.py` gagne une section `CANONIQUES`, entre `CONVENTIONS` et
-`CONSTRUIT`. Quatre vérifications hors ligne :
+`outils/verifier.py` gagne une section `CANONIQUES`. Quatre vérifications
+hors ligne :
 
 1. l'hôte de `site.yml` est absolu, en https, sans barre finale
 2. chaque page construite porte une canonique unique, sur cet hôte, et qui
@@ -50,84 +79,53 @@ réécrit ici pour que la sortie versionnée cesse de contredire la source.
 3. le sitemap liste exactement les pages construites, dans la même forme
 4. le `robots.txt` renvoie au sitemap du même hôte
 
-Puis une cinquième, en réseau : l'hôte est interrogé et doit répondre 200
-sans redirection. C'est la seule qui aurait vu la panne, donc elle tourne par
-défaut. Un poste sans Internet la saute et le dit, sans faire échouer la
-vérification. `py outils\verifier.py --hors-ligne` la désactive.
+Puis deux appels réseau, actifs par défaut : l'hôte déclaré ne doit pas
+rediriger, et l'autre écriture du domaine doit rediriger vers lui.
 
-Essais menés :
+Ce qui est jugé, c'est la redirection, pas le code de réponse. Un 403, un 429
+ou un 503 prouve que l'hôte a répondu de lui-même, donc qu'il ne redirige
+pas : simple note. Cette nuance vient d'une vraie fausse alerte, Cloudflare
+ayant refusé l'agent par défaut de Python. La requête se présente maintenant
+avec un User-Agent de navigateur.
 
-- état corrigé, hors ligne : 0 problème
-- état d'avant la correction : 85 problèmes signalés
-- hôte injoignable : contrôle sauté, aucune faute levée
-- hôte qui redirige, éprouvé sur un vrai 301 : faute levée avec le message
-  qui nomme la cause
+Un hôte injoignable fait sauter le contrôle sans le faire échouer.
+`py outils\verifier.py --hors-ligne` désactive les appels réseau.
+
+Tant que la redirection du www n'existe pas, la section signalera une faute.
+C'est voulu : elle décrit un vrai défaut.
 
 ## Ce qui reste à faire en ligne
 
-1. **Pousser sur `main`.** Le workflow reconstruit et publie tout seul.
-2. **Vérifier** que `https://www.muniverssocial.ca/histoire/` affiche bien
-   `<link rel="canonical" href="https://www.muniverssocial.ca/histoire/">`.
-3. **Search Console, sitemaps :** soumettre `https://www.muniverssocial.ca/sitemap.xml`.
-   L'ancien, en domaine nu, peut être retiré.
-4. **Search Console, inspection d'URL :** demander l'indexation de la page
-   d'accueil, des deux index de section et de deux ou trois fiches. Le reste
-   suivra par le sitemap.
-5. **Valider la correction** sur le motif « Page en double sans URL canonique
-   sélectionnée par l'utilisateur ».
-6. **Ne rien valider** sur « Page avec redirection ». Les trois URL visées
-   (`http://muniverssocial.ca/`, `http://www.muniverssocial.ca/`,
-   `https://muniverssocial.ca/index.html`) redirigent correctement. C'est le
-   comportement attendu, pas une erreur.
+1. **Pousser sur `main`.**
 
-Les 25 pages en « Détectée, actuellement non indexée » ont été découvertes le
-18 août et n'ont jamais été explorées. Une partie de ce délai tient à la
-jeunesse du site et se résorbera d'elle-même.
+2. **Trouver ce qui sert le domaine.** Tableau de bord Cloudflare, section
+   Workers & Pages, puis le projet lié à ce dépôt, onglet Custom domains. Il
+   devrait y avoir `muniverssocial.ca` et `www.muniverssocial.ca`, servis tous
+   les deux.
 
-## Correctif 02 : la sonde réseau accusait le site à tort
+3. **Créer la redirection.** Cloudflare, Rules, Redirect Rules. Une règle :
+   si le nom d'hôte vaut `www.muniverssocial.ca`, redirection 301 vers
+   `https://muniverssocial.ca` avec conservation du chemin et de la chaîne de
+   requête. Aucun risque de boucle : GitHub Pages n'est pas sur le trajet,
+   son champ Custom domain est vide.
 
-Première exécution chez Mathieu :
+4. **Relancer `py outils\verifier.py`.** La section `CANONIQUES` doit passer
+   au vert, avec le www en 301.
 
-```
-CANONIQUES
-    https://www.muniverssocial.ca/ répond 403
-         hôte interrogé
-```
+5. **Search Console.** Soumettre `https://muniverssocial.ca/sitemap.xml`.
+   Demander l'indexation de la page d'accueil, des deux index de section et
+   de deux ou trois fiches.
 
-Faute de l'outil, pas du site. Cloudflare sert de relais devant GitHub Pages
-et refuse l'agent par défaut de Python, `Python-urllib/3.x`. Le 403 venait du
-filtre anti-robots.
+6. **Valider la correction** sur le motif « page en double », et sur lui seul.
 
-Deux corrections dans `sonder_hote` :
+## Un point laissé ouvert
 
-1. La requête se présente désormais avec un User-Agent de navigateur, un
-   `Accept` et un `Accept-Language`.
-2. Surtout, le contrôle ne juge plus le code de réponse mais la redirection,
-   qui est la seule chose qui nous occupait depuis le début. Un 403, un 429 ou
-   un 503 prouve que l'hôte a répondu de lui-même : il ne redirige donc pas.
-   Ce n'est plus une faute, seulement une note. Un 3xx reste une faute, un 404
-   ou un 500 sur la page d'accueil aussi.
+La copie `merciermathieu5.github.io/MonsieurUniversSocial/` est publique et
+indexable. Ses canoniques pointent vers le domaine, donc Google la consolide
+correctement, mais elle reste une troisième copie en ligne.
 
-Ajout au passage : l'autre écriture du domaine est éprouvée elle aussi. Si
-`https://muniverssocial.ca/` répondait 200 au lieu de rediriger, les deux
-adresses serviraient le site en parallèle et Google verrait deux sites
-identiques. Ce contrôle vaut aussi comme preuve que `site.yml` nomme le bon
-des deux hôtes.
-
-Essais menés : le 403 ne lève plus de faute, un vrai 301 en lève une, un hôte
-injoignable fait sauter le contrôle sans échec.
-
-## Un point à trancher plus tard
-
-Le commentaire d'origine de `base.html` disait « sans www » : le domaine nu
-était donc ton intention. La correction va dans l'autre sens, vers l'hôte qui
-répond déjà et qui a son certificat.
-
-L'inverse reste possible : mettre `muniverssocial.ca` comme domaine
-personnalisé dans les réglages Pages, pour que le www redirige vers le nu,
-puis remettre `site.yml` au domaine nu. GitHub réémet alors le certificat, ce
-qui peut couper le HTTPS quelques heures.
-
-Avec 2 pages indexées, ce choix ne coûte rien aujourd'hui. Il coûtera cher
-dans six mois. Si tu veux le domaine nu, c'est maintenant, et les deux
-changements se font ensemble.
+Si le site est bien servi par Cloudflare et non par GitHub Pages, le workflow
+`.github/workflows/deploy.yml` publie pour rien. Le bouton **Unpublish site**
+des réglages Pages retirerait la copie. À trancher une fois que l'étape 2
+aura confirmé qui sert quoi : tant que ce n'est pas établi, ne touche pas à
+ce bouton, c'est peut-être la seule chose qui tienne le site debout.

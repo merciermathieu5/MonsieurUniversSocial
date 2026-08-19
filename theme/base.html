@@ -6,10 +6,11 @@
 <title>{% block titre %}{{ site.titre }}{% endblock %}</title>
 <meta name="description" content="{% block description %}{{ site.description }}{% endblock %}">
 {# L'URL canonique est fournie par build.py a chaque rendu. Elle est absolue,
-   en https, sans index.html, et sur l'hote declare dans site.yml : c'est la
-   seule adresse que les moteurs doivent retenir pour cette page. L'hote doit
-   etre celui qui repond en 200, pas celui qui redirige, sinon Google ignore
-   la balise. outils/verifier.py le controle avant chaque publication. #}
+   en https, sans www et sans index.html, sur l'hote declare dans site.yml :
+   c'est la seule adresse que les moteurs doivent retenir pour cette page.
+   Trois adresses servent le meme site, le domaine nu, le www et
+   merciermathieu5.github.io : cette balise est ce qui dit a Google que la
+   premiere est la bonne. outils/verifier.py la controle avant publication. #}
 <link rel="canonical" href="{{ site.url }}{{ canonique|default('/') }}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
