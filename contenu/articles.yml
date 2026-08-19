@@ -69,14 +69,6 @@ articles:
     garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est_2.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-18"
-    titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
-    garder: "O"
-    note: ""
-
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est.php"
     fiche: "02"
     media: "La Presse"
@@ -628,6 +620,14 @@ articles:
     media: "La Presse"
     date: "2026-08-18"
     titre: "Vieux-Port de Montréal | Une « privatisation » dénoncée"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est_2.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
     garder: "N"
     note: ""
 
