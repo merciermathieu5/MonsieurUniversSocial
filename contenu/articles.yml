@@ -20,46 +20,20 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/en-bref/1-10700200/ce-groupe-veut-reecrire-regime-forestier"
-    fiche: "06"
-    media: "Radio-Canada"
-    date: "2026-08-19"
-    titre: "Ce groupe veut réécrire le régime forestier"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-08-19/sentiers-de-randonnee/est-ce-facile-ou-difficile.php"
-    fiche: "05"
-    media: "La Presse"
-    date: "2026-08-19"
-    titre: "Sentiers de randonnée | Est-ce facile ou difficile ?"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-19/crise-de-l-itinerance/longueuil-exproprie-sept-immeubles-pour-preserver-une-maison-de-chambres.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-19"
-    titre: "Crise de l’itinérance | Longueuil exproprie sept immeubles pour préserver une maison de chambres"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est_2.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-18"
-    titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
-    garder: ""
-    note: ""
-
-
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276044/hydro-quebec-factures-electricite-autochtones"
     fiche: "12"
     media: "Radio-Canada"
     date: "2026-08-19"
     titre: "Factures impayées par des Autochtones : Québec veut avoir son mot à dire"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/en-bref/1-10700200/ce-groupe-veut-reecrire-regime-forestier"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-08-19"
+    titre: "Ce groupe veut réécrire le régime forestier"
     garder: "O"
     note: ""
 
@@ -92,6 +66,14 @@ articles:
     media: "La Presse"
     date: "2026-08-18"
     titre: "Séisme en Colombie | Les dégâts estimés à plus de 9,5 milliards de dollars"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est_2.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
     garder: "O"
     note: ""
 
@@ -606,6 +588,22 @@ articles:
     media: "La Presse"
     date: "2026-08-19"
     titre: "Sabotage du gazoduc Nord Stream | Un Ukrainien est arrêté en Croatie"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-08-19/sentiers-de-randonnee/est-ce-facile-ou-difficile.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Sentiers de randonnée | Est-ce facile ou difficile ?"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-19/crise-de-l-itinerance/longueuil-exproprie-sept-immeubles-pour-preserver-une-maison-de-chambres.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Crise de l’itinérance | Longueuil exproprie sept immeubles pour préserver une maison de chambres"
     garder: "N"
     note: ""
 
