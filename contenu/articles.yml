@@ -20,6 +20,32 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/europe/2026-08-19/sabotage-du-gazoduc-nord-stream/un-ukrainien-est-arrete-en-croatie.php"
+    fiche: "07"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Sabotage du gazoduc Nord Stream | Un Ukrainien est arrêté en Croatie"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-19/colombie-britannique/un-incendie-de-foret-pres-de-summerland-demeure-actif.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Colombie-Britannique | Un incendie de forêt près de Summerland demeure actif"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-19/ruelles-vertes/lisez-les-articles-de-la-serie.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Ruelles vertes | Lisez les articles de la série"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276044/hydro-quebec-factures-electricite-autochtones"
     fiche: "12"
