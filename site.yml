@@ -3,7 +3,12 @@ sous_titre: Site pédagogique de Mathieu Mercier
 description: >-
   Ressources d'histoire et de géographie pour le premier cycle du secondaire,
   au Centre de services scolaire de Kamouraska - Rivière-du-Loup.
-url: https://muniverssocial.ca
+# L'hôte réellement servi par GitHub Pages. Le domaine nu redirige vers
+# celui-ci. Cette valeur alimente à elle seule la balise <link rel="canonical">
+# de chaque page, chaque <loc> du sitemap et la ligne Sitemap du robots.txt :
+# si elle ne correspond pas à l'adresse qui répond en 200 sans redirection,
+# Google écarte toutes les canoniques du site d'un coup.
+url: https://www.muniverssocial.ca
 courriel: mmercier@csskamloup.gouv.qc.ca
 
 # Le dossier de sortie. Il est régénéré à chaque construction.

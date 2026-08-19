@@ -574,6 +574,146 @@ def controler_marqueurs() -> list[str]:
     return soucis
 
 
+def adresse_attendue(page: Path) -> str:
+    """L'adresse canonique que devrait porter une page construite de docs/.
+
+    docs/ est la racine du site publié, donc le chemin du fichier est déjà
+    l'adresse, à ceci près qu'un index.html ne s'écrit jamais : il se dit par
+    le dossier qui le contient, barre oblique finale comprise.
+    """
+    relatif = page.relative_to(DOCS).as_posix()
+    if relatif == "index.html":
+        return "/"
+    if relatif.endswith("/index.html"):
+        return "/" + relatif[: -len("index.html")]
+    return "/" + relatif
+
+
+def sonder_hote(racine: str) -> tuple[list[str], str]:
+    """Vérifie que l'hôte déclaré répond en 200, sans redirection.
+
+    C'est le seul contrôle qui aurait attrapé la panne d'août 2026, et c'est
+    pour ça qu'il tourne par défaut. Les canoniques, le sitemap et le
+    robots.txt sortent tous de la même valeur de site.yml : ils sont donc
+    toujours cohérents entre eux, y compris quand cette valeur est fausse. La
+    seule façon de savoir qu'un hôte est le bon est de le lui demander.
+
+    Un hôte qui redirige est une faute. Un poste sans Internet ne l'est pas :
+    le contrôle est alors sauté, et il le dit.
+
+    Renvoie les problèmes trouvés et une phrase décrivant ce qui a été fait.
+    """
+    import urllib.error
+    import urllib.request
+
+    class SansSuivi(urllib.request.HTTPRedirectHandler):
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            raise urllib.error.HTTPError(req.full_url, code,
+                                         f"redirige vers {newurl}", headers, fp)
+
+    ouvreur = urllib.request.build_opener(SansSuivi)
+    try:
+        with ouvreur.open(racine + "/", timeout=10) as reponse:
+            if reponse.status != 200:
+                return ([f"{racine}/ répond {reponse.status} au lieu de 200"],
+                        "hôte interrogé")
+            return [], f"{racine}/ répond 200 sans redirection"
+    except urllib.error.HTTPError as erreur:
+        if 300 <= erreur.code < 400:
+            return ([f"{racine}/ redirige ({erreur.code}, {erreur.reason}). "
+                     f"Google ignore une canonique qui redirige : mets dans "
+                     f"site.yml l'hôte qui répond, ou change l'hébergement "
+                     f"pour qu'il serve celui-ci."], "hôte interrogé")
+        return ([f"{racine}/ répond {erreur.code}"], "hôte interrogé")
+    except OSError as erreur:
+        # Ni DNS ni route : le poste est hors ligne, ce n'est pas une faute
+        # du site. On le signale sans faire échouer la vérification.
+        return [], f"hôte non interrogé, {racine} injoignable ({erreur})"
+
+
+def controler_canonique(reseau: bool = True) -> tuple[list[str], str]:
+    """L'adresse canonique de chaque page doit désigner la page elle-même.
+
+    Ce contrôle existe parce que l'erreur est invisible à l'oeil et coûte
+    l'indexation entière du site. En août 2026, site.yml déclarait le domaine
+    nu alors que GitHub Pages sert le www : les trente-trois pages annonçaient
+    donc une canonique qui redirige, Google les a toutes écartées et deux
+    pages seulement restaient dans l'index.
+
+    Quatre vérifications hors ligne :
+
+      1. l'hôte de site.yml est absolu, en https, sans barre finale
+      2. chaque page construite porte une canonique unique, sur cet hôte, et
+         qui correspond à son propre chemin dans docs/
+      3. le sitemap liste exactement les pages construites, dans la même forme
+      4. le robots.txt renvoie au sitemap du même hôte
+
+    Puis, sauf avec --hors-ligne, l'hôte est interrogé. Ce dernier point est
+    le seul qui aurait vu la panne : les quatre premiers ne prouvent que la
+    cohérence interne, et le site était cohérent tout en étant faux.
+    """
+    soucis = []
+    if not DOCS.exists():
+        return ["docs/ absent : lance build.py avant le vérificateur"], ""
+
+    config = yaml.safe_load((RACINE / "site.yml").read_text(encoding="utf-8"))
+    racine_url = (config.get("url") or "").strip()
+    if not racine_url.startswith("https://"):
+        return [f"site.yml : url doit commencer par https:// "
+                f"(lu : {racine_url!r})"], ""
+    if racine_url.endswith("/"):
+        soucis.append("site.yml : url ne doit pas finir par une barre oblique")
+        racine_url = racine_url.rstrip("/")
+
+    # Les interfaces d'administration sont copiées telles quelles, portent
+    # noindex et n'ont pas de canonique. Elles sont hors du contrôle.
+    pages = [p for p in sorted(DOCS.rglob("*.html"))
+             if not p.name.startswith("admin-")]
+    attendues = []
+    for page in pages:
+        court = page.relative_to(DOCS).as_posix()
+        attendue = adresse_attendue(page)
+        attendues.append(attendue)
+        trouvees = re.findall(r'<link rel="canonical" href="([^"]*)"',
+                              page.read_text(encoding="utf-8"))
+        if len(trouvees) != 1:
+            soucis.append(f"{court} : {len(trouvees)} balise(s) canonique, "
+                          f"il en faut exactement une")
+            continue
+        voulue = racine_url + attendue
+        if trouvees[0] != voulue:
+            soucis.append(f"{court} : canonique {trouvees[0]}, attendu {voulue}")
+
+    sitemap = DOCS / "sitemap.xml"
+    if not sitemap.exists():
+        soucis.append("docs/sitemap.xml absent")
+    else:
+        locs = re.findall(r"<loc>([^<]*)</loc>",
+                          sitemap.read_text(encoding="utf-8"))
+        voulues = [racine_url + a for a in attendues]
+        for surplus in sorted(set(locs) - set(voulues)):
+            soucis.append(f"sitemap.xml : {surplus} ne correspond à aucune "
+                          f"page construite")
+        for absente in sorted(set(voulues) - set(locs)):
+            soucis.append(f"sitemap.xml : {absente} construite mais absente")
+
+    robots = DOCS / "robots.txt"
+    if not robots.exists():
+        soucis.append("docs/robots.txt absent")
+    else:
+        texte = robots.read_text(encoding="utf-8")
+        voulu = f"Sitemap: {racine_url}/sitemap.xml"
+        if voulu not in texte:
+            soucis.append(f"robots.txt : ligne « {voulu} » absente")
+
+    if soucis:
+        return soucis, "hôte non interrogé, corrige d'abord les écarts ci-dessus"
+    if not reseau:
+        return soucis, "hôte non interrogé (--hors-ligne)"
+    trouves, resume = sonder_hote(racine_url)
+    return trouves, resume
+
+
 def controler_construit() -> list[str]:
     """Contrôles structurels sur les pages construites de docs/.
 
@@ -599,6 +739,10 @@ def controler_construit() -> list[str]:
 
 
 def main() -> int:
+    # --reseau ajoute la seule vérification qui sort du poste : interroger
+    # l'hôte déclaré dans site.yml. Sans le drapeau, tout reste hors ligne.
+    reseau = "--hors-ligne" not in sys.argv
+
     print("PALETTE")
     soucis = controler_palette()
 
@@ -664,6 +808,16 @@ def main() -> int:
     if not conventions:
         print("    ok   conventions d'écriture respectées")
     soucis += conventions
+
+    print("\nCANONIQUES")
+    canoniques, resume = controler_canonique(reseau)
+    for c in canoniques:
+        print(f"    {c}")
+    if not canoniques:
+        print(f"    ok   pages, sitemap et robots.txt sur le même hôte")
+    if resume:
+        print(f"         {resume}")
+    soucis += canoniques
 
     print("\nCONSTRUIT")
     construit = controler_construit() + controler_marqueurs()
