@@ -20,57 +20,15 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276044/hydro-quebec-factures-electricite-autochtones"
     fiche: "12"
     media: "Radio-Canada"
     date: "2026-08-19"
     titre: "Factures impayées par des Autochtones : Québec veut avoir son mot à dire"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-19/ruelles-vertes/la-doyenne-sur-le-plateau.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-19"
-    titre: "Ruelles vertes | La doyenne sur le Plateau"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-18/seisme-en-colombie/les-degats-estimes-a-plus-de-9-5-milliards-de-dollars.php"
-    fiche: "04"
-    media: "La Presse"
-    date: "2026-08-18"
-    titre: "Séisme en Colombie | Les dégâts estimés à plus de 9,5 milliards de dollars"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/d-est-en-est/segments/rattrapage/2453781/baie-comeau-marinvest-energy-et-nation-atikamekw-lancent-un-projet-gnl"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-08-17"
-    titre: "Baie-Comeau : Marinvest Energy et la Nation atikamekw lancent un projet de GNL"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2451726/premiere-nation-wolastoqiyik-wahsipekuk-en-mode-pow-wow"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-08-14"
-    titre: "Célébrations dans la Première Nation Wolastoqiyik Wahsipekuk"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2275021/travaux-sentier-national-randonnee-basques"
-    fiche: "05"
-    media: "Radio-Canada"
-    date: "2026-08-12"
-    titre: "Le Sentier national de randonnée rénové dans les Basques"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/national/2026-08-18/incendie-de-foret-en-colombie-britannique/au-moins-150-batiments-endommages-ou-detruits-par-les-flammes-a-summerland.php"
     fiche: "06"
     media: "La Presse"
@@ -87,11 +45,27 @@ articles:
     garder: "O"
     note: ""
 
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-18/seisme-en-colombie/les-degats-estimes-a-plus-de-9-5-milliards-de-dollars.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-18"
+    titre: "Séisme en Colombie | Les dégâts estimés à plus de 9,5 milliards de dollars"
+    garder: "O"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/transport-collectif/montreal-veut-relancer-le-rem-de-l-est.php"
     fiche: "02"
     media: "La Presse"
     date: "2026-08-18"
     titre: "Transport collectif | Montréal veut relancer le REM de l’Est"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/d-est-en-est/segments/rattrapage/2453781/baie-comeau-marinvest-energy-et-nation-atikamekw-lancent-un-projet-gnl"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-17"
+    titre: "Baie-Comeau : Marinvest Energy et la Nation atikamekw lancent un projet de GNL"
     garder: "O"
     note: ""
 
@@ -215,6 +189,14 @@ articles:
     garder: "O"
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2451726/premiere-nation-wolastoqiyik-wahsipekuk-en-mode-pow-wow"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-14"
+    titre: "Célébrations dans la Première Nation Wolastoqiyik Wahsipekuk"
+    garder: "O"
+    note: ""
+
   - adresse: "https://www.journaldemontreal.com/2026/08/14/en-images--le-midwest-americain-ravage-par-des-inondations-provoquant-evacuations-et-etats-dalerte"
     fiche: "04"
     media: "Journal de Montréal"
@@ -236,6 +218,14 @@ articles:
     media: "La Presse"
     date: "2026-08-14"
     titre: "Indonésie | Un puissant séisme fait au moins un mort"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2275021/travaux-sentier-national-randonnee-basques"
+    fiche: "05"
+    media: "Radio-Canada"
+    date: "2026-08-12"
+    titre: "Le Sentier national de randonnée rénové dans les Basques"
     garder: "O"
     note: ""
 
@@ -569,6 +559,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-19/ruelles-vertes/la-doyenne-sur-le-plateau.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-19"
+    titre: "Ruelles vertes | La doyenne sur le Plateau"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-18/vieux-port-de-montreal/une-privatisation-denoncee.php"
     fiche: "09"
     media: "La Presse"
