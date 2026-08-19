@@ -84,6 +84,39 @@ Les 25 pages en « Détectée, actuellement non indexée » ont été découvert
 18 août et n'ont jamais été explorées. Une partie de ce délai tient à la
 jeunesse du site et se résorbera d'elle-même.
 
+## Correctif 02 : la sonde réseau accusait le site à tort
+
+Première exécution chez Mathieu :
+
+```
+CANONIQUES
+    https://www.muniverssocial.ca/ répond 403
+         hôte interrogé
+```
+
+Faute de l'outil, pas du site. Cloudflare sert de relais devant GitHub Pages
+et refuse l'agent par défaut de Python, `Python-urllib/3.x`. Le 403 venait du
+filtre anti-robots.
+
+Deux corrections dans `sonder_hote` :
+
+1. La requête se présente désormais avec un User-Agent de navigateur, un
+   `Accept` et un `Accept-Language`.
+2. Surtout, le contrôle ne juge plus le code de réponse mais la redirection,
+   qui est la seule chose qui nous occupait depuis le début. Un 403, un 429 ou
+   un 503 prouve que l'hôte a répondu de lui-même : il ne redirige donc pas.
+   Ce n'est plus une faute, seulement une note. Un 3xx reste une faute, un 404
+   ou un 500 sur la page d'accueil aussi.
+
+Ajout au passage : l'autre écriture du domaine est éprouvée elle aussi. Si
+`https://muniverssocial.ca/` répondait 200 au lieu de rediriger, les deux
+adresses serviraient le site en parallèle et Google verrait deux sites
+identiques. Ce contrôle vaut aussi comme preuve que `site.yml` nomme le bon
+des deux hôtes.
+
+Essais menés : le 403 ne lève plus de faute, un vrai 301 en lève une, un hôte
+injoignable fait sauter le contrôle sans échec.
+
 ## Un point à trancher plus tard
 
 Le commentaire d'origine de `base.html` disait « sans www » : le domaine nu

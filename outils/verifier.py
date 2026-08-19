@@ -589,19 +589,17 @@ def adresse_attendue(page: Path) -> str:
     return "/" + relatif
 
 
-def sonder_hote(racine: str) -> tuple[list[str], str]:
-    """Vérifie que l'hôte déclaré répond en 200, sans redirection.
+def interroger(adresse: str) -> tuple[int | None, str]:
+    """Demande une adresse sans suivre les redirections.
 
-    C'est le seul contrôle qui aurait attrapé la panne d'août 2026, et c'est
-    pour ça qu'il tourne par défaut. Les canoniques, le sitemap et le
-    robots.txt sortent tous de la même valeur de site.yml : ils sont donc
-    toujours cohérents entre eux, y compris quand cette valeur est fausse. La
-    seule façon de savoir qu'un hôte est le bon est de le lui demander.
+    Renvoie le code de réponse et une description. Le code vaut None si
+    l'adresse est injoignable, ce qui veut dire poste hors ligne et non faute
+    du site.
 
-    Un hôte qui redirige est une faute. Un poste sans Internet ne l'est pas :
-    le contrôle est alors sauté, et il le dit.
-
-    Renvoie les problèmes trouvés et une phrase décrivant ce qui a été fait.
+    L'entête User-Agent n'est pas cosmétique : Cloudflare, qui sert de relais
+    devant GitHub Pages, refuse l'agent par défaut de Python et répond 403.
+    Sans cette ligne, le contrôle accusait le site d'une panne qui venait de
+    l'outil.
     """
     import urllib.error
     import urllib.request
@@ -611,24 +609,86 @@ def sonder_hote(racine: str) -> tuple[list[str], str]:
             raise urllib.error.HTTPError(req.full_url, code,
                                          f"redirige vers {newurl}", headers, fp)
 
-    ouvreur = urllib.request.build_opener(SansSuivi)
+    requete = urllib.request.Request(adresse, headers={
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/127.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+        "Accept-Language": "fr-CA,fr;q=0.9",
+    })
     try:
-        with ouvreur.open(racine + "/", timeout=10) as reponse:
-            if reponse.status != 200:
-                return ([f"{racine}/ répond {reponse.status} au lieu de 200"],
-                        "hôte interrogé")
-            return [], f"{racine}/ répond 200 sans redirection"
+        with urllib.request.build_opener(SansSuivi).open(requete, timeout=10) as r:
+            return r.status, f"répond {r.status}"
     except urllib.error.HTTPError as erreur:
-        if 300 <= erreur.code < 400:
-            return ([f"{racine}/ redirige ({erreur.code}, {erreur.reason}). "
-                     f"Google ignore une canonique qui redirige : mets dans "
-                     f"site.yml l'hôte qui répond, ou change l'hébergement "
-                     f"pour qu'il serve celui-ci."], "hôte interrogé")
-        return ([f"{racine}/ répond {erreur.code}"], "hôte interrogé")
+        return erreur.code, f"répond {erreur.code}, {erreur.reason}"
     except OSError as erreur:
-        # Ni DNS ni route : le poste est hors ligne, ce n'est pas une faute
-        # du site. On le signale sans faire échouer la vérification.
-        return [], f"hôte non interrogé, {racine} injoignable ({erreur})"
+        return None, f"injoignable ({erreur})"
+
+
+def autre_hote(racine: str) -> str:
+    """L'autre écriture du même domaine : avec www si sans, et inversement."""
+    if "://www." in racine:
+        return racine.replace("://www.", "://", 1)
+    protocole, _, domaine = racine.partition("://")
+    return f"{protocole}://www.{domaine}"
+
+
+def sonder_hote(racine: str) -> tuple[list[str], str]:
+    """Éprouve les deux écritures du domaine sur le réseau.
+
+    C'est le seul contrôle qui aurait attrapé la panne d'août 2026, et c'est
+    pour ça qu'il tourne par défaut. Les canoniques, le sitemap et le
+    robots.txt sortent tous de la même valeur de site.yml : ils sont donc
+    toujours cohérents entre eux, y compris quand cette valeur est fausse. La
+    seule façon de savoir qu'un hôte est le bon est de le lui demander.
+
+    Ce qui est jugé, c'est la redirection, pas le contenu :
+
+      - l'hôte déclaré redirige         faute, Google écarte les canoniques
+      - l'autre écriture ne redirige pas faute, deux sites identiques en ligne
+      - 403, 429 ou 503                 filtre anti-robots, pas une faute :
+                                        l'hôte a répondu lui-même, donc il ne
+                                        redirige pas, et c'est tout ce qu'on
+                                        lui demandait
+      - injoignable                     poste hors ligne, contrôle sauté
+
+    Renvoie les problèmes trouvés et une phrase décrivant ce qui a été fait.
+    """
+    # Codes d'un filtre anti-robots. Ils prouvent que l'hôte a répondu de
+    # lui-même, ce qui suffit : une redirection aurait donné un 3xx.
+    FILTRE = {403, 429, 503}
+
+    code, dit = interroger(racine + "/")
+    if code is None:
+        return [], f"hôte non interrogé, {racine} {dit}"
+
+    soucis = []
+    if 300 <= code < 400:
+        soucis.append(f"{racine}/ {dit}. Google ignore une canonique qui "
+                      f"redirige : mets dans site.yml l'hôte qui répond, ou "
+                      f"change l'hébergement pour qu'il serve celui-ci.")
+    elif not (200 <= code < 300 or code in FILTRE):
+        soucis.append(f"{racine}/ {dit}, la page d'accueil devrait répondre 200")
+
+    # L'autre écriture doit renvoyer vers celle-ci. Si elle sert le site elle
+    # aussi, les deux adresses existent en parallèle et Google voit deux sites
+    # identiques. Ce contrôle vaut aussi comme preuve que site.yml nomme le
+    # bon des deux hôtes.
+    jumeau = autre_hote(racine)
+    code_jumeau, dit_jumeau = interroger(jumeau + "/")
+    if code_jumeau is not None and 200 <= code_jumeau < 300:
+        soucis.append(f"{jumeau}/ {dit_jumeau} au lieu de rediriger vers "
+                      f"{racine}/. Les deux écritures servent le site : "
+                      f"choisis-en une et fais rediriger l'autre.")
+
+    if soucis:
+        return soucis, "hôte interrogé"
+    note = f"{racine}/ {dit} sans redirection"
+    if code in FILTRE:
+        note += " (filtre anti-robots, mais aucune redirection)"
+    if code_jumeau is not None:
+        note += f", {jumeau}/ {dit_jumeau}"
+    return [], note
 
 
 def controler_canonique(reseau: bool = True) -> tuple[list[str], str]:
