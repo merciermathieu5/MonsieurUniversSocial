@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/d-est-en-est/segments/rattrapage/2455757/projet-kino-aski-gnl-quelle-acceptabilite-pour-atikamekw"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-19"
+    titre: "Projet Kino Aski GNL : quelle acceptabilité pour les Atikamekw?"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/editoriaux/2026-08-20/gestion-de-l-offre/mettre-de-l-eau-dans-notre-lait-sans-nous-etouffer.php"
     fiche: "10"
