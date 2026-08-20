@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/editoriaux/2026-08-20/gestion-de-l-offre/mettre-de-l-eau-dans-notre-lait-sans-nous-etouffer.php"
     fiche: "10"
     media: "La Presse"
     date: "2026-08-20"
     titre: "Gestion de l’offre | Mettre de l’eau dans notre lait (sans nous étouffer)"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/europe/2026-08-20/tempete-mortelle-en-allemagne-et-incendies-de-foret-dans-les-balkans.php"
@@ -34,7 +34,15 @@ articles:
     media: "La Presse"
     date: "2026-08-20"
     titre: "Tempête mortelle en Allemagne et incendies de forêt dans les Balkans"
-    garder: ""
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2276044/hydro-quebec-factures-electricite-autochtones"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-19"
+    titre: "Factures impayées par des Autochtones : Québec veut avoir son mot à dire"
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/national/2026-08-19/incendies-de-foret-en-colombie-britannique/retour-doux-amer-pour-les-habitants-de-summerland.php"
@@ -42,16 +50,6 @@ articles:
     media: "La Presse"
     date: "2026-08-19"
     titre: "Incendies de forêt en Colombie-Britannique | Retour doux-amer pour les habitants de Summerland"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2276044/hydro-quebec-factures-electricite-autochtones"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-08-19"
-    titre: "Factures impayées par des Autochtones : Québec veut avoir son mot à dire"
     garder: "O"
     note: ""
 
