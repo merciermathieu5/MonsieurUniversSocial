@@ -20,57 +20,15 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2276432/casino-pabineau-poursuite-josh-baazov-enquete"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-08-21"
-    titre: "Casino : une Première Nation du Nouveau-Brunswick poursuivie par Josh Baazov"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/08/21/conditions-climatiques-extremes-voici-a-quoi-sattendre-du-phenomene-el-nino-dans-le-monde"
-    fiche: "11"
-    media: "Journal de Montréal"
-    date: "2026-08-21"
-    titre: "Conditions climatiques extrêmes: voici à quoi s’attendre du phénomène El Niño dans le monde"
-    garder: ""
-    note: ""
-
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/08/21/tornades-foudre-et-inondations-le-nord-est-americain-sous-les-assauts-meteorologiques"
     fiche: "04"
     media: "Journal de Montréal"
     date: "2026-08-21"
     titre: "EN IMAGES | Tornades, foudre et inondations: le nord-est américain frappé par des tempêtes violentes"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/international/2026-08-20/el-nino/le-canal-de-panama-reduit-le-passage-de-navires-face-a-la-baisse-des-precipitations.php"
-    fiche: "11"
-    media: "La Presse"
-    date: "2026-08-20"
-    titre: "El Niño | Le canal de Panama réduit le passage de navires face à la baisse des précipitations"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-20/transport-collectif/une-premiere-ligne-d-autobus-metropolitaine-voit-le-jour.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-20"
-    titre: "Transport collectif | Une première ligne d’autobus « métropolitaine » voit le jour"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/08/20/pont-champlain-autoroute-20-voici-les-entraves-a-eviter-ce-week-end-dans-la-region-de-montreal"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-08-20"
-    titre: "Pont Champlain, autoroute 20: voici les entraves à éviter ce week-end dans la région de Montréal"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/editoriaux/2026-08-20/gestion-de-l-offre/mettre-de-l-eau-dans-notre-lait-sans-nous-etouffer.php"
     fiche: "10"
     media: "La Presse"
@@ -84,6 +42,14 @@ articles:
     media: "La Presse"
     date: "2026-08-20"
     titre: "Tempête mortelle en Allemagne et incendies de forêt dans les Balkans"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-20/transport-collectif/une-premiere-ligne-d-autobus-metropolitaine-voit-le-jour.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-20"
+    titre: "Transport collectif | Une première ligne d’autobus « métropolitaine » voit le jour"
     garder: "O"
     note: ""
 
@@ -657,6 +623,38 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2276432/casino-pabineau-poursuite-josh-baazov-enquete"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-21"
+    titre: "Casino : une Première Nation du Nouveau-Brunswick poursuivie par Josh Baazov"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/21/conditions-climatiques-extremes-voici-a-quoi-sattendre-du-phenomene-el-nino-dans-le-monde"
+    fiche: "11"
+    media: "Journal de Montréal"
+    date: "2026-08-21"
+    titre: "Conditions climatiques extrêmes: voici à quoi s’attendre du phénomène El Niño dans le monde"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/2026-08-20/el-nino/le-canal-de-panama-reduit-le-passage-de-navires-face-a-la-baisse-des-precipitations.php"
+    fiche: "11"
+    media: "La Presse"
+    date: "2026-08-20"
+    titre: "El Niño | Le canal de Panama réduit le passage de navires face à la baisse des précipitations"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/20/pont-champlain-autoroute-20-voici-les-entraves-a-eviter-ce-week-end-dans-la-region-de-montreal"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-08-20"
+    titre: "Pont Champlain, autoroute 20: voici les entraves à éviter ce week-end dans la région de Montréal"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/international/europe/2026-08-19/sabotage-du-gazoduc-nord-stream/un-ukrainien-est-arrete-en-croatie.php"
     fiche: "07"
     media: "La Presse"
