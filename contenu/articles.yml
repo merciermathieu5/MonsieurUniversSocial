@@ -20,21 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276493/crique-a-david-lanaudiere-aire-protegee"
     fiche: "13"
     media: "Radio-Canada"
     date: "2026-08-23"
     titre: "Aires protégées : des projets, des consultations, mais peu de réponses"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-08-22/escapade-en-kayak/le-cote-zen-des-iles-de-sorel.php"
-    fiche: "05"
-    media: "La Presse"
-    date: "2026-08-22"
-    titre: "Escapade en kayak | Le côté zen des îles de Sorel"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10650381/grand-moncton-se-prepare-a-faire-face-aux-inondations"
@@ -42,19 +34,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-22"
     titre: "Le Grand Moncton se prépare à faire face aux inondations"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.journaldemontreal.com/2026/08/22/montreal-la-metropole-canadienne-ou-les-gens-sont-le-plus-heureux"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-08-22"
-    titre: "Montréal, la métropole canadienne où les gens sont les plus heureux"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/08/21/tornades-foudre-et-inondations-le-nord-est-americain-sous-les-assauts-meteorologiques"
     fiche: "04"
     media: "Journal de Montréal"
@@ -657,6 +639,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-08-22/escapade-en-kayak/le-cote-zen-des-iles-de-sorel.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-08-22"
+    titre: "Escapade en kayak | Le côté zen des îles de Sorel"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/22/montreal-la-metropole-canadienne-ou-les-gens-sont-le-plus-heureux"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-08-22"
+    titre: "Montréal, la métropole canadienne où les gens sont les plus heureux"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276432/casino-pabineau-poursuite-josh-baazov-enquete"
     fiche: "12"
     media: "Radio-Canada"
