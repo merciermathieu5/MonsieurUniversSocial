@@ -20,6 +20,32 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2277084/petroglyphes-saint-victor-histoire-autochtone"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-23"
+    titre: "Des recherches éclairent l’histoire d’un site rupestre autochtone millénaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2277089/ukraine-zelensky-rejet-elections"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-23"
+    titre: "Ukraine : Zelensky rejette des élections, un « tsunami qui fracturerait » le pays"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/23/seisme-de-magnitude-59-pres-de-tokyo-des-dizaines-de-blesses"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-23"
+    titre: "Séisme de magnitude 5,9 près de Tokyo: des dizaines de blessés"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276493/crique-a-david-lanaudiere-aire-protegee"
     fiche: "13"
