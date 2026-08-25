@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/etats-unis/2026-08-25/nevada/les-pompiers-progressent-dans-la-lutte-contre-un-incendie-de-foret.php"
     fiche: "06"
     media: "La Presse"
     date: "2026-08-25"
     titre: "Nevada | Les pompiers progressent dans la lutte contre un incendie de forêt"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/tout-un-matin/segments/rattrapage/2459609/nombre-seismes-sur-terre-decryptage-avec-hugo-lavoie"
@@ -34,15 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-25"
     titre: "Est-ce qu’il y a de plus en plus de séismes sur terre?"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/2026-08-25/crise-de-l-itinerance/a-la-rue-pour-la-premiere-fois-a-65-70-75-ans.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-25"
-    titre: "Crise de l’itinérance | À la rue pour la première fois à 65, 70, 75 ans"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2277255/feux-foret-premieres-nations-prevention-investissement-politique"
@@ -50,19 +42,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-24"
     titre: "Les Premières Nations prises au piège lors des saisons des feux de forêt"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-24/elections-provinciales/20-maires-reclament-un-reequilibrage-en-transport-collectif.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-24"
-    titre: "Élections provinciales | 20 maires réclament un « rééquilibrage » en transport collectif"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2276493/crique-a-david-lanaudiere-aire-protegee"
     fiche: "13"
     media: "Radio-Canada"
@@ -697,6 +679,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-25/crise-de-l-itinerance/a-la-rue-pour-la-premiere-fois-a-65-70-75-ans.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-25"
+    titre: "Crise de l’itinérance | À la rue pour la première fois à 65, 70, 75 ans"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-24/elections-provinciales/20-maires-reclament-un-reequilibrage-en-transport-collectif.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-24"
+    titre: "Élections provinciales | 20 maires réclament un « rééquilibrage » en transport collectif"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2277089/ukraine-zelensky-rejet-elections"
     fiche: "04"
     media: "Radio-Canada"
