@@ -20,6 +20,40 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-26/secheresse-extreme/le-panama-et-le-salvador-sonnent-l-alerte-face-a-el-nino.php"
+    fiche: "11"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Sécheresse extrême | Le Panama et le Salvador sonnent l’alerte face à El Niño"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2277726/panama-salvador-el-nino-etat-urgence"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-08-26"
+    titre: "Le Panama et le Salvador sonnent l’alerte face à El Niño"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-26/transports-en-direct/fermeture-de-deux-voies-sur-trois-sur-l-autoroute-40-est-a-repentigny.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Transports en direct | Fermeture de deux voies sur trois sur l’autoroute 40 est à Repentigny"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2277616/ecole-mont-saint-louis-parc-bic"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-08-25"
+    titre: "L’école en plein air au parc national du Bic"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/etats-unis/2026-08-25/nevada/les-pompiers-progressent-dans-la-lutte-contre-un-incendie-de-foret.php"
     fiche: "06"
