@@ -20,49 +20,15 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2460769/actualite-en-environnement-avec-david-remillard"
     fiche: "13"
     media: "Radio-Canada"
     date: "2026-08-26"
     titre: "Cible de 30 % d’aires protégées : le Québec réussira ?"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/international/moyen-orient/2026-08-26/liban/israel-accuse-d-incendier-des-terres-agricoles-et-des-forets.php"
-    fiche: "10"
-    media: "La Presse"
-    date: "2026-08-26"
-    titre: "Liban | Israël accusé d’incendier des terres agricoles et des forêts"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-26/oklahoma/l-aluminerie-voulue-par-trump-contestee-par-des-maga.php"
-    fiche: "09"
-    media: "La Presse"
-    date: "2026-08-26"
-    titre: "Oklahoma | L’aluminerie voulue par Trump contestée par des MAGA"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-26/ruelles-vertes/la-ruelle-de-steven-guilbeault.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-26"
-    titre: "Ruelles vertes | La ruelle de Steven Guilbeault"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/08/26/montreal-lautoroute-decarie-fermee-en-direction-nord-durant-le-week-end"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-08-26"
-    titre: "Montréal: l’autoroute Décarie fermée en direction nord durant le week-end"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/amerique-latine/2026-08-26/secheresse-extreme/le-panama-et-le-salvador-sonnent-l-alerte-face-a-el-nino.php"
     fiche: "11"
     media: "La Presse"
@@ -737,6 +703,38 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/international/moyen-orient/2026-08-26/liban/israel-accuse-d-incendier-des-terres-agricoles-et-des-forets.php"
+    fiche: "10"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Liban | Israël accusé d’incendier des terres agricoles et des forêts"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-08-26/oklahoma/l-aluminerie-voulue-par-trump-contestee-par-des-maga.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Oklahoma | L’aluminerie voulue par Trump contestée par des MAGA"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-26/ruelles-vertes/la-ruelle-de-steven-guilbeault.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Ruelles vertes | La ruelle de Steven Guilbeault"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/26/montreal-lautoroute-decarie-fermee-en-direction-nord-durant-le-week-end"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-08-26"
+    titre: "Montréal: l’autoroute Décarie fermée en direction nord durant le week-end"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/2026-08-26/transports-en-direct/fermeture-de-deux-voies-sur-trois-sur-l-autoroute-40-est-a-repentigny.php"
     fiche: "02"
     media: "La Presse"
