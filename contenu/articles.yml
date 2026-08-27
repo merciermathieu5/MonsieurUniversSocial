@@ -20,6 +20,72 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2277973/statut-autochtone-gespeg-indien-gaspesie"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-08-27"
+    titre: "Reconnaissance autochtone : la lenteur administrative fait réagir en Gaspésie"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-27/meteo/orages-violents-et-grele-en-vue-sur-plusieurs-secteurs-du-quebec.php"
+    fiche: "11"
+    media: "La Presse"
+    date: "2026-08-27"
+    titre: "Météo | Orages violents et grêle en vue sur plusieurs secteurs du Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/tout-un-matin/segments/rattrapage/2461782/situation-au-nepal-entrevue-avec-yannick-hemond"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-27"
+    titre: "Népal : comment expliquer que l’effondrement d’un glacier cause un tsunami de boue?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/26/voici-ce-qui-aurait-pu-causer-les-inondations-devastatrices-au-nepal"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-26"
+    titre: "Voici ce qui a causé les inondations dévastatrices au Népal"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/26/des-inondations-massives-dans-le-nord-du-nepal-ont-fait-au-moins-huit-morts"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-26"
+    titre: "Inondations massives au Népal: au moins 160 morts et des centaines de touristes disparus"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/26/a-48-h-detre-dans-les-inondations-un-groupe-de-quebecois-au-nepal-la-echappe-belle"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-08-26"
+    titre: "À 48 heures d’être dans les inondations: un groupe de Québécois au Népal l’a échappé belle"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-08-26/ruelles-vertes/la-ruelle-de-steven-guilbeault.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-26"
+    titre: "Ruelles vertes | La ruelle de Steven Guilbeault"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/26/trou-sur-lautoroute-40-a-saint-cuthbert-le-mtq-vise-un-retour-a-la-normale-avant-la-fete-du-travail"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-08-26"
+    titre: "Trou sur l’autoroute 40 à Saint-Cuthbert: le MTQ vise un retour à la normale avant la fête du Travail"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2460769/actualite-en-environnement-avec-david-remillard"
     fiche: "13"
