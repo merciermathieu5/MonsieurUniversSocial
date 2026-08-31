@@ -20,6 +20,48 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-31/indonesie/le-mont-sinabung-entre-en-eruption.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-08-31"
+    titre: "Indonésie | Le mont Sinabung entre en éruption"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-08-31/quand-la-justice-ontarienne-refuse-de-se-meler-du-debat-sur-les-pistes-cyclables.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-31"
+    titre: "Quand la justice ontarienne refuse de se mêler du débat sur les pistes cyclables"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/08/29/el-nino-record--les-annees-2026-et-2027-pourraient-etre-les-plus-chaudes-de-lhistoire"
+    fiche: "11"
+    media: "Journal de Montréal"
+    date: "2026-08-30"
+    titre: "El Niño pourrait propulser 2026 et 2027 comme les années les plus chaudes de l’histoire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2279056/camping-mont-saint-pierre-ouverture"
+    fiche: "05"
+    media: "Radio-Canada"
+    date: "2026-08-30"
+    titre: "Le long chantier du camping de Mont-Saint-Pierre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/national/2026-08-28/les-dirigeants-autochtones-condamnent-la-decision-de-trump-de-renommer-le-lac-ontario.php"
+    fiche: "12"
+    media: "La Presse"
+    date: "2026-08-28"
+    titre: "Les dirigeants autochtones condamnent la décision de Trump de renommer le lac Ontario"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10747243/plantes-medicinales-un-savoir-autochtone-a-preserver"
     fiche: "12"
