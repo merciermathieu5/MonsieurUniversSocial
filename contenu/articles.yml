@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10747243/plantes-medicinales-un-savoir-autochtone-a-preserver"
     fiche: "12"
     media: "Radio-Canada"
     date: "2026-08-28"
     titre: "Les plantes médicinales : un savoir autochtone à préserver"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2277686/agriculture-terres-friche-mrc-matapedia-releve"
@@ -34,7 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-28"
     titre: "Des terres en friche remises en culture dans La Matapédia"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-28/crue-dans-l-himalaya/les-secours-sous-la-menace-d-autres-inondations-pres-de-600-morts.php"
@@ -42,19 +42,9 @@ articles:
     media: "La Presse"
     date: "2026-08-28"
     titre: "Crue dans l’Himalaya | Les secours sous la menace d’autres inondations, près de 600 morts"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://ici.radio-canada.ca/info/long-format/2277936/puerto-rico-crise-eau-penurie-secheresse-bad-bunny"
-    fiche: "04"
-    media: "Radio-Canada"
-    date: "2026-08-28"
-    titre: "À Puerto Rico, « pas besoin d’un ouragan pour vivre une nouvelle crise »"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2277973/statut-autochtone-gespeg-indien-gaspesie"
     fiche: "12"
     media: "Radio-Canada"
@@ -777,6 +767,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/info/long-format/2277936/puerto-rico-crise-eau-penurie-secheresse-bad-bunny"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-08-28"
+    titre: "À Puerto Rico, « pas besoin d’un ouragan pour vivre une nouvelle crise »"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/2026-08-27/meteo/orages-violents-et-grele-en-vue-sur-plusieurs-secteurs-du-quebec.php"
     fiche: "11"
     media: "La Presse"
