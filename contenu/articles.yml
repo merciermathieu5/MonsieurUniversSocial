@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2277478/cibles-aires-protegee-quebec-2030"
     fiche: "13"
     media: "Radio-Canada"
     date: "2026-09-01"
     titre: "Québec va ignorer les conseils d’un organisme partenaire sur les aires protégées"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-09-01/systemes-d-energie-solaire/hydro-quebec-finance-l-achat-d-equipement-chinois-banni-en-europe.php"
@@ -34,31 +34,15 @@ articles:
     media: "La Presse"
     date: "2026-09-01"
     titre: "Systèmes d’énergie solaire | Hydro-Québec finance l’achat d’équipement chinois banni en Europe"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.journaldemontreal.com/2026/09/01/un-recul-dau-moins-20-ans-le-transport-adapte-en-peril-dans-le-grand-montreal"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-01"
-    titre: "«Un recul d'au moins 20 ans»: le transport adapté en péril dans le grand Montréal"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/01/entraves-routieres-circulation-a-contresens-sur-lautoroute-20-durant-le-week-end"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-01"
-    titre: "Entraves routières: circulation à contresens sur l’autoroute 20 durant le week-end"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2279257/rosario-poirier-fermeture-industrie-forestiere-gaspesie"
-    fiche: "06"
-    media: "Radio-Canada"
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-31/indonesie/le-mont-sinabung-entre-en-eruption.php"
+    fiche: "04"
+    media: "La Presse"
     date: "2026-08-31"
-    titre: "La scierie Rosario Poirier craint pour sa survie"
-    garder: ""
+    titre: "Indonésie | Le mont Sinabung entre en éruption"
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10749203/patrimoine-bati-au-coeur-pleureuses"
@@ -66,24 +50,6 @@ articles:
     media: "Radio-Canada"
     date: "2026-08-31"
     titre: "Le patrimoine bâti au cœur de « Pleureuses »"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-31/entre-beloeil-et-mont-saint-hilaire/du-trafic-a-prevoir-sur-l-autoroute-20-du-4-au-7-septembre.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-08-31"
-    titre: "Entre Belœil et Mont-Saint-Hilaire | Du trafic à prévoir sur l’autoroute 20 du 4 au 7 septembre"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-08-31/indonesie/le-mont-sinabung-entre-en-eruption.php"
-    fiche: "04"
-    media: "La Presse"
-    date: "2026-08-31"
-    titre: "Indonésie | Le mont Sinabung entre en éruption"
     garder: "O"
     note: ""
 
@@ -841,6 +807,38 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/09/01/un-recul-dau-moins-20-ans-le-transport-adapte-en-peril-dans-le-grand-montreal"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-01"
+    titre: "«Un recul d'au moins 20 ans»: le transport adapté en péril dans le grand Montréal"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/01/entraves-routieres-circulation-a-contresens-sur-lautoroute-20-durant-le-week-end"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-01"
+    titre: "Entraves routières: circulation à contresens sur l’autoroute 20 durant le week-end"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2279257/rosario-poirier-fermeture-industrie-forestiere-gaspesie"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-08-31"
+    titre: "La scierie Rosario Poirier craint pour sa survie"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-08-31/entre-beloeil-et-mont-saint-hilaire/du-trafic-a-prevoir-sur-l-autoroute-20-du-4-au-7-septembre.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-08-31"
+    titre: "Entre Belœil et Mont-Saint-Hilaire | Du trafic à prévoir sur l’autoroute 20 du 4 au 7 septembre"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/2026-08-31/quand-la-justice-ontarienne-refuse-de-se-meler-du-debat-sur-les-pistes-cyclables.php"
     fiche: "02"
     media: "La Presse"
