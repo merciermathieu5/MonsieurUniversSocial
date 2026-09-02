@@ -20,41 +20,15 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2279668/3e-lien-unesco-impacts-projet"
     fiche: "03"
     media: "Radio-Canada"
     date: "2026-09-02"
     titre: "L’UNESCO n’a pas été notifiée des impacts du projet de 3e lien"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-09-01/agrandissement-en-vue-pour-le-refuge-faunique-de-la-riviere-des-mille-iles.php"
-    fiche: "13"
-    media: "La Presse"
-    date: "2026-09-01"
-    titre: "Agrandissement en vue pour le refuge faunique de la Rivière-des-Mille-Îles"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2465730/chronique-ocean-avec-lyne-morissette"
-    fiche: "09"
-    media: "Radio-Canada"
-    date: "2026-09-01"
-    titre: "Les Grands Lacs et leurs noms"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/plein-phare/segments/rattrapage/2466360/inquietude-pour-administrateurs-scierie-rosario-poirier"
-    fiche: "06"
-    media: "Radio-Canada"
-    date: "2026-09-01"
-    titre: "Inquiétude pour les administrateurs de la scierie Rosario Poirier"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2277478/cibles-aires-protegee-quebec-2030"
     fiche: "13"
     media: "Radio-Canada"
@@ -63,11 +37,27 @@ articles:
     garder: "O"
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2465730/chronique-ocean-avec-lyne-morissette"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-09-01"
+    titre: "Les Grands Lacs et leurs noms"
+    garder: "O"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-09-01/systemes-d-energie-solaire/hydro-quebec-finance-l-achat-d-equipement-chinois-banni-en-europe.php"
     fiche: "07"
     media: "La Presse"
     date: "2026-09-01"
     titre: "Systèmes d’énergie solaire | Hydro-Québec finance l’achat d’équipement chinois banni en Europe"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/plein-phare/segments/rattrapage/2466360/inquietude-pour-administrateurs-scierie-rosario-poirier"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-09-01"
+    titre: "Inquiétude pour les administrateurs de la scierie Rosario Poirier"
     garder: "O"
     note: ""
 
@@ -841,6 +831,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-09-01/agrandissement-en-vue-pour-le-refuge-faunique-de-la-riviere-des-mille-iles.php"
+    fiche: "13"
+    media: "La Presse"
+    date: "2026-09-01"
+    titre: "Agrandissement en vue pour le refuge faunique de la Rivière-des-Mille-Îles"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.journaldemontreal.com/2026/09/01/un-recul-dau-moins-20-ans-le-transport-adapte-en-peril-dans-le-grand-montreal"
     fiche: "02"
     media: "Journal de Montréal"
