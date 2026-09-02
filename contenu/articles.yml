@@ -20,24 +20,6 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-02/crise-de-l-itinerance/montreal-ira-en-cour-d-appel-pour-demanteler-un-campement-dans-le-mile-end.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-02"
-    titre: "Crise de l’itinérance | Montréal ira en Cour d’appel pour démanteler un campement dans le Mile End"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/01/preparation-du-tunnel-du-tramway-les-citoyens-apprehendent-les-impacts-pres-de-la-colline-parlementaire"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-01"
-    titre: "Tramway: c’est parti pour les entraves majeures sur René-Lévesque"
-    garder: ""
-    note: ""
-
-
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2279668/3e-lien-unesco-impacts-projet"
     fiche: "03"
@@ -76,6 +58,14 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-01"
     titre: "Inquiétude pour les administrateurs de la scierie Rosario Poirier"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/01/preparation-du-tunnel-du-tramway-les-citoyens-apprehendent-les-impacts-pres-de-la-colline-parlementaire"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-01"
+    titre: "Tramway: c’est parti pour les entraves majeures sur René-Lévesque"
     garder: "O"
     note: ""
 
@@ -849,6 +839,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-02/crise-de-l-itinerance/montreal-ira-en-cour-d-appel-pour-demanteler-un-campement-dans-le-mile-end.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-02"
+    titre: "Crise de l’itinérance | Montréal ira en Cour d’appel pour démanteler un campement dans le Mile End"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-09-01/agrandissement-en-vue-pour-le-refuge-faunique-de-la-riviere-des-mille-iles.php"
     fiche: "13"
     media: "La Presse"
