@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-02/crise-de-l-itinerance/montreal-ira-en-cour-d-appel-pour-demanteler-un-campement-dans-le-mile-end.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-02"
+    titre: "Crise de l’itinérance | Montréal ira en Cour d’appel pour démanteler un campement dans le Mile End"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/01/preparation-du-tunnel-du-tramway-les-citoyens-apprehendent-les-impacts-pres-de-la-colline-parlementaire"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-01"
+    titre: "Tramway: c’est parti pour les entraves majeures sur René-Lévesque"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2279668/3e-lien-unesco-impacts-projet"
     fiche: "03"
