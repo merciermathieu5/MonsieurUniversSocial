@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/2026-09-03/el-nino/trois-ouragans-en-meme-temps-dans-le-pacifique.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-03"
+    titre: "El Niño | Trois ouragans en même temps dans le Pacifique"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2280179/trois-cyclones-pacifique-el-nino"
     fiche: "11"
