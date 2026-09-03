@@ -20,6 +20,80 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/2026-09-03/ce-que-vous-avez-manque-cette-nuit/attaques-iraniennes-baleines-el-nino.php"
+    fiche: "11"
+    media: "La Presse"
+    date: "2026-09-03"
+    titre: "Ce que vous avez manqué cette nuit | Attaques iraniennes, baleines, El Niño"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2280179/trois-cyclones-pacifique-el-nino"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-09-03"
+    titre: "Trois cyclones en même temps dans le Pacifique, un phénomène rare favorisé par El Niño"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-09-03/ce-qu-on-suit-ce-jeudi/secteur-manufacturier-caucus-du-quebec-felix-auger-aliassime.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-09-03"
+    titre: "Ce qu’on suit ce jeudi | Secteur manufacturier, Caucus du Québec, Félix Auger-Aliassime"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-03/comme-au-saguenay-en-1996/la-maison-miraculee-qui-a-resiste-aux-inondations.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-03"
+    titre: "Comme au Saguenay en 1996 | La « maison miraculée » qui a résisté aux inondations"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/2026-09-03/crise-de-l-itinerance/un-projet-novateur-freine-par-la-campagne-electorale.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-03"
+    titre: "Crise de l’itinérance | Un projet novateur freiné par la campagne électorale"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2280211/toronto-tempete-electricite-arbres-routes"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-09-03"
+    titre: "Autoroute fermée, pannes de courant : Toronto se relève de la tempête"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/02/trois-cyclones-en-meme-temps-dans-le-pacifique-phenomene-rare-favorise-par-el-nino"
+    fiche: "11"
+    media: "Journal de Montréal"
+    date: "2026-09-02"
+    titre: "Trois cyclones en même temps dans le Pacifique, phénomène rare favorisé par El Niño"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-09-02/projet-phare-de-la-filiere-batterie/les-licenciements-s-accumulent-chez-nemaska-lithium.php"
+    fiche: "07"
+    media: "La Presse"
+    date: "2026-09-02"
+    titre: "Projet phare de la filière batterie | Les licenciements s’accumulent chez Nemaska Lithium"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2279949/unesco-quebec-patrimoine-mondial-3e-lien"
+    fiche: "03"
+    media: "Radio-Canada"
+    date: "2026-09-02"
+    titre: "« Impossible » de sacrifier le statut de l’UNESCO pour un 3e lien, dit Bruno Marchand"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2279668/3e-lien-unesco-impacts-projet"
     fiche: "03"
