@@ -21,6 +21,14 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-09-08/hawaii/l-ouragan-lowell-fait-planer-une-menace-de-tornades.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-08"
+    titre: "Hawaii | L’ouragan Lowell fait planer une menace de tornades"
+    garder: ""
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10753991/inondations-etat-urgence-en-nouvelle-ecosse"
     fiche: "04"
     media: "Radio-Canada"
