@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/etats-unis/2026-09-08/hawaii/l-ouragan-lowell-fait-planer-une-menace-de-tornades.php"
     fiche: "04"
     media: "La Presse"
     date: "2026-09-08"
     titre: "Hawaii | L’ouragan Lowell fait planer une menace de tornades"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10753991/inondations-etat-urgence-en-nouvelle-ecosse"
@@ -34,7 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-07"
     titre: "Inondations: état d'urgence en Nouvelle-Écosse"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/07/images--eruption-volcanique-en-indonesie-des-dizaines-de-milliers-de-voyageurs-bloques"
@@ -42,7 +42,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-07"
     titre: "IMAGES | Éruption volcanique en Indonésie: des dizaines de milliers de voyageurs bloqués"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/06/indonesie-huit-aeroports-fermes-apres-une-eruption-volcanique-150000passagers-bloques"
@@ -50,7 +50,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-06"
     titre: "Indonésie: huit aéroports fermés après une éruption volcanique, 150 000 passagers bloqués"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/05/vestiges-de-la-derniere-glaciation-il-y-a-12-000-ans-les-grands-lacs-ne-sont-pas-a-vendre"
@@ -58,7 +58,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-05"
     titre: "Vestiges de la dernière glaciation il y a 12 000 ans, les Grands Lacs ne sont pas à vendre"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/05/indonesie-laeroport-international-de-jakarta-suspend-ses-operations-en-raison-dune-eruption-volcanique"
@@ -66,7 +66,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-05"
     titre: "Indonésie: l'aéroport international de Jakarta suspend ses opérations en raison d'une éruption volcanique"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-04/el-nino/face-a-un-phenomene-d-une-ampleur-sans-precedent.php"
@@ -74,7 +74,7 @@ articles:
     media: "La Presse"
     date: "2026-09-04"
     titre: "El Niño | Face à un phénomène « d’une ampleur sans précédent »"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-04/trois-graphiques-pour-comprendre/l-ere-des-super-el-nino-est-arrivee.php"
@@ -82,7 +82,7 @@ articles:
     media: "La Presse"
     date: "2026-09-04"
     titre: "Trois graphiques pour comprendre | L’ère des super El Niño est arrivée"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-04/super-el-nino/quels-seront-les-effets-sur-la-meteo-quebecoise.php"
@@ -90,7 +90,7 @@ articles:
     media: "La Presse"
     date: "2026-09-04"
     titre: "« Super El Niño » | Quels seront les effets sur la météo québécoise ?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/place-publique/segments/rattrapage/2469814/comment-producteurs-agricoles-se-preparent-au-phenomene-el-nino"
@@ -98,7 +98,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-04"
     titre: "Comment les agriculteurs se préparent à El Niño?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/04/hawai-retient-son-souffle-louragan-lowell-pourrait-passer-pres-de-ses-cotes"
@@ -106,39 +106,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-04"
     titre: "Hawaï retient son souffle: l'ouragan Lowell pourrait passer près de ses côtes"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-04/transports-en-direct/voyants-au-jaune-sur-l-autoroute-40-en-direction-ouest-a-l-assomption.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-04"
-    titre: "Transports en direct | Voyants au jaune sur l’autoroute 40 en direction ouest à L’Assomption"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/affaires/2026-09-04/rendez-vous-electoral-d-intervenants/attenuer-la-crise-du-logement-en-favorisant-l-essor-du-non-lucratif-en-habitation.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-04"
-    titre: "« Rendez-vous électoral » d’intervenants | Atténuer la crise du logement en favorisant l’essor du « non-lucratif » en habitation"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2469055/chef-parti-liberal-quebec-fait-campagne-au-bas-saint-laurent"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-09-04"
-    titre: "Charles Milliard s’engage pour le prolongement de l’autoroute 20"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-04/metro-de-montreal/l-ia-pour-detecter-plus-rapidement-les-flaneurs.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-04"
-    titre: "Métro de Montréal | L’IA pour détecter plus rapidement les flâneurs"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2280356/actuel-el-nino-plus-puissant-quatre-decennies-onu"
@@ -146,7 +114,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-03"
     titre: "L’actuel El Niño pourrait être « le plus puissant » depuis quatre décennies, selon l’ONU"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/03/lonu-prevoit-un-el-nino-de-tres-forte-intensite-ces-cinq-prochains-mois"
@@ -154,7 +122,15 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-03"
     titre: "L'ONU prévoit un El Niño «de très forte intensité» ces cinq prochains mois"
-    garder: ""
+    garder: "O"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2280179/trois-cyclones-pacifique-el-nino"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-09-03"
+    titre: "Trois cyclones en même temps dans le Pacifique, un phénomène rare favorisé par El Niño"
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/international/2026-09-03/el-nino/trois-ouragans-en-meme-temps-dans-le-pacifique.php"
@@ -162,7 +138,7 @@ articles:
     media: "La Presse"
     date: "2026-09-03"
     titre: "El Niño | Trois ouragans en même temps dans le Pacifique"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/03/chine-ecoles-et-liaisons-maritimes-suspendues-face-au-typhon-saudel-dans-lest-du-pays"
@@ -170,24 +146,6 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-03"
     titre: "Chine: écoles et liaisons maritimes suspendues face au typhon «Saudel» dans l'est du pays"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/03/entraves-dans-le-grand-montreal-deux-ponts-a-eviter-pour-le-long-week-end"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-03"
-    titre: "Entraves dans le grand Montréal: deux ponts à éviter pour le long week-end"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2280179/trois-cyclones-pacifique-el-nino"
-    fiche: "11"
-    media: "Radio-Canada"
-    date: "2026-09-03"
-    titre: "Trois cyclones en même temps dans le Pacifique, un phénomène rare favorisé par El Niño"
     garder: "O"
     note: ""
 
@@ -1033,6 +991,38 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-04/transports-en-direct/voyants-au-jaune-sur-l-autoroute-40-en-direction-ouest-a-l-assomption.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-04"
+    titre: "Transports en direct | Voyants au jaune sur l’autoroute 40 en direction ouest à L’Assomption"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/2026-09-04/rendez-vous-electoral-d-intervenants/attenuer-la-crise-du-logement-en-favorisant-l-essor-du-non-lucratif-en-habitation.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-04"
+    titre: "« Rendez-vous électoral » d’intervenants | Atténuer la crise du logement en favorisant l’essor du « non-lucratif » en habitation"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2469055/chef-parti-liberal-quebec-fait-campagne-au-bas-saint-laurent"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-09-04"
+    titre: "Charles Milliard s’engage pour le prolongement de l’autoroute 20"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-04/metro-de-montreal/l-ia-pour-detecter-plus-rapidement-les-flaneurs.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-04"
+    titre: "Métro de Montréal | L’IA pour détecter plus rapidement les flâneurs"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/international/2026-09-03/ce-que-vous-avez-manque-cette-nuit/attaques-iraniennes-baleines-el-nino.php"
     fiche: "11"
     media: "La Presse"
@@ -1046,6 +1036,14 @@ articles:
     media: "La Presse"
     date: "2026-09-03"
     titre: "Ce qu’on suit ce jeudi | Secteur manufacturier, Caucus du Québec, Félix Auger-Aliassime"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/03/entraves-dans-le-grand-montreal-deux-ponts-a-eviter-pour-le-long-week-end"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-03"
+    titre: "Entraves dans le grand Montréal: deux ponts à éviter pour le long week-end"
     garder: "N"
     note: ""
 
