@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/09/08/indonesie-un-bateau-porte-disparu-avec-des-journalistes-couvrant-une-eruption-volcanique"
     fiche: "04"
     media: "Journal de Montréal"
     date: "2026-09-08"
     titre: "Indonésie: un bateau porté disparu avec des journalistes couvrant une éruption volcanique"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/08/chine-des-glissements-de-terrain-font-6-morts-et-9-disparus"
@@ -34,19 +34,9 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-08"
     titre: "Chine: des glissements de terrain font 13 morts et trois disparus"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2471340/groupe-pont-20-ca-tient-pas-debout-reagit-aux-annonces-candidats"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-09-08"
-    titre: "Des avis divisés sur le prolongement de l’autoroute 20"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/etats-unis/2026-09-08/hawaii/l-ouragan-lowell-fait-planer-une-menace-de-tornades.php"
     fiche: "04"
     media: "La Presse"
@@ -1017,6 +1007,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2471340/groupe-pont-20-ca-tient-pas-debout-reagit-aux-annonces-candidats"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-09-08"
+    titre: "Des avis divisés sur le prolongement de l’autoroute 20"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-04/transports-en-direct/voyants-au-jaune-sur-l-autoroute-40-en-direction-ouest-a-l-assomption.php"
     fiche: "02"
     media: "La Presse"
