@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/09/10/japon-des-intemperies-provoquent-un-glissement-de-terrain-au-mont-fuji"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-09-10"
+    titre: "Japon: des intempéries provoquent un glissement de terrain au mont Fuji"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/10/autoroute-15-la-voie-reservee-fermee-pour-quatre-jours-entre-blainville-et-mirabel"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-10"
+    titre: "Autoroute 15: la voie réservée fermée pour quatre jours entre Blainville et Mirabel"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-09/grands-projets/ottawa-renonce-a-contourner-la-loi-sur-les-especes-en-peril.php"
     fiche: "13"
