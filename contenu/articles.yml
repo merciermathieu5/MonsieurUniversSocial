@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-09/grands-projets/ottawa-renonce-a-contourner-la-loi-sur-les-especes-en-peril.php"
     fiche: "13"
     media: "La Presse"
     date: "2026-09-09"
     titre: "Grands projets | Ottawa renonce à contourner la Loi sur les espèces en péril"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2282166/grands-projets-exemption-especes-perils"
@@ -34,15 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-09"
     titre: "Ottawa renonce à contourner la Loi sur les espèces en péril pour les grands projets"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2281939/el-nino-impact-meteo-quebec-ontario-atlantique"
-    fiche: "11"
-    media: "Radio-Canada"
-    date: "2026-09-09"
-    titre: "El Niño historique : quels effets sur la météo dans l’est du pays?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2281962/autorisation-quebec-parc-eolien-grosse-ile-madeleine"
@@ -50,19 +42,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-09"
     titre: "Québec autorise la construction du parc éolien de Grosse-Île"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.journaldemontreal.com/2026/09/09/autoroute-640--une-voie-fermee-en-plein-jour-de-semaine-pour-des-travaux-dinspection-cause-de-la-congestion"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-09"
-    titre: "Autoroute 640 : une voie fermée en plein jour de semaine pour des travaux «d'inspection» cause de la congestion"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/09/08/indonesie-un-bateau-porte-disparu-avec-des-journalistes-couvrant-une-eruption-volcanique"
     fiche: "04"
     media: "Journal de Montréal"
@@ -1049,6 +1031,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2281939/el-nino-impact-meteo-quebec-ontario-atlantique"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-09-09"
+    titre: "El Niño historique : quels effets sur la météo dans l’est du pays?"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/09/autoroute-640--une-voie-fermee-en-plein-jour-de-semaine-pour-des-travaux-dinspection-cause-de-la-congestion"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-09"
+    titre: "Autoroute 640 : une voie fermée en plein jour de semaine pour des travaux «d'inspection» cause de la congestion"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2471340/groupe-pont-20-ca-tient-pas-debout-reagit-aux-annonces-candidats"
     fiche: "02"
     media: "Radio-Canada"
