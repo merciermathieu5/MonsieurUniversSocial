@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2282464/el-nino-impacts-secheresse-honduras"
-    fiche: "11"
-    media: "Radio-Canada"
-    date: "2026-09-13"
-    titre: "Épisode extrême d’El Niño : « Tout est en train de sécher » au Honduras"
-    garder: ""
+  # ---------------- PUBLIÉS (O) ----------------
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-11/ils-l-ont-fait/un-chant-d-espoir-pour-une-espece-menacee.php"
+    fiche: "13"
+    media: "La Presse"
+    date: "2026-09-11"
+    titre: "Ils l’ont fait | Un chant d’espoir pour une espèce menacée"
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/l-apres-midi-est-a-nous/segments/rattrapage/2475244/eoliennes-en-terres-agricoles"
@@ -34,7 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-11"
     titre: "Éoliennes en terres agricoles : Hydro-Québec essuie des refus"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2282964/barrage-matane-chantier-travaux-reconstruction"
@@ -42,40 +42,6 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-11"
     titre: "Nouvelle étape de franchie pour le barrage Mathieu-D’Amours"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/11/inondations-au-nepal-478-milliards-pour-reconstruire-apres-la-catastrophe"
-    fiche: "04"
-    media: "Journal de Montréal"
-    date: "2026-09-11"
-    titre: "Inondations au Népal: 4,78 milliards pour reconstruire après la catastrophe"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/11/coupes-massives-dexo-en-banlieue-des-maires-sinsurgent"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-11"
-    titre: "Coupes massives d’exo en banlieue: des maires s’insurgent"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-10/grand-prix-cycliste-et-travaux/la-circulation-sera-perturbee-ce-week-end-dans-le-grand-montreal.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-10"
-    titre: "Grand Prix cycliste et travaux | La circulation sera perturbée ce week-end dans le Grand Montréal"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-11/ils-l-ont-fait/un-chant-d-espoir-pour-une-espece-menacee.php"
-    fiche: "13"
-    media: "La Presse"
-    date: "2026-09-11"
-    titre: "Ils l’ont fait | Un chant d’espoir pour une espèce menacée"
     garder: "O"
     note: ""
 
@@ -87,11 +53,27 @@ articles:
     garder: "O"
     note: ""
 
+  - adresse: "https://www.journaldemontreal.com/2026/09/11/inondations-au-nepal-478-milliards-pour-reconstruire-apres-la-catastrophe"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-09-11"
+    titre: "Inondations au Népal: 4,78 milliards pour reconstruire après la catastrophe"
+    garder: "O"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2282517/activites-patrimoine-religieux-bas-saint-laurent"
     fiche: "03"
     media: "Radio-Canada"
     date: "2026-09-11"
     titre: "Des activités pour redécouvrir le patrimoine religieux"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/11/coupes-massives-dexo-en-banlieue-des-maires-sinsurgent"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-11"
+    titre: "Coupes massives d’exo en banlieue: des maires s’insurgent"
     garder: "O"
     note: ""
 
@@ -1113,6 +1095,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2282464/el-nino-impacts-secheresse-honduras"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-09-13"
+    titre: "Épisode extrême d’El Niño : « Tout est en train de sécher » au Honduras"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2282345/elections-transport-collectif-bataille-450-enjeux-"
     fiche: "02"
     media: "Radio-Canada"
@@ -1134,6 +1124,14 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-10"
     titre: "La probabilité d'un El Niño historique atteint désormais 75%"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-10/grand-prix-cycliste-et-travaux/la-circulation-sera-perturbee-ce-week-end-dans-le-grand-montreal.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-10"
+    titre: "Grand Prix cycliste et travaux | La circulation sera perturbée ce week-end dans le Grand Montréal"
     garder: "N"
     note: ""
 
