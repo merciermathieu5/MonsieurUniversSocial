@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2283510/itinerance-couts-services-umq"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-09-14"
+    titre: "Crise de l’itinérance : les coûts continuent d’exploser"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/08/transport-en-commun-de-plus-en-plus-cher-pour-moins-de-service-a-montreal"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-14"
+    titre: "Transport en commun: de plus en plus cher pour moins de service à Montréal"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-11/ils-l-ont-fait/un-chant-d-espoir-pour-une-espece-menacee.php"
     fiche: "13"
