@@ -20,6 +20,40 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-15/inde/pres-de-cinq-millions-de-personnes-touchees-par-des-inondations-au-bihar.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-15"
+    titre: "Inde | Près de cinq millions de personnes touchées par des inondations au Bihar"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-15/transports-en-commun/lancement-partiel-du-paiement-par-cellulaire.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-15"
+    titre: "Transports en commun | Lancement (partiel) du paiement par cellulaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/14/crise-de-litinerance-une-manifestation-prevue-mardi-devant-la-maison-benoit-labre"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-14"
+    titre: "Crise de l’itinérance: une manifestation prévue mardi devant la Maison Benoît Labre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/14/litinerance-coute-de-plus-en-plus-cher-au-quebec"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-14"
+    titre: "L’itinérance coûte de plus en plus cher au Québec"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/09/08/transport-en-commun-de-plus-en-plus-cher-pour-moins-de-service-a-montreal"
     fiche: "02"
