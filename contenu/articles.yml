@@ -21,6 +21,30 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2283994/eoliennes-impacts-hatbitats-oiseaux-quebec"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-09-16"
+    titre: "Les impacts des éoliennes sur les oiseaux demeurent méconnus au Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/15/travaux-majeurs-dhydro-quebec-a-neufchatel-60-000-clients-dans-le-noir-de-dimanche-a-lundi"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-09-15"
+    titre: "Travaux majeurs d’Hydro-Québec à Neufchâtel: 60 000 clients seront plongés dans le noir de dimanche à lundi"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2284014/industrie-forestiere-damabois-cap-chat-campagne-elections"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-09-15"
+    titre: "Industrie forestière : un engagement demandé aux candidats dans Gaspé"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-15/inde/pres-de-cinq-millions-de-personnes-touchees-par-des-inondations-au-bihar.php"
     fiche: "04"
     media: "La Presse"
@@ -29,11 +53,35 @@ articles:
     garder: ""
     note: ""
 
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-09-15/zones-inondables/plus-de-80-des-quebecois-reclament-les-nouvelles-cartes.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-15"
+    titre: "Zones inondables | Plus de 80 % des Québécois réclament les nouvelles cartes"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10760779/vallee-riviere-swan-se-remet-inondations"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-09-15"
+    titre: "La vallée de la rivière Swan se remet des inondations"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-15/transports-en-commun/lancement-partiel-du-paiement-par-cellulaire.php"
     fiche: "02"
     media: "La Presse"
     date: "2026-09-15"
     titre: "Transports en commun | Lancement (partiel) du paiement par cellulaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/15/paiement-mobile-dans-le-transport-en-commun-montreal-passe-au-numerique-mais-seulement-pour-android"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-15"
+    titre: "Paiement mobile dans le transport en commun: Montréal passe au numérique, mais seulement pour Android"
     garder: ""
     note: ""
 
