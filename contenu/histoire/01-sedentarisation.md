@@ -367,7 +367,7 @@ laissées dans l'argile encore fraîche des poteries.
 
 ### Le tisserand
 
-![Métier à tisser vertical : des poids tiennent les fils tendus](../medias/01-sedentarisation/metier-a-tisser.jpg)
+![Métier à tisser à poids, reconstitution d'un modèle ancien](../medias/01-sedentarisation/metier-a-tisser.jpg)
 
 Le tisserand transforme en tissu les fibres produites par l'agriculture et
 l'élevage : le lin cultivé dans les champs et la laine des moutons. Les fibres
