@@ -333,18 +333,50 @@ l'artisanat.
 
 ### L'artisan
 
-![Poterie néolithique : sans contenant, pas de réserve](../medias/01-sedentarisation/poterie.jpg)
-
 Les objets fabriqués par les artisans sont variés. Ils peuvent être utilisés pour
 l'agriculture, la cuisson, la chasse, la décoration, etc. Certains artisans vont se
-spécialiser dans un domaine précis afin de développer une expertise. Par exemple,
-le potier fabrique des pots et d'autres récipients, le forgeron fabrique des outils
-et des armes faites de métal, le vannier fabrique des paniers tressés à l'aide de
-fibres végétales et le tisserand fabrique des tapis et des vêtements.
+spécialiser dans un domaine précis afin de développer une expertise. Trois de ces
+métiers, nés directement de la vie de village, illustrent bien cette
+spécialisation.
 
-L'avènement de la poterie est un événement particulièrement important pour les
-premiers villages. Les pots et autres récipients sont utiles pour la cuisson de la
-nourriture et pour l'entreposage des surplus agricoles.
+::: colonnes3
+
+### Le potier
+
+![Poterie néolithique : sans contenant, pas de réserve](../medias/01-sedentarisation/poterie.jpg)
+
+Le potier façonne l'argile pour en faire des pots, des jarres et d'autres
+récipients, qu'il fait ensuite durcir au feu. L'avènement de la poterie est un
+événement particulièrement important pour les premiers villages : les pots
+servent à cuire la nourriture et à entreposer les surplus agricoles, à l'abri
+de l'humidité et des rongeurs. Un tel métier ne pouvait exister qu'avec la
+sédentarisation, car les récipients de terre cuite sont lourds et fragiles,
+donc peu pratiques pour un groupe nomade.
+
+### Le vannier
+
+![Panier de fibres végétales tressées, l'oeuvre du vannier](../medias/01-sedentarisation/vannerie.jpg)
+
+Le vannier tresse des fibres végétales, comme l'osier, le jonc ou la paille,
+pour fabriquer des paniers, des corbeilles et des nattes. Ces contenants
+légers servent à récolter les céréales dans les champs, à les transporter et à
+les conserver. La vannerie est probablement plus ancienne que la poterie, mais
+comme les fibres végétales pourrissent avec le temps, il en reste très peu de
+traces. Les archéologues la connaissent surtout par les empreintes de paniers
+laissées dans l'argile encore fraîche des poteries.
+
+### Le tisserand
+
+![Métier à tisser vertical : des poids tiennent les fils tendus](../medias/01-sedentarisation/metier-a-tisser.jpg)
+
+Le tisserand transforme en tissu les fibres produites par l'agriculture et
+l'élevage : le lin cultivé dans les champs et la laine des moutons. Les fibres
+sont d'abord filées, puis croisées sur un métier à tisser vertical, où des
+poids d'argile ou de pierre gardent les fils bien tendus. Les vêtements et les
+couvertures de tissu remplacent peu à peu les peaux de bête que portaient les
+chasseurs-cueilleurs.
+
+:::
 
 ### La hiérarchie sociale
 
@@ -372,6 +404,7 @@ d'échange est appelé le troc.
 1. Qu'est-ce qu'un surplus alimentaire?
 2. Explique le lien entre les surplus et l'apparition des artisans.
 3. Pourquoi la poterie est-elle une invention importante?
+4. Nomme un objet fabriqué par le potier, un par le vannier et un par le tisserand.
 :::
 
 ## Les rites funéraires et les croyances
