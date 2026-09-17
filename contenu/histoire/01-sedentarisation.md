@@ -355,7 +355,7 @@ donc peu pratiques pour un groupe nomade.
 
 ### Le vannier
 
-![Panier de fibres végétales tressées, l'oeuvre du vannier](../medias/01-sedentarisation/vannerie.jpg)
+![Panier en fibres végétales tressées, Égypte, il y a près de 4000 ans](../medias/01-sedentarisation/vannerie.jpg)
 
 Le vannier tresse des fibres végétales, comme l'osier, le jonc ou la paille,
 pour fabriquer des paniers, des corbeilles et des nattes. Ces contenants

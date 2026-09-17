@@ -98,7 +98,7 @@ meule.jpg:
   licence: ''
   lien: ''
 poterie.jpg:
-  cadrage: flottant
+  cadrage: large
   fiche: 01-sedentarisation
   recherche: neolithic pottery vessel archaeological museum
   auteur: ''
@@ -106,18 +106,18 @@ poterie.jpg:
   licence: ''
   lien: ''
 vannerie.jpg:
-  cadrage: flottant
+  cadrage: large
   fiche: 01-sedentarisation
-  commons: File:Kipe wicker basket.jpg
+  commons: 'File:Basket, Egypt, Middle Kingdom, c. 1900 BC - Oriental Institute Museum, University of Chicago - DSC07895.JPG'
   recherche: woven wicker basket plant fibres traditional
   auteur: ''
   titre: ''
   licence: ''
   lien: ''
 metier-a-tisser.jpg:
-  cadrage: flottant
+  cadrage: large
   fiche: 01-sedentarisation
-  commons: File:WEAVING ON THE WARP WEIGHTED LOOM.jpg
+  commons: File:Ancient Greece Weaving Loom & Weights (27965109953).jpg
   recherche: warp weighted loom reconstruction neolithic
   auteur: ''
   titre: ''
