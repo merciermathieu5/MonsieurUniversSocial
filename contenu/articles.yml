@@ -20,25 +20,15 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10761768/ottawa-voulait-ignorer-cette-loi-sur-especes-en-peril-scientifiques-ont-replique"
     fiche: "13"
     media: "Radio-Canada"
     date: "2026-09-16"
     titre: "Ottawa voulait ignorer cette loi sur les espèces en péril, les scientifiques ont répliqué"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.journaldemontreal.com/2026/09/16/crise-de-litinerance-un-entrepreneur-dit-avoir-une-solution-pour-se-loger-a-bas-prix"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-16"
-    titre: "Crise de l'itinérance: un entrepreneur dit avoir une solution pour se loger à bas prix"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2283994/eoliennes-impacts-hatbitats-oiseaux-quebec"
     fiche: "07"
     media: "Radio-Canada"
@@ -1161,6 +1151,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/09/16/crise-de-litinerance-un-entrepreneur-dit-avoir-une-solution-pour-se-loger-a-bas-prix"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-16"
+    titre: "Crise de l'itinérance: un entrepreneur dit avoir une solution pour se loger à bas prix"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.journaldemontreal.com/2026/09/15/travaux-majeurs-dhydro-quebec-a-neufchatel-60-000-clients-dans-le-noir-de-dimanche-a-lundi"
     fiche: "07"
     media: "Journal de Montréal"
