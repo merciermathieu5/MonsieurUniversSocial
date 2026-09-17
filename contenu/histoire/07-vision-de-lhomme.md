@@ -81,6 +81,8 @@ La Renaissance, vidéo de mise en contexte
 
 ![L'Italie en 1494, morcelée en républiques, en duchés et en royaumes](../medias/07-vision-de-lhomme/carte-italie-1494.png)
 
+![L'Europe à la fin du 16e siècle](../medias/07-vision-de-lhomme/carte-europe-16e.jpg)
+
 La Renaissance naît en Italie, qui n'est pas encore un pays unifié. La
 péninsule est alors morcelée en cités et en États rivaux : les républiques
 de Venise, de Florence et de Gênes, le duché de Milan, les États de
@@ -266,6 +268,29 @@ Qui était André Vésale?
 L'histoire d'André Vésale
 :::
 
+### Des corps pour la science
+
+![Le frontispice de De humani corporis fabrica](../medias/07-vision-de-lhomme/frontispice-fabrica.jpg)
+
+Pour étudier l'anatomie, encore faut-il des corps. À la Renaissance, la
+dissection humaine n'est pas interdite, mais elle est étroitement encadrée
+par les autorités. Les universités doivent obtenir une autorisation pour
+chaque dissection publique et les corps fournis sont presque toujours ceux
+de criminels condamnés à mort, remis aux facultés de médecine après leur
+exécution. À Padoue, où enseigne Vésale, un juge nommé Marcantonio
+Contarini appuie ses travaux en lui réservant les cadavres des condamnés.
+Il lui arrive même de retarder une exécution pour qu'elle coïncide avec une
+leçon d'anatomie.
+
+Les corps disponibles demeurent toutefois rares. Certains étudiants et
+anatomistes en viennent à exhumer clandestinement des cadavres dans les
+cimetières, une pratique illégale et sévèrement punie. Vésale lui-même
+raconte avoir subtilisé, dans sa jeunesse, les ossements d'un condamné
+laissés sur un gibet près de Louvain. Le frontispice de son grand ouvrage
+illustre bien cette réalité : on y voit Vésale au centre d'un théâtre
+anatomique, en train de disséquer un corps devant une foule d'étudiants et
+de curieux.
+
 ### Le modèle astronomique
 
 En astronomie, Nicolas Copernic (1473-1543) révolutionne le modèle
@@ -280,10 +305,28 @@ Galilée à l'aide de sa lunette astronomique.
 ::: schema modeles-astronomiques
 :::
 
+### Giordano Bruno, un penseur condamné
+
+![Giordano Bruno, gravure inspirée du Livre du recteur](../medias/07-vision-de-lhomme/giordano-bruno.jpg)
+
+Giordano Bruno (1548-1600) est un philosophe italien, d'abord moine
+dominicain. Inspiré par les travaux de Copernic, il va encore plus loin :
+il propose que l'Univers est infini, que les étoiles sont des soleils
+semblables au nôtre et qu'il pourrait exister d'autres mondes. Ses idées
+religieuses, jugées hérétiques par l'Église, et ses conceptions de
+l'Univers lui valent d'être arrêté puis jugé par le tribunal de
+l'Inquisition. Au terme d'un procès de près de huit ans, il refuse de
+renier ses idées et est condamné au bûcher. Il est brûlé vif à Rome, sur la
+place du Campo de' Fiori, le 17 février 1600. Son histoire montre les
+risques que couraient les penseurs qui remettaient en question la vision du
+monde défendue par l'Église.
+
 ::: questions
 1. Sur quoi la science doit-elle être basée, selon les humanistes?
 2. Pourquoi André Vésale est-il considéré comme un des fondateurs de la médecine moderne?
-3. Explique la différence entre le géocentrisme et l'héliocentrisme.
+3. Comment les anatomistes de la Renaissance obtenaient-ils les corps qu'ils disséquaient?
+4. Explique la différence entre le géocentrisme et l'héliocentrisme.
+5. Pourquoi Giordano Bruno a-t-il été condamné par l'Inquisition?
 :::
 
 ## La Renaissance artistique
@@ -496,6 +539,33 @@ La Réforme protestante expliquée
 Luther et la naissance du protestantisme
 :::
 
+### Le calvinisme et l'anglicanisme
+
+![Jean Calvin, portrait anonyme vers 1550](../medias/07-vision-de-lhomme/calvin.png)
+
+![Henri VIII, d'après Hans Holbein le Jeune](../medias/07-vision-de-lhomme/henri-8.jpg)
+
+::: colonnes
+**L'Église calviniste.** Jean Calvin (1509-1564) est un réformateur
+français réfugié à Genève, ville qui devient sous son influence un grand
+centre du protestantisme. Pour Calvin, la Bible est la seule autorité en
+matière de foi. Le culte calviniste est austère : les temples sont
+dépouillés, sans statues ni images saintes, et des pasteurs remplacent les
+prêtres. Calvin enseigne aussi la prédestination, c'est-à-dire l'idée que
+Dieu a choisi d'avance les personnes qui seront sauvées. Le calvinisme se
+répand en France, où ses fidèles sont appelés huguenots, ainsi qu'aux
+Pays-Bas, en Écosse et dans plusieurs régions du Saint-Empire.
+
+**L'Église anglicane.** En Angleterre, le roi Henri VIII (1491-1547)
+souhaite faire annuler son mariage avec Catherine d'Aragon, ce que le pape
+refuse. En 1534, l'Acte de suprématie proclame le roi chef suprême de
+l'Église d'Angleterre : c'est la naissance de l'Église anglicane. Celle-ci
+conserve une bonne partie des rites et de l'organisation de l'Église
+catholique, dont les évêques et les cérémonies, mais elle rejette
+l'autorité du pape et les monastères du royaume sont fermés. L'anglicanisme
+se situe ainsi à mi-chemin entre le catholicisme et le protestantisme.
+:::
+
 ### Les guerres de religion
 
 ![Le massacre de la Saint-Barthélemy, tableau de François Dubois](../medias/07-vision-de-lhomme/saint-barthelemy.jpg)
@@ -577,10 +647,11 @@ là que jésuites et Hurons-Wendats se côtoyaient au quotidien.
 ::: questions
 1. Nomme trois critiques adressées au clergé catholique avant la Réforme.
 2. Associe chaque fondateur à son Église : Luther, Calvin et Henri VIII.
-3. Que s'est-il passé dans la nuit du 23 au 24 août 1572?
-4. Nomme deux décisions prises au concile de Trente.
-5. Qu'est-ce que l'Index et à quoi sert le tribunal de l'Inquisition?
-6. Quel lien y a-t-il entre la Contre-Réforme et l'histoire du Québec?
+3. Nomme deux caractéristiques de l'Église calviniste et deux caractéristiques de l'Église anglicane.
+4. Que s'est-il passé dans la nuit du 23 au 24 août 1572?
+5. Nomme deux décisions prises au concile de Trente.
+6. Qu'est-ce que l'Index et à quoi sert le tribunal de l'Inquisition?
+7. Quel lien y a-t-il entre la Contre-Réforme et l'histoire du Québec?
 :::
 
 ## Un projet Scratch avec le RÉCIT

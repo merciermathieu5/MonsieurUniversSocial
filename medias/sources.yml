@@ -971,6 +971,53 @@ carte-italie-1494.png:
   titre: ''
   licence: ''
   lien: ''
+carte-europe-16e.jpg:
+  cadrage: carte
+  fiche: 07-vision-de-lhomme
+  url: https://museeprotestant.org/wp-content/uploads/2016/06/XVI_Europe-1024x782.jpg
+  commons: ''
+  recherche: ''
+  titre: L'Europe à la fin du 16e siècle
+  depot: Musée protestant
+  auteur: Musée virtuel du protestantisme
+  licence: Reproduction autorisée par le Musée protestant
+  lien: https://museeprotestant.org/notice/cartes-xvie-siecle/
+frontispice-fabrica.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Vesalius Fabrica fronticepiece.jpg
+  recherche: Vesalius Fabrica frontispiece
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+giordano-bruno.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:Giordano Bruno.jpg
+  recherche: Giordano Bruno portrait Livre du recteur
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+calvin.png:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:John Calvin Museum Catharijneconvent RMCC s84 cropped.png
+  recherche: John Calvin portrait Catharijneconvent
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
+henri-8.jpg:
+  cadrage: petit
+  fiche: 07-vision-de-lhomme
+  commons: File:After Hans Holbein the Younger - Portrait of Henry VIII - Google Art Project.jpg
+  recherche: Henry VIII Holbein portrait
+  auteur: ''
+  titre: ''
+  licence: ''
+  lien: ''
 concile-trente.jpg:
   cadrage: flottant
   fiche: 07-vision-de-lhomme
