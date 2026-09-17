@@ -891,8 +891,11 @@ body[data-diapo="on"] .colonnes { padding-top: 1.5rem; }
 body[data-diapo="on"] .texte { min-height: 82vh; }
 body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top: 0; font-size: 2.6rem; }
 
+/* La barre est ancrée en bas à gauche et ne s'étire que vers la droite : les
+   flèches restent au même endroit d'une section à l'autre. Le titre a une
+   largeur fixe, pour que les boutons de droite ne bougent pas non plus. */
 .diapo-barre {
-  position: fixed; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
+  position: fixed; left: 1.25rem; bottom: 1.25rem;
   z-index: 60; display: flex; align-items: center; gap: .4rem;
   background: #1A2530; color: #fff;
   padding: .5rem .65rem; border-radius: 100px;
@@ -916,7 +919,7 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 }
 .diapo-titre {
   font-family: var(--titre); font-size: .85rem; color: rgba(255,255,255,.75);
-  max-width: 22rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  width: 22rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   padding: 0 .4rem;
 }
 .diapo-barre [data-d="quitter"] { background: rgba(229,172,68,.25); }
