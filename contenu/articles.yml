@@ -20,6 +20,48 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/actualites/sciences/2026-09-18/etudes-americaines/la-pollution-des-incendies-de-foret-serait-plus-dangereuse-pour-la-sante.php"
+    fiche: "06"
+    media: "La Presse"
+    date: "2026-09-18"
+    titre: "Études américaines | La pollution des incendies de forêt serait plus dangereuse pour la santé"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/techno/2026-09-18/l-unesco-pourrait-etre-un-moderateur-dans-le-debat-global-sur-l-ia.php"
+    fiche: "03"
+    media: "La Presse"
+    date: "2026-09-18"
+    titre: "L’UNESCO pourrait être un « modérateur » dans le « débat global » sur l’IA"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2284611/santa-fe-hyundai-incendie-toronto"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-09-18"
+    titre: "Sa voiture explose sur l’autoroute après une visite chez le concessionnaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2284701/grands-projets-la-jeunesse-des-premieres-nations-defie-mark-carney"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-17"
+    titre: "Grands projets : la jeunesse des Premières Nations défie Mark Carney"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/17/pont-champlain-lestrade-et-des-pistes-cyclables-fermees-de-jour-les-samedi-dimanche-et-lundi"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-17"
+    titre: "Mondiaux de cyclisme: l'Estacade et d'autres pistes cyclables fermées de jour ce week-end près du pont Champlain"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10761768/ottawa-voulait-ignorer-cette-loi-sur-especes-en-peril-scientifiques-ont-replique"
     fiche: "13"
