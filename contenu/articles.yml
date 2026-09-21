@@ -21,11 +21,51 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-21/japon/plus-de-1-6-million-de-personnes-appelees-a-evacuer-a-l-approche-du-typhon-dujuan.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-21"
+    titre: "Japon | Plus de 1,6 million de personnes appelées à évacuer à l’approche du typhon Dujuan"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/21/japon-275-vols-annules-16-million-de-personnes-appelees-a-evacuer-a-lapproche-du-typhon-dujuan"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-09-21"
+    titre: "275 vols annulés et 1,6 million de personnes appelées à évacuer à l'approche du typhon «Dujuan» au Japon"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-09-21/vieux-montreal/ambiance-chic-et-feutree-a-l-hotel-nelligan.php"
+    fiche: "03"
+    media: "La Presse"
+    date: "2026-09-21"
+    titre: "Vieux-Montréal | Ambiance chic et feutrée à l’hôtel Nelligan"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2285063/el-nino-episode-tres-forte-intensite-omm"
+    fiche: "11"
+    media: "Radio-Canada"
+    date: "2026-09-19"
+    titre: "Quand El Niño s’emporte"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/sciences/2026-09-18/etudes-americaines/la-pollution-des-incendies-de-foret-serait-plus-dangereuse-pour-la-sante.php"
     fiche: "06"
     media: "La Presse"
     date: "2026-09-18"
     titre: "Études américaines | La pollution des incendies de forêt serait plus dangereuse pour la santé"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/le-6-a-9/segments/rattrapage/2481045/45-habitations-a-winnipeg-sont-dans-zones-a-risque-inondation"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-09-18"
+    titre: "Winnipeg, la ville canadienne avec le plus de maisons construites en zones inondables"
     garder: ""
     note: ""
 
@@ -45,6 +85,14 @@ articles:
     garder: ""
     note: ""
 
+  - adresse: "https://www.journaldemontreal.com/2026/09/17/mondiaux-de-cyclisme-et-pont-tunnel-voici-les-entraves-du-week-end-dans-le-grand-montreal"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-18"
+    titre: "Mondiaux de cyclisme et pont-tunnel: voici les entraves du week-end dans le grand Montréal"
+    garder: ""
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2284701/grands-projets-la-jeunesse-des-premieres-nations-defie-mark-carney"
     fiche: "12"
     media: "Radio-Canada"
@@ -58,6 +106,14 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-17"
     titre: "Mondiaux de cyclisme: l'Estacade et d'autres pistes cyclables fermées de jour ce week-end près du pont Champlain"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/17/un-camionneur-a-reculons-sur-lautoroute-20-en-monteregie"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-17"
+    titre: "Un camionneur à reculons sur l’autoroute 20 en Montérégie"
     garder: ""
     note: ""
 
