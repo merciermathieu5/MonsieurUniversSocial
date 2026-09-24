@@ -37,51 +37,11 @@ inscrite au patrimoine mondial en 2023.
 
 ## Concepts à l'étude
 
-Ta fiche te demande d'associer huit concepts à leur définition : patrimoine,
-écosystème, biodiversité, conservation, aménagement, UNESCO, environnement et
-fréquentation. Les définitions sont numérotées dans le même ordre que sur ta
-fiche. Inscris le bon concept sur chaque ligne, puis vérifie tes réponses.
+Ta fiche te demande d'associer huit concepts à leur définition. Chaque carte
+porte un concept, avec le même numéro que sur ta fiche. Essaie d'abord de le
+définir dans tes mots, puis retourne la carte pour découvrir sa définition.
 
-::: cartes
-**01** Diversité des espèces vivantes, animales et végétales, présentes dans un
-milieu.
-
-**02** Nombre de visiteurs qui se rendent dans un territoire protégé et pression
-qu'ils exercent sur le milieu.
-
-**03** Ensemble des richesses naturelles et culturelles héritées du passé qu'une
-société souhaite préserver et transmettre.
-
-**04** Mesures visant à protéger et à préserver un milieu naturel et ses
-ressources pour les générations futures.
-
-**05** Organisation des Nations unies pour l'éducation, la science et la
-culture, qui reconnaît et protège des sites d'une valeur exceptionnelle pour
-l'humanité.
-
-**06** Ensemble des relations qui existent entre l'humain et son milieu de vie.
-
-**07** Ensemble formé par des êtres vivants et le milieu dans lequel ils vivent
-et interagissent.
-
-**08** Organisation d'un territoire (sentiers, centres d'accueil, zones de
-protection) pour répondre aux besoins des visiteurs tout en protégeant le
-milieu.
-:::
-
-<details class="reponses">
-<summary>Vérifier mes réponses</summary>
-<ol>
-<li>Biodiversité</li>
-<li>Fréquentation</li>
-<li>Patrimoine</li>
-<li>Conservation</li>
-<li>UNESCO</li>
-<li>Environnement</li>
-<li>Écosystème</li>
-<li>Aménagement</li>
-</ol>
-</details>
+::: composant concepts-parc
 
 Deux autres concepts du programme complètent ceux de ta fiche :
 
@@ -90,6 +50,7 @@ Deux autres concepts du programme complètent ceux de ta fiche :
 - **Réglementation** : l'ensemble des lois et des règles qui encadrent une
   activité ou un lieu.
 
+::: colonnes
 ### Le patrimoine naturel
 
 Le patrimoine naturel est l'héritage naturel que nous recevons du passé, dont
@@ -116,6 +77,7 @@ Une inscription n'est pas qu'un honneur. Elle engage le pays à protéger le sit
 à rendre compte de son état et à accepter un regard extérieur sur sa gestion.
 Pour un parc naturel, cela veut dire surveiller la fréquentation et protéger
 l'écosystème, même quand les visiteurs rapportent de l'argent.
+:::
 
 ::: video ojjH7YGAa6I
 Les sites naturels du patrimoine mondial de l'UNESCO

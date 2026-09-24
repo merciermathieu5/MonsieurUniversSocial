@@ -443,22 +443,9 @@ body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
   transition: transform .15s, box-shadow .15s;
 }
 .bouton::after { content: "\2192"; }
-.bouton:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(26,37,48,.25); color: #fff; }
-html[data-sombre="on"] .bouton { background: var(--matiere-voile); color: var(--encre); }
-
-/* <details class="reponses"> : un corrigé replié sous un exercice, pour que
-   l'élève réponde avant de vérifier. */
-.reponses {
-  margin: -.6rem 0 1.8rem; padding: .7rem 1.15rem;
-  border: 1px solid var(--trait); border-radius: var(--rayon);
-}
-.reponses summary {
-  cursor: pointer; font-family: var(--titre); font-weight: 600;
-  color: var(--matiere-fonce);
-}
-.reponses[open] summary { margin-bottom: .5rem; }
-.reponses ol { margin: 0; padding-left: 1.6rem; columns: 2 12rem; }
-html[data-sombre="on"] .reponses summary { color: var(--encre); }
+.texte a.bouton { color: #fff; text-decoration: none; }
+.bouton:hover, .texte a.bouton:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(26,37,48,.25); color: #fff; }
+html[data-sombre="on"] .bouton, html[data-sombre="on"] .texte a.bouton { background: var(--matiere-voile); color: var(--encre); }
 
 .integration { margin: 1.8rem 0; clear: both; }
 .integration iframe {
