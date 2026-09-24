@@ -37,34 +37,106 @@ inscrite au patrimoine mondial en 2023.
 
 ## Concepts à l'étude
 
-- **Aménagement** : la modification d'un territoire par les humains pour le
-  rendre accessible et fonctionnel, mais aussi pour le protéger. Un sentier
-  balisé est un aménagement.
-- **Conservation** : l'ensemble des actions qui visent à maintenir un milieu
-  naturel dans son état, ou à le rétablir.
-- **Environnement** : le milieu qui entoure les êtres vivants, composé
-  d'éléments naturels et transformés par l'activité humaine.
+Ta fiche te demande d'associer huit concepts à leur définition : patrimoine,
+écosystème, biodiversité, conservation, aménagement, UNESCO, environnement et
+fréquentation. Les définitions sont numérotées dans le même ordre que sur ta
+fiche. Inscris le bon concept sur chaque ligne, puis vérifie tes réponses.
+
+::: cartes
+**01** Diversité des espèces vivantes, animales et végétales, présentes dans un
+milieu.
+
+**02** Nombre de visiteurs qui se rendent dans un territoire protégé et pression
+qu'ils exercent sur le milieu.
+
+**03** Ensemble des richesses naturelles et culturelles héritées du passé qu'une
+société souhaite préserver et transmettre.
+
+**04** Mesures visant à protéger et à préserver un milieu naturel et ses
+ressources pour les générations futures.
+
+**05** Organisation des Nations unies pour l'éducation, la science et la
+culture, qui reconnaît et protège des sites d'une valeur exceptionnelle pour
+l'humanité.
+
+**06** Ensemble des relations qui existent entre l'humain et son milieu de vie.
+
+**07** Ensemble formé par des êtres vivants et le milieu dans lequel ils vivent
+et interagissent.
+
+**08** Organisation d'un territoire (sentiers, centres d'accueil, zones de
+protection) pour répondre aux besoins des visiteurs tout en protégeant le
+milieu.
+:::
+
+<details class="reponses">
+<summary>Vérifier mes réponses</summary>
+<ol>
+<li>Biodiversité</li>
+<li>Fréquentation</li>
+<li>Patrimoine</li>
+<li>Conservation</li>
+<li>UNESCO</li>
+<li>Environnement</li>
+<li>Écosystème</li>
+<li>Aménagement</li>
+</ol>
+</details>
+
+Deux autres concepts du programme complètent ceux de ta fiche :
+
 - **Parc naturel** : aussi appelé parc national, un milieu naturel aménagé pour
   en assurer la protection tout en permettant au public de le fréquenter.
-- **Patrimoine naturel** : l'héritage naturel que nous recevons du passé, dont
-  nous profitons aujourd'hui et que nous transmettons aux générations à venir.
 - **Réglementation** : l'ensemble des lois et des règles qui encadrent une
   activité ou un lieu.
 
-::: savais-tu
-L'UNESCO est l'Organisation des Nations unies pour l'éducation, la science et la
-culture. Elle inscrit sur la Liste du patrimoine mondial des biens jugés d'une
-valeur exceptionnelle pour l'humanité entière.
+### Le patrimoine naturel
 
-Les îles Galápagos y figurent depuis 1978, et pas n'importe où : elles portent le
-**numéro 1** de la Liste. C'est le tout premier site inscrit au patrimoine
-mondial.
+Le patrimoine naturel est l'héritage naturel que nous recevons du passé, dont
+nous profitons aujourd'hui et que nous transmettons aux générations à venir.
+Les sites patrimoniaux naturels sont des paysages et des milieux que les humains
+n'ont pas façonnés. Ce sont des sites dont la valeur est jugée exceptionnelle
+pour la science et pour la biodiversité, mais aussi pour leur beauté. Une forêt
+ancienne, un récif corallien ou un archipel volcanique peuvent en faire partie.
+Les deux territoires de cette page appartiennent à cette catégorie.
+
+### L'UNESCO et la Convention de 1972
+
+Un organisme participe à toutes les étapes qui mènent à nommer, à protéger et
+à restaurer les éléments du patrimoine mondial : l'UNESCO, l'Organisation des
+Nations unies pour l'éducation, la science et la culture. Sa mission en
+matière de patrimoine consiste surtout à encourager les pays à sélectionner, à
+protéger et à conserver les éléments de leur patrimoine. Pour mieux y
+parvenir, l'UNESCO a mis sur pied la Convention pour la protection du
+patrimoine mondial en 1972. Cette convention permet aux pays membres
+d'inscrire certains biens historiques, culturels et naturels sur la Liste du
+patrimoine mondial.
+
+Une inscription n'est pas qu'un honneur. Elle engage le pays à protéger le site,
+à rendre compte de son état et à accepter un regard extérieur sur sa gestion.
+Pour un parc naturel, cela veut dire surveiller la fréquentation et protéger
+l'écosystème, même quand les visiteurs rapportent de l'argent.
+
+::: video ojjH7YGAa6I
+Les sites naturels du patrimoine mondial de l'UNESCO
+:::
+
+[Consulter la Liste du patrimoine mondial](https://whc.unesco.org/fr/list/){: .bouton }
+
+::: savais-tu
+Les îles Galápagos figurent sur la Liste du patrimoine mondial depuis 1978, et
+pas n'importe où : elles portent le **numéro 1** de la Liste. C'est le tout
+premier site inscrit au patrimoine mondial.
 :::
 
 ::: questions
 1. Un sentier de bois construit dans une tourbière est un aménagement. Explique
    comment il peut à la fois servir les visiteurs et protéger le milieu.
 2. Distingue conservation et protection dans tes mots.
+3. Choisis deux des huit concepts de ta fiche et explique le lien qui les unit
+   dans un parc naturel.
+4. Pourquoi dit-on qu'une inscription au patrimoine mondial est un engagement
+   plutôt qu'un simple honneur?
 :::
 
 ## Les dates qui comptent
