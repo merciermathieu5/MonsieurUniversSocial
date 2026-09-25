@@ -43,6 +43,44 @@
   bascule(document.querySelector('[data-bascule="sombre"]'), racine, "sombre",
           [" Thème sombre", " Thème clair"]);
 
+  /* ---------------------------------------------------- cartes à retourner
+     Les blocs ::: concepts des fiches. Un clic retourne une carte; le bouton
+     de l'en-tête les retourne toutes, puis les remet à l'endroit. */
+
+  Array.prototype.forEach.call(document.querySelectorAll(".cp"), function (bloc) {
+    var cartes = Array.prototype.slice.call(bloc.querySelectorAll(".cp__carte"));
+    var tout = bloc.querySelector(".cp__tout");
+
+    function retourner(carte, etat) {
+      carte.classList.toggle("est-retournee", etat);
+      carte.setAttribute("aria-pressed", etat ? "true" : "false");
+      carte.querySelector(".cp__face--avant").setAttribute("aria-hidden", etat ? "true" : "false");
+      carte.querySelector(".cp__face--arriere").setAttribute("aria-hidden", etat ? "false" : "true");
+    }
+
+    function majTout() {
+      if (!tout) return;
+      var toutes = cartes.every(function (c) { return c.classList.contains("est-retournee"); });
+      tout.textContent = toutes ? "Tout remettre" : "Tout retourner";
+      tout.setAttribute("aria-pressed", toutes ? "true" : "false");
+    }
+
+    cartes.forEach(function (carte) {
+      carte.addEventListener("click", function () {
+        retourner(carte, !carte.classList.contains("est-retournee"));
+        majTout();
+      });
+    });
+
+    if (tout) {
+      tout.addEventListener("click", function () {
+        var etat = tout.getAttribute("aria-pressed") !== "true";
+        cartes.forEach(function (c) { retourner(c, etat); });
+        majTout();
+      });
+    }
+  });
+
   /* ------------------------------------------------------------ diaporama
      Une surcouche du mode classe, pas un second moteur : la page reste la
      page, on ne fait que montrer une section à la fois. Les sections sont

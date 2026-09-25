@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=cf9bc7aa">
+<link rel="stylesheet" href="../style.css?v=d48e1ce9">
 </head>
 <body>
 
@@ -210,116 +210,18 @@ unissent : la fréquentation d'un parc exerce une pression sur son écosystème,
 la conservation cherche à préserver sa biodiversité, l'aménagement tente de
 concilier les deux, et l'UNESCO reconnaît les lieux dont le patrimoine compte
 pour l'humanité entière.</p>
-<section class="cp" id="concepts-parc" aria-label="Les concepts particuliers du parc naturel">
-<style>
-.cp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
-.cp .cp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.cp .cp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
-.cp__tout { font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.15); border: 0; border-radius: 100px; padding: .35rem .8rem; cursor: pointer; }
-.cp__tout:hover { background: rgba(255,255,255,.3); }
-.cp__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 1rem; padding: 1.2rem; }
-.cp__carte { display: grid; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; perspective: 900px; font: inherit; color: inherit; text-align: left; }
-.cp__carte:focus-visible { outline: 3px solid var(--matiere); outline-offset: 3px; border-radius: 10px; }
-.cp__interieur { display: grid; height: 100%; min-height: 9.5rem; transition: transform .5s ease; transform-style: preserve-3d; }
-.cp__carte.est-retournee .cp__interieur { transform: rotateY(180deg); }
-.cp__face { grid-area: 1 / 1; display: flex; flex-direction: column; border-radius: 10px; padding: .95rem 1.1rem 1rem; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-.cp__face--avant { background: var(--matiere-voile); border-top: 3px solid var(--matiere); justify-content: space-between; }
-.cp__face--arriere { background: var(--matiere-fonce); color: #fff; transform: rotateY(180deg); justify-content: center; }
-.cp__numero { display: block; font-family: var(--donnee); font-size: .7rem; letter-spacing: .1em; color: var(--encre-pale); }
-.cp__concept { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; letter-spacing: -.01em; color: var(--matiere-fonce); margin: .35rem 0 .6rem; }
-.cp__indice { font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
-.cp__indice::after { content: " \21BB"; }
-.cp__definition { display: block; font-size: .98rem; line-height: 1.5; }
-.cp__rappel { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: .45rem; }
-html[data-sombre="on"] .cp .cp__entete { background: var(--matiere-voile); }
-html[data-sombre="on"] .cp .cp__titre, html[data-sombre="on"] .cp__tout { color: var(--encre); }
-html[data-sombre="on"] .cp__concept { color: var(--encre); }
-html[data-sombre="on"] .cp__face--arriere { background: var(--surface-2); color: var(--encre); border-top: 3px solid var(--matiere); }
-html[data-sombre="on"] .cp__rappel { color: var(--encre-pale); }
-@media (prefers-reduced-motion: reduce) {
-  .cp__interieur { transition: none; transform: none !important; }
-  .cp__face--arriere { transform: none; visibility: hidden; }
-  .cp__carte.est-retournee .cp__face--avant { visibility: hidden; }
-  .cp__carte.est-retournee .cp__face--arriere { visibility: visible; }
-}
-@media (max-width: 40rem) { .cp__grille { padding: 1rem; gap: .8rem; } }
-@media print {
-  .cp__tout, .cp__indice { display: none; }
-  .cp__interieur { transform: none !important; display: block; min-height: 0; }
-  .cp__face { transform: none; backface-visibility: visible; }
-  .cp__face--arriere { background: none; color: var(--encre); padding-top: 0; }
-  .cp__rappel { display: none; }
-  .cp__carte { break-inside: avoid; }
-}
-</style>
-<div class="cp__entete">
-  <p class="cp__titre" role="heading" aria-level="3">Huit concepts à découvrir</p>
-  <button type="button" class="cp__tout" aria-pressed="false">Tout retourner</button>
-</div>
+<section class="cp" aria-label="Huit concepts à découvrir">
+<div class="cp__entete"><p class="cp__titre" role="heading" aria-level="3">Huit concepts à découvrir</p><button type="button" class="cp__tout" aria-pressed="false">Tout retourner</button></div>
 <div class="cp__grille">
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">01</span><span class="cp__concept">Biodiversité</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Biodiversité</span><span class="cp__definition">Diversité des espèces vivantes, animales et végétales, présentes dans un milieu.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">02</span><span class="cp__concept">Fréquentation</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Fréquentation</span><span class="cp__definition">Nombre de visiteurs qui se rendent dans un territoire protégé et pression qu'ils exercent sur le milieu.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">03</span><span class="cp__concept">Patrimoine</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Patrimoine</span><span class="cp__definition">Ensemble des richesses naturelles et culturelles héritées du passé qu'une société souhaite préserver et transmettre.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">04</span><span class="cp__concept">Conservation</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Conservation</span><span class="cp__definition">Mesures visant à protéger et à préserver un milieu naturel et ses ressources pour les générations futures.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">05</span><span class="cp__concept">UNESCO</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">UNESCO</span><span class="cp__definition">Organisation des Nations unies pour l'éducation, la science et la culture, qui reconnaît et protège des sites d'une valeur exceptionnelle pour l'humanité.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">06</span><span class="cp__concept">Environnement</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Environnement</span><span class="cp__definition">Ensemble des relations qui existent entre l'humain et son milieu de vie.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">07</span><span class="cp__concept">Écosystème</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Écosystème</span><span class="cp__definition">Ensemble formé par des êtres vivants et le milieu dans lequel ils vivent et interagissent.</span></span>
-  </span></button>
-  <button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur">
-    <span class="cp__face cp__face--avant"><span><span class="cp__numero">08</span><span class="cp__concept">Aménagement</span></span><span class="cp__indice">Retourne la carte</span></span>
-    <span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Aménagement</span><span class="cp__definition">Organisation d'un territoire (sentiers, centres d'accueil, zones de protection) pour répondre aux besoins des visiteurs tout en protégeant le milieu.</span></span>
-  </span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">01</span><span class="cp__concept">Biodiversité</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Biodiversité</span><span class="cp__definition">Diversité des espèces vivantes, animales et végétales, présentes dans un milieu.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">02</span><span class="cp__concept">Fréquentation</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Fréquentation</span><span class="cp__definition">Nombre de visiteurs qui se rendent dans un territoire protégé et pression qu'ils exercent sur le milieu.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">03</span><span class="cp__concept">Patrimoine</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Patrimoine</span><span class="cp__definition">Ensemble des richesses naturelles et culturelles héritées du passé qu'une société souhaite préserver et transmettre.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">04</span><span class="cp__concept">Conservation</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Conservation</span><span class="cp__definition">Mesures visant à protéger et à préserver un milieu naturel et ses ressources pour les générations futures.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">05</span><span class="cp__concept">UNESCO</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">UNESCO</span><span class="cp__definition">Organisation des Nations unies pour l'éducation, la science et la culture, qui reconnaît et protège des sites d'une valeur exceptionnelle pour l'humanité.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">06</span><span class="cp__concept">Environnement</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Environnement</span><span class="cp__definition">Ensemble des relations qui existent entre l'humain et son milieu de vie.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">07</span><span class="cp__concept">Écosystème</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Écosystème</span><span class="cp__definition">Ensemble formé par des êtres vivants et le milieu dans lequel ils vivent et interagissent.</span></span></span></button>
+<button type="button" class="cp__carte" aria-pressed="false"><span class="cp__interieur"><span class="cp__face cp__face--avant"><span><span class="cp__numero">08</span><span class="cp__concept">Aménagement</span></span><span class="cp__indice">Retourne la carte</span></span><span class="cp__face cp__face--arriere" aria-hidden="true"><span class="cp__rappel">Aménagement</span><span class="cp__definition">Organisation d'un territoire (sentiers, centres d'accueil, zones de protection) pour répondre aux besoins des visiteurs tout en protégeant le milieu.</span></span></span></button>
 </div>
-<script>
-(function () {
-  var racine = document.getElementById("concepts-parc");
-  if (!racine) { return; }
-  var cartes = Array.prototype.slice.call(racine.querySelectorAll(".cp__carte"));
-  var tout = racine.querySelector(".cp__tout");
-  function retourner(carte, etat) {
-    carte.classList.toggle("est-retournee", etat);
-    carte.setAttribute("aria-pressed", etat ? "true" : "false");
-    carte.querySelector(".cp__face--avant").setAttribute("aria-hidden", etat ? "true" : "false");
-    carte.querySelector(".cp__face--arriere").setAttribute("aria-hidden", etat ? "false" : "true");
-  }
-  function majTout() {
-    var toutes = cartes.every(function (c) { return c.classList.contains("est-retournee"); });
-    tout.textContent = toutes ? "Tout remettre" : "Tout retourner";
-    tout.setAttribute("aria-pressed", toutes ? "true" : "false");
-  }
-  cartes.forEach(function (carte) {
-    carte.addEventListener("click", function () {
-      retourner(carte, !carte.classList.contains("est-retournee"));
-      majTout();
-    });
-  });
-  tout.addEventListener("click", function () {
-    var etat = tout.getAttribute("aria-pressed") !== "true";
-    cartes.forEach(function (c) { retourner(c, etat); });
-    majTout();
-  });
-})();
-</script>
 </section>
 
 <p>Deux autres concepts du programme complètent ceux de ta fiche :</p>
@@ -1153,7 +1055,7 @@ raisons. Parcours les six critères avant de répondre.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=cf9bc7aa" defer></script>
+<script src="../page.js?v=d48e1ce9" defer></script>
 
 </body>
 </html>
