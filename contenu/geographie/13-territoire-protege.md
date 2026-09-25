@@ -147,10 +147,6 @@ qu'un territoire pouvait avoir besoin d'être protégé.
 
 ## Situer les Galápagos
 
-![L'archipel des Galápagos vu par satellite](../medias/13-territoire-protege/galapagos-satellite.jpg)
-
-![L'île Santa Cruz vue d'avion](../medias/13-territoire-protege/santa-cruz-avion.jpg)
-
 L'archipel se trouve dans l'océan Pacifique, à environ 1 000 kilomètres des
 côtes de l'Équateur, à cheval sur l'équateur terrestre. Il compte 127 îles,
 îlots et rochers, dont 19 de grande taille, et seulement quatre sont habitées.
@@ -159,9 +155,15 @@ sont formées par éruptions volcaniques. Leur relief est montagneux et compte
 de nombreux cratères, dont celui du volcan Wolf, actif, qui culmine à 1 707
 mètres.
 
-### Une géologie qui explique tout le reste
+::: galerie
+![L'archipel des Galápagos vu par satellite](../medias/13-territoire-protege/galapagos-satellite.jpg)
+
+![L'île Santa Cruz vue d'avion](../medias/13-territoire-protege/santa-cruz-avion.jpg)
 
 ![Les Galápagos vues par le satellite SPOT](../medias/13-territoire-protege/galapagos-spot.jpg)
+:::
+
+### Une géologie qui explique tout le reste
 
 Trois plaques tectoniques majeures se rencontrent au fond de l'océan à cet
 endroit : Nazca, Cocos et Pacifique. C'est ce qui produit le volcanisme et les
@@ -182,17 +184,23 @@ Source : UNESCO
 
 ## Une faune qu'on ne voit nulle part ailleurs
 
-![Un crabe des Galápagos sur la baie Tortuga](../medias/13-territoire-protege/crabe-tortuga.jpg)
-
 Une espèce **endémique** est une espèce qu'on ne trouve qu'à un seul endroit.
 Les Galápagos en comptent un nombre remarquable pour un archipel aussi jeune :
 tortues géantes, iguanes marins, le pingouin le plus septentrional du monde, des
 cormorans devenus incapables de voler, les pinsons de Darwin et les moqueurs des
 Galápagos.
 
-### Les tortues géantes
+::: galerie
+![Un crabe des Galápagos sur la baie Tortuga](../medias/13-territoire-protege/crabe-tortuga.jpg)
 
 ![Une tortue géante sur l'île Santa Cruz, aux Galápagos](../medias/13-territoire-protege/tortue-geante.jpg)
+
+![Un iguane marin des Galápagos](../medias/13-territoire-protege/iguane-marin.jpg)
+
+![Un couple de fous à pieds bleus, sur l'île Española](../medias/13-territoire-protege/fous-pieds-bleus.jpg)
+:::
+
+### Les tortues géantes
 
 Ce sont les animaux les plus connus de l'archipel, et ce sont elles qui lui ont
 donné son nom : voyant la forme de leur carapace, les Espagnols y ont vu une
@@ -225,8 +233,6 @@ et
 
 ### L'iguane marin
 
-![Un iguane marin des Galápagos](../medias/13-territoire-protege/iguane-marin.jpg)
-
 L'iguane marin, *Amblyrhynchus cristatus*, est le seul lézard au monde à mener
 une vie amphibie. Adulte, il se nourrit uniquement d'algues rouges et vertes
 qu'il broute sur les fonds marins. Il dépend donc entièrement des côtes,
@@ -246,8 +252,6 @@ L'iguane marin, seul lézard en mer
 :::
 
 ### Le fou à pieds bleus
-
-![Un couple de fous à pieds bleus, sur l'île Española](../medias/13-territoire-protege/fous-pieds-bleus.jpg)
 
 Cet oiseau marin mesure environ 81 centimètres et pèse 1,5 kilogramme, pour
 une envergure pouvant atteindre 165 centimètres. Ses yeux jaunes, placés de

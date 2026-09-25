@@ -159,7 +159,7 @@ def convertir_blocs(texte: str, credits: dict) -> str:
     # Le repère de fin permet à ranger_figures de la reconnaître et de la
     # laisser en place au lieu de la déplacer avant les questions.
     texte = GALERIE.sub(
-        lambda m: (f'<div class="galerie" markdown="1">\n{m.group(1).strip()}\n'
+        lambda m: (f'<div class="galerie galerie--fixe" markdown="1">\n{m.group(1).strip()}\n'
                    f'</div>\n<!-- /galerie -->\n'),
         texte)
     return BLOC.sub(encadre, texte)
@@ -252,7 +252,7 @@ def habiller_images(html: str, credits: dict) -> str:
 
 FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL)
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
-GALERIE_FIXE = re.compile(r'<div class="galerie">.*?</div>\s*<!-- /galerie -->', re.DOTALL)
+GALERIE_FIXE = re.compile(r'<div class="galerie galerie--fixe">.*?</div>\s*<!-- /galerie -->', re.DOTALL)
 
 
 # Une vidéo exactement : le contenu ne peut pas franchir sa balise fermante,
