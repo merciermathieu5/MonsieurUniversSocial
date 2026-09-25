@@ -32,8 +32,10 @@ on:
 permissions:
   contents: write
 
+# Même file d'attente que construire.yml : les deux workflows écrivent dans
+# docs/, ils ne doivent jamais tourner en même temps.
 concurrency:
-  group: actualite
+  group: publication
   cancel-in-progress: false
 
 jobs:
@@ -99,13 +101,41 @@ jobs:
 
       - name: Committer s'il y a du nouveau
         run: |
-          if git diff --quiet contenu/articles.yml theme/composants/actualite.html docs; then
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 1. Les sources d'abord : les articles et le composant d'actualité.
+          git add contenu/articles.yml theme/composants/actualite.html
+          if git diff --cached --quiet; then
             echo "Rien à committer : aucune nouveauté."
             exit 0
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add contenu/articles.yml theme/composants/actualite.html docs
-          git commit -m "Nouvelles propositions d'actualité"
-          git pull --rebase origin main
-          git push
+          git commit -q -m "Nouvelles propositions d'actualité"
+
+          # 2. docs/ ne se fusionne pas, il se reconstruit. La recherche prend
+          #    une minute; si quelqu'un publie pendant ce temps (la console des
+          #    ressources, par exemple), le robot de construire.yml a déjà
+          #    modifié docs/ et version.txt entre en conflit. On jette donc la
+          #    construction faite plus haut, on se met à jour, puis on
+          #    reconstruit par-dessus la version la plus récente de main.
+          git reset -q --hard HEAD
+          git clean -fdq docs
+          for essai in 1 2 3; do
+            git pull -q --rebase origin main
+            python build.py
+            git add docs
+            docs_commite=0
+            if ! git diff --cached --quiet; then
+              git commit -q -m "Reconstruction automatique (actualité)"
+              docs_commite=1
+            fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "main a bougé pendant la construction, nouvel essai ($essai/3)."
+            if [ "$docs_commite" = 1 ]; then git reset -q --hard HEAD~1; fi
+            git reset -q --hard HEAD
+            git clean -fdq docs
+          done
+          echo "Échec après trois essais."
+          exit 1

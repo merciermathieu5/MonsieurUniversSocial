@@ -35,8 +35,10 @@ on:
 permissions:
   contents: write
 
+# Même file d'attente que actualite.yml : les deux workflows écrivent dans
+# docs/, ils ne doivent jamais tourner en même temps.
 concurrency:
-  group: construire
+  group: publication
   cancel-in-progress: false
 
 jobs:
@@ -63,13 +65,26 @@ jobs:
 
       - name: Committer docs si la page a changé
         run: |
-          if git diff --quiet docs; then
-            echo "Rien à committer : docs/ est déjà à jour."
-            exit 0
-          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs
-          git commit -m "Reconstruction automatique"
-          git pull --rebase origin main
-          git push
+          # docs/ ne se fusionne pas, il se reconstruit : si main a bougé
+          # pendant la construction, on repart de la version la plus récente
+          # et on reconstruit, au lieu de tenter une fusion vouée au conflit.
+          for essai in 1 2 3; do
+            git add docs
+            if git diff --cached --quiet; then
+              echo "Rien à committer : docs/ est déjà à jour."
+              exit 0
+            fi
+            git commit -q -m "Reconstruction automatique"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "main a bougé pendant la construction, nouvel essai ($essai/3)."
+            git reset -q --hard HEAD~1
+            git clean -fdq docs
+            git pull -q --rebase origin main
+            python build.py
+          done
+          echo "Échec après trois essais."
+          exit 1
