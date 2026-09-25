@@ -52,6 +52,8 @@ CARTES = re.compile(r"^::: *cartes *$(.*?)^::: *$",
                     re.MULTILINE | re.DOTALL)
 COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
                       re.MULTILINE | re.DOTALL)
+GALERIE = re.compile(r"^::: *galerie *$(.*?)^::: *$",
+                     re.MULTILINE | re.DOTALL)
 TITRES_BLOC = {
     "questions": "Questions",
     "note": "À retenir",
@@ -153,6 +155,13 @@ def convertir_blocs(texte: str, credits: dict) -> str:
         lambda m: f'<div class="cartes" markdown="1">\n{m.group(1).strip()}\n</div>\n',
         texte)
     texte = COLONNES.sub(colonnes, texte)
+    # ::: galerie ... ::: pose une galerie à l'endroit exact où elle est écrite.
+    # Le repère de fin permet à ranger_figures de la reconnaître et de la
+    # laisser en place au lieu de la déplacer avant les questions.
+    texte = GALERIE.sub(
+        lambda m: (f'<div class="galerie" markdown="1">\n{m.group(1).strip()}\n'
+                   f'</div>\n<!-- /galerie -->\n'),
+        texte)
     return BLOC.sub(encadre, texte)
 
 
@@ -243,6 +252,7 @@ def habiller_images(html: str, credits: dict) -> str:
 
 FIGURE = re.compile(r'<figure class="illustration[^"]*">.*?</figure>', re.DOTALL)
 ANCRAGE_QUESTIONS = re.compile(r'<aside class="encadre encadre--questions')
+GALERIE_FIXE = re.compile(r'<div class="galerie">.*?</div>\s*<!-- /galerie -->', re.DOTALL)
 
 
 # Une vidéo exactement : le contenu ne peut pas franchir sa balise fermante,
@@ -286,6 +296,11 @@ def ranger_figures(html: str) -> str:
     paragraphes qu'elle illustre : les images de l'éducation restent dans la
     sous-section des enfants au lieu de glisser à la fin des classes sociales.
     """
+    # Les galeries posées à la main avec ::: galerie restent où elles sont :
+    # on les met de côté le temps du rangement, puis on les remet en place.
+    fixes = GALERIE_FIXE.findall(html)
+    for i, bloc in enumerate(fixes):
+        html = html.replace(bloc, f"\x00galerie{i}\x00", 1)
     morceaux = re.split(r"(?=<h2|<h3)", html)
     resultat = []
     for morceau in morceaux:
@@ -300,7 +315,10 @@ def ranger_figures(html: str) -> str:
             else:
                 morceau = morceau + galerie
         resultat.append(morceau)
-    return "".join(resultat)
+    html = "".join(resultat)
+    for i, bloc in enumerate(fixes):
+        html = html.replace(f"\x00galerie{i}\x00", bloc, 1)
+    return html
 
 
 def ouvrir(chemin: Path) -> tuple[dict, str]:

@@ -75,11 +75,19 @@ parvenir, l'UNESCO a mis sur pied la Convention pour la protection du
 patrimoine mondial en 1972. Cette convention permet aux pays membres
 d'inscrire certains biens historiques, culturels et naturels sur la Liste du
 patrimoine mondial.
+:::
 
 Une inscription n'est pas qu'un honneur. Elle engage le pays à protéger le site,
 à rendre compte de son état et à accepter un regard extérieur sur sa gestion.
 Pour un parc naturel, cela veut dire surveiller la fréquentation et protéger
 l'écosystème, même quand les visiteurs rapportent de l'argent.
+
+::: galerie
+![Le delta de l'Okavango, au Botswana, vu d'avion](../medias/13-territoire-protege/delta-okavango.jpg)
+
+![Les piliers de grès de Wulingyuan, en Chine](../medias/13-territoire-protege/wulingyuan.jpg)
+
+![Une baleine grise adulte avec son petit s'approche des touristes](../medias/13-territoire-protege/baleine-grise.jpg)
 :::
 
 Les sites naturels inscrits sur la Liste sont très variés. Au Botswana, le
@@ -89,12 +97,6 @@ de la Liste. En Chine, Wulingyuan compte plus de 3 000 piliers de grès, dont
 plusieurs dépassent 200 mètres de hauteur. Au Mexique, le sanctuaire de
 baleines d'El Vizcaíno, inscrit en 1993, protège les lagunes de Basse-Californie
 où les baleines grises viennent mettre bas.
-
-![Le delta de l'Okavango, au Botswana, vu d'avion](../medias/13-territoire-protege/delta-okavango.jpg)
-
-![Les piliers de grès de Wulingyuan, en Chine](../medias/13-territoire-protege/wulingyuan.jpg)
-
-![Une baleine grise adulte avec son petit s'approche des touristes](../medias/13-territoire-protege/baleine-grise.jpg)
 
 ### Explorer la Liste du patrimoine mondial
 
@@ -108,12 +110,6 @@ Tout savoir sur le patrimoine mondial de l'UNESCO
 
 [Consulter la Liste du patrimoine mondial](https://whc.unesco.org/fr/list/){: .bouton }
 
-::: savais-tu
-Les îles Galápagos figurent sur la Liste du patrimoine mondial depuis 1978, et
-pas n'importe où : elles portent le **numéro 1** de la Liste. C'est le tout
-premier site inscrit au patrimoine mondial.
-:::
-
 ::: questions
 1. Un sentier de bois construit dans une tourbière est un aménagement. Explique
    comment il peut à la fois servir les visiteurs et protéger le milieu.
@@ -124,7 +120,16 @@ premier site inscrit au patrimoine mondial.
    plutôt qu'un simple honneur?
 :::
 
-## Les dates qui comptent
+## Premier cas : les îles Galápagos
+
+Tu connais maintenant les concepts et le rôle de l'UNESCO. Place au premier
+territoire à l'étude : les îles Galápagos, en Équateur. Ce choix n'est pas un
+hasard. Quand l'UNESCO a inscrit ses premiers sites en 1978, les Galápagos ont
+reçu le **numéro 1** de la Liste du patrimoine mondial. Elles montrent aussi,
+mieux que bien d'autres parcs, à quel point il est difficile de concilier la
+protection et la fréquentation.
+
+### Les dates qui comptent
 
 ::: schema frise-protection
 :::
