@@ -39,6 +39,15 @@ du Vieux-Québec située à l'intérieur des remparts.
 
 ## Concepts à l'étude
 
+Pour comprendre une ville patrimoniale, il ne suffit pas de connaître ces douze
+concepts un par un. Il faut surtout voir comment ils s'influencent :
+l'urbanisation et l'étalement urbain font grandir la ville autour de son quartier
+ancien, la concentration et la densité mettent ses bâtiments sous pression, et le
+site impose ses contraintes. La conservation, la restauration et l'aménagement
+cherchent alors à protéger le patrimoine tout en laissant place au changement,
+sans briser la continuité.
+
+::: concepts Douze concepts à découvrir
 - **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire. Dans une ville patrimoniale, il faut aménager sans effacer ce que
   l'on cherche justement à conserver.
@@ -69,6 +78,7 @@ du Vieux-Québec située à l'intérieur des remparts.
 - **Urbanisation** : le phénomène par lequel une population se concentre de plus
   en plus dans les villes, ce qui entraîne le développement de la ville, de ses
   services et de ses activités.
+:::
 
 ::: note
 Un treizième mot revient dans cette fiche sans faire partie de la liste du
@@ -101,19 +111,28 @@ qui recense tous les sites inscrits, pays par pays. L'**[arrondissement historiq
 du Vieux-Québec](https://whc.unesco.org/fr/list/300/)** y porte le numéro 300.
 :::
 
+::: panneaux
 ### Le patrimoine culturel
+
+![La vieille ville de Dubrovnik, en Croatie, inscrite au patrimoine mondial en 1979](../medias/06-essor-urbain/bourg-dubrovnik.jpg)
 
 Les sites patrimoniaux culturels ont été façonnés par les humains. Il peut
 s'agir de bâtiments, de places, de fortifications, de quartiers entiers ou
 d'oeuvres d'art, conçus par des êtres humains et jugés d'une valeur inestimable
-pour la société. Le Vieux-Québec appartient à cette catégorie.
+pour la société. Le Vieux-Québec appartient à cette catégorie, tout comme la
+vieille ville de Dubrovnik, une autre cité entourée de remparts.
 
 ### Le patrimoine naturel
+
+![La rivière à l'Huile, sur l'île d'Anticosti, inscrite au patrimoine mondial en 2023](../medias/13-territoire-protege/riviere-huile.jpg)
 
 Les sites patrimoniaux naturels sont des paysages et des milieux que les humains
 n'ont pas façonnés. Ce sont des sites dont la valeur est jugée exceptionnelle
 pour la science et pour la biodiversité, mais aussi pour leur beauté. Une forêt
 ancienne, un récif corallien ou un massif montagneux peuvent en faire partie.
+L'île d'Anticosti, premier site naturel du Québec inscrit sur la Liste, en est
+un exemple.
+:::
 
 ### Pimachiowin Aki, les deux à la fois
 

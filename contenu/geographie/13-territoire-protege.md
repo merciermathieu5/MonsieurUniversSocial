@@ -44,7 +44,26 @@ la conservation cherche à préserver sa biodiversité, l'aménagement tente de
 concilier les deux, et l'UNESCO reconnaît les lieux dont le patrimoine compte
 pour l'humanité entière.
 
-::: composant concepts-parc
+::: concepts Huit concepts à découvrir
+- **Biodiversité** : Diversité des espèces vivantes, animales et végétales,
+  présentes dans un milieu.
+- **Fréquentation** : Nombre de visiteurs qui se rendent dans un territoire
+  protégé et pression qu'ils exercent sur le milieu.
+- **Patrimoine** : Ensemble des richesses naturelles et culturelles héritées du
+  passé qu'une société souhaite préserver et transmettre.
+- **Conservation** : Mesures visant à protéger et à préserver un milieu naturel
+  et ses ressources pour les générations futures.
+- **UNESCO** : Organisation des Nations unies pour l'éducation, la science et la
+  culture, qui reconnaît et protège des sites d'une valeur exceptionnelle pour
+  l'humanité.
+- **Environnement** : Ensemble des relations qui existent entre l'humain et son
+  milieu de vie.
+- **Écosystème** : Ensemble formé par des êtres vivants et le milieu dans lequel
+  ils vivent et interagissent.
+- **Aménagement** : Organisation d'un territoire (sentiers, centres d'accueil,
+  zones de protection) pour répondre aux besoins des visiteurs tout en
+  protégeant le milieu.
+:::
 
 Deux autres concepts du programme complètent ceux de ta fiche :
 

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import html
 import re
 import shutil
 import sys
@@ -54,6 +55,12 @@ COLONNES = re.compile(r"^::: *colonnes(2|3)? *$(.*?)^::: *$",
                       re.MULTILINE | re.DOTALL)
 GALERIE = re.compile(r"^::: *galerie *$(.*?)^::: *$",
                      re.MULTILINE | re.DOTALL)
+CONCEPTS = re.compile(r"^::: *concepts *(.*?) *$(.*?)^::: *$",
+                      re.MULTILINE | re.DOTALL)
+PANNEAUX = re.compile(r"^::: *panneaux *$(.*?)^::: *$",
+                      re.MULTILINE | re.DOTALL)
+# Un concept de la liste : - **Terme** : définition, sur une ou plusieurs lignes.
+ENTREE_CONCEPT = re.compile(r"^-\s+\*\*(.+?)\*\*\s*:\s*(.+)$", re.DOTALL)
 TITRES_BLOC = {
     "questions": "Questions",
     "note": "À retenir",
@@ -130,6 +137,62 @@ def convertir_blocs(texte: str, credits: dict) -> str:
                       lambda c: composer_credit(credits.get(c.group(1), {})),
                       corps)
 
+    def concepts(m):
+        """::: concepts Titre facultatif + une liste - **Terme** : définition.
+
+        Chaque entrée devient une carte qui montre le concept et se retourne
+        pour dévoiler sa définition. Le style vit dans theme/style.css et le
+        comportement dans theme/page.js : une page peut donc en compter
+        plusieurs, et la liste reste lisible telle quelle dans le Markdown.
+        """
+        entrees = re.split(r"\n(?=-\s)", m.group(2).strip())
+        cartes = []
+        for rang, entree in enumerate(entrees, 1):
+            trouve = ENTREE_CONCEPT.match(entree.strip())
+            if not trouve:
+                return (f'<p class="avis">Concept illisible : {html.escape(entree[:60])}'
+                        '. Forme attendue : - **Terme** : définition</p>\n')
+            terme = html.escape(trouve.group(1).strip())
+            texte_def = " ".join(trouve.group(2).split())
+            texte_def = texte_def[:1].upper() + texte_def[1:]
+            definition = markdown.markdown(texte_def)
+            definition = re.sub(r"^<p>|</p>$", "", definition.strip())
+            cartes.append(
+                '<button type="button" class="cp__carte" aria-pressed="false">'
+                '<span class="cp__interieur">'
+                '<span class="cp__face cp__face--avant"><span>'
+                f'<span class="cp__numero">{rang:02d}</span>'
+                f'<span class="cp__concept">{terme}</span></span>'
+                '<span class="cp__indice">Retourne la carte</span></span>'
+                '<span class="cp__face cp__face--arriere" aria-hidden="true">'
+                f'<span class="cp__rappel">{terme}</span>'
+                f'<span class="cp__definition">{definition}</span></span>'
+                '</span></button>')
+        titre = html.escape(m.group(1).strip() or f"{len(cartes)} concepts à découvrir")
+        return ('<section class="cp" aria-label="' + titre + '">\n'
+                '<div class="cp__entete">'
+                f'<p class="cp__titre" role="heading" aria-level="3">{titre}</p>'
+                '<button type="button" class="cp__tout" aria-pressed="false">'
+                'Tout retourner</button></div>\n'
+                '<div class="cp__grille">\n' + "\n".join(cartes) + '\n</div>\n'
+                '</section>\n')
+
+    def panneaux(m):
+        """::: panneaux : une colonne par sous-titre ###, côte à côte.
+
+        Contrairement à ::: colonnes, où le texte coule d'une colonne à l'autre,
+        chaque ### ouvre ici sa propre colonne. On peut y placer une image : elle
+        prend la largeur de la colonne et toutes les images ont la même hauteur.
+        """
+        morceaux = [p.strip() for p in re.split(r"^(?=### )", m.group(1).strip(),
+                                                 flags=re.MULTILINE) if p.strip()]
+        colonnes = "\n\n".join(f'<div class="panneau" markdown="1">\n\n{p}\n\n</div>'
+                               for p in morceaux)
+        return (f'<div class="panneaux panneaux--{len(morceaux)}" markdown="1">\n\n'
+                f'{colonnes}\n\n</div>\n')
+
+    texte = CONCEPTS.sub(concepts, texte)
+    texte = PANNEAUX.sub(panneaux, texte)
     texte = COMPOSANT.sub(composant, texte)
     texte = SCHEMA.sub(schema, texte)
     texte = VIDEO.sub(video, texte)

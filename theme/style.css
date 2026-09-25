@@ -962,6 +962,69 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
   }
 }
 
+/* ---------------------------------------------------- cartes à retourner
+   ::: concepts dans une fiche : chaque concept se retourne pour montrer sa
+   définition. Le comportement vit dans page.js. */
+
+.cp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.cp .cp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cp .cp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.cp__tout { font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: rgba(255,255,255,.15); border: 0; border-radius: 100px; padding: .35rem .8rem; cursor: pointer; }
+.cp__tout:hover { background: rgba(255,255,255,.3); }
+.cp__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr)); gap: 1rem; padding: 1.2rem; }
+.cp__carte { display: grid; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; perspective: 900px; font: inherit; color: inherit; text-align: left; }
+.cp__carte:focus-visible { outline: 3px solid var(--matiere); outline-offset: 3px; border-radius: 10px; }
+.cp__interieur { display: grid; height: 100%; min-height: 9.5rem; transition: transform .5s ease; transform-style: preserve-3d; }
+.cp__carte.est-retournee .cp__interieur { transform: rotateY(180deg); }
+.cp__face { grid-area: 1 / 1; display: flex; flex-direction: column; border-radius: 10px; padding: .95rem 1.1rem 1rem; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.cp__face--avant { background: var(--matiere-voile); border-top: 3px solid var(--matiere); justify-content: space-between; }
+.cp__face--arriere { background: var(--matiere-fonce); color: #fff; transform: rotateY(180deg); justify-content: center; }
+.cp__numero { display: block; font-family: var(--donnee); font-size: .7rem; letter-spacing: .1em; color: var(--encre-pale); }
+.cp__concept { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; letter-spacing: -.01em; color: var(--matiere-fonce); margin: .35rem 0 .6rem; }
+.cp__indice { font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.cp__indice::after { content: " \21BB"; }
+.cp__definition { display: block; font-size: .98rem; line-height: 1.5; }
+.cp__rappel { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: .45rem; }
+html[data-sombre="on"] .cp .cp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .cp .cp__titre, html[data-sombre="on"] .cp__tout { color: var(--encre); }
+html[data-sombre="on"] .cp__concept { color: var(--encre); }
+html[data-sombre="on"] .cp__face--arriere { background: var(--surface-2); color: var(--encre); border-top: 3px solid var(--matiere); }
+html[data-sombre="on"] .cp__rappel { color: var(--encre-pale); }
+@media (prefers-reduced-motion: reduce) {
+  .cp__interieur { transition: none; transform: none !important; }
+  .cp__face--arriere { transform: none; visibility: hidden; }
+  .cp__carte.est-retournee .cp__face--avant { visibility: hidden; }
+  .cp__carte.est-retournee .cp__face--arriere { visibility: visible; }
+}
+@media (max-width: 40rem) { .cp__grille { padding: 1rem; gap: .8rem; } }
+@media print {
+  .cp__tout, .cp__indice { display: none; }
+  .cp__interieur { transform: none !important; display: block; min-height: 0; }
+  .cp__face { transform: none; backface-visibility: visible; }
+  .cp__face--arriere { background: none; color: var(--encre); padding-top: 0; }
+  .cp__rappel { display: none; }
+  .cp__carte { break-inside: avoid; }
+}
+
+/* ------------------------------------------------------------- panneaux
+   ::: panneaux dans une fiche : une colonne par sous-titre ###, avec au
+   besoin une image par colonne, à la même hauteur d'une colonne à l'autre. */
+
+.panneaux {
+  clear: both; display: grid; gap: 1.6rem 2.5rem; margin: 1.6rem 0 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+.panneau { border-top: 3px solid var(--matiere); padding-top: .9rem; min-width: 0; }
+.panneau > * { max-width: none !important; }
+.panneau > h3:first-child { margin-top: 0; }
+.panneau .illustration {
+  float: none !important; width: 100% !important; margin: .4rem 0 1.1rem !important;
+}
+.panneau .illustration img {
+  width: 100% !important; height: auto !important; max-height: none !important;
+  aspect-ratio: 3 / 2; object-fit: cover;
+}
+
 /* ------------------------------------------------------ crédit repliable */
 
 details.credit summary {
