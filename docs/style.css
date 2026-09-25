@@ -950,6 +950,17 @@ body[data-diapo="on"] .texte h2 { border-top: 0; padding-top: .5rem; margin-top:
 .galerie .illustration--large img {
   aspect-ratio: auto; object-fit: fill; background: none;
 }
+/* Une galerie posée à la main (::: galerie) de quatre images tient sur une
+   seule rangée plutôt que trois plus une, et passe à deux par rangée sur
+   un écran étroit. Les galeries automatiques ne sont pas touchées. */
+.galerie--fixe:has(> .illustration:nth-child(4):last-child) {
+  grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.9rem 1.2rem;
+}
+@media (max-width: 52rem) {
+  .galerie--fixe:has(> .illustration:nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 /* ------------------------------------------------------ crédit repliable */
 
