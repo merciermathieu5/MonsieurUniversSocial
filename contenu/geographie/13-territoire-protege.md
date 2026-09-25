@@ -37,9 +37,12 @@ inscrite au patrimoine mondial en 2023.
 
 ## Concepts à l'étude
 
-Ta fiche te demande d'associer huit concepts à leur définition. Chaque carte
-porte un concept, avec le même numéro que sur ta fiche. Essaie d'abord de le
-définir dans tes mots, puis retourne la carte pour découvrir sa définition.
+Pour comprendre les territoires protégés de la planète, il ne suffit pas de
+connaître ces huit concepts un par un. Il faut surtout saisir les liens qui les
+unissent : la fréquentation d'un parc exerce une pression sur son écosystème,
+la conservation cherche à préserver sa biodiversité, l'aménagement tente de
+concilier les deux, et l'UNESCO reconnaît les lieux dont le patrimoine compte
+pour l'humanité entière.
 
 ::: composant concepts-parc
 
@@ -79,8 +82,28 @@ Pour un parc naturel, cela veut dire surveiller la fréquentation et protéger
 l'écosystème, même quand les visiteurs rapportent de l'argent.
 :::
 
+Les sites naturels inscrits sur la Liste sont très variés. Au Botswana, le
+delta de l'Okavango est un delta intérieur : le fleuve n'atteint jamais la mer
+et se perd dans le désert du Kalahari. Inscrit en 2014, il est le millième site
+de la Liste. En Chine, Wulingyuan compte plus de 3 000 piliers de grès, dont
+plusieurs dépassent 200 mètres de hauteur. Au Mexique, le sanctuaire de
+baleines d'El Vizcaíno, inscrit en 1993, protège les lagunes de Basse-Californie
+où les baleines grises viennent mettre bas.
+
+![Le delta de l'Okavango, au Botswana, vu d'avion](../medias/13-territoire-protege/delta-okavango.jpg)
+
+![Les piliers de grès de Wulingyuan, en Chine](../medias/13-territoire-protege/wulingyuan.jpg)
+
+![Une baleine grise adulte avec son petit s'approche des touristes](../medias/13-territoire-protege/baleine-grise.jpg)
+
+### Explorer la Liste du patrimoine mondial
+
 ::: video ojjH7YGAa6I
 Les sites naturels du patrimoine mondial de l'UNESCO
+:::
+
+::: video RLB-HKzD-bM
+Tout savoir sur le patrimoine mondial de l'UNESCO
 :::
 
 [Consulter la Liste du patrimoine mondial](https://whc.unesco.org/fr/list/){: .bouton }
