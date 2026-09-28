@@ -20,6 +20,32 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2288061/premieres-nations-campagne-ignore-autochtone"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-28"
+    titre: "Élections : les Premières Nations refusent d’être les grandes oubliées de la campagne"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2488521/parc-eolien-grosse-ile-sieges-reserves-aux-citoyens-toujours-vacants"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-09-28"
+    titre: "Parc éolien de Grosse-Île : les sièges réservés aux citoyens toujours vacants"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10771131/sunnyside-protege-inondations"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-09-28"
+    titre: "Sunnyside protégé des inondations"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-28/des-inondations-font-16-morts-en-thailande-et-en-birmanie.php"
     fiche: "04"
