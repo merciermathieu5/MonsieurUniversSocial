@@ -20,6 +20,40 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2488797/rencontre-sur-peches-et-souverainete-alimentaire-avec-colombe-st-pierre"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-09-28"
+    titre: "Promouvoir la souveraineté alimentaire du secteur des pêches"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-28/des-inondations-font-16-morts-en-thailande-et-en-birmanie.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-09-28"
+    titre: "Des inondations font 16 morts en Thaïlande et en Birmanie"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/27/eni-images--thailande-des-milliers-dhabitants-evacues-apres-dimportantes-inondations-a-bangkok"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-09-27"
+    titre: "ENI IMAGES | Thaïlande: des milliers d’habitants évacués après d'importantes inondations à Bangkok"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/11/30/on-a-perdu-le-controle--un-record-de-signalemetns-en-lien-avec-litinerance-a-montreal"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-26"
+    titre: "«On a perdu le contrôle!»: un record de signalements en lien avec l'itinérance à Montréal"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/tele/on-va-se-le-dire/site/segments/entrevue/2485991/amazonie-deforestation-emile-roy-documentaire"
     fiche: "06"
