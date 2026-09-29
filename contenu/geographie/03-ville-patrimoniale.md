@@ -190,10 +190,56 @@ poursuit trois objectifs :
   de conservation et de gestion du patrimoine
 - développer un sens de la solidarité parmi ses villes membres
 
+L'OVPM se donne aussi une mission. À ses yeux, une ville du patrimoine mondial a
+un privilège, celui de représenter des valeurs qui appartiennent à toute
+l'humanité. Ce privilège vient avec une responsabilité : cette ville doit
+montrer l'exemple dans la protection et la mise en valeur de son patrimoine
+culturel. Elle doit aussi proposer une vision audacieuse de son avenir, plutôt
+que de se contenter de préserver son passé.
+
+#### Des villes sous pression
+
+Les villes patrimoniales ne sont pas figées dans le temps. Elles subissent en
+même temps les effets des crises climatiques, économiques et sociales. Ces
+pressions touchent particulièrement leurs quartiers anciens, plus fragiles :
+un bâtiment centenaire résiste moins bien aux inondations, une hausse des loyers
+peut chasser les résidents d'un quartier historique et un tourisme trop intense
+peut transformer un milieu de vie en simple décor. Pour l'OVPM, l'ampleur de ces
+changements oblige les villes à inventer d'autres façons d'agir et de nouvelles
+pratiques d'aménagement.
+
+#### De la Feuille de route de Québec au Nouveau Projet Urbain
+
+Les villes membres ont choisi d'agir ensemble. À la suite du 16e Congrès mondial
+de l'OVPM, tenu à Québec en 2022, l'Organisation a lancé la **Feuille de route
+de Québec**. Cette démarche vise à donner plus de poids politique à l'OVPM et à
+augmenter sa capacité d'agir concrètement. C'est une expérience nouvelle pour
+elle, car elle fait participer activement de nombreux acteurs des villes
+membres, et pas seulement leurs maires.
+
+La démarche a franchi une autre étape au 17e Congrès mondial, à Cordoue, en
+Espagne, en septembre 2024. Les villes membres s'y sont engagées à concevoir et
+à adopter un **Nouveau Projet Urbain**. Ce projet doit inspirer une nouvelle
+génération de politiques, de stratégies et d'aménagements urbains. Son idée
+centrale : aborder le développement durable à partir du patrimoine, afin de
+réconcilier trois éléments souvent pensés séparément, soit la ville, les êtres
+humains qui l'habitent et l'environnement.
+
+::: note
+Québec occupe une place particulière dans l'OVPM : elle accueille son
+secrétariat général et elle a donné son nom à la Feuille de route adoptée
+après le congrès de 2022.
+:::
+
 ::: questions
 1. Pourquoi dit-on que le patrimoine est une décision plutôt qu'une qualité?
 2. Pimachiowin Aki est classé comme un site mixte. Explique, dans tes mots,
    pourquoi il ne pouvait pas être seulement naturel ni seulement culturel.
+3. Selon l'OVPM, une ville du patrimoine mondial doit protéger son passé et
+   proposer une vision d'avenir. Explique pourquoi ces deux rôles peuvent
+   parfois entrer en tension.
+4. Nomme une crise climatique, économique ou sociale qui pourrait menacer le
+   Vieux-Québec. Décris son effet possible sur le quartier.
 :::
 
 ## Québec intra-muros
@@ -505,6 +551,7 @@ urbain mondial, avec des documents à analyser.
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
 - [Patrimoine urbain et cartographie numérique, dossier du RÉCIT](https://documents.recitus.qc.ca/1er-cyle/dossier/patrimoine-urbain-et-cartographie-numerique)
 - [UNESCO, Liste du patrimoine mondial](https://whc.unesco.org/fr/list/)
+- [Organisation des villes du patrimoine mondial, À propos de l'OVPM](https://www.ovpm.org/fr/a-propos-de-ovpm/)
 - [Parcs Canada, lieu historique national des Fortifications-de-Québec](https://parks.canada.ca/lhn-nhs/qc/fortifications)
 - [Alloprof, le territoire urbain patrimonial](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/territoire-urbain-la-ville-patrimoniale-g1016)
 - [Ville de Québec](https://www.ville.quebec.qc.ca/)
