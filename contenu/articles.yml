@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-29/inondations-en-thailande/le-bilan-monte-a-23-morts.php"
     fiche: "04"
     media: "La Presse"
     date: "2026-09-29"
     titre: "Inondations en Thaïlande | Le bilan monte à 23 morts"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/29/inondations-quatre-deces-a-bangkok-le-bilan-en-thailande-monte-a-23-morts"
@@ -34,23 +34,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-29"
     titre: "Inondations: quatre décès à Bangkok, le bilan en Thaïlande monte à 23 morts"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/09/29/des-entraves-a-prevoir-sur-lautoroute-15-et-lechangeur-des-laurentides-durant-le-week-end"
-    fiche: "02"
-    media: "Journal de Montréal"
-    date: "2026-09-29"
-    titre: "Des entraves à prévoir sur l’autoroute 15 et l’échangeur des Laurentides durant le week-end"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2288061/premieres-nations-campagne-ignore-autochtone"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-09-28"
-    titre: "Élections : les Premières Nations refusent d’être les grandes oubliées de la campagne"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2488521/parc-eolien-grosse-ile-sieges-reserves-aux-citoyens-toujours-vacants"
@@ -58,7 +42,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-28"
     titre: "Parc éolien de Grosse-Île : les sièges réservés aux citoyens toujours vacants"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10771131/sunnyside-protege-inondations"
@@ -66,7 +50,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-28"
     titre: "Sunnyside protégé des inondations"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/09/28/louragan-polo-doit-toucher-terre-au-mexique-aujourdhui-et-risque-de-causer-des-degats-importants"
@@ -74,19 +58,9 @@ articles:
     media: "Journal de Montréal"
     date: "2026-09-28"
     titre: "L'ouragan «Polo» se rapproche du Mexique, d'importants dégâts redoutés"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-28/itinerance-chez-les-personnes-autochtones/projets-autochtones-du-quebec-reclame-un-financement-perenne.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-28"
-    titre: "Itinérance chez les personnes autochtones | Projets Autochtones du Québec réclame un financement pérenne"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-28/des-inondations-font-16-morts-en-thailande-et-en-birmanie.php"
     fiche: "04"
     media: "La Presse"
@@ -1329,11 +1303,35 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/09/29/des-entraves-a-prevoir-sur-lautoroute-15-et-lechangeur-des-laurentides-durant-le-week-end"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-09-29"
+    titre: "Des entraves à prévoir sur l’autoroute 15 et l’échangeur des Laurentides durant le week-end"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2288061/premieres-nations-campagne-ignore-autochtone"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-28"
+    titre: "Élections : les Premières Nations refusent d’être les grandes oubliées de la campagne"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2488797/rencontre-sur-peches-et-souverainete-alimentaire-avec-colombe-st-pierre"
     fiche: "10"
     media: "Radio-Canada"
     date: "2026-09-28"
     titre: "Promouvoir la souveraineté alimentaire du secteur des pêches"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-09-28/itinerance-chez-les-personnes-autochtones/projets-autochtones-du-quebec-reclame-un-financement-perenne.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-28"
+    titre: "Itinérance chez les personnes autochtones | Projets Autochtones du Québec réclame un financement pérenne"
     garder: "N"
     note: ""
 
