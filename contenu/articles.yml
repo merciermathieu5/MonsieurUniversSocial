@@ -20,29 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://www.lapresse.ca/affaires/techno/2026-09-30/boite-de-reception/une-esim-sans-itinerance-nettoyer-son-iphone-s-attaquer-aux-pourriels.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-09-30"
-    titre: "Boîte de réception | Une eSIM sans itinérance, nettoyer son iPhone, s’attaquer aux pourriels"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/l-apres-midi-est-a-nous/segments/rattrapage/2490216/premieres-nations-se-sentent-oubliees-campagne"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-09-29"
-    titre: "Les Premières Nations refusent d’être les oubliées de la campagne"
-    garder: ""
-    note: ""
-
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/le-6-a-9/segments/rattrapage/2489924/impacts-meconnus-developpement-filiere-eolienne-sur-oiseaux"
     fiche: "07"
     media: "Radio-Canada"
     date: "2026-09-29"
     titre: "Comment réduire l’impact des éoliennes sur les oiseaux, se demandent des chercheurs"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2288482/ouragan-polo-touche-terre-basse-californie-mexique"
@@ -50,11 +34,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-09-29"
     titre: "L’ouragan Polo touche terre en Basse-Californie du Sud, au Mexique"
-    garder: ""
+    garder: "O"
     note: ""
 
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-09-29/inondations-en-thailande/le-bilan-monte-a-23-morts.php"
     fiche: "04"
     media: "La Presse"
@@ -1337,6 +1319,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/affaires/techno/2026-09-30/boite-de-reception/une-esim-sans-itinerance-nettoyer-son-iphone-s-attaquer-aux-pourriels.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-09-30"
+    titre: "Boîte de réception | Une eSIM sans itinérance, nettoyer son iPhone, s’attaquer aux pourriels"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/l-apres-midi-est-a-nous/segments/rattrapage/2490216/premieres-nations-se-sentent-oubliees-campagne"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-29"
+    titre: "Les Premières Nations refusent d’être les oubliées de la campagne"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.journaldemontreal.com/2026/09/29/des-entraves-a-prevoir-sur-lautoroute-15-et-lechangeur-des-laurentides-durant-le-week-end"
     fiche: "02"
     media: "Journal de Montréal"
