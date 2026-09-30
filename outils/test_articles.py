@@ -133,6 +133,98 @@ verdict("une liste passe telle quelle, sans les vides",
         articles.candidats_de(["https://a.ca", "", "https://b.ca"])
         == ["https://a.ca", "https://b.ca"])
 
+print("\nRÉSUMÉ DES FILS")
+FIL_RESUME = b"""<?xml version="1.0"?><rss version="2.0"><channel><title>R</title>
+<item><title>Une eglise se refait une jeunesse</title>
+<link>https://exemple.ca/nouvelle/3</link>
+<description><![CDATA[<p>Des ma&ccedil;ons restaurent ses deux <b>clochers</b>.</p>]]></description>
+</item></channel></rss>"""
+lot = articles.extraire_entrees(FIL_RESUME, "Essai")
+verdict("le résumé est lu, sans balises ni entités",
+        lot and lot[0]["resume"] == "Des maçons restaurent ses deux clochers.",
+        repr(lot and lot[0]["resume"]))
+
+print("\nCLASSEMENT")
+LEX = {
+    "exclure": ["meurtre"],
+    "rubriques_exclues": ["transports en direct"],
+    "geographie": {
+        "03": {"nom": "Patrimoine", "forts": ["clocher", "patrimoine"],
+               "faibles": ["eglise"], "pieges": ["patrimoine familial"]},
+        "05": {"nom": "Tourisme", "forts": ["tourisme", "croisiere"],
+               "faibles": ["plage"]},
+        "09": {"nom": "Industrie", "forts": ["acier", "stelco"],
+               "faibles": ["usine", "tarif"]},
+        "12": {"nom": "Autochtone", "forts": ["autochtone"], "faibles": []},
+    },
+}
+r = articles.classer("Une eglise se refait une jeunesse", LEX,
+                     "Des maçons restaurent ses deux clochers.")
+verdict("un fort du résumé confirmé par un faible du titre suffit",
+        r and r[0][1] == "03" and r[0][4] == 0, str(r))
+r = articles.classer("Une belle journee a Quebec", LEX, "Les clochers sonnent.")
+verdict("le résumé ne décide jamais seul", r == [], str(r))
+r = articles.classer("Le tourisme repart", LEX, "Un meurtre en marge du festival.")
+verdict("le veto lit aussi le résumé", r and r[0][0] == "veto", str(r))
+r = articles.classer("Transports en direct | Le tourisme bloque l'autoroute", LEX)
+verdict("une rubrique exclue est écartée par son chapeau",
+        r and r[0][0] == "veto", str(r))
+r = articles.classer("Le partage du patrimoine familial devant la cour", LEX)
+verdict("un piège retire le territoire", r == [], str(r))
+r = articles.classer("Les autochtones et l'acier", LEX)
+verdict("à égalité, le territoire nommé en premier l'emporte",
+        r and r[0][1] == "12", str(r))
+r = articles.classer("Stelco : l'acierie de Hamilton", LEX)
+verdict("les forts s'additionnent", r and r[0][0] == 2 and r[0][1] == "09",
+        str(r))
+
+print("\nAPPRENTISSAGE")
+LEX["apprentissage"] = {"minimum": 5, "taux": 0.15}
+registre = [{"fiche": "05", "titre": f"Le tourisme, chronique {i}",
+             "garder": "N"} for i in range(5)]
+retro = articles.retrogradations(LEX, registre)
+verdict("cinq refus sans un O rétrogradent le terme", ("05", "tourisme") in retro,
+        str(retro))
+r = articles.classer("Le tourisme en hausse", LEX, "", retro)
+verdict("un terme rétrogradé ne décide plus seul", r == [], str(r))
+r = articles.classer("Le tourisme de croisière en hausse", LEX, "", retro)
+verdict("il compte encore comme faible, à côté d'un fort",
+        r and r[0][0] == 3 and r[0][4] == 1, str(r))
+registre.append({"fiche": "05", "titre": "Le tourisme sauve Percé",
+                 "garder": "O"})
+verdict("un O dans le lot suffit à le garder fort (1 sur 6)",
+        ("05", "tourisme") not in articles.retrogradations(LEX, registre))
+
+print("\nDOUBLONS")
+deja = [(articles.mots_du_titre("Indonésie : des milliers d'évacués en attente "
+                                "d'aide après le puissant séisme"), "2026-09-01")]
+m = articles.mots_du_titre("Indonésie: des milliers d’évacués en attente d’aide "
+                           "après le puissant séisme")
+verdict("la même dépêche chez un autre média est reconnue",
+        articles.doublon(m, "2026-09-02", deja))
+verdict("pas au-delà de trois jours", not articles.doublon(m, "2026-09-09", deja))
+m = articles.mots_du_titre("Séisme en Indonésie | Le bilan grimpe à 40 morts")
+verdict("une suite de la nouvelle n'est pas un doublon",
+        not articles.doublon(m, "2026-09-02", deja))
+
+print("\nLEXIQUE RÉEL, CAS TIRÉS DU REGISTRE")
+import yaml
+REEL = yaml.safe_load(articles.LEXIQUE.read_text(encoding="utf-8"))
+for titre, attendu in [
+    ("Mine et usine d’explosifs : une menace pour le tourisme à la baie des "
+     "Chaleurs?", "05"),
+    ("Pour sa « survie » face aux tarifs américains, Stelco licencie", "09"),
+    ("Les agriculteurs ontariens demandent de l’aide", "10"),
+    ("Cri du cœur pour sauver le patrimoine religieux de Québec", "03"),
+    ("Autoroute 15: la voie réservée fermée pour quatre jours", None),
+    ("Crise de l’itinérance : les coûts continuent d’exploser", None),
+    ("L’affaire Thélyson Orélien, un séisme pour le monde de l’édition?", None),
+    ("Vieux-Port de Montréal | Une « privatisation » dénoncée", None),
+]:
+    r = articles.classer(titre, REEL)
+    obtenu = r[0][1] if r and r[0][0] != "veto" else None
+    verdict(f"{titre[:55]} -> {attendu}", obtenu == attendu, str(obtenu))
+
 rates = VERDICTS.count(False)
 print(f"\n{len(VERDICTS)} vérification(s), {rates} raté(s)")
 sys.exit(1 if rates else 0)

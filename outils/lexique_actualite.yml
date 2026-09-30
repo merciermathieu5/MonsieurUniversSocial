@@ -7,15 +7,32 @@
 # territoires, qui eux parlent du présent.
 #
 # Chaque territoire porte deux listes. Un terme « fort » décide presque à lui
-# seul, un terme « faible » ne décide de rien tout seul. Un article n'est
-# proposé que s'il touche au moins un terme fort ET atteint 2 points, le fort
-# valant 2 et le faible 1.
+# seul, un terme « faible » ne décide de rien tout seul. La comparaison se
+# fait sans accents, en minuscules, et tolère le pluriel sur chaque mot :
+# écrire « coupe forestiere » au singulier suffit.
 #
-# La comparaison se fait sans accents, en minuscules, sur le titre, et tolère
-# le pluriel sur chaque mot : écrire « coupe forestiere » au singulier suffit.
+# Un article est proposé de deux façons :
+#
+#     par le titre     un terme fort dans le titre (2 points), et 2 points
+#                      au total, le faible du titre valant 1.
+#     par le résumé    aucun terme fort dans le titre, mais un terme fort dans
+#                      le résumé que le fil donne sous le titre ET au moins un
+#                      terme faible dans le titre. Le résumé ne décide jamais
+#                      seul : il confirme ce que le titre annonce.
+#
+# Un terme fort trouvé dans le résumé ajoute 1 point, ce qui aide à départager
+# deux territoires.
 #
 # Écrire des termes longs plutôt que courts. « foret » attrape « la foret des
 # sondages », « coupe forestiere » n'attrape que ce qu'on veut.
+#
+# Révision du 30 septembre 2026, faite sur 295 jugements (162 O, 133 N) :
+# retrait des termes qui n'ont jamais mené à un O (itinérance, autoroute,
+# ruelle verte, camping, escapade, plein air, idée de sortie, traverse
+# frontalière), tourisme, touriste, agricole et agriculteur passés forts,
+# territoire industriel élargi à l'acier, à l'aluminium, à l'automobile et
+# aux ports, ville patrimoniale élargie au patrimoine religieux de Québec.
+# « python outils\articles.py --bilan » refait ce calcul à tout moment.
 
 # Les fils à interroger. Les cinq de La Presse ont répondu, les adresses de
 # Radio-Canada en rss.radio-canada.ca sont mortes : ce sous-domaine ne répond
@@ -47,20 +64,34 @@ fils:
   "Radio-Canada · science": https://ici.radio-canada.ca/info/rss/science/en-continu
   "Radio-Canada · Bas-Saint-Laurent": https://ici.radio-canada.ca/info/rss/bas-saint-laurent/en-continu
   "Radio-Canada · Gaspésie": https://ici.radio-canada.ca/info/rss/gaspesie-iles-de-la-madeleine/en-continu
+  # Ajoutés le 30 septembre 2026 pour les territoires les moins couverts,
+  # 50 items chacun. Économie : usines, acier, agriculteurs. Toronto et
+  # Windsor : le cœur industriel des Grands Lacs (Stelco à Hamilton,
+  # l'automobile à Windsor). Québec : le Vieux-Québec et son patrimoine
+  # religieux. Côte-Nord : Tadoussac et l'achalandage touristique.
+  # Saguenay–Lac-Saint-Jean : l'aluminium et les terres du Lac.
+  "Radio-Canada · économie": https://ici.radio-canada.ca/info/rss/economie/en-continu
+  "Radio-Canada · Québec": https://ici.radio-canada.ca/info/rss/quebec/en-continu
+  "Radio-Canada · Côte-Nord": https://ici.radio-canada.ca/info/rss/cote-nord/en-continu
+  "Radio-Canada · Saguenay–Lac-Saint-Jean": https://ici.radio-canada.ca/info/rss/saguenay-lac-saint-jean/en-continu
+  "Radio-Canada · Toronto": https://ici.radio-canada.ca/info/rss/ontario/toronto/en-continu
+  "Radio-Canada · Windsor": https://ici.radio-canada.ca/info/rss/ontario/windsor/en-continu
 
   # Journal de Montréal, fils demandés et éprouvés le 15 août 2026, 15 ou
   # 16 items chacun. Le fil environnement bouge lentement (parfois rien
   # pendant des semaines) : normal, pas une panne. Transport urbain n'a pas
   # été ajouté : son fil appartenait à la défunte section 24 heures et
-  # répond 404 partout.
+  # répond 404 partout. Argent ajouté le 30 septembre 2026, 18 items : le
+  # journal n'a pas de fil affaires, c'est celui-là qui en tient lieu.
   "Journal de Montréal · transports": https://www.journaldemontreal.com/actualite/transports/rss.xml
   "Journal de Montréal · environnement": https://www.journaldemontreal.com/actualite/environnement/rss.xml
   "Journal de Montréal · société": https://www.journaldemontreal.com/actualite/societe/rss.xml
   "Journal de Montréal · Asie-Pacifique": https://www.journaldemontreal.com/monde/asie-pacifique/rss.xml
+  "Journal de Montréal · argent": https://www.journaldemontreal.com/argent/rss.xml
 
-# Veto de sécurité. Un seul de ces termes dans un titre écarte l'article avant
-# le classement, quel que soit son score. La page s'adresse à des élèves de 12
-# à 14 ans et un fil de nouvelles brut charrie de tout.
+# Veto de sécurité. Un seul de ces termes dans le titre ou le résumé écarte
+# l'article avant le classement, quel que soit son score. La page s'adresse à
+# des élèves de 12 à 14 ans et un fil de nouvelles brut charrie de tout.
 exclure:
   - meurtre
   - homicide
@@ -82,29 +113,62 @@ exclure:
   - tue par balle
   - otage
   - torture
+  - perd la vie
+  - perdu la vie
 
+# Rubriques à écarter, lues dans le chapeau du titre (« Chapeau | Titre »).
+# Ce sont des chroniques qui reviennent chaque semaine et que tu as refusées
+# chaque fois : résumés de la veille, circulation en direct, conseils de
+# plein air, jeux-questionnaires.
+rubriques_exclues:
+  - boite de reception
+  - ce qu on suit
+  - ce que vous avez manque
+  - transports en direct
+  - ruelles vertes
+  - pendant que vous etes la
+  - multicolore
+  - quiz
+
+# Apprentissage. Un terme fort qui a mené à au moins « minimum » jugements
+# avec un taux d'acceptation sous « taux » est traité comme faible au passage
+# suivant : il ne décide plus seul. Le calcul se refait à chaque recherche à
+# partir du registre, il suit donc tes O et tes N sans que tu touches à ce
+# fichier. --bilan montre les termes rétrogradés.
+apprentissage:
+  minimum: 5
+  taux: 0.15
+
+# Pièges : un terme de cette liste, dans le titre ou le résumé, retire le
+# territoire des candidats. Ils corrigent les faux amis relevés dans les
+# refus (« un séisme pour le monde de l'édition », « Vieux-Port »).
 geographie:
   "02":
     nom: La métropole
     forts: [metropole, etalement urbain, transport collectif, densification,
-            congestion routiere, agglomeration, itinerance, crise du logement,
+            congestion routiere, agglomeration, crise du logement,
             megapole, banlieue, transport en commun, reseau express metropolitain,
             communaute metropolitaine, gentrification, transport structurant,
-            tramway, grand montreal, periurbain, societe de transport,
+            tramway, periurbain, societe de transport,
             metro de montreal, logement social, mobilite durable,
-            autoroute, cyclable, penurie de logement, ruelle verte,
+            cyclable, penurie de logement,
             revitalisation, conduite d eau, requalification]
-    faibles: [montreal, toronto, urbanisme, quartier, logement, arrondissement]
+    faibles: [montreal, toronto, urbanisme, quartier, logement, arrondissement,
+              autoroute, grand montreal]
+    pieges: [circulation perturbee]
   "03":
     nom: La ville patrimoniale
-    forts: [patrimoine bati, vieux-quebec, vieux-montreal, site patrimonial,
-            patrimoine mondial, unesco, batiment patrimonial, fortification,
-            patrimoine religieux, restauration du patrimoine,
-            arrondissement historique, classement patrimonial,
-            eglise desacralisee, conservation du patrimoine,
-            evenement historique, monument historique, lieu historique,
-            site historique, basilique]
-    faibles: [patrimoine, eglise, vieille ville, monument, facade]
+    forts: [patrimoine, patrimonial, patrimoniale, vieux-quebec, vieux-montreal,
+            site patrimonial, patrimoine mondial, unesco, fortification,
+            ville fortifiee, rempart, citadelle de quebec, chateau frontenac,
+            petit-champlain, place royale, maison ancestrale,
+            restauration du patrimoine, arrondissement historique,
+            eglise desacralisee, lieu de culte, clocher, conseil de fabrique,
+            monument historique, lieu historique, site historique, basilique]
+    faibles: [eglise, chapelle, vieille ville, monument, facade, restauration,
+              demolition, reconversion, ville de quebec, cathedrale]
+    pieges: [intelligence artificielle, patrimoine familial,
+             patrimoine financier]
   "04":
     nom: La ville soumise à des risques naturels
     forts: [seisme, tremblement de terre, faille sismique, tsunami, eruption,
@@ -112,16 +176,17 @@ geographie:
             glissement de terrain, erosion cotiere, submersion cotiere,
             securite civile, digue, inondation]
     faibles: [risque naturel, ville cotiere, pluie diluvienne]
+    pieges: [un seisme pour, seisme politique, droits de douane]
   "05":
     nom: Le territoire touristique
-    forts: [surtourisme, tourisme de masse, achalandage touristique, croisieriste,
-            hebergement touristique, industrie touristique,
-            saison touristique, location de courte duree, capacite d accueil,
-            croisiere, affluence touristique, camping, escapade,
-            destination touristique, attrait touristique, plein air,
-            randonnee, pourvoirie, station de ski, idee de sortie]
-    faibles: [tourisme, touriste, visiteur, plage, sentier, hotellerie, gaspesie,
-              sejour, itineraire]
+    forts: [tourisme, touriste, touristique, surtourisme, croisiere, croisieriste,
+            paquebot, hebergement touristique, location de courte duree,
+            location a court terme, airbnb, capacite d accueil, pourvoirie,
+            station de ski, sentier national, rocher perce, ile bonaventure]
+    faibles: [visiteur, vacancier, plage, sentier, hotellerie, hotel, gaspesie,
+              perce, tadoussac, iles-de-la-madeleine, sejour, itineraire,
+              festival, camping, randonnee, plein air, achalandage,
+              frequentation, saison estivale]
   "06":
     nom: Le territoire forestier
     forts: [deforestation, coupe forestiere, amazonie, foret boreale,
@@ -141,30 +206,44 @@ geographie:
     faibles: [energie, electricite, tarif, gaz naturel]
   "09":
     nom: Le territoire industriel des Grands Lacs
-    forts: [grands lacs, voie maritime du saint-laurent, siderurgie, acierie,
-            desindustrialisation, zone industrielle, port de montreal,
-            secteur manufacturier, aluminerie, porte-conteneurs,
-            chaine d approvisionnement, usine automobile,
-            chaine de montage, traverse frontaliere,
-            ferraille, pollution industrielle]
+    forts: [grands lacs, lac erie, lac huron, lac michigan, lac ontario,
+            lac superieur, voie maritime, siderurgie, siderurgique, acierie,
+            acier, aluminium, aluminerie, stelco, algoma, arcelormittal,
+            rio tinto, alcoa, desindustrialisation, delocalisation,
+            zone industrielle, parc industriel, port de montreal,
+            port de quebec, port de hamilton, terminal de conteneurs,
+            porte-conteneurs, secteur manufacturier, industrie manufacturiere,
+            usine automobile, industrie automobile, secteur automobile,
+            constructeur automobile, stellantis, volkswagen, usine de batteries,
+            chaine de montage, chaine d approvisionnement, fermeture d usine,
+            pollution industrielle, ferraille, pays atelier]
     faibles: [usine, industrie, manufacturier, exportation, saint-laurent,
-              windsor, detroit]
+              windsor, detroit, hamilton, oshawa, sarnia, sault-sainte-marie,
+              mise a pied, licenciement, tarif, droits de douane, conteneur,
+              multinationale]
+    pieges: [vieux-port]
   "10":
     nom: Le territoire agricole national
-    forts: [terre agricole, zone agricole, cptaq, releve agricole,
-            accaparement des terres, souverainete alimentaire,
-            agriculture peri-urbaine, union des producteurs agricoles,
-            autonomie alimentaire, zonage agricole, producteur agricole,
-            serriculture, garde-manger, gestion de l offre,
-            production laitiere, serre agricole, maraicher, terre en friche]
-    faibles: [agriculture, ferme, agriculteur, recolte, culture, elevage]
+    forts: [agriculture, agricole, agriculteur, agricultrice, terre agricole,
+            zone agricole, cptaq, releve agricole, accaparement des terres,
+            souverainete alimentaire, autonomie alimentaire, zonage agricole,
+            union des producteurs agricoles, upa, serriculture, serriculteur,
+            culture en serre, gestion de l offre, production laitiere,
+            producteur laitier, ferme laitiere, maraicher, terre en friche,
+            grande culture, monoculture, pesticide, bande riveraine,
+            agroalimentaire, transformation alimentaire, verger, pomiculteur,
+            acericulteur, erabliere, autocueillette]
+    faibles: [ferme, elevage, recolte, culture, producteur, engrais, betail,
+              bovin, porc, lait, garde-manger, travailleur etranger]
   "11":
     nom: Le territoire agricole soumis à des risques naturels
     forts: [mousson, bangladesh, salinisation, erosion des berges,
             secheresse agricole, submersion, delta du gange, riziere,
             perte de recolte, gel tardif, grele, crue printaniere,
             el nino, prevention des crues]
-    faibles: [inondation, secheresse, recolte, crue, mauvaise saison]
+    faibles: [inondation, secheresse, recolte, crue, mauvaise saison,
+              agriculteur, agricole, producteur]
+    pieges: [sante, deces]
   "12":
     nom: Le territoire autochtone du Québec et du Canada
     forts: [premiere nation, autochtone, inuit, revendication territoriale,
@@ -172,6 +251,7 @@ geographie:
             crie, atikamekw, mohawk, naskapi, huronne-wendat, conseil de bande,
             titre ancestral, pensionnat]
     faibles: [communaute, nation, reserve, consultation, entente]
+    pieges: [campagne, crime organise, casino]
   "13":
     nom: "Le territoire protégé : le parc naturel"
     forts: [aire protegee, aire marine protegee, parc national,

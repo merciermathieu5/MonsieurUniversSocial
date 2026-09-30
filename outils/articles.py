@@ -6,6 +6,7 @@ Tient le registre des articles d'actualité et remplit la page tout seul.
     python outils\\articles.py               écrit les articles validés dans la page
     python outils\\articles.py --diagnostic  montre les rejets et pourquoi
     python outils\\articles.py --sonder      éprouve chaque fil, sans toucher au registre
+    python outils\\articles.py --bilan       tes O et tes N par territoire et par terme
 
 Même principe que outils\\images.py : tu écris en clair dans un registre, le
 script fait toute la mécanique. Ici le registre est contenu\\articles.yml.
@@ -89,10 +90,19 @@ def aplatir(texte: str) -> str:
     return " ".join(sans.lower().replace("'", " ").replace("\u2019", " ").split())
 
 
+def position(terme: str, texte: str) -> int:
+    """Où le terme paraît dans le texte, -1 s'il n'y est pas.
+
+    Le pluriel est toléré sur chacun de ses mots.
+    """
+    mots = [re.escape(m) for m in aplatir(terme).split()]
+    trouve = re.search(r"\b" + r"s?\s+".join(mots) + r"s?\b", texte)
+    return trouve.start() if trouve else -1
+
+
 def contient(terme: str, texte: str) -> bool:
     """Cherche un terme en tolérant le pluriel sur chacun de ses mots."""
-    mots = [re.escape(m) for m in aplatir(terme).split()]
-    return re.search(r"\b" + r"s?\s+".join(mots) + r"s?\b", texte) is not None
+    return position(terme, texte) >= 0
 
 
 def clef(adresse: str) -> str:
@@ -149,6 +159,17 @@ def telecharger(adresse: str) -> tuple[bytes, str]:
         return b"", f"injoignable, {type(erreur).__name__}"
 
 
+def texte_brut(fragment: str) -> str:
+    """Le résumé d'un fil, sans balises ni entités, sur une ligne.
+
+    Radio-Canada et La Presse glissent du HTML dans leur description; seul
+    le texte compte pour le classement.
+    """
+    sans = re.sub(r"<[^>]+>", " ", fragment)
+    texte = " ".join(html.unescape(html.unescape(sans)).split())
+    return re.sub(r" ([.,)])", r"\1", texte)
+
+
 def extraire_entrees(brut: bytes, nom: str) -> list[dict] | None:
     """Les articles d'un fil, ou None si la réponse n'est pas du XML."""
     try:
@@ -160,7 +181,7 @@ def extraire_entrees(brut: bytes, nom: str) -> list[dict] | None:
     for item in racine.iter():
         if not item.tag.endswith("item") and not item.tag.endswith("entry"):
             continue
-        titre = lien = quand = ""
+        titre = lien = quand = resume = ""
         for enfant in item:
             balise = enfant.tag.rsplit("}", 1)[-1]
             if balise == "title":
@@ -169,9 +190,11 @@ def extraire_entrees(brut: bytes, nom: str) -> list[dict] | None:
                 lien = (enfant.text or enfant.get("href") or "").strip()
             elif balise in ("pubDate", "published", "updated"):
                 quand = (enfant.text or "").strip()
+            elif balise in ("description", "summary") and not resume:
+                resume = texte_brut(enfant.text or "")
         if titre and lien:
             entrees.append({"titre": titre, "lien": lien, "date": quand,
-                            "source": nom})
+                            "source": nom, "resume": resume})
     return entrees
 
 
@@ -259,24 +282,129 @@ def media_de(source: str) -> str:
     return source.split(" · ")[0].split(",")[0].strip()
 
 
-def classer(titre: str, lexique: dict) -> list[tuple]:
-    """Territoires candidats, du mieux noté au moins bon. Veto en premier."""
+def termes(liste, texte: str) -> list[str]:
+    return [m for m in (liste or []) if contient(m, texte)]
+
+
+def classer(titre: str, lexique: dict, resume: str = "",
+            retrogrades: frozenset = frozenset()) -> list[tuple]:
+    """Territoires candidats, du mieux noté au moins bon. Veto en premier.
+
+    Deux portes d'entrée, décrites en tête du lexique : un terme fort dans
+    le titre, ou un terme fort dans le résumé confirmé par un terme faible
+    du titre. Un terme fort de « retrogrades » (voir apprentissage) compte
+    comme un faible : tes N répétés lui ont retiré le droit de décider seul.
+    """
     plat = aplatir(titre)
+    plat_resume = aplatir(resume)
+    tout = plat + " " + plat_resume
     for veto in lexique.get("exclure", []):
-        if contient(veto, plat):
+        if contient(veto, tout):
             return [("veto", veto)]
+    chapeau, corps = couper_titre(titre)
+    plat_corps = aplatir(corps)
+    if chapeau:
+        plat_chapeau = aplatir(chapeau)
+        for rubrique in lexique.get("rubriques_exclues", []):
+            if contient(rubrique, plat_chapeau):
+                return [("veto", f"rubrique {rubrique}")]
     resultats = []
     for numero, regles in (lexique.get("geographie") or {}).items():
-        forts = [m for m in regles.get("forts", []) if contient(m, plat)]
-        faibles = [m for m in regles.get("faibles", []) if contient(m, plat)]
-        if not forts:
+        if termes(regles.get("pieges"), tout):
             continue
-        note = 2 * len(forts) + len(faibles)
+        forts_bruts = termes(regles.get("forts"), plat)
+        forts = [m for m in forts_bruts if (numero, m) not in retrogrades]
+        faibles = termes(regles.get("faibles"), plat) + [
+            m for m in forts_bruts if (numero, m) in retrogrades]
+        du_resume = [m for m in termes(regles.get("forts"), plat_resume)
+                     if m not in forts_bruts and (numero, m) not in retrogrades]
+        if forts:
+            note = 2 * len(forts) + len(faibles) + len(du_resume)
+        elif du_resume and faibles:
+            note = len(du_resume) + len(faibles)
+        else:
+            continue
         if note >= 2:
-            resultats.append((note, numero, regles["nom"], forts + faibles,
-                              len(forts)))
-    resultats.sort(key=lambda r: (-r[0], -r[4], r[1]))
-    return resultats
+            # À égalité, le territoire nommé le plus tôt dans le titre
+            # l'emporte : le sujet d'un titre vient d'habitude en tête.
+            premier = min((position(m, plat_corps) for m in forts + faibles
+                           if position(m, plat_corps) >= 0), default=len(plat))
+            resultats.append((note, numero, regles["nom"],
+                              forts + faibles + du_resume, len(forts),
+                              premier))
+    resultats.sort(key=lambda r: (-r[0], -r[4], r[5], r[1]))
+    return [r[:5] for r in resultats]
+
+
+def mots_du_titre(titre: str) -> frozenset:
+    """Les mots porteurs d'un titre, sans chapeau, pour repérer un doublon."""
+    _, corps = couper_titre(titre)
+    return frozenset(m for m in re.findall(r"[a-z0-9]+", aplatir(corps))
+                     if len(m) >= 4)
+
+
+def doublon(mots: frozenset, quand: str, deja: list[tuple]) -> bool:
+    """Vrai si un titre presque identique est au registre depuis peu.
+
+    La même dépêche passe par Radio-Canada, La Presse et le Journal le même
+    jour, parfois deux fois dans le même fil. Trois mots sur quatre en
+    commun, à trois jours près : c'est la même nouvelle.
+    """
+    if not mots:
+        return False
+    try:
+        jour = date.fromisoformat(quand)
+    except ValueError:
+        return False
+    for autres, autre_date in deja:
+        if not autres:
+            continue
+        try:
+            ecart = abs((jour - date.fromisoformat(autre_date)).days)
+        except ValueError:
+            continue
+        if ecart <= 3 and len(mots & autres) / len(mots | autres) >= 0.75:
+            return True
+    return False
+
+
+def statut(a: dict) -> str:
+    garder = (a.get("garder") or "").strip().upper()
+    if garder.startswith("O"):
+        return "O"
+    if garder.startswith("N"):
+        return "N"
+    return ""
+
+
+def statistiques_termes(lexique: dict, registre: list[dict]) -> dict:
+    """Pour chaque terme fort : combien de O et de N il a amenés.
+
+    Le calcul relit les titres du registre avec le lexique d'aujourd'hui,
+    sur le territoire où chaque article a été rangé. Il n'a donc besoin
+    d'aucun champ de plus au registre.
+    """
+    geo = lexique.get("geographie") or {}
+    stats: dict = {}
+    for a in registre:
+        st = statut(a)
+        regles = geo.get(a.get("fiche"))
+        if not st or not regles:
+            continue
+        for m in termes(regles.get("forts"), aplatir(a.get("titre", ""))):
+            o, n = stats.get((a["fiche"], m), (0, 0))
+            stats[(a["fiche"], m)] = (o + (st == "O"), n + (st == "N"))
+    return stats
+
+
+def retrogradations(lexique: dict, registre: list[dict]) -> frozenset:
+    """Les termes forts que tes jugements ont rendus faibles."""
+    reglage = lexique.get("apprentissage") or {}
+    minimum = int(reglage.get("minimum", 5))
+    taux = float(reglage.get("taux", 0.15))
+    return frozenset(
+        cle for cle, (o, n) in statistiques_termes(lexique, registre).items()
+        if o + n >= minimum and o / (o + n) <= taux)
 
 
 def charger_registre() -> list[dict]:
@@ -309,14 +437,6 @@ def ecrire_registre(articles: list[dict]) -> None:
     """
     def guillemets(valeur: str) -> str:
         return '"' + str(valeur or "").replace("\\", "\\\\").replace('"', '\\"') + '"'
-
-    def statut(a: dict) -> str:
-        garder = (a.get("garder") or "").strip().upper()
-        if garder.startswith("O"):
-            return "O"
-        if garder.startswith("N"):
-            return "N"
-        return ""
 
     SECTIONS = [("", "À JUGER"), ("O", "PUBLIÉS (O)"), ("N", "REFUSÉS (N)")]
     lignes = [EN_TETE_REGISTRE, "articles:"]
@@ -397,28 +517,47 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
         for nom, retenue in epingles:
             print(f"    {nom} : {retenue}")
 
+    retro = retrogradations(lexique, registre)
+    if retro:
+        print("\nTERMES RÉTROGRADÉS PAR TES REFUS (ne décident plus seuls)")
+        for numero, terme in sorted(retro):
+            print(f"    {numero} {terme}")
+
     connus = {clef(a["adresse"]) for a in registre}
-    vus, ajoutes, vetos = set(), 0, 0
+    deja = [(mots_du_titre(a.get("titre", "")), a.get("date", ""))
+            for a in registre]
+    vus, ajoutes, vetos, doublons = set(), 0, 0, 0
+    par_resume = 0
     for entree in entrees:
         cle = clef(entree["lien"])
         if cle in connus or cle in vus:
             continue
         vus.add(cle)
-        candidats = classer(entree["titre"], lexique)
+        candidats = classer(entree["titre"], lexique,
+                            entree.get("resume", ""), retro)
         if not candidats:
             continue
         if candidats[0][0] == "veto":
             vetos += 1
             continue
-        _, numero, nom, _, _ = candidats[0]
+        quand = en_iso(entree["date"])
+        mots = mots_du_titre(entree["titre"])
+        if doublon(mots, quand, deja):
+            doublons += 1
+            continue
+        deja.append((mots, quand))
+        _, numero, nom, _, nb_forts = candidats[0]
+        par_resume += nb_forts == 0
         registre.append({
             "adresse": nettoyer(entree["lien"]), "fiche": numero,
             "media": media_de(entree["source"]),
-            "date": en_iso(entree["date"]),
+            "date": quand,
             "titre": entree["titre"], "garder": "", "note": "",
         })
         ajoutes += 1
-    print(f"\n{ajoutes} proposition(s) ajoutée(s), {vetos} écartée(s) par le veto")
+    print(f"\n{ajoutes} proposition(s) ajoutée(s), dont {par_resume} par le "
+          f"résumé, {vetos} écartée(s) par le veto, {doublons} doublon(s) "
+          "d'une dépêche déjà au registre")
 
     # Contrôle des liens et péremption, puisqu'on est déjà en ligne.
     limite = (datetime.now() - timedelta(days=jours)).strftime("%Y-%m-%d")
@@ -511,8 +650,10 @@ def diagnostic(lexique: dict) -> int:
     print(f"\n{len(entrees)} articles lus\n")
     print("Un article sans terme fort est écarté. Les termes faibles touchés\n"
           "sont montrés : s'ils reviennent souvent, il manque un terme fort.\n")
+    retro = retrogradations(lexique, charger_registre())
     for entree in entrees:
-        candidats = classer(entree["titre"], lexique)
+        candidats = classer(entree["titre"], lexique,
+                            entree.get("resume", ""), retro)
         if candidats and candidats[0][0] == "veto":
             print(f"    {entree['titre'][:88]}")
             print(f"        VETO sur « {candidats[0][1]} »")
@@ -549,6 +690,50 @@ def sonder(lexique: dict) -> int:
     return 0
 
 
+def bilan(lexique: dict, registre: list[dict]) -> int:
+    """Tes jugements relus : ce qui passe, ce qui ne passe pas, et pourquoi.
+
+    Rien n'est écrit. C'est l'outil à lancer avant de retoucher le lexique :
+    un territoire maigre demande des termes ou des fils de plus, un terme
+    souvent refusé demande d'être retiré ou rangé parmi les faibles.
+    """
+    geo = lexique.get("geographie") or {}
+    print("\nPAR TERRITOIRE")
+    print(f"    {'':4}{'territoire':<52}{'O':>4}{'N':>5}{'attente':>9}{'taux':>7}")
+    for numero, regles in geo.items():
+        lot = [statut(a) for a in registre if a.get("fiche") == numero]
+        o, n, e = lot.count("O"), lot.count("N"), lot.count("")
+        taux = f"{100 * o / (o + n):.0f} %" if o + n else "  -"
+        print(f"    {numero:<4}{regles['nom'][:50]:<52}{o:>4}{n:>5}{e:>9}{taux:>7}")
+
+    print("\nPAR MÉDIA")
+    for media in sorted({a.get("media", "") for a in registre}):
+        lot = [statut(a) for a in registre if a.get("media", "") == media]
+        o, n = lot.count("O"), lot.count("N")
+        taux = f"{100 * o / (o + n):.0f} %" if o + n else "-"
+        print(f"    {media:<28}{o:>4} O{n:>5} N    {taux}")
+
+    stats = statistiques_termes(lexique, registre)
+    retro = retrogradations(lexique, registre)
+    print("\nTERMES FORTS LES PLUS REFUSÉS (au moins 3 jugements)")
+    douteux = sorted(((o / (o + n), -(o + n), cle, o, n)
+                      for cle, (o, n) in stats.items() if o + n >= 3))
+    for taux, _, (numero, terme), o, n in douteux[:15]:
+        marque = "  rétrogradé" if (numero, terme) in retro else ""
+        print(f"    {numero} {terme:<28}{o:>3} O{n:>4} N{marque}")
+    if not douteux:
+        print("    aucun terme n'a encore trois jugements")
+
+    print("\nTERMES FORTS JAMAIS VUS AU REGISTRE")
+    print("    Normal pour un terme rare. Si tout un territoire est ici, il")
+    print("    lui manque des fils ou des mots de tous les jours.")
+    for numero, regles in geo.items():
+        muets = [m for m in regles.get("forts", []) if (numero, m) not in stats]
+        if len(muets) == len(regles.get("forts", [])):
+            print(f"    {numero} aucun terme n'a encore servi")
+    return 0
+
+
 def main() -> int:
     a = argparse.ArgumentParser()
     a.add_argument("--chercher", action="store_true",
@@ -557,6 +742,8 @@ def main() -> int:
                    help="montre les rejets et pourquoi")
     a.add_argument("--sonder", action="store_true",
                    help="éprouve chaque fil, sans toucher au registre")
+    a.add_argument("--bilan", action="store_true",
+                   help="tes O et tes N par territoire et par terme")
     a.add_argument("--jours", type=int, default=365,
                    help="âge maximal d'un article, en jours")
     arguments = a.parse_args()
@@ -568,6 +755,8 @@ def main() -> int:
         return diagnostic(lexique)
 
     registre = charger_registre()
+    if arguments.bilan:
+        return bilan(lexique, registre)
     if arguments.chercher:
         registre = chercher(lexique, registre, arguments.jours)
         ecrire_registre(registre)

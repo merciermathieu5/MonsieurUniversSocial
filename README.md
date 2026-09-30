@@ -302,6 +302,16 @@ te ramasses un conflit sur `docs/`.
 
 `.github/workflows/actualite.yml` récolte les fils de presse.
 
+Le classement des articles se règle dans `outils/lexique_actualite.yml`, dont
+l'en-tête explique les deux portes d'entrée (un terme fort dans le titre, ou
+un terme fort du résumé confirmé par le titre), les pièges par territoire,
+les rubriques écartées et l'apprentissage : un terme fort souvent refusé
+devient faible tout seul, d'après tes O et tes N. Une dépêche reprise par un
+second média dans les trois jours n'est pas reproposée.
+`py outils\articles.py --bilan` relit le registre et donne le taux
+d'acceptation par territoire, par média et par terme : c'est l'outil à lancer
+avant de retoucher le lexique.
+
 ### Les adresses canoniques
 
 `site.yml` déclare `url`. Cette seule valeur alimente la balise
