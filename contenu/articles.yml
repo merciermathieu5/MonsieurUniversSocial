@@ -20,6 +20,48 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/info/en-direct/1014520/elections-quebec-jour-35-campagne-30-septembre-2026"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-30"
+    titre: "« S’il y a un peuple qui peut être allié des Autochtones, c’est les Québécois »"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/info-reveil/segments/rattrapage/2490715/micro-louis-journee-nationale-verite-et-reconciliation"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-09-30"
+    titre: "Aller vers les Autochtones, une « responsabilité »"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/30/verite-et-reconciliation-il-est-temps-quon-change-lhistoire-lance-la-leader-autochtone-michele-audette-aux-chefs-de-parti"
+    fiche: "12"
+    media: "Journal de Montréal"
+    date: "2026-09-30"
+    titre: "Vérité et réconciliation: «Il est temps qu'on change l'histoire», lance la leader autochtone Michèle Audette aux chefs de parti"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/portfolio/2026-09-30/pme-croissance/mission-accelerer-la-chaine-d-approvisionnement-electrique.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-09-30"
+    titre: "PME Croissance | Mission : accélérer la chaîne d’approvisionnement électrique"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/09/29/le-mexique-resiste-au-passage-de-louragan-polo"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-09-29"
+    titre: "Le Mexique résiste au passage de l'ouragan «Polo»"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10772823/metro-toronto-couts-triplent-pour-ligne-ontario"
     fiche: "02"
