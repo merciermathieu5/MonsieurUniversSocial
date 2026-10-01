@@ -20,22 +20,20 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://www.lapresse.ca/actualites/politique/2026-10-01/ajout-a-la-liste-des-projets-d-interet-national/l-oleoduc-de-l-alberta-mis-sur-la-voie-rapide.php"
-    fiche: "07"
-    media: "La Presse"
-    date: "2026-10-01"
-    titre: "Ajout à la liste des projets d’intérêt national | L’oléoduc de l’Alberta mis sur la voie rapide"
-    garder: ""
-    note: ""
-
-
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.journaldemontreal.com/2026/10/01/ce-producteur-de-quatrieme-generation-abandonne-ecrase-par-la-bureaucratie"
     fiche: "10"
     media: "Journal de Montréal"
     date: "2026-10-01"
     titre: "Ce producteur agricole de quatrième génération abandonne, écrasé par la bureaucratie"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/politique/2026-10-01/ajout-a-la-liste-des-projets-d-interet-national/l-oleoduc-de-l-alberta-mis-sur-la-voie-rapide.php"
+    fiche: "07"
+    media: "La Presse"
+    date: "2026-10-01"
+    titre: "Ajout à la liste des projets d’intérêt national | L’oléoduc de l’Alberta mis sur la voie rapide"
     garder: "O"
     note: ""
 
