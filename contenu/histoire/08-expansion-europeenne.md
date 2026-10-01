@@ -217,6 +217,12 @@ hauts-fonds, etc.
 
 ## Des acteurs aux motivations diverses
 
+![La récolte du poivre, Livre des merveilles de Marco Polo](../medias/08-expansion-europeenne/recolte-poivre.jpg)
+
+![Le missionnaire jésuite Jacques Marquette](../medias/08-expansion-europeenne/pere-marquette.jpg)
+
+![Les Rois catholiques, Ferdinand d'Aragon et Isabelle de Castille](../medias/08-expansion-europeenne/rois-catholiques.jpg)
+
 Les motivations qui poussent les Européens à explorer de nouvelles routes
 maritimes et de nouveaux territoires sont nombreuses. Ces motivations sont
 d'origine économique, religieuse ainsi que politique.
