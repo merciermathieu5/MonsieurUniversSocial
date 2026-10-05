@@ -29,7 +29,7 @@ image_entete: ""
 ## Mise en contexte
 
 Une ville patrimoniale cherche à protéger des lieux qui portent la trace de
-son passé. Certaines demandent à l'UNESCO de les reconnaître comme villes du
+son passé. Certaines ont un quartier inscrit par l'UNESCO sur la Liste du
 patrimoine mondial, une reconnaissance qui vise à préserver la diversité
 culturelle de la planète. Cette protection crée des enjeux d'organisation
 particuliers : il faut conserver le patrimoine dans une ville qui continue de
@@ -180,66 +180,106 @@ Les sites naturels du patrimoine mondial de l'UNESCO
 
 ### L'Organisation des villes du patrimoine mondial
 
-Fondée le 8 septembre 1993 à Fès, au Maroc, l'Organisation des villes du
-patrimoine mondial réunit les villes qui abritent sur leur territoire un site
-inscrit par l'UNESCO. Son secrétariat général se trouve à Québec. Elle
-poursuit trois objectifs :
+Protéger un quartier historique coûte cher et demande des savoir-faire rares.
+Les villes qui possèdent un site du patrimoine mondial affrontent souvent les
+mêmes problèmes : des touristes très nombreux, des loyers qui grimpent, des
+bâtiments anciens fragiles devant les inondations et la chaleur. Plutôt que de
+chercher des solutions chacune de son côté, plusieurs ont choisi de s'unir. Le
+8 septembre 1993, à Fès, au Maroc, elles ont fondé l'Organisation des villes du
+patrimoine mondial, l'OVPM. Son secrétariat général se trouve à Québec. Elle
+compte aujourd'hui une centaine de villes membres.
 
-- favoriser la mise en oeuvre de la Convention du patrimoine mondial
-- encourager la coopération et l'échange d'information et d'expertise en matière
-  de conservation et de gestion du patrimoine
-- développer un sens de la solidarité parmi ses villes membres
+#### Les trois fonctions de l'OVPM
 
-L'OVPM se donne aussi une mission. À ses yeux, une ville du patrimoine mondial a
-un privilège, celui de représenter des valeurs qui appartiennent à toute
-l'humanité. Ce privilège vient avec une responsabilité : cette ville doit
-montrer l'exemple dans la protection et la mise en valeur de son patrimoine
-culturel. Elle doit aussi proposer une vision audacieuse de son avenir, plutôt
-que de se contenter de préserver son passé.
+L'OVPM aide ses villes membres de trois façons.
 
-#### Des villes sous pression
+::: cartes
+**L'entraide** Une ville qui cherche une solution peut poser sa question à
+toutes les autres. L'OVPM fait circuler l'appel, puis lui transmet les
+réponses. En 2026, Luxembourg, qui songe à tendre des voiles d'ombrage entre
+les façades de sa vieille ville, a ainsi demandé conseil aux autres membres
+pour protéger ses rues de la chaleur sans abîmer ses bâtiments.
 
-Les villes patrimoniales ne sont pas figées dans le temps. Elles subissent en
-même temps les effets des crises climatiques, économiques et sociales. Ces
-pressions touchent particulièrement leurs quartiers anciens, plus fragiles :
-un bâtiment centenaire résiste moins bien aux inondations, une hausse des loyers
-peut chasser les résidents d'un quartier historique et un tourisme trop intense
-peut transformer un milieu de vie en simple décor. Pour l'OVPM, l'ampleur de ces
-changements oblige les villes à inventer d'autres façons d'agir et de nouvelles
-pratiques d'aménagement.
+**L'expertise** L'OVPM met ses villes en contact avec des spécialistes du
+patrimoine. Elle organise des ateliers et des formations. Tous les deux ans,
+elle réunit ses membres en congrès mondial. En 2026, une de ses équipes est
+allée aider Kotor, au Monténégro, à se préparer aux incendies, aux séismes et
+au surtourisme.
 
-#### De la Feuille de route de Québec au Nouveau Projet Urbain
+**L'aide financière** L'OVPM donne aussi des coups de pouce financiers. Après
+l'invasion de l'Ukraine par la Russie, elle a lancé une collecte de fonds pour
+protéger le patrimoine ukrainien. En 2024, elle a offert aux villes qui
+manquaient de moyens une aide pour payer une partie du voyage ou du séjour de
+leurs représentants au congrès mondial de Cordoue.
+:::
 
-Les villes membres ont choisi d'agir ensemble. À la suite du 16e Congrès mondial
-de l'OVPM, tenu à Québec en 2022, l'Organisation a lancé la **Feuille de route
-de Québec**. Cette démarche vise à donner plus de poids politique à l'OVPM et à
-augmenter sa capacité d'agir concrètement. C'est une expérience nouvelle pour
-elle, car elle fait participer activement de nombreux acteurs des villes
-membres, et pas seulement leurs maires.
+#### L'UNESCO et l'OVPM, deux rôles différents
 
-La démarche a franchi une autre étape au 17e Congrès mondial, à Cordoue, en
-Espagne, en septembre 2024. Les villes membres s'y sont engagées à concevoir et
-à adopter un **Nouveau Projet Urbain**. Ce projet doit inspirer une nouvelle
-génération de politiques, de stratégies et d'aménagements urbains. Son idée
-centrale : aborder le développement durable à partir du patrimoine, afin de
-réconcilier trois éléments souvent pensés séparément, soit la ville, les êtres
-humains qui l'habitent et l'environnement.
+Il est facile de confondre les deux organisations, puisqu'elles parlent toutes
+deux de patrimoine mondial. Leurs rôles sont pourtant bien différents.
+
+::: cartes
+**L'UNESCO inscrit** Elle réunit des pays. Un pays propose un de ses sites,
+puis le Comité du patrimoine mondial, formé de 21 pays, décide s'il entre sur
+la Liste. L'UNESCO vérifie ensuite que le site reste bien protégé. Son siège
+est à Paris.
+
+**L'OVPM accompagne** Elle réunit des villes, représentées par leurs maires.
+Elle n'inscrit aucun site : pour devenir membre à part entière, une ville doit
+déjà en avoir un sur la Liste. L'OVPM l'aide ensuite à bien le gérer, jour
+après jour. Son siège est à Québec.
+
+**Un même but** Les deux veulent que le patrimoine mondial soit protégé et
+transmis aux générations futures. L'OVPM a d'ailleurs été créée pour aider à
+appliquer la Convention du patrimoine mondial, adoptée par l'UNESCO en 1972.
+:::
+
+::: savais-tu
+L'UNESCO peut aussi retirer un site de la Liste. C'est arrivé à la vallée de
+l'Elbe, à Dresde, en Allemagne, en 2009, parce que la ville construisait un
+pont à quatre voies au coeur du paysage protégé. L'OVPM, elle, n'a pas ce
+pouvoir.
+:::
+
+#### L'entraide en action, de Varsovie à Tchernivtsi
+
+Depuis l'invasion de l'Ukraine par la Russie, en 2022, des monuments ukrainiens
+risquent d'être endommagés ou détruits. L'OVPM a donc lancé une collecte de
+fonds pour protéger ce patrimoine. Tout l'argent recueilli a servi à numériser
+en 3D l'hôtel de ville historique de Tchernivtsi, une ville membre du sud-ouest
+du pays. Varsovie, qui accueille le secrétariat régional de l'Europe centrale
+et de l'Est, a ensuite payé la création d'un modèle 3D à partir de ces mesures.
+Ce modèle servira à planifier la restauration de l'hôtel de ville. Si la
+guerre l'endommage, il permettra aussi de le reconstituer.
+
+Varsovie sait ce que veut dire reconstituer. En 1944, plus de 85 pour cent de
+son centre historique a été détruit par les troupes nazies. Après la guerre,
+ses habitants l'ont rebâti en s'aidant de relevés faits avant la guerre par
+des étudiants en architecture et de tableaux peints au 18e siècle. L'UNESCO
+l'a inscrit sur la Liste en 1980.
+
+::: composant ovpm-carte
 
 ::: note
-Québec occupe une place particulière dans l'OVPM : elle accueille son
-secrétariat général et elle a donné son nom à la Feuille de route adoptée
-après le congrès de 2022.
+Ce n'est pas toute la ville de Québec qui est inscrite sur la Liste du
+patrimoine mondial, seulement l'arrondissement historique du Vieux-Québec. Et
+ce n'est pas l'OVPM qui l'a inscrit : c'est l'UNESCO, en 1985, à la suite de
+la proposition du Canada.
 :::
 
 ::: questions
 1. Pourquoi dit-on que le patrimoine est une décision plutôt qu'une qualité?
 2. Pimachiowin Aki est classé comme un site mixte. Explique, dans tes mots,
    pourquoi il ne pouvait pas être seulement naturel ni seulement culturel.
-3. Selon l'OVPM, une ville du patrimoine mondial doit protéger son passé et
-   proposer une vision d'avenir. Explique pourquoi ces deux rôles peuvent
-   parfois entrer en tension.
-4. Nomme une crise climatique, économique ou sociale qui pourrait menacer le
-   Vieux-Québec. Décris son effet possible sur le quartier.
+3. Qui décide qu'un site entre sur la Liste du patrimoine mondial? Que fait
+   l'OVPM, de son côté?
+4. Donne un exemple tiré de cette section pour chacune des trois fonctions de
+   l'OVPM : l'entraide, l'expertise et l'aide financière.
+5. Luxembourg a demandé aux autres villes comment protéger ses rues de la
+   chaleur. Quelle question le Vieux-Québec pourrait-il poser à son tour aux
+   villes membres? Explique ton choix.
+6. En quoi l'histoire de Varsovie donne-t-elle un sens particulier à l'aide
+   qu'elle a apportée à Tchernivtsi?
 :::
 
 ## Québec intra-muros
