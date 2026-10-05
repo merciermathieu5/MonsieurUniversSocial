@@ -20,6 +20,40 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10776847/hause-diesel-une-facture-salee-pour-agriculteurs"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "Hause du diesel : une facture salée pour les agriculteurs"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/05/pouvez-vous-reclamer-des-dommages-a-hydro-quebec-en-cas-de-panne-de-courant"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-10-05"
+    titre: "Pouvez-vous réclamer des dommages à Hydro-Québec en cas de panne de courant?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2290150/premiere-semaine-patrimoine-culture-gaspesie"
+    fiche: "03"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "La Gaspésie célèbre son patrimoine"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2290011/travaux-tramway-quebec-2026"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "C’est parti pour les travaux du tramway en Haute-ville"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2289732/travaux-securisation-refection-route-baie-eternite-modernisation"
     fiche: "13"
