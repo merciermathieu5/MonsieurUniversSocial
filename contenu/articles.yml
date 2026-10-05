@@ -20,6 +20,88 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/tele/la-semaine-verte/site/segments/reportage/2493548/tgv-alto-agriculteurs-terres-menace"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "TGV : les agriculteurs en colère"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2289732/travaux-securisation-refection-route-baie-eternite-modernisation"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-10-04"
+    titre: "Travaux majeurs au parc national du Fjord-du-Saguenay"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/03/un-homme-offre-une-terre-agricole-en-abitibi-pour-favoriser-lautosuffisance-alimentaire"
+    fiche: "10"
+    media: "Journal de Montréal"
+    date: "2026-10-03"
+    titre: "Un homme offre une terre agricole en Abitibi pour favoriser l'autosuffisance alimentaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/03/un-agriculteur-de-shefford-en-a-assez-dattendre-apres-hydro"
+    fiche: "10"
+    media: "Journal de Montréal"
+    date: "2026-10-03"
+    titre: "Un agriculteur de Shefford en a assez d’attendre après Hydro"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2289759/feu-foret-ile-massacre-bic"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-10-03"
+    titre: "Feu de forêt sur l’île du Massacre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/03/raptors-marathon-et-croisieristes-quebec-tourne-a-plein-regime-ce-week-end"
+    fiche: "05"
+    media: "Journal de Montréal"
+    date: "2026-10-03"
+    titre: "Raptors, marathon et croisiéristes: Québec tourne à plein régime ce week-end"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/03/grece-des-pluies-diluviennes-en-crete-provoquent-inondations-et-degats"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-10-03"
+    titre: "Grèce: des pluies diluviennes en Crète provoquent inondations et dégâts"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-10-03/meilleur-spa-au-canada/le-strom-du-vieux-quebec-recompense.php"
+    fiche: "03"
+    media: "La Presse"
+    date: "2026-10-03"
+    titre: "Meilleur spa au Canada | Le Strøm du Vieux-Québec récompensé"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2289105/piste-cyclable-lee-pointe-aux-lievres"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-03"
+    titre: "Une piste cyclable qui ne mène nulle part planifiée à Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10775462/tarifs-aide-federale-aux-entreprises-ontariennes"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-02"
+    titre: "Tarifs: aide fédérale aux entreprises ontariennes"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-10-02/indonesie/deux-iles-apparaissent-apres-les-eruptions-du-volcan-anak-krakatau.php"
     fiche: "04"
