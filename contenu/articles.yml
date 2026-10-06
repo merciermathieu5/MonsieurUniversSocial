@@ -21,11 +21,51 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291133/stelco-melanie-joly-poursuite-emplois"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-06"
+    titre: "Ottawa donne 5 jours à Stelco pour présenter un plan de sauvetage"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291116/usine-stellantis-windsor-fermeture-unifor"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-06"
+    titre: "Usine Stellantis à Windsor : une nouvelle fermeture de 3 semaines fin octobre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10696929/operation-nettoyage-dans-grand-montreal-apres-pluies-diluviennes"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-10-06"
+    titre: "Opération nettoyage dans le Grand Montréal après les pluies diluviennes"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/05/manifestation-en-support-aux-peuples-autochtones"
+    fiche: "12"
+    media: "Journal de Montréal"
+    date: "2026-10-05"
+    titre: "Manifestation en soutien aux peuples autochtones"
+    garder: ""
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10776847/hause-diesel-une-facture-salee-pour-agriculteurs"
     fiche: "10"
     media: "Radio-Canada"
     date: "2026-10-05"
     titre: "Hause du diesel : une facture salée pour les agriculteurs"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/place-publique/segments/rattrapage/2495015/saguenay-lac-saint-jean-chef-file-dans-production-chanvre"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "La région championne de la culture du chanvre au Québec"
     garder: ""
     note: ""
 
@@ -50,6 +90,14 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-05"
     titre: "C’est parti pour les travaux du tramway en Haute-ville"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10777265/nouvelle-entrave-majeure-pour-travaux-tramway-a-quebec"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-05"
+    titre: "Nouvelle entrave majeure pour les travaux du tramway à Québec"
     garder: ""
     note: ""
 
