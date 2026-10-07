@@ -212,6 +212,10 @@ déesse-mère était souvent peinte pour attirer la fécondité.
 Çatal Höyük, un des premiers grands villages de l'humanité
 :::
 
+::: video S9bMwyRjHt8
+Pourquoi Çatal Höyük n'avait aucune rue?
+:::
+
 ::: questions
 1. Où se trouve le village de Mureybet et quand a-t-il été occupé?
 2. Quelles activités pratiquaient les habitants de Mallaha?
