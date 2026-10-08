@@ -195,6 +195,19 @@ registre.append({"fiche": "05", "titre": "Le tourisme sauve Percé",
 verdict("un O dans le lot suffit à le garder fort (1 sur 6)",
         ("05", "tourisme") not in articles.retrogradations(LEX, registre))
 
+LEX["apprentissage"] = {"minimum": 50, "taux": 0.15, "jours_recents": 14,
+                        "minimum_recent": 3, "taux_recent": 0.25}
+serie = [{"fiche": "09", "titre": f"Grève chez Stelco, jour {i}",
+          "garder": "N", "date": f"2026-10-0{i}"} for i in range(1, 4)]
+serie.append({"fiche": "09", "titre": "Stelco et l'acier canadien",
+              "garder": "O", "date": "2026-08-01"})
+verdict("un sujet refusé trois fois en deux semaines est rétrogradé",
+        ("09", "stelco") in articles.retrogradations(LEX, serie,
+                                                     avant="2026-10-05"))
+verdict("l'effet s'éteint quand les refus sortent de la fenêtre",
+        ("09", "stelco") not in articles.retrogradations(LEX, serie,
+                                                         avant="2026-11-01"))
+
 print("\nDOUBLONS")
 deja = [(articles.mots_du_titre("Indonésie : des milliers d'évacués en attente "
                                 "d'aide après le puissant séisme"), "2026-09-01")]
@@ -213,7 +226,11 @@ REEL = yaml.safe_load(articles.LEXIQUE.read_text(encoding="utf-8"))
 for titre, attendu in [
     ("Mine et usine d’explosifs : une menace pour le tourisme à la baie des "
      "Chaleurs?", "05"),
-    ("Pour sa « survie » face aux tarifs américains, Stelco licencie", "09"),
+    ("Pour sa « survie » face aux tarifs américains, l'aciérie licencie", "09"),
+    ("Usine de batteries Volkswagen en Ontario : l’ouverture reportée", "09"),
+    ("ArcelorMittal à Contrecoeur : les Métallos en faveur de l’entente; fin de "
+     "la grève", None),
+    ("Les jeunes impressionnent chez les Remparts", None),
     ("Les agriculteurs ontariens demandent de l’aide", "10"),
     ("Cri du cœur pour sauver le patrimoine religieux de Québec", "03"),
     ("Autoroute 15: la voie réservée fermée pour quatre jours", None),

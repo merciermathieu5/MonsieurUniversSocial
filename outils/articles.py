@@ -377,19 +377,24 @@ def statut(a: dict) -> str:
     return ""
 
 
-def statistiques_termes(lexique: dict, registre: list[dict]) -> dict:
+def statistiques_termes(lexique: dict, registre: list[dict],
+                        depuis: str = "", avant: str = "") -> dict:
     """Pour chaque terme fort : combien de O et de N il a amenés.
 
     Le calcul relit les titres du registre avec le lexique d'aujourd'hui,
     sur le territoire où chaque article a été rangé. Il n'a donc besoin
-    d'aucun champ de plus au registre.
+    d'aucun champ de plus au registre. « depuis » et « avant » bornent les
+    dates des articles comptés (format AAAA-MM-JJ, bornes facultatives).
     """
     geo = lexique.get("geographie") or {}
     stats: dict = {}
     for a in registre:
         st = statut(a)
         regles = geo.get(a.get("fiche"))
+        quand = a.get("date", "")
         if not st or not regles:
+            continue
+        if (depuis and quand < depuis) or (avant and quand >= avant):
             continue
         for m in termes(regles.get("forts"), aplatir(a.get("titre", ""))):
             o, n = stats.get((a["fiche"], m), (0, 0))
@@ -397,14 +402,33 @@ def statistiques_termes(lexique: dict, registre: list[dict]) -> dict:
     return stats
 
 
-def retrogradations(lexique: dict, registre: list[dict]) -> frozenset:
-    """Les termes forts que tes jugements ont rendus faibles."""
+def retrogradations(lexique: dict, registre: list[dict],
+                    avant: str = "") -> frozenset:
+    """Les termes forts que tes jugements ont rendus faibles.
+
+    Deux règles, réglées dans la section apprentissage du lexique :
+    sur tout le registre, un terme souvent refusé; sur les derniers jours,
+    un sujet qui revient sans cesse et que tu refuses chaque fois (une
+    grève qui dure, une campagne électorale). Le second effet s'éteint de
+    lui-même quand les refus sortent de la fenêtre.
+    """
     reglage = lexique.get("apprentissage") or {}
     minimum = int(reglage.get("minimum", 5))
     taux = float(reglage.get("taux", 0.15))
-    return frozenset(
-        cle for cle, (o, n) in statistiques_termes(lexique, registre).items()
-        if o + n >= minimum and o / (o + n) <= taux)
+    retro = {cle for cle, (o, n)
+             in statistiques_termes(lexique, registre, avant=avant).items()
+             if o + n >= minimum and o / (o + n) <= taux}
+    jours = int(reglage.get("jours_recents", 0))
+    if jours:
+        fin = date.fromisoformat(avant) if avant else date.today()
+        depuis = (fin - timedelta(days=jours)).isoformat()
+        minimum_r = int(reglage.get("minimum_recent", 3))
+        taux_r = float(reglage.get("taux_recent", 0.2))
+        retro |= {cle for cle, (o, n)
+                  in statistiques_termes(lexique, registre, depuis,
+                                         avant).items()
+                  if o + n >= minimum_r and o / (o + n) <= taux_r}
+    return frozenset(retro)
 
 
 def charger_registre() -> list[dict]:

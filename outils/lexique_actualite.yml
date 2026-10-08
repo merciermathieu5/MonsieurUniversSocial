@@ -33,6 +33,13 @@
 # territoire industriel élargi à l'acier, à l'aluminium, à l'automobile et
 # aux ports, ville patrimoniale élargie au patrimoine religieux de Québec.
 # « python outils\articles.py --bilan » refait ce calcul à tout moment.
+#
+# Correction du 8 octobre 2026, après 97 propositions jugées (42 O, 55 N) :
+# les noms d'entreprises (Stelco, Stellantis, ArcelorMittal) amenaient des
+# grèves et des mises à pied, 0 O sur 9; ils ne décident plus seuls et les
+# conflits de travail sont des pièges. L'apprentissage, trop prudent, n'avait
+# rien rétrogradé : il réagit maintenant aussi aux sujets refusés en série
+# sur deux semaines. « rempart » attrapait les Remparts de Québec, retiré.
 
 # Les fils à interroger. Les cinq de La Presse ont répondu, les adresses de
 # Radio-Canada en rss.radio-canada.ca sont mortes : ce sous-domaine ne répond
@@ -129,15 +136,23 @@ rubriques_exclues:
   - pendant que vous etes la
   - multicolore
   - quiz
+  - pme croissance
 
 # Apprentissage. Un terme fort qui a mené à au moins « minimum » jugements
 # avec un taux d'acceptation sous « taux » est traité comme faible au passage
-# suivant : il ne décide plus seul. Le calcul se refait à chaque recherche à
-# partir du registre, il suit donc tes O et tes N sans que tu touches à ce
-# fichier. --bilan montre les termes rétrogradés.
+# suivant : il ne décide plus seul. Même règle sur les « jours_recents »
+# derniers jours, avec ses propres seuils : un sujet qui revient tous les
+# jours et que tu refuses chaque fois (une grève, une campagne électorale)
+# cesse d'être proposé, puis revient quand les refus sortent de la fenêtre.
+# Le calcul se refait à chaque recherche à partir du registre, il suit donc
+# tes O et tes N sans que tu touches à ce fichier. --bilan montre les termes
+# rétrogradés.
 apprentissage:
   minimum: 5
-  taux: 0.15
+  taux: 0.25
+  jours_recents: 14
+  minimum_recent: 3
+  taux_recent: 0.25
 
 # Pièges : un terme de cette liste, dans le titre ou le résumé, retire le
 # territoire des candidats. Ils corrigent les faux amis relevés dans les
@@ -155,12 +170,12 @@ geographie:
             revitalisation, conduite d eau, requalification]
     faibles: [montreal, toronto, urbanisme, quartier, logement, arrondissement,
               autoroute, grand montreal]
-    pieges: [circulation perturbee]
+    pieges: [circulation perturbee, candidat, jour du vote]
   "03":
     nom: La ville patrimoniale
     forts: [patrimoine, patrimonial, patrimoniale, vieux-quebec, vieux-montreal,
             site patrimonial, patrimoine mondial, unesco, fortification,
-            ville fortifiee, rempart, citadelle de quebec, chateau frontenac,
+            ville fortifiee, citadelle de quebec, chateau frontenac,
             petit-champlain, place royale, maison ancestrale,
             restauration du patrimoine, arrondissement historique,
             eglise desacralisee, lieu de culte, clocher, conseil de fabrique,
@@ -208,20 +223,21 @@ geographie:
     nom: Le territoire industriel des Grands Lacs
     forts: [grands lacs, lac erie, lac huron, lac michigan, lac ontario,
             lac superieur, voie maritime, siderurgie, siderurgique, acierie,
-            acier, aluminium, aluminerie, stelco, algoma, arcelormittal,
-            rio tinto, alcoa, desindustrialisation, delocalisation,
+            acier, aluminium, aluminerie, desindustrialisation, delocalisation,
             zone industrielle, parc industriel, port de montreal,
             port de quebec, port de hamilton, terminal de conteneurs,
             porte-conteneurs, secteur manufacturier, industrie manufacturiere,
             usine automobile, industrie automobile, secteur automobile,
-            constructeur automobile, stellantis, volkswagen, usine de batteries,
+            constructeur automobile, usine de batteries,
             chaine de montage, chaine d approvisionnement, fermeture d usine,
             pollution industrielle, ferraille, pays atelier]
     faibles: [usine, industrie, manufacturier, exportation, saint-laurent,
               windsor, detroit, hamilton, oshawa, sarnia, sault-sainte-marie,
               mise a pied, licenciement, tarif, droits de douane, conteneur,
-              multinationale]
-    pieges: [vieux-port]
+              multinationale, stelco, algoma, arcelormittal, rio tinto, alcoa,
+              stellantis, volkswagen]
+    pieges: [vieux-port, greve, syndicat, metallos, unifor, mandat de greve,
+             convention collective, entente de principe]
   "10":
     nom: Le territoire agricole national
     forts: [agriculture, agricole, agriculteur, agricultrice, terre agricole,
@@ -246,12 +262,14 @@ geographie:
     pieges: [sante, deces]
   "12":
     nom: Le territoire autochtone du Québec et du Canada
-    forts: [premiere nation, autochtone, inuit, revendication territoriale,
+    forts: [premiere nation, autochtone, peuple autochtone, communaute autochtone,
+            nation autochtone, territoire autochtone, terre autochtone,
+            reconciliation, inuit, revendication territoriale,
             territoire ancestral, assemblee des premieres nations, innu,
             crie, atikamekw, mohawk, naskapi, huronne-wendat, conseil de bande,
             titre ancestral, pensionnat]
     faibles: [communaute, nation, reserve, consultation, entente]
-    pieges: [campagne, crime organise, casino]
+    pieges: [campagne, crime organise, casino, artiste, candidat, clinique]
   "13":
     nom: "Le territoire protégé : le parc naturel"
     forts: [aire protegee, aire marine protegee, parc national,
