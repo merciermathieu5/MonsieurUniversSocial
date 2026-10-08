@@ -549,19 +549,23 @@ d'animation. Le bâti n'a presque pas changé, la population qui l'occupe, si.
 Un terminal de croisière, aménagé dans la Basse-Ville, débarque par ailleurs
 des croisiéristes au pied même du quartier historique.
 
-Cet aménagement, le terminal de croisière Ross-Gaudreault, profite directement
-aux commerçants de l'arrondissement historique. Situé tout près du quartier du
-Petit-Champlain et de la vieille ville, il permet aux croisiéristes de débarquer
-à deux pas des boutiques et des restaurants. En 2025, le Port de Québec a
-accueilli près de 140 000 croisiéristes. Le samedi 6 octobre 2018, sept navires
-de croisière étaient amarrés à Québec, une véritable manne pour les commerçants
-du Petit-Champlain. Ce jour-là, 14 000 croisiéristes ont transité par la ville
-et les ruelles du Vieux-Québec étaient bondées. Cette clientèle est plutôt
-fortunée et prête à dépenser. Les croisières d'automne permettent aussi aux
-commerçants d'éviter le creux qui suit habituellement la fin de l'été. De 2006 à
-2018, leur chiffre d'affaires de septembre et d'octobre a gonflé de 40 pour
-cent. En 2024, les croisières ont généré 172 millions de dollars de retombées
-économiques dans toute la région de la Capitale-Nationale.
+### Le terminal de croisière
+
+![Le terminal de croisière Ross-Gaudreault, dans la Basse-Ville](../medias/03-ville-patrimoniale/terminal-croisiere.jpg)
+
+Le terminal de croisière Ross-Gaudreault est un aménagement qui profite
+directement aux commerçants de l'arrondissement historique. Situé tout près du
+quartier du Petit-Champlain et de la vieille ville, il permet aux croisiéristes
+de débarquer à deux pas des boutiques et des restaurants. En 2025, le Port de
+Québec a accueilli près de 140 000 croisiéristes. Le samedi 6 octobre 2018, sept
+navires de croisière étaient amarrés à Québec, une véritable manne pour les
+commerçants du Petit-Champlain. Ce jour-là, 14 000 croisiéristes ont transité
+par la ville et les ruelles du Vieux-Québec étaient bondées. Cette clientèle est
+plutôt fortunée et prête à dépenser. Les croisières d'automne permettent aussi
+aux commerçants d'éviter le creux qui suit habituellement la fin de l'été. De
+2006 à 2018, leur chiffre d'affaires de septembre et d'octobre a gonflé de 40
+pour cent. En 2024, les croisières ont généré 172 millions de dollars de
+retombées économiques dans toute la région de la Capitale-Nationale.
 
 Source : Port de Québec et Radio-Canada
 {: .source-texte }
