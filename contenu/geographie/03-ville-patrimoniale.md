@@ -549,6 +549,23 @@ d'animation. Le bâti n'a presque pas changé, la population qui l'occupe, si.
 Un terminal de croisière, aménagé dans la Basse-Ville, débarque par ailleurs
 des croisiéristes au pied même du quartier historique.
 
+Cet aménagement, le terminal de croisière Ross-Gaudreault, profite directement
+aux commerçants de l'arrondissement historique. Situé tout près du quartier du
+Petit-Champlain et de la vieille ville, il permet aux croisiéristes de débarquer
+à deux pas des boutiques et des restaurants. En 2025, le Port de Québec a
+accueilli près de 140 000 croisiéristes. Le samedi 6 octobre 2018, sept navires
+de croisière étaient amarrés à Québec, une véritable manne pour les commerçants
+du Petit-Champlain. Ce jour-là, 14 000 croisiéristes ont transité par la ville
+et les ruelles du Vieux-Québec étaient bondées. Cette clientèle est plutôt
+fortunée et prête à dépenser. Les croisières d'automne permettent aussi aux
+commerçants d'éviter le creux qui suit habituellement la fin de l'été. De 2006 à
+2018, leur chiffre d'affaires de septembre et d'octobre a gonflé de 40 pour
+cent. En 2024, les croisières ont généré 172 millions de dollars de retombées
+économiques dans toute la région de la Capitale-Nationale.
+
+Source : Port de Québec et Radio-Canada
+{: .source-texte }
+
 ### Les enjeux d'une ville patrimoniale
 
 ::: cartes
@@ -595,3 +612,6 @@ urbain mondial, avec des documents à analyser.
 - [Parcs Canada, lieu historique national des Fortifications-de-Québec](https://parks.canada.ca/lhn-nhs/qc/fortifications)
 - [Alloprof, le territoire urbain patrimonial](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/territoire-urbain-la-ville-patrimoniale-g1016)
 - [Ville de Québec](https://www.ville.quebec.qc.ca/)
+- [Port de Québec, les terminaux de croisière](https://www.portquebec.ca/croisieres/ligne-de-croisiere/terminaux-de-croisiere/)
+- [Port de Québec, bilan de la saison des croisières 2025](https://www.portquebec.ca/communique-de-presse/du-coeur-de-lhiver-a-lapogee-de-lautomne-le-port-de-quebec-conclut-sa-premiere-annee-comme-escale-de-croisiere-quatre-saisons/)
+- [Radio-Canada, des milliers de croisiéristes déferlent sur Québec](https://ici.radio-canada.ca/nouvelle/1128388/milliers-croisieristes-deferlent-sur-quebec)
