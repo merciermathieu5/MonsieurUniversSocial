@@ -20,21 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10779697/quel-sort-pour-banff-au-coeur-un-parc-national"
     fiche: "13"
     media: "Radio-Canada"
     date: "2026-10-08"
     titre: "Quel sort pour Banff, au cœur d’un parc national?"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2291679/entreprises-privees-declaration-reconciliation-autochtones"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-10-08"
-    titre: "Les entreprises invitées à signer une réconciliation avec les Autochtones"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2497825/producteurs-laitiers-doivent-s-adapter-aux-normes-bien-etre-animal"
@@ -42,11 +34,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-08"
     titre: "Les producteurs laitiers doivent s’adapter aux normes de bien-être animal"
-    garder: ""
+    garder: "O"
     note: ""
 
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2291666/isaias-ouragan-premier-saison-atlantique-mexique"
     fiche: "04"
     media: "Radio-Canada"
@@ -1729,6 +1719,14 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2291679/entreprises-privees-declaration-reconciliation-autochtones"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-08"
+    titre: "Les entreprises invitées à signer une réconciliation avec les Autochtones"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-08/mise-en-garde-de-l-onu/el-nino-va-continuer-a-s-intensifier-jusqu-a-son-pic-en-decembre.php"
     fiche: "11"
     media: "La Presse"
