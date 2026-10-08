@@ -20,69 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-10-07/usine-arcelormittal-a-contrecoeur/les-metallos-acceptent-une-entente-et-mettent-fin-a-leur-greve.php"
-    fiche: "09"
-    media: "La Presse"
-    date: "2026-10-07"
-    titre: "Usine ArcelorMittal à Contrecœur | Les Métallos acceptent une entente et mettent fin à leur grève"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2291470/arcelormittal-metallos-greve-convention-collective-contrecoeur"
-    fiche: "09"
-    media: "Radio-Canada"
-    date: "2026-10-07"
-    titre: "ArcelorMittal à Contrecoeur : les Métallos en faveur de l’entente; fin de la grève"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2291426/tramway-duhaime-marchand-quebec"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-07"
-    titre: "Tramway de Québec: « les conservateurs vont mettre de la pression », prévient Duhaime"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2496927/pcq-fait-son-entree-a-assemblee-nationale-entrevue-avec-eric-duhaime"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-07"
-    titre: "Tramway et 3e lien : Duhaime maintient la pression"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2291281/pistes-cyclables-cycle-toronto-election"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-07"
-    titre: "Pistes cyclables à Toronto : que promettent les candidats municipaux?"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2291261/unifor-stellantis-mandat-greve-brampton"
-    fiche: "09"
-    media: "Radio-Canada"
-    date: "2026-10-06"
-    titre: "Les travailleurs de Stellantis se prononceront sur un mandat de grève, annonce Unifor"
-    garder: ""
-    note: ""
-
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2291041/pannes-courant-rafales-hydro-quebec"
     fiche: "07"
     media: "Radio-Canada"
     date: "2026-10-06"
     titre: "Les forts vents ont provoqué des pannes d’électricité dans la région"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/en-bref/1-10778014/faut-il-encadrer-rooming-contre-crise-logement"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-06"
-    titre: "Faut-il encadrer le rooming contre la crise du logement?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/y-a-pas-deux-matins-pareils/segments/rattrapage/2495617/elections-a-toronto-table-ronde-citoyenne-sur-logement"
@@ -90,11 +34,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-06"
     titre: "Comment rendre le logement plus abordable à Toronto?"
-    garder: ""
+    garder: "O"
     note: ""
 
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2290150/premiere-semaine-patrimoine-culture-gaspesie"
     fiche: "03"
     media: "Radio-Canada"
@@ -1713,6 +1655,54 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-10-07/usine-arcelormittal-a-contrecoeur/les-metallos-acceptent-une-entente-et-mettent-fin-a-leur-greve.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-07"
+    titre: "Usine ArcelorMittal à Contrecœur | Les Métallos acceptent une entente et mettent fin à leur grève"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291470/arcelormittal-metallos-greve-convention-collective-contrecoeur"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-07"
+    titre: "ArcelorMittal à Contrecoeur : les Métallos en faveur de l’entente; fin de la grève"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291426/tramway-duhaime-marchand-quebec"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-07"
+    titre: "Tramway de Québec: « les conservateurs vont mettre de la pression », prévient Duhaime"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-heure/segments/rattrapage/2496927/pcq-fait-son-entree-a-assemblee-nationale-entrevue-avec-eric-duhaime"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-07"
+    titre: "Tramway et 3e lien : Duhaime maintient la pression"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291281/pistes-cyclables-cycle-toronto-election"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-07"
+    titre: "Pistes cyclables à Toronto : que promettent les candidats municipaux?"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291261/unifor-stellantis-mandat-greve-brampton"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-06"
+    titre: "Les travailleurs de Stellantis se prononceront sur un mandat de grève, annonce Unifor"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2291133/stelco-melanie-joly-poursuite-emplois"
     fiche: "09"
     media: "Radio-Canada"
@@ -1734,6 +1724,14 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-06"
     titre: "Opération nettoyage dans le Grand Montréal après les pluies diluviennes"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/en-bref/1-10778014/faut-il-encadrer-rooming-contre-crise-logement"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-06"
+    titre: "Faut-il encadrer le rooming contre la crise du logement?"
     garder: "N"
     note: ""
 
