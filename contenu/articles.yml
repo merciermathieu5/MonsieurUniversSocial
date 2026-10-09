@@ -20,6 +20,48 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/actualites/justice-et-faits-divers/2026-10-09/canada/nouveau-cadre-de-determination-de-la-peine-concernant-les-accuses-autochtones.php"
+    fiche: "12"
+    media: "La Presse"
+    date: "2026-10-09"
+    titre: "Canada | Nouveau cadre de détermination de la peine concernant les accusés autochtones"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-10-09/l-ouragan-isaias-gagne-en-intensite-et-menace-le-sud-des-etats-unis.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-10-09"
+    titre: "L’ouragan Isaias gagne en intensité et menace le sud des États-Unis"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291902/ouragan-isaias-menace-sud-etats-unis"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-10-09"
+    titre: "L’ouragan Isaias se renforce et menace le sud des États-Unis"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-08/emissions-de-particules/un-jugement-pourrait-forcer-le-geant-de-la-ferraille-aim-a-reduire-ses-activites.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-08"
+    titre: "Émissions de particules | Un jugement pourrait forcer le géant de la ferraille AIM à réduire ses activités"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2291816/avion-detourne-air-liaison-romaine"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-08"
+    titre: "Atterrissage d’urgence à La Romaine : des accusations seront déposées"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10779697/quel-sort-pour-banff-au-coeur-un-parc-national"
     fiche: "13"
