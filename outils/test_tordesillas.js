@@ -33,8 +33,11 @@ const racine = document.getElementById("tordesillas");
 const $ = (cle) => racine.querySelector(`[data-tds="${cle}"]`);
 function clic(el) { el.dispatchEvent(new window.MouseEvent("click", { bubbles: true })); }
 function boutonTexte(texte) {
-  return Array.from(racine.querySelectorAll("button")).find((b) => b.textContent.trim() === texte);
+  return Array.from(racine.querySelectorAll("button"))
+    .find((b) => (b.getAttribute("aria-label") || b.textContent.trim()) === texte);
 }
+function onglet(nom) { return racine.querySelector(`.tds__onglet[data-onglet="${nom}"]`); }
+function ongletActif() { const o = racine.querySelector('.tds__onglet[aria-selected="true"]'); return o ? o.getAttribute("data-onglet") : null; }
 function annee(a) {
   const c = $("curseur");
   c.value = String(a);
@@ -176,6 +179,29 @@ verifier("1750 : ligne abandonnée", !!$("traits").querySelector(".tds__ligne--a
 clic(boutonTexte("Étape suivante"));
 clic(boutonTexte("Recommencer le récit"));
 verifier("retour à l'étape 1", $("annee").textContent === "1488");
+
+console.log("ONGLETS DE LECTURE");
+clic(boutonTexte("Étape suivante"));
+verifier("le récit est l'onglet ouvert", ongletActif() === "recit" && !$("recit").hidden && $("fiche").hidden);
+verifier("la navigation du récit est sous les onglets", $("pilote").textContent.includes("Étape 2 / 10"));
+choisir("arguin");
+verifier("choisir un lieu ouvre l'onglet du lieu", ongletActif() === "lieu" && $("recit").hidden && !$("fiche").hidden);
+verifier("l'onglet porte le nom du lieu", onglet("lieu").textContent === "Arguin", onglet("lieu").textContent);
+verifier("on peut changer d'étape depuis la fiche", !!boutonTexte("Étape suivante"));
+clic(boutonTexte("Étape suivante"));
+verifier("changer d'étape revient au récit", ongletActif() === "recit");
+clic(onglet("lieu"));
+verifier("un clic sur l'onglet du lieu le rouvre", ongletActif() === "lieu" && $("fiche").textContent.includes("Arguin"));
+let flecheVue = false;
+const espion = () => { flecheVue = true; };
+document.addEventListener("keydown", espion);
+onglet("lieu").dispatchEvent(new window.KeyboardEvent("keydown", { key: "ArrowLeft", bubbles: true }));
+verifier("la flèche change d'onglet", ongletActif() === "recit");
+verifier("la flèche ne fait pas défiler le diaporama", flecheVue === false);
+document.removeEventListener("keydown", espion);
+annee(1560);
+verifier("hors récit, la navigation le dit", $("pilote").textContent.includes("Hors récit"));
+verifier("un seul onglet ouvert à la fois", racine.querySelectorAll('.tds__onglet[aria-selected="true"]').length === 1);
 
 console.log("CLAVIER ET PAGE");
 let vu = false;
