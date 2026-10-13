@@ -1,0 +1,887 @@
+<section class="tds" id="tordesillas" data-mode="royaumes" aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
+<style>
+.tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-zone-espagne: rgba(163, 22, 28, .11); --tds-zone-portugal: rgba(11, 107, 30, .10); --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; }
+html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-zone-espagne: rgba(240, 138, 142, .10); --tds-zone-portugal: rgba(116, 201, 138, .09); --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
+.tds .tds__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tds .tds__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.tds .tds__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .tds .tds__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .tds .tds__titre { color: var(--encre); }
+html[data-sombre="on"] .tds .tds__consigne { color: var(--encre-pale); }
+.tds__carte { position: relative; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.tds__svg { --k: 1; display: block; width: 100%; height: auto; max-height: 80vh; }
+.tds__mer { fill: var(--surface-2); }
+.tds__zone--espagne { fill: var(--tds-zone-espagne); }
+.tds__zone--portugal { fill: var(--tds-zone-portugal); }
+.tds__zone.est-pale, .tds[data-mode="langues"] .tds__zone { opacity: .45; }
+.tds__terre { fill: var(--bloc-pale); stroke: var(--bloc); stroke-width: .6; stroke-linejoin: round; }
+html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
+.tds__langues { display: none; }
+.tds[data-mode="langues"] .tds__langues { display: inline; }
+.tds__langue--espagnol { fill: var(--tds-langue-espagnol); }
+.tds__langue--portugais { fill: var(--tds-langue-portugais); }
+.tds__langue--autre { fill: var(--tds-langue-autre); }
+.tds__frontieres { fill: none; stroke: var(--surface); stroke-width: .7; stroke-linejoin: round; }
+.tds__hachure { stroke: var(--encre-pale); stroke-width: 1.4; opacity: .55; }
+.tds__bande { fill: url(#tds-hachures); }
+.tds__ligne { stroke: var(--encre); stroke-width: 2.4px; vector-effect: non-scaling-stroke; }
+.tds__ligne--1493 { stroke: var(--encre-doux); stroke-width: 2px; stroke-dasharray: 8 6; }
+.tds__ligne--abolie { stroke: var(--encre-pale); stroke-width: 2px; stroke-dasharray: 3 6; }
+.tds__libelle { font-family: var(--donnee); font-weight: 500; font-size: calc(var(--k) * 10.5px); letter-spacing: .14em; text-transform: uppercase; fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3px); stroke-linejoin: round; }
+.tds__libelle--1493 { fill: var(--encre-doux); }
+.tds__zone-nom { font-family: var(--titre); font-weight: 700; font-size: calc(var(--k) * 13px); letter-spacing: .2em; text-transform: uppercase; }
+.tds__zone-nom--espagne { fill: var(--tds-espagne); }
+.tds__zone-nom--portugal { fill: var(--tds-portugal); }
+.tds__zone-nom.est-pale { opacity: .55; }
+.tds__mesure { stroke: var(--encre); stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
+.tds__fleche { fill: var(--encre); }
+.tds__mesure-texte { font-family: var(--titre); font-weight: 700; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; }
+.tds__note { font-family: var(--titre); font-style: italic; font-size: calc(var(--k) * 13px); fill: var(--encre-doux); }
+.tds__lieu { cursor: pointer; }
+.tds__cible { fill: transparent; }
+.tds__forme { stroke: var(--surface); stroke-width: 1.5px; vector-effect: non-scaling-stroke; fill: var(--tds-neutre); }
+.tds [data-couleur="espagne"] > .tds__forme { fill: var(--tds-espagne); }
+.tds [data-couleur="portugal"] > .tds__forme { fill: var(--tds-portugal); }
+.tds [data-couleur="autre"] > .tds__forme, .tds [data-couleur="exclu"] > .tds__forme { fill: var(--tds-autre); }
+.tds [data-couleur="ok"] > .tds__forme { fill: var(--tds-ok); }
+.tds [data-couleur="hors"] > .tds__forme { fill: var(--tds-hors); }
+.tds [data-couleur="forme"] > .tds__forme { fill: none; stroke: var(--encre-doux); stroke-width: 1.4px; }
+.tds .tds__lieu.est-vide > .tds__forme { fill: var(--surface-2); stroke: var(--encre-pale); stroke-width: 1.5px; stroke-dasharray: 2 2; }
+.tds__halo { fill: none; stroke: var(--signal); stroke-width: 3px; vector-effect: non-scaling-stroke; opacity: 0; }
+.tds__lieu.est-choisi .tds__halo { opacity: 1; }
+.tds__renvoi { stroke: var(--encre-pale); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.tds__point { fill: var(--encre-pale); }
+.tds__nom { display: none; font-family: var(--titre); font-weight: 600; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; pointer-events: none; }
+.tds__lieu.est-vedette .tds__nom, .tds__lieu.est-choisi .tds__nom, .tds__lieu:hover .tds__nom { display: inline; }
+.tds__lieu.est-choisi .tds__nom { font-weight: 700; }
+.tds[data-mode="langues"] .tds__lieu { opacity: .4; }
+.tds[data-mode="langues"] .tds__lieu.est-choisi { opacity: 1; }
+.tds .tds__modes { position: absolute; top: .65rem; left: .65rem; display: flex; gap: .3rem; flex-wrap: wrap; z-index: 1; max-width: calc(100% - 1.3rem); }
+.tds__mode { font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+.tds__mode:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.tds__mode[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.tds .tds__union { position: absolute; top: .65rem; right: .65rem; z-index: 1; max-width: 15rem; margin: 0; padding: .4rem .75rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.35; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--signal); border-radius: var(--rayon); }
+.tds .tds__union[hidden] { display: none; }
+.tds .tds__legende { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; padding: .65rem 1.2rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); font-size: .78rem; line-height: 1.3; color: var(--encre-doux); }
+.tds__cle { display: inline-flex; align-items: center; gap: .4rem; }
+.tds__icone { width: .95rem; height: .95rem; flex: none; overflow: visible; }
+.tds__icone .tds__forme { stroke-width: 1px; }
+.tds__icone--terre { width: 1.1rem; height: .8rem; border-radius: 2px; }
+.tds__separateur { width: 1px; height: 1rem; background: var(--trait); }
+.tds .tds__temps { display: flex; align-items: center; gap: .9rem; padding: .85rem 1.2rem .2rem; }
+.tds__jouer { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; border: 1px solid var(--matiere); background: var(--matiere); color: #fff; cursor: pointer; }
+.tds__jouer:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.tds__jouer svg { width: 1rem; height: 1rem; fill: currentColor; }
+html[data-sombre="on"] .tds__jouer, html[data-sombre="on"] .tds__mode[aria-pressed="true"] { color: #10171F; }
+.tds__glissiere { --pouce: 1.15rem; position: relative; flex: 1; min-width: 0; }
+.tds__curseur { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 1.6rem; margin: 0; background: transparent; cursor: pointer; }
+.tds__curseur:focus-visible { outline: 2px solid var(--matiere); outline-offset: 4px; border-radius: 4px; }
+.tds__curseur::-webkit-slider-runnable-track { height: .4rem; border-radius: 1rem; background: linear-gradient(to right, var(--matiere) var(--p, 0%), var(--trait) var(--p, 0%)); }
+.tds__curseur::-moz-range-track { height: .4rem; border-radius: 1rem; background: var(--trait); }
+.tds__curseur::-moz-range-progress { height: .4rem; border-radius: 1rem; background: var(--matiere); }
+.tds__curseur::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; box-sizing: border-box; width: var(--pouce); height: var(--pouce); margin-top: calc((.4rem - var(--pouce)) / 2); border-radius: 50%; background: var(--signal); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--encre-pale); }
+.tds__curseur::-moz-range-thumb { box-sizing: border-box; width: var(--pouce); height: var(--pouce); border-radius: 50%; background: var(--signal); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--encre-pale); }
+.tds__axe { position: relative; height: 1.2rem; }
+.tds .tds__grad { position: absolute; top: 0; transform: translateX(-50%); padding-top: .42rem; font-family: var(--donnee); font-size: .64rem; line-height: 1; letter-spacing: .02em; color: var(--encre-pale); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tds .tds__grad::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: .3rem; background: var(--encre-pale); }
+.tds .tds__grad--majeure { font-weight: 500; color: var(--encre-doux); }
+.tds .tds__grad--mineure::before { height: .2rem; }
+.tds .tds__annee.est-texte { font-size: 1rem; }
+.tds .tds__annee { flex: none; min-width: 3.4rem; font-family: var(--donnee); font-weight: 500; font-size: 1.35rem; line-height: 1; text-align: right; color: var(--matiere-fonce); }
+.tds .tds__evenement { margin: 0; padding: .35rem 1.2rem .95rem; min-height: 2.9em; font-family: var(--titre); font-size: .86rem; line-height: 1.45; color: var(--encre-doux); }
+.tds .tds__evenement strong { font-family: var(--donnee); font-weight: 500; color: var(--matiere-fonce); margin-right: .4rem; }
+.tds .tds__panneaux { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; padding: 0 1.2rem 1.2rem; }
+.tds .tds__recit, .tds .tds__fiche { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem 1rem; }
+.tds .tds__fiche { border-left-color: var(--signal); }
+.tds .tds__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.tds .tds__intertitre { margin: 0 0 .55rem; font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); }
+.tds .tds__paragraphe { margin: 0 0 .65rem; font-size: .96rem; line-height: 1.62; }
+.tds .tds__paragraphe--note { font-size: .88rem; color: var(--encre-doux); }
+.tds .tds__nav { display: flex; flex-wrap: wrap; gap: .5rem; margin: .85rem 0 0; }
+.tds__bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem 1rem; cursor: pointer; transition: background .15s, color .15s; }
+.tds__bouton:hover:not(:disabled) { background: var(--matiere); border-color: var(--matiere); color: #fff; }
+.tds__bouton:disabled { opacity: .45; cursor: default; }
+.tds__bouton--plein { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+html[data-sombre="on"] .tds__bouton:hover:not(:disabled), html[data-sombre="on"] .tds__bouton--plein { color: #10171F; }
+.tds .tds__badge { display: inline-block; margin: 0 0 .65rem; padding: .22rem .75rem; border-radius: 100px; font-family: var(--titre); font-weight: 600; font-size: .74rem; color: #fff; background: var(--tds-neutre); }
+.tds .tds__badge[data-couleur="espagne"] { background: var(--tds-espagne); }
+.tds .tds__badge[data-couleur="portugal"] { background: var(--tds-portugal); }
+.tds .tds__badge[data-couleur="autre"] { background: var(--tds-autre); }
+html[data-sombre="on"] .tds .tds__badge { color: #10171F; }
+.tds .tds__infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .5rem 1.2rem; margin: 0 0 .75rem; }
+.tds .tds__infos dt { margin: 0 0 .1rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.tds .tds__infos dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: .88rem; line-height: 1.35; }
+.tds .tds__verdict { margin: 0 0 .75rem; padding: .55rem .8rem; border-left: 3px solid var(--tds-neutre); border-radius: 0 var(--rayon) var(--rayon) 0; background: var(--surface); font-family: var(--titre); font-size: .86rem; line-height: 1.45; }
+.tds .tds__verdict[data-verdict="ok"] { border-left-color: var(--tds-ok); }
+.tds .tds__verdict[data-verdict="hors"] { border-left-color: var(--tds-hors); }
+.tds .tds__verdict[data-verdict="exclu"] { border-left-color: var(--tds-autre); }
+.tds .tds__liste { border-top: 1px solid var(--trait); }
+.tds .tds__liste > summary { padding: .75rem 1.2rem; cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.tds .tds__groupes { display: grid; gap: .7rem; padding: 0 1.2rem 1.1rem; }
+.tds .tds__groupe-nom { display: block; margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.tds__puces { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tds__puce { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+.tds__puce:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.tds__puce[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
+.tds .tds__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@media (max-width: 40rem) {
+  .tds .tds__modes { position: static; padding: .6rem .6rem 0; max-width: none; }
+  .tds__mode { font-size: .72rem; padding: .25rem .65rem; }
+  .tds .tds__union { position: static; max-width: none; margin: .5rem .6rem 0; }
+  .tds .tds__temps, .tds .tds__evenement, .tds .tds__legende { padding-left: .8rem; padding-right: .8rem; }
+  .tds .tds__panneaux { padding: 0 .8rem .9rem; }
+  .tds .tds__nom { font-size: calc(var(--k) * 11px); }
+  .tds .tds__zone-nom { font-size: calc(var(--k) * 10px); }
+  .tds .tds__grad--mineure { display: none; }
+}
+@media print {
+  .tds .tds__modes, .tds .tds__temps, .tds .tds__nav, .tds .tds__liste, .tds .tds__union { display: none; }
+  .tds .tds__svg { max-height: none; }
+  .tds .tds__panneaux { display: block; }
+  .tds .tds__recit, .tds .tds__fiche { break-inside: avoid; margin-bottom: .8rem; }
+}
+</style>
+<div class="tds__entete">
+<p class="tds__titre" role="heading" aria-level="3">Le partage du monde : le traité de Tordesillas</p>
+<p class="tds__consigne">Suis le récit ou fais glisser le temps</p>
+</div>
+<div class="tds__carte">
+<div class="tds__modes" role="group" aria-label="Colorer la carte selon">
+<button type="button" class="tds__mode" data-mode="royaumes" aria-pressed="true">Les puissances</button>
+<button type="button" class="tds__mode" data-mode="traite" aria-pressed="false">Le respect du traité</button>
+<button type="button" class="tds__mode" data-mode="langues" aria-pressed="false">Les langues aujourd'hui</button>
+</div>
+<p class="tds__union" data-tds="union" hidden>Union ibérique, de 1580 à 1640 : un même roi règne sur l'Espagne et le Portugal.</p>
+<svg class="tds__svg" data-tds="svg" viewBox="0 0 1000 702" role="img" aria-label="Carte de l'Atlantique : les Amériques, l'Europe et l'Afrique, partagées par la ligne de Tordesillas. La liste des lieux, sous la carte, permet de les parcourir au clavier.">
+<defs><pattern id="tds-hachures" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="tds__hachure" x1="0" y1="0" x2="0" y2="8"/></pattern></defs>
+<rect class="tds__mer" width="1000" height="702"/>
+<g data-tds="zones"></g>
+<path class="tds__terre" d="M975,109l0-2 1-2 0-2-4,0-2-2-2,0 0-2-1-1-2-3-3-1 0-2 3,0 2,1 2,0-1-1-2-1 0-1 1-1 2-1 10,0-2-1 1-3 1-1-1-2 1-1-2-2-2,0-2,1-6-2-4,2-3,1-4,1-2,2-2,0 0,1-1,0-1,1-5,1 0,1-3,4-1,1 0,1 3,3 1,3 1-2-1,2 0,3 2,2 2,3 2,2 2,1 2,2 0,2 2,2 2,1 1,0 2,1-2,0-3,1-1,3 0,2-1,2-1-1-1,2 0,2 1,4 0,1 3,1 4,1 2,2 4,2 6,0 7-1 3-1-1,1 2,0 0-1-1-2 0-9-1-2-2-1-1,0 0-2 3,1-1-1 0-1-3-1-1,1-1-2 0-1 2-4 1,1 3,0 1,1 3,0 0-1 2,0 0-2-3-2-2-4-4,0-1,1-1,2 0,3zM1000,197l-2,0-2,1-2,0-1,1-1,0-3,2-1,0-3-1-3,0-1-2-3-1-2-1-1-2-3-1-2,0-2-2-1-2-2-2 0-1-1-1 0-2-4-4-3,1-3-2 1-1-1,0-1,1 1,1-3,1-3,0 1,3-1-1-2,1 2,1 1,2 2,3 1,2 1,1 0,2 2,1 1,2 1,0 1,1 2,1 0,2 1,1 0,1-1,0 2,4 1,0 0,2 2,2 0-4 1-3 2-1 1,2 0,2 1,2 0,1-1,2-1,0 0,2 3,0 0,2 2,0 3-1 7,1 3-2 2-3 3-1 2-3 3-2 0-1 1-1 2-1-1,3 0,5 2,3 0,35-1,3-1,1-5,1-1,1 0,2-2,2-6,0-2,1-3,1-4,1-1,1-1,2 0,2-3,2-4,1-3,1-2,1-2,0-3,1-2,1 0,1-2,2-4,0-4,2-5,2-2-1-3,1-2,2-1,0-1,1-2,0-2,1-5,0 0-1-2-3 1-2-1-1 0-1-1-3-1-4-1,0 1-1-1-2 1-2 0-2-1-2-2-3 0-2-3-2-2-4-2-1 0-2-2-5-2-1-3-2-1,0-1-1-2-3-1-2 0-1-1-2 1-3-1-3-1-1-2-4-3-3-3-1-2-3 1-1-2-4-3-3-1-3-5-5 0-1-2-2-3-1 1-2 1-5 0-1-1,0-1,1 0,3-1,3-1,2-1,1-1,0-1-1-1-2-3-1-1-3-2-3-1-3-1,2 2,4 1,3 4,4 0,1 3,6 0,1 2,3 1,2 4,7 2,2 2,1-2,0 0,3 1,3 1,2 2,0 1,2 3,1 0,1 1,2 1,3 0,10 2,4 3,2 1,2 3,1 1,3 2,5 1,4 1,3 1,0 1,2 0-2 1,1 1,2 3,1 1,1 2,0 3,4 3,2 1,3 1,0 2,2 2,1 1,1 0,3-3,2-1,1 2-1 1,1 2,1 1,2 1,1 3,2 4,0 2-1 3-1 4,1 3-2 2-1 4,0 3-1 5,0 2-1 3,0 2-1 1-2 1,0 3,1-2,3 1,4 1,2-1-1-1,1-1,4 0,1-4,8-2,1 0,2-2,2-1,2-1,4-1,1-2,4-3,3-1,3-13,13-5,3-4,3-5,4-6,6-3,4-2,3-2,2-3,1 1,1-2,2-2,0-1,1 0,4-2,1 0,2-2,4-2,1-1,5-1,2 0,3 2,1 1,2 1,0 0,2-1,2 0,2 1,0 0,1-1,3 1,3 1,1 0,1 1,3 1,2 1,0 3,3-2,4 1,2 0,11 1,4 0,2 1,0 0,2-1,2 0,1-1,1-2,3-2,2 0,1-4,2 0,1-3,0-3,1-6,3-1,2-1,1-3,4-1,0-3,2-4,4-1,0-1,3 2,3 1,2 0,1 1,2 0,5 1-2 0,6-1,4 1,0 0,2-2,2-3,2-5,1-3,2-2,1-1,1-1,2 1,2 1-2-1,5 0,1-1,4-2,6-2,1-1,1-3,2-2,3-4,7-2,2-2,1-5,5-6,4-5,3-3,2-3-1-2,1 0,1-4,0-1,1-1,0-3-1-12,0-2,2-5,0-3,1-3,2-2,0-3-3-2,0 0-1-2,0 0,1-1-1 0-1 1-1-1-2-3-3 0-1 3-1 0-3-1-3-3-4-2-3-1-2-1-5-2-2-1-2-5-4-2-4-1-3 0-1-1-2 0-2-1-2 0-4-2-5 0-5-1-2 1-2-1-3-2-2-5-10-1-1-3-6-4-6-1-3 0-1 1-4 0-5 1-1 2-6 0-4 1-1 0-2 2-3 5-5 1-2 0-5-1-2-1-1-2-5 0-2-1-2 2-2 0-2-1-3-2-4 0-1-2-2-1-3 3-1 1-1-1,0-3,1-1-1 0-3-2-4 0-1-12-12 1,0-2-1-1-1-1-2 0-1-2-2 2,2 1,0-3-2-2-4 1,0 2-1 1-1 0-4 3,2 1-1-1,0-2-1-1-1 1-1 1,1 0-3-2-1 1-2 1,0 1-3 0-6 1,0-1-2-1-1-1-2 1,0-1-1-3-1 0-2-3,0 0-2 0,1-1-2 0,3-4,0-1-1-1,1-1-1 0,1-1,1-6,0-2-2-2-3 0-1-1-1 1,0 0-1-1,0-4-4-6,0 2-2-2,1-1,1-4,0-6,1-3,0-1,2-4,0-4,2-3,2-1,0-4,1-2,1-2-1-5-1 1,0-1-1-1,1-3,0-2-1-3,1 4,0-9,0-2,1-6,2-4,2-10-4-7-6-3-2 0-1-3-1-1-1-3-2-3-1 0-2-2-1-1-2-1,0-1-2 3,0-2,0 0-2 1,0-2-1 0-1-2-3 0-2-2,0 0-1-3,0-1-2-1-3-1,1 0-2-1,1 0-1-1,0-1-2 3-1-3,0 0-1 2,0-2-1-2,1-1,0 0-1-1,1-1-1 1-1-2,0-2-2 2-1-1,0-1-2 0-2 1-1 1,1 2,0 4-1-4,0-1,1-1-2-1-1 0-1-2-2-1-2-2-1 2-1 2-2 2-3 0-5 3-5 0-2-1-4 0-3-2-2 1-3 1-2-2-3-1,0-1-3-1,1 0,1-1,0 1-4 0-2 2-3 1,0 1-2 1-3 2-3-1,0 5-5 1,0 1-2 0-3 3-6 2-1 3-1 2-6 1-1 9-3 6-4 4-5 1-2 0-2-1-1 0-5 1-1 2-3 1-2 2-3 1-1 2-1 5-2 4-2 0-1 3-4 2-6 4,0 0,1 1,1 2,1 3,1 4-1 0,1 3,0 1-1 1,1 6,0 3-1 1-1 4-2 3,0 3-3 5-1 6-1 2,0 2-1 11,0 2,1 2,0 1-1 3-1 2-1 0,1 4,0 0-1 3,1 1,1 4-1 2,0 2-1 3-1 3,1 0,1 1,2 1-1 3-1 1,1-2,2-2,1 0,1 1,2 2,1 1,3-4,4-3,2 1,2 2,1 1,0 0,1 2-1 1,1 0,2 4,0 3,2 8,0 3,1 2,1 4,1 1,1 0,1 1,2 1,1 3,1 4,1 3,1 5,1 3,3 4,0 2-1 3-3 0-2-1-1 0-2 2-4 4-2 3,0 1-1 3,0 6,2 0,2 1,1 3,0 2,1 3,0 2,1 2,2 3-1 8,2 2,1 3,0 6,2 1,0 2-1 3-1 2-2 4,0-3,0 3,0 0-1 3,1 2,0 0,1 1,1 1,0 1-1 2,2 3-1 4,0 2-1 3-3 3-8 3-6 2-3-1-1 1-2-1-2 0-3 1,0-1-2 2-2-1-1-4,2-3-2-1,0-2,1-2,2-2,1-5,1-3-1-2-2-4-2-4,0-2,4-1-1-3,1-2-1-1,0-1-2-2,0-2-1-2,1 1-1-3,1-1,0 3-1 1-1-5,0 1-1-2-1-1-2 1,0 0-2-3-1-1,0-1-1 1-1-1-1 1,0 2,2 2,0-2-1 0-1 1-1-1-1 0-1-1-1 1-1-4,0 0-3 1,0 2-2 4-1 1,1 2,0 0-1 1,0 0,1 4,0 2-1-1,0 1-1 5,0-3-1-2-1 1-1 13,0 1-1 4-2 1,0 6-2 11,0 0,1 1,1 4,0 1,1 2,1 2,0 1,1 5,1 3,0 7-1 2,1 3,0 4-1 2-2 1,0 1-1 1-2-2-4-6-3-3-2-3-1-1-1-4-3-3-1-2-1-3,0-1-2-3-1 2-1-2,0 1-1 2,1 3,0 0-2 3-3 2,0-3-1-1,0 0-2 4,0 0-1 2,0 3-2-1-1-1,1-3,0 2-1-8,2-1,1-6,1-3,0-3,2-1-1-2,2 0,1 1,2 2,2 4,0 2-1 1,1-1,2-3,0-2-1-2,2-3,0-2,2-3,1-1-1-1,0 1-2-1-2-2,0-1-1-3,0 4-2 3-2 0-1-1,1-2-1-4,1-4-2 1-1-3,0 5,0 1-1-3,0 0-2-1,2-2,0-4,1-4,4-3,1 0,2-1,3-3,0 0-1-1,3-1,1 0,4-1,1 0,1-2,0-1,1-1,3-2,1 3,3 0,1 1,2 1,0 4,2 0,1-9,0-1,2-3,1-3,2-1,1 1-2 3-2-5,0-1-1-4-1-2,1-2-1-3,2-1,0 0,1 2,1-3,0 2,1 0,1-2-1-1-1 0,2 1,0-2,0 0-1-3-1 1-2-2,1 0,3 4,4 0,1-1,0 0-1-2,0 1,2-1,1-1,0 4,1 0,1 1,0 1,1 2,0 0,4-3-2-2,0-1,1 1,1 1,0 1,1-2,1 0-1-2-1-1,1 2,3 0,2 1,1-1,0-1-2-1,0-2,2 0-1-2-2-1,2-1-2 0-2-3-3 1-2 2,0 1-1 4,1 3,1-1,0 2,0 0-1-1,0-3-2-2,1-4,0-1-1 0,1-1,0-1-2-1-1 0-1 1,1 1-1-2,0-3-2-2-2-1-2-2-1-1-3 1-2 0-5-1,0-3-2-2-2-4-2-1,0-3-1 3,1 0-1-3-1-2-1-3-1-2,0 0-1-3-1-2-3 2,0-1,0-3-2 0-2-2-2-1,0-1,1-1,2-1,0-2-4 1-1 0-1-1,1-2-1-1,1-3,1-1,0-1,2 2,1-2,2 1,3 2,1 1,0 3,2 1,0 3,6 1,1 4,3 7,0 1,1-2,1 1,1 3,2 4,1 2,1 3,1 3,3-1,2-2-1-1-2-2,0-2-1-1,0-2,2-1,2 2,2 2,1 0,2-4,2 0,2-1,1-2,1-2,0 0-1 1-1 1-2 1-1-1-3-2-4-2,0-2-1 0-1-1-2-3,0 1,0-2-1-3-2-3-1 0,1-2-1-1-1-4-3-1,0-1-2-2-1-1,1 0-1-3-3-1,0 0-1-2-4-1-1-4-2-3-1-2,1-3,2-3,1 0,1-2,0-3,2-1,1-2,1-2-1-3,0 0-1-2-1-2,1-3-1-1-1-4,3-2,2 1,1 0,1 1,1-1,0 0,2-1,1-6,3-6,2-2,1 1,1-1,0-2,2-2,3-2,2 1,3 2,1-3,2-2,2-1,3 0,1-3,0-2,1-2,2-1,2-1-1-2,0-1,1-3-1-1,1-2-1-3,1-2,1-3,0-1,2-2,1-2-1-2-3-1-2-2-1-3,0-3,1-5-1-2,1 1-3 0-6-2,0-1-1 2-1 0-1-1,2-2,0 1-4 1-1 2-4 1-5-1-5 0-2 1-1-1-2-1,0 0-1-1-1 0-1 2-1 2,0 2-1-1,0 4-2 1,1 10,0 1,1 7,1 1,0 4-1 4,1 1-1 3,1 3,0 2-1 2-6 0-4 1-2 1,1 0-1-2-1 1,0-1-4-1,0-3-1-1-2 0-1-1-1 1-1-3,0 0-1-2,0 1-1-3,0-4-1-3,0-1-1-1,0 2-1-1-1 1,0-2,0 0-1 1-1 5,0 3-1 1,0 2,2 1-1 7,0-1-1 0-2-2-3 3,0 1,2 6,0 3-1-1,0 0-1 6-2 3-2-1,0 0-2 2-2 4-1 5-1 5,0-2,0-2-1 5,0-2-1 1,0-1-1 3-3 1-3 4-2 1-1 3,0 5-1 2,1-1,0 2-2 4,0 1,1 1-1 1,1 0-2 4,0 3,1-4-2-1-2-1,0 2-1-2-2-1-2 1,0 0-2-3-1 0-6 3,1 0-1 2-1 1,1 1-2-2,0-1,2-2,0-1-1 2-2 5,0 3-2 2-1 1,0 0,3-1,1 0,2 1,1 2,0 0,1-2,1-1,0-1,2-2,0 1,0-2,2 0,1-1,2 1,0 0,1 2,1-1,1 2,0 3,1 2,0 0,1-1,1 3,0 3-1 2,0 2-2 3,1 1,0 2,1 1,0 1,2 3,1 1,0 0-1-3,0-1-2 2,1 3,0 7-2 2,0 4-2 3,0 3-1 3,0 3,1-2,0 1,1 2,1 2,0 2-1 2-2 0-1 3,0 2-2 1,0-2,2 1,1 2-1 0-3-1-2 0-6 2-1 1-2 1-1 5-1 1,0 3,2 1,1 2,1 2,0 2-1 0-4 1-3-4,0-2-1 0-4 3-1 2-1 7,0 0-1 7,1 2,0 5,1 1-1 0-1 1-1 1,1 1-1 3,0 1-1 3,0 3,1 0-1 159,0zM801,0l-2,1-1,0 1-1zM774,0l0,1-5,2-1,1 4,0-2,0 0,1-5,2-3,1-5,0 4,0 1,1-2,0 1,2-2,2 1,2-1,1 0,2-1,2-1,1-1,2-8,0-3,2 1,2-1,1-2-1-3,1-3,0 1-2 0-1-3-3 2,0-1-1 1,0 0-1-1,0-3-3-1-2-1-1-1,0 0-2-1-1 0-1-2,0 1-1-1-3 1,0 0-1-3,0-1-1-1-2-1,1 1,1-2,2-3,0-2,1-2,2-3,1-2,1-4,1-3,0-1-1-1,1-1-1 1-1-2,0-4-1-1-1 1-2 3,1 1-1-3,0 1-2 2-1-3,1-2,0-1,1-1,0 1-3 3,0 2-1-3,0 2-1zM693,1l-2,1 0-2zM985,284l2,1-2,1-3,0-2-1 1-1zM277,293l-1,2-2-1 1-1 1,1zM2,217l0,1 1,1 0,2-3,2zM91,0l0,5 1,2 2,1 0,2 1-2 1-1 4,0 1,1 0,1 3,4 1,2 0,1-1,2 2,0 7-1 3,0 10,2 6,2 3,3 10,2 4,2-1,2 2-2 7,0 6,1 2,0 2,2-2,3 1,1 0,1 1,1 0,3-1,1 0,1 2,1 3,3-2,1 2,0 3,1 2,1 1,3-2,1 2-1 2,0 3,1 0-1 2-2 2,1 1,2 1-2-2-1 1-2 2-2 0-1-1-1 0-1-1-1-2-4 1-1 0-1-4-4 5-1 6-2 4-3 4-4 0-3-2-6-2-1-3-2-2,0-3-2 0-1 4-3 0-1 1-1 1,0 1-1 0-1 42,0-2,0 5,0 2,2-1,2 2,0 0,1-1,2-2-1-2,1 2,1 3-1 6,0 0,2 1,1-2,2-3,0 3,0 1-1 1-2 2,1 1,2 1-1 3-2 2,0 2-2 2,1 0,1 0-2 2-1 2,0-2-1 1-2 2,0-1,0 0-2 1,0 0-1 6,0 0,2 1-1 1,2-1,1 3,0 1,1-1,0-3,1 4,0 2,1 1,1-3,1 1,1 3-1-1,2-1,0 3,0 1,1 3,1-1,1-3,1 2,0 2,1-1,1 2,0 2,1 0,2-4,0-3-1 5,2-2,0 3,1-1,1 2,0 0,1-1,0 3,1 1-1 1,1 2,0 0,1 1,1-3,3 3-1 2-1 1,1 1,0-2,2 3-2 2,0 1,2 5,0 4,2-2,1-3,0-2,1-1,1-2,0-3,1-3,0-1,1-1,0 1,1-1,1 1,0 2-1 3-1 4-2 3-1-1,0 6,0 1,2-2,1 1,1 3-1 2-1 1,1 1,0 2,3 0,3-3,1 3,0 0,1-1,0 2,1-8,4-5,0-1,1-3,0-4,3-3,2-2,1-8,1-4,0-4-1-3,0 0,1-3-1-14,0-1,1-2,0-3,1-2,4-4,0-1,1-3,1-2,1-2,3-2,1-1,0-3-1-4-1 1,1 2,0 4,1 0,2-4,2-1,2-3,1-1,1-3,1-5,2-2,1-3,3-1,0-2,1 0,1-4,2 4-1 1-1 2-1 0-1 2-2 3-1 1-1 4-2 3-1 5-1 6-5 0-1 3-2 5-2 4-1 5-2 3,0 4-1 4,1 2,0 2,2-2,0 2,1-1,1-2,1-1,1-3,1-1,0-3-1-1,0-2,1 4,1 1,1 1,0 3-1 2,1-1,1 0,1-3,1 1,1 2,0 0,1 1,1 0,2 1,1 4,0-1,1 2,1 3,0 3,1-1,0 2,0 3-1 1,1 2,0 1,1-1,1 3,0-9,3-5,1-2,0 1,1-2,0-1-1-1,1 0-1-1,1 0,1-3,3-2,1-1,0 0,1-2,0-1-2-2,0 0-3 2-1 2-2-1,0 5-2 3-1 0,1 4-1 2,0-9,0 3-3-2,0-1,1-6,3-2-1-4,2-2-1 0,2 1,0-1,1-1,0-2,1-1,0-1,1-1-1-2,0 0,1-2,0 0-1-1,0 0,2-4,2 0-1-1,1-2,0 0,1-2,2-1,2-1,1 1,1-2,2 2,1 1,2 1,1 2-1-1-1 1,0 0,2-2,0-2,1 0-1-3,1 0-1-1-1-1,2 0,1-9,0-3,2-4,2 0,1 1,0 0,1-1,4-2,2-1,0-1,2-1,0 1-1-2,0-2-2 0-2-1,1 2,2 0,1 2,4-2,3-3,3-1,2 0-1 2-4-1,0-1-1 1-1-2,0-1-2 2,0-2-1 1,0 0-2 2-2-2,0-2,2 0-1 0,5 1,1-2-1 2,1-1,1-2-1-1-1-1,1 0-1 1-2-2,1 0,2 2,0 1,1 2,0 1,2 0,1-1,0-3-2 3,2 1,1 0,1-2,0 2,1 0,1-4-2-2,0 4,1 0,1 2,1 1-1 1,1 1,4-1-3 0,1 1,2-2-1 0,1-1,0-1,1-1-1 0,1 4,0-1,2 1-1 1,0 0,1-2,2-2,0 0-1-3,0 3,1-1,2-1,0-1-1 1,1 3,0-2,2-3,0-4,2-1,2 0-1 0,2-2-1-3,2-2,2 0,1-5,3-2,1-2,0 1,0-1,1-1,0 1,1-2,1-1,1 0,2-2,2 0,2 1,6 3,5 2,3-1,2 0-2-1-2 1,3 3,7 0,1 1,3-1,4-1,1 0,2-2,1-3,0 0-1-1-3-2-1-1-3-1,0 1-1-1,1 0-2-2,0-1-1-1-3 2-2-1-1-1,2-1-1 1-4 0-2-4-4-2-3-2-1-2,1 0,1-3,0-3,1 0-1-3-2-4-1 2-1-2,0-1,1-3,0 1-1-1,0-1,1-3,0-1-2-1,2-7,0-2,1-3-1-1,1 1,1 3-1-1,1 1,1 2-1 0,1-2,1 1,1 3,2-1,1-1,0-3-3-2,0 1,0-1,2-1-1-2,0-1,1-3-1 1,0-1-1-1,0-2-2-2,1 1,0-2,1-2-1-3-1-5,0 1,1-2,0-4,1 2,0-2,0 1-2-2,1 1,2-2,1-1,1-3,2-2,1 1-1-4,0 1,1-1,1-1-1 0,2-2,0 1,0-1,2-2,0 1,1 0,1-1,1-2-1 2,2 0,4 2,3 0,2-2,4-1,4-1,6 1,2-1,2 0,3 1,2 2,2 0,1 0-1-3-3 4,8 3,3 1,2 1,3 3,3 4,1 2,1 2,2 2,0 4-2 4,0 1-1 4,0 1,1 2,0 1-1-1-1 3-2 2-1 0-2 1-1 0-4 1-3 3-2 6,0 4-2 5,1 1-1 2,1 0,4-4,4 0,2-1,1 1,1-1,1 1,0-2,5 0,1-1-1 0-2-2,2 0,1 1,0 0,1-1,3 1,1-1,2 0,3-1,2-1,1-1,2 1,0 0-1 3,2 2-1 9,0 3-1 2,1 3-1 3,1 1,0 3,2-1,0-1,1 1,0 1,1 1-1 2,1 1,1-1,1 1,3-1,2-1,4 0,6-1-1 1-1-2,1 1,1 0,2-1,1 1,0 0,1-1,2 0,1 2,4 2,3 2,2 2,1 1,0 0,2 1,0 0,1 2,0 0-1 2,2 4,0 4-2 4-3 9,3 2,2 2,1 4,4-1-3-1,0 4-3 1-2 2-1 1,0 0-1 1-4 0-2 4-3 2,1 0,1 1,0 1-2 0-1 5,0 6-3 1-2 3-2 1,0 1,1 1,2-2,2-2,0-1,2 2,4 0,1-2,2-1,2 1,2 1,1 1,2 2-1 1-1 1-2-2-3 0-1-1-3 0-1 1,0 3-1 4-1 1-1 1,0 0-1-2,0-1-1 1-2 1,0 1,1 1,3 5,0 3,2 0,2 1,2 2,0 5-1 5,0 2,2 4,2 6-3 2,0-3-1 15,0-3,1-3,0 1,1 0,2 1-1 1,2 1-1 2,1 1,1-1-1 1,0 4,2 1,1-1,1-1,3-3,0 2,2 3-2 2,1 1-1 2,1 1,1 1,0 3,2 4,4 0,3-1,2 2-2 2,0 3,3 2,1 0,4 1-3 3,0 3,1 1-1 6,0 3,1 2,0 0,1-1,2 1-2 1-1 2,2 4,0 2,3 3,2 0,1 1-1 0,1 1,3 1-2 2,1 1,3 0,2 2,7 1,2 2,0 2,2 0,2-3,2-1,2-2,2-2,1-1,1 0,1-2,3 0,1-2,1 0,1-1,0-3,1 2,0 1,1 1,0 4-3 3-1-1,1 2,4 2,1 2-1 2,1 2-2-1,5 0,1 2-5 1,0 2-2 1,1 0-3 2-3 1,1 1-1 2,0 0,1 1-1 1,0 2,1 1,1 3,0 3,2 1,0 1,2 2-1 1,1 1,0 1,2-2,2 1,0 1-1 1,1-1,0-1,5 1-1 1-3 1,0 0,2 1-1 3-1 1-1 4,2 3,1 2-1 1,1 2,1 5-1 3,0 6,3 2,2 1,0 3,3 2,3 2,0 1,1 2,1 1,1 4-1 3,1 2,2 0,4 1,1 1,6 0,4-2,6-1,1-6,8-3,1-1,1-4,8-2,3-1,1-2,1 0-1-1-1-1,1 0,2-1,1-1,2 1,3 0-1 0,8 1,3-2,6 0,5-2,2-1,2 0,6-1,2-1,0-2,4 0,1-3,2-1,4 0,3-1,1-3,1-2,1 0,3-6,0 0-1-1-1 0,2-4,1 1-1-1-1-2,1-3,0 1,2-3,0-3,2 0,1-3,0-5,2-2,2-4,3-2,2-1,0-1,1-1,0 2,1-1,1-1,2 0,3 1,3-1,2 0,3-1,3-3,2-4,6-2,4-2,2-3,4-4,2-1,2 0-2 2,0 3-3 0-1 1,0 0-2 2-1 0-1 1,0-1-2-2,1-2-2 0,1 1,1 0,1-1,2 0-1-1,2-3,2 0,2-1,1 0,2-3,6-2,1-2,2-3,4-2,2-4,2-2-1-6,0-4-1-2-1-4,0-1-1-2-3-1-1 1-3 1,0 1-2-1-2 0,3-2,1 0,3 1,3-1,1 1,2 3,1 3,2 1,2-1,1 0,3 4,2 0,2-3,4-1,1-1,3-4,2-10,2-8,1-5,0-1-1-1,0 0,2 2,1-1,3-1,0 0,4 1,1-1,1-4,2-5,0-2-1-4-1-1-1-1,1 0,2 1,2 0,3 1,1 2,1 0,1 2-1 1,0-1-1 2,0 1,1 0,3-3,0-1-2-2,0-2,1 0,1 2,0 2,1-4,2-2,2 1,2-1,3-2,1 0,2-3,0-3,1-4,2-1,3 0,2 4,4 5,1 1,0 1,1-1,2-2,1 1,0 1,1-3,2-4,2-3,2-1,1 0,1-1,3 0,1-3,1-2-2 0,1 1,1-3,1-1,1 0,3 1,2 0,1-2,0 2,1 4,4-1,0-4-1-2,1-1,1-1,0-6,2-1,2 0,4-4,0-3-1-1-1 0-1 2-1 1,2 1-2 2,0 1-2-1,0-6,2-1,1 0,1-3-2 1-1 1-2 1,1 2-1 4,0-2-1-2,0-2,1-1-1-3,3-1,0-2-1 3-1-5,0 0-2-1,0-1-1 3,0 1-1 1,1 2,0 2-1 1,0 1,2 0-1-1-1 1-1-2-2-2,0 2,1 1,1-2,0-2,1-1,0-1-1-3-1 1,0 1-2-2-1-1,0-3-1-2-2 3,0-1-1 1-1 2,1 1,2 2,1 1-2 0-1-2,2-1-1 0-1 1,0-3-1-1-1 2-1 2,0-2-1 0-1 1-1 2,1-2-1 1-3-1,3-1-1 0-4 1-1-2,0 0-1-1-2 5,0 2,1 1,0-2-1 0-2-2,2-2,0 0-1-2-1 1-1 2,1-2-1 2-2 0-1-1-1-1,0-3-1-3,0 1,1-1,1-1-1 0-1 4-3 0-2 5,0 1-2 1,0-2,4 1,0 1-2 1,0-1,3-1,1 1,0 1-1 0-3-1-1 1-1 1,0 2-1 1,0-1,0-2-1 1-1 2,0 2-2 0-1-4-2 1-2 1,0 0-1-1-1 2-3 0-3 1,0-1-1 1-1 1,2 0-3-1,0-1-1 1-1 2,0-2,0-1-1-1,0-1,2-3-1 0-1-1,0-1-2 0-2 2-5 2-1 1-2 0-2-2-3 0-4-1-2 0-3 3,0 0-3 1,0 1-2 0-2 1-1 0-1 2-3 1,0 1-3 0-3 1-2 1-1 0-4 1-2 0-5-1-4 0-5 2-1 0-5-1-1 0-1 2-4 0-2 1-2 1-1 0-2 1-5 0-5 1-1 0-9 1-2-2-1 1-2 1-1 1-8 0-11-1-2 0-6-1,0-3-2-2-2 0-1-1-1-4-2-2-2-2,0-3-2-3-1-2-2-6-3-2-3-3-1-1-3-1,0 0-2 1-2 0-1-2-2-2-4-2-2 0-2-1-1-2-1 0-3-3-4-2-5-2-4-1-3-2-2-3-5-2-2-4-2-2-2 0-1 2,0-2-4 0-1-1-2 0-2 3-4 3-2 2-1 2-4-1-1-1,1 0-1-2,2-1,0-3-3 1-1 0-6 2-1 0-1 1,0-1-2 2-2 1-2-1-3 3-1 5-1 0-2-1-1 1-1 2,0-1-3 1-1 2,0 3-2 0-1 1,0 1-2 2-3-2-1 0-9-1,0 2-2-2-2 1-2-3-4-2-2-2-3 2-2-1-1 0,1-1-2-4-2-2,0-1,1 0,1-3,2-1,0-1,2 3,2 0,1-2,0-1,1-2,1-1-3-1-1 0,1-2,0-1-3-3,0 0-1-3,0-1,1 0,1-2-2 0-2-2,0 1,2-2-2 0-2-1-2-2-1-2,0-1-1 0-1-4-3 1,2 2,1-2,2-1-2-2,0-1-2 0-1 1-2-1-1 1-1-2-2-3-2-2-3-2-2-3-2 1-1 1,0-1-2-2,0-1,1-1,0-3-1-1,0-3-1-3,0-2-1-3-2-4,0-3-1-6-6-6-5-3-2-1,1 3,1-3-1-1,0 0-1-1,0 0-1-1,1 1,1-2,0-6,3-4,0-2-1-4-1-6-3-5-1-2-2-5-1-5-3-1-2-5,0-5-2-2-3-3-2-4-1-1-1-2-3-1-2 1-1 1,0 0-2-1,0 2-2 0-2-2-1-1-2 0-2-1-2-3-3-1-2-8-6 2,1 0-1-3-1 0-1-1-1 1,0-5-3-1,0 1-1-3,0-1-2 2-2-2-2-2,0-1-2 0-198zM266,250l0,1-2,1-7,0 0-1-1-1 1-1zM225,114l4,0-3,1-5,1-4,1-1-1 1-1 2-1 5,0 2-1zM77,203l-1-1 0-3zM437,684l3,1 1,1 1,0 2,1 1,0 0,2-3,0-1-2-1,0-5-2-1-1-2,0zM307,668l3,0-1,1 2,0-1,0 2-1 1,1-1,0 1,1-2,1-1,0-2,1 0,1-3-1 1,1-2,0 0,1-2-1 1-1 1-2 2,0-1-1zM298,669l2-1 1,1 3-1 0,1-4,3-1,0-1,1-2,0-2-1 2,0 3-1-2-1 2,0-2-1 0-1zM272,165l1,1-1,1-1-1zM634,35l-2,1-1,0 2-2 1,0zM644,50l-4,2-1,0-3-2-1,1 0-1-6,0-1-1 1-1 5-1 2-2-1-2-3,0 3-2 2-1 6,0-1-1 0-2 1-1 0-1-2,0-2-2 0-2 1,0 2-1-3,0-3,1-5,0 0,1-2-1 1-2 2-2-1-1 0-2 1,0-1,0-2,1 0-2-1,1 0,1-1,3-2,0 1-2 0-2 2-3 1-2-3,2-1,0-2-1 3-1-1,0 1-2 1,0-2-1 2-1-1-1 0-1 3,0-1-1 0-1 2-1 0-2 2,1 10-1-1,2-5,2 0,1 1,0-2,2 5-1 8,0 1,1-1,1-2,3-2,2-3,1 3,0-1,1-1,0-2,1-2,0 6,0 3,1 3,2 2,4 1,1 3,1 3,2 0,1 2,2-3,0 3,1 1,2-2,2 2,0 1-1 3,0 2,1 2,0 0,2-1,2-1,1 0,1-3,1 0,1-1,0 0,1 4,0 0,1-2,1-1,0-4,1-9,0-1,1-11,0-3,3-2-1-3,0-3,2-2-1-1,1 1-1 1,0 5-5 1,0 1-1 6,0 4-3zM635,40l-1,1-1-1 1-1zM642,6l1,0 0,1-3-1 0-1zM625,22l-2,0 0-1-1,0 1-1 2,1zM623,24l0,2-1,0-1-1zM623,10l-1,1-1,0 0,1-3,1 1-1-1,0 0-1 2,0-1-1 4-1zM623,16l3,1-2,1 0-1-2,0-1-1-2-1 1,0 3-1zM617,29l0,1 1-1 5,0 3,2-1,1 2,0 0,1-1,0 0,1-2,2-1-1-1,1 1,3 0,1 1,2-1,3-2,1 1,1-7,0-1,1-3,1-1,0 0,1-3,0-3,1-3,0 2-1-4,0 2-1-3,0 2-2-2,0 1-1 2,0 1-1 5-1-1-1-1,1-2,0-2,1 2-2 1-2 2,0-3,0-2-1-2,0 0-1 3-1-1,0 2-1-2,0 0-2-1-1 4,0 1,1 1-1 3,1-1-1 3-1 0-1-4,0 3-1 0-2 5,0 2-1 1,1zM654,56l-3,0 1-1zM726,158l-2,0 0-1 2,0zM294,299l-1,1-4,0 2-2 0-2-1,0 2-1 2,0zM897,397l0,1-2,0 0-2 1-2zM899,389l0,3-1,1 0-3zM774,13l-1,1 0,2-4,2 1-1-1-1 0-1 2-2zM759,22l-1,0 0-1 2-2 2-3 1,0zM679,121l2,0-2,3-2,0-1-1-1,0-1-1 3-1 2-1zM669,126l-2,1 2-2 1,1zM560,192l-1-2 2,0 1-1 1,0zM578,187l-1,0 0-1 2-1 0,1zM574,192l-1-1 2,0 1-3 1,0-1,2zM568,191l0,2-1,1-2-2 1-1zM553,189l-1-2 2,0zM585,315l-3,0 2-1zM705,350l0,1 0,0-1,0zM699,360l0-1 1-1zM295,277l-1,1 0-1 1-2zM557,163l3,0-1,1-2,0zM473,123l1,1-1,0-1,0zM497,127l1,1-1,1-1-1zM493,129l-2-1-1,0zM491,129l-2,1 0-1zM507,132l1,1-1,1-1-1zM957,435l3,3 1,6 0,4 2,3 0,1-2,4-1-1-1-2-1,0 0,3 1,2 0,3-2,1 0,4-1,4-2,5-1,5-1,3-2,5-2,6-2,5-1,4-1,2-1,4-1,1-2,1-3,0-4,2-2,0-2-1-3-1-2-1-1-3-1-1 0-5-1-3-1-1 0-5 1-2 0-2 1,0 1-2 0-1 2-3 1-2 1-3-2-3 0-2-1-2 0-6 3-4 0-3 2,0 2-1 3,0 0-1 3-1 1,1 1,0-1-1 3-3 1,0 0,2 1-1 0-1 2-3 0,2 2-2 0-2 1-2-1-2 3,0 0-1 3-1 1-3-1-2 2-3 1,1zM950,182l-2-1 1-1 1,1zM196,249l3,1 1,0 2,1 1,2-2,0-2-1-2,2-1-1-3,0-1-2-2,0 1-2zM753,131l-2,2 0,2 1,3-1,1 0,1-2,0-2-1-2-2-2,0-5-2-2,0-1-2 0-1 1-1 1,1 2-1 1,0 2,1 5,0 2-1 2,0 2-1zM718,115l1,2-1,1 0,6-1,1-3,0 0,1-1,1-2-2-1-2 1-2-1,0 1-3-2-2 0-1 2,0 2-1 2-2 3,2zM996,200l-1,0-2,1-1-1zM228,251l-5,0-3-1-2,1-1,1-4-3 1-1 1,0 3,1 8,0 0-1-3-2 1-3-2-1-2,0 0-1 3-1 1,1 3,1 2,0 2-1 6,0 2,1 1,0 2,2 2,0 0,1-2,0 5,1 1,1 2,1-1,1-1,2-2-1-5-1-4,2-1-1-2,0-2,4-2-1zM223,247l0,1-3-1 1-1zM784,130l1,2-2-1 0-1zM801,127l2,1 2,0 1,3 1,0 0,1-2-1-1-1-1,0-3-3-3,0zM821,133l1,1-3,0zM810,134l-2-1 1-1zM817,131l-2-1 1,0-1-1 2,0zM818,124l2,2-3,0-2-1 2-1zM813,120l-1,1-2,0 0-1zM826,144l0-1 1-1 2-1 0,3zM803,147l3,0 0,1 2-1 5,1 1,0 0,1 3,0 1-1-1,2-8,0-1-1-6,0-1-1 1-2zM742,34l-1,0-1,1-1-1 0-1 2-1 1,1zM717,103l0,4-1,1 0,2-1,2-3-3 0-2-1-1 1-1 3-1 1,0 0-2zM995,488l-3,0-1-2 1-1 2,0 1,2zM292,263l-1,0 0-2 2,1zM290,264l-1,0 1-2 1,0zM796,8l2,0 2,1-4,2-2,0-1,1-1,0 1-1-2-1 1,0-1-1 3,0zM798,7l-3,1-1-1-2-1 5,0zM712,337l1,0 1,1-2,3-1-1 0-1zM179,378l-1,0 2-2 1,0zM118,365l-1-1 0-1 1,0 1,1zM112,360l1,1 1,2 0,1 1,1 0,1-3,0-1-1 2-1 0-2-1,0-1-2-1,0 2-1zM292,269l-1-2 1-1zM398,1l-3,0 1-1-2,1-1-1zM735,26l-1,0-1,1 1,1-1,1-1,2-2,0 0-2-2,0-1-2-1-1 2-1 1-1 1,1 0,1 1,0 1-1-1-1 2-1 2,1zM724,26l1,2 0,1-2,1-3-1-1-1 0-1 3-1zM728,31l2,0 1,1-2,0-3-1 0-1zM751,30l-3-1 1-1 2,1zM857,149l1-1 3,0 6-2-3,2 0,2-2,0-1,1-2,1-1,1-3-1-1-2 1-1zM172,221l1,1 3-1 2,1 2,0 4,4 4,0 3,1 3,2 1,0 2,1-1,0 1,1 0-1 3,2 2,1 4,0 0,3 4,0 2,1 1,1 2,0-1,2-2,0-3,1-2,0-2-1-2,0-5,1-4,0 3-3 0-2-5,0-3-2-1-3-1-1-3,1-3-1-4-2-3,0-1-2 0,1-4,0-1-1 2-2-6,0-4,3-4,0 0,1-3,1 0-1-2,1 3-1 0-2 2-2 4-2 4,0 3-1zM165,231l-3,0 0-1-1-1 1-1 2,1zM760,102l3,1-3,0zM747,92l-1-2 0-1 1,1zM927,432l0,2-2-1zM921,431l-2,0 1-2 0-1 0,2zM243,689l-1-1-2,1-3,0-6-1-2,0 0-1 1,0 2-1 1,1 2-1 1,0 0,1 2,0-1-1-2-1 0-2 1,0 0-1 1,0 1,2-2,0 3,2 4,0 1,1 2-1-6-1-1-2 5-2-1-1-2,0-2,1-2-2 1-1 1,0-1-1 1-1 1,1 1-1 2-1 2,1 2-1 1,1 2,1 0,1-1,1 0,1 2,0 1,1 4,3 3,1 4,2 3,1 3,0-1,1-3,0-4,1-3,0-5-1zM258,691l-2,1-1-1-2,1-1-1-2-1 7,0zM217,620l-2,0-1-1 1-2 0-4 1,0 0-2 3,0 0,4-2,1 2,2zM213,660l-2,0 0-2 1-1-2,0 0,2-3,0 0-1 1,0 0-1-1-1 2,0 0-2 1,0 0-1 1-1 2,1zM207,653l-1,0 0-1 1-2 0-2 1,0 1,3 0,1zM214,678l2,0 3,1 2,1-2,0-2-1-3-1-1,0-1-2zM213,652l-3,0-1-3 0-1 2-1 0,1 1,1zM223,681l4,2-4,2-1-1 1-1-1,0-1,1-1,0 0-2-1,0-1-1-1,0 1,0 1-1 2,1zM211,670l0,1 2,1-1,2-1,0-1-2-1-1zM242,690l8,0-2,1 2,1 2,2-4-1-1,0 0-1-3-1 0,1 1,1-1,0-2-2-2,0 1-2zM232,684l2,1-1,1-2-1-2,0-1,1-1-2 1-1 3,1zM216,627l2,4-1,1-2,0-1-3-2-1 1-1 2-1 0-1 2,0zM222,629l-2,0-1-1 2-2 2,1zM208,664l0,1-1-2 2,0zM208,647l1-1 2,1zM213,668l-3,0-2,2 1-2 1,0 2-1zM210,662l-3,0 1-2 3,1zM215,672l-2-1 0-1 2,1zM214,634l-1,1-1-1 1-1 0-1 1-1zM234,689l1,1 2-1 1,1 0,1-4-1-1-1zM509,258l-1,0 0-1 2,0zM519,270l0,1-2-1 1-2zM511,258l1,1-1,1-1-1zM523,263l1,0-1,1-1,0zM514,271l-1,0 1-1zM293,84l2,0-1,2 2-1 1-1-1,0 2-2 1,1 2,0 0,1-3,2-2,0-4,1-1-1 0-2 2-2 2-3 2-1 1,0 0,2-1,3zM327,51l0,1-3,0 0,1 1,0 0,1-2,2-3,4-1,1 0,1 3-2 1-1 0,1 4,0 0,1-3,1 1,0-2,1 6,0-1,3 2-2 3-1 0,1 1-1 2,0 2,1 1,1-2,2-2,0 3,1-1,1-1,0 3,0 3-1-1,2-3,1 1,0-2,2 0,1 1,0 2-2 2-1 1,0-2,3 0,1 2-1 0-1 1,2-2,4-1,1-3,0 1-3-3,2-1,0 0-2 2-1-1-3-1,0-2,3-2,0-3,3-3,0-1-1 1,0 2-1 2-2 2,0-3-1-1,1-2,0 0-2-2,0 0,1-5,1-6-1-2,0-5,1 0-1-1-1 0-1 6-3-5,0 2-1 1,0 2-3 1,1 1-1-1-1 1-1 1,0-1-1 3-5 5-5 1,0 3-1zM289,65l-2,1-5-1-3-1-2-2-4-1 2-1 5,1 9,3 1,1zM277,81l11,0-3,2 0,1-2,0-1-2-2,1-2,0-1-1-2-1-1-1 0-1 2-1-1,1zM176,44l-2-1-5-1-1,0 1-1 4,0 2,1zM186,22l-1,3-1-1 1-1-1,1-3,1 2-2-2,2-1-1 3-2 0,1 1-3 2,1zM219,87l-3,0 3-1zM368,361l2,1-1,3-2,2-1,2-1-1 0,2-2-1-2,2-2-1-2,1-1-1-1-3 1-1-1,0 0-2 1-2 3-1zM362,358l-1,2-3,0 0-1 3-1zM358,348l-1,1 0-2 1,0zM356,361l-2,1 0-1 2-1zM363,361l-2,0 1-1 2,0zM357,359l0,1-1,0 0-1 2-2 0,1zM359,358l-1,0 0-2 2,0zM349,369l-1,0 2-2 0-2 2-2 1,1-1,2zM303,282l-1-1 0-1 1,1zM964,205l-1-1 0-1 1,0zM195,215l0,3-2-1 0-1-1-1zM197,205l-1-1 1-1 0-2-2-2 1,1 2,1 0,1-1,1zM222,233l-1,1-3,0 0-1 3,0 1-1zM194,212l0,1-2,1-3-2 2,0-1-1 1-1 0-1 1,0zM189,200l3,0-1,0-3,1-1,0zM215,227l1-2 0-1 1,1zM211,223l-2-2 0-1 2,2zM273,688l4,0 0,1-6,0z"/>
+<g class="tds__langues">
+<path class="tds__langue tds__langue--espagnol" d="M277,293l-1,2-2-1 1-1 1,1zM2,217l0,1 1,1 0,2-3,2zM11,172l0-3 10,0 3,3 6,4 2,3 0,1 1,2 2,2 5,2 1,0 2-1 1-3 0-1 7,0 5,5 2,3 0,1 2,2 1,2 2,1 0,3 2,1 0,2 5,2 6,2 1-1 0,2-2,4-1,4-1,6 1,2-1,2 0,3 1,2 2,2 0,1 0-1-3-3 4,8 3,3 1,2 1,3 3,3 4,1 2,1 2,2 2,0 4-2 4,0 1-1 4,0 1,1 2,0 1-1-1-1 3-2 2-1 0-2 1-1 0-4 1-3 3-2 6,0 4-2 5,1 1-1 2,1 0,4-4,4 0,2-1,1 1,1-1,1 1,0-2,5 0,1-1-1 0-2-2,2-1,0-2,3-2,0 0,13 3,0 0-1 3,2 2-1 9,0 3-1 2,1 3-1 3,1 1,0 3,2-1,0-1,1 1,0 1,1 1-1 2,1 1,1-1,1 1,3-1,2-1,4 0,6-1-1 1-1-2,1 1,1 0,2-1,1 1,0 0,1-1,2 0,1 2,4 2,3 2,2 2,1 1,0 0,2 1,0 0,1 2,0 0-1 2,2 4,0 4-2 4-3 9,3 2,2 2,1 4,4-1-3-1,0 4-3 1-2 2-1 1,0 0-1 1-4 0-2 4-3 2,1 0,1 1,0 1-2 0-1 5,0 6-3 1-2 3-2 1,0 1,1 1,2-2,2-2,0-1,2 2,4 0,1-2,2-1,2 1,2 1,1 1,2 2-1 1-1 1-2-2-3 0-1-1-3 0-1 1,0 3-1 4-1 1-1 1,0 0-1-2,0-1-1 1-2 1,0 1,1 1,3 5,0 3,2 0,2 1,2 2,0 5-1 5,0 2,2 4,2 6-3 2,0-3-1 15,0-3,1-3,0 1,1 0,2 1-1 1,2 1-1 2,1 1,1-1-1 1,0 4,2 1,1-1,1-1,3-3,0 2,2 3-2 2,1 1-1 2,1 1,1-1,2-2,1-1,0-1,2 0,2 2,0 0,1-2,1-3,1 0,3-1,2 4,4 0,2-2,2-2,0-1,1-4,1-1,0-2,1-1,2-1,0-2-2-4,0-2-1-3,0 2,2 2,1 0,3 1,2 0,2 4,1 0,1-4,2-2,2-1,0-1,1-3,1-2,3 0-2-1,0-2,1-3,0-2-2-2,0 0-3-1-3-1,0-2,2-1,0-1-1 0,2-7,0-1-1-2,1 0,4 3,0 1,1 0,1-4,0-1,1 0,5 2,1 1,3 1,1-4,18 0,1-1,0-1-1-3,0-1,1-5,1-3,1-3,3-2,6 0,2-4,2 0,1 1,2-2,0 0,1 2,2-1,1 3,3 0,1 2,2 0,1-1,1 2,0 3,1 1,3 6,0 4-3-1,2 0,7 11,0 1,1 2-1 2-2 2,0 1-1 2-1 3-2 2-1 6-1 0,4-1,2 1,2 0,1 1,3 1,2 3,2 0,1 5,0 2,1 2,0 0,1 1,1 3,1 1,0 2,2 5,0 3,2 1,1-1,1 1,3 0,3-1,0 2,2 0,5 11,0 0,1-1,1 1,3 2,2 1,0 1,4 1,1-2,3 0,1-2,4 2,2-2,1 1,2 1,3-1,7 5,0 1,1 2-1 2,0 1,1 2,0 1,2 0,1 1,7 2,0 3-1 3,1-2,7-1,2 1,1 2-1 2,1 0,2 1,1-1,3 1,1-1,2-2,1-1,1-3,0-3,3-2,1 0,1-1,0-2,2-2,3-5,5-2,1 1,1 2,0 0-1 2,0 4,3 1,1 0,1 1,0 2-1 1,2 4,2 3,2 2,1 1,2 3,2-2,3 0,3 1,0-3,4-2,2-4,2-2-1-6,0-4-1-2-1-4,0-1-1-2-3-1-1 1-3 1,0 1-2-1-2 0,3-2,1 0,3 1,3-1,1 1,2 3,1 3,2 1,2-1,1 0,3 4,2 0,2-3,4-1,1-1,3-4,2-10,2-8,1-5,0-1-1-1,0 0,2 2,1-1,3-1,0 0,4 1,1-1,1-4,2-5,0-2-1-4-1-1-1-1,1 0,2 1,2 0,3 1,1 2,1 0,1 2-1 1,0-1-1 2,0 1,1 0,3-3,0-1-2-2,0-2,1 0,1 2,0 2,1-4,2-2,2 1,2-1,3-2,1 0,2-3,0-3,1-4,2-1,3 0,2 4,4 5,1 1,0 1,1-1,2-2,1 1,0 1,1-3,2-4,2-3,2-1,1 0,1-1,3 0,1-3,1-2-2 0,1 1,1-3,1-1,1 0,3 1,2 0,1-2,0 2,1 4,4-1,0-4-1-2,1-1,1-1,0-6,2-1,2 0,4-4,0-3-1-1-1 0-1 2-1 1,2 1-2 2,0 1-2-1,0-6,2-1,1 0,1-3-2 1-1 1-2 1,1 2-1 4,0-2-1-2,0-2,1-1-1-3,3-1,0-2-1 3-1-5,0 0-2-1,0-1-1 3,0 1-1 1,1 2,0 2-1 1,0 1,2 0-1-1-1 1-1-2-2-2,0 2,1 1,1-2,0-2,1-1,0-1-1-3-1 1,0 1-2-2-1-1,0-3-1-2-2 3,0-1-1 1-1 2,1 1,2 2,1 1-2 0-1-2,2-1-1 0-1 1,0-3-1-1-1 2-1 2,0-2-1 0-1 1-1 2,1-2-1 1-3-1,3-1-1 0-4 1-1-2,0 0-1-1-2 5,0 2,1 1,0-2-1 0-2-2,2-2,0 0-1-2-1 1-1 2,1-2-1 2-2 0-1-1-1-1,0-3-1-3,0 1,1-1,1-1-1 0-1 4-3 0-2 5,0 1-2 1,0-2,4 1,0 1-2 1,0-1,3-1,1 1,0 1-1 0-3-1-1 1-1 1,0 2-1 1,0-1,0-2-1 1-1 2,0 2-2 0-1-4-2 1-2 1,0 0-1-1-1 2-3 0-3 1,0-1-1 1-1 1,2 0-3-1,0-1-1 1-1 2,0-2,0-1-1-1,0-1,2-3-1 0-1-1,0-1-2 0-2 2-5 2-1 1-2 0-2-2-3 0-4-1-2 0-3 3,0 0-3 1,0 1-2 0-2 1-1 0-1 2-3 1,0 1-3 0-3 1-2 1-1 0-4 1-2 0-5-1-4 0-5 2-1 0-5-1-1 0-1 2-4 0-2 1-2 1-1 0-2 1-5 0-5 1-1 0-9 1-2-2-1 1-2 1-1 1-8 0-11-1-2 0-6-1,0-3-2-2-2 0-1-1-1-4-2-2-2-2,0-3-2-3-1-2-2-6-3-2-3-3-1-1-3-1,0 0-2 1-2 0-1-2-2-2-4-2-2 0-2-1-1-2-1 0-3-3-4-2-5-2-4-1-3-2-2-3-5-2-2-4-2-2-2 0-1 2,0-2-4 0-1-1-2 0-2 3-4 3-2 2-1 2-4-1-1-1,1 0-1-2,2-1,0-3-3 1-1 0-6 2-1 0-1 1,0-1-2 2-2 1-2-1-3 3-1 5-1 0-2-1-1 1-1 2,0-1-3 1-1 2,0 3-2 0-1 1,0 1-2 2-3-2-1 0-9-1,0 2-2-2-2 1-2-3-4-2-2-2-3 2-2-1-1 0,1-1-2-4-2-2,0-1,1 0,1-3,2-1,0-1,2 3,2 0,1-2,0-1,1-2,1-1-3-1-1 0,1-2,0-1-3-3,0 0-1-3,0-1,1 0,1-2-2 0-2-2,0 1,2-2-2 0-2-1-2-2-1-2,0-1-1 0-1-4-3 1,2 2,1-2,2-1-2-2,0-1-2 0-1 1-2-1-1 1-1-2-2-3-2-2-3-2-2-3-2 1-1 1,0-1-2-2,0-1,1-1,0-3-1-1,0-3-1-3,0-2-1-3-2-4,0-3-1-6-6-6-5-3-2-1,1 3,1-3-1-1,0 0-1-1,0 0-1-1,1 1,1-2,0-6,3-4,0-2-1-4-1-6-3-5-1-2-2-5-1-5-3-1-2-5,0-5-2-2-3-3-2-4-1-1-1-2-3-1-2 1-1 1,0 0-2-1,0 2-2 0-2-2-1-1-2 0-2-1-2-3-3-1-2-8-6 2,1 0-1-3-1 0-1-1-1 1,0-5-3-1,0 1-1-3,0-1-2 2-2-2-2-2,0-1-2zM266,250l0,1-2,1-7,0 0-1-1-1 1-1zM179,378l-1,0 2-2 1,0zM118,365l-1-1 0-1 1,0 1,1zM112,360l1,1 1,2 0,1 1,1 0,1-3,0-1-1 2-1 0-2-1,0-1-2-1,0 2-1zM229,252l0-2-1-2 2,0-1-2 1-1-1-3 2-1 6,0 2,1 1,0 2,2 2,0 0,1-2,0 5,1 1,1 2,1-1,1-1,2-2-1-5-1-4,2-1-1-2,0-2,4-2-1zM172,221l1,1 3-1 2,1 2,0 4,4 4,0 3,1 3,2 1,0 2,1-1,0 1,1 0-1 3,2 2,1 4,0 0,3 4,0 2,1 1,1 2,0-1,2-2,0-3,1-2,0-2-1-2,0-5,1-4,0 3-3 0-2-5,0-3-2-1-3-1-1-3,1-3-1-4-2-3,0-1-2 0,1-4,0-1-1 2-2-6,0-4,3-4,0 0,1-3,1 0-1-2,1 3-1 0-2 2-2 4-2 4,0 3-1zM165,231l-3,0 0-1-1-1 1-1 2,1zM243,689l-1-1-2,1-3,0-6-1-2,0 0-1 1,0 2-1 1,1 2-1 1,0 0,1 2,0-1-1-2-1 0-2 1,0 0-1 1,0 1,2-2,0 3,2 4,0 1,1 2-1-6-1-1-2 5-2-1-1-2,0-2,1-2-2 1-1 1,0-1-1 1-1 1,1 1-1 2-1 2,1 2-1 1,1 2,1 0,1-1,1 0,1 2,0 1,1 4,3 3,1 4,2 3,1 3,0-1,1-3,0-4,1-3,0-5-1zM258,691l-2,1-1-1-2,1-1-1-2-1 7,0zM217,620l-2,0-1-1 1-2 0-4 1,0 0-2 3,0 0,4-2,1 2,2zM213,660l-2,0 0-2 1-1-2,0 0,2-3,0 0-1 1,0 0-1-1-1 2,0 0-2 1,0 0-1 1-1 2,1zM207,653l-1,0 0-1 1-2 0-2 1,0 1,3 0,1zM214,678l2,0 3,1 2,1-2,0-2-1-3-1-1,0-1-2zM213,652l-3,0-1-3 0-1 2-1 0,1 1,1zM223,681l4,2-4,2-1-1 1-1-1,0-1,1-1,0 0-2-1,0-1-1-1,0 1,0 1-1 2,1zM211,670l0,1 2,1-1,2-1,0-1-2-1-1zM242,690l8,0-2,1 2,1 2,2-4-1-1,0 0-1-3-1 0,1 1,1-1,0-2-2-2,0 1-2zM232,684l2,1-1,1-2-1-2,0-1,1-1-2 1-1 3,1zM216,627l2,4-1,1-2,0-1-3-2-1 1-1 2-1 0-1 2,0zM222,629l-2,0-1-1 2-2 2,1zM208,664l0,1-1-2 2,0zM208,647l1-1 2,1zM213,668l-3,0-2,2 1-2 1,0 2-1zM210,662l-3,0 1-2 3,1zM215,672l-2-1 0-1 2,1zM214,634l-1,1-1-1 1-1 0-1 1-1zM234,689l1,1 2-1 1,1 0,1-4-1-1-1zM273,688l4,0 0,1-6,0z"/>
+<path class="tds__langue tds__langue--portugais" d="M259,353l2,2 3,0 2-1 1,0 0,2 2-3 3-1 1-1 1,0 2-2 4-2 0-1-4-1 0-2-1-2 0-3-2-1-2-2 3,0 2,1 4,0 2,2 1,0 1-2 2-1 1,0 4-1 1-1 2,0 2-2 0-2 4,0-1,4 2,0 1,1 0,1 1,1-1,2-1,0 0,2-1,2 0,2 1,2 0,3 4,3 2,1 2-1 0-1 1-1 2,1 0-1 2,0 2-1 1-1 2,1 2-1 3,1 1-1-2-2 1-1 2,1 4-2 2,2 3,1 2-1 3,0 1,1 1,0 2-1 4-8 2-2 1-2 2,1 1,3 0,2 2,7 1,2 2,0 2,2 0,2-3,2-1,2-2,2-2,1-1,1 0,1-2,3 0,1-2,1 0,1-1,0-3,1 2,0 1,1 1,0 4-3 3-1-1,1 2,4 2,1 2-1 2,1 2-2-1,5 0,1 2-5 1,0 2-2 1,1 0-3 2-3 1,1 1-1 2,0 0,1 1-1 1,0 2,1 1,1 3,0 3,2 1,0 1,2 2-1 1,1 1,0 1,2-2,2 1,0 1-1 1,1-1,0-1,5 1-1 1-3 1,0 0,2 1-1 3-1 1-1 4,2 3,1 2-1 1,1 2,1 5-1 3,0 6,3 2,2 1,0 3,3 2,3 2,0 1,1 2,1 1,1 4-1 3,1 2,2 0,4 1,1 1,6 0,4-2,6-1,1-6,8-3,1-1,1-4,8-2,3-1,1-2,1 0-1-1-1-1,1 0,2-1,1-1,2 1,3 0-1 0,8 1,3-2,6 0,5-2,2-1,2 0,6-1,2-1,0-2,4 0,1-3,2-1,4 0,3-1,1-3,1-2,1 0,3-6,0 0-1-1-1 0,2-4,1 1-1-1-1-2,1-3,0 1,2-3,0-3,2 0,1-3,0-5,2-2,2-4,3-2,2-1,0-1,1-1,0 2,1-1,1-1,2 0,3 1,3-1,2 0,3-1,3-3,2-4,6-2,4-2,2-3,4-4,2-1,2 0-2 2,0 3-3 0-1 1,0 0-2 2-1 0-1 1,0-1-2-2,1-2-2 0,1 1,1 0,1-1,2 0-1-1,2-3,2 0,2-1,1 0,2-3,6-2,1-2,2-1,0 0-3 2-3-3-2-1-2-2-1-3-2-4-2-1-2-2,1-1,0 0-1-1-1-4-3-2,0 0,1-2,0-1-1 2-1 5-5 2-3 2-2 1,0 0-1 2-1 3-3 3,0 1-1 2-1 1-2-1-1 1-3-1-1 0-2-2-1-2,1-1-1 1-2 2-7-3-1-3,1-2,0-1-7 0-1-1-2-2,0-1-1-2,0-2,1-1-1-5,0 1-7-1-3-1-2 2-1-2-2 2-4 0-1 2-3-1-1-1-4-1,0-2-2-1-3 1-1 0-1-11,0 0-5-2-2 1,0 0-3-1-3 1-1-1-1-3-2-5,0-2-2-1,0-3-1-1-1 0-1-2,0-2-1-5,0 0-1-3-2-1-2-1-3 0-1-1-2 1-2 0-4-6,1-2,1-3,2-2,1-1,1-2,0-2,2-2,1-1-1-11,0 0-7 1-2-4,3-6,0-1-3-3-1-2,0 1-1 0-1-2-2 0-1-3-3 1-1-2-2 0-1 2,0-1-2 0-1 4-2 0-2 2-6 3-3 3-1 5-1 1-1 3,0 1,1 1,0 0-1 4-18-1-1-1-3-2-1 0-5 1-1 4,0 0-1-1-1-3,0 0-4 2-1 1,1 7,0 0-2 1,1 1,0 2-2 1,0 1,3 0,3zM368,361l2,1-1,3-2,2-1,2-1-1 0,2-2-1-2,2-2-1-2,1-1-1-1-3 1-1-1,0 0-2 1-2 3-1zM362,358l-1,2-3,0 0-1 3-1zM358,348l-1,1 0-2 1,0zM356,361l-2,1 0-1 2-1zM363,361l-2,0 1-1 2,0zM357,359l0,1-1,0 0-1 2-2 0,1zM359,358l-1,0 0-2 2,0zM349,369l-1,0 2-2 0-2 2-2 1,1-1,2z"/>
+<path class="tds__langue tds__langue--autre" d="M91,0l0,5 1,2 2,1 0,2 1-2 1-1 4,0 1,1 0,1 3,4 1,2 0,1-1,2 2,0 7-1 3,0 10,2 6,2 3,3 10,2 4,2-1,2 2-2 7,0 6,1 2,0 2,2-2,3 1,1 0,1 1,1 0,3-1,1 0,1 2,1 3,3-2,1 2,0 3,1 2,1 1,3-2,1 2-1 2,0 3,1 0-1 2-2 2,1 1,2 1-2-2-1 1-2 2-2 0-1-1-1 0-1-1-1-2-4 1-1 0-1-4-4 5-1 6-2 4-3 4-4 0-3-2-6-2-1-3-2-2,0-3-2 0-1 4-3 0-1 1-1 1,0 1-1 0-1 42,0-2,0 5,0 2,2-1,2 2,0 0,1-1,2-2-1-2,1 2,1 3-1 6,0 0,2 1,1-2,2-3,0 3,0 1-1 1-2 2,1 1,2 1-1 3-2 2,0 2-2 2,1 0,1 0-2 2-1 2,0-2-1 1-2 2,0-1,0 0-2 1,0 0-1 6,0 0,2 1-1 1,2-1,1 3,0 1,1-1,0-3,1 4,0 2,1 1,1-3,1 1,1 3-1-1,2-1,0 3,0 1,1 3,1-1,1-3,1 2,0 2,1-1,1 2,0 2,1 0,2-4,0-3-1 5,2-2,0 3,1-1,1 2,0 0,1-1,0 3,1 1-1 1,1 2,0 0,1 1,1-3,3 3-1 2-1 1,1 1,0-2,2 3-2 2,0 1,2 5,0 4,2-2,1-3,0-2,1-1,1-2,0-3,1-3,0-1,1-1,0 1,1-1,1 1,0 2-1 3-1 4-2 3-1-1,0 6,0 1,2-2,1 1,1 3-1 2-1 1,1 1,0 2,3 0,3-3,1 3,0 0,1-1,0 2,1-8,4-5,0-1,1-3,0-4,3-3,2-2,1-8,1-4,0-4-1-3,0 0,1-3-1-14,0-1,1-2,0-3,1-2,4-4,0-1,1-3,1-2,1-2,3-2,1-1,0-3-1-4-1 1,1 2,0 4,1 0,2-4,2-1,2-3,1-1,1-3,1-5,2-2,1-3,3-1,0-2,1 0,1-4,2 4-1 1-1 2-1 0-1 2-2 3-1 1-1 4-2 3-1 5-1 6-5 0-1 3-2 5-2 4-1 5-2 3,0 4-1 4,1 2,0 2,2-2,0 2,1-1,1-2,1-1,1-3,1-1,0-3-1-1,0-2,1 4,1 1,1 1,0 3-1 2,1-1,1 0,1-3,1 1,1 2,0 0,1 1,1 0,2 1,1 4,0-1,1 2,1 3,0 3,1-1,0 2,0 3-1 1,1 2,0 1,1-1,1 3,0-9,3-5,1-2,0 1,1-2,0-1-1-1,1 0-1-1,1 0,1-3,3-2,1-1,0 0,1-2,0-1-2-2,0 0-3 2-1 2-2-1,0 5-2 3-1 0,1 4-1 2,0-9,0 3-3-2,0-1,1-6,3-2-1-4,2-2-1 0,2 1,0-1,1-1,0-2,1-1,0-1,1-1-1-2,0 0,1-2,0 0-1-1,0 0,2-4,2 0-1-1,1-2,0 0,1-2,2-1,2-1,1 1,1-2,2 2,1 1,2 1,1 2-1-1-1 1,0 0,2-2,0-2,1 0-1-3,1 0-1-1-1-1,2 0,1-9,0-3,2-4,2 0,1 1,0 0,1-1,4-2,2-1,0-1,2-1,0 1-1-2,0-2-2 0-2-1,1 2,2 0,1 2,4-2,3-3,3-1,2 0-1 2-4-1,0-1-1 1-1-2,0-1-2 2,0-2-1 1,0 0-2 2-2-2,0-2,2 0-1 0,5 1,1-2-1 2,1-1,1-2-1-1-1-1,1 0-1 1-2-2,1 0,2 2,0 1,1 2,0 1,2 0,1-1,0-3-2 3,2 1,1 0,1-2,0 2,1 0,1-4-2-2,0 4,1 0,1 2,1 1-1 1,1 1,4-1-3 0,1 1,2-2-1 0,1-1,0-1,1-1-1 0,1 4,0-1,2 1-1 1,0 0,1-2,2-2,0 0-1-3,0 3,1-1,2-1,0-1-1 1,1 3,0-2,2-3,0-4,2-1,2 0-1 0,2-2-1-3,2-2,2 0,1-5,3-2,1-2,0 1,0-1,1-1,0 1,1-2,1-1,1 0,2-2,2 0,2 1,6 3,5 2,3-1,2 0-2-1-2 1,3 3,7 0,1 1,3-1,4-1,1 0,2-2,1-3,0 0-1-1-3-2-1-1-3-1,0 1-1-1,1 0-2-2,0-1-1-1-3 2-2-1-1-1,2-1-1 1-4 0-2-4-4-2-3-2-1-2,1 0,1-3,0-3,1 0-1-3-2-4-1 2-1-2,0-1,1-3,0 1-1-1,0-1,1-3,0-1-2-1,2-7,0-2,1-3-1-1,1 1,1 3-1-1,1 1,1 2-1 0,1-2,1 1,1 3,2-1,1-1,0-3-3-2,0 1,0-1,2-1-1-2,0-1,1-3-1 1,0-1-1-1,0-2-2-2,1 1,0-2,1-2-1-3-1-5,0 1,1-2,0-4,1 2,0-2,0 1-2-2,1 1,2-2,1-1,1-3,2-2,1 1-1-4,0 1,1-1,1-1-1 0,2-2,0 1,0-1,2-2,0 1,1 0,1-1,1-2-1 2,2 0,4 2,3-1,1-6-2-5-2 0-2-2-1 0-3-2-1-1-2-2-2 0-1-2-3-5-5-7,0 0,1-1,3-2,1-1,0-5-2-2-2-1-2 0-1-2-3-6-4-3-3-10,0 0,3-11,0 0-172zM225,114l4,0-3,1-5,1-4,1-1-1 1-1 2-1 5,0 2-1zM77,203l-1-1 0-3zM437,684l3,1 1,1 1,0 2,1 1,0 0,2-3,0-1-2-1,0-5-2-1-1-2,0zM307,668l3,0-1,1 2,0-1,0 2-1 1,1-1,0 1,1-2,1-1,0-2,1 0,1-3-1 1,1-2,0 0,1-2-1 1-1 1-2 2,0-1-1zM298,669l2-1 1,1 3-1 0,1-4,3-1,0-1,1-2,0-2-1 2,0 3-1-2-1 2,0-2-1 0-1zM272,165l1,1-1,1-1-1zM294,299l-1,1-4,0 2-2 0-2-1,0 2-1 2,0zM296,329l-4-4 1-2 0-3 3-1 2-1 0-1-2,0 0-2 1-2 1,0 2-1 1-2-1-1 1,1 1,0 3,2 4,4 0,3-1,2 2-2 2,0 3,3 2,1 0,4 1-3 3,0 3,1 1-1 6,0 3,1 2,0 0,1-1,2-2,2 0,3 1,3 2,2 0,1-1,2 0,2-1,2-2,1-2-2-4,2-2-1-1,1 2,2-1,1-3-1-2,1-2-1-1,1-2,1-2,0 0,1-2-1-1,1 0,1-2,1-2-1-4-3 0-3-1-2 0-2 1-2 0-2 1,0 1-2-1-1 0-1-1-1-2,0 1-4zM295,277l-1,1 0-1 1-2zM196,249l3,1 1,0 2,1 1,2-2,0-2-1-2,2-1-1-3,0-1-2-2,0 1-2zM229,242l1,3-1,1 1,2-2,0 1,2 0,2-1-1-5,0-3-1-2,1-1,1-4-3 1-1 1,0 3,1 8,0 0-1-3-2 1-3-2-1-2,0 0-1 3-1 1,1 3,1zM223,247l0,1-3-1 1-1zM292,269l-1-2 1-1zM398,1l-3,0 1-1-2,1-1-1zM293,84l2,0-1,2 2-1 1-1-1,0 2-2 1,1 2,0 0,1-3,2-2,0-4,1-1-1 0-2 2-2 2-3 2-1 1,0 0,2-1,3zM327,51l0,1-3,0 0,1 1,0 0,1-2,2-3,4-1,1 0,1 3-2 1-1 0,1 4,0 0,1-3,1 1,0-2,1 6,0-1,3 2-2 3-1 0,1 1-1 2,0 2,1 1,1-2,2-2,0 3,1-1,1-1,0 3,0 3-1-1,2-3,1 1,0-2,2 0,1 1,0 2-2 2-1 1,0-2,3 0,1 2-1 0-1 1,2-2,4-1,1-3,0 1-3-3,2-1,0 0-2 2-1-1-3-1,0-2,3-2,0-3,3-3,0-1-1 1,0 2-1 2-2 2,0-3-1-1,1-2,0 0-2-2,0 0,1-5,1-6-1-2,0-5,1 0-1-1-1 0-1 6-3-5,0 2-1 1,0 2-3 1,1 1-1-1-1 1-1 1,0-1-1 3-5 5-5 1,0 3-1zM289,65l-2,1-5-1-3-1-2-2-4-1 2-1 5,1 9,3 1,1zM277,81l11,0-3,2 0,1-2,0-1-2-2,1-2,0-1-1-2-1-1-1 0-1 2-1-1,1zM176,44l-2-1-5-1-1,0 1-1 4,0 2,1zM186,22l-1,3-1-1 1-1-1,1-3,1 2-2-2,2-1-1 3-2 0,1 1-3 2,1zM219,87l-3,0 3-1zM125,252l2,0 2-3 1,0 0,1 1,0 0,1-1,3 1,1-1,2 0,3-1,2-1,1-1,2-2,0zM303,282l-1-1 0-1 1,1zM195,215l0,3-2-1 0-1-1-1zM197,205l-1-1 1-1 0-2-2-2 1,1 2,1 0,1-1,1zM222,233l-1,1-3,0 0-1 3,0 1-1zM194,212l0,1-2,1-3-2 2,0-1-1 1-1 0-1 1,0zM189,200l3,0-1,0-3,1-1,0zM215,227l1-2 0-1 1,1zM211,223l-2-2 0-1 2,2zM292,263l-1,0 0-2 2,1zM290,264l-1,0 1-2 1,0zM332,346l2-1 1-2 0-2 1-2 0-1-2-2-1-3 0-3 2-2 1-2 1-1 2,2 4,0 2,3 3,2 0,1 1-1 0,1 1,3-2,2-4,8-2,1-1,0-1-1-3,0-2,1z"/>
+<path class="tds__frontieres" d="M300,309l1,1-1,2-2,1-1,0-1,2 0,2 2,0 0,1-2,1-3,1 0,3-1,2 4,4 0,2-2,2-2,0-1,1-4,1-1,0-2,1-1,2-1,0-2-2-4,0-2-1-3,0 2,2 2,1 0,3 1,2 0,2 4,1 0,1-4,2-2,2-1,0-1,1-3,1-2,3 0-2-1,0-2,1-3,0-2-2 0-1-2-6-4-3 3-3-2-3-1-4 0-5 1-1 0-1 1-2 0-1-12,0-4-5-1,0-2-1-2,1-5,0-2-1 0-1-2-1 0-3 1-1 0-1-2-2-1-3-1-1-2,1 2-4 1-4 2-4 2,0 1-3 4-1M311,555l0-3 1-2 0-1 1-2 0-3 1-3 1,1 2,0 0-1 2,0 4,3 1,1 0,1 1,0 2-1 1,2 4,2 3,2 2,1 1,2 3,2-2,3 0,3 1,0M0,61l6,0 42,1 41,4 0-2 2,0 0,2 1,2 4,0 2,1 2-1 2,0 3,1 1,1 1,0 4,2 4-1 4,0 1,1 4,0 4-2 2,0 11,5 10,4 0,1 2,1 2,0 0,2 3,0 1,1-1,1 7,3 2,11-1,3-1,2-2,2-1,0-1,2 1,1 2,1 1,0 7-3 7-1 7-3 1,0-1-2 0-1-1-1 3-1 11,0 4-4 2,0 4-3 3-1 19,0 1-2 3,0 3-3 1-3 1-1 0-1 5-5 1,0 0,1 1,1 4-1 2,2 0,8 2,0 0,2 1,1 1,0M77,204l-1,1-6-2-5-2 0-2-2-1 0-3-2-1-1-2-2-2 0-1-2-3-5-5-7,0 0,1-1,3-2,1-1,0-5-2-2-2-1-2 0-1-2-3-6-4-3-3-10,0 0,3-11,0M335,328l-2,2 0,3 1,3 2,2 0,1-1,2 0,2-1,2-2,1-2-2-4,2-2-1-1,1 2,2-1,1-3-1-1,0-3-5-1-3-1,0-2-2-1-2 0-1 1-3 0-1 1-1 2,0 1-1-1-1 1-1M178,380l0,1 1,2-2,1 1,1-1,1 1,1 1-1 2,1 1,0 2,3 2,0 0-1 2-2 0-1 2-6 1,1 0-1 2-2 7-3 3-2 4-4 1-3 1,0-1-3-1-2-1,0 2,0 1-1 2,1 2,2 2,3 1,0 1,1 1,0 1,2 0,1 2,1 0,3 3,0 2,1 2-1 1-1 3,1 3-1 4,3 1,1-4,6 2,0 2,2 0,1-1,0-1-1-3,0-1,1-5,1-3,1-3,3-2,6 0,2-4,2 0,1 1,2-2,0 0,1 2,2-1,1 3,3 0,1 2,2 0,1-1,1 2,0 3,1 1,3 6,0 4-3-1,2 0,7 7,0 5,9-2,2 0,5 1,3-2,3-1,2 1,1-2,3 2,3 2,1-1,2-3,3-1,0 1,2-2,1 0,1-1,2-1,1-2,0M196,308l-1,1 2,3-1,2-1,1-1-1-1,3M163,312l-1-2 1-1-1-1 2-2-2,0 0-3 1-1 2,1M158,295l-1,1-2-1-1-1-3,0-5-1 0,1M136,282l2,0 0-1 2-1 0-3 2,0 2-1 1,1 3-2 1-1 0-1 1-2 1,0 2,1 1,0 3-1 2-1 2,0M130,249l-1,0-2,3-2,0 0,1-11,0 0,3-2,0 2,3 2,1 0,1 1,1 0,2-7,0-3,4 1,2-1,3M133,280l1-3-3-1-2,1 0-1-2-1-1-1-2,0 1-2 0-2 1-1 5-3M229,242l1,3-1,1 1,2-2,0 1,2 0,2M321,348l-2,1-2-1-1,1-2,1-2,0 0,1-2-1-1,1 0,1-2,1-2-1-4-3 0-3-1-2 0-2 1-2 0-2 1,0 1-2-1-1 0-1-1-1-2,0 1-4-4,0M125,253l0,12 2,0M124,274l-1,0 0,1-4,2 0,1M350,336l-2,2-4,8-2,1-1,0-1-1-3,0-2,1-3-1M282,252l-1,0M187,351l3,3 5,2 0,1 4,2 2,0 1-2 2,1 1,1 3,2M259,353l-2,0 0-3-1-3-1,0-2,2-1,0-1-1 0,2-7,0-1-1-2,1 0,4 3,0 1,1 0,1-4,0-1,1 0,5 2,1 1,3 1,1-4,18M243,465l1,3 1,0 0,2 1,4 3,3-1,1 1,1-2,2 1,1 0,1 1,1 0,2 2,2 0,2 1,2 1,3 0,2 4,0 1,1-2,6-6,2-1,2 0,1 1,2-1,0-1,2 2,4-1,1 0,1 1,2 0,1-2,1-1,0-1,2-1,3-3,2-1,5-1,1 0,4 1,1-2,2-1,2 0,1-1,1-1,2 1,2 1,1 0,1 1,2 0,3 1,2 1,0 0,5-3,3 0,3-1,0 0,1 1,3 0,1-2,2-2,1-1,2 0,6 1,1 0,3 1,0-1,1-2,1-1,1 0,4-1,0 0,1-1,2 1,1-2,2 1,1 0,8-1,0-1,1 1,1-1,0 0,3 1,1 1,0 0,4 1,1-1,1 0,1 4,1-1,2-4,0 4,2-1,2-1,0-1,2 1,1-1,1 0,1 1,2-2,1 1,2-3,2-1,2 1,2 0,1-2,1 0,2-2,1-1,1 0,1-2,0 0,5 1,0 1,3 5,0 0,6 2,1 0,1 12,0 3,1 2,0 4,1M248,676l0,13M314,541l2-1 5-5 2-3 2-2 1,0 0-1 2-1 3-3 3,0 1-1 2-1 1-2-1-1 1-3-1-1 0-2-2-1-2,1-1-1M311,481l1,2 1,3-1,7 5,0 1,1 2-1 2,0 1,1 2,0 1,2 0,1 1,7 2,0 3-1 3,1-2,7-1,2 0,5-1,2-2,2-1,0-2,2-3,0-1,1-6,0-3-1-5,0 0-1 3-3 0-2 2-2 0-2 2-1-2-2-2-1-1,0-5-3-6-3-2,0-3-1-1-2-2-1-3-2-1-2-3-3 2-7 0-3 3-3 0-2 11-2 5,0 6,3 0,2 2-1-2-2 2-4 0-1 2-3-1-1-1-4-1,0-2-2-1-3 1-1 0-1-11,0 0-5-2-2 1,0 0-3-1-3 1-1-1-1-3-2-5,0-2-2-1,0-3-1-1-1 0-1-2,0-2-1-5,0 0-1-3-2-1-2-1-3 0-1-1-2 1-2 0-4-6,1-2,1-3,2-2,1-1,1-2,0-2,2-2,1-1-1-4,0M284,493l-1-1-7,0-2,4 0,1-2-4-7,0-2-2-1,2-2,0-2,2-1,2"/>
+</g>
+<g data-tds="traits"></g>
+<g data-tds="lieux"></g>
+</svg>
+</div>
+<div class="tds__legende" data-tds="legende"></div>
+<div class="tds__temps">
+<button type="button" class="tds__jouer" data-tds="jouer" aria-label="Faire défiler les années"><svg viewBox="0 0 16 16" aria-hidden="true"><path data-tds="icone" d="M4 2.5v11l9-5.5z"/></svg></button>
+<div class="tds__glissiere">
+<input class="tds__curseur" data-tds="curseur" type="range" min="1415" max="1750" step="1" value="1488" aria-label="Année">
+<div class="tds__axe" data-tds="axe" aria-hidden="true"></div>
+</div>
+<output class="tds__annee" data-tds="annee">1488</output>
+</div>
+<p class="tds__evenement" data-tds="evenement" aria-live="polite"></p>
+<div class="tds__panneaux">
+<div class="tds__recit" data-tds="recit"></div>
+<div class="tds__fiche" data-tds="fiche"></div>
+</div>
+<details class="tds__liste">
+<summary>Tous les lieux de la carte</summary>
+<div class="tds__groupes" data-tds="groupes"></div>
+</details>
+<p class="tds__source">Fond de carte : Natural Earth, domaine public. La ligne de 1494 est tracée à 46° 37' ouest, la position la plus souvent retenue aujourd'hui; celle de 1493 est approximative. Chaque point marque l'emplacement d'une ville, d'un fort ou d'un événement.</p>
+<script>
+(function () {
+  "use strict";
+  var racine = document.getElementById("tordesillas");
+  if (!racine || racine.dataset.pret) { return; }
+  racine.dataset.pret = "1";
+  var NS = "http://www.w3.org/2000/svg";
+  var LARGEUR = 1000, HAUTEUR = 702, K = 6, LON0 = -110, LAT0 = 60;
+  var DEBUT = 1415, FIN = 1750;
+  var LIGNE_1493 = -38, LIGNE_1494 = -(46 + 37 / 60), BANDE = [-(49 + 45 / 60), -42.5];
+  function px(lon) { return (lon - LON0) * K; }
+  function py(lat) { return (LAT0 - lat) * K; }
+  var ROYAUMES = {
+    espagne: { nom: "Espagne", couleur: "espagne" },
+    portugal: { nom: "Portugal", couleur: "portugal" },
+    france: { nom: "France", couleur: "autre", exclu: "la France n'a pas signé ce traité, qui ne lie que l'Espagne et le Portugal." },
+    angleterre: { nom: "Angleterre", couleur: "autre", exclu: "l'Angleterre n'a pas signé ce traité, qui ne lie que l'Espagne et le Portugal." },
+    "provinces-unies": { nom: "Provinces-Unies", couleur: "autre", exclu: "les Provinces-Unies n'ont pas signé ce traité, qui ne lie que l'Espagne et le Portugal." },
+    autres: { nom: "Autres puissances européennes", couleur: "autre", exclu: "ces puissances n'ont pas signé ce traité, qui ne lie que l'Espagne et le Portugal." }
+  };
+  var TYPES = { colonie: "Colonie", comptoir: "Comptoir ou fort", evenement: "Événement" };
+  var GROUPES = [
+    ["evenements", "Les événements"],
+    ["espagne", "L'Amérique espagnole"],
+    ["bresil", "Le Brésil portugais"],
+    ["afrique", "Le Portugal en Afrique"],
+    ["autres", "Les autres puissances"]
+  ];
+  // periodes : [année, royaume, état]. Un royaume null veut dire que le lieu
+  // est abandonné ou perdu; l'état dit alors pourquoi.
+  var LIEUX = [
+    { id: "tordesillas", nom: "Tordesillas", pays: "Espagne", groupe: "evenements", type: "evenement", lon: -5.00, lat: 41.50, cote: "d", debut: 1494, couleur: "neutre", badge: "Signature du traité", quand: "7 juin 1494",
+      texte: ["C'est dans cette ville de Castille que les représentants des Rois catholiques et du roi Jean II du Portugal signent le traité, le 7 juin 1494."] },
+    { id: "colomb", nom: "Arrivée de Colomb", court: "Colomb, 1492", pays: "Bahamas", groupe: "evenements", type: "evenement", lon: -74.48, lat: 24.05, cote: "d", debut: 1492, couleur: "espagne", badge: "Au service des Rois catholiques", quand: "12 octobre 1492",
+      texte: ["Le 12 octobre 1492, Christophe Colomb débarque sur une île des Bahamas que ses habitants, les Lucayens, appellent Guanahani. On ne sait pas avec certitude de quelle île il s'agit."] },
+    { id: "cabral", nom: "Arrivée de Cabral", court: "Cabral, 1500", pays: "Brésil", groupe: "evenements", type: "evenement", lon: -39.08, lat: -16.43, cote: "d", debut: 1500, couleur: "portugal", badge: "Au service du Portugal", quand: "22 avril 1500",
+      texte: ["Le 22 avril 1500, la flotte de Pedro Alvares Cabral aperçoit le mont Pascoal, puis jette l'ancre près de l'actuelle Porto Seguro. Cabral revendique cette terre pour le roi du Portugal."] },
+    { id: "santo-domingo", nom: "Santo Domingo", pays: "République dominicaine", groupe: "espagne", type: "colonie", lon: -69.89, lat: 18.47, cote: "d", quand: "1496", periodes: [[1496, "espagne"]],
+      texte: ["Fondée en 1496 par Barthélemy Colomb, frère de Christophe, c'est la plus ancienne ville européenne des Amériques encore habitée. On y bâtit la première cathédrale et la première université du continent."] },
+    { id: "jamaique", nom: "Jamaïque", pays: "Jamaïque", groupe: "espagne", type: "colonie", lon: -76.96, lat: 17.99, cote: "g", quand: "1509 et 1655", periodes: [[1509, "espagne"], [1655, "angleterre"]],
+      texte: ["L'Espagne s'y établit en 1509. En 1655, une armée anglaise s'empare de l'île, que l'Espagne cède officiellement à l'Angleterre en 1670. Les Anglais en font une colonie sucrière qui repose sur le travail de milliers d'esclaves africains."] },
+    { id: "la-havane", nom: "La Havane", pays: "Cuba", groupe: "espagne", type: "colonie", lon: -82.36, lat: 23.14, cote: "g", quand: "1519", periodes: [[1519, "espagne"]],
+      texte: ["Installée à son emplacement actuel en 1519, La Havane devient un port essentiel : à partir de 1561, les navires qui rentrent en Espagne chargés d'or et d'argent s'y rassemblent avant de traverser l'Atlantique."] },
+    { id: "panama", nom: "Panamá", pays: "Panama", groupe: "espagne", type: "colonie", lon: -79.49, lat: 9.01, cote: "g", quand: "1519", periodes: [[1519, "espagne"]],
+      texte: ["Fondée en 1519 sur la côte du Pacifique, Panamá sert de relais : l'or et l'argent du Pérou y traversent l'isthme avant d'être embarqués vers l'Espagne."] },
+    { id: "mexico", nom: "Mexico", pays: "Mexique", groupe: "espagne", type: "colonie", lon: -99.13, lat: 19.43, cote: "d", quand: "1521", periodes: [[1521, "espagne"]],
+      texte: ["En 1521, les Espagnols d'Hernán Cortés et leurs alliés autochtones prennent Tenochtitlan, la capitale aztèque. Mexico est rebâtie sur ses ruines et devient, en 1535, la capitale de la Nouvelle-Espagne."] },
+    { id: "carthagene", nom: "Carthagène des Indes", court: "Carthagène", pays: "Colombie", groupe: "espagne", type: "colonie", lon: -75.53, lat: 10.42, cote: "d", quand: "1533", periodes: [[1533, "espagne"]],
+      texte: ["Fondée en 1533, Carthagène devient un des grands ports de l'empire espagnol et un important marché d'esclaves africains, amenés par les marchands titulaires d'un asiento."] },
+    { id: "lima", nom: "Lima", pays: "Pérou", groupe: "espagne", type: "colonie", lon: -77.04, lat: -12.06, cote: "g", quand: "1535", periodes: [[1535, "espagne"]],
+      texte: ["Fondée en 1535 par Francisco Pizarro, la « Cité des Rois » devient la capitale de la vice-royauté du Pérou, créée en 1542."] },
+    { id: "santiago", nom: "Santiago", pays: "Chili", groupe: "espagne", type: "colonie", lon: -70.65, lat: -33.44, cote: "g", quand: "1541", periodes: [[1541, "espagne"]],
+      texte: ["Fondée en 1541 par Pedro de Valdivia, Santiago devient la capitale de la colonie du Chili."] },
+    { id: "potosi", nom: "Potosí", pays: "Bolivie", groupe: "espagne", type: "colonie", lon: -65.75, lat: -19.60, cote: "d", quand: "Vers 1545", periodes: [[1545, "espagne"]],
+      texte: ["Vers 1545, les Espagnols découvrent l'argent du Cerro Rico. Potosí devient la plus grande mine d'argent du monde. Y travaillent des Autochtones soumis au travail forcé, la mita, ainsi que des esclaves africains."] },
+    { id: "buenos-aires", nom: "Buenos Aires", pays: "Argentine", groupe: "espagne", type: "colonie", lon: -58.38, lat: -34.60, cote: "g", quand: "1536 et 1580", periodes: [[1536, "espagne"], [1541, null, "Abandonnée"], [1580, "espagne"]],
+      texte: ["Une première ville est fondée en 1536, puis abandonnée en 1541 après des attaques autochtones. Juan de Garay la fonde de nouveau, pour de bon, en 1580."] },
+    { id: "saint-augustine", nom: "Saint Augustine", pays: "États-Unis", groupe: "espagne", type: "colonie", lon: -81.30, lat: 29.89, cote: "d", quand: "1565", periodes: [[1565, "espagne"]],
+      texte: ["Fondée en 1565 par Pedro Menéndez de Avilés, venu chasser les Français installés en Floride. C'est la plus ancienne ville d'origine européenne habitée sans interruption sur le territoire continental des États-Unis."] },
+    { id: "sao-vicente", nom: "São Vicente et São Paulo", court: "São Vicente", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -46.39, lat: -23.96, cote: "g", quand: "1532 et 1554", periodes: [[1532, "portugal"]],
+      texte: ["Fondée en 1532 par Martim Afonso de Sousa, São Vicente est la première ville (vila) de l'Amérique portugaise. Non loin de là, des jésuites fondent São Paulo en 1554 : elle se trouve presque exactement sur la ligne de Tordesillas.", "Les bandeirantes partiront de São Paulo pour s'enfoncer dans l'intérieur du continent."] },
+    { id: "olinda", nom: "Olinda et Recife", court: "Olinda", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -34.87, lat: -8.03, cote: "d", quand: "1535", periodes: [[1535, "portugal"], [1630, "provinces-unies"], [1654, "portugal"]],
+      texte: ["Fondée en 1535, Olinda est la capitale du Pernambouc, une riche région de canne à sucre. Les Néerlandais s'en emparent en 1630 et font de Recife, tout près, la capitale de leur colonie jusqu'en 1654."] },
+    { id: "salvador", nom: "Salvador", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -38.51, lat: -12.97, cote: "d", quand: "1549", periodes: [[1549, "portugal"]],
+      texte: ["Fondée en 1549 par Tomé de Sousa, Salvador est la première capitale du Brésil, jusqu'en 1763. C'est un grand port du sucre et de la traite des esclaves."] },
+    { id: "rio", nom: "Rio de Janeiro", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -43.21, lat: -22.91, cote: "d", quand: "1555 et 1565", periodes: [[1555, "france"], [1565, "portugal"]],
+      texte: ["En 1555, des Français menés par Villegaignon s'installent dans la baie : c'est la France antarctique. Les Portugais fondent Rio de Janeiro en 1565 et chassent définitivement les Français en 1567."] },
+    { id: "sao-luis", nom: "São Luís", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -44.30, lat: -2.53, cote: "d", quand: "1612", periodes: [[1612, "france"], [1615, "portugal"], [1641, "provinces-unies"], [1644, "portugal"]],
+      texte: ["Fondée par des Français en 1612, c'est la France équinoxiale. Les Portugais la prennent en 1615, puis les Néerlandais l'occupent de 1641 à 1644. C'est la seule capitale d'un État brésilien fondée par la France."] },
+    { id: "belem", nom: "Belém", pays: "Brésil", groupe: "bresil", type: "colonie", lon: -48.50, lat: -1.46, cote: "g", quand: "1616", periodes: [[1616, "portugal"]],
+      texte: ["Fondée en 1616 autour d'un fort, sur le fleuve Pará, aux portes de l'Amazonie. Elle se trouve à l'ouest de la ligne, donc du côté espagnol. Le fort doit écarter de la région les Français, les Néerlandais et les Anglais qui y commercent."] },
+    { id: "colonia", nom: "Colonia del Sacramento", court: "Colonia", pays: "Uruguay", groupe: "bresil", type: "colonie", lon: -57.85, lat: -34.47, cote: "d", decalage: [18, 12], quand: "1680", periodes: [[1680, "portugal"], [1705, "espagne"], [1718, "portugal"]],
+      texte: ["Fondée en 1680 par les Portugais sur le Río de la Plata, en face de Buenos Aires, en pleine zone espagnole. Les Espagnols la prennent dès août 1680, puis la rendent l'année suivante.", "Reprise par l'Espagne en 1705, elle revient au Portugal en 1718. Elle ne deviendra définitivement espagnole qu'en 1777."] },
+    { id: "ceuta", nom: "Ceuta", pays: "Espagne, en Afrique du Nord", groupe: "afrique", type: "comptoir", lon: -5.32, lat: 35.89, cote: "d", quand: "1415", periodes: [[1415, "portugal"], [1640, "espagne"]],
+      particulier: "Cas particulier : sur la côte méditerranéenne du Maroc, le partage relève d'autres accords que la ligne de Tordesillas.",
+      texte: ["La prise de Ceuta par le Portugal, en 1415, marque le début de l'expansion portugaise. En 1640, quand le Portugal se sépare de l'Espagne, Ceuta reste sous l'autorité du roi d'Espagne. Elle est toujours espagnole aujourd'hui."] },
+    { id: "arguin", nom: "Arguin", pays: "Mauritanie", groupe: "afrique", type: "comptoir", lon: -16.45, lat: 20.60, cote: "d", quand: "Vers 1445", periodes: [[1445, "portugal"], [1633, "autres"]],
+      texte: ["Vers 1445, le prince Henri le Navigateur fait ouvrir sur cette île la première factorerie portugaise outre-mer. On s'y procure de la poudre d'or, de la gomme arabique et des esclaves amenés par les caravanes.", "Les Néerlandais la prennent en 1633; l'île passe ensuite d'une puissance européenne à l'autre."] },
+    { id: "ribeira-grande", nom: "Ribeira Grande", pays: "Cap-Vert", groupe: "afrique", type: "colonie", lon: -23.61, lat: 14.92, cote: "g", quand: "Vers 1462", periodes: [[1462, "portugal"]],
+      texte: ["Fondée vers 1462 sur l'île de Santiago, c'est la première ville coloniale européenne bâtie sous les tropiques. Elle devient une plaque tournante de la traite des esclaves.", "C'est à partir des îles du Cap-Vert qu'on mesure les 370 lieues du traité."] },
+    { id: "mina", nom: "São Jorge da Mina", pays: "Ghana", groupe: "afrique", type: "comptoir", lon: -1.35, lat: 5.08, cote: "b", quand: "1482", periodes: [[1482, "portugal"], [1637, "provinces-unies"]],
+      texte: ["Bâti en 1482, ce fort contrôle le commerce de l'or de la Côte de l'Or, puis devient un grand centre de la traite. C'est le plus ancien bâtiment européen encore debout en Afrique subsaharienne.", "Les Néerlandais s'en emparent en 1637."] },
+    { id: "sao-tome", nom: "São Tomé", pays: "Sao Tomé-et-Principe", groupe: "afrique", type: "colonie", lon: 6.73, lat: 0.34, cote: "b", quand: "1493", periodes: [[1493, "portugal"]],
+      texte: ["Colonisée à partir de 1493, l'île se couvre de plantations de canne à sucre où travaillent des esclaves. Au milieu du 16e siècle, c'est le premier producteur de sucre d'Afrique et un relais de la traite."] },
+    { id: "luanda", nom: "Luanda", pays: "Angola", groupe: "afrique", type: "colonie", lon: 13.23, lat: -8.84, cote: "g", quand: "1576", periodes: [[1576, "portugal"], [1641, "provinces-unies"], [1648, "portugal"]],
+      texte: ["Fondée en 1576 par Paulo Dias de Novais, Luanda devient le grand port de la traite vers le Brésil. Les Néerlandais l'occupent de 1641 à 1648, jusqu'à ce qu'une flotte venue du Brésil la reprenne."] },
+    { id: "sofala", nom: "Sofala", pays: "Mozambique", groupe: "afrique", type: "comptoir", lon: 34.73, lat: -20.16, cote: "g", quand: "1505", periodes: [[1505, "portugal"]],
+      texte: ["En 1505, les Portugais bâtissent un fort à Sofala pour capter l'or venu de l'intérieur, du royaume du Monomotapa. Le commerce de l'or les déçoit."] },
+    { id: "kilwa", nom: "Kilwa", pays: "Tanzanie", groupe: "afrique", type: "comptoir", lon: 39.51, lat: -8.96, cote: "d", quand: "1505", periodes: [[1505, "portugal"], [1512, null, "Abandonné"]],
+      texte: ["Cette riche cité swahilie faisait le commerce de l'or, de l'ivoire et du fer. Les Portugais y bâtissent un fort en 1505, puis l'abandonnent en 1512."] },
+    { id: "mozambique", nom: "Île de Mozambique", court: "Mozambique", pays: "Mozambique", groupe: "afrique", type: "comptoir", lon: 40.73, lat: -15.04, cote: "g", quand: "1507", periodes: [[1507, "portugal"]],
+      texte: ["À partir de 1507, l'île sert de base navale et d'escale sur la route des Indes. Elle devient le siège du gouvernement portugais en Afrique de l'Est."] },
+    { id: "mombasa", nom: "Mombasa", pays: "Kenya", groupe: "afrique", type: "comptoir", lon: 39.68, lat: -4.06, cote: "d", quand: "1593", periodes: [[1593, "portugal"], [1698, null, "Pris par Oman"], [1728, "portugal"], [1729, null, "Pris par Oman"]],
+      texte: ["Les Portugais y bâtissent le fort Jésus à partir de 1593 pour contrôler le port. En 1698, après un long siège, le fort tombe aux mains du sultanat d'Oman. Les Portugais ne le reprennent que brièvement, en 1728 et 1729."] },
+    { id: "quebec", nom: "Québec", pays: "Canada", groupe: "autres", type: "colonie", lon: -71.21, lat: 46.81, cote: "d", quand: "1608", periodes: [[1608, "france"]],
+      texte: ["Fondée en 1608 par Samuel de Champlain, Québec devient la capitale de la Nouvelle-France. Jacques Cartier s'était arrêté au même endroit en 1535, au village iroquoien de Stadaconé.", "La ville est à l'ouest de la ligne, mais la France ne se considère pas liée par le partage."] },
+    { id: "jamestown", nom: "Jamestown", pays: "États-Unis", groupe: "autres", type: "colonie", lon: -76.78, lat: 37.21, cote: "g", quand: "1607", periodes: [[1607, "angleterre"]],
+      texte: ["Fondée en 1607, c'est la première colonie anglaise permanente d'Amérique du Nord. Les premiers Africains réduits en esclavage arrivent en Virginie en 1619."] },
+    { id: "nouvelle-amsterdam", nom: "Nouvelle-Amsterdam", pays: "États-Unis", groupe: "autres", type: "colonie", lon: -74.01, lat: 40.70, cote: "g", quand: "1624", periodes: [[1624, "provinces-unies"], [1664, "angleterre"]],
+      texte: ["Des colons néerlandais s'installent en 1624 dans la future Nouvelle-Amsterdam, capitale de la Nouvelle-Néerlande. Les Anglais s'en emparent en 1664 et la rebaptisent New York."] },
+    { id: "barbade", nom: "Barbade", pays: "Barbade", groupe: "autres", type: "colonie", lon: -59.64, lat: 13.19, cote: "d", quand: "1627", periodes: [[1627, "angleterre"]],
+      texte: ["Les Anglais s'y établissent en 1627. À partir des années 1640, la canne à sucre, apportée du Brésil, en fait une colonie de plantations où travaillent des esclaves africains."] },
+    { id: "le-cap", nom: "Le Cap", pays: "Afrique du Sud", groupe: "autres", type: "comptoir", lon: 18.42, lat: -33.93, cote: "g", quand: "1652", periodes: [[1652, "provinces-unies"]],
+      texte: ["Fondé en 1652 par Jan van Riebeeck pour la Compagnie néerlandaise des Indes orientales, Le Cap ravitaille les navires en route vers l'Asie."] },
+    { id: "saint-louis", nom: "Saint-Louis", pays: "Sénégal", groupe: "autres", type: "comptoir", lon: -16.50, lat: 16.03, cote: "d", quand: "1659", periodes: [[1659, "france"]],
+      texte: ["Les Français s'installent en 1659 sur l'île de Ndar, à l'embouchure du fleuve Sénégal. Saint-Louis devient la capitale de leur colonie du Sénégal."] }
+  ];
+  var EVENEMENTS = [
+    [1415, "Le Portugal prend Ceuta, en Afrique du Nord."],
+    [1445, "Vers 1445, les Portugais ouvrent un comptoir sur l'île d'Arguin."],
+    [1462, "Les Portugais fondent Ribeira Grande, aux îles du Cap-Vert."],
+    [1479, "Traité d'Alcáçovas : la Castille reconnaît au Portugal l'Atlantique au sud des îles Canaries."],
+    [1482, "Le Portugal bâtit le fort de São Jorge da Mina, sur la Côte de l'Or."],
+    [1488, "Bartolomeu Dias atteint la pointe sud de l'Afrique."],
+    [1492, "Christophe Colomb atteint les Antilles pour les Rois catholiques."],
+    [1493, "Bulle Inter caetera : le pape trace une première ligne de partage."],
+    [1494, "Traité de Tordesillas : la ligne passe à 370 lieues à l'ouest des îles du Cap-Vert."],
+    [1496, "Fondation de Santo Domingo, sur l'île d'Hispaniola."],
+    [1498, "Vasco de Gama atteint l'Inde en contournant l'Afrique."],
+    [1500, "Pedro Alvares Cabral atteint la côte du Brésil."],
+    [1505, "Les Portugais bâtissent des forts à Sofala et à Kilwa."],
+    [1507, "L'île de Mozambique devient une base portugaise."],
+    [1509, "L'Espagne s'établit en Jamaïque."],
+    [1512, "Les Portugais abandonnent le fort de Kilwa."],
+    [1518, "Premier asiento : la couronne d'Espagne accorde un contrat pour fournir des esclaves africains à ses colonies."],
+    [1519, "Fondation de Panamá; La Havane s'installe à son emplacement actuel."],
+    [1521, "Les Espagnols et leurs alliés prennent Tenochtitlan, qui devient Mexico."],
+    [1529, "Traité de Saragosse : une seconde limite est fixée de l'autre côté du globe, à 17 degrés à l'est des îles Moluques."],
+    [1532, "Fondation de São Vicente, première ville de l'Amérique portugaise."],
+    [1533, "François Ier obtient du pape Clément VII que le partage ne vise que les terres déjà connues. Fondation de Carthagène des Indes."],
+    [1535, "Pizarro fonde Lima. Au Brésil, Olinda est fondée."],
+    [1536, "Première fondation de Buenos Aires."],
+    [1541, "Fondation de Santiago du Chili. Buenos Aires est abandonnée."],
+    [1545, "Début de l'exploitation des mines d'argent de Potosí."],
+    [1549, "Salvador devient la capitale du Brésil."],
+    [1554, "Des jésuites fondent São Paulo."],
+    [1555, "Des Français s'installent dans la baie de Rio : c'est la France antarctique."],
+    [1565, "Fondation de Rio de Janeiro et de Saint Augustine, en Floride."],
+    [1576, "Fondation de Luanda, en Angola."],
+    [1580, "Union ibérique : le roi d'Espagne devient aussi roi du Portugal. Buenos Aires est fondée de nouveau."],
+    [1593, "Les Portugais commencent le fort Jésus, à Mombasa."],
+    [1607, "Les Anglais fondent Jamestown, en Virginie."],
+    [1608, "Samuel de Champlain fonde Québec."],
+    [1612, "Des Français fondent São Luís, au nord du Brésil."],
+    [1615, "Les Portugais prennent São Luís aux Français."],
+    [1616, "Les Portugais fondent Belém, à l'ouest de la ligne."],
+    [1624, "Des colons néerlandais s'installent dans la future Nouvelle-Amsterdam."],
+    [1627, "Les Anglais s'établissent à la Barbade."],
+    [1630, "Les Néerlandais s'emparent d'Olinda et de Recife."],
+    [1633, "Les Néerlandais prennent Arguin."],
+    [1637, "Les Néerlandais prennent São Jorge da Mina."],
+    [1640, "Fin de l'union ibérique : le Portugal a de nouveau son propre roi."],
+    [1641, "Les Néerlandais occupent Luanda et São Luís."],
+    [1644, "Les Portugais reprennent São Luís."],
+    [1648, "Une flotte venue du Brésil reprend Luanda aux Néerlandais."],
+    [1652, "Les Néerlandais fondent Le Cap."],
+    [1654, "Les Portugais chassent les Néerlandais du Brésil."],
+    [1655, "Les Anglais s'emparent de la Jamaïque."],
+    [1659, "Les Français s'installent à Saint-Louis du Sénégal."],
+    [1664, "Les Anglais prennent la Nouvelle-Amsterdam, qui devient New York."],
+    [1680, "Les Portugais fondent Colonia del Sacramento, face à Buenos Aires."],
+    [1698, "Le sultanat d'Oman prend le fort Jésus de Mombasa."],
+    [1705, "L'Espagne s'empare de Colonia del Sacramento."],
+    [1718, "Colonia del Sacramento revient au Portugal."],
+    [1728, "Les Portugais reprennent brièvement le fort Jésus de Mombasa."],
+    [1729, "Le fort Jésus retombe aux mains d'Oman."],
+    [1750, "Traité de Madrid : l'Espagne et le Portugal abandonnent la ligne de Tordesillas."]
+  ];
+  var ETAPES = [
+    { annee: 1488, titre: "Avant le traité : le Portugal longe l'Afrique", vedettes: ["ceuta", "arguin", "ribeira-grande", "mina"],
+      texte: ["En 1415, le Portugal prend Ceuta, en Afrique du Nord, puis ses navires descendent le long des côtes africaines. Ils y installent des comptoirs et des colonies pour se procurer de l'or et des esclaves : Arguin, les îles du Cap-Vert et São Jorge da Mina.", "En 1479, par le traité d'Alcáçovas, la Castille reconnaît au Portugal l'Atlantique au sud des îles Canaries, qui restent castillanes. En 1488, Bartolomeu Dias atteint la pointe sud de l'Afrique."] },
+    { annee: 1493, titre: "Le pape trace une première ligne", vedettes: ["colomb"], options: { bulle: true },
+      texte: ["En 1492, Christophe Colomb atteint les Antilles au nom des Rois catholiques. L'année suivante, le pape Alexandre VI publie la bulle Inter caetera : les terres situées à l'ouest d'une ligne tracée à 100 lieues à l'ouest des Açores et du Cap-Vert reviendront à la Castille. Sur la carte, la position de cette ligne est approximative.", "Le roi du Portugal, Jean II, s'estime lésé et demande que la ligne soit repoussée vers l'ouest."] },
+    { annee: 1494, titre: "Le traité de Tordesillas", vedettes: ["tordesillas", "ribeira-grande"], options: { bulle: true, bande: true, mesure: true },
+      texte: ["Le 7 juin 1494, dans la ville castillane de Tordesillas, les deux royaumes signent un traité qui repousse la ligne vers l'ouest : elle passe désormais à 370 lieues à l'ouest des îles du Cap-Vert, au lieu de 100. À l'ouest, la zone espagnole; à l'est, la zone portugaise.", "Le traité ne donne aucun degré : personne ne sait encore mesurer précisément la longitude en mer. Selon les calculs des savants et des cartographes de l'époque, la ligne se situe entre environ 42° et 50° ouest (bande hachurée). On la trace aujourd'hui vers 46° 37' ouest."] },
+    { annee: 1500, titre: "Le Brésil, côté portugais", vedettes: ["cabral"], options: { mesure: true },
+      texte: ["En avril 1500, en route vers l'Inde, Pedro Alvares Cabral atteint une côte qu'il revendique pour le Portugal. Cette pointe de l'Amérique du Sud se trouve à l'est de la ligne : selon le traité, elle revient bien au Portugal.", "Peu avant, l'Espagnol Vicente Yáñez Pinzón avait touché cette côte plus au nord, mais le traité ne permettait pas à la Castille de la réclamer. C'est le début du Brésil portugais."] },
+    { annee: 1545, titre: "L'Amérique espagnole", vedettes: ["santo-domingo", "mexico", "lima", "potosi", "la-havane", "panama"],
+      texte: ["À l'ouest de la ligne, l'Espagne conquiert et colonise : Santo Domingo en 1496, Mexico en 1521, Lima en 1535. En 1545 commence l'exploitation des mines d'argent de Potosí. Ces conquêtes se font au prix de guerres, d'épidémies et du travail forcé imposé aux Autochtones.", "Toutes ces colonies sont dans la zone espagnole : entre l'Espagne et le Portugal, le partage est respecté. De l'autre côté du globe, le traité de Saragosse (1529) fixe une seconde limite, à 17 degrés à l'est des îles Moluques."] },
+    { annee: 1576, titre: "L'Afrique, côté portugais", vedettes: ["mina", "sao-tome", "luanda", "mozambique", "sofala", "carthagene"],
+      texte: ["Toute la côte de l'Afrique subsaharienne est à l'est de la ligne. Le Portugal y multiplie les comptoirs, de São Jorge da Mina jusqu'à l'île de Mozambique. Il colonise aussi des îles comme São Tomé, couverte de plantations de canne à sucre. En 1576, il fonde Luanda, d'où partiront de très nombreux esclaves vers le Brésil.", "L'Espagne, elle, n'a aucun comptoir en Afrique de l'Ouest. Pour obtenir des esclaves, elle accorde des contrats appelés asientos, souvent à des marchands portugais."] },
+    { annee: 1641, titre: "Les autres puissances contestent le partage", vedettes: ["quebec", "jamestown", "nouvelle-amsterdam", "olinda", "mina", "luanda"],
+      texte: ["La France, l'Angleterre et les Provinces-Unies sont exclues du partage. On attribue à François Ier cette phrase : « Je voudrais bien voir la clause du testament d'Adam qui m'exclut du partage du monde. » Ces puissances fondent leurs propres colonies, comme Jamestown (1607), Québec (1608) et la Nouvelle-Amsterdam (1624).", "De 1580 à 1640, le roi d'Espagne règne aussi sur le Portugal. En guerre contre l'Espagne, les Néerlandais s'en prennent aux possessions portugaises : Recife (1630), São Jorge da Mina (1637), puis Luanda (1641)."] },
+    { annee: 1680, titre: "Le Portugal franchit la ligne", vedettes: ["belem", "sao-vicente", "colonia", "buenos-aires"],
+      texte: ["Pendant l'union ibérique, les Portugais s'installent à Belém (1616), à l'ouest de la ligne. Partis de São Paulo, les bandeirantes s'enfoncent dans l'intérieur à la recherche d'or et d'Autochtones qu'ils capturent pour les réduire en esclavage. Ils repoussent les frontières du Brésil bien au-delà de la ligne.", "En 1680, le Portugal fonde même Colonia del Sacramento, en face de Buenos Aires, en pleine zone espagnole."] },
+    { annee: 1750, titre: "La fin de la ligne", vedettes: ["colonia", "belem"],
+      texte: ["Le 13 janvier 1750, par le traité de Madrid, l'Espagne et le Portugal abandonnent la ligne de Tordesillas. Le traité reconnaît à chaque royaume les terres qu'il occupe vraiment : les vastes territoires gagnés par les Portugais à l'ouest de la ligne leur reviennent.", "En échange, le traité prévoit que le Portugal cède Colonia del Sacramento à l'Espagne."] },
+    { annee: 1750, libelle: "Aujourd'hui", titre: "Une trace dans les langues", vedettes: [], mode: "langues", evenement: "Les langues officielles des Amériques gardent la trace du partage.",
+      texte: ["Aujourd'hui, on parle portugais au Brésil et espagnol dans la plupart des pays voisins : la carte des langues garde la trace du partage. Mais le Brésil déborde largement la ligne. Avec la ligne tracée à 46° 37' ouest, seul le quart environ du Brésil actuel se trouve du côté portugais.", "Ailleurs, l'anglais, le français et le néerlandais rappellent les colonies des autres puissances. Plusieurs pays reconnaissent aussi des langues autochtones, comme le guarani au Paraguay ou le quechua au Pérou et en Bolivie."] }
+  ];
+  // ------------------------------------------------------------- outils
+  function $(cle) { return racine.querySelector('[data-tds="' + cle + '"]'); }
+  function chaque(liste, action) { Array.prototype.forEach.call(liste, action); }
+  function el(balise, classe, texte) {
+    var n = document.createElement(balise);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = texte; }
+    return n;
+  }
+  function svgEl(balise, attributs, parent) {
+    var n = document.createElementNS(NS, balise);
+    for (var cle in attributs) { if (Object.prototype.hasOwnProperty.call(attributs, cle)) { n.setAttribute(cle, attributs[cle]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function vider(noeud) { while (noeud.firstChild) { noeud.removeChild(noeud.firstChild); } }
+  function arrondi(v) { return Math.round(v * 10) / 10; }
+  var svg = $("svg"), gZones = $("zones"), gTraits = $("traits"), gLieux = $("lieux");
+  var curseur = $("curseur"), sortieAnnee = $("annee"), boutonJouer = $("jouer"), icone = $("icone");
+  var zoneEvenement = $("evenement"), zoneRecit = $("recit"), zoneFiche = $("fiche");
+  var zoneLegende = $("legende"), zoneGroupes = $("groupes"), bandeUnion = $("union");
+  var INDEX = {};
+  LIEUX.forEach(function (lieu) { INDEX[lieu.id] = lieu; });
+  var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null };
+  var k = 1;
+  // ------------------------------------------------------- logique du partage
+  function ligneA(annee) {
+    if (annee < 1493) { return null; }
+    return annee < 1494 ? LIGNE_1493 : LIGNE_1494;
+  }
+  function etatLieu(lieu, annee) {
+    if (lieu.type === "evenement") {
+      return annee >= lieu.debut ? { visible: true, royaume: null, couleur: lieu.couleur } : { visible: false };
+    }
+    var courant = null;
+    for (var i = 0; i < lieu.periodes.length; i++) {
+      if (lieu.periodes[i][0] <= annee) { courant = lieu.periodes[i]; } else { break; }
+    }
+    if (!courant) { return { visible: false }; }
+    return { visible: true, royaume: courant[1], etat: courant[2] || "", depuis: courant[0] };
+  }
+  function premiereAnnee(lieu) { return lieu.type === "evenement" ? lieu.debut : lieu.periodes[0][0]; }
+  function zoneDe(lieu, annee) {
+    var ligne = ligneA(annee);
+    if (ligne === null) { return null; }
+    return lieu.lon < ligne ? "espagne" : "portugal";
+  }
+  function verdict(lieu, annee, e) {
+    if (lieu.type === "evenement" || !e.visible) { return null; }
+    if (!e.royaume) { return { cle: "neutre", texte: e.etat + " : le lieu n'est plus aux mains d'une puissance européenne." }; }
+    if (annee < 1493) { return { cle: "neutre", texte: "Avant 1493, aucune ligne ne partage encore le monde." }; }
+    if (annee >= 1750) { return { cle: "neutre", texte: "Depuis le traité de Madrid, en 1750, la ligne de Tordesillas ne s'applique plus." }; }
+    if (lieu.particulier) { return { cle: "neutre", texte: lieu.particulier }; }
+    var zone = zoneDe(lieu, annee), r = e.royaume;
+    if (r === "espagne" || r === "portugal") {
+      var adjectif = r === "espagne" ? "espagnole" : "portugaise";
+      if (r === zone) { return { cle: "ok", texte: "Respecte le partage : une possession " + adjectif + " dans la zone " + adjectif + "." }; }
+      var union = annee >= 1580 && annee < 1640 ? " À cette date, un même roi règne sur l'Espagne et le Portugal (l'union ibérique)." : "";
+      return { cle: "hors", texte: "Hors de sa zone : une possession " + adjectif + " du côté " + (zone === "espagne" ? "espagnol" : "portugais") + " de la ligne." + union };
+    }
+    return { cle: "exclu", texte: "Hors du partage : " + ROYAUMES[r].exclu };
+  }
+  function couleurDe(lieu, annee, e) {
+    if (!e.visible) { return "neutre"; }
+    if (etat.mode === "traite") {
+      var v = verdict(lieu, annee, e);
+      return v ? v.cle : "neutre";
+    }
+    if (lieu.type === "evenement") { return lieu.couleur; }
+    return e.royaume ? ROYAUMES[e.royaume].couleur : "neutre";
+  }
+  function estVedette(lieu, e) {
+    if (k > 2) { return false; }
+    if (etat.etape >= 0) { return ETAPES[etat.etape].vedettes.indexOf(lieu.id) >= 0; }
+    if (!e.visible) { return false; }
+    var depuis = lieu.type === "evenement" ? lieu.debut : e.depuis;
+    return etat.annee - depuis < 15;
+  }
+  function options() { return etat.etape >= 0 ? (ETAPES[etat.etape].options || {}) : {}; }
+  // ------------------------------------------------------------- la carte
+  function mesurer() {
+    var b = svg.getBoundingClientRect();
+    if (!b.width || !b.height) { return false; }
+    var s = Math.min(b.width / LARGEUR, b.height / HAUTEUR);
+    var nk = Math.max(.6, Math.min(3, 1 / s));
+    if (Math.abs(nk - k) < .01) { return false; }
+    k = nk;
+    svg.style.setProperty("--k", k.toFixed(3));
+    return true;
+  }
+  function texteSvg(parent, x, y, contenu, classe, attributs) {
+    var t = svgEl("text", { x: arrondi(x), y: arrondi(y), "class": classe }, parent);
+    if (attributs) { for (var cle in attributs) { if (Object.prototype.hasOwnProperty.call(attributs, cle)) { t.setAttribute(cle, attributs[cle]); } } }
+    t.textContent = contenu;
+    return t;
+  }
+  function libelleVertical(x, contenu, court, classe) {
+    var y = py(19);
+    if (contenu.length * .8 * 10.5 * k > y - 8) { contenu = court; }
+    texteSvg(gTraits, 0, 0, contenu, "tds__libelle " + classe, { transform: "translate(" + arrondi(x - 6 * k) + " " + arrondi(y) + ") rotate(-90)" });
+  }
+  function fleche(x, y, sens) {
+    var l = 7 * k, h = 4 * k;
+    svgEl("path", { "class": "tds__fleche", d: "M" + arrondi(x) + " " + arrondi(y) + "l" + arrondi(-sens * l) + " " + arrondi(-h) + "v" + arrondi(2 * h) + "z" }, gTraits);
+  }
+  function nomDeZone(x, y, mot, cle, pale) {
+    var classe = "tds__zone-nom tds__zone-nom--" + cle + (pale ? " est-pale" : "");
+    texteSvg(gTraits, x, y, "Zone", classe, { "text-anchor": "middle" });
+    texteSvg(gTraits, x, y + 17 * k, mot, classe, { "text-anchor": "middle" });
+  }
+  function dessinerTraits() {
+    vider(gZones);
+    vider(gTraits);
+    var annee = etat.annee, opt = options();
+    var langues = etat.mode === "langues";
+    var abolie = annee >= 1750 && !langues;
+    var ligne = langues ? LIGNE_1494 : ligneA(annee);
+    if (ligne !== null) {
+      var xl = px(ligne);
+      svgEl("rect", { "class": "tds__zone tds__zone--espagne" + (abolie ? " est-pale" : ""), x: 0, y: 0, width: arrondi(xl), height: HAUTEUR }, gZones);
+      svgEl("rect", { "class": "tds__zone tds__zone--portugal" + (abolie ? " est-pale" : ""), x: arrondi(xl), y: 0, width: arrondi(LARGEUR - xl), height: HAUTEUR }, gZones);
+      if (!langues && k <= 2) {
+        nomDeZone(118, py(-27), "espagnole", "espagne", abolie);
+        nomDeZone(px(-12), py(-29), "portugaise", "portugal", abolie);
+      }
+    }
+    if (opt.bande) {
+      svgEl("rect", { "class": "tds__bande", x: arrondi(px(BANDE[0])), y: 0, width: arrondi(px(BANDE[1]) - px(BANDE[0])), height: HAUTEUR }, gTraits);
+    }
+    if (annee === 1493 || opt.bulle) {
+      var xb = px(LIGNE_1493);
+      svgEl("line", { "class": "tds__ligne tds__ligne--1493", x1: arrondi(xb), y1: 0, x2: arrondi(xb), y2: HAUTEUR }, gTraits);
+      libelleVertical(xb, "Bulle de 1493", "1493", "tds__libelle--1493");
+    }
+    if (annee >= 1494 || langues) {
+      var x = px(LIGNE_1494);
+      svgEl("line", { "class": "tds__ligne" + (abolie ? " tds__ligne--abolie" : ""), x1: arrondi(x), y1: 0, x2: arrondi(x), y2: HAUTEUR }, gTraits);
+      libelleVertical(x, abolie ? "Abandonnée en 1750" : "Tordesillas, 1494", abolie ? "1750" : "1494", "");
+    }
+    if (opt.mesure && annee >= 1494) {
+      var x1 = px(-25), x2 = px(LIGNE_1494), ym = py(8.5);
+      svgEl("line", { "class": "tds__mesure", x1: arrondi(x2 + 2), y1: arrondi(ym), x2: arrondi(x1 - 2), y2: arrondi(ym) }, gTraits);
+      fleche(x2, ym, -1);
+      fleche(x1, ym, 1);
+      texteSvg(gTraits, (x1 + x2) / 2, ym - 7 * k, "370 lieues", "tds__mesure-texte", { "text-anchor": "middle" });
+    }
+    if (ligne === null) {
+      texteSvg(gTraits, px(-41.7), py(33), "Avant 1493 : aucune ligne de partage", "tds__note", { "text-anchor": "middle" });
+    }
+    bandeUnion.hidden = !(annee >= 1580 && annee < 1640) || langues;
+  }
+  var formes = {};
+  function construireLieux() {
+    LIEUX.forEach(function (lieu) {
+      var g = svgEl("g", { "class": "tds__lieu", "data-id": lieu.id }, gLieux);
+      var morceaux = { g: g };
+      if (lieu.decalage) {
+        morceaux.renvoi = svgEl("line", { "class": "tds__renvoi" }, g);
+        morceaux.point = svgEl("circle", { "class": "tds__point" }, g);
+      }
+      morceaux.cible = svgEl("circle", { "class": "tds__cible" }, g);
+      morceaux.halo = svgEl("circle", { "class": "tds__halo" }, g);
+      morceaux.forme = svgEl(lieu.type === "colonie" ? "circle" : (lieu.type === "comptoir" ? "rect" : "path"), { "class": "tds__forme" }, g);
+      morceaux.nom = svgEl("text", { "class": "tds__nom" }, g);
+      morceaux.nom.textContent = lieu.court || lieu.nom;
+      g.addEventListener("click", function () { choisir(lieu.id, false); });
+      formes[lieu.id] = morceaux;
+    });
+  }
+  function placerLieux() {
+    LIEUX.forEach(function (lieu) {
+      var m = formes[lieu.id];
+      var r = (lieu.type === "evenement" ? 6.5 : 5.5) * k;
+      var dx = lieu.decalage ? lieu.decalage[0] * k : 0, dy = lieu.decalage ? lieu.decalage[1] * k : 0;
+      var x = px(lieu.lon) + dx, y = py(lieu.lat) + dy;
+      m.g.setAttribute("transform", "translate(" + arrondi(x) + " " + arrondi(y) + ")");
+      if (m.renvoi) {
+        m.renvoi.setAttribute("x1", arrondi(-dx)); m.renvoi.setAttribute("y1", arrondi(-dy));
+        m.renvoi.setAttribute("x2", 0); m.renvoi.setAttribute("y2", 0);
+        m.point.setAttribute("cx", arrondi(-dx)); m.point.setAttribute("cy", arrondi(-dy)); m.point.setAttribute("r", arrondi(1.8 * k));
+      }
+      m.cible.setAttribute("r", arrondi(13 * k));
+      m.halo.setAttribute("r", arrondi(r + 4.5 * k));
+      if (lieu.type === "colonie") {
+        m.forme.setAttribute("r", arrondi(r));
+      } else if (lieu.type === "comptoir") {
+        var c = 1.7 * r;
+        m.forme.setAttribute("x", arrondi(-c / 2)); m.forme.setAttribute("y", arrondi(-c / 2));
+        m.forme.setAttribute("width", arrondi(c)); m.forme.setAttribute("height", arrondi(c));
+      } else {
+        var d = 1.3 * r;
+        m.forme.setAttribute("d", "M0 " + arrondi(-d) + "L" + arrondi(d) + " 0L0 " + arrondi(d) + "L" + arrondi(-d) + " 0Z");
+      }
+      var ecart = r + 5 * k, n = m.nom;
+      if (lieu.cote === "g") { n.setAttribute("x", arrondi(-ecart)); n.setAttribute("y", arrondi(4.3 * k)); n.setAttribute("text-anchor", "end"); }
+      else if (lieu.cote === "h") { n.setAttribute("x", 0); n.setAttribute("y", arrondi(-ecart)); n.setAttribute("text-anchor", "middle"); }
+      else if (lieu.cote === "b") { n.setAttribute("x", 0); n.setAttribute("y", arrondi(ecart + 9 * k)); n.setAttribute("text-anchor", "middle"); }
+      else { n.setAttribute("x", arrondi(ecart)); n.setAttribute("y", arrondi(4.3 * k)); n.setAttribute("text-anchor", "start"); }
+    });
+  }
+  function majLieux() {
+    LIEUX.forEach(function (lieu) {
+      var m = formes[lieu.id], e = etatLieu(lieu, etat.annee);
+      m.g.style.display = e.visible ? "" : "none";
+      if (!e.visible) { return; }
+      m.g.setAttribute("data-couleur", couleurDe(lieu, etat.annee, e));
+      m.g.classList.toggle("est-vide", lieu.type !== "evenement" && !e.royaume);
+      m.g.classList.toggle("est-choisi", etat.choisi === lieu.id);
+      m.g.classList.toggle("est-vedette", estVedette(lieu, e));
+    });
+    var choisi = etat.choisi && formes[etat.choisi];
+    if (choisi) { gLieux.appendChild(choisi.g); }
+  }
+  // --------------------------------------------------------- les panneaux
+  function majTemps() {
+    curseur.value = etat.annee;
+    var p = (etat.annee - DEBUT) / (FIN - DEBUT) * 100;
+    curseur.style.setProperty("--p", p.toFixed(2) + "%");
+    var libre = etat.etape >= 0 && ETAPES[etat.etape].libelle;
+    sortieAnnee.textContent = libre || String(etat.annee);
+    sortieAnnee.classList.toggle("est-texte", !!libre);
+    curseur.setAttribute("aria-valuetext", libre ? libre : "Année " + etat.annee);
+    var trouve = null;
+    for (var i = 0; i < EVENEMENTS.length; i++) {
+      if (EVENEMENTS[i][0] <= etat.annee) { trouve = EVENEMENTS[i]; } else { break; }
+    }
+    vider(zoneEvenement);
+    if (libre) {
+      zoneEvenement.appendChild(el("strong", "", libre));
+      zoneEvenement.appendChild(document.createTextNode(ETAPES[etat.etape].evenement));
+    } else if (trouve) {
+      zoneEvenement.appendChild(el("strong", "", String(trouve[0])));
+      zoneEvenement.appendChild(document.createTextNode(trouve[1]));
+    }
+  }
+  function bouton(texte, classe, action, desactive) {
+    var b = el("button", "tds__bouton" + (classe ? " " + classe : ""), texte);
+    b.type = "button";
+    if (desactive) { b.disabled = true; }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function etapeSuivante() {
+    if (etat.etape >= 0) { return etat.etape + 1 < ETAPES.length ? etat.etape + 1 : -1; }
+    for (var i = 0; i < ETAPES.length; i++) { if (ETAPES[i].annee > etat.annee) { return i; } }
+    return -1;
+  }
+  function etapePrecedente() {
+    if (etat.etape >= 0) { return etat.etape - 1; }
+    for (var i = ETAPES.length - 1; i >= 0; i--) { if (ETAPES[i].annee < etat.annee) { return i; } }
+    return -1;
+  }
+  function majRecit() {
+    vider(zoneRecit);
+    var nav = el("div", "tds__nav");
+    var prec = etapePrecedente(), suiv = etapeSuivante();
+    if (etat.etape >= 0) {
+      var et = ETAPES[etat.etape];
+      zoneRecit.appendChild(el("p", "tds__surtitre", "Étape " + (etat.etape + 1) + " sur " + ETAPES.length + " · " + (et.libelle || et.annee)));
+      zoneRecit.appendChild(el("h4", "tds__intertitre", et.titre));
+      et.texte.forEach(function (t) { zoneRecit.appendChild(el("p", "tds__paragraphe", t)); });
+    } else {
+      zoneRecit.appendChild(el("p", "tds__surtitre", "Exploration libre · " + etat.annee));
+      zoneRecit.appendChild(el("h4", "tds__intertitre", "Tu explores le temps"));
+      zoneRecit.appendChild(el("p", "tds__paragraphe", "Observe les lieux qui apparaissent et ceux qui changent de couleur quand ils passent d'une puissance à l'autre. Clique sur un point pour lire sa fiche."));
+      zoneRecit.appendChild(el("p", "tds__paragraphe tds__paragraphe--note", "Les boutons ci-dessous te ramènent à l'étape du récit la plus proche."));
+    }
+    nav.appendChild(bouton("Étape précédente", "", function () { allerEtape(prec); }, prec < 0));
+    if (suiv >= 0) { nav.appendChild(bouton("Étape suivante", "tds__bouton--plein", function () { allerEtape(suiv); })); }
+    else { nav.appendChild(bouton("Recommencer le récit", "tds__bouton--plein", function () { allerEtape(0); })); }
+    zoneRecit.appendChild(nav);
+  }
+  function majFiche() {
+    vider(zoneFiche);
+    if (!etat.choisi) {
+      zoneFiche.appendChild(el("p", "tds__surtitre", "Fiche du lieu"));
+      zoneFiche.appendChild(el("h4", "tds__intertitre", "Choisis un lieu"));
+      zoneFiche.appendChild(el("p", "tds__paragraphe", "Clique sur un point de la carte, ou ouvre la liste des lieux sous la carte, pour savoir qui l'a fondé, quand et s'il respecte le partage."));
+      return;
+    }
+    var lieu = INDEX[etat.choisi], e = etatLieu(lieu, etat.annee);
+    zoneFiche.appendChild(el("p", "tds__surtitre", TYPES[lieu.type] + " · " + lieu.pays));
+    zoneFiche.appendChild(el("h4", "tds__intertitre", lieu.nom));
+    var badge = el("p", "tds__badge");
+    if (!e.visible) { badge.textContent = "Pas encore sur la carte en " + etat.annee; }
+    else if (lieu.type === "evenement") { badge.textContent = lieu.badge; badge.setAttribute("data-couleur", lieu.couleur); }
+    else if (e.royaume) { badge.textContent = ROYAUMES[e.royaume].nom + " en " + etat.annee; badge.setAttribute("data-couleur", ROYAUMES[e.royaume].couleur); }
+    else { badge.textContent = e.etat; }
+    zoneFiche.appendChild(badge);
+    var infos = el("dl", "tds__infos");
+    function info(terme, valeur) {
+      var bloc = el("div");
+      bloc.appendChild(el("dt", "", terme));
+      bloc.appendChild(el("dd", "", valeur));
+      infos.appendChild(bloc);
+    }
+    info(lieu.type === "evenement" ? "Date" : "Fondation", lieu.quand);
+    if (lieu.type !== "evenement") {
+      var zone = zoneDe(lieu, etat.annee);
+      if (etat.annee >= 1750) { info("Zone du traité", "Ligne abandonnée en 1750"); }
+      else if (zone) { info("Zone du traité", zone === "espagne" ? "Espagnole, à l'ouest de la ligne" : "Portugaise, à l'est de la ligne"); }
+      else { info("Zone du traité", "Aucune : pas encore de ligne"); }
+    }
+    zoneFiche.appendChild(infos);
+    var v = verdict(lieu, etat.annee, e);
+    if (v) {
+      var bloc = el("p", "tds__verdict", v.texte);
+      bloc.setAttribute("data-verdict", v.cle);
+      zoneFiche.appendChild(bloc);
+    }
+    lieu.texte.forEach(function (t) { zoneFiche.appendChild(el("p", "tds__paragraphe", t)); });
+    if (!e.visible) {
+      zoneFiche.appendChild(el("p", "tds__paragraphe tds__paragraphe--note", "En " + etat.annee + ", ce lieu n'apparaît pas encore sur la carte : fais avancer le temps jusqu'en " + premiereAnnee(lieu) + "."));
+    }
+  }
+  function cle(couleur, forme, texte) {
+    var item = el("span", "tds__cle");
+    var ic = svgEl("svg", { "class": "tds__icone" + (forme === "terre" ? " tds__icone--terre" : ""), viewBox: forme === "terre" ? "0 0 16 12" : "-8 -8 16 16", "aria-hidden": "true" });
+    var porteur = svgEl("g", { "data-couleur": couleur }, ic);
+    if (forme === "carre") { svgEl("rect", { x: -5.5, y: -5.5, width: 11, height: 11, "class": "tds__forme" }, porteur); }
+    else if (forme === "losange") { svgEl("path", { d: "M0 -7L7 0L0 7L-7 0Z", "class": "tds__forme" }, porteur); }
+    else if (forme === "ligne") { svgEl("line", { x1: 0, y1: -8, x2: 0, y2: 8, "class": "tds__ligne" }, porteur); }
+    else if (forme === "terre") { svgEl("rect", { x: 0, y: 0, width: 16, height: 12, rx: 2, "class": "tds__langue tds__langue--" + couleur }, porteur); }
+    else { svgEl("circle", { r: 6, "class": "tds__forme" }, porteur); }
+    item.appendChild(ic);
+    item.appendChild(document.createTextNode(texte));
+    return item;
+  }
+  function separateur() { return el("span", "tds__separateur"); }
+  var modeLegende = null;
+  function majLegende() {
+    if (modeLegende === etat.mode) { return; }
+    modeLegende = etat.mode;
+    vider(zoneLegende);
+    var L = zoneLegende;
+    if (etat.mode === "langues") {
+      L.appendChild(cle("espagnol", "terre", "Espagnol"));
+      L.appendChild(cle("portugais", "terre", "Portugais"));
+      L.appendChild(cle("autre", "terre", "Une autre langue européenne : anglais, français, néerlandais"));
+      L.appendChild(separateur());
+      L.appendChild(cle("neutre", "ligne", "Ligne de 1494"));
+      L.appendChild(el("span", "tds__cle", "Langues officielles aujourd'hui"));
+      return;
+    }
+    if (etat.mode === "traite") {
+      L.appendChild(cle("ok", "rond", "Respecte le partage"));
+      L.appendChild(cle("hors", "rond", "Hors de sa zone"));
+      L.appendChild(cle("exclu", "rond", "Puissance exclue du partage"));
+      L.appendChild(cle("neutre", "rond", "Sans objet"));
+    } else {
+      L.appendChild(cle("espagne", "rond", "Espagne"));
+      L.appendChild(cle("portugal", "rond", "Portugal"));
+      L.appendChild(cle("autre", "rond", "Autres puissances : France, Angleterre, Provinces-Unies"));
+    }
+    L.appendChild(separateur());
+    L.appendChild(cle("forme", "rond", "Colonie"));
+    L.appendChild(cle("forme", "carre", "Comptoir ou fort"));
+    L.appendChild(cle("forme", "losange", "Événement"));
+  }
+  function majModes() {
+    racine.setAttribute("data-mode", etat.mode);
+    chaque(racine.querySelectorAll(".tds__mode"), function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-mode") === etat.mode ? "true" : "false");
+    });
+  }
+  function majListe() {
+    chaque(zoneGroupes.querySelectorAll(".tds__puce"), function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-id") === etat.choisi ? "true" : "false");
+    });
+  }
+  function rendre() {
+    dessinerTraits();
+    majLieux();
+    majTemps();
+    majRecit();
+    majFiche();
+    majLegende();
+    majModes();
+    majListe();
+  }
+  // ------------------------------------------------------------- actions
+  function allerEtape(i) {
+    if (i < 0 || i >= ETAPES.length) { return; }
+    arreter();
+    etat.etape = i;
+    etat.annee = ETAPES[i].annee;
+    if (ETAPES[i].mode) { etat.mode = ETAPES[i].mode; etat.modeParEtape = true; }
+    else if (etat.modeParEtape || etat.mode === "langues") { etat.mode = "royaumes"; etat.modeParEtape = false; }
+    rendre();
+  }
+  function choisir(id) {
+    etat.choisi = id;
+    var lieu = INDEX[id];
+    if (!etatLieu(lieu, etat.annee).visible) {
+      arreter();
+      etat.annee = premiereAnnee(lieu);
+      etat.etape = -1;
+    }
+    rendre();
+  }
+  function allerAnnee(annee) {
+    etat.annee = Math.max(DEBUT, Math.min(FIN, annee));
+    etat.etape = -1;
+    if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
+    rendre();
+  }
+  // Six ans par seconde, et un arrêt d'une seconde et demie sur chaque année
+  // qui porte un événement, le temps de lire la légende sous le curseur.
+  var VITESSE = 6, ARRET = 1500;
+  var ANNEES_EVENEMENT = {};
+  EVENEMENTS.forEach(function (ev) { ANNEES_EVENEMENT[ev[0]] = true; });
+  var lecture = null, instant = null, cumul = 0, attente = 0;
+  var demander = window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function (f) { return window.setTimeout(function () { f(Date.now()); }, 40); };
+  var annuler = window.cancelAnimationFrame ? window.cancelAnimationFrame.bind(window) : window.clearTimeout.bind(window);
+  function majJouer() {
+    var actif = lecture !== null;
+    zoneEvenement.setAttribute("aria-live", actif ? "off" : "polite");
+    boutonJouer.setAttribute("aria-label", actif ? "Mettre en pause" : "Faire défiler les années");
+    icone.setAttribute("d", actif ? "M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" : "M4 2.5v11l9-5.5z");
+  }
+  function arreter() {
+    if (lecture !== null) { annuler(lecture); lecture = null; majJouer(); }
+  }
+  function pas(t) {
+    if (lecture === null) { return; }
+    if (instant === null) { instant = t; }
+    var dt = Math.min(t - instant, 250);
+    instant = t;
+    if (attente > 0) {
+      attente -= dt;
+    } else {
+      cumul += dt / 1000 * VITESSE;
+      if (cumul >= 1) {
+        cumul = Math.min(cumul - 1, 1);
+        etat.annee = Math.min(FIN, etat.annee + 1);
+        rendre();
+        if (ANNEES_EVENEMENT[etat.annee]) { attente = ARRET; cumul = 0; }
+      }
+    }
+    if (etat.annee >= FIN) { arreter(); return; }
+    lecture = demander(pas);
+  }
+  function jouer() {
+    if (lecture !== null) { arreter(); return; }
+    if (etat.annee >= FIN) { etat.annee = DEBUT; }
+    etat.etape = -1;
+    if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
+    instant = null;
+    cumul = 0;
+    attente = 0;
+    rendre();
+    lecture = demander(pas);
+    majJouer();
+  }
+  // ---------------------------------------------------------- mise en place
+  function construireAxe() {
+    var axe = $("axe");
+    [1450, 1500, 1550, 1600, 1650, 1700, 1750].forEach(function (a) {
+      var g = el("span", "tds__grad " + (a % 100 === 0 ? "tds__grad--majeure" : "tds__grad--mineure"), String(a));
+      g.style.left = "calc(var(--pouce) / 2 + (100% - var(--pouce)) * " + ((a - DEBUT) / (FIN - DEBUT)).toFixed(4) + ")";
+      axe.appendChild(g);
+    });
+  }
+  function construireListe() {
+    GROUPES.forEach(function (g) {
+      var bloc = el("div", "tds__groupe");
+      bloc.appendChild(el("p", "tds__groupe-nom", g[1]));
+      var puces = el("div", "tds__puces");
+      LIEUX.filter(function (l) { return l.groupe === g[0]; }).forEach(function (lieu) {
+        var b = el("button", "tds__puce", lieu.nom);
+        b.type = "button";
+        b.setAttribute("data-id", lieu.id);
+        b.setAttribute("aria-pressed", "false");
+        b.addEventListener("click", function () { choisir(lieu.id); });
+        puces.appendChild(b);
+      });
+      bloc.appendChild(puces);
+      zoneGroupes.appendChild(bloc);
+    });
+    var resume = racine.querySelector(".tds__liste > summary");
+    if (resume) { resume.textContent = "Tous les lieux de la carte (" + LIEUX.length + ")"; }
+  }
+  chaque(racine.querySelectorAll(".tds__mode"), function (b) {
+    b.addEventListener("click", function () {
+      etat.mode = b.getAttribute("data-mode");
+      etat.modeParEtape = false;
+      rendre();
+    });
+  });
+  curseur.addEventListener("input", function () { arreter(); allerAnnee(parseInt(curseur.value, 10)); });
+  boutonJouer.addEventListener("click", jouer);
+  // Espace et Entrée activent les boutons du composant : on les garde ici
+  // pour que le diaporama de la page ne change pas de section en même temps.
+  racine.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
+  });
+  construireLieux();
+  construireAxe();
+  construireListe();
+  mesurer();
+  placerLieux();
+  rendre();
+  if (window.ResizeObserver) {
+    new window.ResizeObserver(function () { if (mesurer()) { placerLieux(); dessinerTraits(); majLieux(); } }).observe(svg);
+  }
+})();
+</script>
+</section>
