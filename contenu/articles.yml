@@ -20,6 +20,72 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2501185/visite-verger-un-collectionneur-arbres-fruitiers"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-13"
+    titre: "Visite du verger d’un collectionneur d’arbres fruitiers"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/long-format/2292061/verger-arbor-flora-saint-simeon"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-13"
+    titre: "Un verger digne d’une collection à Saint-Siméon"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292422/centres-donnees-tarif-electricite-hydro-quebec-encheres"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-13"
+    titre: "Hydro-Québec accusée de vouloir vendre aux enchères l’électricité"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/13/lia-au-service-du-reseau-dhydro-quebec"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-10-13"
+    titre: "L’IA au service du réseau d’Hydro-Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/13/mexique-cinq-morts-apres-la-tempete-rachel-et-louragan-simon"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-10-13"
+    titre: "Mexique: cinq morts après la tempête «Rachel» et l'ouragan «Simon»"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292425/crise-logement-espagne-election-anticipee-manifestations"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-13"
+    titre: "Espagne : comment la crise du logement a-t-elle mené à des élections anticipées?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292397/airbnb-photo-retouche-intelligence-artificielle"
+    fiche: "05"
+    media: "Radio-Canada"
+    date: "2026-10-12"
+    titre: "Airbnb : peut-on encore se fier aux annonces à l’ère de l’IA?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292403/temoignage-tremblement-terre-panama"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-10-12"
+    titre: "Une Rimouskoise proche du Panama préoccupée par le séisme"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2291828/alimentaion-souverainete-alimentaire-producteurs-locaux"
     fiche: "10"
