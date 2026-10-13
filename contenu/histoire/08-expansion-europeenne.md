@@ -329,6 +329,8 @@ colonisation portugaise du Brésil bien au-delà de la limite fixée.
 
 (Source : Futura sciences)
 
+::: composant tordesillas
+
 ### Les conséquences linguistiques, encore visibles aujourd'hui
 
 Le traité de Tordesillas permet à l'Espagne de coloniser la majeure partie du
