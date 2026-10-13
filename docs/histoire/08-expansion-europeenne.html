@@ -828,7 +828,7 @@ colonisation portugaise du Brésil bien au-delà de la limite fixée.</p>
 <p class="source-texte">(Source : Futura sciences)</p>
 <section class="tds" id="tordesillas" data-mode="royaumes" aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
 <style>
-.tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-zone-espagne: rgba(163, 22, 28, .11); --tds-zone-portugal: rgba(11, 107, 30, .10); --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; }
+.tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-zone-espagne: rgba(163, 22, 28, .11); --tds-zone-portugal: rgba(11, 107, 30, .10); --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; }
 html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-zone-espagne: rgba(240, 138, 142, .10); --tds-zone-portugal: rgba(116, 201, 138, .09); --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
 .tds .tds__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .tds .tds__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
@@ -888,14 +888,14 @@ html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
 .tds__mode { font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
 .tds__mode:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
 .tds__mode[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
-.tds .tds__union { position: absolute; top: .65rem; right: .65rem; z-index: 1; max-width: 15rem; margin: 0; padding: .4rem .75rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.35; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--signal); border-radius: var(--rayon); }
+.tds .tds__union { position: absolute; bottom: .65rem; right: .65rem; z-index: 1; max-width: 15rem; margin: 0; padding: .4rem .75rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.35; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--signal); border-radius: var(--rayon); }
 .tds .tds__union[hidden] { display: none; }
 .tds .tds__legende { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; padding: .65rem 1.2rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); font-size: .78rem; line-height: 1.3; color: var(--encre-doux); }
 .tds__cle { display: inline-flex; align-items: center; gap: .4rem; }
 .tds__icone { width: .95rem; height: .95rem; flex: none; overflow: visible; }
 .tds__icone .tds__forme { stroke-width: 1px; }
 .tds__icone--terre { width: 1.1rem; height: .8rem; border-radius: 2px; }
-.tds__separateur { width: 1px; height: 1rem; background: var(--trait); }
+.tds__cles { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; }
 .tds .tds__temps { display: flex; align-items: center; gap: .9rem; padding: .85rem 1.2rem .2rem; }
 .tds__jouer { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; border: 1px solid var(--matiere); background: var(--matiere); color: #fff; cursor: pointer; }
 .tds__jouer:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
@@ -918,14 +918,26 @@ html[data-sombre="on"] .tds__jouer, html[data-sombre="on"] .tds__mode[aria-press
 .tds .tds__annee { flex: none; min-width: 3.4rem; font-family: var(--donnee); font-weight: 500; font-size: 1.35rem; line-height: 1; text-align: right; color: var(--matiere-fonce); }
 .tds .tds__evenement { margin: 0; padding: .35rem 1.2rem .95rem; min-height: 2.9em; font-family: var(--titre); font-size: .86rem; line-height: 1.45; color: var(--encre-doux); }
 .tds .tds__evenement strong { font-family: var(--donnee); font-weight: 500; color: var(--matiere-fonce); margin-right: .4rem; }
-.tds .tds__panneaux { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; padding: 0 1.2rem 1.2rem; }
-.tds .tds__recit, .tds .tds__fiche { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem 1rem; }
-.tds .tds__fiche { border-left-color: var(--signal); }
+.tds__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.tds__visuel, .tds__lecture { min-width: 0; }
+.tds__lecture { border-top: 1px solid var(--trait); background: var(--surface); container-type: inline-size; }
+.tds__lecture-interieur { display: flex; flex-direction: column; }
+.tds .tds__onglets { display: flex; gap: .2rem; padding: .55rem 1.2rem 0; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.tds__onglet { min-width: 0; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0 0 -1px; padding: .5rem .8rem .55rem; border: 1px solid transparent; border-bottom: 0; border-radius: var(--rayon) var(--rayon) 0 0; background: transparent; font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); cursor: pointer; }
+.tds__onglet:hover { color: var(--matiere-fonce); }
+.tds__onglet[aria-selected="true"] { color: var(--matiere-fonce); background: var(--surface); border-color: var(--trait); box-shadow: inset 0 3px 0 var(--matiere); }
+.tds__onglet[data-onglet="lieu"][aria-selected="true"] { box-shadow: inset 0 3px 0 var(--signal); }
+.tds__onglet:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.tds .tds__vue { padding: 1rem 1.2rem .5rem; }
+.tds .tds__vue[hidden] { display: none; }
+.tds .tds__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.tds .tds__pilote { display: flex; align-items: center; justify-content: space-between; gap: .4rem; padding: .65rem 1rem .8rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
+.tds .tds__pilote .tds__bouton { flex: none; }
+.tds .tds__pilote-etat { min-width: 0; overflow: hidden; text-overflow: ellipsis; margin: 0; font-family: var(--donnee); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tds .tds__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
 .tds .tds__intertitre { margin: 0 0 .55rem; font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); }
-.tds .tds__paragraphe { margin: 0 0 .65rem; font-size: .96rem; line-height: 1.62; }
+.tds .tds__paragraphe { margin: 0 0 .65rem; font-size: .95rem; line-height: 1.6; }
 .tds .tds__paragraphe--note { font-size: .88rem; color: var(--encre-doux); }
-.tds .tds__nav { display: flex; flex-wrap: wrap; gap: .5rem; margin: .85rem 0 0; }
 .tds__bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem 1rem; cursor: pointer; transition: background .15s, color .15s; }
 .tds__bouton:hover:not(:disabled) { background: var(--matiere); border-color: var(--matiere); color: #fff; }
 .tds__bouton:disabled { opacity: .45; cursor: default; }
@@ -939,7 +951,7 @@ html[data-sombre="on"] .tds .tds__badge { color: #10171F; }
 .tds .tds__infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .5rem 1.2rem; margin: 0 0 .75rem; }
 .tds .tds__infos dt { margin: 0 0 .1rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
 .tds .tds__infos dd { margin: 0; font-family: var(--titre); font-weight: 500; font-size: .88rem; line-height: 1.35; }
-.tds .tds__verdict { margin: 0 0 .75rem; padding: .55rem .8rem; border-left: 3px solid var(--tds-neutre); border-radius: 0 var(--rayon) var(--rayon) 0; background: var(--surface); font-family: var(--titre); font-size: .86rem; line-height: 1.45; }
+.tds .tds__verdict { margin: 0 0 .75rem; padding: .55rem .8rem; border-left: 3px solid var(--tds-neutre); border-radius: 0 var(--rayon) var(--rayon) 0; background: var(--surface-2); font-family: var(--titre); font-size: .86rem; line-height: 1.45; }
 .tds .tds__verdict[data-verdict="ok"] { border-left-color: var(--tds-ok); }
 .tds .tds__verdict[data-verdict="hors"] { border-left-color: var(--tds-hors); }
 .tds .tds__verdict[data-verdict="exclu"] { border-left-color: var(--tds-autre); }
@@ -953,27 +965,42 @@ html[data-sombre="on"] .tds .tds__badge { color: #10171F; }
 .tds__puce[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
 .tds .tds__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container (max-width: 21rem) {
+  .tds .tds__pilote-etat { display: none; }
+}
+@container (min-width: 46rem) {
+  .tds__corps { grid-template-columns: max(26rem, min(calc(100% - 18rem), calc((100vh - 16rem) * 1.4245))) minmax(18rem, 30rem); justify-content: center; }
+  .tds__visuel { border-right: 1px solid var(--trait); }
+  .tds__lecture { position: relative; border-top: 0; }
+  .tds__lecture-interieur { position: absolute; inset: 0; }
+  .tds .tds__vue { flex: 1; min-height: 0; overflow-y: auto; }
+  .tds__svg { max-height: none; }
+  .tds__mode { font-size: .74rem; padding: .25rem .7rem; }
+  .tds .tds__legende, .tds .tds__cles { font-size: .74rem; gap: .3rem .9rem; }
+}
 @media (max-width: 40rem) {
   .tds .tds__modes { position: static; padding: .6rem .6rem 0; max-width: none; }
   .tds__mode { font-size: .72rem; padding: .25rem .65rem; }
   .tds .tds__union { position: static; max-width: none; margin: .5rem .6rem 0; }
   .tds .tds__temps, .tds .tds__evenement, .tds .tds__legende { padding-left: .8rem; padding-right: .8rem; }
-  .tds .tds__panneaux { padding: 0 .8rem .9rem; }
+  .tds .tds__vue, .tds .tds__pilote, .tds .tds__onglets { padding-left: .8rem; padding-right: .8rem; }
   .tds .tds__nom { font-size: calc(var(--k) * 11px); }
   .tds .tds__zone-nom { font-size: calc(var(--k) * 10px); }
   .tds .tds__grad--mineure { display: none; }
 }
 @media print {
-  .tds .tds__modes, .tds .tds__temps, .tds .tds__nav, .tds .tds__liste, .tds .tds__union { display: none; }
+  .tds .tds__modes, .tds .tds__temps, .tds .tds__onglets, .tds .tds__pilote, .tds .tds__liste, .tds .tds__union { display: none; }
   .tds .tds__svg { max-height: none; }
-  .tds .tds__panneaux { display: block; }
-  .tds .tds__recit, .tds .tds__fiche { break-inside: avoid; margin-bottom: .8rem; }
+  .tds .tds__vue[hidden] { display: block; }
+  .tds .tds__vue { break-inside: avoid; }
 }
 </style>
 <div class="tds__entete">
 <p class="tds__titre" role="heading" aria-level="3">Le partage du monde : le traité de Tordesillas</p>
 <p class="tds__consigne">Suis le récit ou fais glisser le temps</p>
 </div>
+<div class="tds__corps">
+<div class="tds__visuel">
 <div class="tds__carte">
 <div class="tds__modes" role="group" aria-label="Colorer la carte selon">
 <button type="button" class="tds__mode" data-mode="royaumes" aria-pressed="true">Les puissances</button>
@@ -1006,9 +1033,18 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
 <output class="tds__annee" data-tds="annee">1488</output>
 </div>
 <p class="tds__evenement" data-tds="evenement" aria-live="polite"></p>
-<div class="tds__panneaux">
-<div class="tds__recit" data-tds="recit"></div>
-<div class="tds__fiche" data-tds="fiche"></div>
+</div>
+<div class="tds__lecture">
+<div class="tds__lecture-interieur">
+<div class="tds__onglets" role="tablist" aria-label="Que veux-tu lire?">
+<button type="button" class="tds__onglet" role="tab" id="tds-onglet-recit" data-onglet="recit" aria-controls="tds-vue-recit" aria-selected="true">Le récit</button>
+<button type="button" class="tds__onglet" role="tab" id="tds-onglet-lieu" data-onglet="lieu" aria-controls="tds-vue-lieu" aria-selected="false" tabindex="-1">Le lieu</button>
+</div>
+<div class="tds__vue" role="tabpanel" id="tds-vue-recit" aria-labelledby="tds-onglet-recit" data-tds="recit" tabindex="0"></div>
+<div class="tds__vue" role="tabpanel" id="tds-vue-lieu" aria-labelledby="tds-onglet-lieu" data-tds="fiche" tabindex="0" hidden></div>
+<div class="tds__pilote" data-tds="pilote"></div>
+</div>
+</div>
 </div>
 <details class="tds__liste">
 <summary>Tous les lieux de la carte</summary>
@@ -1095,7 +1131,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
       texte: ["Vers 1445, le prince Henri le Navigateur fait ouvrir sur cette île la première factorerie portugaise outre-mer. On s'y procure de la poudre d'or, de la gomme arabique et des esclaves amenés par les caravanes.", "Les Néerlandais la prennent en 1633; l'île passe ensuite d'une puissance européenne à l'autre."] },
     { id: "ribeira-grande", nom: "Ribeira Grande", pays: "Cap-Vert", groupe: "afrique", type: "colonie", lon: -23.61, lat: 14.92, cote: "g", quand: "Vers 1462", periodes: [[1462, "portugal"]],
       texte: ["Fondée vers 1462 sur l'île de Santiago, c'est la première ville coloniale européenne bâtie sous les tropiques. Elle devient une plaque tournante de la traite des esclaves.", "C'est à partir des îles du Cap-Vert qu'on mesure les 370 lieues du traité."] },
-    { id: "mina", nom: "São Jorge da Mina", pays: "Ghana", groupe: "afrique", type: "comptoir", lon: -1.35, lat: 5.08, cote: "b", quand: "1482", periodes: [[1482, "portugal"], [1637, "provinces-unies"]],
+    { id: "mina", nom: "São Jorge da Mina", pays: "Ghana", groupe: "afrique", type: "comptoir", lon: -1.35, lat: 5.08, cote: "g", quand: "1482", periodes: [[1482, "portugal"], [1637, "provinces-unies"]],
       texte: ["Bâti en 1482, ce fort contrôle le commerce de l'or de la Côte de l'Or, puis devient un grand centre de la traite. C'est le plus ancien bâtiment européen encore debout en Afrique subsaharienne.", "Les Néerlandais s'en emparent en 1637."] },
     { id: "sao-tome", nom: "São Tomé", pays: "Sao Tomé-et-Principe", groupe: "afrique", type: "colonie", lon: 6.73, lat: 0.34, cote: "b", quand: "1493", periodes: [[1493, "portugal"]],
       texte: ["Colonisée à partir de 1493, l'île se couvre de plantations de canne à sucre où travaillent des esclaves. Au milieu du 16e siècle, c'est le premier producteur de sucre d'Afrique et un relais de la traite."] },
@@ -1113,7 +1149,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
       texte: ["Fondée en 1608 par Samuel de Champlain, Québec devient la capitale de la Nouvelle-France. Jacques Cartier s'était arrêté au même endroit en 1535, au village iroquoien de Stadaconé.", "La ville est à l'ouest de la ligne, mais la France ne se considère pas liée par le partage."] },
     { id: "jamestown", nom: "Jamestown", pays: "États-Unis", groupe: "autres", type: "colonie", lon: -76.78, lat: 37.21, cote: "g", quand: "1607", periodes: [[1607, "angleterre"]],
       texte: ["Fondée en 1607, c'est la première colonie anglaise permanente d'Amérique du Nord. Les premiers Africains réduits en esclavage arrivent en Virginie en 1619."] },
-    { id: "nouvelle-amsterdam", nom: "Nouvelle-Amsterdam", pays: "États-Unis", groupe: "autres", type: "colonie", lon: -74.01, lat: 40.70, cote: "g", quand: "1624", periodes: [[1624, "provinces-unies"], [1664, "angleterre"]],
+    { id: "nouvelle-amsterdam", nom: "Nouvelle-Amsterdam", pays: "États-Unis", groupe: "autres", type: "colonie", lon: -74.01, lat: 40.70, cote: "d", quand: "1624", periodes: [[1624, "provinces-unies"], [1664, "angleterre"]],
       texte: ["Des colons néerlandais s'installent en 1624 dans la future Nouvelle-Amsterdam, capitale de la Nouvelle-Néerlande. Les Anglais s'en emparent en 1664 et la rebaptisent New York."] },
     { id: "barbade", nom: "Barbade", pays: "Barbade", groupe: "autres", type: "colonie", lon: -59.64, lat: 13.19, cote: "d", quand: "1627", periodes: [[1627, "angleterre"]],
       texte: ["Les Anglais s'y établissent en 1627. À partir des années 1640, la canne à sucre, apportée du Brésil, en fait une colonie de plantations où travaillent des esclaves africains."] },
@@ -1225,10 +1261,10 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   var svg = $("svg"), gZones = $("zones"), gTraits = $("traits"), gLieux = $("lieux");
   var curseur = $("curseur"), sortieAnnee = $("annee"), boutonJouer = $("jouer"), icone = $("icone");
   var zoneEvenement = $("evenement"), zoneRecit = $("recit"), zoneFiche = $("fiche");
-  var zoneLegende = $("legende"), zoneGroupes = $("groupes"), bandeUnion = $("union");
+  var zoneLegende = $("legende"), zoneGroupes = $("groupes"), bandeUnion = $("union"), zonePilote = $("pilote");
   var INDEX = {};
   LIEUX.forEach(function (lieu) { INDEX[lieu.id] = lieu; });
-  var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null };
+  var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null, onglet: "recit" };
   var k = 1;
   // ------------------------------------------------------- logique du partage
   function ligneA(annee) {
@@ -1302,8 +1338,9 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     return t;
   }
   function libelleVertical(x, contenu, court, classe) {
-    var y = py(19);
-    if (contenu.length * .8 * 10.5 * k > y - 8) { contenu = court; }
+    var y = py(17);
+    // Le libellé long ne doit pas passer sous les boutons du coin supérieur.
+    if (contenu.length * .75 * 10.5 * k > y - 80) { contenu = court; }
     texteSvg(gTraits, 0, 0, contenu, "tds__libelle " + classe, { transform: "translate(" + arrondi(x - 6 * k) + " " + arrondi(y) + ") rotate(-90)" });
   }
   function fleche(x, y, sens) {
@@ -1345,11 +1382,11 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
       libelleVertical(x, abolie ? "Abandonnée en 1750" : "Tordesillas, 1494", abolie ? "1750" : "1494", "");
     }
     if (opt.mesure && annee >= 1494) {
-      var x1 = px(-25), x2 = px(LIGNE_1494), ym = py(8.5);
+      var x1 = px(-25), x2 = px(LIGNE_1494), ym = py(8);
       svgEl("line", { "class": "tds__mesure", x1: arrondi(x2 + 2), y1: arrondi(ym), x2: arrondi(x1 - 2), y2: arrondi(ym) }, gTraits);
       fleche(x2, ym, -1);
       fleche(x1, ym, 1);
-      texteSvg(gTraits, (x1 + x2) / 2, ym - 7 * k, "370 lieues", "tds__mesure-texte", { "text-anchor": "middle" });
+      texteSvg(gTraits, (x1 + x2) / 2, ym + 15 * k, "370 lieues", "tds__mesure-texte", { "text-anchor": "middle" });
     }
     if (ligne === null) {
       texteSvg(gTraits, px(-41.7), py(33), "Avant 1493 : aucune ligne de partage", "tds__note", { "text-anchor": "middle" });
@@ -1459,8 +1496,6 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   }
   function majRecit() {
     vider(zoneRecit);
-    var nav = el("div", "tds__nav");
-    var prec = etapePrecedente(), suiv = etapeSuivante();
     if (etat.etape >= 0) {
       var et = ETAPES[etat.etape];
       zoneRecit.appendChild(el("p", "tds__surtitre", "Étape " + (etat.etape + 1) + " sur " + ETAPES.length + " · " + (et.libelle || et.annee)));
@@ -1472,10 +1507,38 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
       zoneRecit.appendChild(el("p", "tds__paragraphe", "Observe les lieux qui apparaissent et ceux qui changent de couleur quand ils passent d'une puissance à l'autre. Clique sur un point pour lire sa fiche."));
       zoneRecit.appendChild(el("p", "tds__paragraphe tds__paragraphe--note", "Les boutons ci-dessous te ramènent à l'étape du récit la plus proche."));
     }
-    nav.appendChild(bouton("Étape précédente", "", function () { allerEtape(prec); }, prec < 0));
-    if (suiv >= 0) { nav.appendChild(bouton("Étape suivante", "tds__bouton--plein", function () { allerEtape(suiv); })); }
-    else { nav.appendChild(bouton("Recommencer le récit", "tds__bouton--plein", function () { allerEtape(0); })); }
-    zoneRecit.appendChild(nav);
+  }
+  // La navigation du récit reste sous les deux onglets : on change d'étape
+  // même en lisant la fiche d'un lieu.
+  function majPilote() {
+    vider(zonePilote);
+    var prec = etapePrecedente(), suiv = etapeSuivante();
+    var avant = bouton("Précédente", "", function () { allerEtape(prec); }, prec < 0);
+    avant.setAttribute("aria-label", "Étape précédente");
+    zonePilote.appendChild(avant);
+    zonePilote.appendChild(el("p", "tds__pilote-etat", etat.etape >= 0 ? "Étape " + (etat.etape + 1) + " / " + ETAPES.length : "Hors récit"));
+    var apres;
+    if (suiv >= 0) { apres = bouton("Suivante", "tds__bouton--plein", function () { allerEtape(suiv); }); apres.setAttribute("aria-label", "Étape suivante"); }
+    else { apres = bouton("Recommencer", "tds__bouton--plein", function () { allerEtape(0); }); apres.setAttribute("aria-label", "Recommencer le récit"); }
+    zonePilote.appendChild(apres);
+  }
+  var ongletRecit = racine.querySelector("#tds-onglet-recit"), ongletLieu = racine.querySelector("#tds-onglet-lieu");
+  var dernierRecit = null, dernierLieu = null;
+  function majOnglets() {
+    var lieu = etat.onglet === "lieu";
+    ongletRecit.setAttribute("aria-selected", lieu ? "false" : "true");
+    ongletLieu.setAttribute("aria-selected", lieu ? "true" : "false");
+    ongletRecit.tabIndex = lieu ? -1 : 0;
+    ongletLieu.tabIndex = lieu ? 0 : -1;
+    zoneRecit.hidden = lieu;
+    zoneFiche.hidden = !lieu;
+    var choisi = etat.choisi && INDEX[etat.choisi];
+    ongletLieu.textContent = choisi ? (choisi.court || choisi.nom) : "Le lieu";
+    ongletLieu.title = choisi ? choisi.nom : "";
+    // Un nouveau texte se lit depuis le début.
+    var cleRecit = etat.etape + ":" + (etat.etape < 0 ? "libre" : "");
+    if (cleRecit !== dernierRecit) { zoneRecit.scrollTop = 0; dernierRecit = cleRecit; }
+    if (etat.choisi !== dernierLieu) { zoneFiche.scrollTop = 0; dernierLieu = etat.choisi; }
   }
   function majFiche() {
     vider(zoneFiche);
@@ -1533,36 +1596,35 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     item.appendChild(document.createTextNode(texte));
     return item;
   }
-  function separateur() { return el("span", "tds__separateur"); }
   var modeLegende = null;
   function majLegende() {
     if (modeLegende === etat.mode) { return; }
     modeLegende = etat.mode;
     vider(zoneLegende);
-    var L = zoneLegende;
+    var couleurs = el("span", "tds__cles"), formes = el("span", "tds__cles");
+    zoneLegende.appendChild(couleurs);
+    zoneLegende.appendChild(formes);
     if (etat.mode === "langues") {
-      L.appendChild(cle("espagnol", "terre", "Espagnol"));
-      L.appendChild(cle("portugais", "terre", "Portugais"));
-      L.appendChild(cle("autre", "terre", "Une autre langue européenne : anglais, français, néerlandais"));
-      L.appendChild(separateur());
-      L.appendChild(cle("neutre", "ligne", "Ligne de 1494"));
-      L.appendChild(el("span", "tds__cle", "Langues officielles aujourd'hui"));
+      couleurs.appendChild(cle("espagnol", "terre", "Espagnol"));
+      couleurs.appendChild(cle("portugais", "terre", "Portugais"));
+      couleurs.appendChild(cle("autre", "terre", "Une autre langue européenne : anglais, français, néerlandais"));
+      formes.appendChild(cle("neutre", "ligne", "Ligne de 1494"));
+      formes.appendChild(el("span", "tds__cle", "Langues officielles aujourd'hui"));
       return;
     }
     if (etat.mode === "traite") {
-      L.appendChild(cle("ok", "rond", "Respecte le partage"));
-      L.appendChild(cle("hors", "rond", "Hors de sa zone"));
-      L.appendChild(cle("exclu", "rond", "Puissance exclue du partage"));
-      L.appendChild(cle("neutre", "rond", "Sans objet"));
+      couleurs.appendChild(cle("ok", "rond", "Respecte le partage"));
+      couleurs.appendChild(cle("hors", "rond", "Hors de sa zone"));
+      couleurs.appendChild(cle("exclu", "rond", "Puissance exclue du partage"));
+      couleurs.appendChild(cle("neutre", "rond", "Sans objet"));
     } else {
-      L.appendChild(cle("espagne", "rond", "Espagne"));
-      L.appendChild(cle("portugal", "rond", "Portugal"));
-      L.appendChild(cle("autre", "rond", "Autres puissances : France, Angleterre, Provinces-Unies"));
+      couleurs.appendChild(cle("espagne", "rond", "Espagne"));
+      couleurs.appendChild(cle("portugal", "rond", "Portugal"));
+      couleurs.appendChild(cle("autre", "rond", "Autres puissances : France, Angleterre, Provinces-Unies"));
     }
-    L.appendChild(separateur());
-    L.appendChild(cle("forme", "rond", "Colonie"));
-    L.appendChild(cle("forme", "carre", "Comptoir ou fort"));
-    L.appendChild(cle("forme", "losange", "Événement"));
+    formes.appendChild(cle("forme", "rond", "Colonie"));
+    formes.appendChild(cle("forme", "carre", "Comptoir ou fort"));
+    formes.appendChild(cle("forme", "losange", "Événement"));
   }
   function majModes() {
     racine.setAttribute("data-mode", etat.mode);
@@ -1581,6 +1643,8 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     majTemps();
     majRecit();
     majFiche();
+    majPilote();
+    majOnglets();
     majLegende();
     majModes();
     majListe();
@@ -1591,12 +1655,14 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     arreter();
     etat.etape = i;
     etat.annee = ETAPES[i].annee;
+    etat.onglet = "recit";
     if (ETAPES[i].mode) { etat.mode = ETAPES[i].mode; etat.modeParEtape = true; }
     else if (etat.modeParEtape || etat.mode === "langues") { etat.mode = "royaumes"; etat.modeParEtape = false; }
     rendre();
   }
   function choisir(id) {
     etat.choisi = id;
+    etat.onglet = "lieu";
     var lieu = INDEX[id];
     if (!etatLieu(lieu, etat.annee).visible) {
       arreter();
@@ -1700,6 +1766,23 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   // pour que le diaporama de la page ne change pas de section en même temps.
   racine.addEventListener("keydown", function (e) {
     if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
+  });
+  function montrerOnglet(nom, focus) {
+    etat.onglet = nom;
+    majOnglets();
+    if (focus) { (nom === "lieu" ? ongletLieu : ongletRecit).focus(); }
+  }
+  [ongletRecit, ongletLieu].forEach(function (o) {
+    o.addEventListener("click", function () { montrerOnglet(o.getAttribute("data-onglet"), false); });
+    // Les flèches passent d'un onglet à l'autre, sans faire défiler le diaporama.
+    o.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight" || e.key === "Home" || e.key === "End") {
+        e.preventDefault();
+        e.stopPropagation();
+        var vers = e.key === "Home" ? "recit" : (e.key === "End" ? "lieu" : (etat.onglet === "recit" ? "lieu" : "recit"));
+        montrerOnglet(vers, true);
+      }
+    });
   });
   construireLieux();
   construireAxe();
