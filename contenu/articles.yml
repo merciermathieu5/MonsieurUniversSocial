@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-13/guerre-commerciale/poilievre-se-rend-a-detroit-pour-plaider-en-faveur-d-un-libre-echange-sans-tarifs.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-13"
+    titre: "Guerre commerciale | Poilievre se rend à Detroit pour plaider en faveur d’un « libre-échange sans tarifs »"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292502/tremblement-terre-seisme-st-laurent"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-10-13"
+    titre: "Un léger tremblement de terre secoue Baie-Comeau"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2292422/centres-donnees-tarif-electricite-hydro-quebec-encheres"
     fiche: "07"
