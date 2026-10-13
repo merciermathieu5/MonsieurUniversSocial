@@ -784,7 +784,9 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 /* ------------------------------------------------------------- responsive */
 
 @media (max-width: 62rem) {
-  .colonnes { grid-template-columns: 1fr; gap: 1.75rem; }
+  /* minmax(0, 1fr) et non 1fr : une galerie de trois images réclame 867 px
+     de largeur minimale et élargissait toute la page sur tablette et téléphone. */
+  .colonnes { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
   .texte { padding: 2rem 1.5rem 2.25rem; }
   .sommaire {
     position: static; background: var(--surface); border: 1px solid var(--trait);
