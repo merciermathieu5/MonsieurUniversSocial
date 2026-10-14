@@ -1,21 +1,20 @@
 <section class="tds" id="tordesillas" data-mode="royaumes" aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
 <style>
-.tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-zone-espagne: rgba(163, 22, 28, .11); --tds-zone-portugal: rgba(11, 107, 30, .10); --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; }
-html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-zone-espagne: rgba(240, 138, 142, .10); --tds-zone-portugal: rgba(116, 201, 138, .09); --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
+.tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-mer: #DCE6EE; --tds-terre: #FAF8F3; --tds-cote: #8DA2B5; --tds-halo: #FAF8F3; --tds-zone-espagne: #F2E0DD; --tds-zone-portugal: #DDEBE0; --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: tds / inline-size; }
+html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-mer: #13202D; --tds-terre: #313E4C; --tds-cote: #56708D; --tds-halo: #18222D; --tds-zone-espagne: #35232A; --tds-zone-portugal: #1B3129; --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
 .tds .tds__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .tds .tds__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .tds .tds__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 html[data-sombre="on"] .tds .tds__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .tds .tds__titre { color: var(--encre); }
 html[data-sombre="on"] .tds .tds__consigne { color: var(--encre-pale); }
-.tds__carte { position: relative; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.tds__carte { position: relative; background: var(--tds-mer); border-bottom: 1px solid var(--trait); }
 .tds__svg { --k: 1; display: block; width: 100%; height: auto; max-height: 80vh; }
-.tds__mer { fill: var(--surface-2); }
+.tds__mer { fill: var(--tds-mer); }
 .tds__zone--espagne { fill: var(--tds-zone-espagne); }
 .tds__zone--portugal { fill: var(--tds-zone-portugal); }
 .tds__zone.est-pale, .tds[data-mode="langues"] .tds__zone { opacity: .45; }
-.tds__terre { fill: var(--bloc-pale); stroke: var(--bloc); stroke-width: .6; stroke-linejoin: round; }
-html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
+.tds__terre { fill: var(--tds-terre); stroke: var(--tds-cote); stroke-width: .7; stroke-linejoin: round; }
 .tds__langues { display: none; }
 .tds[data-mode="langues"] .tds__langues { display: inline; }
 .tds__langue--espagnol { fill: var(--tds-langue-espagnol); }
@@ -27,7 +26,7 @@ html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
 .tds__ligne { stroke: var(--encre); stroke-width: 2.4px; vector-effect: non-scaling-stroke; }
 .tds__ligne--1493 { stroke: var(--encre-doux); stroke-width: 2px; stroke-dasharray: 8 6; }
 .tds__ligne--abolie { stroke: var(--encre-pale); stroke-width: 2px; stroke-dasharray: 3 6; }
-.tds__libelle { font-family: var(--donnee); font-weight: 500; font-size: calc(var(--k) * 10.5px); letter-spacing: .14em; text-transform: uppercase; fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3px); stroke-linejoin: round; }
+.tds__libelle { font-family: var(--donnee); font-weight: 500; font-size: calc(var(--k) * 10.5px); letter-spacing: .14em; text-transform: uppercase; fill: var(--encre); paint-order: stroke; stroke: var(--tds-halo); stroke-width: calc(var(--k) * 3px); stroke-linejoin: round; }
 .tds__libelle--1493 { fill: var(--encre-doux); }
 .tds__zone-nom { font-family: var(--titre); font-weight: 700; font-size: calc(var(--k) * 13px); letter-spacing: .2em; text-transform: uppercase; }
 .tds__zone-nom--espagne { fill: var(--tds-espagne); }
@@ -35,7 +34,7 @@ html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
 .tds__zone-nom.est-pale { opacity: .55; }
 .tds__mesure { stroke: var(--encre); stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
 .tds__fleche { fill: var(--encre); }
-.tds__mesure-texte { font-family: var(--titre); font-weight: 700; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; }
+.tds__mesure-texte { font-family: var(--titre); font-weight: 700; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--tds-halo); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; }
 .tds__note { font-family: var(--titre); font-style: italic; font-size: calc(var(--k) * 13px); fill: var(--encre-doux); }
 .tds__lieu { cursor: pointer; }
 .tds__cible { fill: transparent; }
@@ -46,12 +45,12 @@ html[data-sombre="on"] .tds__terre { fill: #42596F; stroke: #5D7FA3; }
 .tds [data-couleur="ok"] > .tds__forme { fill: var(--tds-ok); }
 .tds [data-couleur="hors"] > .tds__forme { fill: var(--tds-hors); }
 .tds [data-couleur="forme"] > .tds__forme { fill: none; stroke: var(--encre-doux); stroke-width: 1.4px; }
-.tds .tds__lieu.est-vide > .tds__forme { fill: var(--surface-2); stroke: var(--encre-pale); stroke-width: 1.5px; stroke-dasharray: 2 2; }
+.tds .tds__lieu.est-vide > .tds__forme { fill: var(--tds-halo); stroke: var(--encre-pale); stroke-width: 1.5px; stroke-dasharray: 2 2; }
 .tds__halo { fill: none; stroke: var(--signal); stroke-width: 3px; vector-effect: non-scaling-stroke; opacity: 0; }
 .tds__lieu.est-choisi .tds__halo { opacity: 1; }
 .tds__renvoi { stroke: var(--encre-pale); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .tds__point { fill: var(--encre-pale); }
-.tds__nom { display: none; font-family: var(--titre); font-weight: 600; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--surface-2); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; pointer-events: none; }
+.tds__nom { display: none; font-family: var(--titre); font-weight: 600; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--tds-halo); stroke-width: calc(var(--k) * 3.5px); stroke-linejoin: round; pointer-events: none; }
 .tds__lieu.est-vedette .tds__nom, .tds__lieu.est-choisi .tds__nom, .tds__lieu:hover .tds__nom { display: inline; }
 .tds__lieu.est-choisi .tds__nom { font-weight: 700; }
 .tds[data-mode="langues"] .tds__lieu { opacity: .4; }
@@ -92,7 +91,7 @@ html[data-sombre="on"] .tds__jouer, html[data-sombre="on"] .tds__mode[aria-press
 .tds .tds__evenement strong { font-family: var(--donnee); font-weight: 500; color: var(--matiere-fonce); margin-right: .4rem; }
 .tds__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
 .tds__visuel, .tds__lecture { min-width: 0; }
-.tds__lecture { border-top: 1px solid var(--trait); background: var(--surface); container-type: inline-size; }
+.tds__lecture { border-top: 1px solid var(--trait); background: var(--surface); container: lecture / inline-size; }
 .tds__lecture-interieur { display: flex; flex-direction: column; }
 .tds .tds__onglets { display: flex; gap: .2rem; padding: .55rem 1.2rem 0; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
 .tds__onglet { min-width: 0; max-width: 62%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0 0 -1px; padding: .5rem .8rem .55rem; border: 1px solid transparent; border-bottom: 0; border-radius: var(--rayon) var(--rayon) 0 0; background: transparent; font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); cursor: pointer; }
@@ -137,11 +136,18 @@ html[data-sombre="on"] .tds .tds__badge { color: #10171F; }
 .tds__puce[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
 .tds .tds__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
-@container (max-width: 21rem) {
+/* « Étape 10 / 10 » ne tient plus à côté de Recommencer : on le retire (le récit l'indique déjà). */
+@container lecture (max-width: 23.5rem) {
   .tds .tds__pilote-etat { display: none; }
 }
-@container (min-width: 46rem) {
-  .tds__corps { grid-template-columns: max(26rem, min(calc(100% - 18rem), calc((100vh - 16rem) * 1.4245))) minmax(18rem, 30rem); justify-content: center; }
+@container tds (min-width: 46rem) {
+  /* La carte prend la largeur que permet la hauteur de l'écran; la lecture occupe tout le reste,
+     pour que le corps remplisse le cadre jusqu'aux bords, sous le bandeau. */
+  .tds__corps { grid-template-columns: max(26rem, min(calc(100% - 18rem), calc((100vh - 16rem) * 1.4245))) minmax(18rem, 1fr); }
+  /* En diaporama, la barre du site occupe le bas de l'écran : la carte rapetisse d'autant,
+     pour que la frise du temps et les boutons Précédente et Suivante restent visibles. */
+  body[data-diapo="on"] .tds__corps { grid-template-columns: max(26rem, min(calc(100% - 18rem), calc((100vh - 19rem) * 1.4245))) minmax(18rem, 1fr); }
+  .tds .tds__vue > * { max-width: 42rem; }
   .tds__visuel { border-right: 1px solid var(--trait); }
   .tds__lecture { position: relative; border-top: 0; }
   .tds__lecture-interieur { position: absolute; inset: 0; }
@@ -151,9 +157,9 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   .tds .tds__legende, .tds .tds__cles { font-size: .74rem; gap: .3rem .9rem; }
 }
 @media (max-width: 40rem) {
-  .tds .tds__modes { position: static; padding: .6rem .6rem 0; max-width: none; }
+  .tds .tds__modes { position: static; padding: .6rem; max-width: none; background: var(--surface); border-bottom: 1px solid var(--trait); }
   .tds__mode { font-size: .72rem; padding: .25rem .65rem; }
-  .tds .tds__union { position: static; max-width: none; margin: .5rem .6rem 0; }
+  .tds .tds__union { position: static; max-width: none; margin: 0; border-width: 0 0 1px 3px; border-radius: 0; }
   .tds .tds__temps, .tds .tds__evenement, .tds .tds__legende { padding-left: .8rem; padding-right: .8rem; }
   .tds .tds__vue, .tds .tds__pilote, .tds .tds__onglets { padding-left: .8rem; padding-right: .8rem; }
   .tds .tds__nom { font-size: calc(var(--k) * 11px); }
