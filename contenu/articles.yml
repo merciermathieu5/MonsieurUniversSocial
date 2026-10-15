@@ -20,6 +20,88 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/affaires/portfolio/2026-10-15/aluminium/une-structure-d-aluminium-pour-batir-autrement.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-15"
+    titre: "Aluminium | Une structure d’aluminium pour bâtir autrement"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/portfolio/2026-10-15/aluminium/une-filiere-quebecoise-tournee-vers-le-bac-bleu.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-15"
+    titre: "Aluminium | Une filière québécoise tournée vers le bac bleu"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292894/terminal-conteneurs-assemblee-publique-qsl-quebec"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-15"
+    titre: "Terminal de conteneurs de QSL : des inquiétudes de Beauport à Saint-Roch"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292458/ottawa-hydro-barrages-poissons-norme"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-15"
+    titre: "Ottawa veut empêcher Hydro-Québec de tuer des poissons et ça coûterait des milliards"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10784144/exercice-simulation-inondation-et-onde-tempete-a-goulet"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-10-15"
+    titre: "Exercice de simulation d'inondation et d'onde de tempête à Le Goulet"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-15/strategie-hivernale/du-sel-egyptien-sur-les-trottoirs-de-montreal.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-15"
+    titre: "Stratégie hivernale | Du sel égyptien sur les trottoirs de Montréal"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292858/arbres-coupe-sepaq-abattage"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-10-14"
+    titre: "Des milliers d’arbres doivent être abattus au parc national du Lac-Témiscouata"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/l-apres-midi-est-a-nous/segments/rattrapage/2502792/coupes-arbres-au-parc-national-lac-temiscouata"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-10-14"
+    titre: "Des milliers d’arbres à abattre au Parc national du Lac-Témiscouata"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/14/cest-un-outrage-culturel-lartiste-jean-gaudreau-depouille-de-50-000-de-cuivre-du-chateau-frontenac"
+    fiche: "03"
+    media: "Journal de Montréal"
+    date: "2026-10-14"
+    titre: "«C’est un outrage culturel»: l’artiste Jean Gaudreau dépouillé de 50 000$ de cuivre du Château Frontenac"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-14/fermeture-d-une-voie-du-pont-honore-mercier/le-peage-sera-suspendu-sur-l-autoroute-30-en-direction-de-montreal-a-l-heure-de-pointe-matinale.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-14"
+    titre: "Fermeture d’une voie du pont Honoré-Mercier | Le péage sera suspendu sur l’autoroute 30 en direction de Montréal à l’heure de pointe matinale"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2292583/sepaq-ecole-plein-air-jacques-cartier"
     fiche: "13"
