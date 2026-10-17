@@ -20,29 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2293116/liberal-poissons-hydro-quebec-barrages"
+  # ---------------- PUBLIÉS (O) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2292458/ottawa-hydro-barrages-poissons-norme"
     fiche: "07"
     media: "Radio-Canada"
-    date: "2026-10-16"
-    titre: "Normes sur les barrages : des « zones d’ombre », reconnaît le ministre Joël Lightbound"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/c-est-encore-mieux-l-apres-midi/segments/rattrapage/2504125/dangers-phosphine-un-insecticide-utilise-contre-punaises-lit"
-    fiche: "10"
-    media: "Radio-Canada"
     date: "2026-10-15"
-    titre: "Un pesticide mortel utilisé contre les punaises de lit"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2293013/camp-mobile-boisaco-cote-nord"
-    fiche: "06"
-    media: "Radio-Canada"
-    date: "2026-10-15"
-    titre: "Un nouveau camp mobile pour travailleurs dans la forêt boréale"
-    garder: ""
+    titre: "Ottawa veut empêcher Hydro-Québec de tuer des poissons et ça coûterait des milliards"
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/en-bref/1-10784793/croisieres-inoubliables-cauchemar-environnemental"
@@ -50,7 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-15"
     titre: "Croisières inoubliables, cauchemar environnemental"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/10/15/tremblement-de-terre-au-quebec-le-risque-est-bien-reel-selon-un-analyste-sismique"
@@ -58,24 +42,6 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-15"
     titre: "Séisme de magnitude 7 au Québec: le risque est bien réel, selon un analyste sismique"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-15/deneigement-a-montreal/on-ramene-le-sel-a-montreal-dit-la-mairesse.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-10-15"
-    titre: "Déneigement à Montréal | « On ramène le sel à Montréal », dit la mairesse"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2292458/ottawa-hydro-barrages-poissons-norme"
-    fiche: "07"
-    media: "Radio-Canada"
-    date: "2026-10-15"
-    titre: "Ottawa veut empêcher Hydro-Québec de tuer des poissons et ça coûterait des milliards"
     garder: "O"
     note: ""
 
@@ -2041,6 +2007,22 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2293116/liberal-poissons-hydro-quebec-barrages"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-16"
+    titre: "Normes sur les barrages : des « zones d’ombre », reconnaît le ministre Joël Lightbound"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/c-est-encore-mieux-l-apres-midi/segments/rattrapage/2504125/dangers-phosphine-un-insecticide-utilise-contre-punaises-lit"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-15"
+    titre: "Un pesticide mortel utilisé contre les punaises de lit"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/portfolio/2026-10-15/aluminium/une-structure-d-aluminium-pour-batir-autrement.php"
     fiche: "09"
     media: "La Presse"
@@ -2062,6 +2044,22 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-15"
     titre: "Terminal de conteneurs de QSL : des inquiétudes de Beauport à Saint-Roch"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2293013/camp-mobile-boisaco-cote-nord"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-10-15"
+    titre: "Un nouveau camp mobile pour travailleurs dans la forêt boréale"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-15/deneigement-a-montreal/on-ramene-le-sel-a-montreal-dit-la-mairesse.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-15"
+    titre: "Déneigement à Montréal | « On ramène le sel à Montréal », dit la mairesse"
     garder: "N"
     note: ""
 
