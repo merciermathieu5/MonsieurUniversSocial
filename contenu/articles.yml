@@ -20,21 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2293942/recuperation-plastique-agricole-matapedia-mitis"
-    fiche: "10"
-    media: "Radio-Canada"
-    date: "2026-10-19"
-    titre: "Une collecte de plastique agricole en 2027 dans La Matapédia et La Mitis"
-    garder: ""
-    note: ""
-
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-19/hebergement-touristique/le-plan-de-la-ville-contre-les-airbnb-illegaux-prend-du-retard.php"
     fiche: "05"
     media: "La Presse"
     date: "2026-10-19"
     titre: "Hébergement touristique | Le plan de la Ville contre les Airbnb illégaux prend du retard"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/europe/2026-10-19/croisiere/a-la-rencontre-des-aurores-boreales-en-norvege.php"
@@ -42,7 +34,7 @@ articles:
     media: "La Presse"
     date: "2026-10-19"
     titre: "Croisière | À la rencontre des aurores boréales en Norvège"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/quebec-et-canada/2026-10-18/croisiere/montreal-destination-de-luxe-pour-croisieristes.php"
@@ -50,7 +42,7 @@ articles:
     media: "La Presse"
     date: "2026-10-18"
     titre: "Croisière | Montréal, destination de luxe pour croisiéristes"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/afrique/2026-10-17/croisiere/safari-et-poesie-sur-l-eau-en-gambie.php"
@@ -58,7 +50,7 @@ articles:
     media: "La Presse"
     date: "2026-10-17"
     titre: "Croisière | Safari et poésie sur l’eau en Gambie"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/europe/2026-10-17/croisiere/parcourir-quatre-pays-au-fil-du-danube.php"
@@ -66,7 +58,7 @@ articles:
     media: "La Presse"
     date: "2026-10-17"
     titre: "Croisière | Parcourir quatre pays au fil du Danube"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/voyage/oceanie/2026-10-17/croisiere/cap-sur-les-iles-de-la-societe-en-polynesie-francaise.php"
@@ -74,7 +66,7 @@ articles:
     media: "La Presse"
     date: "2026-10-17"
     titre: "Croisière | Cap sur les îles de la Société en Polynésie française"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2293479/tourisme-toronto-fifa-concerts-bts"
@@ -82,7 +74,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-17"
     titre: "Toronto : Coupe du monde et grands événements ont stimulé le tourisme, l’été dernier"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/10/16/indonesie-quatre-morts-en-luttant-contre-les-incendies-dans-un-parc-national"
@@ -90,23 +82,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-16"
     titre: "Indonésie: quatre morts en luttant contre les incendies dans un parc national"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2293389/opera-elisabeth-stgelais-innu"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-10-16"
-    titre: "Élisabeth St-Gelais et Caroline Gélinas chanteront en innu-aimun"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2293324/atterrissage-romaine-accusations-vol"
-    fiche: "07"
-    media: "Radio-Canada"
-    date: "2026-10-16"
-    titre: "Atterrissage d’urgence à La Romaine : l’accusé remis en liberté sous conditions"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/10/16/un-seisme-de-magnitude-41-pres-de-banff-en-alberta"
@@ -114,11 +90,9 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-16"
     titre: "Un séisme de magnitude 4,1 près de Banff, en Alberta"
-    garder: ""
+    garder: "O"
     note: ""
 
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2292458/ottawa-hydro-barrages-poissons-norme"
     fiche: "07"
     media: "Radio-Canada"
@@ -2105,6 +2079,30 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2293942/recuperation-plastique-agricole-matapedia-mitis"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-19"
+    titre: "Une collecte de plastique agricole en 2027 dans La Matapédia et La Mitis"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2293389/opera-elisabeth-stgelais-innu"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-16"
+    titre: "Élisabeth St-Gelais et Caroline Gélinas chanteront en innu-aimun"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2293324/atterrissage-romaine-accusations-vol"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-16"
+    titre: "Atterrissage d’urgence à La Romaine : l’accusé remis en liberté sous conditions"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/nouvelle/2293116/liberal-poissons-hydro-quebec-barrages"
     fiche: "07"
     media: "Radio-Canada"
