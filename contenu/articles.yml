@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/10/19/metro-de-montreal--58-escaliers-mecaniques-seront-remplaces-voici-les-stations-touchees"
+    fiche: "02"
+    media: "Journal de Montréal"
+    date: "2026-10-19"
+    titre: "Métro de Montréal : 58 escaliers mécaniques seront remplacés, voici les stations touchées"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-20/campagnes-de-promotion/les-touristes-americains-se-laissent-charmer-par-le-quebec.php"
     fiche: "05"
