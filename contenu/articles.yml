@@ -20,6 +20,72 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-20/campagnes-de-promotion/les-touristes-americains-se-laissent-charmer-par-le-quebec.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-10-20"
+    titre: "Campagnes de promotion | Les touristes américains se laissent charmer par le Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/etats-unis/2026-10-20/nettoyage-apres-l-ouragan-isaias/la-peur-de-l-ice-fait-fuir-la-main-d-oeuvre.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-10-20"
+    titre: "Nettoyage après l’ouragan Isaias | La peur de l’ICE fait fuir la main-d’œuvre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10788212/violence-armee-sentiment-insecurite-a-toronto"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-20"
+    titre: "Violence armée : sentiment d’insécurité à Toronto"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294119/parc-sepaq-pont-riviere-valin"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-10-19"
+    titre: "Le parc national des Monts-Valin fermé un mois à partir du 26 octobre"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/dans-la-mosaique/segments/rattrapage/2506954/droits-autochtones-vs-separation-alberta"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-19"
+    titre: "Le référendum en Alberta et les droits autochtones"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294107/stelco-acier-proco-tarifs-stc"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-19"
+    titre: "Les transformateurs d’acier frappés de plein fouet par la hausse des prix"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294028/acier-hamilton-licenciement-tarifs-americains"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-19"
+    titre: "Cleveland-Cliffs suspend des chaînes de production de Stelco malgré des résultats records"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-19/metro-de-montreal/la-stm-va-remplacer-une-soixantaine-d-escaliers-mecaniques.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-19"
+    titre: "Métro de Montréal | La STM va remplacer une soixantaine d’escaliers mécaniques"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-19/hebergement-touristique/le-plan-de-la-ville-contre-les-airbnb-illegaux-prend-du-retard.php"
     fiche: "05"
