@@ -20,6 +20,16 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-20/reevaluation-obligatoire-des-pesticides/un-agronome-atteint-de-parkinson-interpelle-ottawa.php"
+    fiche: "10"
+    media: "La Presse"
+    date: "2026-10-20"
+    titre: "Réévaluation obligatoire des pesticides | Un agronome atteint de Parkinson interpelle Ottawa"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-20/campagnes-de-promotion/les-touristes-americains-se-laissent-charmer-par-le-quebec.php"
     fiche: "05"
