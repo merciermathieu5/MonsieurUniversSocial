@@ -20,48 +20,6 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
-  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2294465/registraire-indiens-annulation-statut-essipit"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-10-21"
-    titre: "La registraire des Indiens justifie le retrait du statut à 738 Innus d’Essipit"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-21/guerre-commerciale/carney-et-ford-annonceront-des-mesures-de-soutien-pour-l-acier-et-l-automobile.php"
-    fiche: "09"
-    media: "La Presse"
-    date: "2026-10-21"
-    titre: "Guerre commerciale | Carney et Ford annonceront des mesures de soutien pour l’acier et l’automobile"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2294274/site-touristique-fermeture-hiver-chute-a-l-ours-normandin"
-    fiche: "05"
-    media: "Radio-Canada"
-    date: "2026-10-20"
-    titre: "Le site touristique Chute à l’Ours fermé pour l’hiver à Normandin"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.journaldemontreal.com/2026/10/20/glissement-de-terrain-a-lascension-on-a-limpression-detre-a-la-case-depart-affirme-le-maire"
-    fiche: "04"
-    media: "Journal de Montréal"
-    date: "2026-10-20"
-    titre: "Glissement de terrain à L’Ascension: «On a l’impression d’être à la case départ», affirme le maire"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2294366/scarborough-transport-commun-election-municipale"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-20"
-    titre: "Scarborough : des résidents exigent un meilleur transport en commun"
-    garder: ""
-    note: ""
-
-
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-20/reevaluation-obligatoire-des-pesticides/un-agronome-atteint-de-parkinson-interpelle-ottawa.php"
     fiche: "10"
@@ -76,6 +34,14 @@ articles:
     media: "La Presse"
     date: "2026-10-20"
     titre: "Campagnes de promotion | Les touristes américains se laissent charmer par le Québec"
+    garder: "O"
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/20/glissement-de-terrain-a-lascension-on-a-limpression-detre-a-la-case-depart-affirme-le-maire"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-10-20"
+    titre: "Glissement de terrain à L’Ascension: «On a l’impression d’être à la case départ», affirme le maire"
     garder: "O"
     note: ""
 
@@ -2185,6 +2151,38 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2294465/registraire-indiens-annulation-statut-essipit"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-21"
+    titre: "La registraire des Indiens justifie le retrait du statut à 738 Innus d’Essipit"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/economie/2026-10-21/guerre-commerciale/carney-et-ford-annonceront-des-mesures-de-soutien-pour-l-acier-et-l-automobile.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-21"
+    titre: "Guerre commerciale | Carney et Ford annonceront des mesures de soutien pour l’acier et l’automobile"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294274/site-touristique-fermeture-hiver-chute-a-l-ours-normandin"
+    fiche: "05"
+    media: "Radio-Canada"
+    date: "2026-10-20"
+    titre: "Le site touristique Chute à l’Ours fermé pour l’hiver à Normandin"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294366/scarborough-transport-commun-election-municipale"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-20"
+    titre: "Scarborough : des résidents exigent un meilleur transport en commun"
+    garder: "N"
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/info/videos/1-10788212/violence-armee-sentiment-insecurite-a-toronto"
     fiche: "02"
     media: "Radio-Canada"
