@@ -20,6 +20,24 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294700/panne-site-web-php"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-21"
+    titre: "Faille informatique mondiale : les sites de la SAQ, de la STM et d’Hydro-Québec en panne"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-10-21/croisiere/la-croisiere-fait-du-plein-air.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-10-21"
+    titre: "Croisière | La croisière fait du plein air"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-20/reevaluation-obligatoire-des-pesticides/un-agronome-atteint-de-parkinson-interpelle-ottawa.php"
     fiche: "10"
