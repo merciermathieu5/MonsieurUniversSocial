@@ -527,6 +527,15 @@ Aztèques, dont la population est ravagée.
 siècle. Une histoire des sociétés en interaction, Fides Éducation, 2024,
 pages 178-179)
 
+::: activite
+Découvre à quoi pouvait ressembler Tenochtitlan en 1518, un an avant
+l'arrivée de Cortés, grâce à la [reconstitution numérique de Thomas Kole](https://tenochtitlan.thomaskole.nl/es.html).
+Fais défiler les images du Templo Mayor, des canaux et des chinampas, ces
+champs aménagés sur le lac, puis compare la ville d'autrefois avec le Mexico
+actuel. Le site est en espagnol, en anglais et en nahuatl, la langue des
+Aztèques, toujours parlée au Mexique.
+:::
+
 ### Les conséquences sur les peuples autochtones
 
 Dès leur arrivée sur le territoire américain, les Européens considèrent les
@@ -546,6 +555,15 @@ territoires, de leur autonomie politique, de leurs richesses naturelles et
 de leur identité culturelle. En effet, les Européens les obligeaient à
 parler leur langue et à se convertir à la religion catholique. Elles ont
 donc subi l'acculturation.
+
+Tenochtitlan elle-même ne survit pas à la conquête. Les Espagnols démolissent
+ses temples et réutilisent leurs pierres pour bâtir Mexico sur ses ruines. Au
+fil des siècles, le lac est presque entièrement asséché et les canaux
+deviennent des rues. Compare la ville de 1518, telle que l'imagine Thomas
+Kole à partir des sources historiques et archéologiques, et la ville
+d'aujourd'hui, photographiée par drone sous le même angle.
+
+::: composant tenochtitlan-mexico
 
 ::: questions
 1. Pourquoi les Européens ont-ils d'abord appelé les Autochtones des Indiens?

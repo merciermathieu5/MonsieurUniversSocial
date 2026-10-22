@@ -11,7 +11,7 @@
 # fait sans accents, en minuscules, et tolère le pluriel sur chaque mot :
 # écrire « coupe forestiere » au singulier suffit.
 #
-# Un article est proposé de deux façons :
+# Un article est proposé de trois façons :
 #
 #     par le titre     un terme fort dans le titre (2 points), et 2 points
 #                      au total, le faible du titre valant 1.
@@ -19,6 +19,15 @@
 #                      le résumé que le fil donne sous le titre ET au moins un
 #                      terme faible dans le titre. Le résumé ne décide jamais
 #                      seul : il confirme ce que le titre annonce.
+#     par deux faibles seulement pour un territoire qui porte deux_faibles :
+#                      un faible de cette liste (le pivot) et un autre faible
+#                      du titre valent un fort.
+#
+# Deux réglages par territoire encadrent la porte du résumé :
+#
+#     resume: false    le résumé ne confirme jamais rien pour ce territoire.
+#     sans_resume      les faibles qui ne suffisent pas à confirmer un
+#                      résumé : un nom de ville, un mot trop général.
 #
 # Un terme fort trouvé dans le résumé ajoute 1 point, ce qui aide à départager
 # deux territoires.
@@ -40,6 +49,23 @@
 # conflits de travail sont des pièges. L'apprentissage, trop prudent, n'avait
 # rien rétrogradé : il réagit maintenant aussi aux sujets refusés en série
 # sur deux semaines. « rempart » attrapait les Remparts de Québec, retiré.
+#
+# Révision du 20 octobre 2026, après 101 propositions jugées (60 O, 41 N) :
+# gardé tel quel ce qui passe toujours (risques naturels 16 sur 16, tourisme
+# 13 sur 13, parc naturel 7 sur 7, patrimoine). Retiré ce qui n'a jamais
+# mené à un O : la romaine (le village, pas la centrale), gazoduc, verger,
+# autocueillette, grêle et aluminium seul ne décident plus; Stelco devient un
+# piège. La porte du résumé, 2 O sur 15, est fermée au territoire industriel
+# et aux noms de ville de la métropole. El Niño seul, refusé 5 fois sur 5
+# ces deux dernières semaines, doit maintenant être accompagné d'un mot
+# agricole ou alimentaire. Le transport collectif rural (MRC) sort de la
+# métropole.
+#
+# Élargissement du 20 octobre 2026 : les cas étudiés dans les fiches qui
+# n'avaient aucun mot-clé (la Jamésie et la Manic, le Sahel, le Nunavut et
+# les onze nations, Anticosti, les mangroves, l'Île-de-France, l'OVPM, les
+# algues bleues des Grands Lacs, la Californie agricole). « crie » attrapait
+# le verbe crier : remplacé par « nation crie » et « Eeyou Istchee ».
 
 # Les fils à interroger. Les cinq de La Presse ont répondu, les adresses de
 # Radio-Canada en rss.radio-canada.ca sont mortes : ce sous-domaine ne répond
@@ -83,6 +109,14 @@ fils:
   "Radio-Canada · Saguenay–Lac-Saint-Jean": https://ici.radio-canada.ca/info/rss/saguenay-lac-saint-jean/en-continu
   "Radio-Canada · Toronto": https://ici.radio-canada.ca/info/rss/ontario/toronto/en-continu
   "Radio-Canada · Windsor": https://ici.radio-canada.ca/info/rss/ontario/windsor/en-continu
+  # Ajoutés le 20 octobre 2026, éprouvés le jour même, 50 items chacun.
+  # Grand Nord : le Nunavut et le Nunavik de la fiche autochtone. Mauricie :
+  # les terres agricoles et le parc industriel de Bécancour. Le sous-thème
+  # Autochtones a été essayé et écarté : 22 propositions en deux semaines,
+  # surtout de la politique et des faits divers, assez pour noyer la page.
+  #   https://ici.radio-canada.ca/info/rss/sous-theme/autochtones
+  "Radio-Canada · Grand Nord": https://ici.radio-canada.ca/info/rss/grand-nord/en-continu
+  "Radio-Canada · Mauricie": https://ici.radio-canada.ca/info/rss/mauricie/en-continu
 
   # Journal de Montréal, fils demandés et éprouvés le 15 août 2026, 15 ou
   # 16 items chacun. Le fil environnement bouge lentement (parfois rien
@@ -122,6 +156,8 @@ exclure:
   - torture
   - perd la vie
   - perdu la vie
+  - meurt par balle
+  - incendie mortel
 
 # Rubriques à écarter, lues dans le chapeau du titre (« Chapeau | Titre »).
 # Ce sont des chroniques qui reviennent chaque semaine et que tu as refusées
@@ -166,11 +202,14 @@ geographie:
             communaute metropolitaine, gentrification, transport structurant,
             tramway, periurbain, societe de transport,
             metro de montreal, logement social, mobilite durable,
-            cyclable, penurie de logement,
-            revitalisation, conduite d eau, requalification]
+            penurie de logement,
+            revitalisation, conduite d eau, requalification,
+            collecte des dechets, gestion des dechets, ilot de chaleur,
+            verdissement, aeroport montreal-trudeau, bidonville, rem]
     faibles: [montreal, toronto, urbanisme, quartier, logement, arrondissement,
-              autoroute, grand montreal]
-    pieges: [circulation perturbee, candidat, jour du vote]
+              autoroute, grand montreal, cyclable]
+    sans_resume: [montreal, grand montreal, autoroute]
+    pieges: [circulation perturbee, candidat, jour du vote, rural, mrc]
   "03":
     nom: La ville patrimoniale
     forts: [patrimoine, patrimonial, patrimoniale, vieux-quebec, vieux-montreal,
@@ -179,7 +218,9 @@ geographie:
             petit-champlain, place royale, maison ancestrale,
             restauration du patrimoine, arrondissement historique,
             eglise desacralisee, lieu de culte, clocher, conseil de fabrique,
-            monument historique, lieu historique, site historique, basilique]
+            monument historique, lieu historique, site historique, basilique,
+            ovpm, ursulines, terrasse dufferin, funiculaire,
+            terminal de croisiere]
     faibles: [eglise, chapelle, vieille ville, monument, facade, restauration,
               demolition, reconversion, ville de quebec, cathedrale]
     pieges: [intelligence artificielle, patrimoine familial,
@@ -189,19 +230,24 @@ geographie:
     forts: [seisme, tremblement de terre, faille sismique, tsunami, eruption,
             volcan, ouragan, typhon, plan d evacuation, secousse, zone inondable,
             glissement de terrain, erosion cotiere, submersion cotiere,
-            securite civile, digue, inondation]
-    faibles: [risque naturel, ville cotiere, pluie diluvienne]
+            securite civile, digue, inondation, avalanche, ceinture de feu,
+            faille de san andreas, big one, norme parasismique, alerte precoce,
+            onde de tempete, tornade, cyclone]
+    faibles: [risque naturel, ville cotiere, pluie diluvienne, san francisco]
     pieges: [un seisme pour, seisme politique, droits de douane]
   "05":
     nom: Le territoire touristique
     forts: [tourisme, touriste, touristique, surtourisme, croisiere, croisieriste,
             paquebot, hebergement touristique, location de courte duree,
             location a court terme, airbnb, capacite d accueil, pourvoirie,
-            station de ski, sentier national, rocher perce, ile bonaventure]
+            station de ski, sentier national, rocher perce, ile bonaventure,
+            ecotourisme, agrotourisme, tourisme de memoire, parc d attractions,
+            tour eiffel, versailles, chic-chocs, route des phares]
     faibles: [visiteur, vacancier, plage, sentier, hotellerie, hotel, gaspesie,
               perce, tadoussac, iles-de-la-madeleine, sejour, itineraire,
               festival, camping, randonnee, plein air, achalandage,
               frequentation, saison estivale]
+    sans_resume: [camping, plein air, randonnee, sentier]
   "06":
     nom: Le territoire forestier
     forts: [deforestation, coupe forestiere, amazonie, foret boreale,
@@ -209,35 +255,45 @@ geographie:
             industrie forestiere, caribou forestier, papetiere, scierie,
             coupe a blanc, regime forestier, reboisement, tordeuse,
             bois d oeuvre, certification forestiere, sopfeu,
-            feu a ciel ouvert, feux a ciel ouvert]
+            feu a ciel ouvert, feux a ciel ouvert, mangrove, transamazonienne,
+            orpaillage, exploitation forestiere, travailleur forestier,
+            pates et papiers, recreotourisme]
     faibles: [foret, bois, arbre, sylviculture, boise]
   "07":
     nom: Le territoire énergétique du Québec
     forts: [hydro-quebec, barrage, centrale hydroelectrique, parc eolien,
-            filiere batterie, ligne de transport d electricite, la romaine,
+            filiere batterie, ligne de transport d electricite,
             eolienne, production d electricite, hydroelectricite,
             surplus energetique, poste electrique, energie eolienne,
-            transition energetique, energie renouvelable, oleoduc, gazoduc]
-    faibles: [energie, electricite, tarif, gaz naturel]
+            transition energetique, energie renouvelable, oleoduc, baie-james,
+            jamesie, manic-5, manicouagan, churchill falls, centre de donnees,
+            industrie energivore, bloc d energie, tarif d electricite,
+            penurie d electricite, energie solaire, panneau solaire,
+            hydrogene vert, gentilly]
+    faibles: [energie, electricite, tarif, gaz naturel, gazoduc]
   "09":
     nom: Le territoire industriel des Grands Lacs
     forts: [grands lacs, lac erie, lac huron, lac michigan, lac ontario,
             lac superieur, voie maritime, siderurgie, siderurgique, acierie,
-            acier, aluminium, aluminerie, desindustrialisation, delocalisation,
+            acier, aluminerie, desindustrialisation, delocalisation,
             zone industrielle, parc industriel, port de montreal,
             port de quebec, port de hamilton, terminal de conteneurs,
             porte-conteneurs, secteur manufacturier, industrie manufacturiere,
             usine automobile, industrie automobile, secteur automobile,
             constructeur automobile, usine de batteries,
             chaine de montage, chaine d approvisionnement, fermeture d usine,
-            pollution industrielle, ferraille, pays atelier]
+            pollution industrielle, ferraille, pays atelier, algues bleues,
+            moule zebree, microplastique, transport maritime,
+            industrie du vetement, arvida]
     faibles: [usine, industrie, manufacturier, exportation, saint-laurent,
               windsor, detroit, hamilton, oshawa, sarnia, sault-sainte-marie,
               mise a pied, licenciement, tarif, droits de douane, conteneur,
               multinationale, stelco, algoma, arcelormittal, rio tinto, alcoa,
-              stellantis, volkswagen]
+              stellantis, volkswagen, aluminium]
+    resume: false
     pieges: [vieux-port, greve, syndicat, metallos, unifor, mandat de greve,
-             convention collective, entente de principe]
+             convention collective, entente de principe, stelco,
+             cleveland-cliffs]
   "10":
     nom: Le territoire agricole national
     forts: [agriculture, agricole, agriculteur, agricultrice, terre agricole,
@@ -247,18 +303,25 @@ geographie:
             culture en serre, gestion de l offre, production laitiere,
             producteur laitier, ferme laitiere, maraicher, terre en friche,
             grande culture, monoculture, pesticide, bande riveraine,
-            agroalimentaire, transformation alimentaire, verger, pomiculteur,
-            acericulteur, erabliere, autocueillette]
+            agroalimentaire, transformation alimentaire, pomiculteur,
+            acericulteur, erabliere, irrigation, travailleur agricole, fumier,
+            agriculture biologique, sirop d erable, producteur acericole,
+            bleuetiere, bleuets sauvages, production de bleuets, fromagerie,
+            ferme familiale]
     faibles: [ferme, elevage, recolte, culture, producteur, engrais, betail,
-              bovin, porc, lait, garde-manger, travailleur etranger]
+              bovin, porc, lait, garde-manger, travailleur etranger, verger,
+              californie]
+    pieges: [punaise]
   "11":
     nom: Le territoire agricole soumis à des risques naturels
     forts: [mousson, bangladesh, salinisation, erosion des berges,
             secheresse agricole, submersion, delta du gange, riziere,
-            perte de recolte, gel tardif, grele, crue printaniere,
-            el nino, prevention des crues]
-    faibles: [inondation, secheresse, recolte, crue, mauvaise saison,
-              agriculteur, agricole, producteur]
+            perte de recolte, gel tardif, crue printaniere,
+            prevention des crues, sahel, desertification, grande muraille verte,
+            famine, criquet, insecurite alimentaire, cyclone]
+    faibles: [el nino, inondation, secheresse, recolte, crue, mauvaise saison,
+              agriculteur, agricole, producteur, aliment, mangrove]
+    deux_faibles: [el nino]
     pieges: [sante, deces]
   "12":
     nom: Le territoire autochtone du Québec et du Canada
@@ -266,15 +329,23 @@ geographie:
             nation autochtone, territoire autochtone, terre autochtone,
             reconciliation, inuit, revendication territoriale,
             territoire ancestral, assemblee des premieres nations, innu,
-            crie, atikamekw, mohawk, naskapi, huronne-wendat, conseil de bande,
-            titre ancestral, pensionnat]
-    faibles: [communaute, nation, reserve, consultation, entente]
-    pieges: [campagne, crime organise, casino, artiste, candidat, clinique]
+            nation crie, grand conseil des cris, eeyou istchee, atikamekw,
+            mohawk, naskapi, huronne-wendat, conseil de bande, titre ancestral,
+            pensionnat, nunavut, nunavik, iqaluit, paix des braves,
+            convention de la baie-james, wolastoqiyik, wolastoqey, malecite,
+            mi gmaq, micmac, abenaki, anishinabe, algonquin, droits ancestraux,
+            autonomie gouvernementale, pergelisol, passage du nord-ouest]
+    faibles: [communaute, nation, reserve, consultation, entente,
+              insecurite alimentaire]
+    pieges: [campagne, crime organise, casino, artiste, candidat, clinique,
+             police, pot-de-vin]
   "13":
     nom: "Le territoire protégé : le parc naturel"
     forts: [aire protegee, aire marine protegee, parc national,
             reserve de biosphere, galapagos, espece en voie de disparition,
             espece menacee, espece en peril, braconnage,
             conservation de la biodiversite, refuge faunique, reserve faunique,
-            habitat essentiel, sepaq]
-    faibles: [biodiversite, parc, faune, nature, habitat]
+            habitat essentiel, sepaq, anticosti, miguasha, mingan, forillon,
+            parc marin, beluga, espece envahissante, parcs canada,
+            reserve ecologique]
+    faibles: [biodiversite, parc, faune, nature, habitat, cerf de virginie]

@@ -178,6 +178,29 @@ r = articles.classer("Stelco : l'acierie de Hamilton", LEX)
 verdict("les forts s'additionnent", r and r[0][0] == 2 and r[0][1] == "09",
         str(r))
 
+LEX2 = {"geographie": {
+    "02": {"nom": "Métropole", "forts": ["tramway"],
+           "faibles": ["montreal", "logement"], "sans_resume": ["montreal"]},
+    "09": {"nom": "Industrie", "forts": ["acier"], "faibles": ["usine"],
+           "resume": False},
+    "11": {"nom": "Risque agricole", "forts": ["mousson"],
+           "faibles": ["el nino", "agriculteur", "aliment", "crue", "inondation"],
+           "deux_faibles": ["el nino"]},
+}}
+r = articles.classer("Déneigement à Montréal", LEX2, "Le tramway attendra.")
+verdict("un nom de ville ne confirme pas le résumé", r == [], str(r))
+r = articles.classer("Le logement à Montréal", LEX2, "Le tramway attendra.")
+verdict("un autre faible le confirme encore", r and r[0][1] == "02", str(r))
+r = articles.classer("Une usine ferme", LEX2, "L'acier en crise.")
+verdict("resume: false ferme la porte du résumé", r == [], str(r))
+r = articles.classer("El Niño inquiète les agriculteurs", LEX2)
+verdict("deux faibles valent un fort quand le territoire le demande",
+        r and r[0][1] == "11", str(r))
+r = articles.classer("El Niño atteint un niveau record", LEX2)
+verdict("un seul faible ne suffit toujours pas", r == [], str(r))
+r = articles.classer("Une crue et des inondations", LEX2)
+verdict("deux faibles sans le pivot ne suffisent pas", r == [], str(r))
+
 print("\nAPPRENTISSAGE")
 LEX["apprentissage"] = {"minimum": 5, "taux": 0.15}
 registre = [{"fiche": "05", "titre": f"Le tourisme, chronique {i}",
@@ -231,6 +254,20 @@ for titre, attendu in [
     ("ArcelorMittal à Contrecoeur : les Métallos en faveur de l’entente; fin de "
      "la grève", None),
     ("Les jeunes impressionnent chez les Remparts", None),
+    ("Atterrissage d’urgence à La Romaine : des accusations seront déposées",
+     None),
+    ("El Niño a-t-il un impact sur la couleur des feuilles?", None),
+    ("Comment les agriculteurs se préparent à El Niño?", "11"),
+    ("Hébergement touristique | Le plan de la Ville contre les Airbnb illégaux",
+     "05"),
+    ("Transport collectif : une réduction « inacceptable », selon la MRC de "
+     "Rivière-du-Loup", None),
+    ("Le maire crie au scandale devant le conseil", None),
+    ("La réserve stratégique de sirop d’érable est épuisée", "10"),
+    ("Des régions du Nunavut s’inquiètent", "12"),
+    ("Deux tornades en une heure en Haute-Mauricie", "04"),
+    ("Collisions non déclarées avec les bélugas?", "13"),
+    ("Le Sahel face à la désertification", "11"),
     ("Les agriculteurs ontariens demandent de l’aide", "10"),
     ("Cri du cœur pour sauver le patrimoine religieux de Québec", "03"),
     ("Autoroute 15: la voie réservée fermée pour quatre jours", None),

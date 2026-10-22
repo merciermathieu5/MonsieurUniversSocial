@@ -286,13 +286,28 @@ def termes(liste, texte: str) -> list[str]:
     return [m for m in (liste or []) if contient(m, texte)]
 
 
+def deux_faibles(reglage, faibles: list[str]) -> bool:
+    """Vrai si deux faibles du titre doivent valoir un fort.
+
+    Le réglage vaut true (n'importe quelle paire) ou une liste de pivots :
+    il faut alors un pivot et un autre faible. « El Niño » et « agriculteurs »
+    passent, « crue » et « inondation » restent aux risques de la ville.
+    """
+    distincts = set(faibles)
+    if not reglage or len(distincts) < 2:
+        return False
+    if reglage is True:
+        return True
+    return bool(distincts & set(reglage))
+
+
 def classer(titre: str, lexique: dict, resume: str = "",
             retrogrades: frozenset = frozenset()) -> list[tuple]:
     """Territoires candidats, du mieux noté au moins bon. Veto en premier.
 
-    Deux portes d'entrée, décrites en tête du lexique : un terme fort dans
-    le titre, ou un terme fort dans le résumé confirmé par un terme faible
-    du titre. Un terme fort de « retrogrades » (voir apprentissage) compte
+    Trois portes d'entrée, décrites en tête du lexique : un terme fort dans
+    le titre, un terme fort dans le résumé confirmé par un terme faible du
+    titre, ou deux faibles du titre pour un territoire marqué deux_faibles. Un terme fort de « retrogrades » (voir apprentissage) compte
     comme un faible : tes N répétés lui ont retiré le droit de décider seul.
     """
     plat = aplatir(titre)
@@ -318,10 +333,24 @@ def classer(titre: str, lexique: dict, resume: str = "",
             m for m in forts_bruts if (numero, m) in retrogrades]
         du_resume = [m for m in termes(regles.get("forts"), plat_resume)
                      if m not in forts_bruts and (numero, m) not in retrogrades]
+        # Les faibles qui peuvent confirmer un fort du résumé : un nom de
+        # ville ou un mot trop général (« Montréal », « droits de douane »)
+        # ne confirme rien, tes refus l'ont montré.
+        if regles.get("resume", True) is False:
+            confirmants = []
+        else:
+            exclus = set(regles.get("sans_resume") or [])
+            confirmants = [m for m in faibles if m not in exclus]
         if forts:
             note = 2 * len(forts) + len(faibles) + len(du_resume)
-        elif du_resume and faibles:
+        elif du_resume and confirmants:
             note = len(du_resume) + len(faibles)
+        elif deux_faibles(regles.get("deux_faibles"), faibles):
+            # Pour un territoire qui le demande : deux faibles distincts du
+            # titre valent un fort (« El Niño » et « agriculteurs »). Le point
+            # de plus fait passer ce territoire devant celui d'un fort seul :
+            # c'est la rencontre des deux mots qui fait le sujet.
+            note = len(set(faibles)) + 1
         else:
             continue
         if note >= 2:
