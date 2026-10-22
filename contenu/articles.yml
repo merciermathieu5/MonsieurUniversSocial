@@ -20,6 +20,64 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.lapresse.ca/affaires/2026-10-22/acier-et-automobile/une-enveloppe-de-9-milliards-pour-l-ontario.php"
+    fiche: "09"
+    media: "La Presse"
+    date: "2026-10-22"
+    titre: "Acier et automobile | Une enveloppe de 9 milliards pour l’Ontario"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294991/stelco-emplois-mise-demeure-melanie-joly"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-22"
+    titre: "Mises à pied chez Stelco : Ottawa met en demeure la maison mère américaine"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-10-22/inondations-en-australie/un-journaliste-participe-au-sauvetage-d-un-homme.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-10-22"
+    titre: "Inondations en Australie | Un journaliste participe au sauvetage d’un homme"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2294611/pont-tramway-limoilou-saint-roch"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-22"
+    titre: "Un nouveau pont « dédié au tramway » entre Limoilou et Saint-Roch"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/21/filiere-batterie-la-grc-debarque-chez-lion-electrique-a-st-jerome"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-10-21"
+    titre: "Filière batterie: la GRC effectue une perquisition chez Lion Électrique à Saint-Jérôme"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/2026-10-21/croisiere/destination-la-beaute-du-monde.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-10-21"
+    titre: "Croisière | Destination : la beauté du monde"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/10/21/rafales-a-320-km-h-le-super-typhon-champi-devient-la-tempete-la-plus-puissante-de-lannee"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-10-21"
+    titre: "Rafales à 320 km/h: le super typhon «Champi» devient la tempête la plus puissante de l’année"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/voyage/plein-air/2026-10-21/croisiere/la-croisiere-fait-du-plein-air.php"
     fiche: "05"
