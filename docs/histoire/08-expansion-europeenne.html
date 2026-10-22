@@ -2151,6 +2151,15 @@ Aztèques, dont la population est ravagée.</p>
 <p class="source-texte">(Source du texte : Evelyne Ferron et Karine Prémont, Le monde depuis le XVe
 siècle. Une histoire des sociétés en interaction, Fides Éducation, 2024,
 pages 178-179)</p>
+<aside class="encadre encadre--activite">
+<p class="encadre__titre">Activité</p>
+<p>Découvre à quoi pouvait ressembler Tenochtitlan en 1518, un an avant
+l'arrivée de Cortés, grâce à la <a href="https://tenochtitlan.thomaskole.nl/es.html">reconstitution numérique de Thomas Kole</a>.
+Fais défiler les images du Templo Mayor, des canaux et des chinampas, ces
+champs aménagés sur le lac, puis compare la ville d'autrefois avec le Mexico
+actuel. Le site est en espagnol, en anglais et en nahuatl, la langue des
+Aztèques, toujours parlée au Mexique.</p>
+</aside>
 <h3 id="les-consequences-sur-les-peuples-autochtones">Les conséquences sur les peuples autochtones</h3>
 <p>Dès leur arrivée sur le territoire américain, les Européens considèrent les
 habitants comme un peuple inférieur. Ils imposent leur culture, leur mode
@@ -2168,6 +2177,192 @@ territoires, de leur autonomie politique, de leurs richesses naturelles et
 de leur identité culturelle. En effet, les Européens les obligeaient à
 parler leur langue et à se convertir à la religion catholique. Elles ont
 donc subi l'acculturation.</p>
+<p>Tenochtitlan elle-même ne survit pas à la conquête. Les Espagnols démolissent
+ses temples et réutilisent leurs pierres pour bâtir Mexico sur ses ruines. Au
+fil des siècles, le lac est presque entièrement asséché et les canaux
+deviennent des rues. Compare la ville de 1518, telle que l'imagine Thomas
+Kole à partir des sources historiques et archéologiques, et la ville
+d'aujourd'hui, photographiée par drone sous le même angle.</p>
+<section class="tnm" id="tenochtitlan-mexico" aria-label="Tenochtitlan en 1518 et Mexico aujourd'hui">
+<style>
+.tnm { clear: both; margin: 1.6rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.tnm .tnm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tnm .tnm__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.tnm .tnm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.tnm__vues { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.tnm__vue { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.tnm__vue:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.tnm__vue[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.tnm .tnm__figure { margin: 0; }
+.tnm__scene { --tnm-pos: 50%; position: relative; aspect-ratio: var(--tnm-ratio, 2 / 1); max-width: calc(72vh * var(--tnm-rapport, 2)); margin: 0 auto; overflow: hidden; background: var(--surface-2); cursor: ew-resize; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.tnm__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; -webkit-user-drag: none; }
+.tnm__image--avant { clip-path: inset(0 calc(100% - var(--tnm-pos)) 0 0); }
+.tnm__repere { position: absolute; top: .7rem; z-index: 2; font-family: var(--donnee); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: rgba(18,26,34,.78); padding: .3rem .6rem; border-radius: var(--rayon); pointer-events: none; transition: opacity .2s; }
+.tnm__repere--avant { left: .7rem; }
+.tnm__repere--apres { right: .7rem; }
+.tnm__scene.est-a-gauche .tnm__repere--avant, .tnm__scene.est-a-droite .tnm__repere--apres { opacity: 0; }
+.tnm__curseur { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.tnm__trait { position: absolute; top: 0; bottom: 0; left: var(--tnm-pos); z-index: 2; width: 0; pointer-events: none; }
+.tnm__trait::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: #fff; box-shadow: 0 0 6px rgba(0,0,0,.45); }
+.tnm__poignee { position: absolute; top: 50%; left: 0; width: 2.6rem; height: 2.6rem; margin: -1.3rem 0 0 -1.3rem; border-radius: 50%; background: #fff; color: #1A2530; box-shadow: 0 2px 10px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; }
+.tnm__poignee svg { display: block; width: 1.4rem; height: 1.4rem; }
+.tnm__curseur:focus-visible ~ .tnm__trait .tnm__poignee { outline: 3px solid var(--signal); outline-offset: 2px; }
+.tnm .tnm__absent { display: none; position: absolute; inset: 0; z-index: 3; margin: 0; padding: 1.5rem; place-items: center; align-content: center; gap: .5rem; text-align: center; background: var(--surface-2); font-family: var(--titre); font-size: .92rem; color: var(--encre-doux); }
+.tnm .tnm__absent code { font-family: var(--donnee); font-size: .7rem; color: var(--encre-doux); background: var(--fond-creux); padding: .2rem .5rem; border-radius: var(--rayon); }
+.tnm__scene.est-absent { cursor: auto; }
+.tnm__scene.est-absent .tnm__absent { display: grid; }
+.tnm__scene.est-absent .tnm__trait, .tnm__scene.est-absent .tnm__repere { display: none; }
+.tnm .tnm__pied { display: grid; gap: .4rem; margin: 0; padding: .8rem 1.2rem .9rem; border-top: 1px solid var(--trait); }
+.tnm .tnm__legende { margin: 0; padding-left: .8rem; border-left: 3px solid var(--matiere); font-family: var(--titre); font-weight: 600; font-size: .88rem; line-height: 1.4; color: var(--encre); }
+.tnm__credits { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1.4rem; padding-left: calc(.8rem + 3px); }
+.tnm__credit { display: flex; align-items: baseline; gap: .45rem; font-family: var(--donnee); font-size: .68rem; line-height: 1.5; color: var(--encre-pale); }
+html[data-sombre="on"] .tnm .tnm__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .tnm .tnm__titre { color: var(--encre); }
+html[data-sombre="on"] .tnm .tnm__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .tnm__vue[aria-pressed="true"] { color: #10171F; }
+body[data-classe="on"] .tnm__credits { display: none; }
+@media (max-width: 40rem) { .tnm__vues { padding: .7rem .8rem; } .tnm .tnm__pied { padding: .7rem .8rem .8rem; } .tnm__repere { top: .45rem; font-size: .62rem; } .tnm__repere--avant { left: .45rem; } .tnm__repere--apres { right: .45rem; } }
+@media print { .tnm__vues { display: none; } .tnm__scene { cursor: auto; } }
+</style>
+<header class="tnm__entete">
+<p class="tnm__titre" role="heading" aria-level="3">Tenochtitlan en 1518, Mexico aujourd'hui</p>
+<p class="tnm__consigne">Choisis un point de vue, puis fais glisser le curseur</p>
+</header>
+<div class="tnm__vues" data-tnm="vues" role="group" aria-label="Points de vue"></div>
+<figure class="tnm__figure">
+<div class="tnm__scene" data-tnm="scene" style="--tnm-ratio: 1920 / 960; --tnm-rapport: 2">
+<img class="tnm__image tnm__image--apres" data-tnm="apres" src="../medias/08-expansion-europeenne/tenochtitlan-nord-aujourdhui.jpg" alt="Photographie aérienne de Mexico aujourd'hui, vue vers le nord" loading="lazy" decoding="async" draggable="false">
+<img class="tnm__image tnm__image--avant" data-tnm="avant" src="../medias/08-expansion-europeenne/tenochtitlan-nord-1518.jpg" alt="Reconstitution de Tenochtitlan en 1518, vue vers le nord" loading="lazy" decoding="async" draggable="false">
+<span class="tnm__repere tnm__repere--avant" data-tnm="repere-avant" aria-hidden="true">1518</span>
+<span class="tnm__repere tnm__repere--apres" data-tnm="repere-apres" aria-hidden="true">Aujourd'hui</span>
+<input class="tnm__curseur" data-tnm="curseur" type="range" min="0" max="100" step="1" value="50" aria-label="Comparer 1518 et aujourd'hui">
+<span class="tnm__trait" aria-hidden="true"><span class="tnm__poignee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></span>
+<p class="tnm__absent">Images à récupérer <code>python outils\images.py</code></p>
+</div>
+<figcaption class="tnm__pied">
+<p class="tnm__legende" data-tnm="legende">La vue vers le nord</p>
+<div class="tnm__credits">
+<div class="tnm__credit"><span>Reconstitution de 1518</span><details class="credit"><summary>Source</summary><span>Thomas Kole, <a href="https://tenochtitlan.thomaskole.nl/es.html" rel="noopener" target="_blank">Retrato de Tenochtitlan</a>. Licence&nbsp;: Creative Commons BY 4.0.</span></details></div>
+<div class="tnm__credit"><span>Photographie actuelle</span><details class="credit"><summary>Source</summary><span>Andrés Semo García (SemoDron), <a href="https://tenochtitlan.thomaskole.nl/es.html" rel="noopener" target="_blank">Retrato de Tenochtitlan</a>. Licence&nbsp;: Creative Commons BY 4.0.</span></details></div>
+</div>
+</figcaption>
+</figure>
+<script>
+(function () {
+  var racine = document.getElementById("tenochtitlan-mexico");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  // Les images viennent du projet Retrato de Tenochtitlan. La reconstitution
+  // est de Thomas Kole, les photographies aériennes d'Andrés Semo García.
+  // Leurs crédits vivent dans medias/sources.yml, comme pour toute image.
+  var DOSSIER = "../medias/08-expansion-europeenne/tenochtitlan-";
+  var VUES = [
+    { cle: "nord", nom: "Vers le nord", vue: "vue vers le nord",
+      legende: "La vue vers le nord", largeur: 1920, hauteur: 960 },
+    { cle: "ouest", nom: "Vers l'ouest", vue: "vue vers l'ouest et Chapultepec",
+      legende: "La vue vers l'ouest, en direction de Chapultepec, d'où un aqueduc apportait l'eau potable à Tenochtitlan",
+      largeur: 1920, hauteur: 960 },
+    { cle: "ile", nom: "Toute l'île", vue: "vue d'ensemble de l'île",
+      legende: "Une vue d'ensemble de l'île", largeur: 1920, hauteur: 960 },
+    { cle: "cerro", nom: "Du Cerro de la Estrella", vue: "vue depuis le Cerro de la Estrella",
+      legende: "La vue depuis le Cerro de la Estrella, une colline au sud-est de la ville",
+      largeur: 1920, hauteur: 984 }
+  ];
+  var scene = racine.querySelector('[data-tnm="scene"]');
+  var avant = racine.querySelector('[data-tnm="avant"]');
+  var apres = racine.querySelector('[data-tnm="apres"]');
+  var curseur = racine.querySelector('[data-tnm="curseur"]');
+  var legende = racine.querySelector('[data-tnm="legende"]');
+  var zoneVues = racine.querySelector('[data-tnm="vues"]');
+  var repereAvant = racine.querySelector('[data-tnm="repere-avant"]');
+  var repereApres = racine.querySelector('[data-tnm="repere-apres"]');
+  var boutons = [];
+  var glisse = false;
+  // Une étiquette s'efface dès que la séparation la recouvre : « 1518 » ne
+  // doit jamais rester posé sur la photo d'aujourd'hui, ni l'inverse.
+  function etiquettes(v) {
+    var largeur = scene.clientWidth;
+    if (largeur && repereAvant.offsetWidth) {
+      var x = v / 100 * largeur;
+      scene.classList.toggle("est-a-gauche", x < repereAvant.offsetLeft + repereAvant.offsetWidth + 6);
+      scene.classList.toggle("est-a-droite", x > repereApres.offsetLeft - 6);
+    } else {
+      scene.classList.toggle("est-a-gauche", v < 14);
+      scene.classList.toggle("est-a-droite", v > 86);
+    }
+  }
+  function poser(valeur) {
+    var v = Math.max(0, Math.min(100, Number(valeur) || 0));
+    v = Math.round(v * 10) / 10;
+    var entier = Math.round(v);
+    scene.style.setProperty("--tnm-pos", v + "%");
+    curseur.value = String(entier);
+    curseur.setAttribute("aria-valuetext", "1518 sur " + entier + " % de l'image, aujourd'hui sur " + (100 - entier) + " %");
+    etiquettes(v);
+  }
+  function deplacer(x) {
+    var boite = scene.getBoundingClientRect();
+    if (!boite.width) return;
+    poser((x - boite.left) / boite.width * 100);
+  }
+  function changer(img, src, alt) {
+    if (img.getAttribute("src") !== src) img.setAttribute("src", src);
+    img.alt = alt;
+  }
+  function montrer(i) {
+    var vue = VUES[i];
+    scene.classList.remove("est-absent");
+    changer(avant, DOSSIER + vue.cle + "-1518.jpg", "Reconstitution de Tenochtitlan en 1518, " + vue.vue);
+    changer(apres, DOSSIER + vue.cle + "-aujourdhui.jpg", "Photographie aérienne de Mexico aujourd'hui, " + vue.vue);
+    scene.style.setProperty("--tnm-ratio", vue.largeur + " / " + vue.hauteur);
+    scene.style.setProperty("--tnm-rapport", String(Math.round(vue.largeur / vue.hauteur * 1000) / 1000));
+    legende.textContent = vue.legende;
+    boutons.forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    poser(50);
+  }
+  VUES.forEach(function (vue, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "tnm__vue";
+    b.textContent = vue.nom;
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.addEventListener("click", function () { montrer(i); });
+    zoneVues.appendChild(b);
+    boutons.push(b);
+  });
+  [avant, apres].forEach(function (img) {
+    img.addEventListener("error", function () { scene.classList.add("est-absent"); });
+  });
+  // À la souris, un clic place la séparation et le glissement la suit. Au
+  // doigt, on attend le mouvement : un défilement vertical de la page reste
+  // possible (touch-action: pan-y) et l'annule sans rien déplacer.
+  scene.addEventListener("pointerdown", function (e) {
+    if (scene.classList.contains("est-absent")) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    glisse = true;
+    if (scene.setPointerCapture && e.pointerId !== undefined) {
+      try { scene.setPointerCapture(e.pointerId); } catch (erreur) { /* capture facultative */ }
+    }
+    if (e.pointerType !== "touch") deplacer(e.clientX);
+  });
+  scene.addEventListener("pointermove", function (e) { if (glisse) deplacer(e.clientX); });
+  scene.addEventListener("pointerup", function (e) {
+    if (glisse && e.pointerType === "touch") deplacer(e.clientX);
+    glisse = false;
+  });
+  scene.addEventListener("pointercancel", function () { glisse = false; });
+  curseur.addEventListener("input", function () { poser(curseur.value); });
+  window.addEventListener("resize", function () { etiquettes(Number(curseur.value)); });
+  // Espace et Entrée activent les boutons du composant : on les garde ici
+  // pour que le diaporama de la page ne change pas de section en même temps.
+  racine.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
+  });
+  montrer(0);
+})();
+</script>
+</section>
+
 <aside class="encadre encadre--questions">
 <p class="encadre__titre">Questions</p>
 <ol>
