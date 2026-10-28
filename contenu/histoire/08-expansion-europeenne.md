@@ -107,14 +107,18 @@ métaux précieux.
 
 ::: cartes
 **Les épices** Le poivre, la cannelle, le clou de girofle et la muscade
-sont les principales épices recherchées à cette époque. On s'en servait
-comme moyen d'échange, pour ajouter de la saveur aux aliments, comme
-médicament, mais surtout comme moyen de conserver la nourriture.
+sont les principales épices recherchées à cette époque. Très chères, elles
+donnent du goût aux plats des riches, qui montrent ainsi leur fortune à
+leurs invités. On s'en sert aussi comme médicament ou comme moyen
+d'échange. Contrairement à une idée répandue, elles ne servent pas à
+conserver la nourriture : pour cela, on sale, on sèche ou on fume les
+aliments.
 
-**La soie** Les monarques européens ont développé un goût pour la soie
-chinoise. Ils cherchent donc à obtenir ce produit par la route de la soie,
-puisque la Chine est la seule à connaître son processus de fabrication. Ce
-tissu peut aussi servir de monnaie d'échange.
+**La soie** Les monarques européens ont développé un goût pour la soie, un
+tissu doux, léger et brillant. La Chine, qui l'a inventée, en a longtemps
+gardé le secret. Au 15e siècle, la Perse en produit aussi beaucoup. Les
+Européens se procurent cette soie d'Orient par la route de la soie. En
+Chine, on s'en est même longtemps servi comme monnaie.
 
 **Les métaux précieux** En Europe, on manque d'or et d'argent depuis le
 14e siècle. Les mines européennes et africaines sont épuisées,
@@ -123,6 +127,15 @@ et la guerre a vidé les coffres de plusieurs familles royales. Le Livre des
 merveilles de Marco Polo incite aussi les monarques à mettre la main sur
 les richesses de l'Orient.
 :::
+
+### La route de la soie
+
+Ces produits viennent de très loin. Ils traversent l'Asie à dos de chameau ou
+l'océan Indien en bateau, en passant de marchand en marchand. Explore la carte
+pour voir d'où vient chaque produit, puis suis un sac de poivre pour comprendre
+pourquoi son prix grimpe à chaque étape du voyage.
+
+::: composant route-soie
 
 ## La prise de Constantinople en 1453
 
