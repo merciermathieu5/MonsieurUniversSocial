@@ -813,12 +813,12 @@ de mille ans plus tard, vers -575. Fais-la tourner, choisis un lieu pour lire sa
 description ou suis la visite guidée.</p>
 <section class="bab" id="babylone-maquette" aria-label="Maquette interactive de Babylone vers -575">
 <style>
-.bab { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; --bab-sur: #3A8A5C; --bab-lieu: #E39A2B; --bab-imagine: #A6A7B6; }
+.bab { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; --bab-sur: #3A8A5C; --bab-lieu: #E39A2B; --bab-imagine: #A6A7B6; }
 .bab .bab__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .bab .bab__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .bab .bab__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
-.bab__scene { position: relative; aspect-ratio: 16 / 10; max-height: 82vh; min-height: 17rem; background: #E3DBCB; overflow: hidden; border-bottom: 1px solid var(--trait); }
-.bab__scene:fullscreen { aspect-ratio: auto; width: 100%; height: 100%; max-height: none; border: 0; }
+.bab__scene { position: relative; width: 100%; height: 60vh; height: clamp(17rem, 62.5cqw, 82vh); background: #E3DBCB; overflow: hidden; border-bottom: 1px solid var(--trait); }
+.bab__scene:fullscreen { width: 100%; height: 100%; border: 0; }
 .bab__toile { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
 .bab__toile:active { cursor: grabbing; }
 .bab__toile:focus-visible { box-shadow: inset 0 0 0 3px var(--matiere); }
@@ -847,8 +847,8 @@ description ou suis la visite guidée.</p>
 .bab__secours[hidden] { display: none; }
 .bab .bab__secours-texte { margin: 0; max-width: 30rem; font-family: var(--titre); font-size: .95rem; line-height: 1.5; color: var(--encre-doux); }
 .bab.sans-3d .bab__toile, .bab.sans-3d .bab__outils, .bab.sans-3d .bab__aide, .bab.sans-3d .bab__reperes, .bab.sans-3d .bab__visite { display: none; }
-.bab.sans-3d .bab__scene { aspect-ratio: auto; min-height: 9rem; }
-.bab.a-plan .bab__scene { aspect-ratio: 5 / 5.2; max-height: 80vh; }
+.bab.sans-3d .bab__scene { height: auto; min-height: 9rem; }
+.bab.a-plan .bab__scene { height: 80vh; height: clamp(20rem, 100cqw, 80vh); }
 .bab.a-plan .bab__secours { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: .6rem; padding: .8rem; }
 .bab.a-plan .bab__secours-texte { align-self: center; }
 .bab__plan { display: block; width: 100%; flex: 1 1 auto; min-height: 0; border-radius: var(--rayon); }
@@ -896,8 +896,16 @@ html[data-sombre="on"] .bab__outil[aria-pressed="true"], html[data-sombre="on"] 
 html[data-sombre="on"] .bab .bab__role, html[data-sombre="on"] .bab .bab__auj strong, html[data-sombre="on"] .bab .bab__titre-etape { color: var(--encre); }
 html[data-sombre="on"] .bab .bab__repere.est-choisi { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
 html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--matiere); }
+@container (min-width: 62rem) {
+  .bab__choix { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem 2.2rem; }
+  .bab__groupe { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .bab .bab__groupe-nom { min-height: 0; }
+  .bab.est-pret .bab__panneau.est-visible { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: .8rem 1.2rem; align-items: start; }
+  .bab.est-pret .bab__panneau.est-visible > .bab__fiche { grid-column: 1; grid-row: 1 / span 3; }
+  .bab.est-pret .bab__panneau.est-visible > .bab__auj { grid-column: 2; margin: 0; }
+}
 @media (max-width: 40rem) {
-  .bab__scene { aspect-ratio: 4 / 4.6; max-height: 72vh; }
+  .bab__scene { height: 72vh; height: clamp(15rem, 115cqw, 72vh); }
   .bab__outils { top: .5rem; left: .5rem; right: .5rem; gap: .25rem; }
   .bab__contenu { padding: 1.1rem 1rem 1rem; }
   .bab__choix, .bab__visite { padding: .8rem; }
