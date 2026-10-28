@@ -243,6 +243,13 @@ exemple, le roi habite généralement dans un palais qui est entouré de
 fortifications. On retrouve également d'autres bâtiments comme un marché, des
 temples et des ziggourats.
 
+Les cités-États de Mésopotamie sont nées le long du Tigre et de l'Euphrate, à
+peu près au même moment que les premières villes d'Égypte, le long du Nil.
+Repère sur la carte ces trois fleuves, les mers qui entourent la région et les
+principales cités de ces deux civilisations.
+
+::: composant cites-mesopotamie-egypte
+
 ::: video OSTgxepXwIg
 Les cités-États de Mésopotamie
 :::
