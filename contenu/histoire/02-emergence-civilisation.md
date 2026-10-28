@@ -230,6 +230,16 @@ Babylone
 3. En comparant deux articles, montre que la loi n'était pas la même pour tous.
 :::
 
+### Visiter Babylone
+
+La Babylone d'Hammourabi est enfouie sous la ville plus récente, souvent sous la
+nappe d'eau souterraine : les archéologues n'ont presque pas pu la fouiller.
+La maquette montre plutôt la ville que le roi Nabuchodonosor II a rebâtie plus
+de mille ans plus tard, vers -575. Fais-la tourner, choisis un lieu pour lire sa
+description ou suis la visite guidée.
+
+::: composant babylone-maquette
+
 ## Les cités-États : indépendantes les unes des autres
 
 La Mésopotamie regroupe plusieurs villes qu'on appelle cités-États,
@@ -250,9 +260,7 @@ principales cités de ces deux civilisations.
 
 ::: composant cites-mesopotamie-egypte
 
-::: video OSTgxepXwIg
-Les cités-États de Mésopotamie
-:::
+[Voir en vidéo une reconstitution de la cité-État d'Ur](https://www.youtube.com/watch?v=OSTgxepXwIg)
 
 ## La hiérarchie sociale mésopotamienne
 
