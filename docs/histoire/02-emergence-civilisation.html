@@ -805,6 +805,1998 @@ articles.</p>
 <li>En comparant deux articles, montre que la loi n'était pas la même pour tous.</li>
 </ol>
 </aside>
+<h3 id="visiter-babylone">Visiter Babylone</h3>
+<p>La Babylone d'Hammourabi est enfouie sous la ville plus récente, souvent sous la
+nappe d'eau souterraine : les archéologues n'ont presque pas pu la fouiller.
+La maquette montre plutôt la ville que le roi Nabuchodonosor II a rebâtie plus
+de mille ans plus tard, vers -575. Fais-la tourner, choisis un lieu pour lire sa
+description ou suis la visite guidée.</p>
+<section class="bab" id="babylone-maquette" aria-label="Maquette interactive de Babylone vers -575">
+<style>
+.bab { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; --bab-sur: #3A8A5C; --bab-lieu: #E39A2B; --bab-imagine: #A6A7B6; }
+.bab .bab__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bab .bab__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.bab .bab__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.bab__scene { position: relative; aspect-ratio: 16 / 10; max-height: 82vh; min-height: 17rem; background: #E3DBCB; overflow: hidden; border-bottom: 1px solid var(--trait); }
+.bab__scene:fullscreen { aspect-ratio: auto; width: 100%; height: 100%; max-height: none; border: 0; }
+.bab__toile { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.bab__toile:active { cursor: grabbing; }
+.bab__toile:focus-visible { box-shadow: inset 0 0 0 3px var(--matiere); }
+.bab__reperes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.bab .bab__repere { position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: auto; margin: 0; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.2; color: #1F2328; background: rgba(255,255,255,.93); border: 1px solid rgba(31,35,40,.2); border-radius: 100px; padding: .24rem .62rem; white-space: nowrap; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.22); }
+.bab .bab__repere::after { content: ""; position: absolute; left: 50%; top: 100%; width: 2px; height: 9px; margin-left: -1px; background: rgba(255,255,255,.95); box-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.bab .bab__repere:hover { background: #fff; text-decoration: underline; }
+.bab .bab__repere.est-choisi { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.bab .bab__repere.est-choisi::after { background: var(--matiere-fonce); }
+.bab__outils { position: absolute; top: .65rem; left: .65rem; right: .65rem; display: flex; flex-wrap: wrap; gap: .3rem; pointer-events: none; }
+.bab__outil { pointer-events: auto; font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .8rem; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.bab__outil:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.bab__outil--rond { width: 2.05rem; padding: .32rem 0; font-size: .95rem; text-align: center; }
+.bab__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.bab__outil--droite { margin-left: auto; }
+.bab__legende { position: absolute; left: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .55rem .75rem; display: grid; gap: .25rem; background: rgba(255,255,255,.95); color: #1F2328; border-radius: var(--rayon); box-shadow: 0 1px 4px rgba(0,0,0,.2); font-family: var(--titre); font-size: .76rem; line-height: 1.3; }
+.bab__legende[hidden] { display: none; }
+.bab__legende span { display: flex; align-items: center; gap: .45rem; }
+.bab__legende i { width: .85rem; height: .85rem; border-radius: 2px; flex: none; }
+.bab__legende small { font-size: .7rem; color: #4A4F55; max-width: 22rem; }
+.bab__aide { position: absolute; right: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .32rem .65rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .03em; line-height: 1.45; color: #1F2328; background: rgba(255,255,255,.88); border-radius: var(--rayon); transition: opacity .5s; pointer-events: none; }
+.bab.a-bouge .bab__aide { opacity: 0; }
+.bab__avis { position: absolute; left: 50%; top: 50%; width: max-content; max-width: min(80%, 26rem); margin: 0; padding: .7rem 1rem; transform: translate(-50%, -50%); background: rgba(20,24,28,.86); color: #fff; border-radius: var(--rayon); font-family: var(--titre); font-size: .88rem; line-height: 1.4; text-align: center; opacity: 0; transition: opacity .25s; pointer-events: none; }
+.bab__avis.est-visible { opacity: 1; }
+.bab__secours { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--surface-2); text-align: center; }
+.bab__secours[hidden] { display: none; }
+.bab .bab__secours-texte { margin: 0; max-width: 30rem; font-family: var(--titre); font-size: .95rem; line-height: 1.5; color: var(--encre-doux); }
+.bab.sans-3d .bab__toile, .bab.sans-3d .bab__outils, .bab.sans-3d .bab__aide, .bab.sans-3d .bab__reperes, .bab.sans-3d .bab__visite { display: none; }
+.bab.sans-3d .bab__scene { aspect-ratio: auto; min-height: 9rem; }
+.bab.a-plan .bab__scene { aspect-ratio: 5 / 5.2; max-height: 80vh; }
+.bab.a-plan .bab__secours { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: .6rem; padding: .8rem; }
+.bab.a-plan .bab__secours-texte { align-self: center; }
+.bab__plan { display: block; width: 100%; flex: 1 1 auto; min-height: 0; border-radius: var(--rayon); }
+.bab__visite { display: flex; align-items: center; gap: .6rem 1rem; flex-wrap: wrap; padding: .75rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--matiere-voile); }
+.bab__lancer, .bab__prec, .bab__suiv, .bab__quitter { font-family: var(--titre); font-weight: 600; font-size: .84rem; border-radius: 100px; padding: .42rem 1rem; cursor: pointer; }
+.bab__lancer, .bab__suiv { color: #fff; background: var(--matiere); border: 1px solid var(--matiere); }
+.bab__lancer:hover, .bab__suiv:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.bab__prec, .bab__quitter { color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); }
+.bab__prec:hover, .bab__quitter:hover { color: var(--matiere-fonce); }
+.bab__prec:disabled { opacity: .45; cursor: default; }
+.bab .bab__invite { margin: 0; font-size: .92rem; line-height: 1.45; color: var(--encre-doux); flex: 1 1 16rem; }
+.bab__etapes { display: none; width: 100%; gap: .5rem 1rem; align-items: center; flex-wrap: wrap; }
+.bab.en-visite .bab__etapes { display: flex; }
+.bab.en-visite .bab__lancer, .bab.en-visite .bab__invite { display: none; }
+.bab .bab__etape { margin: 0; flex: 1 1 18rem; font-size: .93rem; line-height: 1.45; }
+.bab .bab__num { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.bab .bab__titre-etape { font-family: var(--titre); font-weight: 700; color: var(--matiere-fonce); margin-right: .35rem; }
+.bab__nav { display: flex; gap: .4rem; flex-wrap: wrap; }
+.bab__choix { display: grid; gap: .55rem; padding: .9rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.bab__groupe { display: grid; grid-template-columns: 12.5rem 1fr; align-items: start; gap: .4rem .75rem; }
+.bab .bab__groupe-nom { margin: 0; min-height: 2.15rem; display: flex; align-items: center; font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.bab__boutons { display: flex; flex-wrap: wrap; gap: .4rem; }
+.bab__bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .4rem .9rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.bab__bouton:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.bab__bouton[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.bab__contenu { padding: 1.3rem 1.4rem 1.4rem; }
+.bab.est-pret .bab__panneau { display: none; }
+.bab.est-pret .bab__panneau.est-visible { display: block; }
+.bab__panneau + .bab__panneau { margin-top: 1.2rem; }
+.bab.est-pret .bab__panneau + .bab__panneau { margin-top: 0; }
+.bab__fiche { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.bab .bab__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.bab .bab__role { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .45rem; }
+.bab .bab__detail { margin: 0; font-size: .97rem; line-height: 1.6; }
+.bab .bab__detail + .bab__detail { margin-top: .6rem; }
+.bab .bab__auj { margin: 1rem 0 0; padding: .8rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.55; }
+.bab .bab__auj + .bab__auj { margin-top: .6rem; }
+.bab .bab__auj strong { color: var(--matiere-fonce); }
+.bab .bab__source { margin: 0; padding: .55rem 1.4rem .8rem; font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+.bab__etape-donnees { display: none; }
+html[data-sombre="on"] .bab .bab__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .bab .bab__titre { color: var(--encre); }
+html[data-sombre="on"] .bab .bab__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .bab__outil[aria-pressed="true"], html[data-sombre="on"] .bab__bouton[aria-pressed="true"], html[data-sombre="on"] .bab__lancer, html[data-sombre="on"] .bab__suiv { color: #10171F; }
+html[data-sombre="on"] .bab .bab__role, html[data-sombre="on"] .bab .bab__auj strong, html[data-sombre="on"] .bab .bab__titre-etape { color: var(--encre); }
+html[data-sombre="on"] .bab .bab__repere.est-choisi { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--matiere); }
+@media (max-width: 40rem) {
+  .bab__scene { aspect-ratio: 4 / 4.6; max-height: 72vh; }
+  .bab__outils { top: .5rem; left: .5rem; right: .5rem; gap: .25rem; }
+  .bab__contenu { padding: 1.1rem 1rem 1rem; }
+  .bab__choix, .bab__visite { padding: .8rem; }
+  .bab__groupe { grid-template-columns: 1fr; }
+  .bab .bab__groupe-nom { min-height: 0; margin-top: .2rem; }
+  .bab__outil { font-size: .72rem; padding: .26rem .62rem; }
+  .bab__outil--rond { width: 1.85rem; padding: .26rem 0; }
+  .bab__aide { display: none; }
+  .bab .bab__repere { font-size: .68rem; padding: .18rem .5rem; }
+}
+@media print {
+  .bab__scene, .bab__visite, .bab__choix, .bab .bab__consigne { display: none; }
+  .bab .bab__panneau { display: block !important; break-inside: avoid; }
+  .bab .bab__panneau + .bab__panneau { margin-top: 1rem !important; }
+}
+</style>
+<div class="bab__entete">
+<p class="bab__titre" role="heading" aria-level="3">Babylone vers -575</p>
+<p class="bab__consigne">Fais tourner la ville · Choisis un lieu</p>
+</div>
+<div class="bab__scene">
+<canvas class="bab__toile" tabindex="0" role="img" aria-label="Maquette en trois dimensions de Babylone vers -575, au temps du roi Nabuchodonosor II. Avec le clavier : les flèches font tourner la maquette, les touches plus et moins font zoomer. La liste des lieux, sous la maquette, donne la description de chaque partie de la ville."></canvas>
+<div class="bab__reperes" aria-hidden="true"></div>
+<div class="bab__outils">
+<button type="button" class="bab__outil" data-action="ensemble">Vue d'ensemble</button>
+<button type="button" class="bab__outil bab__outil--rond" data-action="plus" aria-label="Zoomer">+</button>
+<button type="button" class="bab__outil bab__outil--rond" data-action="moins" aria-label="Dézoomer">−</button>
+<button type="button" class="bab__outil" data-action="certitude" aria-pressed="false">Ce qu'on sait vraiment</button>
+<button type="button" class="bab__outil bab__outil--droite" data-action="plein" hidden>Plein écran</button>
+</div>
+<p class="bab__legende" hidden>
+<span><i style="background:var(--bab-sur)"></i>Fouillé par les archéologues : plan connu</span>
+<span><i style="background:var(--bab-lieu)"></i>Emplacement connu, forme imaginée</span>
+<span><i style="background:var(--bab-imagine)"></i>Imaginé d'après ce qu'on sait d'ailleurs</span>
+<small>Les hauteurs sont presque toujours estimées : seuls les plans au sol ont été retrouvés.</small>
+</p>
+<p class="bab__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Ctrl + molette pour zoomer</p>
+<p class="bab__avis" role="status"></p>
+<div class="bab__secours" hidden><p class="bab__secours-texte"></p></div>
+</div>
+<div class="bab__visite">
+<button type="button" class="bab__lancer">Commencer la visite guidée</button>
+<p class="bab__invite">Suis la grande procession du Nouvel An, du nord de la ville jusqu'au temple de Marduk.</p>
+<div class="bab__etapes">
+<p class="bab__etape" aria-live="polite"><span class="bab__num"></span><span class="bab__titre-etape"></span><span class="bab__texte-etape"></span></p>
+<div class="bab__nav">
+<button type="button" class="bab__prec">Précédent</button>
+<button type="button" class="bab__suiv">Suivant</button>
+<button type="button" class="bab__quitter">Quitter la visite</button>
+</div>
+</div>
+</div>
+<p class="bab__etape-donnees" data-partie="accueil" data-titre="Babylone au printemps." data-vue="380,700,5600,200,30,0">C&#x27;est la fête du Nouvel An. La statue de Marduk revient en procession vers son temple. Suivons-la depuis le nord.</p>
+<p class="bab__etape-donnees" data-partie="rempart-ext" data-titre="Le rempart extérieur." data-vue="500,2600,2400,200,30,0">La procession entre d&#x27;abord dans la grande enceinte, près du palais d&#x27;été.</p>
+<p class="bab__etape-donnees" data-partie="voie" data-titre="La voie processionnelle." data-vue="150,900,420,195,22,5">Elle avance ensuite entre deux murs décorés de lions.</p>
+<p class="bab__etape-donnees" data-partie="ishtar" data-titre="La porte d&#x27;Ishtar." data-vue="128,815,210,197,14,12">Elle passe sous la grande porte bleue, l&#x27;entrée nord de la ville intérieure.</p>
+<p class="bab__etape-donnees" data-partie="palais-sud" data-titre="Le palais sud." data-vue="20,640,520,75,32,5">Sur sa droite, derrière de hauts murs, s&#x27;étend le palais du roi.</p>
+<p class="bab__etape-donnees" data-partie="ziggourat" data-titre="L&#x27;Etemenanki." data-vue="10,-40,520,28,22,30">Plus loin se dresse la grande ziggourat, au milieu de son enceinte sacrée.</p>
+<p class="bab__etape-donnees" data-partie="esagil" data-titre="L&#x27;Esagil." data-vue="70,-300,430,55,30,8">La statue de Marduk retrouve enfin son temple.</p>
+<p class="bab__etape-donnees" data-partie="maisons" data-titre="Les quartiers." data-vue="420,380,360,35,40,3">Pendant ce temps, la vie continue dans les quartiers d&#x27;habitation.</p>
+<p class="bab__etape-donnees" data-partie="pont" data-titre="Le pont sur l&#x27;Euphrate." data-vue="-170,-205,300,195,20,3">Le fleuve et son pont relient les deux moitiés de la ville.</p>
+<p class="bab__etape-donnees" data-partie="rempart-int" data-titre="Le rempart intérieur." data-vue="1240,600,330,75,22,8">Deux murs et un fossé protègent la ville. Fin de la visite : à toi d&#x27;explorer !</p>
+<div class="bab__choix">
+<div class="bab__groupe">
+<p class="bab__groupe-nom">Dieux et temples</p>
+<div class="bab__boutons">
+<button type="button" class="bab__bouton" data-partie="ziggourat" aria-pressed="false" aria-controls="bab-ziggourat" data-court="Etemenanki">Ziggourat Etemenanki</button>
+<button type="button" class="bab__bouton" data-partie="esagil" aria-pressed="false" aria-controls="bab-esagil" data-court="Esagil">Esagil, temple de Marduk</button>
+<button type="button" class="bab__bouton" data-partie="temples" aria-pressed="false" aria-controls="bab-temples" data-court="Temple">Temples de quartier</button>
+</div>
+</div>
+<div class="bab__groupe">
+<p class="bab__groupe-nom">Le roi et ses palais</p>
+<div class="bab__boutons">
+<button type="button" class="bab__bouton" data-partie="palais-sud" aria-pressed="false" aria-controls="bab-palais-sud">Palais sud</button>
+<button type="button" class="bab__bouton" data-partie="jardins" aria-pressed="false" aria-controls="bab-jardins" data-court="Jardins suspendus ?">Jardins suspendus ?</button>
+<button type="button" class="bab__bouton" data-partie="palais-nord" aria-pressed="false" aria-controls="bab-palais-nord">Palais nord</button>
+<button type="button" class="bab__bouton" data-partie="palais-ete" aria-pressed="false" aria-controls="bab-palais-ete">Palais d&#x27;été</button>
+</div>
+</div>
+<div class="bab__groupe">
+<p class="bab__groupe-nom">Remparts, portes et voies</p>
+<div class="bab__boutons">
+<button type="button" class="bab__bouton" data-partie="ishtar" aria-pressed="false" aria-controls="bab-ishtar">Porte d&#x27;Ishtar</button>
+<button type="button" class="bab__bouton" data-partie="voie" aria-pressed="false" aria-controls="bab-voie">Voie processionnelle</button>
+<button type="button" class="bab__bouton" data-partie="rempart-int" aria-pressed="false" aria-controls="bab-rempart-int">Rempart intérieur</button>
+<button type="button" class="bab__bouton" data-partie="rempart-ext" aria-pressed="false" aria-controls="bab-rempart-ext">Rempart extérieur</button>
+</div>
+</div>
+<div class="bab__groupe">
+<p class="bab__groupe-nom">La ville et ses environs</p>
+<div class="bab__boutons">
+<button type="button" class="bab__bouton" data-partie="maisons" aria-pressed="false" aria-controls="bab-maisons" data-court="Maisons">Maisons et quartiers</button>
+<button type="button" class="bab__bouton" data-partie="euphrate" aria-pressed="false" aria-controls="bab-euphrate">Euphrate</button>
+<button type="button" class="bab__bouton" data-partie="pont" aria-pressed="false" aria-controls="bab-pont">Pont</button>
+<button type="button" class="bab__bouton" data-partie="campagne" aria-pressed="false" aria-controls="bab-campagne" data-court="Champs et palmeraies">Champs et palmeraies</button>
+</div>
+</div>
+</div>
+<div class="bab__contenu">
+<div class="bab__panneau bab__panneau--accueil" data-partie="accueil" id="bab-accueil">
+<div class="bab__fiche">
+<span class="bab__lieu">Babylone · Vers -575</span>
+<span class="bab__role">La capitale de Nabuchodonosor II</span>
+<p class="bab__detail">Tu survoles Babylone vers -575, plus de mille ans après Hammourabi. Le roi Nabuchodonosor II a rebâti sa capitale avec des millions de briques : deux enceintes de remparts, des palais, des temples et la célèbre porte d'Ishtar. L'Euphrate coupe la ville en deux.</p>
+<p class="bab__detail">Fais tourner la maquette en glissant avec la souris ou avec le doigt. Choisis un lieu sur la maquette ou dans la liste pour lire sa description, ou suis la visite guidée.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Beaucoup de briques portent un tampon au nom du roi : « Nabuchodonosor, roi de Babylone, qui prend soin de l'Esagil et de l'Ezida, fils aîné de Nabopolassar, roi de Babylone ». On en trouve encore partout dans les ruines.</p>
+<p class="bab__auj"><strong>Une reconstitution.</strong> Le plan des monuments vient surtout des fouilles menées de 1899 à 1917 par l'archéologue allemand Robert Koldewey. Les hauteurs, les maisons et la rive ouest, presque jamais fouillée, sont imaginées d'après ce qu'on sait. Le bouton « Ce qu'on sait vraiment » colore la maquette selon ce que les archéologues ont retrouvé.</p>
+</div>
+<div class="bab__panneau" data-partie="ziggourat" id="bab-ziggourat">
+<div class="bab__fiche">
+<span class="bab__lieu">Ziggourat · Dieu Marduk</span>
+<span class="bab__role">L&#x27;Etemenanki, la tour à étages</span>
+<p class="bab__detail">Son nom veut dire « maison du fondement du ciel et de la terre ». C'est la ziggourat de Marduk, le dieu protecteur de Babylone. Selon une tablette ancienne, elle compte sept étages et mesure environ 90 m de haut, autant que la largeur de sa base. C'est la hauteur d'un immeuble d'une trentaine d'étages.</p>
+<p class="bab__detail">Un temple couronne le sommet. On y monte par trois grands escaliers, sur la face sud. Détruite par les Assyriens en -689, la tour a été rebâtie peu à peu. Nabuchodonosor II l'achève en faisant élever le temple du sommet.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Beaucoup d'historiens pensent que cette tour a inspiré le récit de la tour de Babel, dans la Bible.</p>
+<p class="bab__auj"><strong>Aujourd&#x27;hui.</strong> Il ne reste de la tour que la trace de sa base. Elle a été démontée vers -300, après la mort d'Alexandre le Grand, qui voulait la reconstruire.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Les archéologues ont mesuré la base, de 91 m de côté. Les étages suivent la tablette ancienne. Certains spécialistes pensent toutefois que la tour était plus basse, autour de 60 m.</p>
+</div>
+<div class="bab__panneau" data-partie="esagil" id="bab-esagil">
+<div class="bab__fiche">
+<span class="bab__lieu">Temple · Dieu Marduk</span>
+<span class="bab__role">L&#x27;Esagil, la maison de Marduk</span>
+<p class="bab__detail">L'Esagil, « la maison au sommet élevé », est le plus important temple de Babylone. Son sanctuaire abrite la statue de Marduk, le roi des dieux de Babylone. Son épouse, la déesse Zarpanitu, y a aussi sa statue. Les prêtres s'occupent des statues comme d'un roi et d'une reine : ils leur apportent chaque jour à manger.</p>
+<p class="bab__detail">Au printemps, la fête du Nouvel An dure douze jours. Le huitième jour, une grande procession porte la statue de Marduk hors de la ville, au nord, jusqu'au temple de la fête. Elle revient à l'Esagil quelques jours plus tard.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Selon un texte ancien, le grand prêtre gifle le roi devant la statue de Marduk pendant la fête. Si le roi pleure, c'est le signe que le dieu est content.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le temple est enfoui sous près de 20 m de terre. Koldewey l'a exploré en creusant des puits et des tunnels : on connaît son plan, pas sa hauteur.</p>
+</div>
+<div class="bab__panneau" data-partie="temples" id="bab-temples">
+<div class="bab__fiche">
+<span class="bab__lieu">Temples · Dieux et déesses</span>
+<span class="bab__role">Les temples de quartier</span>
+<p class="bab__detail">Une tablette ancienne, qui décrit la ville, nomme 43 temples. Les archéologues en ont fouillé quelques-uns. La maquette en montre quatre. Celui de la déesse Ninmah se dresse près de la porte d'Ishtar. Celui d'Ishtar d'Akkad se cache au milieu des maisons. Les deux autres appartiennent aux dieux Nabû et Ninurta.</p>
+<p class="bab__detail">Ils se ressemblent : une entrée encadrée de deux tours, une cour, puis le sanctuaire où se trouve la statue du dieu ou de la déesse.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Dans le temple de Nabû, le dieu de l'écriture, les archéologues ont trouvé de nombreuses tablettes d'exercices d'élèves scribes.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Ces quatre temples ont été fouillés : leur plan est connu.</p>
+</div>
+<div class="bab__panneau" data-partie="palais-sud" id="bab-palais-sud">
+<div class="bab__fiche">
+<span class="bab__lieu">Palais du roi</span>
+<span class="bab__role">Le palais sud</span>
+<p class="bab__detail">C'est le grand palais de Nabopolassar et de son fils Nabuchodonosor II. Il s'appuie sur le rempart, entre la voie processionnelle et l'Euphrate. Ses centaines de salles se groupent autour de cinq grandes cours : logements, bureaux, entrepôts et salles de réception.</p>
+<p class="bab__detail">La salle du trône, longue de 52 m, s'ouvre sur la cour principale. Sa façade est couverte de briques émaillées : des colonnes, des palmettes et, à la base, des lions qui avancent.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> En -323, le conquérant Alexandre le Grand meurt dans un palais de Babylone. Les textes anciens ne disent pas lequel.</p>
+<p class="bab__auj"><strong>Aujourd&#x27;hui.</strong> Dans les années 1980, le dictateur irakien Saddam Hussein a fait rebâtir une partie du palais par-dessus les ruines, avec des briques à son nom, comme Nabuchodonosor. Ces travaux ont abîmé les vestiges.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le plan a été fouillé. Les hauteurs sont estimées.</p>
+</div>
+<div class="bab__panneau" data-partie="jardins" id="bab-jardins">
+<div class="bab__fiche">
+<span class="bab__lieu">Un mystère</span>
+<span class="bab__role">Les jardins suspendus ont-ils existé ?</span>
+<p class="bab__detail">Des auteurs grecs racontent qu'un roi de Babylone a fait aménager des jardins en terrasses pour sa femme, qui regrettait les montagnes de son pays. Ils en font l'une des sept merveilles du monde.</p>
+<p class="bab__detail">Pourtant, aucun texte babylonien n'en parle. L'historien grec Hérodote, qui décrit Babylone, n'en dit rien non plus. Koldewey croyait les avoir trouvés ici, dans un bâtiment voûté du palais sud. On pense aujourd'hui qu'il s'agissait plutôt d'entrepôts ou de bureaux. Certains spécialistes placent même les jardins à Ninive, la capitale de l'Assyrie.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Comme personne ne sait à quoi ils ressemblaient, ni même s'ils ont existé, ils ne sont pas représentés.</p>
+</div>
+<div class="bab__panneau" data-partie="palais-nord" id="bab-palais-nord">
+<div class="bab__fiche">
+<span class="bab__lieu">Palais du roi</span>
+<span class="bab__role">Le palais nord</span>
+<p class="bab__detail">Nabuchodonosor II fait bâtir un nouveau palais juste au nord du palais sud, à cheval sur le rempart. Il s'élève sur une plate-forme de briques d'environ 15 m de haut.</p>
+<p class="bab__detail">Construit comme une forteresse, il domine la voie processionnelle et protège l'entrée nord de la ville.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> L'emplacement est connu, mais le palais n'a été fouillé qu'en partie : sa forme est imaginée.</p>
+</div>
+<div class="bab__panneau" data-partie="palais-ete" id="bab-palais-ete">
+<div class="bab__fiche">
+<span class="bab__lieu">Palais du roi · Au nord de la ville</span>
+<span class="bab__role">Le palais d&#x27;été</span>
+<p class="bab__detail">À la pointe nord du rempart extérieur, à environ 2,5 km de la porte d'Ishtar, Nabuchodonosor II fait bâtir un autre palais. Il le pose sur une énorme plate-forme de briques, haute d'environ 18 m. Les archéologues l'appellent le palais d'été.</p>
+<p class="bab__detail">Ses ruines forment aujourd'hui une colline nommée Tell Babil. C'est elle qui a gardé le nom de la ville.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> L'emplacement et la plate-forme sont connus. La forme du palais est imaginée.</p>
+</div>
+<div class="bab__panneau" data-partie="ishtar" id="bab-ishtar">
+<div class="bab__fiche">
+<span class="bab__lieu">Porte de la ville · Vers -575</span>
+<span class="bab__role">La porte d&#x27;Ishtar</span>
+<p class="bab__detail">C'est la plus célèbre des huit portes de la ville intérieure. Elle porte le nom d'Ishtar, déesse de l'amour et de la guerre. C'est une double porte : une petite porte dans le mur extérieur, puis une grande, beaucoup plus haute, dans le mur intérieur.</p>
+<p class="bab__detail">Ses murs sont couverts de briques émaillées d'un bleu éclatant. Des rangées de taureaux, l'animal du dieu de l'orage Adad, alternent avec des dragons, l'animal de Marduk. On en compte environ 575.</p>
+</div>
+<p class="bab__auj"><strong>Aujourd&#x27;hui.</strong> Dégagée en 1902, la porte a été rapportée en Allemagne en milliers de morceaux. La petite porte a été remontée au musée de Pergame, à Berlin : elle mesure près de 15 m de haut. La grande porte n'a jamais été remontée.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le plan a été fouillé. La hauteur de la grande porte est estimée.</p>
+</div>
+<div class="bab__panneau" data-partie="voie" id="bab-voie">
+<div class="bab__fiche">
+<span class="bab__lieu">Rue sacrée · Vers -575</span>
+<span class="bab__role">La voie processionnelle</span>
+<p class="bab__detail">Cette large avenue dallée traverse la ville du nord au sud, jusqu'aux temples de Marduk. Son nom babylonien signifie à peu près « que l'ennemi ne passe pas ». C'est le chemin de la grande procession du Nouvel An.</p>
+<p class="bab__detail">Au nord de la porte d'Ishtar, elle passe entre deux hauts murs décorés de 120 lions de briques émaillées. Le lion est l'animal d'Ishtar.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Les dalles de pierre du pavé portent une inscription : Nabuchodonosor II y dit avoir fait paver la rue pour la procession du grand dieu Marduk.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le tracé et la largeur sont connus par les fouilles. La hauteur des murs est estimée.</p>
+</div>
+<div class="bab__panneau" data-partie="rempart-int" id="bab-rempart-int">
+<div class="bab__fiche">
+<span class="bab__lieu">Défense · Deux murs et un fossé</span>
+<span class="bab__role">Le rempart intérieur</span>
+<p class="bab__detail">La ville intérieure est entourée de deux murs de briques, séparés par un passage d'environ 7 m. Le mur intérieur, Imgur-Enlil, est épais de 6,5 m. Le mur extérieur, Nemetti-Enlil, est épais de près de 4 m. Des tours s'y dressent tous les 18 à 20 m environ.</p>
+<p class="bab__detail">Devant les murs, un fossé large de plus de 50 m, rempli par l'eau de l'Euphrate, tient l'ennemi à distance. On entre dans la ville par huit portes. Chacune porte le nom d'un dieu, comme la porte d'Ishtar ou la porte de Marduk.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Sur la rive est, le tracé a été fouillé. Sur la rive ouest, presque pas fouillée, il est probable mais pas certain. Personne ne connaît la hauteur des murs. Selon une étude récente, le mur intérieur mesurait au moins 15 m.</p>
+</div>
+<div class="bab__panneau" data-partie="rempart-ext" id="bab-rempart-ext">
+<div class="bab__fiche">
+<span class="bab__lieu">Défense · Rive est</span>
+<span class="bab__role">Le rempart extérieur</span>
+<p class="bab__detail">Nabuchodonosor II fait ajouter une deuxième enceinte, beaucoup plus grande, à l'est du fleuve. Longue d'environ 7 km, elle protège les faubourgs, les jardins et le palais d'été.</p>
+<p class="bab__detail">Elle compte deux murs épais, l'un de briques crues, l'autre de briques cuites. L'espace entre les deux est rempli de gravats. Avec le mur du fossé, l'ensemble mesure environ 30 m d'épaisseur.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Selon l'historien grec Hérodote, le sommet du rempart était assez large pour qu'un char tiré par quatre chevaux puisse y circuler.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le tracé est connu sur presque tout son parcours. La partie sud, vers le fleuve, est probable.</p>
+</div>
+<div class="bab__panneau" data-partie="maisons" id="bab-maisons">
+<div class="bab__fiche">
+<span class="bab__lieu">Quartiers d&#x27;habitation</span>
+<span class="bab__role">Les maisons des Babyloniens</span>
+<p class="bab__detail">Les maisons sont en briques crues et n'ont sans doute qu'un étage. Leurs pièces s'ouvrent sur une cour centrale, qui apporte la lumière et l'air. La pièce principale borde le côté sud de la cour. Les toits plats sont faits de troncs de palmier couverts d'argile.</p>
+<p class="bab__detail">Les plus petites maisons occupent environ 100 m². Celles des familles riches dépassent 1000 m² et comptent plusieurs cours.</p>
+</div>
+<p class="bab__auj"><strong>À savoir.</strong> Combien de personnes vivent à Babylone ? Les historiens l'estiment entre 80 000 et plus de 200 000 : personne n'a pu les compter.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Les archéologues ont fouillé un quartier aisé, le Merkes, à l'est de la voie processionnelle. Les autres maisons sont imaginées sur ce modèle.</p>
+</div>
+<div class="bab__panneau" data-partie="euphrate" id="bab-euphrate">
+<div class="bab__fiche">
+<span class="bab__lieu">Fleuve · Traverse la ville</span>
+<span class="bab__role">L&#x27;Euphrate</span>
+<p class="bab__detail">Le fleuve traverse Babylone du nord au sud et la coupe en deux. À l'est se trouve la vieille ville; à l'ouest, la ville nouvelle. Il remplit les fossés et les canaux, arrose les champs et sert de route aux bateaux de marchandises.</p>
+<p class="bab__detail">Des quais de briques cuites, jointes avec du bitume, protègent la ville contre les crues.</p>
+</div>
+<p class="bab__auj"><strong>Aujourd&#x27;hui.</strong> Le fleuve a changé de lit plusieurs fois. En se déplaçant vers l'ouest, il a recouvert une partie de la ville ouest, qui a presque disparu.</p>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Le cours ancien est reconstitué d'après les quais et le pont retrouvés par les archéologues.</p>
+</div>
+<div class="bab__panneau" data-partie="pont" id="bab-pont">
+<div class="bab__fiche">
+<span class="bab__lieu">Pont · Sur l&#x27;Euphrate</span>
+<span class="bab__role">Le pont</span>
+<p class="bab__detail">Ce pont relie les deux moitiés de la ville. Long de plus de 120 m, il repose sur sept piles de briques et de pierre, longues de 21 m. Leur forme de bateau les aide à résister au courant. Le tablier, en bois, passe d'une pile à l'autre.</p>
+<p class="bab__detail">Selon l'historien grec Hérodote, on retirait les planches chaque nuit pour que les voleurs ne puissent pas passer d'une rive à l'autre.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Les piles ont été retrouvées en 1910. Le tablier de bois est imaginé.</p>
+</div>
+<div class="bab__panneau" data-partie="campagne" id="bab-campagne">
+<div class="bab__fiche">
+<span class="bab__lieu">Autour de la ville</span>
+<span class="bab__role">Champs, canaux et palmeraies</span>
+<p class="bab__detail">Autour de Babylone s'étend une plaine découpée en champs et traversée de canaux. Grâce à l'irrigation, les paysans y cultivent l'orge, des légumes et surtout le palmier dattier.</p>
+<p class="bab__detail">Ces récoltes nourrissent la ville. Les surplus sont gardés dans les entrepôts des temples et du palais.</p>
+</div>
+<p class="bab__auj"><strong>Sur la maquette.</strong> Les champs et les palmeraies sont imaginés : on sait qu'ils entouraient la ville, mais pas leur dessin.</p>
+</div>
+</div>
+<p class="bab__source">Plans : Robert Koldewey, The Excavations at Babylon (1914); Olof Pedersén, Babylon: The Great City (2021). Emplacement des monuments : Pleiades (licence CC BY) et OpenStreetMap (licence ODbL). Étages de l'Etemenanki : tablette de l'Esagil. Hauteurs des autres bâtiments, maisons, champs et rive ouest : estimations.</p>
+<script>
+(function () {
+  "use strict";
+  var racine = document.getElementById("babylone-maquette");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"cadre":[-1750,-1900,3300,3850],"fleuve":[[-206,3481,-209,3502,-201,3576,-109,4208,836,11144,955,11128,-77,3570,-112,3145,-222,1497,-237,1073,-237,896,-225,762,-236,449,-224,311,-187,107,-105,-262,4,-707,60,-968,117,-1287,240,-2027,1854,-9181,1737,-9207,196,-2379,88,-1919,65,-1806,65,-1788,74,-1767,-57,-991,-113,-734,-237,-222,-304,82,-335,244,-349,347,-356,447,-345,762,-358,917,-349,1358,-319,1870]],"axe_fleuve":[896,11136,-50,4200,-123,3672,-140,3553,-149,3502,-137,3596,-135,3593,-140,3540,-148,3451,-156,3356,-179,3041,-286,1425,-298,988,-297,893,-285,762,-295,537,-294,400,-276,253,-246,94,1,-979,58,-1297,151,-1864,180,-2033,185,-2066,147,-1906,124,-1799,148,-1895,188,-2073,255,-2366,1795,-9194],"ville_est":[1059,1139,1543,-224,70,-1017,13,-748,-120,-195,-187,107,-212,238,-230,358,-235,434,-235,543,-228,665],"ville_ouest":[-788,-1479,-1533,-38,-353,396,-338,260,-304,82,-225,-278,-104,-775,-41,-1077],"sol_est":[1075,1173,1576,-237,75,-1045,29,-819,-108,-251,-187,107,-212,238,-230,358,-235,434,-235,543,-226,695],"sol_ouest":[-799,-1516,-1571,-23,-355,424,-349,347,-338,261,-304,82,-225,-278,-104,-775,-72,-917,-36,-1105],"faubourgs":[33,3366,-15,3403,-21,3419,-21,3459,-12,3473,111,3544,166,3587,402,3636,416,3622,455,3567,633,2871,687,2785,1043,2463,1122,2375,1275,2154,1480,1953,1720,1683,2105,1281,2301,1094,2450,968,2706,657,3024,246,3024,233,2542,-67,2120,-374,1978,-424,1800,-519,104,-1208,84,-1096,1579,-292,1607,-265,1620,-221,1131,1164,1091,1208,1032,1211,-225,749,-238,950,-226,1422,-94,3377],"ligne_est":[-290,643,1059,1139,1543,-224,14,-1047],"ligne_ouest":[14,-1047,-788,-1479,-1533,-38,-294,418],"imgur_est":[[-227,658,1054,1130,1534,-220,70,-1009]],"nemetti_est":[[-226,672,1062,1145,1549,-226,73,-1021]],"imgur_ouest":[[-44,-1070,-785,-1469,-1523,-42,-355,388]],"nemetti_ouest":[[-42,-1083,-790,-1486,-1540,-35,-356,401]],"fosse":[[-356,477,-355,424,-1571,-23,-799,-1516,-36,-1105,-27,-1156,-821,-1584,-1641,4],[1075,1173,330,899,330,953,1105,1238,1637,-260,84,-1096,75,-1045,1576,-237]],"portes":[{"cle":"ishtar","x":134,"y":798,"a":20.2,"rive":"est","sure":true},{"cle":"marduk","x":1246,"y":611,"a":-70.4,"rive":"est","sure":true},{"cle":"zababa","x":1492,"y":-81,"a":-70.4,"rive":"est","sure":true},{"cle":"uras","x":369,"y":-856,"a":-151.7,"rive":"est","sure":true},{"cle":"shamash","x":-18,"y":-1064,"a":-151.7,"rive":"ouest","sure":false},{"cle":"adad","x":-913,"y":-1238,"a":117.3,"rive":"ouest","sure":false},{"cle":"roi","x":-1270,"y":-545,"a":117.3,"rive":"ouest","sure":false},{"cle":"enlil","x":-441,"y":364,"a":20.2,"rive":"ouest","sure":false}],"quais":[[-355,426,-349,347,-338,261,-304,82,-225,-278,-104,-775,-72,-917,-36,-1108],[-226,698,-235,543,-235,434,-230,358,-212,238,-187,107,-108,-251,-3,-679,29,-819,75,-1046]],"rempart_ext":[[1800,-519,1978,-424,2120,-374,2245,-276,2542,-67,3024,233,3024,246,2706,657,2450,968,2301,1094,2105,1281,1720,1683,1480,1953,1275,2154,1122,2375,1043,2463,687,2785,633,2871,455,3567,443,3592,416,3622,402,3636,166,3587,111,3544,-12,3473,-21,3459,-21,3419,-15,3403,33,3366]],"rempart_ext_sud":[[1800,-519,104,-1208]],"ext_signe":-1,"fosse_ext":[[1813,-544,1989,-449,2134,-398,2262,-298,2558,-90,3040,210,3051,226,3051,256,2728,675,2470,987,2320,1114,2125,1301,1741,1702,1501,1972,1297,2172,1144,2392,1064,2482,708,2804,659,2881,481,3577,465,3609,422,3656,406,3664,375,3660,151,3611,95,3568,-28,3496,-46,3472,-49,3417,-39,3389,16,3344,-14,3304,-74,3352,-93,3388,-83,3507,-77,3516,-52,3540,67,3609,137,3660,362,3709,405,3714,427,3710,446,3700,501,3644,530,3587,706,2899,746,2837,1101,2516,1185,2421,1336,2204,1538,2006,1778,1735,2161,1336,2353,1152,2506,1022,2769,704,3075,309,3098,272,3102,249,3099,213,3086,185,3069,169,2586,-132,2292,-338,2159,-441,2008,-496,1838,-587]],"portes_ext":[{"cle":"suhi","x":638,"y":2862,"a":118.6,"sure":true},{"cle":"madanu","x":1622,"y":1794,"a":131.3,"sure":true},{"cle":"gissu","x":2803,"y":532,"a":127.7,"sure":true},{"cle":"dieux","x":2192,"y":-318,"a":38.6,"sure":true},{"cle":"mer","x":608,"y":-1002,"a":-157.9,"sure":false}],"voie_nord":[75,1019,137,798],"voie":[137,798,190,610,241,431,290,236,318,120,338,30,361,-100],"rue_pont":[361,-100,-114,-209],"rues":[[1227,604,269,263],[1473,-88,6,-610],[360,-838,105,-366],[-98,-915,-786,362],[-895,-1229,-117,-827],[-1252,-536,-302,-45],[-434,345,-320,34]],"palais_sud":[-128,696,-130,565,177,588,132,774],"palais_nord":[-108,753,107,832,63,954,-153,875],"palais_ete":[428,3352,251,3347,201,3196,209,3157,288,3119,309,3098,353,3101,421,3122,479,3167],"temples":{"emah":[206,802,177,786,201,742,230,754],"emashdari":[318,442,321,411,359,412,355,446],"nabu":[198,398,231,398,231,364,199,364],"ninurta":[537,-610,537,-654,493,-654,493,-610]},"enceinte":[-129,217,253,287,353,-92,-68,-189,-121,77],"esagil":[-18,-272,57,-255,75,-334,0,-351],"esagil_annexe":[57,-255,140,-236,154,-296,148,-297,159,-343,94,-358,88,-331,75,-334],"ziggourat":[-55,36,34,57,55,-36,-34,-57],"escalier":[4,-48,22,-44,34,-95,16,-99],"pont":[-238,-223,-119,-195],"piles":[-236,-223,-212,-217,-195,-213,-178,-209,-161,-205,-145,-202,-129,-198]};
+  var chaque = function (liste, f) { Array.prototype.forEach.call(liste, f); };
+  var $ = function (s) { return racine.querySelector(s); };
+  var $$ = function (s) { return racine.querySelectorAll(s); };
+  var reduit = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var RAD = Math.PI / 180;
+  // ------------------------------------------------------------ parties de la ville
+  // L'indice de chaque partie est inscrit dans les sommets : un clic sur la maquette
+  // retrouve ainsi la partie touchée (0 = rien).
+  var PARTIES = ["", "ziggourat", "esagil", "ishtar", "voie", "palais-sud", "palais-nord", "palais-ete",
+    "rempart-int", "rempart-ext", "euphrate", "pont", "maisons", "temples", "campagne", "jardins"];
+  var ID = {};
+  PARTIES.forEach(function (c, i) { if (c) { ID[c] = i; } });
+  // ancre : point de l'étiquette (x, y, hauteur); vue : cible x, cible y, distance,
+  // lacet (0 = caméra au sud), tangage, hauteur de la cible; imp : 1 toujours visible.
+  var FICHES = {
+    "ziggourat": { ancre: [0, 0, 104], vue: [10, -40, 520, 28, 22, 30], imp: 1 },
+    "esagil": { ancre: [28, -302, 34], vue: [70, -300, 430, 55, 30, 8], imp: 1 },
+    "ishtar": { ancre: [134, 800, 38], vue: [128, 815, 210, 197, 14, 12], imp: 1 },
+    "voie": { ancre: [262, 330, 12], vue: [180, 700, 520, 160, 24, 5], imp: 2 },
+    "palais-sud": { ancre: [0, 640, 32], vue: [10, 630, 560, 25, 36, 5], imp: 1 },
+    "palais-nord": { ancre: [-23, 853, 34], vue: [-10, 860, 520, 150, 32, 5], imp: 2 },
+    "palais-ete": { ancre: [340, 3225, 38], vue: [330, 3200, 700, 25, 30, 5], imp: 2 },
+    "rempart-int": { ancre: [1262, 560, 30], vue: [1240, 600, 330, 75, 22, 8], imp: 2 },
+    "rempart-ext": { ancre: [1640, 1760, 26], vue: [1600, 1790, 480, 150, 26, 6], imp: 2 },
+    "euphrate": { ancre: [-262, 1650, 8], vue: [-180, 200, 1500, 210, 30, 0], imp: 1 },
+    "pont": { ancre: [-178, -209, 16], vue: [-170, -205, 300, 195, 20, 3], imp: 2 },
+    "maisons": { ancre: [760, 230, 16], vue: [720, 240, 330, 40, 38, 3], imp: 2 },
+    "temples": { ancre: [338, 428, 20], vue: [300, 460, 420, 55, 34, 5], imp: 3 },
+    "campagne": { ancre: [1900, 2900, 8], vue: [1500, 2700, 2600, 35, 26, 0], imp: 3 },
+    "jardins": { ancre: [140, 735, 26], vue: [90, 690, 380, 70, 34, 8], imp: 3 }
+  };
+  var ENSEMBLE = [450, 850, 5000, 24, 36, 0];
+  // ------------------------------------------------------------ outils de géométrie (plan)
+  function pts(plat) { var r = []; for (var i = 0; i < plat.length; i += 2) { r.push([plat[i], plat[i + 1]]); } return r; }
+  function aire(p) { var a = 0; for (var i = 0; i < p.length; i++) { var q = p[i], r = p[(i + 1) % p.length]; a += q[0] * r[1] - r[0] * q[1]; } return a / 2; }
+  function dedans(x, y, p) {
+    var c = false;
+    for (var i = 0, j = p.length - 1; i < p.length; j = i++) {
+      var a = p[i], b = p[j];
+      if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) { c = !c; }
+    }
+    return c;
+  }
+  function distSeg(x, y, a, b) {
+    var dx = b[0] - a[0], dy = b[1] - a[1], l = dx * dx + dy * dy;
+    var t = l ? ((x - a[0]) * dx + (y - a[1]) * dy) / l : 0;
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    var ex = a[0] + t * dx - x, ey = a[1] + t * dy - y;
+    return Math.sqrt(ex * ex + ey * ey);
+  }
+  function distLigne(x, y, l) { var m = Infinity; for (var i = 1; i < l.length; i++) { var d = distSeg(x, y, l[i - 1], l[i]); if (d < m) { m = d; } } return m; }
+  function distBord(x, y, p) { var m = Infinity; for (var i = 0; i < p.length; i++) { var d = distSeg(x, y, p[i], p[(i + 1) % p.length]); if (d < m) { m = d; } } return m; }
+  function pres(x, y, p, marge) { return dedans(x, y, p) || distBord(x, y, p) < marge; }
+  function dansTri(p, a, b, c) {
+    var d1 = (p[0] - b[0]) * (a[1] - b[1]) - (a[0] - b[0]) * (p[1] - b[1]);
+    var d2 = (p[0] - c[0]) * (b[1] - c[1]) - (b[0] - c[0]) * (p[1] - c[1]);
+    var d3 = (p[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (p[1] - a[1]);
+    return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+  }
+  // Découpe en triangles (méthode des oreilles) d'un contour simple.
+  function trianguler(p) {
+    var idx = [], res = [], i;
+    for (i = 0; i < p.length; i++) { idx.push(i); }
+    if (aire(p) < 0) { idx.reverse(); }
+    var garde = 0;
+    while (idx.length > 3 && garde++ < 20000) {
+      var trouve = false;
+      for (var k = 0; k < idx.length; k++) {
+        var i0 = idx[(k + idx.length - 1) % idx.length], i1 = idx[k], i2 = idx[(k + 1) % idx.length];
+        var a = p[i0], b = p[i1], c = p[i2];
+        if ((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) <= 1e-9) { continue; }
+        var vide = true;
+        for (var m = 0; m < idx.length; m++) {
+          var j = idx[m];
+          if (j !== i0 && j !== i1 && j !== i2 && dansTri(p[j], a, b, c)) { vide = false; break; }
+        }
+        if (!vide) { continue; }
+        res.push(i0, i1, i2);
+        idx.splice(k, 1);
+        trouve = true;
+        break;
+      }
+      if (!trouve) { break; }
+    }
+    if (idx.length === 3) { res.push(idx[0], idx[1], idx[2]); }
+    return res;
+  }
+  // Décalage d'une ligne vers sa gauche (distance négative : vers la droite), joints en onglet.
+  function decalerLigne(l, dist) {
+    var r = [];
+    for (var i = 0; i < l.length; i++) {
+      var p = l[i], n1 = null, n2 = null, m;
+      if (i > 0) { m = Math.hypot(p[0] - l[i - 1][0], p[1] - l[i - 1][1]); n1 = [-(p[1] - l[i - 1][1]) / m, (p[0] - l[i - 1][0]) / m]; }
+      if (i < l.length - 1) { m = Math.hypot(l[i + 1][0] - p[0], l[i + 1][1] - p[1]); n2 = [-(l[i + 1][1] - p[1]) / m, (l[i + 1][0] - p[0]) / m]; }
+      var n = n1 && n2 ? [n1[0] + n2[0], n1[1] + n2[1]] : (n1 || n2);
+      var nm = Math.hypot(n[0], n[1]);
+      n = [n[0] / nm, n[1] / nm];
+      var f = n1 && n2 ? 1 / Math.max(0.35, n[0] * n1[0] + n[1] * n1[1]) : 1;
+      r.push([p[0] + n[0] * dist * f, p[1] + n[1] * dist * f]);
+    }
+    return r;
+  }
+  // Contour rentré vers l'intérieur (polygone convexe), joints en onglet.
+  function rentrer(p, d) {
+    var s = aire(p) > 0 ? 1 : -1, lignes = [], r = [];
+    for (var i = 0; i < p.length; i++) {
+      var a = p[i], b = p[(i + 1) % p.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      var nx = -s * (b[1] - a[1]) / l, ny = s * (b[0] - a[0]) / l;
+      lignes.push([[a[0] + nx * d, a[1] + ny * d], [b[0] + nx * d, b[1] + ny * d]]);
+    }
+    for (var k = 0; k < lignes.length; k++) {
+      var L1 = lignes[(k + lignes.length - 1) % lignes.length], L2 = lignes[k];
+      r.push(croiser(L1[0], L1[1], L2[0], L2[1]));
+    }
+    return r;
+  }
+  function croiser(a, b, c, d) {
+    var r = [b[0] - a[0], b[1] - a[1]], s = [d[0] - c[0], d[1] - c[1]];
+    var den = r[0] * s[1] - r[1] * s[0];
+    if (Math.abs(den) < 1e-9) { return [(b[0] + c[0]) / 2, (b[1] + c[1]) / 2]; }
+    var t = ((c[0] - a[0]) * s[1] - (c[1] - a[1]) * s[0]) / den;
+    return [a[0] + t * r[0], a[1] + t * r[1]];
+  }
+  function longueurs(l) { var s = [0]; for (var i = 1; i < l.length; i++) { s.push(s[i - 1] + Math.hypot(l[i][0] - l[i - 1][0], l[i][1] - l[i - 1][1])); } return s; }
+  function surLigne(l, cum, s) {
+    for (var i = 1; i < l.length; i++) {
+      if (s <= cum[i] || i === l.length - 1) {
+        var t = (s - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1), a = l[i - 1], b = l[i];
+        return { x: a[0] + (b[0] - a[0]) * t, y: a[1] + (b[1] - a[1]) * t, a: Math.atan2(b[1] - a[1], b[0] - a[0]) };
+      }
+    }
+    return { x: l[0][0], y: l[0][1], a: 0 };
+  }
+  function abscisse(l, cum, x, y) {
+    var best = Infinity, sb = 0;
+    for (var i = 1; i < l.length; i++) {
+      var a = l[i - 1], b = l[i], dx = b[0] - a[0], dy = b[1] - a[1], q = dx * dx + dy * dy;
+      var t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / q));
+      var d = Math.hypot(a[0] + t * dx - x, a[1] + t * dy - y);
+      if (d < best) { best = d; sb = cum[i - 1] + t * Math.sqrt(q); }
+    }
+    return sb;
+  }
+  function alea(graine) {
+    var a = graine >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  // ------------------------------------------------------------ données relues
+  var FLEUVE = D.fleuve.map(pts), AXE = pts(D.axe_fleuve);
+  var VILLE_EST = pts(D.ville_est), VILLE_OUEST = pts(D.ville_ouest);
+  var SOL_EST = pts(D.sol_est), SOL_OUEST = pts(D.sol_ouest), FAUBOURGS = pts(D.faubourgs);
+  var LIGNE_EST = pts(D.ligne_est), LIGNE_OUEST = pts(D.ligne_ouest);
+  var VOIE = pts(D.voie), VOIE_NORD = pts(D.voie_nord), RUE_PONT = pts(D.rue_pont), RUES = D.rues.map(pts);
+  var PALAIS_SUD = pts(D.palais_sud), PALAIS_NORD = pts(D.palais_nord), PALAIS_ETE = pts(D.palais_ete);
+  var ENCEINTE = pts(D.enceinte), ESAGIL = pts(D.esagil), ANNEXE = pts(D.esagil_annexe);
+  var ZIG = pts(D.ziggourat), PONT = pts(D.pont), PILES = pts(D.piles);
+  var TEMPLES = {}; Object.keys(D.temples).forEach(function (k) { TEMPLES[k] = pts(D.temples[k]); });
+  var ISHTAR = D.portes.filter(function (p) { return p.cle === "ishtar"; })[0];
+  var GRILLE = 13 * RAD;   // les rues et les monuments suivent des axes tournés d'environ 13°
+  var BASTION = [[-131, 559], [-131, 702], [-212, 706], [-214, 554]];
+  // ------------------------------------------------------------ couleurs et matières
+  var C = {
+    crue: [198, 164, 118], cuite: [178, 128, 88], palais: [196, 158, 112], enduit: [216, 196, 158],
+    bleu: [52, 110, 196], bois: [118, 84, 54], tronc: [112, 90, 64], palme: [66, 98, 46],
+    pave: [218, 209, 190], solVille: [186, 165, 131], rue: [201, 184, 152], eau: [70, 116, 134],
+    champ: [128, 142, 84], ziggourat: [170, 124, 86], maison: [196, 163, 120]
+  };
+  // Matières : 0 uni, 1 brique crue, 2 brique émaillée à animaux, 3 émaillée à lions,
+  // 4 brique cuite, 5 végétal, 6 bois, 7 temple à redans, 8 émaillée unie, 9 escalier,
+  // 10 campagne, 11 sol de la ville, 12 eau, 13 dallage, 14 rue.
+  function S(c, part, mat, cert) { return { c: c, part: ID[part] || 0, mat: mat || 0, cert: cert || 0 }; }
+  function varier(c, r, k) { var f = 1 + (r() - 0.5) * k; return [Math.min(255, c[0] * f), Math.min(255, c[1] * f), Math.min(255, c[2] * f)]; }
+  // ------------------------------------------------------------ maillages
+  // Lot : triangles fixes (sol, rampes, prismes). Sommet = position, normale (6 flottants)
+  // + couleur, certitude, partie, matière (8 octets).
+  function Lot() { this.f = []; this.o = []; this.n = 0; }
+  Lot.prototype.sommet = function (p, nor, s) {
+    this.f.push(p[0], p[1], p[2], nor[0], nor[1], nor[2]);
+    this.o.push(s.c[0], s.c[1], s.c[2], s.cert, s.part, s.mat, 0, 0);
+    this.n++;
+  };
+  // L'ordre des sommets est corrigé pour que la face regarde du côté de la normale.
+  Lot.prototype.tri = function (a, b, c, nor, s) {
+    var ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+    var gx = uy * vz - uz * vy, gy = uz * vx - ux * vz, gz = ux * vy - uy * vx;
+    if (gx * nor[0] + gy * nor[1] + gz * nor[2] < 0) { var t = b; b = c; c = t; }
+    this.sommet(a, nor, s); this.sommet(b, nor, s); this.sommet(c, nor, s);
+  };
+  Lot.prototype.quad = function (a, b, c, d, nor, s) { this.tri(a, b, c, nor, s); this.tri(a, c, d, nor, s); };
+  Lot.prototype.dalle = function (contour, h, s) {
+    var t = trianguler(contour);
+    for (var i = 0; i < t.length; i += 3) {
+      var a = contour[t[i]], b = contour[t[i + 1]], c = contour[t[i + 2]];
+      this.tri([a[0], h, -a[1]], [b[0], h, -b[1]], [c[0], h, -c[1]], [0, 1, 0], s);
+    }
+  };
+  Lot.prototype.prisme = function (contour, h0, h1, s) {
+    this.dalle(contour, h1, s);
+    var sens = aire(contour) > 0 ? 1 : -1;
+    for (var i = 0; i < contour.length; i++) {
+      var a = contour[i], b = contour[(i + 1) % contour.length];
+      var dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy);
+      if (l < 1e-6) { continue; }
+      this.quad([a[0], h0, -a[1]], [b[0], h0, -b[1]], [b[0], h1, -b[1]], [a[0], h1, -a[1]], [sens * dy / l, 0, sens * dx / l], s);
+    }
+  };
+  Lot.prototype.ruban = function (ligne, larg, h, s) {
+    var g = decalerLigne(ligne, larg / 2), d = decalerLigne(ligne, -larg / 2);
+    for (var i = 1; i < ligne.length; i++) {
+      this.quad([g[i - 1][0], h, -g[i - 1][1]], [g[i][0], h, -g[i][1]], [d[i][0], h, -d[i][1]], [d[i - 1][0], h, -d[i - 1][1]], [0, 1, 0], s);
+    }
+  };
+  // Rampe : quadrilatère au sol dont le dessus monte d'un coin à l'autre (escaliers).
+  Lot.prototype.rampe = function (q, hs, s) {
+    var T = q.map(function (p, i) { return [p[0], hs[i], -p[1]]; });
+    var ux = T[1][0] - T[0][0], uy = T[1][1] - T[0][1], uz = T[1][2] - T[0][2];
+    var vx = T[3][0] - T[0][0], vy = T[3][1] - T[0][1], vz = T[3][2] - T[0][2];
+    var n = [uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx], nl = Math.hypot(n[0], n[1], n[2]);
+    n = [n[0] / nl, n[1] / nl, n[2] / nl];
+    if (n[1] < 0) { n = [-n[0], -n[1], -n[2]]; }
+    this.quad(T[0], T[1], T[2], T[3], n, s);
+    var sens = aire(q) > 0 ? 1 : -1;
+    for (var i = 0; i < 4; i++) {
+      var a = q[i], b = q[(i + 1) % 4], ha = hs[i], hb = hs[(i + 1) % 4];
+      if (ha < 0.01 && hb < 0.01) { continue; }
+      var dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy), nor = [sens * dy / l, 0, sens * dx / l];
+      var A0 = [a[0], 0, -a[1]], B0 = [b[0], 0, -b[1]], A1 = [a[0], ha, -a[1]], B1 = [b[0], hb, -b[1]];
+      if (ha < 0.01) { this.tri(A0, B0, B1, nor, s); } else if (hb < 0.01) { this.tri(A0, B0, A1, nor, s); } else { this.quad(A0, B0, B1, A1, nor, s); }
+    }
+  };
+  // Boîtes : une instance par boîte. Centre (x, y) du plan, base y0, longueur l selon
+  // l'angle a (radians, depuis l'est), profondeur p, hauteur h.
+  function Boites() { this.f = []; this.o = []; this.n = 0; }
+  Boites.prototype.ajout = function (x, y, y0, l, p, h, a, s) {
+    this.f.push(x, y, y0, a, l, h, p);
+    this.o.push(s.c[0], s.c[1], s.c[2], s.cert, s.part, s.mat, 0, 0);
+    this.n++;
+  };
+  // ------------------------------------------------------------ construction de la ville
+  function batir() {
+    var sol = new Lot(), vol = new Lot(), B = new Boites();
+    var r = alea(575);
+    // Sol : campagne, ville, eau, puis rues et chaussées par-dessus l'eau.
+    var S_CAMP = S(C.champ, "campagne", 10, 0), S_VILLE = S(C.solVille, "maisons", 11, 0);
+    var S_EAU = S(C.eau, "euphrate", 12, 2), S_FOSSE = S(C.eau, "rempart-int", 12, 2);
+    var S_FOSSE_EXT = S(C.eau, "rempart-ext", 12, 2), S_RUE = S(C.rue, "maisons", 14, 1);
+    sol.dalle([[-60000, -60000], [60000, -60000], [60000, 60000], [-60000, 60000]], 0, S_CAMP);
+    sol.dalle(SOL_EST, 0, S_VILLE);
+    sol.dalle(SOL_OUEST, 0, S_VILLE);
+    // Terre battue autour du palais nord et de la voie au nord de la porte d'Ishtar.
+    var S_TERRE = S(C.solVille, "palais-nord", 11, 0);
+    sol.dalle(rectangle(centre(PALAIS_NORD)[0], centre(PALAIS_NORD)[1], 262, 162, Math.atan2(PALAIS_NORD[1][1] - PALAIS_NORD[0][1], PALAIS_NORD[1][0] - PALAIS_NORD[0][0])), 0, S_TERRE);
+    sol.ruban(VOIE_NORD, 64, 0, S(C.solVille, "voie", 11, 0));
+    FLEUVE.forEach(function (f) { sol.dalle(f, 0, S_EAU); });
+    D.fosse.forEach(function (f) { sol.dalle(pts(f), 0, S_FOSSE); });
+    D.fosse_ext.forEach(function (f) { sol.dalle(pts(f), 0, S_FOSSE_EXT); });
+    RUES.forEach(function (l) { sol.ruban(l, 9, 0, S_RUE); });
+    sol.ruban(VOIE, 20, 0, S(C.pave, "voie", 13, 3));
+    sol.ruban(VOIE_NORD, 20, 0, S(C.pave, "voie", 13, 3));
+    sol.ruban(RUE_PONT, 12, 0, S(C.pave, "voie", 13, 2));
+    // --- Remparts intérieurs : Imgur-Enlil (dedans, épais) et Nemetti-Enlil (dehors).
+    var coupes = { imgur_est: [], imgur_ouest: [], nemetti_est: [], nemetti_ouest: [] };
+    var lignes = {};
+    ["imgur_est", "imgur_ouest", "nemetti_est", "nemetti_ouest"].forEach(function (k) {
+      lignes[k] = D[k].map(pts).map(function (l) { return { l: l, cum: longueurs(l) }; });
+    });
+    function couper(cle, x, y, demi) {
+      lignes[cle].forEach(function (L, i) {
+        var s = abscisse(L.l, L.cum, x, y), p = surLigne(L.l, L.cum, s);
+        if (Math.hypot(p.x - x, p.y - y) < 30) {
+          coupes[cle][i] = coupes[cle][i] || [];
+          coupes[cle][i].push([s - demi, s + demi]);
+        }
+      });
+    }
+    // Portes : deux tours de part et d'autre d'un passage, sur chacun des deux murs.
+    D.portes.forEach(function (g) {
+      var a = g.a * RAD, ux = Math.cos(a), uy = Math.sin(a), nx = -uy, ny = ux, rive = g.rive;
+      var cert = g.sure ? 3 : 2;
+      if (g.cle === "ishtar") { return; }
+      [["imgur_", -7, 11, 15, 20, 9], ["nemetti_", 5, 8, 11, 15, 8]].forEach(function (m) {
+        var cx = g.x + nx * m[1], cy = g.y + ny * m[1], tl = m[2], tp = m[3], th = m[4], hp = m[5], pass = 5;
+        var st = S(C.cuite, "rempart-int", 4, cert);
+        B.ajout(cx - ux * (pass / 2 + tl / 2), cy - uy * (pass / 2 + tl / 2), 0, tl, tp, th, a, st);
+        B.ajout(cx + ux * (pass / 2 + tl / 2), cy + uy * (pass / 2 + tl / 2), 0, tl, tp, th, a, st);
+        B.ajout(cx, cy, hp, pass + 0.2, tp - 1, th - hp - 1, a, st);
+        merlons(B, cx - ux * (pass / 2 + tl / 2), cy - uy * (pass / 2 + tl / 2), th, tl, tp, a, st);
+        merlons(B, cx + ux * (pass / 2 + tl / 2), cy + uy * (pass / 2 + tl / 2), th, tl, tp, a, st);
+        couper(m[0] + rive, cx, cy, pass / 2 + tl - 1);
+      });
+      // Chaussée sur le fossé, devant la porte.
+      sol.ruban([[g.x + nx * 12, g.y + ny * 12], [g.x + nx * 92, g.y + ny * 92]], 10, 0, S(C.rue, "rempart-int", 14, cert));
+    });
+    // --- Porte d'Ishtar (double porte) et murs aux lions de la voie processionnelle.
+    var fx = VOIE_NORD[0][0] - VOIE_NORD[1][0], fy = VOIE_NORD[0][1] - VOIE_NORD[1][1], fl = Math.hypot(fx, fy);
+    fx /= fl; fy /= fl;                   // vers le nord, le long de la voie
+    var rx = fy, ry = -fx;                // vers la droite (l'est)
+    var aI = Math.atan2(ry, rx);          // angle des boîtes : longueur selon r, profondeur selon f
+    var gx = VOIE_NORD[1][0], gy = VOIE_NORD[1][1];
+    var I = function (af, ar) { return [gx + fx * af + rx * ar, gy + fy * af + ry * ar]; };
+    var S_ISH = S(C.bleu, "ishtar", 2, 3), S_ISH_T = S(C.bleu, "ishtar", 8, 3);
+    function boiteI(af0, af1, ar0, ar1, y0, h, st) {
+      var c = I((af0 + af1) / 2, (ar0 + ar1) / 2);
+      B.ajout(c[0], c[1], y0, ar1 - ar0, af1 - af0, h, aI, st);
+    }
+    // Grande porte (au sud, dans le mur intérieur) puis petite porte (au nord).
+    boiteI(-36, -6, -17, -2.25, 0, 24, S_ISH); boiteI(-36, -6, 2.25, 17, 0, 24, S_ISH);
+    boiteI(-35, -7, -2.25, 2.25, 12, 11, S_ISH_T);
+    boiteI(-6, 0, -11, -9, 0, 13, S_ISH); boiteI(-6, 0, 9, 11, 0, 13, S_ISH);
+    boiteI(0, 10, -13.2, -2.25, 0, 13.5, S_ISH); boiteI(0, 10, 2.25, 13.2, 0, 13.5, S_ISH);
+    boiteI(0.5, 9.5, -2.25, 2.25, 9, 4.5, S_ISH_T);
+    [[-36, -6, -17, -2.25, 24], [-36, -6, 2.25, 17, 24], [0, 10, -13.2, -2.25, 13.5], [0, 10, 2.25, 13.2, 13.5]].forEach(function (t) {
+      var c = I((t[0] + t[1]) / 2, (t[2] + t[3]) / 2);
+      merlons(B, c[0], c[1], t[4], t[3] - t[2], t[1] - t[0], aI, S_ISH_T);
+    });
+    couper("imgur_est", I(-7, 0)[0], I(-7, 0)[1], 17);
+    couper("nemetti_est", I(5, 0)[0], I(5, 0)[1], 13.2);
+    // Murs aux lions, au nord de la porte.
+    var S_LION = S(C.bleu, "voie", 3, 3), lnord = 230;
+    boiteI(10, lnord, -15.5, -10, 0, 10, S_LION);
+    boiteI(10, lnord, 10, 17.5, 0, 10, S_LION);
+    for (var af = 12; af < lnord; af += 2.6) {
+      var m1 = I(af, -10.6), m2 = I(af, 10.6);
+      B.ajout(m1[0], m1[1], 10, 1.3, 1.1, 1.5, aI, S_ISH_T);
+      B.ajout(m2[0], m2[1], 10, 1.3, 1.1, 1.5, aI, S_ISH_T);
+    }
+    // Murs et tours, en sautant les portes.
+    var MURS = {
+      imgur: { ep: 6.5, h: 15, tour: { pas: 18.1, l: 9.4, p: 11.4, h: 19, debut: 9 } },
+      nemetti: { ep: 3.7, h: 11, tour: { pas: 20.5, l: 6.5, p: 7.5, h: 13.5, debut: 0 } }
+    };
+    Object.keys(lignes).forEach(function (cle) {
+      var genre = cle.split("_")[0], rive = cle.split("_")[1], M = MURS[genre];
+      var st = S(genre === "imgur" ? C.crue : C.cuite, "rempart-int", genre === "imgur" ? 1 : 4, rive === "est" ? 3 : 2);
+      lignes[cle].forEach(function (L, i) {
+        muraille(B, L.l, L.cum, M.ep, M.h, coupes[cle][i] || [], st, M.tour, 1);
+      });
+    });
+    // --- Rempart extérieur (rive est) : large muraille, tours tournées vers le dehors.
+    var S_EXT = S(C.crue, "rempart-ext", 1, 3), S_EXT_SUD = S(C.crue, "rempart-ext", 1, 1);
+    var cotes = D.ext_signe;
+    var coupesExt = [];
+    var ext = D.rempart_ext.map(pts).map(function (l) { return { l: l, cum: longueurs(l) }; });
+    var extSud = D.rempart_ext_sud.map(pts).map(function (l) { return { l: l, cum: longueurs(l) }; });
+    D.portes_ext.forEach(function (g) {
+      var a = g.a * RAD, ux = Math.cos(a), uy = Math.sin(a), nx = -uy * cotes, ny = ux * cotes;
+      var st = S(C.cuite, "rempart-ext", 4, g.sure ? 3 : 1);
+      [-1, 1].forEach(function (k) {
+        var cx = g.x + ux * k * 10.5, cy = g.y + uy * k * 10.5;
+        B.ajout(cx, cy, 0, 13, 34, 18, a, st);
+        merlons(B, cx, cy, 18, 13, 34, a, st);
+      });
+      B.ajout(g.x, g.y, 10, 8.2, 32, 7, a, st);
+      sol.ruban([[g.x + nx * 18, g.y + ny * 18], [g.x + nx * 95, g.y + ny * 95]], 10, 0, S(C.rue, "rempart-ext", 14, 1));
+      coupesExt.push(g);
+    });
+    function coupesDe(L) {
+      var c = [];
+      coupesExt.forEach(function (g) {
+        var s = abscisse(L.l, L.cum, g.x, g.y), p = surLigne(L.l, L.cum, s);
+        if (Math.hypot(p.x - g.x, p.y - g.y) < 30) { c.push([s - 17, s + 17]); }
+      });
+      return c;
+    }
+    ext.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, cotes); });
+    extSud.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT_SUD, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, cotes); });
+    // --- Quais le long du fleuve, dans la ville.
+    D.quais.map(pts).forEach(function (l) {
+      var mx = 0; l.forEach(function (p) { mx += p[0]; }); mx /= l.length;
+      var est = mx > AXE_X(l[Math.floor(l.length / 2)][1]);
+      muraille(B, l, longueurs(l), 3.5, 4.5, [], S(C.cuite, "euphrate", 4, est ? 3 : 2), null, 1);
+    });
+    // --- Bateaux sur le fleuve, le long des quais.
+    var S_BAT = S(C.bois, "euphrate", 6, 1), cumF = longueurs(AXE), LF = cumF[cumF.length - 1];
+    var sQ = abscisse(AXE, cumF, -280, 700), sQ2 = abscisse(AXE, cumF, 0, -1000);
+    for (var b = 0; b < 16; b++) {
+      var sb = sQ + (sQ2 - sQ) * (b + r() * 0.6) / 16, pb = surLigne(AXE, cumF, sb);
+      var cote = r() < 0.5 ? -1 : 1, dd = 42 + r() * 10;
+      var bx = pb.x - Math.sin(pb.a) * dd * cote, by = pb.y + Math.cos(pb.a) * dd * cote;
+      if (Math.hypot(bx - (PONT[0][0] + PONT[1][0]) / 2, by - (PONT[0][1] + PONT[1][1]) / 2) < 40) { continue; }
+      var lb = 8 + r() * 7;
+      B.ajout(bx, by, 0, lb, 2.6, 0.9, pb.a, S_BAT);
+      B.ajout(bx, by, 0.9, lb * 0.35, 1.8, 1.1, pb.a, S([150, 120, 80], "euphrate", 6, 1));
+    }
+    // --- Pont : piles en forme de bateau et tablier de bois.
+    var pa = Math.atan2(PONT[1][1] - PONT[0][1], PONT[1][0] - PONT[0][0]);
+    var pux = Math.cos(pa), puy = Math.sin(pa), pvx = -puy, pvy = pux;
+    var S_PILE = S(C.cuite, "pont", 4, 3);
+    var forme = [[-4.5, -6.5], [0, -10.5], [4.5, -6.5], [4.5, 6.5], [0, 10.5], [-4.5, 6.5]];
+    PILES.forEach(function (p) {
+      vol.prisme(forme.map(function (q) { return [p[0] + pux * q[0] + pvx * q[1], p[1] + puy * q[0] + pvy * q[1]]; }), 0, 6, S_PILE);
+    });
+    var lp = Math.hypot(PONT[1][0] - PONT[0][0], PONT[1][1] - PONT[0][1]);
+    B.ajout((PONT[0][0] + PONT[1][0]) / 2 - pux * 2, (PONT[0][1] + PONT[1][1]) / 2 - puy * 2, 6, lp + 22, 6, 1, pa, S(C.bois, "pont", 6, 2));
+    // --- Palais sud : cinq cours d'est en ouest, salle du trône au sud de la troisième.
+    var S_PAL = S(C.palais, "palais-sud", 4, 3);
+    var Q = quadri([PALAIS_SUD[1], PALAIS_SUD[2], PALAIS_SUD[3], PALAIS_SUD[0]]);
+    var cours = [[0.83, 1.0, 0.86, 0.97, 0.30, 0.74], [0.64, 0.83, 0.67, 0.80, 0.30, 0.78],
+      [0.40, 0.64, 0.43, 0.61, 0.33, 0.80], [0.22, 0.40, 0.25, 0.37, 0.30, 0.75], [0.0, 0.22, 0.05, 0.17, 0.36, 0.70]];
+    cours.forEach(function (c, i) {
+      var h = [12, 13, 14, 12, 12][i];
+      if (i === 2) {
+        // Bande sud : salle du trône (plus haute) et ses voisines.
+        bloc(vol, Q, c[0], 0, 0.435, c[4], 0, h, S_PAL);
+        bloc(vol, Q, 0.605, 0, c[1], c[4], 0, h, S_PAL);
+        bloc(vol, Q, 0.435, 0, 0.605, c[4] - 0.11, 0, h, S_PAL);
+        bloc(vol, Q, 0.435, c[4] - 0.11, 0.605, c[4], 0, 19, S_PAL);
+        bloc(vol, Q, 0.44, c[4], 0.60, c[4] + 0.012, 0, 17, S(C.bleu, "palais-sud", 3, 3));
+      } else {
+        bloc(vol, Q, c[0], 0, c[1], c[4], 0, h * (0.9 + 0.2 * r()), S_PAL);
+      }
+      bloc(vol, Q, c[0], c[5], c[1], 1, 0, h * (0.9 + 0.2 * r()), S_PAL);
+      bloc(vol, Q, c[0], c[4], c[2], c[5], 0, h * (0.9 + 0.2 * r()), S_PAL);
+      if (i === 0) {
+        // Entrée à l'est, sur la voie processionnelle : deux tours.
+        bloc(vol, Q, c[3], c[4], c[1], 0.495, 0, h, S_PAL);
+        bloc(vol, Q, c[3], 0.535, c[1], c[5], 0, h, S_PAL);
+        bloc(vol, Q, 0.975, 0.45, 1.01, 0.495, 0, 17, S_PAL);
+        bloc(vol, Q, 0.975, 0.535, 1.01, 0.58, 0, 17, S_PAL);
+      } else {
+        bloc(vol, Q, c[3], c[4], c[1], c[5], 0, h * (0.9 + 0.2 * r()), S_PAL);
+      }
+    });
+    // Ouvrage avancé vers le fleuve (bastion).
+    var QB = quadri([BASTION[3], BASTION[0], BASTION[1], BASTION[2]]);
+    cour(vol, QB, 0, 0, 1, 1, 0.3, 0.3, 0.7, 0.7, 13, S(C.cuite, "palais-sud", 4, 3), r);
+    // --- Palais nord et palais d'été (emplacements connus, plans peu connus).
+    var QN = quadri(PALAIS_NORD);
+    vol.prisme(PALAIS_NORD, 0, 15, S(C.cuite, "palais-nord", 4, 2));
+    coursSur(vol, quadri(rentrer(PALAIS_NORD, 8)), 15, 10, S(C.palais, "palais-nord", 4, 1), r);
+    var S_PE = S(C.cuite, "palais-ete", 4, 2);
+    vol.prisme(PALAIS_ETE, 0, 18, S_PE);
+    var ce = centre(PALAIS_ETE), ae = 40 * RAD;
+    var QE = quadri(rectangle(ce[0], ce[1], 150, 105, ae));
+    coursSur(vol, QE, 18, 10, S(C.palais, "palais-ete", 4, 1), r);
+    // --- Etemenanki : sept étages et trois escaliers au sud.
+    var zc = centre(ZIG), za = Math.atan2(ZIG[1][1] - ZIG[0][1], ZIG[1][0] - ZIG[0][0]);
+    var zx = [Math.cos(za), Math.sin(za)], zy = [-Math.sin(za), Math.cos(za)];
+    var Z = function (u, v) { return [zc[0] + zx[0] * u + zy[0] * v, zc[1] + zx[1] * u + zy[1] * v]; };
+    var S_Z = S(C.ziggourat, "ziggourat", 7, 3);
+    var etages = [[91.5, 91.5, 33], [78, 78, 18], [60, 60, 6], [51, 51, 6], [42, 42, 6], [33, 33, 6]];
+    var hz = 0;
+    etages.forEach(function (e, i) {
+      B.ajout(zc[0], zc[1], hz, e[0], e[1], e[2], za, i < 2 ? S_Z : S(varier(C.ziggourat, r, 0.08), "ziggourat", 7, 2));
+      hz += e[2];
+    });
+    B.ajout(zc[0], zc[1], hz, 24, 22.5, 15, za, S(C.bleu, "ziggourat", 8, 1));
+    var S_ESC = S([182, 140, 100], "ziggourat", 9, 3);
+    vol.rampe([Z(-9, -97), Z(9, -97), Z(9, -45.6), Z(-9, -45.6)], [0, 0, 33, 33], S_ESC);
+    vol.rampe([Z(9, -53.1), Z(45.6, -53.1), Z(45.6, -45.6), Z(9, -45.6)], [33, 0, 0, 33], S_ESC);
+    vol.rampe([Z(-45.6, -53.1), Z(-9, -53.1), Z(-9, -45.6), Z(-45.6, -45.6)], [0, 33, 33, 0], S_ESC);
+    // --- Enceinte sacrée de l'Etemenanki : mur, longs bâtiments et portes.
+    var S_ENC = S(C.enduit, "ziggourat", 7, 3);
+    var enc0 = ENCEINTE, enc1 = rentrer(ENCEINTE, 5), enc2 = rentrer(ENCEINTE, 24);
+    var portesEnc = { 1: [0.45], 2: [0.72], 0: [0.5] };
+    for (var i = 0; i < enc0.length; i++) {
+      var j = (i + 1) % enc0.length, ouv = portesEnc[i] || [];
+      morceauxArete(ouv, 22 / dist2(enc0[i], enc0[j])).forEach(function (iv) {
+        var a0 = lerp2(enc0[i], enc0[j], iv[0]), a1 = lerp2(enc0[i], enc0[j], iv[1]);
+        var b0 = lerp2(enc1[i], enc1[j], iv[0]), b1 = lerp2(enc1[i], enc1[j], iv[1]);
+        var c0 = lerp2(enc2[i], enc2[j], iv[0]), c1 = lerp2(enc2[i], enc2[j], iv[1]);
+        vol.prisme([a0, a1, b1, b0], 0, 11, S_ENC);
+        vol.prisme([b0, b1, c1, c0], 0, 8 + r() * 2, S(C.crue, "ziggourat", 1, 2));
+      });
+      ouv.forEach(function (f) {
+        var dl = 22 / dist2(enc0[i], enc0[j]);
+        [f - dl / 2 - 0.02, f + dl / 2 + 0.02].forEach(function (g) {
+          var p0 = lerp2(enc0[i], enc0[j], g - 0.02), p1 = lerp2(enc0[i], enc0[j], g + 0.02);
+          var q0 = lerp2(enc2[i], enc2[j], g - 0.02), q1 = lerp2(enc2[i], enc2[j], g + 0.02);
+          vol.prisme([p0, p1, q1, q0], 0, 15, S_ENC);
+        });
+      });
+    }
+    // --- Esagil, temple de Marduk, et sa grande cour à l'est.
+    var QS = quadri([ESAGIL[3], ESAGIL[2], ESAGIL[1], ESAGIL[0]]);
+    var S_ES = S(C.enduit, "esagil", 7, 3);
+    bloc(vol, QS, 0, 0, 1, 0.25, 0, 15, S_ES);
+    bloc(vol, QS, 0, 0.75, 1, 1, 0, 15, S_ES);
+    bloc(vol, QS, 0, 0.25, 0.3, 0.75, 0, 20, S_ES);
+    bloc(vol, QS, 0.78, 0.25, 1, 0.45, 0, 15, S_ES);
+    bloc(vol, QS, 0.78, 0.55, 1, 0.75, 0, 15, S_ES);
+    bloc(vol, QS, 0.84, 0.36, 1.04, 0.45, 0, 19, S_ES);
+    bloc(vol, QS, 0.84, 0.55, 1.04, 0.64, 0, 19, S_ES);
+    var QA = quadri([ANNEXE[7], [159, -343], ANNEXE[1], ANNEXE[0]]);
+    var S_AN = S(C.enduit, "esagil", 7, 2);
+    cour(vol, QA, 0, 0, 1, 1, 0.17, 0.2, 0.84, 0.8, 11, S_AN, r);
+    // --- Temples de quartier : une cour, une entrée à tours, un sanctuaire.
+    Object.keys(TEMPLES).forEach(function (k) {
+      var T = TEMPLES[k], q = T.slice(0, 4);
+      var QT = quadri([q[0], q[1], q[2], q[3]]);
+      var st = S(C.enduit, "temples", 7, 3);
+      cour(vol, QT, 0, 0, 1, 1, 0.24, 0.3, 0.76, 0.62, 9, st, r);
+      bloc(vol, QT, 0.36, -0.06, 0.46, 0.12, 0, 12, st);
+      bloc(vol, QT, 0.54, -0.06, 0.64, 0.12, 0, 12, st);
+      bloc(vol, QT, 0.2, 0.62, 0.8, 1, 0, 11, st);
+    });
+    // --- Maisons, dans la ville et, plus rares, dans les faubourgs.
+    var EXCLUS = [[PALAIS_SUD, 14], [BASTION, 10], [ENCEINTE, 14], [ESAGIL, 12], [ANNEXE, 12], [PALAIS_NORD, 14]];
+    Object.keys(TEMPLES).forEach(function (k) { EXCLUS.push([TEMPLES[k], 9]); });
+    function libre(x, y) {
+      if (Math.hypot(x - ISHTAR.x, y - ISHTAR.y) < 60) { return false; }
+      if (distLigne(x, y, AXE) < 84) { return false; }
+      if (distLigne(x, y, LIGNE_EST) < 42 || distLigne(x, y, LIGNE_OUEST) < 42) { return false; }
+      if (distLigne(x, y, VOIE) < 15 || distLigne(x, y, VOIE_NORD) < 22 || distLigne(x, y, RUE_PONT) < 11) { return false; }
+      for (var i = 0; i < RUES.length; i++) { if (distLigne(x, y, RUES[i]) < 8) { return false; } }
+      for (var k = 0; k < EXCLUS.length; k++) { if (pres(x, y, EXCLUS[k][0], EXCLUS[k][1])) { return false; } }
+      return true;
+    }
+    var S_M = S(C.maison, "maisons", 1, 1);
+    quartier(B, VILLE_EST, r, libre, 1, S_M);
+    quartier(B, VILLE_OUEST, r, libre, 1, S_M);
+    function libreDehors(x, y) {
+      if (distLigne(x, y, LIGNE_EST) < 120 || distLigne(x, y, AXE) < 120) { return false; }
+      for (var i = 0; i < ext.length; i++) { if (distLigne(x, y, ext[i].l) < 60) { return false; } }
+      if (pres(x, y, PALAIS_ETE, 40) || pres(x, y, PALAIS_NORD, 40) || distLigne(x, y, VOIE_NORD) < 40) { return false; }
+      return true;
+    }
+    quartier(B, FAUBOURGS, r, libreDehors, 0.1, S(C.maison, "campagne", 1, 1));
+    // --- Palmiers : le long du fleuve hors de la ville et dans les jardins des faubourgs.
+    var S_TR = S(C.tronc, "campagne", 5, 1), S_PA = S(C.palme, "campagne", 5, 1);
+    function palmier(x, y) {
+      var h = 9 + r() * 7, a = r() * Math.PI, c = varier(C.palme, r, 0.25);
+      B.ajout(x, y, 0, 0.7, 0.7, h, a, S_TR);
+      var st = { c: c, part: S_PA.part, mat: 5, cert: 1 };
+      B.ajout(x, y, h - 0.6, 8.5, 1.6, 1.2, a, st);
+      B.ajout(x, y, h - 0.4, 8.5, 1.6, 1.2, a + Math.PI / 2, st);
+    }
+    var eaux = FLEUVE.concat(D.fosse.map(pts), D.fosse_ext.map(pts));
+    function surEau(x, y) { for (var i = 0; i < eaux.length; i++) { if (dedans(x, y, eaux[i])) { return true; } } return false; }
+    function permis(x, y) {
+      if (x < -3200 || x > 4600 || y < -3600 || y > 6200) { return false; }
+      if (dedans(x, y, SOL_EST) || dedans(x, y, SOL_OUEST) || surEau(x, y)) { return false; }
+      if (pres(x, y, PALAIS_ETE, 30) || pres(x, y, PALAIS_NORD, 30) || distLigne(x, y, VOIE_NORD) < 30) { return false; }
+      for (var i = 0; i < ext.length; i++) { if (distLigne(x, y, ext[i].l) < 50) { return false; } }
+      return true;
+    }
+    var cumAxe = longueurs(AXE), LA = cumAxe[cumAxe.length - 1];
+    for (var s = 0; s < LA; s += 13) {
+      var p = surLigne(AXE, cumAxe, s), nx = -Math.sin(p.a), ny = Math.cos(p.a);
+      [-1, 1].forEach(function (cote) {
+        [80, 100, 122].forEach(function (d0) {
+          if (r() < 0.25) { return; }
+          var d = d0 + (r() - 0.5) * 12, t = (r() - 0.5) * 10;
+          var x = p.x + nx * d * cote + Math.cos(p.a) * t, y = p.y + ny * d * cote + Math.sin(p.a) * t;
+          if (permis(x, y)) { palmier(x, y); }
+        });
+      });
+    }
+    var fb = bornes(FAUBOURGS);
+    for (var gx2 = fb[0]; gx2 < fb[2]; gx2 += 70) {
+      for (var gy2 = fb[1]; gy2 < fb[3]; gy2 += 70) {
+        if (r() > 0.3 || !dedans(gx2, gy2, FAUBOURGS) || !libreDehors(gx2, gy2)) { continue; }
+        var nb = 5 + Math.floor(r() * 10);
+        for (var k2 = 0; k2 < nb; k2++) {
+          var px2 = gx2 + (r() - 0.5) * 55, py2 = gy2 + (r() - 0.5) * 55;
+          if (dedans(px2, py2, FAUBOURGS) && permis(px2, py2) && libreDehors(px2, py2)) { palmier(px2, py2); }
+        }
+      }
+    }
+    return { sol: sol, vol: vol, boites: B };
+  }
+  // Position du fleuve (x de l'axe) à une ordonnée donnée.
+  function AXE_X(y) {
+    for (var i = 1; i < AXE.length; i++) {
+      var a = AXE[i - 1], b = AXE[i];
+      if ((a[1] - y) * (b[1] - y) <= 0) { return a[0] + (b[0] - a[0]) * (y - a[1]) / ((b[1] - a[1]) || 1); }
+    }
+    return AXE[0][0];
+  }
+  function centre(p) { var x = 0, y = 0; p.forEach(function (q) { x += q[0]; y += q[1]; }); return [x / p.length, y / p.length]; }
+  function bornes(p) { var b = [Infinity, Infinity, -Infinity, -Infinity]; p.forEach(function (q) { b[0] = Math.min(b[0], q[0]); b[1] = Math.min(b[1], q[1]); b[2] = Math.max(b[2], q[0]); b[3] = Math.max(b[3], q[1]); }); return b; }
+  function dist2(a, b) { return Math.hypot(b[0] - a[0], b[1] - a[1]); }
+  function lerp2(a, b, t) { return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]; }
+  function rectangle(cx, cy, l, p, a) {
+    var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux;
+    return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (k) { return [cx + k[0] * l / 2 * ux + k[1] * p / 2 * vx, cy + k[0] * l / 2 * uy + k[1] * p / 2 * vy]; });
+  }
+  // Morceaux pleins d'une arête quand on y ouvre des portes (fractions de l'arête).
+  function morceauxArete(ouv, largeur) {
+    var iv = [[0, 1]];
+    ouv.forEach(function (f) {
+      var n = [];
+      iv.forEach(function (m) {
+        var a = f - largeur / 2, b = f + largeur / 2;
+        if (b <= m[0] || a >= m[1]) { n.push(m); return; }
+        if (a > m[0]) { n.push([m[0], a]); }
+        if (b < m[1]) { n.push([b, m[1]]); }
+      });
+      iv = n;
+    });
+    return iv;
+  }
+  // Quadrilatère paramétré : s de l'ouest (0) à l'est (1), t du sud (0) au nord (1).
+  function quadri(q) {
+    return function (s, t) {
+      return [(1 - s) * (1 - t) * q[0][0] + s * (1 - t) * q[1][0] + s * t * q[2][0] + (1 - s) * t * q[3][0],
+        (1 - s) * (1 - t) * q[0][1] + s * (1 - t) * q[1][1] + s * t * q[2][1] + (1 - s) * t * q[3][1]];
+    };
+  }
+  function bloc(lot, f, s0, t0, s1, t1, h0, h1, st) { lot.prisme([f(s0, t0), f(s1, t0), f(s1, t1), f(s0, t1)], h0, h1, st); }
+  function cour(lot, f, s0, t0, s1, t1, cs0, ct0, cs1, ct1, h, st, r) {
+    bloc(lot, f, s0, t0, s1, ct0, 0, h * (0.92 + 0.16 * r()), st);
+    bloc(lot, f, s0, ct1, s1, t1, 0, h * (0.92 + 0.16 * r()), st);
+    bloc(lot, f, s0, ct0, cs0, ct1, 0, h * (0.92 + 0.16 * r()), st);
+    bloc(lot, f, cs1, ct0, s1, ct1, 0, h * (0.92 + 0.16 * r()), st);
+  }
+  function coursSur(lot, f, h0, h, st, r) {
+    [[0, 0, 0.5, 1, 0.12, 0.25, 0.4, 0.75], [0.5, 0, 1, 1, 0.6, 0.25, 0.88, 0.75]].forEach(function (c) {
+      bloc(lot, f, c[0], c[1], c[2], c[5], h0, h0 + h * (0.9 + 0.2 * r()), st);
+      bloc(lot, f, c[0], c[7], c[2], c[3], h0, h0 + h * (0.9 + 0.2 * r()), st);
+      bloc(lot, f, c[0], c[5], c[4], c[7], h0, h0 + h * (0.9 + 0.2 * r()), st);
+      bloc(lot, f, c[6], c[5], c[2], c[7], h0, h0 + h * (0.9 + 0.2 * r()), st);
+    });
+  }
+  // Créneaux à degrés sur le dessus d'une tour (deux rangées, devant et derrière).
+  function merlons(B, x, y, h, l, p, a, st) {
+    var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux, n = Math.max(2, Math.floor(l / 2.2));
+    for (var i = 0; i < n; i++) {
+      var u = -l / 2 + (i + 0.5) * l / n;
+      [-1, 1].forEach(function (k) {
+        var v = k * (p / 2 - 0.5);
+        B.ajout(x + ux * u + vx * v, y + uy * u + vy * v, h, 1.2, 1, 1.4, a, st);
+      });
+    }
+  }
+  // Mur le long d'une ligne, interrompu aux coupes, avec des tours en saillie du côté
+  // extérieur (cote = 1 : à gauche du sens de la ligne).
+  function muraille(B, l, cum, ep, h, coupes, st, tour, cote) {
+    var L = cum[cum.length - 1];
+    var pleins = [[0, L]];
+    coupes.forEach(function (c) {
+      var n = [];
+      pleins.forEach(function (m) {
+        if (c[1] <= m[0] || c[0] >= m[1]) { n.push(m); return; }
+        if (c[0] > m[0]) { n.push([m[0], c[0]]); }
+        if (c[1] < m[1]) { n.push([c[1], m[1]]); }
+      });
+      pleins = n;
+    });
+    pleins.forEach(function (iv) {
+      for (var i = 1; i < l.length; i++) {
+        var s0 = Math.max(iv[0], cum[i - 1]), s1 = Math.min(iv[1], cum[i]);
+        if (s1 - s0 < 0.5) { continue; }
+        var a = Math.atan2(l[i][1] - l[i - 1][1], l[i][0] - l[i - 1][0]), ux = Math.cos(a), uy = Math.sin(a);
+        var e0 = s0 === cum[i - 1] && i > 1 ? ep / 2 : 0, e1 = s1 === cum[i] && i < l.length - 1 ? ep / 2 : 0;
+        var m = (s0 + s1) / 2 - cum[i - 1] + (e1 - e0) / 2;
+        B.ajout(l[i - 1][0] + ux * m, l[i - 1][1] + uy * m, 0, s1 - s0 + e0 + e1, ep, h, a, st);
+      }
+    });
+    if (!tour) { return; }
+    for (var s = tour.debut + tour.pas / 2; s < L - tour.l; s += tour.pas) {
+      var bloque = false;
+      for (var k = 0; k < coupes.length; k++) { if (s > coupes[k][0] - tour.l && s < coupes[k][1] + tour.l) { bloque = true; } }
+      if (bloque) { continue; }
+      var p = surLigne(l, cum, s), nx = -Math.sin(p.a) * cote, ny = Math.cos(p.a) * cote, d = (tour.p - ep) / 2;
+      B.ajout(p.x + nx * d, p.y + ny * d, 0, tour.l, tour.p, tour.h, p.a, st);
+      merlons(B, p.x + nx * d, p.y + ny * d, tour.h, tour.l, tour.p, p.a, st);
+    }
+  }
+  // Îlots de maisons à cour sur une grille tournée comme la ville. densite < 1 : faubourgs.
+  function quartier(B, poly, r, libre, densite, st) {
+    var ex = [Math.cos(GRILLE), Math.sin(GRILLE)], ey = [-Math.sin(GRILLE), Math.cos(GRILLE)];
+    var u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
+    poly.forEach(function (p) {
+      var u = p[0] * ex[0] + p[1] * ex[1], v = p[0] * ey[0] + p[1] * ey[1];
+      u0 = Math.min(u0, u); u1 = Math.max(u1, u); v0 = Math.min(v0, v); v1 = Math.max(v1, v);
+    });
+    var P = function (u, v) { return [ex[0] * u + ey[0] * v, ex[1] * u + ey[1] * v]; };
+    function maison(ua, va, ub, vb) {
+      var w = ub - ua, d = vb - va, c = P((ua + ub) / 2, (va + vb) / 2);
+      var coins = [P(ua, va), P(ub, va), P(ub, vb), P(ua, vb)];
+      for (var i = 0; i < 4; i++) { if (!dedans(coins[i][0], coins[i][1], poly) || !libre(coins[i][0], coins[i][1])) { return; } }
+      if (!libre(c[0], c[1])) { return; }
+      var coul = varier(st.c, r, 0.14), s = { c: coul, part: st.part, mat: st.mat, cert: st.cert };
+      var h = 3.8 + r() * 1.6;
+      if (Math.min(w, d) < 11) { B.ajout(c[0], c[1], 0, w, d, h, GRILLE, s); return; }
+      var t = Math.max(3.5, Math.min(7, Math.min(w, d) * 0.3));
+      var hs = [h + 0.6, h, h, h + (r() < 0.12 ? 1.6 : 0)];
+      var q = P((ua + ub) / 2, va + t / 2); B.ajout(q[0], q[1], 0, w, t, hs[0], GRILLE, s);
+      q = P((ua + ub) / 2, vb - t / 2); B.ajout(q[0], q[1], 0, w, t, hs[1], GRILLE, s);
+      q = P(ua + t / 2, (va + vb) / 2); B.ajout(q[0], q[1], 0, t, d - 2 * t, hs[2], GRILLE, s);
+      q = P(ub - t / 2, (va + vb) / 2); B.ajout(q[0], q[1], 0, t, d - 2 * t, hs[3], GRILLE, s);
+    }
+    for (var v = v0; v < v1; ) {
+      var bd = 46 + r() * 30;
+      for (var u = u0; u < u1; ) {
+        var bw = 55 + r() * 55;
+        if (densite >= 1 || r() < densite) {
+          for (var rang = 0; rang < 2; rang++) {
+            var va = v + rang * bd / 2, vb = va + bd / 2 - (rang === 0 ? 0.6 : 0);
+            for (var uu = u; uu < u + bw - 7; ) {
+              var w = 11 + r() * 17;
+              if (uu + w > u + bw) { w = u + bw - uu; }
+              if (w < 7) { break; }
+              maison(uu, va, uu + w, vb);
+              uu += w + (r() < 0.18 ? 2.5 : 0.4);
+            }
+          }
+        }
+        u += bw + 6 + r() * 3;
+      }
+      v += bd + 6 + r() * 3;
+    }
+  }
+  // ------------------------------------------------------------ matrices
+  function perspective(fovy, asp, n, f) {
+    var t = 1 / Math.tan(fovy / 2), m = new Float32Array(16);
+    m[0] = t / asp; m[5] = t; m[10] = (f + n) / (n - f); m[11] = -1; m[14] = 2 * f * n / (n - f);
+    return m;
+  }
+  function orthographique(l, r, b, t, n, f) {
+    var m = new Float32Array(16);
+    m[0] = 2 / (r - l); m[5] = 2 / (t - b); m[10] = -2 / (f - n);
+    m[12] = -(r + l) / (r - l); m[13] = -(t + b) / (t - b); m[14] = -(f + n) / (f - n); m[15] = 1;
+    return m;
+  }
+  function regard(e, c, u) {
+    var zx = e[0] - c[0], zy = e[1] - c[1], zz = e[2] - c[2], zl = Math.hypot(zx, zy, zz);
+    zx /= zl; zy /= zl; zz /= zl;
+    var xx = u[1] * zz - u[2] * zy, xy = u[2] * zx - u[0] * zz, xz = u[0] * zy - u[1] * zx, xl = Math.hypot(xx, xy, xz);
+    xx /= xl; xy /= xl; xz /= xl;
+    var yx = zy * xz - zz * xy, yy = zz * xx - zx * xz, yz = zx * xy - zy * xx;
+    var m = new Float32Array(16);
+    m[0] = xx; m[1] = yx; m[2] = zx; m[4] = xy; m[5] = yy; m[6] = zy; m[8] = xz; m[9] = yz; m[10] = zz;
+    m[12] = -(xx * e[0] + xy * e[1] + xz * e[2]); m[13] = -(yx * e[0] + yy * e[1] + yz * e[2]);
+    m[14] = -(zx * e[0] + zy * e[1] + zz * e[2]); m[15] = 1;
+    return m;
+  }
+  function multiplier(a, b) {
+    var r = new Float32Array(16);
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        var s = 0;
+        for (var k = 0; k < 4; k++) { s += a[k * 4 + j] * b[i * 4 + k]; }
+        r[i * 4 + j] = s;
+      }
+    }
+    return r;
+  }
+  function inverser(m) {
+    var a00 = m[0], a01 = m[1], a02 = m[2], a03 = m[3], a10 = m[4], a11 = m[5], a12 = m[6], a13 = m[7];
+    var a20 = m[8], a21 = m[9], a22 = m[10], a23 = m[11], a30 = m[12], a31 = m[13], a32 = m[14], a33 = m[15];
+    var b00 = a00 * a11 - a01 * a10, b01 = a00 * a12 - a02 * a10, b02 = a00 * a13 - a03 * a10, b03 = a01 * a12 - a02 * a11;
+    var b04 = a01 * a13 - a03 * a11, b05 = a02 * a13 - a03 * a12, b06 = a20 * a31 - a21 * a30, b07 = a20 * a32 - a22 * a30;
+    var b08 = a20 * a33 - a23 * a30, b09 = a21 * a32 - a22 * a31, b10 = a21 * a33 - a23 * a31, b11 = a22 * a33 - a23 * a32;
+    var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    if (!det) { return null; }
+    det = 1 / det;
+    var o = new Float32Array(16);
+    o[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det; o[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+    o[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det; o[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+    o[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det; o[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+    o[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det; o[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+    o[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det; o[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+    o[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det; o[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+    o[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det; o[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+    o[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det; o[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+    return o;
+  }
+  function transformer(m, p) {
+    var x = p[0], y = p[1], z = p[2];
+    var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+    return [(m[0] * x + m[4] * y + m[8] * z + m[12]) / w, (m[1] * x + m[5] * y + m[9] * z + m[13]) / w,
+      (m[2] * x + m[6] * y + m[10] * z + m[14]) / w, w];
+  }
+  // ------------------------------------------------------------ nuanceurs
+  var SOMMETS = [
+    "#version 300 es",
+    "precision highp float;",
+    "layout(location = 0) in vec3 aPos;",
+    "layout(location = 1) in vec3 aNor;",
+    "layout(location = 4) in vec4 aCol;",
+    "layout(location = 5) in vec2 aInfo;",
+    "#ifdef INSTANCE",
+    "layout(location = 2) in vec4 iA;",
+    "layout(location = 3) in vec3 iB;",
+    "#endif",
+    "uniform mat4 uVue;",
+    "out vec3 vMonde; out vec3 vNor; out vec4 vCol; flat out vec2 vInfo;",
+    "void main() {",
+    "#ifdef INSTANCE",
+    "  vec3 l = aPos * iB;",
+    "  float c = cos(iA.w), s = sin(iA.w);",
+    "  float ly = -l.z;",
+    "  vec3 m = vec3(iA.x + l.x * c - ly * s, iA.z + l.y, -(iA.y + l.x * s + ly * c));",
+    "  float ny = -aNor.z;",
+    "  vec3 n = vec3(aNor.x * c - ny * s, aNor.y, -(aNor.x * s + ny * c));",
+    "#else",
+    "  vec3 m = aPos; vec3 n = aNor;",
+    "#endif",
+    "  vMonde = m; vNor = n; vCol = aCol; vInfo = aInfo;",
+    "  gl_Position = uVue * vec4(m, 1.0);",
+    "}"
+  ].join("\n");
+  var FRAG_OMBRE = "#version 300 es\nprecision mediump float;\nvoid main() {}";
+  var FRAG_CHOIX = "#version 300 es\nprecision highp float;\nflat in vec2 vInfo;\nout vec4 o;\nvoid main() { float z = floor(gl_FragCoord.z * 65535.0); o = vec4(vInfo.x / 255.0, floor(z / 256.0) / 255.0, mod(z, 256.0) / 255.0, 1.0); }";
+  var FRAG = [
+    "#version 300 es",
+    "precision highp float;",
+    "precision highp sampler2DShadow;",
+    "in vec3 vMonde; in vec3 vNor; in vec4 vCol; flat in vec2 vInfo;",
+    "uniform sampler2DShadow uOmbre;",
+    "uniform sampler2D uTerrain;",
+    "uniform mat4 uLum;",
+    "uniform vec3 uSoleil, uCam, uBrume, uAppoint;",
+    "uniform vec2 uBrumeD;",
+    "uniform vec4 uCadre;",
+    "uniform float uTexel, uBiais, uDecal, uSel, uMode;",
+    "out vec4 sortie;",
+    "float h21(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }",
+    "float bruit(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);",
+    "  return mix(mix(h21(i), h21(i + vec2(1.0, 0.0)), f.x), mix(h21(i + vec2(0.0, 1.0)), h21(i + vec2(1.0, 1.0)), f.x), f.y); }",
+    "float ombre(vec3 p, vec3 n) {",
+    "  vec4 q = uLum * vec4(p + n * uDecal, 1.0);",
+    "  vec3 c = q.xyz / q.w * 0.5 + 0.5;",
+    "  if (c.x < 0.0 || c.x > 1.0 || c.y < 0.0 || c.y > 1.0 || c.z > 1.0) return 1.0;",
+    "  float s = 0.0;",
+    "  for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++)",
+    "    s += texture(uOmbre, vec3(c.xy + vec2(float(i), float(j)) * uTexel, c.z - uBiais));",
+    "  return s / 9.0;",
+    "}",
+    "vec2 tourner(vec2 p) { float c = 0.9744, s = 0.2250; return vec2(c * p.x - s * p.y, s * p.x + c * p.y); }",
+    "void main() {",
+    "  float part = vInfo.x, mat = vInfo.y;",
+    "  vec3 n = normalize(vNor);",
+    "  vec3 col = vCol.rgb;",
+    "  vec3 V = normalize(uCam - vMonde);",
+    "  float dist = length(uCam - vMonde);",
+    "  float px = max(length(dFdx(vMonde)), length(dFdy(vMonde)));",
+    "  float fin = 1.0 - smoothstep(0.16, 0.6, px);",
+    "  vec2 uv = vec2(dot(vMonde.xz, vec2(-n.z, n.x)), vMonde.y);",
+    "  bool vertical = abs(n.y) < 0.5;",
+    "  float eau = 0.0;",
+    "  if (mat > 9.5) {",
+    "    vec2 w = vMonde.xz;",
+    "    if (mat < 10.5) {",
+    "      vec4 t = texture(uTerrain, (w - uCadre.xy) * uCadre.zw);",
+    "      float dr = t.r * 6000.0 + (bruit(w * 0.003) - 0.5) * 420.0 + (bruit(w * 0.02) - 0.5) * 60.0;",
+    "      vec2 g = tourner(w);",
+    "      vec2 taille = vec2(42.0, 115.0);",
+    "      vec2 bande = floor(g / vec2(480.0, 1150.0));",
+    "      vec2 gg = g + vec2(h21(bande) * 40.0, h21(bande + 5.0) * 90.0);",
+    "      vec2 cel = floor(gg / taille);",
+    "      float hc = h21(cel + 17.0);",
+    "      vec3 champ = hc < 0.30 ? vec3(0.55, 0.60, 0.36) : hc < 0.52 ? vec3(0.61, 0.63, 0.40) : hc < 0.70 ? vec3(0.70, 0.66, 0.47) : hc < 0.86 ? vec3(0.66, 0.59, 0.44) : vec3(0.51, 0.57, 0.33);",
+    "      champ *= 0.92 + 0.12 * bruit(w * 0.045) + 0.06 * (h21(cel + 3.0) - 0.5);",
+    "      vec2 f = fract(gg / taille) * taille; vec2 e = min(f, taille - f);",
+    "      float bord = (1.0 - smoothstep(0.9, 0.9 + px * 1.5, min(e.x, e.y))) * (1.0 - smoothstep(2.0, 6.0, px));",
+    "      champ = mix(champ, vec3(0.40, 0.44, 0.32), bord * 0.55);",
+    "      float couronnes = smoothstep(0.38, 0.66, bruit(w / 5.5)) * (1.0 - smoothstep(1.2, 4.0, px));",
+    "      vec3 feuillage = mix(vec3(0.38, 0.49, 0.26), vec3(0.48, 0.56, 0.30), bruit(w * 0.027));",
+    "      vec3 palme = mix(mix(vec3(0.56, 0.52, 0.38), feuillage, 0.6), feuillage * 1.06, couronnes);",
+    "      vec3 steppe = vec3(0.80, 0.73, 0.58) * (0.95 + 0.08 * bruit(w * 0.008));",
+    "      float jardin = max(1.0 - smoothstep(260.0, 520.0, dr), t.g * (0.35 + 0.65 * step(0.45, h21(floor(gg / vec2(130.0, 230.0)) + 9.0))));",
+    "      col = mix(champ, palme, jardin);",
+    "      col = mix(col, steppe, smoothstep(3200.0, 5600.0, dr) * (1.0 - t.g));",
+"    } else if (mat < 11.5) {",
+    "      col = vCol.rgb * (0.93 + 0.1 * bruit(w * 0.035));",
+    "    } else if (mat < 12.5) {",
+    "      eau = 1.0;",
+    "    } else if (mat < 13.5) {",
+    "      vec2 d = fract(tourner(w) / vec2(1.05, 1.05));",
+    "      float joint = (1.0 - smoothstep(0.03, 0.03 + px, min(min(d.x, 1.0 - d.x), min(d.y, 1.0 - d.y)))) * fin;",
+    "      col = vCol.rgb * (0.95 + 0.07 * bruit(w * 0.5)) * (1.0 - 0.12 * joint);",
+    "    } else {",
+    "      col = vCol.rgb * (0.94 + 0.1 * bruit(w * 0.06));",
+    "    }",
+    "  } else if (mat > 1.5 && mat < 3.5 && vertical) {",
+    "    vec3 bleu = vCol.rgb;",
+    "    float a = 0.0; vec3 bete = vec3(0.86, 0.80, 0.60);",
+    "    if (mat < 2.5) {",
+    "      float rang = floor((uv.y - 1.6) / 2.4);",
+    "      vec2 c = vec2(fract(uv.x / 2.8 + rang * 0.5), fract((uv.y - 1.6) / 2.4));",
+    "      float corps = 1.0 - smoothstep(0.26, 0.31, length(vec2((c.x - 0.48) * 1.5, (c.y - 0.46) * 2.6)));",
+    "      float tete = 1.0 - smoothstep(0.08, 0.12, length(vec2((c.x - 0.78) * 1.6, (c.y - 0.66) * 2.2)));",
+    "      float pattes = step(abs(fract(c.x * 5.0) - 0.5), 0.14) * step(0.12, c.y) * step(c.y, 0.34) * step(0.28, c.x) * step(c.x, 0.7);",
+    "      a = clamp(corps + tete + pattes, 0.0, 1.0) * step(0.0, rang);",
+    "      bete = mod(rang, 2.0) < 1.0 ? vec3(0.88, 0.82, 0.62) : vec3(0.80, 0.55, 0.24);",
+    "    } else {",
+    "      vec2 c = vec2(fract(uv.x / 3.6), (uv.y - 1.0) / 2.0);",
+    "      float dans = step(0.0, c.y) * step(c.y, 1.0);",
+    "      float corps = 1.0 - smoothstep(0.24, 0.29, length(vec2((c.x - 0.46) * 1.4, (c.y - 0.45) * 2.4)));",
+    "      float tete = 1.0 - smoothstep(0.1, 0.15, length(vec2((c.x - 0.8) * 1.5, (c.y - 0.62) * 2.0)));",
+    "      float pattes = step(abs(fract(c.x * 5.0) - 0.5), 0.14) * step(0.05, c.y) * step(c.y, 0.3) * step(0.26, c.x) * step(c.x, 0.72);",
+    "      a = clamp(corps + tete + pattes, 0.0, 1.0) * dans;",
+    "      bete = vec3(0.90, 0.74, 0.38);",
+    "      float ros = (step(0.6, uv.y) * step(uv.y, 0.85) + step(3.2, uv.y) * step(uv.y, 3.45)) * step(0.5, fract(uv.x / 0.7));",
+    "      a = max(a, ros * 0.8); ",
+    "    }",
+    "    col = mix(bleu, bete, a * fin) * (0.96 + 0.06 * bruit(uv * 3.0));",
+    "  } else if (mat > 1.5 && mat < 3.5) {",
+    "    col = vec3(0.62, 0.50, 0.38);",
+    "  } else if (mat > 7.5 && mat < 8.5 && !vertical) {",
+    "    col = vec3(0.62, 0.50, 0.38);",
+    "  } else {",
+    "    float b = bruit(vec2(uv.x * 0.35, uv.y * 0.6) + vMonde.xz * (vertical ? 0.0 : 0.15));",
+    "    col *= 0.93 + 0.1 * b;",
+    "    if (mat > 6.5 && mat < 7.5 && vertical) {",
+    "      float redan = smoothstep(0.42, 0.46, abs(fract(uv.x / 3.2) - 0.5)) * (1.0 - smoothstep(0.3, 1.2, px));",
+    "      col *= 1.0 - 0.14 * redan;",
+    "    }",
+    "    if (mat > 8.5 && mat < 9.5 && !vertical) {",
+    "      float marche = step(0.5, fract(vMonde.y / 0.55)) * (1.0 - smoothstep(0.08, 0.3, px));",
+    "      col *= 1.0 - 0.13 * marche;",
+    "    }",
+    "    if (mat > 4.5 && mat < 5.5) { col *= 0.85 + 0.3 * bruit(vMonde.xz * 0.7); }",
+    "  }",
+    "  float cert = floor(vCol.a * 255.0 + 0.5);",
+    "  if (uMode > 0.5) {",
+    "    float gris = dot(col, vec3(0.3, 0.59, 0.11));",
+    "    col = cert > 2.5 ? vec3(0.20, 0.52, 0.34) : cert > 1.5 ? vec3(0.92, 0.62, 0.18) : cert > 0.5 ? vec3(0.66, 0.66, 0.72) : mix(vec3(gris), vec3(0.86, 0.84, 0.80), 0.55);",
+    "    if (eau > 0.5) { col = mix(vec3(0.62, 0.72, 0.80), vec3(0.92, 0.62, 0.18), 0.0); eau = 0.0; }",
+    "  }",
+    "  float diff = max(dot(n, uSoleil), 0.0);",
+    "  float sh = diff > 0.0 ? ombre(vMonde, n) : 0.0;",
+    "  if (eau > 0.5) {",
+    "    vec2 w = vMonde.xz;",
+    "    vec3 nn = normalize(vec3((bruit(w * 0.09) - 0.5) * 0.16 + (bruit(w * 0.43) - 0.5) * 0.06, 1.0, (bruit(w * 0.11 + 7.0) - 0.5) * 0.16));",
+    "    float fres = pow(1.0 - max(dot(nn, V), 0.0), 4.0);",
+    "    vec3 e = mix(vec3(0.25, 0.41, 0.46), vec3(0.62, 0.73, 0.82), 0.2 + fres * 0.45);",
+    "    float spec = pow(max(dot(reflect(-uSoleil, nn), V), 0.0), 140.0);",
+    "    col = e * (0.78 + 0.22 * sh) + vec3(1.0, 0.94, 0.8) * spec * 0.28 * sh;",
+    "  } else {",
+    "    float ao = vertical ? mix(0.62, 1.0, smoothstep(0.0, 7.0, vMonde.y)) : 1.0;",
+    "    vec3 amb = mix(vec3(0.46, 0.41, 0.35), vec3(0.62, 0.69, 0.80), n.y * 0.5 + 0.5);",
+    "    float app = max(dot(n, uAppoint), 0.0);",
+    "    col *= amb * ao * 0.72 + vec3(1.0, 0.92, 0.78) * diff * sh * 0.95 + vec3(0.62, 0.70, 0.86) * app * 0.3 * ao;",
+    "  }",
+    "  if (abs(part - uSel) < 0.5 && uSel > 0.5) { float rim = pow(1.0 - max(dot(n, V), 0.0), 2.0); col = col * 1.1 + vec3(1.0, 0.76, 0.26) * (0.09 + 0.4 * rim); }",
+    "  float brume = smoothstep(uBrumeD.x, uBrumeD.y, dist);",
+    "  col = mix(col, uBrume, brume);",
+    "  sortie = vec4(col, 1.0);",
+    "}"
+  ].join("\n");
+  var CIEL_S = "#version 300 es\nprecision highp float;\nlayout(location = 0) in vec2 aPos;\nout vec2 vP;\nvoid main() { vP = aPos; gl_Position = vec4(aPos, 0.9999, 1.0); }";
+  var CIEL_F = [
+    "#version 300 es",
+    "precision highp float;",
+    "in vec2 vP; uniform mat4 uInv; uniform vec3 uBrume; out vec4 o;",
+    "void main() {",
+    "  vec4 a = uInv * vec4(vP, -1.0, 1.0), b = uInv * vec4(vP, 1.0, 1.0);",
+    "  vec3 d = normalize(b.xyz / b.w - a.xyz / a.w);",
+    "  vec3 zenith = vec3(0.45, 0.63, 0.82);",
+    "  o = vec4(mix(uBrume, zenith, smoothstep(0.0, 0.45, d.y)), 1.0);",
+    "}"
+  ].join("\n");
+  // ------------------------------------------------------------ moteur WebGL
+  var toile = $(".bab__toile"), scene = $(".bab__scene"), gl = null, R = null;
+  var cam = { x: ENSEMBLE[0], y: ENSEMBLE[1], d: ENSEMBLE[2], lacet: ENSEMBLE[3], tangage: ENSEMBLE[4], h: ENSEMBLE[5] };
+  var selection = 0, mode = 0, vol = null, demande = false, vueCourante = null;
+  var SOLEIL = (function () { var v = [-0.645, 0.616, 0.452], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
+  var BRUME = [0.89, 0.86, 0.80];
+  var APPOINT = (function () { var v = [0.62, 0.25, -0.74], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
+  function compiler(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { throw new Error(gl.getShaderInfoLog(s)); }
+    return s;
+  }
+  function programme(vs, fs) {
+    var p = gl.createProgram();
+    gl.attachShader(p, compiler(gl.VERTEX_SHADER, vs));
+    gl.attachShader(p, compiler(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { throw new Error(gl.getProgramInfoLog(p)); }
+    var u = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+    for (var i = 0; i < n; i++) { var info = gl.getActiveUniform(p, i); u[info.name.replace(/\[0\]$/, "")] = gl.getUniformLocation(p, info.name); }
+    return { p: p, u: u };
+  }
+  function tampon(donnees) { var b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, donnees, gl.STATIC_DRAW); return b; }
+  function vaoLot(lot) {
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    tampon(new Float32Array(lot.f));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 24, 0);
+    gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 24, 12);
+    tampon(new Uint8Array(lot.o));
+    gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, 8, 0);
+    gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.UNSIGNED_BYTE, false, 8, 4);
+    gl.bindVertexArray(null);
+    return { vao: vao, n: lot.n };
+  }
+  function vaoBoites(B) {
+    var f = [];
+    // Boîte unité : x et z de -0,5 à 0,5, y de 0 à 1, cinq faces (pas de dessous).
+    var faces = [[[0, 1, 0], [[-0.5, 1, 0.5], [0.5, 1, 0.5], [0.5, 1, -0.5], [-0.5, 1, -0.5]]],
+      [[1, 0, 0], [[0.5, 0, 0.5], [0.5, 0, -0.5], [0.5, 1, -0.5], [0.5, 1, 0.5]]],
+      [[-1, 0, 0], [[-0.5, 0, -0.5], [-0.5, 0, 0.5], [-0.5, 1, 0.5], [-0.5, 1, -0.5]]],
+      [[0, 0, 1], [[-0.5, 0, 0.5], [0.5, 0, 0.5], [0.5, 1, 0.5], [-0.5, 1, 0.5]]],
+      [[0, 0, -1], [[0.5, 0, -0.5], [-0.5, 0, -0.5], [-0.5, 1, -0.5], [0.5, 1, -0.5]]]];
+    faces.forEach(function (fa) {
+      var n = fa[0], q = fa[1];
+      [[0, 1, 2], [0, 2, 3]].forEach(function (t) {
+        var a = q[t[0]], b = q[t[1]], c = q[t[2]];
+        var g = [(b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]), (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]), (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])];
+        if (g[0] * n[0] + g[1] * n[1] + g[2] * n[2] < 0) { var x = b; b = c; c = x; }
+        [a, b, c].forEach(function (p) { f.push(p[0], p[1], p[2], n[0], n[1], n[2]); });
+      });
+    });
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    tampon(new Float32Array(f));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 24, 0);
+    gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 24, 12);
+    tampon(new Float32Array(B.f));
+    gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 4, gl.FLOAT, false, 28, 0); gl.vertexAttribDivisor(2, 1);
+    gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 3, gl.FLOAT, false, 28, 16); gl.vertexAttribDivisor(3, 1);
+    tampon(new Uint8Array(B.o));
+    gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, 8, 0); gl.vertexAttribDivisor(4, 1);
+    gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.UNSIGNED_BYTE, false, 8, 4); gl.vertexAttribDivisor(5, 1);
+    gl.bindVertexArray(null);
+    return { vao: vao, n: B.n, sommets: f.length / 6 };
+  }
+  // Carte du terrain : distance au fleuve (rouge) et faubourgs (vert), pour colorer la campagne.
+  var CADRE_T = [-9300, -9300, 18600];
+  function texTerrain() {
+    var N = 256, px = new Uint8Array(N * N * 4), k = CADRE_T[2] / N;
+    for (var j = 0; j < N; j++) {
+      for (var i = 0; i < N; i++) {
+        var x = CADRE_T[0] + (i + 0.5) * k, y = -(CADRE_T[1] + (j + 0.5) * k);
+        var d = distLigne(x, y, AXE), o = (j * N + i) * 4;
+        px[o] = Math.min(255, d / 6000 * 255);
+        px[o + 1] = dedans(x, y, FAUBOURGS) ? 255 : 0;
+        px[o + 3] = 255;
+      }
+    }
+    var t = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, N, N, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return t;
+  }
+  function demarrer() {
+    try {
+      gl = toile.getContext("webgl2", { antialias: true, alpha: false, powerPreference: "high-performance" });
+    } catch (e) { gl = null; }
+    if (!gl) { return false; }
+    var t0 = performance.now();
+    var M = batir();
+    var t1 = performance.now();
+    R = {};
+    var def = "#version 300 es\n#define INSTANCE\n";
+    var sansInst = SOMMETS, avecInst = SOMMETS.replace("#version 300 es\n", def);
+    R.stat = programme(sansInst, FRAG); R.inst = programme(avecInst, FRAG);
+    R.statO = programme(sansInst, FRAG_OMBRE); R.instO = programme(avecInst, FRAG_OMBRE);
+    R.statC = programme(sansInst, FRAG_CHOIX); R.instC = programme(avecInst, FRAG_CHOIX);
+    R.ciel = programme(CIEL_S, CIEL_F);
+    R.sol = vaoLot(M.sol); R.vol = vaoLot(M.vol); R.boites = vaoBoites(M.boites);
+    R.vaoCiel = gl.createVertexArray();
+    gl.bindVertexArray(R.vaoCiel);
+    tampon(new Float32Array([-1, -1, 3, -1, -1, 3]));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    gl.bindVertexArray(null);
+    R.terrain = texTerrain();
+    // Carte des ombres.
+    R.T = 2048;
+    R.texO = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, R.texO);
+    gl.texStorage2D(gl.TEXTURE_2D, 1, gl.DEPTH_COMPONENT24, R.T, R.T);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_MODE, gl.COMPARE_REF_TO_TEXTURE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    R.fbO = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbO);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, R.texO, 0);
+    gl.drawBuffers([gl.NONE]); gl.readBuffer(gl.NONE);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    R.stats = { construction: Math.round(t1 - t0), boites: M.boites.n, sol: M.sol.n, volumes: M.vol.n, total: Math.round(performance.now() - t0) };
+    racine.setAttribute("data-moteur", "webgl2");
+    toile.addEventListener("webglcontextlost", function (e) { e.preventDefault(); secours("La maquette 3D s'est interrompue. Recharge la page pour la retrouver."); });
+    return true;
+  }
+  // Taille de la toile (pixels réels) et cadre de sélection.
+  var largeur = 0, hauteur = 0, dpr = 1;
+  function redimensionner() {
+    var w = toile.clientWidth, h = toile.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, w * h > 900000 ? 1.5 : 2);
+    var W = Math.max(1, Math.round(w * dpr)), H = Math.max(1, Math.round(h * dpr));
+    if (W !== largeur || H !== hauteur) {
+      largeur = W; hauteur = H; toile.width = W; toile.height = H;
+      if (R && R.fbC) { gl.deleteFramebuffer(R.fbC); gl.deleteRenderbuffer(R.rbC); gl.deleteRenderbuffer(R.rbP); R.fbC = null; }
+    }
+  }
+  function cadreChoix() {
+    if (R.fbC) { return; }
+    R.fbC = gl.createFramebuffer(); R.rbC = gl.createRenderbuffer(); R.rbP = gl.createRenderbuffer();
+    gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbC); gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA8, largeur, hauteur);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbP); gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, largeur, hauteur);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbC);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, R.rbC);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, R.rbP);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  }
+  function camera() {
+    var t = cam.tangage * RAD, l = cam.lacet * RAD;
+    var cible = [cam.x, cam.h, -cam.y];
+    var oeil = [cam.x + cam.d * Math.cos(t) * Math.sin(l), cam.h + cam.d * Math.sin(t), -cam.y + cam.d * Math.cos(t) * Math.cos(l)];
+    var asp = largeur / hauteur, pres_ = Math.max(1.5, cam.d * 0.02);
+    var proj = perspective(40 * RAD, asp, pres_, 90000);
+    var vue = regard(oeil, cible, [0, 1, 0]);
+    return { oeil: oeil, vp: multiplier(proj, vue) };
+  }
+  function lumiere() {
+    var S_ = Math.max(180, Math.min(5200, cam.d * 1.25)), Rr = 3000 + S_;
+    var c = [cam.x, 0, -cam.y];
+    // Recentre sur la grille des texels pour éviter le scintillement des ombres.
+    var texel = 2 * S_ / R.T;
+    var vue = regard([c[0] + SOLEIL[0] * Rr, c[1] + SOLEIL[1] * Rr, c[2] + SOLEIL[2] * Rr], c, [0, 1, 0]);
+    var q = transformer(vue, [0, 0, 0]);
+    var ox = q[0] - Math.round(q[0] / texel) * texel, oy = q[1] - Math.round(q[1] / texel) * texel;
+    var proj = orthographique(-S_ - ox, S_ - ox, -S_ - oy, S_ - oy, 1, 2 * Rr);
+    return { m: multiplier(proj, vue), texel: texel, prof: 2 * Rr };
+  }
+  function dessiner(passe, vp) {
+    var ps = passe === "ombre" ? [R.statO, R.instO] : passe === "choix" ? [R.statC, R.instC] : [R.stat, R.inst];
+    return function (quoi) {
+      var p = quoi === "boites" ? ps[1] : ps[0];
+      gl.useProgram(p.p);
+      gl.uniformMatrix4fv(p.u.uVue, false, vp);
+      if (quoi === "boites") {
+        gl.bindVertexArray(R.boites.vao);
+        gl.drawArraysInstanced(gl.TRIANGLES, 0, R.boites.sommets, R.boites.n);
+      } else {
+        var v = R[quoi];
+        gl.bindVertexArray(v.vao);
+        gl.drawArrays(gl.TRIANGLES, 0, v.n);
+      }
+    };
+  }
+  function uniformes(p, c, L) {
+    gl.useProgram(p.p);
+    gl.uniform1i(p.u.uOmbre, 0); gl.uniform1i(p.u.uTerrain, 1);
+    gl.uniformMatrix4fv(p.u.uLum, false, L.m);
+    gl.uniform3fv(p.u.uSoleil, SOLEIL); gl.uniform3fv(p.u.uCam, c.oeil); gl.uniform3fv(p.u.uBrume, BRUME); gl.uniform3fv(p.u.uAppoint, APPOINT);
+    gl.uniform2f(p.u.uBrumeD, cam.d * 1.1 + 3500, cam.d * 4.0 + 26000);
+    gl.uniform4f(p.u.uCadre, CADRE_T[0], CADRE_T[1], 1 / CADRE_T[2], 1 / CADRE_T[2]);
+    gl.uniform1f(p.u.uTexel, 1 / R.T); gl.uniform1f(p.u.uBiais, 0.6 / L.prof); gl.uniform1f(p.u.uDecal, L.texel * 1.2);
+    gl.uniform1f(p.u.uSel, selection); gl.uniform1f(p.u.uMode, mode);
+  }
+  var derniereCam = null;
+  function rendre() {
+    redimensionner();
+    var c = camera(), L = lumiere();
+    derniereCam = c;
+    gl.enable(gl.CULL_FACE);
+    // 1. Ombres (volumes seulement).
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbO);
+    gl.viewport(0, 0, R.T, R.T);
+    gl.clear(gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(2.0, 4.0);
+    var d = dessiner("ombre", L.m);
+    d("vol"); d("boites");
+    gl.disable(gl.POLYGON_OFFSET_FILL);
+    // 2. Image.
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, largeur, hauteur);
+    gl.clearColor(BRUME[0], BRUME[1], BRUME[2], 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    gl.useProgram(R.ciel.p);
+    gl.uniformMatrix4fv(R.ciel.u.uInv, false, inverser(c.vp));
+    gl.uniform3fv(R.ciel.u.uBrume, BRUME);
+    gl.bindVertexArray(R.vaoCiel);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, R.texO);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, R.terrain);
+    uniformes(R.stat, c, L); uniformes(R.inst, c, L);
+    d = dessiner("image", c.vp);
+    d("sol");
+    gl.enable(gl.DEPTH_TEST);
+    d("vol"); d("boites");
+    gl.bindVertexArray(null);
+    placerEtiquettes(c.vp);
+    clearTimeout(minuteurOcc);
+    minuteurOcc = setTimeout(verifierOcclusion, 140);
+  }
+  // Une étiquette cachée par un monument plus proche est masquée : on rend la scène
+  // en petit, avec la profondeur de chaque pixel, et on compare avec celle du repère.
+  var occultes = {}, minuteurOcc = null;
+  function verifierOcclusion() {
+    if (!gl || !R) { return; }
+    var w = Math.max(1, Math.round(largeur / 4)), h = Math.max(1, Math.round(hauteur / 4));
+    if (!R.fbOcc || R.occW !== w || R.occH !== h) {
+      if (R.fbOcc) { gl.deleteFramebuffer(R.fbOcc); gl.deleteRenderbuffer(R.rbOccC); gl.deleteRenderbuffer(R.rbOccP); }
+      R.fbOcc = gl.createFramebuffer(); R.rbOccC = gl.createRenderbuffer(); R.rbOccP = gl.createRenderbuffer();
+      gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbOccC); gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA8, w, h);
+      gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbOccP); gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, w, h);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbOcc);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, R.rbOccC);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, R.rbOccP);
+      R.occW = w; R.occH = h;
+    }
+    var c = camera();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbOcc);
+    gl.viewport(0, 0, w, h);
+    gl.clearColor(0, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    var d = dessiner("choix", c.vp);
+    d("sol");
+    gl.enable(gl.DEPTH_TEST);
+    d("vol"); d("boites");
+    // Lecture différée (tampon de pixels et barrière) : la carte graphique n'attend pas.
+    if (!R.pbo) { R.pbo = gl.createBuffer(); }
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pbo);
+    gl.bufferData(gl.PIXEL_PACK_BUFFER, w * h * 4, gl.STREAM_READ);
+    gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, 0);
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindVertexArray(null);
+    var barriere = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0), essais = 0, jeton = ++verifierOcclusion.n;
+    gl.flush();
+    (function attendre() {
+      if (!gl || jeton !== verifierOcclusion.n) { gl && gl.deleteSync(barriere); return; }
+      var etat = gl.clientWaitSync(barriere, 0, 0);
+      if (etat === gl.TIMEOUT_EXPIRED && essais++ < 90) { window.requestAnimationFrame(attendre); return; }
+      gl.deleteSync(barriere);
+      var lu = new Uint8Array(w * h * 4);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pbo);
+      gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, lu);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+      lireOcclusion(c, lu, w, h);
+    })();
+  }
+  verifierOcclusion.n = 0;
+  function lireOcclusion(c, lu, w, h) {
+    etiquettes.forEach(function (e) {
+      var p = transformer(c.vp, [e.f.ancre[0], e.f.ancre[2], -e.f.ancre[1]]);
+      var sx = Math.floor((p[0] + 1) / 2 * w), sy = Math.floor((p[1] + 1) / 2 * h);
+      if (p[3] <= 0 || sx < 0 || sy < 0 || sx >= w || sy >= h) { occultes[e.cle] = false; return; }
+      var o = (sy * w + sx) * 4, z = (lu[o + 1] * 256 + lu[o + 2]) / 65535;
+      occultes[e.cle] = z < (p[2] * 0.5 + 0.5) - 0.00003;
+    });
+    placerEtiquettes((derniereCam || c).vp);
+  }
+  // Partie visible sous un point de la toile (coordonnées CSS). La réponse arrive un
+  // peu plus tard (lecture différée), par la fonction rappel.
+  function partieSous(x, y, rappel) {
+    cadreChoix();
+    var c = camera(), px = Math.floor(x * dpr), py = Math.floor((toile.clientHeight - y) * dpr);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbC);
+    gl.viewport(0, 0, largeur, hauteur);
+    gl.enable(gl.SCISSOR_TEST); gl.scissor(px, py, 1, 1);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    var d = dessiner("choix", c.vp);
+    d("sol");
+    gl.enable(gl.DEPTH_TEST);
+    d("vol"); d("boites");
+    if (!R.pboC) { R.pboC = gl.createBuffer(); }
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pboC);
+    gl.bufferData(gl.PIXEL_PACK_BUFFER, 4, gl.STREAM_READ);
+    gl.readPixels(px, py, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, 0);
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+    gl.disable(gl.SCISSOR_TEST);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindVertexArray(null);
+    var barriere = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0), essais = 0;
+    gl.flush();
+    (function attendre() {
+      if (!gl) { return; }
+      if (gl.clientWaitSync(barriere, 0, 0) === gl.TIMEOUT_EXPIRED && essais++ < 90) { window.requestAnimationFrame(attendre); return; }
+      gl.deleteSync(barriere);
+      var lu = new Uint8Array(4);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pboC);
+      gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, lu);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+      rappel(lu[0]);
+    })();
+  }
+  // Point du sol sous un point de la toile, en coordonnées du plan.
+  function solSous(x, y) {
+    var c = derniereCam || camera(), inv = inverser(c.vp);
+    if (!inv) { return null; }
+    var nx = x / toile.clientWidth * 2 - 1, ny = 1 - y / toile.clientHeight * 2;
+    var a = transformer(inv, [nx, ny, -1]), b = transformer(inv, [nx, ny, 1]);
+    var dy = b[1] - a[1];
+    if (dy >= -1e-6) { return null; }
+    var t = -a[1] / dy;
+    return [a[0] + (b[0] - a[0]) * t, -(a[2] + (b[2] - a[2]) * t)];
+  }
+  function demander() {
+    if (demande) { return; }
+    demande = true;
+    window.requestAnimationFrame(image);
+  }
+  function image(t) {
+    demande = false;
+    if (vol) {
+      var k = Math.min(1, (t - vol.t0) / vol.duree), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      var de = vol.de, a = vol.a;
+      cam.x = de.x + (a.x - de.x) * e; cam.y = de.y + (a.y - de.y) * e; cam.h = de.h + (a.h - de.h) * e;
+      cam.lacet = de.lacet + (a.lacet - de.lacet) * e; cam.tangage = de.tangage + (a.tangage - de.tangage) * e;
+      var bosse = 1 + Math.sin(Math.PI * e) * vol.bosse;
+      cam.d = Math.exp(Math.log(de.d) + (Math.log(a.d) - Math.log(de.d)) * e) * bosse;
+      if (k >= 1) { vol = null; }
+    }
+    if (gl) { rendre(); }
+    if (vol) { demander(); }
+  }
+  function borner() {
+    cam.tangage = Math.max(6, Math.min(89, cam.tangage));
+    cam.d = Math.max(60, Math.min(11000, cam.d));
+    cam.x = Math.max(-3500, Math.min(5000, cam.x));
+    cam.y = Math.max(-3800, Math.min(6000, cam.y));
+  }
+  // Sur une toile étroite (téléphone tenu debout), on recule pour garder le cadrage.
+  function facteurAspect() {
+    var w = toile.clientWidth, h = toile.clientHeight;
+    return w && h ? Math.max(1, Math.min(1.8, 1.5 / (w / h))) : 1;
+  }
+  function allerA(v, duree) {
+    var a = { x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: v[5] || 0 };
+    var dl = ((a.lacet - cam.lacet) % 360 + 540) % 360 - 180;
+    a.lacet = cam.lacet + dl;
+    if (reduit || duree === 0 || !gl) { cam.x = a.x; cam.y = a.y; cam.d = a.d; cam.lacet = a.lacet; cam.tangage = a.tangage; cam.h = a.h; vol = null; demander(); return; }
+    var trajet = Math.hypot(a.x - cam.x, a.y - cam.y);
+    vol = { de: { x: cam.x, y: cam.y, d: cam.d, lacet: cam.lacet, tangage: cam.tangage, h: cam.h }, a: a, t0: performance.now(),
+      duree: duree || 1700, bosse: Math.min(1.2, trajet / Math.max(cam.d, a.d) * 0.6) };
+    demander();
+  }
+  // ------------------------------------------------------------ étiquettes
+  var calque = $(".bab__reperes"), etiquettes = [];
+  function creerEtiquettes() {
+    Object.keys(FICHES).forEach(function (cle) {
+      var bouton = racine.querySelector('.bab__bouton[data-partie="' + cle + '"]');
+      if (!bouton) { return; }
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "bab__repere";
+      el.setAttribute("data-partie", cle);
+      el.setAttribute("tabindex", "-1");
+      el.textContent = bouton.getAttribute("data-court") || bouton.textContent;
+      el.addEventListener("click", function () { choisir(cle, true); });
+      calque.appendChild(el);
+      etiquettes.push({ cle: cle, el: el, f: FICHES[cle], l: 0, h: 0 });
+    });
+  }
+  var outils = $(".bab__outils");
+  function placerEtiquettes(vp) {
+    var W = toile.clientWidth, H = toile.clientHeight, places = [];
+    var haut = outils ? outils.offsetTop + outils.offsetHeight + 6 : 46;
+    var niveau = cam.d < 1500 ? 3 : cam.d < 3600 ? 2 : 1;
+    var liste = etiquettes.slice().sort(function (a, b) {
+      var pa = a.cle === PARTIES[selection] ? 0 : a.f.imp, pb = b.cle === PARTIES[selection] ? 0 : b.f.imp;
+      return pa - pb;
+    });
+    liste.forEach(function (e) {
+      var choisie = e.cle === PARTIES[selection];
+      var montrer = choisie || (e.f.imp <= niveau && !occultes[e.cle]);
+      var p = montrer ? transformer(vp, [e.f.ancre[0], e.f.ancre[2], -e.f.ancre[1]]) : null;
+      if (!p || p[3] <= 0 || p[2] > 1) { e.el.style.visibility = "hidden"; return; }
+      var x = (p[0] + 1) / 2 * W, y = (1 - p[1]) / 2 * H;
+      if (!e.l) { e.l = e.el.offsetWidth; e.h = e.el.offsetHeight; }
+      var bx = [x - e.l / 2, y - e.h - 9, x + e.l / 2, y];
+      var hors = bx[0] < 2 || bx[2] > W - 2 || bx[1] < haut || y > H - 2;
+      var chevauche = places.some(function (q) { return !(bx[2] < q[0] || bx[0] > q[2] || bx[3] < q[1] || bx[1] > q[3]); });
+      if (hors || (chevauche && !choisie)) { e.el.style.visibility = "hidden"; return; }
+      places.push(bx);
+      e.el.style.visibility = "visible";
+      e.el.style.transform = "translate(" + Math.round(x - e.l / 2) + "px," + Math.round(y - e.h - 9) + "px)";
+      e.el.classList.toggle("est-choisi", choisie);
+    });
+  }
+  // ------------------------------------------------------------ interactions
+  var pointeurs = {}, geste = null, appui = null, aideMasquee = false;
+  function masquerAide() { if (!aideMasquee) { aideMasquee = true; racine.classList.add("a-bouge"); } }
+  function avis(texte) {
+    var m = $(".bab__avis");
+    m.textContent = texte;
+    m.classList.add("est-visible");
+    clearTimeout(avis.t);
+    avis.t = setTimeout(function () { m.classList.remove("est-visible"); }, 1800);
+  }
+  function tourner(dx, dy) {
+    cam.lacet -= dx / Math.max(300, toile.clientWidth) * 260;
+    cam.tangage += dy / Math.max(240, toile.clientHeight) * 110;
+  }
+  function deplacer(dx, dy) {
+    var mpp = 2 * cam.d * Math.tan(20 * RAD) / toile.clientHeight;
+    var l = cam.lacet * RAD, s = 1 / Math.max(0.35, Math.sin(cam.tangage * RAD));
+    var rx = Math.cos(l), ry = Math.sin(l);   // droite de l'écran, dans le plan (x, y)
+    var fx = -Math.sin(l), fy = Math.cos(l);  // devant, dans le plan
+    cam.x += (-dx * rx + dy * s * fx) * mpp;
+    cam.y += (-dx * ry + dy * s * fy) * mpp;
+  }
+  function zoomer(facteur, x, y) {
+    var avant = x === undefined ? null : solSous(x, y);
+    var d0 = cam.d;
+    cam.d = Math.max(60, Math.min(11000, cam.d * facteur));
+    if (avant) {
+      var k = 1 - cam.d / d0;
+      cam.x += (avant[0] - cam.x) * k;
+      cam.y += (avant[1] - cam.y) * k;
+    }
+  }
+  function brancher() {
+    toile.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    toile.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button > 2) { return; }
+      vol = null;
+      toile.setPointerCapture(e.pointerId);
+      pointeurs[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var n = Object.keys(pointeurs).length;
+      appui = n === 1 ? { x: e.clientX, y: e.clientY, t: performance.now(), bouge: 0 } : null;
+      geste = n === 1 ? (e.button === 2 || e.shiftKey || e.ctrlKey || e.metaKey ? "deplacer" : "tourner") : "pincer";
+      masquerAide();
+    });
+    toile.addEventListener("pointermove", function (e) {
+      var p = pointeurs[e.pointerId];
+      if (!p) { return; }
+      var ids = Object.keys(pointeurs);
+      if (ids.length >= 2) {
+        var a = pointeurs[ids[0]], b = pointeurs[ids[1]];
+        var d0 = Math.hypot(a.x - b.x, a.y - b.y), m0 = [(a.x + b.x) / 2, (a.y + b.y) / 2];
+        var ang0 = Math.atan2(b.y - a.y, b.x - a.x);
+        p.x = e.clientX; p.y = e.clientY;
+        var d1 = Math.hypot(a.x - b.x, a.y - b.y), m1 = [(a.x + b.x) / 2, (a.y + b.y) / 2];
+        var ang1 = Math.atan2(b.y - a.y, b.x - a.x);
+        if (d1 > 0 && d0 > 0) { cam.d = Math.max(60, Math.min(11000, cam.d * d0 / d1)); }
+        deplacer(m1[0] - m0[0], m1[1] - m0[1]);
+        cam.lacet -= (ang1 - ang0) / RAD;
+      } else {
+        var dx = e.clientX - p.x, dy = e.clientY - p.y;
+        p.x = e.clientX; p.y = e.clientY;
+        if (appui) { appui.bouge += Math.abs(dx) + Math.abs(dy); }
+        if (geste === "deplacer") { deplacer(dx, dy); } else { tourner(dx, dy); }
+      }
+      borner();
+      demander();
+    });
+    function fin(e) {
+      if (!pointeurs[e.pointerId]) { return; }
+      delete pointeurs[e.pointerId];
+      if (appui && e.type === "pointerup" && appui.bouge < 6 && performance.now() - appui.t < 600) {
+        var b = toile.getBoundingClientRect();
+        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { choisir(PARTIES[id], false); } });
+      }
+      appui = null;
+      if (!Object.keys(pointeurs).length) { geste = null; }
+    }
+    toile.addEventListener("pointerup", fin);
+    toile.addEventListener("pointercancel", fin);
+    toile.addEventListener("wheel", function (e) {
+      if (!(e.ctrlKey || e.metaKey)) { avis("Pour zoomer, garde la touche Ctrl enfoncée en faisant rouler la molette, ou utilise les boutons + et −."); return; }
+      e.preventDefault();
+      vol = null;
+      var b = toile.getBoundingClientRect(), dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+      zoomer(Math.exp(dy * 0.0022), e.clientX - b.left, e.clientY - b.top);
+      borner(); masquerAide(); demander();
+    }, { passive: false });
+    toile.addEventListener("dblclick", function (e) {
+      var b = toile.getBoundingClientRect();
+      vol = null;
+      zoomer(0.55, e.clientX - b.left, e.clientY - b.top);
+      borner(); demander();
+    });
+    toile.addEventListener("keydown", function (e) {
+      var k = e.key, fait = true;
+      if (k === "ArrowLeft") { if (e.shiftKey) { deplacer(60, 0); } else { cam.lacet += 8; } }
+      else if (k === "ArrowRight") { if (e.shiftKey) { deplacer(-60, 0); } else { cam.lacet -= 8; } }
+      else if (k === "ArrowUp") { if (e.shiftKey) { deplacer(0, 60); } else { cam.tangage += 4; } }
+      else if (k === "ArrowDown") { if (e.shiftKey) { deplacer(0, -60); } else { cam.tangage -= 4; } }
+      else if (k === "+" || k === "=") { zoomer(0.8); }
+      else if (k === "-" || k === "_") { zoomer(1.25); }
+      else if (k === "Home") { allerA(ENSEMBLE); }
+      else { fait = false; }
+      if (fait) { e.preventDefault(); vol = k === "Home" ? vol : null; borner(); masquerAide(); demander(); }
+    });
+    if (window.ResizeObserver) { new ResizeObserver(function () { demander(); }).observe(toile); }
+    window.addEventListener("resize", demander);
+  }
+  // ------------------------------------------------------------ choix, panneaux, visite
+  var boutons = $$(".bab__bouton"), panneaux = $$(".bab__panneau");
+  function choisir(cle, voler) {
+    chaque(boutons, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-partie") === cle ? "true" : "false"); });
+    chaque(panneaux, function (p) { p.classList.toggle("est-visible", p.getAttribute("data-partie") === cle); });
+    selection = ID[cle] || 0;
+    racine.setAttribute("data-choix", cle);
+    if (voler && FICHES[cle]) { allerA(FICHES[cle].vue); }
+    demander();
+  }
+  var VISITE = [];
+  chaque($$(".bab__etape-donnees"), function (el) {
+    VISITE.push({ partie: el.getAttribute("data-partie"), titre: el.getAttribute("data-titre"), texte: el.textContent.trim(),
+      vue: el.getAttribute("data-vue") ? el.getAttribute("data-vue").split(",").map(Number) : null });
+  });
+  var etape = -1;
+  function allerEtape(i) {
+    etape = Math.max(0, Math.min(VISITE.length - 1, i));
+    var e = VISITE[etape];
+    racine.classList.add("en-visite");
+    $(".bab__num").textContent = "Étape " + (etape + 1) + " sur " + VISITE.length;
+    $(".bab__titre-etape").textContent = e.titre;
+    $(".bab__texte-etape").textContent = e.texte;
+    $(".bab__prec").disabled = etape === 0;
+    $(".bab__suiv").textContent = etape === VISITE.length - 1 ? "Terminer" : "Suivant";
+    choisir(e.partie, false);
+    allerA(e.vue || (FICHES[e.partie] ? FICHES[e.partie].vue : ENSEMBLE), 2200);
+  }
+  function quitterVisite() {
+    etape = -1;
+    racine.classList.remove("en-visite");
+    $(".bab__lancer").focus();
+  }
+  // ------------------------------------------------------------ secours sans WebGL 2
+  // Sans 3D, la toile montre un plan de la ville vu de haut (Canvas 2D), et la liste
+  // des lieux reste la porte d'entrée vers les descriptions.
+  function secours(message) {
+    gl = null;
+    racine.classList.add("sans-3d");
+    var m = $(".bab__secours");
+    m.hidden = false;
+    m.querySelector(".bab__secours-texte").textContent = message;
+    var plan = document.createElement("canvas"), c2 = null;
+    plan.className = "bab__plan";
+    plan.setAttribute("role", "img");
+    plan.setAttribute("aria-label", "Plan de Babylone vers -575, vu de haut.");
+    try { c2 = plan.getContext("2d"); } catch (e) { c2 = null; }
+    if (!c2) { return; }
+    m.querySelector(".bab__secours-texte").textContent = message + " Voici le plan de la ville, vu de haut.";
+    m.insertBefore(plan, m.firstChild);
+    racine.classList.add("a-plan");
+    dessinerPlan(plan, c2);
+    window.addEventListener("resize", function () { dessinerPlan(plan, c2); });
+  }
+  function dessinerPlan(plan, c2) {
+    var W = plan.clientWidth || 600, H = plan.clientHeight || 420, k = window.devicePixelRatio || 1;
+    plan.width = Math.round(W * k); plan.height = Math.round(H * k);
+    var X0 = -1900, X1 = 3100, Y0 = -1700, Y1 = 3500;
+    var e = Math.min(W / (X1 - X0), H / (Y1 - Y0)), ox = (W - (X1 - X0) * e) / 2, oy = (H - (Y1 - Y0) * e) / 2;
+    var P = function (q) { return [(ox + (q[0] - X0) * e) * k, (oy + (Y1 - q[1]) * e) * k]; };
+    function forme(p, ferme) { c2.beginPath(); p.forEach(function (q, i) { var v = P(q); if (i) { c2.lineTo(v[0], v[1]); } else { c2.moveTo(v[0], v[1]); } }); if (ferme) { c2.closePath(); } }
+    function remplir(p, coul) { forme(p, true); c2.fillStyle = coul; c2.fill(); }
+    function trait(p, coul, l) { forme(p, false); c2.strokeStyle = coul; c2.lineWidth = Math.max(1, l * e * k); c2.lineJoin = "round"; c2.stroke(); }
+    c2.fillStyle = "#C8C79A"; c2.fillRect(0, 0, plan.width, plan.height);
+    remplir(FAUBOURGS, "#B7C08A");
+    remplir(SOL_EST, "#E6D7B9"); remplir(SOL_OUEST, "#E6D7B9");
+    FLEUVE.concat(D.fosse.map(pts), D.fosse_ext.map(pts)).forEach(function (f) { remplir(f, "#8DB4CE"); });
+    trait(VOIE, "#FFFFFF", 22); trait(VOIE_NORD, "#FFFFFF", 22); trait(RUE_PONT, "#FFFFFF", 12);
+    ["imgur_est", "imgur_ouest", "rempart_ext", "rempart_ext_sud"].forEach(function (cle) { D[cle].map(pts).forEach(function (l) { trait(l, "#5A4632", cle.indexOf("ext") >= 0 ? 26 : 16); }); });
+    [PALAIS_SUD, BASTION, PALAIS_NORD, PALAIS_ETE, ANNEXE].forEach(function (p) { remplir(p, "#A88E70"); });
+    [ENCEINTE].forEach(function (p) { trait(p.concat([p[0]]), "#7A6450", 8); });
+    [ESAGIL, ZIG].concat(Object.keys(TEMPLES).map(function (t) { return TEMPLES[t]; })).forEach(function (p) { remplir(p, "#5E4B3B"); });
+    trait(PONT, "#5A4632", 9);
+    c2.font = "600 " + Math.round(12 * k) + "px " + (getComputedStyle(racine).getPropertyValue("--titre") || "sans-serif");
+    c2.textAlign = "center";
+    etiquettes.length || Object.keys(FICHES).forEach(function (cle) {
+      var b = racine.querySelector('.bab__bouton[data-partie="' + cle + '"]');
+      if (!b || ["palais-nord", "voie", "jardins", "temples", "campagne"].indexOf(cle) >= 0) { return; }
+      var v = P(FICHES[cle].ancre), t = b.getAttribute("data-court") || b.textContent;
+      c2.lineWidth = 3 * k; c2.strokeStyle = "rgba(255,255,255,.9)"; c2.strokeText(t, v[0], v[1]);
+      c2.fillStyle = "#1F2328"; c2.fillText(t, v[0], v[1]);
+    });
+  }
+  // ------------------------------------------------------------ mise en route
+  chaque(boutons, function (b) {
+    b.addEventListener("click", function () { choisir(b.getAttribute("data-partie"), true); });
+  });
+  chaque($$(".bab__outil"), function (b) {
+    b.addEventListener("click", function () {
+      var a = b.getAttribute("data-action");
+      if (a === "ensemble") { allerA(ENSEMBLE); }
+      else if (a === "plus") { vol = null; zoomer(0.7); borner(); demander(); }
+      else if (a === "moins") { vol = null; zoomer(1.4); borner(); demander(); }
+      else if (a === "certitude") {
+        mode = mode ? 0 : 1;
+        b.setAttribute("aria-pressed", mode ? "true" : "false");
+        $(".bab__legende").hidden = !mode;
+        demander();
+      } else if (a === "plein") {
+        if (document.fullscreenElement) { document.exitFullscreen(); } else if (scene.requestFullscreen) { scene.requestFullscreen(); }
+      }
+    });
+  });
+  var plein = $('.bab__outil[data-action="plein"]');
+  if (plein && document.fullscreenEnabled && scene.requestFullscreen) {
+    plein.hidden = false;
+    document.addEventListener("fullscreenchange", function () {
+      plein.textContent = document.fullscreenElement ? "Quitter le plein écran" : "Plein écran";
+      demander();
+    });
+  }
+  $(".bab__lancer").addEventListener("click", function () { allerEtape(0); });
+  $(".bab__prec").addEventListener("click", function () { allerEtape(etape - 1); });
+  $(".bab__suiv").addEventListener("click", function () { if (etape >= VISITE.length - 1) { quitterVisite(); choisir("accueil", false); allerA(ENSEMBLE); } else { allerEtape(etape + 1); } });
+  $(".bab__quitter").addEventListener("click", function () { quitterVisite(); });
+  racine.classList.add("est-pret");
+  choisir("accueil", false);
+  // La ville n'est construite que lorsque la maquette approche de l'écran : la page
+  // reste légère pour l'élève qui ne s'y rend pas.
+  function lancer() {
+    var ok = false;
+    try { ok = demarrer(); } catch (err) { ok = false; racine.setAttribute("data-erreur", String(err && err.message || err).slice(0, 300)); }
+    if (ok) {
+      creerEtiquettes();
+      brancher();
+      allerA(ENSEMBLE, 0);
+    } else {
+      secours("Ton appareil ne peut pas afficher la maquette en 3D. Tu peux quand même choisir un lieu dans la liste pour lire sa description.");
+    }
+  }
+  if (window.IntersectionObserver) {
+    var guet = new IntersectionObserver(function (entrees) {
+      if (entrees.some(function (e) { return e.isIntersecting; })) { guet.disconnect(); lancer(); }
+    }, { rootMargin: "400px 0px" });
+    guet.observe(scene);
+  } else {
+    lancer();
+  }
+  // Accès pour les essais automatiques (captures et test dans un DOM simulé).
+  racine.babylone = { cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
+    stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } },
+    partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); },
+    occultes: function () { return occultes; } };
+})();
+</script>
+</section>
+
 <h2 id="les-cites-etats-independantes-les-unes-des-autres">Les cités-États : indépendantes les unes des autres</h2>
 <p>La Mésopotamie regroupe plusieurs villes qu'on appelle cités-États,
 c'est-à-dire des villes qui possèdent les mêmes pouvoirs qu'un pays actuel.
@@ -1133,14 +3125,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
 </script>
 </section>
 
-<figure class="video">
-<iframe src="https://www.youtube-nocookie.com/embed/OSTgxepXwIg"
-  title="Les cités-États de Mésopotamie" loading="lazy" allowfullscreen
-  allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"
-  referrerpolicy="strict-origin-when-cross-origin"></iframe>
-<figcaption>Les cités-États de Mésopotamie</figcaption>
-</figure>
-
+<p><a href="https://www.youtube.com/watch?v=OSTgxepXwIg">Voir en vidéo une reconstitution de la cité-État d'Ur</a></p>
 <h2 id="la-hierarchie-sociale-mesopotamienne">La hiérarchie sociale mésopotamienne</h2>
 <figure class="schema"><svg viewBox="0 0 1100 492" xmlns="http://www.w3.org/2000/svg" role="img"
      aria-label="La hiérarchie sociale mésopotamienne, du roi aux esclaves, du plus grand au plus faible pouvoir">
