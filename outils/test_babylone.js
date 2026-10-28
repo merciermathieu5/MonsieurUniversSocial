@@ -95,6 +95,26 @@ clic(racine.querySelector(".bab__lancer"));
 clic(racine.querySelector(".bab__quitter"));
 verifier("Quitter la visite la referme", !racine.classList.contains("en-visite"));
 
+console.log("PLEIN ÉCRAN");
+const pleinBouton = racine.querySelector(".bab__entete > .plein-ecran");
+verifier("le bouton Plein écran (posé par page.js) est dans l'en-tête", !!pleinBouton);
+const texteBouton = racine.querySelector('.bab__outil[data-action="texte"]');
+verifier("le bouton qui replie les textes existe", !!texteBouton && texteBouton.getAttribute("aria-expanded") === "true");
+verifier("les textes sont regroupés dans le panneau latéral",
+  [".bab__visite", ".bab__choix", ".bab__contenu", ".bab__source"].every((sel) => racine.querySelector(".bab__cote > " + sel)));
+if (pleinBouton) {
+  clic(pleinBouton);
+  verifier("la maquette passe en plein écran", racine.classList.contains("est-plein-ecran"));
+  clic(texteBouton);
+  verifier("les textes se replient", racine.classList.contains("texte-masque") && texteBouton.getAttribute("aria-expanded") === "false" && /Afficher/.test(texteBouton.textContent));
+  clic(texteBouton);
+  verifier("puis se déploient", !racine.classList.contains("texte-masque") && /Masquer/.test(texteBouton.textContent));
+  clic(pleinBouton);
+  verifier("un second clic quitte le plein écran", !racine.classList.contains("est-plein-ecran"));
+}
+verifier("l'avis de chargement disparaît une fois la maquette prête (ici, le plan de secours)", racine.classList.contains("est-construite"));
+verifier("l'infobulle de survol existe et reste cachée aux lecteurs d'écran", (racine.querySelector(".bab__bulle") || {}).getAttribute && racine.querySelector(".bab__bulle").getAttribute("aria-hidden") === "true");
+
 console.log("TEXTES");
 const textes = tous(".bab__panneau, .bab__etape-donnees, .bab__source, .bab__invite, .bab__legende").map((e) => e.textContent).join("\n");
 verifier("aucun tiret long ou moyen", !/[—–]/.test(textes), (textes.match(/.{20}[—–].{20}/) || [""])[0]);

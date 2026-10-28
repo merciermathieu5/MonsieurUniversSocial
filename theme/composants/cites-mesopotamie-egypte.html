@@ -82,6 +82,23 @@ html[data-sombre="on"] .cme .cme__titre { color: var(--encre); }
 html[data-sombre="on"] .cme .cme__consigne { color: var(--encre-pale); }
 html[data-sombre="on"] .cme__vue[aria-pressed="true"], html[data-sombre="on"] .cme__bouton[aria-pressed="true"] { color: #10171F; }
 html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj strong { color: var(--encre); }
+.cme__replier { position: absolute; top: .65rem; right: .65rem; z-index: 1; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+.cme__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.cme:not(.est-plein-ecran) .cme__replier { display: none; }
+.cme.est-plein-ecran { display: grid; grid-template-columns: minmax(0, 1fr) minmax(21rem, 28rem); grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.cme.est-plein-ecran > .cme__entete { grid-column: 1 / -1; position: static; }
+.cme.est-plein-ecran > .cme__carte { grid-column: 1; grid-row: 2; min-height: 0; overflow: hidden; border-bottom: 0; }
+.cme.est-plein-ecran.est-pret .cme__svg.est-visible { width: 100%; height: 100%; max-height: none; }
+.cme.est-plein-ecran > .cme__cote { grid-column: 2; grid-row: 2; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--trait); background: var(--surface); }
+.cme.est-plein-ecran .cme__groupe { grid-template-columns: 1fr; }
+.cme.est-plein-ecran .cme__groupe-tete { min-height: 0; }
+.cme.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr) 0; }
+.cme.est-plein-ecran.texte-masque > .cme__cote { display: none; }
+@media (max-width: 50rem), (max-aspect-ratio: 1/1) {
+  .cme.est-plein-ecran { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1.2fr) minmax(0, 1fr); }
+  .cme.est-plein-ecran > .cme__cote { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid var(--trait); }
+  .cme.est-plein-ecran.texte-masque { grid-template-rows: auto minmax(0, 1fr) 0; }
+}
 @media (max-width: 40rem) {
   .cme__contenu { padding: 1.1rem 1rem 1rem; }
   .cme__choix { padding: .8rem; }
@@ -96,7 +113,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
   .cme .cme__svg, .cme .cme__panneau { display: block !important; }
   .cme .cme__svg + .cme__svg { margin-top: .6rem; }
   .cme .cme__panneau + .cme__panneau { margin-top: 1rem !important; }
-  .cme__vues, .cme__choix, .cme .cme__consigne, .cme__panneau--accueil .cme__auj { display: none; }
+  .cme__vues, .cme__replier, .cme__choix, .cme .cme__consigne, .cme__panneau--accueil .cme__auj { display: none; }
   .cme__panneau { break-inside: avoid; }
 }
 </style>
@@ -106,6 +123,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
 </div>
 <div class="cme__carte">
 <div class="cme__vues" role="group" aria-label="Vue de la carte"><button type="button" class="cme__vue" data-vue="ensemble" aria-pressed="true">Vue d&#x27;ensemble</button><button type="button" class="cme__vue" data-vue="mesopotamie" aria-pressed="false">Mésopotamie</button><button type="button" class="cme__vue" data-vue="sumer" aria-pressed="false">Sumer</button><button type="button" class="cme__vue" data-vue="egypte" aria-pressed="false">Égypte</button></div>
+<button type="button" class="cme__replier" data-action="texte" aria-expanded="true">Masquer le texte</button>
 <svg class="cme__svg" data-carte="ensemble" viewBox="0 0 1000 700" role="img" aria-label="Vue d&#x27;ensemble du Proche-Orient : la mer Méditerranée, la mer Noire, la mer Caspienne, la mer Rouge et le golfe Persique, avec le Tigre, l&#x27;Euphrate et le Nil. Des cadres délimitent la Mésopotamie et l&#x27;Égypte.">
 <defs><path id="cme-ensemble-tigre" class="cme__trace" d="M507.1 265l5.5-2.2 3 1.4 .6 1.4 1.6 .8 1.1-.4 3.1 .1 1.3 1.1 0 1.1 1.9 1 1.2 1.2-.6 2.3 2.1 .6-.5 2.2 .3 3.7 3.5 .7 1.5-.6 3.1-.2 2 .8 1.2-.5 3.7 1.4 2.7 0 .9 .6 2.9 .1 3.6-.2 1.9-.7 2 .4 1.8 3.6-.5 3.3 1.3 1.2 2.3-.4 2.5 1.1 1 .8 .6 1.5 1.6 .6 .9 .8-.3 1.4 .9 2.6M568.8 297.6l.8 1.6 1.4 1 1 2.2 1.2 1.6 1.8-.1 2.2 1.7 1.8 .4 0 1.7-2.6 2.1 .2 1.3 3.2 .1 1.1 .5 .4 1.5 1.6 .2 1.9 1.6 .7 2.2 2 2.3-.1 1.2 1 2.6-.6 4.6M587.8 327.9l-.2 1.6 .6 .4-1.6 1.6 .1 1.9 .7 2.3 0 1.5 2 1.8-.3 1.3 1.4 .3-.6 1.3 3.9 4.7-1 2 1.2 3.4 1.1 .5 .9 1.3 1 4 1 .4 .4 3.8 1 2 0 1.3 1.5 2.4 1.9 1.2 5.7 .6 2.2 1 1.5 1.5 0 1.4-1 2.8 .8 .9-.7 2.2-1.3 .6-.2 2.7 .7 1.1 1.4 4.1 1-.1 .7 1 .2 1.7 1.5 1.2 .4 1.2 2.3 1.3 .8-.3 1.9 1.6 2.3 .8 .9 1 1.2-.6 .2 1.5 1.4 1.1 3.6 .3 .4 1.8 1.8 1 .8 1.5 1.8-.4 1.1 1.4 2.2-.8 1.3 .9 1.8 .4M641.4 405.1l2.4-1.1 .7-1.5 2.8-1.2 1.5 .5 .7 1.1 3 1.1 2.3-.2 3.6 .7 .8 .5 1.6 2.4-.7 1.4 .4 1.1-.5 1.1 .6 2 1.4 1.3 1.8 .5 1 2.8 1.3 1.6 2.7-.9 .8 .7 0 1.7 .6 2 1.9 2.3 1.1 1.9 2.1 1.5-.1 .8 1.2 1-.1 1.5 .7 1.8-.2 3.7 .4 1.8"/><path id="cme-ensemble-euphrate" class="cme__trace" d="M609.8 401.3l1 .9 1.2 2.2 .6-.3 .9 3 1.9 1.8 2.9 .2 .9-.5 2.1 3.6 .4 2.1-.1 2.5 1.8 .9 1.9 2.4-.8 2 1.1 1.8 0 1.1 4.2 4.2 2 1.3 1 2-1.1 .6-.8-.3-.3 .2M542.6 361.9l2.3 1.4 1.7-.3-.3-1 1.3-.7 2.8 .1 .8-.6 .9 1.2 2.3-.5 .6-1 2 .6 1.6-1.5 .8 .9 2.7 .1 1.8 2.4 1.4 .9 .4 1.3 3-1.7 1.8 .6-.1 1.1-1.2 1.2 1.3 1 .7 3.6 1.7-.4 1.4 2.4-.8 1.3 1.6 .9 .3-1 1.3 0 1.6 1-.8 1.1 1 2.5 2.1 1.9 1.4 2.2 1.2-.1 1.5 .9 .6-.9 1.5 .3 2 1.6 1.8-.6 1.7 .4 1 1.1 3.2 .1 4 3.2 .6 1.8 .9-.7 1.7 .9 3.6 3.2 .4 2.4 1.6 1.2 .9 2-1.3 4.7 .5 1.7 1.2 1.6-.1 1.4 1.5 3.2-.1 1.7 .3 2.1 2 2.7 .7 1.6 .7 4.1-.5 1.5 .4 1.1 2.6 1.3 1.7 2 1.5 .6 2.1-.1 1.2 1.2 1.1-.2 1.5 .5 1.8-.3 1.4 .5 .3 .6 .6 1.2M631.3 434.4l2-.1 2.7 .4M636 434.7l1.4 .3 .5 1.9 .9-.1 2 1.1 .8-.4 3.3 .9 2.4 .3 .9-.4 1.4 1.3 3.1 .5 2.4 1.7 1.4 .3 1.8 1.5 4.8-2.2 4.2-.2 1.2-.6 2.3 .2 4-.5 2.8-1.2 .4 1.1M499.5 255.5l.8-1.5-.6-.7 .2-1.9-.9-2.3M493.8 257.2l-.2 1.2-1.1 .4-1.1 1.9 .5 1.4 2 1.5 1.6 .3 2.3 1.1 2.4-.4 1.4 1.9 2 .9 1.5-.5M503.3 277.8l-.6 2.3-1.7 2.5 .1 1.2-4.3 .6-2.6 2.7-2.7 .6-.9-.2M549.9 222.2l-2.7 4.6-.6 .3-4.6 .5-2.2 .9-3.7 .2-1.1-.4-3.5-.4-3 .3-2.4 .8-.7 1.3 2.1 2.2 .2 .9-1.2 1.3-.5 2.3-1.7 .6-3.2-.7-3-1.5-1.5-.2-2.5-1.1-2.4 .1-1.5 1.3-2.4 .7-2.9-.2-1.3 .6-2.1 .2-2.2 1.1-.7 .9-1.3-.3-2.5 1.4-1 0-1.8 1.3 1.2 1.9 2.9 2.4 .7 1.3 1.7 .1 .5 2.2M499.5 255.5l-2.9 1.6-2.1-.3-.7 .4M505.1 266.9l.8 .1 .7 1.4-.7 2.3 2-.3 .7 1.2-.6 2.2-3.2 1.8-.2 1.2-1.3 1M490.6 287.5l-2.5 1.6-2-.8-2.3 .4-1.8 2.1-.9 1.9 .6 .9-.6 1.1 .6 1.4-.2 1.3 2.7 3 .3 2.9M494.5 327.1l-2 0-5.5-2.8-1.7-2-.4-2.3 1.1-1.9 1.4-.9-.1-1.9M484.5 303.3l.1 1.3 1.2 2.5 2.2 .8 1.5 3-.7 1.5-1 .6-.5 2.3M494.5 327.1l3.6 .2-.1-1.1 1.5-.7 3.8 0 1.6 1.2 3.1 .6 .6 .7 2.3-.5 .1 1 2.2 .2 .8 .5 1.4-.3 2.3 1.5 1.4 .2 .3 2.2 1.2 1.1 .6 1.5 .8 .2 2 1.4 .3 1 1.9 2.3 2 .6 2.6 2 .8 4.3 .9 1.2 1.3 .8 1.7 3.9 1.2 .3 1.4 1.5 .7-.2 .7 1.9 1.8 .7 .3 3.9 1 .7M520.2 258.8l-.9 1-2.4-.5-3.1 .2-.5-.4-.4-2.3-1.4-.3-2.9-2-4.6-1-3.7 .5M590.2 239.9l1.7-2.6-.9-1.4-1.4-.6-3-.5-1.7-1.1-1.6 .1-2.1-.8-1.4 .1-.7 1.6-2.8 2.5-2.3 .7-1.2 1.9-1.7 1.8-.5 1.8-.1 3-2.9 .3-4 0-2.8 1.8-.9-.3-1.4 1.2-3 .5-3.7-.3-.2 2.8 .5 1.6-1.2 .1-1.5 1.1-.9-.8-2.3 .6-1.3 1.8-.7 .1-3.9-3.2-3 1.3-1.8 .2-1.2 1.2-3.6 1.7-5.1-1-1.8 .2-2.6 1.4-1 .1"/><path id="cme-ensemble-chatt" class="cme__trace" d="M678 440.2l1.6 2.2 1.9 2 2.4 .8 1 4 1.2 .6 1.8 1.6 4.6 .3 .9 .5 1.1 2.4 1.5-.1 2.8 2.3-.2 1.6 1.8 3.6 1.7 .8"/><path id="cme-ensemble-nil" class="cme__trace" d="M339 458.5l-1.9-1.4-1.5-1.3-1.8-.2-1.1-2.8-1.7-.8 .6-2.2-1-6.5 .5-.7-.3-1.4 .4-2.9-1.4-4.2-1.7-2.1-2-1.6 .5-2.3-1.7-1.6-.5-1.5M337.1 457.1l-.5-1 0-2.9-.7-.7 1.3-.9 .3-1.1 2.6-2.2 .7-2.7-.5-3.8 1-3.8 3-2.2 1.8-2.5 2.2 .1 1.8-1.4 0-.7 1.7-2.3 1.7-.9-.1-.9 1-1.5M362.9 610.6l-.5 2.3 1.1 2.8-.1 .9-1.2 2.8-.6 2.2 .8 1.2 0 1.7 .8 1.6 0 1.4-2.5 2.3-.9 .2-2.4 3.3-.6 1.4-2.5 2.5-.5 2.8-3.1 1.7-1.1 1.6-2.4-.3-.3-1.3-1.9-1.8-2.5 .4-1.9 1-2.5 2.5-1 2.3-2.4 1-3.8 2.5-4.5 3.7-1.1 1.8-1.1 3.6-1.3 1.8-2.3 1.8-.8 2.3-2.1 1.4M362.9 610.6l.4-3.3-.2-1.9 1.1-2.9 .1-2.2-.6-2 1.2-2.9 .4-1.8 0-2-1.1-4 .6-1.2-.2-1.8-.7-1.4-2-1.3-3.4-2.7-.6-1.8 .3-2.4-1.1-2.2-.1-1.9 2.5-1.1 2.1-3.2 1.5-.3 .4-1.1-.5-1.7 1.3-2.4-.5-2.9-2.2-1.6-2.2 1.3-2.2 0-1.8 1-1.5-.1-1.3 .7-.2-1.3-1.4-1.4-.6-1.7-1.6-.4-4.8-5.1-.1-3.1-.3-.6-1.9 .3 .4-2-1.8-.9 0-.8-1.6-2.1-1.4-3.9-1.7-1.8-1.5-2.7-.4-1.5-1.7-.6-.4-1-1.4 .2 .1-1.6-1.9-.8-.9-2-1.9-1.3-.3-3.9 1.2-2.1 .1-3.3-.8-1.7 .3-1.2 0-2.9-1.5-1.8 0-5.3 .7-1.3 1.1-.8 .9-5.1 1.6-2.7 .3-1.7 .8-1.4 1.7-1.5 1.1-2 1.4-1 2.6-3.7 .3-4.9 1.7-2.8-.3-1.1 .9-1.6-.6-1.6 .8-1.7-.1-1.9-1.1-3.1 .6-2.8M298.7 720l-.2-2.5-1.4-2.8 .2-2.4-.5-2.3-1.3-1 .3-1.5 4.1-1.3 1.3 .2 1.2-.9 .6-1.7-.7-3.3 .8-2.5-1.3-2-2.8-.3-.8-1.9-1.1-4.1 2.1-3.5-.7-1 1.8-1 3.1-.3 .9-1.4 .2-1.9 .7-1.2 2.7-1.4-.6-2.1 1-1.2 2.3-1.3 2.3-.6 2-1.8-.5-1.4 2.8-2.4 .5-1.2"/></defs>
 <rect class="cme__mer" width="1000" height="700"/>
@@ -210,6 +228,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
 <g class="cme__echelle" aria-hidden="true"><path class="cme__echelle-trait" d="M24 669v5h72.3v-5"/><text class="cme__echelle-texte" x="104.3" y="675">100 km</text></g>
 </svg>
 </div>
+<div class="cme__cote">
 <div class="cme__choix" role="group" aria-label="Lieux">
 <div class="cme__groupe"><span class="cme__groupe-tete"><svg class="cme__icone" viewBox="0 0 24 24" aria-hidden="true"><circle class="cme__forme cme__forme--meso" cx="12" cy="12" r="6.6"/></svg><span class="cme__groupe-nom">Cités-États de Mésopotamie</span></span><span class="cme__boutons"><button type="button" class="cme__bouton" data-lieu="eridu" data-vue="sumer" data-vues="sumer" aria-controls="cme-eridu" aria-pressed="false">Eridu</button><button type="button" class="cme__bouton" data-lieu="ur" data-vue="sumer" data-vues="sumer" aria-controls="cme-ur" aria-pressed="false">Ur</button><button type="button" class="cme__bouton" data-lieu="uruk" data-vue="sumer" data-vues="sumer" aria-controls="cme-uruk" aria-pressed="false">Uruk</button><button type="button" class="cme__bouton" data-lieu="lagash" data-vue="sumer" data-vues="sumer" aria-controls="cme-lagash" aria-pressed="false">Lagash</button><button type="button" class="cme__bouton" data-lieu="umma" data-vue="sumer" data-vues="sumer" aria-controls="cme-umma" aria-pressed="false">Umma</button><button type="button" class="cme__bouton" data-lieu="nippur" data-vue="sumer" data-vues="sumer" aria-controls="cme-nippur" aria-pressed="false">Nippur</button><button type="button" class="cme__bouton" data-lieu="babylone" data-vue="mesopotamie" data-vues="mesopotamie" aria-controls="cme-babylone" aria-pressed="false">Babylone</button><button type="button" class="cme__bouton" data-lieu="mari" data-vue="mesopotamie" data-vues="mesopotamie" aria-controls="cme-mari" aria-pressed="false">Mari</button><button type="button" class="cme__bouton" data-lieu="assur" data-vue="mesopotamie" data-vues="mesopotamie" aria-controls="cme-assur" aria-pressed="false">Assur</button><button type="button" class="cme__bouton" data-lieu="ninive" data-vue="mesopotamie" data-vues="mesopotamie" aria-controls="cme-ninive" aria-pressed="false">Ninive</button></span></div>
 <div class="cme__groupe"><span class="cme__groupe-tete"><svg class="cme__icone" viewBox="0 0 24 24" aria-hidden="true"><rect class="cme__forme cme__forme--egypte" x="6" y="6" width="12" height="12"/></svg><span class="cme__groupe-nom">Villes de l&#x27;Égypte unifiée</span></span><span class="cme__boutons"><button type="button" class="cme__bouton" data-lieu="bouto" data-vue="egypte" data-vues="egypte" aria-controls="cme-bouto" aria-pressed="false">Bouto</button><button type="button" class="cme__bouton" data-lieu="memphis" data-vue="egypte" data-vues="egypte" aria-controls="cme-memphis" aria-pressed="false">Memphis</button><button type="button" class="cme__bouton" data-lieu="abydos" data-vue="egypte" data-vues="egypte" aria-controls="cme-abydos" aria-pressed="false">Abydos</button><button type="button" class="cme__bouton" data-lieu="thebes" data-vue="egypte" data-vues="egypte" aria-controls="cme-thebes" aria-pressed="false">Thèbes</button><button type="button" class="cme__bouton" data-lieu="nekhen" data-vue="egypte" data-vues="egypte" aria-controls="cme-nekhen" aria-pressed="false">Hiérakonpolis</button><button type="button" class="cme__bouton" data-lieu="elephantine" data-vue="egypte" data-vues="egypte" aria-controls="cme-elephantine" aria-pressed="false">Éléphantine</button></span></div>
@@ -243,6 +262,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
 <div class="cme__panneau" id="cme-persique" data-lieu="persique"><div class="cme__fiche cme__fiche--eau"><span class="cme__lieu">Golfe Persique</span><span class="cme__role">La porte du commerce de Sumer</span><span class="cme__detail">Le Tigre et l&#x27;Euphrate y aboutissent. Par cette mer, Sumer commerce avec Dilmun (l&#x27;actuel Bahreïn) et Magan (l&#x27;actuel Oman), d&#x27;où vient le cuivre. Ses échanges vont même jusqu&#x27;à la vallée de l&#x27;Indus.</span></div><p class="cme__auj"><strong>À savoir. </strong>Il y a 5 000 ans, le golfe s&#x27;avançait plus loin dans les terres qu&#x27;aujourd&#x27;hui : Ur et Eridu étaient bien plus près de la mer.</p></div>
 </div>
 <p class="cme__source">Fond de carte : Natural Earth, domaine public. Emplacement des sites : Pleiades, licence CC BY. Les côtes et le cours des fleuves sont ceux d&#x27;aujourd&#x27;hui. Il y a 5 000 ans, le golfe Persique s&#x27;avançait plus loin dans les terres et l&#x27;Euphrate passait tout près d&#x27;Ur, d&#x27;Uruk et de Nippur.</p>
+</div>
 <script>
 (function () {
   var racine = document.getElementById("cites-carte");
@@ -259,7 +279,9 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
   // Les textes de la carte gardent une taille lisible quand elle rapetisse.
   function ajuster() {
     var carte = racine.querySelector(".cme__svg.est-visible") || cartes[0];
-    var largeur = carte ? carte.getBoundingClientRect().width : 0;
+    var boite = carte ? carte.getBoundingClientRect() : null;
+    // En plein écran, la carte est ajustée à la hauteur : on prend la largeur dessinée.
+    var largeur = boite ? Math.min(boite.width, boite.height ? boite.height * 1000 / 700 : boite.width) : 0;
     if (!largeur) { return; }
     var rapport = 830 / largeur;
     racine.style.setProperty("--k", Math.max(1, Math.min(1.6, rapport)).toFixed(3));
@@ -308,6 +330,16 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
     cadre.addEventListener("click", function () { montrerVue(cadre.getAttribute("data-zoom")); });
   });
   window.addEventListener("resize", ajuster);
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) { document.addEventListener(ev, ajuster); });
+  var replier = racine.querySelector(".cme__replier");
+  if (replier) {
+    replier.addEventListener("click", function () {
+      var masque = racine.classList.toggle("texte-masque");
+      replier.setAttribute("aria-expanded", masque ? "false" : "true");
+      replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+      ajuster();
+    });
+  }
 
   racine.classList.add("est-pret");
   chaque(panneaux, function (panneau) {

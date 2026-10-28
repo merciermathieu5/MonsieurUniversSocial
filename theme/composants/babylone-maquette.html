@@ -21,6 +21,11 @@
 .bab__outil--rond { width: 2.05rem; padding: .32rem 0; font-size: .95rem; text-align: center; }
 .bab__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 .bab__outil--droite { margin-left: auto; }
+.bab:not(.est-plein-ecran) .bab__outil[data-action="texte"] { display: none; }
+.bab .bab__bulle { position: absolute; left: 0; top: 0; z-index: 3; margin: 0; padding: .22rem .55rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.25; white-space: nowrap; color: #fff; background: rgba(20,24,28,.86); border-radius: var(--rayon); pointer-events: none; opacity: 0; transition: opacity .12s; }
+.bab .bab__bulle.est-visible { opacity: 1; }
+.bab .bab__chargement { position: absolute; inset: 0; margin: 0; display: flex; align-items: center; justify-content: center; font-family: var(--titre); font-weight: 600; font-size: .95rem; color: #4A4F55; background: #E3DBCB; pointer-events: none; transition: opacity .4s; }
+.bab.est-construite .bab__chargement { opacity: 0; visibility: hidden; }
 .bab__legende { position: absolute; left: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .55rem .75rem; display: grid; gap: .25rem; background: rgba(255,255,255,.95); color: #1F2328; border-radius: var(--rayon); box-shadow: 0 1px 4px rgba(0,0,0,.2); font-family: var(--titre); font-size: .76rem; line-height: 1.3; }
 .bab__legende[hidden] { display: none; }
 .bab__legende span { display: flex; align-items: center; gap: .45rem; }
@@ -54,6 +59,7 @@
 .bab .bab__num { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
 .bab .bab__titre-etape { font-family: var(--titre); font-weight: 700; color: var(--matiere-fonce); margin-right: .35rem; }
 .bab__nav { display: flex; gap: .4rem; flex-wrap: wrap; }
+.bab__cote { container-type: inline-size; }
 .bab__choix { display: grid; gap: .55rem; padding: .9rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
 .bab__groupe { display: grid; grid-template-columns: 12.5rem 1fr; align-items: start; gap: .4rem .75rem; }
 .bab .bab__groupe-nom { margin: 0; min-height: 2.15rem; display: flex; align-items: center; font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
@@ -76,6 +82,17 @@
 .bab .bab__auj strong { color: var(--matiere-fonce); }
 .bab .bab__source { margin: 0; padding: .55rem 1.4rem .8rem; font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
 .bab__etape-donnees { display: none; }
+.bab.est-plein-ecran { display: grid; grid-template-columns: minmax(0, 1fr) minmax(21rem, 28rem); grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.bab.est-plein-ecran > .bab__entete { grid-column: 1 / -1; position: static; }
+.bab.est-plein-ecran > .bab__scene { grid-column: 1; grid-row: 2; height: auto; min-height: 0; border-bottom: 0; }
+.bab.est-plein-ecran > .bab__cote { grid-column: 2; grid-row: 2; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--trait); background: var(--surface); }
+.bab.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr) 0; }
+.bab.est-plein-ecran.texte-masque > .bab__cote { display: none; }
+@media (max-width: 50rem), (max-aspect-ratio: 1/1) {
+  .bab.est-plein-ecran { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1.3fr) minmax(0, 1fr); }
+  .bab.est-plein-ecran > .bab__cote { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid var(--trait); }
+  .bab.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) 0; }
+}
 html[data-sombre="on"] .bab .bab__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .bab .bab__titre { color: var(--encre); }
 html[data-sombre="on"] .bab .bab__consigne { color: var(--encre-pale); }
@@ -83,6 +100,10 @@ html[data-sombre="on"] .bab__outil[aria-pressed="true"], html[data-sombre="on"] 
 html[data-sombre="on"] .bab .bab__role, html[data-sombre="on"] .bab .bab__auj strong, html[data-sombre="on"] .bab .bab__titre-etape { color: var(--encre); }
 html[data-sombre="on"] .bab .bab__repere.est-choisi { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
 html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--matiere); }
+@container (max-width: 34rem) {
+  .bab__groupe { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .bab .bab__groupe-nom { min-height: 0; margin-top: .15rem; }
+}
 @container (min-width: 62rem) {
   .bab__choix { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem 2.2rem; }
   .bab__groupe { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
@@ -121,7 +142,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
 <button type="button" class="bab__outil bab__outil--rond" data-action="plus" aria-label="Zoomer">+</button>
 <button type="button" class="bab__outil bab__outil--rond" data-action="moins" aria-label="Dézoomer">−</button>
 <button type="button" class="bab__outil" data-action="certitude" aria-pressed="false">Ce qu'on sait vraiment</button>
-<button type="button" class="bab__outil bab__outil--droite" data-action="plein" hidden>Plein écran</button>
+<button type="button" class="bab__outil bab__outil--droite" data-action="texte" aria-expanded="true">Masquer le texte</button>
 </div>
 <p class="bab__legende" hidden>
 <span><i style="background:var(--bab-sur)"></i>Fouillé par les archéologues : plan connu</span>
@@ -131,8 +152,11 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
 </p>
 <p class="bab__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Ctrl + molette pour zoomer</p>
 <p class="bab__avis" role="status"></p>
+<p class="bab__bulle" aria-hidden="true"></p>
+<p class="bab__chargement" aria-hidden="true">Construction de Babylone…</p>
 <div class="bab__secours" hidden><p class="bab__secours-texte"></p></div>
 </div>
+<div class="bab__cote">
 <div class="bab__visite">
 <button type="button" class="bab__lancer">Commencer la visite guidée</button>
 <p class="bab__invite">Suis la grande procession du Nouvel An, du nord de la ville jusqu'au temple de Marduk.</p>
@@ -351,13 +375,14 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
 </div>
 </div>
 <p class="bab__source">Plans : Robert Koldewey, The Excavations at Babylon (1914); Olof Pedersén, Babylon: The Great City (2021). Emplacement des monuments : Pleiades (licence CC BY) et OpenStreetMap (licence ODbL). Étages de l'Etemenanki : tablette de l'Esagil. Hauteurs des autres bâtiments, maisons, champs et rive ouest : estimations.</p>
+</div>
 <script>
 (function () {
   "use strict";
   var racine = document.getElementById("babylone-maquette");
   if (!racine || racine.getAttribute("data-pret") === "1") { return; }
   racine.setAttribute("data-pret", "1");
-  var D = {"cadre":[-1750,-1900,3300,3850],"fleuve":[[-206,3481,-209,3502,-201,3576,-109,4208,836,11144,955,11128,-77,3570,-112,3145,-222,1497,-237,1073,-237,896,-225,762,-236,449,-224,311,-187,107,-105,-262,4,-707,60,-968,117,-1287,240,-2027,1854,-9181,1737,-9207,196,-2379,88,-1919,65,-1806,65,-1788,74,-1767,-57,-991,-113,-734,-237,-222,-304,82,-335,244,-349,347,-356,447,-345,762,-358,917,-349,1358,-319,1870]],"axe_fleuve":[896,11136,-50,4200,-123,3672,-140,3553,-149,3502,-137,3596,-135,3593,-140,3540,-148,3451,-156,3356,-179,3041,-286,1425,-298,988,-297,893,-285,762,-295,537,-294,400,-276,253,-246,94,1,-979,58,-1297,151,-1864,180,-2033,185,-2066,147,-1906,124,-1799,148,-1895,188,-2073,255,-2366,1795,-9194],"ville_est":[1059,1139,1543,-224,70,-1017,13,-748,-120,-195,-187,107,-212,238,-230,358,-235,434,-235,543,-228,665],"ville_ouest":[-788,-1479,-1533,-38,-353,396,-338,260,-304,82,-225,-278,-104,-775,-41,-1077],"sol_est":[1075,1173,1576,-237,75,-1045,29,-819,-108,-251,-187,107,-212,238,-230,358,-235,434,-235,543,-226,695],"sol_ouest":[-799,-1516,-1571,-23,-355,424,-349,347,-338,261,-304,82,-225,-278,-104,-775,-72,-917,-36,-1105],"faubourgs":[33,3366,-15,3403,-21,3419,-21,3459,-12,3473,111,3544,166,3587,402,3636,416,3622,455,3567,633,2871,687,2785,1043,2463,1122,2375,1275,2154,1480,1953,1720,1683,2105,1281,2301,1094,2450,968,2706,657,3024,246,3024,233,2542,-67,2120,-374,1978,-424,1800,-519,104,-1208,84,-1096,1579,-292,1607,-265,1620,-221,1131,1164,1091,1208,1032,1211,-225,749,-238,950,-226,1422,-94,3377],"ligne_est":[-290,643,1059,1139,1543,-224,14,-1047],"ligne_ouest":[14,-1047,-788,-1479,-1533,-38,-294,418],"imgur_est":[[-227,658,1054,1130,1534,-220,70,-1009]],"nemetti_est":[[-226,672,1062,1145,1549,-226,73,-1021]],"imgur_ouest":[[-44,-1070,-785,-1469,-1523,-42,-355,388]],"nemetti_ouest":[[-42,-1083,-790,-1486,-1540,-35,-356,401]],"fosse":[[-356,477,-355,424,-1571,-23,-799,-1516,-36,-1105,-27,-1156,-821,-1584,-1641,4],[1075,1173,330,899,330,953,1105,1238,1637,-260,84,-1096,75,-1045,1576,-237]],"portes":[{"cle":"ishtar","x":134,"y":798,"a":20.2,"rive":"est","sure":true},{"cle":"marduk","x":1246,"y":611,"a":-70.4,"rive":"est","sure":true},{"cle":"zababa","x":1492,"y":-81,"a":-70.4,"rive":"est","sure":true},{"cle":"uras","x":369,"y":-856,"a":-151.7,"rive":"est","sure":true},{"cle":"shamash","x":-18,"y":-1064,"a":-151.7,"rive":"ouest","sure":false},{"cle":"adad","x":-913,"y":-1238,"a":117.3,"rive":"ouest","sure":false},{"cle":"roi","x":-1270,"y":-545,"a":117.3,"rive":"ouest","sure":false},{"cle":"enlil","x":-441,"y":364,"a":20.2,"rive":"ouest","sure":false}],"quais":[[-355,426,-349,347,-338,261,-304,82,-225,-278,-104,-775,-72,-917,-36,-1108],[-226,698,-235,543,-235,434,-230,358,-212,238,-187,107,-108,-251,-3,-679,29,-819,75,-1046]],"rempart_ext":[[1800,-519,1978,-424,2120,-374,2245,-276,2542,-67,3024,233,3024,246,2706,657,2450,968,2301,1094,2105,1281,1720,1683,1480,1953,1275,2154,1122,2375,1043,2463,687,2785,633,2871,455,3567,443,3592,416,3622,402,3636,166,3587,111,3544,-12,3473,-21,3459,-21,3419,-15,3403,33,3366]],"rempart_ext_sud":[[1800,-519,104,-1208]],"ext_signe":-1,"fosse_ext":[[1813,-544,1989,-449,2134,-398,2262,-298,2558,-90,3040,210,3051,226,3051,256,2728,675,2470,987,2320,1114,2125,1301,1741,1702,1501,1972,1297,2172,1144,2392,1064,2482,708,2804,659,2881,481,3577,465,3609,422,3656,406,3664,375,3660,151,3611,95,3568,-28,3496,-46,3472,-49,3417,-39,3389,16,3344,-14,3304,-74,3352,-93,3388,-83,3507,-77,3516,-52,3540,67,3609,137,3660,362,3709,405,3714,427,3710,446,3700,501,3644,530,3587,706,2899,746,2837,1101,2516,1185,2421,1336,2204,1538,2006,1778,1735,2161,1336,2353,1152,2506,1022,2769,704,3075,309,3098,272,3102,249,3099,213,3086,185,3069,169,2586,-132,2292,-338,2159,-441,2008,-496,1838,-587]],"portes_ext":[{"cle":"suhi","x":638,"y":2862,"a":118.6,"sure":true},{"cle":"madanu","x":1622,"y":1794,"a":131.3,"sure":true},{"cle":"gissu","x":2803,"y":532,"a":127.7,"sure":true},{"cle":"dieux","x":2192,"y":-318,"a":38.6,"sure":true},{"cle":"mer","x":608,"y":-1002,"a":-157.9,"sure":false}],"voie_nord":[75,1019,137,798],"voie":[137,798,190,610,241,431,290,236,318,120,338,30,361,-100],"rue_pont":[361,-100,-114,-209],"rues":[[1227,604,269,263],[1473,-88,6,-610],[360,-838,105,-366],[-98,-915,-786,362],[-895,-1229,-117,-827],[-1252,-536,-302,-45],[-434,345,-320,34]],"palais_sud":[-128,696,-130,565,177,588,132,774],"palais_nord":[-108,753,107,832,63,954,-153,875],"palais_ete":[428,3352,251,3347,201,3196,209,3157,288,3119,309,3098,353,3101,421,3122,479,3167],"temples":{"emah":[206,802,177,786,201,742,230,754],"emashdari":[318,442,321,411,359,412,355,446],"nabu":[198,398,231,398,231,364,199,364],"ninurta":[537,-610,537,-654,493,-654,493,-610]},"enceinte":[-129,217,253,287,353,-92,-68,-189,-121,77],"esagil":[-18,-272,57,-255,75,-334,0,-351],"esagil_annexe":[57,-255,140,-236,154,-296,148,-297,159,-343,94,-358,88,-331,75,-334],"ziggourat":[-55,36,34,57,55,-36,-34,-57],"escalier":[4,-48,22,-44,34,-95,16,-99],"pont":[-238,-223,-119,-195],"piles":[-236,-223,-212,-217,-195,-213,-178,-209,-161,-205,-145,-202,-129,-198]};
+  var D = {"cadre":[-1750,-1900,3300,3850],"fleuve":[[-206,3481,-209,3502,-201,3576,-109,4208,836,11144,955,11128,-77,3570,-112,3145,-222,1497,-237,1073,-237,896,-225,762,-236,449,-224,311,-187,107,-105,-262,4,-707,60,-968,117,-1287,240,-2027,1854,-9181,1737,-9207,196,-2379,88,-1919,65,-1806,65,-1788,74,-1767,-57,-991,-113,-734,-237,-222,-304,82,-335,244,-349,347,-356,447,-345,762,-358,917,-349,1358,-319,1870]],"axe_fleuve":[896,11136,-50,4200,-123,3672,-140,3553,-149,3502,-137,3596,-135,3593,-140,3540,-148,3451,-156,3356,-179,3041,-286,1425,-298,988,-297,893,-285,762,-295,537,-294,400,-276,253,-246,94,1,-979,58,-1297,151,-1864,180,-2033,185,-2066,147,-1906,124,-1799,148,-1895,188,-2073,255,-2366,1795,-9194],"ville_est":[1059,1139,1543,-224,70,-1017,13,-748,-120,-195,-187,107,-212,238,-230,358,-235,434,-235,543,-228,665],"ville_ouest":[-788,-1479,-1533,-38,-353,396,-338,260,-304,82,-225,-278,-104,-775,-41,-1077],"sol_est":[1075,1173,1576,-237,75,-1045,29,-819,-108,-251,-187,107,-212,238,-230,358,-235,434,-235,543,-226,695],"sol_ouest":[-799,-1516,-1571,-23,-355,424,-349,347,-338,261,-304,82,-225,-278,-104,-775,-72,-917,-36,-1105],"faubourgs":[33,3366,-15,3403,-21,3419,-21,3459,-12,3473,111,3544,166,3587,402,3636,416,3622,455,3567,633,2871,687,2785,1043,2463,1122,2375,1275,2154,1480,1953,1720,1683,2105,1281,2301,1094,2450,968,2706,657,3024,246,3024,233,2542,-67,2120,-374,1978,-424,1800,-519,104,-1208,84,-1096,1579,-292,1607,-265,1620,-221,1131,1164,1091,1208,1032,1211,-225,749,-238,950,-226,1422,-94,3377],"ligne_est":[-290,643,1059,1139,1543,-224,14,-1047],"ligne_ouest":[14,-1047,-788,-1479,-1533,-38,-294,418],"imgur_est":[[-227,658,1054,1130,1534,-220,70,-1009]],"nemetti_est":[[-226,672,1062,1145,1549,-226,73,-1021]],"imgur_ouest":[[-44,-1070,-785,-1469,-1523,-42,-355,388]],"nemetti_ouest":[[-42,-1083,-790,-1486,-1540,-35,-356,401]],"fosse":[[-356,477,-355,424,-1571,-23,-799,-1516,-36,-1105,-27,-1156,-821,-1584,-1641,4],[1075,1173,146,832,133,880,1105,1238,1637,-260,84,-1096,75,-1045,1576,-237]],"portes":[{"cle":"ishtar","x":134,"y":798,"a":20.2,"rive":"est","sure":true},{"cle":"marduk","x":1246,"y":611,"a":-70.4,"rive":"est","sure":true},{"cle":"zababa","x":1492,"y":-81,"a":-70.4,"rive":"est","sure":true},{"cle":"uras","x":369,"y":-856,"a":-151.7,"rive":"est","sure":true},{"cle":"shamash","x":-114,"y":-1116,"a":-151.7,"rive":"ouest","sure":false},{"cle":"adad","x":-913,"y":-1238,"a":117.3,"rive":"ouest","sure":false},{"cle":"roi","x":-1270,"y":-545,"a":117.3,"rive":"ouest","sure":false},{"cle":"enlil","x":-441,"y":364,"a":20.2,"rive":"ouest","sure":false}],"quais":[[-354,402,-344,303,-323,173,-239,-214],[-235,-232,-104,-775,-72,-917,-40,-1083],[-228,672,-235,543,-236,471,-233,396,-225,319,-196,152,-122,-187],[-118,-204,13,-748,71,-1023]],"rempart_ext":[[1800,-519,1978,-424,2120,-374,2245,-276,2542,-67,3024,233,3024,246,2706,657,2450,968,2301,1094,2105,1281,1720,1683,1480,1953,1275,2154,1122,2375,1043,2463,687,2785,633,2871,455,3567,443,3592,416,3622,402,3636,166,3587,111,3544,-12,3473,-21,3459,-21,3419,-15,3403,33,3366]],"rempart_ext_sud":[[1800,-519,104,-1208]],"ext_signe":-1,"ext_cotes":[-1],"ext_sud_cotes":[1],"fosse_ext":[[1813,-544,1989,-449,2134,-398,2262,-298,2558,-90,3040,210,3051,226,3051,256,2728,675,2470,987,2320,1114,2125,1301,1741,1702,1501,1972,1297,2172,1144,2392,1064,2482,708,2804,659,2881,481,3577,465,3609,422,3656,406,3664,375,3660,151,3611,95,3568,-28,3496,-46,3472,-49,3417,-39,3389,16,3344,-14,3304,-74,3352,-93,3388,-83,3507,-77,3516,-52,3540,67,3609,137,3660,362,3709,405,3714,427,3710,446,3700,501,3644,530,3587,706,2899,746,2837,1101,2516,1185,2421,1336,2204,1538,2006,1778,1735,2161,1336,2353,1152,2506,1022,2769,704,3075,309,3098,272,3102,249,3099,213,3086,185,3069,169,2586,-132,2292,-338,2159,-441,2008,-496,1838,-587]],"portes_ext":[{"cle":"suhi","x":638,"y":2862,"a":118.6,"cote":-1,"sure":true},{"cle":"madanu","x":1622,"y":1794,"a":131.3,"cote":-1,"sure":true},{"cle":"gissu","x":2803,"y":532,"a":127.7,"cote":-1,"sure":true},{"cle":"dieux","x":2192,"y":-318,"a":38.6,"cote":-1,"sure":true},{"cle":"mer","x":608,"y":-1002,"a":-157.9,"cote":1,"sure":false}],"voie_nord":[75,1019,137,798],"voie":[137,798,190,610,241,431,290,236,318,120,338,30,361,-100],"rue_pont":[361,-100,-114,-209],"rues":[[1227,604,269,263],[1473,-88,6,-610],[360,-838,105,-366],[-123,-1098,-812,180],[-895,-1229,-117,-827],[-1252,-536,-302,-45],[-434,345,-320,34],[-234,-222,-1264,-460]],"palais_sud":[-128,696,-130,565,177,588,132,774],"palais_nord":[-108,753,107,832,63,954,-153,875],"palais_ete":[428,3352,251,3347,201,3196,209,3157,288,3119,309,3098,353,3101,421,3122,479,3167],"temples":{"emah":[206,802,177,786,201,742,230,754],"emashdari":[318,442,321,411,359,412,355,446],"nabu":[198,398,231,398,231,364,199,364],"ninurta":[537,-610,537,-654,493,-654,493,-610]},"enceinte":[-129,217,253,287,353,-92,-68,-189,-121,77],"esagil":[-18,-272,57,-255,75,-334,0,-351],"esagil_annexe":[57,-255,140,-236,154,-296,148,-297,159,-343,94,-358,88,-331,75,-334],"ziggourat":[-55,36,34,57,55,-36,-34,-57],"escalier":[4,-48,22,-44,34,-95,16,-99],"pont":[-238,-223,-119,-195],"piles":[-236,-223,-212,-217,-195,-213,-178,-209,-161,-205,-145,-202,-129,-198]};
   var chaque = function (liste, f) { Array.prototype.forEach.call(liste, f); };
   var $ = function (s) { return racine.querySelector(s); };
   var $$ = function (s) { return racine.querySelectorAll(s); };
@@ -699,17 +724,16 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       var genre = cle.split("_")[0], rive = cle.split("_")[1], M = MURS[genre];
       var st = S(genre === "imgur" ? C.crue : C.cuite, "rempart-int", genre === "imgur" ? 1 : 4, rive === "est" ? 3 : 2);
       lignes[cle].forEach(function (L, i) {
-        muraille(B, L.l, L.cum, M.ep, M.h, coupes[cle][i] || [], st, M.tour, 1);
+        muraille(B, L.l, L.cum, M.ep, M.h, coupes[cle][i] || [], st, M.tour, 1, 2.4);
       });
     });
     // --- Rempart extérieur (rive est) : large muraille, tours tournées vers le dehors.
     var S_EXT = S(C.crue, "rempart-ext", 1, 3), S_EXT_SUD = S(C.crue, "rempart-ext", 1, 1);
-    var cotes = D.ext_signe;
     var coupesExt = [];
-    var ext = D.rempart_ext.map(pts).map(function (l) { return { l: l, cum: longueurs(l) }; });
-    var extSud = D.rempart_ext_sud.map(pts).map(function (l) { return { l: l, cum: longueurs(l) }; });
+    var ext = D.rempart_ext.map(pts).map(function (l, i) { return { l: l, cum: longueurs(l), cote: (D.ext_cotes || [])[i] || D.ext_signe }; });
+    var extSud = D.rempart_ext_sud.map(pts).map(function (l, i) { return { l: l, cum: longueurs(l), cote: (D.ext_sud_cotes || [])[i] || 1 }; });
     D.portes_ext.forEach(function (g) {
-      var a = g.a * RAD, ux = Math.cos(a), uy = Math.sin(a), nx = -uy * cotes, ny = ux * cotes;
+      var a = g.a * RAD, ux = Math.cos(a), uy = Math.sin(a), nx = -uy * g.cote, ny = ux * g.cote;
       var st = S(C.cuite, "rempart-ext", 4, g.sure ? 3 : 1);
       [-1, 1].forEach(function (k) {
         var cx = g.x + ux * k * 10.5, cy = g.y + uy * k * 10.5;
@@ -728,36 +752,75 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       });
       return c;
     }
-    ext.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, cotes); });
-    extSud.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT_SUD, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, cotes); });
+    ext.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, L.cote); });
+    extSud.forEach(function (L) { muraille(B, L.l, L.cum, 27, 12, coupesDe(L), S_EXT_SUD, { pas: 52.5, l: 8.4, p: 33, h: 16, debut: 26 }, L.cote); });
     // --- Quais le long du fleuve, dans la ville.
     D.quais.map(pts).forEach(function (l) {
       var mx = 0; l.forEach(function (p) { mx += p[0]; }); mx /= l.length;
       var est = mx > AXE_X(l[Math.floor(l.length / 2)][1]);
       muraille(B, l, longueurs(l), 3.5, 4.5, [], S(C.cuite, "euphrate", 4, est ? 3 : 2), null, 1);
     });
-    // --- Bateaux sur le fleuve, le long des quais.
-    var S_BAT = S(C.bois, "euphrate", 6, 1), cumF = longueurs(AXE), LF = cumF[cumF.length - 1];
-    var sQ = abscisse(AXE, cumF, -280, 700), sQ2 = abscisse(AXE, cumF, 0, -1000);
-    for (var b = 0; b < 16; b++) {
-      var sb = sQ + (sQ2 - sQ) * (b + r() * 0.6) / 16, pb = surLigne(AXE, cumF, sb);
-      var cote = r() < 0.5 ? -1 : 1, dd = 42 + r() * 10;
-      var bx = pb.x - Math.sin(pb.a) * dd * cote, by = pb.y + Math.cos(pb.a) * dd * cote;
-      if (Math.hypot(bx - (PONT[0][0] + PONT[1][0]) / 2, by - (PONT[0][1] + PONT[1][1]) / 2) < 40) { continue; }
-      var lb = 8 + r() * 7;
-      B.ajout(bx, by, 0, lb, 2.6, 0.9, pb.a, S_BAT);
-      B.ajout(bx, by, 0.9, lb * 0.35, 1.8, 1.1, pb.a, S([150, 120, 80], "euphrate", 6, 1));
-    }
-    // --- Pont : piles en forme de bateau et tablier de bois.
+    // --- Pont : piles en forme de bateau, tablier de bois entre les quais, rampes aux deux bouts.
     var pa = Math.atan2(PONT[1][1] - PONT[0][1], PONT[1][0] - PONT[0][0]);
     var pux = Math.cos(pa), puy = Math.sin(pa), pvx = -puy, pvy = pux;
-    var S_PILE = S(C.cuite, "pont", 4, 3);
+    var S_PILE = S(C.cuite, "pont", 4, 3), S_TABLIER = S(C.bois, "pont", 6, 2);
     var forme = [[-4.5, -6.5], [0, -10.5], [4.5, -6.5], [4.5, 6.5], [0, 10.5], [-4.5, 6.5]];
     PILES.forEach(function (p) {
-      vol.prisme(forme.map(function (q) { return [p[0] + pux * q[0] + pvx * q[1], p[1] + puy * q[0] + pvy * q[1]]; }), 0, 6, S_PILE);
+      vol.prisme(forme.map(function (q) { return [p[0] + pux * q[0] + pvx * q[1], p[1] + puy * q[0] + pvy * q[1]]; }), 0, 4.3, S_PILE);
     });
-    var lp = Math.hypot(PONT[1][0] - PONT[0][0], PONT[1][1] - PONT[0][1]);
-    B.ajout((PONT[0][0] + PONT[1][0]) / 2 - pux * 2, (PONT[0][1] + PONT[1][1]) / 2 - puy * 2, 6, lp + 22, 6, 1, pa, S(C.bois, "pont", 6, 2));
+    var lp = Math.hypot(PONT[1][0] - PONT[0][0], PONT[1][1] - PONT[0][1]), HP = 5, RP = 26;
+    var mpx = (PONT[0][0] + PONT[1][0]) / 2, mpy = (PONT[0][1] + PONT[1][1]) / 2;
+    B.ajout(mpx, mpy, HP - 0.7, lp, 6, 0.7, pa, S_TABLIER);
+    [-1, 1].forEach(function (k) {
+      B.ajout(mpx + pvx * k * 2.85, mpy + pvy * k * 2.85, HP, lp, 0.3, 1, pa, S_TABLIER);
+    });
+    var P = function (u, v) { return [PONT[0][0] + pux * u + pvx * v, PONT[0][1] + puy * u + pvy * v]; };
+    var S_RAMPE = S([170, 140, 104], "pont", 4, 1);
+    vol.rampe([P(-RP, -3), P(0, -3), P(0, 3), P(-RP, 3)], [0, HP, HP, 0], S_RAMPE);
+    vol.rampe([P(lp, -3), P(lp + RP, -3), P(lp + RP, 3), P(lp, 3)], [HP, 0, 0, HP], S_RAMPE);
+    // La rue venue de la voie processionnelle aboutit au pied de la rampe est.
+    var piedEst = P(lp + RP, 0);
+    sol.ruban([RUE_PONT[RUE_PONT.length - 1], [piedEst[0] + pux * 6, piedEst[1] + puy * 6], piedEst], 12, 0, S(C.pave, "voie", 13, 2));
+    // --- Bateaux : barques à voile le long des quais, et des quffas, bateaux ronds
+    // décrits par Hérodote, qui descendent le fleuve jusqu'à Babylone.
+    var cumF = longueurs(AXE), places = [];
+    var sQ = abscisse(AXE, cumF, -285, 640), sQ2 = abscisse(AXE, cumF, 10, -1040);
+    var S_COQUE = S([136, 98, 62], "euphrate", 6, 1), S_CHARGE = S([182, 156, 112], "euphrate", 6, 1);
+    var S_VOILE = S([230, 220, 198], "euphrate", 0, 1), S_QUFFA = S([96, 74, 50], "euphrate", 6, 1);
+    function placeLibre(x, y, rayon) {
+      if (distSeg(x, y, PONT[0], PONT[1]) < 32) { return false; }
+      for (var i = 0; i < places.length; i++) { if (Math.hypot(places[i][0] - x, places[i][1] - y) < rayon + places[i][2]) { return false; } }
+      return true;
+    }
+    function barque(x, y, a, L) {
+      var bl = L * 0.18, ca = Math.cos(a), sa = Math.sin(a), Bv = 3 + L * 0.08;
+      var contour = [[-L / 2, 0], [-L / 2 + bl, -Bv / 2], [L / 2 - bl, -Bv / 2], [L / 2, 0], [L / 2 - bl, Bv / 2], [-L / 2 + bl, Bv / 2]];
+      vol.prisme(contour.map(function (q) { return [x + ca * q[0] - sa * q[1], y + sa * q[0] + ca * q[1]]; }), 0, 1.2, S_COQUE);
+      B.ajout(x - ca * L * 0.12, y - sa * L * 0.12, 1.2, L * 0.34, Bv * 0.62, 0.9, a, S_CHARGE);
+      if (r() < 0.55) {
+        B.ajout(x + ca * L * 0.1, y + sa * L * 0.1, 1.2, 0.3, 0.3, 7.5, a, S_COQUE);
+        B.ajout(x + ca * L * 0.1, y + sa * L * 0.1, 3.4, 0.25, Bv * 1.5, 4.6, a, S_VOILE);
+      }
+    }
+    for (var nb = 0, essai = 0; nb < 18 && essai < 400; essai++) {
+      var sb = sQ + (sQ2 - sQ) * r(), pb = surLigne(AXE, cumF, sb);
+      var milieu = r() < 0.3, cb = r() < 0.5 ? -1 : 1, dd = milieu ? (r() - 0.5) * 30 : 36 + r() * 12;
+      var bx = pb.x - Math.sin(pb.a) * dd * cb, by = pb.y + Math.cos(pb.a) * dd * cb, L = 10 + r() * 8;
+      if (!placeLibre(bx, by, L * 0.6)) { continue; }
+      places.push([bx, by, L * 0.6]);
+      barque(bx, by, pb.a + (r() < 0.5 ? 0 : Math.PI), L);
+      nb++;
+    }
+    for (var nq = 0, essai2 = 0; nq < 10 && essai2 < 300; essai2++) {
+      var sq = sQ + (sQ2 - sQ) * r(), pq = surLigne(AXE, cumF, sq), cq = r() < 0.5 ? -1 : 1, dq = 20 + r() * 30;
+      var qx = pq.x - Math.sin(pq.a) * dq * cq, qy = pq.y + Math.cos(pq.a) * dq * cq, rq = 1.8 + r() * 0.8;
+      if (!placeLibre(qx, qy, rq + 2)) { continue; }
+      places.push([qx, qy, rq + 2]);
+      var oct = [];
+      for (var k = 0; k < 8; k++) { oct.push([qx + Math.cos(k * Math.PI / 4) * rq, qy + Math.sin(k * Math.PI / 4) * rq]); }
+      vol.prisme(oct, 0, 0.9, S_QUFFA);
+      nq++;
+    }
     // --- Palais sud : cinq cours d'est en ouest, salle du trône au sud de la troisième.
     var S_PAL = S(C.palais, "palais-sud", 4, 3);
     var Q = quadri([PALAIS_SUD[1], PALAIS_SUD[2], PALAIS_SUD[3], PALAIS_SUD[0]]);
@@ -872,9 +935,18 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       for (var k = 0; k < EXCLUS.length; k++) { if (pres(x, y, EXCLUS[k][0], EXCLUS[k][1])) { return false; } }
       return true;
     }
+    // --- Palmiers : dans quelques cours, le long du fleuve et dans les jardins des faubourgs.
+    var S_TR = S(C.tronc, "campagne", 5, 1), S_PA = S(C.palme, "campagne", 5, 1);
+    function palmier(x, y, partie) {
+      var h = 9 + r() * 7, a = r() * Math.PI, c = varier(C.palme, r, 0.25), id = partie ? ID[partie] : S_PA.part;
+      B.ajout(x, y, 0, 0.7, 0.7, h, a, { c: S_TR.c, part: id, mat: 5, cert: 1 });
+      var st = { c: c, part: id, mat: 5, cert: 1 };
+      for (var k = 0; k < 3; k++) { B.ajout(x, y, h - 0.7 + k * 0.25, 8.5, 1.5, 1.1, a + k * Math.PI / 3, st); }
+    }
     var S_M = S(C.maison, "maisons", 1, 1);
-    quartier(B, VILLE_EST, r, libre, 1, S_M);
-    quartier(B, VILLE_OUEST, r, libre, 1, S_M);
+    var dansCour = function (x, y) { palmier(x, y, "maisons"); };
+    quartier(B, VILLE_EST, r, libre, 1, S_M, dansCour);
+    quartier(B, VILLE_OUEST, r, libre, 1, S_M, dansCour);
     function libreDehors(x, y) {
       if (distLigne(x, y, LIGNE_EST) < 120 || distLigne(x, y, AXE) < 120) { return false; }
       for (var i = 0; i < ext.length; i++) { if (distLigne(x, y, ext[i].l) < 60) { return false; } }
@@ -882,15 +954,6 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       return true;
     }
     quartier(B, FAUBOURGS, r, libreDehors, 0.1, S(C.maison, "campagne", 1, 1));
-    // --- Palmiers : le long du fleuve hors de la ville et dans les jardins des faubourgs.
-    var S_TR = S(C.tronc, "campagne", 5, 1), S_PA = S(C.palme, "campagne", 5, 1);
-    function palmier(x, y) {
-      var h = 9 + r() * 7, a = r() * Math.PI, c = varier(C.palme, r, 0.25);
-      B.ajout(x, y, 0, 0.7, 0.7, h, a, S_TR);
-      var st = { c: c, part: S_PA.part, mat: 5, cert: 1 };
-      B.ajout(x, y, h - 0.6, 8.5, 1.6, 1.2, a, st);
-      B.ajout(x, y, h - 0.4, 8.5, 1.6, 1.2, a + Math.PI / 2, st);
-    }
     var eaux = FLEUVE.concat(D.fosse.map(pts), D.fosse_ext.map(pts));
     function surEau(x, y) { for (var i = 0; i < eaux.length; i++) { if (dedans(x, y, eaux[i])) { return true; } } return false; }
     function permis(x, y) {
@@ -991,7 +1054,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   }
   // Mur le long d'une ligne, interrompu aux coupes, avec des tours en saillie du côté
   // extérieur (cote = 1 : à gauche du sens de la ligne).
-  function muraille(B, l, cum, ep, h, coupes, st, tour, cote) {
+  function muraille(B, l, cum, ep, h, coupes, st, tour, cote, pasCreneaux) {
     var L = cum[cum.length - 1];
     var pleins = [[0, L]];
     coupes.forEach(function (c) {
@@ -1011,6 +1074,14 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
         var e0 = s0 === cum[i - 1] && i > 1 ? ep / 2 : 0, e1 = s1 === cum[i] && i < l.length - 1 ? ep / 2 : 0;
         var m = (s0 + s1) / 2 - cum[i - 1] + (e1 - e0) / 2;
         B.ajout(l[i - 1][0] + ux * m, l[i - 1][1] + uy * m, 0, s1 - s0 + e0 + e1, ep, h, a, st);
+        if (pasCreneaux) {
+          // Créneaux sur le bord extérieur du chemin de ronde.
+          var nx = -uy * cote, ny = ux * cote, dc = ep / 2 - 0.45;
+          for (var sc = s0 + pasCreneaux / 2; sc < s1 - 0.6; sc += pasCreneaux) {
+            var t = sc - cum[i - 1];
+            B.ajout(l[i - 1][0] + ux * t + nx * dc, l[i - 1][1] + uy * t + ny * dc, h, 1.2, 0.9, 1.3, a, st);
+          }
+        }
       }
     });
     if (!tour) { return; }
@@ -1024,7 +1095,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     }
   }
   // Îlots de maisons à cour sur une grille tournée comme la ville. densite < 1 : faubourgs.
-  function quartier(B, poly, r, libre, densite, st) {
+  function quartier(B, poly, r, libre, densite, st, planter) {
     var ex = [Math.cos(GRILLE), Math.sin(GRILLE)], ey = [-Math.sin(GRILLE), Math.cos(GRILLE)];
     var u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
     poly.forEach(function (p) {
@@ -1046,6 +1117,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       q = P((ua + ub) / 2, vb - t / 2); B.ajout(q[0], q[1], 0, w, t, hs[1], GRILLE, s);
       q = P(ua + t / 2, (va + vb) / 2); B.ajout(q[0], q[1], 0, t, d - 2 * t, hs[2], GRILLE, s);
       q = P(ub - t / 2, (va + vb) / 2); B.ajout(q[0], q[1], 0, t, d - 2 * t, hs[3], GRILLE, s);
+      if (planter && w > 19 && d > 19 && r() < 0.12) { planter(c[0], c[1]); }
     }
     for (var v = v0; v < v1; ) {
       var bd = 46 + r() * 30;
@@ -1171,7 +1243,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     "uniform vec3 uSoleil, uCam, uBrume, uAppoint;",
     "uniform vec2 uBrumeD;",
     "uniform vec4 uCadre;",
-    "uniform float uTexel, uBiais, uDecal, uSel, uMode;",
+    "uniform float uTexel, uBiais, uDecal, uSel, uSurvol, uMode;",
     "out vec4 sortie;",
     "float h21(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }",
     "float bruit(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);",
@@ -1281,17 +1353,18 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     "  float sh = diff > 0.0 ? ombre(vMonde, n) : 0.0;",
     "  if (eau > 0.5) {",
     "    vec2 w = vMonde.xz;",
-    "    vec3 nn = normalize(vec3((bruit(w * 0.09) - 0.5) * 0.16 + (bruit(w * 0.43) - 0.5) * 0.06, 1.0, (bruit(w * 0.11 + 7.0) - 0.5) * 0.16));",
-    "    float fres = pow(1.0 - max(dot(nn, V), 0.0), 4.0);",
-    "    vec3 e = mix(vec3(0.25, 0.41, 0.46), vec3(0.62, 0.73, 0.82), 0.2 + fres * 0.45);",
-    "    float spec = pow(max(dot(reflect(-uSoleil, nn), V), 0.0), 140.0);",
-    "    col = e * (0.78 + 0.22 * sh) + vec3(1.0, 0.94, 0.8) * spec * 0.28 * sh;",
+    "    float fres = pow(1.0 - max(V.y, 0.0), 3.0);",
+    "    float vague = (bruit(w * 0.11) + bruit(w * 0.31 + 3.0)) * 0.5;",
+    "    vec3 e = mix(vec3(0.24, 0.40, 0.46), vec3(0.56, 0.68, 0.78), 0.15 + fres * 0.5) * (0.96 + 0.08 * mix(0.5, vague, fin));",
+    "    float reflet = pow(max(dot(reflect(-uSoleil, vec3(0.0, 1.0, 0.0)), V), 0.0), 36.0);",
+    "    col = e * (0.8 + 0.2 * sh) + vec3(1.0, 0.95, 0.85) * reflet * 0.16 * sh;",
     "  } else {",
     "    float ao = vertical ? mix(0.62, 1.0, smoothstep(0.0, 7.0, vMonde.y)) : 1.0;",
     "    vec3 amb = mix(vec3(0.46, 0.41, 0.35), vec3(0.62, 0.69, 0.80), n.y * 0.5 + 0.5);",
     "    float app = max(dot(n, uAppoint), 0.0);",
     "    col *= amb * ao * 0.72 + vec3(1.0, 0.92, 0.78) * diff * sh * 0.95 + vec3(0.62, 0.70, 0.86) * app * 0.3 * ao;",
     "  }",
+    "  if (abs(part - uSurvol) < 0.5 && uSurvol > 0.5 && abs(part - uSel) > 0.5) { col = col * 1.07 + vec3(1.0, 0.86, 0.55) * 0.05; }",
     "  if (abs(part - uSel) < 0.5 && uSel > 0.5) { float rim = pow(1.0 - max(dot(n, V), 0.0), 2.0); col = col * 1.1 + vec3(1.0, 0.76, 0.26) * (0.09 + 0.4 * rim); }",
     "  float brume = smoothstep(uBrumeD.x, uBrumeD.y, dist);",
     "  col = mix(col, uBrume, brume);",
@@ -1313,7 +1386,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   // ------------------------------------------------------------ moteur WebGL
   var toile = $(".bab__toile"), scene = $(".bab__scene"), gl = null, R = null;
   var cam = { x: ENSEMBLE[0], y: ENSEMBLE[1], d: ENSEMBLE[2], lacet: ENSEMBLE[3], tangage: ENSEMBLE[4], h: ENSEMBLE[5] };
-  var selection = 0, mode = 0, vol = null, demande = false, vueCourante = null;
+  var selection = 0, survol = 0, mode = 0, vol = null, demande = false;
   var SOLEIL = (function () { var v = [-0.645, 0.616, 0.452], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
   var BRUME = [0.89, 0.86, 0.80];
   var APPOINT = (function () { var v = [0.62, 0.25, -0.74], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
@@ -1508,7 +1581,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     gl.uniform2f(p.u.uBrumeD, cam.d * 1.1 + 3500, cam.d * 4.0 + 26000);
     gl.uniform4f(p.u.uCadre, CADRE_T[0], CADRE_T[1], 1 / CADRE_T[2], 1 / CADRE_T[2]);
     gl.uniform1f(p.u.uTexel, 1 / R.T); gl.uniform1f(p.u.uBiais, 0.6 / L.prof); gl.uniform1f(p.u.uDecal, L.texel * 1.2);
-    gl.uniform1f(p.u.uSel, selection); gl.uniform1f(p.u.uMode, mode);
+    gl.uniform1f(p.u.uSel, selection); gl.uniform1f(p.u.uSurvol, survol); gl.uniform1f(p.u.uMode, mode);
   }
   var derniereCam = null;
   function rendre() {
@@ -1544,6 +1617,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     gl.enable(gl.DEPTH_TEST);
     d("vol"); d("boites");
     gl.bindVertexArray(null);
+    if (!racine.classList.contains("est-construite")) { racine.classList.add("est-construite"); }
     placerEtiquettes(c.vp);
     clearTimeout(minuteurOcc);
     minuteurOcc = setTimeout(verifierOcclusion, 140);
@@ -1739,6 +1813,34 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   }
   // ------------------------------------------------------------ interactions
   var pointeurs = {}, geste = null, appui = null, aideMasquee = false;
+  var bulle = $(".bab__bulle"), minuteurSurvol = null;
+  function nomPartie(id) {
+    var b = racine.querySelector('.bab__bouton[data-partie="' + PARTIES[id] + '"]');
+    return b ? (b.getAttribute("data-court") || b.textContent) : "";
+  }
+  function finSurvol() {
+    clearTimeout(minuteurSurvol);
+    bulle.classList.remove("est-visible");
+    toile.style.cursor = "";
+    if (survol) { survol = 0; demander(); }
+  }
+  // Survol à la souris : la partie visée s'éclaire et son nom s'affiche.
+  function survoler(x, y) {
+    clearTimeout(minuteurSurvol);
+    minuteurSurvol = setTimeout(function () {
+      if (!gl || vol || geste) { return; }
+      partieSous(x, y, function (id) {
+        if (geste) { return; }
+        if (id !== survol) { survol = id; demander(); }
+        toile.style.cursor = id ? "pointer" : "";
+        if (!id) { bulle.classList.remove("est-visible"); return; }
+        bulle.textContent = nomPartie(id);
+        var W = toile.clientWidth, l = bulle.offsetWidth, bx = x + 14 + l > W - 6 ? x - 14 - l : x + 14;
+        bulle.style.transform = "translate(" + Math.round(bx) + "px," + Math.round(y + 14) + "px)";
+        bulle.classList.add("est-visible");
+      });
+    }, 60);
+  }
   function masquerAide() { if (!aideMasquee) { aideMasquee = true; racine.classList.add("a-bouge"); } }
   function avis(texte) {
     var m = $(".bab__avis");
@@ -1779,11 +1881,15 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       var n = Object.keys(pointeurs).length;
       appui = n === 1 ? { x: e.clientX, y: e.clientY, t: performance.now(), bouge: 0 } : null;
       geste = n === 1 ? (e.button === 2 || e.shiftKey || e.ctrlKey || e.metaKey ? "deplacer" : "tourner") : "pincer";
+      finSurvol();
       masquerAide();
     });
     toile.addEventListener("pointermove", function (e) {
       var p = pointeurs[e.pointerId];
-      if (!p) { return; }
+      if (!p) {
+        if (e.pointerType === "mouse") { var bt = toile.getBoundingClientRect(); survoler(e.clientX - bt.left, e.clientY - bt.top); }
+        return;
+      }
       var ids = Object.keys(pointeurs);
       if (ids.length >= 2) {
         var a = pointeurs[ids[0]], b = pointeurs[ids[1]];
@@ -1816,6 +1922,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     }
     toile.addEventListener("pointerup", fin);
     toile.addEventListener("pointercancel", fin);
+    toile.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { finSurvol(); } });
     toile.addEventListener("wheel", function (e) {
       if (!(e.ctrlKey || e.metaKey)) { avis("Pour zoomer, garde la touche Ctrl enfoncée en faisant rouler la molette, ou utilise les boutons + et −."); return; }
       e.preventDefault();
@@ -1840,7 +1947,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       else if (k === "-" || k === "_") { zoomer(1.25); }
       else if (k === "Home") { allerA(ENSEMBLE); }
       else { fait = false; }
-      if (fait) { e.preventDefault(); vol = k === "Home" ? vol : null; borner(); masquerAide(); demander(); }
+      if (fait) { e.preventDefault(); e.stopPropagation(); vol = k === "Home" ? vol : null; borner(); masquerAide(); demander(); }
     });
     if (window.ResizeObserver) { new ResizeObserver(function () { demander(); }).observe(toile); }
     window.addEventListener("resize", demander);
@@ -1883,7 +1990,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   // des lieux reste la porte d'entrée vers les descriptions.
   function secours(message) {
     gl = null;
-    racine.classList.add("sans-3d");
+    racine.classList.add("sans-3d", "est-construite");
     var m = $(".bab__secours");
     m.hidden = false;
     m.querySelector(".bab__secours-texte").textContent = message;
@@ -1943,19 +2050,16 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
         b.setAttribute("aria-pressed", mode ? "true" : "false");
         $(".bab__legende").hidden = !mode;
         demander();
-      } else if (a === "plein") {
-        if (document.fullscreenElement) { document.exitFullscreen(); } else if (scene.requestFullscreen) { scene.requestFullscreen(); }
+      } else if (a === "texte") {
+        var masque = racine.classList.toggle("texte-masque");
+        b.setAttribute("aria-expanded", masque ? "false" : "true");
+        b.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+        demander();
       }
     });
   });
-  var plein = $('.bab__outil[data-action="plein"]');
-  if (plein && document.fullscreenEnabled && scene.requestFullscreen) {
-    plein.hidden = false;
-    document.addEventListener("fullscreenchange", function () {
-      plein.textContent = document.fullscreenElement ? "Quitter le plein écran" : "Plein écran";
-      demander();
-    });
-  }
+  // Entrée et sortie du plein écran (posé par page.js) : la toile change de taille.
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) { document.addEventListener(ev, demander); });
   $(".bab__lancer").addEventListener("click", function () { allerEtape(0); });
   $(".bab__prec").addEventListener("click", function () { allerEtape(etape - 1); });
   $(".bab__suiv").addEventListener("click", function () { if (etape >= VISITE.length - 1) { quitterVisite(); choisir("accueil", false); allerA(ENSEMBLE); } else { allerEtape(etape + 1); } });
@@ -1977,7 +2081,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   }
   if (window.IntersectionObserver) {
     var guet = new IntersectionObserver(function (entrees) {
-      if (entrees.some(function (e) { return e.isIntersecting; })) { guet.disconnect(); lancer(); }
+      if (entrees.some(function (e) { return e.isIntersecting; })) { guet.disconnect(); setTimeout(lancer, 30); }
     }, { rootMargin: "400px 0px" });
     guet.observe(scene);
   } else {

@@ -138,6 +138,23 @@ clic(racine.querySelector('.cme__vue[data-vue="ensemble"]'));
 clic(carte("ensemble").querySelector('.cme__point--reduit[data-lieu="ur"]'));
 verifier("un point réduit ne choisit rien", panneauxVisibles().join() === "rouge" && vueVisible() === "ensemble");
 
+console.log("PLEIN ÉCRAN");
+const pleinBouton = racine.querySelector(".cme__entete > .plein-ecran");
+verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
+const replier = racine.querySelector(".cme__replier");
+verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");
+if (pleinBouton) {
+  clic(pleinBouton);
+  verifier("la carte passe en plein écran", racine.classList.contains("est-plein-ecran"));
+  verifier("les textes sont rangés à côté de la carte", !!racine.querySelector(".cme__cote > .cme__contenu") && !!racine.querySelector(".cme__cote > .cme__choix"));
+  clic(replier);
+  verifier("les textes se replient", racine.classList.contains("texte-masque") && replier.getAttribute("aria-expanded") === "false" && /Afficher/.test(replier.textContent));
+  clic(replier);
+  verifier("puis se déploient", !racine.classList.contains("texte-masque") && /Masquer/.test(replier.textContent));
+  clic(pleinBouton);
+  verifier("un second clic quitte le plein écran", !racine.classList.contains("est-plein-ecran"));
+}
+
 console.log("TEXTES");
 const texte = racine.textContent;
 verifier("aucun tiret cadratin ni demi-cadratin", !/[\u2014\u2013]/.test(texte));

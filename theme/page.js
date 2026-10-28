@@ -1,5 +1,6 @@
 /*
- * Comportements de la page : frise repliable, mode classe, thème sombre.
+ * Comportements de la page : frise repliable, mode classe, thème sombre,
+ * plein écran des interfaces.
  *
  * Volontairement minimal. Il n'y a qu'un seul moteur de mise en page, celui
  * du CSS de la page. Ce fichier ne fait que poser des attributs.
@@ -196,6 +197,85 @@
     if (corps.dataset.diapo === "on") { sortirDiapo(); } else { entrerDiapo(); }
   });
 
+  /* ---------------------------------------------------------- plein écran
+     Chaque interface insérée par ::: composant reçoit, dans son en-tête, un
+     bouton Plein écran. L'interface entière passe en plein écran, textes
+     compris : on les fait défiler, ou l'interface les range dans un panneau
+     qu'on replie (classe est-plein-ecran). Sans l'API du navigateur (iPhone),
+     l'interface couvre simplement la fenêtre. */
+
+  var pleinApi = (function () {
+    var el = document.documentElement;
+    if (el.requestFullscreen && document.exitFullscreen) {
+      return { entrer: function (b) { return b.requestFullscreen(); }, sortir: function () { return document.exitFullscreen(); },
+        actif: function () { return document.fullscreenElement; }, evenement: "fullscreenchange" };
+    }
+    if (el.webkitRequestFullscreen && document.webkitExitFullscreen) {
+      return { entrer: function (b) { return b.webkitRequestFullscreen(); }, sortir: function () { return document.webkitExitFullscreen(); },
+        actif: function () { return document.webkitFullscreenElement; }, evenement: "webkitfullscreenchange" };
+    }
+    return null;
+  })();
+  var pleinSimule = null;
+
+  function marquerPlein(bloc, actif) {
+    bloc.classList.toggle("est-plein-ecran", actif);
+    var bouton = bloc.querySelector(".plein-ecran");
+    if (bouton) {
+      bouton.setAttribute("aria-pressed", String(actif));
+      bouton.querySelector(".plein-ecran__texte").textContent = actif ? "Quitter le plein écran" : "Plein écran";
+    }
+    if (document.querySelector(".est-plein-ecran")) { corps.dataset.pleinEcran = "on"; } else { delete corps.dataset.pleinEcran; }
+  }
+  function simulerPlein(bloc) {
+    pleinSimule = bloc;
+    bloc.classList.add("est-plein-ecran--simule");
+    marquerPlein(bloc, true);
+  }
+  function basculerPlein(bloc) {
+    if (pleinSimule === bloc) {
+      pleinSimule = null;
+      bloc.classList.remove("est-plein-ecran--simule");
+      marquerPlein(bloc, false);
+      return;
+    }
+    if (pleinApi && pleinApi.actif() === bloc) { pleinApi.sortir(); return; }
+    if (pleinApi && document.fullscreenEnabled !== false) {
+      try {
+        var promesse = pleinApi.entrer(bloc);
+        if (promesse && promesse.catch) promesse.catch(function () { simulerPlein(bloc); });
+      } catch (err) { simulerPlein(bloc); }
+      return;
+    }
+    simulerPlein(bloc);
+  }
+  if (pleinApi) {
+    document.addEventListener(pleinApi.evenement, function () {
+      var actif = pleinApi.actif();
+      Array.prototype.forEach.call(document.querySelectorAll(".est-plein-ecran"), function (b) {
+        if (b !== actif && b !== pleinSimule) marquerPlein(b, false);
+      });
+      if (actif && actif.querySelector(".plein-ecran")) marquerPlein(actif, true);
+    });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".texte section[id]"), function (bloc) {
+    var entete = null;
+    Array.prototype.some.call(bloc.children, function (enfant) {
+      if (/__entete$/.test(enfant.className)) { entete = enfant; return true; }
+      return false;
+    });
+    if (!entete || entete.querySelector(".plein-ecran")) return;
+    var bouton = document.createElement("button");
+    bouton.type = "button";
+    bouton.className = "plein-ecran";
+    bouton.setAttribute("aria-pressed", "false");
+    bouton.innerHTML = '<svg class="plein-ecran__icone" viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
+      '<path d="M1.5 5.5v-4h4M10.5 1.5h4v4M14.5 10.5v4h-4M5.5 14.5h-4v-4"/></svg>' +
+      '<span class="plein-ecran__texte">Plein écran</span>';
+    entete.appendChild(bouton);
+    bouton.addEventListener("click", function () { basculerPlein(bloc); });
+  });
+
   /* ---------------------------------------------------------- visionneuse */
 
   function ouvrirVisionneuse(img) {
@@ -231,6 +311,7 @@
   // Raccourcis : C pour le mode classe, N pour le thème sombre.
   document.addEventListener("keydown", function (e) {
     if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (pleinSimule && e.key === "Escape") { basculerPlein(pleinSimule); return; }
     if (corps.dataset.visionneuse === "on") {
       if (e.key === "Escape") fermerVisionneuse();
       return;

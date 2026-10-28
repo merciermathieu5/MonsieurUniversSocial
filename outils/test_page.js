@@ -109,5 +109,31 @@ figure.querySelector("img").dispatchEvent(new window.MouseEvent("click", { bubbl
 document.querySelector(".visionneuse").dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
 verifier("un clic n'importe où ferme aussi", !document.querySelector(".visionneuse"));
 
+console.log("PLEIN ÉCRAN DES INTERFACES");
+// Une page qui compte trois interfaces. Le DOM simulé n'a pas l'API de plein
+// écran : l'interface couvre alors la fenêtre (mode simulé).
+const html2 = fs.readFileSync(path.join(RACINE, "docs", "histoire", "02-emergence-civilisation.html"), "utf8");
+const dom2 = new JSDOM(html2, { runScripts: "outside-only", pretendToBeVisual: true });
+dom2.window.scrollTo = () => {};
+dom2.window.eval(fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8"));
+const doc2 = dom2.window.document;
+const interfaces = Array.from(doc2.querySelectorAll(".texte section[id]"));
+verifier("la page compte au moins trois interfaces", interfaces.length >= 3, interfaces.length);
+verifier("chaque interface a un bouton Plein écran dans son en-tête",
+  interfaces.every((b) => { const e = b.querySelector('[class$="__entete"] > .plein-ecran'); return e && e.getAttribute("type") === "button" && e.getAttribute("aria-pressed") === "false"; }));
+const premiere = interfaces[0], bouton1 = premiere.querySelector(".plein-ecran");
+bouton1.dispatchEvent(new dom2.window.MouseEvent("click", { bubbles: true }));
+verifier("un clic met l'interface en plein écran", premiere.classList.contains("est-plein-ecran") && premiere.classList.contains("est-plein-ecran--simule"));
+verifier("le bouton change d'état et de libellé", bouton1.getAttribute("aria-pressed") === "true" && /Quitter/.test(bouton1.textContent));
+verifier("la page derrière ne défile plus", doc2.body.dataset.pleinEcran === "on");
+verifier("les textes de l'interface restent dans la page", premiere.textContent.length > 200);
+doc2.dispatchEvent(new dom2.window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+verifier("Échap quitte le plein écran", !premiere.classList.contains("est-plein-ecran") && doc2.body.dataset.pleinEcran === undefined);
+bouton1.dispatchEvent(new dom2.window.MouseEvent("click", { bubbles: true }));
+bouton1.dispatchEvent(new dom2.window.MouseEvent("click", { bubbles: true }));
+verifier("un second clic quitte aussi", !premiere.classList.contains("est-plein-ecran") && bouton1.getAttribute("aria-pressed") === "false");
+dom2.window.eval(fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8"));
+verifier("un second passage de page.js n'ajoute pas de bouton", interfaces.every((b) => b.querySelectorAll(".plein-ecran").length === 1));
+
 console.log(`\n${echecs} échec(s).`);
 process.exit(echecs ? 1 : 0);
