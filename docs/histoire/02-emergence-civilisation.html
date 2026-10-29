@@ -846,8 +846,6 @@ description ou suis la visite guidée.</p>
 .bab__legende small { font-size: .7rem; color: #4A4F55; max-width: 22rem; }
 .bab__aide { position: absolute; right: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .32rem .65rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .03em; line-height: 1.45; color: #1F2328; background: rgba(255,255,255,.88); border-radius: var(--rayon); transition: opacity .5s; pointer-events: none; }
 .bab.a-bouge .bab__aide { opacity: 0; }
-.bab__avis { position: absolute; left: 50%; top: 50%; width: max-content; max-width: min(80%, 26rem); margin: 0; padding: .7rem 1rem; transform: translate(-50%, -50%); background: rgba(20,24,28,.86); color: #fff; border-radius: var(--rayon); font-family: var(--titre); font-size: .88rem; line-height: 1.4; text-align: center; opacity: 0; transition: opacity .25s; pointer-events: none; }
-.bab__avis.est-visible { opacity: 1; }
 .bab__secours { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--surface-2); text-align: center; }
 .bab__secours[hidden] { display: none; }
 .bab .bab__secours-texte { margin: 0; max-width: 30rem; font-family: var(--titre); font-size: .95rem; line-height: 1.5; color: var(--encre-doux); }
@@ -963,8 +961,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
 <span><i style="background:var(--bab-imagine)"></i>Imaginé d'après ce qu'on sait d'ailleurs</span>
 <small>Les hauteurs sont presque toujours estimées : seuls les plans au sol ont été retrouvés.</small>
 </p>
-<p class="bab__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Ctrl + molette pour zoomer</p>
-<p class="bab__avis" role="status"></p>
+<p class="bab__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Molette pour zoomer</p>
 <p class="bab__bulle" aria-hidden="true"></p>
 <p class="bab__chargement" aria-hidden="true">Construction de Babylone…</p>
 <div class="bab__secours" hidden><p class="bab__secours-texte"></p></div>
@@ -2655,13 +2652,6 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     }, 60);
   }
   function masquerAide() { if (!aideMasquee) { aideMasquee = true; racine.classList.add("a-bouge"); } }
-  function avis(texte) {
-    var m = $(".bab__avis");
-    m.textContent = texte;
-    m.classList.add("est-visible");
-    clearTimeout(avis.t);
-    avis.t = setTimeout(function () { m.classList.remove("est-visible"); }, 1800);
-  }
   function tourner(dx, dy) {
     cam.lacet -= dx / Math.max(300, toile.clientWidth) * 260;
     cam.tangage += dy / Math.max(240, toile.clientHeight) * 110;
@@ -2684,6 +2674,27 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       cam.y += (avant[1] - cam.y) * k;
     }
   }
+  // ------------------------------------------------------------ molette
+  // La molette seule zoome quand le pointeur est sur la maquette. Garde-fou contre le piège
+  // de défilement : si la page défilait il y a moins de 400 ms (molette reçue hors de la
+  // maquette ou page qui bouge), on laisse ce geste faire défiler la page. En plein écran, la
+  // molette zoome toujours, comme Ctrl + molette et le pincement d'un pavé tactile.
+  var DEFILEMENT = 400, finDefilement = -1e9;
+  function molettePourMaquette(e, plein, maintenant, fin) {
+    return !!(e.ctrlKey || e.metaKey || plein || maintenant - fin >= DEFILEMENT);
+  }
+  // Pas doux : un cran de souris (environ 100 pixels) rapproche d'environ 15 %; le pincement
+  // d'un pavé tactile (Ctrl et petits pas) garde sa vitesse.
+  function facteurMolette(e) {
+    var dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+    dy = Math.max(-240, Math.min(240, dy));
+    return Math.exp(dy * (e.ctrlKey && Math.abs(dy) < 40 ? 0.0022 : 0.0014));
+  }
+  function noterDefilement(e) {
+    var cible = e.target;
+    if (!(cible && cible.nodeType === 1 && racine.contains(cible))) { finDefilement = performance.now(); }
+  }
+  function estPleinEcran() { return racine.classList.contains("est-plein-ecran") || document.fullscreenElement === racine; }
   function brancher() {
     toile.addEventListener("contextmenu", function (e) { e.preventDefault(); });
     toile.addEventListener("pointerdown", function (e) {
@@ -2736,12 +2747,14 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     toile.addEventListener("pointerup", fin);
     toile.addEventListener("pointercancel", fin);
     toile.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { finSurvol(); } });
+    window.addEventListener("wheel", noterDefilement, { passive: true, capture: true });
+    document.addEventListener("scroll", noterDefilement, { passive: true, capture: true });
     toile.addEventListener("wheel", function (e) {
-      if (!(e.ctrlKey || e.metaKey)) { avis("Pour zoomer, garde la touche Ctrl enfoncée en faisant rouler la molette, ou utilise les boutons + et −."); return; }
+      if (!molettePourMaquette(e, estPleinEcran(), performance.now(), finDefilement)) { return; }
       e.preventDefault();
       vol = null;
-      var b = toile.getBoundingClientRect(), dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
-      zoomer(Math.exp(dy * 0.0022), e.clientX - b.left, e.clientY - b.top);
+      var b = toile.getBoundingClientRect();
+      zoomer(facteurMolette(e), e.clientX - b.left, e.clientY - b.top);
       borner(); masquerAide(); demander();
     }, { passive: false });
     toile.addEventListener("dblclick", function (e) {
@@ -2901,7 +2914,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     lancer();
   }
   // Accès pour les essais automatiques (captures et test dans un DOM simulé).
-  racine.babylone = { cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
+  racine.babylone = { molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
     stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } },
     partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); },
     occultes: function () { return occultes; } };

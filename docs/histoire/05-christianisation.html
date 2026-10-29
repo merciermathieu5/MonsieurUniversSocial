@@ -581,7 +581,10 @@ html[data-sombre="on"] .sei__fleche-texte--eglise { fill: #EDE4FF; }
 .sei .sei__repere.est-choisi .sei__num { background: #1A2530; color: #fff; }
 .sei .sei__repere.est-pale { opacity: .55; }
 .sei .sei__repere.est-pale:hover { opacity: 1; }
-.sei .sei__zone-nom { position: absolute; left: 0; top: 0; visibility: hidden; margin: 0; font-family: var(--texte, Georgia), serif; font-style: italic; font-size: .82rem; color: #2E2A1E; text-shadow: 0 0 3px rgba(255, 250, 235, .95), 0 0 6px rgba(255, 250, 235, .8); white-space: nowrap; pointer-events: none; }
+/* Étiquette hors du cadre ou sans place : elle s'efface en fondu, sans bascule brusque. */
+.sei .sei__repere.est-hors, .sei .sei__repere.est-hors:hover { opacity: 0; pointer-events: none; }
+.sei .sei__zone-nom { position: absolute; left: 0; top: 0; visibility: hidden; margin: 0; font-family: var(--texte, Georgia), serif; font-style: italic; font-size: .82rem; color: #2E2A1E; text-shadow: 0 0 3px rgba(255, 250, 235, .95), 0 0 6px rgba(255, 250, 235, .8); white-space: nowrap; pointer-events: none; transition: opacity .25s; }
+.sei .sei__zone-nom.est-hors { opacity: 0; }
 html[data-sombre="on"] .sei .sei__zone-nom { color: #F4EEDD; text-shadow: 0 0 3px rgba(10, 12, 18, .95), 0 0 6px rgba(10, 12, 18, .8); }
 .sei__outils { position: absolute; top: .65rem; left: .65rem; right: .65rem; display: flex; flex-wrap: wrap; gap: .3rem; pointer-events: none; }
 .sei__outil { pointer-events: auto; font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .8rem; cursor: pointer; box-shadow: 0 1px 3px rgba(0, 0, 0, .12); }
@@ -600,8 +603,6 @@ html[data-sombre="on"] .sei .sei__chargement { color: #D9D6E2; background: #3A39
 .sei.a-bouge .sei__aide { opacity: 0; }
 .sei .sei__credit { position: absolute; left: .65rem; bottom: .55rem; margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .03em; color: rgba(31, 35, 40, .75); text-shadow: 0 0 3px rgba(255, 255, 255, .9); pointer-events: none; }
 html[data-sombre="on"] .sei .sei__credit { color: rgba(240, 238, 230, .8); text-shadow: 0 0 3px rgba(0, 0, 0, .9); }
-.sei .sei__avis { position: absolute; left: 50%; top: 50%; width: max-content; max-width: min(80%, 26rem); margin: 0; padding: .7rem 1rem; transform: translate(-50%, -50%); background: rgba(20, 24, 28, .86); color: #fff; border-radius: var(--rayon); font-family: var(--titre); font-size: .88rem; line-height: 1.4; text-align: center; opacity: 0; transition: opacity .25s; pointer-events: none; }
-.sei .sei__avis.est-visible { opacity: 1; }
 .sei__secours { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--surface-2); text-align: center; }
 .sei__secours[hidden] { display: none; }
 .sei .sei__secours-texte { margin: 0; max-width: 30rem; font-family: var(--titre); font-size: .95rem; line-height: 1.5; color: var(--encre-doux); }
@@ -716,7 +717,7 @@ html[data-sombre="on"] .sei .sei__role { color: var(--encre); }
   .sei .sei__repere .sei__num { width: 1.35rem; height: 1.35rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sei .sei__repere, .sei__bouton, .sei .sei__chargement, .sei .sei__aide { transition: none; }
+  .sei .sei__repere, .sei .sei__zone-nom, .sei__bouton, .sei .sei__chargement, .sei .sei__aide { transition: none; }
 }
 @media print {
   .sei__scene, .sei__choix, .sei .sei__consigne, .sei__nav, .sei__appel, .sei__retour { display: none !important; }
@@ -740,8 +741,7 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
 <button type="button" class="sei__outil sei__outil--droite" data-action="texte" aria-expanded="true">Masquer le texte</button>
 </div>
 <p class="sei__bandeau" hidden></p>
-<p class="sei__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Ctrl + molette pour zoomer</p>
-<p class="sei__avis" role="status"></p>
+<p class="sei__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Molette pour zoomer</p>
 <p class="sei__bulle" aria-hidden="true"></p>
 <p class="sei__chargement" aria-hidden="true">Construction de la seigneurie…</p>
 <div class="sei__secours" hidden><p class="sei__secours-texte"></p></div>
@@ -2446,71 +2446,189 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
     gFleches = document.createElementNS(NS, "g"); svg.appendChild(gFleches);
   }
   function vider(g) { while (g && g.lastChild) { g.removeChild(g.lastChild); } }
-  // Les étiquettes restent toujours visibles : quand deux se chevauchent, la moins importante
-  // se décale et un trait fin la relie à son lieu.
+  // Placement des étiquettes. Le calcul anti-chevauchement ne se fait qu'au repos : pendant
+  // qu'on tourne, déplace ou zoome, chaque étiquette suit son lieu avec le même décalage.
+  // Quand la caméra s'arrête, les étiquettes qui se gênent glissent doucement vers une place
+  // libre; un trait fin relie une étiquette décalée à son lieu.
   var DECALAGES = [[0, 0], [0, -30], [-74, -12], [74, -12], [0, -60], [-120, -36], [120, -36], [-80, 26], [80, 26], [0, -92], [-150, 0], [150, 0]];
-  var boitesPosees = [];
-  function placerEtiquettes(vp) {
-    var W = toile.clientWidth, Ht = toile.clientHeight, places = [];
-    boitesPosees = places;
+  var REPOS = 220, GLISSE = 300;
+  var dispo = { faite: false, taille: "", sig: "", minuteur: 0, jeton: 0, c: null, bouge: false, places: [], actif: 0, derniere: 0, intervalle: 0, rendu: 0, n: 0 };
+  // Molette, clavier : la caméra bouge par à-coups; on note l'heure du dernier pour attendre le vrai repos.
+  function signalerMouvement() { dispo.actif = performance.now(); }
+  // Délai de repos : au moins REPOS, et plus long sur un appareil lent (2,5 fois l'intervalle
+  // entre deux images, 1,5 fois l'image la plus lente du mouvement), pour ne jamais disposer
+  // en plein geste quand une image tarde.
+  function attente() { return Math.max(REPOS, Math.min(3000, Math.max(2.5 * dispo.intervalle, 1.5 * dispo.rendu))); }
+  function boite(x, y, l, h, dx, dy) { return [x + dx - l / 2, y + dy - h - 9, x + dx + l / 2, y + dy]; }
+  function dansCadre(bx, c) { return bx[0] >= 2 && bx[2] <= c.W - 2 && bx[1] >= c.haut && bx[3] <= c.Ht - 2; }
+  function libre(bx, places) { return !places.some(function (q) { return !(bx[2] + 3 < q[0] || bx[0] - 3 > q[2] || bx[3] + 2 < q[1] || bx[1] - 2 > q[3]); }); }
+  // Choisit le décalage de chaque étiquette, dans l'ordre de priorité reçu. Hystérésis : une
+  // étiquette reprend sa place naturelle si elle est libre, sinon elle garde sa place
+  // précédente tant qu'elle reste libre; elle ne cherche ailleurs qu'en dernier recours.
+  // entrees : { x, y, l, h, dx, dy, avant } (avant : son lieu est dans le cadre).
+  function disposerEtiquettes(entrees, c, places) {
+    places = places || [];
+    return entrees.map(function (e) {
+      var dx0 = e.dx || 0, dy0 = e.dy || 0;
+      if (!e.avant) { return { dx: dx0, dy: dy0, place: false }; }
+      var essais = [[0, 0]];
+      if (dx0 || dy0) { essais.push([dx0, dy0]); }
+      DECALAGES.forEach(function (d) { if ((d[0] || d[1]) && (d[0] !== dx0 || d[1] !== dy0)) { essais.push(d); } });
+      var pose = null, repli = null;
+      for (var i = 0; i < essais.length && !pose; i++) {
+        var bx = boite(e.x, e.y, e.l, e.h, essais[i][0], essais[i][1]);
+        if (!dansCadre(bx, c)) { continue; }
+        if (libre(bx, places)) { pose = { d: essais[i], bx: bx }; }
+        // Sans place libre, on reste où l'on était plutôt que de sauter ailleurs.
+        else if (!repli || (essais[i][0] === dx0 && essais[i][1] === dy0)) { repli = { d: essais[i], bx: bx }; }
+      }
+      var r = pose || repli;
+      if (!r) { return { dx: dx0, dy: dy0, place: false }; }
+      places.push(r.bx);
+      return { dx: r.d[0], dy: r.d[1], place: true, libre: !!pose };
+    });
+  }
+  function cadreEcran() {
+    var W = toile.clientWidth, Ht = toile.clientHeight;
     var haut = outils ? outils.offsetTop + outils.offsetHeight + 6 : 46;
     if (bandeau && !bandeau.hidden) { haut = Math.max(haut, bandeau.offsetTop + bandeau.offsetHeight + 4); }
-    var etroit = W < 520;
-    if (svg) { svg.setAttribute("viewBox", "0 0 " + W + " " + Ht); }
-    vider(gTraits);
-    var liste = etiquettes.slice().sort(function (a, b) { return poids(a) - poids(b); });
-    function poids(e) { return (marques.indexOf(e.cle) >= 0 ? 0 : e.f.imp * 20) + D.lieux[e.cle].num * 0.01; }
-    function libreIci(bx) { return !places.some(function (q) { return !(bx[2] + 3 < q[0] || bx[0] - 3 > q[2] || bx[3] + 2 < q[1] || bx[1] - 2 > q[3]); }); }
-    liste.forEach(function (e) {
-      var choisie = marques.indexOf(e.cle) >= 0;
+    return { W: W, Ht: Ht, haut: haut, etroit: W < 520 };
+  }
+  function projeter(vp, c) {
+    etiquettes.forEach(function (e) {
       var p = transformer(vp, ancre3(e.f));
-      if (p[3] <= 0 || p[2] > 1) { e.el.style.visibility = "hidden"; return; }
-      var x = (p[0] + 1) / 2 * W, y = (1 - p[1]) / 2 * Ht;
-      if (x < -40 || x > W + 40 || y < haut - 20 || y > Ht + 40) { e.el.style.visibility = "hidden"; return; }
-      e.el.classList.toggle("est-compact", etroit);
-      if (!e.l || e.etroit !== etroit) { e.l = e.el.offsetWidth; e.h = e.el.offsetHeight; e.etroit = etroit; }
-      var pose = null, premier = null;
-      for (var i = 0; i < DECALAGES.length && !pose; i++) {
-        var dx = DECALAGES[i][0], dy = DECALAGES[i][1], bx = [x + dx - e.l / 2, y + dy - e.h - 9, x + dx + e.l / 2, y + dy];
-        if (bx[0] < 2 || bx[2] > W - 2 || bx[1] < haut || bx[3] > Ht - 2) { continue; }
-        if (!premier) { premier = { bx: bx, dx: dx, dy: dy }; }
-        if (libreIci(bx)) { pose = { bx: bx, dx: dx, dy: dy }; }
-      }
-      pose = pose || premier;
-      if (!pose) { e.el.style.visibility = "hidden"; return; }
-      places.push(pose.bx);
+      e.devant = p[3] > 0 && p[2] <= 1;
+      e.ax = (p[0] + 1) / 2 * c.W; e.ay = (1 - p[1]) / 2 * c.Ht;
+      if (e.etroit !== c.etroit) { e.el.classList.toggle("est-compact", c.etroit); e.l = 0; }
+      if (!e.l) { e.l = e.el.offsetWidth; e.h = e.el.offsetHeight; e.etroit = c.etroit; }
+    });
+    nomsZones.forEach(function (z) {
+      var p = transformer(vp, [z.p[0], H(z.p[0], z.p[1]) + 2, -z.p[1]]);
+      z.devant = p[3] > 0 && p[2] <= 1;
+      z.ax = (p[0] + 1) / 2 * c.W; z.ay = (1 - p[1]) / 2 * c.Ht;
+      if (!z.l) { z.l = z.el.offsetWidth; z.h = z.el.offsetHeight; }
+    });
+  }
+  function lieuDansCadre(e, c) { return e.devant && e.ax >= -40 && e.ax <= c.W + 40 && e.ay >= c.haut - 20 && e.ay <= c.Ht + 40; }
+  function poids(e) { return (marques.indexOf(e.cle) >= 0 ? 0 : e.f.imp * 20) + D.lieux[e.cle].num * 0.01; }
+  function disposer(c, glisser) {
+    var liste = etiquettes.slice().sort(function (a, b) { return poids(a) - poids(b); }), places = [];
+    var res = disposerEtiquettes(liste.map(function (e) {
+      return { x: e.ax, y: e.ay, l: e.l, h: e.h, dx: e.dx || 0, dy: e.dy || 0, avant: lieuDansCadre(e, c) };
+    }), c, places);
+    liste.forEach(function (e, i) {
+      e.dx = res[i].dx; e.dy = res[i].dy;
+      // Lieu dans le cadre mais aucune place : l'étiquette attend le prochain repos, cachée.
+      e.sansPlace = lieuDansCadre(e, c) && !res[i].place;
+      if (!glisser || reduit || e.vx === undefined) { e.vx = e.dx; e.vy = e.dy; }
+    });
+    // Noms des soles et des zones, en italique, là où il reste de la place.
+    nomsZones.forEach(function (z) {
+      var bx = [z.ax - z.l / 2, z.ay - z.h / 2, z.ax + z.l / 2, z.ay + z.h / 2];
+      z.ok = !(c.etroit && cam.d > 700) && z.devant && dansCadre(bx, c) && libre(bx, places);
+      if (z.ok) { places.push(bx); }
+    });
+    dispo.faite = true;
+    dispo.n++;
+    dispo.places = places;   // places visées, que les textes des flèches évitent
+    if (glisser && !reduit) { glisserVersPlaces(); }
+  }
+  // Transition douce des décalages, sans redessiner la maquette.
+  function glisserVersPlaces() {
+    var jeton = ++dispo.jeton, t0 = performance.now();
+    var depart = etiquettes.map(function (e) { return [e.vx, e.vy]; });
+    function pas(t) {
+      if (jeton !== dispo.jeton) { return; }
+      var k = Math.min(1, (t - t0) / GLISSE), q = 1 - Math.pow(1 - k, 3);
+      etiquettes.forEach(function (e, i) {
+        e.vx = depart[i][0] + (e.dx - depart[i][0]) * q;
+        e.vy = depart[i][1] + (e.dy - depart[i][1]) * q;
+      });
+      if (dispo.c) { positionner(dispo.c); }
+      if (k < 1) { prochaineImage(pas); }
+    }
+    prochaineImage(pas);
+  }
+  function positionner(c) {
+    vider(gTraits);
+    etiquettes.forEach(function (e) {
+      if (e.ax === undefined) { return; }
+      var choisie = marques.indexOf(e.cle) >= 0;
+      var vx = e.vx || 0, vy = e.vy || 0, bx = boite(e.ax, e.ay, e.l, e.h, vx, vy);
+      // Hors du cadre ou sous la barre d'outils, l'étiquette s'efface en fondu (sans bascule brusque).
+      var vue = lieuDansCadre(e, c) && (!e.sansPlace || choisie) && bx[1] >= c.haut - 14;
       e.el.style.visibility = "visible";
-      e.el.style.transform = "translate(" + Math.round(pose.bx[0]) + "px," + Math.round(pose.bx[1]) + "px)";
+      e.el.classList.toggle("est-hors", !vue);
+      e.el.style.transform = "translate(" + Math.round(bx[0]) + "px," + Math.round(bx[1]) + "px)";
       e.el.classList.toggle("est-choisi", choisie);
       e.el.classList.toggle("est-pale", marques.length > 0 && !choisie);
-      if ((pose.dx || pose.dy) && gTraits) {
+      if (vue && (Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5) && gTraits) {
         var ligne = document.createElementNS(NS, "line");
-        ligne.setAttribute("x1", x.toFixed(1)); ligne.setAttribute("y1", y.toFixed(1));
-        ligne.setAttribute("x2", (x + pose.dx).toFixed(1)); ligne.setAttribute("y2", (y + pose.dy).toFixed(1));
+        ligne.setAttribute("x1", e.ax.toFixed(1)); ligne.setAttribute("y1", e.ay.toFixed(1));
+        ligne.setAttribute("x2", (e.ax + vx).toFixed(1)); ligne.setAttribute("y2", (e.ay + vy).toFixed(1));
         ligne.setAttribute("class", "sei__trait" + (marques.length > 0 && !choisie ? " est-pale" : ""));
         gTraits.appendChild(ligne);
         var pt2 = document.createElementNS(NS, "circle");
-        pt2.setAttribute("cx", x.toFixed(1)); pt2.setAttribute("cy", y.toFixed(1)); pt2.setAttribute("r", "2.6");
+        pt2.setAttribute("cx", e.ax.toFixed(1)); pt2.setAttribute("cy", e.ay.toFixed(1)); pt2.setAttribute("r", "2.6");
         pt2.setAttribute("class", "sei__trait-point");
         gTraits.appendChild(pt2);
       }
     });
-    // Noms des soles et des zones, en italique, là où il reste de la place.
     nomsZones.forEach(function (z) {
-      if (etroit && cam.d > 700) { z.el.style.visibility = "hidden"; return; }
-      var p = transformer(vp, [z.p[0], H(z.p[0], z.p[1]) + 2, -z.p[1]]);
-      if (p[3] <= 0 || p[2] > 1) { z.el.style.visibility = "hidden"; return; }
-      if (!z.l) { z.l = z.el.offsetWidth; z.h = z.el.offsetHeight; }
-      var x = (p[0] + 1) / 2 * W, y = (1 - p[1]) / 2 * Ht, bx = [x - z.l / 2, y - z.h / 2, x + z.l / 2, y + z.h / 2];
-      if (bx[0] < 2 || bx[2] > W - 2 || bx[1] < haut || bx[3] > Ht - 2 || !libreIci(bx)) { z.el.style.visibility = "hidden"; return; }
-      places.push(bx);
+      if (z.ax === undefined) { return; }
+      var x0 = z.ax - z.l / 2, y0 = z.ay - z.h / 2;
+      var vue = !!z.ok && z.devant && x0 > -z.l && x0 < c.W && y0 > c.haut - 14 && y0 < c.Ht;
       z.el.style.visibility = "visible";
-      z.el.style.transform = "translate(" + Math.round(bx[0]) + "px," + Math.round(bx[1]) + "px)";
+      z.el.classList.toggle("est-hors", !vue);
+      z.el.style.transform = "translate(" + Math.round(x0) + "px," + Math.round(y0) + "px)";
+    });
+  }
+  // Appelée à chaque image : pendant un mouvement, on suit; au repos, on dispose.
+  function placerEtiquettes(vp) {
+    var c = cadreEcran();
+    dispo.c = c;
+    if (svg) { svg.setAttribute("viewBox", "0 0 " + c.W + " " + c.Ht); }
+    projeter(vp, c);
+    var taille = c.W + "x" + c.Ht;
+    var sig = [cam.x, cam.y, cam.d, cam.lacet, cam.tangage, cam.h].map(function (v) { return v.toFixed(3); }).join() + "|" + c.haut + "|" + marques.join();
+    if (!dispo.faite || taille !== dispo.taille) {
+      dispo.taille = taille; dispo.sig = sig;
+      disposer(c, false);
+    } else if (sig !== dispo.sig) {
+      var maintenant = performance.now(), ecart = maintenant - dispo.derniere;
+      if (dispo.bouge && ecart < 1000) { dispo.intervalle = dispo.intervalle ? dispo.intervalle * 0.7 + ecart * 0.3 : ecart; }
+      dispo.derniere = maintenant;
+      dispo.sig = sig;
+      dispo.bouge = true;
+      signalerMouvement();
+      clearTimeout(dispo.minuteur);
+      dispo.minuteur = setTimeout(auRepos, attente());
+    }
+    positionner(c);
+  }
+  function auRepos() {
+    // Encore en vol, en plein geste ou juste après un cran de molette : on attend le vrai repos.
+    var reste = attente() - (performance.now() - dispo.actif);
+    if (vol || geste || reste > 10) { dispo.minuteur = setTimeout(auRepos, Math.max(60, reste)); return; }
+    // Puis on attend la prochaine image : si l'appareil peine, les crans de molette ou les
+    // glissements en attente passent avant elle et relancent l'attente.
+    prochaineImage(function () {
+      var reste2 = attente() - (performance.now() - dispo.actif);
+      if (vol || geste || reste2 > 10) { clearTimeout(dispo.minuteur); dispo.minuteur = setTimeout(auRepos, Math.max(60, reste2)); return; }
+      if (!derniereCam) { return; }
+      var c = cadreEcran();
+      dispo.c = c;
+      projeter(derniereCam.vp, c);
+      disposer(c, true);
+      positionner(c);
+      dispo.bouge = false; dispo.intervalle = 0; dispo.rendu = 0;
+      placerFleches(derniereCam.vp, true);
     });
   }
   // ------------------------------------------------------------ flèches des obligations
   // Courbes tracées par-dessus la maquette, du lieu où l'on produit au lieu où l'on paie.
-  function placerFleches(vp) {
+  var choixTextes = {};
+  function placerFleches(vp, repos) {
     vider(gFleches);
     if (!fleches.length || !gFleches) { return; }
     var W = toile.clientWidth, Ht = toile.clientHeight;
@@ -2534,11 +2652,12 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
       p.setAttribute("class", "sei__fleche" + (eglise ? " sei__fleche--eglise" : ""));
       p.setAttribute("marker-end", "url(#sei-pointe" + (eglise ? "-eglise" : "") + ")");
       gFleches.appendChild(p);
-      if (fl[2]) { textes.push({ a: a2, c: [cx, cy], b: b2, t: fl[2], eglise: eglise }); }
+      if (fl[2]) { textes.push({ a: a2, c: [cx, cy], b: b2, t: fl[2], eglise: eglise, cle: fl[0] + ">" + fl[1] + ":" + fl[2] }); }
     });
     // Textes des flèches : posés sur la courbe, là où ils ne cachent ni une étiquette ni un
-    // autre texte (on essaie plusieurs points de la courbe).
-    var poses = boitesPosees.slice();
+    // autre texte (on essaie plusieurs points de la courbe). Le choix se fait au repos; pendant
+    // un mouvement, chaque texte garde son point de la courbe.
+    var poses = (dispo.places || []).slice();
     textes.forEach(function (x) {
       var el = document.createElementNS(NS, "text");
       el.setAttribute("class", "sei__fleche-texte" + (x.eglise ? " sei__fleche-texte--eglise" : ""));
@@ -2546,17 +2665,29 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
       el.textContent = x.t;
       gFleches.appendChild(el);
       var l = (el.getComputedTextLength ? el.getComputedTextLength() : 0) || x.t.length * 7, choix = null, premier = null;
-      [0.5, 0.36, 0.64, 0.26, 0.74].some(function (t) {
+      var ancien = choixTextes[x.cle];
+      function point(t) {
         var u = 1 - t, px = u * u * x.a[0] + 2 * u * t * x.c[0] + t * t * x.b[0], py = u * u * x.a[1] + 2 * u * t * x.c[1] + t * t * x.b[1] - 7;
-        var bx = [px - l / 2 - 3, py - 12, px + l / 2 + 3, py + 4];
-        if (!premier) { premier = { x: px, y: py, bx: bx }; }
-        var ok = !poses.some(function (q) { return !(bx[2] < q[0] || bx[0] > q[2] || bx[3] < q[1] || bx[1] > q[3]); });
-        if (ok) { choix = { x: px, y: py, bx: bx }; }
-        return ok;
-      });
-      // Sur un écran étroit, un texte qui ne trouve pas sa place est omis (le panneau l'explique).
-      if (!choix && W < 520) { gFleches.removeChild(el); return; }
-      choix = choix || premier;
+        return { t: t, x: px, y: py, bx: [px - l / 2 - 3, py - 12, px + l / 2 + 3, py + 4] };
+      }
+      if (ancien && dispo.bouge && !repos) {
+        if (ancien.omis) { gFleches.removeChild(el); return; }
+        choix = point(ancien.t);
+      } else {
+        var essais = [0.5, 0.36, 0.64, 0.26, 0.74];
+        if (ancien && !ancien.omis && ancien.t !== 0.5) { essais = [0.5, ancien.t].concat(essais.filter(function (t) { return t !== 0.5 && t !== ancien.t; })); }
+        essais.some(function (t) {
+          var q = point(t);
+          if (!premier) { premier = q; }
+          var ok = !poses.some(function (b) { return !(q.bx[2] < b[0] || q.bx[0] > b[2] || q.bx[3] < b[1] || q.bx[1] > b[3]); });
+          if (ok) { choix = q; }
+          return ok;
+        });
+        // Sur un écran étroit, un texte qui ne trouve pas sa place est omis (le panneau l'explique).
+        if (!choix && W < 520) { choixTextes[x.cle] = { omis: true }; gFleches.removeChild(el); return; }
+        choix = choix || (ancien && !ancien.omis ? point(ancien.t) : premier);
+        choixTextes[x.cle] = { t: choix.t, omis: false };
+      }
       el.setAttribute("x", choix.x.toFixed(1)); el.setAttribute("y", choix.y.toFixed(1));
       poses.push(choix.bx);
     });
@@ -2579,7 +2710,11 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
       cam.d = Math.exp(Math.log(de.d) + (Math.log(a.d) - Math.log(de.d)) * e) * bosse;
       if (k >= 1) { vol = null; }
     }
-    if (gl) { rendre(); }
+    if (gl) {
+      var t0r = performance.now();
+      rendre();
+      if (dispo.bouge) { dispo.rendu = Math.max(dispo.rendu, performance.now() - t0r); }
+    }
     if (vol) { demander(); }
   }
   function borner() {
@@ -2638,13 +2773,6 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
     }, 60);
   }
   function masquerAide() { if (!aideMasquee) { aideMasquee = true; racine.classList.add("a-bouge"); } }
-  function avis(texte) {
-    var m = $(".sei__avis");
-    m.textContent = texte;
-    m.classList.add("est-visible");
-    clearTimeout(avis.t);
-    avis.t = setTimeout(function () { m.classList.remove("est-visible"); }, 1800);
-  }
   function tourner(dx, dy) {
     cam.lacet -= dx / Math.max(300, toile.clientWidth) * 260;
     cam.tangage += dy / Math.max(240, toile.clientHeight) * 110;
@@ -2667,6 +2795,27 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
       cam.y += (avant[1] - cam.y) * k;
     }
   }
+  // ------------------------------------------------------------ molette
+  // La molette seule zoome quand le pointeur est sur la maquette. Garde-fou contre le piège
+  // de défilement : si la page défilait il y a moins de 400 ms (molette reçue hors de la
+  // maquette ou page qui bouge), on laisse ce geste faire défiler la page. En plein écran, la
+  // molette zoome toujours, comme Ctrl + molette et le pincement d'un pavé tactile.
+  var DEFILEMENT = 400, finDefilement = -1e9;
+  function molettePourMaquette(e, plein, maintenant, fin) {
+    return !!(e.ctrlKey || e.metaKey || plein || maintenant - fin >= DEFILEMENT);
+  }
+  // Pas doux : un cran de souris (environ 100 pixels) rapproche d'environ 15 %; le pincement
+  // d'un pavé tactile (Ctrl et petits pas) garde sa vitesse.
+  function facteurMolette(e) {
+    var dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * 400 : e.deltaY;
+    dy = Math.max(-240, Math.min(240, dy));
+    return Math.exp(dy * (e.ctrlKey && Math.abs(dy) < 40 ? 0.0022 : 0.0014));
+  }
+  function noterDefilement(e) {
+    var cible = e.target;
+    if (!(cible && cible.nodeType === 1 && racine.contains(cible))) { finDefilement = performance.now(); }
+  }
+  function estPleinEcran() { return racine.classList.contains("est-plein-ecran") || document.fullscreenElement === racine; }
   function brancher() {
     toile.addEventListener("contextmenu", function (e) { e.preventDefault(); });
     toile.addEventListener("pointerdown", function (e) {
@@ -2719,12 +2868,15 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
     toile.addEventListener("pointerup", fin);
     toile.addEventListener("pointercancel", fin);
     toile.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { finSurvol(); } });
+    window.addEventListener("wheel", noterDefilement, { passive: true, capture: true });
+    document.addEventListener("scroll", noterDefilement, { passive: true, capture: true });
     toile.addEventListener("wheel", function (e) {
-      if (!(e.ctrlKey || e.metaKey)) { avis("Pour zoomer, garde la touche Ctrl enfoncée en faisant rouler la molette, ou utilise les boutons + et −."); return; }
+      if (!molettePourMaquette(e, estPleinEcran(), performance.now(), finDefilement)) { return; }
       e.preventDefault();
       vol = null;
-      var b = toile.getBoundingClientRect(), dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
-      zoomer(Math.exp(dy * 0.0022), e.clientX - b.left, e.clientY - b.top);
+      var b = toile.getBoundingClientRect();
+      zoomer(facteurMolette(e), e.clientX - b.left, e.clientY - b.top);
+      signalerMouvement();
       borner(); masquerAide(); demander();
     }, { passive: false });
     toile.addEventListener("dblclick", function (e) {
@@ -2743,7 +2895,7 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
       else if (k === "-" || k === "_") { zoomer(1.25); }
       else if (k === "Home") { allerA(ENSEMBLE); }
       else { fait = false; }
-      if (fait) { e.preventDefault(); e.stopPropagation(); vol = k === "Home" ? vol : null; borner(); masquerAide(); demander(); }
+      if (fait) { e.preventDefault(); e.stopPropagation(); vol = k === "Home" ? vol : null; signalerMouvement(); borner(); masquerAide(); demander(); }
     });
     if (window.ResizeObserver) { new ResizeObserver(function () { demander(); }).observe(toile); }
     window.addEventListener("resize", demander);
@@ -2925,10 +3077,18 @@ html[data-sombre="on"] .sei__trait { stroke: rgba(240, 238, 230, .8); }
     lancer();
   }
   // Accès pour les essais automatiques (captures et test dans un DOM simulé).
-  racine.seigneurie = { etat: etat, choisirLieu: choisirLieu, choisirObligation: choisirObligation, allerEtape: allerEtape, accueil: accueil,
+  racine.seigneurie = { molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, etat: etat, choisirLieu: choisirLieu, choisirObligation: choisirObligation, allerEtape: allerEtape, accueil: accueil,
     cam: cam, allerA: allerA, batir: batir, H: H, terrain: maillageTerrain, modeles: decoderModeles, zones: carteZones,
     stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } }, fleches: function () { return fleches.slice(); },
-    masque: function () { return masque; }, lieux: LIEUX,
+    masque: function () { return masque; }, lieux: LIEUX, disposerEtiquettes: disposerEtiquettes, decalages: DECALAGES,
+    reperes: function () {
+      function lire(o, nom) {
+        var m = /translate\(([-\d.]+)px,\s*([-\d.]+)px\)/.exec(o.el.style.transform || "");
+        return { cle: nom, ax: o.ax, ay: o.ay, bx: m ? +m[1] : null, by: m ? +m[2] : null, l: o.el.offsetWidth, h: o.el.offsetHeight,
+          vis: o.el.style.visibility === "visible" && !o.el.classList.contains("est-hors") };
+      }
+      return { n: dispo.n, e: etiquettes.map(function (o) { return lire(o, o.cle); }), z: nomsZones.map(function (o) { return lire(o, o.el.textContent); }) };
+    },
     partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); } };
 })();
 </script>
