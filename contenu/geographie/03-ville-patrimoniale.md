@@ -325,10 +325,14 @@ funiculaire.
 
 ## Les traces de trois régimes
 
-La valeur patrimoniale du Vieux-Québec tient à une concentration rare : plusieurs
-époques y ont laissé leurs traces sans que les suivantes les effacent. On y lit
-le régime français, le régime britannique et la période contemporaine, souvent
-dans la même rue.
+La valeur patrimoniale du Vieux-Québec tient à une concentration rare :
+plusieurs époques y ont laissé leurs traces sans que les suivantes les
+effacent. On y lit le régime français, le régime britannique et la période
+contemporaine, souvent dans la même rue. Repère sur le plan les lieux
+présentés dans cette section, puis découvre à quel régime chacun remonte et ce
+que les régimes suivants y ont changé.
+
+::: composant vieux-quebec
 
 ### La place Royale
 
@@ -619,3 +623,5 @@ urbain mondial, avec des documents à analyser.
 - [Port de Québec, les terminaux de croisière](https://www.portquebec.ca/croisieres/ligne-de-croisiere/terminaux-de-croisiere/)
 - [Port de Québec, bilan de la saison des croisières 2025](https://www.portquebec.ca/communique-de-presse/du-coeur-de-lhiver-a-lapogee-de-lautomne-le-port-de-quebec-conclut-sa-premiere-annee-comme-escale-de-croisiere-quatre-saisons/)
 - [Radio-Canada, des milliers de croisiéristes déferlent sur Québec](https://ici.radio-canada.ca/nouvelle/1128388/milliers-croisieristes-deferlent-sur-quebec)
+- [OpenStreetMap, données de la maquette 3D du Vieux-Québec (© les contributeurs d'OpenStreetMap, licence ODbL)](https://www.openstreetmap.org/copyright)
+- [Open-Meteo, altitude du relief de la maquette 3D (modèle Copernicus DEM GLO-90)](https://open-meteo.com/en/docs/elevation-api)
