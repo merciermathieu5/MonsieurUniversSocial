@@ -1849,6 +1849,16 @@ html[data-sombre="on"] .tds .tds__consigne { color: var(--encre-pale); }
 .tds__mode[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 .tds .tds__union { position: absolute; bottom: .65rem; right: .65rem; z-index: 1; max-width: 15rem; margin: 0; padding: .4rem .75rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.35; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-left: 3px solid var(--signal); border-radius: var(--rayon); }
 .tds .tds__union[hidden] { display: none; }
+.tds .tds__vue-entiere { position: absolute; top: .65rem; right: .65rem; z-index: 2; display: inline-flex; align-items: center; gap: .35rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.tds .tds__vue-entiere:hover { background: var(--matiere-voile); }
+.tds .tds__vue-entiere:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.tds .tds__vue-entiere[hidden] { display: none; }
+.tds .tds__vue-entiere svg { width: .8rem; height: .8rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.tds .tds__aide-zoom { display: none; position: absolute; bottom: .65rem; left: .65rem; z-index: 1; margin: 0; padding: .25rem .6rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .02em; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); pointer-events: none; }
+.tds.est-plein-ecran .tds__aide-zoom { display: block; }
+.tds.est-plein-ecran.est-zoome .tds__svg { cursor: grab; }
+.tds.est-plein-ecran.est-glisse .tds__svg { cursor: grabbing; }
+.tds.est-zoome .tds__terre, .tds.est-zoome .tds__frontieres { vector-effect: non-scaling-stroke; stroke-width: .9px; }
 .tds .tds__legende { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; padding: .65rem 1.2rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); font-size: .78rem; line-height: 1.3; color: var(--encre-doux); }
 .tds__cle { display: inline-flex; align-items: center; gap: .4rem; }
 .tds__icone { width: .95rem; height: .95rem; flex: none; overflow: visible; }
@@ -1974,6 +1984,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   .tds .tds__grad--mineure { display: none; }
 }
 @media print {
+  .tds .tds__vue-entiere, .tds .tds__aide-zoom { display: none; }
   .tds .tds__modes, .tds .tds__temps, .tds .tds__onglets, .tds .tds__pilote, .tds .tds__liste, .tds .tds__union { display: none; }
   .tds .tds__svg { max-height: none; }
   .tds .tds__vue[hidden] { display: block; }
@@ -1992,6 +2003,8 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
 <button type="button" class="tds__mode" data-mode="traite" aria-pressed="false">Le respect du traité</button>
 <button type="button" class="tds__mode" data-mode="langues" aria-pressed="false">Les langues aujourd'hui</button>
 </div>
+<button type="button" class="tds__vue-entiere" data-tds="vue-entiere" hidden><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M1.5 5.5v-4h4M10.5 1.5h4v4M14.5 10.5v4h-4M5.5 14.5h-4v-4"/></svg>Vue entière</button>
+<p class="tds__aide-zoom" aria-hidden="true">Molette pour zoomer · Glisse pour déplacer · Double-clic pour revenir</p>
 <p class="tds__union" data-tds="union" hidden>Union ibérique, de 1580 à 1640&nbsp;: un même roi règne sur l'Espagne et le Portugal.</p>
 <svg class="tds__svg" data-tds="svg" viewBox="0 0 1000 702" role="img" aria-label="Carte de l'Atlantique : les Amériques, l'Europe et l'Afrique, partagées par la ligne de Tordesillas. La liste des lieux, sous la carte, permet de les parcourir au clavier.">
 <defs><pattern id="tds-hachures" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="tds__hachure" x1="0" y1="0" x2="0" y2="8"/></pattern></defs>
@@ -2271,6 +2284,8 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   LIEUX.forEach(function (lieu) { INDEX[lieu.id] = lieu; });
   var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null, onglet: "recit" };
   var k = 1;
+  // Fenêtre visible de la carte : toute la carte, sauf en plein écran quand on zoome.
+  var vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR }, ZOOM_MAX = 6;
   // ------------------------------------------------------- logique du partage
   function ligneA(annee) {
     if (annee < 1493) { return null; }
@@ -2330,10 +2345,11 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     var b = svg.getBoundingClientRect();
     if (!b.width || !b.height) { return false; }
     var s = Math.min(b.width / LARGEUR, b.height / HAUTEUR);
-    var nk = Math.max(.6, Math.min(3, 1 / s));
-    if (Math.abs(nk - k) < .01) { return false; }
+    // Quand on a zoomé (plein écran), on réduit k d'autant : points et noms gardent leur taille à l'écran.
+    var nk = Math.max(.6, Math.min(3, 1 / s)) * vue.w / LARGEUR;
+    if (Math.abs(nk - k) < .005 * k) { return false; }
     k = nk;
-    svg.style.setProperty("--k", k.toFixed(3));
+    svg.style.setProperty("--k", k.toFixed(4));
     return true;
   }
   function texteSvg(parent, x, y, contenu, classe, attributs) {
@@ -2879,6 +2895,110 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
       }
     });
   });
+  // ---------------------------------------------------------------- zoom en plein écran
+  // En plein écran, la molette zoome vers le point visé et on déplace la carte en la
+  // faisant glisser; double-clic, touche Début ou bouton « Vue entière » pour revenir.
+  // Hors plein écran, rien ne change : la molette fait défiler la page.
+  var boutonVue = $("vue-entiere"), motifHachures = racine.querySelector("#tds-hachures");
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return vue.w < LARGEUR - .5; }
+  function bornerVue(v) {
+    v.w = Math.min(LARGEUR, Math.max(LARGEUR / ZOOM_MAX, v.w));
+    v.h = v.w * HAUTEUR / LARGEUR;
+    v.x = Math.max(0, Math.min(LARGEUR - v.w, v.x));
+    v.y = Math.max(0, Math.min(HAUTEUR - v.h, v.y));
+    return v;
+  }
+  function appliquerVue() {
+    svg.setAttribute("viewBox", arrondi(vue.x) + " " + arrondi(vue.y) + " " + arrondi(vue.w) + " " + arrondi(vue.h));
+    racine.classList.toggle("est-zoome", estZoome());
+    if (boutonVue) { boutonVue.hidden = !estZoome(); }
+    // Les hachures gardent la même finesse à l'écran.
+    if (motifHachures) { motifHachures.setAttribute("patternTransform", "rotate(45) scale(" + (vue.w / LARGEUR).toFixed(4) + ")"); }
+    if (mesurer()) { placerLieux(); dessinerTraits(); dessinerVoyages(); majLieux(); }
+  }
+  function revenir() {
+    if (!estZoome()) { return; }
+    vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR };
+    appliquerVue();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect();
+    var w = b.width || LARGEUR, h = b.height || HAUTEUR;
+    var s = Math.min(w / vue.w, h / vue.h);
+    var ox = (w - vue.w * s) / 2, oy = (h - vue.h * s) / 2;
+    return { x: vue.x + (cx - (b.left || 0) - ox) / s, y: vue.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var w = Math.min(LARGEUR, Math.max(LARGEUR / ZOOM_MAX, vue.w * f));
+    var r = w / vue.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    vue = bornerVue({ x: p.x - (p.x - vue.x) * r, y: p.y - (p.y - vue.y) * r, w: w });
+    appliquerVue();
+  }
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX;
+    molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () {
+      molette.attente = 0;
+      var f = molette.f;
+      molette.f = 1;
+      zoomerVers(f, pointCarte(molette.cx, molette.cy));
+    };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (!pleinEcran() || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: vue.x, vy: vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) {
+      glisse.bouge = true;
+      racine.classList.add("est-glisse");
+      try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ }
+    }
+    vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) {
+      glisseFini = true;
+      window.setTimeout(function () { glisseFini = false; }, 0);
+    }
+    glisse = null;
+    racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+  // Le clic qui termine un glissement ne choisit pas de lieu.
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { glisseFini = false; ev.stopPropagation(); ev.preventDefault(); }
+  }, true);
+  svg.addEventListener("dblclick", function (ev) {
+    if (pleinEcran() && estZoome()) { ev.preventDefault(); revenir(); }
+  });
+  if (boutonVue) { boutonVue.addEventListener("click", revenir); }
+  racine.addEventListener("keydown", function (e) {
+    if (e.key !== "Home" || !pleinEcran() || !estZoome()) { return; }
+    var cible = e.target;
+    if (cible && (cible.tagName === "INPUT" || cible.getAttribute("role") === "tab")) { return; }
+    e.preventDefault();
+    revenir();
+  });
+  // En quittant le plein écran, la carte redevient entière.
+  if (window.MutationObserver) {
+    new window.MutationObserver(function () { if (!pleinEcran()) { revenir(); } }).observe(racine, { attributes: true, attributeFilter: ["class"] });
+  }
   construireLieux();
   construireAxe();
   construireListe();
@@ -3649,6 +3769,45 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   }
   svg.addEventListener("pointerup", finGlisse);
   svg.addEventListener("pointercancel", finGlisse);
+  // ------------------------------------------------------------ molette
+  // En plein écran, la molette seule zoome vers le point visé. Hors plein écran,
+  // elle laisse défiler la page : seuls Ctrl (ou Cmd) + molette et le pincement
+  // du pavé tactile zooment. Les crans d'une même image sont regroupés.
+  var molette = { k: 1, cx: 0, cy: 0, attente: 0 };
+  function pointCarte(cx, cy) {
+    var v = etat.vb, r = svg.getBoundingClientRect(), t = taille();
+    var w = r.width || t.w, h = r.height || t.h;
+    var u = Math.max(v.w / w, v.h / h);
+    var ox = (w - v.w / u) / 2, oy = (h - v.h / u) / 2;
+    return { x: v.x + (cx - (r.left || 0) - ox) * u, y: v.y + (cy - (r.top || 0) - oy) * u };
+  }
+  function zoomerVers(k, p) {
+    var v = etat.vb;
+    if (!v) { return; }
+    k = borneEchelle(v, k);
+    if (Math.abs(k - 1) < 1e-4) { return; }
+    etat.anim++;
+    etat.cible = null;
+    appliquer(borner({ x: p.x - (p.x - v.x) * k, y: p.y - (p.y - v.y) * k, w: v.w * k, h: v.h * k }));
+    if (glisse) { glisse.vb = etat.vb; glisse.x = molette.cx; glisse.y = molette.cy; }
+  }
+  svg.addEventListener("wheel", function (ev) {
+    var plein = racine.classList.contains("est-plein-ecran");
+    if (!etat.vb || (!plein && !ev.ctrlKey && !ev.metaKey)) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? 0.05 : (ev.deltaMode === 2 ? 0.5 : 0.0018);
+    molette.k *= Math.exp(Math.max(-0.5, Math.min(0.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX;
+    molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () {
+      molette.attente = 0;
+      var k = molette.k;
+      molette.k = 1;
+      zoomerVers(k, pointCarte(molette.cx, molette.cy));
+    };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
   svg.addEventListener("click", function (ev) {
     if (etat.glisse) { etat.glisse = false; return; }
     var cible = ev.target && ev.target.closest ? ev.target.closest(".ctr__port") : null;
