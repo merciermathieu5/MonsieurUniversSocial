@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=8ef58338">
+<link rel="stylesheet" href="../style.css?v=fb046d3e">
 </head>
 <body>
 
@@ -350,7 +350,7 @@ réfléchir à une organisation complexe de leur communauté.</p>
 <p>L'agriculture n'est pas née à un seul endroit. Dans plusieurs régions du
 monde, des humains ont domestiqué des plantes et des animaux, chacun à sa
 façon et à son rythme. La carte présente les principaux foyers.</p>
-<section class="fsd" id="foyers-sedentarisation" aria-label="Carte interactive : les premiers foyers d'agriculture dans le monde">
+<section class="fsd" id="foyers-sedentarisation" data-reinitialiser aria-label="Carte interactive : les premiers foyers d'agriculture dans le monde">
 <style>
 .fsd { --k: 1; --fsd-mer: #C7DCEE; --fsd-terre: #F4EEE2; --fsd-cote: #7C9FC0; --fsd-fleuve: #2A68A3; --fsd-foyer: #B5452E; --fsd-foyer-fonce: #7E2A1B; --fsd-fleche: #4A3F35; --fsd-halo: #F4EEE2; --fsd-ligne: rgba(42, 104, 163, .38); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: fsd / inline-size; }
 html[data-sombre="on"] .fsd { --fsd-mer: #17324A; --fsd-terre: #2C3642; --fsd-cote: #4E6E8E; --fsd-fleuve: #6AAAE4; --fsd-foyer: #F0907F; --fsd-foyer-fonce: #F8C2B6; --fsd-fleche: #D9CDB8; --fsd-halo: #2C3642; --fsd-ligne: rgba(106, 170, 228, .32); }
@@ -698,6 +698,8 @@ html[data-sombre="on"] .fsd .fsd__role, html[data-sombre="on"] .fsd .fsd__auj st
   // ------------------------------------------------------------ choix d'un foyer
   function choisir(cle) {
     if (cle !== "accueil" && !debuts[cle]) { return; }
+    // Un second clic sur le foyer choisi le désélectionne : retour à la vue d'ensemble.
+    if (cle !== "accueil" && cle === etat.foyer) { cle = "accueil"; }
     etat.foyer = cle;
     var zoom = cle !== "accueil";
     racine.classList.toggle("est-zoom", zoom);
@@ -769,6 +771,17 @@ html[data-sombre="on"] .fsd .fsd__role, html[data-sombre="on"] .fsd .fsd__auj st
   if (typeof window.MutationObserver === "function") {
     new window.MutationObserver(recadrer).observe(racine, { attributes: true, attributeFilter: ["class"] });
   }
+  // Réinitialiser (bouton ajouté par page.js grâce à data-reinitialiser) : vue d'ensemble,
+  // curseur du temps à sa date de départ, panneau défilé en haut.
+  var anneeDepart = curseur.value;
+  function reinitialiser() {
+    curseur.value = anneeDepart;
+    dater(+curseur.value);
+    choisir("accueil");
+    var cote = racine.querySelector(".fsd__cote");
+    if (cote) { cote.scrollTop = 0; }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   appliquer(VUE);
   dater(+curseur.value);
   choisir("accueil");
@@ -1195,7 +1208,7 @@ l'espoir d'assurer la prospérité et la survie de la communauté.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=8ef58338" defer></script>
+<script src="../page.js?v=fb046d3e" defer></script>
 
 </body>
 </html>

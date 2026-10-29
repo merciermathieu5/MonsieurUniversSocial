@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=8ef58338">
+<link rel="stylesheet" href="../style.css?v=fb046d3e">
 </head>
 <body>
 
@@ -714,7 +714,7 @@ avec des équipages déjà malades : en quelques mois, l'épidémie gagne les
 grands ports de la Méditerranée, puis remonte les routes commerciales vers
 l'intérieur du continent. Les mêmes réseaux qui enrichissent l'Europe
 transportent ainsi la maladie.</p>
-<section class="gco" id="grand-commerce" aria-label="Carte interactive&nbsp;: les routes du Grand commerce, puis la peste noire qui les emprunte de 1346 à 1353">
+<section class="gco" id="grand-commerce" data-reinitialiser aria-label="Carte interactive&nbsp;: les routes du Grand commerce, puis la peste noire qui les emprunte de 1346 à 1353">
 <style>
 .gco { --gco-mer: #C9DEEE; --gco-terre: #F4EEE2; --gco-cote: #7C9FC0; --gco-fleuve: #6E9DCB; --gco-plateau: #ECDFC9; --gco-mont: #DCC5A2; --gco-desert: #F1E0B2; --gco-grille: rgba(48, 84, 120, .16); --gco-terrestre: #9A4520; --gco-maritime: #1D5C98; --gco-halo: #F4EEE2; --gco-point: #1A2530; --gco-eau-texte: #2A5F8F; --gco-region: #786A55; --gco-glyphe: #FFFFFF; --gco-foire: #9A4520; --gco-peste: #B3261E; --gco-peste-voile: #F6DCD8; --gco-avenir: #9AA3AA; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: gco / inline-size; }
 html[data-sombre="on"] .gco { --gco-mer: #15293C; --gco-terre: #2A3440; --gco-cote: #4F6F8F; --gco-fleuve: #5F93C6; --gco-plateau: #313A44; --gco-mont: #4A4234; --gco-desert: #4A4430; --gco-grille: rgba(160, 190, 220, .12); --gco-terrestre: #E8A06A; --gco-maritime: #82B6EA; --gco-halo: #2A3440; --gco-point: #E8EBEF; --gco-eau-texte: #A6CDF0; --gco-region: #B3A891; --gco-glyphe: #16202A; --gco-foire: #E8A06A; --gco-peste: #F2766B; --gco-peste-voile: #4A2626; --gco-avenir: #6F7B86; }
@@ -999,6 +999,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
 .gco-p-poisson { --c: #2E7565; } html[data-sombre="on"] .gco-p-poisson { --c: #80C7B5; }
 .gco-p-ble { --c: #A8780C; } html[data-sombre="on"] .gco-p-ble { --c: #E6C25C; }
 .gco-p-rat { --c: var(--gco-peste); }
+.gco .gco__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 </style>
 <div class="gco__entete"><p class="gco__titre" role="heading" aria-level="3">Le Grand commerce, puis la peste noire</p><p class="gco__consigne">Choisis un produit, une ville ou suis la peste</p></div>
 <div class="gco__cadre">
@@ -1013,7 +1014,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
 <ul class="gco__legende" aria-label="Légende"><li class="gco__leg-c"><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--gco-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--gco-maritime);stroke-width:2;stroke-dasharray:5 4"/></svg>Route de mer</li><li class="gco__leg-c"><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--gco-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--gco-terrestre);stroke-width:2.2"/></svg>Route de terre ou fleuve</li><li class="gco__leg-c"><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="3.6" style="fill:var(--gco-point);stroke:var(--gco-terre);stroke-width:1.4"/></svg>Ville marchande</li><li class="gco__leg-c"><svg viewBox="0 0 30 10" aria-hidden="true"><rect x="11.6" y="1.6" width="6.8" height="6.8" transform="rotate(45 15 5)" style="fill:var(--gco-foire);stroke:var(--gco-terre);stroke-width:1.2"/></svg>Foire</li><li class="gco__leg-c"><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="5.5" style="fill:var(--matiere)"/></svg>Origine d'un produit</li><li class="gco__leg-p"><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="4" style="fill:var(--gco-peste);stroke:var(--gco-terre);stroke-width:1.4"/></svg>Ville touchée et date</li><li class="gco__leg-p"><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="3" style="fill:var(--gco-avenir);stroke:var(--gco-terre);stroke-width:1.2"/></svg>Pas encore touchée</li><li class="gco__leg-p"><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--gco-halo);stroke-width:6"/><path d="M1 5h28" style="stroke:var(--gco-peste);stroke-width:3"/></svg>Chemin probable de la peste</li><li class="gco__echelle"><span class="gco__echelle-barre" style="width:60px"></span><span class="gco__echelle-texte">500 km</span></li></ul>
 </div>
 <div class="gco__cote">
-<div class="gco__choix" role="group" aria-label="Peste noire, produits et villes"><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">La peste noire</span></span><span class="gco__boutons"><button type="button" class="gco__bouton gco__bouton--visite" data-action="visite" aria-pressed="false"><span class="gco__pastille gco-p-rat" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-rat"/></svg></span>Suivre la peste noire, de 1346 à 1353</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Produits échangés</span></span><span class="gco__boutons"><button type="button" class="gco__bouton gco__bouton--produit" data-produit="epices" aria-controls="gco-produit-epices" aria-pressed="false"><span class="gco__pastille gco-p-epices" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-epices"/></svg></span>Les épices</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="soie" aria-controls="gco-produit-soie" aria-pressed="false"><span class="gco__pastille gco-p-soie" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-soie"/></svg></span>La soie</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="draps" aria-controls="gco-produit-draps" aria-pressed="false"><span class="gco__pastille gco-p-draps" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-draps"/></svg></span>Les draps de laine</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="laine" aria-controls="gco-produit-laine" aria-pressed="false"><span class="gco__pastille gco-p-laine" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-laine"/></svg></span>La laine anglaise</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="fourrures" aria-controls="gco-produit-fourrures" aria-pressed="false"><span class="gco__pastille gco-p-fourrures" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-fourrures"/></svg></span>Les fourrures et la cire</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="poisson" aria-controls="gco-produit-poisson" aria-pressed="false"><span class="gco__pastille gco-p-poisson" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-poisson"/></svg></span>Le poisson séché et salé</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="ble" aria-controls="gco-produit-ble" aria-pressed="false"><span class="gco__pastille gco-p-ble" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-ble"/></svg></span>Le blé</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Villes de la Méditerranée</span></span><span class="gco__boutons"><button type="button" class="gco__bouton" data-lieu="venise" aria-controls="gco-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="gco__bouton" data-lieu="genes" aria-controls="gco-lieu-genes" aria-pressed="false">Gênes</button><button type="button" class="gco__bouton" data-lieu="florence" aria-controls="gco-lieu-florence" aria-pressed="false">Florence</button><button type="button" class="gco__bouton" data-lieu="constantinople" aria-controls="gco-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="gco__bouton" data-lieu="caffa" aria-controls="gco-lieu-caffa" aria-pressed="false">Caffa</button><button type="button" class="gco__bouton" data-lieu="tana" aria-controls="gco-lieu-tana" aria-pressed="false">Tana</button><button type="button" class="gco__bouton" data-lieu="alexandrie" aria-controls="gco-lieu-alexandrie" aria-pressed="false">Alexandrie</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Villes du Nord et de l&#x27;Atlantique</span></span><span class="gco__boutons"><button type="button" class="gco__bouton" data-lieu="bruges" aria-controls="gco-lieu-bruges" aria-pressed="false">Bruges</button><button type="button" class="gco__bouton" data-lieu="champagne" aria-controls="gco-lieu-champagne" aria-pressed="false">Foires de Champagne</button><button type="button" class="gco__bouton" data-lieu="londres" aria-controls="gco-lieu-londres" aria-pressed="false">Londres</button><button type="button" class="gco__bouton" data-lieu="bordeaux" aria-controls="gco-lieu-bordeaux" aria-pressed="false">Bordeaux</button><button type="button" class="gco__bouton" data-lieu="lubeck" aria-controls="gco-lieu-lubeck" aria-pressed="false">Lübeck</button><button type="button" class="gco__bouton" data-lieu="hambourg" aria-controls="gco-lieu-hambourg" aria-pressed="false">Hambourg</button><button type="button" class="gco__bouton" data-lieu="danzig" aria-controls="gco-lieu-danzig" aria-pressed="false">Danzig</button><button type="button" class="gco__bouton" data-lieu="bergen" aria-controls="gco-lieu-bergen" aria-pressed="false">Bergen</button><button type="button" class="gco__bouton" data-lieu="novgorod" aria-controls="gco-lieu-novgorod" aria-pressed="false">Novgorod</button></span></div></div>
+<p class="gco__annonce" aria-live="polite"></p><div class="gco__choix" role="group" aria-label="Peste noire, produits et villes"><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">La peste noire</span></span><span class="gco__boutons"><button type="button" class="gco__bouton gco__bouton--visite" data-action="visite" aria-pressed="false"><span class="gco__pastille gco-p-rat" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-rat"/></svg></span>Suivre la peste noire, de 1346 à 1353</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Produits échangés</span></span><span class="gco__boutons"><button type="button" class="gco__bouton gco__bouton--produit" data-produit="epices" aria-controls="gco-produit-epices" aria-pressed="false"><span class="gco__pastille gco-p-epices" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-epices"/></svg></span>Les épices</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="soie" aria-controls="gco-produit-soie" aria-pressed="false"><span class="gco__pastille gco-p-soie" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-soie"/></svg></span>La soie</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="draps" aria-controls="gco-produit-draps" aria-pressed="false"><span class="gco__pastille gco-p-draps" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-draps"/></svg></span>Les draps de laine</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="laine" aria-controls="gco-produit-laine" aria-pressed="false"><span class="gco__pastille gco-p-laine" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-laine"/></svg></span>La laine anglaise</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="fourrures" aria-controls="gco-produit-fourrures" aria-pressed="false"><span class="gco__pastille gco-p-fourrures" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-fourrures"/></svg></span>Les fourrures et la cire</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="poisson" aria-controls="gco-produit-poisson" aria-pressed="false"><span class="gco__pastille gco-p-poisson" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-poisson"/></svg></span>Le poisson séché et salé</button><button type="button" class="gco__bouton gco__bouton--produit" data-produit="ble" aria-controls="gco-produit-ble" aria-pressed="false"><span class="gco__pastille gco-p-ble" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-ble"/></svg></span>Le blé</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Villes de la Méditerranée</span></span><span class="gco__boutons"><button type="button" class="gco__bouton" data-lieu="venise" aria-controls="gco-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="gco__bouton" data-lieu="genes" aria-controls="gco-lieu-genes" aria-pressed="false">Gênes</button><button type="button" class="gco__bouton" data-lieu="florence" aria-controls="gco-lieu-florence" aria-pressed="false">Florence</button><button type="button" class="gco__bouton" data-lieu="constantinople" aria-controls="gco-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="gco__bouton" data-lieu="caffa" aria-controls="gco-lieu-caffa" aria-pressed="false">Caffa</button><button type="button" class="gco__bouton" data-lieu="tana" aria-controls="gco-lieu-tana" aria-pressed="false">Tana</button><button type="button" class="gco__bouton" data-lieu="alexandrie" aria-controls="gco-lieu-alexandrie" aria-pressed="false">Alexandrie</button></span></div><div class="gco__groupe"><span class="gco__groupe-tete"><span class="gco__groupe-nom">Villes du Nord et de l&#x27;Atlantique</span></span><span class="gco__boutons"><button type="button" class="gco__bouton" data-lieu="bruges" aria-controls="gco-lieu-bruges" aria-pressed="false">Bruges</button><button type="button" class="gco__bouton" data-lieu="champagne" aria-controls="gco-lieu-champagne" aria-pressed="false">Foires de Champagne</button><button type="button" class="gco__bouton" data-lieu="londres" aria-controls="gco-lieu-londres" aria-pressed="false">Londres</button><button type="button" class="gco__bouton" data-lieu="bordeaux" aria-controls="gco-lieu-bordeaux" aria-pressed="false">Bordeaux</button><button type="button" class="gco__bouton" data-lieu="lubeck" aria-controls="gco-lieu-lubeck" aria-pressed="false">Lübeck</button><button type="button" class="gco__bouton" data-lieu="hambourg" aria-controls="gco-lieu-hambourg" aria-pressed="false">Hambourg</button><button type="button" class="gco__bouton" data-lieu="danzig" aria-controls="gco-lieu-danzig" aria-pressed="false">Danzig</button><button type="button" class="gco__bouton" data-lieu="bergen" aria-controls="gco-lieu-bergen" aria-pressed="false">Bergen</button><button type="button" class="gco__bouton" data-lieu="novgorod" aria-controls="gco-lieu-novgorod" aria-pressed="false">Novgorod</button></span></div></div>
 <div class="gco__contenu">
 <div class="gco__panneau gco__panneau--accueil" data-panneau="accueil"><span class="gco__surtitre">Aux 13e et 14e siècles</span><p class="gco__role">Deux grands réseaux de commerce</p><p class="gco__detail">Au sud, les marchands de Venise et de Gênes dominent la Méditerranée et la mer Noire. Ils rapportent d&#x27;Orient les épices et la soie.</p><p class="gco__detail">Au nord, les villes marchandes allemandes de la Hanse relient la mer du Nord et la mer Baltique. Elles font circuler la laine, les draps, le blé, les fourrures et le poisson.</p><p class="gco__detail">Entre les deux, on se rencontre aux foires de Champagne. À partir de 1277, les navires italiens vont aussi jusqu&#x27;à Bruges par la mer.</p><ul class="gco__consignes"><li>Choisis un produit pour voir son chemin.</li><li>Choisis une ville pour découvrir son rôle.</li><li>Suis la peste noire, qui emprunte ces mêmes routes de 1346 à 1353.</li></ul><button type="button" class="gco__appel" data-action="visite"><span class="gco__pastille gco-p-rat" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-rat"/></svg></span>Suivre la peste noire</button><p class="gco__savais"><strong>Le savais-tu?</strong> La Hanse possède quatre grands comptoirs à l&#x27;étranger&nbsp;: à Londres, à Bruges, à Bergen et à Novgorod. Les marchands allemands y vivent dans leur propre quartier, selon leurs propres règles.</p></div>
 <div class="gco__panneau gco-p-epices" id="gco-produit-epices" data-panneau="produit-epices"><span class="gco__surtitre">Produit</span><p class="gco__role"><span class="gco__pastille gco-p-epices" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#gco-i-epices"/></svg></span>Les épices</p><span class="gco__sous-titre">D&#x27;où viennent-elles?</span><p class="gco__detail">Le poivre, la cannelle et le gingembre poussent en Inde et en Asie du Sud-Est. Ils arrivent en Égypte par la mer Rouge. Les marchands de Venise et de Gênes les achètent à Alexandrie.</p><span class="gco__sous-titre">À quoi servent-elles?</span><p class="gco__detail">Très chères, elles donnent du goût aux plats des riches, qui montrent ainsi leur fortune. On s&#x27;en sert aussi comme médicament.</p><span class="gco__sous-titre">Leur chemin</span><ol class="gco__chemin"><li><span class="gco__puce gco__puce--fixe">Le Caire</span></li><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="alexandrie">Alexandrie</button></li><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="venise">Venise</button></li><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="bruges">Bruges</button></li></ol><span class="gco__sous-titre">Un autre chemin</span><ol class="gco__chemin"><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="alexandrie">Alexandrie</button></li><li><span class="gco__puce gco__puce--fixe">Messine</span></li><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="genes">Gênes</button></li><li><button type="button" class="gco__puce gco__puce--lieu" data-lieu="champagne">Foires de Champagne</button></li></ol><p class="gco__savais"><strong>Le savais-tu?</strong> Contrairement à une idée répandue, les épices ne servent pas à conserver la viande. Pour cela, on la sale, on la sèche ou on la fume.</p><button type="button" class="gco__retour" data-action="accueil">Revenir à l'accueil</button></div>
@@ -1420,6 +1421,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
     else if (ev.key === "ArrowRight") { nv = borner({ x: v.x + v.w * pas, y: v.y, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowUp") { nv = borner({ x: v.x, y: v.y - v.h * pas, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowDown") { nv = borner({ x: v.x, y: v.y + v.h * pas, w: v.w, h: v.h }); }
+    else if (ev.key === "Escape" && etat.mode !== "accueil") { ev.preventDefault(); deselectionner(); return; }
     if (!nv) { return; }
     ev.preventDefault();
     etat.cible = { x: nv.x, y: nv.y, w: nv.w, h: nv.h };
@@ -1547,6 +1549,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
   function choisirLieu(cle, deplacer) {
     var l = D.lieux[cle];
     if (!l || !l.commerce) { return; }
+    memoriserVue();
     remettre();
     changerMode("lieu");
     etat.lieu = cle; etat.produit = null; etat.etape = -1;
@@ -1572,6 +1575,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
   function choisirProduit(cle, deplacer) {
     var p = D.produits[cle];
     if (!p) { return; }
+    memoriserVue();
     remettre();
     changerMode("produit");
     etat.produit = cle; etat.lieu = null; etat.etape = -1;
@@ -1597,6 +1601,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
     i = Math.max(0, Math.min(NB_ETAPES - 1, Math.round(i)));
     var avant = enVisite() ? etat.etape : -1;
     var e = D.etapes[i];
+    memoriserVue();
     remettre();
     changerMode("visite");
     etat.etape = i; etat.lieu = null; etat.produit = null;
@@ -1644,25 +1649,32 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
   if (curseur) {
     curseur.addEventListener("input", function () { allerEtape(+curseur.value, true); });
   }
-  chaque(tous(".gco__frise-fin"), function (b) { b.addEventListener("click", function () { accueil(); montrerVue("ensemble"); }); });
+  chaque(tous(".gco__frise-fin"), function (b) { b.addEventListener("click", function () { vueAvant = null; accueil(); montrerVue("ensemble"); }); });
   chaque(tous(".gco__terminer"), function (b) { b.addEventListener("click", function () { montrerVue("ensemble"); }); });
-  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", demarrerVisite); });
-  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", accueil); });
+  // Un second clic sur ce qui est déjà choisi le désélectionne et ramène la vue d'avant.
+  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", function () { if (enVisite() && b === boutonVisite) { deselectionner(); } else { demarrerVisite(); } }); });
+  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", deselectionner); });
   chaque(tous(".gco__lien[data-etape]"), function (b) {
     b.addEventListener("click", function () { allerEtape(+b.getAttribute("data-etape"), true); });
   });
   // ------------------------------------------------------------ clics
+  function basculerLieu(cle, deplacer) {
+    if (etat.mode === "lieu" && etat.lieu === cle) { deselectionner(); } else { choisirLieu(cle, deplacer); }
+  }
+  function basculerProduit(cle) {
+    if (etat.mode === "produit" && etat.produit === cle) { deselectionner(); } else { choisirProduit(cle, true); }
+  }
   chaque(boutons, function (b) {
     b.addEventListener("click", function () {
-      if (b.hasAttribute("data-lieu")) { choisirLieu(b.getAttribute("data-lieu"), true); }
-      else { choisirProduit(b.getAttribute("data-produit"), true); }
+      if (b.hasAttribute("data-lieu")) { basculerLieu(b.getAttribute("data-lieu"), true); }
+      else { basculerProduit(b.getAttribute("data-produit")); }
     });
   });
   chaque(tous(".gco__puce[data-lieu]"), function (b) {
-    b.addEventListener("click", function () { choisirLieu(b.getAttribute("data-lieu"), true); });
+    b.addEventListener("click", function () { basculerLieu(b.getAttribute("data-lieu"), true); });
   });
   chaque(tous(".gco__puce[data-produit]"), function (b) {
-    b.addEventListener("click", function () { choisirProduit(b.getAttribute("data-produit"), true); });
+    b.addEventListener("click", function () { basculerProduit(b.getAttribute("data-produit")); });
   });
   svg.addEventListener("click", function (ev) {
     if (etat.glisse) { etat.glisse = false; return; }
@@ -1672,8 +1684,8 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
       if (cible.hasAttribute("data-etape")) { allerEtape(+cible.getAttribute("data-etape"), true); }
       return;
     }
-    if (cible.classList.contains("gco__lieu")) { choisirLieu(cible.getAttribute("data-lieu"), false); }
-    else { choisirProduit(cible.getAttribute("data-produit"), true); }
+    if (cible.classList.contains("gco__lieu")) { basculerLieu(cible.getAttribute("data-lieu"), false); }
+    else { basculerProduit(cible.getAttribute("data-produit")); }
   });
   // ------------------------------------------------------------ plein écran
   var replier = racine.querySelector(".gco__replier");
@@ -1702,6 +1714,49 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
     window.addEventListener("resize", recadrer);
   }
   ["fullscreenchange", "webkitfullscreenchange"].forEach(function (nom) { document.addEventListener(nom, recadrer); });
+  // ------------------------------------------------------------ désélection et réinitialisation
+  var vueAvant = null;
+  var friseDepart = friseDate ? friseDate.innerHTML : null;
+  var curseurDepart = curseur ? { v: curseur.value, t: curseur.getAttribute("aria-valuetext"), a: curseur.style.getPropertyValue("--avance") } : null;
+  var precDepart = [], suivDepart = [];
+  chaque(boutonsPrec, function (b) { precDepart.push(b.disabled); });
+  chaque(boutonsSuiv, function (b) { suivDepart.push(b.disabled); });
+  function vueNommee() {
+    var nom = null;
+    chaque(boutonsVue, function (b) { if (b.getAttribute("aria-pressed") === "true") { nom = b.getAttribute("data-vue"); } });
+    return nom;
+  }
+  // La vue d'avant la première sélection, pour y revenir en désélectionnant.
+  function memoriserVue() {
+    if (etat.mode !== "accueil" || !etat.cible) { return; }
+    vueAvant = { b: { x: etat.cible.x, y: etat.cible.y, w: etat.cible.w, h: etat.cible.h }, complet: etat.complet, nom: vueNommee() };
+  }
+  function deselectionner() {
+    accueil();
+    if (vueAvant) { var v = vueAvant; vueAvant = null; marquerVue(v.nom); viser(v.b, undefined, v.complet); }
+  }
+  // Réinitialiser (bouton posé par page.js) : l'état exact du chargement.
+  function reinitialiser() {
+    vueAvant = null;
+    accueil();
+    if (friseDate && friseDepart !== null) { friseDate.innerHTML = friseDepart; }
+    if (curseur && curseurDepart) {
+      curseur.value = curseurDepart.v;
+      if (curseurDepart.t === null) { curseur.removeAttribute("aria-valuetext"); } else { curseur.setAttribute("aria-valuetext", curseurDepart.t); }
+      curseur.style.setProperty("--avance", curseurDepart.a);
+    }
+    chaque(boutonsPrec, function (b, j) { b.disabled = precDepart[j]; });
+    chaque(boutonsSuiv, function (b, j) { b.disabled = suivDepart[j]; });
+    cacherBulle();
+    marquerVue("ensemble");
+    etat.cible = boite(D.vues.ensemble);
+    etat.complet = false;
+    animerVers(cadrer(etat.cible));
+    chaque(racine.querySelectorAll(".gco__contenu, .gco__cote"), function (el) { el.scrollTop = 0; });
+    var a = racine.querySelector(".gco__annonce");
+    if (a) { a.textContent = ""; window.setTimeout(function () { a.textContent = "Carte réinitialisée"; }, 30); }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   // ------------------------------------------------------------ départ
   racine.classList.add("est-pret");
   trier();
@@ -1712,7 +1767,7 @@ html[data-sombre="on"] .gco .gco__panneau--etape .gco__role { color: var(--gco-p
   function remesurer() { mesurer(); if (etat.vb) { desencombrer(etat.u); } }
   remesurer();
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remesurer); }
-  racine.grandCommerce = { etat: etat, choisirLieu: choisirLieu, choisirProduit: choisirProduit, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer };
+  racine.grandCommerce = { etat: etat, choisirLieu: choisirLieu, choisirProduit: choisirProduit, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer, deselectionner: deselectionner, reinitialiser: reinitialiser };
 })();
 </script>
 </section>
@@ -1801,7 +1856,7 @@ la période sur la ligne du temps.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=8ef58338" defer></script>
+<script src="../page.js?v=fb046d3e" defer></script>
 
 </body>
 </html>

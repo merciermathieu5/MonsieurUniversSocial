@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=8ef58338">
+<link rel="stylesheet" href="../style.css?v=fb046d3e">
 </head>
 <body>
 
@@ -345,7 +345,7 @@ les richesses de l'Orient.</p>
 l'océan Indien en bateau, en passant de marchand en marchand. Explore la carte
 pour voir d'où vient chaque produit, puis suis un sac de poivre pour comprendre
 pourquoi son prix grimpe à chaque étape du voyage.</p>
-<section class="rds" id="route-soie" aria-label="Carte interactive : la route de la soie et les produits qui y circulent vers 1450">
+<section class="rds" id="route-soie" data-reinitialiser aria-label="Carte interactive : la route de la soie et les produits qui y circulent vers 1450">
 <style>
 .rds { --rds-mer: #C9DEEE; --rds-terre: #F4EEE2; --rds-cote: #7C9FC0; --rds-fleuve: #6E9DCB; --rds-plateau: #ECDFC9; --rds-mont: #DCC5A2; --rds-desert: #F1E0B2; --rds-quad: rgba(48, 84, 120, .14); --rds-ligne: rgba(28, 62, 98, .42); --rds-terrestre: #9A4520; --rds-maritime: #1D5C98; --rds-halo: #F4EEE2; --rds-point: #1A2530; --rds-eau-texte: #2A5F8F; --rds-region: #786A55; --rds-glyphe: #FFFFFF; --rds-sac: #3D3A36; --rds-transport: #1D5C98; --rds-taxe: #A3342C; --rds-profit: #9A6C00; --rds-risque: #55606B; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: rds / inline-size; }
 html[data-sombre="on"] .rds { --rds-mer: #15293C; --rds-terre: #2A3440; --rds-cote: #4F6F8F; --rds-fleuve: #5F93C6; --rds-plateau: #313A44; --rds-mont: #4A4234; --rds-desert: #4A4430; --rds-quad: rgba(160, 190, 220, .1); --rds-ligne: rgba(170, 200, 230, .45); --rds-terrestre: #E8A06A; --rds-maritime: #82B6EA; --rds-halo: #2A3440; --rds-point: #E8EBEF; --rds-eau-texte: #A6CDF0; --rds-region: #B3A891; --rds-glyphe: #16202A; --rds-sac: #E3DED6; --rds-transport: #82B6EA; --rds-taxe: #EE8F86; --rds-profit: #F2C94C; --rds-risque: #AAB4BE; }
@@ -605,6 +605,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
 .rds-p-or { --c: #B8860B; } html[data-sombre="on"] .rds-p-or { --c: #F2C94C; }
 .rds-p-europe { --c: #3E6E2E; } html[data-sombre="on"] .rds-p-europe { --c: #9FD08A; }
 .rds-p-sac { --c: var(--rds-terre); color: var(--rds-sac); }
+.rds .rds__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 </style>
 <div class="rds__entete"><p class="rds__titre" role="heading" aria-level="3">La route de la soie et ses produits, vers 1450</p><p class="rds__consigne">Choisis un produit, une ville ou suis le poivre</p></div>
 <div class="rds__cadre">
@@ -619,7 +620,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
 <ul class="rds__legende" aria-label="Légende"><li><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--rds-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--rds-terrestre);stroke-width:2.2"/></svg>Route de terre (caravanes)</li><li><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--rds-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--rds-maritime);stroke-width:2;stroke-dasharray:5 4"/></svg>Route de mer (navires)</li><li><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="3.6" style="fill:var(--rds-point);stroke:var(--rds-terre);stroke-width:1.4"/></svg>Ville ou port</li><li><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="5.5" style="fill:var(--matiere)"/></svg>Lieu d'origine d'un produit</li><li class="rds__echelle"><span class="rds__echelle-barre" style="width:60px"></span><span class="rds__echelle-texte">1 000 km</span></li></ul>
 </div>
 <div class="rds__cote">
-<div class="rds__choix" role="group" aria-label="Produits, villes et visite"><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Le prix du voyage</span></span><span class="rds__boutons"><button type="button" class="rds__bouton rds__bouton--visite" data-action="visite" aria-pressed="false"><span class="rds__pastille rds-p-sac" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-sac"/></svg></span>Suivre un sac de poivre</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Produits recherchés</span></span><span class="rds__boutons"><button type="button" class="rds__bouton rds__bouton--produit" data-produit="poivre" aria-controls="rds-produit-poivre" aria-pressed="false"><span class="rds__pastille rds-p-poivre" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-poivre"/></svg></span>Le poivre</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="cannelle" aria-controls="rds-produit-cannelle" aria-pressed="false"><span class="rds__pastille rds-p-cannelle" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-cannelle"/></svg></span>La cannelle</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="girofle" aria-controls="rds-produit-girofle" aria-pressed="false"><span class="rds__pastille rds-p-girofle" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-girofle"/></svg></span>Le clou de girofle</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="muscade" aria-controls="rds-produit-muscade" aria-pressed="false"><span class="rds__pastille rds-p-muscade" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-muscade"/></svg></span>La muscade</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="soie" aria-controls="rds-produit-soie" aria-pressed="false"><span class="rds__pastille rds-p-soie" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-soie"/></svg></span>La soie</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="porcelaine" aria-controls="rds-produit-porcelaine" aria-pressed="false"><span class="rds__pastille rds-p-porcelaine" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-porcelaine"/></svg></span>La porcelaine</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="pierres" aria-controls="rds-produit-pierres" aria-pressed="false"><span class="rds__pastille rds-p-pierres" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-pierres"/></svg></span>Pierres précieuses et perles</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="encens" aria-controls="rds-produit-encens" aria-pressed="false"><span class="rds__pastille rds-p-encens" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-encens"/></svg></span>L&#x27;encens</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="tapis" aria-controls="rds-produit-tapis" aria-pressed="false"><span class="rds__pastille rds-p-tapis" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-tapis"/></svg></span>Les tapis</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="or" aria-controls="rds-produit-or" aria-pressed="false"><span class="rds__pastille rds-p-or" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-or"/></svg></span>L&#x27;or et l&#x27;argent</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="europe" aria-controls="rds-produit-europe" aria-pressed="false"><span class="rds__pastille rds-p-europe" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-europe"/></svg></span>Produits d&#x27;Europe</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Europe et Afrique</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="venise" aria-controls="rds-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="rds__bouton" data-lieu="genes" aria-controls="rds-lieu-genes" aria-pressed="false">Gênes</button><button type="button" class="rds__bouton" data-lieu="bruges" aria-controls="rds-lieu-bruges" aria-pressed="false">Bruges</button><button type="button" class="rds__bouton" data-lieu="lisbonne" aria-controls="rds-lieu-lisbonne" aria-pressed="false">Lisbonne</button><button type="button" class="rds__bouton" data-lieu="tombouctou" aria-controls="rds-lieu-tombouctou" aria-pressed="false">Tombouctou</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Méditerranée orientale</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="constantinople" aria-controls="rds-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="rds__bouton" data-lieu="bursa" aria-controls="rds-lieu-bursa" aria-pressed="false">Bursa</button><button type="button" class="rds__bouton" data-lieu="caffa" aria-controls="rds-lieu-caffa" aria-pressed="false">Caffa</button><button type="button" class="rds__bouton" data-lieu="alexandrie" aria-controls="rds-lieu-alexandrie" aria-pressed="false">Alexandrie</button><button type="button" class="rds__bouton" data-lieu="caire" aria-controls="rds-lieu-caire" aria-pressed="false">Le Caire</button><button type="button" class="rds__bouton" data-lieu="damas" aria-controls="rds-lieu-damas" aria-pressed="false">Damas</button><button type="button" class="rds__bouton" data-lieu="beyrouth" aria-controls="rds-lieu-beyrouth" aria-pressed="false">Beyrouth</button><button type="button" class="rds__bouton" data-lieu="alep" aria-controls="rds-lieu-alep" aria-pressed="false">Alep</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Perse et Arabie</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="tabriz" aria-controls="rds-lieu-tabriz" aria-pressed="false">Tabriz</button><button type="button" class="rds__bouton" data-lieu="bagdad" aria-controls="rds-lieu-bagdad" aria-pressed="false">Bagdad</button><button type="button" class="rds__bouton" data-lieu="ormuz" aria-controls="rds-lieu-ormuz" aria-pressed="false">Ormuz</button><button type="button" class="rds__bouton" data-lieu="djeddah" aria-controls="rds-lieu-djeddah" aria-pressed="false">Djeddah</button><button type="button" class="rds__bouton" data-lieu="aden" aria-controls="rds-lieu-aden" aria-pressed="false">Aden</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Asie centrale et Chine</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="samarcande" aria-controls="rds-lieu-samarcande" aria-pressed="false">Samarcande</button><button type="button" class="rds__bouton" data-lieu="kachgar" aria-controls="rds-lieu-kachgar" aria-pressed="false">Kachgar</button><button type="button" class="rds__bouton" data-lieu="khotan" aria-controls="rds-lieu-khotan" aria-pressed="false">Khotan</button><button type="button" class="rds__bouton" data-lieu="dunhuang" aria-controls="rds-lieu-dunhuang" aria-pressed="false">Dunhuang</button><button type="button" class="rds__bouton" data-lieu="xian" aria-controls="rds-lieu-xian" aria-pressed="false">Xi&#x27;an</button><button type="button" class="rds__bouton" data-lieu="pekin" aria-controls="rds-lieu-pekin" aria-pressed="false">Pékin</button><button type="button" class="rds__bouton" data-lieu="quanzhou" aria-controls="rds-lieu-quanzhou" aria-pressed="false">Quanzhou</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Inde et îles aux épices</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="calicut" aria-controls="rds-lieu-calicut" aria-pressed="false">Calicut</button><button type="button" class="rds__bouton" data-lieu="ceylan" aria-controls="rds-lieu-ceylan" aria-pressed="false">Ceylan</button><button type="button" class="rds__bouton" data-lieu="malacca" aria-controls="rds-lieu-malacca" aria-pressed="false">Malacca</button><button type="button" class="rds__bouton" data-lieu="moluques" aria-controls="rds-lieu-moluques" aria-pressed="false">Moluques</button><button type="button" class="rds__bouton" data-lieu="banda" aria-controls="rds-lieu-banda" aria-pressed="false">Îles Banda</button></span></div></div>
+<p class="rds__annonce" aria-live="polite"></p><div class="rds__choix" role="group" aria-label="Produits, villes et visite"><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Le prix du voyage</span></span><span class="rds__boutons"><button type="button" class="rds__bouton rds__bouton--visite" data-action="visite" aria-pressed="false"><span class="rds__pastille rds-p-sac" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-sac"/></svg></span>Suivre un sac de poivre</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Produits recherchés</span></span><span class="rds__boutons"><button type="button" class="rds__bouton rds__bouton--produit" data-produit="poivre" aria-controls="rds-produit-poivre" aria-pressed="false"><span class="rds__pastille rds-p-poivre" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-poivre"/></svg></span>Le poivre</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="cannelle" aria-controls="rds-produit-cannelle" aria-pressed="false"><span class="rds__pastille rds-p-cannelle" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-cannelle"/></svg></span>La cannelle</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="girofle" aria-controls="rds-produit-girofle" aria-pressed="false"><span class="rds__pastille rds-p-girofle" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-girofle"/></svg></span>Le clou de girofle</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="muscade" aria-controls="rds-produit-muscade" aria-pressed="false"><span class="rds__pastille rds-p-muscade" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-muscade"/></svg></span>La muscade</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="soie" aria-controls="rds-produit-soie" aria-pressed="false"><span class="rds__pastille rds-p-soie" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-soie"/></svg></span>La soie</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="porcelaine" aria-controls="rds-produit-porcelaine" aria-pressed="false"><span class="rds__pastille rds-p-porcelaine" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-porcelaine"/></svg></span>La porcelaine</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="pierres" aria-controls="rds-produit-pierres" aria-pressed="false"><span class="rds__pastille rds-p-pierres" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-pierres"/></svg></span>Pierres précieuses et perles</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="encens" aria-controls="rds-produit-encens" aria-pressed="false"><span class="rds__pastille rds-p-encens" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-encens"/></svg></span>L&#x27;encens</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="tapis" aria-controls="rds-produit-tapis" aria-pressed="false"><span class="rds__pastille rds-p-tapis" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-tapis"/></svg></span>Les tapis</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="or" aria-controls="rds-produit-or" aria-pressed="false"><span class="rds__pastille rds-p-or" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-or"/></svg></span>L&#x27;or et l&#x27;argent</button><button type="button" class="rds__bouton rds__bouton--produit" data-produit="europe" aria-controls="rds-produit-europe" aria-pressed="false"><span class="rds__pastille rds-p-europe" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-europe"/></svg></span>Produits d&#x27;Europe</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Europe et Afrique</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="venise" aria-controls="rds-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="rds__bouton" data-lieu="genes" aria-controls="rds-lieu-genes" aria-pressed="false">Gênes</button><button type="button" class="rds__bouton" data-lieu="bruges" aria-controls="rds-lieu-bruges" aria-pressed="false">Bruges</button><button type="button" class="rds__bouton" data-lieu="lisbonne" aria-controls="rds-lieu-lisbonne" aria-pressed="false">Lisbonne</button><button type="button" class="rds__bouton" data-lieu="tombouctou" aria-controls="rds-lieu-tombouctou" aria-pressed="false">Tombouctou</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Méditerranée orientale</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="constantinople" aria-controls="rds-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="rds__bouton" data-lieu="bursa" aria-controls="rds-lieu-bursa" aria-pressed="false">Bursa</button><button type="button" class="rds__bouton" data-lieu="caffa" aria-controls="rds-lieu-caffa" aria-pressed="false">Caffa</button><button type="button" class="rds__bouton" data-lieu="alexandrie" aria-controls="rds-lieu-alexandrie" aria-pressed="false">Alexandrie</button><button type="button" class="rds__bouton" data-lieu="caire" aria-controls="rds-lieu-caire" aria-pressed="false">Le Caire</button><button type="button" class="rds__bouton" data-lieu="damas" aria-controls="rds-lieu-damas" aria-pressed="false">Damas</button><button type="button" class="rds__bouton" data-lieu="beyrouth" aria-controls="rds-lieu-beyrouth" aria-pressed="false">Beyrouth</button><button type="button" class="rds__bouton" data-lieu="alep" aria-controls="rds-lieu-alep" aria-pressed="false">Alep</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Perse et Arabie</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="tabriz" aria-controls="rds-lieu-tabriz" aria-pressed="false">Tabriz</button><button type="button" class="rds__bouton" data-lieu="bagdad" aria-controls="rds-lieu-bagdad" aria-pressed="false">Bagdad</button><button type="button" class="rds__bouton" data-lieu="ormuz" aria-controls="rds-lieu-ormuz" aria-pressed="false">Ormuz</button><button type="button" class="rds__bouton" data-lieu="djeddah" aria-controls="rds-lieu-djeddah" aria-pressed="false">Djeddah</button><button type="button" class="rds__bouton" data-lieu="aden" aria-controls="rds-lieu-aden" aria-pressed="false">Aden</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Asie centrale et Chine</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="samarcande" aria-controls="rds-lieu-samarcande" aria-pressed="false">Samarcande</button><button type="button" class="rds__bouton" data-lieu="kachgar" aria-controls="rds-lieu-kachgar" aria-pressed="false">Kachgar</button><button type="button" class="rds__bouton" data-lieu="khotan" aria-controls="rds-lieu-khotan" aria-pressed="false">Khotan</button><button type="button" class="rds__bouton" data-lieu="dunhuang" aria-controls="rds-lieu-dunhuang" aria-pressed="false">Dunhuang</button><button type="button" class="rds__bouton" data-lieu="xian" aria-controls="rds-lieu-xian" aria-pressed="false">Xi&#x27;an</button><button type="button" class="rds__bouton" data-lieu="pekin" aria-controls="rds-lieu-pekin" aria-pressed="false">Pékin</button><button type="button" class="rds__bouton" data-lieu="quanzhou" aria-controls="rds-lieu-quanzhou" aria-pressed="false">Quanzhou</button></span></div><div class="rds__groupe"><span class="rds__groupe-tete"><span class="rds__groupe-nom">Inde et îles aux épices</span></span><span class="rds__boutons"><button type="button" class="rds__bouton" data-lieu="calicut" aria-controls="rds-lieu-calicut" aria-pressed="false">Calicut</button><button type="button" class="rds__bouton" data-lieu="ceylan" aria-controls="rds-lieu-ceylan" aria-pressed="false">Ceylan</button><button type="button" class="rds__bouton" data-lieu="malacca" aria-controls="rds-lieu-malacca" aria-pressed="false">Malacca</button><button type="button" class="rds__bouton" data-lieu="moluques" aria-controls="rds-lieu-moluques" aria-pressed="false">Moluques</button><button type="button" class="rds__bouton" data-lieu="banda" aria-controls="rds-lieu-banda" aria-pressed="false">Îles Banda</button></span></div></div>
 <div class="rds__contenu">
 <div class="rds__panneau rds__panneau--accueil" data-panneau="accueil"><span class="rds__surtitre">Vers 1450</span><p class="rds__role">Des produits venus de très loin</p><p class="rds__detail">Vers 1450, les épices, la soie et la porcelaine d&#x27;Asie arrivent en Europe par deux types de routes. Sur les routes de terre, les marchandises voyagent à dos de chameau, en caravanes. Sur les routes de mer, elles voyagent en bateau. On appelle ce réseau la route de la soie.</p><p class="rds__detail">Presque aucun marchand ne fait tout le trajet. Les produits passent de main en main, de ville en ville. À chaque étape, leur prix augmente.</p><ul class="rds__consignes"><li>Choisis un produit pour voir d&#x27;où il vient et le chemin qu&#x27;il suit.</li><li>Choisis une ville ou un port pour découvrir son rôle.</li><li>Suis un sac de poivre pour comprendre pourquoi il coûte si cher en Europe.</li></ul><button type="button" class="rds__appel" data-action="visite"><span class="rds__pastille rds-p-sac" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-sac"/></svg></span>Suivre un sac de poivre</button><p class="rds__savais"><strong>Le savais-tu?</strong> Le nom « route de la soie » date de 1877 : c&#x27;est le géographe allemand Ferdinand von Richthofen qui l&#x27;a inventé. De la Chine à la Méditerranée, la route de terre fait plus de 6 400 km. Des auberges fortifiées, les caravansérails, accueillent les caravanes tous les 30 à 40 km, la distance parcourue en une journée.</p></div>
 <div class="rds__panneau rds-p-poivre" id="rds-produit-poivre" data-panneau="produit-poivre"><span class="rds__surtitre">Produit</span><p class="rds__role"><span class="rds__pastille rds-p-poivre" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-poivre"/></svg></span>Le poivre</p><span class="rds__sous-titre">D&#x27;où vient-il?</span><p class="rds__detail">Les collines de la côte de Malabar, dans le sud-ouest de l&#x27;Inde.</p><span class="rds__sous-titre">À quoi sert-il en Europe?</span><p class="rds__detail">C&#x27;est l&#x27;épice la plus achetée en Europe. Les riches en mettent dans les sauces et les plats. Les médecins s&#x27;en servent aussi dans leurs remèdes.</p><span class="rds__sous-titre">Son chemin</span><ol class="rds__chemin"><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="calicut">Calicut</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="aden">Aden</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="djeddah">Djeddah</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="caire">Le Caire</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="alexandrie">Alexandrie</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="venise">Venise</button></li><li><button type="button" class="rds__puce rds__puce--lieu" data-lieu="bruges">Bruges</button></li></ol><button type="button" class="rds__appel" data-action="visite"><span class="rds__pastille rds-p-sac" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#rds-i-sac"/></svg></span>Suivre le voyage du poivre</button><p class="rds__savais"><strong>Le savais-tu?</strong> Le poivre noir vient d&#x27;une liane. On cueille ses petites baies, qui noircissent en séchant au soleil.</p><button type="button" class="rds__retour" data-action="accueil">Revenir à l'accueil</button></div>
@@ -992,6 +993,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
     else if (ev.key === "ArrowRight") { nv = borner({ x: v.x + v.w * pas, y: v.y, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowUp") { nv = borner({ x: v.x, y: v.y - v.h * pas, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowDown") { nv = borner({ x: v.x, y: v.y + v.h * pas, w: v.w, h: v.h }); }
+    else if (ev.key === "Escape" && etat.mode !== "accueil") { ev.preventDefault(); deselectionner(); return; }
     if (!nv) { return; }
     ev.preventDefault();
     etat.cible = { x: nv.x, y: nv.y, w: nv.w, h: nv.h };
@@ -1106,6 +1108,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
   function choisirLieu(cle, deplacer) {
     var l = D.lieux[cle];
     if (!l) { return; }
+    memoriserVue();
     remettre();
     etat.mode = "lieu"; etat.lieu = cle; etat.produit = null; etat.etape = -1;
     presser("data-lieu", cle);
@@ -1131,6 +1134,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
   function choisirProduit(cle, deplacer) {
     var p = D.produits[cle];
     if (!p) { return; }
+    memoriserVue();
     remettre();
     etat.mode = "produit"; etat.produit = cle; etat.lieu = null; etat.etape = -1;
     presser("data-produit", cle);
@@ -1201,6 +1205,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
     i = Math.max(0, Math.min(n - 1, i));
     var avant = etat.etape;
     var e = D.visite[i];
+    memoriserVue();
     remettre();
     etat.mode = "visite"; etat.etape = i; etat.lieu = null; etat.produit = null;
     racine.classList.add("est-filtre", "est-visite");
@@ -1232,28 +1237,35 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
   chaque(boutonsPrec, function (b) { b.addEventListener("click", function () { allerEtape(etat.etape - 1); }); });
   chaque(boutonsSuiv, function (b) { b.addEventListener("click", function () { allerEtape(etat.etape + 1); }); });
   chaque(tous(".rds__terminer"), function (b) { b.addEventListener("click", function () { montrerVue("ensemble"); }); });
-  chaque(tous(".rds__barre-fin"), function (b) { b.addEventListener("click", function () { accueil(); montrerVue("ensemble"); }); });
-  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", demarrerVisite); });
-  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", accueil); });
+  chaque(tous(".rds__barre-fin"), function (b) { b.addEventListener("click", function () { vueAvant = null; accueil(); montrerVue("ensemble"); }); });
+  // Un second clic sur ce qui est déjà choisi le désélectionne et ramène la vue d'avant.
+  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", function () { if (etat.mode === "visite" && b.classList.contains("rds__bouton")) { deselectionner(); } else { demarrerVisite(); } }); });
+  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", deselectionner); });
   // ------------------------------------------------------------ clics
+  function basculerLieu(cle, deplacer) {
+    if (etat.mode === "lieu" && etat.lieu === cle) { deselectionner(); } else { choisirLieu(cle, deplacer); }
+  }
+  function basculerProduit(cle) {
+    if (etat.mode === "produit" && etat.produit === cle) { deselectionner(); } else { choisirProduit(cle, true); }
+  }
   chaque(boutons, function (b) {
     b.addEventListener("click", function () {
-      if (b.hasAttribute("data-lieu")) { choisirLieu(b.getAttribute("data-lieu"), true); }
-      else { choisirProduit(b.getAttribute("data-produit"), true); }
+      if (b.hasAttribute("data-lieu")) { basculerLieu(b.getAttribute("data-lieu"), true); }
+      else { basculerProduit(b.getAttribute("data-produit")); }
     });
   });
   chaque(tous(".rds__puce[data-lieu]"), function (b) {
-    b.addEventListener("click", function () { choisirLieu(b.getAttribute("data-lieu"), true); });
+    b.addEventListener("click", function () { basculerLieu(b.getAttribute("data-lieu"), true); });
   });
   chaque(tous(".rds__puce[data-produit]"), function (b) {
-    b.addEventListener("click", function () { choisirProduit(b.getAttribute("data-produit"), true); });
+    b.addEventListener("click", function () { basculerProduit(b.getAttribute("data-produit")); });
   });
   svg.addEventListener("click", function (ev) {
     if (etat.glisse) { etat.glisse = false; return; }
     var cible = ev.target && ev.target.closest ? ev.target.closest(".rds__lieu, .rds__badge") : null;
     if (!cible) { return; }
-    if (cible.classList.contains("rds__lieu")) { choisirLieu(cible.getAttribute("data-lieu"), false); }
-    else { choisirProduit(cible.getAttribute("data-produit"), true); }
+    if (cible.classList.contains("rds__lieu")) { basculerLieu(cible.getAttribute("data-lieu"), false); }
+    else { basculerProduit(cible.getAttribute("data-produit")); }
   });
   // ------------------------------------------------------------ plein écran
   var replier = racine.querySelector(".rds__replier");
@@ -1282,6 +1294,42 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
     window.addEventListener("resize", recadrer);
   }
   ["fullscreenchange", "webkitfullscreenchange"].forEach(function (nom) { document.addEventListener(nom, recadrer); });
+  // ------------------------------------------------------------ désélection et réinitialisation
+  var vueAvant = null;
+  var sacDepart = marqueurSac ? [marqueurSac.x, marqueurSac.y] : null;
+  var barreDepart = barreTexte ? barreTexte.innerHTML : null;
+  function vueNommee() {
+    var nom = null;
+    chaque(boutonsVue, function (b) { if (b.getAttribute("aria-pressed") === "true") { nom = b.getAttribute("data-vue"); } });
+    return nom;
+  }
+  // La vue d'avant la première sélection, pour y revenir en désélectionnant.
+  function memoriserVue() {
+    if (etat.mode !== "accueil" || !etat.cible) { return; }
+    vueAvant = { b: { x: etat.cible.x, y: etat.cible.y, w: etat.cible.w, h: etat.cible.h }, complet: etat.complet, nom: vueNommee() };
+  }
+  function deselectionner() {
+    animSac++;
+    accueil();
+    if (vueAvant) { var v = vueAvant; vueAvant = null; marquerVue(v.nom); viser(v.b, undefined, v.complet); }
+  }
+  // Réinitialiser (bouton posé par page.js) : l'état exact du chargement.
+  function reinitialiser() {
+    animSac++;
+    vueAvant = null;
+    accueil();
+    if (sacDepart) { poserSac(sacDepart[0], sacDepart[1]); }
+    if (barreTexte && barreDepart !== null) { barreTexte.innerHTML = barreDepart; }
+    cacherBulle();
+    marquerVue("ensemble");
+    etat.cible = boite(D.vues.ensemble);
+    etat.complet = false;
+    animerVers(cadrer(etat.cible));
+    chaque(racine.querySelectorAll(".rds__contenu, .rds__cote"), function (el) { el.scrollTop = 0; });
+    var a = racine.querySelector(".rds__annonce");
+    if (a) { a.textContent = ""; window.setTimeout(function () { a.textContent = "Carte réinitialisée"; }, 30); }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   // ------------------------------------------------------------ départ
   racine.classList.add("est-pret");
   etat.cible = boite(D.vues.ensemble);
@@ -1291,7 +1339,7 @@ html[data-sombre="on"] .rds .rds__role, html[data-sombre="on"] .rds .rds__auj st
   function remesurer() { mesurer(); if (etat.vb) { desencombrer(etat.u); } }
   remesurer();
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remesurer); }
-  racine.routeSoie = { etat: etat, choisirLieu: choisirLieu, choisirProduit: choisirProduit, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer };
+  racine.routeSoie = { etat: etat, choisirLieu: choisirLieu, choisirProduit: choisirProduit, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer, deselectionner: deselectionner, reinitialiser: reinitialiser };
 })();
 </script>
 </section>
@@ -1786,7 +1834,7 @@ l'on ne savait pas jusqu'où allaient les terres du continent
 sud-américain. L'Espagne n'a pas pu empêcher la progression de la
 colonisation portugaise du Brésil bien au-delà de la limite fixée.</p>
 <p class="source-texte">(Source : Futura sciences)</p>
-<section class="tds" id="tordesillas" data-mode="royaumes" aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
+<section class="tds" id="tordesillas" data-mode="royaumes" data-reinitialiser aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
 <style>
 .tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-mer: #DCE6EE; --tds-terre: #FAF8F3; --tds-cote: #8DA2B5; --tds-halo: #FAF8F3; --tds-zone-espagne: #F2E0DD; --tds-zone-portugal: #DDEBE0; --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: tds / inline-size; }
 html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-mer: #13202D; --tds-terre: #313E4C; --tds-cote: #56708D; --tds-halo: #18222D; --tds-zone-espagne: #35232A; --tds-zone-portugal: #1B3129; --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
@@ -2283,6 +2331,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   var INDEX = {};
   LIEUX.forEach(function (lieu) { INDEX[lieu.id] = lieu; });
   var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null, onglet: "recit" };
+  var ETAT_DEPART = JSON.parse(JSON.stringify(etat)), avantChoix = null;
   var k = 1;
   // Fenêtre visible de la carte : toute la carte, sauf en plein écran quand on zoome.
   var vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR }, ZOOM_MAX = 6;
@@ -2554,6 +2603,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     LIEUX.forEach(function (lieu) {
       var m = formes[lieu.id], e = etatLieu(lieu, etat.annee);
       m.g.style.display = e.visible ? "" : "none";
+      m.g.classList.toggle("est-choisi", etat.choisi === lieu.id);
       if (!e.visible) { return; }
       m.g.setAttribute("data-couleur", couleurDe(lieu, etat.annee, e));
       m.g.classList.toggle("est-vide", lieu.type !== "evenement" && !e.royaume);
@@ -2764,6 +2814,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   function allerEtape(i) {
     if (i < 0 || i >= ETAPES.length) { return; }
     arreter();
+    avantChoix = null;
     etat.etape = i;
     etat.annee = ETAPES[i].annee;
     etat.onglet = "recit";
@@ -2771,18 +2822,34 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     else if (etat.modeParEtape || etat.mode === "langues") { etat.mode = "royaumes"; etat.modeParEtape = false; }
     rendre();
   }
+  // Un second clic sur le lieu choisi le désélectionne. Si le choix avait déplacé le
+  // temps (lieu pas encore sur la carte), on revient à l'année et à l'étape d'avant.
+  function deselectionner() {
+    if (!etat.choisi) { return; }
+    etat.choisi = null;
+    etat.onglet = "recit";
+    if (avantChoix) {
+      etat.annee = avantChoix.annee; etat.etape = avantChoix.etape;
+      etat.mode = avantChoix.mode; etat.modeParEtape = avantChoix.modeParEtape;
+      avantChoix = null;
+    }
+    rendre();
+  }
   function choisir(id) {
+    if (etat.choisi === id) { deselectionner(); return; }
     etat.choisi = id;
     etat.onglet = "lieu";
     var lieu = INDEX[id];
     if (!etatLieu(lieu, etat.annee).visible) {
       arreter();
+      if (!avantChoix) { avantChoix = { annee: etat.annee, etape: etat.etape, mode: etat.mode, modeParEtape: etat.modeParEtape }; }
       etat.annee = premiereAnnee(lieu);
       etat.etape = -1;
     }
     rendre();
   }
   function allerAnnee(annee) {
+    avantChoix = null;
     etat.annee = Math.max(DEBUT, Math.min(FIN, annee));
     etat.etape = -1;
     if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
@@ -2826,6 +2893,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   }
   function jouer() {
     if (lecture !== null) { arreter(); return; }
+    avantChoix = null;
     if (etat.annee >= FIN) { etat.annee = DEBUT; }
     etat.etape = -1;
     if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
@@ -2877,6 +2945,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   // pour que le diaporama de la page ne change pas de section en même temps.
   racine.addEventListener("keydown", function (e) {
     if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
+    if (e.key === "Escape" && etat.choisi) { deselectionner(); }
   });
   function montrerOnglet(nom, focus) {
     etat.onglet = nom;
@@ -2999,6 +3068,22 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   if (window.MutationObserver) {
     new window.MutationObserver(function () { if (!pleinEcran()) { revenir(); } }).observe(racine, { attributes: true, attributeFilter: ["class"] });
   }
+  // ---------------------------------------------------------------- réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // première étape, aucun lieu choisi, puissances, carte entière, liste refermée.
+  function reinitialiser() {
+    arreter();
+    avantChoix = null;
+    Object.keys(ETAT_DEPART).forEach(function (cle) { etat[cle] = ETAT_DEPART[cle]; });
+    var liste = racine.querySelector(".tds__liste");
+    if (liste) { liste.open = false; }
+    vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR };
+    appliquerVue();
+    rendre();
+    zoneRecit.scrollTop = 0;
+    zoneFiche.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   construireLieux();
   construireAxe();
   construireListe();
@@ -3099,7 +3184,7 @@ qu'on appelle le mercantilisme.</p>
 <p class="source-texte">(Source : Alloprof)</p>
 <p>Explore la carte pour suivre les navires, un côté du triangle à la fois.
 Clique ensuite sur un port pour découvrir son rôle dans la traite.</p>
-<section class="ctr" id="commerce-triangulaire" aria-label="Carte interactive&nbsp;: le commerce triangulaire et la traite atlantique, du 16e au 19e siècle">
+<section class="ctr" id="commerce-triangulaire" data-reinitialiser aria-label="Carte interactive&nbsp;: le commerce triangulaire et la traite atlantique, du 16e au 19e siècle">
 <style>
 .ctr { --ctr-mer: #C9DEEE; --ctr-terre: #F4EEE2; --ctr-cote: #7C9FC0; --ctr-fleuve: #6E9DCB; --ctr-mont: #DCC5A2; --ctr-desert: #F1E0B2; --ctr-quad: rgba(48, 84, 120, .14); --ctr-ligne: rgba(28, 62, 98, .42); --ctr-halo: #F4EEE2; --ctr-point: #1A2530; --ctr-eau-texte: #2A5F8F; --ctr-region: #786A55; --ctr-reseau: rgba(40, 62, 84, .3); --ctr-c1: #1D5C98; --ctr-c2: #9A2B2B; --ctr-c3: #4E7A2E; --ctr-glyphe: #FFFFFF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: ctr / inline-size; }
 html[data-sombre="on"] .ctr { --ctr-mer: #15293C; --ctr-terre: #2A3440; --ctr-cote: #4F6F8F; --ctr-fleuve: #5F93C6; --ctr-mont: #4A4234; --ctr-desert: #4A4430; --ctr-quad: rgba(160, 190, 220, .1); --ctr-ligne: rgba(170, 200, 230, .45); --ctr-halo: #2A3440; --ctr-point: #E8EBEF; --ctr-eau-texte: #A6CDF0; --ctr-region: #B3A890; --ctr-reseau: rgba(200, 215, 230, .26); --ctr-c1: #82B6EA; --ctr-c2: #F0908A; --ctr-c3: #A9D18E; --ctr-glyphe: #10171F; }
@@ -3669,6 +3754,7 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
     var etape = D.etapes[i];
     etat.etape = i;
     etat.port = null;
+    if (deplacer !== false) { etat.vueAvantPort = null; }
     racine.setAttribute("data-etape", etape.id);
     chaque(boutonsEtape, function (b, k) {
       if (k === i) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
@@ -3694,9 +3780,19 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
     var mx = v.w * 0.08, my = v.h * 0.08;
     return p.x > v.x + mx && p.x < v.x + v.w - mx && p.y > v.y + my && p.y < v.y + v.h - my;
   }
+  // Un second clic sur le port choisi le désélectionne : on revient à l'étape et à la vue d'avant.
+  function deselectionnerPort() {
+    if (!etat.port) { return; }
+    var avant = etat.vueAvantPort;
+    etat.vueAvantPort = null;
+    allerEtape(etat.etape, false);
+    if (avant) { etat.cible = avant.cible; animerVers(avant.vb); }
+  }
   function choisirPort(cle) {
     var p = D.ports[cle];
     if (!p) { return; }
+    if (etat.port === cle) { deselectionnerPort(); return; }
+    if (!etat.port && etat.vb) { etat.vueAvantPort = { vb: etat.vb, cible: etat.cible }; }
     etat.port = cle;
     marquerPort(cle);
     montrerPanneau("port-" + cle);
@@ -3708,7 +3804,10 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   precedent.addEventListener("click", function () { allerEtape(etat.etape - 1); });
   suivant.addEventListener("click", function () { allerEtape(etat.etape + 1); });
   chaque(boutonsPort, function (b) { b.addEventListener("click", function () { choisirPort(b.getAttribute("data-port")); }); });
-  chaque(tous(".ctr__retour"), function (b) { b.addEventListener("click", function () { allerEtape(etat.etape); }); });
+  chaque(tous(".ctr__retour"), function (b) { b.addEventListener("click", deselectionnerPort); });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && etat.port) { deselectionnerPort(); }
+  });
   chaque(ports, function (el) {
     el.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); choisirPort(el.getAttribute("data-port")); }
@@ -3846,7 +3945,25 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   function remesurer() { mesurer(); if (etat.vb) { desencombrer(etat.u); } }
   remesurer();
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remesurer); }
-  racine.commerceTriangulaire = { etat: etat, allerEtape: allerEtape, choisirPort: choisirPort, appliquer: appliquer, cadrer: cadrer };
+  // ------------------------------------------------------------ réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // première étape, aucun port, pistes fermées, cadrage de départ.
+  function reinitialiser() {
+    etat.vueAvantPort = null;
+    chaque(tous(".ctr__voir"), function (b) {
+      var piste = document.getElementById(b.getAttribute("aria-controls"));
+      if (piste) { piste.hidden = true; }
+      b.setAttribute("aria-expanded", "false");
+      b.textContent = D.pisteVoir;
+    });
+    allerEtape(0, false);
+    etat.cible = boite(D.etapes[0].boite);
+    animerVers(cadrer(etat.cible));
+    if (cote) { cote.scrollTop = 0; }
+    if (contenu) { contenu.scrollTop = 0; }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.commerceTriangulaire = { etat: etat, allerEtape: allerEtape, choisirPort: choisirPort, appliquer: appliquer, cadrer: cadrer, reinitialiser: reinitialiser };
 })();
 </script>
 </section>
@@ -3965,12 +4082,12 @@ fil des siècles, le lac est presque entièrement asséché et les canaux
 deviennent des rues. Compare la ville de 1518, telle que l'imagine Thomas
 Kole à partir des sources historiques et archéologiques, et la ville
 d'aujourd'hui, photographiée par drone sous le même angle.</p>
-<section class="tnm" id="tenochtitlan-mexico" aria-label="Tenochtitlan en 1518 et Mexico aujourd'hui">
+<section class="tnm" id="tenochtitlan-mexico" data-reinitialiser aria-label="Tenochtitlan en 1518 et Mexico aujourd'hui">
 <style>
 .tnm { clear: both; margin: 1.6rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
-.tnm .tnm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tnm .tnm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem 1rem; flex-wrap: wrap; }
 .tnm .tnm__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
-.tnm .tnm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.tnm .tnm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); flex: 1 1 10rem; text-align: right; line-height: 1.35; }
 .tnm__vues { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
 .tnm__vue { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
 .tnm__vue:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
@@ -4140,6 +4257,9 @@ body[data-classe="on"] .tnm__credits { display: none; }
   racine.addEventListener("keydown", function (e) {
     if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
   });
+  // Réinitialiser (bouton ajouté par page.js grâce à data-reinitialiser) : premier point de
+  // vue, séparation au milieu. Les points de vue s'excluent : l'un d'eux reste toujours montré.
+  racine.addEventListener("reinitialiser", function () { glisse = false; montrer(0); });
   montrer(0);
 })();
 </script>
@@ -4225,7 +4345,7 @@ découvertes.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=8ef58338" defer></script>
+<script src="../page.js?v=fb046d3e" defer></script>
 
 </body>
 </html>

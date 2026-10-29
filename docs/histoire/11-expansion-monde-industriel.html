@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=8ef58338">
+<link rel="stylesheet" href="../style.css?v=fb046d3e">
 </head>
 <body>
 
@@ -372,7 +372,7 @@ plusieurs mois, avant qu'il ne soit rapatrié à Londres.</p>
 </aside>
 <p>Suis sur la carte les grands voyages d'exploration, de 1795 à 1885. Choisis un
 explorateur pour voir son itinéraire étape par étape.</p>
-<section class="exa" id="explorations-afrique" aria-label="Carte interactive : les grands voyages d'exploration en Afrique, de 1795 à 1885">
+<section class="exa" id="explorations-afrique" data-reinitialiser aria-label="Carte interactive : les grands voyages d'exploration en Afrique, de 1795 à 1885">
 <style>
 .exa { --exa-mer: #D5E3EE; --exa-terre: #F4EEDF; --exa-ctx: #E2E2DB; --exa-cote: #8BA5BD; --exa-fleuve: #5B8CBE; --exa-lac: #B2CFE7; --exa-front: #C8B999;
   --exa-niger: #A8661A; --exa-nil: #0E7A72; --exa-congo: #B1262F; --exa-attenue: #B3AA99; --exa-halo: #FBF8F1; --exa-repere: #4B4A45;
@@ -597,7 +597,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   var interieur = $(".exa__lecture-interieur");
   var EXP = {}, VOY = {};
   D.explorateurs.forEach(function (e) { EXP[e.id] = e; });
-  var T = D.fin, choisi = null, etapeActive = null, k = 1, lecture = null, minuteur = null, ouvert = null;
+  var T = D.fin, choisi = null, etapeActive = null, k = 1, lecture = null, minuteur = null, ouvert = null, avantChoix = null;
   function el(nom, attrs, parent) {
     var n = document.createElementNS(NS, nom);
     for (var a in attrs) { n.setAttribute(a, attrs[a]); }
@@ -705,7 +705,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     if (!sansCurseur) { majCurseur(); }
     dessiner();
   }
-  curseur.addEventListener("input", function () { arreter(); etapeActive = null; majEtapes(); allerA(parseFloat(curseur.value), true); });
+  curseur.addEventListener("input", function () { arreter(); avantChoix = null; etapeActive = null; majEtapes(); allerA(parseFloat(curseur.value), true); });
   // ------------------------------------------------------------- lecture
   function bornes() {
     if (!choisi) { return [D.debut, D.fin]; }
@@ -727,6 +727,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   }
   function lancer(depuis) {
     arreter();
+    avantChoix = null;
     var b = bornes();
     if (depuis !== undefined) { allerA(depuis); }
     else if (T >= b[1] - 0.01 || T < b[0]) { allerA(b[0]); }
@@ -796,7 +797,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
       if (e.groupe !== g.id) { return; }
       var puce = e.court.charAt(0).toUpperCase() + e.court.slice(1);
       var b = bouton("exa__bouton", puce); b.setAttribute("data-g", e.groupe); b.setAttribute("data-exp", e.id); b.setAttribute("aria-pressed", "false"); b.title = e.nom;
-      b.addEventListener("click", function () { choisir(choisi === e.id ? null : e.id); });
+      b.addEventListener("click", function () { if (choisi === e.id) { deselectionner(); } else { choisir(e.id); } });
       zone.appendChild(b); boutonsExp[e.id] = b;
     });
     bloc.appendChild(zone); choix.appendChild(bloc);
@@ -879,8 +880,17 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     majEtapes();
     allerA(e.t + 0.0001);
   }
+  // Un second clic sur l'explorateur choisi (bouton ou tracé) le désélectionne et ramène
+  // le temps où il était avant ce choix.
+  function deselectionner() {
+    if (!choisi) { return; }
+    var t = avantChoix;
+    choisir(null);
+    if (t !== null) { allerA(t); }
+  }
   function choisir(id, garderTemps) {
     arreter();
+    if (id && !choisi) { avantChoix = T; } else if (!id) { avantChoix = null; }
     choisi = id;
     etapeActive = null;
     bEnsemble.setAttribute("aria-pressed", id ? "false" : "true");
@@ -920,7 +930,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     if (!c) { return; }
     cacherBulle();
     var exp = c.getAttribute("data-exp");
-    choisir(exp === choisi ? choisi : exp, true);
+    if (exp === choisi) { deselectionner(); } else { choisir(exp, true); }
   });
   // ------------------------------------------------------------- texte replié (plein écran)
   replier.addEventListener("click", function () {
@@ -950,6 +960,20 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   }
   if (window.ResizeObserver) { new ResizeObserver(mesurer).observe(svg); }
   window.addEventListener("resize", mesurer);
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && choisi) { deselectionner(); }
+  });
+  // ------------------------------------------------------------- réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // vue d'ensemble, lecture arrêtée, temps à la fin (tout le parcours).
+  function reinitialiser() {
+    arreter();
+    choisir(null);
+    allerA(D.fin);
+    cacherBulle();
+    interieur.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   afficherEnsemble();
   majCurseur();
   mesurer();
@@ -1103,7 +1127,7 @@ d'entre elles se partagent le territoire :</p>
 l'ouverture de la conférence de Berlin, en 1884, les Européens occupaient
 environ le cinquième du continent, surtout des comptoirs côtiers. Trente ans
 plus tard, il ne leur échappe presque plus rien.</p>
-<section class="paf" id="partage-afrique" data-mode="puissances" aria-label="Carte interactive : le partage de l'Afrique, de 1880 à 1914">
+<section class="paf" id="partage-afrique" data-mode="puissances" data-reinitialiser aria-label="Carte interactive : le partage de l'Afrique, de 1880 à 1914">
 <style>
 .paf { --paf-mer: #CFE0EE; --paf-terre: #F7F2E7; --paf-ctx: #E3E5E0; --paf-cote: #7C9FC0; --paf-fleuve: #6E9DCB; --paf-lac: #AFCDE8; --paf-halo: #FBFBF8; --paf-or: #8C6209; --paf-droite: #C2410C;
   --paf-fr: #A9C4EC; --paf-fr-t: #3A6BB5; --paf-gb: #F1B0A8; --paf-gb-t: #B8463B; --paf-de: #CDBFA8; --paf-de-t: #6B5940; --paf-be: #F4DA7A; --paf-be-t: #9A7A12;
@@ -1896,7 +1920,21 @@ html[data-sombre="on"] .paf__puce[aria-pressed="true"] { color: #10171F; }
     });
   });
   /* ------------------------------------------------------------ choix */
+  // Un second clic sur le territoire choisi (carte ou liste) le désélectionne et rouvre
+  // l'onglet qu'on lisait avant ce choix.
+  var ongletAvantChoix = null;
+  function deselectionner() {
+    if (!etat.choix) { return; }
+    etat.choix = null;
+    majHalo();
+    majListe();
+    var retour = ongletAvantChoix || "recit";
+    ongletAvantChoix = null;
+    montrerOnglet(retour === "territoire" ? "recit" : retour, false);
+  }
   function choisir(id, depuisListe) {
+    if (etat.choix === id) { deselectionner(); return; }
+    if (!etat.choix) { ongletAvantChoix = etat.onglet; }
     etat.choix = id;
     majHalo();
     majListe();
@@ -2029,6 +2067,32 @@ html[data-sombre="on"] .paf__puce[aria-pressed="true"] { color: #10171F; }
       mesurer();
     }).observe(racine, { attributes: true, attributeFilter: ["class"] });
   }
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && etat.choix) { deselectionner(); }
+  });
+  /* ------------------------------------------------------------ réinitialiser */
+  /* Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+     1880, première étape du récit, aucune sélection, les puissances, liste refermée. */
+  function reinitialiser() {
+    arreter();
+    arreterGlissement();
+    cacherBulle();
+    etat.choix = null;
+    ongletAvantChoix = null;
+    etat.exemple = null;
+    changerMode("puissances", true);
+    etat.etape = 0;
+    allerAnnee(MIN, false);
+    var listeLieux = racine.querySelector("details");
+    if (listeLieux) { listeLieux.open = false; }
+    majHalo();
+    majRecit();
+    montrerOnglet("recit", false);
+    zoneRecit.scrollTop = 0;
+    zoneTerr.scrollTop = 0;
+    zoneFront.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   mesurer();
   majCarte(false);
   majHalo();
@@ -2858,7 +2922,7 @@ batailles historiques, comme celles de la Somme ou de Verdun. Les colonies
   </div>
 </footer>
 
-<script src="../page.js?v=8ef58338" defer></script>
+<script src="../page.js?v=fb046d3e" defer></script>
 
 </body>
 </html>

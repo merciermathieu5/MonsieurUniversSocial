@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=8ef58338">
+<link rel="stylesheet" href="../style.css?v=fb046d3e">
 </head>
 <body>
 
@@ -343,7 +343,7 @@ paix imposée par l'Empire romain aux régions conquises. Elle a permis à
 l'empire de connaître une période de prospérité jusqu'au 2e siècle de notre
 ère.</p>
 <h3 id="levolution-territoriale">L'évolution territoriale</h3>
-<section class="rom" id="rome-territoire" aria-label="Carte interactive : l'évolution du territoire romain, de -509 à 476">
+<section class="rom" id="rome-territoire" data-reinitialiser aria-label="Carte interactive : l'évolution du territoire romain, de -509 à 476">
 <style>
 .rom { --rom-rome: #9B2C2C; --rom-orient: #5B3E8A; --rom-gain: #B7791F; --rom-royaume: #7A828C; --rom-mer: #DCE6EE; --rom-terre: #FAF8F3; --rom-cote: #8DA2B5; --rom-fleuve: #6F95B8; --rom-halo: #FAF8F3; --rom-prov: #FFF8EF; --rom-prov-halo: rgba(84, 22, 22, .72); --rom-limite: rgba(255, 246, 236, .78); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: rom / inline-size; }
 html[data-sombre="on"] .rom { --rom-rome: #E8857A; --rom-orient: #B9A8F0; --rom-gain: #F2C46B; --rom-royaume: #8B98A3; --rom-mer: #13202D; --rom-terre: #313E4C; --rom-cote: #56708D; --rom-fleuve: #5C83A8; --rom-halo: #18222D; --rom-prov: #1C1512; --rom-prov-halo: rgba(250, 214, 206, .8); --rom-limite: rgba(40, 18, 14, .62); }
@@ -451,6 +451,7 @@ html[data-sombre="on"] .rom .rom__jouer { color: #10171F; }
 .rom .rom__paragraphe--note { font-size: .86rem; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
 .rom .rom__provliste { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
 .rom .rom__provliste[hidden] { display: none; }
+.rom .rom__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .rom .rom__provliste > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
 .rom .rom__provliste > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
 .rom .rom__provliste-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.4rem, 1fr)); gap: .15rem .8rem; margin: .5rem 0 0; padding: 0; list-style: none; font-size: .82rem; line-height: 1.3; }
@@ -563,6 +564,7 @@ html[data-sombre="on"] .rom .rom__bouton:hover:not(:disabled), html[data-sombre=
 <output class="rom__annee" aria-hidden="true">-509</output>
 </div>
 <p class="rom__resume" aria-live="polite"></p>
+<p class="rom__annonce" aria-live="polite"></p>
 </div>
 <div class="rom__lecture">
 <div class="rom__vue" tabindex="-1">
@@ -929,6 +931,23 @@ html[data-sombre="on"] .rom .rom__bouton:hover:not(:disabled), html[data-sombre=
     replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
     window.setTimeout(mesurer, 60);
   });
+  /* Réinitialiser (bouton posé par page.js) : lecture arrêtée, première étape, provinces affichées,
+     liste des provinces refermée, texte défilé en haut. */
+  function reinitialiser() {
+    arreter();
+    if (etat.anim) { window.cancelAnimationFrame(etat.anim); etat.anim = 0; }
+    etat.provinces = true;
+    boutonProv.setAttribute("aria-pressed", "true");
+    boutonProv.textContent = "Masquer les provinces";
+    provListe.open = false;
+    montrer(0, false, false);
+    vue.scrollTop = 0;
+    var lecture = q(".rom__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    var annonce = q(".rom__annonce");
+    if (annonce) { annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30); }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.rom = { reinitialiser: reinitialiser, etat: function () { return { i: etat.i, provinces: etat.provinces, lecture: !!etat.minuterie }; }, montrer: montrer };
   if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); }
   else { window.addEventListener("resize", mesurer); }
   montrer(0, false, false);
@@ -1675,7 +1694,7 @@ reconstitutions de ces villes gallo-romaines :</p>
 <p>La maquette suivante te fait survoler Lutèce vers l'an 200. Choisis un lieu pour
 découvrir le rôle de chaque bâtiment dans la vie de la ville et dans sa
 romanisation.</p>
-<section class="vro" id="ville-romaine" aria-label="Maquette interactive de Lutèce vers l'an 200">
+<section class="vro" id="ville-romaine" data-reinitialiser aria-label="Maquette interactive de Lutèce vers l'an 200">
 <style>
 .vro { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; --vro-sur: #3A8A5C; --vro-lieu: #E39A2B; --vro-imagine: #A6A7B6; }
 .vro .vro__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -1698,6 +1717,7 @@ romanisation.</p>
 .vro__outil--rond { width: 2.05rem; padding: .32rem 0; font-size: .95rem; text-align: center; }
 .vro__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 .vro__outil--droite { margin-left: auto; }
+.vro__annonce { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 .vro:not(.est-plein-ecran) .vro__outil[data-action="texte"] { display: none; }
 .vro .vro__bulle { position: absolute; left: 0; top: 0; z-index: 3; margin: 0; padding: .22rem .55rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.25; white-space: nowrap; color: #fff; background: rgba(20,24,28,.86); border-radius: var(--rayon); pointer-events: none; opacity: 0; transition: opacity .12s; }
 .vro .vro__bulle.est-visible { opacity: 1; }
@@ -1834,6 +1854,7 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
 <div class="vro__secours" hidden><p class="vro__secours-texte"></p></div>
 </div>
 <div class="vro__cote">
+<p class="vro__annonce" aria-live="polite"></p>
 <div class="vro__visite">
 <button type="button" class="vro__lancer">Commencer la visite guidée</button>
 <p class="vro__invite">Suis une journée à Lutèce, du port de l'île de la Cité jusqu'aux arènes.</p>
@@ -3628,8 +3649,10 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
     var w = toile.clientWidth, h = toile.clientHeight;
     return w && h ? Math.max(1, Math.min(1.8, 1.5 / (w / h))) : 1;
   }
-  function allerA(v, duree) {
-    var a = { x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: (v[5] || 0) + (gl ? Math.max(0, sol(v[0], v[1])) : 0) };
+  function allerA(v, duree) { allerVers({ x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: (v[5] || 0) + (gl ? Math.max(0, sol(v[0], v[1])) : 0) }, duree); }
+  // Vol vers un état brut de la caméra (sert aussi à revenir à la vue d'avant un choix).
+  function allerVers(a, duree) {
+    a = { x: a.x, y: a.y, d: a.d, lacet: a.lacet, tangage: a.tangage, h: a.h };
     var dl = ((a.lacet - cam.lacet) % 360 + 540) % 360 - 180;
     a.lacet = cam.lacet + dl;
     if (reduit || duree === 0 || !gl) { cam.x = a.x; cam.y = a.y; cam.d = a.d; cam.lacet = a.lacet; cam.tangage = a.tangage; cam.h = a.h; vol = null; demander(); return; }
@@ -3650,7 +3673,7 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
       el.setAttribute("data-partie", cle);
       el.setAttribute("tabindex", "-1");
       el.textContent = bouton.getAttribute("data-court") || bouton.textContent;
-      el.addEventListener("click", function () { choisir(cle, true); });
+      el.addEventListener("click", function () { basculer(cle, true); });
       calque.appendChild(el);
       var f = FICHES[cle];
       etiquettes.push({ cle: cle, el: el, f: f, p: [f.ancre[0], f.ancre[1], f.ancre[2] + Math.max(0, sol(f.ancre[0], f.ancre[1]))], l: 0, h: 0 });
@@ -3800,7 +3823,7 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
       delete pointeurs[e.pointerId];
       if (appui && e.type === "pointerup" && appui.bouge < 6 && performance.now() - appui.t < 600) {
         var b = toile.getBoundingClientRect();
-        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { choisir(PARTIES[id], false); } });
+        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { basculer(PARTIES[id], false); } });
       }
       appui = null;
       if (!Object.keys(pointeurs).length) { geste = null; }
@@ -3841,7 +3864,11 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
   }
   // ------------------------------------------------------------ choix, panneaux, visite
   var boutons = $$(".vro__bouton"), panneaux = $$(".vro__panneau");
+  var choix = "accueil", vueAvant = null;
+  function camActuelle() { var c = vol ? vol.a : cam; return { x: c.x, y: c.y, d: c.d, lacet: c.lacet, tangage: c.tangage, h: c.h }; }
   function choisir(cle, voler) {
+    if (cle === "accueil") { vueAvant = null; } else if (choix === "accueil" && !vueAvant) { vueAvant = camActuelle(); }
+    choix = cle;
     chaque(boutons, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-partie") === cle ? "true" : "false"); });
     chaque(panneaux, function (p) { p.classList.toggle("est-visible", p.getAttribute("data-partie") === cle); });
     selection = ID[cle] || 0;
@@ -3867,11 +3894,45 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
     choisir(e.partie, false);
     allerA(e.vue || (FICHES[e.partie] ? FICHES[e.partie].vue : ENSEMBLE), 2200);
   }
-  function quitterVisite() {
+  function quitterVisite(sansFocus) {
     etape = -1;
     racine.classList.remove("en-visite");
-    $(".vro__lancer").focus();
+    if (!sansFocus) { $(".vro__lancer").focus(); }
   }
+  // Un clic sur le lieu déjà choisi le désélectionne : retour à l'accueil et à la vue d'avant le choix.
+  function deselectionner() {
+    var v = vueAvant;
+    if (etape >= 0) { quitterVisite(true); }
+    choisir("accueil", false);
+    if (v) { allerVers(v); }
+  }
+  function basculer(cle, voler) {
+    if (cle === choix && cle !== "accueil") { deselectionner(); } else { choisir(cle, voler); }
+  }
+  var annonce = $(".vro__annonce");
+  function dire(t) { if (!annonce) { return; } annonce.textContent = ""; setTimeout(function () { annonce.textContent = t; }, 30); }
+  // Bouton Réinitialiser (posé par page.js) : l'état exact du chargement, plein écran et texte replié gardés.
+  function reinitialiser() {
+    if (etape >= 0) { quitterVisite(true); }
+    choisir("accueil", false);
+    mode = 0;
+    var bc = $('.vro__outil[data-action="certitude"]');
+    if (bc) { bc.setAttribute("aria-pressed", "false"); }
+    $(".vro__legende").hidden = true;
+    survol = 0;
+    var cote = $(".vro__cote");
+    if (cote) { cote.scrollTop = 0; }
+    vol = null;
+    allerA(ENSEMBLE);
+    dire("Maquette réinitialisée");
+    demander();
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || (choix === "accueil" && etape < 0)) { return; }
+    e.stopPropagation();
+    deselectionner();
+  });
   // ------------------------------------------------------------ secours sans WebGL 2
   // Sans 3D, la toile montre un plan de la ville vu de haut (Canvas 2D), et la liste
   // des lieux reste la porte d'entrée vers les descriptions.
@@ -3929,7 +3990,7 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
   }
   // ------------------------------------------------------------ mise en route
   chaque(boutons, function (b) {
-    b.addEventListener("click", function () { choisir(b.getAttribute("data-partie"), true); });
+    b.addEventListener("click", function () { basculer(b.getAttribute("data-partie"), true); });
   });
   chaque($$(".vro__outil"), function (b) {
     b.addEventListener("click", function () {
@@ -3980,7 +4041,7 @@ html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--m
     lancer();
   }
   // Accès pour les essais automatiques (captures et test dans un DOM simulé).
-  racine.ville = { molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
+  racine.ville = { reinitialiser: reinitialiser, basculer: basculer, choix: function () { return choix; }, vueAvant: function () { return vueAvant; }, mode: function () { return mode; }, molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
     stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } },
     partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); },
     occultes: function () { return occultes; } };
@@ -4070,7 +4131,7 @@ ingénieurs romains. Un aqueduc permet d'obtenir de l'eau courante et assez
 abondante sans pompe, tandis que l'eau d'un puits doit être puisée pour être
 utilisée. Explore la maquette pour suivre l'eau, de la source jusqu'à la
 ville. Choisis une partie pour découvrir son rôle.</p>
-<section class="aqu" id="aqueduc-romain" aria-label="Maquette 3D d&#x27;un aqueduc romain">
+<section class="aqu" id="aqueduc-romain" data-reinitialiser aria-label="Maquette 3D d&#x27;un aqueduc romain">
 <style>
 .aqu { --aqu-repere: #22374F; --aqu-repere-texte: #FFFFFF; --aqu-choix: #D2952E; --aqu-choix-voile: rgba(210, 149, 46, .2); --aqu-eau: #2F7FC1; --aqu-eau-voile: rgba(47, 127, 193, .14); --aqu-siphon: #6A4FA3; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; }
 html[data-sombre="on"] .aqu { --aqu-repere: #8FB4DC; --aqu-repere-texte: #10171F; --aqu-choix: #E5AC44; --aqu-choix-voile: rgba(229, 172, 68, .24); --aqu-eau: #7DBBEA; --aqu-eau-voile: rgba(125, 187, 234, .16); --aqu-siphon: #B9A2EC; }
@@ -4318,7 +4379,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
   var racine = document.getElementById("aqueduc-romain");
   if (!racine || racine.getAttribute("data-pret") === "1") { return; }
   racine.setAttribute("data-pret", "1");
-  var D = {"modeles":{"palette":[[98,124,60,2],[104,84,64,0]],"modeles":{"chene":{"min":[-0.32028,0.0,-0.36982],"ext":[0.64055,1.22624,0.73965],"nv":100,"nf":196,"v":0,"i":600,"c":1776},"arbre_rond":{"min":[-0.3775,0.0,-0.32692],"ext":[0.755,1.15039,0.65385],"nv":27,"nf":50,"v":1972,"i":2134,"c":2434},"arbre_plateau":{"min":[-0.30587,0.0,-0.32745],"ext":[0.61174,1.24934,0.6549],"nv":110,"nf":215,"v":2484,"i":3144,"c":4434},"peuplier":{"min":[-0.19979,0.0,-0.2307],"ext":[0.39958,1.68772,0.4614],"nv":38,"nf":72,"v":4650,"i":4878,"c":5310},"arbre":{"min":[-0.3775,0.0,-0.32692],"ext":[0.755,1.70789,0.65385],"nv":59,"nf":114,"v":5382,"i":5736,"c":6420}},"donnees":"/39E6DMTZrb//8xkzOxE6JlJ/3///5lJ///llv+/yeT+dJtN///llgBAyeT+dGSy/3/+dMnk/3/llv//Nhv+dJtNAADllv+/AADllgBANhv+dGSyZrb//zOb/3///2a2mUn//8xkmUn//zObMxNE6JlJMxNE6Ga2ZLJ3aDKZZLJ3aM1m/39E6Mzsm013aM1mm013aDKZ/393aGSy/3/llgAAzOxE6Ga2/3/+dDYb/393aJtNG5B3aA2I/393aBuQ5G93aA2I5G93aPJ3G5B3aPJ3/393aORvA2hnIf6L/39nIfyX/JdnIf6L/JdnIQF0DJLCL51eYZgRLF5hQJIRLE5eLJjCL61ht5DyQQigEY8PQA2N2JbyQficr4QPQD6SuY5QRoiMV4RQRrmRA2hnIQF0/39nIQNoo5aiRaqcg5CiRbqfmpAvKkpxQpBvMM9xOIYvKhls4IVvMJ5szKAAANF2zKAAAJlvl55cCKt2l55cCFSJzKAAAGaQzKAAAC6JU50AAMu3w4QEEe2ZYYcAABudi5cEEYmQIqkAAOSxapkAABaUX2dcCLht61AAAC9Fa2YAAP5rulwAAEg/CHpcCGRkulwAALfAyHgAADCdCHpcCJub61AAANC6X2dcCEeSa2YAAAGUsWMEEWSJijkAAOeFM18AAASJsWMEEZt2M18AAPt2ijkAABh6apkAAOlrYYcAAORiU50AADRIIqkAABtOWtIAABh6WtIAAOeF/38AADNf/38AAMygyHgAAM9iM18AAGaQM18AAJlvi5cEEXZvw4QEERJmAAABAAIAAQAAAAMABAAFAAYABQAEAAcABAAIAAcACAAEAAkACgALAAwACwAKAA0AAwAOAAEADgADAA8ADwADABAADwAQABEACwASAAwAEgALABMAFAAFAAcABQAUABUAEQAWAA8AFgARABMADQAXABgAFwANAAoACQANAAgADQAJAAsACAAUAAcAFAAIABkADQAZAAgAGQANABgAEgADAAAAAwASABAAEgAaAAwAGgASAAAAAQAbAAIAGwABAA4AFwAcAB0AHAAXAAoAAgAEAAYABAACABsAGgAFABwABQAaAAYAGwAJAAQACQAbABYAAAAGABoABgAAAAIAEgARABAAEQASABMADgAWABsAFgAOAA8AFQAcAAUAHAAVAB0AFgALAAkACwAWABMADAAcAAoAHAAMABoAGQAVABQAFQAZAB4AHgAZAB8AHwAZABgAHwAYACAAIAAYACEAIgAVAB4AFQAiAB0AHQAiACMAHQAjACEAHQAhABcAFwAhABgAHwAkACUAJAAfACAAIgAmACcAJgAiAB4AKAApACoAKQAoACsALAAtAC4ALQAsAC8AJgAtACUALQAmAB4ALQAeADAAMAAeADEALwAlAC0AJQAvAB8AHwAvADEAHwAxAB4AJAAhADIAIQAkACAAIQAzADIAMwAhACMANAAsAC4ALAA0ADUALwA1ADEANQAvACwAMAA1ADQANQAwADEAKwA2ACkANgArADcAOAAoACoAKAA4ADkANAAtADAALQA0AC4AKAA3ACsANwAoADkAMwA4ACcAOAAzACMAOAAjADkAOQAjADcANgAnADgAJwA2ACIAIgA2ADcAIgA3ACMANgAqACkAKgA2ADgAJwA6ADsAOgAnADwAJgA8ACcAPAAmAD0APgA9ACYAPQA+AD8AQABBAEIAQwBAAEQAQABDAEEARABFAEMARgBHAEgASQBGAEoARgBJAEcASwBMAE0ATgBPAFAATwBLAE0ASwBPAE4AUQBSAFMAVABVAFYARQA/AD4APwBFADoAOgBFADsAOwBFAFcAWABXAEUAWQBXAFgAVwBZAFoAWwA/ADoAPwBbAFwARQBCAFgARQBAAEIAQABFAEQAWABCAF0AXQBCAF4AXQBeAEwAXQBMAF8AXwBMAEsAXwBLAFAAUABLAE4ASABfAFAAYABIAFAASABgAGEAYQBgAFMAYQBTAFUAUgBVAFMAVQBSAFYAXwBIAEkASQBIAEcAPABcAFsAXAA8AD0AWQBiAFoAYgBZAGMAYwBZAFgAYgBXAFoAYQBGAEgARgBhADIARgAyAEoAMwBKADIAXQBKADMASgBdAF8AVQAyAGEAMgBVAFQAVAAkADIAJABUAFEAUQBgACQAYABRAFMAXgBNAEwATQBeACUAJABNACUAJABPAE0AYABPACQATwBgAFAAMwBYAF0AWAAzAGMAJwBjADMAJwBiAGMAOwBiACcAYgA7AFcAJgBFAD4ARQAmAEMAQwAmAEEAJQBBACYAXgBBACUAQQBeAEIAPQA/AFwAVgBRAFQAUQBWAFIAPABbADoASgBfAEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAUex0tFxHf//i1gAgP+/i1gAAI7i0tEAgACA//8AgLhO0tGO4kex0tGO4nEd0tEAgLhO0tFxHQBAi1j///+/i1j//wBAi1gAAOuxDTbW4+uxDTYpHNbjDTYAgNGODTYckRRODTbW4y5xDTYckS5xDTbjbtGODTbjbhRODTYpHCkcDTYAgAAAi1gAgFWXAADymlWXAAANZapoAADymqpoAAANZQAAAQACAAEAAAADAAQAAwAAAAUABgAEAAcABAAIAAYACQAKAAkABgAFAAgAAgALAAIACAAAAAwADQAOAA0ADAAPAA8ADAAQAA8AEAARABEAEAASABMADQAPAA0AEwAUABQAEwASABQAEgAQABQAEAAVABQAFgALABYAFAAVAAoADgABAA4ACgAMAAkABwAWAAcACQAFAAoAEAAMABAACgAJABYACAALAAgAFgAHAAQABgADAAEADQACAA0AAQAOAAgABAAAAAsADQAUAA0ACwACAAYAAQADAAEABgAKABAAFgAVABYAEAAJAAcABQAEABMAFwAYABcAEwAPAA8AGQAXABkADwARABkAEgAaABIAGQARABkAGAAXABgAGQAaABIAGAAaABgAEgATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEBAQEBAQEBNElJbtPJFxPHXKSsNEnHXNPJFxNJbqSsNElJbhdVim5Bd1J7UX9JbkZyNElBdy9nNEkXVWa833IXVYSZ33IXVe2lXmMXVYSZXmMXVXR1NEkXVYRiUmwXVXR1iR8XVe2liR8XVfx4l3FYkTjXy7jaifTry7hYkZ79+IHaiWPOim5Bd8mAr2VBd8mAr2VBd4agNElBd7u3im5Bd5ijim5Bd4ag3SNBd1J73SNBd5ijFxPHXEZyUX/HXKSsFxNJbkZyNEnHXBdVUX9JbqSsUX/HXEZyAAD81P+/AABu8QBAAAD81ABAAABu8f+/+IHaiVek83ubjOekl3FYkeGiDNKAyLhOrHb81AAAV+381ABArHaAyHEdUX9JbtB9UX/HXAF4jsj//yisrHZu8f//V+1u8f+/rHb//1HYUX9Jbq+e7Okmq1DLy7hpop79//9pojjXy7gmq8/lUX/HXBibRoNpouKAy7hYkQVkInlYkVqGy7hpogVkjsj//9dTV+1u8QBAyiT//yisn+/aiUCT//9YkWuKy7jaia91//9YkTjXl3FpojjX//9pomuKy7gmq9R784S1osqAqocmq1OWioTqqaOUrHZu8QAAn+/aiWPOrHb81P//DNKAyEexV+381P+/rHaAyI7il3Fpopebqocmq1DLZobaid2QI4bnjXSHNoabjHiK7Okmq1OWSxuAyEexrHb//64nyiT//9dTZobaiVeknncFWG12y4KAyFKLjGqAyFKLjGqAyK10y4KAyK10SxuAyLhOioTqqWOYZlsAAD+a8pEAAEtn8pEAAD+aZlsAAEtnNoabjN+HrIsTPGOUrIsTPCdtIWebjN+Hq2ETPCdtq2ETPGOU94RpouKAIWebjOekAAABAAIAAQAAAAMABAAFAAYABQAEAAcACAAJAAoACQAIAAsACwAIAAwADQAMAAgADAANAA4ADQAIAA8ADQAPABAAEQASABMAEgARABQABwAVAAUAFQAHABYAFgAHABcAGAAXAAcAGQAXABgAFwAZABoAGAAHABsAGAAbABwAEAABAB0AAQAQAA8AHgAIAAoACAAeAAIAHwAgAB0AIAAfAAQAIQACAB4AAgAhAAAAHAAAABgAAAAcAAMABAAiACAAIgAEAAYAIwAkACUAJAAjACYAEQAnABQAJwARACgAKAARACkAKgArACwAKwAqAC0ALgAiAAYAIgAuAC8AMAAxADIAMQAwADMAGgAhADQAIQAaABkANQA2ADcANgA1ADgAHwAHAAQABwAfABsANAAeADkAHgA0ACEAOQAKAAkACgA5AB4AOgA7ADwAOwA6AD0APgAyAD8AMgA+ADAAQAAxADMAMQBAACYAQQA7AEIAOwBBAEMANwATAEQAEwA3ADYAAgAPAAgADwACAAEAGQAAACEAAAAZABgANgARABMAEQA2AEUAPQBCADsAQgA9AEYANwBCAEYAQgA3AEQAAQAfAB0AHwABAAMAOgBHAD0ARwA6AEgARwBIAEkASgBJAEgASwAsACsALABLAD8AEwBMAEQATAATABIAHQANABAADQAdACAATQBOAE8ATgBNAFAATgAsAE8ALABOACoAMgAsAD8ALAAyAE8AKQBFAFEARQApABEAUgA2ADgANgBSAEUAUwA7AEMAOwBTAFQAOwBUADwAVABTAFUATABCAEQAQgBMAEEARwA1AFYANQBHADgAOABHAEkAOABJAFIAIwBQAE0AUAAjAFcAWAAwAD4AMABYADMAMwBYAFkAMwBZAEAABQAuAAYALgAFABUAEgBBAEwAQQASAEMAQwASABQAQwAUAFoAWgAUACcAUwBDAFoAIAAOAA0ADgAgAFsAWwAgACIAVgA3AEYANwBWADUAAwAbAB8AGwADABwAUAAqAE4AKgBQAFwAXABQAF0AXQBQAFcAXQBXAF4AXwAqAFwAKgBfAC0ALQBfAF4ALQBeAGAAYABeAFcAJABAAFkAQAAkACYASwA+AD8APgBLAFgAJABYAEsAWAAkAFkAJAArACUAKwAkAEsASgBSAEkAUgBKAGEAUgBhAEUARQBhAFEALwBbACIAIwBgAFcAYAAjACUAPQBWAEYAVgA9AEcAYAArAC0AKwBgACUAMQAjAE0AIwAxACYAMgBNAE8ATQAyADEAYgBjAGQAYwBiAGUAVQBmAFQAZgBnAGgAZwBmAFUAZwBVAFMAZwBTAFoAaQAVABYAZgAVAGkAZgAuABUAZgAvAC4AaAAvAGYAaABbAC8AaAAOAFsAaAAMAA4ADABoAGoAawAMAGoADABrAAsAaQA8AGYAPABpAF4AZgA8AFQAPABeADoAOgBeAEgASABeAF8ASABsADoAZwBiAGQAYgBnAGsAXABIAF8ASABcAEoASgBcAGEAaQBdAF4AXQBpAG0AKQBtACgAbQApAF0AXQApAFEAXQBRAGEAXQBhAFwAYgBqAGUAagBiAGsAZwA5AGsAOQBnAFoAawA5AAkAOQBaADQANABaABoAGgBaABcAFwBaACcAFwAnAG0AbQAnACgACwBrAAkAagBjAGUAYwBqAGgAFwBpABYAaQAXAG0AaABkAGMAZABoAGcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAAIC0ZAAAms0uMzJZAIAuM2Uy//+0ZABAb1H8K7doAID8K29RZTIuMzJZAAC0ZABAkK78K0iXms0uM82mkK78K7doysU09Bpd//+0ZP+/ysU09OWiAIAuM5rNAIC0ZP///3809DU6ZTIuM82mb1H8K0iXAID8K5CuNTo09BpdAAC0ZP+//3809MrFNTo09OWimlr//01tAID//5paAID//2Wlmlr//7KSZaX//01t/pL8K3KQAW38K3KQAW38K41v/pL8K41vZaX//7KS6J0AABhmF2IAABhmF2IAAOeZ6J0AAOeZAAABAAIAAQAAAAMABAACAAUAAgAEAAYABwACAAYAAgAHAAAACAABAAkAAQAIAAoACwAMAAMADAALAA0ADAAOAAkADgAMAA8AEAADAAAAAwAQAAsAEQAEABIABAARAAYADgAIAAkACAAOABMAEQATAA4AEwARABIAFAAAAAcAAAAUABAADwARAA4AEQAPABUADAABAAMAAQAMAAkADQAPAAwADwANABYABgAVAAcAFQAGABEAFQAUAAcAFAAVABcAGAAQABQAEAAYABkAGgAXABYAFwAaABsAGQALABAACwAZABwAEwAKAAgACgATAB0AHQATAB4AHgATABIAHgASAB8AIAAKAB0ACgAgAAUABQAgAB8ABQAfAAQABAAfABIAFgAVAA8AFQAWABcAGQAhABwAIQAZABoAGgAZABgAGgAYABsAHAANAAsADQAcACEACgACAAEAAgAKAAUAIQAWAA0AFgAhABoAFwAYABQAGAAXABsAHwAiACMAIgAfACAAJAAfACMAHwAkAB4AHQAkACUAJAAdAB4AIAAlACIAJQAgAB0AJAAiACUAIgAkACMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEBAQEBAQEBV4fwUYa1enZgUFuU+YlgUFuUHHnwUYa1kI95bQ54bamHZzJ6EZBbZg54CqkCbTJ6CqkCbYSIkI95baeKiXjdHGtnG4iQHilLL4vdHGtnnXuQHilLHHk6WAK1enb+WKaTqmgAAA1lVZcAAA1lLnH4d+NuiXgaJRhoL4saJRho0Y74d+NuG4gVJJxLbamHZ4SIW2wCNByOBE/nLDyKt2sFKxyOcU/sMjyKt2sFK552qmgAAPKaLnH4dxyRW2wCNJ52EZBbZqeKnXsVJJxLVZcAAPKaV4c6WAK1+Yn+WKaT0Y74dxyRBE/nLH96cU/sMn96FE74d9bjAAA0jwCAKRz4dwCAAEA0j////780j///1uP4dwCA//80jwCA67H4d9bj67H4dykcFE74dykcuE7l4I7iR7Hl4I7iAID//wCA/780jwAAuE7l4HEdAEA0jwAAcR3l4ACAR7Hl4HEdjuLl4ACAAAABAAIAAQAAAAMABAAFAAYABQAEAAcABAAIAAcACAAEAAkACgALAAwACwAKAA0AAQAOAA8ADgABAAMAEAAKABEACgAQABIACgASABMAEwASABQADAARAAoAEQAMABUAFQAMABQAFQAUABIAFgAMAAsADAAWABQACAAFAAcABQAIABcAGAAZABoAGQAYABsAEAAcABIAHAAQAB0AHAAdABoAGgAdABgAGAAdAB4AEgAfAB4AHwASABwAHgAfABgAIAAFABcABQAgAAYACgAhAA0AIQAKABMAHQARACIAEQAdABAAFwAJACAACQAXAAgAIwACACQAAgAjAAAAIgACAB0AAgAiACUAAgAlACQAJAAlAA8AAQAdAAIAHQABAB4AHgABAA8AHgAPACUADwAjACQAIwAPAA4AFgATABQAEwAWACEAJQAEABUABAAlAAkACQAlACAABgAVAAQAIgAVAAYAIgAGACAAIgAgACUAFQAiABEAIwADAAAAAwAjAA4AIQALAA0ACwAhABYAGQAcABoAHAAZACYAJgAfABwAHwAmACcAJwAYAB8AGAAnABsAGQAnACYAJwAZABsAKAApACoAKQAoACsALAAtAC4ALQAsAC8ALwAwAC0AMAAvACUAJQAvACgAJQAoAB4AHgAoABIAFQAwACUAMAAVADEAMQAVABIAMQASACgAMQAoACoAMgAzADQALgAwADUAMAAuAC0AKQA2ADcANgApADgAOQAuADUALgA5ADoAMwAuADoALgAzACwANAAzADoAMwArACwAKwAzADIANwAwADEAMAA3ADUAMQApADcAKQAxACoALAAoAC8AKAAsACsAKwA4ACkAOAArADIAOAA0ADYANgA1ADcANQA2ADkANgA0ADkANAA6ADkAOAAyADQAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"parties":{"source":{"num":1,"court":"La source","nom":"La source et le captage"},"canal":{"num":2,"court":"Le canal","nom":"Le canal (specus)"},"pente":{"num":3,"court":"La pente","nom":"Une pente très faible"},"regards":{"num":4,"court":"Les regards","nom":"Les regards"},"tranchee":{"num":5,"court":"La tranchée","nom":"Le canal enterré"},"tunnel":{"num":6,"court":"Le tunnel","nom":"Le tunnel"},"arcades":{"num":7,"court":"Les arcades","nom":"Le mur et les arcades"},"pont":{"num":8,"court":"Le pont du Gard","nom":"Le pont-aqueduc : le pont du Gard"},"castellum":{"num":9,"court":"Le bassin de répartition","nom":"Le bassin de répartition (castellum divisorium)"},"fontaines":{"num":10,"court":"Les fontaines","nom":"Les fontaines publiques"},"thermes":{"num":11,"court":"Les thermes","nom":"Les thermes"},"maisons":{"num":12,"court":"Les maisons riches","nom":"Les maisons riches"},"egouts":{"num":13,"court":"Les égouts","nom":"Les égouts"}},"siphonParties":{"chasse":{"nom":"Le réservoir de chasse"},"rampant":{"nom":"Le rampant"},"pontSiphon":{"nom":"Le pont-siphon"},"fuite":{"nom":"Le réservoir de fuite"}},"textes":{"masquer":"Masquer le texte","afficher":"Afficher le texte","secours":"Ton navigateur ne peut pas afficher la maquette en 3D (WebGL 2). Choisis une partie avec les boutons pour lire son explication.","planTexte":"Voici le plan de l'aqueduc vu de haut, avec le numéro de chaque partie.","planAria":"Plan de l'aqueduc vu de haut, avec les numéros des parties.","interrompu":"La maquette 3D s'est interrompue. Recharge la page pour la retrouver.","accueil":"Accueil","siphon":"Une autre solution\u00a0: le siphon","etape":"Étape {n} sur {t}","jauge":"Vraie descente\u00a0: environ 12\u00a0m","bandeaux":{"pente":"Pente exagérée\u00a0: la descente est grossie. En vrai\u00a0: environ 12\u00a0m sur 50\u00a0km.","coupe":"On voit l'eau à travers la terre et sous les dalles.","siphon":"Autre solution\u00a0: le siphon (utilisé à Lyon, pas à Nîmes)"}}};
+  var D = {"modeles":{"palette":[[98,124,60,2],[104,84,64,0]],"modeles":{"chene":{"min":[-0.32028,0.0,-0.36982],"ext":[0.64055,1.22624,0.73965],"nv":100,"nf":196,"v":0,"i":600,"c":1776},"arbre_rond":{"min":[-0.3775,0.0,-0.32692],"ext":[0.755,1.15039,0.65385],"nv":27,"nf":50,"v":1972,"i":2134,"c":2434},"arbre_plateau":{"min":[-0.30587,0.0,-0.32745],"ext":[0.61174,1.24934,0.6549],"nv":110,"nf":215,"v":2484,"i":3144,"c":4434},"peuplier":{"min":[-0.19979,0.0,-0.2307],"ext":[0.39958,1.68772,0.4614],"nv":38,"nf":72,"v":4650,"i":4878,"c":5310},"arbre":{"min":[-0.3775,0.0,-0.32692],"ext":[0.755,1.70789,0.65385],"nv":59,"nf":114,"v":5382,"i":5736,"c":6420}},"donnees":"/39E6DMTZrb//8xkzOxE6JlJ/3///5lJ///llv+/yeT+dJtN///llgBAyeT+dGSy/3/+dMnk/3/llv//Nhv+dJtNAADllv+/AADllgBANhv+dGSyZrb//zOb/3///2a2mUn//8xkmUn//zObMxNE6JlJMxNE6Ga2ZLJ3aDKZZLJ3aM1m/39E6Mzsm013aM1mm013aDKZ/393aGSy/3/llgAAzOxE6Ga2/3/+dDYb/393aJtNG5B3aA2I/393aBuQ5G93aA2I5G93aPJ3G5B3aPJ3/393aORvA2hnIf6L/39nIfyX/JdnIf6L/JdnIQF0DJLCL51eYZgRLF5hQJIRLE5eLJjCL61ht5DyQQigEY8PQA2N2JbyQficr4QPQD6SuY5QRoiMV4RQRrmRA2hnIQF0/39nIQNoo5aiRaqcg5CiRbqfmpAvKkpxQpBvMM9xOIYvKhls4IVvMJ5szKAAANF2zKAAAJlvl55cCKt2l55cCFSJzKAAAGaQzKAAAC6JU50AAMu3w4QEEe2ZYYcAABudi5cEEYmQIqkAAOSxapkAABaUX2dcCLht61AAAC9Fa2YAAP5rulwAAEg/CHpcCGRkulwAALfAyHgAADCdCHpcCJub61AAANC6X2dcCEeSa2YAAAGUsWMEEWSJijkAAOeFM18AAASJsWMEEZt2M18AAPt2ijkAABh6apkAAOlrYYcAAORiU50AADRIIqkAABtOWtIAABh6WtIAAOeF/38AADNf/38AAMygyHgAAM9iM18AAGaQM18AAJlvi5cEEXZvw4QEERJmAAABAAIAAQAAAAMABAAFAAYABQAEAAcABAAIAAcACAAEAAkACgALAAwACwAKAA0AAwAOAAEADgADAA8ADwADABAADwAQABEACwASAAwAEgALABMAFAAFAAcABQAUABUAEQAWAA8AFgARABMADQAXABgAFwANAAoACQANAAgADQAJAAsACAAUAAcAFAAIABkADQAZAAgAGQANABgAEgADAAAAAwASABAAEgAaAAwAGgASAAAAAQAbAAIAGwABAA4AFwAcAB0AHAAXAAoAAgAEAAYABAACABsAGgAFABwABQAaAAYAGwAJAAQACQAbABYAAAAGABoABgAAAAIAEgARABAAEQASABMADgAWABsAFgAOAA8AFQAcAAUAHAAVAB0AFgALAAkACwAWABMADAAcAAoAHAAMABoAGQAVABQAFQAZAB4AHgAZAB8AHwAZABgAHwAYACAAIAAYACEAIgAVAB4AFQAiAB0AHQAiACMAHQAjACEAHQAhABcAFwAhABgAHwAkACUAJAAfACAAIgAmACcAJgAiAB4AKAApACoAKQAoACsALAAtAC4ALQAsAC8AJgAtACUALQAmAB4ALQAeADAAMAAeADEALwAlAC0AJQAvAB8AHwAvADEAHwAxAB4AJAAhADIAIQAkACAAIQAzADIAMwAhACMANAAsAC4ALAA0ADUALwA1ADEANQAvACwAMAA1ADQANQAwADEAKwA2ACkANgArADcAOAAoACoAKAA4ADkANAAtADAALQA0AC4AKAA3ACsANwAoADkAMwA4ACcAOAAzACMAOAAjADkAOQAjADcANgAnADgAJwA2ACIAIgA2ADcAIgA3ACMANgAqACkAKgA2ADgAJwA6ADsAOgAnADwAJgA8ACcAPAAmAD0APgA9ACYAPQA+AD8AQABBAEIAQwBAAEQAQABDAEEARABFAEMARgBHAEgASQBGAEoARgBJAEcASwBMAE0ATgBPAFAATwBLAE0ASwBPAE4AUQBSAFMAVABVAFYARQA/AD4APwBFADoAOgBFADsAOwBFAFcAWABXAEUAWQBXAFgAVwBZAFoAWwA/ADoAPwBbAFwARQBCAFgARQBAAEIAQABFAEQAWABCAF0AXQBCAF4AXQBeAEwAXQBMAF8AXwBMAEsAXwBLAFAAUABLAE4ASABfAFAAYABIAFAASABgAGEAYQBgAFMAYQBTAFUAUgBVAFMAVQBSAFYAXwBIAEkASQBIAEcAPABcAFsAXAA8AD0AWQBiAFoAYgBZAGMAYwBZAFgAYgBXAFoAYQBGAEgARgBhADIARgAyAEoAMwBKADIAXQBKADMASgBdAF8AVQAyAGEAMgBVAFQAVAAkADIAJABUAFEAUQBgACQAYABRAFMAXgBNAEwATQBeACUAJABNACUAJABPAE0AYABPACQATwBgAFAAMwBYAF0AWAAzAGMAJwBjADMAJwBiAGMAOwBiACcAYgA7AFcAJgBFAD4ARQAmAEMAQwAmAEEAJQBBACYAXgBBACUAQQBeAEIAPQA/AFwAVgBRAFQAUQBWAFIAPABbADoASgBfAEkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAUex0tFxHf//i1gAgP+/i1gAAI7i0tEAgACA//8AgLhO0tGO4kex0tGO4nEd0tEAgLhO0tFxHQBAi1j///+/i1j//wBAi1gAAOuxDTbW4+uxDTYpHNbjDTYAgNGODTYckRRODTbW4y5xDTYckS5xDTbjbtGODTbjbhRODTYpHCkcDTYAgAAAi1gAgFWXAADymlWXAAANZapoAADymqpoAAANZQAAAQACAAEAAAADAAQAAwAAAAUABgAEAAcABAAIAAYACQAKAAkABgAFAAgAAgALAAIACAAAAAwADQAOAA0ADAAPAA8ADAAQAA8AEAARABEAEAASABMADQAPAA0AEwAUABQAEwASABQAEgAQABQAEAAVABQAFgALABYAFAAVAAoADgABAA4ACgAMAAkABwAWAAcACQAFAAoAEAAMABAACgAJABYACAALAAgAFgAHAAQABgADAAEADQACAA0AAQAOAAgABAAAAAsADQAUAA0ACwACAAYAAQADAAEABgAKABAAFgAVABYAEAAJAAcABQAEABMAFwAYABcAEwAPAA8AGQAXABkADwARABkAEgAaABIAGQARABkAGAAXABgAGQAaABIAGAAaABgAEgATAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEBAQEBAQEBNElJbtPJFxPHXKSsNEnHXNPJFxNJbqSsNElJbhdVim5Bd1J7UX9JbkZyNElBdy9nNEkXVWa833IXVYSZ33IXVe2lXmMXVYSZXmMXVXR1NEkXVYRiUmwXVXR1iR8XVe2liR8XVfx4l3FYkTjXy7jaifTry7hYkZ79+IHaiWPOim5Bd8mAr2VBd8mAr2VBd4agNElBd7u3im5Bd5ijim5Bd4ag3SNBd1J73SNBd5ijFxPHXEZyUX/HXKSsFxNJbkZyNEnHXBdVUX9JbqSsUX/HXEZyAAD81P+/AABu8QBAAAD81ABAAABu8f+/+IHaiVek83ubjOekl3FYkeGiDNKAyLhOrHb81AAAV+381ABArHaAyHEdUX9JbtB9UX/HXAF4jsj//yisrHZu8f//V+1u8f+/rHb//1HYUX9Jbq+e7Okmq1DLy7hpop79//9pojjXy7gmq8/lUX/HXBibRoNpouKAy7hYkQVkInlYkVqGy7hpogVkjsj//9dTV+1u8QBAyiT//yisn+/aiUCT//9YkWuKy7jaia91//9YkTjXl3FpojjX//9pomuKy7gmq9R784S1osqAqocmq1OWioTqqaOUrHZu8QAAn+/aiWPOrHb81P//DNKAyEexV+381P+/rHaAyI7il3Fpopebqocmq1DLZobaid2QI4bnjXSHNoabjHiK7Okmq1OWSxuAyEexrHb//64nyiT//9dTZobaiVeknncFWG12y4KAyFKLjGqAyFKLjGqAyK10y4KAyK10SxuAyLhOioTqqWOYZlsAAD+a8pEAAEtn8pEAAD+aZlsAAEtnNoabjN+HrIsTPGOUrIsTPCdtIWebjN+Hq2ETPCdtq2ETPGOU94RpouKAIWebjOekAAABAAIAAQAAAAMABAAFAAYABQAEAAcACAAJAAoACQAIAAsACwAIAAwADQAMAAgADAANAA4ADQAIAA8ADQAPABAAEQASABMAEgARABQABwAVAAUAFQAHABYAFgAHABcAGAAXAAcAGQAXABgAFwAZABoAGAAHABsAGAAbABwAEAABAB0AAQAQAA8AHgAIAAoACAAeAAIAHwAgAB0AIAAfAAQAIQACAB4AAgAhAAAAHAAAABgAAAAcAAMABAAiACAAIgAEAAYAIwAkACUAJAAjACYAEQAnABQAJwARACgAKAARACkAKgArACwAKwAqAC0ALgAiAAYAIgAuAC8AMAAxADIAMQAwADMAGgAhADQAIQAaABkANQA2ADcANgA1ADgAHwAHAAQABwAfABsANAAeADkAHgA0ACEAOQAKAAkACgA5AB4AOgA7ADwAOwA6AD0APgAyAD8AMgA+ADAAQAAxADMAMQBAACYAQQA7AEIAOwBBAEMANwATAEQAEwA3ADYAAgAPAAgADwACAAEAGQAAACEAAAAZABgANgARABMAEQA2AEUAPQBCADsAQgA9AEYANwBCAEYAQgA3AEQAAQAfAB0AHwABAAMAOgBHAD0ARwA6AEgARwBIAEkASgBJAEgASwAsACsALABLAD8AEwBMAEQATAATABIAHQANABAADQAdACAATQBOAE8ATgBNAFAATgAsAE8ALABOACoAMgAsAD8ALAAyAE8AKQBFAFEARQApABEAUgA2ADgANgBSAEUAUwA7AEMAOwBTAFQAOwBUADwAVABTAFUATABCAEQAQgBMAEEARwA1AFYANQBHADgAOABHAEkAOABJAFIAIwBQAE0AUAAjAFcAWAAwAD4AMABYADMAMwBYAFkAMwBZAEAABQAuAAYALgAFABUAEgBBAEwAQQASAEMAQwASABQAQwAUAFoAWgAUACcAUwBDAFoAIAAOAA0ADgAgAFsAWwAgACIAVgA3AEYANwBWADUAAwAbAB8AGwADABwAUAAqAE4AKgBQAFwAXABQAF0AXQBQAFcAXQBXAF4AXwAqAFwAKgBfAC0ALQBfAF4ALQBeAGAAYABeAFcAJABAAFkAQAAkACYASwA+AD8APgBLAFgAJABYAEsAWAAkAFkAJAArACUAKwAkAEsASgBSAEkAUgBKAGEAUgBhAEUARQBhAFEALwBbACIAIwBgAFcAYAAjACUAPQBWAEYAVgA9AEcAYAArAC0AKwBgACUAMQAjAE0AIwAxACYAMgBNAE8ATQAyADEAYgBjAGQAYwBiAGUAVQBmAFQAZgBnAGgAZwBmAFUAZwBVAFMAZwBTAFoAaQAVABYAZgAVAGkAZgAuABUAZgAvAC4AaAAvAGYAaABbAC8AaAAOAFsAaAAMAA4ADABoAGoAawAMAGoADABrAAsAaQA8AGYAPABpAF4AZgA8AFQAPABeADoAOgBeAEgASABeAF8ASABsADoAZwBiAGQAYgBnAGsAXABIAF8ASABcAEoASgBcAGEAaQBdAF4AXQBpAG0AKQBtACgAbQApAF0AXQApAFEAXQBRAGEAXQBhAFwAYgBqAGUAagBiAGsAZwA5AGsAOQBnAFoAawA5AAkAOQBaADQANABaABoAGgBaABcAFwBaACcAFwAnAG0AbQAnACgACwBrAAkAagBjAGUAYwBqAGgAFwBpABYAaQAXAG0AaABkAGMAZABoAGcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAAIC0ZAAAms0uMzJZAIAuM2Uy//+0ZABAb1H8K7doAID8K29RZTIuMzJZAAC0ZABAkK78K0iXms0uM82mkK78K7doysU09Bpd//+0ZP+/ysU09OWiAIAuM5rNAIC0ZP///3809DU6ZTIuM82mb1H8K0iXAID8K5CuNTo09BpdAAC0ZP+//3809MrFNTo09OWimlr//01tAID//5paAID//2Wlmlr//7KSZaX//01t/pL8K3KQAW38K3KQAW38K41v/pL8K41vZaX//7KS6J0AABhmF2IAABhmF2IAAOeZ6J0AAOeZAAABAAIAAQAAAAMABAACAAUAAgAEAAYABwACAAYAAgAHAAAACAABAAkAAQAIAAoACwAMAAMADAALAA0ADAAOAAkADgAMAA8AEAADAAAAAwAQAAsAEQAEABIABAARAAYADgAIAAkACAAOABMAEQATAA4AEwARABIAFAAAAAcAAAAUABAADwARAA4AEQAPABUADAABAAMAAQAMAAkADQAPAAwADwANABYABgAVAAcAFQAGABEAFQAUAAcAFAAVABcAGAAQABQAEAAYABkAGgAXABYAFwAaABsAGQALABAACwAZABwAEwAKAAgACgATAB0AHQATAB4AHgATABIAHgASAB8AIAAKAB0ACgAgAAUABQAgAB8ABQAfAAQABAAfABIAFgAVAA8AFQAWABcAGQAhABwAIQAZABoAGgAZABgAGgAYABsAHAANAAsADQAcACEACgACAAEAAgAKAAUAIQAWAA0AFgAhABoAFwAYABQAGAAXABsAHwAiACMAIgAfACAAJAAfACMAHwAkAB4AHQAkACUAJAAdAB4AIAAlACIAJQAgAB0AJAAiACUAIgAkACMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAQEBAQEBAQEBV4fwUYa1enZgUFuU+YlgUFuUHHnwUYa1kI95bQ54bamHZzJ6EZBbZg54CqkCbTJ6CqkCbYSIkI95baeKiXjdHGtnG4iQHilLL4vdHGtnnXuQHilLHHk6WAK1enb+WKaTqmgAAA1lVZcAAA1lLnH4d+NuiXgaJRhoL4saJRho0Y74d+NuG4gVJJxLbamHZ4SIW2wCNByOBE/nLDyKt2sFKxyOcU/sMjyKt2sFK552qmgAAPKaLnH4dxyRW2wCNJ52EZBbZqeKnXsVJJxLVZcAAPKaV4c6WAK1+Yn+WKaT0Y74dxyRBE/nLH96cU/sMn96FE74d9bjAAA0jwCAKRz4dwCAAEA0j////780j///1uP4dwCA//80jwCA67H4d9bj67H4dykcFE74dykcuE7l4I7iR7Hl4I7iAID//wCA/780jwAAuE7l4HEdAEA0jwAAcR3l4ACAR7Hl4HEdjuLl4ACAAAABAAIAAQAAAAMABAAFAAYABQAEAAcABAAIAAcACAAEAAkACgALAAwACwAKAA0AAQAOAA8ADgABAAMAEAAKABEACgAQABIACgASABMAEwASABQADAARAAoAEQAMABUAFQAMABQAFQAUABIAFgAMAAsADAAWABQACAAFAAcABQAIABcAGAAZABoAGQAYABsAEAAcABIAHAAQAB0AHAAdABoAGgAdABgAGAAdAB4AEgAfAB4AHwASABwAHgAfABgAIAAFABcABQAgAAYACgAhAA0AIQAKABMAHQARACIAEQAdABAAFwAJACAACQAXAAgAIwACACQAAgAjAAAAIgACAB0AAgAiACUAAgAlACQAJAAlAA8AAQAdAAIAHQABAB4AHgABAA8AHgAPACUADwAjACQAIwAPAA4AFgATABQAEwAWACEAJQAEABUABAAlAAkACQAlACAABgAVAAQAIgAVAAYAIgAGACAAIgAgACUAFQAiABEAIwADAAAAAwAjAA4AIQALAA0ACwAhABYAGQAcABoAHAAZACYAJgAfABwAHwAmACcAJwAYAB8AGAAnABsAGQAnACYAJwAZABsAKAApACoAKQAoACsALAAtAC4ALQAsAC8ALwAwAC0AMAAvACUAJQAvACgAJQAoAB4AHgAoABIAFQAwACUAMAAVADEAMQAVABIAMQASACgAMQAoACoAMgAzADQALgAwADUAMAAuAC0AKQA2ADcANgApADgAOQAuADUALgA5ADoAMwAuADoALgAzACwANAAzADoAMwArACwAKwAzADIANwAwADEAMAA3ADUAMQApADcAKQAxACoALAAoAC8AKAAsACsAKwA4ACkAOAArADIAOAA0ADYANgA1ADcANQA2ADkANgA0ADkANAA6ADkAOAAyADQAAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},"parties":{"source":{"num":1,"court":"La source","nom":"La source et le captage"},"canal":{"num":2,"court":"Le canal","nom":"Le canal (specus)"},"pente":{"num":3,"court":"La pente","nom":"Une pente très faible"},"regards":{"num":4,"court":"Les regards","nom":"Les regards"},"tranchee":{"num":5,"court":"La tranchée","nom":"Le canal enterré"},"tunnel":{"num":6,"court":"Le tunnel","nom":"Le tunnel"},"arcades":{"num":7,"court":"Les arcades","nom":"Le mur et les arcades"},"pont":{"num":8,"court":"Le pont du Gard","nom":"Le pont-aqueduc : le pont du Gard"},"castellum":{"num":9,"court":"Le bassin de répartition","nom":"Le bassin de répartition (castellum divisorium)"},"fontaines":{"num":10,"court":"Les fontaines","nom":"Les fontaines publiques"},"thermes":{"num":11,"court":"Les thermes","nom":"Les thermes"},"maisons":{"num":12,"court":"Les maisons riches","nom":"Les maisons riches"},"egouts":{"num":13,"court":"Les égouts","nom":"Les égouts"}},"siphonParties":{"chasse":{"nom":"Le réservoir de chasse"},"rampant":{"nom":"Le rampant"},"pontSiphon":{"nom":"Le pont-siphon"},"fuite":{"nom":"Le réservoir de fuite"}},"textes":{"reinitialise":"Maquette réinitialisée","masquer":"Masquer le texte","afficher":"Afficher le texte","secours":"Ton navigateur ne peut pas afficher la maquette en 3D (WebGL 2). Choisis une partie avec les boutons pour lire son explication.","planTexte":"Voici le plan de l'aqueduc vu de haut, avec le numéro de chaque partie.","planAria":"Plan de l'aqueduc vu de haut, avec les numéros des parties.","interrompu":"La maquette 3D s'est interrompue. Recharge la page pour la retrouver.","accueil":"Accueil","siphon":"Une autre solution\u00a0: le siphon","etape":"Étape {n} sur {t}","jauge":"Vraie descente\u00a0: environ 12\u00a0m","bandeaux":{"pente":"Pente exagérée\u00a0: la descente est grossie. En vrai\u00a0: environ 12\u00a0m sur 50\u00a0km.","coupe":"On voit l'eau à travers la terre et sous les dalles.","siphon":"Autre solution\u00a0: le siphon (utilisé à Lyon, pas à Nîmes)"}}};
   var chaque = function (liste, f) { Array.prototype.forEach.call(liste, f); };
   var $ = function (s) { return racine.querySelector(s); };
   var $$ = function (s) { return racine.querySelectorAll(s); };
@@ -6601,7 +6662,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     b.setAttribute("tabindex", "-1");
     if (num) { var n = document.createElement("span"); n.className = "aqu__num"; n.textContent = num; b.appendChild(n); }
     var s = document.createElement("span"); s.className = "aqu__repere-nom"; s.textContent = nom; b.appendChild(s);
-    b.addEventListener("click", function () { if (sorte === "siphon") { choisirSiphon(cle); } else { choisirPartie(cle); } });
+    b.addEventListener("click", function () { basculer(cle); });
     a.appendChild(b);
     calque.appendChild(a);
     var e = { cle: cle, num: num || 0, sorte: sorte, el: a, b: b, off: [0, -TIGE], de: [0, -TIGE], cible: [0, -TIGE], compact: false,
@@ -6842,8 +6903,10 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     var w = toile.clientWidth, h = toile.clientHeight;
     return w && h ? Math.max(1, Math.min(1.9, 1.5 / (w / h))) : 1;
   }
-  function allerA(v, duree) {
-    var a = { x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: v[5] || 0 };
+  function allerA(v, duree) { allerVers({ x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: v[5] || 0 }, duree); }
+  // Vol vers un état brut de la caméra (sert aussi à revenir à la vue d'avant un choix).
+  function allerVers(a, duree) {
+    a = { x: a.x, y: a.y, d: a.d, lacet: a.lacet, tangage: a.tangage, h: a.h };
     var dl = ((a.lacet - cam.lacet) % 360 + 540) % 360 - 180;
     a.lacet = cam.lacet + dl;
     if (reduit || duree === 0 || !gl) { cam.x = a.x; cam.y = a.y; cam.d = a.d; cam.lacet = a.lacet; cam.tangage = a.tangage; cam.h = a.h; vol = null; demander(); return; }
@@ -6973,7 +7036,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
         partieSous(e.clientX - b.left, e.clientY - b.top, function (id) {
           var c = PARTIES[id];
           if (!c) { return; }
-          if (D.parties[c]) { choisirPartie(c); } else if (D.siphonParties[c]) { choisirSiphon(c); }
+          if (D.parties[c] || D.siphonParties[c]) { basculer(c); }
         });
       }
       appui = null;
@@ -7035,7 +7098,10 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
   // ------------------------------------------------------------ choix, panneaux, visite
   var panneaux = $$(".aqu__panneau"), boutonsPartie = $$(".aqu__bouton[data-partie]"), boutonsOutil = $$("[data-outil]");
   var boutonVisite = $(".aqu__bouton--visite"), annonce = $(".aqu__annonce"), contenu = $(".aqu__contenu"), cote = $(".aqu__cote");
-  var etat = { mode: "accueil", partie: null, etape: -1 }, marques = [];
+  var etat = { mode: "accueil", partie: null, etape: -1, piece: null }, marques = [];
+  // Vue de la caméra juste avant le premier choix : un reclic ou Échap y ramène.
+  var vueAvant = null;
+  function retenirVue() { if (etat.mode === "accueil" && !vueAvant) { var c = vol ? vol.a : cam; vueAvant = { x: c.x, y: c.y, d: c.d, lacet: c.lacet, tangage: c.tangage, h: c.h }; } }
   var ORDRE = Object.keys(D.parties).sort(function (a, b) { return D.parties[a].num - D.parties[b].num; });
   function montrerPanneau(cle) {
     var change = false;
@@ -7088,7 +7154,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     majBandeau(); presser(); demander();
   }
   function accueil(voler) {
-    etat.mode = "accueil"; etat.partie = null; etat.etape = -1;
+    etat.mode = "accueil"; etat.partie = null; etat.etape = -1; etat.piece = null; vueAvant = null;
     regler("pente", false); regler("siphon", false);
     marquer([]); presser(); montrerPanneau("accueil");
     if (voler) { allerA(ENSEMBLE); }
@@ -7096,6 +7162,8 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
   }
   function choisirPartie(cle, depuisVisite) {
     if (!D.parties[cle]) { return; }
+    retenirVue();
+    etat.piece = null;
     if (!depuisVisite) { etat.mode = "partie"; etat.etape = -1; }
     etat.partie = cle;
     regler("pente", cle === "pente");
@@ -7105,6 +7173,8 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     dire(D.parties[cle].num + ". " + D.parties[cle].nom);
   }
   function choisirSiphon(cle) {
+    retenirVue();
+    etat.piece = cle && cle !== "siphon" ? cle : null;
     if (!etat3d.siphon) { regler("siphon", true); }
     regler("pente", false);
     etat.mode = "siphon"; etat.partie = null; etat.etape = -1;
@@ -7128,6 +7198,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     regler(o, !etat3d.coupe);
   }
   function allerEtape(i) {
+    retenirVue();
     var n = ORDRE.length + 1;
     i = Math.max(0, Math.min(n - 1, i));
     etat.mode = "visite"; etat.etape = i;
@@ -7141,13 +7212,45 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     presser();
     dire(D.textes.etape.replace("{n}", String(i + 1)).replace("{t}", String(n)));
   }
+  // Un clic sur ce qui est déjà choisi le désélectionne : retour à l'accueil et à la vue d'avant le choix.
+  function deselectionner() {
+    var v = vueAvant;
+    accueil(false);
+    if (v) { allerVers(v); }
+  }
+  function basculer(cle) {
+    if (D.parties[cle]) {
+      if ((etat.mode === "partie" || etat.mode === "visite") && etat.partie === cle) { deselectionner(); } else { choisirPartie(cle); }
+    } else if (D.siphonParties[cle]) {
+      if (etat.mode === "siphon" && etat.piece === cle) { choisirSiphon("siphon"); } else { choisirSiphon(cle); }
+    }
+  }
+  // Bouton Réinitialiser (posé par page.js) : l'état exact du chargement, plein écran et texte replié gardés.
+  function reinitialiser() {
+    accueil(false);
+    regler("coupe", false);
+    etat3d.exag = etat3d.exagCible;
+    survol = 0;
+    if (contenu) { contenu.scrollTop = 0; }
+    if (cote) { cote.scrollTop = 0; }
+    vol = null;
+    allerA(ENSEMBLE);
+    dire(D.textes.reinitialise);
+    demander();
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || etat.mode === "accueil") { return; }
+    e.stopPropagation();
+    if (etat.mode === "siphon" && etat.piece) { choisirSiphon("siphon"); } else { deselectionner(); }
+  });
   racine.addEventListener("click", function (ev) {
     var cible = ev.target.closest ? ev.target.closest("[data-partie], [data-outil], [data-action], .aqu__precedent, .aqu__suivant") : null;
     if (!cible || !racine.contains(cible) || cible.classList.contains("aqu__repere")) { return; }
     if (cible.classList.contains("aqu__precedent")) { allerEtape(etat.etape - 1); return; }
     if (cible.classList.contains("aqu__suivant")) { allerEtape(etat.etape + 1); return; }
     var action = cible.getAttribute("data-action");
-    if (action === "visite") { allerEtape(0); return; }
+    if (action === "visite") { if (etat.mode === "visite") { deselectionner(); } else { allerEtape(0); } return; }
     if (action === "accueil") { accueil(true); return; }
     if (action === "ensemble") { allerA(ENSEMBLE); return; }
     if (action === "plus") { vol = null; zoomer(0.7); borner(); demander(); return; }
@@ -7160,7 +7263,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
       return;
     }
     if (cible.hasAttribute("data-outil")) { outil(cible.getAttribute("data-outil")); return; }
-    if (cible.hasAttribute("data-partie")) { choisirPartie(cible.getAttribute("data-partie")); }
+    if (cible.hasAttribute("data-partie")) { basculer(cible.getAttribute("data-partie")); }
   });
   ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) { document.addEventListener(ev, demander); });
   // ------------------------------------------------------------ secours sans WebGL 2
@@ -7232,7 +7335,7 @@ html[data-sombre="on"] .aqu__agir[aria-pressed="true"] { color: #10171F; }
     lancer();
   }
   // Accès pour les essais automatiques (captures, mesure des étiquettes, test dans un DOM simulé).
-  racine.aqueduc = { etat: etat, etat3d: etat3d, choisirPartie: choisirPartie, choisirSiphon: choisirSiphon, outil: outil, allerEtape: allerEtape, accueil: accueil,
+  racine.aqueduc = { reinitialiser: reinitialiser, basculer: basculer, vueAvant: function () { return vueAvant; }, etat: etat, etat3d: etat3d, choisirPartie: choisirPartie, choisirSiphon: choisirSiphon, outil: outil, allerEtape: allerEtape, accueil: accueil,
     cam: cam, allerA: allerA, batir: batir, H: H, Hv: Hv, terrain: maillageTerrain, modeles: decoderModeles, ancres: ANCRES,
     zones: function () { preparerPlan(MONDE || (MONDE = batir())); return carteZones(); },
     molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, disposer: disposer,
@@ -7424,7 +7527,7 @@ toutes les décisions passent par toi.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=8ef58338" defer></script>
+<script src="../page.js?v=fb046d3e" defer></script>
 
 </body>
 </html>
