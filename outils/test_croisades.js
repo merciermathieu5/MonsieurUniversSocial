@@ -188,8 +188,58 @@ clic(un('.crd__panneau--accueil .crd__appel[data-action="visite"]'));
 verifier("l'appel du panneau d'accueil lance la visite", panneauxVisibles().join() === etapes[0]);
 clic(un(".crd__barre-fin"));
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const btR = un(".crd__entete .reinitialiser");
+  verifier("data-reinitialiser : page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!btR && btR.nextElementSibling === un(".crd__entete .plein-ecran"));
+  clic(un('.crd__outil[data-zoom="ensemble"]'));
+  const v0 = fenetre();
+  const bC2 = un('.crd__bouton[data-croisade="c2"]');
+  clic(bC2);
+  verifier("choisir la 2e croisade zoome sur son trajet", presses().join() === "c2" && fenetre()[2] < v0[2] - 1);
+  clic(bC2);
+  verifier("un second clic sur la 2e croisade la désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && surlignes().length === 0 && !racine.classList.contains("est-filtre") && bC2.getAttribute("aria-pressed") === "false");
+  verifier("et ramène la vue d'avant (vue d'ensemble)", Math.abs(fenetre()[2] - v0[2]) < 0.5 && vueChoisie() === "ensemble", fenetre().join(" "));
+  const bAcre = un('.crd__bouton[data-lieu="acre"]') || boutonsLieux[0];
+  const cleL = bAcre.getAttribute("data-lieu");
+  clic(bAcre);
+  clic(bAcre);
+  verifier("un second clic sur un bouton de lieu le désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && !un(`.crd__lieu[data-lieu="${cleL}"]`).classList.contains("est-choisi"));
+  const point = un('.crd__lieu[data-lieu="jerusalem"]');
+  clic(point);
+  verifier("un clic sur un point de la carte le choisit", panneauxVisibles().join() === "lieu-jerusalem");
+  clic(point);
+  verifier("un second clic sur le même point le désélectionne", panneauxVisibles().join() === "accueil" && !point.classList.contains("est-choisi"));
+  clic(un(".crd__bouton--etats"));
+  clic(un('.crd__etat-bouton[data-etat="edesse"]'));
+  clic(un('.crd__etat-bouton[data-etat="edesse"]'));
+  verifier("un second clic sur un État le décoche (retour aux quatre États)", panneauxVisibles().join() === "etats" && tous(".crd__etat.est-choisi").length === 4 && etatsVisibles().length === 4);
+  clic(un(".crd__bouton--etats"));
+  verifier("un second clic sur « États latins » ferme ce choix", panneauxVisibles().join() === "accueil" && presses().length === 0);
+  clic(un(".crd__bouton--visite"));
+  clic(un(".crd__bouton--visite"));
+  verifier("un second clic sur la visite l'arrête", panneauxVisibles().join() === "accueil" && !racine.classList.contains("est-visite") && surlignes().length === 0);
+  clic(un('.crd__bouton[data-croisade="c3"]'));
+  touche(svg, "Escape");
+  verifier("Échap sur la carte désélectionne", panneauxVisibles().join() === "accueil" && presses().length === 0);
+  // Plusieurs actions, puis Réinitialiser
+  clic(un(".crd__bouton--visite"));
+  clic(un(".crd__barre-suiv"));
+  clic(un(".crd__barre-suiv"));
+  clic(un('.crd__vue[data-vue="orient"]'));
+  clic(un('.crd__outil[data-zoom="plus"]'));
+  const dep = un(".crd__deplier");
+  if (dep) clic(dep);
+  clic(btR);
+  verifier("Réinitialiser : accueil, aucun choix, visite arrêtée", panneauxVisibles().join() === "accueil" && presses().length === 0 && !racine.classList.contains("est-visite") && surlignes().length === 0 && api.etat.mode === "accueil");
+  verifier("Réinitialiser : vue d'ensemble de départ", vueChoisie() === "ensemble" && fenetre().every((v, i) => Math.abs(v - depart[i]) < 0.5), fenetre().join(" ") + " / " + depart.join(" "));
+  verifier("Réinitialiser : les quatre États visibles, aucun choisi", etatsVisibles().length === 4 && tous(".crd__etat.est-choisi").length === 0);
+  verifier("Réinitialiser : barre de visite vidée, liste des lieux repliée", un(".crd__barre-texte").textContent === "" && (!dep || dep.getAttribute("aria-expanded") === "false"));
+}
+
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".crd__entete > .plein-ecran");
+const pleinBouton = un(".crd__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".crd__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

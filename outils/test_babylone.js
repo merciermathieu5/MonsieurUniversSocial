@@ -96,7 +96,7 @@ clic(racine.querySelector(".bab__quitter"));
 verifier("Quitter la visite la referme", !racine.classList.contains("en-visite"));
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = racine.querySelector(".bab__entete > .plein-ecran");
+const pleinBouton = racine.querySelector(".bab__entete .plein-ecran");
 verifier("le bouton Plein écran (posé par page.js) est dans l'en-tête", !!pleinBouton);
 const texteBouton = racine.querySelector('.bab__outil[data-action="texte"]');
 verifier("le bouton qui replie les textes existe", !!texteBouton && texteBouton.getAttribute("aria-expanded") === "true");
@@ -166,6 +166,46 @@ console.log("ZOOM À LA MOLETTE");
     /e\.preventDefault\(\);\s*vol = null;\s*var b = toile\.getBoundingClientRect\(\);\s*zoomer\(facteurMolette\(e\)/.test(script) &&
     /window\.addEventListener\("wheel", noterDefilement, \{ passive: true, capture: true \}\)/.test(script) &&
     /document\.addEventListener\("scroll", noterDefilement, \{ passive: true, capture: true \}\)/.test(script));
+}
+
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const api = racine.babylone, cam = api.cam;
+  const etatCam = () => [cam.x, cam.y, cam.d, cam.lacet, cam.tangage, cam.h].map((v) => Math.round(v * 100) / 100).join();
+  const bouton = (cle) => racine.querySelector('.bab__bouton[data-partie="' + cle + '"]');
+  const reinit = racine.querySelector(".bab__entete .reinitialiser");
+  verifier("la racine porte data-reinitialiser et page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === racine.querySelector(".plein-ecran"));
+  clic(reinit);
+  const camDepart = etatCam();
+  api.allerA([100, 200, 1500, 40, 25, 0], 0);
+  const camAvant = etatCam();
+  clic(bouton("ziggourat"));
+  verifier("choisir un lieu : bouton enfoncé, panneau du lieu, la caméra part vers le lieu",
+    bouton("ziggourat").getAttribute("aria-pressed") === "true" && panneauxVisibles().join() === "ziggourat" && etatCam() !== camAvant && api.choix() === "ziggourat");
+  clic(bouton("ishtar"));
+  verifier("changer de lieu garde la vue d'avant le premier choix", api.choix() === "ishtar" && !!api.vueAvant());
+  clic(bouton("ishtar"));
+  verifier("un reclic sur le lieu choisi le désélectionne : accueil, aucun bouton enfoncé",
+    api.choix() === "accueil" && panneauxVisibles().join() === "accueil" && boutonsPresses().length === 0);
+  verifier("la caméra revient à la vue d'avant le choix", etatCam() === camAvant, etatCam() + " / " + camAvant);
+  clic(bouton("ziggourat"));
+  racine.querySelector(".bab__toile").dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne aussi", api.choix() === "accueil" && boutonsPresses().length === 0 && etatCam() === camAvant);
+  // Plusieurs actions, puis Réinitialiser
+  clic(racine.querySelector('.bab__outil[data-action="certitude"]'));
+  clic(bouton("ziggourat"));
+  clic(racine.querySelector(".bab__lancer"));
+  clic(racine.querySelector(".bab__suiv"));
+  api.allerA([300, -100, 900, 120, 50, 0], 0);
+  const texteAvant = racine.classList.contains("texte-masque");
+  clic(reinit);
+  verifier("Réinitialiser : accueil, aucun lieu, visite quittée, « Ce qu'on sait vraiment » éteint",
+    panneauxVisibles().join() === "accueil" && boutonsPresses().length === 0 && !racine.classList.contains("en-visite") && api.etape() === -1 &&
+    api.mode() === 0 && racine.querySelector('.bab__outil[data-action="certitude"]').getAttribute("aria-pressed") === "false" && racine.querySelector(".bab__legende").hidden);
+  verifier("Réinitialiser : la caméra revient à la vue de départ", etatCam() === camDepart, etatCam() + " / " + camDepart);
+  verifier("Réinitialiser garde l'état du texte replié", racine.classList.contains("texte-masque") === texteAvant);
+  verifier("la réinitialisation est annoncée (zone aria-live)", racine.querySelector(".bab__annonce").getAttribute("aria-live") === "polite");
 }
 
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");

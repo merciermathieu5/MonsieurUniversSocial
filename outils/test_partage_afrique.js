@@ -177,6 +177,34 @@ const D = JSON.parse(script.slice(script.indexOf("var D = ") + 8, script.indexOf
   clic(un(".paf__pilote .paf__bouton"));
   verifier("retour au récit", ongletActif() === "recit");
 
+  console.log("DÉSÉLECTION ET RÉINITIALISATION");
+  {
+    const reinit = un(".paf__entete .reinitialiser");
+    verifier("la carte demande le bouton Réinitialiser (data-reinitialiser) et page.js le pose avant Plein écran",
+      racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === un(".paf__entete .plein-ecran"));
+    const aucunChoix = () => tous('.paf__groupes .paf__puce[aria-pressed="true"]').length === 0 && tous(".paf__point.est-choisi").length === 0;
+    clic(un('.paf__groupes .paf__puce[data-id="walvis-bay"]'));
+    verifier("un second clic sur le poste choisi dans la liste le désélectionne", aucunChoix() && ongletActif() === "recit");
+    clic(un('.paf__morceau[data-id="rdc"]'));
+    verifier("choisir un territoire ouvre Le territoire", ongletActif() === "territoire");
+    clic(un('.paf__morceau[data-id="rdc"]'));
+    verifier("un second clic sur le territoire de la carte le désélectionne et rouvre le récit", aucunChoix() && ongletActif() === "recit" && !(un(".paf__halo").getAttribute("d") || "").length, un(".paf__halo").getAttribute("d"));
+    clic(un('.paf__groupes .paf__puce[data-id="ethiopie"]'));
+    racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    verifier("Échap désélectionne", aucunChoix() && ongletActif() === "recit");
+    annee(1905);
+    clic(un('.paf__mode[data-mode="droites"]'));
+    clic(tous('[data-paf="frontieres"] .paf__puce')[0]);
+    clic(un('.paf__morceau[data-id="rdc"]'));
+    un(".paf__liste").open = true;
+    clic(reinit);
+    verifier("Réinitialiser : 1880, étape 1, les puissances, récit ouvert",
+      un(".paf__annee").textContent === "1880" && un(".paf__curseur").value === "1880" && racine.getAttribute("data-mode") === "puissances" && ongletActif() === "recit" && /Étape 1 sur/.test(un(".paf__pilote").textContent), un(".paf__annee").textContent);
+    verifier("Réinitialiser : aucun territoire, aucun exemple, liste refermée",
+      aucunChoix() && !un(".paf__halo").getAttribute("d") && tous(".paf__droite.est-vedette").length === 0 && !un(".paf__liste").open);
+    annee(1910); // la suite du test part de 1910
+  }
+
   console.log("LECTURE AUTOMATIQUE");
   const jouer = un(".paf__jouer");
   clic(jouer);

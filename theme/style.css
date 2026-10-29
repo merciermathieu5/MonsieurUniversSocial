@@ -557,7 +557,6 @@ details.credit > span { display: block; max-width: 34rem; }
   color: rgba(255,255,255,.88); background: transparent;
   border: 1px solid rgba(255,255,255,.42); border-radius: 100px; cursor: pointer;
 }
-.reinitialiser + .plein-ecran { margin-left: .4rem; }
 .plein-ecran:hover, .reinitialiser:hover { color: #fff; background: rgba(255,255,255,.14); }
 .plein-ecran:focus-visible, .reinitialiser:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 .plein-ecran__icone { width: .78rem; height: .78rem; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
@@ -565,6 +564,11 @@ details.credit > span { display: block; max-width: 34rem; }
 .reinitialiser:active .reinitialiser__icone { transform: rotate(-120deg); }
 .plein-ecran[aria-pressed="true"] .plein-ecran__icone { transform: rotate(180deg); }
 .texte section[id] > [class$="__entete"] > [class$="__consigne"] { margin-left: auto; }
+/* Cartes avec Réinitialiser : page.js range les deux boutons dans un même groupe, qui reste
+   à droite et passe à la ligne d'un bloc; la consigne prend la place libre de sa ligne. */
+.entete-actions { display: inline-flex; align-items: center; gap: .4rem; margin-left: auto; }
+.entete-actions > .plein-ecran, .entete-actions > .reinitialiser { margin: 0; }
+.texte section[data-reinitialiser] > [class$="__entete"] > [class$="__consigne"] { flex-grow: 1; text-align: right; }
 html[data-sombre="on"] .plein-ecran, html[data-sombre="on"] .reinitialiser { color: var(--encre-doux); border-color: var(--trait); }
 html[data-sombre="on"] .plein-ecran:hover, html[data-sombre="on"] .reinitialiser:hover { color: var(--encre); background: var(--surface); }
 html[data-sombre="on"] .plein-ecran:focus-visible, html[data-sombre="on"] .reinitialiser:focus-visible { outline-color: var(--encre); }
@@ -580,9 +584,9 @@ body[data-plein-ecran="on"] { overflow: hidden; }
 @media (max-width: 40rem) {
   .texte section.est-plein-ecran > [class$="__entete"] { padding-top: .45rem; padding-bottom: .45rem; }
   .texte section.est-plein-ecran > [class$="__entete"] > [class$="__consigne"] { display: none; }
-  .texte section.est-plein-ecran > [class$="__entete"] .plein-ecran,
-  .texte section.est-plein-ecran > [class$="__entete"] .reinitialiser { margin-left: auto; }
-  .texte section.est-plein-ecran > [class$="__entete"] .reinitialiser + .plein-ecran { margin-left: .4rem; }
+  .texte section.est-plein-ecran > [class$="__entete"] > .plein-ecran,
+  .texte section.est-plein-ecran > [class$="__entete"] > .entete-actions { margin-left: auto; }
+  .texte section[data-reinitialiser] > [class$="__entete"] > [class$="__consigne"] { text-align: left; }
 }
 @media print { .plein-ecran, .reinitialiser { display: none; } }
 

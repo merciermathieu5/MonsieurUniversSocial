@@ -183,8 +183,8 @@ choisir("kilwa");
 verifier("Kilwa abandonnée : verdict neutre", verdict() === "neutre", verdict());
 choisir("ceuta");
 verifier("Ceuta : cas particulier", $("fiche").textContent.includes("Cas particulier"));
+// Ceuta reste choisie : la fiche suit l'année (un second clic la désélectionnerait).
 annee(1488);
-choisir("ceuta");
 verifier("avant 1493 : pas de verdict de zone", $("fiche").textContent.includes("Avant 1493"));
 choisir("cabral");
 verifier("un lieu pas encore là fait avancer le temps", $("annee").textContent === "1500", $("annee").textContent);
@@ -268,7 +268,7 @@ function molette(deltaY, x, y, mode) {
 function souris(type, x, y) { svgCarte.dispatchEvent(new window.MouseEvent(type, { bubbles: true, cancelable: true, button: 0, clientX: x, clientY: y })); }
 // Point de la carte sous le pointeur, avec la taille de repli (jsdom ne mesure rien : 1000 x 702).
 function pointSous(v, cx, cy) { const s = Math.min(1000 / v[2], 702 / v[3]); return [v[0] + (cx - (1000 - v[2] * s) / 2) / s, v[1] + (cy - (702 - v[3] * s) / 2) / s]; }
-const pleinTds = racine.querySelector(".tds__entete > .plein-ecran");
+const pleinTds = racine.querySelector(".tds__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinTds);
 let evMolette = molette(-100);
 verifier("hors plein écran, la molette laisse défiler la page et la carte ne change pas", !evMolette.defaultPrevented && vb().join(" ") === "0 0 1000 702", vb().join(" "));
@@ -315,6 +315,43 @@ verifier("on ne recule pas au-delà de la carte entière", vb().join(" ") === "0
 molette(-300);
 clic(pleinTds);
 verifier("on quitte le plein écran", !racine.classList.contains("est-plein-ecran"));
+
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const reinit = racine.querySelector(".tds__entete .reinitialiser");
+  verifier("la carte demande le bouton Réinitialiser (data-reinitialiser) et page.js le pose avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === pleinTds);
+  annee(1620);
+  choisir("belem");
+  choisir("belem");
+  verifier("un second clic sur la puce du lieu choisi le désélectionne",
+    !racine.querySelector(".tds__lieu.est-choisi") && !racine.querySelector('.tds__puce[aria-pressed="true"]') && ongletActif() === "recit" && $("annee").textContent === "1620");
+  clic(lieu("santo-domingo"));
+  clic(lieu("santo-domingo"));
+  verifier("un second clic sur le point de la carte désélectionne aussi", !lieu("santo-domingo").classList.contains("est-choisi") && ongletActif() === "recit");
+  annee(1490);
+  choisir("cabral");
+  verifier("choisir un lieu pas encore là fait avancer le temps", $("annee").textContent === "1500");
+  choisir("cabral");
+  verifier("le désélectionner ramène l'année d'avant", $("annee").textContent === "1490" && !lieu("cabral").classList.contains("est-choisi"), $("annee").textContent);
+  choisir("lima");
+  racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne le lieu", !racine.querySelector(".tds__lieu.est-choisi"));
+  // Plusieurs actions, puis Réinitialiser (en plein écran, carte zoomée).
+  clic(pleinTds);
+  annee(1650);
+  clic(racine.querySelector('.tds__mode[data-mode="traite"]'));
+  choisir("quebec");
+  racine.querySelector(".tds__liste").open = true;
+  molette(-300);
+  verifier("état de départ quitté (zoom, mode, lieu, année)", vb()[2] < 1000 && racine.getAttribute("data-mode") === "traite" && $("annee").textContent === "1650");
+  clic(reinit);
+  verifier("Réinitialiser : étape 1, aucun lieu, puissances, récit ouvert",
+    $("annee").textContent === "1488" && !racine.querySelector(".tds__lieu.est-choisi") && racine.getAttribute("data-mode") === "royaumes" && ongletActif() === "recit" && $("pilote").textContent.includes("Étape 1 / 11"));
+  verifier("Réinitialiser : carte entière, liste refermée, plein écran gardé",
+    vb().join(" ") === "0 0 1000 702" && !racine.querySelector(".tds__liste").open && racine.classList.contains("est-plein-ecran"), vb().join(" "));
+  clic(pleinTds);
+}
 
 console.log("DONNÉES");
 const source = composant;

@@ -1,4 +1,4 @@
-<section class="crd" id="croisades" aria-label="Carte interactive&nbsp;: les croisades, de 1095 à 1270">
+<section class="crd" id="croisades" data-reinitialiser aria-label="Carte interactive&nbsp;: les croisades, de 1095 à 1270">
 <style>
 .crd { --crd-mer: #C9DEEE; --crd-terre: #F4EEE2; --crd-cote: #7C9FC0; --crd-fleuve: #6E9DCB; --crd-plateau: #ECDFC9; --crd-mont: #E6D5B8; --crd-desert: #F1E0B2; --crd-quad: rgba(48, 84, 120, .14); --crd-terrestre: #8C6A4F; --crd-maritime: #4F7BA8; --crd-halo: #F4EEE2; --crd-point: #1A2530; --crd-eau-texte: #2A5F8F; --crd-region: #786A55; --crd-glyphe: #FFFFFF; --crd-etat: rgba(176, 58, 46, .17); --crd-etat-trait: #B03A2E; --crd-etat-fort: rgba(176, 58, 46, .3); --crd-etat-texte: #7D2A21; --crd-bataille: #7D2A21; --crd-banniere: #3D3A36; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: crd / inline-size; }
 html[data-sombre="on"] .crd { --crd-mer: #15293C; --crd-terre: #2A3440; --crd-cote: #4F6F8F; --crd-fleuve: #5F93C6; --crd-plateau: #313A44; --crd-mont: #3F3A30; --crd-desert: #4A4430; --crd-quad: rgba(160, 190, 220, .1); --crd-terrestre: #C9A27E; --crd-maritime: #82B6EA; --crd-halo: #2A3440; --crd-point: #E8EBEF; --crd-eau-texte: #A6CDF0; --crd-region: #B3A891; --crd-glyphe: #16202A; --crd-etat: rgba(240, 138, 126, .2); --crd-etat-trait: #F08A7E; --crd-etat-fort: rgba(240, 138, 126, .36); --crd-etat-texte: #F6B3AA; --crd-bataille: #F6B3AA; --crd-banniere: #E3DED6; }
@@ -218,6 +218,7 @@ html[data-sombre="on"] .crd__vue[aria-pressed="true"], html[data-sombre="on"] .c
 .crd__lieu--bataille .crd__nom { font-style: italic; }
 /* La bannière de la visite. */
 .crd__banniere { pointer-events: none; }
+.crd .crd__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .crd__banniere-ombre { fill: rgba(0, 0, 0, .25); }
 .crd__banniere-fond { fill: var(--crd-terre); stroke: var(--crd-banniere); stroke-width: 2.4px; stroke-linejoin: round; }
 .crd__banniere-glyphe { color: #B03A2E; }
@@ -277,7 +278,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
 <ul class="crd__legende" aria-label="Légende"><li><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--crd-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--crd-terrestre);stroke-width:2.2"/></svg>Route par terre</li><li><svg viewBox="0 0 30 10" aria-hidden="true"><path d="M1 5h28" style="stroke:var(--crd-halo);stroke-width:5"/><path d="M1 5h28" style="stroke:var(--crd-maritime);stroke-width:2;stroke-dasharray:5 4"/></svg>Route par mer</li><li><svg viewBox="0 0 30 10" aria-hidden="true"><circle cx="15" cy="5" r="3.6" style="fill:var(--crd-point);stroke:var(--crd-terre);stroke-width:1.4"/></svg>Ville</li><li><svg viewBox="0 0 30 12" aria-hidden="true"><circle cx="15" cy="6" r="5.8" style="fill:var(--crd-terre);stroke:var(--crd-bataille);stroke-width:1.2"/><use href="#crd-i-epees" x="10.5" y="1.5" width="9" height="9" style="color:var(--crd-bataille)"/></svg>Bataille</li><li class="crd__legende-etat"><svg viewBox="0 0 30 12" aria-hidden="true"><rect x="3" y="1" width="24" height="10" rx="2" style="fill:var(--crd-etat);stroke:var(--crd-etat-trait);stroke-width:1.2"/></svg>État latin</li><li class="crd__echelle"><span class="crd__echelle-barre" style="width:60px"></span><span class="crd__echelle-texte">500 km</span></li></ul>
 </div>
 <div class="crd__cote">
-<div class="crd__choix" role="group" aria-label="Croisades, lieux et visite"><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Pas à pas</span></span><span class="crd__boutons"><button type="button" class="crd__bouton crd__bouton--visite" data-action="visite" aria-pressed="false"><span class="crd__pastille crd__pastille--croix" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#crd-i-croix"/></svg></span>Suivre la première croisade</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Les croisades</span></span><span class="crd__boutons"><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c1" aria-controls="crd-croisade-c1" aria-pressed="false"><span class="crd__pastille crd-c-c1" aria-hidden="true"></span>1re croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c2" aria-controls="crd-croisade-c2" aria-pressed="false"><span class="crd__pastille crd-c-c2" aria-hidden="true"></span>2e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c3" aria-controls="crd-croisade-c3" aria-pressed="false"><span class="crd__pastille crd-c-c3" aria-hidden="true"></span>3e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c4" aria-controls="crd-croisade-c4" aria-pressed="false"><span class="crd__pastille crd-c-c4" aria-hidden="true"></span>4e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c7" aria-controls="crd-croisade-c7" aria-pressed="false"><span class="crd__pastille crd-c-c7" aria-hidden="true"></span>Louis IX</button><button type="button" class="crd__bouton crd__bouton--etats" data-action="etats" aria-controls="crd-etats" aria-pressed="false"><span class="crd__pastille crd__pastille--etat" aria-hidden="true"></span>États latins</button></span></div><button type="button" class="crd__deplier" aria-expanded="false" aria-controls="crd-groupes-lieux">Voir la liste des lieux (31)</button><div class="crd__groupes-lieux" id="crd-groupes-lieux"><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">En Occident</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="clermont" aria-controls="crd-lieu-clermont" aria-pressed="false">Clermont</button><button type="button" class="crd__bouton" data-lieu="rome" aria-controls="crd-lieu-rome" aria-pressed="false">Rome</button><button type="button" class="crd__bouton" data-lieu="vezelay" aria-controls="crd-lieu-vezelay" aria-pressed="false">Vézelay</button><button type="button" class="crd__bouton" data-lieu="cologne" aria-controls="crd-lieu-cologne" aria-pressed="false">Cologne</button><button type="button" class="crd__bouton" data-lieu="toulouse" aria-controls="crd-lieu-toulouse" aria-pressed="false">Toulouse</button><button type="button" class="crd__bouton" data-lieu="metz" aria-controls="crd-lieu-metz" aria-pressed="false">Metz</button><button type="button" class="crd__bouton" data-lieu="ratisbonne" aria-controls="crd-lieu-ratisbonne" aria-pressed="false">Ratisbonne</button><button type="button" class="crd__bouton" data-lieu="venise" aria-controls="crd-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="crd__bouton" data-lieu="zara" aria-controls="crd-lieu-zara" aria-pressed="false">Zara</button><button type="button" class="crd__bouton" data-lieu="bari" aria-controls="crd-lieu-bari" aria-pressed="false">Bari</button><button type="button" class="crd__bouton" data-lieu="messine" aria-controls="crd-lieu-messine" aria-pressed="false">Messine</button><button type="button" class="crd__bouton" data-lieu="aiguesmortes" aria-controls="crd-lieu-aiguesmortes" aria-pressed="false">Aigues-Mortes</button><button type="button" class="crd__bouton" data-lieu="tunis" aria-controls="crd-lieu-tunis" aria-pressed="false">Tunis</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Constantinople et l&#x27;Asie Mineure</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="constantinople" aria-controls="crd-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="crd__bouton" data-lieu="nicee" aria-controls="crd-lieu-nicee" aria-pressed="false">Nicée</button><button type="button" class="crd__bouton" data-lieu="civitot" aria-controls="crd-lieu-civitot" aria-pressed="false">Civitot</button><button type="button" class="crd__bouton" data-lieu="dorylee" aria-controls="crd-lieu-dorylee" aria-pressed="false">Dorylée</button><button type="button" class="crd__bouton" data-lieu="saleph" aria-controls="crd-lieu-saleph" aria-pressed="false">Le Saleph</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">En Terre sainte et en Égypte</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="antioche" aria-controls="crd-lieu-antioche" aria-pressed="false">Antioche</button><button type="button" class="crd__bouton" data-lieu="edesse" aria-controls="crd-lieu-edesse" aria-pressed="false">Édesse</button><button type="button" class="crd__bouton" data-lieu="tripoli" aria-controls="crd-lieu-tripoli" aria-pressed="false">Tripoli</button><button type="button" class="crd__bouton" data-lieu="krak" aria-controls="crd-lieu-krak" aria-pressed="false">Le krak des Chevaliers</button><button type="button" class="crd__bouton" data-lieu="acre" aria-controls="crd-lieu-acre" aria-pressed="false">Acre</button><button type="button" class="crd__bouton" data-lieu="hattin" aria-controls="crd-lieu-hattin" aria-pressed="false">Hattin</button><button type="button" class="crd__bouton" data-lieu="damas" aria-controls="crd-lieu-damas" aria-pressed="false">Damas</button><button type="button" class="crd__bouton" data-lieu="arsouf" aria-controls="crd-lieu-arsouf" aria-pressed="false">Arsouf</button><button type="button" class="crd__bouton" data-lieu="jaffa" aria-controls="crd-lieu-jaffa" aria-pressed="false">Jaffa</button><button type="button" class="crd__bouton" data-lieu="jerusalem" aria-controls="crd-lieu-jerusalem" aria-pressed="false">Jérusalem</button><button type="button" class="crd__bouton" data-lieu="limassol" aria-controls="crd-lieu-limassol" aria-pressed="false">Chypre</button><button type="button" class="crd__bouton" data-lieu="damiette" aria-controls="crd-lieu-damiette" aria-pressed="false">Damiette</button><button type="button" class="crd__bouton" data-lieu="mansourah" aria-controls="crd-lieu-mansourah" aria-pressed="false">Mansourah</button></span></div></div></div>
+<p class="crd__annonce" aria-live="polite"></p><div class="crd__choix" role="group" aria-label="Croisades, lieux et visite"><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Pas à pas</span></span><span class="crd__boutons"><button type="button" class="crd__bouton crd__bouton--visite" data-action="visite" aria-pressed="false"><span class="crd__pastille crd__pastille--croix" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#crd-i-croix"/></svg></span>Suivre la première croisade</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Les croisades</span></span><span class="crd__boutons"><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c1" aria-controls="crd-croisade-c1" aria-pressed="false"><span class="crd__pastille crd-c-c1" aria-hidden="true"></span>1re croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c2" aria-controls="crd-croisade-c2" aria-pressed="false"><span class="crd__pastille crd-c-c2" aria-hidden="true"></span>2e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c3" aria-controls="crd-croisade-c3" aria-pressed="false"><span class="crd__pastille crd-c-c3" aria-hidden="true"></span>3e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c4" aria-controls="crd-croisade-c4" aria-pressed="false"><span class="crd__pastille crd-c-c4" aria-hidden="true"></span>4e croisade</button><button type="button" class="crd__bouton crd__bouton--croisade" data-croisade="c7" aria-controls="crd-croisade-c7" aria-pressed="false"><span class="crd__pastille crd-c-c7" aria-hidden="true"></span>Louis IX</button><button type="button" class="crd__bouton crd__bouton--etats" data-action="etats" aria-controls="crd-etats" aria-pressed="false"><span class="crd__pastille crd__pastille--etat" aria-hidden="true"></span>États latins</button></span></div><button type="button" class="crd__deplier" aria-expanded="false" aria-controls="crd-groupes-lieux">Voir la liste des lieux (31)</button><div class="crd__groupes-lieux" id="crd-groupes-lieux"><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">En Occident</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="clermont" aria-controls="crd-lieu-clermont" aria-pressed="false">Clermont</button><button type="button" class="crd__bouton" data-lieu="rome" aria-controls="crd-lieu-rome" aria-pressed="false">Rome</button><button type="button" class="crd__bouton" data-lieu="vezelay" aria-controls="crd-lieu-vezelay" aria-pressed="false">Vézelay</button><button type="button" class="crd__bouton" data-lieu="cologne" aria-controls="crd-lieu-cologne" aria-pressed="false">Cologne</button><button type="button" class="crd__bouton" data-lieu="toulouse" aria-controls="crd-lieu-toulouse" aria-pressed="false">Toulouse</button><button type="button" class="crd__bouton" data-lieu="metz" aria-controls="crd-lieu-metz" aria-pressed="false">Metz</button><button type="button" class="crd__bouton" data-lieu="ratisbonne" aria-controls="crd-lieu-ratisbonne" aria-pressed="false">Ratisbonne</button><button type="button" class="crd__bouton" data-lieu="venise" aria-controls="crd-lieu-venise" aria-pressed="false">Venise</button><button type="button" class="crd__bouton" data-lieu="zara" aria-controls="crd-lieu-zara" aria-pressed="false">Zara</button><button type="button" class="crd__bouton" data-lieu="bari" aria-controls="crd-lieu-bari" aria-pressed="false">Bari</button><button type="button" class="crd__bouton" data-lieu="messine" aria-controls="crd-lieu-messine" aria-pressed="false">Messine</button><button type="button" class="crd__bouton" data-lieu="aiguesmortes" aria-controls="crd-lieu-aiguesmortes" aria-pressed="false">Aigues-Mortes</button><button type="button" class="crd__bouton" data-lieu="tunis" aria-controls="crd-lieu-tunis" aria-pressed="false">Tunis</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">Constantinople et l&#x27;Asie Mineure</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="constantinople" aria-controls="crd-lieu-constantinople" aria-pressed="false">Constantinople</button><button type="button" class="crd__bouton" data-lieu="nicee" aria-controls="crd-lieu-nicee" aria-pressed="false">Nicée</button><button type="button" class="crd__bouton" data-lieu="civitot" aria-controls="crd-lieu-civitot" aria-pressed="false">Civitot</button><button type="button" class="crd__bouton" data-lieu="dorylee" aria-controls="crd-lieu-dorylee" aria-pressed="false">Dorylée</button><button type="button" class="crd__bouton" data-lieu="saleph" aria-controls="crd-lieu-saleph" aria-pressed="false">Le Saleph</button></span></div><div class="crd__groupe"><span class="crd__groupe-tete"><span class="crd__groupe-nom">En Terre sainte et en Égypte</span></span><span class="crd__boutons"><button type="button" class="crd__bouton" data-lieu="antioche" aria-controls="crd-lieu-antioche" aria-pressed="false">Antioche</button><button type="button" class="crd__bouton" data-lieu="edesse" aria-controls="crd-lieu-edesse" aria-pressed="false">Édesse</button><button type="button" class="crd__bouton" data-lieu="tripoli" aria-controls="crd-lieu-tripoli" aria-pressed="false">Tripoli</button><button type="button" class="crd__bouton" data-lieu="krak" aria-controls="crd-lieu-krak" aria-pressed="false">Le krak des Chevaliers</button><button type="button" class="crd__bouton" data-lieu="acre" aria-controls="crd-lieu-acre" aria-pressed="false">Acre</button><button type="button" class="crd__bouton" data-lieu="hattin" aria-controls="crd-lieu-hattin" aria-pressed="false">Hattin</button><button type="button" class="crd__bouton" data-lieu="damas" aria-controls="crd-lieu-damas" aria-pressed="false">Damas</button><button type="button" class="crd__bouton" data-lieu="arsouf" aria-controls="crd-lieu-arsouf" aria-pressed="false">Arsouf</button><button type="button" class="crd__bouton" data-lieu="jaffa" aria-controls="crd-lieu-jaffa" aria-pressed="false">Jaffa</button><button type="button" class="crd__bouton" data-lieu="jerusalem" aria-controls="crd-lieu-jerusalem" aria-pressed="false">Jérusalem</button><button type="button" class="crd__bouton" data-lieu="limassol" aria-controls="crd-lieu-limassol" aria-pressed="false">Chypre</button><button type="button" class="crd__bouton" data-lieu="damiette" aria-controls="crd-lieu-damiette" aria-pressed="false">Damiette</button><button type="button" class="crd__bouton" data-lieu="mansourah" aria-controls="crd-lieu-mansourah" aria-pressed="false">Mansourah</button></span></div></div></div>
 <div class="crd__contenu">
 <div class="crd__panneau crd__panneau--accueil" data-panneau="accueil"><span class="crd__surtitre">De 1095 à 1270</span><p class="crd__role">Partir pour Jérusalem</p><p class="crd__detail">De 1096 à 1270, des chrétiens d&#x27;Occident partent en expédition vers la Terre sainte. Ils veulent prendre ou garder Jérusalem, la ville du tombeau du Christ. On appelle ces expéditions des croisades.</p><p class="crd__detail">Les croisés traversent l&#x27;Europe à pied ou à cheval, ou prennent la mer. Le voyage dure des mois. Beaucoup meurent en chemin, de faim, de maladie ou au combat.</p><ul class="crd__consignes"><li>Suis la première croisade pas à pas, de Clermont à Jérusalem.</li><li>Choisis une croisade pour voir son chemin.</li><li>Clique sur une ville ou une bataille pour savoir ce qui s&#x27;y est passé.</li></ul><button type="button" class="crd__appel" data-action="visite"><span class="crd__pastille crd__pastille--croix" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#crd-i-croix"/></svg></span>Suivre la première croisade</button><p class="crd__savais"><strong>Le savais-tu?</strong> Jérusalem est une ville sainte pour trois religions&nbsp;: le judaïsme, le christianisme et l&#x27;islam.</p></div>
 <div class="crd__panneau crd-c-c1" id="crd-croisade-c1" data-panneau="croisade-c1"><span class="crd__surtitre">Croisade · 1096 à 1099</span><p class="crd__role"><span class="crd__pastille crd-c-c1" aria-hidden="true"></span>La première croisade</p><span class="crd__sous-titre">Qui l'appelle?</span><p class="crd__detail">Le pape Urbain II, au concile de Clermont, en novembre 1095.</p><span class="crd__sous-titre">Qui part?</span><p class="crd__detail">D&#x27;abord des milliers de gens simples, derrière le prédicateur Pierre l&#x27;Ermite. Puis des seigneurs avec leurs chevaliers&nbsp;: Godefroy de Bouillon, Raymond de Saint-Gilles, Bohémond de Tarente et plusieurs autres.</p><span class="crd__sous-titre crd__sous-titre--chemin">La croisade des pauvres gens, avec Pierre l&#x27;Ermite</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="cologne">Cologne</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="ratisbonne">Ratisbonne</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="constantinople">Constantinople</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="civitot">Civitot</button></li></ol><span class="crd__sous-titre crd__sous-titre--chemin">Godefroy de Bouillon</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="ratisbonne">Ratisbonne</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="constantinople">Constantinople</button></li></ol><span class="crd__sous-titre crd__sous-titre--chemin">Raymond de Saint-Gilles et Adhémar du Puy</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="toulouse">Toulouse</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="constantinople">Constantinople</button></li></ol><span class="crd__sous-titre crd__sous-titre--chemin">Hugues de Vermandois, Robert de Normandie et Étienne de Blois</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="rome">Rome</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="bari">Bari</button></li></ol><span class="crd__sous-titre crd__sous-titre--chemin">Bohémond de Tarente</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="bari">Bari</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="constantinople">Constantinople</button></li></ol><span class="crd__sous-titre crd__sous-titre--chemin">Toutes les armées réunies</span><ol class="crd__chemin"><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="constantinople">Constantinople</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="nicee">Nicée</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="dorylee">Dorylée</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="antioche">Antioche</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="tripoli">Tripoli</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="acre">Acre</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="arsouf">Arsouf</button></li><li><button type="button" class="crd__puce crd__puce--lieu" data-lieu="jerusalem">Jérusalem</button></li></ol><span class="crd__sous-titre">Comment ça finit?</span><p class="crd__detail">Les croisés prennent Jérusalem le 15 juillet 1099. Ils fondent des États chrétiens en Orient&nbsp;: les États latins.</p><button type="button" class="crd__appel" data-action="visite"><span class="crd__pastille crd__pastille--croix" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><use href="#crd-i-croix"/></svg></span>Suivre cette croisade pas à pas</button><p class="crd__savais"><strong>Le savais-tu?</strong> Le mot «&nbsp;croisade&nbsp;» n&#x27;existait pas encore. Il n&#x27;apparaît en français que vers 1460. Les participants se disaient pèlerins. Ils portaient une croix de tissu sur leurs vêtements.</p><button type="button" class="crd__retour" data-action="accueil">Revenir à l'accueil</button></div>
@@ -694,6 +695,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
     else if (ev.key === "ArrowRight") { nv = borner({ x: v.x + v.w * pas, y: v.y, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowUp") { nv = borner({ x: v.x, y: v.y - v.h * pas, w: v.w, h: v.h }); }
     else if (ev.key === "ArrowDown") { nv = borner({ x: v.x, y: v.y + v.h * pas, w: v.w, h: v.h }); }
+    else if (ev.key === "Escape" && etat.mode !== "accueil") { ev.preventDefault(); deselectionner(); return; }
     if (!nv) { return; }
     ev.preventDefault();
     etat.cible = { x: nv.x, y: nv.y, w: nv.w, h: nv.h };
@@ -821,6 +823,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
   function choisirLieu(cle, deplacer) {
     var l = D.lieux[cle];
     if (!l) { return; }
+    memoriserVue();
     remettre();
     etat.mode = "lieu"; etat.lieu = cle; etat.croisade = null; etat.etape = -1;
     presser("data-lieu", cle);
@@ -852,6 +855,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
   function choisirCroisade(cle, deplacer) {
     var c = D.croisades[cle];
     if (!c) { return; }
+    memoriserVue();
     remettre();
     etat.mode = "croisade"; etat.croisade = cle; etat.lieu = null; etat.etape = -1;
     presser("data-croisade", cle);
@@ -866,7 +870,9 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
     else if (etat.vb) { desencombrer(etat.u); }
   }
   function choisirEtats(cle) {
+    memoriserVue();
     remettre();
+    etat.choixEtat = cle || null;
     etat.mode = "etats"; etat.lieu = null; etat.croisade = null; etat.etape = -1;
     presser("etats", null);
     montrerEtats(TOUS_ETATS, cle || true);
@@ -933,6 +939,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
     i = Math.max(0, Math.min(n - 1, i));
     var avant = etat.etape;
     var e = D.visite[i];
+    memoriserVue();
     remettre();
     etat.mode = "visite"; etat.etape = i; etat.lieu = null; etat.croisade = null;
     racine.classList.add("est-filtre", "est-visite");
@@ -964,31 +971,41 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
   function demarrerVisite() { allerEtape(0, true); }
   chaque(boutonsPrec, function (b) { b.addEventListener("click", function () { allerEtape(etat.etape - 1); }); });
   chaque(boutonsSuiv, function (b) { b.addEventListener("click", function () { allerEtape(etat.etape + 1); }); });
-  chaque(tous(".crd__barre-fin"), function (b) { b.addEventListener("click", function () { accueil(); montrerVue("ensemble"); }); });
-  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", demarrerVisite); });
-  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", accueil); });
-  chaque(tous("[data-action='etats']"), function (b) { b.addEventListener("click", function () { choisirEtats(null); }); });
-  chaque(tous(".crd__etat-bouton"), function (b) { b.addEventListener("click", function () { choisirEtats(b.getAttribute("data-etat")); }); });
+  chaque(tous(".crd__barre-fin"), function (b) { b.addEventListener("click", function () { vueAvant = null; accueil(); montrerVue("ensemble"); }); });
+  // Un second clic sur ce qui est déjà choisi le désélectionne et ramène la vue d'avant.
+  chaque(tous("[data-action='visite']"), function (b) { b.addEventListener("click", function () { if (etat.mode === "visite" && b === boutonVisite) { deselectionner(); } else { demarrerVisite(); } }); });
+  chaque(tous("[data-action='accueil']"), function (b) { b.addEventListener("click", deselectionner); });
+  chaque(tous("[data-action='etats']"), function (b) { b.addEventListener("click", function () { if (etat.mode === "etats") { deselectionner(); } else { choisirEtats(null); } }); });
+  chaque(tous(".crd__etat-bouton"), function (b) { b.addEventListener("click", function () { var cle = b.getAttribute("data-etat"); choisirEtats(etat.mode === "etats" && etat.choixEtat === cle ? null : cle); }); });
 
   // ------------------------------------------------------------ clics
+  function basculerLieu(cle, deplacer) {
+    if (etat.mode === "lieu" && etat.lieu === cle) { deselectionner(); } else { choisirLieu(cle, deplacer); }
+  }
+  function basculerCroisade(cle) {
+    if (etat.mode === "croisade" && etat.croisade === cle) { deselectionner(); } else { choisirCroisade(cle, true); }
+  }
   chaque(boutons, function (b) {
     b.addEventListener("click", function () {
-      if (b.hasAttribute("data-lieu")) { choisirLieu(b.getAttribute("data-lieu"), true); }
-      else { choisirCroisade(b.getAttribute("data-croisade"), true); }
+      if (b.hasAttribute("data-lieu")) { basculerLieu(b.getAttribute("data-lieu"), true); }
+      else { basculerCroisade(b.getAttribute("data-croisade")); }
     });
   });
   chaque(tous(".crd__puce[data-lieu]"), function (b) {
-    b.addEventListener("click", function () { choisirLieu(b.getAttribute("data-lieu"), true); });
+    b.addEventListener("click", function () { basculerLieu(b.getAttribute("data-lieu"), true); });
   });
   chaque(tous(".crd__puce[data-croisade]"), function (b) {
-    b.addEventListener("click", function () { choisirCroisade(b.getAttribute("data-croisade"), true); });
+    b.addEventListener("click", function () { basculerCroisade(b.getAttribute("data-croisade")); });
   });
   svg.addEventListener("click", function (ev) {
     if (etat.glisse) { etat.glisse = false; return; }
     var cible = ev.target && ev.target.closest ? ev.target.closest(".crd__lieu, .crd__etat.est-visible") : null;
     if (!cible) { return; }
-    if (cible.classList.contains("crd__lieu")) { choisirLieu(cible.getAttribute("data-lieu"), false); }
-    else if (etat.mode !== "visite") { choisirEtats(cible.getAttribute("data-etat")); }
+    if (cible.classList.contains("crd__lieu")) { basculerLieu(cible.getAttribute("data-lieu"), false); }
+    else if (etat.mode !== "visite") {
+      var cle = cible.getAttribute("data-etat");
+      if (etat.mode === "etats" && etat.choixEtat === cle) { deselectionner(); } else { choisirEtats(cle); }
+    }
   });
 
   // ------------------------------------------------------------ liste des lieux, sur écran étroit
@@ -1030,6 +1047,53 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
   }
   ["fullscreenchange", "webkitfullscreenchange"].forEach(function (nom) { document.addEventListener(nom, recadrer); });
 
+  // ------------------------------------------------------------ désélection et réinitialisation
+  var vueAvant = null;
+  var banniereDepart = marqueurBanniere ? [marqueurBanniere.x, marqueurBanniere.y] : null;
+  function vueNommee() {
+    var nom = null;
+    chaque(boutonsVue, function (b) { if (b.getAttribute("aria-pressed") === "true") { nom = b.getAttribute("data-vue"); } });
+    return nom;
+  }
+  // La vue d'avant la première sélection, pour y revenir en désélectionnant.
+  function memoriserVue() {
+    if (etat.mode !== "accueil" || !etat.cible) { return; }
+    vueAvant = { b: { x: etat.cible.x, y: etat.cible.y, w: etat.cible.w, h: etat.cible.h }, complet: etat.complet, nom: vueNommee() };
+  }
+  function deselectionner() {
+    animBanniere++;
+    accueil();
+    if (vueAvant) { var v = vueAvant; vueAvant = null; marquerVue(v.nom); viser(v.b, undefined, v.complet); }
+  }
+  function annoncer(t) {
+    var a = racine.querySelector(".crd__annonce");
+    if (!a) { return; }
+    a.textContent = "";
+    window.setTimeout(function () { a.textContent = t; }, 30);
+  }
+  // Réinitialiser (bouton posé par page.js) : l'état exact du chargement.
+  function reinitialiser() {
+    animBanniere++;
+    vueAvant = null;
+    accueil();
+    if (banniereDepart) { poserBanniere(banniereDepart[0], banniereDepart[1]); }
+    if (barreTexte) { barreTexte.textContent = ""; }
+    if (deplier && groupesLieux) {
+      groupesLieux.classList.remove("est-deplie");
+      deplier.setAttribute("aria-expanded", "false");
+      deplier.textContent = deplier.textContent.replace("Masquer", "Voir");
+    }
+    cacherBulle();
+    marquerVue("ensemble");
+    etat.cible = boite(D.vues.ensemble);
+    etat.complet = false;
+    animerVers(cadrer(etat.cible));
+    if (contenu) { contenu.scrollTop = 0; }
+    if (cote) { cote.scrollTop = 0; }
+    annoncer("Carte réinitialisée");
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+
   // ------------------------------------------------------------ départ
   racine.classList.add("est-pret");
   etat.cible = boite(D.vues.ensemble);
@@ -1039,7 +1103,7 @@ html[data-sombre="on"] .crd__deplier { color: var(--encre); }
   function remesurer() { mesurer(); if (etat.vb) { desencombrer(etat.u); } }
   remesurer();
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remesurer); }
-  racine.croisades = { etat: etat, choisirLieu: choisirLieu, choisirCroisade: choisirCroisade, choisirEtats: choisirEtats, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer };
+  racine.croisades = { etat: etat, choisirLieu: choisirLieu, choisirCroisade: choisirCroisade, choisirEtats: choisirEtats, allerEtape: allerEtape, montrerVue: montrerVue, accueil: accueil, appliquer: appliquer, cadrer: cadrer, deselectionner: deselectionner, reinitialiser: reinitialiser };
 })();
 </script>
 </section>

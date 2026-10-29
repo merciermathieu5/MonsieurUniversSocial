@@ -151,7 +151,7 @@ touche(onglet("comparer"), "ArrowRight");
 verifier("les flèches font tourner les onglets", document.activeElement === onglet("athenes") && !racine.classList.contains("est-comparer"));
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".pdl__entete > .plein-ecran");
+const pleinBouton = un(".pdl__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".pdl__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

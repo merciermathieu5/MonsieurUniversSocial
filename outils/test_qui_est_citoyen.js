@@ -130,7 +130,7 @@ verifier("Étape précédente recule d'une étape", courante() === 2 && compter(
 verifier("les étapes passées sont marquées", etapes.slice(0, 2).every((b) => b.classList.contains("est-passe")) && !etapes[2].classList.contains("est-passe"));
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".qec__entete > .plein-ecran");
+const pleinBouton = un(".qec__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".qec__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

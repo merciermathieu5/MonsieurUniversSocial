@@ -1,4 +1,4 @@
-<section class="paf" id="partage-afrique" data-mode="puissances" aria-label="Carte interactive : le partage de l'Afrique, de 1880 à 1914">
+<section class="paf" id="partage-afrique" data-mode="puissances" data-reinitialiser aria-label="Carte interactive : le partage de l'Afrique, de 1880 à 1914">
 <style>
 .paf { --paf-mer: #CFE0EE; --paf-terre: #F7F2E7; --paf-ctx: #E3E5E0; --paf-cote: #7C9FC0; --paf-fleuve: #6E9DCB; --paf-lac: #AFCDE8; --paf-halo: #FBFBF8; --paf-or: #8C6209; --paf-droite: #C2410C;
   --paf-fr: #A9C4EC; --paf-fr-t: #3A6BB5; --paf-gb: #F1B0A8; --paf-gb-t: #B8463B; --paf-de: #CDBFA8; --paf-de-t: #6B5940; --paf-be: #F4DA7A; --paf-be-t: #9A7A12;
@@ -820,7 +820,21 @@ html[data-sombre="on"] .paf__puce[aria-pressed="true"] { color: #10171F; }
   });
 
   /* ------------------------------------------------------------ choix */
+  // Un second clic sur le territoire choisi (carte ou liste) le désélectionne et rouvre
+  // l'onglet qu'on lisait avant ce choix.
+  var ongletAvantChoix = null;
+  function deselectionner() {
+    if (!etat.choix) { return; }
+    etat.choix = null;
+    majHalo();
+    majListe();
+    var retour = ongletAvantChoix || "recit";
+    ongletAvantChoix = null;
+    montrerOnglet(retour === "territoire" ? "recit" : retour, false);
+  }
   function choisir(id, depuisListe) {
+    if (etat.choix === id) { deselectionner(); return; }
+    if (!etat.choix) { ongletAvantChoix = etat.onglet; }
     etat.choix = id;
     majHalo();
     majListe();
@@ -960,6 +974,34 @@ html[data-sombre="on"] .paf__puce[aria-pressed="true"] { color: #10171F; }
       mesurer();
     }).observe(racine, { attributes: true, attributeFilter: ["class"] });
   }
+
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && etat.choix) { deselectionner(); }
+  });
+
+  /* ------------------------------------------------------------ réinitialiser */
+  /* Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+     1880, première étape du récit, aucune sélection, les puissances, liste refermée. */
+  function reinitialiser() {
+    arreter();
+    arreterGlissement();
+    cacherBulle();
+    etat.choix = null;
+    ongletAvantChoix = null;
+    etat.exemple = null;
+    changerMode("puissances", true);
+    etat.etape = 0;
+    allerAnnee(MIN, false);
+    var listeLieux = racine.querySelector("details");
+    if (listeLieux) { listeLieux.open = false; }
+    majHalo();
+    majRecit();
+    montrerOnglet("recit", false);
+    zoneRecit.scrollTop = 0;
+    zoneTerr.scrollTop = 0;
+    zoneFront.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
 
   mesurer();
   majCarte(false);

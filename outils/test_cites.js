@@ -40,6 +40,8 @@ const vueVisible = () => {
 };
 const carte = (nom) => racine.querySelector(`.cme__svg[data-carte="${nom}"]`);
 const panneauxVisibles = () => tous(".cme__panneau.est-visible").map((p) => p.getAttribute("data-lieu"));
+// Un second clic désélectionne : pour (re)choisir un lieu déjà choisi, on le désélectionne d'abord.
+const choisirB = (b) => { if (b.getAttribute("aria-pressed") === "true") clic(b); clic(b); };
 const boutonsPresses = () => tous('.cme__bouton[aria-pressed="true"]').map((b) => b.getAttribute("data-lieu"));
 
 console.log("MISE EN PLACE");
@@ -79,7 +81,7 @@ verifier("chaque lieu n'est nommé que dans une seule vue",
 console.log("CHOIX D'UN LIEU");
 villes.forEach((b) => {
   clic(carte("ensemble").parentNode.querySelector('.cme__vue[data-vue="ensemble"]'));
-  clic(b);
+  choisirB(b);
   const cle = b.getAttribute("data-lieu");
   const ok = vueVisible() === b.getAttribute("data-vue")
     && panneauxVisibles().join() === cle
@@ -98,13 +100,13 @@ eaux.forEach((b) => {
   const ailleurs = ["ensemble", "mesopotamie", "sumer", "egypte"].find((v) => !vues.includes(v));
   if (ailleurs) {
     clic(racine.querySelector(`.cme__vue[data-vue="${ailleurs}"]`));
-    clic(b);
+    choisirB(b);
     verifier(`${b.textContent} : depuis ${ailleurs}, bascule vers ${b.getAttribute("data-vue")}`, vueVisible() === b.getAttribute("data-vue"), vueVisible());
   }
   // Depuis une vue où il apparaît, la carte reste en place.
   vues.forEach((v) => {
     clic(racine.querySelector(`.cme__vue[data-vue="${v}"]`));
-    clic(b);
+    choisirB(b);
     const surCarte = tous(`[data-lieu="${cle}"]`, carte(v)).filter((el) => el.classList.contains("cme__fleuve") || el.classList.contains("cme__eau"));
     verifier(`${b.textContent} : visible et mis en évidence dans la vue ${v}`,
       vueVisible() === v && surCarte.length > 0 && surCarte.every((el) => el.classList.contains("est-choisi")) && panneauxVisibles().join() === cle,
@@ -138,8 +140,32 @@ clic(racine.querySelector('.cme__vue[data-vue="ensemble"]'));
 clic(carte("ensemble").querySelector('.cme__point--reduit[data-lieu="ur"]'));
 verifier("un point réduit ne choisit rien", panneauxVisibles().join() === "rouge" && vueVisible() === "ensemble");
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+verifier("data-reinitialiser sur la racine et bouton Réinitialiser ajouté par page.js avant Plein écran",
+  racine.hasAttribute("data-reinitialiser") && !!racine.querySelector(".cme__entete .reinitialiser") && racine.querySelector(".cme__entete .reinitialiser").nextElementSibling === racine.querySelector(".cme__entete .plein-ecran"));
+const etatCme = () => JSON.stringify({ v: vueVisible(), p: panneauxVisibles(), b: boutonsPresses(), c: tous(".est-choisi").length });
+const departCme = JSON.stringify({ v: "ensemble", p: ["accueil"], b: [], c: 0 });
+clic(racine.querySelector(".cme__entete .reinitialiser"));
+verifier("Réinitialiser donne l'état du chargement (vue d'ensemble, accueil, rien de choisi)", etatCme() === departCme, etatCme());
+const bUr = racine.querySelector('.cme__bouton[data-lieu="ur"]');
+clic(bUr);
+const vueUr = vueVisible();
+clic(bUr);
+verifier("un second clic sur le bouton choisi le désélectionne et ramène la vue d'avant", vueUr !== "ensemble" && etatCme() === departCme, etatCme());
+clic(racine.querySelector('.cme__vue[data-vue="egypte"]'));
+const pt = carte("egypte").querySelector('.cme__point[data-lieu="thebes"]');
+clic(pt); clic(pt);
+verifier("un second clic sur un point de la carte le désélectionne (la vue reste)", vueVisible() === "egypte" && panneauxVisibles().join() === "accueil" && boutonsPresses().length === 0 && tous(".est-choisi").length === 0);
+const nil = carte("egypte").querySelector('.cme__fleuve[data-lieu="nil"]');
+clic(nil); clic(nil);
+verifier("un second clic sur le Nil le désélectionne", panneauxVisibles().join() === "accueil");
+clic(racine.querySelector('.cme__bouton[data-lieu="memphis"]'));
+clic(racine.querySelector('.cme__vue[data-vue="sumer"]'));
+clic(racine.querySelector(".cme__entete .reinitialiser"));
+verifier("Réinitialiser après plusieurs actions ramène l'état du chargement", etatCme() === departCme, etatCme());
+
 console.log("PLEIN ÉCRAN");
-const pleinBouton = racine.querySelector(".cme__entete > .plein-ecran");
+const pleinBouton = racine.querySelector(".cme__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = racine.querySelector(".cme__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

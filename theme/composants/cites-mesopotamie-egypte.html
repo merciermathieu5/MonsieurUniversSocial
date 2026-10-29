@@ -1,4 +1,4 @@
-<section class="cme" id="cites-carte" aria-label="Carte interactive des cités-États de Mésopotamie et des villes de l'Égypte ancienne">
+<section class="cme" id="cites-carte" data-reinitialiser aria-label="Carte interactive des cités-États de Mésopotamie et des villes de l'Égypte ancienne">
 <style>
 .cme { --k: 1; --km: 1; --cme-mer: #C7DCEE; --cme-mer-survol: #B4D0E9; --cme-mer-choisie: #8FBBE2; --cme-terre: #F4EEE2; --cme-cote: #7C9FC0; --cme-fleuve: #2A68A3; --cme-fleuve-fort: #123F6B; --cme-eau-texte: #1D5687; --cme-halo: #F4EEE2; --cme-meso: #A13D29; --cme-egypte: #8A5D0C; --cme-region: #6B6356; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; }
 html[data-sombre="on"] .cme { --cme-mer: #17324A; --cme-mer-survol: #1F4262; --cme-mer-choisie: #2D5F8E; --cme-terre: #2C3642; --cme-cote: #4E6E8E; --cme-fleuve: #6AAAE4; --cme-fleuve-fort: #B4D9F7; --cme-eau-texte: #A2CDF1; --cme-halo: #2C3642; --cme-meso: #F2917A; --cme-egypte: #E5AC44; --cme-region: #ABA496; }
@@ -299,9 +299,27 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
     ajuster();
   }
 
+  // La vue d'avant une sélection qui a changé de carte : la désélection la ramène.
+  var choisi = null, vueAvant = null;
+  function accueil() {
+    choisi = null;
+    chaque(boutons, function (autre) { autre.setAttribute("aria-pressed", "false"); });
+    chaque(marques, function (marque) { marque.classList.remove("est-choisi"); });
+    chaque(panneaux, function (panneau) {
+      panneau.classList.toggle("est-visible", panneau.getAttribute("data-lieu") === "accueil");
+    });
+  }
   function choisir(cle, changerDeVue) {
     var bouton = racine.querySelector('.cme__bouton[data-lieu="' + cle + '"]');
     if (!bouton) { return; }
+    // Un second clic sur le lieu choisi le désélectionne.
+    if (choisi === cle) {
+      accueil();
+      if (vueAvant) { montrerVue(vueAvant); }
+      vueAvant = null;
+      return;
+    }
+    choisi = cle;
     chaque(boutons, function (autre) {
       autre.setAttribute("aria-pressed", autre === bouton ? "true" : "false");
     });
@@ -313,7 +331,10 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
     });
     if (changerDeVue) {
       var visibles = (bouton.getAttribute("data-vues") || "").split(" ");
-      if (visibles.indexOf(vueCourante) < 0) { montrerVue(bouton.getAttribute("data-vue")); }
+      if (visibles.indexOf(vueCourante) < 0) {
+        if (!vueAvant) { vueAvant = vueCourante; }
+        montrerVue(bouton.getAttribute("data-vue"));
+      }
     }
   }
 
@@ -324,10 +345,10 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
     element.addEventListener("click", function () { choisir(element.getAttribute("data-lieu"), false); });
   });
   chaque(vues, function (bouton) {
-    bouton.addEventListener("click", function () { montrerVue(bouton.getAttribute("data-vue")); });
+    bouton.addEventListener("click", function () { vueAvant = null; montrerVue(bouton.getAttribute("data-vue")); });
   });
   chaque(racine.querySelectorAll(".cme__zoom"), function (cadre) {
-    cadre.addEventListener("click", function () { montrerVue(cadre.getAttribute("data-zoom")); });
+    cadre.addEventListener("click", function () { vueAvant = null; montrerVue(cadre.getAttribute("data-zoom")); });
   });
   window.addEventListener("resize", ajuster);
   ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) { document.addEventListener(ev, ajuster); });
@@ -341,11 +362,16 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
     });
   }
 
+  // État de départ : aucun lieu choisi, vue d'ensemble. Le bouton Réinitialiser
+  // (ajouté par page.js grâce à data-reinitialiser) y ramène.
+  function reinitialiser() {
+    vueAvant = null;
+    accueil();
+    montrerVue("ensemble");
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   racine.classList.add("est-pret");
-  chaque(panneaux, function (panneau) {
-    panneau.classList.toggle("est-visible", panneau.getAttribute("data-lieu") === "accueil");
-  });
-  montrerVue("ensemble");
+  reinitialiser();
 })();
 </script>
 </section>

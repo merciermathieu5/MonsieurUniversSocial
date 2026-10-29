@@ -1,4 +1,4 @@
-<section class="tds" id="tordesillas" data-mode="royaumes" aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
+<section class="tds" id="tordesillas" data-mode="royaumes" data-reinitialiser aria-label="Carte interactive : le partage du monde par le traité de Tordesillas">
 <style>
 .tds { --tds-espagne: #A3161C; --tds-portugal: #0B6B1E; --tds-autre: #4B3B7A; --tds-neutre: #67747E; --tds-ok: #22557F; --tds-hors: #B4461B; --tds-mer: #DCE6EE; --tds-terre: #FAF8F3; --tds-cote: #8DA2B5; --tds-halo: #FAF8F3; --tds-zone-espagne: #F2E0DD; --tds-zone-portugal: #DDEBE0; --tds-langue-espagnol: #E9B9BB; --tds-langue-portugais: #A9D5B0; --tds-langue-autre: #D3CCE6; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: tds / inline-size; }
 html[data-sombre="on"] .tds { --tds-espagne: #F08A8E; --tds-portugal: #74C98A; --tds-autre: #B9A8F0; --tds-neutre: #8B98A3; --tds-ok: #8FB4DC; --tds-hors: #F2A06B; --tds-mer: #13202D; --tds-terre: #313E4C; --tds-cote: #56708D; --tds-halo: #18222D; --tds-zone-espagne: #35232A; --tds-zone-portugal: #1B3129; --tds-langue-espagnol: #6A3236; --tds-langue-portugais: #2E5A39; --tds-langue-autre: #403A60; }
@@ -495,6 +495,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   var INDEX = {};
   LIEUX.forEach(function (lieu) { INDEX[lieu.id] = lieu; });
   var etat = { annee: ETAPES[0].annee, etape: 0, mode: "royaumes", modeParEtape: false, choisi: null, onglet: "recit" };
+  var ETAT_DEPART = JSON.parse(JSON.stringify(etat)), avantChoix = null;
   var k = 1;
   // Fenêtre visible de la carte : toute la carte, sauf en plein écran quand on zoome.
   var vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR }, ZOOM_MAX = 6;
@@ -766,6 +767,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     LIEUX.forEach(function (lieu) {
       var m = formes[lieu.id], e = etatLieu(lieu, etat.annee);
       m.g.style.display = e.visible ? "" : "none";
+      m.g.classList.toggle("est-choisi", etat.choisi === lieu.id);
       if (!e.visible) { return; }
       m.g.setAttribute("data-couleur", couleurDe(lieu, etat.annee, e));
       m.g.classList.toggle("est-vide", lieu.type !== "evenement" && !e.royaume);
@@ -976,6 +978,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   function allerEtape(i) {
     if (i < 0 || i >= ETAPES.length) { return; }
     arreter();
+    avantChoix = null;
     etat.etape = i;
     etat.annee = ETAPES[i].annee;
     etat.onglet = "recit";
@@ -983,18 +986,34 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
     else if (etat.modeParEtape || etat.mode === "langues") { etat.mode = "royaumes"; etat.modeParEtape = false; }
     rendre();
   }
+  // Un second clic sur le lieu choisi le désélectionne. Si le choix avait déplacé le
+  // temps (lieu pas encore sur la carte), on revient à l'année et à l'étape d'avant.
+  function deselectionner() {
+    if (!etat.choisi) { return; }
+    etat.choisi = null;
+    etat.onglet = "recit";
+    if (avantChoix) {
+      etat.annee = avantChoix.annee; etat.etape = avantChoix.etape;
+      etat.mode = avantChoix.mode; etat.modeParEtape = avantChoix.modeParEtape;
+      avantChoix = null;
+    }
+    rendre();
+  }
   function choisir(id) {
+    if (etat.choisi === id) { deselectionner(); return; }
     etat.choisi = id;
     etat.onglet = "lieu";
     var lieu = INDEX[id];
     if (!etatLieu(lieu, etat.annee).visible) {
       arreter();
+      if (!avantChoix) { avantChoix = { annee: etat.annee, etape: etat.etape, mode: etat.mode, modeParEtape: etat.modeParEtape }; }
       etat.annee = premiereAnnee(lieu);
       etat.etape = -1;
     }
     rendre();
   }
   function allerAnnee(annee) {
+    avantChoix = null;
     etat.annee = Math.max(DEBUT, Math.min(FIN, annee));
     etat.etape = -1;
     if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
@@ -1038,6 +1057,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   }
   function jouer() {
     if (lecture !== null) { arreter(); return; }
+    avantChoix = null;
     if (etat.annee >= FIN) { etat.annee = DEBUT; }
     etat.etape = -1;
     if (etat.modeParEtape) { etat.mode = "royaumes"; etat.modeParEtape = false; }
@@ -1089,6 +1109,7 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   // pour que le diaporama de la page ne change pas de section en même temps.
   racine.addEventListener("keydown", function (e) {
     if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
+    if (e.key === "Escape" && etat.choisi) { deselectionner(); }
   });
   function montrerOnglet(nom, focus) {
     etat.onglet = nom;
@@ -1212,6 +1233,22 @@ html[data-sombre="on"] .tds__puce[aria-pressed="true"] { color: #10171F; }
   if (window.MutationObserver) {
     new window.MutationObserver(function () { if (!pleinEcran()) { revenir(); } }).observe(racine, { attributes: true, attributeFilter: ["class"] });
   }
+  // ---------------------------------------------------------------- réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // première étape, aucun lieu choisi, puissances, carte entière, liste refermée.
+  function reinitialiser() {
+    arreter();
+    avantChoix = null;
+    Object.keys(ETAT_DEPART).forEach(function (cle) { etat[cle] = ETAT_DEPART[cle]; });
+    var liste = racine.querySelector(".tds__liste");
+    if (liste) { liste.open = false; }
+    vue = { x: 0, y: 0, w: LARGEUR, h: HAUTEUR };
+    appliquerVue();
+    rendre();
+    zoneRecit.scrollTop = 0;
+    zoneFiche.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   construireLieux();
   construireAxe();
   construireListe();

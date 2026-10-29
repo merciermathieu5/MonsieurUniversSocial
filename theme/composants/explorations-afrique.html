@@ -1,4 +1,4 @@
-<section class="exa" id="explorations-afrique" aria-label="Carte interactive : les grands voyages d'exploration en Afrique, de 1795 à 1885">
+<section class="exa" id="explorations-afrique" data-reinitialiser aria-label="Carte interactive : les grands voyages d'exploration en Afrique, de 1795 à 1885">
 <style>
 .exa { --exa-mer: #D5E3EE; --exa-terre: #F4EEDF; --exa-ctx: #E2E2DB; --exa-cote: #8BA5BD; --exa-fleuve: #5B8CBE; --exa-lac: #B2CFE7; --exa-front: #C8B999;
   --exa-niger: #A8661A; --exa-nil: #0E7A72; --exa-congo: #B1262F; --exa-attenue: #B3AA99; --exa-halo: #FBF8F1; --exa-repere: #4B4A45;
@@ -223,7 +223,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   var interieur = $(".exa__lecture-interieur");
   var EXP = {}, VOY = {};
   D.explorateurs.forEach(function (e) { EXP[e.id] = e; });
-  var T = D.fin, choisi = null, etapeActive = null, k = 1, lecture = null, minuteur = null, ouvert = null;
+  var T = D.fin, choisi = null, etapeActive = null, k = 1, lecture = null, minuteur = null, ouvert = null, avantChoix = null;
 
   function el(nom, attrs, parent) {
     var n = document.createElementNS(NS, nom);
@@ -337,7 +337,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     if (!sansCurseur) { majCurseur(); }
     dessiner();
   }
-  curseur.addEventListener("input", function () { arreter(); etapeActive = null; majEtapes(); allerA(parseFloat(curseur.value), true); });
+  curseur.addEventListener("input", function () { arreter(); avantChoix = null; etapeActive = null; majEtapes(); allerA(parseFloat(curseur.value), true); });
 
   // ------------------------------------------------------------- lecture
   function bornes() {
@@ -360,6 +360,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   }
   function lancer(depuis) {
     arreter();
+    avantChoix = null;
     var b = bornes();
     if (depuis !== undefined) { allerA(depuis); }
     else if (T >= b[1] - 0.01 || T < b[0]) { allerA(b[0]); }
@@ -431,7 +432,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
       if (e.groupe !== g.id) { return; }
       var puce = e.court.charAt(0).toUpperCase() + e.court.slice(1);
       var b = bouton("exa__bouton", puce); b.setAttribute("data-g", e.groupe); b.setAttribute("data-exp", e.id); b.setAttribute("aria-pressed", "false"); b.title = e.nom;
-      b.addEventListener("click", function () { choisir(choisi === e.id ? null : e.id); });
+      b.addEventListener("click", function () { if (choisi === e.id) { deselectionner(); } else { choisir(e.id); } });
       zone.appendChild(b); boutonsExp[e.id] = b;
     });
     bloc.appendChild(zone); choix.appendChild(bloc);
@@ -520,8 +521,17 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     allerA(e.t + 0.0001);
   }
 
+  // Un second clic sur l'explorateur choisi (bouton ou tracé) le désélectionne et ramène
+  // le temps où il était avant ce choix.
+  function deselectionner() {
+    if (!choisi) { return; }
+    var t = avantChoix;
+    choisir(null);
+    if (t !== null) { allerA(t); }
+  }
   function choisir(id, garderTemps) {
     arreter();
+    if (id && !choisi) { avantChoix = T; } else if (!id) { avantChoix = null; }
     choisi = id;
     etapeActive = null;
     bEnsemble.setAttribute("aria-pressed", id ? "false" : "true");
@@ -562,7 +572,7 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
     if (!c) { return; }
     cacherBulle();
     var exp = c.getAttribute("data-exp");
-    choisir(exp === choisi ? choisi : exp, true);
+    if (exp === choisi) { deselectionner(); } else { choisir(exp, true); }
   });
 
   // ------------------------------------------------------------- texte replié (plein écran)
@@ -594,6 +604,22 @@ html[data-sombre="on"] .exa .exa__bloc-titre { color: var(--encre); }
   }
   if (window.ResizeObserver) { new ResizeObserver(mesurer).observe(svg); }
   window.addEventListener("resize", mesurer);
+
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && choisi) { deselectionner(); }
+  });
+
+  // ------------------------------------------------------------- réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // vue d'ensemble, lecture arrêtée, temps à la fin (tout le parcours).
+  function reinitialiser() {
+    arreter();
+    choisir(null);
+    allerA(D.fin);
+    cacherBulle();
+    interieur.scrollTop = 0;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
 
   afficherEnsemble();
   majCurseur();

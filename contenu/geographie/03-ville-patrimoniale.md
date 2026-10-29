@@ -328,8 +328,8 @@ funiculaire.
 La valeur patrimoniale du Vieux-Québec tient à une concentration rare :
 plusieurs époques y ont laissé leurs traces sans que les suivantes les
 effacent. On y lit le régime français, le régime britannique et la période
-contemporaine, souvent dans la même rue. Repère sur le plan les lieux
-présentés dans cette section, puis découvre à quel régime chacun remonte et ce
+contemporaine, souvent dans la même rue. Repère sur la maquette les lieux
+présentés dans cette fiche, puis découvre à quel régime chacun remonte et ce
 que les régimes suivants y ont changé.
 
 ::: composant vieux-quebec
@@ -339,7 +339,7 @@ que les régimes suivants y ont changé.
 ![La place Royale et l'église Notre-Dame-des-Victoires](../medias/03-ville-patrimoniale/place-royale.jpg)
 
 C'est là que Champlain a fondé Québec en 1608. On y trouve l'église
-Notre-Dame-des-Victoires, commencée en 1687 et achevée en 1723, souvent présentée
+Notre-Dame-des-Victoires, commencée en 1688 et achevée en 1723, souvent présentée
 comme la plus vieille église de pierre d'Amérique du Nord, ainsi qu'un buste du
 roi Louis XIV. Son nom rappelle deux victoires françaises, en 1690 et en 1711.
 
@@ -623,5 +623,14 @@ urbain mondial, avec des documents à analyser.
 - [Port de Québec, les terminaux de croisière](https://www.portquebec.ca/croisieres/ligne-de-croisiere/terminaux-de-croisiere/)
 - [Port de Québec, bilan de la saison des croisières 2025](https://www.portquebec.ca/communique-de-presse/du-coeur-de-lhiver-a-lapogee-de-lautomne-le-port-de-quebec-conclut-sa-premiere-annee-comme-escale-de-croisiere-quatre-saisons/)
 - [Radio-Canada, des milliers de croisiéristes déferlent sur Québec](https://ici.radio-canada.ca/nouvelle/1128388/milliers-croisieristes-deferlent-sur-quebec)
+- [Ville de Québec, l'église de Notre-Dame-des-Victoires](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/eglise_de_notre_dame_des_victoires.aspx)
+- [Parcs Canada, lieu historique national de l'Église-Notre-Dame-des-Victoires](https://www.pc.gc.ca/apps/dfhd/page_nhs_eng.aspx?id=691)
+- [Ville de Québec, l'escalier Casse-Cou et la côte de la Montagne](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/escalier_casse_cou_cote_de_la_montage.aspx)
+- [Ville de Québec, la rue du Petit-Champlain](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_du_petit_champlain.aspx)
+- [Ville de Québec, le Vieux-Port](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/vieux_port.aspx)
+- [Ville de Québec, les fortifications de Québec](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/fortifications_de_quebec.aspx)
+- [Ville de Québec, la rue Saint-Jean](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_saint_jean.aspx)
+- [Anciens Combattants Canada, plaque de la porte Prescott](https://www.veterans.gc.ca/en/node/152032)
+- [Wikipédia, porte Prescott](https://fr.wikipedia.org/wiki/Porte_Prescott)
 - [OpenStreetMap, données de la maquette 3D du Vieux-Québec (© les contributeurs d'OpenStreetMap, licence ODbL)](https://www.openstreetmap.org/copyright)
 - [Open-Meteo, altitude du relief de la maquette 3D (modèle Copernicus DEM GLO-90)](https://open-meteo.com/en/docs/elevation-api)

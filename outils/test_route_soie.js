@@ -226,8 +226,47 @@ verifier("chaque étape, sauf la récolte et le bilan, nomme ce qui fait monter 
 verifier("chaque jauge est décrite pour les lecteurs d'écran",
   tous(".rds__jauge").every((j) => j.getAttribute("role") === "img" && /grammes/.test(j.getAttribute("aria-label") || "")));
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const btR = un(".rds__entete .reinitialiser");
+  verifier("data-reinitialiser : page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!btR && btR.nextElementSibling === un(".rds__entete .plein-ecran"));
+  clic(un('.rds__outil[data-zoom="ensemble"]'));
+  const v0 = fenetre();
+  const bP = boutonsProduits[0];
+  clic(bP);
+  verifier("choisir un produit le surligne", presses().join() === bP.getAttribute("data-produit") && surlignes().length > 0);
+  clic(bP);
+  verifier("un second clic sur le produit le désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && surlignes().length === 0 && !racine.classList.contains("est-filtre") && bP.getAttribute("aria-pressed") === "false");
+  verifier("et ramène la vue d'avant", Math.abs(fenetre()[2] - v0[2]) < 0.5 && vueChoisie() === "ensemble", fenetre().join(" "));
+  const bL = boutonsLieux[0], cleL = bL.getAttribute("data-lieu");
+  clic(bL); clic(bL);
+  verifier("un second clic sur un bouton de ville la désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && !un(`.rds__lieu[data-lieu="${cleL}"]`).classList.contains("est-choisi"));
+  const point = un(".rds__lieu");
+  const cleP = point.getAttribute("data-lieu");
+  clic(point);
+  verifier("un clic sur un point de la carte le choisit", panneauxVisibles().join() === "lieu-" + cleP);
+  clic(point);
+  verifier("un second clic sur le même point le désélectionne", panneauxVisibles().join() === "accueil" && !point.classList.contains("est-choisi"));
+  const badge = un(".rds__badge");
+  clic(badge); clic(badge);
+  verifier("un second clic sur un badge de produit le désélectionne", panneauxVisibles().join() === "accueil" && !badge.classList.contains("est-choisi"));
+  clic(un(".rds__bouton--visite")); clic(un(".rds__bouton--visite"));
+  verifier("un second clic sur la visite l'arrête", panneauxVisibles().join() === "accueil" && !racine.classList.contains("est-visite") && surlignes().length === 0);
+  clic(bP);
+  touche(svg, "Escape");
+  verifier("Échap sur la carte désélectionne", panneauxVisibles().join() === "accueil" && presses().length === 0);
+  clic(un(".rds__bouton--visite"));
+  clic(un(".rds__barre-suiv")); clic(un(".rds__barre-suiv"));
+  clic(un('.rds__outil[data-zoom="plus"]'));
+  clic(btR);
+  verifier("Réinitialiser : accueil, aucun choix, visite arrêtée", panneauxVisibles().join() === "accueil" && presses().length === 0 && !racine.classList.contains("est-visite") && surlignes().length === 0 && api.etat.mode === "accueil");
+  verifier("Réinitialiser : vue d'ensemble de départ", vueChoisie() === "ensemble" && fenetre().every((v, i) => Math.abs(v - depart[i]) < 0.5), fenetre().join(" ") + " / " + depart.join(" "));
+  verifier("Réinitialiser : barre de la visite vidée", un(".rds__barre-texte").textContent === "");
+}
+
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".rds__entete > .plein-ecran");
+const pleinBouton = un(".rds__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".rds__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

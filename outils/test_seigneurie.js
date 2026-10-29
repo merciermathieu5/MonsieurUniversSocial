@@ -93,8 +93,9 @@ Object.keys(ATTENDU).forEach((cle) => {
   const okF = f.length === ATTENDU[cle].length && ATTENDU[cle].every((p, i) => f[i][0] === p[0] && f[i][1] === p[1] && f[i][2].length > 3);
   verifier(`${cle} : panneau, bouton et flèches`, panneauxVisibles().join() === "obligation-" + cle && presses().join() === cle && okF, JSON.stringify(f));
 });
+// La boucle finit sur la dîme, déjà choisie (un reclic la décocherait).
 verifier("la dîme va à l'Église (flèche violette), les autres au seigneur",
-  (() => { clic(un('.sei__bouton[data-obligation="dime"]')); const d = api.fleches()[0][3]; clic(un('.sei__bouton[data-obligation="cens"]')); return d === "eglise" && api.fleches()[0][3] === "seigneur"; })());
+  (() => { const d = api.fleches()[0][3]; clic(un('.sei__bouton[data-obligation="cens"]')); return d === "eglise" && api.fleches()[0][3] === "seigneur"; })());
 clic(un('.sei__bouton[data-obligation="banalites"]'));
 verifier("les banalités mettent en évidence le moulin, le four et le pressoir", api.masque() === bits(["moulin", "four", "pressoir"]), api.masque());
 verifier("le bandeau de la maquette nomme l'obligation", !un(".sei__bandeau").hidden && un(".sei__bandeau").textContent === "Les banalités");
@@ -123,7 +124,7 @@ verifier("le bouton de l'accueil lance aussi la visite", panneauxVisibles().join
 api.accueil();
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".sei__entete > .plein-ecran");
+const pleinBouton = un(".sei__entete .plein-ecran");
 verifier("le bouton Plein écran (posé par page.js) est dans l'en-tête", !!pleinBouton);
 const texteBouton = un('.sei__outil[data-action="texte"]');
 verifier("le bouton qui replie les textes existe", !!texteBouton && texteBouton.getAttribute("aria-expanded") === "true");
@@ -329,6 +330,43 @@ console.log("ZOOM À LA MOLETTE");
     /e\.preventDefault\(\);\s*vol = null;\s*var b = toile\.getBoundingClientRect\(\);\s*zoomer\(facteurMolette\(e\)/.test(script) &&
     /window\.addEventListener\("wheel", noterDefilement, \{ passive: true, capture: true \}\)/.test(script) &&
     /document\.addEventListener\("scroll", noterDefilement, \{ passive: true, capture: true \}\)/.test(script));
+}
+
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const cam = api.cam || null;
+  const etatCam = () => cam ? [cam.x, cam.y, cam.d, cam.lacet, cam.tangage, cam.h].map((v) => Math.round(v * 100) / 100).join() : "";
+  const lieu = (cle) => un('.sei__bouton[data-lieu="' + cle + '"]'), oblig = (cle) => un('.sei__bouton[data-obligation="' + cle + '"]');
+  const reinit = un(".sei__entete .reinitialiser");
+  verifier("la racine porte data-reinitialiser et page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === un(".plein-ecran"));
+  verifier("la caméra est accessible pour l'essai", !!cam);
+  clic(reinit);
+  const camDepart = etatCam();
+  api.allerA([20, 30, 700, 50, 30, 0], 0);
+  const camAvant = etatCam();
+  clic(lieu("moulin"));
+  verifier("choisir un lieu : bouton enfoncé, caméra déplacée", presses().join() === "moulin" && etatCam() !== camAvant);
+  clic(lieu("eglise"));
+  clic(lieu("eglise"));
+  verifier("un reclic sur le lieu choisi le désélectionne : accueil, aucun bouton", presses().length === 0 && panneauxVisibles().join() === "accueil");
+  verifier("la caméra revient à la vue d'avant le premier choix", etatCam() === camAvant, etatCam() + " / " + camAvant);
+  clic(oblig("corvee"));
+  clic(oblig("corvee"));
+  verifier("une obligation se décoche aussi au reclic (flèches effacées)", presses().length === 0 && api.fleches().length === 0 && etatCam() === camAvant);
+  clic(un('[data-action="visite"]'));
+  clic(un('[data-action="visite"]'));
+  verifier("le bouton de la visite se décoche au reclic", presses().length === 0 && !racine.classList.contains("est-visite"));
+  clic(lieu("four"));
+  un(".sei__toile").dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne aussi", presses().length === 0 && panneauxVisibles().join() === "accueil" && etatCam() === camAvant);
+  clic(un('[data-action="visite"]'));
+  clic(un(".sei__suivant"));
+  api.allerA([-100, 80, 500, 160, 45, 0], 0);
+  clic(reinit);
+  verifier("Réinitialiser : accueil, aucun bouton, visite quittée, aucune flèche", presses().length === 0 && panneauxVisibles().join() === "accueil" && !racine.classList.contains("est-visite") && api.fleches().length === 0 && api.masque() === 0);
+  verifier("Réinitialiser : la caméra revient à la vue de départ", etatCam() === camDepart, etatCam() + " / " + camDepart);
+  verifier("Réinitialiser est annoncé", /réinitialisée/.test(un(".sei__annonce").textContent));
 }
 
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
