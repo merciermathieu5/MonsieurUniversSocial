@@ -135,5 +135,28 @@ verifier("un second clic quitte aussi", !premiere.classList.contains("est-plein-
 dom2.window.eval(fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8"));
 verifier("un second passage de page.js n'ajoute pas de bouton", interfaces.every((b) => b.querySelectorAll(".plein-ecran").length === 1));
 
+console.log("RÉINITIALISATION DES CARTES");
+// Deux interfaces : une carte qui demande le bouton Réinitialiser (data-reinitialiser), une autre non.
+const dom3 = new JSDOM(`<!DOCTYPE html><html lang="fr-CA"><body><main><article class="fiche"><section class="texte">
+<section class="ca" id="carte-essai" data-reinitialiser><div class="ca__entete"><p class="ca__titre">Carte</p><p class="ca__consigne">Choisis un lieu</p></div><p>contenu</p></section>
+<section class="au" id="autre-essai"><div class="au__entete"><p class="au__titre">Autre</p></div><p>contenu</p></section>
+</section></article></main></body></html>`, { runScripts: "outside-only", pretendToBeVisual: true });
+dom3.window.scrollTo = () => {};
+const pageJsSrc = fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8");
+dom3.window.eval(pageJsSrc);
+const doc3 = dom3.window.document, carte = doc3.getElementById("carte-essai"), autre = doc3.getElementById("autre-essai");
+const reinit = carte.querySelector(".ca__entete > .reinitialiser");
+verifier("une carte avec data-reinitialiser reçoit un bouton Réinitialiser dans son en-tête", !!reinit && reinit.getAttribute("type") === "button" && /Réinitialiser/.test(reinit.textContent));
+verifier("le bouton Réinitialiser précède le bouton Plein écran", !!reinit && reinit.nextElementSibling === carte.querySelector(".plein-ecran"));
+verifier("une interface sans data-reinitialiser n'a pas ce bouton", !autre.querySelector(".reinitialiser") && !!autre.querySelector(".plein-ecran"));
+let recus = 0;
+carte.addEventListener("reinitialiser", () => { recus++; });
+if (reinit) reinit.dispatchEvent(new dom3.window.MouseEvent("click", { bubbles: true }));
+verifier("un clic envoie l'événement « reinitialiser » à la carte", recus === 1, recus);
+dom3.window.eval(pageJsSrc);
+verifier("un second passage de page.js n'ajoute pas de second bouton Réinitialiser", carte.querySelectorAll(".reinitialiser").length === 1 && carte.querySelectorAll(".plein-ecran").length === 1);
+const css = fs.readFileSync(path.join(RACINE, "theme", "style.css"), "utf8");
+verifier("le bouton Réinitialiser a le même style que Plein écran, en clair et en sombre", /\.plein-ecran, \.reinitialiser \{/.test(css) && /html\[data-sombre="on"\] \.plein-ecran, html\[data-sombre="on"\] \.reinitialiser \{/.test(css) && /@media print \{ \.plein-ecran, \.reinitialiser \{ display: none; \} \}/.test(css));
+
 console.log(`\n${echecs} échec(s).`);
 process.exit(echecs ? 1 : 0);

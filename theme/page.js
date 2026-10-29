@@ -258,6 +258,16 @@
       if (actif && actif.querySelector(".plein-ecran")) marquerPlein(actif, true);
     });
   }
+  /* Les cartes interactives qui portent l'attribut data-reinitialiser reçoivent
+     aussi un bouton Réinitialiser, juste avant Plein écran. Il envoie l'événement
+     « reinitialiser » à l'interface, qui revient alors à son état de départ. */
+  function evenementReinitialiser() {
+    try { return new CustomEvent("reinitialiser"); } catch (err) {
+      var ev = document.createEvent("CustomEvent");
+      ev.initCustomEvent("reinitialiser", false, false, null);
+      return ev;
+    }
+  }
   Array.prototype.forEach.call(document.querySelectorAll(".texte section[id]"), function (bloc) {
     var entete = null;
     Array.prototype.some.call(bloc.children, function (enfant) {
@@ -265,6 +275,17 @@
       return false;
     });
     if (!entete || entete.querySelector(".plein-ecran")) return;
+    if (bloc.hasAttribute("data-reinitialiser") && !entete.querySelector(".reinitialiser")) {
+      var reinit = document.createElement("button");
+      reinit.type = "button";
+      reinit.className = "reinitialiser";
+      reinit.title = "Revenir à l'état de départ de la carte";
+      reinit.innerHTML = '<svg class="reinitialiser__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+        '<path d="M1 4v6h6"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></svg>' +
+        '<span class="reinitialiser__texte">Réinitialiser</span>';
+      entete.appendChild(reinit);
+      reinit.addEventListener("click", function () { bloc.dispatchEvent(evenementReinitialiser()); });
+    }
     var bouton = document.createElement("button");
     bouton.type = "button";
     bouton.className = "plein-ecran";
