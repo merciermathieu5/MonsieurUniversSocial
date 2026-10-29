@@ -156,6 +156,31 @@ verifier("cliquer sur un point de la carte ouvre sa ville", /Mayence/.test(un(".
 touche(un('.imp__ville[data-ville="strasbourg"]'), "Enter");
 verifier("Entrée sur un point choisit la ville", /Strasbourg/.test(un(".imp__fiche").textContent) && /Mentelin/.test(un(".imp__fiche").textContent));
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+verifier("data-reinitialiser sur la racine et bouton Réinitialiser ajouté par page.js avant Plein écran",
+  racine.hasAttribute("data-reinitialiser") && !!un(".imp__entete .reinitialiser") && un(".imp__entete .reinitialiser").nextElementSibling === un(".imp__entete .plein-ecran"));
+const etatImp = () => JSON.stringify({ a: curseur.value, o: ongletActif(), c: tous(".imp__ville.est-choisie").length, p: tous('.imp__puce[aria-pressed="true"]').length, f: /Aucune ville choisie/.test(un(".imp__fiche").textContent), pistes: tous(".imp__piste").filter((p) => !p.hidden).length });
+const departImp = JSON.stringify({ a: "1450", o: "recit", c: 0, p: 0, f: true, pistes: 0 });
+clic(un('.imp__onglet[data-vue="recit"]'));
+annee(1470);
+clic(puce("venise"));
+clic(puce("venise"));
+verifier("un second clic sur la puce choisie la désélectionne et revient à l'onglet d'avant",
+  ongletActif() === "recit" && /Aucune ville choisie/.test(un(".imp__fiche").textContent) && tous(".imp__ville.est-choisie").length === 0 && puce("venise").getAttribute("aria-pressed") === "false", etatImp());
+clic(un('.imp__ville[data-ville="mayence"]'));
+clic(un('.imp__ville[data-ville="mayence"]'));
+verifier("un second clic sur le point choisi le désélectionne", !un(".imp__ville.est-choisie") && ongletActif() === "recit");
+clic(un('.imp__ville[data-ville="mayence"]'));
+touche(un('.imp__ville[data-ville="mayence"]'), "Escape");
+verifier("Échap désélectionne la ville", !un(".imp__ville.est-choisie") && /Aucune ville choisie/.test(un(".imp__fiche").textContent));
+clic(puce("faro"));
+clic(un('.imp__onglet[data-vue="bilan"]'));
+clic(tous(".imp__voir")[0]);
+clic(un(".imp__jouer"));
+clic(un(".imp__entete .reinitialiser"));
+verifier("Réinitialiser ramène l'état du chargement (1450, récit, rien de choisi, pistes refermées, défilement arrêté)",
+  etatImp() === departImp && un(".imp__jouer").getAttribute("aria-label") === "Faire défiler les années", etatImp());
+
 console.log("ONGLETS ET À TOI");
 onglets[1].focus();
 touche(onglets[1], "ArrowRight");
@@ -172,7 +197,7 @@ clic(voirs[1]);
 verifier("puis la cache", tous(".imp__piste")[1].hidden && voirs[1].getAttribute("aria-expanded") === "false");
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".imp__entete > .plein-ecran");
+const pleinBouton = un(".imp__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".imp__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

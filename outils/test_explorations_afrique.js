@@ -157,6 +157,30 @@ verifier("cliquer sur un tracé choisit son explorateur", svg.getAttribute("data
 clic(bouton("Vue d'ensemble"));
 verifier("le bouton Vue d'ensemble revient à l'ensemble", !svg.hasAttribute("data-choisi") && bouton("Vue d'ensemble").getAttribute("aria-pressed") === "true");
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const reinit = un(".exa__entete .reinitialiser");
+  verifier("la carte demande le bouton Réinitialiser (data-reinitialiser) et page.js le pose avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === un(".exa__entete .plein-ecran"));
+  annee(1840);
+  clic(puce("barth"));
+  const anChoix = an();
+  clic(puce("barth"));
+  verifier("un second clic sur le bouton désélectionne et ramène l'année d'avant", !svg.hasAttribute("data-choisi") && an() === "1840" && anChoix !== "1840", anChoix + " -> " + an());
+  clic(un('.exa__cible[data-v="caillie"]'));
+  clic(un('.exa__cible[data-v="caillie"]'));
+  verifier("un second clic sur le tracé désélectionne aussi", !svg.hasAttribute("data-choisi") && tous(".exa__trace.est-choisi").length === 0 && puce("caillie").getAttribute("aria-pressed") === "false");
+  clic(puce("speke-grant"));
+  racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne l'explorateur", !svg.hasAttribute("data-choisi") && bouton("Vue d'ensemble").getAttribute("aria-pressed") === "true");
+  clic(puce("livingstone"));
+  clic(tous(".exa__etape")[2]);
+  annee(1860);
+  clic(reinit);
+  verifier("Réinitialiser : vue d'ensemble, aucun tracé choisi, temps à la fin du parcours",
+    !svg.hasAttribute("data-choisi") && tous(".exa__trace.est-choisi").length === 0 && bouton("Vue d'ensemble").getAttribute("aria-pressed") === "true" && an() === "1885" && tous(".exa__bloc").length === 5 && visibles().length === D.voyages.length, an());
+}
+
 console.log("LECTURE");
 annee(1885);
 clic(un(".exa__lire"));

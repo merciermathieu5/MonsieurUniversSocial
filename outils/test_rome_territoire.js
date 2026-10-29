@@ -204,6 +204,23 @@ verifier("texte réaffiché", !racine.classList.contains("texte-masque") && rep.
 clic(bouton);
 verifier("second clic : sortie du plein écran", !racine.classList.contains("est-plein-ecran"));
 
+console.log("RÉINITIALISER");
+{
+  const btR = q(".rom__entete .reinitialiser");
+  verifier("data-reinitialiser : page.js ajoute le bouton Réinitialiser avant Plein écran", racine.hasAttribute("data-reinitialiser") && !!btR && btR.nextElementSibling === q(".rom__entete .plein-ecran"));
+  aller(I117);
+  clic(q(".rom__provinces"));
+  q(".rom__provliste").open = true;
+  clic(q(".rom__jouer"));
+  clic(q(".plein-ecran"));
+  clic(btR);
+  verifier("Réinitialiser revient à la première étape, lecture arrêtée", etape() === 0 && curseur.value === "-509" && !racine.rom.etat().lecture && /Lancer/.test(q(".rom__jouer").getAttribute("aria-label")));
+  verifier("Réinitialiser réaffiche les provinces", racine.rom.etat().provinces && q(".rom__provinces").getAttribute("aria-pressed") === "true" && q(".rom__provinces").textContent === "Masquer les provinces");
+  verifier("Réinitialiser referme la liste des provinces", !q(".rom__provliste").open);
+  verifier("Réinitialiser garde le plein écran", racine.classList.contains("est-plein-ecran"));
+  clic(q(".plein-ecran"));
+}
+
 console.log("TYPOGRAPHIE");
 const textes = [];
 for (let i = 0; i < 21; i++) {

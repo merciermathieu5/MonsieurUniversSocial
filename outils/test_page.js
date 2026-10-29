@@ -120,7 +120,7 @@ const doc2 = dom2.window.document;
 const interfaces = Array.from(doc2.querySelectorAll(".texte section[id]"));
 verifier("la page compte au moins trois interfaces", interfaces.length >= 3, interfaces.length);
 verifier("chaque interface a un bouton Plein écran dans son en-tête",
-  interfaces.every((b) => { const e = b.querySelector('[class$="__entete"] > .plein-ecran'); return e && e.getAttribute("type") === "button" && e.getAttribute("aria-pressed") === "false"; }));
+  interfaces.every((b) => { const e = b.querySelector('[class$="__entete"] .plein-ecran'); return e && e.getAttribute("type") === "button" && e.getAttribute("aria-pressed") === "false"; }));
 const premiere = interfaces[0], bouton1 = premiere.querySelector(".plein-ecran");
 bouton1.dispatchEvent(new dom2.window.MouseEvent("click", { bubbles: true }));
 verifier("un clic met l'interface en plein écran", premiere.classList.contains("est-plein-ecran") && premiere.classList.contains("est-plein-ecran--simule"));
@@ -134,6 +134,29 @@ bouton1.dispatchEvent(new dom2.window.MouseEvent("click", { bubbles: true }));
 verifier("un second clic quitte aussi", !premiere.classList.contains("est-plein-ecran") && bouton1.getAttribute("aria-pressed") === "false");
 dom2.window.eval(fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8"));
 verifier("un second passage de page.js n'ajoute pas de bouton", interfaces.every((b) => b.querySelectorAll(".plein-ecran").length === 1));
+
+console.log("RÉINITIALISATION DES CARTES");
+// Deux interfaces : une carte qui demande le bouton Réinitialiser (data-reinitialiser), une autre non.
+const dom3 = new JSDOM(`<!DOCTYPE html><html lang="fr-CA"><body><main><article class="fiche"><section class="texte">
+<section class="ca" id="carte-essai" data-reinitialiser><div class="ca__entete"><p class="ca__titre">Carte</p><p class="ca__consigne">Choisis un lieu</p></div><p>contenu</p></section>
+<section class="au" id="autre-essai"><div class="au__entete"><p class="au__titre">Autre</p></div><p>contenu</p></section>
+</section></article></main></body></html>`, { runScripts: "outside-only", pretendToBeVisual: true });
+dom3.window.scrollTo = () => {};
+const pageJsSrc = fs.readFileSync(path.join(RACINE, "theme", "page.js"), "utf8");
+dom3.window.eval(pageJsSrc);
+const doc3 = dom3.window.document, carte = doc3.getElementById("carte-essai"), autre = doc3.getElementById("autre-essai");
+const reinit = carte.querySelector(".ca__entete > .entete-actions > .reinitialiser");
+verifier("une carte avec data-reinitialiser reçoit un bouton Réinitialiser dans son en-tête", !!reinit && reinit.getAttribute("type") === "button" && /Réinitialiser/.test(reinit.textContent));
+verifier("les deux boutons forment un groupe (Réinitialiser puis Plein écran) qui passe à la ligne d'un bloc", !!reinit && reinit.nextElementSibling === carte.querySelector(".plein-ecran") && reinit.parentNode.children.length === 2);
+verifier("une interface sans data-reinitialiser n'a pas ce bouton ni de groupe", !autre.querySelector(".reinitialiser") && !autre.querySelector(".entete-actions") && !!autre.querySelector(".au__entete .plein-ecran"));
+let recus = 0;
+carte.addEventListener("reinitialiser", () => { recus++; });
+if (reinit) reinit.dispatchEvent(new dom3.window.MouseEvent("click", { bubbles: true }));
+verifier("un clic envoie l'événement « reinitialiser » à la carte", recus === 1, recus);
+dom3.window.eval(pageJsSrc);
+verifier("un second passage de page.js n'ajoute pas de second bouton Réinitialiser", carte.querySelectorAll(".reinitialiser").length === 1 && carte.querySelectorAll(".plein-ecran").length === 1);
+const css = fs.readFileSync(path.join(RACINE, "theme", "style.css"), "utf8");
+verifier("le bouton Réinitialiser a le même style que Plein écran, en clair et en sombre", /\.plein-ecran, \.reinitialiser \{/.test(css) && /html\[data-sombre="on"\] \.plein-ecran, html\[data-sombre="on"\] \.reinitialiser \{/.test(css) && /@media print \{ \.plein-ecran, \.reinitialiser \{ display: none; \} \}/.test(css) && /\.entete-actions \{ display: inline-flex;[^}]*margin-left: auto; \}/.test(css));
 
 console.log(`\n${echecs} échec(s).`);
 process.exit(echecs ? 1 : 0);

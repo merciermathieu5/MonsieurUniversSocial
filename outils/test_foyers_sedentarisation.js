@@ -144,6 +144,8 @@ verifier("gros plan : une étiquette pâle coupée par le bord est cachée, une 
 const eCr = un('.fsd__etiq[data-foyer="croissant"]'), eAf = un('.fsd__etiq[data-foyer="afrique"]');
 eCr.setAttribute("data-essai-large", "");
 eAf.setAttribute("data-essai-large", "");
+// (un second clic désélectionnerait : on repasse par la vue d'ensemble)
+clic(boutons[0]);
 clic(un('.fsd__bouton[data-foyer="croissant"]'));
 verifier("l'étiquette du foyer choisi n'est jamais cachée, même trop large pour le cadre", !eCr.classList.contains("est-rogne") && eAf.classList.contains("est-rogne"));
 eCr.removeAttribute("data-essai-large");
@@ -198,7 +200,7 @@ verifier("-1000 : les sept foyers", /7 foyers sur 7/.test(sortie.textContent) &&
 clic(boutons[0]);
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".fsd__entete > .plein-ecran");
+const pleinBouton = un(".fsd__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".fsd__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");
@@ -217,6 +219,31 @@ if (pleinBouton) {
   verifier("un second clic quitte le plein écran", !racine.classList.contains("est-plein-ecran"));
 }
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+verifier("data-reinitialiser sur la racine et bouton Réinitialiser ajouté par page.js avant Plein écran",
+  racine.hasAttribute("data-reinitialiser") && !!un(".fsd__entete .reinitialiser") && un(".fsd__entete .reinitialiser").nextElementSibling === un(".fsd__entete .plein-ecran"));
+clic(boutons[0]);
+const curseurDepart = curseur.getAttribute("value");
+const etatDepart = () => JSON.stringify({ p: panneauxVisibles(), b: presse(), v: vue().map((x) => x.toFixed(1)), c: curseur.value, s: sortie.textContent, f: futurs(), z: racine.classList.contains("est-zoom"), m: tous(".est-choisi, .est-pale").length });
+// état du chargement : curseur à sa valeur d'origine
+dater(+curseurDepart);
+const depart = etatDepart();
+clic(un('.fsd__bouton[data-foyer="chine"]'));
+clic(un('.fsd__bouton[data-foyer="chine"]'));
+verifier("un second clic sur le bouton du foyer choisi le désélectionne (vue d'ensemble)", panneauxVisibles() === "accueil" && presse() === "accueil" && proche(vue(), plein) && tous(".est-choisi, .est-pale").length === 0 && !racine.classList.contains("est-zoom"));
+clic(un('.fsd__foyer[data-foyer="meso"] path'));
+clic(un('.fsd__foyer[data-foyer="meso"] path'));
+verifier("un second clic sur la zone choisie la désélectionne", panneauxVisibles() === "accueil" && proche(vue(), plein));
+clic(un('.fsd__etiq[data-foyer="andes"] tspan'));
+clic(un('.fsd__etiq[data-foyer="andes"] tspan'));
+verifier("un second clic sur l'étiquette choisie la désélectionne", panneauxVisibles() === "accueil");
+clic(un('.fsd__frise-ligne[data-foyer="ng"]'));
+clic(un('.fsd__frise-ligne[data-foyer="ng"]'));
+verifier("un second clic sur la ligne de la frise désélectionne", panneauxVisibles() === "accueil");
+dater(-4000);
+clic(un('.fsd__bouton[data-foyer="afrique"]'));
+clic(un(".fsd__entete .reinitialiser"));
+verifier("Réinitialiser ramène l'état du chargement (vue d'ensemble, curseur d'origine, aucune surbrillance)", etatDepart() === depart, etatDepart());
 console.log("TEXTES");
 let tout = "";
 boutons.forEach((b) => { clic(b); tout += " " + texteVisible(racine); });

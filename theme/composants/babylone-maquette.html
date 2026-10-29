@@ -1,4 +1,4 @@
-<section class="bab" id="babylone-maquette" aria-label="Maquette interactive de Babylone vers -575">
+<section class="bab" id="babylone-maquette" data-reinitialiser aria-label="Maquette interactive de Babylone vers -575">
 <style>
 .bab { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; --bab-sur: #3A8A5C; --bab-lieu: #E39A2B; --bab-imagine: #A6A7B6; }
 .bab .bab__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -21,6 +21,7 @@
 .bab__outil--rond { width: 2.05rem; padding: .32rem 0; font-size: .95rem; text-align: center; }
 .bab__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
 .bab__outil--droite { margin-left: auto; }
+.bab__annonce { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 .bab:not(.est-plein-ecran) .bab__outil[data-action="texte"] { display: none; }
 .bab .bab__bulle { position: absolute; left: 0; top: 0; z-index: 3; margin: 0; padding: .22rem .55rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.25; white-space: nowrap; color: #fff; background: rgba(20,24,28,.86); border-radius: var(--rayon); pointer-events: none; opacity: 0; transition: opacity .12s; }
 .bab .bab__bulle.est-visible { opacity: 1; }
@@ -154,6 +155,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
 <div class="bab__secours" hidden><p class="bab__secours-texte"></p></div>
 </div>
 <div class="bab__cote">
+<p class="bab__annonce" aria-live="polite"></p>
 <div class="bab__visite">
 <button type="button" class="bab__lancer">Commencer la visite guidée</button>
 <p class="bab__invite">Suis la grande procession du Nouvel An, du nord de la ville jusqu'au temple de Marduk.</p>
@@ -1755,8 +1757,10 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     var w = toile.clientWidth, h = toile.clientHeight;
     return w && h ? Math.max(1, Math.min(1.8, 1.5 / (w / h))) : 1;
   }
-  function allerA(v, duree) {
-    var a = { x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: v[5] || 0 };
+  function allerA(v, duree) { allerVers({ x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: v[5] || 0 }, duree); }
+  // Vol vers un état brut de la caméra (sert aussi à revenir à la vue d'avant un choix).
+  function allerVers(a, duree) {
+    a = { x: a.x, y: a.y, d: a.d, lacet: a.lacet, tangage: a.tangage, h: a.h };
     var dl = ((a.lacet - cam.lacet) % 360 + 540) % 360 - 180;
     a.lacet = cam.lacet + dl;
     if (reduit || duree === 0 || !gl) { cam.x = a.x; cam.y = a.y; cam.d = a.d; cam.lacet = a.lacet; cam.tangage = a.tangage; cam.h = a.h; vol = null; demander(); return; }
@@ -1777,7 +1781,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       el.setAttribute("data-partie", cle);
       el.setAttribute("tabindex", "-1");
       el.textContent = bouton.getAttribute("data-court") || bouton.textContent;
-      el.addEventListener("click", function () { choisir(cle, true); });
+      el.addEventListener("click", function () { basculer(cle, true); });
       calque.appendChild(el);
       etiquettes.push({ cle: cle, el: el, f: FICHES[cle], l: 0, h: 0 });
     });
@@ -1926,7 +1930,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
       delete pointeurs[e.pointerId];
       if (appui && e.type === "pointerup" && appui.bouge < 6 && performance.now() - appui.t < 600) {
         var b = toile.getBoundingClientRect();
-        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { choisir(PARTIES[id], false); } });
+        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { basculer(PARTIES[id], false); } });
       }
       appui = null;
       if (!Object.keys(pointeurs).length) { geste = null; }
@@ -1967,7 +1971,11 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   }
   // ------------------------------------------------------------ choix, panneaux, visite
   var boutons = $$(".bab__bouton"), panneaux = $$(".bab__panneau");
+  var choix = "accueil", vueAvant = null;
+  function camActuelle() { var c = vol ? vol.a : cam; return { x: c.x, y: c.y, d: c.d, lacet: c.lacet, tangage: c.tangage, h: c.h }; }
   function choisir(cle, voler) {
+    if (cle === "accueil") { vueAvant = null; } else if (choix === "accueil" && !vueAvant) { vueAvant = camActuelle(); }
+    choix = cle;
     chaque(boutons, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-partie") === cle ? "true" : "false"); });
     chaque(panneaux, function (p) { p.classList.toggle("est-visible", p.getAttribute("data-partie") === cle); });
     selection = ID[cle] || 0;
@@ -1993,11 +2001,45 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     choisir(e.partie, false);
     allerA(e.vue || (FICHES[e.partie] ? FICHES[e.partie].vue : ENSEMBLE), 2200);
   }
-  function quitterVisite() {
+  function quitterVisite(sansFocus) {
     etape = -1;
     racine.classList.remove("en-visite");
-    $(".bab__lancer").focus();
+    if (!sansFocus) { $(".bab__lancer").focus(); }
   }
+  // Un clic sur le lieu déjà choisi le désélectionne : retour à l'accueil et à la vue d'avant le choix.
+  function deselectionner() {
+    var v = vueAvant;
+    if (etape >= 0) { quitterVisite(true); }
+    choisir("accueil", false);
+    if (v) { allerVers(v); }
+  }
+  function basculer(cle, voler) {
+    if (cle === choix && cle !== "accueil") { deselectionner(); } else { choisir(cle, voler); }
+  }
+  var annonce = $(".bab__annonce");
+  function dire(t) { if (!annonce) { return; } annonce.textContent = ""; setTimeout(function () { annonce.textContent = t; }, 30); }
+  // Bouton Réinitialiser (posé par page.js) : l'état exact du chargement, plein écran et texte replié gardés.
+  function reinitialiser() {
+    if (etape >= 0) { quitterVisite(true); }
+    choisir("accueil", false);
+    mode = 0;
+    var bc = $('.bab__outil[data-action="certitude"]');
+    if (bc) { bc.setAttribute("aria-pressed", "false"); }
+    $(".bab__legende").hidden = true;
+    survol = 0;
+    var cote = $(".bab__cote");
+    if (cote) { cote.scrollTop = 0; }
+    vol = null;
+    allerA(ENSEMBLE);
+    dire("Maquette réinitialisée");
+    demander();
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape" || (choix === "accueil" && etape < 0)) { return; }
+    e.stopPropagation();
+    deselectionner();
+  });
   // ------------------------------------------------------------ secours sans WebGL 2
   // Sans 3D, la toile montre un plan de la ville vu de haut (Canvas 2D), et la liste
   // des lieux reste la porte d'entrée vers les descriptions.
@@ -2050,7 +2092,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
   }
   // ------------------------------------------------------------ mise en route
   chaque(boutons, function (b) {
-    b.addEventListener("click", function () { choisir(b.getAttribute("data-partie"), true); });
+    b.addEventListener("click", function () { basculer(b.getAttribute("data-partie"), true); });
   });
   chaque($$(".bab__outil"), function (b) {
     b.addEventListener("click", function () {
@@ -2101,7 +2143,7 @@ html[data-sombre="on"] .bab .bab__repere.est-choisi::after { background: var(--m
     lancer();
   }
   // Accès pour les essais automatiques (captures et test dans un DOM simulé).
-  racine.babylone = { molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
+  racine.babylone = { reinitialiser: reinitialiser, basculer: basculer, choix: function () { return choix; }, vueAvant: function () { return vueAvant; }, mode: function () { return mode; }, molettePourMaquette: molettePourMaquette, facteurMolette: facteurMolette, cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
     stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } },
     partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); },
     occultes: function () { return occultes; } };

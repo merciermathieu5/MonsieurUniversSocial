@@ -130,7 +130,7 @@ verifier("le bouton de l'accueil lance aussi la visite", panneauxVisibles().join
 api.accueil();
 
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".aqu__entete > .plein-ecran");
+const pleinBouton = un(".aqu__entete .plein-ecran");
 verifier("le bouton Plein écran (posé par page.js) est dans l'en-tête", !!pleinBouton);
 const texteBouton = un('.aqu__outil[data-action="texte"]');
 verifier("le bouton qui replie les textes existe", !!texteBouton && texteBouton.getAttribute("aria-expanded") === "true");
@@ -314,6 +314,56 @@ console.log("ZOOM À LA MOLETTE");
     /\}, \{ passive: false \}\)/.test(script) &&
     /window\.addEventListener\("wheel", noterDefilement, \{ passive: true, capture: true \}\)/.test(script) &&
     /document\.addEventListener\("scroll", noterDefilement, \{ passive: true, capture: true \}\)/.test(script));
+}
+
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const api = racine.aqueduc, cam = api.cam, etat = api.etat;
+  const etatCam = () => [cam.x, cam.y, cam.d, cam.lacet, cam.tangage, cam.h].map((v) => Math.round(v * 100) / 100).join();
+  const bouton = (cle) => racine.querySelector('.aqu__bouton[data-partie="' + cle + '"]');
+  const presses = () => tous('.aqu__bouton[aria-pressed="true"]').map((b) => b.getAttribute("data-partie") || b.getAttribute("data-outil") || b.getAttribute("data-action"));
+  const visibles = () => tous(".aqu__panneau.est-visible").map((p) => p.getAttribute("data-panneau")).join();
+  const reinit = racine.querySelector(".aqu__entete .reinitialiser");
+  verifier("la racine porte data-reinitialiser et page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!reinit && reinit.nextElementSibling === racine.querySelector(".plein-ecran"));
+  clic(reinit);
+  const camDepart = etatCam();
+  api.allerA([0, 0, 1200, 60, 30, 0], 0);
+  const camAvant = etatCam();
+  clic(bouton("pont"));
+  verifier("choisir une partie : bouton enfoncé, panneau, caméra déplacée", presses().join() === "pont" && visibles() === "partie-pont" && etatCam() !== camAvant);
+  clic(bouton("arcades"));
+  clic(bouton("arcades"));
+  verifier("un reclic désélectionne : accueil, aucun bouton enfoncé", etat.mode === "accueil" && presses().length === 0 && visibles() === "accueil");
+  verifier("la caméra revient à la vue d'avant le premier choix", etatCam() === camAvant, etatCam() + " / " + camAvant);
+  clic(bouton("pente"));
+  verifier("la pente choisie exagère le relief", api.etat3d.exagCible === 1);
+  clic(bouton("pente"));
+  verifier("son reclic rend le relief normal", api.etat3d.exagCible === 0 && presses().length === 0);
+  clic(racine.querySelector('[data-action="visite"]'));
+  clic(racine.querySelector('[data-action="visite"]'));
+  verifier("le bouton de la visite se décoche au reclic", etat.mode === "accueil" && presses().length === 0 && etatCam() === camAvant);
+  clic(bouton("source"));
+  racine.querySelector(".aqu__toile").dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne aussi", etat.mode === "accueil" && presses().length === 0 && etatCam() === camAvant);
+  // Siphon : une pièce se décoche, le siphon reste
+  api.choisirSiphon("siphon");
+  api.basculer("chasse");
+  const choisie = etat.mode === "siphon" && etat.piece === "chasse";
+  api.basculer("chasse");
+  verifier("siphon : une pièce choisie se décoche au reclic, le siphon reste affiché", choisie && etat.mode === "siphon" && etat.piece === null && api.etat3d.siphon);
+  // Plusieurs actions, puis Réinitialiser
+  clic(racine.querySelector('[data-outil="coupe"]'));
+  clic(racine.querySelector('[data-action="visite"]'));
+  clic(racine.querySelector(".aqu__suivant"));
+  clic(racine.querySelector('[data-outil="pente"]'));
+  api.allerA([200, 100, 700, 140, 50, 0], 0);
+  clic(reinit);
+  verifier("Réinitialiser : accueil, aucune partie, visite quittée, outils éteints",
+    etat.mode === "accueil" && etat.partie === null && presses().length === 0 && visibles() === "accueil" &&
+    !api.etat3d.coupe && !api.etat3d.siphon && api.etat3d.exagCible === 0 && !racine.classList.contains("est-visite"));
+  verifier("Réinitialiser : la caméra revient à la vue de départ", etatCam() === camDepart, etatCam() + " / " + camDepart);
+  verifier("Réinitialiser est annoncé", /réinitialisée/.test(racine.querySelector(".aqu__annonce").textContent));
 }
 
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");

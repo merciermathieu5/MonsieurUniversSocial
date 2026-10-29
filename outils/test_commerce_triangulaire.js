@@ -59,6 +59,7 @@ const copie = racine.cloneNode(true);
 tous("style, script", copie).forEach((el) => el.remove());
 const visible = copie.textContent;
 
+const vueDepart = (svg.getAttribute("viewBox") || "").split(/\s+/).map(Number).join(" ");
 console.log("MISE EN PLACE");
 verifier("composant présent", !!racine);
 verifier("initialisé une seule fois", racine.getAttribute("data-pret") === "1" && racine.classList.contains("est-pret") && racine.commerceTriangulaire === api);
@@ -238,8 +239,37 @@ ev = molette(-100, { ctrlKey: true });
 verifier("hors plein écran, Ctrl + molette zoome", ev.defaultPrevented && fenetre()[2] < avantMolette[2] - 1, fenetre().join(" "));
 clic(un('.ctr__outil[data-zoom="ensemble"]'));
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const reinit = un(".ctr__entete .reinitialiser");
+  verifier("la carte demande le bouton Réinitialiser (data-reinitialiser) et page.js le pose avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && (!fs.existsSync(pageJs) || (!!reinit && reinit.nextElementSibling === un(".ctr__entete .plein-ecran"))));
+  clic(un('.ctr__etape[data-etape="cote2"]'));
+  const vueEtape = fenetre().join(" ");
+  clic(un('.ctr__port-bouton[data-port="liverpool"]'));
+  const vuePort = fenetre().join(" ");
+  clic(un('.ctr__port-bouton[data-port="liverpool"]'));
+  verifier("un second clic sur le port choisi le désélectionne", portsPresses().length === 0 && tous(".ctr__port.est-choisi").length === 0 && panneauxVisibles().join() === "etape-cote2");
+  verifier("la désélection ramène la vue d'avant le choix du port", fenetre().join(" ") === vueEtape, vuePort + " -> " + fenetre().join(" "));
+  clic(un('.ctr__port[data-port="ouidah"] .ctr__point'));
+  clic(un('.ctr__port[data-port="ouidah"] .ctr__point'));
+  verifier("un second clic sur le point de la carte désélectionne aussi", portsPresses().length === 0 && panneauxVisibles().join() === "etape-cote2");
+  clic(un('.ctr__port-bouton[data-port="nantes"]'));
+  racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap désélectionne le port", portsPresses().length === 0 && panneauxVisibles().join() === "etape-cote2");
+  // Plusieurs actions, puis Réinitialiser : état du chargement.
+  clic(un('.ctr__etape[data-etape="cote3"]'));
+  clic(un('.ctr__port-bouton[data-port="bordeaux"]'));
+  clic(tous(".ctr__voir")[0]);
+  clic(un('.ctr__outil[data-zoom="plus"]'));
+  if (reinit) clic(reinit); else racine.dispatchEvent(new window.CustomEvent("reinitialiser"));
+  verifier("Réinitialiser : première étape, aucun port, pistes fermées",
+    ongletCourant() === D.etapes[0].id && panneauxVisibles().join() === "etape-" + D.etapes[0].id && portsPresses().length === 0 && tous(".ctr__voir").every((b) => b.getAttribute("aria-expanded") === "false" && document.getElementById(b.getAttribute("aria-controls")).hidden));
+  verifier("Réinitialiser : cadrage de départ", fenetre().join(" ") === vueDepart, vueDepart + " / " + fenetre().join(" "));
+}
+
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".ctr__entete > .plein-ecran");
+const pleinBouton = un(".ctr__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".ctr__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

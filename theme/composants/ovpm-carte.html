@@ -1,4 +1,4 @@
-<section class="ovm" id="ovpm-carte" aria-label="Carte de douze villes de l'Organisation des villes du patrimoine mondial">
+<section class="ovm" id="ovpm-carte" data-reinitialiser aria-label="Carte de douze villes de l'Organisation des villes du patrimoine mondial">
 <style>
 .ovm { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; }
 .ovm .ovm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -61,6 +61,7 @@
 .ovm__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
 .ovm__fiche { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
 .ovm__fiche--patrimoine { border-left-color: var(--encre-pale); }
+.ovm__fiche--accueil { border-left-color: var(--trait); }
 .ovm .ovm__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
 .ovm .ovm__role { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .45rem; }
 .ovm .ovm__detail { display: block; margin: 0; font-size: .97rem; line-height: 1.6; }
@@ -86,6 +87,7 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
   .ovm .ovm__panneau + .ovm__panneau { margin-top: 1rem !important; }
   .ovm__vues, .ovm__replier, .ovm__choix, .ovm .ovm__consigne { display: none; }
   .ovm__panneau { break-inside: avoid; }
+  .ovm .ovm__panneau--accueil { display: none !important; }
 }
 </style>
 <div class="ovm__entete">
@@ -132,6 +134,7 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
 <div class="ovm__groupe"><span class="ovm__groupe-tete"><svg class="ovm__icone" viewBox="0 0 24 24" aria-hidden="true"><circle class="ovm__forme ovm__forme--autre" cx="12.0" cy="12.0" r="5.7"/></svg><span class="ovm__groupe-nom">D&#x27;autres villes à connaître</span></span><button type="button" class="ovm__ville" data-ville="marrakech" data-vue="europe" aria-controls="ovm-marrakech" aria-pressed="false">Marrakech</button><button type="button" class="ovm__ville" data-ville="luxembourg" data-vue="europe" aria-controls="ovm-luxembourg" aria-pressed="false">Luxembourg</button><button type="button" class="ovm__ville" data-ville="tchernivtsi" data-vue="europe" aria-controls="ovm-tchernivtsi" aria-pressed="false">Tchernivtsi</button><button type="button" class="ovm__ville" data-ville="kotor" data-vue="europe" aria-controls="ovm-kotor" aria-pressed="false">Kotor</button><button type="button" class="ovm__ville" data-ville="bakou" data-vue="europe" aria-controls="ovm-bakou" aria-pressed="false">Bakou</button><button type="button" class="ovm__ville" data-ville="quito" data-vue="monde" aria-controls="ovm-quito" aria-pressed="false">Quito</button></div>
 </div>
 <div class="ovm__contenu" aria-live="polite">
+<div class="ovm__panneau ovm__panneau--accueil" data-ville=""><div class="ovm__fiche ovm__fiche--accueil"><span class="ovm__lieu">Aucune ville choisie</span><span class="ovm__detail">Choisis une ville sur la carte ou dans la liste pour découvrir son rôle dans l&#x27;OVPM. Un second clic sur une ville la désélectionne.</span></div></div>
 <div class="ovm__panneau" id="ovm-quebec" data-ville="quebec"><div class="ovm__colonnes"><div class="ovm__fiche"><span class="ovm__lieu">Québec · Canada</span><span class="ovm__role">Le siège de l&#x27;OVPM</span><span class="ovm__detail">Le secrétariat général de l&#x27;OVPM travaille dans le Vieux-Port de Québec. L&#x27;idée de l&#x27;organisation est née ici, en 1991, lors d&#x27;un premier colloque qui a réuni 41 villes. Québec a de nouveau reçu les villes membres en 2022, pour le 16e Congrès mondial.</span></div><div class="ovm__fiche ovm__fiche--patrimoine"><span class="ovm__lieu">Patrimoine culturel habité</span><span class="ovm__detail">Au sommet de la falaise, la Haute-Ville, entourée de remparts, de portes et de bastions, regroupe des églises, des couvents et des édifices administratifs. Au pied de la falaise, la Basse-Ville garde ses quartiers anciens, développés autour de la place Royale. Des résidents, des écoles et des commerces font toujours vivre ces bâtiments anciens, même si le quartier compte de moins en moins d&#x27;habitants.</span></div></div><p class="ovm__unesco"><strong>Sur la Liste du patrimoine mondial. </strong>Arrondissement historique du Vieux-Québec, inscrit en 1985.</p></div>
 <div class="ovm__panneau" id="ovm-cordoue" data-ville="cordoue"><div class="ovm__colonnes"><div class="ovm__fiche"><span class="ovm__lieu">Cordoue · Espagne</span><span class="ovm__role">Secrétariat régional, Europe du Sud et Méditerranée</span><span class="ovm__detail">Cordoue a reçu le 17e Congrès mondial de l&#x27;OVPM en 2024. L&#x27;été, des toiles tendues au-dessus de certaines rues y créent de l&#x27;ombre. C&#x27;est l&#x27;exemple que cite Luxembourg dans son appel à l&#x27;aide de 2026.</span></div><div class="ovm__fiche ovm__fiche--patrimoine"><span class="ovm__lieu">Patrimoine culturel habité</span><span class="ovm__detail">Autour de la grande mosquée, transformée en cathédrale au 13e siècle, s&#x27;étend un réseau de ruelles étroites, dont celles de l&#x27;ancien quartier juif. Les maisons typiques de Cordoue s&#x27;organisent autour d&#x27;un patio, une cour intérieure souvent partagée par plusieurs familles. Chaque mois de mai, des habitants ouvrent leurs patios fleuris aux visiteurs, une fête inscrite au patrimoine immatériel de l&#x27;UNESCO en 2012.</span></div></div><p class="ovm__unesco"><strong>Sur la Liste du patrimoine mondial. </strong>Centre historique de Cordoue. La Mosquée est inscrite en 1984, le reste du centre en 1994.</p></div>
 <div class="ovm__panneau" id="ovm-ratisbonne" data-ville="ratisbonne"><div class="ovm__colonnes"><div class="ovm__fiche"><span class="ovm__lieu">Ratisbonne · Allemagne</span><span class="ovm__role">Secrétariat régional, Europe du Nord-Ouest et Amérique du Nord</span><span class="ovm__detail">Ratisbonne, Regensburg en allemand, coordonne une région à cheval sur l&#x27;Atlantique : les villes du nord-ouest de l&#x27;Europe et celles d&#x27;Amérique du Nord, comme Québec.</span></div><div class="ovm__fiche ovm__fiche--patrimoine"><span class="ovm__lieu">Patrimoine culturel habité</span><span class="ovm__detail">La vieille ville a traversé la Seconde Guerre mondiale en très bon état et garde le tracé qu&#x27;elle avait au 14e siècle. La cathédrale gothique Saint-Pierre et les tours des riches familles marchandes y dominent toujours les toits, près d&#x27;un pont de pierre du 12e siècle. Ses maisons médiévales restent habitées et animées.</span></div></div><p class="ovm__unesco"><strong>Sur la Liste du patrimoine mondial. </strong>Vieille ville de Ratisbonne avec Stadtamhof, inscrite en 2006.</p></div>
@@ -150,7 +153,8 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
 <script>
 (function () {
   var racine = document.getElementById("ovpm-carte");
-  if (!racine) { return; }
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
   var cartes = racine.querySelectorAll(".ovm__svg");
   var vues = racine.querySelectorAll(".ovm__vue");
   var villes = racine.querySelectorAll(".ovm__ville");
@@ -167,9 +171,27 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
     });
   }
 
+  // La vue d'avant une sélection qui a changé de carte : la désélection la ramène.
+  var choisie = null, vueAvant = null;
+  function vueActuelle() {
+    var v = "monde";
+    chaque(vues, function (b) { if (b.getAttribute("aria-pressed") === "true") { v = b.getAttribute("data-vue"); } });
+    return v;
+  }
+  function deselectionner() {
+    choisie = null;
+    chaque(villes, function (autre) { autre.setAttribute("aria-pressed", "false"); });
+    chaque(points, function (point) { point.classList.remove("est-choisi"); });
+    chaque(panneaux, function (panneau) { panneau.classList.toggle("est-visible", panneau.getAttribute("data-ville") === ""); });
+    if (vueAvant) { montrerVue(vueAvant); }
+    vueAvant = null;
+  }
   function choisir(cle, changerDeVue) {
     var bouton = racine.querySelector('.ovm__ville[data-ville="' + cle + '"]');
     if (!bouton) { return; }
+    // Un second clic sur la ville choisie la désélectionne.
+    if (choisie === cle) { deselectionner(); return; }
+    choisie = cle;
     chaque(villes, function (autre) {
       autre.setAttribute("aria-pressed", autre === bouton ? "true" : "false");
     });
@@ -179,7 +201,10 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
     chaque(panneaux, function (panneau) {
       panneau.classList.toggle("est-visible", panneau.getAttribute("data-ville") === cle);
     });
-    if (changerDeVue) { montrerVue(bouton.getAttribute("data-vue")); }
+    if (changerDeVue && bouton.getAttribute("data-vue") !== vueActuelle()) {
+      if (!vueAvant) { vueAvant = vueActuelle(); }
+      montrerVue(bouton.getAttribute("data-vue"));
+    }
   }
 
   chaque(villes, function (bouton) {
@@ -189,10 +214,10 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
     point.addEventListener("click", function () { choisir(point.getAttribute("data-ville"), false); });
   });
   chaque(vues, function (bouton) {
-    bouton.addEventListener("click", function () { montrerVue(bouton.getAttribute("data-vue")); });
+    bouton.addEventListener("click", function () { vueAvant = null; montrerVue(bouton.getAttribute("data-vue")); });
   });
   var zoom = racine.querySelector(".ovm__zoom");
-  if (zoom) { zoom.addEventListener("click", function () { montrerVue("europe"); }); }
+  if (zoom) { zoom.addEventListener("click", function () { vueAvant = null; montrerVue("europe"); }); }
 
   var replier = racine.querySelector(".ovm__replier");
   if (replier) {
@@ -202,8 +227,19 @@ html[data-sombre="on"] .ovm .ovm__role, html[data-sombre="on"] .ovm .ovm__unesco
       replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
     });
   }
+  // État de départ : Québec choisie, sur la carte du monde. Le bouton Réinitialiser
+  // (ajouté par page.js grâce à data-reinitialiser) y ramène.
+  function reinitialiser() {
+    choisie = null;
+    vueAvant = null;
+    montrerVue("monde");
+    choisir("quebec", true);
+    vueAvant = null;
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
   racine.classList.add("est-pret");
-  choisir("quebec", true);
+  reinitialiser();
+  racine.ovm = { choisir: choisir, reinitialiser: reinitialiser, etat: function () { return { choisie: choisie, vue: vueActuelle(), vueAvant: vueAvant }; } };
 })();
 </script>
 </section>

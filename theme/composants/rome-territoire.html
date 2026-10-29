@@ -1,4 +1,4 @@
-<section class="rom" id="rome-territoire" aria-label="Carte interactive : l'évolution du territoire romain, de -509 à 476">
+<section class="rom" id="rome-territoire" data-reinitialiser aria-label="Carte interactive : l'évolution du territoire romain, de -509 à 476">
 <style>
 .rom { --rom-rome: #9B2C2C; --rom-orient: #5B3E8A; --rom-gain: #B7791F; --rom-royaume: #7A828C; --rom-mer: #DCE6EE; --rom-terre: #FAF8F3; --rom-cote: #8DA2B5; --rom-fleuve: #6F95B8; --rom-halo: #FAF8F3; --rom-prov: #FFF8EF; --rom-prov-halo: rgba(84, 22, 22, .72); --rom-limite: rgba(255, 246, 236, .78); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: rom / inline-size; }
 html[data-sombre="on"] .rom { --rom-rome: #E8857A; --rom-orient: #B9A8F0; --rom-gain: #F2C46B; --rom-royaume: #8B98A3; --rom-mer: #13202D; --rom-terre: #313E4C; --rom-cote: #56708D; --rom-fleuve: #5C83A8; --rom-halo: #18222D; --rom-prov: #1C1512; --rom-prov-halo: rgba(250, 214, 206, .8); --rom-limite: rgba(40, 18, 14, .62); }
@@ -106,6 +106,7 @@ html[data-sombre="on"] .rom .rom__jouer { color: #10171F; }
 .rom .rom__paragraphe--note { font-size: .86rem; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
 .rom .rom__provliste { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
 .rom .rom__provliste[hidden] { display: none; }
+.rom .rom__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .rom .rom__provliste > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
 .rom .rom__provliste > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
 .rom .rom__provliste-items { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.4rem, 1fr)); gap: .15rem .8rem; margin: .5rem 0 0; padding: 0; list-style: none; font-size: .82rem; line-height: 1.3; }
@@ -218,6 +219,7 @@ html[data-sombre="on"] .rom .rom__bouton:hover:not(:disabled), html[data-sombre=
 <output class="rom__annee" aria-hidden="true">-509</output>
 </div>
 <p class="rom__resume" aria-live="polite"></p>
+<p class="rom__annonce" aria-live="polite"></p>
 </div>
 <div class="rom__lecture">
 <div class="rom__vue" tabindex="-1">
@@ -584,6 +586,23 @@ html[data-sombre="on"] .rom .rom__bouton:hover:not(:disabled), html[data-sombre=
     replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
     window.setTimeout(mesurer, 60);
   });
+  /* Réinitialiser (bouton posé par page.js) : lecture arrêtée, première étape, provinces affichées,
+     liste des provinces refermée, texte défilé en haut. */
+  function reinitialiser() {
+    arreter();
+    if (etat.anim) { window.cancelAnimationFrame(etat.anim); etat.anim = 0; }
+    etat.provinces = true;
+    boutonProv.setAttribute("aria-pressed", "true");
+    boutonProv.textContent = "Masquer les provinces";
+    provListe.open = false;
+    montrer(0, false, false);
+    vue.scrollTop = 0;
+    var lecture = q(".rom__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    var annonce = q(".rom__annonce");
+    if (annonce) { annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30); }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.rom = { reinitialiser: reinitialiser, etat: function () { return { i: etat.i, provinces: etat.provinces, lecture: !!etat.minuterie }; }, montrer: montrer };
   if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); }
   else { window.addEventListener("resize", mesurer); }
   montrer(0, false, false);

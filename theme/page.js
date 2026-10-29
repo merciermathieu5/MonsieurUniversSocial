@@ -258,6 +258,16 @@
       if (actif && actif.querySelector(".plein-ecran")) marquerPlein(actif, true);
     });
   }
+  /* Les cartes interactives qui portent l'attribut data-reinitialiser reçoivent
+     aussi un bouton Réinitialiser, juste avant Plein écran. Il envoie l'événement
+     « reinitialiser » à l'interface, qui revient alors à son état de départ. */
+  function evenementReinitialiser() {
+    try { return new CustomEvent("reinitialiser"); } catch (err) {
+      var ev = document.createEvent("CustomEvent");
+      ev.initCustomEvent("reinitialiser", false, false, null);
+      return ev;
+    }
+  }
   Array.prototype.forEach.call(document.querySelectorAll(".texte section[id]"), function (bloc) {
     var entete = null;
     Array.prototype.some.call(bloc.children, function (enfant) {
@@ -265,6 +275,22 @@
       return false;
     });
     if (!entete || entete.querySelector(".plein-ecran")) return;
+    var parent = entete;
+    if (bloc.hasAttribute("data-reinitialiser") && !entete.querySelector(".reinitialiser")) {
+      // Les deux boutons vont dans un même groupe : ils passent ensemble à la ligne.
+      parent = document.createElement("span");
+      parent.className = "entete-actions";
+      entete.appendChild(parent);
+      var reinit = document.createElement("button");
+      reinit.type = "button";
+      reinit.className = "reinitialiser";
+      reinit.title = "Revenir à l'état de départ de la carte";
+      reinit.innerHTML = '<svg class="reinitialiser__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+        '<path d="M1 4v6h6"/><path d="M3.5 15a9 9 0 1 0 2.1-9.4L1 10"/></svg>' +
+        '<span class="reinitialiser__texte">Réinitialiser</span>';
+      parent.appendChild(reinit);
+      reinit.addEventListener("click", function () { bloc.dispatchEvent(evenementReinitialiser()); });
+    }
     var bouton = document.createElement("button");
     bouton.type = "button";
     bouton.className = "plein-ecran";
@@ -272,7 +298,7 @@
     bouton.innerHTML = '<svg class="plein-ecran__icone" viewBox="0 0 16 16" aria-hidden="true" focusable="false">' +
       '<path d="M1.5 5.5v-4h4M10.5 1.5h4v4M14.5 10.5v4h-4M5.5 14.5h-4v-4"/></svg>' +
       '<span class="plein-ecran__texte">Plein écran</span>';
-    entete.appendChild(bouton);
+    parent.appendChild(bouton);
     bouton.addEventListener("click", function () { basculerPlein(bloc); });
   });
 

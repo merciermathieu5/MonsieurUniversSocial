@@ -1,4 +1,4 @@
-<section class="imp" id="imprimerie" aria-label="Carte interactive : la diffusion de l'imprimerie en Europe, de 1450 à 1500">
+<section class="imp" id="imprimerie" data-reinitialiser aria-label="Carte interactive : la diffusion de l'imprimerie en Europe, de 1450 à 1500">
 <style>
 .imp { --imp-mer: #DCE6EE; --imp-terre: #FAF8F3; --imp-cote: #8DA2B5; --imp-fleuve: #9DBBD4; --imp-mont: #EFE6D3; --imp-halo: #FAF8F3; --imp-region: #6B7884; --imp-eau: #5B7D99; --imp-d1: #7A1F3D; --imp-d2: #B4461B; --imp-d3: #22557F; --imp-d4: #4F6B1E; --imp-sur: #fff; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: imp / inline-size; }
 html[data-sombre="on"] .imp { --imp-mer: #13202D; --imp-terre: #2A3440; --imp-cote: #56708D; --imp-fleuve: #3D5F80; --imp-mont: #333C47; --imp-halo: #2A3440; --imp-region: #9AA6B0; --imp-eau: #8BA9C4; --imp-d1: #F08AA8; --imp-d2: #F2A06B; --imp-d3: #8FB4DC; --imp-d4: #A9CF7A; --imp-sur: #10171F; }
@@ -8,9 +8,10 @@ html[data-sombre="on"] .imp { --imp-mer: #13202D; --imp-terre: #2A3440; --imp-co
 .imp ul > li::marker, .imp ol > li::marker { content: none; }
 .imp p, .imp dl, .imp dd { margin: 0; }
 .imp [hidden] { display: none !important; }
-.imp .imp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.imp .imp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem 1rem; flex-wrap: wrap; }
 .imp .imp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
-.imp .imp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.imp .imp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); flex: 1 1 7rem; text-align: right; line-height: 1.35; }
+/* Avec Réinitialiser et Plein écran, la consigne se replie sur deux lignes plutôt que de pousser un bouton à la ligne. */
 html[data-sombre="on"] .imp .imp__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .imp .imp__titre { color: var(--encre); }
 html[data-sombre="on"] .imp .imp__consigne { color: var(--encre-pale); }
@@ -494,7 +495,7 @@ html[data-sombre="on"] .imp .imp__chiffre dt { color: var(--encre); }
     }
     if (etat.choisie) {
       var choisie = trouver(etat.choisie);
-      if (choisie.annee > a) { etat.choisie = null; majFiche(); majChoix(); }
+      if (choisie.annee > a) { etat.choisie = null; vueAvant = null; majFiche(); majChoix(); }
     }
     placerNoms();
   }
@@ -570,11 +571,23 @@ html[data-sombre="on"] .imp .imp__chiffre dt { color: var(--encre); }
     });
     fiche.appendChild(infos);
   }
+  // Onglet ouvert avant la sélection : la désélection y revient.
+  var vueAvant = null;
+  function deselectionner() {
+    etat.choisie = null;
+    majChoix();
+    majFiche();
+    montrerVue(vueAvant || (etat.vue === "ville" ? "recit" : etat.vue));
+    vueAvant = null;
+  }
   function choisir(cle) {
     var v = trouver(cle);
     if (!v) { return; }
     arreter();
+    // Un second clic sur la ville choisie (point ou puce) la désélectionne.
+    if (etat.choisie === cle) { deselectionner(); return; }
     if (v.annee > etat.annee) { regler(v.annee, { anime: true }); }
+    if (!etat.choisie) { vueAvant = etat.vue === "ville" ? null : etat.vue; }
     etat.choisie = cle;
     majChoix();
     majFiche();
@@ -643,7 +656,7 @@ html[data-sombre="on"] .imp .imp__chiffre dt { color: var(--encre); }
   legende.appendChild(cleMayence);
 
   onglets.forEach(function (o) {
-    o.addEventListener("click", function () { montrerVue(o.getAttribute("data-vue")); });
+    o.addEventListener("click", function () { vueAvant = null; montrerVue(o.getAttribute("data-vue")); });
   });
   racine.querySelector(".imp__onglets").addEventListener("keydown", function (e) {
     var rang = onglets.indexOf(document.activeElement);
@@ -670,6 +683,29 @@ html[data-sombre="on"] .imp .imp__chiffre dt { color: var(--encre); }
     window.addEventListener("resize", cadrer);
   }
   new MutationObserver(function () { setTimeout(cadrer, 30); }).observe(racine, { attributes: true, attributeFilter: ["class"] });
+
+  // Réinitialiser (bouton ajouté par page.js grâce à data-reinitialiser) : défilement arrêté,
+  // année 1450, aucune ville choisie, onglet du récit, pistes refermées.
+  function reinitialiser() {
+    arreter();
+    etat.choisie = null;
+    vueAvant = null;
+    regler(DEBUT);
+    majChoix();
+    majFiche();
+    montrerVue("recit");
+    Array.prototype.forEach.call(atoi.querySelectorAll(".imp__voir"), function (b) {
+      b.setAttribute("aria-expanded", "false");
+      b.textContent = "Voir une piste";
+      var piste = racine.querySelector("#" + b.getAttribute("aria-controls"));
+      if (piste) { piste.hidden = true; }
+    });
+    Array.prototype.forEach.call(racine.querySelectorAll(".imp__vue"), function (v) { v.scrollTop = 0; });
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && etat.choisie) { deselectionner(); }
+  });
 
   majFiche();
   montrerVue("recit");

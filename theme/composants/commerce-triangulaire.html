@@ -1,4 +1,4 @@
-<section class="ctr" id="commerce-triangulaire" aria-label="Carte interactive&nbsp;: le commerce triangulaire et la traite atlantique, du 16e au 19e siècle">
+<section class="ctr" id="commerce-triangulaire" data-reinitialiser aria-label="Carte interactive&nbsp;: le commerce triangulaire et la traite atlantique, du 16e au 19e siècle">
 <style>
 .ctr { --ctr-mer: #C9DEEE; --ctr-terre: #F4EEE2; --ctr-cote: #7C9FC0; --ctr-fleuve: #6E9DCB; --ctr-mont: #DCC5A2; --ctr-desert: #F1E0B2; --ctr-quad: rgba(48, 84, 120, .14); --ctr-ligne: rgba(28, 62, 98, .42); --ctr-halo: #F4EEE2; --ctr-point: #1A2530; --ctr-eau-texte: #2A5F8F; --ctr-region: #786A55; --ctr-reseau: rgba(40, 62, 84, .3); --ctr-c1: #1D5C98; --ctr-c2: #9A2B2B; --ctr-c3: #4E7A2E; --ctr-glyphe: #FFFFFF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: ctr / inline-size; }
 html[data-sombre="on"] .ctr { --ctr-mer: #15293C; --ctr-terre: #2A3440; --ctr-cote: #4F6F8F; --ctr-fleuve: #5F93C6; --ctr-mont: #4A4234; --ctr-desert: #4A4430; --ctr-quad: rgba(160, 190, 220, .1); --ctr-ligne: rgba(170, 200, 230, .45); --ctr-halo: #2A3440; --ctr-point: #E8EBEF; --ctr-eau-texte: #A6CDF0; --ctr-region: #B3A890; --ctr-reseau: rgba(200, 215, 230, .26); --ctr-c1: #82B6EA; --ctr-c2: #F0908A; --ctr-c3: #A9D18E; --ctr-glyphe: #10171F; }
@@ -575,6 +575,7 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
     var etape = D.etapes[i];
     etat.etape = i;
     etat.port = null;
+    if (deplacer !== false) { etat.vueAvantPort = null; }
     racine.setAttribute("data-etape", etape.id);
     chaque(boutonsEtape, function (b, k) {
       if (k === i) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
@@ -600,9 +601,19 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
     var mx = v.w * 0.08, my = v.h * 0.08;
     return p.x > v.x + mx && p.x < v.x + v.w - mx && p.y > v.y + my && p.y < v.y + v.h - my;
   }
+  // Un second clic sur le port choisi le désélectionne : on revient à l'étape et à la vue d'avant.
+  function deselectionnerPort() {
+    if (!etat.port) { return; }
+    var avant = etat.vueAvantPort;
+    etat.vueAvantPort = null;
+    allerEtape(etat.etape, false);
+    if (avant) { etat.cible = avant.cible; animerVers(avant.vb); }
+  }
   function choisirPort(cle) {
     var p = D.ports[cle];
     if (!p) { return; }
+    if (etat.port === cle) { deselectionnerPort(); return; }
+    if (!etat.port && etat.vb) { etat.vueAvantPort = { vb: etat.vb, cible: etat.cible }; }
     etat.port = cle;
     marquerPort(cle);
     montrerPanneau("port-" + cle);
@@ -615,7 +626,10 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   precedent.addEventListener("click", function () { allerEtape(etat.etape - 1); });
   suivant.addEventListener("click", function () { allerEtape(etat.etape + 1); });
   chaque(boutonsPort, function (b) { b.addEventListener("click", function () { choisirPort(b.getAttribute("data-port")); }); });
-  chaque(tous(".ctr__retour"), function (b) { b.addEventListener("click", function () { allerEtape(etat.etape); }); });
+  chaque(tous(".ctr__retour"), function (b) { b.addEventListener("click", deselectionnerPort); });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === "Escape" && etat.port) { deselectionnerPort(); }
+  });
   chaque(ports, function (el) {
     el.addEventListener("keydown", function (ev) {
       if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); choisirPort(el.getAttribute("data-port")); }
@@ -757,7 +771,25 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   function remesurer() { mesurer(); if (etat.vb) { desencombrer(etat.u); } }
   remesurer();
   if (document.fonts && document.fonts.ready) { document.fonts.ready.then(remesurer); }
-  racine.commerceTriangulaire = { etat: etat, allerEtape: allerEtape, choisirPort: choisirPort, appliquer: appliquer, cadrer: cadrer };
+  // ------------------------------------------------------------ réinitialiser
+  // Le bouton Réinitialiser de l'en-tête (posé par page.js) ramène l'état du chargement :
+  // première étape, aucun port, pistes fermées, cadrage de départ.
+  function reinitialiser() {
+    etat.vueAvantPort = null;
+    chaque(tous(".ctr__voir"), function (b) {
+      var piste = document.getElementById(b.getAttribute("aria-controls"));
+      if (piste) { piste.hidden = true; }
+      b.setAttribute("aria-expanded", "false");
+      b.textContent = D.pisteVoir;
+    });
+    allerEtape(0, false);
+    etat.cible = boite(D.etapes[0].boite);
+    animerVers(cadrer(etat.cible));
+    if (cote) { cote.scrollTop = 0; }
+    if (contenu) { contenu.scrollTop = 0; }
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.commerceTriangulaire = { etat: etat, allerEtape: allerEtape, choisirPort: choisirPort, appliquer: appliquer, cadrer: cadrer, reinitialiser: reinitialiser };
 })();
 </script>
 </section>

@@ -1,9 +1,9 @@
-<section class="tnm" id="tenochtitlan-mexico" aria-label="Tenochtitlan en 1518 et Mexico aujourd'hui">
+<section class="tnm" id="tenochtitlan-mexico" data-reinitialiser aria-label="Tenochtitlan en 1518 et Mexico aujourd'hui">
 <style>
 .tnm { clear: both; margin: 1.6rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
-.tnm .tnm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.tnm .tnm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem 1rem; flex-wrap: wrap; }
 .tnm .tnm__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
-.tnm .tnm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.tnm .tnm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); flex: 1 1 10rem; text-align: right; line-height: 1.35; }
 .tnm__vues { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
 .tnm__vue { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
 .tnm__vue:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
@@ -185,6 +185,10 @@ body[data-classe="on"] .tnm__credits { display: none; }
   racine.addEventListener("keydown", function (e) {
     if (e.key === " " || e.key === "Enter") { e.stopPropagation(); }
   });
+
+  // Réinitialiser (bouton ajouté par page.js grâce à data-reinitialiser) : premier point de
+  // vue, séparation au milieu. Les points de vue s'excluent : l'un d'eux reste toujours montré.
+  racine.addEventListener("reinitialiser", function () { glisse = false; montrer(0); });
 
   montrer(0);
 })();

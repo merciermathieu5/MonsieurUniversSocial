@@ -133,7 +133,7 @@ verifier("Recommencer remet le test à zéro",
 
 console.log("PLEIN ÉCRAN");
 clic(onglets[3]);
-const pleinBouton = un(".ats__entete > .plein-ecran");
+const pleinBouton = un(".ats__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".ats__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");

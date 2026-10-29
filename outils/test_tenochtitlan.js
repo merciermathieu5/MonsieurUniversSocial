@@ -154,6 +154,16 @@ vu = false;
 document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: " ", bubbles: true }));
 verifier("Espace ailleurs remonte normalement", vu === true);
 
+console.log("RÉINITIALISATION");
+verifier("data-reinitialiser sur la racine et bouton Réinitialiser ajouté par page.js avant Plein écran",
+  racine.hasAttribute("data-reinitialiser") && !!racine.querySelector(".tnm__entete .reinitialiser") && racine.querySelector(".tnm__entete .reinitialiser").nextElementSibling === racine.querySelector(".tnm__entete .plein-ecran"));
+scene.classList.remove("est-absent");
+clic(boutons()[2]);
+regler(17);
+clic(racine.querySelector(".tnm__entete .reinitialiser"));
+verifier("Réinitialiser revient au premier point de vue, séparation au milieu",
+  enfonces().length === 1 && enfonces()[0] === boutons()[0] && curseur.value === "50" && position() === "50%" && /nord-1518/.test(nom(avant)), curseur.value + " " + position() + " " + nom(avant));
+
 console.log("DONNÉES");
 verifier("aucun tiret cadratin ni demi-cadratin", !/[–—]/.test(composant));
 verifier("aucun titre de niveau 2 ou 3", !/<h[23][ >]/.test(composant));

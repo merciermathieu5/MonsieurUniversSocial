@@ -283,8 +283,45 @@ verifier("Messine en octobre 1347, Marseille en novembre, Paris à l'été 1348,
   lieu("messine").getAttribute("data-court") === "oct. 1347" && lieu("marseille").getAttribute("data-court") === "nov. 1347"
     && lieu("paris").getAttribute("data-court") === "été 1348" && lieu("moscou").getAttribute("data-court") === "1353");
 
+console.log("DÉSÉLECTION ET RÉINITIALISATION");
+{
+  const btR = un(".gco__entete .reinitialiser");
+  verifier("data-reinitialiser : page.js ajoute le bouton Réinitialiser avant Plein écran",
+    racine.hasAttribute("data-reinitialiser") && !!btR && btR.nextElementSibling === un(".gco__entete .plein-ecran"));
+  clic(un('.gco__outil[data-zoom="ensemble"]'));
+  const v0 = fenetre();
+  const bP = boutonsProduits[0];
+  clic(bP);
+  verifier("choisir un produit zoome sur ses routes", presses().join() === bP.getAttribute("data-produit"));
+  clic(bP);
+  verifier("un second clic sur le produit le désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && surlignes().length === 0 && !racine.classList.contains("est-filtre") && bP.getAttribute("aria-pressed") === "false");
+  verifier("et ramène la vue d'avant", Math.abs(fenetre()[2] - v0[2]) < 0.5 && vueChoisie() === "ensemble", fenetre().join(" "));
+  const bL = boutonsLieux[0], cleL = bL.getAttribute("data-lieu");
+  clic(bL); clic(bL);
+  verifier("un second clic sur un bouton de ville la désélectionne", presses().length === 0 && panneauxVisibles().join() === "accueil" && !lieu(cleL).classList.contains("est-choisi"));
+  clic(lieu("venise"));
+  verifier("un clic sur Venise la choisit", panneauxVisibles().join() === "lieu-venise");
+  clic(lieu("venise"));
+  verifier("un second clic sur Venise la désélectionne", panneauxVisibles().join() === "accueil" && !lieu("venise").classList.contains("est-choisi"));
+  const badge = un(".gco__badge");
+  clic(badge); clic(badge);
+  verifier("un second clic sur un badge de produit le désélectionne", panneauxVisibles().join() === "accueil" && !badge.classList.contains("est-choisi"));
+  clic(un(".gco__bouton--visite")); clic(un(".gco__bouton--visite"));
+  verifier("un second clic sur la peste arrête la visite", panneauxVisibles().join() === "accueil" && !racine.classList.contains("est-visite") && surlignes().length === 0);
+  clic(bP);
+  touche(svg, "Escape");
+  verifier("Échap sur la carte désélectionne", panneauxVisibles().join() === "accueil" && presses().length === 0);
+  clic(un(".gco__bouton--visite"));
+  clic(un(".gco__frise-suiv")); clic(un(".gco__frise-suiv")); clic(un(".gco__frise-suiv"));
+  clic(un('.gco__outil[data-zoom="plus"]'));
+  clic(btR);
+  verifier("Réinitialiser : accueil, aucun choix, visite arrêtée", panneauxVisibles().join() === "accueil" && presses().length === 0 && !racine.classList.contains("est-visite") && surlignes().length === 0 && api.etat.mode === "accueil");
+  verifier("Réinitialiser : vue d'ensemble de départ", vueChoisie() === "ensemble" && fenetre().every((v, i) => Math.abs(v - depart[i]) < 0.5), fenetre().join(" ") + " / " + depart.join(" "));
+  verifier("Réinitialiser : curseur de la peste ramené au départ", un(".gco__curseur").value === "0" && un(".gco__frise-date").textContent === "" && tous(".gco__lieu.est-touche, .gco__lieu.est-nouveau, .gco__lieu.est-avenir").length === 0);
+}
+
 console.log("PLEIN ÉCRAN");
-const pleinBouton = un(".gco__entete > .plein-ecran");
+const pleinBouton = un(".gco__entete .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
 const replier = un(".gco__replier");
 verifier("le bouton qui replie les textes existe", !!replier && replier.getAttribute("aria-expanded") === "true");
