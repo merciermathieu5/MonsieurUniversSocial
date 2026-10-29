@@ -20,13 +20,13 @@
 
 articles:
 
-  # ---------------- À JUGER ----------------
+  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/info/long-format/2295107/caribou-forestier-lac-simon-autochtones-abitibi"
     fiche: "06"
     media: "Radio-Canada"
     date: "2026-10-28"
     titre: "Caribou forestier en péril : une blessure vive pour les Anishnabeg"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2296475/scierie-outardes-manicouagan-crise"
@@ -34,23 +34,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-28"
     titre: "Fermeture de la scierie Outardes : le nouveau gouvernement interpellé"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2296416/ministre-hotel-depense-ontario-stan-cho"
-    fiche: "05"
-    media: "Radio-Canada"
-    date: "2026-10-28"
-    titre: "Frais d’hôtel abusifs : l’ex-ministre Stan Cho défend sa promotion"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2295798/inventaire-patrimoine-mrc-montmagny-retard"
-    fiche: "03"
-    media: "Radio-Canada"
-    date: "2026-10-28"
-    titre: "Inventaire patrimonial : la MRC de Montmagny prévoit deux ans de retard"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/actualites/environnement/2026-10-27/30-d-aires-protegees-d-ici-2030/ottawa-y-croit-toujours-le-bloc-quebecois-denonce-un-voeu-pieux-sans-plan-credible.php"
@@ -58,7 +42,7 @@ articles:
     media: "La Presse"
     date: "2026-10-27"
     titre: "30 % d’aires protégées d’ici 2030 | Ottawa y croit toujours, le Bloc québécois dénonce un « vœu pieux » sans plan crédible"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/bonjour-la-cote/segments/rattrapage/2513535/belugas-et-dauphins-a-flancs-blancs-a-tadoussac"
@@ -66,15 +50,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-27"
     titre: "Des bélugas et des dauphins à flancs blancs à Tadoussac"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2295288/abolition-monarchie-quebec-droits-autochtones"
-    fiche: "12"
-    media: "Radio-Canada"
-    date: "2026-10-27"
-    titre: "Abolir la monarchie au Québec : quels risques pour les droits autochtones?"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2295939/nunavut-projet-serre-lune"
@@ -82,7 +58,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-27"
     titre: "Un projet de serre modulaire au Nunavut pourrait un jour être déployé sur la Lune"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.lapresse.ca/affaires/portfolio/2026-10-27/industrie-maritime/les-voies-maritimes-sont-de-veritables-poumons-economiques-affirme-la-caisse.php"
@@ -90,7 +66,7 @@ articles:
     media: "La Presse"
     date: "2026-10-27"
     titre: "Industrie maritime | « Les voies maritimes sont de véritables poumons économiques », affirme La Caisse"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/toujours-le-matin/segments/rattrapage/2513377/questions-sur-eoliennes-ca-fait-augmenter-tensions-genevieve-dubois"
@@ -98,7 +74,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-27"
     titre: "Terminé les questions sur les éoliennes au Conseil des maires"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2296235/eoliennes-nicolet-yamaska-question-periode"
@@ -106,7 +82,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-27"
     titre: "Finies les questions sur les éoliennes à la MRC de Nicolet-Yamaska"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/10/26/tarifs-delectricite-des-mineurs-de-crypto-et-des-centres-de-donnees-deboutent-quebec"
@@ -114,7 +90,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-27"
     titre: "Tarifs d’électricité: des mineurs de crypto et des centres de données gagnent une manche contre Québec"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://www.journaldemontreal.com/2026/10/27/linde-se-prepare-au-passage-du-cyclone-arnab-des-milliers-devacuations"
@@ -122,31 +98,7 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-27"
     titre: "L'Inde se prépare au passage du cyclone «Arnab», des milliers d'évacuations"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-27/crise-de-l-itinerance-a-montreal/ca-ressemble-a-des-bidonvilles.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-10-27"
-    titre: "Crise de l’itinérance à Montréal | « Ça ressemble à des bidonvilles »"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2513467/entreprise-matanaise-arseno-ajoute-ses-couleurs-au-60e-metro-montreal"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-27"
-    titre: "L’entreprise matanaise Arseno ajoute ses couleurs au 60e du métro de Montréal"
-    garder: ""
-    note: ""
-
-  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-27/lignes-vaudreuil-hudson-et-candiac/jusqu-a-une-heure-de-retard-dans-les-trains-de-banlieue-mardi-matin.php"
-    fiche: "02"
-    media: "La Presse"
-    date: "2026-10-27"
-    titre: "Lignes Vaudreuil-Hudson et Candiac | Jusqu’à une heure de retard dans les trains de banlieue mardi matin"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2295925/compressions-parcs-canada-forillon-expropriations"
@@ -154,7 +106,7 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-26"
     titre: "À Forillon, les employés réclament des réponses sur l’avenir de leurs postes"
-    garder: ""
+    garder: "O"
     note: ""
 
   - adresse: "https://ici.radio-canada.ca/nouvelle/2295944/parcs-canada-coupures-restructuration"
@@ -162,35 +114,9 @@ articles:
     media: "Radio-Canada"
     date: "2026-10-26"
     titre: "Parcs Canada : près de la moitié du personnel menacée aux T.N.-O. et au Yukon"
-    garder: ""
+    garder: "O"
     note: ""
 
-  - adresse: "https://ici.radio-canada.ca/info/videos/1-10793963/paquet-et-lachance-sur-defensive-apres-attaques-contre-tramway"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-26"
-    titre: "Paquet et Lachance sur la défensive après des attaques contre le tramway"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2295915/regle-trois-financement-tramway-patrick-paquet"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-26"
-    titre: "« Règle de trois » et financement du tramway : Patrick Paquet persiste et signe"
-    garder: ""
-    note: ""
-
-  - adresse: "https://ici.radio-canada.ca/nouvelle/2295961/transport-commun-autobus-diesel"
-    fiche: "02"
-    media: "Radio-Canada"
-    date: "2026-10-26"
-    titre: "Hausse de 3 % des laissez-passer mensuels à la Société de transport du Saguenay"
-    garder: ""
-    note: ""
-
-
-  # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2295736/creation-parc-national-cote-nord"
     fiche: "13"
     media: "Radio-Canada"
@@ -2649,6 +2575,54 @@ articles:
 
 
   # ---------------- REFUSÉS (N) ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296416/ministre-hotel-depense-ontario-stan-cho"
+    fiche: "05"
+    media: "Radio-Canada"
+    date: "2026-10-28"
+    titre: "Frais d’hôtel abusifs : l’ex-ministre Stan Cho défend sa promotion"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2295798/inventaire-patrimoine-mrc-montmagny-retard"
+    fiche: "03"
+    media: "Radio-Canada"
+    date: "2026-10-28"
+    titre: "Inventaire patrimonial : la MRC de Montmagny prévoit deux ans de retard"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2295288/abolition-monarchie-quebec-droits-autochtones"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-27"
+    titre: "Abolir la monarchie au Québec : quels risques pour les droits autochtones?"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-27/crise-de-l-itinerance-a-montreal/ca-ressemble-a-des-bidonvilles.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-27"
+    titre: "Crise de l’itinérance à Montréal | « Ça ressemble à des bidonvilles »"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/premiere-escale/segments/rattrapage/2513467/entreprise-matanaise-arseno-ajoute-ses-couleurs-au-60e-metro-montreal"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-27"
+    titre: "L’entreprise matanaise Arseno ajoute ses couleurs au 60e du métro de Montréal"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/actualites/grand-montreal/2026-10-27/lignes-vaudreuil-hudson-et-candiac/jusqu-a-une-heure-de-retard-dans-les-trains-de-banlieue-mardi-matin.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-27"
+    titre: "Lignes Vaudreuil-Hudson et Candiac | Jusqu’à une heure de retard dans les trains de banlieue mardi matin"
+    garder: "N"
+    note: ""
+
   - adresse: "https://www.lapresse.ca/actualites/politique/2026-10-26/carney-et-les-premiers-ministres-rencontrent-les-dirigeants-des-premieres-nations.php"
     fiche: "12"
     media: "La Presse"
@@ -2670,6 +2644,30 @@ articles:
     media: "La Presse"
     date: "2026-10-26"
     titre: "Tarif pour l’électricité des centres de données | La cour donne raison aux opposants"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10793963/paquet-et-lachance-sur-defensive-apres-attaques-contre-tramway"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-26"
+    titre: "Paquet et Lachance sur la défensive après des attaques contre le tramway"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2295915/regle-trois-financement-tramway-patrick-paquet"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-26"
+    titre: "« Règle de trois » et financement du tramway : Patrick Paquet persiste et signe"
+    garder: "N"
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2295961/transport-commun-autobus-diesel"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-10-26"
+    titre: "Hausse de 3 % des laissez-passer mensuels à la Société de transport du Saguenay"
     garder: "N"
     note: ""
 
