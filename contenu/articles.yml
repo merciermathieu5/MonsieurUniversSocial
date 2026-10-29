@@ -20,6 +20,32 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296873/microplastique-particules-eau-chimie"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "Les particules de microplastique ne sont pas inertes dans l’eau, montre une étude"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-10-29/services-essentiels/hydro-quebec-devra-liberer-des-salaries-designes-par-le-syndicat.php"
+    fiche: "07"
+    media: "La Presse"
+    date: "2026-10-29"
+    titre: "Services essentiels | Hydro-Québec devra libérer des salariés désignés par le syndicat"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/bonjour-la-cote/segments/rattrapage/2515705/industrie-forestiere-comme-moteur-economique-a-long-terme"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "Dernière chance pour sauver la la scierie des Outardes"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://www.lapresse.ca/actualites/sciences/2026-10-29/etude/les-particules-de-microplastique-ne-sont-pas-inertes-dans-l-eau.php"
     fiche: "09"
