@@ -213,6 +213,31 @@ verifier("ni ne s'approche sans limite", fenetre()[2] >= D.largeurMin - 0.1, fen
 clic(un('.ctr__outil[data-zoom="ensemble"]'));
 verifier("la maison ramène la vue d'ensemble", Math.abs(fenetre()[2] - ensemble[2]) < 0.5, fenetre().join(" "));
 
+console.log("MOLETTE");
+// Sans requestAnimationFrame, le moteur applique la molette et les animations tout de suite.
+const rafOriginal = window.requestAnimationFrame;
+function molette(deltaY, options) {
+  const o = Object.assign({ clientX: 300, clientY: 250, deltaMode: 0 }, options || {});
+  const ev = new window.WheelEvent("wheel", { bubbles: true, cancelable: true, deltaY, deltaMode: o.deltaMode, clientX: o.clientX, clientY: o.clientY, ctrlKey: !!o.ctrlKey, metaKey: !!o.metaKey });
+  window.requestAnimationFrame = undefined;
+  svg.dispatchEvent(ev);
+  window.requestAnimationFrame = rafOriginal;
+  return ev;
+}
+// Point de la carte sous le pointeur, avec la taille de repli du moteur (jsdom ne mesure rien).
+function pointSous(v, cx, cy) {
+  const u = Math.max(v[2] / 1000, v[3] / 600);
+  const ox = (1000 - v[2] / u) / 2, oy = (600 - v[3] / u) / 2;
+  return [v[0] + (cx - ox) * u, v[1] + (cy - oy) * u];
+}
+clic(un('.ctr__outil[data-zoom="ensemble"]'));
+let avantMolette = fenetre();
+let ev = molette(-100);
+verifier("hors plein écran, la molette seule laisse défiler la page", !ev.defaultPrevented && fenetre().join() === avantMolette.join());
+ev = molette(-100, { ctrlKey: true });
+verifier("hors plein écran, Ctrl + molette zoome", ev.defaultPrevented && fenetre()[2] < avantMolette[2] - 1, fenetre().join(" "));
+clic(un('.ctr__outil[data-zoom="ensemble"]'));
+
 console.log("PLEIN ÉCRAN");
 const pleinBouton = un(".ctr__entete > .plein-ecran");
 verifier("le bouton Plein écran est dans l'en-tête", !!pleinBouton);
@@ -221,6 +246,24 @@ verifier("le bouton qui replie les textes existe", !!replier && replier.getAttri
 if (pleinBouton) {
   clic(pleinBouton);
   verifier("la carte passe en plein écran", racine.classList.contains("est-plein-ecran"));
+  clic(un('.ctr__outil[data-zoom="ensemble"]'));
+  avantMolette = fenetre();
+  const p0 = pointSous(avantMolette, 300, 250);
+  ev = molette(-100);
+  const apresMolette = fenetre();
+  const p1 = pointSous(apresMolette, 300, 250);
+  verifier("en plein écran, la molette seule zoome", ev.defaultPrevented && apresMolette[2] < avantMolette[2] - 1, apresMolette.join(" "));
+  verifier("le zoom se fait vers le point visé", Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) < 0.5, `${p0.map(Math.round)} -> ${p1.map(Math.round)}`);
+  verifier("la carte garde ses proportions en zoomant", Math.abs(apresMolette[2] / apresMolette[3] - avantMolette[2] / avantMolette[3]) < 0.001);
+  molette(100);
+  verifier("la molette vers soi recule", fenetre()[2] > apresMolette[2] + 1, fenetre().join(" "));
+  molette(-3, { deltaMode: 1 });
+  verifier("les crans en lignes (Firefox) zooment aussi", fenetre()[2] < avantMolette[2] - 1, fenetre().join(" "));
+  for (let i = 0; i < 40; i++) molette(-120);
+  verifier("la molette respecte la même limite que le bouton +", fenetre()[2] >= D.largeurMin - 0.1 && dansEtendue(fenetre()), fenetre().join(" "));
+  for (let i = 0; i < 40; i++) molette(120, { clientX: 20, clientY: 20 });
+  verifier("ni ne recule au-delà des données", dansEtendue(fenetre()) && fenetre()[2] <= etendue[2] - etendue[0] + 0.01, fenetre().join(" "));
+  clic(un('.ctr__outil[data-zoom="ensemble"]'));
   verifier("les textes, la navigation et les ports sont rangés à côté de la carte",
     !!un(".ctr__cote > .ctr__contenu") && !!un(".ctr__cote > .ctr__nav") && !!un(".ctr__cote > .ctr__ports") && !!un(".ctr__cadre > .ctr__carte"));
   clic(replier);

@@ -19,6 +19,25 @@ const dom = new JSDOM(html, { runScripts: "outside-only", pretendToBeVisual: tru
 const { window } = dom;
 const { document } = window;
 window.scrollTo = () => {};
+// Mouvement réduit simulé : vrai par défaut (mises à jour instantanées), faux dans la partie FLUIDITÉ.
+let reduitTest = true;
+window.matchMedia = (q) => ({ matches: /reduce/.test(q) && reduitTest, media: q, addListener() {}, removeListener() {}, addEventListener() {}, removeEventListener() {} });
+// Mise en page simulée de la ligne d'événement : 42 caractères par ligne de 20 px, plus 21 px de marges.
+const LIGNE = 20, MARGES = 21, CAR = 42;
+const hauteurSimulee = (n) => {
+  const br = n.querySelectorAll("br").length;
+  const lignes = br ? br + 1 : Math.max(1, Math.ceil(n.textContent.length / CAR));
+  return lignes * LIGNE + MARGES;
+};
+const offsetHeightOrigine = Object.getOwnPropertyDescriptor(window.HTMLElement.prototype, "offsetHeight");
+Object.defineProperty(window.HTMLElement.prototype, "offsetHeight", { configurable: true, get() {
+  return /paf__evenement/.test(this.className) ? hauteurSimulee(this) : (offsetHeightOrigine ? offsetHeightOrigine.get.call(this) : 0);
+} });
+const rectOrigine = window.Element.prototype.getBoundingClientRect;
+window.Element.prototype.getBoundingClientRect = function () {
+  if (/paf__evenement/.test(this.getAttribute && this.getAttribute("class") || "")) { return { x: 0, y: 0, top: 0, left: 0, right: 300, bottom: 100, width: 300, height: 100 }; }
+  return rectOrigine.call(this);
+};
 const pageJs = path.join(RACINE, "theme", "page.js");
 if (fs.existsSync(pageJs)) window.eval(fs.readFileSync(pageJs, "utf8"));
 const script = composant.slice(composant.indexOf("<script>") + 8, composant.lastIndexOf("</script>"));
@@ -166,6 +185,51 @@ const D = JSON.parse(script.slice(script.indexOf("var D = ") + 8, script.indexOf
   verifier("le temps avance seul", +un(".paf__annee").textContent > 1910, un(".paf__annee").textContent);
   clic(jouer);
   verifier("Arrêter : le bouton redevient Jouer", jouer.getAttribute("aria-label") === "Faire défiler les années");
+
+  console.log("STABILITÉ DE LA MISE EN PAGE");
+  const ev = un(".paf__evenement");
+  const longueurs = [];
+  for (let x = 1880; x <= 1914; x++) { annee(x); longueurs.push(hauteurSimulee(ev)); }
+  const plafond = 5 * LIGNE + MARGES;
+  const attendu = Math.min(Math.max(...longueurs), plafond) + "px";
+  verifier("la ligne d'événement réserve la hauteur du plus long texte, plafonnée à cinq lignes", ev.style.height === attendu, ev.style.height + " au lieu de " + attendu);
+  const hauteurs = new Set();
+  for (let x = 1880; x <= 1914; x++) { annee(x); hauteurs.add(ev.style.height); }
+  verifier("même hauteur à toutes les années : la carte ne bouge plus", hauteurs.size === 1, [...hauteurs].join(", "));
+  verifier("le surplus défile dans la ligne, sans déborder", /overflow-y: auto/.test(composant.match(/\.paf \.paf__evenement \{[^}]*\}/)[0]) && /flex: none/.test(composant.match(/\.paf \.paf__evenement \{[^}]*\}/)[0]));
+  verifier("plein écran : les deux légendes partagent la même place", /\.paf\.est-plein-ecran \.paf__legendes > \.paf__legende\[hidden\] \{ display: flex; visibility: hidden; \}/.test(composant) && !!un(".paf__legendes [data-paf=\"legende-droites\"]"));
+  verifier("téléphone en plein écran : la carte ne déborde plus sur le curseur", /@container paf \(max-width: 40rem\) \{[^@]*\.paf\.est-plein-ecran \.paf__carte \{ display: grid; grid-template-rows: auto minmax\(0, 1fr\); \}/.test(composant));
+  verifier("mouvement réduit : aucun liséré, compteur instantané", (annee(1883), clic(un(".paf__pilote .paf__bouton--plein")), un(".paf__eclats").childNodes.length === 0 && un(".paf__annee").textContent === un(".paf__curseur").value));
+
+  console.log("FLUIDITÉ");
+  reduitTest = false;
+  annee(1880);
+  await new Promise((r) => setTimeout(r, 50));
+  const vus = new Set();
+  const suivre = setInterval(() => vus.add(un(".paf__annee").textContent), 8);
+  clic(un(".paf__pilote .paf__bouton--plein"));
+  verifier("Suivante : la carte passe tout de suite à 1882", p("tunisie") === "fr" && p("egypte") === "gb" && un(".paf__curseur").getAttribute("aria-valuetext") === "1882");
+  verifier("les territoires gagnés s'entourent d'un liséré doré", un(".paf__eclats").querySelectorAll(".paf__eclat").length >= 2, un(".paf__eclats").childNodes.length);
+  verifier("la ligne d'événement se fond", un(".paf__evenement").classList.contains("est-change"));
+  await new Promise((r) => setTimeout(r, 1100));
+  clearInterval(suivre);
+  verifier("le compteur défile de 1880 à 1882 (1881 affiché en chemin)", vus.has("1881") && un(".paf__annee").textContent === "1882", [...vus].join(" "));
+  verifier("le curseur arrive pile sur 1882, au pas d'un an", un(".paf__curseur").value === "1882" && un(".paf__curseur").step === "1");
+  await new Promise((r) => setTimeout(r, 1200));
+  verifier("les lisérés s'effacent ensuite du dessin", un(".paf__eclats").childNodes.length === 0, un(".paf__eclats").childNodes.length);
+  annee(1883);
+  verifier("faire glisser le curseur soi-même : aucune animation du compteur", un(".paf__annee").textContent === "1883");
+  annee(1890);
+  verifier("faire glisser le curseur : pas de liséré qui allumerait toute la carte", un(".paf__eclats").childNodes.length === 0, un(".paf__eclats").childNodes.length);
+  annee(1883);
+  const jouer2 = un(".paf__jouer");
+  clic(jouer2);
+  await new Promise((r) => setTimeout(r, 650));
+  verifier("Jouer : la première année vient vite (moins d'une seconde)", un(".paf__annee").textContent === "1884" || un(".paf__curseur").getAttribute("aria-valuetext") === "1884", un(".paf__curseur").getAttribute("aria-valuetext"));
+  await new Promise((r) => setTimeout(r, 1300));
+  verifier("la lecture s'attarde sur 1884, année du récit (environ 2 s)", un(".paf__curseur").getAttribute("aria-valuetext") === "1884", un(".paf__curseur").getAttribute("aria-valuetext"));
+  clic(jouer2);
+  reduitTest = true;
 
   console.log("PLEIN ÉCRAN");
   clic(un(".paf__entete .plein-ecran"));

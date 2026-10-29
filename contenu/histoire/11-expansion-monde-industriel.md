@@ -130,22 +130,23 @@ Source : Service national du RÉCIT, domaine de l'univers social
 
 ### David Livingstone
 
-Pour le compte de l'Angleterre, David Livingstone part pour l'Afrique en 1840.
-Il a entrepris de nombreux voyages et fut le premier Européen à traverser
-l'Afrique d'est en ouest. La durée de cette traversée fut de 4 ans. Il a lutté,
-tout au long de ses voyages d'exploration, pour mettre fin à l'esclavage,
-toujours présent sur le continent africain.
+Missionnaire de la Société missionnaire de Londres, David Livingstone part
+pour l'Afrique en 1840. Il a entrepris de nombreux voyages. Entre 1853 et
+1856, il est le premier Européen à traverser l'Afrique australe d'un océan à
+l'autre : il atteint d'abord Luanda, sur l'océan Atlantique, puis Quelimane,
+sur l'océan Indien. Il a lutté, tout au long de ses voyages d'exploration,
+pour mettre fin à l'esclavage, toujours présent sur le continent africain.
 
 ### Henry Morton Stanley
 
-Ce voyageur britannique a été envoyé comme journaliste en Turquie, en Abyssinie
-et en Espagne, avant de se rendre en Afrique. En 1870, on l'a envoyé à la
-recherche de David Livingstone, qu'il a d'ailleurs retrouvé sur les rives du
-Tanganyika. Après son retour en Angleterre, Stanley a reçu la mission de
-diriger d'autres expéditions en Afrique centrale. En 1874, il est reparti vers
-les lacs Victoria et Albert, il a également descendu le fleuve Congo, avant de
-retourner en Angleterre en 1878. En 1879, il est reparti avec le défi de
-développer le commerce le long du Congo.
+Ce journaliste né au pays de Galles et installé aux États-Unis a été envoyé en
+Turquie, en Abyssinie et en Espagne, avant de se rendre en Afrique. En 1870, on
+l'a envoyé à la recherche de David Livingstone, qu'il a d'ailleurs retrouvé sur
+les rives du Tanganyika. Après son retour en Angleterre, Stanley a reçu la
+mission de diriger d'autres expéditions en Afrique centrale. En 1874, il est
+reparti vers les lacs Victoria et Albert, il a également descendu le fleuve
+Congo, avant de retourner en Angleterre en 1878. En 1879, il est reparti avec
+le défi de développer le commerce le long du Congo.
 
 Source : Alloprof
 {: .source-texte }
@@ -157,6 +158,11 @@ Susi et James Chuma, compagnons de Livingstone. À la mort de celui-ci en 1873,
 ils transportent son corps jusqu'à la côte de l'océan Indien, un trajet de
 plusieurs mois, avant qu'il ne soit rapatrié à Londres.
 :::
+
+Suis sur la carte les grands voyages d'exploration, de 1795 à 1885. Choisis un
+explorateur pour voir son itinéraire étape par étape.
+
+::: composant explorations-afrique
 
 ::: questions
 1. Que cherchent les explorateurs financés par les métropoles?
@@ -525,3 +531,24 @@ batailles historiques, comme celles de la Somme ou de Verdun. Les colonies
 - [Wikipedia, Congo Reform Association](https://en.wikipedia.org/wiki/Congo_Reform_Association)
 - [Wikipedia, Alice Seeley Harris](https://en.wikipedia.org/wiki/Alice_Seeley_Harris)
 - [Wikipedia, George Washington Williams](https://en.wikipedia.org/wiki/George_Washington_Williams)
+- [Wikipédia (en anglais), David Livingstone](https://en.wikipedia.org/wiki/David_Livingstone)
+- [Wikipédia (en anglais), Henry Morton Stanley](https://en.wikipedia.org/wiki/Henry_Morton_Stanley)
+- [History.com, When Stanley Met Livingstone](https://www.history.com/articles/when-stanley-met-livingstone)
+- [Wikipédia (en anglais), Mungo Park](https://en.wikipedia.org/wiki/Mungo_Park_(explorer))
+- [Wikipédia, René Caillié](https://fr.wikipedia.org/wiki/Ren%C3%A9_Cailli%C3%A9)
+- [Wikipédia (en anglais), René Caillié](https://en.wikipedia.org/wiki/Ren%C3%A9_Cailli%C3%A9)
+- [Wikipédia (en anglais), Heinrich Barth](https://en.wikipedia.org/wiki/Heinrich_Barth)
+- [Wikipédia (en anglais), John Hanning Speke](https://en.wikipedia.org/wiki/John_Hanning_Speke)
+- [Wikipédia (en anglais), Samuel Baker](https://en.wikipedia.org/wiki/Samuel_Baker)
+- [Université de Princeton, Sir Samuel White Baker](https://static-prod.lib.princeton.edu/visual_materials/maps/websites/africa/baker/baker.html)
+- [Wikipédia (en anglais), Verney Lovett Cameron](https://en.wikipedia.org/wiki/Verney_Lovett_Cameron)
+- [Encyclopædia Britannica, Verney Lovett Cameron](https://www.britannica.com/biography/Verney-Lovett-Cameron)
+- [Wikipédia, Pierre Savorgnan de Brazza](https://fr.wikipedia.org/wiki/Pierre_Savorgnan_de_Brazza)
+- [Vikidia, Brazzaville (traité avec le Makoko et poste de Mfoa)](https://fr.vikidia.org/wiki/Brazzaville)
+- [Wikipédia (en anglais), Sidi Mubarak Bombay](https://en.wikipedia.org/wiki/Sidi_Mubarak_Bombay)
+- [Wikipédia (en anglais), Victoria Falls (Mosi-oa-Tunya)](https://en.wikipedia.org/wiki/Victoria_Falls)
+- [Wikipédia, Lac Victoria](https://fr.wikipedia.org/wiki/Lac_Victoria)
+- [Wikipédia (en anglais), Lake Albert (Mwitanzige)](https://en.wikipedia.org/wiki/Lake_Albert_(Africa))
+- [UNESCO, Timbuktu](https://whc.unesco.org/en/list/119/)
+- [Wikipédia, David Livingstone](https://fr.wikipedia.org/wiki/David_Livingstone)
+- [Wikipédia, Henry Morton Stanley](https://fr.wikipedia.org/wiki/Henry_Morton_Stanley)

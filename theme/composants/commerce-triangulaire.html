@@ -677,6 +677,46 @@ html[data-sombre="on"] .ctr__suivant { color: #10171F; }
   }
   svg.addEventListener("pointerup", finGlisse);
   svg.addEventListener("pointercancel", finGlisse);
+
+  // ------------------------------------------------------------ molette
+  // En plein écran, la molette seule zoome vers le point visé. Hors plein écran,
+  // elle laisse défiler la page : seuls Ctrl (ou Cmd) + molette et le pincement
+  // du pavé tactile zooment. Les crans d'une même image sont regroupés.
+  var molette = { k: 1, cx: 0, cy: 0, attente: 0 };
+  function pointCarte(cx, cy) {
+    var v = etat.vb, r = svg.getBoundingClientRect(), t = taille();
+    var w = r.width || t.w, h = r.height || t.h;
+    var u = Math.max(v.w / w, v.h / h);
+    var ox = (w - v.w / u) / 2, oy = (h - v.h / u) / 2;
+    return { x: v.x + (cx - (r.left || 0) - ox) * u, y: v.y + (cy - (r.top || 0) - oy) * u };
+  }
+  function zoomerVers(k, p) {
+    var v = etat.vb;
+    if (!v) { return; }
+    k = borneEchelle(v, k);
+    if (Math.abs(k - 1) < 1e-4) { return; }
+    etat.anim++;
+    etat.cible = null;
+    appliquer(borner({ x: p.x - (p.x - v.x) * k, y: p.y - (p.y - v.y) * k, w: v.w * k, h: v.h * k }));
+    if (glisse) { glisse.vb = etat.vb; glisse.x = molette.cx; glisse.y = molette.cy; }
+  }
+  svg.addEventListener("wheel", function (ev) {
+    var plein = racine.classList.contains("est-plein-ecran");
+    if (!etat.vb || (!plein && !ev.ctrlKey && !ev.metaKey)) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? 0.05 : (ev.deltaMode === 2 ? 0.5 : 0.0018);
+    molette.k *= Math.exp(Math.max(-0.5, Math.min(0.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX;
+    molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () {
+      molette.attente = 0;
+      var k = molette.k;
+      molette.k = 1;
+      zoomerVers(k, pointCarte(molette.cx, molette.cy));
+    };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
   svg.addEventListener("click", function (ev) {
     if (etat.glisse) { etat.glisse = false; return; }
     var cible = ev.target && ev.target.closest ? ev.target.closest(".ctr__port") : null;

@@ -251,6 +251,71 @@ verifier("Espace sur un bouton ne remonte pas au diaporama", vu === false);
 document.body.dispatchEvent(new window.KeyboardEvent("keydown", { key: " ", bubbles: true }));
 verifier("Espace ailleurs remonte normalement", vu === true);
 
+console.log("ZOOM EN PLEIN ÉCRAN");
+const svgCarte = $("svg");
+const vb = () => svgCarte.getAttribute("viewBox").split(/\s+/).map(Number);
+const kActuel = () => parseFloat(svgCarte.style.getPropertyValue("--k") || "1");
+// jsdom ne calcule aucune mise en page : on donne à la carte la taille de sa grille (1000 x 702).
+svgCarte.getBoundingClientRect = () => ({ left: 0, top: 0, width: 1000, height: 702, right: 1000, bottom: 702, x: 0, y: 0 });
+const rafOriginal = window.requestAnimationFrame;
+function molette(deltaY, x, y, mode) {
+  const ev = new window.WheelEvent("wheel", { bubbles: true, cancelable: true, deltaY, deltaMode: mode || 0, clientX: x === undefined ? 300 : x, clientY: y === undefined ? 200 : y });
+  window.requestAnimationFrame = undefined;
+  svgCarte.dispatchEvent(ev);
+  window.requestAnimationFrame = rafOriginal;
+  return ev;
+}
+function souris(type, x, y) { svgCarte.dispatchEvent(new window.MouseEvent(type, { bubbles: true, cancelable: true, button: 0, clientX: x, clientY: y })); }
+// Point de la carte sous le pointeur, avec la taille de repli (jsdom ne mesure rien : 1000 x 702).
+function pointSous(v, cx, cy) { const s = Math.min(1000 / v[2], 702 / v[3]); return [v[0] + (cx - (1000 - v[2] * s) / 2) / s, v[1] + (cy - (702 - v[3] * s) / 2) / s]; }
+const pleinTds = racine.querySelector(".tds__entete > .plein-ecran");
+verifier("le bouton Plein écran est dans l'en-tête", !!pleinTds);
+let evMolette = molette(-100);
+verifier("hors plein écran, la molette laisse défiler la page et la carte ne change pas", !evMolette.defaultPrevented && vb().join(" ") === "0 0 1000 702", vb().join(" "));
+clic(pleinTds);
+verifier("la carte passe en plein écran", racine.classList.contains("est-plein-ecran"));
+verifier("l'aide de la molette n'apparaît qu'en plein écran", /Molette pour zoomer/.test(racine.querySelector(".tds__aide-zoom").textContent));
+const kAvant = kActuel();
+const p0 = pointSous(vb(), 300, 200);
+evMolette = molette(-100);
+const v1 = vb();
+verifier("en plein écran, la molette zoome", evMolette.defaultPrevented && v1[2] < 999 && racine.classList.contains("est-zoome"), v1.join(" "));
+const p1 = pointSous(v1, 300, 200);
+verifier("le zoom se fait vers le point visé", Math.hypot(p1[0] - p0[0], p1[1] - p0[1]) < 0.6, `${p0.map(Math.round)} -> ${p1.map(Math.round)}`);
+verifier("la carte garde ses proportions", Math.abs(v1[2] / v1[3] - 1000 / 702) < 0.01);
+verifier("les points et les noms gardent leur taille à l'écran", Math.abs(kActuel() - kAvant * v1[2] / 1000) < 0.01 * kAvant, `${kAvant} -> ${kActuel()}`);
+verifier("le bouton Vue entière apparaît", !$("vue-entiere").hidden);
+molette(-3, 300, 200, 1);
+verifier("les crans en lignes (Firefox) zooment aussi", vb()[2] < v1[2] - 1);
+for (let i = 0; i < 40; i++) molette(-120);
+verifier("on ne zoome pas sans limite", vb()[2] >= 1000 / 6 - 0.2 && vb()[0] >= 0 && vb()[1] >= 0, vb().join(" "));
+const v2 = vb();
+souris("pointerdown", 400, 300);
+souris("pointermove", 460, 340);
+const v3 = vb();
+verifier("on déplace la carte zoomée en la faisant glisser", v3[0] < v2[0] && v3[1] < v2[1] && v3[2] === v2[2], `${v2.join(" ")} -> ${v3.join(" ")}`);
+const choisiAvant = racine.querySelector(".tds__lieu.est-choisi") ? racine.querySelector(".tds__lieu.est-choisi").getAttribute("data-id") : null;
+souris("pointerup", 460, 340);
+clic(lieu("lima"));
+const choisiApres = racine.querySelector(".tds__lieu.est-choisi") ? racine.querySelector(".tds__lieu.est-choisi").getAttribute("data-id") : null;
+verifier("le clic qui termine un glissement ne choisit pas de lieu", choisiApres === choisiAvant, `${choisiAvant} -> ${choisiApres}`);
+clic(lieu("lima"));
+verifier("un vrai clic choisit toujours un lieu", lieu("lima").classList.contains("est-choisi"));
+svgCarte.dispatchEvent(new window.MouseEvent("dblclick", { bubbles: true, cancelable: true }));
+verifier("le double-clic ramène la carte entière", vb().join(" ") === "0 0 1000 702" && !racine.classList.contains("est-zoome") && $("vue-entiere").hidden, vb().join(" "));
+verifier("et les points reprennent leur taille", Math.abs(kActuel() - kAvant) < 0.01 * kAvant);
+molette(-200);
+racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Home", bubbles: true }));
+verifier("la touche Début ramène la carte entière", vb()[2] === 1000);
+molette(-200);
+clic($("vue-entiere"));
+verifier("le bouton Vue entière ramène la carte entière", vb()[2] === 1000 && $("vue-entiere").hidden);
+for (let i = 0; i < 20; i++) molette(150);
+verifier("on ne recule pas au-delà de la carte entière", vb().join(" ") === "0 0 1000 702", vb().join(" "));
+molette(-300);
+clic(pleinTds);
+verifier("on quitte le plein écran", !racine.classList.contains("est-plein-ecran"));
+
 console.log("DONNÉES");
 const source = composant;
 verifier("aucun tiret cadratin ni demi-cadratin", !/[–—]/.test(source));
@@ -262,6 +327,7 @@ annee(1700);
 clic($("jouer"));
 verifier("la lecture démarre", $("jouer").getAttribute("aria-label") === "Mettre en pause");
 setTimeout(() => {
+  verifier("en quittant le plein écran, la carte redevient entière", vb().join(" ") === "0 0 1000 702", vb().join(" "));
   const a = parseInt($("annee").textContent, 10);
   verifier("le temps avance pendant la lecture", a > 1700, a);
   clic($("jouer"));
