@@ -559,6 +559,668 @@ respecter la loi et juge ceux qui ne l'auraient pas respectée.</p>
 <p>L'ecclésia, l'assemblée de tous les citoyens, se réunit une quarantaine de fois
 par année sur la colline de la Pnyx. Chaque citoyen peut y prendre la parole du
 haut de la tribune avant le vote.</p>
+<section class="pdl" id="parcours-loi" aria-label="Interface : le parcours d'une loi à Athènes au 5e siècle av. J.-C. et au Québec aujourd'hui">
+<style>
+.pdl { --pdl-trait: var(--trait); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: pdl / inline-size; }
+.pdl ul, .pdl ol { list-style: none; margin: 0; padding: 0; }
+.pdl li { margin: 0; padding: 0; }
+.pdl ul > li::before, .pdl ol > li::before { content: none; display: none; }
+.pdl ul > li::marker, .pdl ol > li::marker { content: none; }
+.pdl p, .pdl dl, .pdl dd { margin: 0; }
+.pdl [hidden] { display: none !important; }
+.pdl .pdl__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.pdl .pdl__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.pdl__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .pdl .pdl__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .pdl .pdl__titre { color: var(--encre); }
+html[data-sombre="on"] .pdl__consigne { color: var(--encre-pale); }
+.pdl__onglets { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.pdl__onglet, .pdl__replier, .pdl__precedent, .pdl__suivant, .pdl__special, .pdl__tirer, .pdl__voir { font-family: var(--titre); font-weight: 600; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.pdl__onglet { font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; }
+.pdl__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .pdl__onglet.est-actif { color: #10171F; }
+.pdl__replier { margin-left: auto; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; }
+.pdl__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl:not(.est-plein-ecran) .pdl__replier, .pdl.est-comparer .pdl__replier { display: none; }
+.pdl__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.pdl__scene { padding: 1.1rem 1.2rem 1.2rem; background: var(--surface-2); }
+.pdl .pdl__lieu { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .7rem; }
+.pdl__piste { display: none; }
+.pdl__piste.est-visible { display: block; }
+.pdl__etapes { position: relative; }
+.pdl__etapes::before { content: ""; position: absolute; left: calc(1.5rem - 1.5px); top: 1.2rem; bottom: 1.2rem; width: 3px; border-radius: 3px; background: var(--trait); }
+.pdl__progres { position: absolute; left: calc(1.5rem - 1.5px); top: 1.2rem; width: 3px; height: 0; border-radius: 3px; background: var(--matiere); transition: height .45s ease; }
+.pdl__etape { position: relative; display: grid; grid-template-columns: 2.2rem minmax(0, max-content) auto; justify-content: start; align-items: center; gap: .65rem; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-radius: var(--rayon); padding: .32rem .4rem; cursor: pointer; }
+.pdl__etape:hover { background: var(--surface); }
+.pdl__num { position: relative; z-index: 1; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--surface); border: 3px solid var(--matiere); font-family: var(--donnee); font-weight: 600; font-size: .78rem; color: var(--encre); transition: background .2s, color .2s, box-shadow .2s; }
+.pdl__etape.est-facultatif .pdl__num { border-style: dashed; }
+.pdl__etape.est-prealable .pdl__num { border-color: var(--encre-pale); }
+.pdl__etape.est-passe .pdl__num { background: var(--matiere-voile); }
+.pdl__etape.est-courant .pdl__num { background: var(--matiere); color: #fff; box-shadow: 0 0 0 3px var(--surface-2), 0 0 0 6px var(--signal); }
+html[data-sombre="on"] .pdl__etape.est-courant .pdl__num { color: #10171F; }
+.pdl__mots { min-width: 0; }
+.pdl__court { display: block; font-family: var(--titre); font-weight: 700; font-size: .92rem; line-height: 1.25; color: var(--encre); }
+.pdl__qui { display: block; margin-top: .1rem; font-family: var(--donnee); font-size: .63rem; letter-spacing: .05em; text-transform: uppercase; color: var(--encre-pale); }
+.pdl__jeton { width: 1.5rem; height: 1.5rem; color: var(--signal); opacity: 0; transform: translateX(-.4rem); transition: opacity .3s, transform .3s; }
+.pdl__etape.est-courant .pdl__jeton { opacity: 1; transform: none; }
+.pdl__special { display: flex; align-items: center; gap: .55rem; width: 100%; margin-top: .9rem; font-size: .86rem; text-align: left; color: var(--matiere-fonce); background: var(--surface); border: 1px dashed var(--matiere); border-radius: var(--rayon); padding: .6rem .8rem; }
+.pdl__special:hover, .pdl__special.est-courant { background: var(--matiere-voile); border-style: solid; }
+.pdl__special.est-courant { box-shadow: inset 4px 0 0 var(--signal); }
+html[data-sombre="on"] .pdl__special { color: var(--encre); }
+.pdl__special svg { width: 1.5rem; height: 1.5rem; flex: none; }
+.pdl__nav { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.pdl__precedent, .pdl__suivant { font-size: .82rem; border-radius: 100px; padding: .42rem .8rem; border: 1px solid var(--trait); background: var(--surface); color: var(--encre-doux); }
+.pdl__precedent:hover:not(:disabled) { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl__precedent:disabled, .pdl__suivant:disabled { opacity: .45; cursor: default; }
+.pdl__suivant { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.pdl__suivant:hover:not(:disabled) { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .pdl__suivant { color: #10171F; }
+.pdl__cote { padding: 1.2rem 1.4rem 1.4rem; border-top: 1px solid var(--trait); }
+.pdl__panneau { display: none; }
+.pdl__panneau.est-visible { display: block; }
+.pdl .pdl__surtitre { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.pdl .pdl__titre-panneau { font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.3; color: var(--matiere-fonce); margin-bottom: .6rem; }
+html[data-sombre="on"] .pdl .pdl__titre-panneau { color: var(--encre); }
+.pdl .pdl__facultatif { display: inline-block; margin-bottom: .7rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); border: 1px dashed var(--encre-pale); border-radius: 100px; padding: .15rem .65rem; }
+.pdl .pdl__fiche { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-bottom: .9rem; }
+.pdl__fiche > div { background: var(--surface-2); border-radius: var(--rayon); padding: .55rem .7rem; }
+.pdl__fiche dt { font-family: var(--donnee); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .15rem; }
+.pdl__fiche dd { font-family: var(--titre); font-weight: 600; font-size: .86rem; line-height: 1.3; color: var(--encre); }
+.pdl .pdl__texte { font-size: .97rem; line-height: 1.62; }
+.pdl .pdl__exemple { margin-top: .9rem; padding: .75rem 1rem; border-left: 4px solid var(--signal); border-radius: 0 var(--rayon) var(--rayon) 0; background: var(--surface-2); font-size: .94rem; line-height: 1.55; }
+.pdl .pdl__exemple-titre { display: block; font-family: var(--titre); font-weight: 700; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-doux); margin-bottom: .2rem; }
+.pdl .pdl__ostra { counter-reset: pdl-ostra; margin: .2rem 0 .9rem; }
+.pdl__ostra li { position: relative; padding: .45rem 0 .45rem 2.3rem; font-size: .96rem; line-height: 1.55; border-bottom: 1px solid var(--trait); }
+.pdl__ostra li:last-child { border-bottom: 0; }
+.pdl__ostra-num { position: absolute; left: 0; top: .45rem; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; font-family: var(--donnee); font-size: .74rem; font-weight: 600; color: #fff; background: var(--matiere); }
+html[data-sombre="on"] .pdl__ostra-num { color: #10171F; }
+.pdl .pdl__indice { margin-top: .9rem; padding: .85rem 1rem; border: 1px solid var(--trait); border-radius: var(--rayon); }
+.pdl .pdl__indice-question { font-size: .95rem; line-height: 1.55; }
+.pdl .pdl__indice-reponse { margin-top: .6rem; font-size: .95rem; line-height: 1.55; padding-top: .6rem; border-top: 1px dashed var(--trait); }
+.pdl__voir { margin-top: .6rem; font-size: .84rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--matiere); border-radius: 100px; padding: .35rem .9rem; }
+.pdl__voir:hover { background: var(--matiere-voile); }
+html[data-sombre="on"] .pdl__voir { color: var(--encre); }
+.pdl .pdl__tirage { margin-top: 1rem; padding: .9rem 1rem 1rem; border-radius: var(--rayon); background: var(--matiere-voile); }
+.pdl .pdl__tirage-titre { font-family: var(--titre); font-weight: 700; font-size: .92rem; margin-bottom: .3rem; color: var(--encre); }
+.pdl .pdl__tirage-texte { font-size: .92rem; line-height: 1.5; margin-bottom: .7rem; }
+.pdl__urne { display: grid; grid-template-columns: repeat(10, 1fr); gap: .3rem; max-width: 20rem; margin-bottom: .75rem; }
+.pdl__bille { aspect-ratio: 1; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--encre-pale); transition: background .25s, border-color .25s, transform .25s; }
+.pdl__bille.a-preside { background: var(--trait); border-color: var(--trait); }
+.pdl__bille.preside { background: var(--signal); border-color: var(--signal); transform: scale(1.25); }
+.pdl__tirer { font-size: .86rem; color: #fff; background: var(--matiere); border: 1px solid var(--matiere); border-radius: 100px; padding: .42rem 1rem; }
+.pdl__tirer:hover { background: var(--matiere-fonce); }
+html[data-sombre="on"] .pdl__tirer { color: #10171F; }
+.pdl .pdl__resultat { margin-top: .6rem; min-height: 1.5em; font-family: var(--titre); font-size: .9rem; line-height: 1.45; }
+.pdl__comparaison { display: none; padding: 1.2rem 1.4rem 1.4rem; }
+.pdl.est-comparer .pdl__comparaison { display: grid; gap: 1rem; }
+.pdl.est-comparer .pdl__corps { display: none; }
+.pdl__carte { border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; }
+.pdl .pdl__question { font-family: var(--titre); font-weight: 700; font-size: 1rem; padding: .6rem 1rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); color: var(--encre); }
+.pdl__duo { display: grid; grid-template-columns: 1fr 1fr; }
+.pdl__duo > div { padding: .7rem 1rem; }
+.pdl__duo > div + div { border-left: 1px solid var(--trait); }
+.pdl .pdl__ou { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .2rem; }
+.pdl .pdl__reponse { font-family: var(--titre); font-weight: 600; font-size: .95rem; line-height: 1.4; color: var(--encre); }
+.pdl__constats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--trait); }
+.pdl .pdl__constat { padding: .65rem 1rem .75rem; font-size: .9rem; line-height: 1.5; }
+.pdl .pdl__constat + .pdl__constat { border-left: 1px solid var(--trait); }
+.pdl .pdl__constat--semblable { background: var(--matiere-voile); }
+.pdl .pdl__etiquette { display: block; font-family: var(--titre); font-weight: 700; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--matiere-fonce); margin-bottom: .15rem; }
+html[data-sombre="on"] .pdl .pdl__etiquette { color: var(--encre); }
+@container pdl (min-width: 46rem) {
+  .pdl__corps { grid-template-columns: minmax(16rem, 19rem) minmax(0, 1fr); }
+  .pdl__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container pdl (max-width: 45.99rem) {
+  .pdl__etapes { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .pdl__etapes::before, .pdl__progres { display: none; }
+  .pdl__etapes > li { flex: 0 0 auto; }
+  .pdl__etape { grid-template-columns: auto auto; gap: .4rem; width: auto; padding: .2rem .6rem .2rem .2rem; border: 1px solid var(--trait); border-radius: 100px; background: var(--surface); }
+  .pdl__num { width: 1.7rem; height: 1.7rem; border-width: 2px; font-size: .7rem; }
+  .pdl__etape.est-courant .pdl__num { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--signal); }
+  .pdl__qui, .pdl__jeton { display: none; }
+  .pdl__court { font-size: .8rem; }
+}
+@container pdl (max-width: 34rem) {
+  .pdl .pdl__fiche { grid-template-columns: 1fr; }
+  .pdl__duo, .pdl__constats { grid-template-columns: 1fr; }
+  .pdl__duo > div + div, .pdl .pdl__constat + .pdl__constat { border-left: 0; border-top: 1px solid var(--trait); }
+  .pdl__scene, .pdl__cote, .pdl__comparaison { padding-left: .9rem; padding-right: .9rem; }
+}
+.pdl.est-plein-ecran { display: grid; grid-template-rows: auto auto minmax(0, 1fr); overflow: hidden; }
+.pdl.est-plein-ecran > .pdl__entete { position: static; }
+.pdl.est-plein-ecran > .pdl__corps { min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(22rem, 38vw, 36rem); }
+.pdl.est-plein-ecran .pdl__scene { min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; justify-content: center; padding: 1.4rem 2rem; }
+.pdl.est-plein-ecran .pdl__piste.est-visible { width: 100%; max-width: 34rem; margin: 0 auto; }
+.pdl.est-plein-ecran .pdl__etape { grid-template-columns: 2.7rem minmax(0, max-content) auto; padding: .55rem .5rem; gap: .8rem; }
+.pdl.est-plein-ecran .pdl__num { width: 2.7rem; height: 2.7rem; font-size: .9rem; }
+.pdl.est-plein-ecran .pdl__etapes::before, .pdl.est-plein-ecran .pdl__progres { left: calc(1.85rem - 1.5px); top: 1.5rem; }
+.pdl.est-plein-ecran .pdl__etapes::before { bottom: 1.5rem; }
+.pdl.est-plein-ecran .pdl__court { font-size: 1.15rem; }
+.pdl.est-plein-ecran .pdl__qui { font-size: .7rem; }
+.pdl.est-plein-ecran .pdl__jeton { width: 1.8rem; height: 1.8rem; }
+.pdl.est-plein-ecran .pdl__precedent, .pdl.est-plein-ecran .pdl__suivant { font-size: .9rem; padding: .5rem 1.1rem; }
+.pdl.est-plein-ecran .pdl__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; border-left: 1px solid var(--trait); }
+.pdl.est-plein-ecran .pdl__texte { font-size: 1.03rem; }
+.pdl.est-plein-ecran.texte-masque > .pdl__corps { grid-template-columns: minmax(0, 1fr) 0; }
+.pdl.est-plein-ecran.texte-masque .pdl__cote { display: none; }
+.pdl.est-plein-ecran > .pdl__comparaison { min-height: 0; overflow-y: auto; overscroll-behavior: contain; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
+@media (max-width: 52rem) {
+  .pdl.est-plein-ecran > .pdl__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .pdl.est-plein-ecran .pdl__scene { justify-content: flex-start; padding: .9rem 1rem; }
+  .pdl.est-plein-ecran .pdl__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .pdl.est-plein-ecran.texte-masque > .pdl__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+  .pdl.est-plein-ecran > .pdl__comparaison { grid-template-columns: minmax(0, 1fr); }
+}
+@media print {
+  .pdl__onglets, .pdl__nav, .pdl__tirer, .pdl__voir, .pdl__urne { display: none !important; }
+  .pdl__panneau, .pdl__piste { display: block; break-inside: avoid; margin-bottom: 1rem; }
+  .pdl__comparaison { display: grid; }
+}
+</style>
+<div class="pdl__entete">
+  <p class="pdl__titre" role="heading" aria-level="3">Le parcours d'une loi, d'Athènes au Québec</p>
+  <p class="pdl__consigne">Suis le projet d'étape en étape</p>
+</div>
+<div class="pdl__onglets" role="tablist" aria-label="Parcours">
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-athenes" data-vue="athenes" aria-controls="pdl-corps">Athènes, au 5e siècle av. J.-C.</button>
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-quebec" data-vue="quebec" aria-controls="pdl-corps">Le Québec aujourd'hui</button>
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-comparer" data-vue="comparer" aria-controls="pdl-comparaison">Comparer</button>
+  <button type="button" class="pdl__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="pdl__corps" id="pdl-corps" role="tabpanel" aria-label="Le parcours choisi">
+  <div class="pdl__scene">
+    <div class="pdl__piste" data-piste="athenes"><p class="pdl__lieu">Athènes, au 5e siècle av. J.-C.</p><div class="pdl__etapes"><span class="pdl__progres" aria-hidden="true"></span><ol class="pdl__liste" aria-label="Étapes à Athènes"></ol></div></div>
+    <div class="pdl__piste" data-piste="quebec"><p class="pdl__lieu">Le Québec aujourd'hui</p><div class="pdl__etapes"><span class="pdl__progres" aria-hidden="true"></span><ol class="pdl__liste" aria-label="Étapes au Québec"></ol></div></div>
+    <div class="pdl__nav">
+      <button type="button" class="pdl__precedent">Étape précédente</button>
+      <button type="button" class="pdl__suivant">Étape suivante</button>
+    </div>
+  </div>
+  <div class="pdl__cote" aria-live="polite"></div>
+</div>
+<div class="pdl__comparaison" id="pdl-comparaison" role="tabpanel" aria-labelledby="pdl-onglet-comparer"></div>
+<script>
+(function () {
+  var racine = document.getElementById("parcours-loi");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var NS = "http://www.w3.org/2000/svg";
+  var pistes = {
+    athenes: {
+      nom: "Athènes",
+      etapes: [
+        {
+          cle: "proposition", court: "Une proposition", qui: "1 citoyen",
+          titre: "Un citoyen fait une proposition",
+          fiche: [["Qui?", "N'importe quel citoyen"], ["Combien?", "1 personne"], ["Choisi comment?", "Il se porte volontaire"]],
+          texte: "N'importe quel citoyen peut proposer une loi ou une décision pour la cité. Sa proposition passe d'abord par la boulè. Attention : celui qui propose en reste responsable pendant un an. S'il propose une mesure contraire aux lois, il peut être poursuivi.",
+          exemple: "En -483, l'argent des mines du Laurion remplit le trésor. Les Athéniens s'apprêtent à le partager entre eux. Thémistocle propose plutôt de construire 200 navires de guerre."
+        },
+        {
+          cle: "boule", court: "La boulè prépare", qui: "500 citoyens tirés au sort",
+          titre: "La boulè étudie et prépare le projet",
+          fiche: [["Qui?", "Le conseil de la boulè"], ["Combien?", "500 citoyens, 50 par tribu"], ["Choisis comment?", "Tirage au sort, pour un an"]],
+          texte: "La boulè étudie la proposition, la met en forme puis l'inscrit à l'ordre du jour de l'ecclésia. Personne ne peut y siéger plus de deux fois dans sa vie. Les 50 membres d'une même tribu assurent la permanence à tour de rôle, pendant le dixième de l'année.",
+          tirage: true
+        },
+        {
+          cle: "debat", court: "L'ecclésia débat", qui: "Les citoyens présents",
+          titre: "L'ecclésia débat sur la Pnyx",
+          fiche: [["Qui?", "Les citoyens qui viennent"], ["Combien?", "Jusqu'à environ 6 000"], ["Choisis comment?", "Personne : chaque citoyen peut venir"]],
+          texte: "Une quarantaine de fois par année, les citoyens se réunissent en plein air sur la colline de la Pnyx. Chaque citoyen peut demander la parole et parler du haut de la tribune. Les bons orateurs ont un net avantage : ils savent convaincre la foule.",
+          exemple: "Thémistocle doit convaincre les citoyens de renoncer à leur part de l'argent."
+        },
+        {
+          cle: "vote", court: "L'ecclésia vote", qui: "Les citoyens présents",
+          titre: "L'ecclésia vote à main levée",
+          fiche: [["Qui?", "Les citoyens présents"], ["Combien?", "Jusqu'à environ 6 000"], ["Comment?", "À main levée, la majorité l'emporte"]],
+          texte: "Après le débat, on vote à main levée. La majorité l'emporte. La décision devient alors celle de toute la cité. Les citoyens ont décidé eux-mêmes, sans représentants : c'est la démocratie directe.",
+          exemple: "Les citoyens acceptent la proposition de Thémistocle. Athènes construit sa flotte de trières."
+        },
+        {
+          cle: "heliee", court: "L'héliée peut annuler", qui: "Des jurés tirés au sort", facultatif: "Seulement si un citoyen conteste",
+          titre: "L'héliée peut annuler la décision",
+          fiche: [["Qui?", "Des jurés de l'héliée, le tribunal populaire"], ["Combien?", "Tirés parmi 6 000 citoyens"], ["Choisis comment?", "Tirage au sort, citoyens de plus de 30 ans"]],
+          texte: "Un citoyen qui juge une décision contraire aux lois peut attaquer son auteur devant l'héliée. C'est le procès d'illégalité, qui apparaît au cours du 5e siècle. Si les jurés donnent raison à l'accusateur, la décision est annulée. Son auteur doit alors payer une amende."
+        },
+        {
+          cle: "magistrats", court: "Les magistrats appliquent", qui: "Tirés au sort ou élus",
+          titre: "Les magistrats appliquent la décision",
+          fiche: [["Qui?", "Les magistrats"], ["Combien?", "De nombreux magistrats, dont 10 stratèges"], ["Choisis comment?", "Tirage au sort, sauf les stratèges, élus"]],
+          texte: "Les magistrats, tirés au sort pour un an, appliquent les décisions de l'ecclésia. Les dix stratèges, élus chaque année, commandent l'armée et la flotte. Périclès a été réélu stratège au moins quinze fois.",
+          exemple: "En -480, à Salamine, Thémistocle commande les navires athéniens. La flotte grecque écrase la flotte perse."
+        }
+      ],
+      special: {
+        cle: "ostracisme",
+        bouton: "Une autre arme du peuple : l'ostracisme",
+        titre: "L'ostracisme : éloigner un homme jugé trop puissant",
+        etapes: [
+          "Une fois par année, l'ecclésia vote : y aura-t-il un ostracisme cette année?",
+          "Si oui, les citoyens se rassemblent sur l'agora. Chacun grave sur un tesson de poterie, l'ostrakon, le nom de l'homme qu'il veut éloigner.",
+          "Il faut au moins 6 000 votes. L'homme dont le nom revient le plus souvent doit quitter l'Attique pendant 10 ans. Il garde toutefois ses biens et sa citoyenneté."
+        ],
+        note: "Même Thémistocle, qui commandait les navires athéniens à Salamine, est ostracisé vers -471. Le dernier ostracisme connu a lieu vers -417.",
+        question: "Dans un puits près de l'Acropole, les archéologues ont trouvé 190 tessons portant le nom de Thémistocle. Ils semblent écrits par quelques personnes seulement. Qu'est-ce que cela peut vouloir dire?",
+        reponse: "Une hypothèse : des adversaires de Thémistocle auraient préparé ces tessons à l'avance pour les distribuer à des votants. On ne peut pas le prouver. L'indice montre toutefois qu'un vote peut être organisé, voire manipulé."
+      }
+    },
+    quebec: {
+      nom: "Québec",
+      etapes: [
+        {
+          cle: "election", court: "Les élections", qui: "Les électeurs", prealable: true,
+          titre: "Avant tout : les électeurs élisent les députés",
+          fiche: [["Qui?", "Les électeurs inscrits"], ["Combien?", "Environ 6,4 millions"], ["Comment?", "Une élection, tous les quatre ans"]],
+          texte: "Le premier lundi d'octobre, tous les quatre ans, les électeurs choisissent un député dans chaque circonscription. Depuis les élections de 2026, l'Assemblée nationale compte 127 députés. Ce sont eux qui voteront les lois au nom de la population.",
+          exemple: "La loi qui fixe cette date sert d'exemple tout au long du parcours. Suis-la d'étape en étape!"
+        },
+        {
+          cle: "presentation", court: "La présentation", qui: "Un ministre ou un député",
+          titre: "Un ministre ou un député présente le projet de loi",
+          fiche: [["Qui?", "Un ministre ou un député"], ["Combien?", "1 personne"], ["Choisi comment?", "Élu dans sa circonscription"]],
+          texte: "L'auteur du projet de loi le dépose devant l'Assemblée nationale. Le texte devient public : tout le monde peut le lire en ligne.",
+          exemple: "Le 7 novembre 2012, le gouvernement présente le projet de loi no 3, qui prévoit des élections à date fixe."
+        },
+        {
+          cle: "consultations", court: "Les consultations", qui: "Citoyens et organismes", facultatif: "Étape facultative",
+          titre: "Une commission consulte la population",
+          fiche: [["Qui?", "Des citoyens, des organismes, des experts"], ["Combien?", "Ceux que la commission choisit d'entendre"], ["Comment?", "En envoyant un mémoire"]],
+          texte: "Une commission parlementaire peut tenir des consultations. Les citoyens et les organismes qui veulent être entendus lui envoient un mémoire. La commission choisit ensuite ceux qu'elle entendra en audience publique."
+        },
+        {
+          cle: "principe", court: "L'adoption du principe", qui: "Les 127 députés",
+          titre: "Les députés adoptent le principe du projet",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Choisis comment?", "Élus"]],
+          texte: "En Chambre, les députés débattent de l'idée générale du projet de loi. Ils votent ensuite pour ou contre son principe.",
+          exemple: "Le principe du projet de loi no 3 est adopté le 21 mai 2013."
+        },
+        {
+          cle: "etude", court: "L'étude détaillée", qui: "Une commission de députés",
+          titre: "Une commission étudie chaque article",
+          fiche: [["Qui?", "Une commission parlementaire"], ["Combien?", "Un petit groupe de députés"], ["Choisis comment?", "Élus"]],
+          texte: "En commission parlementaire, des députés examinent le projet de loi article par article. Ils peuvent le modifier en adoptant des amendements."
+        },
+        {
+          cle: "rapport", court: "La prise en considération", qui: "Les 127 députés",
+          titre: "L'Assemblée examine le rapport de la commission",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Choisis comment?", "Élus"]],
+          texte: "La commission fait rapport à l'Assemblée. Les députés se prononcent sur les résultats de son travail. Ils doivent adopter ce rapport pour que le projet de loi poursuive son chemin."
+        },
+        {
+          cle: "adoption", court: "L'adoption", qui: "Les 127 députés",
+          titre: "Les députés adoptent le projet de loi",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Comment?", "Un vote, la majorité l'emporte"]],
+          texte: "C'est la dernière étape de l'étude du projet de loi. Si la majorité des députés vote pour, le projet de loi est adopté.",
+          exemple: "Le 14 juin 2013, les députés adoptent le projet de loi no 3 à l'unanimité."
+        },
+        {
+          cle: "sanction", court: "La sanction", qui: "La lieutenante-gouverneure",
+          titre: "La sanction : le projet devient une loi",
+          fiche: [["Qui?", "La lieutenante-gouverneure"], ["Combien?", "1 personne"], ["Son rôle?", "Elle représente le roi au Québec"]],
+          texte: "La lieutenante-gouverneure, qui représente le roi au Québec, signe le projet de loi. À ce moment, le projet de loi devient une loi.",
+          exemple: "Le projet de loi no 3 est sanctionné le 14 juin 2013, le jour même de son adoption. Depuis, les élections ont lieu à date fixe : le 1er octobre 2018, le 3 octobre 2022, puis le 5 octobre 2026."
+        },
+        {
+          cle: "tribunaux", court: "Les tribunaux", qui: "Des juges", facultatif: "Seulement si quelqu'un conteste la loi", horsSerie: true,
+          titre: "Un tribunal peut invalider une loi",
+          fiche: [["Qui?", "Des juges"], ["Combien?", "Selon le tribunal"], ["Choisis comment?", "Nommés, ce sont des juristes"]],
+          texte: "Une personne qui croit qu'une loi viole ses droits peut la contester devant un tribunal. Si la loi est contraire à la Constitution ou aux chartes des droits et libertés, le tribunal peut la déclarer invalide."
+        }
+      ]
+    }
+  };
+  var comparaisons = [
+    {
+      question: "Qui propose une loi?",
+      athenes: "N'importe quel citoyen.",
+      quebec: "Un ministre ou un député.",
+      semblable: "Dans les deux cas, une personne porte le projet et doit le défendre.",
+      differe: "À Athènes, l'idée peut venir de n'importe quel citoyen. Au Québec, seul un élu peut présenter un projet de loi."
+    },
+    {
+      question: "Qui prépare et étudie le projet?",
+      athenes: "La boulè : 500 citoyens tirés au sort pour un an.",
+      quebec: "Une commission parlementaire : des députés élus.",
+      semblable: "Un petit groupe étudie le projet avant le grand vote.",
+      differe: "Le hasard choisit les membres de la boulè. Les électeurs choisissent les députés."
+    },
+    {
+      question: "Qui vote la loi?",
+      athenes: "Les citoyens présents à l'ecclésia, jusqu'à environ 6 000.",
+      quebec: "Les 127 députés de l'Assemblée nationale.",
+      semblable: "Dans les deux cas, la majorité l'emporte.",
+      differe: "À Athènes, les citoyens votent eux-mêmes : c'est une démocratie directe. Au Québec, ils élisent des députés qui votent en leur nom : c'est une démocratie représentative."
+    },
+    {
+      question: "Qui peut annuler une loi?",
+      athenes: "L'héliée, un tribunal de citoyens tirés au sort.",
+      quebec: "Un tribunal, formé de juges.",
+      semblable: "Dans les deux cas, un tribunal peut annuler une décision contraire aux règles les plus importantes.",
+      differe: "À Athènes, les jurés sont des citoyens ordinaires. Au Québec, ce sont des juges de métier."
+    }
+  ];
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/\bno (\d)/g, "no\u00a0$1").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function icone(chemins) {
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    chemins.forEach(function (d) {
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke", "currentColor");
+      p.setAttribute("stroke-width", "1.7");
+      p.setAttribute("stroke-linecap", "round");
+      p.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(p);
+    });
+    return svg;
+  }
+  var DOCUMENT = ["M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z", "M14 3v4h4", "M9 11h6M9 14h6M9 17h4"];
+  var TESSON = ["M5 8l6-4 8 3-1 9-7 4-6-5z", "M9 10l5 1M8.5 13.5l6 .5"];
+  var cote = racine.querySelector(".pdl__cote");
+  var comparaison = racine.querySelector(".pdl__comparaison");
+  var precedent = racine.querySelector(".pdl__precedent");
+  var suivant = racine.querySelector(".pdl__suivant");
+  var replier = racine.querySelector(".pdl__replier");
+  var onglets = Array.prototype.slice.call(racine.querySelectorAll(".pdl__onglet"));
+  var etat = { vue: "athenes", rangs: { athenes: 0, quebec: 0 }, special: false };
+  var registre = { athenes: { boutons: [], panneaux: [] }, quebec: { boutons: [], panneaux: [] } };
+  function fiche(paires) {
+    var dl = el("dl", "pdl__fiche");
+    paires.forEach(function (paire) {
+      var bloc = el("div");
+      bloc.appendChild(el("dt", "", paire[0]));
+      bloc.appendChild(el("dd", "", paire[1]));
+      dl.appendChild(bloc);
+    });
+    return dl;
+  }
+  function construireTirage() {
+    var bloc = el("div", "pdl__tirage");
+    bloc.appendChild(el("p", "pdl__tirage-titre", "À toi de tirer au sort le président du jour"));
+    bloc.appendChild(el("p", "pdl__tirage-texte", "Chaque jour, l'un des 50 membres de garde est tiré au sort pour présider le conseil pendant une nuit et un jour. Personne ne peut présider deux fois."));
+    var urne = el("div", "pdl__urne");
+    urne.setAttribute("aria-hidden", "true");
+    var billes = [];
+    for (var k = 0; k < 50; k += 1) {
+      var bille = el("span", "pdl__bille");
+      urne.appendChild(bille);
+      billes.push(bille);
+    }
+    bloc.appendChild(urne);
+    var tirer = el("button", "pdl__tirer", "Tirer au sort");
+    tirer.type = "button";
+    bloc.appendChild(tirer);
+    var resultat = el("p", "pdl__resultat");
+    resultat.setAttribute("aria-live", "polite");
+    bloc.appendChild(resultat);
+    var deja = [];
+    tirer.addEventListener("click", function () {
+      if (deja.length === 50) {
+        deja = [];
+        billes.forEach(function (b) { b.className = "pdl__bille"; });
+        resultat.textContent = "";
+        tirer.textContent = "Tirer au sort";
+        return;
+      }
+      var libres = [];
+      for (var k = 0; k < 50; k += 1) { if (deja.indexOf(k) < 0) { libres.push(k); } }
+      var choisi = libres[Math.floor(Math.random() * libres.length)];
+      if (deja.length) { billes[deja[deja.length - 1]].className = "pdl__bille a-preside"; }
+      deja.push(choisi);
+      billes[choisi].className = "pdl__bille preside";
+      tirer.setAttribute("data-choisi", String(choisi + 1));
+      if (deja.length === 50) {
+        resultat.textContent = typo("Jour 50 : le membre " + (choisi + 1) + " préside. Les 50 membres ont présidé une fois chacun : personne n'a été choisi deux fois.");
+        tirer.textContent = "Recommencer";
+      } else {
+        var reste = 50 - deja.length;
+        resultat.textContent = typo("Jour " + deja.length + " : le membre " + (choisi + 1) + " préside. " + reste + (reste > 1 ? " membres n'ont" : " membre n'a") + " pas encore présidé.");
+        tirer.textContent = "Tirer au sort le jour suivant";
+      }
+    });
+    return bloc;
+  }
+  function construirePanneau(cleePiste, etape, rang, total) {
+    var panneau = el("div", "pdl__panneau");
+    panneau.id = "pdl-p-" + cleePiste + "-" + etape.cle;
+    panneau.setAttribute("data-cle", cleePiste + "-" + etape.cle);
+    var nomPiste = pistes[cleePiste].nom;
+    var sur = etape.prealable ? nomPiste + " : avant tout" : etape.horsSerie ? nomPiste + " : après l'adoption" : nomPiste + " : étape " + rang + " sur " + total;
+    panneau.appendChild(el("p", "pdl__surtitre", sur));
+    var titre = el("p", "pdl__titre-panneau", etape.titre);
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    panneau.appendChild(titre);
+    if (etape.facultatif) { panneau.appendChild(el("p", "pdl__facultatif", etape.facultatif)); }
+    panneau.appendChild(fiche(etape.fiche));
+    panneau.appendChild(el("p", "pdl__texte", etape.texte));
+    if (etape.exemple) {
+      var ex = el("div", "pdl__exemple");
+      ex.appendChild(el("span", "pdl__exemple-titre", cleePiste === "athenes" ? "Un exemple réel : la flotte de Thémistocle" : "Un exemple réel : la loi sur les élections à date fixe"));
+      ex.appendChild(el("p", "", etape.exemple));
+      panneau.appendChild(ex);
+    }
+    if (etape.tirage) { panneau.appendChild(construireTirage()); }
+    return panneau;
+  }
+  function construirePiste(cleePiste) {
+    var piste = pistes[cleePiste];
+    var liste = racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"] .pdl__liste');
+    var numerotees = piste.etapes.filter(function (e) { return !e.prealable && !e.horsSerie; }).length;
+    var numero = 0;
+    piste.etapes.forEach(function (etape, index) {
+      if (!etape.prealable && !etape.horsSerie) { numero += 1; }
+      var li = el("li");
+      var bouton = el("button", "pdl__etape" + (etape.facultatif ? " est-facultatif" : "") + (etape.prealable ? " est-prealable" : ""));
+      bouton.type = "button";
+      bouton.setAttribute("data-cle", etape.cle);
+      var num = el("span", "pdl__num", etape.prealable ? "0" : etape.horsSerie ? "+" : String(numero));
+      num.setAttribute("aria-hidden", "true");
+      bouton.appendChild(num);
+      var mots = el("span", "pdl__mots");
+      mots.appendChild(el("span", "pdl__court", etape.court));
+      mots.appendChild(el("span", "pdl__qui", etape.facultatif ? etape.qui + ", si besoin" : etape.qui));
+      bouton.appendChild(mots);
+      var jeton = icone(DOCUMENT);
+      jeton.setAttribute("class", "pdl__jeton");
+      bouton.appendChild(jeton);
+      bouton.setAttribute("aria-controls", "pdl-p-" + cleePiste + "-" + etape.cle);
+      bouton.addEventListener("click", function () {
+        etat.rangs[cleePiste] = index;
+        etat.special = false;
+        afficher();
+      });
+      li.appendChild(bouton);
+      liste.appendChild(li);
+      registre[cleePiste].boutons.push(bouton);
+      var panneau = construirePanneau(cleePiste, etape, numero, numerotees);
+      cote.appendChild(panneau);
+      registre[cleePiste].panneaux.push(panneau);
+    });
+    if (piste.special) {
+      var s = piste.special;
+      var boutonSpecial = el("button", "pdl__special");
+      boutonSpecial.type = "button";
+      boutonSpecial.appendChild(icone(TESSON));
+      boutonSpecial.appendChild(document.createTextNode(typo(s.bouton)));
+      boutonSpecial.setAttribute("aria-controls", "pdl-p-" + cleePiste + "-" + s.cle);
+      racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"]').appendChild(boutonSpecial);
+      var panneau = el("div", "pdl__panneau");
+      panneau.id = "pdl-p-" + cleePiste + "-" + s.cle;
+      panneau.setAttribute("data-cle", cleePiste + "-" + s.cle);
+      panneau.appendChild(el("p", "pdl__surtitre", "Athènes : une autre arme du peuple"));
+      var titre = el("p", "pdl__titre-panneau", s.titre);
+      titre.setAttribute("role", "heading");
+      titre.setAttribute("aria-level", "4");
+      panneau.appendChild(titre);
+      var ol = el("ol", "pdl__ostra");
+      s.etapes.forEach(function (texte, k) {
+        var li = el("li");
+        var n = el("span", "pdl__ostra-num", String(k + 1));
+        n.setAttribute("aria-hidden", "true");
+        li.appendChild(n);
+        li.appendChild(document.createTextNode(typo(texte)));
+        ol.appendChild(li);
+      });
+      panneau.appendChild(ol);
+      panneau.appendChild(el("p", "pdl__texte", s.note));
+      var indice = el("div", "pdl__indice");
+      var q = el("p", "pdl__indice-question");
+      q.appendChild(el("strong", "pdl__etiquette", "Indice à examiner"));
+      q.appendChild(document.createTextNode(typo(s.question)));
+      indice.appendChild(q);
+      var voir = el("button", "pdl__voir", "Voir une hypothèse");
+      voir.type = "button";
+      voir.setAttribute("aria-expanded", "false");
+      var reponse = el("p", "pdl__indice-reponse", s.reponse);
+      reponse.hidden = true;
+      reponse.id = "pdl-indice-reponse";
+      voir.setAttribute("aria-controls", reponse.id);
+      voir.addEventListener("click", function () {
+        var ouvert = reponse.hidden;
+        reponse.hidden = !ouvert;
+        voir.setAttribute("aria-expanded", ouvert ? "true" : "false");
+        voir.textContent = ouvert ? "Masquer l'hypothèse" : "Voir une hypothèse";
+      });
+      indice.appendChild(voir);
+      indice.appendChild(reponse);
+      panneau.appendChild(indice);
+      cote.appendChild(panneau);
+      registre[cleePiste].special = { bouton: boutonSpecial, panneau: panneau };
+      boutonSpecial.addEventListener("click", function () {
+        etat.special = true;
+        afficher();
+      });
+    }
+  }
+  function construireComparaison() {
+    comparaisons.forEach(function (c) {
+      var carte = el("div", "pdl__carte");
+      var q = el("p", "pdl__question", c.question);
+      q.setAttribute("role", "heading");
+      q.setAttribute("aria-level", "4");
+      carte.appendChild(q);
+      var duo = el("div", "pdl__duo");
+      [["athenes", "À Athènes"], ["quebec", "Au Québec"]].forEach(function (paire) {
+        var bloc = el("div");
+        bloc.appendChild(el("p", "pdl__ou", paire[1]));
+        bloc.appendChild(el("p", "pdl__reponse", c[paire[0]]));
+        duo.appendChild(bloc);
+      });
+      carte.appendChild(duo);
+      var constats = el("div", "pdl__constats");
+      [["semblable", "Ce qui se ressemble"], ["differe", "Ce qui diffère"]].forEach(function (paire) {
+        var p = el("p", "pdl__constat pdl__constat--" + paire[0]);
+        p.appendChild(el("strong", "pdl__etiquette", paire[1]));
+        p.appendChild(document.createTextNode(typo(c[paire[0]])));
+        constats.appendChild(p);
+      });
+      carte.appendChild(constats);
+      comparaison.appendChild(carte);
+    });
+  }
+  function placerProgres(cleePiste) {
+    var boite = racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"] .pdl__etapes');
+    var barre = boite.querySelector(".pdl__progres");
+    var bouton = registre[cleePiste].boutons[etat.rangs[cleePiste]];
+    if (!bouton || etat.special) { barre.style.height = "0px"; return; }
+    var haut = bouton.offsetTop + bouton.offsetHeight / 2 - barre.offsetTop;
+    barre.style.height = Math.max(0, haut) + "px";
+  }
+  function afficher() {
+    var vue = etat.vue;
+    racine.classList.toggle("est-comparer", vue === "comparer");
+    onglets.forEach(function (o) {
+      var actif = o.getAttribute("data-vue") === vue;
+      o.classList.toggle("est-actif", actif);
+      o.setAttribute("aria-selected", actif ? "true" : "false");
+      o.tabIndex = actif ? 0 : -1;
+    });
+    Array.prototype.forEach.call(racine.querySelectorAll(".pdl__piste"), function (p) {
+      p.classList.toggle("est-visible", p.getAttribute("data-piste") === vue);
+    });
+    Array.prototype.forEach.call(cote.querySelectorAll(".pdl__panneau"), function (p) { p.classList.remove("est-visible"); });
+    if (vue === "comparer") { return; }
+    var reg = registre[vue];
+    var rang = etat.rangs[vue];
+    var surSpecial = etat.special && reg.special;
+    reg.boutons.forEach(function (b, k) {
+      var courant = !surSpecial && k === rang;
+      b.classList.toggle("est-courant", courant);
+      b.classList.toggle("est-passe", !surSpecial && k < rang);
+      if (courant) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
+    });
+    if (reg.special) {
+      reg.special.bouton.classList.toggle("est-courant", !!surSpecial);
+      if (surSpecial) { reg.special.bouton.setAttribute("aria-current", "true"); } else { reg.special.bouton.removeAttribute("aria-current"); }
+    }
+    var panneau = surSpecial ? reg.special.panneau : reg.panneaux[rang];
+    panneau.classList.add("est-visible");
+    precedent.disabled = !surSpecial && rang === 0;
+    suivant.disabled = !surSpecial && rang === reg.boutons.length - 1;
+    suivant.textContent = surSpecial ? "Revenir au parcours" : "Étape suivante";
+    placerProgres(vue);
+  }
+  construirePiste("athenes");
+  construirePiste("quebec");
+  construireComparaison();
+  onglets.forEach(function (o) {
+    o.addEventListener("click", function () {
+      etat.vue = o.getAttribute("data-vue");
+      etat.special = false;
+      afficher();
+    });
+  });
+  racine.querySelector(".pdl__onglets").addEventListener("keydown", function (e) {
+    var rang = onglets.indexOf(document.activeElement);
+    if (rang < 0) { return; }
+    var cible = null;
+    if (e.key === "ArrowRight") { cible = (rang + 1) % onglets.length; }
+    else if (e.key === "ArrowLeft") { cible = (rang - 1 + onglets.length) % onglets.length; }
+    else if (e.key === "Home") { cible = 0; }
+    else if (e.key === "End") { cible = onglets.length - 1; }
+    if (cible === null) { return; }
+    e.preventDefault();
+    etat.vue = onglets[cible].getAttribute("data-vue");
+    etat.special = false;
+    afficher();
+    onglets[cible].focus();
+  });
+  precedent.addEventListener("click", function () {
+    if (etat.special) { etat.special = false; afficher(); return; }
+    if (etat.rangs[etat.vue] > 0) { etat.rangs[etat.vue] -= 1; afficher(); }
+  });
+  suivant.addEventListener("click", function () {
+    if (etat.special) { etat.special = false; afficher(); return; }
+    if (etat.rangs[etat.vue] < registre[etat.vue].boutons.length - 1) { etat.rangs[etat.vue] += 1; afficher(); }
+  });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  window.addEventListener("resize", function () { if (etat.vue !== "comparer") { placerProgres(etat.vue); } });
+  document.addEventListener("fullscreenchange", function () { setTimeout(function () { if (etat.vue !== "comparer") { placerProgres(etat.vue); } }, 60); });
+  afficher();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
+
 <h2 id="les-classes-sociales-atheniennes">Les classes sociales athéniennes</h2>
 <p>« Il faut toutefois savoir que, pour les Athéniens, le peuple se limite aux
 citoyens, c'est-à-dire aux hommes libres, nés de pères athéniens. Le groupe des
@@ -594,6 +1256,412 @@ graduellement que les institutions démocratiques ont vu le jour à Athènes. »
   <text class="pa-t pa-s" x="504" y="364">Ils appartiennent à leur propriétaire.</text>
 </svg>
 </figure>
+
+<section class="qec" id="qui-est-citoyen" aria-label="Interface : qui est citoyen à Athènes? La population filtrée par les critères de citoyenneté, puis comparée au Québec">
+<style>
+.qec { --qec-neutre: #B3BCC2; --qec-neutre-trait: #6E7B85; --qec-fantome: #EEF0EB; --qec-fantome-trait: #B9C1B4; --qec-droit: #5F82AD; --qec-vote: #22374F; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: qec / inline-size; }
+html[data-sombre="on"] .qec { --qec-neutre: #4A5663; --qec-neutre-trait: #8B98A3; --qec-fantome: #1C2631; --qec-fantome-trait: #3A4756; --qec-droit: #5577A0; --qec-vote: #A9C8EA; }
+.qec ul, .qec ol { list-style: none; margin: 0; padding: 0; }
+.qec li { margin: 0; padding: 0; }
+.qec ul > li::before, .qec ol > li::before { content: none; display: none; }
+.qec ul > li::marker, .qec ol > li::marker { content: none; }
+.qec p { margin: 0; }
+.qec [hidden] { display: none !important; }
+.qec .qec__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.qec .qec__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.qec__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .qec .qec__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .qec .qec__titre { color: var(--encre); }
+html[data-sombre="on"] .qec__consigne { color: var(--encre-pale); }
+.qec__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.qec__scene { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: .5rem; padding: 1rem 1.2rem 1.1rem; background: var(--surface-2); }
+.qec .qec__lieu { font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); text-align: center; }
+.qec .qec__compte { font-family: var(--titre); font-size: .95rem; color: var(--encre); text-align: center; }
+.qec__compte strong { font-weight: 800; font-size: 1.35rem; color: var(--matiere-fonce); margin-right: .3rem; }
+html[data-sombre="on"] .qec__compte strong { color: var(--encre); }
+.qec__grille { display: block; width: 100%; max-width: 30rem; height: auto; margin: 0 auto; overflow: visible; }
+.qec__fig circle, .qec__fig path { fill: var(--qec-neutre); stroke: var(--qec-neutre-trait); stroke-width: 1.2; transition: fill .45s ease, stroke .45s ease; transition-delay: var(--qec-delai, 0ms); }
+.qec__fig.est-retire circle, .qec__fig.est-retire path { fill: var(--qec-fantome); stroke: var(--qec-fantome-trait); stroke-dasharray: 3 2.4; }
+.qec__fig.est-droit circle, .qec__fig.est-droit path { fill: var(--qec-droit); stroke: var(--qec-droit); }
+.qec__fig.est-vote circle, .qec__fig.est-vote path { fill: var(--qec-vote); stroke: var(--qec-vote); }
+.qec__demi { opacity: 0; transition: opacity .45s ease; }
+.qec__demi.est-visible { opacity: 1; }
+.qec__demi circle, .qec__demi path { fill: var(--qec-vote); stroke: var(--qec-vote); stroke-width: 1.2; }
+.qec__bande { opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.qec__bande.est-visible { opacity: 1; }
+.qec__bande-fond { fill: var(--surface); stroke: var(--trait); stroke-width: 1; }
+.qec__bande-texte { font-family: var(--titre); font-weight: 700; font-size: 13px; fill: var(--encre); }
+.qec .qec__echelle { font-family: var(--donnee); font-size: .7rem; letter-spacing: .04em; color: var(--encre-doux); text-align: center; }
+.qec__nav { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-top: .2rem; }
+.qec__precedent, .qec__suivant, .qec__replier, .qec__etape { font-family: var(--titre); font-weight: 600; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.qec__precedent, .qec__suivant { font-size: .9rem; border-radius: 100px; padding: .5rem 1.15rem; border: 1px solid var(--trait); background: var(--surface); color: var(--encre-doux); }
+.qec__precedent:hover:not(:disabled) { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec__precedent:disabled { opacity: .45; cursor: default; }
+.qec__suivant { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.qec__suivant:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .qec__suivant { color: #10171F; }
+.qec__replier { position: absolute; top: .65rem; right: .65rem; z-index: 2; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; }
+.qec__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec:not(.est-plein-ecran) .qec__replier { display: none; }
+.qec__cote { padding: 1.1rem 1.3rem 1.3rem; border-top: 1px solid var(--trait); }
+.qec .qec__etapes { display: flex; flex-wrap: wrap; gap: .3rem .35rem; align-items: center; margin-bottom: 1.1rem; }
+.qec .qec__groupe { flex: 0 0 100%; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-top: .25rem; }
+.qec__etape { display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .22rem .65rem .22rem .25rem; }
+.qec__etape:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec__num { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; font-family: var(--donnee); font-size: .7rem; background: var(--surface-2); border: 1px solid var(--trait); }
+.qec__etape.est-passe .qec__num { background: var(--matiere-voile); border-color: var(--matiere); }
+.qec__etape[aria-current="step"] { color: var(--encre); border-color: var(--signal); box-shadow: 0 0 0 2px var(--signal); }
+.qec__etape[aria-current="step"] .qec__num { background: var(--matiere); border-color: var(--matiere); color: #fff; }
+html[data-sombre="on"] .qec__etape[aria-current="step"] .qec__num { color: #10171F; }
+.qec .qec__surtitre { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.qec .qec__titre-etape { font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.3; color: var(--matiere-fonce); margin-bottom: .5rem; }
+html[data-sombre="on"] .qec .qec__titre-etape { color: var(--encre); }
+.qec .qec__explication { font-size: .97rem; line-height: 1.62; }
+.qec .qec__et-toi { margin-top: .8rem; padding: .75rem 1rem; border-radius: var(--rayon); background: var(--matiere-voile); font-size: .95rem; line-height: 1.55; }
+.qec__et-toi strong { font-family: var(--titre); }
+.qec .qec__bilan { margin-top: 1.1rem; border-top: 1px solid var(--trait); }
+.qec__ligne { display: grid; grid-template-columns: 1.2rem 3.1rem minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding: .45rem 0; border-bottom: 1px solid var(--trait); font-family: var(--titre); font-size: .86rem; line-height: 1.3; }
+.qec__pastille { width: 1rem; height: 1rem; border-radius: 50%; background: var(--qec-neutre); border: 1.5px solid var(--qec-neutre-trait); }
+.qec__ligne--retire .qec__pastille { background: var(--qec-fantome); border: 1.5px dashed var(--qec-fantome-trait); }
+.qec__ligne--droit .qec__pastille { background: var(--qec-droit); border-color: var(--qec-droit); }
+.qec__ligne--vote .qec__pastille { background: var(--qec-vote); border-color: var(--qec-vote); }
+.qec__nb { font-family: var(--donnee); font-weight: 600; font-size: .86rem; text-align: right; white-space: nowrap; }
+.qec__pers { font-family: var(--donnee); font-size: .74rem; color: var(--encre-doux); text-align: right; white-space: nowrap; }
+.qec__ligne.est-fort { font-weight: 700; }
+.qec__ligne.est-fort .qec__nb { color: var(--matiere-fonce); }
+html[data-sombre="on"] .qec__ligne.est-fort .qec__nb { color: var(--encre); }
+.qec__ligne.est-neuf { animation: qec-entre .5s ease both; }
+@keyframes qec-entre { from { opacity: 0; transform: translateY(-.3rem); } to { opacity: 1; transform: none; } }
+@container qec (min-width: 42rem) {
+  .qec__corps { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  .qec__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container qec (max-width: 30rem) {
+  .qec__scene { padding: .9rem .8rem 1rem; }
+  .qec__cote { padding: 1rem .9rem 1.1rem; }
+  .qec__ligne { grid-template-columns: 1rem 2.6rem minmax(0, 1fr); }
+  .qec__pers { grid-column: 3; text-align: left; }
+}
+.qec.est-plein-ecran { display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.qec.est-plein-ecran > .qec__entete { position: static; }
+.qec.est-plein-ecran > .qec__corps { min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(21rem, 30vw, 28rem); }
+.qec.est-plein-ecran .qec__scene { min-height: 0; justify-content: center; padding: 1.2rem 1.6rem 1.2rem; }
+.qec.est-plein-ecran .qec__grille { flex: 1 1 auto; min-height: 0; max-width: none; width: 100%; height: 100%; max-height: none; }
+.qec.est-plein-ecran .qec__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; border-left: 1px solid var(--trait); }
+.qec.est-plein-ecran .qec__explication { font-size: 1.03rem; }
+.qec.est-plein-ecran.texte-masque > .qec__corps { grid-template-columns: minmax(0, 1fr) 0; }
+.qec.est-plein-ecran.texte-masque .qec__cote { display: none; }
+@media (max-width: 52rem) {
+  .qec.est-plein-ecran > .qec__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .qec.est-plein-ecran .qec__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .qec.est-plein-ecran.texte-masque > .qec__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+}
+@media print {
+  .qec__nav, .qec__replier, .qec__etapes { display: none !important; }
+  .qec__corps { grid-template-columns: 1fr 1fr; }
+}
+</style>
+<div class="qec__entete">
+  <p class="qec__titre" role="heading" aria-level="3">Qui est citoyen? La population d'Athènes, filtrée</p>
+  <p class="qec__consigne">Applique les critères un à un</p>
+</div>
+<div class="qec__corps">
+  <div class="qec__scene">
+    <button type="button" class="qec__replier" aria-expanded="true">Masquer le texte</button>
+    <p class="qec__lieu"></p>
+    <p class="qec__compte"></p>
+    <svg class="qec__grille" viewBox="0 0 400 500" role="img" aria-label="Grille de 100 silhouettes"></svg>
+    <p class="qec__echelle"></p>
+    <div class="qec__nav">
+      <button type="button" class="qec__precedent">Étape précédente</button>
+      <button type="button" class="qec__suivant">Premier critère</button>
+    </div>
+  </div>
+  <div class="qec__cote">
+    <ol class="qec__etapes" aria-label="Étapes"></ol>
+    <div class="qec__texte" aria-live="polite">
+      <p class="qec__surtitre"></p>
+      <p class="qec__titre-etape"></p>
+      <p class="qec__explication"></p>
+      <p class="qec__et-toi" hidden></p>
+    </div>
+    <ol class="qec__bilan" aria-label="Bilan des silhouettes"></ol>
+  </div>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("qui-est-citoyen");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var NS = "http://www.w3.org/2000/svg";
+  var COLONNES = 10;
+  var CASE_L = 40;
+  var CASE_H = 50;
+  /* Les groupes occupent des bandes continues, lues de gauche à droite. */
+  var GROUPES = {
+    esclaves: [0, 25], meteques: [25, 45], femmes: [45, 90], citoyens: [90, 100],
+    exclus: [0, 30], abstention: [30, 53], votants: [53, 100]
+  };
+  var ETIQUETTES = {
+    esclaves: "Esclaves", meteques: "Métèques", femmes: "Femmes et enfants",
+    exclus: "Ne peuvent pas voter", abstention: "N'ont pas voté"
+  };
+  var etapes = [
+    {
+      court: "Tous les habitants", pays: "athenes",
+      surtitre: "Athènes, à l'époque de Périclès",
+      titre: "Environ 400 000 habitants",
+      texte: "À l'époque de Périclès, environ 400 000 personnes vivent en Attique, le territoire d'Athènes. Chaque silhouette en représente 4 000. Qui, parmi elles, a le droit de voter? Applique les critères de citoyenneté un à un.",
+      compte: ["100", "silhouettes sur 100"], suivant: "Premier critère",
+      retires: [], droit: [], vote: [], bandes: []
+    },
+    {
+      court: "Être libre", pays: "athenes",
+      surtitre: "Premier critère",
+      titre: "Être libre",
+      texte: "Les esclaves forment plus du quart de la population. Ils appartiennent à leur propriétaire et n'ont aucun droit politique. On les retire. Il reste 75 silhouettes sur 100.",
+      compte: ["75", "silhouettes sur 100"], suivant: "Critère suivant",
+      retires: ["esclaves"], droit: [], vote: [], bandes: ["esclaves"]
+    },
+    {
+      court: "Avoir des parents athéniens", pays: "athenes",
+      surtitre: "Deuxième critère",
+      titre: "Être né de parents athéniens",
+      texte: "Depuis une loi de Périclès, en -451, il faut être né d'un père athénien et d'une mère fille de citoyen. Les métèques, environ 20 % des habitants, sont des étrangers libres. Ils paient des impôts et font leur service militaire, mais ils ne votent pas. Il reste 55 silhouettes.",
+      compte: ["55", "silhouettes sur 100"], suivant: "Critère suivant",
+      retires: ["esclaves", "meteques"], droit: [], vote: [], bandes: ["esclaves", "meteques"]
+    },
+    {
+      court: "Être un homme adulte et soldat", pays: "athenes",
+      surtitre: "Troisième critère",
+      titre: "Avoir plus de 18 ans et avoir fait son service militaire",
+      texte: "Les enfants sont trop jeunes. Les femmes ne font pas de service militaire et n'ont aucun droit politique. Ensemble, les femmes et les enfants des familles de citoyens forment environ 45 % de la population. Il reste les citoyens : 10 silhouettes, environ 40 000 hommes.",
+      compte: ["10", "silhouettes ont le droit de voter"], suivant: "Qui vient à l'ecclésia?",
+      retires: ["esclaves", "meteques", "femmes"], droit: ["citoyens"], vote: [], bandes: ["esclaves", "meteques", "femmes"]
+    },
+    {
+      court: "Venir à l'ecclésia", pays: "athenes",
+      surtitre: "Un jour d'assemblée",
+      titre: "Avoir le droit de voter ne veut pas dire voter",
+      texte: "L'ecclésia se réunit sur la colline de la Pnyx, qui peut accueillir environ 6 000 citoyens. Beaucoup de citoyens sont des paysans qui peuvent difficilement quitter leurs terres. Un jour d'assemblée, au plus 1,5 habitant sur 100 décide donc pour toute la cité.",
+      compte: ["1,5", "silhouette, au plus, décide ce jour-là"], suivant: "Et au Québec?",
+      retires: ["esclaves", "meteques", "femmes"], droit: ["citoyens"], vote: [], present: true, bandes: ["esclaves", "meteques", "femmes"]
+    },
+    {
+      court: "Qui peut voter?", pays: "quebec",
+      surtitre: "Et au Québec?",
+      titre: "7 habitants sur 10 peuvent voter",
+      texte: "Pour voter au Québec, il faut avoir 18 ans, avoir la citoyenneté canadienne, habiter au Québec depuis au moins six mois et être inscrit sur la liste électorale. Ce droit s'est élargi peu à peu : les femmes votent depuis 1940, les Autochtones qui vivent dans les réserves depuis 1969. En 2026, environ 6,4 millions de personnes étaient inscrites, sur environ 9,1 millions d'habitants.",
+      compte: ["70", "silhouettes peuvent voter"], suivant: "Qui a voté?",
+      retires: ["exclus"], droit: ["abstention", "votants"], vote: [], bandes: ["exclus"]
+    },
+    {
+      court: "Qui a voté?", pays: "quebec",
+      surtitre: "Le 5 octobre 2026",
+      titre: "Un peu moins de la moitié des habitants a voté",
+      texte: "Aux élections du 5 octobre 2026, 66,93 % des personnes inscrites ont voté, soit environ 4,3 millions de personnes. Elles n'ont pas voté les lois elles-mêmes : elles ont élu les 127 députés de l'Assemblée nationale, qui voteront les lois en leur nom.",
+      etToi: "À ton âge, tu ne pourrais voter ni à Athènes ni au Québec. Au Québec, tu pourras voter à 18 ans, que tu sois une fille ou un garçon.",
+      compte: ["47", "silhouettes ont voté"], suivant: "Recommencer",
+      retires: ["exclus"], droit: ["abstention"], vote: ["votants"], bandes: ["exclus", "abstention"]
+    }
+  ];
+  var PAYS = {
+    athenes: { lieu: "L'Attique à l'époque de Périclès", echelle: "1 silhouette = 4 000 personnes" },
+    quebec: { lieu: "Le Québec en 2026", echelle: "1 silhouette = environ 90 000 personnes" }
+  };
+  var BILANS = {
+    athenes: [
+      { de: 0, signe: "", nb: "100", nom: "Habitants de l'Attique", pers: "environ 400 000", genre: "neutre" },
+      { de: 1, signe: "\u2212", nb: "25", nom: "Esclaves", pers: "plus de 100 000", genre: "retire" },
+      { de: 2, signe: "\u2212", nb: "20", nom: "Métèques", pers: "environ 80 000", genre: "retire" },
+      { de: 3, signe: "\u2212", nb: "45", nom: "Femmes et enfants des familles de citoyens", pers: "environ 180 000", genre: "retire" },
+      { de: 3, signe: "=", nb: "10", nom: "Citoyens", pers: "environ 40 000", genre: "droit", fort: true },
+      { de: 4, signe: "", nb: "1,5", nom: "Présents à l'ecclésia, au plus", pers: "environ 6 000", genre: "vote", fort: true }
+    ],
+    quebec: [
+      { de: 5, signe: "", nb: "100", nom: "Habitants du Québec", pers: "environ 9,1 millions", genre: "neutre" },
+      { de: 5, signe: "\u2212", nb: "30", nom: "Ne peuvent pas voter ou ne sont pas inscrits", pers: "environ 2,7 millions", genre: "retire" },
+      { de: 5, signe: "=", nb: "70", nom: "Électeurs inscrits", pers: "environ 6,4 millions", genre: "droit", fort: true },
+      { de: 6, signe: "\u2212", nb: "23", nom: "N'ont pas voté le 5 octobre 2026", pers: "environ 2,1 millions", genre: "droit" },
+      { de: 6, signe: "=", nb: "47", nom: "Ont voté", pers: "environ 4,3 millions", genre: "vote", fort: true }
+    ]
+  };
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function svgEl(nom, attributs) {
+    var n = document.createElementNS(NS, nom);
+    Object.keys(attributs || {}).forEach(function (cle) { n.setAttribute(cle, attributs[cle]); });
+    return n;
+  }
+  function dessinerSilhouette(parent) {
+    parent.appendChild(svgEl("circle", { cx: "20", cy: "13", r: "7" }));
+    parent.appendChild(svgEl("path", { d: "M8 46v-11a12 12 0 0 1 24 0v11z" }));
+  }
+  function dansGroupes(i, liste) {
+    return liste.some(function (nom) { var g = GROUPES[nom]; return i >= g[0] && i < g[1]; });
+  }
+  var grille = racine.querySelector(".qec__grille");
+  var lieu = racine.querySelector(".qec__lieu");
+  var compte = racine.querySelector(".qec__compte");
+  var echelle = racine.querySelector(".qec__echelle");
+  var precedent = racine.querySelector(".qec__precedent");
+  var suivant = racine.querySelector(".qec__suivant");
+  var listeEtapes = racine.querySelector(".qec__etapes");
+  var surtitre = racine.querySelector(".qec__surtitre");
+  var titre = racine.querySelector(".qec__titre-etape");
+  var explication = racine.querySelector(".qec__explication");
+  var etToi = racine.querySelector(".qec__et-toi");
+  var bilan = racine.querySelector(".qec__bilan");
+  var replier = racine.querySelector(".qec__replier");
+  /* ------------------------------------------------- la grille de silhouettes */
+  var defs = svgEl("defs");
+  var clip = svgEl("clipPath", { id: "qec-moitie" });
+  clip.appendChild(svgEl("rect", { x: "0", y: "0", width: "20", height: "50" }));
+  defs.appendChild(clip);
+  grille.appendChild(defs);
+  var figures = [];
+  for (var i = 0; i < 100; i += 1) {
+    var col = i % COLONNES;
+    var rang = Math.floor(i / COLONNES);
+    var g = svgEl("g", { "class": "qec__fig", transform: "translate(" + (col * CASE_L) + " " + (rang * CASE_H) + ")" });
+    g.style.setProperty("--qec-delai", (col * 18) + "ms");
+    dessinerSilhouette(g);
+    grille.appendChild(g);
+    figures.push(g);
+  }
+  /* La moitié de silhouette : 6 000 présents sur 40 000 citoyens, soit 1,5 sur 10. */
+  var demi = svgEl("g", { "class": "qec__demi", transform: "translate(" + (1 * CASE_L) + " " + (9 * CASE_H) + ")" });
+  var demiInterieur = svgEl("g", { "clip-path": "url(#qec-moitie)" });
+  dessinerSilhouette(demiInterieur);
+  demi.appendChild(demiInterieur);
+  grille.appendChild(demi);
+  var bandes = {};
+  Object.keys(ETIQUETTES).forEach(function (nom) {
+    var bornes = GROUPES[nom];
+    var sx = 0;
+    var sy = 0;
+    for (var k = bornes[0]; k < bornes[1]; k += 1) {
+      sx += (k % COLONNES) * CASE_L + CASE_L / 2;
+      sy += Math.floor(k / COLONNES) * CASE_H + CASE_H / 2;
+    }
+    var n = bornes[1] - bornes[0];
+    var cx = Math.round(sx / n);
+    var cy = Math.round(sy / n);
+    var texte = ETIQUETTES[nom];
+    var largeur = Math.round(texte.length * 7.4 + 22);
+    var groupe = svgEl("g", { "class": "qec__bande", "data-bande": nom, "aria-hidden": "true" });
+    groupe.appendChild(svgEl("rect", { "class": "qec__bande-fond", x: String(cx - largeur / 2), y: String(cy - 12), width: String(largeur), height: "24", rx: "12" }));
+    var t = svgEl("text", { "class": "qec__bande-texte", x: String(cx), y: String(cy + 4.5), "text-anchor": "middle" });
+    t.textContent = texte;
+    groupe.appendChild(t);
+    grille.appendChild(groupe);
+    bandes[nom] = groupe;
+  });
+  /* ----------------------------------------------------- la liste des étapes */
+  var boutonsEtapes = [];
+  etapes.forEach(function (etape, index) {
+    if (index === 0 || etapes[index - 1].pays !== etape.pays) {
+      listeEtapes.appendChild(el("li", "qec__groupe", etape.pays === "athenes" ? "À Athènes" : "Au Québec"));
+    }
+    var li = el("li");
+    var bouton = el("button", "qec__etape");
+    bouton.type = "button";
+    bouton.setAttribute("data-etape", String(index));
+    var num = el("span", "qec__num", String(index + 1));
+    num.setAttribute("aria-hidden", "true");
+    bouton.appendChild(num);
+    bouton.appendChild(el("span", "qec__etape-nom", etape.court));
+    bouton.setAttribute("aria-label", typo("Étape " + (index + 1) + " : " + etape.court));
+    bouton.addEventListener("click", function () { aller(index); });
+    li.appendChild(bouton);
+    listeEtapes.appendChild(li);
+    boutonsEtapes.push(bouton);
+  });
+  /* ------------------------------------------------------------ l'affichage */
+  var courante = -1;
+  function remplirBilan(index) {
+    var pays = etapes[index].pays;
+    var precedentes = bilan.getAttribute("data-pays") === pays ? Number(bilan.getAttribute("data-etape")) : -1;
+    bilan.textContent = "";
+    bilan.setAttribute("data-pays", pays);
+    bilan.setAttribute("data-etape", String(index));
+    BILANS[pays].forEach(function (ligne) {
+      if (ligne.de > index) { return; }
+      var li = el("li", "qec__ligne qec__ligne--" + ligne.genre + (ligne.fort ? " est-fort" : ""));
+      if (ligne.de > precedentes && precedentes >= 0) { li.classList.add("est-neuf"); }
+      var pastille = el("span", "qec__pastille");
+      pastille.setAttribute("aria-hidden", "true");
+      li.appendChild(pastille);
+      li.appendChild(el("span", "qec__nb", (ligne.signe ? ligne.signe + " " : "") + ligne.nb));
+      li.appendChild(el("span", "qec__nom-ligne", ligne.nom));
+      li.appendChild(el("span", "qec__pers", ligne.pers));
+      bilan.appendChild(li);
+    });
+  }
+  function aller(index) {
+    if (index < 0 || index >= etapes.length) { return; }
+    var etape = etapes[index];
+    courante = index;
+    racine.setAttribute("data-etape", String(index + 1));
+    figures.forEach(function (fig, k) {
+      var classe = "qec__fig";
+      if (dansGroupes(k, etape.retires)) { classe += " est-retire"; }
+      else if (etape.present && k === 90) { classe += " est-vote"; }
+      else if (dansGroupes(k, etape.vote)) { classe += " est-vote"; }
+      else if (dansGroupes(k, etape.droit)) { classe += " est-droit"; }
+      fig.setAttribute("class", classe);
+    });
+    demi.setAttribute("class", "qec__demi" + (etape.present ? " est-visible" : ""));
+    Object.keys(bandes).forEach(function (nom) {
+      bandes[nom].setAttribute("class", "qec__bande" + (etape.bandes.indexOf(nom) >= 0 ? " est-visible" : ""));
+    });
+    var pays = PAYS[etape.pays];
+    lieu.textContent = typo(pays.lieu);
+    echelle.textContent = typo(pays.echelle);
+    compte.textContent = "";
+    compte.appendChild(el("strong", "", etape.compte[0]));
+    compte.appendChild(document.createTextNode(typo(etape.compte[1])));
+    grille.setAttribute("aria-label", typo("Grille de 100 silhouettes, " + pays.lieu + " : " + etape.compte[0] + " " + etape.compte[1] + "."));
+    surtitre.textContent = typo(etape.surtitre);
+    titre.textContent = typo(etape.titre);
+    explication.textContent = typo(etape.texte);
+    if (etape.etToi) {
+      etToi.textContent = "";
+      etToi.appendChild(el("strong", "", "Et toi? "));
+      etToi.appendChild(document.createTextNode(typo(etape.etToi)));
+      etToi.hidden = false;
+    } else {
+      etToi.hidden = true;
+    }
+    boutonsEtapes.forEach(function (b, k) {
+      if (k === index) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
+      b.classList.toggle("est-passe", k < index);
+    });
+    remplirBilan(index);
+    precedent.disabled = index === 0;
+    suivant.textContent = typo(etape.suivant);
+  }
+  precedent.addEventListener("click", function () { aller(courante - 1); });
+  suivant.addEventListener("click", function () {
+    aller(courante === etapes.length - 1 ? 0 : courante + 1);
+  });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  aller(0);
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
 
 <h3 id="les-citoyens-atheniens">Les citoyens athéniens</h3>
 <p>À l'époque de Périclès, l'Attique et sa cité principale, Athènes, comptent
@@ -935,6 +2003,492 @@ infliger des amendes, des peines de prison, même aux rois, et ordonner des
 exécutions. Ils sont également chargés des affaires étrangères, exécutent les
 décisions de l'Assemblée, ordonnent la mobilisation et prennent les décisions
 urgentes.</p>
+<section class="ats" id="athenes-sparte" aria-label="Comparateur : Athènes et Sparte au 5e siècle av. J.-C.">
+<style>
+.ats { --ats-ath: var(--matiere); --ats-spa: #8C2F2B; --ats-juste: #2E6B45; --ats-faux: #9E3A2E; --ats-sur-etat: #fff; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: ats / inline-size; }
+html[data-sombre="on"] .ats { --ats-spa: #E8988C; --ats-juste: #7CC495; --ats-faux: #F0907F; --ats-sur-etat: #10171F; }
+.ats ul, .ats ol { list-style: none; margin: 0; padding: 0; }
+.ats li { margin: 0; padding: 0; }
+.ats ul > li::before, .ats ol > li::before { content: none; display: none; }
+.ats ul > li::marker, .ats ol > li::marker { content: none; }
+.ats p { margin: 0; }
+.ats [hidden] { display: none !important; }
+.ats__symboles { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ats .ats__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ats .ats__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.ats__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .ats .ats__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .ats .ats__titre { color: var(--encre); }
+html[data-sombre="on"] .ats__consigne { color: var(--encre-pale); }
+.ats__barre { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.ats__onglets { display: flex; flex-wrap: wrap; gap: .4rem; flex: 1 1 auto; }
+.ats__onglet, .ats__replier { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.ats__onglet:hover, .ats__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.ats__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ats__onglet--test { border-style: dashed; border-color: var(--matiere); color: var(--matiere-fonce); }
+.ats__onglet--test.est-actif { border-style: solid; }
+.ats__replier { margin-left: auto; font-size: .78rem; padding: .3rem .8rem; }
+html[data-sombre="on"] .ats__onglet.est-actif { color: #10171F; }
+.ats__contenu { container: atscontenu / inline-size; }
+.ats__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.ats__panneau.est-visible { display: block; }
+.ats__panneau:focus { outline: none; }
+.ats__panneau:focus-visible { outline: 3px solid var(--signal); outline-offset: -3px; }
+.ats__colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ats__cote { --c: var(--ats-ath); background: var(--surface-2); border-top: 4px solid var(--c); border-radius: var(--rayon); padding: .9rem 1.1rem 1rem; }
+.ats__cote--sparte { --c: var(--ats-spa); }
+.ats .ats__cite { display: flex; align-items: center; gap: .55rem; margin-bottom: .55rem; font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ats__embleme { width: 1.8rem; height: 1.8rem; flex: none; color: var(--c, var(--matiere)); }
+.ats .ats__resume { font-family: var(--titre); font-weight: 700; font-size: 1.04rem; line-height: 1.3; color: var(--c); margin-bottom: .45rem; }
+.ats__detail { font-size: .95rem; line-height: 1.6; }
+.ats__constats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: 1rem; }
+.ats__constat { padding: .8rem 1rem; border-radius: var(--rayon); font-size: .93rem; line-height: 1.55; background: var(--matiere-voile); }
+.ats__constat--differe { background: transparent; border: 1px solid var(--trait); }
+.ats .ats__etiquette { display: block; font-family: var(--titre); font-weight: 700; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--matiere-fonce); margin-bottom: .25rem; }
+html[data-sombre="on"] .ats__etiquette { color: var(--encre); }
+@container atscontenu (max-width: 36rem) { .ats__colonnes, .ats__constats { grid-template-columns: 1fr; } .ats__panneau { padding: 1.1rem 1rem 1.1rem; } }
+.ats__apercu { display: none; }
+.ats__apercu-tete, .ats__ligne { display: grid; grid-template-columns: minmax(7.5rem, .75fr) 1fr 1fr; gap: .8rem; align-items: start; }
+.ats__apercu-tete { padding: 0 .6rem .55rem; border-bottom: 2px solid var(--trait); font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ats__apercu-tete span { display: flex; align-items: center; gap: .45rem; }
+.ats__apercu-tete .ats__embleme { width: 1.5rem; height: 1.5rem; }
+.ats__apercu-tete .ats__col-athenes { --c: var(--ats-ath); }
+.ats__apercu-tete .ats__col-sparte { --c: var(--ats-spa); }
+.ats__ligne { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--trait); border-radius: 0; padding: .7rem .6rem; cursor: pointer; transition: background .15s; }
+.ats__ligne:hover { background: var(--surface-2); }
+.ats__ligne.est-actif { background: var(--matiere-voile); box-shadow: inset 4px 0 0 var(--signal); }
+.ats__ligne-nom { font-family: var(--titre); font-weight: 700; font-size: .9rem; line-height: 1.35; color: var(--encre); }
+.ats__ligne-val { font-family: var(--titre); font-size: .92rem; line-height: 1.4; }
+.ats__ligne-val--athenes { color: var(--ats-ath); }
+.ats__ligne-val--sparte { color: var(--ats-spa); }
+.ats .ats__apercu-note { margin-top: .9rem; font-family: var(--titre); font-size: .82rem; color: var(--encre-pale); }
+.ats__test { max-width: 42rem; margin: 0 auto; text-align: center; }
+.ats .ats__progression { font-family: var(--donnee); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .55rem; }
+.ats__points { display: flex; justify-content: center; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.1rem; }
+.ats__point { width: .7rem; height: .7rem; border-radius: 50%; background: var(--trait); }
+.ats__point.est-courant { background: var(--signal); }
+.ats__point.est-juste { background: var(--ats-juste); }
+.ats__point.est-faux { background: var(--ats-faux); }
+.ats .ats__enonce { font-family: var(--titre); font-weight: 600; font-size: 1.2rem; line-height: 1.4; color: var(--encre); margin-bottom: 1.1rem; min-height: 3.4rem; display: flex; align-items: center; justify-content: center; }
+.ats__choix { display: flex; justify-content: center; flex-wrap: wrap; gap: .6rem; }
+.ats__reponse, .ats__suivant, .ats__recommencer { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--titre); font-weight: 600; font-size: .95rem; color: var(--encre); background: var(--surface); border: 2px solid var(--trait); border-radius: 100px; padding: .5rem 1.1rem .5rem .7rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.ats__reponse:hover:not(:disabled) { border-color: var(--matiere); background: var(--matiere-voile); }
+.ats__reponse:disabled { cursor: default; opacity: .55; }
+.ats__reponse .ats__embleme { width: 1.75rem; height: 1.75rem; padding: .1rem; border-radius: 50%; background: #fff; }
+.ats__reponse--athenes { --c: var(--ats-ath); }
+.ats__reponse--sparte { --c: var(--ats-spa); }
+.ats__duo { display: inline-flex; }
+.ats__duo .ats__embleme + .ats__embleme { margin-left: -.45rem; }
+.ats__duo .ats__embleme:first-child { color: var(--ats-ath); }
+.ats__duo .ats__embleme:last-child { color: var(--ats-spa); }
+.ats__reponse.est-juste { opacity: 1; color: var(--ats-sur-etat); background: var(--ats-juste); border-color: var(--ats-juste); }
+.ats__reponse.est-faux { opacity: 1; color: var(--ats-sur-etat); background: var(--ats-faux); border-color: var(--ats-faux); }
+.ats .ats__retro { margin-top: 1.1rem; padding: .85rem 1.1rem; border-radius: var(--rayon); background: var(--matiere-voile); text-align: left; font-size: .95rem; line-height: 1.55; }
+.ats .ats__verdict { display: block; font-family: var(--titre); font-weight: 700; margin-bottom: .2rem; }
+.ats__suivant, .ats__recommencer { margin-top: 1rem; padding: .5rem 1.2rem; color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ats__suivant:hover, .ats__recommencer:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .ats__suivant, html[data-sombre="on"] .ats__recommencer { color: #10171F; }
+.ats .ats__score { font-family: var(--titre); font-weight: 700; font-size: 1.6rem; color: var(--encre); margin: .4rem 0 .3rem; }
+.ats__message { font-size: 1rem; line-height: 1.55; }
+.ats.est-plein-ecran { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 1fr); grid-template-rows: auto auto minmax(0, 1fr); overflow: hidden; }
+.ats.est-plein-ecran > .ats__entete, .ats.est-plein-ecran > .ats__barre { grid-column: 1 / -1; }
+.ats.est-plein-ecran > .ats__entete { position: static; }
+.ats.est-plein-ecran > .ats__apercu { display: flex; flex-direction: column; grid-column: 1; grid-row: 3; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 1.3rem 1.5rem 1.4rem; }
+.ats.est-plein-ecran .ats__apercu-liste { flex: 1 1 auto; display: grid; grid-auto-rows: minmax(min-content, 1fr); }
+.ats.est-plein-ecran .ats__ligne { align-items: center; }
+.ats.est-plein-ecran .ats__ligne-nom { font-size: 1rem; }
+.ats.est-plein-ecran .ats__ligne-val { font-size: 1.02rem; }
+.ats.est-plein-ecran > .ats__contenu { grid-column: 2; grid-row: 3; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--trait); }
+.ats.est-plein-ecran .ats__colonnes, .ats.est-plein-ecran .ats__constats { grid-template-columns: 1fr; }
+.ats.est-plein-ecran .ats__detail { font-size: 1.02rem; }
+.ats.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr) 0; }
+.ats.est-plein-ecran.texte-masque > .ats__contenu { display: none; }
+.ats.est-plein-ecran.texte-masque .ats__ligne-nom { font-size: 1.1rem; }
+.ats.est-plein-ecran.texte-masque .ats__ligne-val { font-size: 1.2rem; }
+.ats.est-plein-ecran.est-test, .ats.est-plein-ecran.est-test.texte-masque { grid-template-columns: minmax(0, 1fr); }
+.ats.est-plein-ecran.est-test > .ats__apercu { display: none; }
+.ats.est-plein-ecran.est-test > .ats__contenu { display: block; grid-column: 1; border-left: 0; }
+.ats.est-plein-ecran.est-test .ats__test { padding-top: 6vh; }
+.ats.est-plein-ecran.est-test .ats__enonce { font-size: 1.45rem; }
+.ats:not(.est-plein-ecran) .ats__replier, .ats.est-test .ats__replier { display: none; }
+@media (max-width: 52rem) {
+  .ats.est-plein-ecran, .ats.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr); }
+  .ats.est-plein-ecran > .ats__apercu { display: none; }
+  .ats.est-plein-ecran > .ats__contenu, .ats.est-plein-ecran.texte-masque > .ats__contenu { display: block; grid-column: 1; border-left: 0; }
+  .ats.est-plein-ecran .ats__replier { display: none; }
+}
+@media print {
+  .ats__barre, .ats__panneau--test, .ats__apercu { display: none !important; }
+  .ats__panneau { display: block; break-inside: avoid; border-top: 1px solid var(--trait); }
+}
+</style>
+<svg class="ats__symboles" aria-hidden="true" focusable="false">
+  <symbol id="ats-chouette" viewBox="0 0 32 32"><path d="M7 4.5l4.4 3.7A10.6 10.6 0 0 1 16 7.2a10.6 10.6 0 0 1 4.6 1L25 4.5V17c0 6.7-4 11.5-9 11.5S7 23.7 7 17z" fill="currentColor"/><circle cx="12" cy="14.2" r="3.7" fill="#fff"/><circle cx="20" cy="14.2" r="3.7" fill="#fff"/><circle cx="12" cy="14.2" r="1.7" fill="currentColor"/><circle cx="20" cy="14.2" r="1.7" fill="currentColor"/><path d="M16 17.4l-1.7 2.8h3.4z" fill="#fff"/></symbol>
+  <symbol id="ats-bouclier" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13.5" fill="currentColor"/><circle cx="16" cy="16" r="10.8" fill="none" stroke="#fff" stroke-width="1.2" opacity=".55"/><path d="M10.3 22.6L16 8.8l5.7 13.8" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+<div class="ats__entete">
+  <p class="ats__titre" role="heading" aria-level="3">Athènes ou Sparte&nbsp;: deux cités, deux modèles</p>
+  <p class="ats__consigne">Choisis un aspect</p>
+</div>
+<div class="ats__barre">
+  <div class="ats__onglets" role="tablist" aria-label="Aspects comparés"></div>
+  <button type="button" class="ats__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="ats__apercu" role="region" aria-label="Vue d'ensemble des aspects">
+  <div class="ats__apercu-tete" aria-hidden="true"><span>Aspect</span><span class="ats__col-athenes"></span><span class="ats__col-sparte"></span></div>
+  <div class="ats__apercu-liste"></div>
+  <p class="ats__apercu-note">Clique sur une ligne pour lire les explications.</p>
+</div>
+<div class="ats__contenu"></div>
+<script>
+(function () {
+  var racine = document.getElementById("athenes-sparte");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var CITES = { athenes: "Athènes", sparte: "Sparte" };
+  var aspects = [
+    {
+      cle: "regime",
+      nom: "Le régime politique",
+      athenes: { resume: "Une démocratie directe", texte: "Depuis les réformes de Clisthène, en -507, le pouvoir appartient aux citoyens. Ils se réunissent à l'ecclésia pour voter eux-mêmes les lois. Ils décident aussi de la guerre et de la paix." },
+      sparte: { resume: "Une oligarchie", texte: "Un petit groupe d'hommes dirige la cité. Deux rois, issus de deux familles, commandent l'armée. La gérousia et les cinq éphores détiennent l'essentiel du pouvoir." },
+      semblable: "Les deux cités ont une assemblée où les citoyens se réunissent pour voter.",
+      differe: "À Athènes, l'assemblée débat puis décide. À Sparte, elle approuve ou rejette, sans discuter, ce que d'autres ont préparé."
+    },
+    {
+      cle: "citoyens",
+      nom: "Qui est citoyen?",
+      athenes: { resume: "Environ 40 000 hommes, 10 % des habitants", texte: "Il faut avoir plus de 18 ans, être né d'un père athénien et d'une mère fille de citoyen, puis avoir fait son service militaire. Sur environ 400 000 habitants, 1 sur 10 est citoyen." },
+      sparte: { resume: "À peine 5 000 Égaux, 2 % des habitants", texte: "Les seuls citoyens sont les Égaux, une caste de guerriers. Ils sont à peine 5 000 sur une population de 250 000. Toute leur vie est vouée à la guerre." },
+      semblable: "Dans les deux cités, les femmes, les étrangers et les esclaves ne sont pas citoyens.",
+      differe: "À Athènes, 1 habitant sur 10 est citoyen. À Sparte, c'est 1 sur 50."
+    },
+    {
+      cle: "lois",
+      nom: "Qui fait les lois?",
+      athenes: { resume: "La boulè prépare, l'ecclésia débat puis vote", texte: "La boulè, un conseil de 500 citoyens tirés au sort, prépare les projets. À l'ecclésia, chaque citoyen peut prendre la parole du haut de la tribune. On vote ensuite à main levée." },
+      sparte: { resume: "La gérousia prépare, l'Assemblée acclame", texte: "Seule la gérousia peut préparer les lois. L'Assemblée des Égaux les approuve ou non, sans les discuter. Elle vote par acclamations, c'est-à-dire en criant." },
+      semblable: "Dans les deux cités, un conseil prépare les décisions avant qu'une assemblée les vote.",
+      differe: "À Athènes, tout citoyen peut parler devant l'assemblée. À Sparte, l'Assemblée ne discute pas : elle crie oui ou non."
+    },
+    {
+      cle: "dirigeants",
+      nom: "Qui dirige?",
+      athenes: { resume: "Le tirage au sort, sauf pour les stratèges", texte: "La plupart des charges sont tirées au sort pour un an : chaque citoyen a la même chance d'être choisi. Les dix stratèges, qui commandent l'armée et la flotte, sont élus chaque année. Périclès a été réélu au moins quinze fois." },
+      sparte: { resume: "Des chefs à vie et deux rois héréditaires", texte: "Les 28 gérontes, des hommes de plus de 60 ans, sont élus à vie par acclamation. Les deux rois héritent de leur titre. Les cinq éphores, remplacés chaque année, surveillent les rois et les habitants." },
+      semblable: "Les deux cités élisent une partie de leurs dirigeants.",
+      differe: "À Athènes, les charges durent un an et le hasard donne sa chance à chacun. À Sparte, les gérontes gardent leur place jusqu'à leur mort."
+    },
+    {
+      cle: "education",
+      nom: "L'éducation des garçons",
+      athenes: { resume: "Former un citoyen qui sait débattre", texte: "Dès 7 ans, les garçons apprennent avec des maîtres privés : lecture, écriture, poèmes d'Homère, musique. À partir de 14 ans, ils font du sport et s'exercent à débattre. À 18 ans, ils commencent leur formation militaire." },
+      sparte: { resume: "Former un soldat", texte: "À 7 ans, le garçon appartient à l'État, qui le prépare à devenir soldat. Jusqu'à 30 ans, il vit pratiquement en caserne avec son unité. Jusqu'à 60 ans, il participe chaque jour aux exercices guerriers." },
+      semblable: "Dans les deux cités, l'éducation des garçons change à 7 ans. Elle les prépare à défendre la cité.",
+      differe: "Athènes forme aussi l'esprit et la parole, utiles à l'assemblée. Sparte forme d'abord le corps du soldat."
+    },
+    {
+      cle: "femmes",
+      nom: "Les femmes",
+      athenes: { resume: "À la maison, sans aucun droit", texte: "Les femmes n'ont aucun droit politique. Elles vivent au gynécée, dirigent le travail de la maison et sortent surtout pour les fêtes religieuses. Vers 14 ans, on les marie sans leur demander leur avis." },
+      sparte: { resume: "Mères de soldats, mais plus libres", texte: "Elles ne votent pas non plus. On attend d'elles qu'elles donnent naissance à de robustes enfants. Elles peuvent toutefois faire du sport, se déplacer librement et posséder des terres." },
+      semblable: "Dans les deux cités, les femmes n'ont aucun droit politique.",
+      differe: "La Spartiate fait du sport, se déplace et possède des biens. L'Athénienne sort rarement de la maison."
+    },
+    {
+      cle: "travail",
+      nom: "Les non-citoyens",
+      athenes: { resume: "Des métèques libres et des esclaves", texte: "Les métèques, près de 20 % des habitants, sont des étrangers libres : artisans, commerçants, parfois très riches. Les esclaves, plus du quart de la population, appartiennent à leur propriétaire. Certains sont affranchis et deviennent métèques." },
+      sparte: { resume: "40 hilotes pour un Égal", texte: "Les hilotes, environ 200 000, sont des esclaves qui cultivent les terres des Égaux. La loi les ignore : on peut les tuer impunément. Les périèques, eux, sont des paysans libres sans droits civiques." },
+      semblable: "Les deux cités reposent sur le travail d'esclaves, qui n'ont aucun droit.",
+      differe: "À Sparte, il y a 40 hilotes pour un citoyen. Chaque année, la cité leur déclare même officiellement la guerre."
+    },
+    {
+      cle: "puissance",
+      nom: "La puissance",
+      athenes: { resume: "Une puissance de la mer", texte: "Le port du Pirée devient le plus grand centre de commerce de la Méditerranée. L'argent des mines du Laurion paie une flotte de trières. Athènes dirige la ligue de Délos." },
+      sparte: { resume: "Une puissance de la terre", texte: "Sparte se replie sur elle-même et devient une cité militaire. Ses hoplites, des fantassins lourdement armés, sont redoutés. Elle dirige la ligue du Péloponnèse." },
+      semblable: "Chacune dirige une ligue de cités alliées. Ces deux blocs s'affrontent dans la guerre du Péloponnèse, de -431 à -404.",
+      differe: "Athènes mise sur sa flotte et le commerce. Sparte mise sur son armée de terre. C'est Sparte qui l'emporte, en -404."
+    }
+  ];
+  var enonces = [
+    { texte: "Les citoyens votent les lois à main levée.", rep: "athenes", expl: "À Athènes, l'ecclésia vote à main levée. À Sparte, l'Assemblée vote par acclamations." },
+    { texte: "Un conseil de 28 hommes de plus de 60 ans prépare les lois.", rep: "sparte", expl: "C'est la gérousia de Sparte. Ses membres sont élus à vie." },
+    { texte: "Les femmes n'ont aucun droit politique.", rep: "deux", expl: "Ni l'Athénienne ni la Spartiate ne participe à l'assemblée." },
+    { texte: "À 7 ans, le garçon appartient à l'État, qui en fait un soldat.", rep: "sparte", expl: "À Athènes, ce sont des maîtres privés qui instruisent les garçons." },
+    { texte: "La plupart des charges publiques sont tirées au sort.", rep: "athenes", expl: "À Athènes, le tirage au sort donne à chaque citoyen la même chance d'exercer une charge." },
+    { texte: "La cité repose sur le travail d'esclaves.", rep: "deux", expl: "Les esclaves à Athènes, les hilotes à Sparte : aucun n'a de droits." },
+    { texte: "Deux rois commandent l'armée.", rep: "sparte", expl: "Sparte a deux rois, issus de deux familles. Ils héritent de leur titre." },
+    { texte: "Grâce à son port, la cité devient le plus grand centre de commerce de la Méditerranée.", rep: "athenes", expl: "C'est le Pirée, le port d'Athènes." },
+    { texte: "La cité dirige une ligue de cités alliées.", rep: "deux", expl: "La ligue de Délos pour Athènes, la ligue du Péloponnèse pour Sparte." },
+    { texte: "Les femmes peuvent faire du sport et posséder des terres.", rep: "sparte", expl: "Les Spartiates sont plus libres que les Athéniennes, sans pour autant voter." }
+  ];
+  var NOMS_REPONSES = { athenes: "Athènes", sparte: "Sparte", deux: "Les deux" };
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function embleme(cite) {
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("class", "ats__embleme");
+    svg.setAttribute("viewBox", "0 0 32 32");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    var use = document.createElementNS(ns, "use");
+    use.setAttribute("href", cite === "athenes" ? "#ats-chouette" : "#ats-bouclier");
+    svg.appendChild(use);
+    return svg;
+  }
+  var onglets = racine.querySelector(".ats__onglets");
+  var contenu = racine.querySelector(".ats__contenu");
+  var liste = racine.querySelector(".ats__apercu-liste");
+  var replier = racine.querySelector(".ats__replier");
+  var boutons = [];
+  var panneaux = [];
+  var lignes = [];
+  ["athenes", "sparte"].forEach(function (c) {
+    var tete = racine.querySelector(".ats__col-" + c);
+    tete.appendChild(embleme(c));
+    tete.appendChild(document.createTextNode(CITES[c]));
+  });
+  function selectionner(index, donnerFocus) {
+    boutons.forEach(function (b, i) {
+      var actif = i === index;
+      b.classList.toggle("est-actif", actif);
+      b.setAttribute("aria-selected", actif ? "true" : "false");
+      b.tabIndex = actif ? 0 : -1;
+    });
+    panneaux.forEach(function (p, i) { p.classList.toggle("est-visible", i === index); });
+    lignes.forEach(function (l, i) {
+      l.classList.toggle("est-actif", i === index);
+      if (i === index) { l.setAttribute("aria-current", "true"); } else { l.removeAttribute("aria-current"); }
+    });
+    racine.classList.toggle("est-test", index === aspects.length);
+    if (donnerFocus) { boutons[index].focus(); }
+  }
+  function basculerTexte(masquer) {
+    racine.classList.toggle("texte-masque", masquer);
+    replier.setAttribute("aria-expanded", masquer ? "false" : "true");
+    replier.textContent = masquer ? "Afficher le texte" : "Masquer le texte";
+  }
+  aspects.forEach(function (aspect, index) {
+    var onglet = el("button", "ats__onglet", aspect.nom);
+    onglet.type = "button";
+    onglet.id = "ats-onglet-" + aspect.cle;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "ats-panneau-" + aspect.cle);
+    onglets.appendChild(onglet);
+    boutons.push(onglet);
+    var panneau = el("div", "ats__panneau");
+    panneau.id = "ats-panneau-" + aspect.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-labelledby", onglet.id);
+    panneau.tabIndex = 0;
+    var colonnes = el("div", "ats__colonnes");
+    ["athenes", "sparte"].forEach(function (c) {
+      var cote = el("div", "ats__cote ats__cote--" + c);
+      var cite = el("p", "ats__cite");
+      cite.appendChild(embleme(c));
+      cite.appendChild(document.createTextNode(CITES[c]));
+      cote.appendChild(cite);
+      cote.appendChild(el("p", "ats__resume", aspect[c].resume));
+      cote.appendChild(el("p", "ats__detail", aspect[c].texte));
+      colonnes.appendChild(cote);
+    });
+    panneau.appendChild(colonnes);
+    var constats = el("div", "ats__constats");
+    [["semblable", "Ce qui se ressemble"], ["differe", "Ce qui diffère"]].forEach(function (paire) {
+      var constat = el("p", "ats__constat ats__constat--" + paire[0]);
+      constat.appendChild(el("strong", "ats__etiquette", paire[1]));
+      constat.appendChild(document.createTextNode(typo(aspect[paire[0]])));
+      constats.appendChild(constat);
+    });
+    panneau.appendChild(constats);
+    contenu.appendChild(panneau);
+    panneaux.push(panneau);
+    var ligne = el("button", "ats__ligne");
+    ligne.type = "button";
+    ligne.setAttribute("aria-controls", panneau.id);
+    ligne.appendChild(el("span", "ats__ligne-nom", aspect.nom));
+    ligne.appendChild(el("span", "ats__ligne-val ats__ligne-val--athenes", aspect.athenes.resume));
+    ligne.appendChild(el("span", "ats__ligne-val ats__ligne-val--sparte", aspect.sparte.resume));
+    liste.appendChild(ligne);
+    lignes.push(ligne);
+    onglet.addEventListener("click", function () { selectionner(index); });
+    ligne.addEventListener("click", function () {
+      selectionner(index);
+      if (racine.classList.contains("texte-masque")) { basculerTexte(false); }
+    });
+  });
+  /* ------------------------------------------------------------ le test */
+  var ongletTest = el("button", "ats__onglet ats__onglet--test", "Teste-toi");
+  ongletTest.type = "button";
+  ongletTest.id = "ats-onglet-test";
+  ongletTest.setAttribute("role", "tab");
+  ongletTest.setAttribute("aria-controls", "ats-panneau-test");
+  onglets.appendChild(ongletTest);
+  boutons.push(ongletTest);
+  var panneauTest = el("div", "ats__panneau ats__panneau--test");
+  panneauTest.id = "ats-panneau-test";
+  panneauTest.setAttribute("role", "tabpanel");
+  panneauTest.setAttribute("aria-labelledby", ongletTest.id);
+  var test = el("div", "ats__test");
+  var progression = el("p", "ats__progression");
+  var points = el("ol", "ats__points");
+  points.setAttribute("aria-hidden", "true");
+  var enonce = el("p", "ats__enonce");
+  enonce.setAttribute("aria-live", "polite");
+  var choix = el("div", "ats__choix");
+  choix.setAttribute("role", "group");
+  choix.setAttribute("aria-label", "Ta réponse");
+  var retro = el("p", "ats__retro");
+  retro.setAttribute("aria-live", "polite");
+  var suivant = el("button", "ats__suivant", "Énoncé suivant");
+  suivant.type = "button";
+  var bilan = el("div", "ats__bilan");
+  var score = el("p", "ats__score");
+  var message = el("p", "ats__message");
+  var recommencer = el("button", "ats__recommencer", "Recommencer");
+  recommencer.type = "button";
+  bilan.appendChild(el("p", "ats__progression", "Ton résultat"));
+  bilan.appendChild(score);
+  bilan.appendChild(message);
+  bilan.appendChild(recommencer);
+  enonces.forEach(function () { points.appendChild(el("li", "ats__point")); });
+  var reponses = {};
+  ["athenes", "sparte", "deux"].forEach(function (cle) {
+    var bouton = el("button", "ats__reponse ats__reponse--" + cle);
+    bouton.type = "button";
+    bouton.setAttribute("data-choix", cle);
+    if (cle === "deux") {
+      var duo = el("span", "ats__duo");
+      duo.appendChild(embleme("athenes"));
+      duo.appendChild(embleme("sparte"));
+      bouton.appendChild(duo);
+    } else {
+      bouton.appendChild(embleme(cle));
+    }
+    bouton.appendChild(document.createTextNode(NOMS_REPONSES[cle]));
+    bouton.addEventListener("click", function () { repondre(cle); });
+    choix.appendChild(bouton);
+    reponses[cle] = bouton;
+  });
+  test.appendChild(progression);
+  test.appendChild(points);
+  test.appendChild(enonce);
+  test.appendChild(choix);
+  test.appendChild(retro);
+  test.appendChild(suivant);
+  test.appendChild(bilan);
+  panneauTest.appendChild(test);
+  contenu.appendChild(panneauTest);
+  panneaux.push(panneauTest);
+  var etat = { rang: 0, justes: 0, repondu: false };
+  function afficherEnonce() {
+    var item = enonces[etat.rang];
+    etat.repondu = false;
+    progression.textContent = typo("Énoncé " + (etat.rang + 1) + " sur " + enonces.length);
+    enonce.textContent = typo(item.texte);
+    Array.prototype.forEach.call(points.children, function (p, i) { p.classList.toggle("est-courant", i === etat.rang); });
+    Object.keys(reponses).forEach(function (cle) {
+      var b = reponses[cle];
+      b.disabled = false;
+      b.classList.remove("est-juste", "est-faux");
+      b.removeAttribute("aria-pressed");
+    });
+    retro.hidden = true;
+    retro.textContent = "";
+    suivant.hidden = true;
+    bilan.hidden = true;
+    progression.hidden = false;
+    points.hidden = false;
+    enonce.hidden = false;
+    choix.hidden = false;
+  }
+  function repondre(cle) {
+    if (etat.repondu) { return; }
+    etat.repondu = true;
+    var item = enonces[etat.rang];
+    var juste = cle === item.rep;
+    if (juste) { etat.justes += 1; }
+    Object.keys(reponses).forEach(function (k) { reponses[k].disabled = true; });
+    reponses[cle].classList.add(juste ? "est-juste" : "est-faux");
+    reponses[cle].setAttribute("aria-pressed", "true");
+    reponses[item.rep].classList.add("est-juste");
+    var point = points.children[etat.rang];
+    point.classList.remove("est-courant");
+    point.classList.add(juste ? "est-juste" : "est-faux");
+    retro.textContent = "";
+    var verdict = el("strong", "ats__verdict", juste ? "Exact!" : "Pas tout à fait. La bonne réponse : " + NOMS_REPONSES[item.rep] + ".");
+    retro.appendChild(verdict);
+    retro.appendChild(document.createTextNode(typo(item.expl)));
+    retro.hidden = false;
+    suivant.textContent = etat.rang === enonces.length - 1 ? "Voir mon résultat" : "Énoncé suivant";
+    suivant.hidden = false;
+    suivant.focus();
+  }
+  function afficherBilan() {
+    progression.hidden = true;
+    enonce.hidden = true;
+    choix.hidden = true;
+    retro.hidden = true;
+    suivant.hidden = true;
+    score.textContent = typo(etat.justes + " sur " + enonces.length);
+    var texte;
+    if (etat.justes === enonces.length) { texte = "Parfait! Tu distingues très bien les deux cités."; }
+    else if (etat.justes >= 7) { texte = "Très bien! Relis les aspects où tu as hésité."; }
+    else { texte = "Relis les aspects du comparateur, puis recommence."; }
+    message.textContent = typo(texte);
+    bilan.hidden = false;
+    recommencer.focus();
+  }
+  suivant.addEventListener("click", function () {
+    if (etat.rang < enonces.length - 1) {
+      etat.rang += 1;
+      afficherEnonce();
+      reponses.athenes.focus();
+    } else {
+      afficherBilan();
+    }
+  });
+  recommencer.addEventListener("click", function () {
+    etat.rang = 0;
+    etat.justes = 0;
+    Array.prototype.forEach.call(points.children, function (p) { p.classList.remove("est-juste", "est-faux", "est-courant"); });
+    afficherEnonce();
+    reponses.athenes.focus();
+  });
+  ongletTest.addEventListener("click", function () { selectionner(aspects.length); });
+  /* --------------------------------------------- clavier dans les onglets */
+  onglets.addEventListener("keydown", function (e) {
+    var rang = boutons.indexOf(document.activeElement);
+    if (rang < 0) { return; }
+    var cible = null;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") { cible = (rang + 1) % boutons.length; }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { cible = (rang - 1 + boutons.length) % boutons.length; }
+    else if (e.key === "Home") { cible = 0; }
+    else if (e.key === "End") { cible = boutons.length - 1; }
+    if (cible === null) { return; }
+    e.preventDefault();
+    selectionner(cible, true);
+  });
+  replier.addEventListener("click", function () {
+    basculerTexte(!racine.classList.contains("texte-masque"));
+  });
+  afficherEnonce();
+  selectionner(0);
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
+
 <aside class="encadre encadre--questions">
 <p class="encadre__titre">Questions</p>
 <ol>
@@ -956,6 +2510,26 @@ permettent de vérifier tes connaissances.</p>
 <li><a href="https://histoire.recitus.qc.ca/">Service national du RÉCIT en univers social</a></li>
 <li><a href="https://paricilademocratie.com/">Par ici la démocratie, Assemblée nationale du Québec</a></li>
 <li><a href="https://www.alloprof.qc.ca/">Alloprof, La démocratie athénienne</a></li>
+<li><a href="https://www.ellopos.net/elpenor/greek-texts/ancient-greece/aristotle/athenian-constitution.asp?pg=36">Aristote, Constitution d'Athènes, chapitre 44, traduction de F. Kenyon</a></li>
+<li><a href="https://lexundria.com/hdt/7.144/mcly">Hérodote, Histoires, livre VII, 144, traduction de G. C. Macaulay</a></li>
+<li><a href="https://www.worldhistory.org/Athenian_Democracy/">World History Encyclopedia, Athenian Democracy</a></li>
+<li><a href="https://www.worldhistory.org/trans/fr/1-14606/ostracisme/">World History Encyclopedia, L'ostracisme</a></li>
+<li><a href="https://www.worldhistory.org/Themistocles/">World History Encyclopedia, Themistocles</a></li>
+<li><a href="https://www.worldhistory.org/sparta/">World History Encyclopedia, Sparta</a></li>
+<li><a href="https://www.larousse.fr/dictionnaires/college/P%C3%A9ricl%C3%A8s/30188">Larousse, Périclès</a></li>
+<li><a href="https://fr.wikipedia.org/wiki/Graph%C3%A8_paranomon">Wikipédia, Graphè paranomon</a></li>
+<li><a href="https://bibliotheque.assnat.qc.ca/guides/fr/document/155">Bibliothèque de l'Assemblée nationale, Étapes de cheminement des projets de loi</a></li>
+<li><a href="https://paricilademocratie.com/document/950">Par ici la démocratie, Démystifier les commissions parlementaires</a></li>
+<li><a href="https://www.publicationsduquebec.gouv.qc.ca/fileadmin/gazette/pdf_encrypte/lois_reglements/2013F/60665.pdf">Gazette officielle du Québec, avis de consultation générale, 2013</a></li>
+<li><a href="https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/fr/2013/2013C13F.PDF">Loi modifiant la Loi électorale afin de prévoir des élections à date fixe, 2013</a></li>
+<li><a href="https://www.ctvnews.ca/montreal/article/future-quebec-elections-to-be-held-on-first-monday-in-october/">CTV News, Future Quebec elections to be held on first Monday in October, 2013</a></li>
+<li><a href="https://www.quebec.ca/nouvelles/actualites/details/elections-provinciales-de-2026-un-scrutin-aura-lieu-le-5-octobre-72333">Gouvernement du Québec, Élections provinciales de 2026 : un scrutin aura lieu le 5 octobre</a></li>
+<li><a href="https://www.electionsquebec.qc.ca/resultats-et-statistiques/">Élections Québec, Résultats et statistiques</a></li>
+<li><a href="https://docs.electionsquebec.qc.ca/PRO/6a74a5de39b72/DGE-10629.pdf">Élections Québec, Voter au Québec</a></li>
+<li><a href="https://statistique.quebec.ca/fr/fichier/perspectives-demographiques-quebec-et-regions-edition-2026.pdf">Institut de la statistique du Québec, Perspectives démographiques du Québec et de ses régions, mise à jour 2026</a></li>
+<li><a href="https://www.paricilademocratie.com/document/1338">Par ici la démocratie, Femmes et vie politique, ligne du temps</a></li>
+<li><a href="https://justice.gc.ca/fra/sjc-csj/dlc-rfc/ccdl-ccrf/apprend-learn.html">Justice Canada, Découvrez la Charte</a></li>
+<li><a href="https://www.erudit.org/en/revue/rgd/1988/v19/n4/1058503ar.pdf">Revue générale de droit, Do Inferior Tribunals have the Power to declare a Law Unconstitutional?, 1988</a></li>
 </ul>
     </div>
 

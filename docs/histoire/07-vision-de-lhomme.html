@@ -359,6 +359,663 @@ en à peine plus de temps qu'il n'en aurait fallu pour un unique manuscrit.</p>
 <figcaption>Points de repères : Gutenberg et l'imprimerie</figcaption>
 </figure>
 
+<section class="imp" id="imprimerie" aria-label="Carte interactive : la diffusion de l'imprimerie en Europe, de 1450 à 1500">
+<style>
+.imp { --imp-mer: #DCE6EE; --imp-terre: #FAF8F3; --imp-cote: #8DA2B5; --imp-fleuve: #9DBBD4; --imp-mont: #EFE6D3; --imp-halo: #FAF8F3; --imp-region: #6B7884; --imp-eau: #5B7D99; --imp-d1: #7A1F3D; --imp-d2: #B4461B; --imp-d3: #22557F; --imp-d4: #4F6B1E; --imp-sur: #fff; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: imp / inline-size; }
+html[data-sombre="on"] .imp { --imp-mer: #13202D; --imp-terre: #2A3440; --imp-cote: #56708D; --imp-fleuve: #3D5F80; --imp-mont: #333C47; --imp-halo: #2A3440; --imp-region: #9AA6B0; --imp-eau: #8BA9C4; --imp-d1: #F08AA8; --imp-d2: #F2A06B; --imp-d3: #8FB4DC; --imp-d4: #A9CF7A; --imp-sur: #10171F; }
+.imp ul, .imp ol { list-style: none; margin: 0; padding: 0; }
+.imp li { margin: 0; padding: 0; }
+.imp ul > li::before, .imp ol > li::before { content: none; display: none; }
+.imp ul > li::marker, .imp ol > li::marker { content: none; }
+.imp p, .imp dl, .imp dd { margin: 0; }
+.imp [hidden] { display: none !important; }
+.imp .imp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.imp .imp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.imp .imp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .imp .imp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .imp .imp__titre { color: var(--encre); }
+html[data-sombre="on"] .imp .imp__consigne { color: var(--encre-pale); }
+.imp__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.imp__visuel, .imp__lecture { min-width: 0; }
+.imp__carte { position: relative; background: var(--imp-mer); border-bottom: 1px solid var(--trait); }
+.imp__svg { --k: 1; display: block; width: 100%; height: auto; max-height: 82vh; -webkit-user-select: none; user-select: none; }
+.imp__mer { fill: var(--imp-mer); }
+.imp__terre { fill: var(--imp-terre); stroke: var(--imp-cote); stroke-width: .8; stroke-linejoin: round; }
+.imp__monts { fill: var(--imp-mont); }
+.imp__lacs { fill: var(--imp-mer); stroke: var(--imp-cote); stroke-width: .6; }
+.imp__fleuves { fill: none; stroke: var(--imp-fleuve); stroke-width: 1.1; stroke-linejoin: round; stroke-linecap: round; }
+.imp__etiq { pointer-events: none; font-family: var(--titre); paint-order: stroke; stroke-linejoin: round; }
+.imp__etiq--ocean, .imp__etiq--mer { font-style: italic; font-weight: 600; font-size: calc(var(--k) * 12px); letter-spacing: .04em; fill: var(--imp-eau); stroke: var(--imp-mer); stroke-width: calc(var(--k) * 3px); }
+.imp__etiq--ocean { font-style: normal; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; font-size: calc(var(--k) * 11.5px); }
+.imp__etiq--region { font-weight: 700; font-size: calc(var(--k) * 10.5px); letter-spacing: .2em; text-transform: uppercase; fill: var(--imp-region); stroke: var(--imp-terre); stroke-width: calc(var(--k) * 3px); opacity: .7; }
+.imp__ville { display: none; cursor: pointer; }
+.imp__ville.est-visible { display: inline; }
+.imp__ville:focus { outline: none; }
+.imp__marque { transform: scale(var(--k)); }
+.imp__cible { fill: transparent; }
+.imp__point { fill: var(--c); stroke: var(--imp-halo); stroke-width: 1.8; }
+.imp__halo { fill: none; stroke: var(--signal); stroke-width: 3; opacity: 0; }
+.imp__ville.est-choisie .imp__halo, .imp__ville:focus-visible .imp__halo { opacity: 1; }
+.imp__onde { fill: none; stroke: var(--c); stroke-width: 2; opacity: 0; }
+.imp__ville.est-neuve .imp__pop { animation: imp-pop .7s ease-out both; }
+.imp__ville.est-neuve .imp__onde { animation: imp-onde 1.1s ease-out both; }
+@keyframes imp-pop { 0% { transform: scale(0); } 60% { transform: scale(1.35); } 100% { transform: scale(1); } }
+@keyframes imp-onde { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.imp__nom { pointer-events: none; font-family: var(--titre); font-weight: 600; font-size: calc(var(--k) * 12.5px); fill: var(--encre); paint-order: stroke; stroke: var(--imp-halo); stroke-width: calc(var(--k) * 3.6px); stroke-linejoin: round; }
+.imp__nom.est-cache { display: none; }
+.imp__nom.est-choisi { font-weight: 800; }
+.imp__nom--mayence { font-weight: 800; }
+.imp .imp__compteur { position: absolute; top: .65rem; left: .65rem; z-index: 1; margin: 0; padding: .4rem .75rem; border-radius: var(--rayon); background: var(--surface); border: 1px solid var(--trait); font-family: var(--titre); font-size: .8rem; line-height: 1.25; color: var(--encre-doux); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.imp__compteur strong { display: block; font-family: var(--donnee); font-weight: 600; font-size: 1.35rem; line-height: 1.1; color: var(--matiere-fonce); }
+html[data-sombre="on"] .imp__compteur strong { color: var(--encre); }
+.imp__replier { position: absolute; top: .65rem; right: .65rem; z-index: 2; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+.imp__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.imp:not(.est-plein-ecran) .imp__replier { display: none; }
+.imp .imp__temps { display: flex; align-items: center; gap: .9rem; padding: .85rem 1.2rem .2rem; }
+.imp__jouer { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; border: 1px solid var(--matiere); background: var(--matiere); color: #fff; cursor: pointer; }
+.imp__jouer:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.imp__jouer svg { width: 1rem; height: 1rem; fill: currentColor; }
+html[data-sombre="on"] .imp__jouer { color: #10171F; }
+.imp__glissiere { --pouce: 1.15rem; position: relative; flex: 1; min-width: 0; }
+.imp__curseur { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 1.6rem; margin: 0; background: transparent; cursor: pointer; }
+.imp__curseur:focus-visible { outline: 2px solid var(--matiere); outline-offset: 4px; border-radius: 4px; }
+.imp__curseur::-webkit-slider-runnable-track { height: .4rem; border-radius: 1rem; background: linear-gradient(to right, var(--matiere) var(--p, 0%), var(--trait) var(--p, 0%)); }
+.imp__curseur::-moz-range-track { height: .4rem; border-radius: 1rem; background: var(--trait); }
+.imp__curseur::-moz-range-progress { height: .4rem; border-radius: 1rem; background: var(--matiere); }
+.imp__curseur::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; box-sizing: border-box; width: var(--pouce); height: var(--pouce); margin-top: calc((.4rem - var(--pouce)) / 2); border-radius: 50%; background: var(--signal); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--encre-pale); }
+.imp__curseur::-moz-range-thumb { box-sizing: border-box; width: var(--pouce); height: var(--pouce); border-radius: 50%; background: var(--signal); border: 2px solid var(--surface); box-shadow: 0 0 0 1px var(--encre-pale); }
+.imp__axe { position: relative; height: 1.2rem; }
+.imp .imp__grad { position: absolute; top: 0; transform: translateX(-50%); padding-top: .42rem; font-family: var(--donnee); font-size: .64rem; line-height: 1; color: var(--encre-pale); white-space: nowrap; }
+.imp .imp__grad::before { content: ""; position: absolute; top: 0; left: 50%; width: 1px; height: .3rem; background: var(--encre-pale); }
+.imp .imp__grad--mineure { font-size: 0; }
+.imp .imp__grad--mineure::before { height: .2rem; }
+.imp .imp__annee { flex: none; min-width: 3.4rem; font-family: var(--donnee); font-weight: 500; font-size: 1.35rem; line-height: 1; text-align: right; color: var(--matiere-fonce); }
+html[data-sombre="on"] .imp .imp__annee { color: var(--encre); }
+.imp .imp__evenement { padding: .35rem 1.2rem .8rem; min-height: 2.9em; font-family: var(--titre); font-size: .86rem; line-height: 1.45; color: var(--encre-doux); }
+.imp .imp__evenement strong { font-family: var(--donnee); font-weight: 500; color: var(--matiere-fonce); margin-right: .4rem; }
+html[data-sombre="on"] .imp .imp__evenement strong { color: var(--encre); }
+.imp .imp__legende { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1.1rem; padding: .65rem 1.2rem; border-top: 1px solid var(--trait); font-family: var(--titre); font-size: .78rem; line-height: 1.3; color: var(--encre-doux); }
+.imp__cle { display: inline-flex; align-items: center; gap: .4rem; }
+.imp__pastille { width: .8rem; height: .8rem; border-radius: 50%; background: var(--c); flex: none; }
+.imp__etoile { width: 1rem; height: 1rem; flex: none; fill: var(--imp-d1); }
+.imp__lecture { border-top: 1px solid var(--trait); background: var(--surface); }
+.imp__lecture-interieur { display: flex; flex-direction: column; }
+.imp .imp__onglets { display: flex; gap: .2rem; padding: .55rem 1.2rem 0; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.imp__onglet { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 0 0 -1px; padding: .5rem .8rem .55rem; border: 1px solid transparent; border-bottom: 0; border-radius: var(--rayon) var(--rayon) 0 0; background: none; font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); cursor: pointer; }
+.imp__onglet:hover { color: var(--matiere-fonce); }
+.imp__onglet[aria-selected="true"] { color: var(--matiere-fonce); background: var(--surface); border-color: var(--trait); box-shadow: inset 0 3px 0 var(--matiere); }
+.imp__onglet[data-vue="ville"][aria-selected="true"] { box-shadow: inset 0 3px 0 var(--signal); }
+html[data-sombre="on"] .imp__onglet[aria-selected="true"] { color: var(--encre); }
+.imp .imp__vue { padding: 1rem 1.2rem .9rem; }
+.imp .imp__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.imp .imp__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.imp .imp__intertitre { margin: 0 0 .55rem; font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); }
+html[data-sombre="on"] .imp .imp__intertitre { color: var(--encre); }
+.imp .imp__paragraphe { margin: 0 0 .65rem; font-size: .95rem; line-height: 1.6; }
+.imp .imp__paragraphe--note { font-size: .88rem; color: var(--encre-doux); }
+.imp .imp__badge { display: inline-block; margin: 0 0 .6rem; padding: .22rem .75rem; border-radius: 100px; font-family: var(--titre); font-weight: 600; font-size: .74rem; color: var(--imp-sur); background: var(--c); }
+.imp .imp__infos { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: .5rem 1.2rem; margin: .2rem 0 .8rem; }
+.imp .imp__infos dt { margin: 0 0 .1rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.imp .imp__infos dd { font-family: var(--titre); font-weight: 500; font-size: .9rem; line-height: 1.35; }
+.imp .imp__groupe { margin: .9rem 0 0; }
+.imp .imp__groupe-nom { display: flex; align-items: center; gap: .45rem; margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.imp__puces { display: flex; flex-wrap: wrap; gap: .35rem; }
+.imp__puce { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-left: 4px solid var(--c); border-radius: 100px; min-height: 2rem; padding: .28rem .75rem .28rem .6rem; cursor: pointer; }
+.imp__puce:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.imp__puce.est-futur { border-style: dashed; border-left-style: solid; color: var(--encre-pale); background: transparent; }
+.imp__puce[aria-pressed="true"] { color: var(--encre); background: var(--matiere-voile); border-color: var(--signal); border-left-color: var(--c); }
+.imp .imp__atoi { margin-top: 1rem; padding: .8rem 1rem .9rem; border: 1px solid var(--trait); border-radius: var(--rayon); }
+.imp .imp__atoi-titre { display: block; margin-bottom: .45rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.imp .imp__question { margin: .55rem 0 0; font-size: .93rem; line-height: 1.5; }
+.imp .imp__question:first-of-type { margin-top: 0; }
+.imp__voir { margin-top: .3rem; padding: 0; border: 0; background: none; font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+html[data-sombre="on"] .imp__voir { color: var(--encre); }
+.imp .imp__piste { margin-top: .3rem; padding: .45rem .7rem; border-left: 3px solid var(--matiere); background: var(--surface-2); font-size: .9rem; line-height: 1.5; }
+.imp .imp__chiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .6rem; margin: .3rem 0 .9rem; }
+.imp .imp__chiffre { padding: .65rem .8rem; border-radius: var(--rayon); background: var(--surface-2); }
+.imp .imp__chiffre dt { font-family: var(--donnee); font-weight: 600; font-size: 1.15rem; line-height: 1.2; color: var(--matiere-fonce); }
+html[data-sombre="on"] .imp .imp__chiffre dt { color: var(--encre); }
+.imp .imp__chiffre dd { margin-top: .2rem; font-family: var(--titre); font-size: .84rem; line-height: 1.35; color: var(--encre-doux); }
+.imp .imp__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .68rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container imp (min-width: 46rem) {
+  .imp__corps { grid-template-columns: minmax(0, 1.3fr) minmax(17rem, 1fr); }
+  .imp__visuel { border-right: 1px solid var(--trait); }
+  .imp__lecture { position: relative; border-top: 0; }
+  .imp__lecture-interieur { position: absolute; inset: 0; }
+  .imp .imp__vue { flex: 1; min-height: 0; overflow-y: auto; }
+}
+@container imp (max-width: 34rem) {
+  .imp .imp__temps, .imp .imp__evenement, .imp .imp__legende, .imp .imp__vue, .imp .imp__onglets, .imp .imp__source { padding-left: .8rem; padding-right: .8rem; }
+  .imp .imp__compteur { font-size: .72rem; padding: .3rem .55rem; }
+  .imp__compteur strong { font-size: 1.1rem; }
+}
+.imp.est-plein-ecran { display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.imp.est-plein-ecran > .imp__entete { position: static; }
+.imp.est-plein-ecran > .imp__corps { min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(21rem, 30vw, 28rem); }
+.imp.est-plein-ecran .imp__visuel { min-height: 0; display: flex; flex-direction: column; border-right: 1px solid var(--trait); }
+.imp.est-plein-ecran .imp__carte { flex: 1 1 auto; min-height: 0; }
+.imp.est-plein-ecran .imp__svg { width: 100%; height: 100%; max-height: none; }
+.imp.est-plein-ecran .imp__lecture { position: relative; min-height: 0; border-top: 0; }
+.imp.est-plein-ecran .imp__lecture-interieur { position: absolute; inset: 0; }
+.imp.est-plein-ecran .imp__vue { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.imp.est-plein-ecran .imp__paragraphe { font-size: 1rem; }
+.imp.est-plein-ecran.texte-masque > .imp__corps { grid-template-columns: minmax(0, 1fr) 0; }
+.imp.est-plein-ecran.texte-masque .imp__lecture { display: none; }
+@media (max-width: 52rem) {
+  .imp.est-plein-ecran > .imp__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .imp.est-plein-ecran .imp__visuel { border-right: 0; border-bottom: 1px solid var(--trait); }
+  .imp.est-plein-ecran.texte-masque > .imp__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+  .imp.est-plein-ecran .imp__legende { display: none; }
+}
+@media print {
+  .imp__temps, .imp__onglets, .imp__replier, .imp__voir, .imp__jouer { display: none !important; }
+  .imp__svg { max-height: none; }
+  .imp__vue[hidden] { display: block !important; }
+  .imp__vue { break-inside: avoid; }
+}
+</style>
+<div class="imp__entete">
+  <p class="imp__titre" role="heading" aria-level="3">La diffusion de l'imprimerie, de Mayence à l'Europe</p>
+  <p class="imp__consigne">Fais avancer le temps</p>
+</div>
+<div class="imp__corps">
+  <div class="imp__visuel">
+    <div class="imp__carte">
+      <p class="imp__compteur" aria-hidden="true"><strong class="imp__compteur-annee">1450</strong><span class="imp__compteur-texte"></span></p>
+      <button type="button" class="imp__replier" aria-expanded="true">Masquer le texte</button>
+      <svg class="imp__svg" viewBox="0 0 1000 1032.4" role="img" aria-label="Carte de l'Europe où apparaissent les villes dotées d'une presse à imprimer">
+        <rect class="imp__mer" x="-2000" y="-2000" width="5000" height="5000"/>
+        <path class="imp__terre" d="M1700 1334.7l-1.1 1.8-2.3-.5-3.4-3.3 .6-4-1.2-3.1-2.5-.8-4 .5-5-5.5-3.4-2.7-4.5-5.6-4.3-4.2-6.2-3.5-2.7-3-3.9-3.2-2.9-1.3-3.9-2.8-2-2.3 .2-1.4-5.5-4-2.1-.6-4.5-2.9-2.7-3-1.6-3.3-4.1-3.9-2.8-1.2-1.9-2.7-3.3-2.3-3.2-1.1 .7-2.5-4.1 .3-2.5-1-5.1 3.4-3-.4-1.5 1.3-3-1-1.8 2.6-2.9 .1 1.5-2.6 .5-5.2 2-11.7-2.4-5.2 .5-6.9-1.3-3.2 .4-3-1-3.2 0-8.2 .5-5.9-.7-3.7 .3-3.1-2-.6-.8 2.8-1.8 1.8-2.4 7.7 .8 4.4-.9 4.4 1.6 4.6-1.1 1.3 1.6 8.2-.8 6.6-1.2 4.2 .8 1.1-1.4 2.8-.7 6.7 1 2.9 2.2 2.2-.2 3.8 1.1 4-2.6 6.2-1.3 .2-1 3.4-5.9 1.6-4.2-2.4-9.6-3-2.2-1.5-2.4-3-1.7-.5-3.7-3.8-5.4-1.3-3.2-2.6-3.2-1.3-1.9-2.8-1.2 .7-2.3-3.9 .3-4-2.2-1.7-1.1-4-2.4-4.2-8.4-4.9-3-.9-3.6-4-.6-2.2-3.1-.9-2.3-4.7-1.3-.5-1-5.5-2.1-2.1-2.3-3.6-2.5-2.7-2.9 3.4 1.5 2.2-2.4 5.9-.7 6.1 2.6 2.5 7.3 3.4 1.7 1.6 5 9.8 0 5.1 2.9 3.2 6.3 3.9 3.4 6.3 5.8 2.2 2.3 3.1 2.9 1.5 1.3 2.2 9.7 5.8 .2 1.2 4.3 .5 3.1 1.5 3.4 3.7-.2 1.7-3.2 .6 2.5 2.3 1 4.7 2.3 2.1 .1 1.5 3.2 .8 3.7 5.6 5.7 1.8 1.8 5.5 3 1.7 0 1.4 3.1 3.2 1.7 .5 1.1 2.2-1.9 2 1.5 6.7 3.1 .8 5.2 6.4 3.8 3.7 4.9 6.1 4.3 4.7 4.9 4.5 5.6 4.2 4.8 5.2 3.2 5.1 3.1 2.4 3.8 4.8 7 6.8 2.9 3.4 1 2.9 3.2 1.8 3 4.3 2.7 2.8 0 2.6 1.7 .1 2.8 2.8 7 2.8 2.4 3.4 3.2 2.3 1.1-.9 2.9 1 1.2 2.1 3.5-.4-31 4.2-31 4.1-31.2 4-31.1 3.8-31.2 3.7-31.2 3.6-31.3 3.4-31.3 3.3-31.4 3.2-31.4 3-31.4 2.9-31.4 2.7-31.5 2.6-31.5 2.5-31.6 2.4-31.5 2.2-31.6 2.1-31.6 1.9-31.6 1.8-31.7 1.7-31.6 1.5-31.7 1.4-31.7 1.3-31.7 1.1-31.7 1.1-31.8 .8-31.7 .8-31.7 .6-31.8 .4-31.8 .4-31.7 .2-31.8 0-31.7 0-31.8-.2-31.8-.4-31.7-.4-31.7-.6-31.8-.8-31.7-.8-31.7-1-31.7-1.2-31.7-1.2-31.7-1.4-31.7-1.6-31.6-1.7-31.6-1.8-31.7-1.9-31.5-2.1-31.6-2.2-31.5-2.3-31.5-2.5-31.5-2.6-31.5-2.8-31.4-2.8-31.4-3.1-31.3-3.1-31.3-3.3-31.3-3.4-31.2-3.6-31.2-3.7-31.2-3.8-31.1-4-31.1-4.1-31-4.2 2.8-.2 8.6-5.7 6.8-3.1 3.6-3 2.7-1.4 4.2-.1 2.4-.7 2.2-2.7 3-1 5.1-8.5 1.4-4.6 1-7.5 4.9-8.6 3.3-2.3 3.7-6.1 2.4-3.2 5.2-4.4 3.1-6.2 0-2 4.4-4.1 4.5-.4 6.6-3.7 4.2 .9 5.1-.8 13.1-4.1 2.8-1.8 3.3-3.7 4.4-7.1 2.3-4.8 5.2-4.8 3.6-5 4.7-8.1 4.6-1.2 2.9-2.5 2.2-3.4 5.3-.9 6.9 .9 5.2 1.7 7.1-.2 10.4 1.2 2.4-.8 20.9-2.8 1.4-.6 6.2-5.5 2.5-.8 9.9-6.4 11.6-2.4 7.8-2.2 5.3-3 5-4.6 3.6-1.4 5.7-4.7 3-3.2 1.7-3 4.8-3.8 5.7-3.8 5.1-5.5 3.4-4.7 4-11-1.3-1.9-.7-4.6-3.9-4.7-1.5-2.9 3.3-3.7 2.6-14.6 2.2-5.5 .6-3.4-1-1.8 3.9-4.5 3.8-3.5 1.6-3.8 4-2.6 4.2-3.6 5.1-3.1 2.3-4 2.9-3.4 1.1-4.2-.8-1.1 2.6-4.6-.4-3.3 .9-1.1 6.1-3 5-3.7 5.3-2.4 5.1-4.3 5.4-3.7 .6-1.8 4.1-3.2 2.6 .9 2.9-1.1 2.6-2 3-.9 5 0 8.1-1.2 .9-.8 9.8-1.2 4.2-.8 3.8-2.5 1.8 .5 4.9-2.1 4.8-.6 6.9-3 4.4-3.1 4-4.4 3.2-4.4 4.9-4.8 12.7-17.2 4.9-9.5 9.1-14.2 .8-2.3 3.2-5.2 1.4-3.4 2-.5 3 1.1 2.7-1.2 3.8 1.2 5.8-3 2.8 .4 2.3 1.9-2.3 2 0 5.1 1.1 1.4 .4 4.5 2.9 3.5 2.2 4.7 1.8 1.1 2.8 4.2 4.2 4 13 6.3 3.9-.7 4.9 .1 6.1-.8 1.8 1.8 4.8 .7 1.7-2.4 1.9 .1 2.5 2.8 5.9 2.6 3.2 .4 4.5-.8 2.7-1.7 3-.6 1.8-3 1.4 1 1.5 5.1-.7 1.7 .6 3.2 1.9 1.3 2.2-.5 3.1 2 3.5 1.1 3.1-.2 2.3-1.2 6.4 3.6 2.3-.1 3.5 1.6 4.2 .1 6.2-.8 9.6-5.6 4 .1 4.9-2.8 3.6-6.9 1.6-.5 4.5-3.6 3.1-1.1 1.6 .6 2.9-2 3.8 1.6 .8 1.2 5.8-1.9 2-3.1 4.7-1.4 2.6 4.2 4.5 1.9 3.1-.7 2.7-1.8 4.1-7.4 3.5-2.3 4-1.6 .6-1.6 3.9-.3 7.7-3.7 3.1 .1 4-1.1 2.8-2.5 3.9-1.4 8.4-.4 2.1-.8 3.6 1.1 9.1 .2 6.8-.2 5 .5 8.8-1.7 2.2 .1 2.7 2.1 6.1 0 6.7-3.9 4.2-3.7 2.8 .1 2.8 2.8 2.6 .6 2.3-2.7 3.4 1.6 4.1 .6 6.6-1.5 3.3-2.6 3-.6 4.1 1.1 5.3 .8 11.5-.3 2.1 1.1 9.7 .4 5.5 2.8 2.6 2 2.5 .8 .3 3.4 3.9 2.3 2.3 .5 5.6-.6 3-1.7 1-2.1 6.4-2.7 3.8 .6 5.8-.9 5.6-1.8 2.1-1.7 0-2.3 3-2.8 4.3-.8 2.7 1.6 1.2 2.9 3 1.4 5.1 .6 2.9 2.6 2.3 .1 4-1.3 2.2 .6 2.9-2.3 1.4-4.1 3.7-.4 .7 1.3 2.9 0 3.3 2.9 4.2 1.2 2.7-.4-.7 3.5 4.6 1.9 4.9-1.1 6.3-3.2 1.9 1.4 7.1 1 6.7-2.6 3.8-.1 3.5-2 2.9-3.9 2.1-1.7 3.8-1.5 1.8-1.7 4.5 0 2.6-1.7 2.5-.1 5.9-2.3 2.7-.4 3.9 .7 .1 2.4-3.1 2.4 1.5 2.6 2.9-.5 .8-2.1 4.3-2.2 3.3 1.2 1.1 2.5-.6 1.8 2 6.7 4.4 4-2.6 2.7 1.7 2.9 4 .8 3.5-1.9 .9-3.8 5.7-1.4 5.2-4.7 .2-1.4 4.1-2 2.9 7 .8 3.3-3.2 2.2-4.8 8.5-2.7 5.7-2.9 .8-3.3 1.9-1.2-.3-2.3 2.5-1.3 5.1 0 5.8 1.4 4.2 2.2 2.4 .9 2.8 3 2.8 5.2 .8 0 2.9 4.6 1.8 1.4-.2 .4 5.3 1.2 1.9-.4 6.4 2.1 2.8 .4 2.6-3.3 4.8 .1 2.5-3.5 3.2 0 3.5-2.1 1.9-5.4 7.4-2.7 .9-1 3.8-5.8 2-1.9 3.1-3.2 .4-1.1 1.5-4.6 2.2-3.3 6-1 .5 1.5 7.9 4.1 6.2 6 5.5 5.7 2.3 5.2-1.1 2.9-1.4 .8 4.3-2.2 2.4 1.5 2.6 2.3-.1 4.6-2.3-.1-3.2 2.5-1.2 2.3 1.1 2.4 2.8-.6 4 .8 2.6 2.2 2.5-1.7 2.2 2.1 2.9 2.3-.4 4.6 1.4 2.5-.9 4.8 1.8 2.3 2 7.6 1 8.6 5 1.5 1.5 8.3 3.4 13.8 1 3.4-.3 9-3 3.2-2.1 3.3-.3 3.4 .4 8.1 3.9 1.7 .3 6.1-.5 7.5 1.9 6.7 .8 5.3 3.4 5.8 4.3 5.9 .6 3.6 1.7 6.7-.1 7.4 .8 3 .8 3.4 2.8 1.6 3.8 1.9 2.6-.2 5.1 .8 4.5 5 10.7 5.3 6.7 5.4 4.1 10.7 4 11.7 1.1 13.6-1 8 1 8.2 1.9 7.7 .6 3.9 2.1 5.5 1 3 1.1 5.9 .9 3.1 2.6 3.4 .3 6 1.6 2.4 1.4 3.6 3.4 9.6 5.5 3.5 2.9 4.9 1.4 5.7 2.8 4.9 .6 6.8-1.1 3.6-1.5 6.6-4.9 3.1-1.4 4.5-4.3 5.4-8 2.1-4.3 1.8-1.9 3-9.9-.8-7.1-2-3.7-3.4-3.2-3.1-6.5-.9-4.2-1.1-2.2-.4-3.6 .5-5.2-.5-1.3 3.8-9.7 6.1-7.7 2-3.2 2-1.4 5.8-5.9 8-4.8 4.5-4 5.5-3.2 6.9-.6 5.8-2.6 4.9-5.8 3.7-1.4 2.7 1.1 3.3 0 7.7-2 1.8-1.4 2.3 2.2 6.3-.2 5.3 2.5 2.3-.1 8.7 1.1 2.1 .9 8.1 .7 1.4 5.3 1.9 1.3-1 6.7 3.8 .7 2.1 2.7 4.3-.6 1.7 .8 9.6-1.3 6.3 .3 6 1.2-.8 1.4 4.7 1.7 6.8-1.3 9.6-1.2 4.2-2.5 11.6 .5 2.2 1.8 0 2.6 4.2 4.2 1.9 2.8 2.2 5.2 4.2 .2 3.6-.6 8-4.1 6.4-3.6 5.1-1.1 14.9 .9 14.3-1.2 4.4 .8 3.5-1.3 5.9 1.2 7.3-1.3 3.2 4.2 3.8 1.4 6.8-.1 6.9-3.9 2.1 4.6 3 .3 6.4-1.6 1.5 .5 4.7-.5 2.9-1.8 15.9 1.9 .7 1.4 7.9 1.8 6.7-2.1 9.2-7.5 7.9-9.2 2.3-2 5.8-8.7 3.7 1 1.6 2.1 3.3-2.7-1-1.7 1.7-2.5 .7-3.3-.4-3.7 5.1 .8 6.2-3.3-1.2 3 4.3 .1 1.7-2.2 4.1-.2 2.8-2 .7-3.1 2.5-1.6-1.1-2.7 4.6 0 6.2 .9 5.8 1.4 2.6-.6 5-3 2.7-2.7 1.6 4 0 2.7-1.5 1.2 2 2.4 4.6 2.5 1.4-2.3 2 1.2 2 4.2 6.5-3.1 .9-1.6-.8-6 3.7 1.3 5.4 3.6 3.7 .9 3-1.1 1.8 .6 4.8-3.9 3.1-.6 1.4-3.7 2.1-1.9 4.5 4.3 1.8-1.9 4.6-2.5 1.5-2.1 2.3 .3 5.4-1.2 6.7-4.1 6.1-4.9 5-5.9 5.5-11 3.2-11.2 1.4-8.8 .7-14.8-1.5-19.2-.8-3.7 2.6-1.4 .8-3.8-1.1-3.8-.4-4.4 1.7-3.6-.1-12.8 2-3.2 .9-13.2-1.4-3.9 3.5-1.9-.1-9-1.7-3.1-.1-4.9 1.3-.7 .6-3.5 1.6-1.6-.6-1.8 3-1.9 1.9-3.4-1.3-4-3-3.9-4.2-6.4-.1-4.3-1.5-3.4 1.4-4.4-2.7-3.1 .1-1.6-2-3.9-5.7-3.2-1.7-5.4 1.2-3.4-2-3.5 1.7-1.4 1.4-7.9-1.8-2.5-7.2-6.1-.8-1.5 4.5-8.8 .9-2.4 3.9-4.9 .2-2.5-2.7-5.5-2.7-2-4.3-1.1-1.8 2.2-3.2 6.4-3.7 1.8-2.2 1.9 2.4 5.1-2.6 1.7-1.3-.6-2.8 2.3-1.7 2.3-11.7-2.6-4-.1-6.2-1.9-2.5 1-3.9 3.4-3.3 5.7-3.6 4.6-1.9 5.7-2.6 3.5 1.1 3.5-4.4 3.1-2.2-.3-1.4 4.2-1.7 1.3-1.1 3.4-1.8-1.6-2.8 3.1-3 .3-2.1 1.6-8.2 2.9-1 2.4-5.1 .7-3.6 4.5-4.7 .6-3.9-1-1.8 .3-5.7-1.6-3.5-2.2-.7-1.4-3.5-2.1-4.3-4.3-3.1-1.6-9.2-.2-1.4-1-12-1.8-2.7-1.3-13.7 1.8-5.3 1.9-3.3-.9-2.3 2.9-.5 2.7 1.2 6.7 1.4 3.7-1.3 2-.6 4 2 2.1-1.6 4.9-6.8-1.1-3.1 1.2 0 2-2.9 1.1-2 1.8-2.5 .7-3.2 4-2.3-.2-2 1.4-2.8-2.1-3.6 .8-4.4-1-1.7 1-3.6-2.4-2.1-.1-2.5-2.8-1.5-5.5-2.5 1-1-1.7 2.8-2.7-1-1.1-5.2-1.3-2.7 2.2-.2 2.4-3.8-1.6-5.1-.3-.1-2.3-1.5-1.1-1.8 1.5-3.3-.6-.6 1.9-3.2-.4-2.3 .7 1.3 3.4-2.6 3-1.1 3.2-3.3-4.2-.2-1.8-4.1 2-6.2 .6-1.5 1.8 .2 2.9-4.1-.2-2.7 2-1.8-.2-.2-2.9 5.9-2.7 .7-1.9 4.1 .1 1.1-1.3 7.8-1.3-1.2-2.5 1.3-.9-1-2.7 4.7-1.2 3-5.6-6.8 2.9-3.6 .3-3.3 1.2-3.2 2.2-2.1 0-7.7 2.4-1.8-1.2-5.3 4.1-2-3.9 2-2.9 2.7-1.1 3.2 .9 2.4-2.2 .7-6.5-2 .6-8.1-1.5-4.6 .8 .8-2.2-.8-3-1.9-2.5 .4-2.4-6.3-2.5 2.9-.6 3.5-3.3-1.2-4.1 .5-3.7-1.7-2.2-4 .7-2.1-1.6-4-.2-2.6 1.7-2.2-4-2.7-2.5-3.9 1.5-.2 4.1-1.7-.2-4.5-2.9-3.9-.1-2.5-1.7 1.2-2.4 1.5 .5 3.5-3 .7-3-4-1.4-2.9-5.2 1.6-2.9 3.2 .5 5.2 4.6 .2 4.4 2.2 .9 1.8-2.1 1.5 2.2 5.1-1.7 2.6-2.1 2.5-.1 1.6-2.9-4.3 .9-2.5 1.8-2.2-3-2.1-1 0-2.1-3.2-.2-2-4 2.9-2.2 2.5 .4 1.2-1.8-1.6-1.7 3.3-3.1-2.3-2.5-2.5 1.6-2.6-.9-.7-3.4 2.2-2.2-2.6-2.7-3.2-1.4-1.2-2.6-1.9-1.4 3.9-4.9 2.8-4.4-.4-3.8-1.5-.1-13.4 5.8-2.7 2.3-2.2 .1-4.4 2.3-2.9-1 .4-4.5 1-1.4-.1-3.4-1.1-1.4-1.2-8.4 .9-3.1 3.5-1.2 1.9-4.3-.3-3.6 2.8-1.5 2.7-3.9 3.1-5.7 8.9-1.5 2.1-3.1 6.5-1.8 1.8 3.4 4.1 1.2 3.5-.4 1.5-1.2 2.5 .2 3.1-1.1 2.1-2.6-4.1-1.8-2.9-2.3 2-2 7-.2 1.9 1.8-3.1 2.9 1.6 1.1 5-2.5 7.4-2.2 6.3-1 3.1 .4 3.9-2.7 6.1 .2 3.4-1.4 .5-4.1-3.3 .1-2.8 1.2-4.7-2.4 2.9-2.4 2.3-2.9 9-3.3 3-2.6 3.2-1.8 2.2 1.1 5.7-3-3.3-1.7-7.3 2.3-2.1 1.1-1.3-1.9-2 .2-.7-1.9-4.1-.9-4.3-1.9-1.1-1.8 1.2-2.3 .8-6.2 2.8-2 12.6-.6 8.5-1 7.9-1.9 2.4-2 1-2 3.4 .4 10.7-.4 4.6 .6 7.9-2.5 4.6-2.3 2-1.8 1.6-3.5-1.2-4.7 6.9-5.7 5.3-6.3 4.3-4.5 2.6-1.8 2.5-6.2 2.6-1.2 6.6-6.9 8.9-4.8 2.1-2.2 4.2-3.1 4.1-4.1 6.5-1.8 2.4 0 8-1.8 3.8-1.6 10.2-1.9 4.2-2.7 2.7 .2 4-1.1 2.9-1.8 2.1-2.8 .6-4.3 2.3-.5 3.3 2 1.2 4.5 5.7 4.8 2.8 1.1 3.4-.1 4.6 .9 2.7-.8 7.2-6 .8-1.5 3.7 .1 3.3 2.1 2.6 6.6 4.4 3 3.6 .6 .6 1.1 3.8 .7 2.8-3.6 .4-3.7 6.8-1.4 5.2 .6 2.1 1.5 1.1 2.4 3.3 .3 3.8-1.5 4.5 .1 4.2 1.4 2.9-1.5 .5-3.3 3.7-1.7 1 2.5 4.4 1.8 2.4-1.3 7.2-.6 2.5-1.3 1.7 .7 6-2.9 2.2-3.1 2.7-.1 1.3-2.7 3.6-3.4 3.4-1.4 2.9-2.8 3.8-.3 3.7-4.5 2-.3 4.1 1.8 2.6 0 1.5-1.4 4.6 .5 3.9-2.5 3.4 1.2 1.7-.6 3.9-3.8 3.6-5.4 2.8-.9 3.2-4 2.2-5.6 2.2-.5 3-3 2-3.8 1.8-1.3 1.8-3.5 2.6-2.4 .3-3.5 1.2-2.7 .9-6.8 1.3-2 .2-7.6-3.5-7-4.4-3.1-2-3.7-3.8-4.7-1.8-1.1-5.6-9.2-2.4-2.3-2.8-.8-5.8 .4-1.4 1.1-6.7-6.1-2.4 1.4-3.5-2.2-5.4 .9-2.8 1.5-2-.6-4.3 0-1.4 1.6-3.1-2.2-3-3.4-4-.4-4.4 .6-2-.7-3.1-2.6-4.5-.7-1.5-1.5-2.5-.4-6.4-3.1-5.6-3.5-7.9-2.5-5.8-3.4-3.3 .2-4.1-2.4-6.1-.7-8.4 1.9-4.3-.1-3.3-2.9-6.9-2.6-2.5-2.5-2.1 3.5-4.4 0-1.5 1.2-2.9 .2-5-2.7-4-5.3-3.5-1.5-11.5-1-3.8 1.7-3.9-1.3-.5-1.6 3.1-1.1 3-2.4 2.9-3.5-.6-1.4-4.3 2.8-.1-2.4-1.4-1.3 .6-2.8 1.9-.2 5.8 1.3 2-.2 1 4.3 3.2-2-3.2-2 7.6-2.8 1.4-2.4 4-.3 2.2-2.7-3.1-4.3-.7-2.9-1.7-.3 1.7 6.5-1.2 .3-2.8-8.2 4.7-7.3-.1-4.1-.9-4.6 0-3.2 2.1-2.6 3.5 1.7-1-5.7 1.9-1.7 7 2.1 3.1-1.2-1.4-3.3-8.5-1.2-1.6-2-5.6-2.5-3.9 .5 .1 1.8-5.6-3-5.5-7 3.9 .9 4.9-2.3 1-2.6 4-3.9 1.7 1.6 4.4-.5 2.9-1.5-1.6-2.3-2.6-.1-2.3 1.6-.7-4 1.3-2.4 2.3-.3 3.4-2.1 2.5-2.5 1.3-3 1.8-1.2 1.9-4.4 5.3-1.1-.1-3.5-1.4-.4-2.4-6.2-5.1 1-3.2 2.9 .8 2.6-7.4 5.6-5.2 2.3-5 3.2-2 2.4-7.5 1.8-2.5 2.2-4.8 1.3-1.8 3.2-1.7 7.7-1.6-1.1-2.5 .4-4.2 4.5-2.5 4.1-.5 3.5-4.3-.6-4.3 2.6-3.5 3.6-1.3 3.8-3-.3-3.5 1.2-4.1 2.3-2.8 3.4-2.4 5.6-2.7 2.9-2.3 4.9-2 9.7-.7 2.1-3.8 3.8 .3-3.2 3.8-3.2 1-5.3-2-2.9-1.8-1.2-1.9 7.1-5.6 4.9-.2 1.9 1.5 3.5 3.5 5.7 8.1 8.7 12.1 9.2 5.2 1.5 5.5-3.5 1.5-4.3 4.9 0 2.2-.6 .4-3 1.5-2 4.3-2.1 3.6 .3 2.1-1.1 1.7 .9 2.2-.8 1.5 2-3.7 1.6 .3 2.6-1 3.1 1.4 4.1 1.5 2.2-4.2 2.5-.9 2.2-5.6 .1-.8 2.6-4 1.8-3.1-2.2-4.6-.6-2.4 .7-3 3.3 .1 3.1-3.1 3.1-2.1 3.3-.7 5.1-2.6-.9-4.8 2.7-2.1 .4-3.3 3.6-3.6 2.9-1.3 4.9-.1 3.3-1.8 1.1-2.4 5.2-4.5 4.6-3.3 .2-3.7 1.4-2.5-.3-2.8-2.3-1.7 .8-4.9-1.7 2.3-2.6 .7-4.9-1.4-2.4-.2-2.8 1.3-2-.4-2.5-3.7-6.1-5.4-2.3-4 2.6-2.9-.9-3.6-2.2-6.1-1.7-4.4 1-1.9 2.5-4.5 .6-1.7-2.6 .6-2.4 5.3-6.4 3.8-5.6 5.5-5.1 2.6-1.7 4.8-6.1 2.1-.3 3.5-4-2.6-2.3-3.1-6.4-1.9 1.7-.5 3.2-1.7 .6-4.6-2.2-4.8 1.6-5.6 2.7-3.7 .3-5.2 3.1-2 1.9-7.4 0-1.5-2.6-3.7 .3-7.6-2.3 .4 1.7-3.4 0 .7-2.3 4.2-1.4 2.1-2.6-2.2-1.8-2.8 .6-4.3-.5-3.5 1.7-2.4-2.1 4.8-1.8 3.3 .5 7.1-1.9 5 .3 2.4-.6 1.5-1.8-1.4-2.8-1.9 1-9.5-.1-3.9-4.6 .3 4.2-1 1.8-2.4 .9-3-.3-2.2 2.3-3.1-.4 1.2-5.7-.9-.1-1.6 6.6-2.1 2.3-4.5 .1-5.2 2.7-2.9 2.9-1.9 .4-.8 2.2 1.9 4.8-1.6 3.8-.2 2.8-2.5 8.6-2.6 4.4-2 5.1-2.6 4.1-2.1 .9-2.9-.3 .2 2.8-3.9 2.7 2.5 2.1-2.9 3-2.6-2.9-2.2 1.2 1.1 5.6 2.4 .8-.4 3.2 3.5-1.3 1.8 5.8 0 3.7-2.7 1.6 2.2 2.6 1.3 12.7-2.6 2-10 4.2-3.9 4.3-.9-1.3 3.2-2.2 .1-3.4-2.5 .1-1.4-5.7-4.3 3.3 .9 3.5 2.5 1.2-.1 3.1-3.5 3.2 1.2 6.4 2.6 1.9-1.1 1.5-3.2 6.9 .3 2.7 1.7 2.5-.6 2.1 2.7 5.9-.5 9.1 1.5 8.1 1.6 2.6-.5 3.8-2.2 3.8-4.6-.9-4.7 2-1.6 2.4-.7 5.2-3.4 2.8 1.7 1.6-.4 6.6 1.2 2.6 .2 4.1 1.6 5.6-4.6 .9-.4 2.6-2.3 1.8 .8 2.7-3.6 1.3-.4 4.1 4.8-1 2.2 .8 1.4 3.1 2.2-.1-.4 2.8 1.1 1.6 3 1.6 2.1 2.2 2.9 1.4 1.6 2.3 1.7 5-1.8 .4 .4 2.7 5 5.2 1.3 2.5 4.6 2.9 5.4 1.8 7.3 1.2 10.6 2.1 6.5-.3-.2 4.7-1.4 6-1.4 .1-3.2 2.8-2.6-.1-3.6 1.4-5.7-1.4-7.5-.4-2.2 .6-4.3 3-1.6 3.4-6.8-.2-6.4 2.6-1.2 2.3-.5 5-2.3 3.6-.9 2.7-2.8 3.7-3.9 1.8-1.4 2.5-2.4 1.1-2.4 2.6-4 3-1.3 4.4-4.4 6.1-2.8 2.5 1.3 1.7-3.9 4.7-1.1-3.3 1-2.3-.3-2.7-2.1-2.7 2.9-2.1 2.9-3.9 4.6-4.1 2.3-.5 4.3-5-1.7-2.1-6.4 2.6-2.1 2-2.1-.4-4.3 1.7-7.2 1.1-3.8-8.4-3.2-.5-5.9 1.3-4.2-.2-2 .7-8.2-1.9-1.1 1.1-4.2-.4-.2-2-2.5 .5-1.7 3.2-3.6 2.4-1.6 2.5-5.5 .9-2.7-3.5-4.7 1.2-2.8 3.4 1.3 1.8-6.6 5.7-3.9 .6-3.9-1.2-2.1 .2-2.8 2.4-.3 1.9 4.2 3.9 2.7 .6-1 4.4 1.7 1.8 3.3 .8 1.4-.8 5.9 .9 7.5 5.8-.3 2-2 .6-5.2-5.3-4.1-.4-4.5-2.1-2.8 .4-4 2.7 .9 2.7 2.5 2 4 .6 3.4 1.7 1.6 4.1-1.1 2.5-5.2-1.6-1.4-2.8-4.7-4.5-9.3-.9-1.4 3.3 6.3 6 5.9 1.3 1.5 2.9-2.8 0-5-1.1-3.2 .8-.1-1.9-3-3.5 .2-3.1-1.3-2.4-5-.8-4.2-1.4-2.4-1.9-2.3-.6-2.7-3.1 3.3-1.9 1.1-1.7-2.9-3.5-2.5 3.6-1.3-.1-1.7 3.2-3.3 1.8 .6 2.8 2 1.6-2.2 9.1 1.4 4.6 1.1 1.4 4 1.9 1.5 3.3 2.2 1.1 2.2 2.4 3.3 6.9 1.1 1.1 5.3 2.2 1.1 1.7 5.6 4.6 3.2 5.1-1.1 1.9-3-.2-2.8-4.5-4.4-.6-2.9-1.4-.3 2.7-2.4 .9-.1 2.9 5 3.5 2.8 4.3-.9 2.5-2.6 1.9-1.8 0-1.4 2.3-3.4 .6-2.5-1.2-2.4 2 1 1.6 4.5-1.3 2.6 2.3 3.4 .7 1.4-1.1 5.1 1.2 1.5 3.1 3-.7 .6-1.4 4 1-.4 2.9 4.6 2.3 6.2 .2 .1 2.1 4.4 3 2.3-.7 5.9 1.1 4.5 2.9 .4 1.8-2.4 2.1 2.2 4.5 .1 5 2 .8 1.3 3.2 .1 4.1-1 1.8-3-.6-2.2-4-2.1-1.2-2.8 .6-1.1-2.4-2.5-2.5-4.5-.7 .5-2.9-4.2 1.8-1 2.2-6.1 1.1-3.9 3.4-2.8-.1 .5 3.2 3.3-.7 2.5 1.3 .9 8.2 5.6 2.3 1.6-1 5.7 3.1-2.4 2.3-4.1 1-2.9 1.6-.4 3.5-2.1 .1-2.6-1.5 1.4-4.2-4.2-.2-1.9-1.9-4.9 .2-1.8-2.3-1.5 2.6 2.1 4.4 0 1.4 6.5 8.1-.2 2.2 2.3 1.2 1.8 2.4 1 3.8 3.7 5 .2 3.2-2 1 .8 2.8 1.9 2.6 2.5 1.2 .5 4.5-1.6-.1-2.6-3.2-2.1 .7-3.8-5.1-2.5-1.6-1.1-3-1.3-.9-4.9 .8-2.4 4.5-.7 6.9 1.4 3.3-1.3 .8-4.3-1.8 .7-2.7-1.1-4.2-3.5-5.7-2.9-2.8-2.9-.4-.1-4.4-3.6 0-3.5 2.9 .2 4.9 1.2 3-2 3-2.2-3.2-4 .3-1-3 .1-2.8-4-3.2-1.7-4.5 .4-2.8 2.7-3.1-.9-4.6-5.1-6.3-5.5-3.2-3.6-.2-.6-4.1-2.5-1.4-3.7-.5-.7-1.6 .5-3 2.5-.4 3.5-3.7 .8-4.4-.2-3.5 3.3-.2 4.6 1.2 2.2-1.5 2.3-5.3 2.5-2.4 3.6-.3 3 1.8 3.7 .9 3.1 2.1 3.6-.2 3 1.2 3.2-.1 6 1.6 7 4.3 2.8-.9 .6-1.4-3.3-1.7 1.5-2.4 4.3 .3 4.7-2.7-4.3-3.9-1.2 1.4-2.1-1.2-4-.3-2.8 1.1-.6-2.2-3.8-1.1-1.9-2.6-2.8 4.2-1-2.2-2.5-2.5-1.7 .8-.9 3.3-4.9 0-1.2 1.5-1.9-1.6-5-.8-3.9 2-1.2-.6-1.9 3.2-1.7-1-3.8 .9-1.9 1.9-4.4-2.8-1.6-.3-2.5 1.7-1.6 2.3-2.4 1.4-2.2-1.2 1.1-2.7-2.4-4-1.6 0-1-4.2-1.8-2.5-2.5-.7-1.3-3.3-3.6 1.2-1.6-1.5 .7-3.8 1.6-1.5 5.1-1.8 4 2.9 1.5-3.1 .2-2.9-3-1.5-2.2 1.6-3.9-2.1-3.4 .3-1.2 5.8-2.2-4.9-3.3-1.8-4-3.4-1.7-2.8-2.7 .4-2.6-1.6-2.8-4 1-3.2-4.2-.7 .9-3.8-3.3-1.6-3.6-.8-.3-2.3 .7-3.8-3.9-2.4 .3-1.8-2.7-3.7-3.6-1.1-9.5-4.2-3.4-3.1 2.8-2.6-.4-4.5-2.1-1.3 .8-2.8-2.5-.2-2.6-3 1.1-2.2 0-4 1.2-3.6 2.8-1.9 .4-1.8-2.8-2.4-.2-7.5 1.2-3.1-3-2.1-.9-2.8 .6-2.6 2-3.3-2.8-2.8 4-.5 1-2.1-1.1-2.2-.5-5.6-5-1.4-2 .9-2-1.6-4.6-1.2-1.5-4.3-7.9-6.7-1.6-2.7-2.8 1.1-3.1-4-2.4 .5-4-3.3-.8 .7-7.9-4.1-.9-2.5-4.6-.8-1-1.6-4.8-2.1-3.2-2.2-2.4 .7-9.2-2.1-7.9-4-3.3 .3-.8-1.6 5.2-.4 4.8 1.4 4.3 2.6 1.2-.4-4.1-4.6-4.3-3.7-4.6-1.8-3.3-2.2-4.8-5.2-1.8-1.3-8-1.1-6.2-3.7-3 .2-5.6 2.2-1.5 1.4-3.7-1.4-2.2-2.9 .1-3.6-5.1-3.1-2 0-1-2-6.9-4.1-3.6-4.2-4.7-4.1-2.2-2.6 .1-3.6 3.8-.5 .6-3-5-4.4-2.4-2.8-2.5-1.6-3.3-4.6-1-7.2 .9-4.2-3.3-6.3-5.3-3.2-4.6-4.1-5.6-2-1.5 2.8-.9 6-2.2 3.4 .5 3.3-2.6 .6-1.1 1.5-1.7 5.3-3.4 .3-1.8-2.5-1-3.3-4.2-4.3-1.6-3.1-.1-4-2.9-8.2-.3-3.2 2.4-1.1 4.8-1 1.2-2.8-2.3-3.5-3-2.8-2.3-.7-1.2 3.3-11.2-1.8-1.8 2.4 .6 3.1-4.2 .7-4.7 3.4-8.6 4.4 1.4-3.4-2.9 .3-4.9 3-.3 2.9-2.6 5.7 3.9 1.4 1.1 5.3 1.5 2.6 4.7 3.9-2.3 5.3-2.1 1.2-2.6-2-1 3.9 .1 3.5 1 2.8 .1 4.8 1.2 5.4 1.7 4.6 3.5 4.6 3 2.2 4.3 4.2 2.9 .6 4.5 2.7 9.7 7.9 6.9 3.5 1-.9 3.6 4.1 7.6 16.8 1.1 5 2.9 8.7 4.6 8.2 4.8 5.2 5.4 3.8 1.5 2.1 4.3 3.8 5.1 2.5 1 3.1 4.2 2 3.9 .6 4.3 3 5.1-.1 5.2 .5 5.2-1.2 5.2-.2 7.9-1.5 3.6 .7 1.3 1.7 .8 3.6-4.9 5.1-3.1 1.9-.9 2.8 .9 3.1 3.7 2.9 9.3 3.4 9.7 4.3 15.3 4 7.4 3.6 2.5 2.6 4.4 3.1 9.1 2.6 3.3 1.9 5.4 1.3 1.4 3.8 2.9 1.9 4 1.6 7.2 7.3 3.3 6.1-2.3 4.2-.9 4.6 .1 4.4-1.7 .6-4-1.1-4.9-2.5-2.4-3-.8-5.6-2.6-2.1-.7-3.3-2.3-1.2-10.9 .5-10-3.3 .7-4.2-6.4-.1-4.2 3.5-3.7 6.5-1.2 3.9-3.8 5.7 1.2 4.9-2.6 3.7-1.4 3.5 1.2 4.8 3.8 2.4 4.1-.1 3.4 2.5 5.6 2.3 1.7 1.8 3.4 1.1-.9 3 .1 3.5 1.1 1.8-.3 5.1 1.9 3.5-1.2 3.3-3.4 1.3-1.4-1.2-4.7 1.2-3.5 2-3.7 3-2.1 4.1 1.9 8.1 .1 4.2-3.2 3.7-4.1 2.4-5.2 7.1-1 5.9-1.1 2.4-2.9 1.5-2-.4-6 .8-3.4-1.5-1.7-5.8 .4-5.7 4.5-1.9 3.4-8.6-.5-4.3-2.3-2 .2-1.4 5.1-3.1 3.9-.1 1.9-1.3 1-2.9-.1-3.6-2.4-2.2-2.7-4.8-2.5-11.3-1.5-3.8-4.6-5-2.4-5.4-1.3-7.2-2-3.9-4.2-4.3-2.4 0-3.9 3.8-4.2-1.2-.8-1.8-4.7-3.7-3-.1-1.1-1.4-3.1-1.1 .5-3.9 2-2.9-4-7.1-2.8-3.3-1.9-.8-4.4 1.5-2.2 1.5-5.3-.5 2.8-4.2-3.6-2-2.5-2.3-2.8 1.8-5-1.3-1.1-3.5-5.9-9.3-4.4-4.2-4.1 .2-2.5 1.1-6.2-2.5-3.8 .7-5.1 2.5-2.2-4.2-2.9-2.8-8.8-2.2-5.7-7.1-3.4-2.9-3.4-1.4-1.1-3.8-2-3.2-7.4-5.4-2.9 .2-2.5-3.9-3-6.4-3.8-2.8-5.2-2.4-5.2-.4-1.7 2.3-2-1.6 2.2-1.6 .7-3.4-1.9-1.5-1.6-3.2-2.3-1.4-.5-1.8-3.1-2.3-5.1-1.6 1.5-3.9-3.1-2.2-3-.5-2.6 .9-.7-2.1 1.2-1.5 .9-5.2-1-5-2.5-5.2-3.4-3.7-1-3.9-1-10.2-1.7-4.7-3.2-4.1-3.6-1.8-.8 .7-3.6-2.7-2.2 1.2-3-2.6-1.6-.4-4.1-4-1.5 .1-2.1-2.3-4.1-2.5-2 1.4-1.1-1.9-6.2-2.1-4.9-1-3.3 1.6-5.8 3.7-1.9 4.6-2.9 1.4-2.5 2.3-.6 2.5-2.3 3.9-2.4 2.3-3.3 1.7-5.4 1.2-2.8 1.2-6-.2-3.1 3-2.3 1.3-5.5 1.1-2.1 3.6-3.5 .8-2.7 4.9-5.1 .6-2.1 5.5 .1 3.2-5.5 1.9-2.6-.2-2.5 2.5-1.9-1.3-8 1.3-3.9-1.8-1.4 3-2.3-1.6 0-2.2-2.5-.8-1.8-1.9-3-1-5.8-.7 .8-2.3-.8-2.7-8.5-.3-1.7-2.4 1.7-1.6 2.8 .2 2.1-1.4-5.6-4.4-.4 2.3 1.4 2.1-1.2 1.4-3-1.2-2.5 1.4-1.1 2.3-4.8-.4-3-1.2 .6-2.5-2-1.2-3.2 .1-6.2-1-2.2-1.3-.6-2.8-5.2 .4-6.5 4.5-3.8 1.3-3.7 3.7-3.9-.5-4.6 2.4-4.4 4.4-3 6.7 .4 1.5-1.3 9.4-.1 5.5 2.6 1.5 .9 3-.3 3.9 4.3 2.1-2 3.4-3.4-1.1-1.2 1.6-.2 3.3 2.7 3.3-.7 1.4 1 3-3.1 4.8-6.7 4.1-3.3 1.3-2.5 1.9-10.9 3.6-5.1 2.5-6 6.2-2.3 1-7.8 .8-6.5 1.2-2.7-.1-8.3 2.1-2.3 .2-1.3 1.6-4.1-.5-2.2 .8-9.9 8.3 4.6 5.2-3.1 1.6-2.8 3-.5-2.3-2.8 .5-1.8 1.6-7.8 11.2-5.3 4.2-2.4 3.6-2.8 1.7-2.7 3.9-3.3 3.1-4.1 5.1-.7 2.1-4.5 5.7-.6 5.4 .3 2.9 2.1 6.2-.9 .6 .6 3.8 2.3 5.7 3.2 3.9 5.2 2.3 2.3 3.5-5.5 3.4-3.4 1.1-2.9 3.4-3.8 .1-4.5 1.5-2.5 2.1-.8 2-3.9 2.3 0 3.9-3.6 .7-1.5 2.4-1 5.3-2.4 1.6-4.1 6.8-1.5 1.8 1.1 2.5 3.2 2.5-7.7 1.6-4.7-1.8-3.5 1.2-2.3-1.9-2.8 .3-5.4 2.6-.9 2-6.5 2-2.4 3-3.3 2.7-2.1 5.3-2.3 3.4 .1 1.6-3.9 2.1-3 4.3-2.1 1.3-2.6-.4-2.2-3.5-2.6-1.5-7.4-.2-1.8 3.3-1.7 1.1-3.4 .1-3.3-1.6-2.2-2.4-1.9 .3-8-2.2-3.5-.2-3.2 1.6-4.5-1.5-1.5-1.6-4.5 0-3.4-1.8-4.3 .2-3.1-1.4-5.9 .4-6-1.6-1.1 .3-4 4.8-2.1-.1-1.3 1.6-3.9 .9-5.9-1.8-3.5 1.5-2.3-.3-4.5 .9-6.6 8.3-3.7 .3-1.1 4.3-6 1-.4-1.4-5.2-3.2-3.4-5-4-1.1-1.6-4.2-1.6-1.4-1.2-4.5 .8-7.3-1.7-2.1-3.2-1.6-.4-5 2.8-.9-1.5-2.6-1.8-5.7-7-7.6-4.4-3.8-4.2-2.7-10-2.1-2.6 .7-3.7-.9-10.4 4-6.6-.7-3.6-3.7-2.2-1.4-3.9-.5-2.2-1.4-2.6 0-2.9-2.3-2.9-.8-2.3 1.1-2.1-.6-4.6 .4-2.6 1.1-.8-2.6 5-6.1 .7-3.3 1.9-1.7 2.5-5 .1-4.8 1.8-3.8-.2-1.9 1.6-4.1 0-3.6-1.1-2.3 2.5-3.2 2.5-4.9 1-7.2-2.2-7.3-1.6-.1-3.7 1.9-5.1-.1 1.8-5.6-1.1-5.3 6.7 .5 4.4-2.7-1-6-4 3.3-1.1 4.1-7.2 0-3.1-2.4-2-.5 1.1-4.6 3.3-4.1 .5-4.1 4.4-6.2 1.6-7.1 4-1.2 6.3-5.3 1.6-4.1 4.1-6 6.6-10.7-.5-3.4 2-2.8 6.1-11.9 1.9-2.2 3.1-1.4-1.1-3.9 3.5-8.6 1-5.8-1.1-5.4 .5-3.3-.5-3 1-3 .1-7.9-.8-4.1 1.6-4.9 1.4-10.3 2.4-2.1 2.3-3.6-2.2-.5 2-3.2 1.6 .5 2-1.6-4-2.2-1.4-3.2 3.9 0 .3-2.8 2.5-2.7-4.3-.3-3.1 2.5-2.3-2.6 2.4-4.3 2.4-3.1-4.4 0 .7-6.6-2.3-1.4 0-3.4 .9-2.9 2.8-.4-1.3-2.2 2.9-1.2 2.5 .8 3.3-3 4.4-1.2 4 3 6-.1 2.3-1.4 4.2-.1 2.5 3.9 .6-4.1-3.1-2.8 1.4-2.9 7.7-2.9 1.3-2 3.4-.1 5.5 .8 6.8 2.1 4.7 3.4 1.1 3.8 2 1.8 13.7 3.2 3.8 .4 3.9 2.3 6 .4 3-.5 4.4 2.1 5 .3 .4-2 1.9-.8 1.9 1.6 1.6 3.3 2.4 1.1 6.1 1 1.2 2.1 2.8 0 2.9 2.5 5.8 2.5 4.2 1.2 2.8 2 9 2.4 1.3 1.1 6.1 .2 5.1-.4 3.6-1.3 3 0 3.2 1.2 5.2-.5 2.1 3.1 5.7 3.2 4.5 2.9 2.6-.3 3.5-2.2 5.4 .4 2.6 2.1 5.1 2.7 3.2 2.9 8.1 1.8 6.9-1.1 2.5-1.3 4.6 .5 2.2-1.5 4.5-5.2 6.6-17.8 3.7-11.6 2.2-8.3 .1-2.2 2.7-4.3 3.6 .8 .4-2.4-2.6-3.1-2.5 2.7 3.5-17.2 2.2-6.5 1.8-8.8 2.6-1.1 3.8 3.8 3.6 5.9 .4 7.8 1.4 .8 0-8.2-.8-4.5-2.1-4.2-3.7-3.6-2.5-3.6-3-2.5-1.5-.3 1-3.4 3.1-.1-.4-2.7 2.6-1.2-.2-3.5 1.7-2-2.3-5.3-.4-3.3 2.2-1 .3-1.8-1.8-1.3-2.1 1.5-3.3-3.5-2.4 .1-1.1-3.4-2.7-.7-5.4-4.3-.7-5.7-2.6-3.7-1.9-3.8-1.8-1.5 1.2-4.6 1.7-.9 2.3-3.7-4.2-5.7-.4-4.6-2.3 .8-3.3-2.3-3.6-4.8 2.5-.9 0-4.8-4.5-1.1-2-1.1 .1-3.8-7.3 1.3-2-.2-3.1-3.1-3.5-4.4-3.3 0-1.3-3.1-4.9-1.9-4.1-1-.8-2.5-5.4-1.9-4.2 2.3-4.1-1 1.2-2.2-1.6-5.2-2.3-2.6-3.8-2.6 9.3-.2 1.9 .7 .4-3.8-3.9-3-2.6 2.3-.3-3.6 4.2-.7 4.2 1.4-.9-3.4-1.8 .7-.7-3-5.7 1.2-4.4-2.1 1.8-5.9 1.5-1.7 2.3-.2 2.6-1.5 2.1 .4 4.3-1.3 1.4 1.9 3.4-1.5 5.8-.6 .2 2.8 2.6 1.9 .7-2.9 3 0 3 2.2 2.4-2.3-.7-2.1 2.2-1.8 3.8 1.5 8.1-.6 0 1.9 5.7 8.4-.1 2.5 4.5 3.4 1.9-1.6 8.1-3.1 2 3.9 4.9-1.2 1.4 5.9 1-.5-1.8-5 1.8-1.7 3.8-.3-.4 3.7 3.1 .9 4.1-.5 5.3 .4-2.9-2.6-1-2.1 .4-5.4 1.7-6.5-1.4-.5 .9-4.4-.1-3.1-2-5.7-2.5-2.9 .4-2-1.2-3.9 1.3-1.5 0-3.9-2-1 .6-1.9 3.1 1.9 5.6 2.6 2.4-.1 3.5-1.6 3.2 1.1 .7 2.6-2.5 3.2 3.6 9.7 1.7-2 3.6 .8 3 1.7 7.5 1.3 3.6 1.2 4.9 3.4 5.3-1 3.2-1.3 5.6-3.7-4-1.8-.4-2.1 3.3-6 2-1.3 4.4-1.4 4-2 4.3-1.3 2.3 .4 11.6-2.3 6.5-4.1 2.3-2.1 1.9-3.4 2.5-9.5 .9-5.5 0-4.4 1.7-4.6-.3-3.4 4.3-2.7 6.8-2 4.3 0 5.2-1.2 3.8 0 3.2-1.2 3.9-2.3 11.4-5.8 11.4-2.6 5.4 3.3 2.7 .4 2.6-.9 7.5 1.3 .3-2.5-3.5 .1-2.4-2-1.9-.2-1.3 1.8-2 .4-3.4-3-4-.5-1.7-4.3 2.8-1.4 7.2-.2 5.6 4.9 1.7 3 4 .1-.9-3.1-4.4-1.4-1.9-2.2 3.5-1.4 .9-3.1-1.8-.7-.8-2.9 .7-5.9-.6-2.4 3.5-.8 4.1-4.3 3.5-4.4 3-4.6 2.9-7 2.7-12.2 2.5-7.1 2 .5 .1 2.1 2 .3 4.4-1.7 6.3-5.1 1.7-.5 2.1-5.1 3.9-3.3 10.1-3.8 9.2 .2 3.8-.9 6-.6 3.4 1.2 .7 3.6 7 4.8 2-3.1-4.6-.9-1.2-1.7 .1-3.2 1.9-5.7 3.6-3.2 5.9-1 1.1 .7 11.3-1.5 2 .7 .5 3 2.8 3.6-2.8 2.1 .6 2 3 2 2.2-1.2 .8-2.9-2.3-.7 .5-2.8 2.6-.9 1.9 2.1 3.5 .8-1.9-5.8 2.3-7.4 2.9-1.2 4.3 2.5 6.4-1.4-4.9-3.1-2-4.2 4.1 .3 .5-2.9-5-3.6 1.9-5.2-5.8 1.2-1.2-1.7 .7-3.1 3-1.1 2.7 0 3.6-2.1 .2-1.7-3.8-4.9-1.1-2.9-2.9-2.1-.9-3.5 .8-5.5-.8-3.2 1.1-4.7-2.6-.5-.5 2-2.4-.3 .4-3.2 2 1.3 3.3 .4-.9-5.9 .3-2-.9-4.7-4.2-1.2-3.6-5.2-2.4 2.4-2.3-1.7 1.4-3.6 1.3-6.8 3.7-2.4 1-2.4-1.6-2.6-.7-3.8-4.2-1.9 .8-3.7 .1-14.7 2-3.7 2.5 2.7 2.9 0 3.8 3.4 2.9 .8 .8-3.7-1.1-.7 4-7.4 1.9-1.6 3.5 .1 1.3 3-.4 3.9 3 .3 1.1-1.6-3.2-4.9 .7-2.8-1.1-1.8 2.9-4.4 3.5-1.1 3.4 1.2 4.1-2.6-2-.9-9.5 3.2-3.5-1.6-5.6 1.4-2.6 2-1.9 .1-2.7 5.7-2 1.5 .1 2.1 2.2 2.2 .4 2.1-1.6 1.6-2.1-3.1-1.7-.7-1.4-3.3-1.5-.9 .7-2.7 4.3-6.8 3.3-4.3 1.5-.6 3 .8 4.6-2.3 5.7 .9 4.2-1 3.8-3.2 4.9-9.2 4.1-5.6 5.3-.4 3.5-2.1 2.7-2.9 1.6 .8-2.5 5.5 2.7 5.7-.7 1.8 .6 6.6-2.1 2.2-2.3 7.4-1.2 1-.6 3.4 1.2 8.5 .9 2.5 .1 3.7 4.5 1.9 5.6-.9 1.9 .9 2.2 2.7-1.1 4.9-3.8 5.1-2.9-.9-1.8 2.5-4.1-1-.3-2.7-3.4 5 .9 2.1-.6 3.5 .3 4.3-2.2 3.3-1.2-1.9-2.3 .1 .7 2.6-1.3 4.7-4.5 1.4 1.5 2.1-3.6 3.8-2.9 4.6 .3 2.6 2.7 5-.5 1.9-4.8 1.8 1.8 4.8 4.1 2.9 .1 4.8-4.6 .8 6 2.8 .6 1.1 3.6-.2 0 2.7 1.5 1.9-.3 4.6-3.4 3.5 6-1.4 1.9 1.5 9.9 4 2.2 2 2.1 0 3.9-2.7 2.1-.3 1.5 1.8 .5 5-.7 1.7-3.8 3.3-2.7 .7-1.2 2.1 3.4 3.3 4.1-1.9 3-.5 1.8 3.1 5.4 1.1 .7-3.6 3.1-3.3 .9-2.8 3.9-.4 7.3-1.6 1.9-2.6 3.7-2.7 3.7-7.3 2.3 .8 7.1-.1-.2 1.3-4.4-.5-.3 1.8 4.9 .9 3.2-3.2 2.9 6.6 4.4 1.7 .9 1.7 4.1 2.7 4.9-2 3.3 2.5-1.1 3.2 3.6 4.8-1.7 1.6 4.3 4.2 3.2 1.1 3.9-.6 4 2.7 3.2-1.1 .6-2.8-.3-3.6-3.4-.4-4 1.9-1.9-2-8.2 2 1.3-2.5-.9-2.9 3.7-1.7-2.8-2.5-3 1.4-.6-3.3 5.4 2.1 4.6 4.6 4.5 1 10-5.7 5.6-1.9 6.6-3.4 9.2-3.2 4.6-2.6 8.8-1.9 .4-2 2.2-1.7-.5-1.8 3.9-5.9 1.6-1.2 5-1.2 3.8-1.7 2.1-2.8 7-4.2 9.1-2.7 3.9-1.9 10.4-1.8 3.1 2.1-.2 2.1 1.7 1.7 3.1 5.5 1 4.9 3.4 1.8 4.3 .8 2.9-.1 9-2.6 3.6-2 4.3-5.4 2-3.3 2.1-7.9-1.7-4.7 .9-3.4 1.5 .5 4.1-1 3.9 0 2.6-1.7 3.2-3.6 3.7-6.2 4.6-11.9-1.2 7.5-1.6 1.8-1.5 4.2-2.7 4.3-3.2 4.2 1.2 .9 4.5-1 2.6 1.2 5.3-.4 3.4-2.2-2.9-10.5 1.9-1.1-.1-4-1.4-2.6-1.6-6.2-3.1-6.7-1.9-2.1-1.6-5.3-.8-7-1.4-4.5-2.1-4.2-.9-5.7 .4-3.8-.9-5.2 .5-3.9-.9-6.7 3.2-3.1 2.6-3.9 .6-2.2-1.3-10.6 2.7-6.9 1.7-5.3 1.4-1.6 5-1.4 9.7-7.9 2.6-.5 .3 3.4 2.2 3 5.8 3.5 4.1 3 2.4 .5 4.8 10.2 2.5 2 4 .4 1.8 1.6 3 .3 5.4-3.1 1.4-2.7 3.5-3.1 2.9-5.2-.4-4.9-4.1-14-1.8-2.1-1.1-3.7 .8-8.4 1-2.3-1.4-7.5 1.3-2-1-2.4-4-1.2-1 3.6-3.1 4-3.5-2.6-5.5 0-2.2-3.6-.3-2.7-2.9-1.7-2.8-4.7 .4-2.3 5.2-2.4-.3-1.9-4.4 1.2-4.3-4.2 3.8-3.5-4.4-.5-.4-2.2 1.2-3.2-1.7-3.4 5.4-4.2 3.9-.6 3-2-1.7-1.6 .7-1.8 4.6-2 1.4-2.9 2.4 1.1 2.7-.4 1.1-2.5 4.3-1.8 3.6-.3 2.3-1.4 4.7 .3 1.1-3.7-1.1-3.3 5 2.6-.5-2.6 6.6-1.7 2.3 1.5 4-1 4.1 .9 4.3-1.3 4.1 2.2 2.6 .6 3.8-.6 6.1-1.9 10.1-.7 2.2-3.8 .1-4.3-3.1-4.7-.3-2.3 1.2-2.2 2.5 1.2 1.5 2.5 3.4 .2 .4-1.9-1-4.4 1.3-2.5 1.6 .8 6 .3 2.2-2.4 .5-2.6-.9-1.7 2.1-3.8 13.9-1.1 7.2 .9 1.4-.8-.1-4.2-1.1-.8-5.6 .4-3.7-5.1-3.4-.5-3.6 1-1.8 2-6.7 1.5-1.8-.4-2.8-2.9-3.5-1.7-4.2-1-5.4-6.1 5.6 2.8-1.6-5.4-.2-5.5-2.5 2.4-3.3 1.6-2.3 5.8-3.4 1.9-2.7 .6-1.5-.9-2.1 1.1 .1 2.6-4.8 2.2-2.1-1-6.9-.4-.5 2.7-5.6 4.4-1.4-1.1-3 1-2.6 3.3-5.1-.5-1.3 3.3-2 1.9 1.3 2.1-3.6 1.6-2.1-1.5-.4-3-2.6 2.2 .3 3.5-6.3 1.4 .2 2.7-2.4 .7-1.9 1.9-3.6 .9-3.1 2.4 .1 1.7-2 3.2-2 .1-2.3-2.5-5 3.8-5 2.8-3.3 1.1-1.1-.7-6.1 4.6 .8 2.4-5 1.5 2-2.9 .7-2.9-.4-4.2-3 .9-5.2-5.2 2.2-4.5-1.7-1.3-3.6 4-2.5 1.2-3.5-.4 1.3-4.1 1.3-2-7 .9-2.6-1.6-2.5 .2-4.6-3.2-2.6-2.8-2 1.9-.5 3.5-3.8-4.5-1.4-2.8-.7-3.4-2.5-2.8 .6-4.6-1.6-2.5 1.9-4.5-.8-2.2 1.5-3.2-1.5-6.3 .7-1.8-1.6-1.6-.4-2.5 2-1.5-1.2-3.4-3.4-5 0-2.3-3.2-4.9-3-1.5 0-5.9 1.4-3.9-1.8-1.5-.3-4.5-2.6 .2-2.8-5.4 .8-4.6-2.6-.4-.2-2.5 1.2-1.3-1.2-3.1 1.3-.6 .3-3 2.9-1.1 .9-3.5-1-3.5 .8-4-1-3.3 2.2-.2 4.4-3.1 1.3 3.4 3.7-3.4 1.5-.3 1-2.9 1.5-1.1-4.2-4 .8-3.6 3.1 .5 .2-5.8 2.7-4 1.8 3.1 1.5-1.2 1-4.4-.6-2.4 4.4-4.7 1.4-.2 1.3-2.7-.7-4.3 4.2 .1-.5-3.2 1.1-4.8 1.8-1.1 1.6-6.9 3-5.3 1.8-2.3 .1-6.3 1.5-2.1-.2-2 1.8-1.4 1.3-3.6 2.1-.8 2.7-2.5 2.1 .9 2.2 2.5 1.5-.9-.4-2.9-2.6-.8-.9-2.4 4.1 .1-1.2-2.7-2.3-2.7-2.1-.2 .5-3-.6-6.5-1.1-5.9-5.8-3.9-5.1-1.4-2.4 1.3-4.1-5.7-1.7 1.5-4.5-1-2.1 1.5-4.2 .8-5.9-.4-1.4 .5-4.1 4.9-1-1.2-4-1.3-4.5 1.4-2.1-1.7-2.4 .7 1.2 3.1-1 4.3 2.5 1.1-3.1 3.8-4.3 3 2.6 1-1.2 2.6-7.7 2.1 4.5 3.8-2.5 2.8 2.1 3.2-2 4.3-.9 4.2-2.1 .5-.4 5.3 1.5 3.5 1.8 1.8-.6 3.4 2.4 .2 2 2.2 1 2.5 2.4 1.1-2.1 3.8-3.4 3.3-1.7 4-2.3 3.4-.1 7.2-2.6 8.3-3.5-.5-1.2 2.9-1.8 1.1 .4 3.6-4.4 .1-3.2 3.4-1.9 3.4 .7 2.5-1.4 1.6-2.6-3.5-2.2 .9 .4 3.2-3.4 0 .4 4.8-1.9 .7-1.6 6-2.4-.9-2.7 2.6-2.9-.5-1.9 6.8 1.3 1.2 .2 3.7-1.8 2.9-2.8-1.4-2 2.8-1.9-1.1-2.4 1.6-.5-3.9-1.5-.1 4.1 8.6-.3 2.2 1.7 2.6-2.4 2.1-.7 2.2-3.3 .5-2 2.6-3.1-3.7-1.7 1.8 .5 4 1.3 3 1.2 .2 2.9 4.6-1.5 4 .2 2.3-1.9 6 .4 4 1.7 4.4 2.5 .6-1.2 3.1-2-3.1-5 3.7 0 2.7 2.3 3.4-1.1 3.8 2.2 2-1.4 1.8 2.2 2.9-.3 4.3 .5 7.9 2 1.9 1.3 4.9-.5 3.6 3.9 2.1 3.3-.7 1.9 5.4 3.4-3.3 2-.9 1.9 1.8-.4 1.5 3 2 4.3 4.4 3.1-.4-.1 3.9 .8 2.7 3.6 1.7 1.5-.4 4.1 2.9 2.3 4.9 3.9 1.7 .2 2.6-3.1-.4-1.1 2.3 5 .7-.8 1.9-2.9 .1-2.4 1.8-1.5 4.2-7.8 8.8-2.9-.6-2 2.2 3.2 2.7 2.8-2.4 3.7 .7-.4-3.6 3.1 2.1 .5 2.8-5.5 .8-1.6 2.1 2.9 3.3-7 5.8-1.7 6.6-4-.2-.3-4.8-3.5-2 .8 3.1-.2 6.5-2.5-.6 0 4.1-3.8 3-2.5 .2-1.2 3.1-3.5 1.9-15.4-.5 4.1 2.8 2.3-1.4 2.6-.4 3.5 2 2.2 3.6-3 2.3 1.7 4.6-.8 2.5 2.3 2.4-2.4 8.8 2.5 3.2-1.3 1.5-2.2 .1-.7-1.7-2.7 2 5.3 5.1 1.1 3.1-2.2 .5 .9 5.2 1.8 3.5-.5 2.7-2.6 2.3-.9 2.9 0 5 2.3 2.7-.2 2.5-2 1.8 .9 2.7-.8 6-1 2.3 .8 3.4-2.8 1.3-.6 4.4-2.2 5.7-.8 7.1-2.2 3.6-1.5 3.9-3.1-2.8-3.9-1.7-1.8 1.4-10.4 1.7-2.3-.7-5.4 .6-.9 .9 2.3 4.9-1.2 1.2-3.6-2-1.6 .8-3.4 3.9-2.9 5.8-.1 4 4.3 6.7 .3 1.7-4.1 5.8-2.1 .3-5.2-1.6-6 .9-5.9 3.4-2.4 .1-6.9-2-1.9-5-.1-2.5 2.3-2.2 .7-2-1.3-2.3-2.1-.8-.1-3.6-2.6-2.1-1.8-4.6-3.6-4.9-2.7-6.7 3.3 .7 1.5 1.4 2.9-2-2.5-3.9-2.7-2.4 2.1-2.1 2.8 .9 2-1.9 .2-2.6-1.6-4.3-3.3 .2-2.9-4.2-.5-3-3.1-2.9-2.2-.8-1.1-4.6-1.5-.9-1.7-4.4-1.5-5.8-1.2-2.5 .2-2.1-1.2-2.7-3.2 2.5 .5-3.7-1-1.4-1.5-6.7-3.2-1.6 1-2.7-1.5-2.2 .1-1.8 2.3-6.7-.5-1.4 1.9-5.5-1.7-5.4-1.8 0-3.4 3.4-1.6-.3-2.7-4-3.5-.7-.5-1.3 1.2-3.4-.3-7.1-1.7-3.7 1.1-2.7-1-4.6-1.8-1.9 .4-3.3 2-2.5-6-3.8-2.2 .1-2.6-2.5 1-3.1-2.3-.1-.7-2.5 1-4.5-.8-4.8-2.1-5.6 1.1-4.5 1.8 2.4 1.3-3.2-.4-1.9-4.5 .6-.8 6.4 2 3 .3 3.8-2.4 2.4-2-1.8-1.3 2.7 2.8 2.2-.3 3.9 1.6 2-1 2.3-2.1-1.1-1.9 7.4-4.9 3.5-1 1.9-3.7 .7-1.4-4-2.6 3.9-1.9 1.6-3.3 1.1 .5 2.6-2.5 3.4-2 .8-3.7-.5 2.6 3.1-3.7 3.2-1.9 .6-.2 2.3-9.7 9.7-3.7 2-5.3 5.9-2.5-1.9-2.2 2.6-5.9 .6-.9 1.7-5.1 0-5.2-1.5-3.6 .6-1.8-1.9-.8-2.6-3.2 .5 1.1 2.2-3.7-.1-1.7-1.8 2.2-5.7-5-1.4-4.2-2.9-1.4-.3-3.5-3.3-.9-3-2.9-.4-2-1.5-2.6-4.7-1.7-5.5 1.1-1.2 .3-3.6 2.3-2.2-2.1-3 .8-1.9 3.4 2.8-.5 2.4 4.1-1.4 1.8 2.4 1.4-4.8-1.9-.1-1.2-2.9 3.1-2.5 2.6-5.2-1.5-4.3-2.4 .6-.7-2 1-1.8-1.8-3-2 2.8 2.1 4.2-4.6 .4-3.9 2.1-2.5-3.9-1.2 .9-1.8-3.8-.2-3.4 3-4.8 1.8-.8 1.3-2.4 2.6 1.5 3.9 .3 2.1-4-2.3-2.7 1.5-4.1 4.1-.8-.2-1.8 3.4-3.8-.2-4.5 1.4-.7 4.8-6.2-3.3-.8-2.2 5.7-2.2-.9-.7 2-2.7 3.2-.2 4.8-2.2 1.3-1.5-2.2 1.3-3.9-3.8-1.5-2.5-.1-2.5-1.4-.4-3.2-2.2-.7 2.4-4.4-.3-4.4 1.5-1.6 2.8 3.7 3.4 1.5 2.1-2.2 1.2-9.9-4.5 .5-.1 2.5-4.9 2.6-1.6-.7-2.4-3.4 1.4-.8-2.4-3.2 1.7-1.2 2.6 .1 .2-1.8-3.9-1.4-.3-7.3 1.5-2.3 7.3 2.5 2.1-2 7.6-1.5 4.3 .2 3.2 1.4 2.4 2.2 4-2.9 .6-2 4 .9 1.4 2.3 2.8 .3 6.4-1.3 3.1-2.6-4.6 .2-2 1.6-2.6 .6-4-2.4-5.1-2.1-1.2 3.2-1.6 1.3-3-.6-3.1-1.6-3.9-.7-7.9 1-2.9 2.2-6-3.2 .6-3.3-2.5 .2-1-2.2 2.8-1.6-1.7-3 1.4-2.8 4.8-1.2-2.9-2.1 4-1.3-1.8-3-4.8-.4-.9-1.6 .9-3 5.6-2.9 2.7-3.6-5.3-.8 1-2.1 2 .4 1.6-2.6-.1-1.8-4.3-4.4 2.4-1.9 1.7 2.4 2.2 1.3 1-2.2 3.7 1.1 6.2-1.1 2.2-4.4 5.8-2.4 3.8-1 4.2-2-.3-1.1-5.9 1.9-1.7-1.5 4.6-3.1-5.3 .1 1.3-3.3 4.3-.1 1.6 1.2 3.2-2.5 1.9 2.2 1.1-2.2 3.1 .3 5.3 2.7 1.1-1.7 4-2.7 4.3-1.2 4 .3-.7-1.8-7 1.5-2.4 1.5-2.8 .1-1.3-2.5-6.7 .5 1.1-4.8-1.9-3.8 3.3-2.1 3.9-1.2 4.3 4.5 3.3-2.8 1.5 1.7 4.4-1.4 2 1.2 1.3 5.8 3.2 1.6 1.8 2.3 2.5 .2-6.9-5.5-.5-4.4-2.8-2.4-2.4-.2 2.4-3.4 4.7 3.7 1.5 5.4 3-1.1-2.4-4.3-2.5-1.1-1-3.5 1.4-1.5 7.5 1.1-.2-3.2-1.8-4.3 4.3-1.2-1.8-2.4 2.9-1.6 3.4 .6 .6-2 3.2 2.7 1.5-4.7 1.9-1.7 1.4 1.3 1.9-3.3 3.5-1.7 2.1 4-.1 1.5 2.9 3.6 6.5-1.6 5.3 1.5 3.8-2.5-.5-5.8 5.2-4 1.7 .6 2.2-2.6 4.2-1.7-1-2-6-1.5 2.3-2.4 4-1.7-.2-1.9-3.1-.3-5.6 3.8-.4 2.1 2.3 1.6-2.7 5.5-5 2.3-.6 1.6-3.7 2.6-3.3 .7-3.1 2.4-3.1-.3-2-4.8-.2-2.7 3.8-1.4 .5-2.5-8.3 4.7-.8-4.3 5.4-3.7 3.1-2.9 .3-8 1.8 .1 1.4-2.9 2.6-1.5 .2-1.7 2.4-1.4-.3-2.3 3-4.3 5.1-1.1 1-1.9-.6-2.4 2.5-.2 .5 2.4 5.3 4.6 2.8-4.5-.1-2.3-2.2-3.8 .3-2.1 2.4-2.4 4.3-.7-3.1-2.5-5 1.7-1.9-2.2 2.8-2.7 3.9-1.1 2.8-1.4 .6-1.7 2.9-2.3 2.5 .8 6.4-1.9 .5-2.4-3.2-6.5 4.4-5.7-.2-2.3-3.4-1.9 .1-2.6-1.3-1.7 2.4-4.1 2.8-3.3-.8-1.7 1-3.2 1.8-1.7 2.2 .4 .5-3.5-4.2-.1-.5-1.4 3-2.6 6.1-2.5 1.3-1.4 3.8-1.1 .9 .8 5.6-2.3-2.6-1-1 1.8-2.1-.3-5 1.2-3.6 3-.7-1 3.2-4.4-3.3-.8-.7-1.5 2.8-2.5-1.7-3.5 2.3-.4-.3-2.1 1.1-4.5 3.3-.8 1.6-3.7-.9-1.7 2.4-1.5-1.9-4.2 5.5 .1 3-2.8 2 .3 1.8-7.7 1.6 .2 5.2-2.9 2.4 .4 2.7-.8 4.5 1.7 1.5-2.1-3-1.2-2.6-2.5-2.4 1.9-4.9 2.6-4.6-2.3 2.9-4.4 .2-1.8 2.9-.3-1.4-2.7 4-3.7 2.1 .1-.4 2.9 1.8 .5 1.2-1.9-.1-2.9-1.5-2.1 2.2-2 .8-4.6-5.6 5.4-3.2 1.7-1.9-.6 4.4-4-2.3-.9-1.6-2 4.4-1-1.2-2.3 4.9-.1 7.5-3.2 1.7 .4 1-3.1-2-1-4 .3-1.4-1-3.7 1.5 2.6-3.9 4.1 1.3 3.2-2.3 .2-4.8 1.2 0 1.3 3.4-.4 5.5 3.9 2 1.2-2.4-1.1-4 1.3-.6 .6-2.9-4.6 .5-.4-4.8 .6-1.5 3-1.9 4.2-1 2.9 1.1-.1 2.1 5.4-2.7 3.7-3.5-1.9-2.2-1.4 2.2-3.2 1.2-1.4-3-1.8 2.7-4.8 .9-1.5-2.9 1.5-2.6 .5-3.1 5.4-3.3 1.9 .1 1.6-2.5 6.4-6.5 .2-1.8-4.3 1.3 .4-3.5 2.4-4.3 5.7-3.9-1.8-4.8 1.3-2.1 .7-3.3-.7-2 2-1.5 3.9 5.1 .2 2.7 2.7-1.5-2.6-4.7-1.5-.1 0-3.3 5.2-1.9 1.8 4.2 3.8 3.5 3-.1 .7 1.8-2.5 2.5 1.9 .8 2-1.8-.3-2.4-2-2.3-2.8 .4-2.9-3.3 .2-3.7-2-2.4 1.6-3.6 0-1.8 2.6-2.3 7-1.9-.8 5.3 1.8 3.3 1.3-1.4-1-2.5 .3-3.2 1.9-.5 .8-4.8 2.4-4 2 2.9 .1 9.3 1.4 2.8-1.5 5.8 1.4 3 2-8.2-.3-5.4-.9-2.5 3.8-2 1.2-2.4 3.8-1.6 .3-5.5 1.8-1.4 2.7 1.3 .8 2.5 5.5 3.4-.8-6.7-1.2-.9-1.1-3.3-1.9 1.5-2.8-.7-1.5-2.2-3.7-1.8 2.8-3.1 5.4-.9 2-2.7 5 2 2.3-.6 2.3 1.3 5.3-.5 1.5 5.1 2.1 1.3 1.4 3.6 1.4-2.1 2.8-.2-.2-2-2.8 .3-2.2-1.8 2.4-1.5-2.2-4.3 3-1-.9-5.4 4.4-7.1 5.8-.1-3.5-2.1 1.6-2.8 .4-3.7 2.1 .1 2.1 1.8 1.2-2-3.3-2.7-3.7 0-1-3 1.4-1.5 3.2 2.2-.1-4.1-1.3-1.5 .8-2 3.2 1.5 4.1-.6 2.5 3.5 1.1-2.8-1.4-2.6 5.6 1.2 2.4-.6-.1 2.9-2.6 7.4-1.5 3.1-.7 3.6 1.5 5-2 2.4 2.2 1.8-2.3 3.9 .7 5.3 2.7 .2 1.7-1.2 .1-3 1.8-5.1-1.7-2.3 2-4.7 2.9-8.8-.1-3.7 2.4-7.3 2.3-4.1 1.8 .5 0 2.9 1.4 1.2-.1 5.1 1 2.7 .4 8.9 2.1-.3 1.5-2.7 3.3-.6-1.6-1.9-.4-2.3 1.4-2.2-1.2-4.7 2-.6-.2-5.8-4.2-.9 .6-4.7 3.2 .1 .2-4 4.8 1.3 3.6-3.1 1 3.2 4.1-.9 1 .6 .3 3.9-2.9 7.5-2 2.7-1 3.5 5.8-5.5 .1 3.8-3.6 6.8 4.4 .4 .8-3 1.5-2.1-.4-7.5 1.7-7.1 3.4-1.5 2.6 .5 3.3 2.9 .5 3 4.1-3.3 1.3 .4 1.9 3.5 1.2-3.9 3.3 .4 2.9 3.4 2.1 .4 7 3.5 .9-1.3 3.1 2.9 1 2.7-1.3 2-5.1 2.3-1.3 2.8-.1 3.4-1.9 2.6-13.3 1.9-7.2-.1-1.4 2.5 2.2 .9 6-.5 .9 1.9 2.5-1.1 5.4 .5 .7 2.8 2.3 2.1-1 5.5 5.1-3.6 1.8 0-.9-5.2 1.6-.8 3.3 2.3 5.6-1.5 6.5-.2 2.7 1.2 6.1-.7-2.4-1.7-.9-4.7 1.4-.4 3.5 2 .4-1.6-4-3.6 1.3-2.1 3.8 2.3 3.9 .1 1.2 1.7 5.8-1 3.8 1.2 .8 2.5-2.2 4.4-5.9-.2-6.6 1 .6 1.6 6 .4 .8 2.5 3.7-1.3 6-.9 0 3.8 3.5-3.5 3.4-.6-.1 5.5 1.9 3.8 2.6-.5-1.7-3.7 .3-1.6 3.1-1.7 8.4-1.8 4.4 1.1 9-1.9-.1-2.8 10.6 .4 2.1 1.4 3-.5 1.8 1.7 3.4-.1 6 1.4 5.1 1.8 1.9-.1 5.4 2.4 3.6-.2 5.8 2.7 3.4 2.8 4.7 .8 3.4 2.8 2.8-2.4 5.7 2.2 6.7 2 1.9 .1 3.7 1.7 3.7-.4 1.5-1.1 6.1 1.8 4.1 .6 .6 2.5 3.7 2.2 .6-2.7 4.9 1.6 1.6-1.1 2.1 .7 2.1 2.7 .2 2.6 2.1 3.5 3 .6 2.9 6.7 5 1.5 3.5 5.8 1.5 9-1.2 7.1-1.1 4.1 .7 2.3-1.4 7.2-1.6 1.9-1.6 5.2-4.3 5.9-3.1 2.8-1.1 2.5-5.7 4.2-5.1 4.5-10.4 3-7 .4-2.5-1.2-3.3-.3-7 .4-7.7 2.7-2.5-.2-8.7 1.7-7.1 .1-4.1-1.2-6.6-2.9-1.5-.1-2.7 4.3-2.1 .5-4.3-4-2.8-.2-4.7 1.9-1.6-2-4.2-1.5-.3 4.1-7.9-3-5.9-3.2-1.7-2.7 .4-1.3-4.3-1.2-2.8 .9-1.5-.6-2.4 2 2.8 2.3 3.4 .2 1.5 1.4-.1 3.6 5.3 3.3 3.1-.5 2.7 3.2 3.3-1.2-.8 4.8 1.3 .2 1.8-2.5 3 .1 2.3 2.3-5.7-.5 4 3 6.2-.5 .7 5.8 6.6 .3 1.8-.6 2.2 2.1 3-.2 3.5 .9 5.7 3.7-.5 1.8 4.6 1.7 1.7 4-1.6 .6 .8 3.1 2.1 3.9-.6 5.2-2.8 5.5 2.5 1 .8 2.4 3 .5 1.5 3.2 3.7 3.4 1.5 .5 .6 3.2 4.5 3.3-.8 4.9 2.7-1.7 .6 1.8-1.8 2 3.8 2.5-1.4 2.9 3.8 1.6-.2 2 4.7 1.5 2.1-.7 2.4 2.8 1.2-.1 2.7-3.5 3.3-1.3 2.2 1.2 3 3.3 1.1-1.3 4.5 2.4 .6 2.1 2.3 2.1 5.2-.4 3.3 .9 4.3-1.9 1.5 .8 2.7-1.1 3.4 2.2 3-.1 2.5-2.1-1-2.6 3.2-2.4 2-3.4-.4-4.6-2.3-3.2-3.5-1.8 .6-2.8-.8-1.6-3.6-.4-1.6-2.4-2.1 .6 0 2.5-2.1 .5-2.2 3-4.6-.6-8.2-5.7-3-2.9-3.7-.1-5.4-7.1 2.4-.2 2.9-3.9-.6-1.3-1.2-6.8 1.4-1.6 7.7 .1 6.5 1.1 1.2 2.2 2 1 5.3 .8 5.1-2.2-.5 3.6-3 1.2 .4 1.7 2.6 .1 4.2-5.2 4.5-.1 3.3-.8 4.9 1.1 2.9-.6 6.2 1.9 2.6-1.7 1.8-3.1-1.4-2.4 3.7 .5 3.2 1.5 2.8-1.5 2.4-.1 0-1.8-5.2-5.9-.7-2.3-3.2-3.9-3.6-2.9-3.6-.9-7.7-5.9-2.3-1.1-2.7-2.5-2.2-6 .1-2.7 4.8-8.1 1.3-4.6 .2-5.8 1.3-3.4 3.1-2.3 3.9-4.5 2.1-7.3 1-5.5-.4-9.9 .6-1.6 8.3-.4 2.8 1.3 6.5-5.5 4.5 2.6 2.4-.8 2.4 .6 3 3.2 1.8-1 5.4 2.2 1.8 3.3 1.4-.5-2.2-4.5-2.1-1.5-2.9-6.1-1.2-6.1 .3-3.6-1.8-3.9 .1-2.7-4.1-2.9 .6-2.3-1.8-4-3.2-2.6-5.4-2.5-3.3-.3-3.5 1.4-1.7-1.2-2.2-4.8-2.1-10.2-1.8-4.2-1.5-5.2-1.4-1.1-7-16.4-3-2.3-17.3-4.1-1.7-1.3 2.5-1.8 9.4 .6 3.7-1.4 3.3-2.7 10.8-5.8 4.4-1 6.3-.3 4 3.7 5.8 2 1-.6 4.4 1.5 2.2 3.1 3.1 2 4 3.7 .1 1.9-4.2 1.9-3.8 4.9-8.1 6.6 2.7 5.3-1.9 1.5-.7 3 .5 4.3 3.1 4.1 7.5 1.1 5.2-.4 3.2 2.9 6.7 4.9 4 .4 3.4-2.5 1.8-3 2.8 1.5 4.1-4 4.8-7.2 2.7-1.2-.1-4.1-2.6-4.5-2.7-2.6-.1-2.8-2.1-2.6-.2-5.3-4.4-3.1-.7-1.6 .9-3.2 2.4-.4 .2-2.9 4-1.8 1.6-2.4 3.1-1.7-3.7-2-1.8-3.6 3.9-2.4 3.8-8.7 .4-3.2 1.7-5.8 .1-2.4 1.7-3.9 .5-8.6 2.9-.1 3.2-5.5 .6-4.9 1.7-1.4 2.4-4.3 18 23.1 17.9 23.1 17.9 23.2 17.7 23.3 17.7 23.4 17.6 23.4 17.5 23.5 17.4 23.5 17.4 23.7 17.2 23.7 17.2 23.7 17.1 23.9 17 23.8 16.9 24 16.8 24 16.7 24.1 16.7 24.1 16.5 24.2 16.5 24.3 16.4 24.3 16.2 24.3 16.2 24.4 16.1 24.5 16 24.5 11.8 18.3 0 1233.8zM265.3 297.2l-1 4.2-3 .9 2.3 3.7-.8 2.9 .8 4.7-1.5 4.1 .9 2.2-4.7 5.4-1.1 2.8-2.5 2.9-.9 5.1-5.4 5.4-2.5 1.1 2.2 5.5-1.9 2.2-2.8-1.5-2.9 .2-2.6-2.2-1.9-.2-3.4 1.8 0-2.7-3.1 2.5-10.7-2-3.7 2-1.6 2.6-6.4 0-2.3 2.6-3.2 .3-.7 1.3-3.1 0-1-3.8-3.4-1.2-.3 5.9-2.2 1.3-3.5 .1-1.5 1.5-4.5 .2-.2 1.7-3.8-1.8-1.3 1.4-5.7-1.2-6.9 1.4-1-4-3.9 1.1-7.1 .8 2.6-5.7 8.9-1.6-2.3-2.1-2.5 .9-6-.6-4.5 1.3-.7-3.5 2.2 .4 1.2-2.1-.9-2.5-2.2 1-1.9-5.2-3.4 1.8 .7-4.2 3.1-.4 .5-3.1 9.3-1 1.9-1.6-3.5-1.9-3.6-.1-2.5-1.4-4.1 .4-.9-2.6 1.1-1.3 5.3-2 2.8 0-.5 2.1 3.4-.5 2.1 2 2.9 .1 1.8-7.3 4.8-1.5 1-2.4 2.5 0 7.6 1.8 5.5-.6 2 .5 2.2-2.2 0-3.7-6 4.9-3.8 .4-6.1-3.8-3.9 .4-3.3-.5 7.7-4.4 2.1 .2 3.2-4.6 1.9-1.1-1.1-2.7 6-6.3 2.4 2.3 5.3-.4 1.4-2.4-1.5-3.1-1.5 .1-8.1-1.5-2.9 .1-1.8-2.7-.7-4.6-2.1 2.1-3.6-1.6 1.7-2.5-4.1-.7-1.2-7.4 3.3 .1 2.7-.9 2.4-6.5 8.6 .9 1-2.8-1-1.7-3.4-1-4.1 .6 1.1-3.6 1.9-.2-.4-4.2-1.4-1.4 1.3-2-.2-3.7-2.7 2.3 .1-3.6 3.6-2.3 2.2 2.3 3.1-2.4 1.6 1.4 7.4 2.9 1.5-.5 2.4 2.9 .2 3.4 2.1-.9 1.7-2.4 2.7 .7 1.3 1.5 9.4 1.5-2-4.4 6.4-2.4 2.4 .2 2.7-3.3 3.1-2.6-4-.6-2.7 .6-.7-1.7-4.2-.1-3.7-2.8-.1-1.8 4.6-1.8 2.3 .7 .2-2.7 1.8-.6 3.4-3.6-1-2.1 3.1-2 3.2-3.6 2.2 1.5 3.8-1.2 5 .7 2.8 3.1 1.7-2.1 1.4 3.6-1.7 3.4 2.2 .6 1-4.2-1.1-2.6 1.5-3 3.8-.7 1.4-2.3 2.9 2.2 .7 2.1 4.2 3.5-6 2.4-1.8 1.4 0 2.2 2.9 1.3 1.4-.8 2.9-4.8 1.3 1.3 3.1 .5 4.6-.3 2.6-1 2.8 .9 2 1.8 3.7 .8 1.1 2.2-1.5 3.8 1.8 1.3-.9 2.6 1.9 2.5 1.2 4.5 2.1 1.3-.3 2.6-2.1 3.2 4.1 .9 .7 1.2 .7 8.5-1.3 2.9-2.7-1 1.5-3.5-2.2-4.3-1.1 1.2 1.1 2.4-.1 2.3-1.5 2.4 2.6 1.1-.7 2.8-1.8 1.5-6.3-.3-2.5 5.5-7.7 3.1-3.7-1.9-1.6 3.5 .3 1.6 2.5 1.3-1.2 4.5-.4 4.7 2.5 3.6zM356.8 191.4l2.1 .8 7.1-2 3.2 .3-.7 2.6 .9 2.1 2.1 .5 2 2.3-2.1 2-3.4 1-4.1-1.4-4.5 2.8-1.7 2.5-5.9 .3 2.4 2.5 4.1 1.1 .6 1.1 3.7-.3 3.9-3.4 3.9 1 1.3 1.7 5.4 4.8 3.6 1.4 2.3 5.8 3.3 7.3 1.3-.1 2.9 3 .4 4.4-1.1 8.3 .8 2.6 0 6.2 1.9 5-.2 3.1 .9 6.8 3.4 5.9 7.2 3.9 5 4.3 2.4 5.9 .3 3.4 2.6 2.6 .7 2.6 2.9 1.6-3.3 4.2 .9 5.5 5.5 11.8-4.5 .1-2-1.2-1.9-3.4-1.4 .3 1.7 4 3.2 2.6 5.8 7.3 2 8.5-.1 3.5-1 2.4-4.8 2.7-4 3.5 3.4 2.7 1.6 3.1 3.3 .6 1.8-1.9 1.7-3.7 2.4-1.3 10 1.1 7.6 2.9 2.9 1.9 5.8 5.7 1.1 2 .8 4.6-.1 6-3 6.5-1.7 2.2-.3 3-1.8 4.8-2.2 .6-5 4.6-3.8 2.2 2.2 1-4.4 2.9-2.5-.4-1-2.2-2.9 1.7 1.1 4.6-1.2 3.7-4.3 2.1-6.3 4.1 5.2 2.8 5.6 1.3 3.3-.6 8.6 .2-1.6 3.6 .5 3.6-1.9 3.6-9.2 2.7-1.9 2.3-1 3.1-3.6-1.8-5.2 2.8-6.9 .8-3.1 2.7-3.9-1.1-7.4-4-2.6-.5-3.5 .8-4.6-.7-4.5 .9-2.4 1-.9-3-1.7-2.1-2.2-.3-1.3 2.4-2.5-.3-3.6-3.2-.7 1.7-5.8 .8-1.2 1.6-2.8-1.4-2.8 .5-4.7-.5-.1 2.9-1.6 1.8-4.5-1.8-7.2-1.9-1.6 1.7-4.8-5.2-4.3-2.6-5.6 0-5.3 .6-1.2 1.4-3.1 .1-1.8 1.2-1.7 3.4-.2 3.8-1.9 2.6-2.7 .8-1.1 3.6-2 .2-2.7-1.5-2.6-4.1-2.4 .5-3.9-6-1.4 2.3-3.4-1.1-3.3 1-6.8-1.5-2.1 4-1.3-.5-4.9 .8-3.1 3.6 1 1.7-1.5 1.7-3.4 1.4-1.9-5.8-3.7-2.6-1.9 .4-1.5 2.2-3.4-.6 1.5-4.5 5.2-1.4 1.7 1.5 1.7-1.7 2.1-.1 5.3-3.3 .2-1.9 3-.6 1.4-3.9 4-1.8 2.8 .1 2.3-2.8 2.2-1.3 3.7-3.5 .6-3.7 1.7-4.7 4.8 1.7 3.1-1.9 1.7-4.8 1.8-1.3 8.3 .7 1.9-.3 8.5 3.3 1.1 1.2 8.7 .6 1.7-.7 .3-3.3 1.8-2.5 4.5-3.4 3.4-1.1 .6-3.5-4.6 1.3-4.2-.1-2.6 1-2.8 3.8-2.8 .1-6.4-1.9-2.6-3.8-1.4-.4-.9-4.4-1.5-2.3-2.8-.2-.8 2.1-3.7-.9-2.6 .7-1.4-1 0-2.7 5.3 .1-2.4-2.5-2.5 .1-1.7-2.7-4.9-1.6-1.9 0-2.5 3-3.5-.5-2.8 1.6-2.3-3.2 1.5-1.8-5.5-2.2 3.7-1.7 .1-3-2.7-1.2-.9-2.2 4.7-.8 1.8-2.6 2.6 1.4 5.2-1.4 4.2-2.3 3.1 .7 4.3-2.3 1.5 0 3.5-2.1 3.5-4 2.3-6.2-1-4 2.6-3.5-1.5-2.7 .8-4.7-2.2-1.7-4.7 .2-2.9 2.2-3.9 .4-2.6-.9 5-4.2 1.9-.3 4.9-2.7 1.1-3.4 3.1-1.6 2.6-2.3 2.1 .4 8.2-2.3 1 1.6 3.9 .4 6.2-1.3 4.5 4.7 1.1-.4-1.8-4.7 3.6-1.8 .1-6 4.7-5-1.9-3 .9-4.5 1.1-2.2 3.5-.4-.3-3.4 3.7-3.3-.9-2.7-3.5 .7-1.8-.7-1.8 2-3-.7 1.6-3.9-2.6 .3-1.7-4.1 .4-1.7-1.1-3.4-2.9-5.8 4.9-8.3 1.8-1.2 2.2-4.8 3.1-2-3.9-2.4-3.2-.1-1.1 3.7-6-.6 .2 1.8-3.8 1.6-3.8-.8-2.2-3.5-2.9 .9-.9 4.4-1.6 .6-2.2-1.4-1.5-3.4-5.5-5.1-2.8 1.8-.7 3.4-3.1-5.9-.5-3 1-3.8 1.7-.4 .2 4.1 1.7 .3-.7-3.7 2.1-5 3.7-2.6 2.2-4.5 2.7-3 2.6-1 1.2-1.8-.5-3.9-4.7-6.4 1.8-1.7 .5-5.9 .8-1.7 2.2-.4 .4-2.2-2.6-.2-3.1 5-3.8-3.6-3.8 2.4-.4-1.6 1.6-4.7-3.1-.6-.4 6.2 1.3 3.9-3.3 2-2 2.9 .3 2.3-4.1 6.6 .7 2.2-3.6 2.3-3.1-.6 .4-4.2 2.3-1.6 .9-4.9 5.1-7.3-1.2-1.6 0-5.6 3.5-3.4-1.6-.8 3.3-2.9 1.2-2.4 .1-3.2-.9-1 3.3-5.5 3.3-2.1 .4-3.6 5.5-6-2.6 .4-7.4 5.6-1.9 .9-3.7-3.1-2.7-3.6 1.7-2.7-6-1.7 1.6-2.2 6.1 1 5.3-4.5-2.5-1.1 1.3-3.7 3.8-4.5 4.1-6-2.7-1.4 3.3-2.5-4.5-.3 0-6.3 1.5-3.1 3.6 2.3-1.4-4.2 0-2.7 1-6.3 3.9-1.3 1.2-1.2 2.1 3.6 3.5-3 1.2 1.8 2.5-1.7-1.8-1.3-1.9-3.6 2.6-.2 1.4-3.3 0-3.9 5-.4-.9-3.5 3.6-3.6-.6-2.8 1.9-.9 1.6-3.3 5.2 3.3 2 2.8 1-2 2.3 .9 1.7 2.1 2.7 .4 2.4-1 7.7 1.1 3.7-1.4 2.6 1.4 4.1-.1 3.5-1 3.8 1.6-3.4 4.9 1.2 1.5-1.1 2.7-3.8 4-5.3 2-2.3 2.5-7.9 3.9-1.1 1.7-4.1 1.2 .5 2-3.9 1.9 4.7 2.6 2.9-.4-5.5 4.8-1.7-1.9-3.2 1.8 2.1 1.2-1 2.6-2.4 1.3-.2 2.6 4.1-2-.2-1.3 5 .6 3.9-1.9 3.4 .4 1.4-2 4.6 .6 4.2 3 3.9-.7 5.7 1.2 4.8 2.1 3.7-.4 1.3 1 2.5-.8 3.8 1.6 1.8 3.3 .6 6.1-2.7 3-3.4 2.6-2.2 3.7-.9 4.4-3.1 3.7-2.6 6-6.1 4.9-1.7 4.3-1.5 1.8-6.2 3.4-7-.3-4.8 2.8zM257.6 -277.4l-1.1 .6-6.6 .5-1.8 4.4-4.7 1.5 .6 3.1 3.4 1.9 3.1 .3-.3 4.1-2.2 2.8-3.7 1.7-1.5 1.9 2.5 1.4 6.5 1-2 1.7 1.5 3.5 2.7 3.5 2.4 .4-.1 3.5 2.5 .3 .6 2.1-4.5 7.8 1.3 2.5-2 1.1 1.5 2.7-1.9 4.6-3.1 2-2.5-1.2 .1-1.6-2.4-2 2.1 7.3-1.3 2.1-2.7 1.7-3.1-.8-1.1 2.7-4.1-.6-4.4 .3 0 2.7-2 1.5-1.7 4.2-3.9-.2-4.3 2-1 2.1-2 .1-1.2-2.3-2.6 .6 .2-2.4-1.4-1.2-3.2 2.7-4.8-.3-.9 1.3-5-.4-5 2.8-2.6 .1-1.6 1.7-6.1 2-2.8-.3-3.1 .7-4-1.1-1.3-1.4-2.7 .4-5-.5-1.4-1.6-3.4 0-.6 3-2.7 3.1-2.3 1.5-3.7 .4-5.1-.8-6.7-.5-3.7-3-1.6-.2-3.5-2.7-3.3-4.5-3.1-3-6.9-3.7-1.5-3.4-.4-3.5-5.4-10.1-2.7-3.6 .4-3.5-4.3 2.9-5.2-1.8-1.4-2.6-5.2-.9-3.9-3.3-4.1-.1-2.9-1.8 3-4.2 .1-2.2 1.9-2.8 1.6 1.3-.5 3.5 1.9 1.3 2-.9 2.5 1.1 5.1-.4 3.1-2 2 .3 .4-3-1.2-3.4-1.8-1.9 3-1.1 .3-4.8-1.7-.8 .7-3.7-1.3-1.2 .9-3 2-.9 1.5-2.8-2.2-3.9-4.4-1.4-6.1-3.8-.4-1.5-4.1-.4-1.7-1.8-2.2 1.8-3.4-.7-1-2.2 1-5.9 4.1 .4 2.6 2.9 3-.7 4.6 2.3 1.6-2.4 5.6 3.3 2.7-1.6-.1 3.1 3-.6 2.7 1.1 2.9 3 5.4 2.3 3.9-4-1.1-1.5-4.5 .8-7.1-6.2 2.4-1.9 4.2-1.3 2.1 .4 7.3-2.4-.4-3-2.2-.2-2.3 1.3-3.9-7-3.6-.5-.8-3.6-6.8 .6-1.7-1.5-4.5-.9-2.3 .8-3.2-.7 .2-2.9-2.7-3.2-4.6-2 6.3-3.7 3 5.4 .2-4.4 1.5-.4 0-3.2 2.4-1.7 4.3 7.1 0-8.3 1.8-1.5 2.8 .7-.8-3.8 1.5-2 7.9-2.3 1.9 1.9 2.5 5.1 .9 4.4 3.2 .3-.1 4 2 3.2 .5-4.6 1.5-1.5-4.5-6.4-.1-3.7 3.5 .5 4.3 2.8-1.5-4.3-4.3-1.2-2-1.9 2.7-2.2-.8-2.4 4.9 1 1.7 3.1 2.4-.9 2.3 2.8 .4 3.8-1 2.8 3.3 2.4-.3 2.5 1.9 2.6-1.7 4.1 2.9 .8-1 3.3 1.9 .4 .4 2.2-2 5.3-4 2.4-1.9 2.6-3.7-2 .2 2.6 2.6 1.2 .5 4.3-2.5 2.2 1.1 1.2 0 3.1-1.9 3.8 1.8 .9 2.4-5.3 1.8 1.2 1.2-2.7 2.9-3.1 5.7-1.5-1.3 3.5-.3 3.1 5.7-1.6 3.3-4 .4-3.8 1.1-1.4 1.1-7.1 1.4-1.9 4.7 0 1.4 3-1.1 7.9 2.1 2.5-1.2 4.5 3.5 2.1 2.2-4 .8-5.1 1.8-.6 .4-2.1 2-.6 3.3 1.1 2.4-1.8 2.7-.3 2.6 1.1 .9 1.5 .7 4.4-1.9 4.2 2.5 2.3 .5 4.6-1.6 4.6 .9 .9 2.5-3.6 .4-4.2-1-1.1 1.5-7.1 1.8-2.7 3.3 2.9 2.2 .8 1.4 3.7-.2 3.6 1 1.4 2.8 .8 2.4-3.1 2.5-1.1 1.8-2.2 3.6 1.2-.1 3.4 2.2 .7 5.7-.4 2.7-3.4-.1-3.7 2-5.6 8.6 2.1 .8 1.9-1.2 3.2 3 2.4-.4 2.2-2.4 1.5 3.6 6.9 1.5 .1 2-3.2 3.2 .8 3.3-2.6 2.8-.2 1.1 1.3zM242.4 -520l-3.1 6.5 1.5 .6 1.9-3.2 2.4-2.3 3.2-1.3 2.2 1.4 1.3 2.5 .1 2.3-2.2 2.1-4.1 .9 2.3 2.5-.4 2.4-2.8 2.4-8.1-1.8 0 .9 7.2 1.6 .2 3.1-2.6 1.6 2.3 1.5-4.2 2.1-.9 5.5-2.6 3.9-2.2 1.5 2.4 2.9-5.1 2.9-1.8-1.1-.9-3.6-4.4 .2-1-1.4 2.3-4.3 1.1-3.6 3.7-5.1-1.5-1.5-3.1 3.3-1.5 2.7-.8 3.4-4 4.3-8.5-4.6-3.3-10.3 0-3.7 1.2-5 2.3-5 2.3-2.7 .7-3-.1-1.5 28.6 0zM154.8 -520l9.7 3.3 1.1 1.4 4.8 .9 2.4 1.9 .2 4.9-2.7 .8-4-.4-2.3-3.4-3.4 .8-2.4-.4-3.5 1.6-7.7-.6-1.2-3.4-2.6-1.4-4.7 1.7 5.6 2.3 .3 3.3 5.5 1-1 4.5 3.1 .3 3.5-2.8 2-2.7 3 .2 3.3-1 2.3 1.9 .3 2.1 2.2 2.1 7.7-.8 9.8 .5-3.4 4.7 1.3 .7 3.9-1.8 2.1 3 2.3 5.2-.4 1 4.6 4.4 4.3 6 15.1 7.9 2.7-.2 1.3 1.6-2.3 1.7-4.9 2.2-2-1.4-1.3 1.3-3.3-3-3.6 .2-3.4 1.3 3.2 2.4-2 2.6-1.3-.9-4.2-1.3-4.5-.9-1.2 4.2-1.5 1.8-3.3 .7-3.2-2.8-3 4-1.1-1.8-4.6 1.3-1.6-3.1-2 5.2-3.5-.1-2-4.1-4.1 1.1 3 2-2.3 3.3-1.9 0-4.1 1.7-2.6-2.5-1.1 3.6-4.5 1.9-1.1-1.5-4.3 2.3-3.8-2.3-2.9 3.1-2.6 .2-1-1.6-2.1 .1 0-2.7-2.9 1.6-5.1-1.7-3.5 1.6-1.7-1.3-.7-2.4-2 .9-1 2.2-2.3-.8-.6-2.7-1.8-.3-2.2 1.3-.4-2.9-2.6 1.8-1.5-2-1.6 .7-8.1-1.9-4.4 1.4-.7-2.9-2.9 2.5-1.6-.9-1.1-5.3 1.7-4.5-2.7 .1-5.6 3.5-1.1 5.2-2.6-.6-2.5-1.9 2.5-4-2.1 .1-1.6 3.5-4-1-2.3-2.4-1 1-2.8-3.6-1.6-3.4-1.8 .9-2.3-2.8 2.1-3.9 1.7-.9-1.9-2.9-1.3-.5 1.8-4.5-.8-5.3 1.4-1.1-.1-2.8-2.8-.1-1.5 5.9 1.6 2.9-4.2 10.7-2.7 .2-1.1 2.6-2.4 2.6-3.4-.2-.1-1.3-2.7-1.3-5.2 2.1-4.9 .3-3.9-2.3 .7 3-3.6 1.3-2.8-.9-.5 2.8-1.7 1.9-4 1.3-1.7 3.6-3.3 .1-2.8 2.7-2.2-.5-3.8 2.7-4.2 .1-7.4 5.5-1.8 .1-4.2 2.8-6-.1-4.7 3-3.7 .5-.1-1.9-3 1-.8-5.3-1.8 1.8 1 3.7-2.9-1.2-1.5-4.2-3.2-1.5-2.4 4.8-1.3 1.3-3.9-1.1-1.7-1.3-1.2 2.3-4.5 .7-1.7-1.3-.1-4.7-8.4-1.7-2.2 1.1-2.6-.8-4.3 .2-1.1-9.7-3.4-1.2 3.9-1.5 1.1-3 5.3 .5 1.3-1.6 9.4-2.1-2.8-1.2-.2-1.4-2.5-1.2-.9-3.6-3.1-3.8-2.1 1.2 3.4 5.7-.2 1.8-4.4-2.7 .6 2.9-3.9 1.4-2.7 2.1-2.4 3.1-1.9-2.9-1.7 2.3-1.3-1.1 1.4-5.5-3.2 2.7 1 7.3-1.2 1.6-5.1 2.8-4.6-4.5-2.7 1.2-5.2-4.4 1.6-3.5-.8-3.5-2.2 5.2-4.5-1.5 1.5-3.9 .2-2.4-3.3-.1-1.3 2.6-3.6 .1 .1-3.1 32.2-33.1 12-12.3 237.4 0zM-130.5 -470.9l1.3 1.5-4.6 4.7-1.1 2-2.9-.6zM1155.8 945.4l.9 4-.8 3.8-2.4 1.1-2-2.1-1.5 2.4-4.3-4.5-1.9 .3-.7-3.4-3.8-4.9-2.3-.4-.6-2.7-4.5 1-9.2 .6-1.5-2 .6-2.7-1.4-1.5-3.3-.6-2.5-2.9-9-5-4 0-4-1.1 4.7-6 2-.4 3.1-1.9 2.9 1.2 1.8 1.7 1.3 3.2 6.3 3.6 2.7-.5 2 1.6 3.7 .9 3.6-.2 3.4-1 2.2 .3 .2 2.7 3.3 2-.1 5.6 3.1 4.4 .1 2.2 3.1 1.8 5.3 1zM1214.9 894.6l-1.8 2.2-3.6 2.6-5.1-.7-3.7 .2-3-1.9 2.2-1.1 3.7-4.3-1-.8-3.1 .9-1.7 4.3-1.7 .9-5.4-1.1-1.7-1.6-.1-3 6.2-2.6 3-2.2-.4-2.3 5.8-1.4 2.8 1.7-.8 2.2 3.4 1.8zM938.1 31.5l1.1 5.5-1.9 3.1-5.1 3.1-.5-3.6-1.8-2.6 .8-1.6zM196.4 -520l-2.7 6.4-1.9 3.4-7.6-1.7-3.1 1.1-2.8-3.8-4.9 0-5.8-2.5-7.7-2.9 36.5 0zM1206 -247.7l-4.1 2.3-2.5-1.5-3.4 .1 1-2.3 3-1.4 1.5 1.4zM732.3 -284.4l2.1 .2-1.7 3.3-2.5 .1-.4 2.6-1.9 1.9-3.8-1.1 1.5-2.3-1.8-1 .2-2.4 2.1-2.3 2.5 1 1.1-2.5 1.7-.6zM-379.8 1235.7l1.5 2.3-3 3.2-3.2 2.2-1.5-2.8-3.5-2.7 1.3-1.6 2.9 1.6 3.2-1.8zM-353.3 1229.8l3.4 1.3 2.8 3.6 .1 2.1-3.9 1.6-1.9-.1-2.3-2.4-.7-2.2 1-2.9zM703.8 1173.6l2.5 1.7-3.8 3.3-2.1 2.7-3.1-3.1-2.4 .8-.2-7.1 1.3-.5 4.4 .7 1.2-.7zM1264 1036.3l-1.2 3.4-1.7-1.5-1-2.8-1.6-.8 1.2-2.5 .7-4.7 2.1 .4-1.3 3.5 .2 1.7 2.6 2zM826.3 1083.1l.8 1.9-1.3 1.9-3.6-.7-3-2.2-.9-3.9 3.7 .1zM1115.5 1032.2l2.5 1.2-.1 5.4-3.6-.3-1.6-1.4-1.1-5.1 1.6-2.6zM1162.1 1004.9l1.8-1.2 1 3.2-1.9 1.4-5.5 1 .5-3.9zM1254.8 978.4l1.9 2.1-3.5 1.9-2.2 3.3-2.9 0-.1-2.8 3-2.9zM1186.9 987.1l-2.1 3-3.5-.4 .8-4.3 1.7-1.8 1.8 .5zM1194 979.3l1.7 .4 1.3 3.1-.4 5.7-3.2 2.6-2.4-2.2-2.2-3.4zM1176.6 966.1l-3.5-1.6-.3-1.9 8.6 .8 .8 1.3-1.1 2.7zM1217.9 953l-3.4 5.7-3.3 1.4-2 2-2.9-.6 2.5-4.4 4.1-.7 2.4-2.4zM1240.1 946.3l-4.1 3-1.3 1.8-2.5 .4-3.1-2.1-3.7 1.9-.8-2.1 2.2-2.8 3.5-1.7 5.1 .4 3.5-.7zM1035.7 981.5l.1 2.5-2.2 3.8-4.2-3.1-3.5-4.9 1.8-3.1 2.3 2.6 3.7 .6zM1172 959.1l-.7 2.8-10.3-7.4-.1-2 1.6-1.4 2.3 .7 1.1 2 3.8-.2 .1 2.7zM-548.2 664.6l-5.1 .5-.9-2.2-4.8-2.5-1.1-4.5 .8-1.7 2.4-.1 3 2.2 3.4 5.8zM-559.7 650.6l-.5 1.9-2.7-.1-2.2-1.3-1.2-4.5 2.7 1 1.7-.7zM-539 662.1l-2.7-1-4.8-5.3 0-4 4.6 5.6zM-512.2 672.6l-2.2 1.4-4.8-2.7-2.4-2.5-.2-4.6 3.5-.2 4.3 2.7 2 3.6zM1020.8 948.4l-1.2-3 .9-4 2.4-3.2 1.2 1 1 7.7-1.1 1.6zM1153.9 917.8l-1.7 1.9-2.2-2.4-3.9-1.2-.3-3.5 3.9 .7 .8 2.5zM390.6 937.6l.3 2.7-4.2 3.7-5.8 2.2-2.8-.1-1.3-2.1 1.1-2.5 2.1 .2 0-2.8 2.3-1.7 6.1-1zM-614.6 571.7l1.2 1.1-.8 3.5-2.7 1.8-2.1-1.5 0-2 3.1-3.6zM1000.3 916.4l.8 2.8-3.6-1-4.7-2.3-1.3-3.4-5.5-4.5-2.1-3.2 1.1-1.8 3.9-.8 1.6-1.2 3.3 1.1-.8 2.6-1.9 1.1 .5 2.2 2.4 1.1-.3 1.8 1.2 4.3zM1169.6 861.7l-2.3 7 1.3 2.3-2.2 1.2-2.7-4.3-1.6 3.4-3.4 .3-1.6-5.1 2.6-1.6 2.9-.6 2.4 1.6 2.5-3.2zM1186.5 852.5l.1 .8-7.4 3.7-3.5-.5 2.4-4 4.6-2.5 2 .5zM1174 842.9l-2.8 2.8-4.4-1.6-.3-1 3.3-2.2 2.7 .3zM1143.1 836.9l.8 4.8-4.1 2.9-4.9-3.2 1.1-4 2-2.5 3 .3zM682.2 794.2l-1.9 5.2-1.3-1.8-3.4 1.3-2.6-.1-1.1-2.7 1.4-.7 3.4 .6 4.2-2.8zM890.3 778.4l-.5 2.4-4.2-.1-3.7 1.5-6.8-.9 2.4-2.5 3.3 .8 6.4-1.4zM876.2 773l-7.9-1.1 2.6-2.7 3.9 .2 3 2zM869.7 766.9l-2.6-1.2 2-2.9 6-.3 3.9 .7 2.7 1.5-1.3 1.7-6.7 1.1zM816.2 716.8l2.6-.8 .2 2.1 2.7 3.5 1-1.1 5.5 4.8-1.6 1.1-3.2-.7-4.5-5.1zM804.9 713.2l-2.6 .4-3.3-7.4-1.1-4.6 2.6 1.3 .6-2-4.4-7 2.5-1.4 .2 2.7 2.2 4.2 1.1 .2-.1 5.7 1 6zM810.5 700.9l-2.9-1.3-1.2-1.9-2.5-.2-2.7-2.2 2.6-1.9 1.2-5.2 3.2 3.5 .2 3.2 4.8 4.4zM338 637.9l-1.5 2.4-2.9-4.4-.3-3.4 4.6 3.3zM371.6 437.9l0 1.5-2.6 1.2-.3 1.6-4 0-4.3-4.3 0-1.5 6-1.9zM511.6 412.8l1.2 1.9-3 .6-4.5-3.7 .6-1.9 3.3 .5zM538.3 354.1l-.9 2.5-1.9 2-1.9-2.4 4-5.4zM306.9 281.7l-3.5-2.4 2.6-4.9 3.2-1.7 2.4-3.4 2.5-1.2 2.1 5.5-2.7 3.5-5.8 3.3zM668.7 279.5l1.3 3.6-2.4 1.3-4.6-2.4 .5-4.2-3-.2 1-2.6 5.9 2.8zM689.2 276.5l1.3 .6-1.7 3.9-2.2 7.9-1.5 .3-1-4.1 2-1.9-.7-1.9zM793.4 268.3l-1.5 6.2-7.3-2.1-2-1.4-.3-5.8 .9-3.2 2.6 2zM308.9 218.9l-.7 2.2-2.2 .5-3.8-3 .6-2.8-.7-1.9 1.8-3.9 2.4-.9 2 2.4zM288.5 204.8l-.3 2-2.3 1.3-2.7 0-1.4-5-3.9 1.7 0-2.9 3.1-4.7 7.4-1.2-.8 5.5zM297.6 190.1l1 1.8-7.8 10.2-2.3-.8 .8-4.5 2.1-1 2.7-4zM277.1 132.2l-2.5 7.2-2.9 .1 .4-3.8-.7-1 2.3-2.8-.1-3.3 1.9-.4 1.6 1.9zM283 119.3l-1 .2-.3 4.5-3.7 .4-.9-2.2-3.8-2.7 2.2-2.5 1.5 1.5 2.7 .1 2.6-1.1zM391 85l.1 1.7-3.2 1.6-2.3-3.5-5.3 .6-.2-2.5-2 .3-.5-2.6 1.9-4.5 2.1-.5 3 1.5 .6 4.9 2.9 2.3zM565 54.3l-1.1 .2-2.1-2.9 .9-5.2 1.9 1.6zM440.4 19l-.1 1.8-3.6 6.5-1.2-1.8 .5-4 2.5-4.4zM332.3 -32.7l-2.6-4-.8-4.3 2.2-1 1.5 1.3zM325.7 -65l2.5-2 4.1 3.9-3.5 1.9-2.5-1.9zM628.5 -75.7l-2.5-2.9 4.3-2.5 1.9 .4 1.4 3.2-1.9 2.5zM637.3 -89.3l8.6-4.9 .3 3-1.6 1.3zM936.2 -176.4l-2.9 1.2-2.6 3.8-1.9-2.6 1.2-2.1 3.1-1.3zM717.2 -276.7l1.6 6.1-1.5 .6-.3 2.6-2.7 .1zM825.6 -371.8l-2.6 2.4-2.4-.5-1-4.3 2-3.1 2.1-.3 1.6 1.5zM813.6 -372.2l1.3 1.7-.8 1.9-2.3 .3-3.7-6.2 4.5 .3zM862.9 -396.1l0 3.8-4.1 6.5-4.5-2.4-1.5-3.6 2.5-3.5 2.7-.5 1.4-4.8 2.1 1.6zM867.2 -403.7l1.2 2.8-2.6 3.8-2.9-1.9-2-5.2 1.9-2.5zM891.7 -425.5l-.2 2.7-4.6 2-2.3 1.5-3.6-2.4-.8-1.4 2.5-4.8 3.4 .5 2.6 1.8zM963.1 98.7l0 2.1-3.1 .4-4.1-2.1 1.5-3.5 3-.1zM1122.4 -232.2l-4.4 1.4-2.6-1.6-.5-2 3-2.5 1.6 .2zM422.2 -437.4l-2.3 5.6-6.2 1.4-1.1-1-3.2 .8-6 4.1-.5-3.1 3.5-1.6 6.6-2 4-4.4 2.7-.5zM641 204.2l-1.4 1.9-2.8 .7-2.1-3.7 2.3-5.2 6.3-1.1-1.9 2.1 .6 3.3zM707.5 148.2l-.1 2.6-3 2.7-1.5-.8-.2-4.1zM708.8 140.9l.1 4.4-2.1 1.2-2.8-1-1.5 1.7-2.5-1.9 .4-1.3 6.9-5.4zM565.9 92.7l.7 1.1-.7 4.4-2.8-1.3 1.6-9.3zM572 69.2l.1 2.4-1.8 1.8-2.3-1.7-.9-4.9 1.3-2.8 2.4 1.8zM575.4 60.4l.5 3.1-1.9 3.2-3.8-2.1-.2-1.5 3.1-2.3zM727.2 276.2l2.2 .4 0 3-4.6 .1-2 2.5-2.8-.5 .3-2.1 4-3zM565.4 -17.4l1.7-.2 5.3 2.5-6.4 2.4zM622.8 -63.7l1.2 2.1-3.6 2.4-2.5-1.5 .7-3.4zM-87.9 -453l-2.7 2.6 1.2 2.7-8.7-1.2-1.1-4.2 1.8-2.9 3.2-2.7 1.2 .7 2.7-1.6 3.3 .9 0 3.6zM769.3 -296.8l-.1 3.3-4.7 1.1 1.1-5.1 2.2-1.1zM812.1 -365.9l.8 1.1-1.2 4.8-3.3 1.6 .2-3.5zM-286.4 1261.1l.7 .9-2.1 4.4 0 2.1-3.4 1.5-5.1 .8-3.6-2.5-2.7-4.5-.5-2.7 1-3.8 4-1.3 1.9-4.3 3.7 2.2 6.5 2.4zM-322.4 1243.4l-5.6 3.6-5-.6-1-3.9-2.4-6.7 .3-1.9-1.4-5 3.2-.4 2.1 1.8 4.2 0 2.8 1 3.1 .1 4.6-2.6 4.4-.6 3.5 1.4 2.4 1.7-4.3 .9-3.1 2.1-2.6 .7-.8 2.7-3.4 3.3zM-227.7 1249.4l2.9 .1 1.9 2.3-.3 3.3-1.1 3.4-1.8 2.6-.5 3.4-3.5 4.2-2.6 1.3-4-.6-5.6 .5-4.2 2.7-2.6-.1-1.9-2.8 6.8-1.1 2.7-1.7 1.1-2.7 3.2-4.2 5.7-5.4 2.7-4.8zM-362 1199.3l.2 4-2.2 1.5 .1 2.5-5.1 5.6-.9-1.3 .3-2.9-1.9-9.9 1.9-2.1 2.6-.9zM-204.8 1234.4l2 2-2.4 2.7-.1 1.9-2 3.2-5.6 1.4-3.4-.5-3.1 2.3-2.9-1.8 2.4-5.4 3.8-2.3 4.6-.6 4.2 .3zM-281.6 1055.9l-2.5 1-4.4-1.7-4.9-4.5-1.8-2.7-.5-3 2.4-1.5 3.8 3.8 5.4 .7 3 3.9 1.3 2.7zM1290.8 990.5l.4 2.5-1.3 3.9-.6 4.7-1.7 3.4 .9 1.6-2.7 1.2-1.7 2-1.6 4-2.4 2.8-2.8-2 .4-5.8-2.6-2.9 1.9-1.7 .7-3.7 2.6-3.5 6.5-5.3zM-473.5 733.3l.7 4-2.7 .9-9.8-3.5-2.7-3-2.6-1.5-2.3-4.7-.4-2 1.5-1.8 2.4 1 1.2 4 6.4 3.9 4.1 .6zM1028.6 971l-4.2-1.9-1.5 1.5-2-.6-1.6-2.8-2.9 1.7-1.6-1.9 1.3-5.8 3.1 .4 1.7-3.3 2.6 1-.6 2.2 2.5 .8 5 5.5 .3 2.7zM1204.5 918.9l.2 5.3 1.7 4.6-1.5 1.2 .5 2.5-4.1 3.4-4.2-3.2 2.8-2.4 .2-3.4-2.5-3.1-3.3-1.5-.4-2.8 4.6-2 2.4 .1 1.8 1.7zM450.6 914.1l3.6 2.3-.3 2.1-2.3 3.9-2.9 2.6-1.7 4.3-2.2 2.3-5.6 3.4-3.1-4.3-4.3-.4-2-1.8 .2-4.3-3.1-2.9-2.9 1.1-2.8 2.3-1-2.9-2.4 .1-.4-3.6 7.3-3.5 4.7-3.9 3.8-2.1 4.1-1.4 4.7-.5 2.1 .6-.9 4.8 1.1 1.9 4.1 1.2zM482 910.7l-.4 4.4-1.7 .1-7.3-5.2-4.8-.4-1.8-3.8 .7-1.5 9.4-.1 4.5 3.4zM313.2 315.5l-.5 2.5-2.6 .7-1.2 1.5-3.3 1.5-3.3-2.9-1.1-4.2 1.5-5.2 3.4-.4 3.5 1.8 .9 4.6zM759.8 301.9l-2.3 1.9-2.5 .4-3.6 4.7-3.4-1.4-2.5-2.6 .8-1.7 2.5-.5-1.9-2.7-.5-4.1 5.2 .8 2 1.5 1.6-1.6-6-5 2.4-1.8 .3 3.5 1.8 1.1 4.3-.6 1 1.9-2.4 3 1 2.4zM713.6 289.3l-.7 3.3-4.9-.4-3.9 1.7-6.6-4.3-3.9-1.1 1.2-3.5-1.5-2.6 1.6-1.8 3.5-.7 3.4 3.3 5.1 1.3 3.7-1.2 3.1 4.2zM684.6 275.7l-3.1 1.5-5.5-1.4-1.9-1.3-3-3.8-1.8 .1-3.7-3.1 0-4-1.7-4-3.1-2.7 3.4-1.8 1.5 1.7 3.6-2.1 6.5-2.6 4.3 3.1 .4 3.5 2.4-1.2 1.3-4.5 1.9 3.7-.9 2.9 3.2 5.6-1.2 1.4 .9 2.6-.6 3.6-1.3 2.4zM303.2 177.3l-1.5 3.3-3.4 .9-1.3-1.2-5.8 .9-4.2-.7 .5-2.8 3.3 1.3 .1-2.1 2.6-3.5-1-2.4-2.1-.9 .8-3.1 2.6-1 2.9 .9 1.3 5.4 2.3 .5 2.6 2.1zM831.6 171.9l-1.6 2.2 .7 1.8-1.6 5.4-.5 3.8-1.3 2.1 .5 2.3-.8 3.9-1.1 .7-1.2 7.2-1 3.4-.9 9.5-1.4 4.7-1.8 .6-1.5-13.3 .9-4 2.9-10.3 2.2-1 3-10 .1-3.6 1-1.3-.1-3.1 1-1.8zM292.4 135l-3.1-2.1 1.6-5.5 1.5 1.1 2.1-2.3 1.8 2.4 2.2-.3 .2-4.9 2.8-1.7 2.4 5.3-.9 5.4-.8 1.8 .1 4.1 3.8 4.4 2.7-.7 3.2 1.1-1.7 2.9-2.3 .5-.8 1.7-3.4 2.4-2.5-.4 2.5-3.6-.9-2.6-6.9-.1-2.2-7.1zM872.2 143.8l-1.4 3.8 0 2.3-2.9 1.2-.5 3.6 1.1 .7-.6 4.4 1 2.4 2.7 0 .7 1.4-3.4 2.2-2 3.1 1.4 2.2-2.7 1.3-3.3 3.2-1.6 3.2 .8 3.9-1.2 2.2-2 1.4-.6-9.3-2-3.9-1.5-1.1 1.2-5.2-2.2-5.4 .8-3 3.2-4.4 2.4-5.9 2.8-1.5 1.1-3.1 1.8-1 1.3 3.2 2.3-2.7 2.1-.9zM287.8 116.5l-2-3.6 3.2-1.7 2.1-2.4-2.8-1.7-.2-7.3 2.5-3.8 2.1 .3 .8 2.8 2.5-.8 .4-3.5 2.8-1.7 2.2 0 7-3.2 2.2-1.6 1.3 4.3-1.3 3.1-3.5 2.4-3.4 6.5 .3 2.8-5.2 3.9-2.5-.7-.6 1.8-4.6 1.8zM883.4 41.3l-.4 2.4-2.8 1.5-.2 2.2-5.5 .5-1.5-2.8-.9-3.9 3.8 .3 1.4-1.8-3.5-2.9 6.3-.6 4.4 2.6zM436.2 30.5l-.2 4-1.5 1.1-.9 4.3-1.9 4.2 .4 1.6-2 2.7-1.4 3.8-1.9-1.4 3.8-8.3-1-5.7-2.7 3.3-3.9-4.2 .8-2.7 5.5 .2 .2-5.9-1.7-3.7 5.9-2.6-1.6 3.6 2.2 1.8zM329.6 -67.3l2.2-5.6 2 1.4 .3 4.7 2.3 2.1 1.5 5.4-1.4 3.8-1.8-2.9-2-5.8zM334.1 -71.5l2.7-1.3 4.9 7.1-.5 3.6-2.4 1.3-2.3-4.5-1.6-1.6zM747.4 -289.7l-3.4 4.7-4 2.9-4.6 2.2 1.2-6.8 5.1-5.2 2.3-.1 5.8-1.6zM769.9 -306.6l.8 2.7-.8 4.6-2.1-.3-3.9 1.5-.3 2.9-2 4.2-2.6-2.1-.6 3.5-7.5 .9-1.8 2.9-1.4-1.7 3.6-6.5-.8-4.3 2.3-1 1.7-2.3-1.4-3-.1-3.7 2.8-7.2 3.5-.2 .6 3-.5 4.5 1.7-.1-.3 4.1 3.9-3.6-1.8-3 3.1-1.7 3.2 2.5zM737 -301.4l.4-4.1 3.1-1.6 1.2 1.1 4.8-4.2 .3-1.9-1.4-3.4 2.5-.5 .6 2.5 1.6 .8 1.2 4.3-1 1.7 2 1.2-.6 3.4-4 3.4-3 0-1.1-2.2 5.2-3.1-1.6-1.8-6.7 5.6-3.1 .5zM753.7 -313.3l-1.7 .1 .3-4.2 1.3-4 3.2-2.6 .7-3.8 3.3-3 .9 .9-.8 6.3-2.8 5.1-3.1 2zM789.8 -339l.7 3.5-2.3 1.1 1.4 6.3-6.6 1.7-.9-1.7-3.1 4.3-6.1 2.8-.8-2.2 3-1.6-1.7-2.1 .5-1.9-.8-3.3 2.1-.9 0-2.2 3-.6-.6-3.6 5.1-2.1 2.1-1.6 4.4 1.7zM801.3 -357l1.1 3.4-3.1 3.1 .9 3.7-2.9 .9-5.1 2.7-4.3-2.1 1.8-2.1 2.3-.4 .6-2.9-.5-3.6 2.7 .2 1.6-1.2 2-3.8zM809.2 -366.1l-2 7.9-3.8 2.6-1.5-1.9-3.3-2.3-1.4-2 1.1-3.1 2.4-.7 2-3 3.4 4 .7-2.4zM845.5 -393l-3.7 1.8 .6-4.2-1.1-2 .7-2 2.5-.8 .9-1.7 3.9 2.2 4-5.4 2.5-1.4 .6 2.9-1.8 1.2-.4 4.5-2 2.2-4-.1-.6 2.7zM960.4 102.5l-1.4 1.4-.8 3.7-2.3 2-3.7 5.8-5 .3-4.3 2.9-.9 1.5 .3 3.5-.6 4.8-2.7 3.4-1.5-3 1.1-4.1 2.1-3.2-3.1-.7-1.6-2.2-3.5-.7 1.8-5.6-2.6-3.1 1.7-2.2 2.7 .2 3.9-4.5 3-.8 2.3-2.2 1.6 1.6 2.1-.3 3.3-2 4.6 1.3zM937 89.9l-2 .6-1.1-2.5 6.2-1.9 2-5.5 2.6 .4 1 2.6 4.4 .1 3.5 5.5-3.4 1-2.9 1.7-1 4.6-2 1.1-5.3-7.5zM1242.9 -495.9l-2.1 1.9-.5 3.9 1.8 8.4-1.7 5.3-1.4 2.5-4.4 5.6-2.6 1.6-9.2-3.2-1.2-3-2.8-2.8-.8-2.5-3.2-5.4-.6-4.5 1.4-7.2 2.8-3.1 2.5-1.2 7.9 .4 9.3 .8zM1235.3 1051.6l-1.5 2.7 2.2 2.9-1.3 6.4-2.9 2.2-5.9-.3-5.8 2.7-7.2 1.1-3 1.9-7 1.4-3.1 2-3.7 1.4-12.3 2.7-.1-4.7-2.1-2-5 .6-2.5-1.5-3.7-1-3.7 1.1-7.3 .4-3.5-.6-3 .6-2.7-.4-1.4 1.1-6.8 1-2.8-2.5 1.1-5.6-.7-5.9 2.6 2.5 2.6-.7 .1-1.8-1.3-3.8 1.9-.6 .9 3.2 1.6 1.5 6.4-.6 1.5-.6 .8-2.8 3.5-.5 1 5.6 2.1-1.6 1.1 4.1 2.8 .8 8.4-3.5 4.1-2.3 4.3 .2 4.3-1.8 3.1 .6 .3 1.7 6.9-.5 4.2-1.2 2 1.5 1.9-.3 5-3.1 4.5-.5-.7 6.7 .9 1.9 3.6-.2 1.8-3.1 2.7-1 2.7-2.2 3.3 .8 2.9-4.4zM1507.6 961l.4 1.7-4.9 6.8-5.8 6.6-1.6 4.6-2.9 1-1.2 3.9 .6 3.3 6.6 3.7-.8 2.3-5 3.6-1.8-.8-4 1.6-.8 2.5-.1 4.2-5.7 4.6-1.2 1.6-3.8 2.7-4.8 1.5-2.1 2.7 .1 2.4-2 1.9-1.9-3.3-3.5 .5-4.8 2.2-3.5-.7-2.9 .2-3.1-1.1-2.2-3.5-2.1-1-3.6-8.2 3.4 1.4 2.4-1.5 1.6-4.8 3.8-2.5 7.5-1 1.3-3.7-.9-4.3-1.2-2.4 5.4 .1 2.3-.9 9.9-1.7 7.4-3.7 3.4-3.6 1.8-.3 5.9-4.7 2.7-2.6 1.2-2.3 4.2-2.8zM853.8 979.5l4.2 .8-2.2 1.7-.1 1.7-2.3 5-3.3 4.9-5.7 10 .5 1.2-1.4 6.5-2.1 3.2 .1 5.7 .8 1.5 3.7 1.4-1 3.3 2.4 3.6 2 .6 1.1 3-5.1 3.9-2.4 6.2 1.7 4.7-2 1.3-6.8-2.6-3.4 1.6-4.3-2.1-5.9-1.3-3.5-6.2-4.2-3.9-6.6-2.8-6.6 1.1-2.2-1.5-5.2-1.9-4-3.3-4-.9-6.1-3.8-3.7-3.7-4.2-.4-3.8-2.8-2.7-.2-5.6 .8-2.1-.8-1.5-2.3-3.6-1.7-2.2-4.8 1.1-.9 0-4 1.2-4.2 2.3-2.6 5-2.5 1.1-2.3 2.1 4.2 2.8 2 4.2-1.6 1.4-1.2-.6-2.2 1.5-2.1 3.6 .5 3.4-2 2.2 1.9 .7 2.9 4.1-.5 1.3 2.2 3.5 2.2 4.8 .9 7.6-3.6 2.9 1.1 5.7-.1 5.2-1.7 2.7 0 4.1-1.8 3.1-3.4 5.8-1.6 6.2 2.1 2.9-1.4 2.1-2.7 1.6 .3 3.6-1.3zM661.7 891l1.1 1.6-2.6 6-1.2 .5-2.8 4.3 .9 5.1 2.5 2.5-1.2 3.9 0 5.9-.7 1.4 .1 4.3-1 3.3-.1 6.6-1.4 6.6 1 1-2.2 2.7-.4 4.2-3.5 .6-3.5-3.1-3.1-1.2-2.8 1.6-2.9-1.1-2 2.7 .8 4-.9 2.4-4.2 3.9-1.8 .9-4.1-2.3-2.5 1.7-2-3-.6-4-1.8-.3-2.3-4.4-2-2.8 1.8-2.2-1.1-7.9 2.6-4.5-.5-7.6 2 .8 1.7-4.7-1.9-2.6-3.2 .2 .2-6.1 1.9-.2 1.1-2-.9-4.7 .2-4.2-2.5-1.6 .3-3.1-1.9-3.7-.6-2.8-3.1 .2-2.4-2.4 1.7-2.8-1.9-1.6 3.4-7.5 2.5 2.5 6.7 1.2 2.6-1.1 1.4-1.8 3.9-.7 2.5-1.9 6-7 4.3-1.7 .5-3.1 1.9-.8 1.7 2.9 1.7-.7 6.7 3.9-.1 3.5 1.4 1.8-.5 3.7 3.6 1.8-.7 2.4 2.6 5.4 .3 3.2zM623.1 820.8l.7-1.5 3-1.2-2.1-3.4 1.2-3 .6-3.6 3.3-2 1.4-1.7 6.4-2.1 2.8-3.1 4.1 .1 1.7 2.1 1.6-3.2-1.1-3.8 1.7-3.8-.5-2.6 2.5-1.1 1 2.3 .9 5.6-1.1 5.2 .1 4.3 2.3 1.8 .1 8.1 .8 3.3-.3 7.7-4.7 6.8-.2 10.4-1.9 5.8-2.5 1.6 .2 2.6-1.9 1.2 .3 2.9-4-1.4 .3-1.8-5.4-1.9-5-4.4 3.1-2.5 .8-1.8-6.4-1.6 .5-3.1 1.3-.2 1.8-4.1-1.9-1.2-4.2 1.3 .1-1.8 1.6-3 2.3-1.2-5.3-5.6zM718.2 282.3l1.4-.2 1.9 2.4-2.5 2.3-2.5 4-1.3-1.1-4-6.4 .9-3.3 2.2-1.1-2-4.1-3.9-4.5-5.5-1.6-4.3 .4-.2-2.7-1.9-1.7 1.1-4.1-1.6-6-2-5.1 1.2-2.5 3.1 .3 2.7-1.6 .2-1.8 3.1-2.7 .1-1.7-2.1-2.4 5.1 .9 2.3 4.7 .8 3.4 2.2 .8 .3-3.2 3-4.2 1.5 7 1 .3-1.9-9-3.9-1.2 7-5.8 1.9-1.1 5.7 1.1 3.3 2.2-2.4 5.3 2.3 5.2 .2 3.8-3.2 4.5-1.5-.6-3.6 3.2-1.1 2.6 .7 2.2 3.1 1.2 2.3 2.3 .6 2.4-1.7 1.6-5 1.3-3.2 3.8 3 .4-1 2.5 .7 3.2-4.6 2.1zM578.5 35l-.7 8.2-1.6 1.5-2.6-.2-3.1-4.5 5.4-3 1-2.6zM589.2 -37.3l1.4 2.1-4.1 3.7-1-4.6 .7-1.7zM652 -84.7l-.6 1.5-4.8 1.9-2.6 0-4.2 2.1-2.1-.1-2.1-1.4 .8-2 4.4-3.6 8-2.2 .4 2.7zM712 -163.8l.8 1.6-4.2 4.7-3 2 1.8-5.1 0-5.1 2.2-2.5 2.2 2.7zM854.4 -385.9l1.6 2.1-3.9 .4-4.4-.7-1.3-1.4 3.9-3.4 1.4 0z"/>
+        <path class="imp__monts" d="M494.9 655.9l1.6 8.2-.6 5 1.2 2.7 5 1.4 7.8-5.1 5-2.1-1.1 6.4 1.9 2-3.6 4.2 1.2 6.2-.2 8 1.6 7-3.9 6.3 0 5.8-5.5 6.5-2.1 10.6-1.7 3.3-7.4 1.5-3.6 5.7-7.2 5.1-4.8 .4-7.7-1.4-3.5 .6-5.7 6.4-8.8 3-9.9 4.1-8.4 1.2-4.3-.3-9.8-3.7-.8-3.3 3.6-5.4-2.4-1.6-.9-4.9 3.1-4-6-5.6-.6-2.9 3.3-10.3-1.7-3.6-6.6-5.3-1.4-2.7 0-5.3 2.7-4.2 6.8-6.5 6.4-9.5 4.2-3.1 12.5-11.6 4.8-3.4 5.5-8.7 5.5-4.6 3.8-1.2 3 3 2.6 5.6 3.4 1.2 3.4-1.4 3.3-2.8 5.1-6.2 2.9-5.4 3.2-1.1 3.6 1.8 2.1 4.4zM865 687.4l17.8 3.2 72 4.1 5.8 1.2 11.6 3.5 15.5 3 7.4 3.1 7.5 7.9 9.8 8.3 4 5.1 6.6 11 4.6 11.6 1.4 6.5-.2 5.8-3.4 6.9-6.5 9.1-2.8 1.8-2.7-1.1-5.5-4.1-3-1.1-4.5 .7-3.3 2.3-15.1 19.3-4.6 7.1-4.4 4.8-1.3 5 1.2 4.3-1.8 2.4-2.9-1.9-4 0-5.3-2.7-2.6-4.5-3.1-2.8-1.7-3.9-4.8-3.4-9.9-4.1-10.2-5.6-15.1-6.8-4.3-3.6-4.3-2.3-7-5.8-6.6-3.4-7.6-7-9.6-2.2-6.6-2.8-8 2.2-3.3-.5-2.6-2.4-.4-3-8.6-5.5-8.8-9.9-1.2-2.6-1.3-11-2-2.4-9-6.1-4-5.1-.3-10.7-1.9-4.5-7-5.6-2.6-3-5-1.6-7.7 .1-5.3-3.2-3.3-3.1-6.1-11.3-2.5-8.8 3.3-6.6 6.3-3.5 6.4 .4 25.3 10.7 6.6 3.4 24.5 16.1zM240.2 931.6l6.8 1.3 3.8 2.2 1.9 4.5-1.1 6.9-3.3 4.5-6.2 2.9-3.5 .5-9.9-.4-11 1.6-6.4-3.3-14-4.1-7.5-.5-7.5 .8-6.7 4.6-4.6 .7-6.8-.2-25.6 4.4-12.4 .2-6.2 .6-11.4 3.6-5.4 .6-5.4-.6-5-1.8-3.1-2.5-.2-4.4 2.9-5.2 7.8-9.2 7.8-3.8 12.5-3.9 7.7-1.2 4.2-1.5 9-1.9 4.9 .1 6.6 2.6 4.8 .2 3.5-1.8 6.7-4.9 7.7-2.1 24.3 .6 7.7-.3 11.4 3.8 11 2.7zM961 471.8l6.5-.8 18.8-5.2 13.2-.1 11.4 2.5 11.5 4.8 22.8 12.8 24.1 16.1 12.3 6.6 21.6 4.7 9.3 3.8 6.4 3.4 6.1 4.4 5.9 5.5 5.9 6.5 8.2 9.9 7.7 11 7 11.9 5.9 12.6 4.8 15.4 2 15.2-1.9 13.8-6.5 11.2-8.7 6.9-9.8 4.8-10.4 3.1-17.7 3.6-33.2 13.7-6 2.9-15.8 10.3-10.4 3.8-10.9 1.3-11.3-1.3-9.4-5.2-5-9.3-2.6-12.3-1.9-14-.7-14.3 1.2-15.5 3.1-26 2.4-9.6 5-9.5 6.8-8.3 14-10.9 2.9-4.9 .3-5.4-1.2-6.4-4.2-7-8-5.9-10.4-4.1-11.3-1.4-8.6 1.5-4.6 3.8-7.2 13.5-5 5.9-5.8 4.2-12.7 5.5-12.4 6.1-6.6 1.8-6.4-1.4-11.3-7.6-4.4-1.3-15-1.2-7.4-2-7.2-4.4-11.8-9.4-5.6-6.6-2.8-7.7 1.3-18.3 6.4-11.2 10.5-6.9 13.5-5.5 13.7-3.9 12.5-.7 23.4 1.2zM359.2 754l60.7 22.4 9.6 4.5 8.9 1.8 6.8 3.1 4.9 5.6 2.6 7.7 0 18.5-1.4 2.2-4.2 1.9-4.5-.5-48.1-13.1-7-2.9-6.6-3.9-12.4-6-48.7-17.8-10.9-7.7-9.8-9.6-4.3-5.1-4.3-7.2-1.1-3.1 2.9-1.4 6.5 0 13-2.8 6.1 .3 7.7 3.7zM824 636.7l-3.1 2.4-6 3-5.4 .9-12.4-2.4-10-.9-9.8 .9-9.2 3.2-39.9 18-6.3 1.6-6 2.4-5 4.5-4.1 6.9-2.3 1.7-3.8 0-52.4-14.8-16.3-.9-13.6 5-11 7.9-9 8-5.9 9.3-2.1 12.3 .6 13.2 2.4 12.1-1.1 9.7-6.8 7.2-8.9 4.6-7.3 2.4-11.7 2-10.7-.8-9.9-4.5-9.8-9.5-5.7-14.6 .5-16.5 4-15.2 4.5-10.5 7.9-12.9 5.2-6.6 22.7-25.3 10.8-10.7 16.9-13.3 17-10.5 16.5-7.6 14.4-5.2 58.3-16.4 15.6-2.2 97.7-7.7 11.6-2.9 8.3-1.4 5.9 2.3 4.8 5.1-1.4 11.2-2.1 6.2-2.9 4.1-10.2 8.9-5.2 6.8-.3 6.3 3.1 14 .2 5z"/>
+        <path class="imp__lacs" d="M1072.6 -241.8l-4.2 .9 0-3.1 1.8-3.8 2.4-.5 3.9-2.7-2.1 6.4 .9 3.8zM1031.4 -244.8l.4 5.9-5.8-.9-5.1-2-.8-1.6 1.2-2.3-2.8-1.4 3.5-3.4-1-2 4.1-3.3-.5-2.6 2.2-3.8 1.7 2.5-2.5 4 .4 3.5 2.1 2.7 .6 3.6zM1073.4 -44.5l-.5-2.8 2.9-.5-2.2-4.9 .1-4 4.5-.3 .8-2.5-.2-3.7 2.1-7.3 1.7 1.1 3.5 .1 1.3 2.9 2.2 .5 1.6-1.6 2.4-.2 4.5 3.5 2.6 1.2 3.7 2.9 3.7 1.7 14 3.3 2 1.8 1.2 3 6.5 4.3 1.6 4.7 4.2 2.6 .2 2.4-.8 4.1-3.2-.1-1.5 1.6 3.7 4-1.3 3.1 2.2 4-1.4 3.7-3.6 2.6-3.7-2.4-2.6-.3-5.5 1.5-2.7 4.5 .8 1.4-.5 3.6 2.2 3.8-2.2 3-2.1-1.1-3 2-2.5 .1 .1-4.9-1.6-.8-.2-2.6-4.5-3.4-3.7-6-4.9-4.8-1.3-1.8-3.8-.8-2-3.7-.5-4.2-8.7-7.1-8.2-3-1.9-3.9 .4-2zM758.4 103.3l-1.5 2.5-1.4 8.1-1.7 .4-.5 3.2-4.2 3-6.3 2.3-2.3 5.1-2.8-1 .9-3.3-3.6 .7-1.7 1.5-1 3.2-4.5 2.3 .5 1.1-3 2.6-2-1.2-2.7 .5-.8-1.5 1.4-2.4 1.8-.7 3.6-6.7-2.9-1.8-.7-6.5 2.2 .9 1-2 .6-5.4 2.2-3.9 6.4 2.2 1.2 3.9 3.4 .3-1.3-5.5-2.2-5.1-.7-4.3 4.1-4.4 4 .2 2.4-1.5 1.9 .7 1.4 2 2.9 .1 2.1-1.5 1.5 2.2 .7 2.7-1 3.5-1.6 2.7 .8 1.6zM739.2 122.7l-.1-2-2.2-.4-.8 2.1zM1190.8 -67.2l-2.5-1.8-2.8 2-3.2-1.3-1.7-2.7-2.7-.5-.6 2.4-3.8-.6-3.2 .6-2.1 2-2.4-2.8-.6-4.3 4.8-.8 .5 2.9 4.3 2.3 1.4-2.5 3-.1 3.3 1.3 .7-5.7-2.8-1.8-2.8-4.4-2.6-1.9-2.4 0-3.6-2.7-1.9 .3-3-1.1-2 1.2-4.4-.7-8.7-6.1 2.6-4.2-1.4-2.8-3.2-3.5-5.2-1.6-3.2-6.1-3.1-1.9-2.7-2.9-2.6 .5-1.6-3.6 2.7-.4 .8 2.3 4.3 3.7 4.3 2-.9 1.6 1.4 2.1 9.2 2.9 .3-1.2-5.6-5.5 1.7-1.3-4.5-3.8 1.5-.9-5.2-6.5 5.1 2.4 5.6 5.4 1.8 4.4 5.3 3.7 2.2-1.8-1.1-1.9 1.5-2.4 3.5-1.6 .8-2.9-.5-1.9-2.6-3.7-5.6-4.7-.9 .7-4.5-.2-3.7-2.5-2.7 2.4-6.2-3.7-.5-1.8-3.9-3.8 1.5-.9 4.8 3.1 1.8-2.3 3.7 1.5 1.5 1.5 7.1 .3 2.9 2.7 5.2-.1 4.1 3.5 1 2.2 1.9 9-.1 5.1 1.8 1.5 3.4 .9 1.9 5 2.6 .4 3.1 3.3 .3 1.8 5.6 3.3 1.2 2.6 2.6-.2 2.8 1.9 1.3 3.4-1 2.7 2.5 2.8-.7 3.7-1.1 1.8-2.4 1.1 .2 2.6-1.1 3.1 1 2.7zM1162.8 -108.8l-2.3-3.4-.9 2.3 2 7.9 2.1-2.5zM1035.5 -27.1l-2.5 .1-2.1-1.5 2.3-3-.1-3.2-3.4 2.5-3.2 .5 0 2.1-3.9-.1-3.5-4.1-1.6 .5-.7-2.8-2-2.2 3.3-.6 3.9-9.4 2.7-3.4 2.2 2 1.1 2.9 3.5 2.7 1.8-1.9-.3-5.7-1.3-3.2 2.8-.8 2.2-4.9 4.4 .3 1.6-1.3-1.3-2.1-3.4 .3 0-2-2.6-1.3-4.9-1.2-3.1-2-3 1.7-3.6-1 1-1.9-1.9-1.6-1.9-3.1 1.2-1.3-4.4-4.2-3.7 3.2-3.5-2.6-3.1 1.1-.2-1.7 1.7-1.7 3.8 .3 .3-2.9-1.6-3.9 1-3.5-2.1-4.5-.4-3.1-2.9 2.7-1.7 .2-.9-3.7-4.1-2.8 .4-1.3-3.1-2.8 1.4-1.9-1.8-4 0-2.1 2.5-.6 .2 5.3 1.7 2.7 1.2 5 2.7 1.7 2.8 .1 3.5-3.4 3.3-1.5 2.7 1.5 1.7-.6-.5 4.8 2.2 .4-1 3.2 4 3.7 .3 1.5 5 2.3 2.8 0 3.2 3.2 3.4 .7-2.4 2.2-2.9-.4-2.8-2.6-.7-2.7-4.8 .4-.5 2.6-1.9-.4-.3-2.4-2-1.2-.3-2.8-1.6-.2-3.5 1.3-1 3 3.1 4.4 1.8 1 .8 2.7 3.6 1.5-1.3 4.3 3.5 1.5 4.4-3.9 1 2.1 2.8 0 3.3-5.5 4.9 3.5 .2 4.3 2.5-2.1 5.1-1.9 1.3-3.2-2.1-.6-1.3-3.3-2-2.7 1.3-1.1-.7-4.9 5.2 2.2-1.7-6 1.2-1.5 3.1 1.5 4.2 5.9-1.8 2.6-.1 3-2.8 .8 .3 1.7 2.1 1.8 2.1-1.1 5.8 2.1-1.5 2.5-3-2.1-5.1 1.4 1.3 5.9 3.7-1.2 1.9 2.4 1 4.5-1.7 2.4-2.6 1.5 .2 2.6-3 6.2-1.8 2.2-7-3.4-1.7 .1-1 2.6 1.6 1.6 .2 3.2-1.6 1.3 .8 4-4 1.3-.5 2.2 3.4 .8 1.1-1.8 2.7-1 4.7 1.6 .4 3-8.6 8.7-3.7 1.6zM1029 -42.8l-4.7-1.4-.1 2.2 1.8 2 2.6-.6zM1025.7 -33.3l-1.8-3.7-4.1-.9 0 3 2.8 2.3zM1035.6 -40.6l5.5-3.3-2.5-2.4-1.9 .8 .4 2.2-2.4 .8zM1033.2 -53.2l.2 2.2 2.1 1 3.4-1.5-1.3-2.1-2.9-1zM1041.7 -64.7l1.3 0 2.5 3.8 4.2 .6 1.5-3.4-.9-2.2 1-7.7-2.6-2.8-7 1.7-1.9 2.2-3.2 1.6 .4 2.2 4.6 2.5zM1010.5 -101.3l.2 1.5 5.5 4.5 .7-3.2-4.1-4.3zM997.4 -31.8l.6 5.7-2.5 1.5 2.5 3.1-.4 3.5-4.4-3.7-1.7 2.2-2.8-3.2-2.7-.9-.3 2.4 1.7 1.6-2.5 1.3-1 3.3-1.9-1.3 1.4-2.7-2.3-1.4-.6-3.8-3.2-.3-.4-2.7-2.9-3.7 4.5-6.5-2.9-2 .7-8.9-.5-4.7 3.4-.2-1.3-2.1-2.8-2.3 3.2-1.1-1-2.9 3.6-4.5-.8-5.2-3.3-.7 1-2-5.5-3.4-.7-2 2.8-.6 1.7-6.1-2-2.1 1.7-3.8-2.6-1.6-.6-1.7-4.1-2-3.5 1.2-.4-5.3 5.5 2.9 .4-2.6 2.4 1 .6 2.1 4.7 2.6-1 1.7 2.3 2.4 1.7 .3 4 3.8-1.6 1.8-1.9-2.4-3.2-.9-1.1 .9 .2 4.7-2.7 3.2 1.1 3.6 4.4 4.4 4.5 .4 0-1.8-2.3-4.5 2.6-3.2 4.3-2.4 3-.1 2.4-3.6-3.3-1.4-1.4-3 .9-1.1-1.9-3.3-.1-3.7 5.2 3-.5 1.6 2.3 1.1 .1 2.9-2.5-.3 2.7 4.1 1.4 3.4-1.7 .3-1.3 2-2.3 .4 .5 3.8-.7 4.4-3.7-1 2.9-3-1.2-3.4-4.7-.4-1.5 3.6 1.3 3.7 1.5 .6 1.2 4.1-3.2-1.8 .8 3.3-1.3 .9-2.1-3.8-1.6 1.1 .8 3.4-1.1 3.2 .2 6.6 1.2 1.2-.2 3.4-3.2-1.2 1.2 9.6 2.4-1.4 .8 2.2-1.2 1.5 .7 2.5-1 3.5 1.5 3.5-1.8 1.3 2.5 2.4-.4 2.6 5.8 1.7 .8-1.4 6.7 1.7-1.7-2.8 2.1-3.4zM1055.8 93.1l1.9 0 1.2 3.4 3.7-3 3.3-.3 2.8 2 3.7 3.9 1.3 4.4-.4 1.7-3.5 1.1-3-3.9-2.9-1.7-2.4-.4-1.4 1.7-1.7-3.4-3.3-4.6zM1029.5 -203.3l4.7 .6 .6-2 4.3-.9 .2-2.9 3.2-2.5 3.7-.3 3.9 1.3 1.8 4 4.9 1.3-3.8 1.6-3.5-2.2-.4-2-4.4-1.8-.7 1.6-4.2 1.8-2.9 2.3 1.6 2.2-1.4 3.6-1.8-3.9-4.1-.6zM930.4 -342.1l.6-2.9 2.9-2.2 3.3-8.8 4 .1-1-3.3 2.1-1.3 .9-3.5 2.4-2.2 1.7 .2-2.7 4.3 2.7 2.6-1.5 1.1 .3 2.4-1.6 1 .1 2.9-1.6 2.6 2.8 1.1 1.1 2-1.6 1.6-3-.1-.6 2.1-4.1 2.8-4.5-3.6zM1055.1 94l-3.3-6.3-3.2-.3-1.9-4.5-2.9-5.5-2.7-2.9-3.1-1.5-.6-4.2 1.5-3.2 3.9-2.8 5.2-2 4.4-.1 .7 3.3 2 1.8 1.4 8.2 2.5 3.5 1.1 3.4-2 3.6-.9 5.1-1.6-.2 .2 3.7zM1027.1 -19.8l2.2-1-.7-3.7 1.9 .2 2.3 2.5-4.1 3zM1038.5 -98.9l-.7-3.5 1.7-1.4 1.5 2.5 3.2 .8-.9 2.8-4.1 .5zM1119.3 -174.6l2.3-2.2 1.2 3.6 2-1.8 2.1 1.1 .8 2.6 2.4 .7 1.4 4.4 5 .1 2.2-2.5 2.6 1.6-.2 1.4-3.7 1.5-1.8 2.6-1.5-1.9-3.7-.8 1 4.3 2.5 2.2 .5 1.8 3.2 3.2-1.9 1.8-1.3-3.8-2.3-2.2-1.8-4.1-3.6-.4-3.4-1.7-2.4-5.4-4.1-2.6-1.5-5.8zM1104.4 -152.5l1.8-.4 .4-3.2 2.7-.3 1.2 2.7 2.2-1.2 3.6-.5-.5 2.2 1.6 2.1 5.2 2.2-3.9 1.2-2.2 2.7-2.9-.6-4 1.6-2.5-2.5 1.1-1.5zM1043 -128.2l2.2 1.4 1.7 2.9 .2 2.2 1.8 3.5 3.2 2.9 2.7 1.5 5 4.6-3.6-.1-.3-2.1-4-3.3-4.5-1.8-2.8-1.8-1-3.5-2.4 3.4-2.6-2.1-4.5-.5-1.2-2.5-1.8-.9-5.3-5.8 2.5-1.3 2.1 1.2 3.7 .2 4.2 3.6zM1050.2 -229.3l-2.4-3.3-3.1 .5-7-4.6 2.7-2.7 1.6-3.1 1.9 1 3.3-.1 1.3 2.4 2.6 1.4 2.5 .1 1.3 3.1-.3 2.9 7.3 .9-.2 1.9-6.3 0-1.5-1.2zM1079.1 -77.9l-.9-4.2 1.5-.8 3.5 3.2-1.8 3.2zM576.8 639.2l-.2 2.4-5-1.1-5.8 .3-3.7 2.3-2.4-1.1 .9-3.2 3-.8 2.7-1.8 3.2 .1zM267.1 244.2l3.1 1.4 2.8-.4 .6 1.4-2.5 2.7-3 5.2-4.8-2.9 2.9-3.1zM776.7 112.9l1 1.5-.5 6.4-1.5 1.8 3 1.3-1.3 3.4-2.6 .4-3.3 6-.1 4.9-3.3 9.2-1.5 1.4-1.4 3.8-.2 3-2.5 1.2-1.9-6.3 2.2-7.9 0-2.4 1.1-5.2 1.1-1.4 2.1-6 1.1-1 .3-5.1 4.7-5.2 .9-2.2zM747 -71.9l-.4-3.3 2.2-1.1 5.3 1.2 2.2 1.8-.8 2.5-2 1.1 .2 3.6 1.3 4.2 .5 5.2-2.8-2.3 1.6-2.7-2.5-7-5.1-2.2zM660.3 594.9l-1.1 1.9-3.6-.4-1.7 1-3.5-4-4.7-2.8-1.3-4.3 4.6 2.8 5.3 1.8 .4 1.2zM1009.3 -46.2l-2.7 1.1-.4 1.7 1.3 2.7-2.6 .5-.5-2.4-5.6-4.1-2.6-4 2.5-1.6 2.3-4.5 2.5 2.2 1.6 5.9zM806.6 90.1l.2 .5-8.9 3.6-2.5 3.3-2.8 .2-2.6-1.7-1.2-3.3 .5-2.5 5.7 .8 4.1-.1 1.9 .8 3.8-2zM963.4 -34.5l-2.9 .4-2 3.6 1.4 1.6-3.4 1.5-1.9 3.8 .2 2.4 1.4 3.2-.4 1.8-2.7 2.3 3.5 2 2.8-1.9 .9 2-1.2 3.1-2.3-1.9-4.1-2.3 .8-5.4-1.8-2.1 1.4-1.9 2.8-6 1.3-1.1 1.7-4.4 1.7-1.4zM942.2 -21.6l-.3 3.1 2.2 1.8-1.3 1.3-2.2-4.2 2.8-6-1.5-6.7 .3-3.3 2.1-3.9 2.4-6.4-1.1-3.8-6.3 .6-.2-2.1 3.7 .1 .7-1.2 4.9 1-.9 2 2.8 .9 7.1-.8-.9-3.1 2.3-1.9-1.4 5.8-5.7 1.3-3.9-1.1 1.1 3.4-2.4 2.8-.6 2.5-1.9 1.6-.6 2.3 1.8 1.3-1 3.7 2.6 4.5-2 3.1zM935.9 -20l-2.3 2.9-1.9-1.1zM985.5 -105l.5 2.4-1.3 1.7 3.3 3.5-.6 1.2-4-2.5-.2-2.4-1.7-2.4 2.1-5-2.6-1-2.3-2.4 1.9-1.7 2 2.8 2.6-.5 1.7 3.5zM1000 -41.9l-1.2 .9-7-2.8-1.9-.2 0 2.9 3.1 .9-.6 4.1-2.3-.4-1.2-2.6-2.7-.7 1.3-2.1 0-2.4 3.6-.5-.4-3.9 2.9 3 4.7-.1zM1229.4 -49.5l-1.5-2.1 1.1-5 1.9-2.8 5.9-2.7 1.7 .3 4 2.6 1 1.4 .9 5.5-11.2 3.8zM896.7 611.8l-.7 .7-7.8 4.4-2.4 2.3-5.7 .6 3.4-3.8 2.7 .2 3.9-2.4 .8-1.5 4.2-2.2 3.8-3.6 1.7-3.4 2.2 .2 1.9 1.7-2.3 3.4zM1051 -152.5l2.1-.8-1.4-4 2.1-.1 .1 2.3 4.2 2.8 2.3 .5 1.8 5.3-5.1-2.6-2.3-3.8zM1235.6 -106.6l-1.3-3.7 .8-3.2 3.1-2.8 .2 5.5 .9 2.4 2.7 3.3-3.7 2.6zM985.6 -245l1.6-.2 3.1 2.2 .3 2.7-2 2-1 3-1.6 1.7-.9 2.6-2.7 .1-4 1.7-2.2-4 1.3-.9 1.7 3.3 3.2-2.5 2.7-5.6 2.2-.6 1.3-2.1zM1577.4 1063.2l1 4-.8 1.8-4-3.2 1.6-4zM1058.3 -246l-2.2-5 3.6-.9 3.3 .8-.1 6.2-2 2.6-1.7 .3-2.3-3.5zM1024.3 94.1l1.1 1.9 .7 5.2-1.2 3.2-2-3.7-2.5-2.6 .5-4.1zM724.2 -87.1l-.9-2.9 2.3-1.6 1.3 2.8zM843.7 84.9l-2.8 0-1.8 3.4-2 .7-3.1-1.5-2.7 .7-4.7-2.6-6-.6-2.9-3.1-5.5-.2-1.5 1.4-6.3 .1 1.9-2.4 2.9-1.2 .2-3.3 2.8 2.9 1.4 .2 1.1-2.9 3.2 1.6 6.2 .4 2.7 1.8 1.1-2.8 2.7 1.2 3.1 .2 2.4-2.2-1.4-2.2-2.9-1.3-1.2-1.8-.4-3.9 2.3 .9-.9 3.9 3.2 .7 1.7 1.4-.5 7.3 3.9 2.9zM1411.2 561.2l-.7 1.2-5.1-.5-1.9 .9-2.6-1-1.6-2.2 1.5-1.6-2-4-4.2-3.3-1.4 .6-2.7-2.2-3.1 1.4 0-2.5-4.2-1.9-2 3.7-2.4-3.1-4-.7 .5-1.6-2.6-2.2-.8 1.6-3.9 1.3-4.8-2.4-2.5 .2 1.4 3.2-4.7-2.7-3.4-.2-2-2 1.4-2.3 4-.7 2.8 .4 2.5 2 2.8-.4-1.4-2.4 .6-4.3 5.5 2.7 1.2-1 3.5 .8-.5 1.9 .3 4.5 4.6-1.2 .5-4.1-1.3-2.2 .5-2.1 3.8 .6-1.9 2.5 1.8 2.4 2.3-.6 1.6 3.3 1.4 1 .2 3.7 2.7-1 4.5 5.4 14 10.2zM908.9 281.5l2-3.5 1.5-4.5 1.4-.1 1.5 2.3 2-1.9 5.6-.5-2.7 2.9-4.5 3.6-2.2-.2-.8 2.7-2.3 2.1zM910.4 284.4l-2.1 1.9-.3 1.8-6.5 4.9-.8 1.6-3.1-.4-1.4-2.2 5.1-2.1 6.5-6.6 1.1-1.8zM1587.3 1108.1l1.1 .1 1.4 9.1 1.4 2.6 .3 5-2 .1-2.7 1.9-2.4-6.7-.5-4.7 1-5zM1433.4 839.1l1.1 4.5 4.9 2.8 .1-4.2 6.7 7.8-2.5 1.1-1.3 6.3-1.9-1.4-5.1-.7-2.5-1.7-5.4-1.4-1-2.9 .3-5.6 3.4-2.6-2.4-8.7 4.9 3.1 1.7 2.3zM1592.1 1131.5l1.3 3.6-3.4 1.9-2.7-2.7-.5-2.5 1.6-1.3z"/>
+        <path class="imp__fleuves" d="M645 589.6l2.6 .9 7.9 5 .1 .9M643.4 589.5l-2.1-1-4.9 1.6M643.4 589.5l1.6 .1M651.2 625.1l4.2-4-2.2-6.1 .9-7.2 4.2-7.1-2.7-4.3M630.7 633.8l1.3-2.2 4.9-2.4 14.5-4.1M516.7 591l-.6-7.1-3.3-5.2 1.1-2.8-4.9-11.5-5.8-4.2-1.7-5-2.8-3.1-2.5-5.7-6-1.7-8.9 2.7-2.8 1.6-11.2 .8-4.5-5.2-5.1-4.1-2.3-4.9 1.6-1.8-1-4.5-3.7-2.6-3.4-.4 1.9-4-6.5-1.9-5 .9-5.7-3.5-3-5.1-3.6-2.8-.2-4.1-3.5-2.5 .2-2.4-7.7-3.3-3.6-2.7-1.7 3-3.6-2.6M877.1 491l4 .5 3.6 3.1 2.2-.9 5.6-4.8 .7-4.1 2.2-4.8-3-4.5 .2-5.2-1.1-3.5-8.7-9-.3-4.4-3.9-6.1-9.7-3.3-5.1-3.4-.2-2-3.5-1.5-1.9-2.5-2.6-.2-6.2-5.6-8.6 2.2-2-2.8-.2-11.5-4.2-3.6-5.3 .3-10.3-5.1 1.3-3.6-.9-3.9-3.5-2.2-11.3-.8-2.9 1.3-8.9-.6-2.1-1.7-.1-5.7-2.4-.7-2.1-6.1 2.2-3.4 .1-3.4-5.8-4.3-5.9-5.2-2.2-5.9 4.9-4.1 .5-5.5 2.1-6.4 3.4-7.7-1.1-4.1M636.4 590.1l-3-1.7-3.9-.1-1.4 4-6.9 .7-5-1.6-2.7 2-5 .1-2.6-1.5-4.6 1.9-3.8-5.4 .2-4.8 3-9.2-1.2-4 5.4-10.8-.3-2.2 2.3-8.8 4.6-5.9 3.8-2.6 3.7-6.1M564.4 408.1l-4.2-4.2-6.2 .8-3.1-1.7-4.6 .5M546.3 403.5l-3.5-.3-2.3-1.8-11.4 3.7-4.4-1.2-4.5 .6-6-4.4M619 534.1l3.7-6 .9-5.2 2.7-2.7 .5-6.1-3.5-9.5 2.2-2.6-2.5-7.1-.1-2.9-4.3-3.8-7.1 2.9-4-3.9-1.1-4.1-3.5-3.6 0-7.2-3.2-.7-3.4-2.8-3-4.7-.9-4.4-5.1-6.2 .1-7.9-3-5.9-3.2-2.3 .8-8.3-.3-4.2-3.2-3.2-2-3.8-5.8-6.9-6.3-2.9-4.6 1-3.5-2-6.8-.3-2.5 2.9-10.1-.9M536.9 408.8l-5.2 .6-3.3 3.3M521.3 412.6l-8.1-6.4M225.7 744.6l7.1 2.1 .7 2.7-1 4 1.7 1.6 4.2-1 4.4 2.5 1.1-3.8 7.2 6.2 3 .1 6.3 2.7 1.8-.4 5.7 6.2 .3 3.3 2.4 .6 3.5 3.9 4 .2 8.3 4.5 4 .8 2.8 2.6 2.9 5.2 5.9 4.3 1.7 5.2 4.7 4.7 3.1 5 4.3 4.2 2.4 .8 9.3 10.5 3.1 1.4 3.8 4.3 2.2 6.9 3.4 .4 9 3.3 7.8-5 4 3.1-.8 4 6.8 1.3 1.8 3.6 .2 3.9-5.6 4.5 .2 5.9 2.8 4.4 5.2 1.3 2.6-.6M670 343.7l-1.7-3.3-4.3-.4M670 343.7l-6.2-3.3M670.1 343.8l-.1-.1M734 409.9l-3.4 1.3-1.7-1.7-7.3 1.1-5.1-6-2.5-.5-2.4-4.1 1.1-4.7 2.5-4.3 1.6-.3 3.3-5-.7-3.3 1.5-9.4-.8-5-4.8-2.1-1.9-2.8-8.9-3.5-2.2 .4-2.7-3.4-3.5 .5-9-6.9-1.6-2.7-2.7 .4-4.6-2.5-5.1 .8-3.1-2.5M752.8 426.4l-4.7-3 .1-2.1-4.8-3-1-6.6-8.4-1.8M818.4 455.6l1.9 4.9 2.7 1.3 .3 3.2 5.2 3.6M828.5 468.6l-2 4.7-.7 9.2-16 1.6-1.5-3.8-2.3-1.8-2.4 .7-7.9-.2-3.3-2-3.5-6.6-2.7-3.1-9.2-4.2 .3-2.8 4-2.4 .8-4.5-1.2-4.4-3.7-2-4.3 .1-3-4.2-6.6-1.9-4.4-3.8-.8-3.6-2.2-.5-3.3-6.7M257.5 857.6l1.2-3 5-4.4M148.3 865.7l5.7 3.8 4.4 1 4.1-.8 5 .8 3.3 2.5 2.1-.5 .1 0M291.9 862l1.7-4.2-1.2-4.6-7.1-5.2-2.1 .7-11.1-.4-4.3 2.2-4.1-.3M257.5 857.6l-3.7 5.3-12.5 10.3-4.8 1.1-8.1-1.3-3.9 0-4.4 2.6-8.9 2.2-4.5-2.1-5.1 1.9-4.2-2.4-3-3.6-4.4-3.1-4 .3-6.2 5.2-6.9-1.5M148.3 865.7l-6 1.1-9.1 .7-5.6-3.7-6.3-1.1-6 2.5-4.3-.5M908.7 479.5l3.4-.7M912.1 478.8l4.8-2 .7-4.1 1.7-.7 7.8 .7 3.1 1.8 4.1-.6 2-2.8 3.5-1.5 4.8 .2 6.3-4.9 4.8-1.4 3.9-5.9 10.6-4.3 5.8-7.3 4-2.3 5-11.8-2.3-6.1-.3-4.8-2-4.4 .2-4.2 3.9-4.7-2-4.4-3.6-4.1-3.9 0-3.7-3-2.1 .1-3.6-6.5-4.3-2.6-2-8.2-9.5-9.9-5.8-1.5-3.8 .4-3.7 2.4-9.1 1-9.3-5-4.1-.8-4.5-2.2-8.6-.8-7-8.7-3-1.4-1.6-2.9-5.6 .3-7.3-2.3 .7-5.9 3-5.5 2.6-2.5 4.7-2.1 1.5-2.8-.9-6.4 2.3-3.4-.1-6.6-2.7-8.7 .5-4.1 1.8-2.7-.4-4.9M911.9 491.1l-1.6-2-2.9-8.3 1.3-1.3M111 864.7l-7.2-1.3-7.1-2-6.2 1.9-6.6 3.1-10-1.5-4.1-1.5-3.4 .7-1.9 2.3-4.6 1.9-6.9 7.8M554.6 648.9l2.8-5.1 2.6-2.7 5.4-2 3.8-.1 7.3 2.6M621 635.5l-.9 1.5-10.2 8.5-2.5 .7-8.7-.8-12.9 5.9-2.8 2-5.7-9.4-.8-2.3M554.6 648.9l-2.4-.1-3 3.1-3.9 1.2-.2 8.3-4 8.2-3.4 1.7-4.1-6.1-3.3-3.4-3 3.3-3-1.7-4.2-.5-5 2.8-1.3 6.7 1.9 2-3.6 4.2 1.2 6.3-.2 8 1.6 6.9-3.9 6.3 0 5.8-2.3 3.5-2.2 7.6-.6 4.9 1.6 3.5-.2 3.9 3.8 3.6-2.7 3.5-3.9 2-1.5 7.3M502.9 751.7l-.1 0M502.8 751.7l-4.2 .1-4.2 6.6 1.1 3.7M502.8 751.7l-.3 2.1 2.4 3.6M872.7 563.1l4.9 2.9 3.3 3.6 6.2 3.7 4.4 1.2 11.6-1.5 8.8-2.6 4.1 .1 2.5-2.4 9.1 0 .9 6.2-1.1 5 .2 5.5-2.8 5.4-.4 6.2 3.1 4.6 0 9.1 2.6 4.5-3.7 4.4 2.4 4.7-.3 5.2 1.6 7.6-5.6 7.1 .9 2.5 4.5 4.8 0 1.9 4.3 5.7-1.4 2.3 5.8 3.3-2.6 2.6 1.2 2.4 4.6 4.9 6.2 .8 4.8-1.4 2.3 1.4 6.3-.8 2.3-2.6 2.4 3.2 6.6-.3 3.4 1.8 2.6 3.8-1.2 3.6 5.2 4.1 5.5-.6 .2 3 4.5 3.5 3.5-.7 2.9-2.3 5.1-2.1 2.7-3.2 10 .5 2.3 3 5.9-1.4 4.7 1.2 3.9 5.5 2.4-.6 2.9-7.8 4.6-2.5 4.7 2.9 .5 2.9-3.7 3.6 3 6 4.3 1.2 .8 3.1 7.2 3.3 3.9 .6 .2 2.6-3.9 2.3-.4 4.3 2.5 2.3 6.4-1.8 5.5-2.6M1074.8 713.8l4.9-.6 3.5 1.2 3.8-1.1 2.6 .7 11.3 .7 6-1.5 3.9-2.5 6.6 1.1 7.8-1.8 9 .1 3.6 1.4 5.8-1.9 6.2-4 3.5-6.7 5.2-7.4 4.4-2.7 8.8-3.4 11.4-6.6 6.4 .9 1.7-1.7 4.7-.4 4.1-4.1 3.7-1.1 5.4-3.8 1.4-2 1.9-7.2-3.7-2.3-.2-4.3-4-1.8-4.1-4.2 1.2-3.3-1.3-5.1 1-5.6-1.2-3.9 1-8.1 3.7-1.5 1.6-2 4 4.7 7.8 1.2 5.1-.5M353.8 386.4l1.6 2.2 .3 4.7 4.9 2.1 13.1-1.6 .4 4.4 1.8 1.2-.7 3.6 3.7 4.2 4.2-3.2 2.8-.4 3.2 3.4 2.9 4.9 4.2-.2 .5-2.7 3.4 .6 2.7-1.4 5.5 1 6.5 3.1M260.4 795.9l4.8 4 5.5 1.7 4.4 3.7-.8 4.1 2.5 3.1-.5 2-3.6 .8-4.2 2.8-6.2-1.9-4.6-.2-4.9-2-4.3-4.3-2.7-.2-17.8-8.2-3.4 2.9-8.8-3.1-5.8-.3-6.3 1.2-5.1-.8-2 1.7-5.2-.2-7.5 1.8-3.7-5.3-2.4 .3-4.9-1.5-4.5-.3-3.9 1.8-3.4-1.5-3.7-5.9-12.9 10.1-5 .1-4.5 4-2.7 3.6-5.3-1.1-2.4-2.1-.9-3.5-6.3-1.2-2.8-3.2-6.7-.1M107.5 798.6l-4.1 .1-1.9-1.7-7.5 1.6-4-1.1-5.9 .4-4.1-2.1-3.8-3.5M738.4 535.1l-.1-.1M738.4 535.1l-.1 .2M616.7 571.1l1.4 2 5.8 3.3 .5 1.7 8.8-.1 3.8-4.2 5.5-2.2 7.3 1.2 1.6-.9 3.7-6.1 4.7-.3 7-4.5 2.6-3.7 7.8-2 3.3-3.8 3.9-1.3 4.7-3.9 4.1-1.8 13.9-.9 1.6-1.1 6.8-1 3-4.5 4.6-.9 4.2-4.8 5.5 .3 5.6 3.5M872.7 563.1l-1.9-3-4.8-1.3-3.3 2-7.8 .5-5.1-3.1-3.2-6-10.6 1.3-2.6-1.5-7.1-.4-3.9 .9-1.9 5.7-1.6 1.7-6.5 3.1-4.6-2.3-7 3.1-3.3-2.4-3 .1-8.4-3.3-3.7 0-1.3-3.4-5.7-1.7-5.2-3.9-10.3-1.4-4.1-2.6-4.3-6.2-13.1-3.9M731.5 754.4l.6 6.4 4.6 5.2 1.4 5.1 3.5 3.1 2.5 4.9 0 6.4-1.7 8.1 1.1 1.8-4 2.4-1.9 3 2.4 6.6 5.5 3.6 1.4 5.1 3.5 .8 1.1 6.6-3.5 3.6-1.5 8.6-5.1 1.7-2 2.5M710.5 496.4l2.5-2.7-5.6-6.5-5.3-2.3-3.1-2.8-4.4 3.7-2.5 7.8-10.3-4.3-3.2 .9-2.6-1.7-2.7 2.4-.5 5 1.4 3.2-3.6 5.8-5.6-6.2-3.2-7.3-2.9-2.3-2.6 3.4 1.2 3.3-3.1 3.7-8.1 2.5-1.5-3.3 .3-4.2-4.2-7.1-2.8-2.4-9.3 1.3-4.2 4.1-2.9 .1M235.7 962.5l3.9-3.7 .4-4-3.5-.8-5.3 4.5-6.6 3.4-4.6 .7-6.7-3-3.4 .2-5.2-3.4-6-2-3.8-2.5-5.6 2-3.4-2.2-5.5 2.2-4.1-.3-2.1 2-9.6 1.5-6.5-.3-4.3 2.4-5.7 .3-6.1 1.4-6.4-1-5.4 2.8-1.7 2.4-1.6 6.1-4.1 5.5 0 3.1-2.9 2.6-1.5 3.1M521.7 620.2l-2.7 2.5 2.6 2.9-1.2 9-4.4 10-2.4 8-.4 3.9 1.9 2 .8 3.9-.8 3.3 0 .1M384.7 785.5l-.4-2.3-5.5-3 1-5.5-2.1-2.9-1.5-6.3 2.6-.7 6.3 1.1 7.9-4 4.9-3.8 3.3-6.2 3.5-2.8-.5-3-3.7-8.5-2.5-7.8-2.5-3.9-3.9-.6-3.8-3-5-2.4-1.2-2.3-6.2-1.9-1.2-6.5-2-1.3-4-5.3-3.4-2.6-5.5 0-3.6-5.7-3.9-4.3-1.3-3.2 1.3-2M466.8 601.2l-.6-3.5-2.5-3.6 1.7-3.5-1.1-4.4-4.3-6.3-6.6-5.2-3.1-.7-2.9-4-9.7-3-4.6 1.7-4.9 5.7-8.3 4.8-2.3 2.9-10.1 3-5.6-1.1-4.8 .6-3.2 1.9-7.1 2.7-4 .5-3.4-2.2-8.3-8.3-6.7-.5-2.4 1.4-5.4-2-7.1-.2-5.3 .9-6.3 4.3-6.7-.7M597.4 708.7l-6 4-.4 3.4-2.7 .8-2.4-2-5.1-1M597.4 708.7l1.7-5.5-.3-5.5 5.8-5 12.6 .4 3 2.4 5.4 1.3 2.8 4.8 11.5-2.5 3.5-2 6.5 1.5 4.8 .2 2.9-1.2 7.8 1.2 2.6-1.3 2.5 3.9 3.4-.4 8.9 5.2 3.7 0 1.9-1.8 1-4 3.6 .5 5-1.5 2.4 1.1 6.2 .7 4.9 4 5.3 1.6 5.7-3.5 7.6-.3 3.1-2.3 4.2 2.8 7.2-.5M468 609.4l-1.2-8.2M493.3 703.5l-2.6 1.2-4.9-4-.9-5.4 1.7-7.8 3.7-.9 6.3-8.2 1.1-6.2-1.6-4.4 .1-6.1-3.9-5.7 2.3-5.1-.3-5.8-2.2-6.6 .2-4.7-6.7-4.3 .3-2.5-3.6-6.8-3.7-3.4-2.8-.6-3.5-5.5-4.3-1.3"/>
+        <g class="imp__etiquettes" aria-hidden="true">
+<text class="imp__etiq imp__etiq--ocean" x="-20.4" y="480.9" text-anchor="middle">Océan Atlantique</text>
+<text class="imp__etiq imp__etiq--mer" x="512.6" y="220.4" text-anchor="middle">Mer du Nord</text>
+<text class="imp__etiq imp__etiq--mer" x="847.2" y="213.8" text-anchor="middle">Mer Baltique</text>
+<text class="imp__etiq imp__etiq--mer" x="509.5" y="943.3" text-anchor="middle">Mer Méditerranée</text>
+<text class="imp__etiq imp__etiq--mer" x="721.1" y="930.9" text-anchor="middle">Mer Tyrrhénienne</text>
+<text class="imp__etiq imp__etiq--mer" x="842.7" y="781.2" text-anchor="middle">Mer Adriatique</text>
+<text class="imp__etiq imp__etiq--region" x="684.4" y="439.8" text-anchor="middle">Saint-Empire</text>
+<text class="imp__etiq imp__etiq--region" x="419.2" y="607.9" text-anchor="middle">France</text>
+<text class="imp__etiq imp__etiq--region" x="371.3" y="352.3" text-anchor="middle">Angleterre</text>
+<text class="imp__etiq imp__etiq--region" x="221.4" y="904" text-anchor="middle">Castille</text>
+<text class="imp__etiq imp__etiq--region" x="79.9" y="856.5" text-anchor="middle">Portugal</text>
+<text class="imp__etiq imp__etiq--region" x="911.3" y="394.6" text-anchor="middle">Pologne</text>
+<text class="imp__etiq imp__etiq--region" x="950.8" y="616.6" text-anchor="middle">Hongrie</text>
+<text class="imp__etiq imp__etiq--region" x="774.5" y="789.5" text-anchor="middle">Italie</text>
+        </g>
+        <g class="imp__villes"></g>
+        <g class="imp__noms" aria-hidden="true"></g>
+      </svg>
+    </div>
+    <div class="imp__temps">
+      <button type="button" class="imp__jouer" aria-label="Faire défiler les années"><svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path class="imp__icone-jouer" d="M4 2.5v11l9-5.5z"/></svg></button>
+      <div class="imp__glissiere">
+        <input class="imp__curseur" type="range" min="1450" max="1500" step="1" value="1450" aria-label="Année" aria-valuetext="1450">
+        <div class="imp__axe" aria-hidden="true"></div>
+      </div>
+      <p class="imp__annee" aria-hidden="true">1450</p>
+    </div>
+    <p class="imp__evenement" aria-live="polite"></p>
+    <div class="imp__legende"></div>
+  </div>
+  <div class="imp__lecture">
+    <div class="imp__lecture-interieur">
+      <div class="imp__onglets" role="tablist" aria-label="Lecture">
+        <button type="button" class="imp__onglet" role="tab" id="imp-onglet-recit" data-vue="recit" aria-controls="imp-vue-recit">Le récit</button>
+        <button type="button" class="imp__onglet" role="tab" id="imp-onglet-ville" data-vue="ville" aria-controls="imp-vue-ville">La ville</button>
+        <button type="button" class="imp__onglet" role="tab" id="imp-onglet-bilan" data-vue="bilan" aria-controls="imp-vue-bilan">En 1500</button>
+      </div>
+      <div class="imp__vue" id="imp-vue-recit" role="tabpanel" aria-labelledby="imp-onglet-recit" tabindex="0">
+        <span class="imp__surtitre">De 1450 à 1500</span>
+        <p class="imp__intertitre">Une invention qui fait le tour de l'Europe</p>
+        <p class="imp__paragraphe">Vers 1450, à Mayence, Gutenberg met au point l'imprimerie à caractères mobiles. Fais avancer le temps&nbsp;: chaque point est une ville où une presse s'installe. Sa couleur indique la décennie.</p>
+        <p class="imp__paragraphe imp__paragraphe--note">La carte montre 24 villes parmi les premières. Pour chacune, la date est celle du plus ancien livre daté ou du premier imprimeur connu&nbsp;: certaines ont peut-être imprimé un peu plus tôt. Vers 1500, des presses fonctionnent dans plus de 200 villes d'Europe.</p>
+        <div class="imp__groupes"></div>
+        <div class="imp__atoi">
+          <span class="imp__atoi-titre">À toi</span>
+        </div>
+      </div>
+      <div class="imp__vue" id="imp-vue-ville" role="tabpanel" aria-labelledby="imp-onglet-ville" tabindex="0" hidden>
+        <div class="imp__fiche"></div>
+      </div>
+      <div class="imp__vue" id="imp-vue-bilan" role="tabpanel" aria-labelledby="imp-onglet-bilan" tabindex="0" hidden>
+        <span class="imp__surtitre">Vers 1500</span>
+        <p class="imp__intertitre">Cinquante ans plus tard</p>
+        <dl class="imp__chiffres">
+          <div class="imp__chiffre"><dt>plus de 200</dt><dd>villes d'Europe ont une presse</dd></div>
+          <div class="imp__chiffre"><dt>environ 30&nbsp;000</dt><dd>éditions différentes sont connues aujourd'hui</dd></div>
+          <div class="imp__chiffre"><dt>400 à 500</dt><dd>exemplaires par édition, en moyenne</dd></div>
+          <div class="imp__chiffre"><dt>8 à 20 millions</dt><dd>de livres imprimés, selon les estimations des historiens</dd></div>
+          <div class="imp__chiffre"><dt>environ 4&nbsp;500</dt><dd>éditions imprimées à Venise, la capitale du livre</dd></div>
+        </dl>
+        <p class="imp__paragraphe"><strong>Pourquoi si vite?</strong> Souvent, des imprimeurs allemands installent les premières presses ailleurs en Europe&nbsp;: à Subiaco, à Venise, à Paris, à Valence ou à Cracovie. Les livres imprimés coûtent aussi beaucoup moins cher que les manuscrits copiés à la main.</p>
+        <p class="imp__paragraphe"><strong>Et après?</strong> En 1517, les 95 thèses de Luther profiteront de ces presses pour circuler dans toute l'Europe.</p>
+      </div>
+      <p class="imp__source">Sources&nbsp;: Bibliothèque de l'Université de Princeton, Biblioteca Nacional de España, Incunabula Short Title Catalogue de la British Library et autres sources de la fiche. Fond de carte&nbsp;: Natural Earth.</p>
+    </div>
+  </div>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("imprimerie");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var NS = "http://www.w3.org/2000/svg";
+  var NB = String.fromCharCode(160);
+  var CADRE = {"W": 1000, "H": 1032.4, "D": [-700, -520, 1700, 1552.4]};
+  var VILLES = [{"cle": "mayence", "nom": "Mayence", "annee": 1450, "affiche": "vers 1450", "pays": "Allemagne", "texte": "Vers 1450, Gutenberg met au point l'imprimerie à caractères mobiles. Sa célèbre Bible est achevée vers 1455. Il en reste moins d'une cinquantaine d'exemplaires.", "x": 621.2, "y": 490.6}, {"cle": "strasbourg", "nom": "Strasbourg", "annee": 1460, "affiche": "1460", "pays": "France", "texte": "Johann Mentelin y imprime une Bible en latin au plus tard en 1460. En 1466, il publie la première Bible imprimée en allemand.", "x": 605.2, "y": 550.4}, {"cle": "bamberg", "nom": "Bamberg", "annee": 1461, "affiche": "1461", "pays": "Allemagne", "texte": "Albrecht Pfister y imprime des livres en allemand illustrés de gravures sur bois, parmi les tout premiers du genre. L'un d'eux est daté de 1461.", "x": 692.7, "y": 495}, {"cle": "subiaco", "nom": "Subiaco", "annee": 1465, "affiche": "1465", "pays": "Italie", "texte": "Deux imprimeurs allemands, Conrad Sweynheym et Arnold Pannartz, installent une presse au monastère de Subiaco, près de Rome. Ils y achèvent un livre le 29 octobre 1465.", "x": 766.5, "y": 831.2}, {"cle": "cologne", "nom": "Cologne", "annee": 1466, "affiche": "1466", "pays": "Allemagne", "texte": "Ulrich Zell imprime à Cologne. Son premier livre daté est de 1466. Au total, on lui connaît environ 120 ouvrages.", "x": 587.1, "y": 449.3}, {"cle": "rome", "nom": "Rome", "annee": 1467, "affiche": "1467", "pays": "Italie", "texte": "En 1467, Sweynheym et Pannartz quittent Subiaco pour Rome. D'autres ateliers s'y ouvrent bientôt.", "x": 747.6, "y": 832.8}, {"cle": "bale", "nom": "Bâle", "annee": 1468, "affiche": "vers 1468", "pays": "Suisse", "texte": "Berthold Ruppel, le premier imprimeur de Bâle, y travaille dès 1468.", "x": 599.2, "y": 593.3}, {"cle": "augsbourg", "nom": "Augsbourg", "annee": 1468, "affiche": "1468", "pays": "Allemagne", "texte": "Günther Zainer apporte l'imprimerie à Augsbourg. Son premier livre daté est achevé le 12 mars 1468.", "x": 693.7, "y": 559.8}, {"cle": "venise", "nom": "Venise", "annee": 1469, "affiche": "1469", "pays": "Italie", "texte": "Jean de Spire y imprime dès 1469. Venise devient vite la capitale européenne du livre : environ 4 500 éditions y sont imprimées avant 1500.", "x": 737.5, "y": 683.2}, {"cle": "nuremberg", "nom": "Nuremberg", "annee": 1470, "affiche": "vers 1470", "pays": "Allemagne", "texte": "Johann Sensenschmid y ouvre un atelier vers 1470, sans doute même un peu avant.", "x": 698.1, "y": 513.9}, {"cle": "paris", "nom": "Paris", "annee": 1470, "affiche": "1470", "pays": "France", "texte": "En 1470, trois imprimeurs allemands installent une presse à la Sorbonne, à l'invitation de Guillaume Fichet et de Johann Heynlin.", "x": 454.9, "y": 528.4}, {"cle": "florence", "nom": "Florence", "annee": 1471, "affiche": "1471", "pays": "Italie", "texte": "La première presse de Florence fonctionne en 1471. La ville des Médicis est aussi un grand foyer de l'humanisme.", "x": 707, "y": 754.8}, {"cle": "segovie", "nom": "Ségovie", "annee": 1472, "affiche": "1472", "pays": "Espagne", "texte": "Juan Párix y imprime le Synodal d'Aguilafuente, le premier livre imprimé en Espagne.", "x": 216.3, "y": 832.3}, {"cle": "buda", "nom": "Buda", "annee": 1473, "affiche": "1473", "pays": "Hongrie", "texte": "Andreas Hess y imprime la Chronique de Buda, achevée le 5 juin 1473. C'est le premier livre imprimé en Hongrie. Buda fait aujourd'hui partie de Budapest.", "x": 927.2, "y": 581.2}, {"cle": "cracovie", "nom": "Cracovie", "annee": 1473, "affiche": "1473", "pays": "Pologne", "texte": "Kasper Straube, un imprimeur venu de Bavière, y imprime en 1473 un almanach pour l'année 1474.", "x": 938.6, "y": 469.7}, {"cle": "lyon", "nom": "Lyon", "annee": 1473, "affiche": "1473", "pays": "France", "texte": "Le 17 septembre 1473, Guillaume Le Roy y achève le premier livre imprimé à Lyon, pour le marchand Barthélemy Buyer.", "x": 515.3, "y": 665.3}, {"cle": "bruges", "nom": "Bruges", "annee": 1473, "affiche": "vers 1473", "pays": "Belgique", "texte": "Vers 1473, William Caxton et Colard Mansion y impriment le premier livre en anglais, un recueil d'histoires sur la guerre de Troie.", "x": 488.4, "y": 431.1}, {"cle": "valence", "nom": "Valence", "annee": 1475, "affiche": "1475", "pays": "Espagne", "texte": "Le plus ancien livre daté de Valence est achevé le 23 février 1475. L'Allemand Lambert Palmart est le premier imprimeur dont le nom apparaît dans un livre valencien.", "x": 327.3, "y": 913.6}, {"cle": "westminster", "nom": "Westminster", "annee": 1476, "affiche": "1476", "pays": "Royaume-Uni", "texte": "En 1476, William Caxton installe la première presse d'Angleterre à Westminster, aujourd'hui un quartier de Londres.", "x": 401.4, "y": 408.5}, {"cle": "seville", "nom": "Séville", "annee": 1477, "affiche": "1477", "pays": "Espagne", "texte": "En 1477, trois associés espagnols, Antonio Martínez, Alfonso del Puerto et Bartolomé Segura, commencent à y imprimer.", "x": 129, "y": 968}, {"cle": "leipzig", "nom": "Leipzig", "annee": 1481, "affiche": "1481", "pays": "Allemagne", "texte": "Le 28 septembre 1481, Marcus Brandis y achève le premier livre imprimé connu de la ville.", "x": 731.3, "y": 432.9}, {"cle": "odense", "nom": "Odense", "annee": 1482, "affiche": "1482", "pays": "Danemark", "texte": "En 1482, Johann Snell y imprime les deux premiers livres du Danemark.", "x": 677.8, "y": 261.3}, {"cle": "stockholm", "nom": "Stockholm", "annee": 1483, "affiche": "1483", "pays": "Suède", "texte": "En 1483, le même Johann Snell y imprime le premier livre de Suède, le Dialogus creaturarum.", "x": 843.1, "y": 84.9}, {"cle": "faro", "nom": "Faro", "annee": 1487, "affiche": "1487", "pays": "Portugal", "texte": "En 1487, le Pentateuque de Faro, imprimé en hébreu, devient le premier livre imprimé au Portugal.", "x": 61.4, "y": 968.7}];
+  var DEBUT = 1450;
+  var FIN = 1500;
+  var DECENNIES = [
+    { n: 1, de: 1450, a: 1459, nom: "Années 1450" },
+    { n: 2, de: 1460, a: 1469, nom: "Années 1460" },
+    { n: 3, de: 1470, a: 1479, nom: "Années 1470" },
+    { n: 4, de: 1480, a: 1489, nom: "Années 1480" }
+  ];
+  var QUESTIONS = [
+    { q: "De 1450 à 1464, dans quelle région se trouvent toutes les villes qui impriment?", r: "Autour de Mayence, le long du Rhin et dans le sud de l'Allemagne : Mayence, Strasbourg et Bamberg." },
+    { q: "Combien d'années faut-il pour que l'imprimerie atteigne la Suède? Et le Portugal?", r: "Partie de Mayence vers 1450, elle arrive à Stockholm en 1483, environ 33 ans plus tard. Elle atteint Faro en 1487, environ 37 ans plus tard." },
+    { q: "Pourquoi l'imprimerie se répand-elle si vite?", r: "Les imprimeurs voyagent : souvent formés en Allemagne, ils installent des presses ailleurs. Un livre imprimé coûte beaucoup moins cher qu'un manuscrit, alors la demande grandit." }
+  ];
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, NB + "$1").replace(/« /g, "«" + NB).replace(/(\d) (\d{3})\b/g, "$1" + NB + "$2").replace(/(\d) %/g, "$1" + NB + "%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function svgEl(nom, attributs) {
+    var n = document.createElementNS(NS, nom);
+    Object.keys(attributs || {}).forEach(function (cle) { n.setAttribute(cle, attributs[cle]); });
+    return n;
+  }
+  function decennie(annee) {
+    for (var i = 0; i < DECENNIES.length; i += 1) { if (annee <= DECENNIES[i].a) { return DECENNIES[i]; } }
+    return DECENNIES[DECENNIES.length - 1];
+  }
+  function couleur(annee) { return "var(--imp-d" + decennie(annee).n + ")"; }
+  function liste(noms) {
+    if (noms.length < 2) { return noms.join(""); }
+    return noms.slice(0, -1).join(", ") + " et " + noms[noms.length - 1];
+  }
+  var svg = racine.querySelector(".imp__svg");
+  var carte = racine.querySelector(".imp__carte");
+  var calqueVilles = racine.querySelector(".imp__villes");
+  var calqueNoms = racine.querySelector(".imp__noms");
+  var curseur = racine.querySelector(".imp__curseur");
+  var axe = racine.querySelector(".imp__axe");
+  var affAnnee = racine.querySelector(".imp__annee");
+  var evenement = racine.querySelector(".imp__evenement");
+  var compteurAnnee = racine.querySelector(".imp__compteur-annee");
+  var compteurTexte = racine.querySelector(".imp__compteur-texte");
+  var jouer = racine.querySelector(".imp__jouer");
+  var iconeJouer = racine.querySelector(".imp__icone-jouer");
+  var replier = racine.querySelector(".imp__replier");
+  var groupes = racine.querySelector(".imp__groupes");
+  var atoi = racine.querySelector(".imp__atoi");
+  var fiche = racine.querySelector(".imp__fiche");
+  var legende = racine.querySelector(".imp__legende");
+  var onglets = Array.prototype.slice.call(racine.querySelectorAll(".imp__onglet"));
+  var etat = { annee: DEBUT, choisie: null, vue: "recit", minuterie: null, k: 1 };
+  var marques = {};
+  var noms = {};
+  var puces = {};
+  /* ---------------------------------------------------------------- la carte */
+  var ETOILE = "M0-10.5L2.5-3.4 10-3.3 4-1.2 6.2 6.4 0 2 -6.2 6.4 -4 1.2 -10-3.3 -2.5-3.4z";
+  VILLES.forEach(function (v) {
+    var g = svgEl("g", { "class": "imp__ville", "data-ville": v.cle, transform: "translate(" + v.x + " " + v.y + ")", tabindex: "-1", role: "button", "aria-hidden": "true" });
+    g.style.setProperty("--c", couleur(v.annee));
+    g.setAttribute("aria-label", typo(v.nom + ", première presse : " + v.affiche));
+    var marque = svgEl("g", { "class": "imp__marque" });
+    var pop = svgEl("g", { "class": "imp__pop" });
+    marque.appendChild(svgEl("circle", { "class": "imp__cible", r: "15" }));
+    marque.appendChild(svgEl("circle", { "class": "imp__onde", r: "7" }));
+    marque.appendChild(svgEl("circle", { "class": "imp__halo", r: v.cle === "mayence" ? "13.5" : "11" }));
+    if (v.cle === "mayence") { pop.appendChild(svgEl("path", { "class": "imp__point", d: ETOILE })); }
+    else { pop.appendChild(svgEl("circle", { "class": "imp__point", r: "6.5" })); }
+    marque.appendChild(pop);
+    g.appendChild(marque);
+    calqueVilles.appendChild(g);
+    marques[v.cle] = g;
+    var t = svgEl("text", { "class": "imp__nom" + (v.cle === "mayence" ? " imp__nom--mayence" : ""), "data-ville": v.cle });
+    t.textContent = v.nom;
+    calqueNoms.appendChild(t);
+    noms[v.cle] = t;
+    g.addEventListener("click", function () { choisir(v.cle); });
+    g.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); choisir(v.cle); }
+    });
+  });
+  function cadrer() {
+    var largeur = svg.clientWidth || 0;
+    var hauteur = svg.clientHeight || 0;
+    var x = 0, y = 0, w = CADRE.W, h = CADRE.H;
+    if (racine.classList.contains("est-plein-ecran") && largeur > 0 && hauteur > 0) {
+      var ratio = largeur / hauteur;
+      if (ratio > CADRE.W / CADRE.H) {
+        w = Math.min(CADRE.H * ratio, CADRE.D[2] - CADRE.D[0]);
+        h = w / ratio;
+        x = Math.max(CADRE.D[0], Math.min(CADRE.W / 2 - w / 2, CADRE.D[2] - w));
+        y = CADRE.H / 2 - h / 2;
+      } else {
+        h = Math.min(CADRE.W / ratio, CADRE.D[3] - CADRE.D[1]);
+        w = h * ratio;
+        x = CADRE.W / 2 - w / 2;
+        y = Math.max(CADRE.D[1], Math.min(CADRE.H / 2 - h / 2, CADRE.D[3] - h));
+      }
+    }
+    svg.setAttribute("viewBox", [x, y, w, h].map(function (v) { return Math.round(v * 10) / 10; }).join(" "));
+    etat.k = largeur > 0 ? Math.max(0.6, Math.min(2.6, w / largeur)) : 1;
+    svg.style.setProperty("--k", String(Math.round(etat.k * 1000) / 1000));
+    placerNoms();
+  }
+  /* Les noms se placent un à un, du plus important au moins important, à la
+     première position libre autour du point; sinon ils restent cachés. */
+  function placerNoms() {
+    var k = etat.k;
+    var marge = 1.5 * k;
+    var visibles = VILLES.filter(function (v) { return v.annee <= etat.annee; });
+    function rayon(v) { return (v.cle === "mayence" ? 12 : 8) * k; }
+    var obstacles = visibles.map(function (v) { var r = rayon(v); return { x0: v.x - r, y0: v.y - r, x1: v.x + r, y1: v.y + r }; });
+    var ordre = visibles.slice().sort(function (a, b) {
+      var pa = a.cle === etat.choisie ? -2 : a.cle === "mayence" ? -1 : a.annee;
+      var pb = b.cle === etat.choisie ? -2 : b.cle === "mayence" ? -1 : b.annee;
+      return pa - pb;
+    });
+    var places = [];
+    /* Un nom doit rester entier dans la partie visible de la carte. */
+    var vb = (svg.getAttribute("viewBox") || "").split(/[ ,]+/).map(Number);
+    var bord = vb.length === 4 && vb.every(isFinite) ? { x0: vb[0] + marge, y0: vb[1] + marge, x1: vb[0] + vb[2] - marge, y1: vb[1] + vb[3] - marge } : null;
+    function dedans(boite) {
+      return !bord || (boite.x0 >= bord.x0 && boite.x1 <= bord.x1 && boite.y0 >= bord.y0 && boite.y1 <= bord.y1);
+    }
+    function libre(boite) {
+      return dedans(boite) && !places.concat(obstacles).some(function (o) {
+        return boite.x0 < o.x1 + marge && boite.x1 + marge > o.x0 && boite.y0 < o.y1 + marge && boite.y1 + marge > o.y0;
+      });
+    }
+    VILLES.forEach(function (v) { noms[v.cle].setAttribute("class", "imp__nom est-cache" + (v.cle === "mayence" ? " imp__nom--mayence" : "")); });
+    ordre.forEach(function (v) {
+      var t = noms[v.cle];
+      var classe = "imp__nom" + (v.cle === "mayence" ? " imp__nom--mayence" : "") + (v.cle === etat.choisie ? " est-choisi" : "");
+      /* Mesure réelle du nom, à la taille affichée : largeur, hauteur et
+         position de la ligne de base dans la boîte. */
+      t.setAttribute("class", classe);
+      t.setAttribute("x", "0");
+      t.setAttribute("y", "0");
+      t.setAttribute("text-anchor", "start");
+      var bb = null;
+      try { bb = t.getBBox(); } catch (e) { bb = null; }
+      var taille = 12.5 * k;
+      var L = bb && bb.width ? bb.width : v.nom.length * taille * 0.62;
+      var haut = bb && bb.height ? -bb.y : taille * 0.9;
+      var bas = bb && bb.height ? bb.height + bb.y : taille * 0.3;
+      var r = rayon(v) + 2 * k;
+      var essais = [
+        { x: v.x + r, y: v.y + (haut - bas) / 2, ancre: "start" },
+        { x: v.x - r, y: v.y + (haut - bas) / 2, ancre: "end" },
+        { x: v.x, y: v.y - r - bas, ancre: "middle" },
+        { x: v.x, y: v.y + r + haut, ancre: "middle" },
+        { x: v.x + r * 0.7, y: v.y - r * 0.7 - bas, ancre: "start" },
+        { x: v.x + r * 0.7, y: v.y + r * 0.7 + haut, ancre: "start" },
+        { x: v.x - r * 0.7, y: v.y - r * 0.7 - bas, ancre: "end" },
+        { x: v.x - r * 0.7, y: v.y + r * 0.7 + haut, ancre: "end" }
+      ];
+      essais.forEach(function (e) {
+        var x0 = e.ancre === "start" ? e.x : e.ancre === "end" ? e.x - L : e.x - L / 2;
+        e.b = { x0: x0, x1: x0 + L, y0: e.y - haut, y1: e.y + bas };
+      });
+      var retenu = null;
+      for (var i = 0; i < essais.length; i += 1) { if (libre(essais[i].b)) { retenu = essais[i]; break; } }
+      if (!retenu && v.cle === etat.choisie) {
+        /* La ville choisie garde son nom : on prend la place la moins encombrée. */
+        var gene = function (b) {
+          return places.concat(obstacles.filter(function (o, j) { return visibles[j] !== v; })).reduce(function (somme, o) {
+            var l = Math.min(b.x1, o.x1) - Math.max(b.x0, o.x0);
+            var h = Math.min(b.y1, o.y1) - Math.max(b.y0, o.y0);
+            return somme + (l > 0 && h > 0 ? l * h : 0);
+          }, 0);
+        };
+        var dans = essais.filter(function (e) { return dedans(e.b); });
+        retenu = (dans.length ? dans : essais).slice().sort(function (a, b) { return gene(a.b) - gene(b.b); })[0];
+      }
+      if (!retenu) { t.setAttribute("class", classe + " est-cache"); return; }
+      places.push(retenu.b);
+      t.setAttribute("x", String(Math.round(retenu.x * 10) / 10));
+      t.setAttribute("y", String(Math.round(retenu.y * 10) / 10));
+      t.setAttribute("text-anchor", retenu.ancre);
+    });
+  }
+  /* ------------------------------------------------------------ le temps */
+  for (var annee = DEBUT; annee <= FIN; annee += 5) {
+    var grad = el("span", "imp__grad" + (annee % 10 === 0 ? "" : " imp__grad--mineure"), annee % 10 === 0 ? String(annee) : "");
+    grad.style.left = ((annee - DEBUT) / (FIN - DEBUT) * 100) + "%";
+    axe.appendChild(grad);
+  }
+  function texteEvenement(a) {
+    var nouvelles = VILLES.filter(function (v) { return v.annee === a; }).map(function (v) { return v.nom; });
+    if (a === DEBUT) { return "À Mayence, Gutenberg imprime avec des caractères mobiles."; }
+    if (a === FIN) { return "Des presses fonctionnent dans plus de 200 villes d'Europe."; }
+    if (nouvelles.length === 1) { return "Première presse à " + nouvelles[0] + "."; }
+    if (nouvelles.length > 1) { return "Premières presses à " + liste(nouvelles) + "."; }
+    return "Aucune nouvelle ville de la carte cette année.";
+  }
+  function regler(a, options) {
+    options = options || {};
+    var avant = etat.annee;
+    a = Math.max(DEBUT, Math.min(FIN, Math.round(a)));
+    etat.annee = a;
+    curseur.value = String(a);
+    curseur.setAttribute("aria-valuetext", String(a));
+    curseur.style.setProperty("--p", ((a - DEBUT) / (FIN - DEBUT) * 100) + "%");
+    affAnnee.textContent = String(a);
+    compteurAnnee.textContent = String(a);
+    var n = 0;
+    VILLES.forEach(function (v) {
+      var g = marques[v.cle];
+      var visible = v.annee <= a;
+      if (visible) { n += 1; }
+      var neuve = visible && options.anime && v.annee > avant;
+      var classe = "imp__ville" + (visible ? " est-visible" : "") + (v.cle === etat.choisie ? " est-choisie" : "");
+      g.setAttribute("class", classe);
+      if (neuve) {
+        void g.getBoundingClientRect();
+        g.setAttribute("class", classe + " est-neuve");
+      }
+      g.setAttribute("tabindex", visible ? "0" : "-1");
+      g.setAttribute("aria-hidden", visible ? "false" : "true");
+      var puce = puces[v.cle];
+      puce.classList.toggle("est-futur", !visible);
+      puce.setAttribute("title", visible ? "" : typo("Pas encore en " + a));
+    });
+    compteurTexte.textContent = typo(n === 1 ? "1 ville de la carte imprime" : n + " villes de la carte impriment");
+    if (!options.silencieux || VILLES.some(function (v) { return v.annee === a; }) || a === FIN) {
+      evenement.textContent = "";
+      evenement.appendChild(el("strong", "", a === DEBUT ? "Vers 1450" : String(a)));
+      evenement.appendChild(document.createTextNode(typo(texteEvenement(a))));
+    }
+    if (etat.choisie) {
+      var choisie = trouver(etat.choisie);
+      if (choisie.annee > a) { etat.choisie = null; majFiche(); majChoix(); }
+    }
+    placerNoms();
+  }
+  function arreter() {
+    if (etat.minuterie) { clearInterval(etat.minuterie); etat.minuterie = null; }
+    jouer.setAttribute("aria-label", "Faire défiler les années");
+    iconeJouer.setAttribute("d", "M4 2.5v11l9-5.5z");
+  }
+  function lancer() {
+    if (etat.annee >= FIN) { regler(DEBUT); }
+    jouer.setAttribute("aria-label", "Arrêter le défilement");
+    iconeJouer.setAttribute("d", "M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z");
+    etat.minuterie = setInterval(function () {
+      if (etat.annee >= FIN) { arreter(); montrerVue("bilan"); return; }
+      regler(etat.annee + 1, { anime: true, silencieux: true });
+    }, 260);
+  }
+  jouer.addEventListener("click", function () { if (etat.minuterie) { arreter(); } else { lancer(); } });
+  curseur.addEventListener("input", function () {
+    arreter();
+    regler(Number(curseur.value), { anime: Number(curseur.value) > etat.annee });
+  });
+  /* ------------------------------------------------------- la lecture */
+  function trouver(cle) {
+    for (var i = 0; i < VILLES.length; i += 1) { if (VILLES[i].cle === cle) { return VILLES[i]; } }
+    return null;
+  }
+  function montrerVue(vue) {
+    etat.vue = vue;
+    onglets.forEach(function (o) {
+      var actif = o.getAttribute("data-vue") === vue;
+      o.setAttribute("aria-selected", actif ? "true" : "false");
+      o.tabIndex = actif ? 0 : -1;
+    });
+    ["recit", "ville", "bilan"].forEach(function (v) {
+      racine.querySelector("#imp-vue-" + v).hidden = v !== vue;
+    });
+  }
+  function majChoix() {
+    VILLES.forEach(function (v) {
+      marques[v.cle].classList.toggle("est-choisie", v.cle === etat.choisie);
+      puces[v.cle].setAttribute("aria-pressed", v.cle === etat.choisie ? "true" : "false");
+    });
+    placerNoms();
+  }
+  function majFiche() {
+    fiche.textContent = "";
+    var v = etat.choisie ? trouver(etat.choisie) : null;
+    if (!v) {
+      fiche.appendChild(el("span", "imp__surtitre", "Aucune ville choisie"));
+      fiche.appendChild(el("p", "imp__paragraphe", "Clique sur une ville de la carte ou dans la liste du récit pour lire son histoire."));
+      return;
+    }
+    var rang = VILLES.filter(function (x) { return x.annee < v.annee; }).length + 1;
+    var badge = el("span", "imp__badge", decennie(v.annee).nom);
+    badge.style.setProperty("--c", couleur(v.annee));
+    fiche.appendChild(badge);
+    fiche.appendChild(el("span", "imp__surtitre", "Première presse : " + v.affiche));
+    var titre = el("p", "imp__intertitre", v.nom);
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    fiche.appendChild(titre);
+    fiche.appendChild(el("p", "imp__paragraphe", v.texte));
+    var infos = el("dl", "imp__infos");
+    [["Aujourd'hui", v.pays], ["Sur la carte", rang === 1 ? "La première ville" : "Parmi les " + rang + " premières villes"]].forEach(function (paire) {
+      var bloc = el("div");
+      bloc.appendChild(el("dt", "", paire[0]));
+      bloc.appendChild(el("dd", "", paire[1]));
+      infos.appendChild(bloc);
+    });
+    fiche.appendChild(infos);
+  }
+  function choisir(cle) {
+    var v = trouver(cle);
+    if (!v) { return; }
+    arreter();
+    if (v.annee > etat.annee) { regler(v.annee, { anime: true }); }
+    etat.choisie = cle;
+    majChoix();
+    majFiche();
+    montrerVue("ville");
+  }
+  DECENNIES.forEach(function (d) {
+    var membres = VILLES.filter(function (v) { return v.annee >= d.de && v.annee <= d.a; });
+    if (!membres.length) { return; }
+    var bloc = el("div", "imp__groupe");
+    var nom = el("p", "imp__groupe-nom");
+    var pastille = el("span", "imp__pastille");
+    pastille.style.setProperty("--c", "var(--imp-d" + d.n + ")");
+    pastille.setAttribute("aria-hidden", "true");
+    nom.appendChild(pastille);
+    nom.appendChild(document.createTextNode(typo(d.nom)));
+    bloc.appendChild(nom);
+    var ligne = el("div", "imp__puces");
+    membres.forEach(function (v) {
+      var puce = el("button", "imp__puce", v.nom + " " + v.affiche);
+      puce.type = "button";
+      puce.style.setProperty("--c", couleur(v.annee));
+      puce.setAttribute("aria-pressed", "false");
+      puce.setAttribute("data-ville", v.cle);
+      puce.addEventListener("click", function () { choisir(v.cle); });
+      ligne.appendChild(puce);
+      puces[v.cle] = puce;
+    });
+    bloc.appendChild(ligne);
+    groupes.appendChild(bloc);
+  });
+  QUESTIONS.forEach(function (item, i) {
+    atoi.appendChild(el("p", "imp__question", item.q));
+    var voir = el("button", "imp__voir", "Voir une piste");
+    voir.type = "button";
+    var piste = el("p", "imp__piste", item.r);
+    piste.id = "imp-piste-" + (i + 1);
+    piste.hidden = true;
+    voir.setAttribute("aria-expanded", "false");
+    voir.setAttribute("aria-controls", piste.id);
+    voir.addEventListener("click", function () {
+      var ouvrir = piste.hidden;
+      piste.hidden = !ouvrir;
+      voir.setAttribute("aria-expanded", ouvrir ? "true" : "false");
+      voir.textContent = ouvrir ? "Masquer la piste" : "Voir une piste";
+    });
+    atoi.appendChild(voir);
+    atoi.appendChild(piste);
+  });
+  DECENNIES.forEach(function (d) {
+    var cle = el("span", "imp__cle");
+    var pastille = el("span", "imp__pastille");
+    pastille.style.setProperty("--c", "var(--imp-d" + d.n + ")");
+    pastille.setAttribute("aria-hidden", "true");
+    cle.appendChild(pastille);
+    cle.appendChild(document.createTextNode(typo(d.nom)));
+    legende.appendChild(cle);
+  });
+  var cleMayence = el("span", "imp__cle");
+  var etoile = svgEl("svg", { "class": "imp__etoile", viewBox: "-11 -11 22 22", "aria-hidden": "true", focusable: "false" });
+  etoile.appendChild(svgEl("path", { d: ETOILE }));
+  cleMayence.appendChild(etoile);
+  cleMayence.appendChild(document.createTextNode("Mayence, le point de départ"));
+  legende.appendChild(cleMayence);
+  onglets.forEach(function (o) {
+    o.addEventListener("click", function () { montrerVue(o.getAttribute("data-vue")); });
+  });
+  racine.querySelector(".imp__onglets").addEventListener("keydown", function (e) {
+    var rang = onglets.indexOf(document.activeElement);
+    if (rang < 0) { return; }
+    var cible = null;
+    if (e.key === "ArrowRight") { cible = (rang + 1) % onglets.length; }
+    else if (e.key === "ArrowLeft") { cible = (rang - 1 + onglets.length) % onglets.length; }
+    if (cible === null) { return; }
+    e.preventDefault();
+    montrerVue(onglets[cible].getAttribute("data-vue"));
+    onglets[cible].focus();
+  });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    setTimeout(cadrer, 30);
+  });
+  if (typeof ResizeObserver === "function") {
+    new ResizeObserver(function () { cadrer(); }).observe(carte);
+  } else {
+    window.addEventListener("resize", cadrer);
+  }
+  new MutationObserver(function () { setTimeout(cadrer, 30); }).observe(racine, { attributes: true, attributeFilter: ["class"] });
+  majFiche();
+  montrerVue("recit");
+  regler(DEBUT);
+  cadrer();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
+
 <h3 id="les-moyens-de-diffusion-des-savoirs">Les moyens de diffusion des savoirs</h3>
 <div class="cartes">
 <p><strong>L'imprimerie</strong> L'invention de l'imprimerie vers 1450-1453 joue un rôle
@@ -878,6 +1535,16 @@ documents de l'élève et de l'enseignant sont à venir sur le site du
 <li><a href="https://fr.wikipedia.org/">Wikipédia</a></li>
 <li><a href="https://www.lelivrescolaire.fr/">Le livre scolaire</a></li>
 <li><a href="https://www.pariscityvision.com/">Paris City Vision, La Joconde</a></li>
+<li><a href="https://library.princeton.edu/visit/exhibitions/gutenberg-after-europes-first-printers-1450-1470">Bibliothèque de l'Université de Princeton, Gutenberg and After : Europe's First Printers, 1450-1470</a></li>
+<li><a href="https://data.cerl.org/istc/">Incunabula Short Title Catalogue (ISTC), British Library et CERL</a></li>
+<li><a href="https://historyofinformation.com/detail.php?entryid=36">History of Information, By 1500 Printing Presses are Established in 282 Cities</a></li>
+<li><a href="https://histoire.ens.fr/IMG/pdf/presentationagregationseance2.pdf">École normale supérieure, département d'histoire, l'imprimerie et le livre à la Renaissance</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Global_spread_of_the_printing_press">Wikipédia (en anglais), Global spread of the printing press</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Incunable">Wikipédia (en anglais), Incunable</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ulrich_Zell">Wikipédia (en anglais), Ulrich Zell</a></li>
+<li><a href="https://www.enciclopedia.cat/gran-enciclopedia-catalana/impremta-0">Gran Enciclopèdia Catalana, Impremta</a></li>
+<li><a href="https://www.upo.es/lareformaensevilla/el-libro-y-la-reforma">Universidad Pablo de Olavide, El libro y la Reforma en Sevilla</a></li>
+<li><a href="https://www.naturalearthdata.com/">Natural Earth, fonds de carte</a></li>
 </ul>
     </div>
 
