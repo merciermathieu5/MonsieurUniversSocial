@@ -345,13 +345,6 @@ Treize colonies dans la guerre d'indépendance.
 ::: schema causes-revolution
 :::
 
-Ces causes ne surgissent pas toutes en même temps. Elles s'enchaînent
-plutôt, car chaque conséquence devient à son tour la cause d'un nouveau
-fait. Reconstruis cet enchaînement, de la guerre de Sept Ans jusqu'à la
-Déclaration d'indépendance.
-
-::: composant causes-revolution
-
 ::: questions
 1. Pourquoi la Proclamation royale de 1763 déçoit-elle les colons?
 2. Nomme les trois taxes imposées par Londres et explique le slogan « pas de taxation sans représentation ».
@@ -562,14 +555,5 @@ Source : Hérodote.net
 - [Wikipédia](https://fr.wikipedia.org/)
 - [L'Encyclopédie canadienne, Traité de Paris (1763)](https://www.thecanadianencyclopedia.ca/fr/article/traite-de-paris-1763)
 - [L'Encyclopédie canadienne, Proclamation royale de 1763](https://thecanadianencyclopedia.ca/fr/article/proclamation-of-1763)
-- [Wikipédia (en anglais), Financial costs of the Seven Years' War](https://en.wikipedia.org/wiki/Financial_costs_of_the_Seven_Years%27_War)
-- [Wikipédia (en anglais), Stamp Act 1765](https://en.wikipedia.org/wiki/Stamp_Act_1765)
-- [Encyclopædia Britannica, Townshend Acts](https://www.britannica.com/event/Townshend-Acts)
 - [Wikipédia (en anglais), Boston Massacre](https://en.wikipedia.org/wiki/Boston_Massacre)
 - [World History Encyclopedia, Massacre de Boston](https://www.worldhistory.org/trans/fr/1-22394/massacre-de-boston/)
-- [Encyclopædia Britannica, Tea Act](https://www.britannica.com/event/Tea-Act)
-- [Encyclopædia Britannica, Intolerable Acts](https://www.britannica.com/print/article/291884)
-- [Wikipédia (en anglais), First Continental Congress](https://en.wikipedia.org/wiki/First_Continental_Congress)
-- [Founders Online, notes de John Adams au premier Congrès continental (1774)](https://founders.archives.gov/documents/Adams/01-02-02-0004-0006-0007)
-- [World History Encyclopedia, Battles of Lexington and Concord](https://www.worldhistory.org/article/2341/battles-of-lexington-and-concord)
-- [National Portrait Gallery, Common Sense (1776)](https://npg.si.edu/exhibit/paine/pop-ups/01-02.html)

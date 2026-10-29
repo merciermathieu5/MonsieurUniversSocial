@@ -139,5 +139,34 @@ for (let i = 4; i < ville.sol.o.length; i += 8) parties.add(ville.sol.o[i]);
 verifier("toutes les parties sauf les jardins ont un volume ou un sol", parties.size === 14 && !parties.has(0), [...parties].sort((a, b) => a - b).join(","));
 verifier("la construction reste rapide", duree < 4000, duree + " ms");
 
+console.log("ZOOM À LA MOLETTE");
+{
+  const apiM = racine.babylone;
+  const aide = (racine.querySelector(".bab__aide") || {}).textContent || "";
+  verifier("l'aide annonce le zoom à la molette seule", /Molette pour zoomer/.test(aide) && !/Ctrl/.test(aide), aide);
+  verifier("l'avis « garde la touche Ctrl » a disparu", !racine.querySelector(".bab__avis") && !/garde la touche Ctrl/.test(composant) && !/function avis\(/.test(script));
+  const doit = apiM && apiM.molettePourMaquette, facteur = apiM && apiM.facteurMolette;
+  verifier("les règles de la molette sont accessibles", typeof doit === "function" && typeof facteur === "function");
+  if (typeof doit === "function" && typeof facteur === "function") {
+    const roue = (o) => Object.assign({ ctrlKey: false, metaKey: false, deltaY: 100, deltaMode: 0 }, o);
+    verifier("molette seule sur la maquette, page immobile : on zoome", doit(roue(), false, 10000, 9000) === true);
+    verifier("la page défilait il y a 150 ms : on la laisse défiler (pas de piège)", doit(roue(), false, 10000, 9850) === false);
+    verifier("Ctrl + molette ou pincement : on zoome même juste après un défilement", doit(roue({ ctrlKey: true }), false, 10000, 9990) === true);
+    verifier("en plein écran, la molette zoome toujours", doit(roue(), true, 10000, 9990) === true);
+    const f1 = facteur(roue()), f2 = facteur(roue({ deltaY: -100 })), f3 = facteur(roue({ deltaY: 3, deltaMode: 1 }));
+    const fp = facteur(roue({ ctrlKey: true, deltaY: 5 })), fx = facteur(roue({ deltaY: 5000 }));
+    verifier("pas doux : un cran éloigne d'environ 15 %", f1 > 1.1 && f1 < 1.2, f1.toFixed(3));
+    verifier("le cran inverse rapproche d'autant", Math.abs(f1 * f2 - 1) < 1e-9, (f1 * f2).toFixed(6));
+    verifier("une molette réglée en lignes (Firefox) donne le même pas", Math.abs(f3 - f1) < 0.01, f3.toFixed(3));
+    verifier("le pincement du pavé tactile garde sa vitesse", Math.abs(fp - Math.exp(5 * 0.0022)) < 1e-9, fp.toFixed(4));
+    verifier("un grand coup de molette reste borné", fx <= Math.exp(240 * 0.0014) + 1e-9, fx.toFixed(3));
+  }
+  verifier("la molette de la maquette bloque le défilement (preventDefault, non passive) et la page est surveillée",
+    /toile\.addEventListener\("wheel", function \(e\) \{\s*if \(!molettePourMaquette\(e, estPleinEcran\(\)/.test(script) &&
+    /e\.preventDefault\(\);\s*vol = null;\s*var b = toile\.getBoundingClientRect\(\);\s*zoomer\(facteurMolette\(e\)/.test(script) &&
+    /window\.addEventListener\("wheel", noterDefilement, \{ passive: true, capture: true \}\)/.test(script) &&
+    /document\.addEventListener\("scroll", noterDefilement, \{ passive: true, capture: true \}\)/.test(script));
+}
+
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
 process.exit(echecs ? 1 : 0);

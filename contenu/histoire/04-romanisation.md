@@ -140,10 +140,6 @@ l'empire de connaître une période de prospérité jusqu'au 2e siècle de notre
 
 ::: composant rome-territoire
 
-::: video l2zFYp2qYRI
-L'évolution territoriale de Rome, de la cité à l'Empire
-:::
-
 ::: questions
 1. Quelles sont les trois grandes périodes de l'histoire romaine et leurs dates?
 2. Que signifie la devise Senatus Populusque Romanus (SPQR)?
@@ -625,7 +621,10 @@ terrain, comme une rivière naturelle. L'aqueduc du pont du Gard a un dénivelé
 d'environ 25 cm par kilomètre, ce qui démontre l'immense savoir-faire des
 ingénieurs romains. Un aqueduc permet d'obtenir de l'eau courante et assez
 abondante sans pompe, tandis que l'eau d'un puits doit être puisée pour être
-utilisée.
+utilisée. Explore la maquette pour suivre l'eau, de la source jusqu'à la
+ville. Choisis une partie pour découvrir son rôle.
+
+::: composant aqueduc-romain
 
 ::: video aJcnX6cuw3Y
 Le fonctionnement d'un aqueduc romain
@@ -746,9 +745,39 @@ toutes les décisions passent par toi.
 - [Wikipédia, Jovien](https://fr.wikipedia.org/wiki/Jovien)
 - [Wikipédia, Empire romain d'Occident](https://fr.wikipedia.org/wiki/Empire_romain_d%27Occident)
 - [Wikipedia, Migration Period](https://en.wikipedia.org/wiki/Migration_Period)
+- [Wikipedia, Roman province (dates de création des provinces)](https://en.wikipedia.org/wiki/Roman_province)
+- [Ancient World Mapping Center, limites des provinces vers 200 (licence ODbL)](https://github.com/AWMC/geodata/tree/master/Cultural-Data/political_shading)
+- [Wikipédia, Guerre latine](https://fr.wikipedia.org/wiki/Guerre_latine)
+- [Wikipedia, Praetor](https://en.wikipedia.org/wiki/Praetor)
+- [Wikipédia, Gaule narbonnaise](https://fr.wikipedia.org/wiki/Gaule_narbonnaise)
+- [Wikipedia, Via Domitia](https://en.wikipedia.org/wiki/Via_Domitia)
+- [Wikipedia, Balearic Islands](https://en.wikipedia.org/wiki/Balearic_Islands)
+- [Wikipedia, Mauretania Caesariensis](https://en.wikipedia.org/wiki/Mauretania_Caesariensis)
+- [Wikipedia, Trajan's Column](https://en.wikipedia.org/wiki/Trajan%27s_Column)
+- [Wikipedia, Hadrian's Wall](https://en.wikipedia.org/wiki/Hadrian%27s_Wall)
+- [Wikipédia, Mésopotamie (province romaine)](https://fr.wikipedia.org/wiki/M%C3%A9sopotamie_(province_romaine))
+- [Wikipedia, Aurelian Walls](https://en.wikipedia.org/wiki/Aurelian_Walls)
+- [Wikipedia, Crossing of the Rhine](https://en.wikipedia.org/wiki/Crossing_of_the_Rhine)
+- [Wikipedia, Sack of Rome (410)](https://en.wikipedia.org/wiki/Sack_of_Rome_(410))
+- [Wikipedia, End of Roman rule in Britain](https://en.wikipedia.org/wiki/End_of_Roman_rule_in_Britain)
+- [Wikipedia, Visigothic Kingdom](https://en.wikipedia.org/wiki/Visigothic_Kingdom)
+- [Wikipédia, Royaume vandale](https://fr.wikipedia.org/wiki/Royaume_vandale)
+- [Wikipédia, Royaume suève](https://fr.wikipedia.org/wiki/Royaume_su%C3%A8ve)
+- [Wikipedia, Odoacer](https://en.wikipedia.org/wiki/Odoacer)
 - [Ville de Paris, Crypte archéologique de l'île de la Cité, dossier de presse « Les grands monuments de Lutèce », 2009](https://crypte.paris.fr/sites/default/files/2024-04/dossier_de_presse_les_grands_monuments_de_lutece_-_septembre_2009.pdf)
 - [Musée Carnavalet, Paris dans l'Antiquité](https://www.carnavalet.paris.fr/sites/default/files/2022-07/paris_antiquite_mp_pdf.pdf)
 - [Ministère de la Culture, Paris antique : les sources et la destination de l'aqueduc](https://archeologie.culture.gouv.fr/paris/en/sources-and-destination)
 - [Wikipédia, Arènes de Lutèce](https://fr.wikipedia.org/wiki/Ar%C3%A8nes_de_Lut%C3%A8ce)
 - [Wikipédia (en anglais), Pillar of the Boatmen](https://en.wikipedia.org/wiki/Pillar_of_the_Boatmen)
 - [Julien, Misopogon, traduction anglaise, ToposText](https://topostext.org/work/791)
+- [Établissement public du pont du Gard, Le parcours de l'eau](https://pontdugard.fr/sites/default/files/2023-05/parcoursbd.pdf)
+- [UNESCO, Pont du Gard](https://whc.unesco.org/fr/list/344)
+- [Wikipédia, Pont du Gard](https://fr.wikipedia.org/wiki/Pont_du_Gard)
+- [Wikipédia (en anglais), Pont du Gard](https://en.wikipedia.org/wiki/Pont_du_Gard)
+- [Wikipédia, Aqueduc de Nîmes](https://fr.wikipedia.org/wiki/Aqueduc_de_N%C3%AEmes)
+- [Wikipédia, Aqueduc du Gier](https://fr.wikipedia.org/wiki/Aqueduc_du_Gier)
+- [Wikipédia, Aqueduc romain](https://fr.wikipedia.org/wiki/Aqueduc_romain)
+- [Nîmes Tourisme (en anglais), The Roman tunnels of Sernhac](https://nimes-tourisme.com/en/decouvrir-agglomeration-nimoise/les-tunnels-romains-de-sernhac/)
+- [Objectif Gard, Nîmes : le castellum aquae, une rareté un peu dissimulée (2022)](https://www.objectifsud.fr/actualites/nimes-le-castellum-aquae-une-rarete-un-peu-dissimulee-51143.php)
+- Vitruve, De l'architecture, livre VIII, chapitres 5 et 6
+- [Kenney, modèles 3D d'arbres de la maquette de l'aqueduc (Nature Kit), licence CC0](https://kenney.nl/assets)

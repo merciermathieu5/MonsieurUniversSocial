@@ -215,5 +215,121 @@ verifier("les couleurs variables (toit, feuillage, torchis) sont marquées", (()
 verifier("environ 13 000 triangles uniques (moins de 25 000)", (() => { const n = cles.reduce((s, k) => s + G[k].n / 3, 0); return n > 8000 && n < 25000; })());
 verifier("le composant reste léger (moins de 450 Ko)", Buffer.byteLength(composant, "utf8") < 450 * 1024, (Buffer.byteLength(composant, "utf8") / 1024).toFixed(1) + " Ko");
 
+console.log("ÉTIQUETTES CALMES");
+// Placement anti-chevauchement (fait seulement au repos de la caméra) : il doit être stable.
+const disposer = api.disposerEtiquettes;
+verifier("la fonction de placement des étiquettes est accessible", typeof disposer === "function");
+if (typeof disposer === "function") {
+  const C = { W: 800, Ht: 500, haut: 40 };
+  const etiq = (x, y, dx, dy, avant) => ({ x, y, l: 100, h: 26, dx: dx || 0, dy: dy || 0, avant: avant !== false });
+  const boiteDe = (e, r) => [e.x + r.dx - e.l / 2, e.y + r.dy - e.h - 9, e.x + r.dx + e.l / 2, e.y + r.dy];
+  const seRecouvrent = (a, b) => !(a[2] <= b[0] || b[2] <= a[0] || a[3] <= b[1] || b[3] <= a[1]);
+  let r = disposer([etiq(400, 300)], C);
+  verifier("une étiquette seule reste à sa place naturelle", r[0].dx === 0 && r[0].dy === 0 && r[0].place, JSON.stringify(r[0]));
+  const A = etiq(400, 300), B = etiq(430, 300);
+  r = disposer([A, B], C);
+  verifier("deux étiquettes qui se gênent : la moins prioritaire se décale, sans recouvrement",
+    r[0].dx === 0 && r[0].dy === 0 && (r[1].dx || r[1].dy) && !seRecouvrent(boiteDe(A, r[0]), boiteDe(B, r[1])), JSON.stringify(r));
+  // Hystérésis : une place précédente encore libre est gardée, même si une autre place libre
+  // vient plus tôt dans la liste des décalages.
+  const B2 = etiq(431, 302, 0, -60);
+  r = disposer([etiq(402, 301), B2], C);
+  verifier("hystérésis : l'étiquette garde sa place précédente tant qu'elle reste libre", r[1].dx === 0 && r[1].dy === -60, JSON.stringify(r[1]));
+  r = disposer([etiq(402, 301, 0, 0, false), B2], C);
+  verifier("quand la gêne disparaît, l'étiquette retourne à sa place naturelle", r[1].dx === 0 && r[1].dy === 0, JSON.stringify(r[1]));
+  // Sans aucune place libre dans le cadre, l'étiquette reste où elle était au lieu de sauter.
+  const petit = { W: 120, Ht: 80, haut: 0 };
+  r = disposer([etiq(60, 60), etiq(60, 60)], petit);
+  verifier("sans place libre, l'étiquette garde sa place (aucun saut)", r[1].dx === 0 && r[1].dy === 0 && r[1].place && !r[1].libre, JSON.stringify(r[1]));
+  r = disposer([etiq(-300, 200)].map((e) => Object.assign(e, { avant: false, dx: 74, dy: -12 })), C);
+  verifier("un lieu hors du cadre garde son décalage, sans place réservée", r[0].dx === 74 && r[0].dy === -12 && !r[0].place, JSON.stringify(r[0]));
+  // Stabilité : en rejouant le placement avec ses propres résultats et des lieux qui bougent
+  // de quelques pixels (petit mouvement de caméra), aucune étiquette ne change de place.
+  const lieux = [[400, 300], [430, 300], [410, 290], [600, 200], [300, 420], [380, 330], [455, 315]];
+  let entrees = lieux.map((p) => etiq(p[0], p[1]));
+  let res = disposer(entrees, C);
+  let sauts = 0;
+  for (let k = 1; k <= 6; k++) {
+    entrees = lieux.map((p, i) => etiq(p[0] + k * 1.5, p[1] - k, res[i].dx, res[i].dy));
+    const res2 = disposer(entrees, C);
+    res2.forEach((q, i) => { if (q.dx !== res[i].dx || q.dy !== res[i].dy) sauts++; });
+    res = res2;
+  }
+  verifier("placements répétés pendant un petit mouvement : aucune étiquette ne saute", sauts === 0, sauts + " saut(s)");
+}
+// Pendant un mouvement, chaque étiquette suit son lieu sans refaire le placement : on rejoue
+// placerEtiquettes (tirée du script) dans une petite simulation, image par image.
+function extraire(src, nom) {
+  const i = src.indexOf("function " + nom + "(");
+  if (i < 0) return null;
+  for (let k = src.indexOf("{", i), prof = 0; k < src.length; k++) {
+    if (src[k] === "{") prof++;
+    else if (src[k] === "}" && --prof === 0) return src.slice(i, k + 1);
+  }
+  return null;
+}
+const srcPlacer = extraire(script, "placerEtiquettes"), srcPositionner = extraire(script, "positionner");
+verifier("les fonctions de placement se trouvent dans le script", !!srcPlacer && !!srcPositionner);
+if (srcPlacer) {
+  const simuler = new Function("etat", `
+    var cam = etat.cam, marques = [], svg = null;
+    var dispo = { faite: false, taille: "", sig: "", minuteur: 0, bouge: false, actif: 0, derniere: 0, intervalle: 0 };
+    var appels = { disposer: 0, positionner: 0, minuteurs: 0 };
+    function cadreEcran() { return { W: 800, Ht: 500, haut: 40, etroit: false }; }
+    function projeter() {}
+    function disposer() { appels.disposer++; dispo.faite = true; }
+    function positionner() { appels.positionner++; }
+    function signalerMouvement() {}
+    function attente() { return 220; }
+    function auRepos() {}
+    function disposerEtiquettes() { appels.disposer++; return []; }
+    function clearTimeout() {}
+    function setTimeout() { appels.minuteurs++; return 1; }
+    var performance = { now: function () { return etat.t; } };
+    ${srcPlacer}
+    return { placer: placerEtiquettes, appels: appels };`);
+  const etat = { cam: { x: 0, y: 0, d: 900, lacet: 0, tangage: 37, h: 0 }, t: 0 };
+  const S = simuler(etat);
+  S.placer(null);
+  for (let i = 1; i <= 20; i++) { etat.cam.lacet += 2; etat.cam.d *= 0.99; etat.t += 16; S.placer(null); }
+  verifier("pendant 20 images de mouvement, aucun nouveau placement : les étiquettes suivent leur lieu",
+    S.appels.disposer === 1 && S.appels.positionner === 21, JSON.stringify(S.appels));
+  verifier("le placement est reporté au repos de la caméra (minuteur relancé à chaque image)", S.appels.minuteurs === 20, S.appels.minuteurs);
+  for (let i = 0; i < 3; i++) { etat.t += 16; S.placer(null); }
+  verifier("une image sans mouvement ne relance rien", S.appels.disposer === 1 && S.appels.minuteurs === 20, JSON.stringify(S.appels));
+}
+verifier("les étiquettes et les noms des zones s'effacent en fondu (classe est-hors), jamais par bascule brusque",
+  !!srcPositionner && (srcPositionner.match(/classList\.toggle\("est-hors"/g) || []).length === 2 &&
+  !/visibility\s*=\s*[^;]*hidden/.test(srcPositionner) && /\.sei__repere\.est-hors/.test(composant) && /\.sei__zone-nom\.est-hors/.test(composant));
+
+console.log("ZOOM À LA MOLETTE");
+{
+  const apiM = racine.seigneurie;
+  const aide = (racine.querySelector(".sei__aide") || {}).textContent || "";
+  verifier("l'aide annonce le zoom à la molette seule", /Molette pour zoomer/.test(aide) && !/Ctrl/.test(aide), aide);
+  verifier("l'avis « garde la touche Ctrl » a disparu", !racine.querySelector(".sei__avis") && !/garde la touche Ctrl/.test(composant) && !/function avis\(/.test(script));
+  const doit = apiM && apiM.molettePourMaquette, facteur = apiM && apiM.facteurMolette;
+  verifier("les règles de la molette sont accessibles", typeof doit === "function" && typeof facteur === "function");
+  if (typeof doit === "function" && typeof facteur === "function") {
+    const roue = (o) => Object.assign({ ctrlKey: false, metaKey: false, deltaY: 100, deltaMode: 0 }, o);
+    verifier("molette seule sur la maquette, page immobile : on zoome", doit(roue(), false, 10000, 9000) === true);
+    verifier("la page défilait il y a 150 ms : on la laisse défiler (pas de piège)", doit(roue(), false, 10000, 9850) === false);
+    verifier("Ctrl + molette ou pincement : on zoome même juste après un défilement", doit(roue({ ctrlKey: true }), false, 10000, 9990) === true);
+    verifier("en plein écran, la molette zoome toujours", doit(roue(), true, 10000, 9990) === true);
+    const f1 = facteur(roue()), f2 = facteur(roue({ deltaY: -100 })), f3 = facteur(roue({ deltaY: 3, deltaMode: 1 }));
+    const fp = facteur(roue({ ctrlKey: true, deltaY: 5 })), fx = facteur(roue({ deltaY: 5000 }));
+    verifier("pas doux : un cran éloigne d'environ 15 %", f1 > 1.1 && f1 < 1.2, f1.toFixed(3));
+    verifier("le cran inverse rapproche d'autant", Math.abs(f1 * f2 - 1) < 1e-9, (f1 * f2).toFixed(6));
+    verifier("une molette réglée en lignes (Firefox) donne le même pas", Math.abs(f3 - f1) < 0.01, f3.toFixed(3));
+    verifier("le pincement du pavé tactile garde sa vitesse", Math.abs(fp - Math.exp(5 * 0.0022)) < 1e-9, fp.toFixed(4));
+    verifier("un grand coup de molette reste borné", fx <= Math.exp(240 * 0.0014) + 1e-9, fx.toFixed(3));
+  }
+  verifier("la molette de la maquette bloque le défilement (preventDefault, non passive) et la page est surveillée",
+    /toile\.addEventListener\("wheel", function \(e\) \{\s*if \(!molettePourMaquette\(e, estPleinEcran\(\)/.test(script) &&
+    /e\.preventDefault\(\);\s*vol = null;\s*var b = toile\.getBoundingClientRect\(\);\s*zoomer\(facteurMolette\(e\)/.test(script) &&
+    /window\.addEventListener\("wheel", noterDefilement, \{ passive: true, capture: true \}\)/.test(script) &&
+    /document\.addEventListener\("scroll", noterDefilement, \{ passive: true, capture: true \}\)/.test(script));
+}
+
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
 process.exit(echecs ? 1 : 0);
