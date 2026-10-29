@@ -3,7 +3,7 @@
  *     node outils/test_vieux_quebec.js [composant.html]
  *
  * Le DOM simulé n'a pas de WebGL : on vérifie donc le mode de secours, la liste des 13 lieux, les
- * panneaux, le filtre « Traces du », les couleurs des régimes, l'activité et sa rétroaction, les
+ * panneaux, le filtre par période de création, les couleurs des régimes, l'activité et sa rétroaction, les
  * textes, puis la construction de la maquette sans carte graphique (relief et falaise, bâtiments,
  * arbres, aucune coordonnée invalide, 13 lieux bien situés) et les règles des étiquettes calmes, de
  * la molette et du recadrage. Le composant est inséré dans une fiche minimale, avec page.js quand il
@@ -95,16 +95,34 @@ verifier("un lieu sans transformation affiche « À retenir »", /Le Château Fr
 clic(un(".vqc__retour"));
 verifier("le bouton de retour ramène l'accueil", /Trois régimes dans les mêmes rues/.test(texteContenu()) && api.etat().choisi === null);
 
-console.log("FILTRE PAR RÉGIME");
-clic(un('.vqc__filtre[data-filtre="br"]'));
-const attenues = boutons.filter((b) => b.classList.contains("est-atenue")).length;
-const attendus = lieux.filter((l) => l.o !== "br" && l.t.indexOf("br") < 0).length;
-verifier("les lieux sans trace britannique sont atténués", attenues === attendus && attendus > 0, attenues + " / " + attendus);
-const avecBr = lieux.filter((l) => l.o === "br" || l.t.indexOf("br") >= 0).map((l) => l.num);
-verifier("la maquette met en évidence les lieux qui gardent des traces britanniques", api.etat().marques.join() === avecBr.join() && api.etat().focus === 1, api.etat().marques.join());
+console.log("FILTRE PAR PÉRIODE DE CRÉATION");
+verifier("la barre du filtre annonce la période de création", /Période de création/.test(un(".vqc__barre-nom").textContent) && /période de création/.test(un(".vqc__barre").getAttribute("aria-label")));
+const parPeriode = { fr: [1, 2, 3, 4, 5, 9], br: [6, 10, 11], co: [7, 8, 12, 13] };
+["fr", "br", "co"].forEach((code) => {
+  clic(un(`.vqc__filtre[data-filtre="${code}"]`));
+  const garde = lieux.filter((l) => l.o === code).map((l) => l.num);
+  const attenues = boutons.filter((b) => b.classList.contains("est-atenue")).map((b, i) => b.getAttribute("data-lieu"));
+  verifier(`${code} : seuls les lieux créés pendant cette période restent (${garde.join(", ")})`,
+    api.etat().marques.join() === garde.join() && garde.join() === parPeriode[code].join() && api.etat().focus === 1, api.etat().marques.join());
+  verifier(`${code} : les autres lieux sont atténués dans la liste`, attenues.length === 13 - garde.length && lieux.every((l) => attenues.includes(l.id) === (l.o !== code)));
+});
+verifier("un lieu seulement transformé par la période n'est pas retenu (Ursulines, créé sous le régime français)", (() => { clic(un('.vqc__filtre[data-filtre="br"]')); return api.etat().marques.indexOf(2) < 0; })());
 verifier("le bouton du filtre est enfoncé", un('.vqc__filtre[data-filtre="br"]').getAttribute("aria-pressed") === "true" && un('.vqc__filtre[data-filtre="tous"]').getAttribute("aria-pressed") === "false");
+verifier("le filtre est annoncé aux lecteurs d'écran", un(".vqc__annonce").textContent === "Lieux créés pendant le régime britannique", un(".vqc__annonce").textContent);
+clic(boutons[5]);
+verifier("choisir un lieu de la période filtrée garde le filtre", api.etat().filtre === "br" && api.etat().choisi === "citadelle" && api.etat().marques.join() === "6");
+clic(un(".vqc__retour"));
+verifier("revenir à l'accueil garde le filtre et ses lieux", api.etat().filtre === "br" && api.etat().choisi === null && api.etat().marques.join() === "6,10,11");
+clic(boutons[0]);
+verifier("choisir dans la liste un lieu d'une autre période ramène tous les régimes",
+  api.etat().filtre === "tous" && api.etat().choisi === "place-royale" && un('.vqc__filtre[data-filtre="tous"]').getAttribute("aria-pressed") === "true" && !boutons.some((b) => b.classList.contains("est-atenue")));
+clic(un(".vqc__retour"));
+clic(un('.vqc__filtre[data-filtre="co"]'));
+clic(boutons[7]);
+clic(un('.vqc__filtre[data-filtre="fr"]'));
+verifier("changer de période ferme un lieu qui n'en fait pas partie", api.etat().choisi === null && api.etat().filtre === "fr" && /Trois régimes dans les mêmes rues/.test(texteContenu()));
 clic(un('.vqc__filtre[data-filtre="tous"]'));
-verifier("Tous les régimes rétablit la maquette", !boutons.some((b) => b.classList.contains("est-atenue")) && api.etat().marques.length === 0);
+verifier("Tous les régimes rétablit la maquette", !boutons.some((b) => b.classList.contains("est-atenue")) && api.etat().marques.length === 0 && api.etat().focus === 0);
 
 console.log("COULEURS DES RÉGIMES");
 verifier("les couleurs naturelles sont actives au départ", un(".vqc__couleurs").getAttribute("aria-pressed") === "false" && api.etat().regime === 0);
@@ -242,6 +260,29 @@ if (srcApres && srcRepos && srcAttendre) {
   for (let i = 0; i < 3; i++) { S.apres(null); avancer(16); }
   avancer(1000);
   verifier("une image sans mouvement ne relance rien", S.appels.disposer === 2, JSON.stringify(S.appels));
+}
+{
+  const srcActive = extraire(script, "active"), srcPermis = extraire(script, "permis"), srcVisible = extraire(script, "visible"), srcEtat = extraire(script, "etatEtiquettes");
+  verifier("les règles d'affichage des étiquettes se trouvent dans le script", !!srcActive && !!srcPermis && !!srcVisible && !!srcEtat);
+  if (srcActive && srcPermis && srcVisible) {
+    const regle = new Function("etat", `var filtre = etat.filtre, choisi = etat.choisi, activite = etat.activite; ${srcActive} ${srcPermis} ${srcVisible} return visible;`);
+    const etiq = (l, dedans) => ({ l, dedans });
+    const vis = (filtre, choisi, activite, dedans) => lieux.filter((l) => regle({ filtre, choisi, activite })(etiq(l, dedans === undefined ? true : dedans))).map((l) => l.num).join();
+    verifier("sans filtre, les 13 étiquettes sont affichées", vis("tous", null, null) === "1,2,3,4,5,6,7,8,9,10,11,12,13", vis("tous", null, null));
+    verifier("filtre Régime britannique : seules les étiquettes des lieux créés par les Britanniques restent", vis("br", null, null) === "6,10,11", vis("br", null, null));
+    verifier("filtre Régime français : les lieux créés plus tard (terrasse, musée, funiculaire) disparaissent", vis("fr", null, null) === "1,2,3,4,5,9", vis("fr", null, null));
+    verifier("filtre Période contemporaine : quatre étiquettes", vis("co", null, null) === "7,8,12,13", vis("co", null, null));
+    verifier("une étiquette hors du cadre reste cachée", vis("tous", null, null, false) === "");
+    verifier("pendant l'activité, seule l'étiquette du lieu demandé paraît", vis("tous", null, { ordre: [lieux[4]], i: 0 }) === "5");
+  }
+  verifier("un changement de filtre cache ou montre les étiquettes tout de suite (pas au prochain mouvement)",
+    !!srcEtat && /montrer\(e, visible\(e\)\)/.test(srcEtat) && /e\.neuf = true/.test(srcEtat) && !!srcApres && /montrer\(e, visible\(e\)\)/.test(srcApres));
+  verifier("une étiquette qui réapparaît se pose à sa place sans glisser depuis l'ancienne", !!srcDisposer && /e\.de = e\.neuf \? c\.off\.slice\(\) : e\.off\.slice\(\)/.test(srcDisposer));
+  verifier("avec les couleurs des régimes, seuls les lieux de la période filtrée gardent leur couleur",
+    /"bool gardee\(int p\) \{ return uFiltre == 0 \|\| \(\(uFiltre >> p\) & 1\) == 1; \}"/.test(script) && /ip > 0 && gardee\(ip\)/.test(script) && /iz > 0 && gardee\(iz\)/.test(script) && /\|\| !gardee\(ip\)\)/.test(script) &&
+    /if \(code !== "tous"\) \{ garde\.forEach\(function \(n\) \{ masqueFiltre \|= 1 << n; \}\); \}/.test(script) && /gl\.uniform1i\(p\.u\.uFiltre, masqueFiltre\)/.test(script));
+  verifier("survol et clic sur la maquette ignorent les lieux cachés par le filtre",
+    /if \(activite \|\| \(id && !permis\(LIEUX\[id - 1\]\)\)\) \{ id = 0; \}/.test(script) && /if \(id && permis\(LIEUX\[id - 1\]\)\) \{ choisir\(LIEUX\[id - 1\]\.id\); \}/.test(script));
 }
 verifier("le placement garde d'abord la place actuelle, puis essaie d'autres places, puis le seul numéro",
   !!srcDisposer && /ajouter\(\[e\.cible\], false\)/.test(srcDisposer) && /ajouter\(PRES, true\)/.test(srcDisposer) && /est-compact/.test(srcDisposer));
