@@ -138,6 +138,8 @@ l'empire de connaître une période de prospérité jusqu'au 2e siècle de notre
 
 ### L'évolution territoriale
 
+::: composant rome-territoire
+
 ::: video l2zFYp2qYRI
 L'évolution territoriale de Rome, de la cité à l'Empire
 :::
@@ -528,6 +530,12 @@ reconstitutions de ces villes gallo-romaines :
 - [Reconstitution de Lutèce](https://www.facebook.com/watch/?t=24&v=292998158031967)
 - [Reconstitution de Toulouse antique par Dartagnans](https://www.facebook.com/DartagnansFR/videos/1558318540999176/)
 
+La maquette suivante te fait survoler Lutèce vers l'an 200. Choisis un lieu pour
+découvrir le rôle de chaque bâtiment dans la vie de la ville et dans sa
+romanisation.
+
+::: composant ville-romaine
+
 ::: video 5jDHxn__0Z8
 La romanisation des régions conquises par Rome
 :::
@@ -713,3 +721,34 @@ toutes les décisions passent par toi.
 - [Alloprof, La romanisation](https://www.alloprof.qc.ca/)
 - [World History Encyclopedia, Corpus Juris Civilis](https://www.worldhistory.org/)
 - [Wikipédia, République romaine](https://fr.wikipedia.org/)
+- [Roke, Carte animée de la République et de l'Empire romains (Wikimedia Commons, CC BY-SA 3.0)](https://commons.wikimedia.org/wiki/File:Roman_Republic_Empire_map.gif)
+- [Ancient World Mapping Center, données géographiques (licence ODbL)](https://github.com/AWMC/geodata)
+- [Natural Earth, données cartographiques du domaine public](https://www.naturalearthdata.com/)
+- [Britannica, Punic Wars](https://www.britannica.com/topic/Punic-Wars)
+- [Wikipédia, Guerre de Pyrrhus en Italie](https://fr.wikipedia.org/wiki/Guerre_de_Pyrrhus_en_Italie)
+- [Wikipedia, Socii](https://en.wikipedia.org/wiki/Socii)
+- [Wikipédia, Afrique (province romaine)](https://fr.wikipedia.org/wiki/Afrique_(province_romaine))
+- [Wikipédia, Macédoine (province romaine)](https://fr.wikipedia.org/wiki/Mac%C3%A9doine_(province_romaine))
+- [Wikipédia, Royaume de Pergame](https://fr.wikipedia.org/wiki/Royaume_de_Pergame)
+- [Wikipédia, Hispanie](https://fr.wikipedia.org/wiki/Hispanie)
+- [Wikipédia, Province romaine](https://fr.wikipedia.org/wiki/Province_romaine)
+- [Wikipédia, Guerre des Gaules](https://fr.wikipedia.org/wiki/Guerre_des_Gaules)
+- [Wikipédia, Syrie (province romaine)](https://fr.wikipedia.org/wiki/Syrie_(province_romaine))
+- [Wikipédia, Assassinat de Jules César](https://fr.wikipedia.org/wiki/Assassinat_de_Jules_C%C3%A9sar)
+- [Wikipedia, Roman Egypt](https://en.wikipedia.org/wiki/Roman_Egypt)
+- [Wikipedia, Augustus](https://en.wikipedia.org/wiki/Augustus)
+- [Wikipédia, Bataille de Teutobourg](https://fr.wikipedia.org/wiki/Bataille_de_Teutobourg)
+- [World History Encyclopedia, Trajan](https://www.worldhistory.org/Trajan/)
+- [Wikipedia, Roman Empire](https://en.wikipedia.org/wiki/Roman_Empire)
+- [Wikipédia, Hadrien](https://fr.wikipedia.org/wiki/Hadrien)
+- [Wikipédia, Dacie romaine](https://fr.wikipedia.org/wiki/Dacie_romaine)
+- [Wikipédia, Champs Décumates](https://fr.wikipedia.org/wiki/Champs_D%C3%A9cumates)
+- [Wikipédia, Jovien](https://fr.wikipedia.org/wiki/Jovien)
+- [Wikipédia, Empire romain d'Occident](https://fr.wikipedia.org/wiki/Empire_romain_d%27Occident)
+- [Wikipedia, Migration Period](https://en.wikipedia.org/wiki/Migration_Period)
+- [Ville de Paris, Crypte archéologique de l'île de la Cité, dossier de presse « Les grands monuments de Lutèce », 2009](https://crypte.paris.fr/sites/default/files/2024-04/dossier_de_presse_les_grands_monuments_de_lutece_-_septembre_2009.pdf)
+- [Musée Carnavalet, Paris dans l'Antiquité](https://www.carnavalet.paris.fr/sites/default/files/2022-07/paris_antiquite_mp_pdf.pdf)
+- [Ministère de la Culture, Paris antique : les sources et la destination de l'aqueduc](https://archeologie.culture.gouv.fr/paris/en/sources-and-destination)
+- [Wikipédia, Arènes de Lutèce](https://fr.wikipedia.org/wiki/Ar%C3%A8nes_de_Lut%C3%A8ce)
+- [Wikipédia (en anglais), Pillar of the Boatmen](https://en.wikipedia.org/wiki/Pillar_of_the_Boatmen)
+- [Julien, Misopogon, traduction anglaise, ToposText](https://topostext.org/work/791)

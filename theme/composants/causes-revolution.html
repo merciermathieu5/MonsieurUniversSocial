@@ -1,0 +1,1084 @@
+<section class="cau" id="causes-revolution" aria-label="Chaîne des causes de la Révolution américaine">
+<style>
+.cau { container: cau / inline-size; --cau-gouttiere: 3.6em; --cau-faux: #A13D29; --cau-faux-voile: #F6E3DE; --cau-suite: var(--schema-accent); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; overflow: clip; font-family: var(--titre); font-size: 1rem; line-height: 1.5; color: var(--encre); }
+html[data-sombre="on"] .cau { --cau-faux: #F2917A; --cau-faux-voile: #3A2522; }
+.cau .cau__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cau .cau__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.cau .cau__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .cau .cau__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .cau .cau__titre { color: var(--encre); }
+html[data-sombre="on"] .cau .cau__consigne { color: var(--encre-pale); }
+.cau .cau__barre { display: flex; flex-wrap: wrap; align-items: center; gap: .5em .6em; padding: .7em 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.cau .cau__modes { display: flex; flex-wrap: wrap; gap: .35em; }
+.cau .cau__bouton { font-family: var(--titre); font-weight: 600; font-size: .84em; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .5em 1em; min-height: 2.5em; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.cau .cau__bouton:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.cau .cau__mode[aria-pressed="true"], .cau .cau__bouton--fort { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.cau .cau__bouton--fort:hover { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .cau .cau__mode[aria-pressed="true"], html[data-sombre="on"] .cau .cau__bouton--fort, html[data-sombre="on"] .cau .cau__bouton--fort:hover { color: #10171F; }
+.cau .cau__compte { margin: 0 0 0 auto; font-family: var(--donnee); font-size: .72em; letter-spacing: .04em; color: var(--encre-doux); }
+.cau:not(.est-plein-ecran) .cau__replier { display: none; }
+.cau .cau__corps { display: block; }
+.cau .cau__chaine { container: cauchaine / inline-size; position: relative; padding: 1.1em 1.2rem 1.3em calc(var(--cau-gouttiere) + .8rem); }
+.cau .cau__liens { position: absolute; left: 0; top: 0; width: calc(var(--cau-gouttiere) + .8rem); overflow: visible; pointer-events: none; }
+.cau .cau__faits { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5em; }
+.cau .cau__fait { margin: 0; padding: 0; }
+.cau p { margin: 0; }
+.cau li::marker { content: ""; }
+.cau li::before { content: none; display: none; }
+.cau .cau__fait[hidden] { display: none; }
+.cau .cau__carte { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "date marque" "nom nom"; align-items: center; gap: .1em .6em; width: 100%; min-height: 3.1em; margin: 0; padding: .5em .8em .55em .85em; text-align: left; font: inherit; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-left: 4px solid var(--trait); border-radius: var(--rayon); cursor: pointer; transition: border-color .15s, background .15s, opacity .2s, box-shadow .15s; }
+.cau .cau__carte:hover { border-color: var(--matiere); background: var(--matiere-voile); }
+.cau .cau__carte:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; }
+.cau .cau__date { grid-area: date; display: block; font-family: var(--donnee); font-size: .7em; letter-spacing: .05em; text-transform: uppercase; color: var(--encre-pale); }
+.cau .cau__nom { grid-area: nom; display: block; font-family: var(--titre); font-weight: 600; font-size: .96em; line-height: 1.3; }
+.cau .cau__marque { grid-area: marque; display: block; justify-self: end; font-family: var(--donnee); font-size: .64em; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; padding: .2em .6em; border-radius: 100px; color: var(--encre-doux); background: var(--surface-2); }
+.cau .cau__marque:empty { display: none; }
+.cau .cau__desc { display: none; }
+.cau .cau__carte--sans-date { grid-template-areas: "nom marque"; }
+@container cauchaine (min-width: 30rem) {
+  .cau .cau__carte { grid-template-columns: 7.6em minmax(0, 1fr) auto; grid-template-areas: "date nom marque"; }
+  .cau .cau__carte--sans-date { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "nom marque"; }
+}
+.cau .cau__fait.est-depart .cau__carte { border-left-color: var(--encre-pale); }
+.cau .cau__fait.est-nouveau .cau__carte, .cau .cau__fait.est-choisi .cau__carte { border-color: var(--signal); border-left-color: var(--signal); box-shadow: 0 0 0 1px var(--signal); }
+.cau .cau__fait.est-nouveau .cau__marque, .cau .cau__fait.est-choisi .cau__marque { background: var(--signal); color: #10171F; }
+.cau .cau__fait.est-juste .cau__carte, .cau .cau__fait.est-cause .cau__carte { border-left-color: var(--matiere); }
+.cau .cau__fait.est-juste .cau__marque, .cau .cau__fait.est-cause .cau__marque { background: var(--matiere); color: #fff; }
+.cau .cau__fait.est-consequence .cau__carte { border-left-color: var(--cau-suite); }
+.cau .cau__fait.est-consequence .cau__marque { background: var(--cau-suite); color: #fff; }
+.cau .cau__fait.est-faux .cau__carte { border-color: var(--cau-faux); border-left-color: var(--cau-faux); animation: cau-non .35s ease-in-out; }
+.cau .cau__fait.est-faux .cau__marque { background: var(--cau-faux); color: #fff; }
+.cau .cau__fait.est-attenue .cau__carte { opacity: .45; }
+.cau .cau__fait.est-attenue .cau__carte:hover, .cau .cau__fait.est-attenue .cau__carte:focus-visible { opacity: 1; }
+.cau .cau__fait.est-apparu .cau__carte { animation: cau-apparait .45s ease-out; }
+html[data-sombre="on"] .cau .cau__fait.est-juste .cau__marque, html[data-sombre="on"] .cau .cau__fait.est-cause .cau__marque, html[data-sombre="on"] .cau .cau__fait.est-consequence .cau__marque, html[data-sombre="on"] .cau .cau__fait.est-faux .cau__marque { color: #10171F; }
+@keyframes cau-apparait { from { opacity: 0; transform: translateY(-.4rem); } to { opacity: 1; transform: none; } }
+@keyframes cau-non { 0%, 100% { transform: none; } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.cau .cau__lien { fill: none; stroke: var(--matiere); stroke-width: 2px; stroke-linecap: round; opacity: .7; transition: stroke-dashoffset .7s ease-out, opacity .2s; }
+.cau .cau__pointe, .cau .cau__origine { fill: var(--matiere); opacity: .7; transition: opacity .2s; }
+.cau.est-explorer .cau__lien { stroke: var(--encre-pale); opacity: .6; }
+.cau.est-explorer .cau__pointe, .cau.est-explorer .cau__origine { fill: var(--encre-pale); opacity: .6; }
+.cau .cau__lien.est-cause { stroke: var(--matiere); stroke-width: 3px; opacity: 1; }
+.cau .cau__pointe.est-cause, .cau .cau__origine.est-cause { fill: var(--matiere); opacity: 1; }
+.cau .cau__lien.est-consequence { stroke: var(--cau-suite); stroke-width: 3px; opacity: 1; }
+.cau .cau__pointe.est-consequence, .cau .cau__origine.est-consequence { fill: var(--cau-suite); opacity: 1; }
+.cau .cau__lien.est-attenue, .cau .cau__pointe.est-attenue, .cau .cau__origine.est-attenue { opacity: .14; }
+.cau .cau__cote { border-top: 1px solid var(--trait); background: var(--surface); }
+.cau .cau__cote[hidden] { display: none; }
+.cau .cau__panneau { padding: 1em 1.2rem 1.2em; font-family: var(--corps); font-size: 1em; line-height: 1.6; color: var(--encre); }
+.cau .cau__panneau:focus { outline: none; }
+.cau .cau__fait > .cau__panneau { margin: .5em 0 .2em; padding: .9em 1em 1em; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface-2); }
+.cau .cau__fait > .cau__panneau > .cau__etiquette, .cau .cau__fait > .cau__panneau > .cau__sujet { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.cau .cau__fait > .cau__panneau > .cau__texte { margin-top: 0; }
+.cau .cau__etiquette { margin: 0 0 .3em; font-family: var(--donnee); font-size: .66em; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.cau .cau__sujet { margin: 0; font-family: var(--titre); font-weight: 700; font-size: 1.08em; line-height: 1.3; }
+.cau .cau__sujet-date { display: block; font-family: var(--donnee); font-weight: 400; font-size: .66em; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .2em; }
+.cau .cau__panneau .cau__texte { margin-top: .45em; }
+.cau .cau__panneau .cau__question { margin-top: .9em; font-family: var(--titre); font-weight: 600; font-size: .95em; line-height: 1.4; }
+.cau .cau__panneau .cau__indice { margin-top: .35em; font-size: .92em; color: var(--encre-doux); }
+.cau .cau__retour { margin-top: .9em; padding: .7em .9em; border-radius: var(--rayon); background: var(--surface-2); border-left: 3px solid var(--trait); }
+.cau .cau__fait > .cau__panneau .cau__retour { background: var(--surface); }
+.cau .cau__retour.est-bon { background: var(--matiere-voile); border-left-color: var(--matiere); }
+.cau .cau__retour.est-mauvais { background: var(--cau-faux-voile); border-left-color: var(--cau-faux); }
+.cau .cau__verdict { display: block; font-family: var(--titre); font-weight: 700; font-size: .92em; line-height: 1.35; margin-bottom: .25em; }
+.cau .cau__retour p + p { margin-top: .35em; }
+.cau .cau__actions { display: flex; flex-wrap: wrap; gap: .45em; margin-top: .95em; }
+.cau .cau__liste-titre { margin-top: 1.05em; margin-bottom: .45em; font-family: var(--donnee); font-size: .66em; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.cau .cau__liste { list-style: none; margin: 0; padding: 0; display: grid; gap: .45em; }
+.cau .cau__liste > li { margin: 0; padding: .55em .75em .6em; border-left: 3px solid var(--matiere); background: var(--surface-2); border-radius: 0 var(--rayon) var(--rayon) 0; }
+.cau .cau__fait > .cau__panneau .cau__liste > li { background: var(--surface); }
+.cau .cau__liste--suite > li { border-left-color: var(--cau-suite); }
+.cau .cau__relie { font: inherit; font-family: var(--titre); font-weight: 600; font-size: .92em; line-height: 1.35; color: var(--encre); background: none; border: 0; padding: .1em 0; cursor: pointer; text-align: left; text-decoration: underline; text-decoration-color: var(--trait); text-underline-offset: 3px; }
+.cau .cau__relie:hover { text-decoration-color: currentColor; }
+.cau .cau__relie-date { display: block; font-family: var(--donnee); font-weight: 400; font-size: .74em; letter-spacing: .03em; color: var(--encre-pale); text-decoration: none; }
+.cau .cau__liste p { margin-top: .2em; font-size: .93em; }
+.cau .cau__legende { display: flex; flex-wrap: wrap; gap: .4em 1em; margin-top: .8em; font-family: var(--titre); font-size: .82em; color: var(--encre-doux); }
+.cau .cau__pastille { display: inline-block; width: .8em; height: .8em; margin-right: .35em; border-radius: 50%; vertical-align: -.05em; background: var(--matiere); }
+.cau .cau__pastille--suite { background: var(--cau-suite); }
+.cau .cau__pastille--choisi { background: var(--signal); }
+.cau .cau__oeuvre { margin: .9em 0 .1em; }
+.cau .cau__oeuvre-cadre { margin: 0; padding: .45em; background: var(--surface-2); border: 1px solid var(--trait); border-radius: var(--rayon); }
+.cau .cau__oeuvre img { display: block; width: 100%; height: auto; max-height: 15rem; margin: 0; object-fit: contain; }
+.cau .cau__oeuvre-legende { margin-top: .45em; font-family: var(--corps); font-size: .84em; line-height: 1.45; color: var(--encre-doux); }
+.cau .cau__oeuvre-titre { font-style: italic; }
+.cau .cau__oeuvre .credit { margin-top: .25em; }
+.cau .cau__oeuvre.est-absente .cau__oeuvre-cadre { display: none; }
+.cau .cau__oeuvre.est-absente .cau__oeuvre-legende { margin-top: 0; padding: .1em 0 .1em .7em; border-left: 3px solid var(--trait); }
+.cau .cau__fait > .cau__panneau { display: flex; flex-direction: column; }
+.cau .cau__fait > .cau__panneau > .cau__oeuvre { order: 1; }
+.cau .cau__fait > .cau__panneau .cau__oeuvre img { max-height: 12rem; }
+/* Pendant la mesure du plein écran, aucune transition : la règle du site pour
+   le mouvement réduit en impose une très courte à toutes les propriétés, ce qui
+   fausserait la lecture des hauteurs. */
+.cau.est-mesure, .cau.est-mesure * { transition: none !important; }
+/* En plein écran, les faits encore cachés gardent leur place : un cadre
+   pointillé montre la chaîne qui reste à construire. */
+@media (min-width: 48.0625rem) {
+  .cau.est-plein-ecran.est-construire .cau__fait[hidden] { display: block; outline: 1px dashed var(--trait); outline-offset: -1px; border-radius: var(--rayon); }
+  .cau.est-plein-ecran.est-construire .cau__fait[hidden] > * { visibility: hidden; }
+}
+@container cau (max-width: 30rem) {
+  .cau .cau__entete, .cau .cau__barre { padding-left: .85rem; padding-right: .85rem; }
+  .cau .cau__chaine { --cau-gouttiere: 2.2em; padding-right: .75rem; padding-left: calc(var(--cau-gouttiere) + .5rem); }
+  .cau .cau__liens { width: calc(var(--cau-gouttiere) + .5rem); }
+  .cau .cau__carte { grid-template-columns: minmax(0, 1fr); grid-template-areas: "date" "nom" "marque"; }
+  .cau .cau__carte--sans-date { grid-template-areas: "nom" "marque"; }
+  .cau .cau__marque { justify-self: start; margin-top: .3em; }
+  .cau .cau__compte { font-size: .66em; letter-spacing: 0; }
+  .cau .cau__fait > .cau__panneau { padding: .8em .85em .9em; }
+  .cau .cau__cote > .cau__panneau { padding-left: .85rem; padding-right: .85rem; }
+}
+@container cau (min-width: 46rem) {
+  .cau .cau__corps { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(17rem, .88fr); align-items: start; }
+  .cau .cau__cote { align-self: stretch; border-top: 0; border-left: 1px solid var(--trait); }
+  .cau .cau__cote > .cau__panneau { position: sticky; top: 5rem; }
+}
+.cau.est-plein-ecran { display: grid; grid-template-rows: auto auto minmax(0, 1fr); font-size: 1.05rem; }
+.cau.est-plein-ecran > .cau__entete { position: static; }
+.cau.est-plein-ecran > .cau__corps { display: grid; grid-template-columns: minmax(0, 1fr) clamp(21rem, 33vw, 31rem); grid-template-rows: minmax(0, 1fr); align-items: stretch; min-height: 0; }
+.cau.est-plein-ecran.a-oeuvres > .cau__corps { grid-template-columns: minmax(0, 1fr) clamp(24rem, 40vw, 48rem); }
+.cau.est-plein-ecran .cau__barre { font-size: clamp(1rem, .7rem + .4vw, 1.25rem); }
+.cau.est-plein-ecran .cau__chaine { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-top: 1.3em; padding-bottom: 1.5em; }
+.cau.est-plein-ecran .cau__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; border-left: 1px solid var(--trait); }
+.cau.est-plein-ecran .cau__cote > .cau__panneau { position: static; padding: 1.3em 1.5em 1.5em; font-size: clamp(1rem, .55rem + .75vw, 1.45rem); }
+.cau.est-plein-ecran .cau__oeuvre img { max-height: min(42vh, 32rem); }
+.cau.est-plein-ecran .cau__faits { gap: .42em; }
+.cau.est-plein-ecran .cau__carte { min-height: 2.55em; padding-top: .35em; padding-bottom: .35em; }
+.cau.est-plein-ecran.est-explorer .cau__faits { min-height: 100%; justify-content: space-between; }
+.cau.est-plein-ecran.texte-masque > .cau__corps { grid-template-columns: minmax(0, 1fr) clamp(15rem, 22vw, 19rem); }
+.cau.est-plein-ecran.texte-masque .cau__detail { display: none; }
+@media (max-width: 48rem) {
+  .cau.est-plein-ecran > .cau__corps, .cau.est-plein-ecran.a-oeuvres > .cau__corps, .cau.est-plein-ecran.texte-masque > .cau__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr); }
+  .cau.est-plein-ecran .cau__oeuvre img { max-height: 22vh; }
+  .cau.est-plein-ecran .cau__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .cau.est-plein-ecran .cau__chaine { padding-right: .8rem; }
+  .cau.est-plein-ecran .cau__compte { display: none; }
+  .cau.est-plein-ecran .cau__barre { padding-top: .5em; padding-bottom: .5em; }
+  .cau.est-plein-ecran .cau__carte { min-height: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cau .cau__fait .cau__carte { animation: none !important; }
+  .cau .cau__lien { transition: none !important; }
+}
+@media print {
+  .cau { overflow: visible; }
+  .cau .cau__corps { display: block !important; }
+  .cau .cau__barre, .cau .cau__cote, .cau .cau__panneau, .cau .cau__marque, .cau .cau__credits { display: none !important; }
+  .cau .cau__fait { break-inside: avoid; }
+  .cau .cau__carte { opacity: 1 !important; box-shadow: none !important; border-color: var(--trait) !important; }
+  .cau .cau__desc { display: block; grid-column: 1 / -1; font-family: var(--corps); font-size: .86em; line-height: 1.45; color: var(--encre); }
+}
+</style>
+<div class="cau__entete">
+  <p class="cau__titre" role="heading" aria-level="3">D'une cause à l'autre, jusqu'à la rupture</p>
+  <p class="cau__consigne">Trouve la cause de chaque fait</p>
+</div>
+<div class="cau__barre">
+  <div class="cau__modes" role="group" aria-label="Mode">
+    <button type="button" class="cau__bouton cau__mode" data-mode="construire" aria-pressed="true">Construire</button>
+    <button type="button" class="cau__bouton cau__mode" data-mode="explorer" aria-pressed="false">Chaîne complète</button>
+  </div>
+  <p class="cau__compte" aria-live="polite"></p>
+  <button type="button" class="cau__bouton cau__recommencer">Recommencer</button>
+  <button type="button" class="cau__bouton cau__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="cau__corps">
+  <div class="cau__chaine">
+    <svg class="cau__liens" aria-hidden="true" focusable="false"></svg>
+    <ol class="cau__faits" aria-label="Faits de la chaîne"></ol>
+  </div>
+  <div class="cau__cote">
+    <div class="cau__panneau" aria-live="polite" tabindex="-1"></div>
+  </div>
+</div>
+<div class="cau__credits" hidden>
+<div data-credit="mort-general-wolfe.jpg">{{credit:mort-general-wolfe.jpg}}</div>
+<div data-credit="timbres-stamp-act.jpg">{{credit:timbres-stamp-act.jpg}}</div>
+<div data-credit="funerailles-stamp-act.jpg">{{credit:funerailles-stamp-act.jpg}}</div>
+<div data-credit="soldats-boston-1768.jpg">{{credit:soldats-boston-1768.jpg}}</div>
+<div data-credit="massacre-boston.jpg">{{credit:massacre-boston.jpg}}</div>
+<div data-credit="destruction-the-boston.jpg">{{credit:destruction-the-boston.jpg}}</div>
+<div data-credit="bostoniens-detresse.jpg">{{credit:bostoniens-detresse.jpg}}</div>
+<div data-credit="premiere-priere-congres.jpg">{{credit:premiere-priere-congres.jpg}}</div>
+<div data-credit="join-or-die.jpg">{{credit:join-or-die.jpg}}</div>
+<div data-credit="bataille-lexington.jpg">{{credit:bataille-lexington.jpg}}</div>
+<div data-credit="declaration-independance.jpg">{{credit:declaration-independance.jpg}}</div>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("causes-revolution");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+
+  /* Moteur de chaîne de causalité.
+     Pour le réutiliser dans une autre fiche : copier ce fichier, changer
+     l'identifiant de la section, le titre de l'en-tête et le bloc DONNEES.
+     Un fait peut porter une œuvre (champ oeuvre : fichier, alt, titre,
+     source, note), affichée dans le panneau. Le fichier vient du dossier
+     DONNEES.medias; son crédit est composé par build.py à partir de
+     medias/sources.yml, dans le bloc caché .cau__credits. Une image absente
+     laisse sa légende seule, sans cadre vide.
+     Les faits suivent l'ordre chronologique. Chaque fait nomme ses causes,
+     qui doivent le précéder, avec le texte qui explique le lien. Un fait
+     sans cause est un point de départ. Le bloc pieges, facultatif, donne
+     une rétroaction précise pour une mauvaise réponse prévisible. */
+  var DONNEES = {
+    "medias": "../medias/09-revolution-americaine/",
+    "faits": [
+      {
+        "id": "sept-ans",
+        "date": "1756 à 1763",
+        "titre": "La guerre de Sept Ans",
+        "texte": "La Grande-Bretagne bat la France. Au traité de Paris de 1763, la France lui cède le Canada.",
+        "causes": [],
+        "oeuvre": {
+          "fichier": "mort-general-wolfe.jpg",
+          "alt": "Le général Wolfe, mourant, est soutenu par ses officiers sur le champ de bataille",
+          "titre": "La Mort du général Wolfe",
+          "source": "tableau de Benjamin West, 1770",
+          "note": "Le général britannique meurt en 1759, à la bataille des plaines d'Abraham, près de Québec."
+        }
+      },
+      {
+        "id": "dette",
+        "date": "1763",
+        "titre": "Une dette énorme",
+        "texte": "La dette de la Grande-Bretagne a presque doublé. Londres doit aussi payer environ 10\u00a0000 soldats qui restent en Amérique du Nord.",
+        "causes": [
+          {
+            "de": "sept-ans",
+            "lien": "Gagner la guerre a coûté une fortune. La dette britannique passe d'environ 75 millions de livres sterling en 1756 à près de 133 millions en 1763."
+          }
+        ]
+      },
+      {
+        "id": "proclamation",
+        "date": "Octobre 1763",
+        "titre": "La Proclamation royale",
+        "texte": "Le roi George III réserve aux Autochtones les terres situées à l'ouest des Appalaches. Les colons n'ont plus le droit de s'y installer.",
+        "causes": [
+          {
+            "de": "sept-ans",
+            "lien": "Avec la victoire, Londres contrôle l'intérieur du continent. Plusieurs nations autochtones s'y soulèvent en 1763, pendant la guerre de Pontiac. Londres veut les apaiser et éviter de nouveaux conflits."
+          }
+        ]
+      },
+      {
+        "id": "taxes",
+        "date": "1764 et 1765",
+        "titre": "Le Sugar Act et le Stamp Act",
+        "texte": "Le Sugar Act taxe la mélasse importée, un sirop épais tiré de la canne à sucre. Le Stamp Act impose un timbre payant sur les journaux, les contrats et même les cartes à jouer.",
+        "causes": [
+          {
+            "de": "dette",
+            "lien": "Londres veut que les colons paient une partie de la dette et des soldats chargés de les défendre."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "timbres-stamp-act.jpg",
+          "alt": "Une feuille couverte de petits timbres ronds et identiques",
+          "source": "Feuille d'essai des timbres d'un penny du Stamp Act, 1765",
+          "note": "Ce timbre s'appliquait entre autres aux journaux."
+        }
+      },
+      {
+        "id": "protestation",
+        "date": "1765 et 1766",
+        "titre": "«\u00a0Pas de taxation sans représentation\u00a0»",
+        "texte": "Les colons boycottent les produits britanniques. En octobre 1765, neuf colonies envoient des délégués à un congrès à New York. En 1766, Londres annule le Stamp Act.",
+        "causes": [
+          {
+            "de": "taxes",
+            "lien": "Les colons n'élisent aucun député au Parlement de Londres. Pour eux, une taxe votée sans leurs représentants est illégale."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "funerailles-stamp-act.jpg",
+          "alt": "Des hommes en noir marchent en procession derrière un petit cercueil, près d'un port",
+          "titre": "Les funérailles de Miss Ame-Stamp",
+          "source": "caricature britannique, 1766",
+          "note": "Des ministres portent en terre le Stamp Act, que Londres vient d'annuler. George Grenville, qui l'avait fait voter, tient le petit cercueil."
+        }
+      },
+      {
+        "id": "townshend",
+        "date": "1767",
+        "titre": "Les lois Townshend",
+        "texte": "Londres taxe le verre, le plomb, la peinture, le papier et le thé importés dans les colonies.",
+        "causes": [
+          {
+            "de": "protestation",
+            "lien": "En annulant le Stamp Act, Londres affirme qu'il garde le droit de taxer les colonies. Le ministre des Finances, Charles Townshend, croit que les colons accepteront mieux des taxes sur des produits importés."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "soldats-boston-1768.jpg",
+          "alt": "Des navires de guerre amarrés devant Boston débarquent des soldats en habit rouge",
+          "source": "Des soldats britanniques débarquent à Boston en 1768, d'après une gravure de Paul Revere",
+          "note": "Les lois Townshend sont si mal reçues à Boston que Londres y envoie l'armée."
+        }
+      },
+      {
+        "id": "massacre",
+        "date": "5 mars 1770",
+        "titre": "Le massacre de Boston",
+        "texte": "Une foule entoure des soldats britanniques et leur lance des boules de neige et des pierres. Les soldats tirent sans en avoir reçu l'ordre. Cinq habitants meurent.",
+        "causes": [
+          {
+            "de": "townshend",
+            "lien": "Pour faire respecter les lois Townshend, Londres envoie des soldats à Boston en 1768. Les tensions entre les habitants et les soldats grandissent."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "massacre-boston.jpg",
+          "alt": "Une rangée de soldats britanniques tire sur des habitants de Boston",
+          "titre": "Le massacre de Boston",
+          "source": "gravure de Paul Revere, 1770",
+          "note": "C'est de la propagande\u00a0: Revere montre un officier qui donne l'ordre de tirer, alors que les soldats ont tiré sans ordre."
+        }
+      },
+      {
+        "id": "tea-act",
+        "date": "1773",
+        "titre": "Le Tea Act",
+        "texte": "Londres permet à la Compagnie des Indes orientales de vendre son thé directement aux colonies. Même taxé, ce thé pourra se vendre moins cher que le thé de contrebande.",
+        "causes": [
+          {
+            "de": "townshend",
+            "lien": "En 1770, Londres annule les taxes Townshend, mais garde celle sur le thé pour affirmer son droit de taxer. Beaucoup de colons boudent ce thé taxé. La Compagnie se retrouve avec près de 8 millions de kilos de thé invendu."
+          }
+        ]
+      },
+      {
+        "id": "tea-party",
+        "date": "16 décembre 1773",
+        "titre": "Le Boston Tea Party",
+        "texte": "Des Patriotes jettent 342 caisses de thé dans le port de Boston.",
+        "causes": [
+          {
+            "de": "tea-act",
+            "lien": "Pour beaucoup de colons, acheter ce thé, même moins cher, ce serait accepter une taxe votée à Londres sans leur accord."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "destruction-the-boston.jpg",
+          "alt": "Sur un navire, des hommes jettent des caisses de thé dans le port pendant que la foule les acclame",
+          "titre": "La destruction du thé dans le port de Boston",
+          "source": "lithographie de Nathaniel Currier, 1846",
+          "note": "Plusieurs participants s'étaient déguisés en Autochtones."
+        }
+      },
+      {
+        "id": "intolerables",
+        "date": "1774",
+        "titre": "Les lois intolérables",
+        "texte": "Londres ferme le port de Boston. Le Massachusetts passe sous l'autorité d'un gouverneur militaire, le général Gage.",
+        "causes": [
+          {
+            "de": "tea-party",
+            "lien": "Londres veut punir Boston. Le port restera fermé tant que le thé détruit ne sera pas remboursé."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "bostoniens-detresse.jpg",
+          "alt": "Des Bostoniens enfermés dans une cage suspendue à un arbre reçoivent des poissons de marins",
+          "titre": "Les Bostoniens en détresse",
+          "source": "caricature britannique, 1774",
+          "note": "Le port est fermé. Enfermés dans une cage, les habitants dépendent des pêcheurs pour manger."
+        }
+      },
+      {
+        "id": "congres",
+        "date": "Septembre 1774",
+        "titre": "Le premier Congrès continental",
+        "texte": "Des délégués de douze colonies se réunissent à Philadelphie. Ils décident de boycotter les produits britanniques à partir du 1er décembre 1774.",
+        "causes": [
+          {
+            "de": "intolerables",
+            "lien": "Londres voulait isoler le Massachusetts. Au contraire, les autres colonies se rangent à ses côtés et décident de répondre ensemble."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "premiere-priere-congres.jpg",
+          "alt": "Des délégués debout, tête baissée, écoutent un pasteur prier dans une grande salle",
+          "titre": "La première prière au Congrès",
+          "source": "gravure de H. S. Sadd d'après un tableau de T. H. Matteson, 1848",
+          "note": "La scène se passe le 7 septembre 1774, à Philadelphie."
+        }
+      },
+      {
+        "id": "sentiment",
+        "date": "1774",
+        "titre": "Un sentiment national",
+        "texte": "De plus en plus de colons ne se voient plus comme des Britanniques. Ils se disent Américains.",
+        "causes": [
+          {
+            "de": "proclamation",
+            "lien": "La Proclamation met les colons en colère\u00a0: plusieurs voulaient s'établir à l'ouest. Londres semble décider contre eux."
+          },
+          {
+            "de": "massacre",
+            "lien": "Samuel Adams et Paul Revere parlent d'un «\u00a0massacre\u00a0». La gravure de Revere circule dans les colonies et nourrit la colère contre Londres."
+          },
+          {
+            "de": "congres",
+            "lien": "Au Congrès, des délégués de douze colonies décident ensemble. En septembre 1774, Patrick Henry y déclare\u00a0: «\u00a0Je ne suis pas un Virginien, mais un Américain.\u00a0»"
+          }
+        ],
+        "oeuvre": {
+          "fichier": "join-or-die.jpg",
+          "alt": "Un serpent coupé en huit morceaux qui portent les initiales des colonies",
+          "titre": "«\u00a0Join, or Die\u00a0»",
+          "source": "dessin attribué à Benjamin Franklin, 1754",
+          "note": "Le titre signifie «\u00a0S'unir ou mourir\u00a0». En 1774, Paul Revere reprend ce serpent en tête d'un journal de Boston."
+        }
+      },
+      {
+        "id": "lexington",
+        "date": "19 avril 1775",
+        "titre": "Lexington et Concord",
+        "texte": "Des soldats britanniques marchent vers Concord. À Lexington, des coups de feu éclatent\u00a0: personne ne sait qui a tiré le premier. La guerre commence.",
+        "causes": [
+          {
+            "de": "intolerables",
+            "lien": "Le général Gage gouverne le Massachusetts depuis 1774. Il veut saisir les armes et les munitions que les milices des colons cachent à Concord."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "bataille-lexington.jpg",
+          "alt": "Des soldats britanniques en rang tirent sur des miliciens qui s'enfuient sur la place de Lexington",
+          "titre": "La bataille de Lexington",
+          "source": "gravure d'Amos Doolittle, 1775, tirage de 1903",
+          "note": "Doolittle a visité les lieux et interrogé des témoins peu après la bataille."
+        }
+      },
+      {
+        "id": "declaration",
+        "date": "4 juillet 1776",
+        "titre": "La Déclaration d'indépendance",
+        "texte": "Le deuxième Congrès continental proclame que les treize colonies sont désormais des États libres et indépendants. C'est la rupture avec la Grande-Bretagne.",
+        "causes": [
+          {
+            "de": "lexington",
+            "lien": "Depuis plus d'un an, les colons combattent l'armée britannique. Le deuxième Congrès continental a créé une armée et l'a confiée à George Washington. Une entente avec Londres semble de plus en plus difficile."
+          },
+          {
+            "de": "sentiment",
+            "lien": "Les colons se voient comme un peuple à part. En janvier 1776, le pamphlet «\u00a0Le Sens commun\u00a0», de Thomas Paine, circule dans les colonies\u00a0: il réclame l'indépendance."
+          }
+        ],
+        "oeuvre": {
+          "fichier": "declaration-independance.jpg",
+          "alt": "Debout devant les délégués du Congrès, cinq hommes présentent un document",
+          "titre": "La Déclaration d'indépendance",
+          "source": "tableau de John Trumbull, 1818",
+          "note": "Le comité de rédaction, dont Thomas Jefferson, présente la Déclaration au Congrès."
+        }
+      }
+    ],
+    "pieges": {
+      "taxes": {
+        "proclamation": "La Proclamation fâche les colons, mais ce n'est pas elle qui pousse Londres à les taxer. Cherche ce qui oblige Londres à trouver de l'argent."
+      },
+      "tea-act": {
+        "massacre": "Le massacre de Boston nourrit la colère des colons, mais il n'explique pas le Tea Act. Pense plutôt à la taxe que Londres a gardée sur le thé."
+      },
+      "tea-party": {
+        "massacre": "Le massacre a eu lieu plus de trois ans plus tôt. Cherche plutôt la loi de 1773 qui fait arriver à Boston du thé taxé."
+      },
+      "intolerables": {
+        "massacre": "Le massacre de Boston date de 1770. Les lois de 1774 répondent à un geste plus récent, à Boston même."
+      },
+      "lexington": {
+        "congres": "Le Congrès prépare la résistance, mais ce n'est pas lui qui envoie les soldats vers Concord. Qui gouverne le Massachusetts depuis 1774?"
+      }
+    }
+  };
+
+  var NB = "\u00a0";
+  var SVGNS = "http://www.w3.org/2000/svg";
+  var faits = DONNEES.faits;
+  var rang = {};
+  faits.forEach(function (fait, i) { rang[fait.id] = i; });
+  var liens = [];
+  faits.forEach(function (fait) {
+    (fait.causes || []).forEach(function (cause) {
+      liens.push({ de: cause.de, vers: fait.id, texte: cause.lien });
+    });
+  });
+
+  var liste = racine.querySelector(".cau__faits");
+  var chaine = racine.querySelector(".cau__chaine");
+  var svg = racine.querySelector(".cau__liens");
+  var cote = racine.querySelector(".cau__cote");
+  var panneau = racine.querySelector(".cau__panneau");
+  var compte = racine.querySelector(".cau__compte");
+  var boutonsMode = Array.prototype.slice.call(racine.querySelectorAll(".cau__mode"));
+  var recommencer = racine.querySelector(".cau__recommencer");
+  var replier = racine.querySelector(".cau__replier");
+  var reduit = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var medias = DONNEES.medias || "";
+  var absentes = {};
+  var images = {};
+  racine.classList.toggle("a-oeuvres", !!medias && faits.some(function (f) { return !!f.oeuvre; }));
+
+  function el(balise, classe, texte) {
+    var noeud = document.createElement(balise);
+    if (classe) { noeud.className = classe; }
+    if (texte !== undefined && texte !== null) { noeud.textContent = texte; }
+    return noeud;
+  }
+  function causesDe(id) { return faits[rang[id]].causes || []; }
+  function suitesDe(id) { return liens.filter(function (l) { return l.de === id; }); }
+  function cle(de, vers) { return de + ">" + vers; }
+  function ancetres(id) {
+    var vus = {};
+    var pile = causesDe(id).map(function (c) { return c.de; });
+    while (pile.length) {
+      var x = pile.pop();
+      if (vus[x]) { continue; }
+      vus[x] = true;
+      causesDe(x).forEach(function (c) { pile.push(c.de); });
+    }
+    return vus;
+  }
+  function nommer(id) {
+    var titre = faits[rang[id]].titre;
+    return titre.charAt(0) === "«" ? titre : "«" + NB + titre + NB + "»";
+  }
+  function lienEntre(de, vers) {
+    for (var k = 0; k < liens.length; k++) {
+      if (liens[k].de === de && liens[k].vers === vers) { return liens[k]; }
+    }
+    return null;
+  }
+
+  var elements = faits.map(function (fait, i) {
+    var li = el("li", "cau__fait");
+    li.setAttribute("data-fait", fait.id);
+    var carte = el("button", "cau__carte");
+    carte.type = "button";
+    carte.setAttribute("data-fait", fait.id);
+    if (fait.date) { carte.appendChild(el("span", "cau__date", fait.date)); } else { carte.classList.add("cau__carte--sans-date"); }
+    var nom = el("span", "cau__nom", fait.titre);
+    carte.appendChild(nom);
+    var marque = el("span", "cau__marque");
+    carte.appendChild(marque);
+    var desc = el("span", "cau__desc", fait.texte);
+    carte.appendChild(desc);
+    li.appendChild(carte);
+    liste.appendChild(li);
+    carte.addEventListener("click", function () { cliquer(i); });
+    carte.addEventListener("keydown", function (e) {
+      var pas = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+      if (e.key === "Escape" && etat.mode === "explorer" && etat.choisi) { etat.choisi = null; rendre(); return; }
+      if (!pas) { return; }
+      for (var j = i + pas; j >= 0 && j < elements.length; j += pas) {
+        if (!elements[j].li.hidden) { e.preventDefault(); elements[j].carte.focus(); return; }
+      }
+    });
+    return { li: li, carte: carte, marque: marque };
+  });
+
+  var etat;
+  var impression = false;
+
+  function demarrer() {
+    etat = { mode: "construire", reveles: 0, courant: -1, trouves: {}, rates: 0, choisi: null,
+      retour: null, nouveau: null, faux: -1, premier: true };
+    while (etat.reveles < faits.length - 1 && !causesDe(faits[etat.reveles].id).length) { etat.reveles += 1; }
+    avancer();
+  }
+  function avancer() {
+    etat.retour = null;
+    etat.nouveau = null;
+    etat.faux = -1;
+    if (etat.reveles >= faits.length) { return; }
+    etat.courant = etat.reveles;
+    etat.reveles += 1;
+    var li = elements[etat.courant].li;
+    li.classList.add("est-apparu");
+    setTimeout(function () { li.classList.remove("est-apparu"); }, 700);
+  }
+  function reste(i) {
+    var id = faits[i].id;
+    return causesDe(id).filter(function (c) { return !etat.trouves[cle(c.de, id)]; }).length;
+  }
+  function nbTrouves() { return Object.keys(etat.trouves).length; }
+  function fini() {
+    return etat.reveles >= faits.length && etat.courant === faits.length - 1 && reste(etat.courant) === 0;
+  }
+
+  function cliquer(i) {
+    if (etat.mode === "explorer") {
+      etat.choisi = etat.choisi === faits[i].id ? null : faits[i].id;
+      rendre();
+      return;
+    }
+    if (etat.courant < 0 || i >= etat.reveles) { return; }
+    var cible = faits[etat.courant].id;
+    var choix = faits[i].id;
+    if (i === etat.courant) {
+      etat.retour = { type: causesDe(cible).length ? "soi" : "depart" };
+      etat.faux = -1;
+      rendre();
+      return;
+    }
+    if (reste(etat.courant) === 0) {
+      etat.retour = { type: "attente", de: choix };
+      rendre();
+      return;
+    }
+    var estCause = causesDe(cible).some(function (c) { return c.de === choix; });
+    if (estCause && etat.trouves[cle(choix, cible)]) {
+      etat.retour = { type: "deja", de: choix };
+      etat.faux = -1;
+    } else if (estCause) {
+      etat.trouves[cle(choix, cible)] = true;
+      etat.nouveau = cle(choix, cible);
+      etat.retour = { type: "bon", de: choix };
+      etat.faux = -1;
+    } else {
+      etat.rates += 1;
+      etat.retour = { type: "mauvais", de: choix };
+      etat.faux = i;
+    }
+    rendre();
+    if (etat.retour.type === "bon" && reste(etat.courant) === 0) {
+      var suite = panneau.querySelector("[data-action]");
+      if (suite) { suite.focus({ preventScroll: true }); }
+    }
+  }
+
+  function sujet(fait) {
+    var p = el("p", "cau__sujet");
+    if (fait.date) { p.appendChild(el("span", "cau__sujet-date", fait.date)); }
+    p.appendChild(document.createTextNode(fait.titre));
+    return p;
+  }
+  function oeuvre(fait) {
+    var o = fait.oeuvre;
+    if (!o || !medias) { return null; }
+    var bloc = el("div", "cau__oeuvre cau__detail");
+    if (absentes[o.fichier]) {
+      bloc.classList.add("est-absente");
+    } else {
+      var cadre = el("div", "cau__oeuvre-cadre");
+      var img = images[o.fichier];
+      if (!img) {
+        /* La même image sert à chaque affichage du panneau : elle ne se
+           recharge pas et ne clignote pas d'un clic à l'autre. */
+        img = document.createElement("img");
+        img.alt = o.alt;
+        img.decoding = "async";
+        img.addEventListener("error", function () {
+          absentes[o.fichier] = true;
+          var hote = img.parentNode && img.parentNode.parentNode;
+          if (hote && hote.classList) { hote.classList.add("est-absente"); }
+          planifierDessin();
+        });
+        img.addEventListener("load", planifierDessin);
+        img.src = medias + o.fichier;
+        images[o.fichier] = img;
+      }
+      cadre.appendChild(img);
+      bloc.appendChild(cadre);
+    }
+    var legende = el("p", "cau__oeuvre-legende");
+    if (o.titre) {
+      legende.appendChild(el("span", "cau__oeuvre-titre", o.titre));
+      legende.appendChild(document.createTextNode(", "));
+    }
+    legende.appendChild(document.createTextNode(o.source + "." + (o.note ? " " + o.note : "")));
+    bloc.appendChild(legende);
+    var credit = racine.querySelector('.cau__credits [data-credit="' + o.fichier + '"] > details');
+    if (credit) { bloc.appendChild(credit.cloneNode(true)); }
+    return bloc;
+  }
+  function action(texte, nom, fort) {
+    var b = el("button", "cau__bouton" + (fort ? " cau__bouton--fort" : ""), texte);
+    b.type = "button";
+    b.setAttribute("data-action", nom);
+    return b;
+  }
+  function messageMauvais(de, cible) {
+    var pieges = (DONNEES.pieges || {})[cible] || {};
+    if (pieges[de]) { return pieges[de]; }
+    if (ancetres(cible)[de]) {
+      return nommer(de) + " est une cause lointaine de " + nommer(cible) + NB + ": il manque au moins une étape entre les deux. Cherche la cause directe.";
+    }
+    return nommer(de) + " arrive avant " + nommer(cible) + ", mais ne l'explique pas. Arriver avant ne suffit pas pour être une cause.";
+  }
+
+  function panneauConstruire() {
+    var fait = faits[etat.courant];
+    var total = causesDe(fait.id).length;
+    var manque = reste(etat.courant);
+    if (fini()) {
+      panneau.appendChild(el("p", "cau__etiquette", "Chaîne complète"));
+    } else {
+      panneau.appendChild(el("p", "cau__etiquette", total ? "Fait à expliquer" : "Nouveau point de départ"));
+    }
+    panneau.appendChild(sujet(fait));
+    panneau.appendChild(el("p", "cau__texte cau__detail", fait.texte));
+    if (!total) {
+      panneau.appendChild(el("p", "cau__question", "Ce fait n'a pas de cause dans cette chaîne. Il en ouvre une nouvelle branche."));
+    } else if (manque) {
+      var q = manque === total
+        ? (total > 1 ? "Ce fait a " + total + " causes. Clique sur elles dans la chaîne." : "Quelle carte en est la cause? Clique sur elle dans la chaîne.")
+        : "Ce fait a une autre cause. Trouve-la.";
+      panneau.appendChild(el("p", "cau__question", q));
+      if (etat.premier && !etat.retour) {
+        panneau.appendChild(el("p", "cau__indice cau__detail", "Chaque nouveau fait apparaît au bas de la chaîne. Une flèche reliera chaque cause à sa conséquence."));
+      }
+    }
+    var r = etat.retour;
+    if (r) {
+      var boite = el("div", "cau__retour");
+      if (r.type === "bon") {
+        boite.classList.add("est-bon");
+        boite.appendChild(el("span", "cau__verdict", "Lien trouvé!"));
+        boite.appendChild(el("p", "", nommer(r.de) + " mène à " + nommer(fait.id) + "."));
+        var l = lienEntre(r.de, fait.id);
+        if (l) { boite.appendChild(el("p", "cau__detail", l.texte)); }
+      } else if (r.type === "mauvais") {
+        boite.classList.add("est-mauvais");
+        boite.appendChild(el("span", "cau__verdict", "Pas tout à fait."));
+        boite.appendChild(el("p", "", messageMauvais(r.de, fait.id)));
+      } else if (r.type === "soi") {
+        boite.appendChild(el("span", "cau__verdict", "C'est le fait à expliquer."));
+        boite.appendChild(el("p", "", "Sa cause se trouve plus haut dans la chaîne."));
+      } else if (r.type === "deja") {
+        boite.appendChild(el("span", "cau__verdict", "Ce lien est déjà trouvé."));
+      } else if (r.type === "attente") {
+        boite.appendChild(el("span", "cau__verdict", "Toutes les causes de ce fait sont trouvées."));
+        boite.appendChild(el("p", "", fini() ? "La chaîne est complète." : "Passe au fait suivant."));
+      } else if (r.type === "depart") {
+        boite.appendChild(el("span", "cau__verdict", "Ce fait est un point de départ."));
+      }
+      panneau.appendChild(boite);
+    }
+    var actions = el("div", "cau__actions");
+    if (fini()) {
+      var bilan = el("div", "cau__retour est-bon");
+      bilan.appendChild(el("span", "cau__verdict", "Bravo! Tu as relié les " + liens.length + " liens de la chaîne."));
+      bilan.appendChild(el("p", "", etat.rates
+        ? (etat.rates === 1 ? "Un seul essai raté." : "Essais ratés" + NB + ": " + etat.rates + ".")
+        : "Aucun essai raté."));
+      bilan.appendChild(el("p", "cau__detail", "Remarque que chaque conséquence devient à son tour une cause. Ouvre la chaîne complète pour suivre les liens d'un fait à l'autre."));
+      panneau.appendChild(bilan);
+      actions.appendChild(action("Voir la chaîne complète", "explorer", true));
+      actions.appendChild(action("Recommencer", "recommencer", false));
+    } else if (!manque) {
+      actions.appendChild(action("Fait suivant", "suivant", true));
+    }
+    if (actions.firstChild) { panneau.appendChild(actions); }
+    /* Pendant le jeu, l'œuvre vient après la question et les boutons :
+       Fait suivant reste visible sans faire défiler le panneau. */
+    var image = oeuvre(fait);
+    if (image) { panneau.appendChild(image); }
+  }
+
+  function listeLiens(hote, items, suite) {
+    var ul = el("ul", "cau__liste" + (suite ? " cau__liste--suite" : ""));
+    items.forEach(function (item) {
+      var li = el("li");
+      var autre = faits[rang[suite ? item.vers : item.de]];
+      var b = el("button", "cau__relie");
+      b.type = "button";
+      b.setAttribute("data-aller", autre.id);
+      if (autre.date) { b.appendChild(el("span", "cau__relie-date", autre.date)); }
+      b.appendChild(document.createTextNode(autre.titre));
+      li.appendChild(b);
+      li.appendChild(el("p", "cau__detail", item.texte));
+      ul.appendChild(li);
+    });
+    hote.appendChild(ul);
+  }
+
+  function panneauExplorer() {
+    if (!etat.choisi) {
+      panneau.appendChild(el("p", "cau__etiquette", "La chaîne complète"));
+      panneau.appendChild(el("p", "cau__question", "Clique sur un fait pour voir ses causes et ses conséquences."));
+      panneau.appendChild(el("p", "cau__indice cau__detail", "Chaque flèche part d'une cause et pointe vers sa conséquence. Un même fait peut être une conséquence, puis devenir à son tour une cause."));
+      var legende = el("p", "cau__legende");
+      [["Fait choisi", " cau__pastille--choisi"], ["Ses causes", ""], ["Ses conséquences", " cau__pastille--suite"]].forEach(function (x) {
+        var s = el("span");
+        s.appendChild(el("span", "cau__pastille" + x[1]));
+        s.appendChild(document.createTextNode(x[0]));
+        legende.appendChild(s);
+      });
+      panneau.appendChild(legende);
+      return;
+    }
+    var fait = faits[rang[etat.choisi]];
+    panneau.appendChild(el("p", "cau__etiquette", "Fait choisi"));
+    panneau.appendChild(sujet(fait));
+    var image = oeuvre(fait);
+    if (image) { panneau.appendChild(image); }
+    panneau.appendChild(el("p", "cau__texte cau__detail", fait.texte));
+    var causes = causesDe(fait.id).map(function (c) { return { de: c.de, vers: fait.id, texte: c.lien }; });
+    panneau.appendChild(el("p", "cau__liste-titre", causes.length ? (causes.length > 1 ? "Ses causes" : "Sa cause") : "Ses causes"));
+    if (causes.length) { listeLiens(panneau, causes, false); }
+    else { panneau.appendChild(el("p", "cau__indice", "C'est un point de départ de la chaîne.")); }
+    var suites = suitesDe(fait.id);
+    panneau.appendChild(el("p", "cau__liste-titre", suites.length > 1 ? "Ses conséquences" : suites.length ? "Sa conséquence" : "Ses conséquences"));
+    if (suites.length) { listeLiens(panneau, suites, true); }
+    else { panneau.appendChild(el("p", "cau__indice", rang[fait.id] === faits.length - 1 ? "C'est l'aboutissement de la chaîne." : "Ce fait n'a pas de conséquence dans cette chaîne.")); }
+  }
+
+  function remplirPanneau() {
+    while (panneau.firstChild) { panneau.removeChild(panneau.firstChild); }
+    cote.scrollTop = 0;
+    if (etat.mode === "explorer") { panneauExplorer(); } else { panneauConstruire(); }
+  }
+
+  function seuil() {
+    var base = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+    return base * 46;
+  }
+  function etroit() {
+    return !racine.classList.contains("est-plein-ecran") && racine.clientWidth < seuil();
+  }
+  function placerPanneau() {
+    var hote = null;
+    if (etroit() && !impression) {
+      var i = etat.mode === "explorer" ? (etat.choisi ? rang[etat.choisi] : -1) : etat.courant;
+      if (i >= 0) { hote = elements[i].li; }
+    }
+    var parent = hote || cote;
+    if (panneau.parentNode !== parent) { parent.appendChild(panneau); }
+    cote.hidden = !!hote;
+  }
+
+  function rendre() {
+    var explorer = etat.mode === "explorer";
+    var tout = explorer || impression;
+    racine.classList.toggle("est-explorer", explorer);
+    racine.classList.toggle("est-construire", !explorer);
+    boutonsMode.forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-mode") === etat.mode ? "true" : "false");
+    });
+    var choisi = explorer ? etat.choisi : null;
+    var causesChoisi = {};
+    var suitesChoisi = {};
+    if (choisi) {
+      causesDe(choisi).forEach(function (c) { causesChoisi[c.de] = true; });
+      suitesDe(choisi).forEach(function (l) { suitesChoisi[l.vers] = true; });
+    }
+    var cible = !explorer && etat.courant >= 0 ? faits[etat.courant].id : null;
+    elements.forEach(function (e, i) {
+      var id = faits[i].id;
+      e.li.hidden = !(tout || i < etat.reveles);
+      if (e.li.hidden) { e.li.setAttribute("aria-hidden", "true"); } else { e.li.removeAttribute("aria-hidden"); }
+      var etats = { "est-depart": false, "est-nouveau": false, "est-juste": false, "est-faux": false,
+        "est-choisi": false, "est-cause": false, "est-consequence": false, "est-attenue": false };
+      var marque = "";
+      if (explorer) {
+        e.carte.setAttribute("aria-pressed", id === choisi ? "true" : "false");
+        e.carte.removeAttribute("aria-current");
+        if (choisi) {
+          if (id === choisi) { etats["est-choisi"] = true; marque = "Fait choisi"; }
+          else if (causesChoisi[id]) { etats["est-cause"] = true; marque = "Cause"; }
+          else if (suitesChoisi[id]) { etats["est-consequence"] = true; marque = "Conséquence"; }
+          else { etats["est-attenue"] = true; }
+        }
+      } else {
+        e.carte.removeAttribute("aria-pressed");
+        if (i === etat.courant) {
+          etats["est-nouveau"] = true;
+          marque = fini() ? "Aboutissement" : causesDe(id).length ? "Fait à expliquer" : "Départ";
+          e.carte.setAttribute("aria-current", "true");
+        } else {
+          e.carte.removeAttribute("aria-current");
+          if (cible && etat.trouves[cle(id, cible)]) { etats["est-juste"] = true; marque = "Cause trouvée"; }
+          else if (i === etat.faux) { etats["est-faux"] = true; marque = "Pas la cause"; }
+          else if (!causesDe(id).length) { etats["est-depart"] = true; marque = "Départ"; }
+        }
+      }
+      Object.keys(etats).forEach(function (k) { e.li.classList.toggle(k, etats[k]); });
+      e.marque.textContent = marque;
+    });
+    compte.textContent = "Liens trouvés" + NB + ": " + nbTrouves() + " sur " + liens.length;
+    remplirPanneau();
+    placerPanneau();
+    planifierDessin();
+  }
+
+  /* En plein écran, la chaîne entière remplit la hauteur de sa colonne :
+     la taille du texte des cartes se règle pour que tous les faits y
+     tiennent, entre 15 et 26 pixels. Le calcul se refait seulement quand
+     la taille du composant change, pour que les cartes ne bougent pas
+     pendant le jeu. */
+  function ajusterEchelle() {
+    racine.classList.add("est-mesure");
+    mesurerEchelle();
+    racine.classList.remove("est-mesure");
+  }
+  function mesurerEchelle() {
+    liste.style.removeProperty("font-size");
+    if (!racine.classList.contains("est-plein-ecran") || impression) { return; }
+    if (window.matchMedia && window.matchMedia("(max-width: 48rem)").matches) { return; }
+    var style = window.getComputedStyle(chaine);
+    var dispo = chaine.clientHeight - (parseFloat(style.paddingTop) || 0) - (parseFloat(style.paddingBottom) || 0);
+    if (!(dispo > 0)) { return; }
+    var caches = [];
+    elements.forEach(function (e) { if (e.li.hidden) { caches.push(e.li); e.li.hidden = false; } });
+    liste.style.minHeight = "0px";
+    var taille = parseFloat(window.getComputedStyle(liste).fontSize) || 16;
+    for (var k = 0; k < 3; k++) {
+      var h = liste.offsetHeight;
+      if (!(h > 0)) { break; }
+      taille = Math.max(15, Math.min(26, taille * dispo / h));
+      liste.style.fontSize = taille.toFixed(2) + "px";
+    }
+    liste.style.removeProperty("min-height");
+    caches.forEach(function (li) { li.hidden = true; });
+  }
+
+  var dessinPrevu = false;
+  function planifierDessin() {
+    if (dessinPrevu) { return; }
+    dessinPrevu = true;
+    var rappel = function () { dessinPrevu = false; dessiner(); };
+    if (window.requestAnimationFrame) { window.requestAnimationFrame(rappel); } else { setTimeout(rappel, 16); }
+  }
+  function forme(nom, attributs, classes) {
+    var n = document.createElementNS(SVGNS, nom);
+    Object.keys(attributs).forEach(function (k) { n.setAttribute(k, attributs[k]); });
+    n.setAttribute("class", classes);
+    return n;
+  }
+  function dessiner() {
+    while (svg.firstChild) { svg.removeChild(svg.firstChild); }
+    var style = window.getComputedStyle(chaine);
+    var gauche = parseFloat(style.paddingLeft) || 0;
+    var hauteur = liste.offsetTop + liste.offsetHeight + (parseFloat(style.paddingBottom) || 0);
+    svg.setAttribute("width", String(Math.max(0, Math.round(gauche))));
+    svg.setAttribute("height", String(Math.max(0, Math.round(hauteur))));
+    var x0 = gauche - 5;
+    var explorer = etat.mode === "explorer";
+    var tout = explorer || impression;
+    var choisi = explorer ? etat.choisi : null;
+    var cible = !explorer && etat.courant >= 0 ? faits[etat.courant].id : null;
+    liens.forEach(function (l) {
+      var k = cle(l.de, l.vers);
+      if (!tout && !etat.trouves[k]) { return; }
+      var a = elements[rang[l.de]].carte;
+      var b = elements[rang[l.vers]].carte;
+      if (elements[rang[l.de]].li.hidden || elements[rang[l.vers]].li.hidden) { return; }
+      var ya = a.offsetTop + a.offsetHeight * 0.66;
+      var yb = b.offsetTop + b.offsetHeight * 0.34;
+      var d = rang[l.vers] - rang[l.de];
+      var bombe = Math.max(8, Math.min(10 + (d - 1) * 8, x0 - 6));
+      var classes = "";
+      if (choisi) {
+        classes = l.vers === choisi ? " est-cause" : l.de === choisi ? " est-consequence" : " est-attenue";
+      } else if (cible && l.vers === cible) {
+        classes = " est-cause";
+      }
+      var chemin = forme("path", {
+        d: "M" + x0 + " " + ya.toFixed(1) + " C" + (x0 - bombe) + " " + ya.toFixed(1) + " " + (x0 - bombe) + " " + yb.toFixed(1) + " " + x0 + " " + yb.toFixed(1),
+        "data-de": l.de, "data-vers": l.vers
+      }, "cau__lien" + classes);
+      svg.appendChild(chemin);
+      svg.appendChild(forme("circle", { cx: x0, cy: ya.toFixed(1), r: 2.6 }, "cau__origine" + classes));
+      svg.appendChild(forme("path", {
+        d: "M" + (x0 + 3) + " " + yb.toFixed(1) + " L" + (x0 - 4) + " " + (yb - 4.5).toFixed(1) + " L" + (x0 - 4) + " " + (yb + 4.5).toFixed(1) + " Z"
+      }, "cau__pointe" + classes));
+      if (etat.nouveau === k && !explorer && !reduit && chemin.getTotalLength) {
+        var longueur = chemin.getTotalLength();
+        if (longueur > 0) {
+          chemin.style.transition = "none";
+          chemin.style.strokeDasharray = longueur;
+          chemin.style.strokeDashoffset = longueur;
+          chemin.getBoundingClientRect();
+          chemin.style.transition = "";
+          chemin.style.strokeDashoffset = "0";
+        }
+        etat.nouveau = null;
+      }
+    });
+  }
+
+  panneau.addEventListener("click", function (e) {
+    var cibleClic = e.target.closest ? e.target.closest("[data-action], [data-aller]") : null;
+    if (!cibleClic) { return; }
+    var nom = cibleClic.getAttribute("data-action");
+    if (nom === "suivant") {
+      avancer();
+      etat.premier = false;
+      rendre();
+      var carte = elements[etat.courant].carte;
+      if (carte.scrollIntoView) { carte.scrollIntoView({ block: "nearest", behavior: reduit ? "auto" : "smooth" }); }
+      panneau.focus({ preventScroll: true });
+    } else if (nom === "explorer") {
+      etat.mode = "explorer";
+      etat.choisi = null;
+      rendre();
+    } else if (nom === "recommencer") {
+      demarrer();
+      rendre();
+    } else if (cibleClic.hasAttribute("data-aller")) {
+      etat.choisi = cibleClic.getAttribute("data-aller");
+      rendre();
+      var c = elements[rang[etat.choisi]].carte;
+      if (c.scrollIntoView) { c.scrollIntoView({ block: "nearest", behavior: reduit ? "auto" : "smooth" }); }
+      c.focus({ preventScroll: true });
+    }
+  });
+  boutonsMode.forEach(function (b) {
+    b.addEventListener("click", function () {
+      etat.mode = b.getAttribute("data-mode");
+      rendre();
+    });
+  });
+  recommencer.addEventListener("click", function () { demarrer(); rendre(); });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    planifierDessin();
+  });
+
+  var largeurConnue = -1;
+  var cadreConnu = "";
+  function surRedimension() {
+    var w = racine.clientWidth;
+    if (w !== largeurConnue) { largeurConnue = w; placerPanneau(); }
+    var plein = racine.classList.contains("est-plein-ecran");
+    var cadre = plein ? w + "x" + racine.clientHeight : "";
+    if (cadre !== cadreConnu) { cadreConnu = cadre; ajusterEchelle(); }
+    planifierDessin();
+  }
+  if (window.ResizeObserver) {
+    var observateur = new window.ResizeObserver(surRedimension);
+    observateur.observe(racine);
+    observateur.observe(liste);
+  } else {
+    window.addEventListener("resize", surRedimension);
+  }
+  if (window.MutationObserver) {
+    var pleinAvant = false;
+    new window.MutationObserver(function () {
+      var plein = racine.classList.contains("est-plein-ecran");
+      if (plein === pleinAvant) { return; }
+      pleinAvant = plein;
+      placerPanneau();
+      cadreConnu = plein ? racine.clientWidth + "x" + racine.clientHeight : "";
+      ajusterEchelle();
+      chaine.scrollTop = 0;
+      cote.scrollTop = 0;
+      planifierDessin();
+    }).observe(racine, { attributes: true, attributeFilter: ["class"] });
+  }
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { ajusterEchelle(); planifierDessin(); }); }
+  window.addEventListener("beforeprint", function () { impression = true; rendre(); dessiner(); });
+  window.addEventListener("afterprint", function () { impression = false; rendre(); });
+
+  demarrer();
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

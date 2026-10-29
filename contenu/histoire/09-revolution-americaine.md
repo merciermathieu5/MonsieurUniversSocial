@@ -274,8 +274,9 @@ Après la guerre de Sept Ans, gagnée par les Britanniques, les colons des
 Treize colonies s'attendaient à ce que les terres fertiles situées à l'ouest
 des Appalaches soient disponibles afin de pouvoir s'y établir. Néanmoins, ce
 ne fut pas le cas. Il faut mentionner que la population des Treize colonies
-est en pleine expansion et qu'elle a besoin de terres pour s'y installer. Lors
-de la signature du traité de Paris en 1763, les Britanniques les ont réservées
+est en pleine expansion et qu'elle a besoin de terres pour s'y installer.
+Après la signature du traité de Paris, le 10 février 1763, le roi George III a
+publié la Proclamation royale, le 7 octobre 1763. Elle a réservé ces terres
 aux populations autochtones, afin d'apaiser les tensions existantes. Rappelons
 que plusieurs nations autochtones avaient pris les armes aux côtés des
 Français lors de la guerre de Sept Ans.
@@ -344,6 +345,13 @@ Treize colonies dans la guerre d'indépendance.
 ::: schema causes-revolution
 :::
 
+Ces causes ne surgissent pas toutes en même temps. Elles s'enchaînent
+plutôt, car chaque conséquence devient à son tour la cause d'un nouveau
+fait. Reconstruis cet enchaînement, de la guerre de Sept Ans jusqu'à la
+Déclaration d'indépendance.
+
+::: composant causes-revolution
+
 ::: questions
 1. Pourquoi la Proclamation royale de 1763 déçoit-elle les colons?
 2. Nomme les trois taxes imposées par Londres et explique le slogan « pas de taxation sans représentation ».
@@ -361,10 +369,9 @@ Le massacre de Boston, connu comme l'incident de la rue King par les
 Britanniques, est un épisode de l'opposition entre les Treize colonies et
 la Grande-Bretagne. Cet incident s'est produit le 5 mars 1770, lorsque des
 soldats de l'armée britannique ont tué cinq civils et en ont blessé six
-autres, le bilan faisant finalement état de sept morts. L'incident est
-aussitôt repris, à des fins de propagande, par les principaux Patriotes,
-tels Paul Revere et Samuel Adams, afin d'alimenter la colère envers les
-autorités britanniques et d'accélérer le processus d'union
+autres. L'incident est aussitôt repris, à des fins de propagande, par les
+principaux Patriotes, tels Paul Revere et Samuel Adams, afin d'alimenter la
+colère envers les autorités britanniques et d'accélérer le processus d'union
 indépendantiste.
 
 Les troupes britanniques sont stationnées à Boston depuis 1768 afin de
@@ -553,3 +560,16 @@ Source : Hérodote.net
 - [Alloprof, La Révolution américaine](https://www.alloprof.qc.ca/)
 - [Hérodote.net, Le Bill of Rights](https://www.herodote.net/)
 - [Wikipédia](https://fr.wikipedia.org/)
+- [L'Encyclopédie canadienne, Traité de Paris (1763)](https://www.thecanadianencyclopedia.ca/fr/article/traite-de-paris-1763)
+- [L'Encyclopédie canadienne, Proclamation royale de 1763](https://thecanadianencyclopedia.ca/fr/article/proclamation-of-1763)
+- [Wikipédia (en anglais), Financial costs of the Seven Years' War](https://en.wikipedia.org/wiki/Financial_costs_of_the_Seven_Years%27_War)
+- [Wikipédia (en anglais), Stamp Act 1765](https://en.wikipedia.org/wiki/Stamp_Act_1765)
+- [Encyclopædia Britannica, Townshend Acts](https://www.britannica.com/event/Townshend-Acts)
+- [Wikipédia (en anglais), Boston Massacre](https://en.wikipedia.org/wiki/Boston_Massacre)
+- [World History Encyclopedia, Massacre de Boston](https://www.worldhistory.org/trans/fr/1-22394/massacre-de-boston/)
+- [Encyclopædia Britannica, Tea Act](https://www.britannica.com/event/Tea-Act)
+- [Encyclopædia Britannica, Intolerable Acts](https://www.britannica.com/print/article/291884)
+- [Wikipédia (en anglais), First Continental Congress](https://en.wikipedia.org/wiki/First_Continental_Congress)
+- [Founders Online, notes de John Adams au premier Congrès continental (1774)](https://founders.archives.gov/documents/Adams/01-02-02-0004-0006-0007)
+- [World History Encyclopedia, Battles of Lexington and Concord](https://www.worldhistory.org/article/2341/battles-of-lexington-and-concord)
+- [National Portrait Gallery, Common Sense (1776)](https://npg.si.edu/exhibit/paine/pop-ups/01-02.html)

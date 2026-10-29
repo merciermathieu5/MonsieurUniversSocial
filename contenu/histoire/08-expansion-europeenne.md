@@ -419,9 +419,6 @@ mineurs morts dans des accidents y auraient suffi également.
 
 ### La mise en place du commerce triangulaire
 
-::: schema commerce-triangulaire
-:::
-
 Avant de recourir aux esclaves africains, les colons espagnols forcent les
 habitants autochtones à travailler dans les mines et sur les plantations
 agricoles. Les pratiques agricoles visent d'abord et avant tout la
@@ -447,6 +444,11 @@ qu'on appelle le mercantilisme.
 
 (Source : Alloprof)
 
+Explore la carte pour suivre les navires, un côté du triangle à la fois.
+Clique ensuite sur un port pour découvrir son rôle dans la traite.
+
+::: composant commerce-triangulaire
+
 ### La traite des esclaves
 
 ![Le plan du navire négrier Brookes (1788)](../medias/08-expansion-europeenne/navire-negrier.png)
@@ -459,9 +461,11 @@ que les marchands échangeaient des biens contre des personnes réduites en
 esclavage. Environ 600 d'entre elles étaient d'abord marquées au fer rouge,
 puis enchaînées dans les cales des navires. Elles y étaient entassées, sans
 lit, sans eau, sans toilette et sans réelle possibilité de mouvement. La
-traversée de l'Atlantique pouvait durer entre 3 et 6 semaines, pendant
-lesquelles tant les esclaves que les membres de l'équipage succombaient aux
-conditions de vie éprouvantes. Le taux de mortalité chez les esclaves était
+traversée de l'Atlantique durait en moyenne un peu plus de deux mois. Les
+plus courtes, depuis les côtes d'Afrique les plus proches de l'Amérique,
+prenaient environ trois semaines. Pendant ce temps, tant les esclaves que
+les membres de l'équipage succombaient aux conditions de vie éprouvantes.
+Le taux de mortalité chez les esclaves était
 d'environ 10 % à 20 %.
 
 Les maîtres ne les ont jamais réellement traités avec pitié ou compassion.
@@ -607,3 +611,28 @@ découvertes.
 - [Wikipédia](https://fr.wikipedia.org/)
 - Michel Jébrak, Des mines et des empires, Éditions Multimondes, 2024
 - Evelyne Ferron et Karine Prémont, Le monde depuis le XVe siècle, Fides Éducation, 2024
+- [Bertocchi, The legacies of slavery in and out of Africa, IZA Journal of Migration, 2016, tableaux 1 et 2 (base Slave Voyages)](https://izajodm.springeropen.com/articles/10.1186/s40176-016-0072-0)
+- [The Conversation, Transatlantic slave trade was not entirely triangular](https://theconversation.com/transatlantic-slave-trade-was-not-entirely-triangular-countries-in-the-americas-sent-ships-out-too-97115)
+- [Encyclopædia Universalis, Traite des Noirs : la traversée atlantique](https://www.universalis.fr/encyclopedie/traite-des-noirs/5-la-traversee-atlantique/)
+- [Gresham College, Liverpool and the slave trade](https://www.gresham.ac.uk/node/11732)
+- [Bécédia, Le rôle de Nantes dans la traite atlantique](https://www.bcd.bzh/becedia/en/node/65075)
+- [Wikipédia, Traite négrière à Bordeaux](https://fr.wikipedia.org/wiki/Traite_n%C3%A9gri%C3%A8re_%C3%A0_Bordeaux)
+- [Académie de Bordeaux, Bordeaux et le commerce triangulaire (journal de bord de la Licorne)](https://ent2d.ac-bordeaux.fr/disciplines/lettres-histoire/wp-content/uploads/sites/5/2018/08/Bordeaux-et-le-commerce-triangulaire.pdf)
+- [Understanding Slavery Initiative, Slave forts case study](https://understandingslavery.com/casestudy/slave-forts-case-study/)
+- [UNESCO, Forts et châteaux de Volta, d'Accra et ses environs et des régions centrale et ouest](https://whc.unesco.org/en/list/34)
+- [Wikipédia (en anglais), Elmina Castle](https://en.wikipedia.org/wiki/Elmina_Castle)
+- [Wikipédia (en anglais), Ouidah](https://en.wikipedia.org/wiki/Ouidah)
+- [Wikipédia (en anglais), Loango Slavery Harbour](https://en.wikipedia.org/wiki/Loango_Slavery_Harbour)
+- [Wikipédia (en anglais), Luanda](https://en.wikipedia.org/wiki/Luanda)
+- [Britannica Kids, Triangular trade](https://kids.britannica.com/kids/article/triangular-trade/628657)
+- [Revista de História (USP), Atlantic interactions between Salvador and Porto Novo (Costa da Mina) in the eighteenth century](https://revistas.usp.br/revhistoria/en/article/view/113621)
+- [History Hit, International Slavery Museum](https://www.historyhit.com/locations/international-slavery-museum/)
+- [Au Sénégal, Le musée d'Aquitaine s'ouvre à l'histoire de la traite négrière, 2009](https://au-senegal.com/le-musee-d-aquitaine-s-ouvre-a-l-histoire-de-la-traite-negriere,2277.html)
+- [Hérodote, 22-23 août 1791 : révolte des esclaves à Saint-Domingue](https://www.herodote.net/23_aout_1791-evenement-17910823.php)
+- [Slavery and Remembrance, Jamaica](https://www.slaveryandremembrance.org/articles/article/index.cfm?id=A0112)
+- [Hérodote, 31 août 1763 : Rio de Janeiro devient la capitale du Brésil](https://www.herodote.net/31_aout_1763-evenement-17630831.php)
+- [UNESCO, Site archéologique du quai de Valongo](https://whc.unesco.org/en/list/1548)
+- [Wikipédia, Abolition de l'esclavage en France](https://fr.wikipedia.org/wiki/Abolition_de_l%27esclavage_en_France)
+- [Wikipédia (en anglais), Lei Áurea](https://en.wikipedia.org/wiki/Lei_%C3%81urea)
+- [Lowcountry Digital History Initiative (College of Charleston), The Middle Passage : durée moyenne de la traversée](https://ldhi.library.cofc.edu/exhibits/show/africanpassageslowcountryadapt/introductionatlanticworld/the_middle_passage)
+- [Statista, durée et mortalité de la traversée selon la destination, d'après Slave Voyages](https://www.statista.com/statistics/1070565/middle-passage-death-rate-by-destination-1501-1866/)

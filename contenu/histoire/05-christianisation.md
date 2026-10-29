@@ -282,6 +282,8 @@ le blé à son grenier et ils devront le semer. À Noël, ils doivent des
 poules. À Pâques, ils doivent de nouveau la corvée. »
 (D'après la Complainte des Vilains de Verson, 13e siècle)
 
+::: composant seigneurie
+
 ::: questions
 1. Autour de quoi s'organise la seigneurie au Moyen Âge?
 2. Nomme les quatre obligations des paysans envers leur seigneur.
@@ -453,6 +455,8 @@ lesquels une croix était cousue.
 
 (Source : Alloprof)
 
+::: composant croisades
+
 ### Le bilan des croisades
 
 Sur le plan culturel, les croisades ont fait augmenter le ressentiment éprouvé
@@ -503,4 +507,21 @@ sur une ligne du temps.
 - [Alloprof, La christianisation de l'Occident au Moyen Âge](https://www.alloprof.qc.ca/)
 - [Encyclopédie Larousse, Moyen Âge](https://www.larousse.fr/)
 - [Wikipédia](https://fr.wikipedia.org/)
+- [World History Encyclopedia, First Crusade](https://www.worldhistory.org/First_Crusade/)
+- [World History Encyclopedia, Third Crusade](https://www.worldhistory.org/Third_Crusade/)
+- [World History Encyclopedia, Fourth Crusade](https://www.worldhistory.org/Fourth_Crusade/)
+- [Wikipédia, Croisade](https://fr.wikipedia.org/wiki/Croisade)
+- [Wikipédia, États latins d'Orient](https://fr.wikipedia.org/wiki/%C3%89tats_latins_d%27Orient)
+- [Wikipédia, Four banal](https://fr.wikipedia.org/wiki/Four_banal)
+- [Wikipédia, Champart](https://fr.wikipedia.org/wiki/Champart)
+- [Wikipédia, Corvée](https://fr.wikipedia.org/wiki/Corv%C3%A9e)
+- [Wikipédia, Dîme](https://fr.wikipedia.org/wiki/D%C3%AEme)
+- [Wikipédia, Seigneurie](https://fr.wikipedia.org/wiki/Seigneurie)
+- [Wikipédia, Servage](https://fr.wikipedia.org/wiki/Servage)
+- [Wikipédia, Assolement triennal](https://fr.wikipedia.org/wiki/Assolement_triennal)
+- [Wikipédia, Glandée](https://fr.wikipedia.org/wiki/Gland%C3%A9e)
+- [Normandie Tourisme, église Saint-Germain de Verson](https://en.normandie-tourisme.fr/museums-and-heritage-sites/eglise-saint-germain-verson/)
+- [Kenney, modèles 3D de la maquette de la seigneurie (Castle Kit, Fantasy Town Kit, Nature Kit), licence CC0](https://kenney.nl/assets)
+- [Quaternius, modèles 3D de la maquette de la seigneurie (Medieval Village Pack), licence CC0](https://quaternius.com/)
+- [Natural Earth, fond de la carte des croisades](https://www.naturalearthdata.com/)
 - Complainte des Vilains de Verson, 13e siècle

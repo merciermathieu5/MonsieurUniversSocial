@@ -1,0 +1,455 @@
+<section class="qdq" id="qui-dit-quoi" aria-label="Activité de tri&nbsp;: libéralisme, socialisme ou syndicalisme, qui dit quoi?">
+<style>
+.qdq { margin: 1.4rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.qdq .qdq__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.qdq .qdq__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.qdq .qdq__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .qdq .qdq__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .qdq .qdq__titre { color: var(--encre); }
+html[data-sombre="on"] .qdq .qdq__consigne { color: var(--encre-pale); }
+.qdq .qdq__barre { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.2rem; padding: .65rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.qdq .qdq__progres { margin: 0; font-family: var(--donnee); font-size: .72rem; color: var(--encre-doux); }
+.qdq .qdq__jauge { flex: 1 1 8rem; height: .4rem; max-width: 18rem; background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; overflow: hidden; }
+.qdq .qdq__jauge span { display: block; height: 100%; width: 0; background: var(--matiere); border-radius: 100px; transition: width .2s; }
+.qdq .qdq__score { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre); }
+.qdq .qdq__bouton, .qdq .qdq__replier { font-family: var(--titre); font-weight: 600; font-size: .84rem; line-height: 1.25; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem 1rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.qdq .qdq__bouton:hover:not(:disabled):not([aria-pressed="true"]), .qdq .qdq__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qdq .qdq__bouton--plein { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.qdq .qdq__bouton--plein:hover:not(:disabled):not([aria-pressed="true"]) { color: #fff; background: var(--matiere-fonce); }
+html[data-sombre="on"] .qdq .qdq__bouton--plein, html[data-sombre="on"] .qdq .qdq__bouton--plein:hover:not(:disabled) { color: #10171F; }
+.qdq .qdq__replier { margin-left: auto; font-size: .78rem; padding: .3rem .8rem; }
+.qdq:not(.est-plein-ecran) .qdq__replier { display: none; }
+.qdq .qdq__corps { container: qdq / inline-size; }
+.qdq .qdq__grille { display: grid; grid-template-columns: minmax(0, 1fr); }
+.qdq .qdq__scene { min-width: 0; padding: 1.2rem 1.25rem 1.3rem; }
+.qdq .qdq__cote { min-width: 0; padding: 1.1rem 1.25rem 1.3rem; border-top: 1px solid var(--trait); background: var(--surface); }
+.qdq .qdq__carte { padding: 1.2rem 1.3rem 1.1rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface-2); }
+.qdq .qdq__carte[hidden], .qdq .qdq__bilan[hidden], .qdq .qdq__retour[hidden], .qdq .qdq__suivant[hidden], .qdq .qdq__erreurs[hidden] { display: none; }
+.qdq .qdq__type { margin: 0 0 .55rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.qdq .qdq__enonce { margin: 0 0 1rem; font-family: var(--corps); font-size: 1.28rem; line-height: 1.5; color: var(--encre); }
+.qdq .qdq__question { margin: 0 0 .5rem; font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); }
+.qdq .qdq__choix { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .2rem; }
+.qdq .qdq__choix .qdq__bouton { font-size: .9rem; padding: .55rem 1.15rem; }
+.qdq .qdq__choix .qdq__bouton:disabled { cursor: default; opacity: .55; }
+.qdq .qdq__choix .qdq__bouton.est-bonne { opacity: 1; color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.qdq .qdq__choix .qdq__bouton.est-erreur { opacity: 1; color: var(--encre); border-style: dashed; border-color: var(--encre-pale); text-decoration: line-through; text-decoration-thickness: 1px; }
+html[data-sombre="on"] .qdq .qdq__choix .qdq__bouton.est-bonne { color: #10171F; }
+.qdq .qdq__retour { margin: 1rem 0 0; padding: .85rem 1rem .8rem; border-radius: var(--rayon); background: var(--surface); border-left: 3px solid var(--matiere); }
+.qdq .qdq__retour.est-faux { border-left-color: var(--encre-pale); }
+.qdq .qdq__verdict { margin: 0 0 .35rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.qdq .qdq__qui { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 600; font-size: .85rem; color: var(--matiere-fonce); }
+.qdq .qdq__explication { margin: 0 0 .5rem; font-size: .95rem; line-height: 1.55; color: var(--encre); }
+.qdq .qdq__source { margin: 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-doux); }
+.qdq .qdq__source a { color: var(--matiere); }
+.qdq .qdq__suivant { margin-top: .9rem; }
+.qdq .qdq__bacs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; margin-top: 1.2rem; }
+.qdq .qdq__bac { min-width: 0; padding: .7rem .75rem .6rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); }
+.qdq .qdq__bac-titre { margin: 0 0 .5rem; display: flex; justify-content: space-between; gap: .4rem; font-family: var(--titre); font-weight: 700; font-size: .84rem; color: var(--encre); }
+.qdq .qdq__bac-titre span { font-family: var(--donnee); font-weight: 400; font-size: .7rem; color: var(--encre-pale); }
+.qdq .qdq__jetons { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.qdq .qdq__jetons > li { margin: 0; padding: .35rem .5rem; border-radius: 3px; background: var(--surface-2); border-left: 3px solid var(--matiere); font-size: .8rem; line-height: 1.3; }
+.qdq .qdq__jetons > li::marker { content: none; }
+.qdq .qdq__jetons > li::before { content: none; display: none; }
+.qdq .qdq__jetons > li.est-faux { border-left-style: dashed; border-left-color: var(--encre-pale); }
+.qdq .qdq__jeton-qui { display: block; font-family: var(--titre); font-weight: 600; color: var(--encre); }
+.qdq .qdq__jeton-etat { display: block; font-family: var(--donnee); font-size: .62rem; color: var(--encre-doux); }
+.qdq .qdq__vide { margin: 0; font-family: var(--donnee); font-size: .66rem; color: var(--encre-pale); }
+.qdq .qdq__bilan-titre { margin: 0 0 .4rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; color: var(--matiere-fonce); }
+.qdq .qdq__bilan-score { margin: 0 0 .9rem; font-size: 1rem; line-height: 1.55; color: var(--encre); }
+.qdq .qdq__recap { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: .7rem; margin: 0 0 1rem; }
+.qdq .qdq__fiche { padding: .8rem .9rem .7rem; border-radius: var(--rayon); background: var(--surface-2); border-top: 3px solid var(--matiere); }
+.qdq .qdq__fiche-titre { margin: 0 0 .5rem; font-family: var(--titre); font-weight: 700; font-size: .9rem; color: var(--encre); }
+.qdq .qdq__fiche dl { margin: 0; }
+.qdq .qdq__fiche dt { margin: 0; font-family: var(--donnee); font-size: .62rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); }
+.qdq .qdq__fiche dd { margin: 0 0 .45rem; font-size: .86rem; line-height: 1.4; color: var(--encre); }
+.qdq .qdq__actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.qdq .qdq__cote-titre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.02rem; color: var(--matiere-fonce); }
+.qdq .qdq__definitions { margin: 0 0 1rem; }
+.qdq .qdq__definitions dt { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .88rem; color: var(--encre); }
+.qdq .qdq__definitions dd { margin: 0 0 .7rem; font-size: .92rem; line-height: 1.5; color: var(--encre); }
+.qdq .qdq__sous { margin: 0 0 .4rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.qdq .qdq__pistes { list-style: none; margin: 0; padding: 0; }
+.qdq .qdq__pistes > li { margin: 0 0 .4rem; padding: 0 0 0 .7rem; border-left: 2px solid var(--matiere); font-size: .9rem; line-height: 1.45; }
+.qdq .qdq__pistes > li::marker { content: none; }
+.qdq .qdq__pistes > li::before { content: none; display: none; }
+.qdq .qdq__sources { border-top: 1px solid var(--trait); background: var(--surface-2); padding: .6rem 1.2rem; }
+.qdq .qdq__sources summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); }
+.qdq .qdq__sources ul { list-style: none; margin: .5rem 0 .2rem; padding: 0; }
+.qdq .qdq__sources ul > li { margin: 0 0 .25rem; padding: 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-doux); }
+.qdq .qdq__sources ul > li::marker { content: none; }
+.qdq .qdq__sources ul > li::before { content: none; display: none; }
+.qdq .qdq__sources a { color: var(--matiere); }
+@container qdq (min-width: 52rem) {
+  .qdq .qdq__grille { grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem); }
+  .qdq .qdq__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container qdq (max-width: 36rem) {
+  .qdq .qdq__scene, .qdq .qdq__cote { padding-left: .9rem; padding-right: .9rem; }
+  .qdq .qdq__carte { padding: 1rem .95rem .9rem; }
+  .qdq .qdq__enonce { font-size: 1.12rem; }
+  .qdq .qdq__bacs { grid-template-columns: minmax(0, 1fr); }
+}
+.qdq.est-plein-ecran { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; }
+.qdq.est-plein-ecran > .qdq__entete { position: static; }
+.qdq.est-plein-ecran > .qdq__corps { display: grid; grid-template-rows: minmax(0, 1fr); min-height: 0; }
+.qdq.est-plein-ecran .qdq__grille { min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); }
+.qdq.est-plein-ecran .qdq__scene, .qdq.est-plein-ecran .qdq__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.qdq.est-plein-ecran .qdq__scene { padding: 1.5rem 1.8rem; }
+.qdq.est-plein-ecran .qdq__cote { border-top: 0; border-left: 1px solid var(--trait); }
+.qdq.est-plein-ecran .qdq__enonce { font-size: 1.5rem; }
+.qdq.est-plein-ecran.texte-masque .qdq__grille { grid-template-columns: minmax(0, 1fr) 0; }
+.qdq.est-plein-ecran.texte-masque .qdq__cote { display: none; }
+@media (max-width: 50rem), (max-aspect-ratio: 1/1) {
+  .qdq.est-plein-ecran .qdq__grille { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .qdq.est-plein-ecran .qdq__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .qdq.est-plein-ecran.texte-masque .qdq__grille { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+  .qdq.est-plein-ecran .qdq__scene { padding: 1rem .9rem 1.2rem; }
+  .qdq.est-plein-ecran .qdq__enonce { font-size: 1.15rem; }
+  .qdq.est-plein-ecran .qdq__titre { font-size: .86rem; }
+  .qdq.est-plein-ecran .qdq__barre { padding: .45rem .7rem; gap: .35rem .8rem; }
+  .qdq.est-plein-ecran .qdq__replier { font-size: .72rem; padding: .22rem .6rem; }
+}
+/* Plein écran sur un écran large : le texte grandit avec l'écran et les
+   trois bacs occupent toute la hauteur libre sous l'énoncé. */
+@media (min-width: 50.0625rem) and (min-aspect-ratio: 1001/1000) {
+  .qdq.est-plein-ecran .qdq__grille { grid-template-columns: minmax(0, 1fr) clamp(20rem, 28vw, 34rem); }
+  .qdq.est-plein-ecran .qdq__scene { display: flex; flex-direction: column; padding: 1.6rem 2rem; }
+  .qdq.est-plein-ecran .qdq__carte, .qdq.est-plein-ecran .qdq__bilan { flex: none; }
+  .qdq.est-plein-ecran .qdq__carte { padding: 1.5rem 1.7rem 1.4rem; }
+  .qdq.est-plein-ecran .qdq__bacs { flex: 1 0 auto; min-height: 12rem; grid-template-rows: minmax(0, 1fr); gap: 1rem; margin-top: 1.4rem; }
+  .qdq.est-plein-ecran .qdq__bac { display: flex; flex-direction: column; padding: .9rem 1rem .9rem; }
+  .qdq.est-plein-ecran .qdq__jetons { flex: 1 1 auto; align-content: start; gap: .5rem; padding: .5rem; border: 1px dashed var(--trait); border-radius: var(--rayon); }
+  .qdq.est-plein-ecran .qdq__jetons > li { padding: .5rem .65rem; }
+  .qdq.est-plein-ecran .qdq__cote { padding: 1.5rem 1.6rem; }
+  .qdq.est-plein-ecran .qdq__progres { font-size: clamp(0.72rem, 0.403rem + 0.554vw, 1.080rem); }
+  .qdq.est-plein-ecran .qdq__score { font-size: clamp(0.8rem, 0.448rem + 0.616vw, 1.200rem); }
+  .qdq.est-plein-ecran .qdq__replier { font-size: clamp(0.78rem, 0.437rem + 0.601vw, 1.170rem); }
+  .qdq.est-plein-ecran .qdq__type { font-size: clamp(0.64rem, 0.358rem + 0.493vw, 0.960rem); }
+  .qdq.est-plein-ecran .qdq__enonce { font-size: clamp(1.5rem, 0.840rem + 1.155vw, 2.250rem); }
+  .qdq.est-plein-ecran .qdq__question { font-size: clamp(0.84rem, 0.470rem + 0.647vw, 1.260rem); }
+  .qdq.est-plein-ecran .qdq__choix .qdq__bouton { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+  .qdq.est-plein-ecran .qdq__suivant { font-size: clamp(0.84rem, 0.470rem + 0.647vw, 1.260rem); }
+  .qdq.est-plein-ecran .qdq__verdict { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .qdq.est-plein-ecran .qdq__qui { font-size: clamp(0.85rem, 0.476rem + 0.654vw, 1.275rem); }
+  .qdq.est-plein-ecran .qdq__explication { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .qdq.est-plein-ecran .qdq__source { font-size: clamp(0.66rem, 0.370rem + 0.508vw, 0.990rem); }
+  .qdq.est-plein-ecran .qdq__bac-titre { font-size: clamp(0.84rem, 0.470rem + 0.647vw, 1.260rem); }
+  .qdq.est-plein-ecran .qdq__bac-titre span { font-size: clamp(0.7rem, 0.392rem + 0.539vw, 1.050rem); }
+  .qdq.est-plein-ecran .qdq__jetons > li { font-size: clamp(0.8rem, 0.448rem + 0.616vw, 1.200rem); }
+  .qdq.est-plein-ecran .qdq__jeton-etat { font-size: clamp(0.62rem, 0.347rem + 0.477vw, 0.930rem); }
+  .qdq.est-plein-ecran .qdq__bilan-titre { font-size: clamp(1.15rem, 0.644rem + 0.885vw, 1.725rem); }
+  .qdq.est-plein-ecran .qdq__bilan-score { font-size: clamp(1rem, 0.560rem + 0.770vw, 1.500rem); }
+  .qdq.est-plein-ecran .qdq__fiche-titre { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+  .qdq.est-plein-ecran .qdq__fiche dt { font-size: clamp(0.62rem, 0.347rem + 0.477vw, 0.930rem); }
+  .qdq.est-plein-ecran .qdq__fiche dd { font-size: clamp(0.86rem, 0.482rem + 0.662vw, 1.290rem); }
+  .qdq.est-plein-ecran .qdq__actions .qdq__bouton { font-size: clamp(0.84rem, 0.470rem + 0.647vw, 1.260rem); }
+  .qdq.est-plein-ecran .qdq__cote-titre { font-size: clamp(1.02rem, 0.571rem + 0.785vw, 1.530rem); }
+  .qdq.est-plein-ecran .qdq__definitions dt { font-size: clamp(0.88rem, 0.493rem + 0.678vw, 1.320rem); }
+  .qdq.est-plein-ecran .qdq__definitions dd { font-size: clamp(0.92rem, 0.515rem + 0.708vw, 1.380rem); }
+  .qdq.est-plein-ecran .qdq__sous { font-size: clamp(0.64rem, 0.358rem + 0.493vw, 0.960rem); }
+  .qdq.est-plein-ecran .qdq__pistes > li { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+}
+@media (prefers-reduced-motion: reduce) { .qdq *, .qdq .qdq__jauge span { transition: none !important; } }
+@media print {
+  .qdq .qdq__barre, .qdq .qdq__choix, .qdq .qdq__suivant, .qdq .qdq__actions, .qdq .qdq__replier { display: none !important; }
+  .qdq .qdq__grille { grid-template-columns: 1fr !important; }
+  .qdq .qdq__carte, .qdq .qdq__fiche, .qdq .qdq__bac { break-inside: avoid; }
+}
+</style>
+<div class="qdq__entete">
+  <p class="qdq__titre" role="heading" aria-level="3">Libéralisme, socialisme, syndicalisme&nbsp;: qui dit quoi?</p>
+  <p class="qdq__consigne" data-qdq="consigne">Classe chaque énoncé</p>
+</div>
+<div class="qdq__barre">
+  <p class="qdq__progres" data-qdq="progres">Énoncé 1 sur 12</p>
+  <div class="qdq__jauge" aria-hidden="true"><span data-qdq="jauge"></span></div>
+  <p class="qdq__score" data-qdq="score" role="status">0 bonne réponse</p>
+  <button type="button" class="qdq__replier" data-qdq="replier" aria-expanded="true">Masquer l'aide-mémoire</button>
+</div>
+<div class="qdq__corps">
+<div class="qdq__grille">
+  <div class="qdq__scene">
+    <div class="qdq__carte" data-qdq="carte">
+      <p class="qdq__type" data-qdq="type"></p>
+      <p class="qdq__enonce" data-qdq="enonce"></p>
+      <p class="qdq__question" id="qdq-question">À quelle doctrine appartient cet énoncé?</p>
+      <div class="qdq__choix" role="group" aria-labelledby="qdq-question" data-qdq="choix"></div>
+      <div class="qdq__retour" data-qdq="retour" hidden></div>
+      <button type="button" class="qdq__bouton qdq__bouton--plein qdq__suivant" data-qdq="suivant" hidden>Énoncé suivant</button>
+    </div>
+    <div class="qdq__bilan" data-qdq="bilan" hidden></div>
+    <div class="qdq__bacs" data-qdq="bacs" aria-label="Énoncés déjà classés"></div>
+  </div>
+  <div class="qdq__cote" role="region" aria-label="Aide-mémoire" data-qdq="cote"></div>
+</div>
+</div>
+<details class="qdq__sources">
+  <summary>Sources</summary>
+  <ul>
+    <li>Adam Smith, La richesse des nations, 1776&nbsp;: <a href="https://oll.libertyfund.org/quote/adam-smith-butcher-brewer-baker" target="_blank" rel="noopener noreferrer">Online Library of Liberty</a> et <a href="https://en.wikipedia.org/wiki/Invisible_hand" target="_blank" rel="noopener noreferrer">Wikipédia, Invisible hand</a>.</li>
+    <li>Nassau Senior, Letters on the Factory Act, 1837&nbsp;: <a href="https://historyhome.co.uk/peel/factmine/senior.htm" target="_blank" rel="noopener noreferrer">The Peel Web</a>. Opposition des propriétaires d'usines&nbsp;: <a href="https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/" target="_blank" rel="noopener noreferrer">The National Archives</a>.</li>
+    <li>Karl Marx et Friedrich Engels, Manifeste du Parti communiste, 1848&nbsp;: <a href="https://www.marxists.org/archive/marx/works/1848/communist-manifesto/ch01.htm" target="_blank" rel="noopener noreferrer">chapitre 1</a>, <a href="https://avalon.law.yale.edu/19th_century/mantwo.asp" target="_blank" rel="noopener noreferrer">chapitre 2</a> et <a href="https://www.marxists.org/archive/marx/works/1848/communist-manifesto/ch04.htm" target="_blank" rel="noopener noreferrer">chapitre 4</a>.</li>
+    <li>Robert Owen&nbsp;: <a href="https://en.wikipedia.org/wiki/Robert_Owen" target="_blank" rel="noopener noreferrer">Wikipédia</a>. Ouvriers de Tolpuddle&nbsp;: <a href="https://en.wikipedia.org/wiki/Tolpuddle_Martyrs" target="_blank" rel="noopener noreferrer">Wikipédia</a>.</li>
+    <li>Amalgamated Society of Engineers&nbsp;: <a href="https://en.wikipedia.org/wiki/Amalgamated_Society_of_Engineers" target="_blank" rel="noopener noreferrer">Wikipédia</a>. Grève des allumettières de 1888&nbsp;: <a href="https://en.wikipedia.org/wiki/London_matchgirls_strike_of_1888" target="_blank" rel="noopener noreferrer">Wikipédia</a>.</li>
+    <li>Friedrich Engels, A Fair Day's Wages for a Fair Day's Work, 1881&nbsp;: <a href="https://www.marxists.org/archive/marx/works/1881/05/07.htm" target="_blank" rel="noopener noreferrer">Marxists Internet Archive</a>.</li>
+    <li>Les citations sont traduites par Monsieur Univers social. Les paraphrases résument fidèlement une position documentée.</li>
+  </ul>
+</details>
+<script>
+(function () {
+  var racine = document.getElementById("qui-dit-quoi");
+  if (!racine || racine.dataset.pret) { return; }
+  racine.dataset.pret = "1";
+  racine.classList.add("est-pret");
+
+  function typo(s) {
+    return String(s)
+      .replace(/ :/g, "\u00a0:")
+      .replace(/« /g, "«\u00a0")
+      .replace(/ »/g, "\u00a0»")
+      .replace(/(\d) (\d{3})\b/g, "$1\u00a0$2")
+      .replace(/(\d) (h|ans|personnes|femmes|shilling|shillings)\b/g, "$1\u00a0$2");
+  }
+  function el(tag, cls, texte) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    return n;
+  }
+
+  var DOCTRINES = [
+    { id: "lib", nom: "Libéralisme" },
+    { id: "soc", nom: "Socialisme" },
+    { id: "syn", nom: "Syndicalisme" }
+  ];
+  var NOMS = { lib: "Libéralisme", soc: "Socialisme", syn: "Syndicalisme" };
+
+  // Douze énoncés, quatre par doctrine. type : citation traduite, paraphrase ou devise.
+  var ENONCES = [
+    { d: "lib", type: "Citation traduite", texte: "Ce n'est pas de la bienveillance du boucher, du brasseur ou du boulanger que nous attendons notre dîner, mais du souci qu'ils ont de leur propre intérêt.", qui: "Adam Smith, économiste écossais", court: "Adam Smith", quand: "1776, dans La richesse des nations", explication: "Pour Adam Smith, chacun travaille d'abord pour son propre intérêt. Le marché libre transforme cet intérêt en service pour tous. C'est une idée centrale du libéralisme.", source: ["Online Library of Liberty", "https://oll.libertyfund.org/quote/adam-smith-butcher-brewer-baker"] },
+    { d: "lib", type: "Paraphrase", texte: "En cherchant seulement son propre gain, chacun est conduit par une main invisible à servir toute la société, sans même le vouloir.", qui: "Adam Smith, économiste écossais", court: "Adam Smith", quand: "1776, dans La richesse des nations", explication: "C'est la célèbre main invisible. Pas besoin que l'État dirige l'économie : la liberté et la concurrence suffisent à enrichir le pays.", source: ["Wikipédia, Invisible hand", "https://en.wikipedia.org/wiki/Invisible_hand"] },
+    { d: "lib", type: "Paraphrase", texte: "Tout le profit d'une usine vient de la dernière heure de travail. Si une loi enlève une heure à la journée, l'usine ne fera plus de profit.", qui: "Nassau Senior, économiste anglais", court: "Nassau Senior", quand: "1837, dans ses Lettres sur la loi des usines", explication: "Cet argument sert à combattre les lois qui limitent les heures de travail. Pour les libéraux, l'État ne doit pas se mêler de l'organisation des usines. En 1867, Karl Marx s'est moqué de ce calcul dans Le Capital.", source: ["The Peel Web", "https://historyhome.co.uk/peel/factmine/senior.htm"] },
+    { d: "lib", type: "Paraphrase", texte: "Une loi sur les heures de travail ralentirait nos usines. Ce n'est pas au gouvernement de régler nos affaires.", qui: "Des propriétaires d'usines et d'autres opposants aux lois sur le travail", court: "Opposants aux lois sur le travail", quand: "années 1830", explication: "Plusieurs propriétaires s'opposent aux lois sur le travail des enfants : selon eux, elles ralentiraient la production. Beaucoup de gens refusent aussi que le gouvernement se mêle de leur vie. C'est le laisser-faire libéral.", source: ["The National Archives, 1833 Factory Act", "https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/"] },
+    { d: "soc", type: "Citation traduite", texte: "L'histoire de toute société jusqu'à nos jours est l'histoire de luttes de classes.", qui: "Karl Marx et Friedrich Engels", court: "Marx et Engels", quand: "1848, dans le Manifeste du Parti communiste", explication: "Pour Marx et Engels, la bourgeoisie et les ouvriers s'affrontent. Ils annoncent que les ouvriers renverseront un jour le capitalisme.", source: ["Marxists Internet Archive, chapitre 1", "https://www.marxists.org/archive/marx/works/1848/communist-manifesto/ch01.htm"] },
+    { d: "soc", type: "Citation traduite", texte: "Les communistes peuvent résumer leur théorie en une seule formule : abolition de la propriété privée.", qui: "Karl Marx et Friedrich Engels", court: "Marx et Engels", quand: "1848, dans le Manifeste du Parti communiste", explication: "Les usines et les machines ne devraient plus appartenir à des patrons, mais à la collectivité. Marx et Engels appellent leur projet le communisme. Dans ta fiche, il fait partie de la grande famille du socialisme.", source: ["Avalon Project, chapitre 2", "https://avalon.law.yale.edu/19th_century/mantwo.asp"] },
+    { d: "soc", type: "Citation traduite", texte: "Prolétaires de tous les pays, unissez-vous!", qui: "Karl Marx et Friedrich Engels", court: "Marx et Engels", quand: "1848, dernière phrase du Manifeste du Parti communiste", explication: "Attention au piège : s'unir ne veut pas dire ici former un syndicat. Marx et Engels appellent les ouvriers du monde entier à faire une révolution pour remplacer le capitalisme, pas seulement à négocier avec un patron.", source: ["Marxists Internet Archive, chapitre 4", "https://www.marxists.org/archive/marx/works/1848/communist-manifesto/ch04.htm"] },
+    { d: "soc", type: "Paraphrase", texte: "Remplaçons la concurrence par la coopération. Vivons en communautés d'environ 1 200 personnes, avec un grand bâtiment, une cuisine et une salle à manger communes.", qui: "Robert Owen, patron d'une filature en Écosse", court: "Robert Owen", quand: "1817", explication: "Robert Owen dirige la filature de New Lanark, en Écosse. Il rêve d'une société où l'on partage au lieu de se faire concurrence. On le considère comme un des fondateurs du socialisme et du mouvement coopératif.", source: ["Wikipédia, Robert Owen", "https://en.wikipedia.org/wiki/Robert_Owen"] },
+    { d: "syn", type: "Paraphrase", texte: "Unissons-nous dans une société pour protester contre la baisse de nos salaires.", qui: "Six ouvriers agricoles de Tolpuddle, en Angleterre", court: "Ouvriers de Tolpuddle", quand: "1833", explication: "Ils fondent une société, l'ancêtre d'un syndicat. En 1834, ils sont condamnés à sept ans de déportation en Australie pour avoir prêté un serment secret. Après de grandes manifestations, ils sont graciés en 1836.", source: ["Wikipédia, Tolpuddle Martyrs", "https://en.wikipedia.org/wiki/Tolpuddle_Martyrs"] },
+    { d: "syn", type: "Paraphrase", texte: "Chaque membre verse un shilling par semaine. Notre caisse commune nous permet de soutenir nos membres pendant une grève.", qui: "Le syndicat des mécaniciens, l'Amalgamated Society of Engineers", court: "Syndicat des mécaniciens", quand: "fondé en 1851", explication: "Un syndicat réunit des travailleurs d'un même métier. Leurs cotisations forment une caisse qui les rend plus forts face au patron.", source: ["Wikipédia, Amalgamated Society of Engineers", "https://en.wikipedia.org/wiki/Amalgamated_Society_of_Engineers"] },
+    { d: "syn", type: "Devise traduite", texte: "Un salaire équitable pour une journée de travail équitable!", qui: "Devise des syndicats anglais, rapportée par Friedrich Engels", court: "Devise des syndicats anglais", quand: "en 1881", explication: "Les syndicats ne cherchent pas à abolir les usines : ils veulent un juste salaire et des heures raisonnables. Engels, un socialiste, jugeait cette devise insuffisante. Il voulait que les usines appartiennent aux travailleurs eux-mêmes.", source: ["Marxists Internet Archive, Engels, 1881", "https://www.marxists.org/archive/marx/works/1881/05/07.htm"] },
+    { d: "syn", type: "Paraphrase", texte: "Nous arrêtons toutes de travailler tant que la direction n'abolit pas les amendes injustes.", qui: "Les allumettières de l'usine Bryant & May, à Londres", court: "Allumettières de Londres", quand: "juillet 1888", explication: "Environ 1 400 femmes et filles font la grève. Elles obtiennent l'abolition des amendes, puis fondent un syndicat. La grève est l'arme principale des syndicats.", source: ["Wikipédia, London matchgirls strike of 1888", "https://en.wikipedia.org/wiki/London_matchgirls_strike_of_1888"] }
+  ];
+
+  var RECAP = {
+    lib: [["Les usines", "Elles appartiennent à des propriétaires privés."], ["L'État", "Il n'intervient pas dans l'économie."], ["Le sort des ouvriers", "La liberté et la concurrence enrichiront le pays."]],
+    soc: [["Les usines", "Elles appartiennent à la collectivité, ou à l'État."], ["L'État", "Il peut posséder les usines et partager la richesse."], ["Le sort des ouvriers", "Il faut remplacer le capitalisme par une société plus égale."]],
+    syn: [["Les usines", "Ce n'est pas la question : les syndicats négocient avec les patrons."], ["L'État", "Il doit reconnaître les syndicats et voter des lois sur le travail."], ["Le sort des ouvriers", "S'unir pour obtenir de meilleurs salaires, des heures raisonnables et des lieux de travail sûrs."]]
+  };
+
+  var q = function (cle) { return racine.querySelector('[data-qdq="' + cle + '"]'); };
+  var carte = q("carte"), typeEl = q("type"), enonceEl = q("enonce"), choix = q("choix"), retour = q("retour"), suivant = q("suivant");
+  var bilan = q("bilan"), bacs = q("bacs"), progres = q("progres"), jauge = q("jauge"), score = q("score"), cote = q("cote"), consigne = q("consigne");
+  var scene = racine.querySelector(".qdq__scene");
+
+  var etat = { paquet: [], rang: 0, resultats: [] };
+
+  function melanger(liste) {
+    var a = liste.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var x = a[i]; a[i] = a[j]; a[j] = x;
+    }
+    return a;
+  }
+
+  // Aide-mémoire : les définitions de la fiche et trois questions pour trancher.
+  (function () {
+    var titre = el("p", "qdq__cote-titre", "Aide-mémoire");
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    cote.appendChild(titre);
+    var dl = el("dl", "qdq__definitions");
+    [["Libéralisme", "Courant de pensée qui défend la liberté d'entreprise, la propriété privée et la non-intervention de l'État dans l'économie."],
+     ["Socialisme", "Idéologie qui propose la propriété collective des moyens de production. Le socialisme s'oppose au capitalisme."],
+     ["Syndicalisme", "Regroupement de personnes qui exercent une même profession pour défendre leurs intérêts."]].forEach(function (x) {
+      dl.appendChild(el("dt", null, x[0]));
+      dl.appendChild(el("dd", null, x[1]));
+    });
+    cote.appendChild(dl);
+    cote.appendChild(el("p", "qdq__sous", "Trois questions pour trancher"));
+    var ul = el("ul", "qdq__pistes");
+    ["À qui devraient appartenir les usines?", "Que doit faire l'État?", "Comment améliorer le sort des ouvriers?"].forEach(function (x) { ul.appendChild(el("li", null, x)); });
+    cote.appendChild(ul);
+  })();
+
+  // Les trois bacs où se rangent les énoncés déjà classés.
+  var listes = {};
+  var compteurs = {};
+  DOCTRINES.forEach(function (d) {
+    var bac = el("div", "qdq__bac");
+    bac.setAttribute("data-bac", d.id);
+    var titre = el("p", "qdq__bac-titre", d.nom);
+    var compte = el("span", null, "0");
+    titre.appendChild(compte);
+    bac.appendChild(titre);
+    var ul = el("ul", "qdq__jetons");
+    ul.setAttribute("aria-label", d.nom);
+    bac.appendChild(ul);
+    bacs.appendChild(bac);
+    listes[d.id] = ul;
+    compteurs[d.id] = compte;
+  });
+
+  var boutons = DOCTRINES.map(function (d) {
+    var b = el("button", "qdq__bouton", d.nom);
+    b.type = "button";
+    b.setAttribute("data-doctrine", d.id);
+    b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", function () { repondre(d.id); });
+    choix.appendChild(b);
+    return b;
+  });
+
+  function majBarre() {
+    var total = etat.paquet.length;
+    var faits = etat.resultats.length;
+    var bons = etat.resultats.filter(function (r) { return r.juste; }).length;
+    progres.textContent = typo(faits >= total ? "Terminé : " + total + " énoncés classés" : "Énoncé " + (etat.rang + 1) + " sur " + total);
+    jauge.style.width = (total ? faits / total * 100 : 0) + "%";
+    score.textContent = typo(bons + (bons > 1 ? " bonnes réponses" : " bonne réponse"));
+  }
+
+  function montrer() {
+    var e = ENONCES[etat.paquet[etat.rang]];
+    carte.hidden = false;
+    bilan.hidden = true;
+    carte.setAttribute("data-enonce", String(etat.paquet[etat.rang]));
+    typeEl.textContent = typo(e.type);
+    enonceEl.textContent = typo("« " + e.texte + " »");
+    boutons.forEach(function (b) {
+      b.disabled = false;
+      b.setAttribute("aria-pressed", "false");
+      b.classList.remove("est-bonne", "est-erreur");
+    });
+    retour.hidden = true;
+    retour.textContent = "";
+    suivant.hidden = true;
+    majBarre();
+  }
+
+  function repondre(choisi) {
+    if (etat.resultats.length > etat.rang) { return; }
+    var indice = etat.paquet[etat.rang];
+    var e = ENONCES[indice];
+    var juste = choisi === e.d;
+    etat.resultats.push({ indice: indice, choisi: choisi, juste: juste });
+    boutons.forEach(function (b) {
+      var d = b.getAttribute("data-doctrine");
+      b.disabled = true;
+      b.setAttribute("aria-pressed", d === choisi ? "true" : "false");
+      if (d === e.d) { b.classList.add("est-bonne"); }
+      else if (d === choisi) { b.classList.add("est-erreur"); }
+    });
+    retour.hidden = false;
+    retour.className = "qdq__retour" + (juste ? "" : " est-faux");
+    retour.textContent = "";
+    retour.appendChild(el("p", "qdq__verdict", juste ? "Bonne réponse!" : "Pas tout à fait. Cet énoncé relève du " + NOMS[e.d].toLowerCase() + "."));
+    retour.appendChild(el("p", "qdq__qui", "Qui parle? " + e.qui + ", " + e.quand + "."));
+    retour.appendChild(el("p", "qdq__explication", e.explication));
+    var src = el("p", "qdq__source", "Source : ");
+    var lien = el("a", null, e.source[0]);
+    lien.href = e.source[1];
+    lien.target = "_blank";
+    lien.rel = "noopener noreferrer";
+    src.appendChild(lien);
+    retour.appendChild(src);
+    var jeton = el("li", juste ? "est-juste" : "est-faux");
+    jeton.appendChild(el("span", "qdq__jeton-qui", e.court));
+    jeton.appendChild(el("span", "qdq__jeton-etat", juste ? "Bien classé" : "Tu avais choisi : " + NOMS[choisi]));
+    listes[e.d].appendChild(jeton);
+    compteurs[e.d].textContent = String(listes[e.d].children.length);
+    suivant.hidden = false;
+    suivant.textContent = typo(etat.rang === etat.paquet.length - 1 ? "Voir le bilan" : "Énoncé suivant");
+    majBarre();
+    suivant.focus();
+  }
+
+  suivant.addEventListener("click", function () {
+    if (etat.resultats.length <= etat.rang) { return; }
+    if (etat.rang < etat.paquet.length - 1) {
+      etat.rang++;
+      montrer();
+      var premier = boutons[0];
+      if (premier) { premier.focus(); }
+    } else {
+      afficherBilan();
+    }
+    if (racine.classList.contains("est-plein-ecran")) { scene.scrollTop = 0; }
+  });
+
+  function afficherBilan() {
+    carte.hidden = true;
+    bilan.hidden = false;
+    bilan.textContent = "";
+    var total = etat.resultats.length;
+    var bons = etat.resultats.filter(function (r) { return r.juste; }).length;
+    var titre = el("p", "qdq__bilan-titre", bons === total ? "Bravo, sans faute!" : "Ton bilan");
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    bilan.appendChild(titre);
+    var details = DOCTRINES.map(function (d) {
+      var ceux = etat.resultats.filter(function (r) { return ENONCES[r.indice].d === d.id; });
+      if (!ceux.length) { return null; }
+      return d.nom + " : " + ceux.filter(function (r) { return r.juste; }).length + " sur " + ceux.length;
+    }).filter(Boolean).join(". ");
+    bilan.appendChild(el("p", "qdq__bilan-score", "Tu as bien classé " + bons + " énoncé" + (bons > 1 ? "s" : "") + " sur " + total + ". " + details + "."));
+    var recap = el("div", "qdq__recap");
+    DOCTRINES.forEach(function (d) {
+      var f = el("div", "qdq__fiche");
+      f.appendChild(el("p", "qdq__fiche-titre", d.nom));
+      var dl = el("dl");
+      RECAP[d.id].forEach(function (x) { dl.appendChild(el("dt", null, x[0])); dl.appendChild(el("dd", null, x[1])); });
+      f.appendChild(dl);
+      recap.appendChild(f);
+    });
+    bilan.appendChild(recap);
+    var actions = el("div", "qdq__actions");
+    var erreurs = etat.resultats.filter(function (r) { return !r.juste; }).map(function (r) { return r.indice; });
+    if (erreurs.length) {
+      var reprendre = el("button", "qdq__bouton qdq__bouton--plein qdq__erreurs", "Reprendre mes erreurs (" + erreurs.length + ")");
+      reprendre.type = "button";
+      reprendre.setAttribute("data-qdq", "erreurs");
+      reprendre.addEventListener("click", function () { demarrer(erreurs); });
+      actions.appendChild(reprendre);
+    }
+    var recommencer = el("button", "qdq__bouton", "Recommencer avec les 12 énoncés");
+    recommencer.type = "button";
+    recommencer.setAttribute("data-qdq", "recommencer");
+    recommencer.addEventListener("click", function () { demarrer(null); });
+    actions.appendChild(recommencer);
+    bilan.appendChild(actions);
+    majBarre();
+    (erreurs.length ? actions.firstChild : recommencer).focus();
+  }
+
+  function demarrer(indices) {
+    var base = indices || ENONCES.map(function (x, i) { return i; });
+    etat.paquet = melanger(base);
+    etat.rang = 0;
+    etat.resultats = [];
+    DOCTRINES.forEach(function (d) { listes[d.id].textContent = ""; compteurs[d.id].textContent = "0"; });
+    montrer();
+  }
+
+  var replier = q("replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = typo(masque ? "Afficher l'aide-mémoire" : "Masquer l'aide-mémoire");
+  });
+
+  consigne.textContent = typo("Classe chaque énoncé");
+  demarrer(null);
+})();
+</script>
+</section>

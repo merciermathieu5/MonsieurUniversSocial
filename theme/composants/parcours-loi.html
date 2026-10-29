@@ -1,0 +1,682 @@
+<section class="pdl" id="parcours-loi" aria-label="Interface : le parcours d'une loi à Athènes au 5e siècle av. J.-C. et au Québec aujourd'hui">
+<style>
+.pdl { --pdl-trait: var(--trait); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: pdl / inline-size; }
+.pdl ul, .pdl ol { list-style: none; margin: 0; padding: 0; }
+.pdl li { margin: 0; padding: 0; }
+.pdl ul > li::before, .pdl ol > li::before { content: none; display: none; }
+.pdl ul > li::marker, .pdl ol > li::marker { content: none; }
+.pdl p, .pdl dl, .pdl dd { margin: 0; }
+.pdl [hidden] { display: none !important; }
+.pdl .pdl__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.pdl .pdl__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.pdl__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .pdl .pdl__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .pdl .pdl__titre { color: var(--encre); }
+html[data-sombre="on"] .pdl__consigne { color: var(--encre-pale); }
+.pdl__onglets { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.pdl__onglet, .pdl__replier, .pdl__precedent, .pdl__suivant, .pdl__special, .pdl__tirer, .pdl__voir { font-family: var(--titre); font-weight: 600; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.pdl__onglet { font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; }
+.pdl__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .pdl__onglet.est-actif { color: #10171F; }
+.pdl__replier { margin-left: auto; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; }
+.pdl__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl:not(.est-plein-ecran) .pdl__replier, .pdl.est-comparer .pdl__replier { display: none; }
+.pdl__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.pdl__scene { padding: 1.1rem 1.2rem 1.2rem; background: var(--surface-2); }
+.pdl .pdl__lieu { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .7rem; }
+.pdl__piste { display: none; }
+.pdl__piste.est-visible { display: block; }
+.pdl__etapes { position: relative; }
+.pdl__etapes::before { content: ""; position: absolute; left: calc(1.5rem - 1.5px); top: 1.2rem; bottom: 1.2rem; width: 3px; border-radius: 3px; background: var(--trait); }
+.pdl__progres { position: absolute; left: calc(1.5rem - 1.5px); top: 1.2rem; width: 3px; height: 0; border-radius: 3px; background: var(--matiere); transition: height .45s ease; }
+.pdl__etape { position: relative; display: grid; grid-template-columns: 2.2rem minmax(0, max-content) auto; justify-content: start; align-items: center; gap: .65rem; width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-radius: var(--rayon); padding: .32rem .4rem; cursor: pointer; }
+.pdl__etape:hover { background: var(--surface); }
+.pdl__num { position: relative; z-index: 1; display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--surface); border: 3px solid var(--matiere); font-family: var(--donnee); font-weight: 600; font-size: .78rem; color: var(--encre); transition: background .2s, color .2s, box-shadow .2s; }
+.pdl__etape.est-facultatif .pdl__num { border-style: dashed; }
+.pdl__etape.est-prealable .pdl__num { border-color: var(--encre-pale); }
+.pdl__etape.est-passe .pdl__num { background: var(--matiere-voile); }
+.pdl__etape.est-courant .pdl__num { background: var(--matiere); color: #fff; box-shadow: 0 0 0 3px var(--surface-2), 0 0 0 6px var(--signal); }
+html[data-sombre="on"] .pdl__etape.est-courant .pdl__num { color: #10171F; }
+.pdl__mots { min-width: 0; }
+.pdl__court { display: block; font-family: var(--titre); font-weight: 700; font-size: .92rem; line-height: 1.25; color: var(--encre); }
+.pdl__qui { display: block; margin-top: .1rem; font-family: var(--donnee); font-size: .63rem; letter-spacing: .05em; text-transform: uppercase; color: var(--encre-pale); }
+.pdl__jeton { width: 1.5rem; height: 1.5rem; color: var(--signal); opacity: 0; transform: translateX(-.4rem); transition: opacity .3s, transform .3s; }
+.pdl__etape.est-courant .pdl__jeton { opacity: 1; transform: none; }
+.pdl__special { display: flex; align-items: center; gap: .55rem; width: 100%; margin-top: .9rem; font-size: .86rem; text-align: left; color: var(--matiere-fonce); background: var(--surface); border: 1px dashed var(--matiere); border-radius: var(--rayon); padding: .6rem .8rem; }
+.pdl__special:hover, .pdl__special.est-courant { background: var(--matiere-voile); border-style: solid; }
+.pdl__special.est-courant { box-shadow: inset 4px 0 0 var(--signal); }
+html[data-sombre="on"] .pdl__special { color: var(--encre); }
+.pdl__special svg { width: 1.5rem; height: 1.5rem; flex: none; }
+.pdl__nav { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.pdl__precedent, .pdl__suivant { font-size: .82rem; border-radius: 100px; padding: .42rem .8rem; border: 1px solid var(--trait); background: var(--surface); color: var(--encre-doux); }
+.pdl__precedent:hover:not(:disabled) { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pdl__precedent:disabled, .pdl__suivant:disabled { opacity: .45; cursor: default; }
+.pdl__suivant { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.pdl__suivant:hover:not(:disabled) { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .pdl__suivant { color: #10171F; }
+.pdl__cote { padding: 1.2rem 1.4rem 1.4rem; border-top: 1px solid var(--trait); }
+.pdl__panneau { display: none; }
+.pdl__panneau.est-visible { display: block; }
+.pdl .pdl__surtitre { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.pdl .pdl__titre-panneau { font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.3; color: var(--matiere-fonce); margin-bottom: .6rem; }
+html[data-sombre="on"] .pdl .pdl__titre-panneau { color: var(--encre); }
+.pdl .pdl__facultatif { display: inline-block; margin-bottom: .7rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); border: 1px dashed var(--encre-pale); border-radius: 100px; padding: .15rem .65rem; }
+.pdl .pdl__fiche { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin-bottom: .9rem; }
+.pdl__fiche > div { background: var(--surface-2); border-radius: var(--rayon); padding: .55rem .7rem; }
+.pdl__fiche dt { font-family: var(--donnee); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .15rem; }
+.pdl__fiche dd { font-family: var(--titre); font-weight: 600; font-size: .86rem; line-height: 1.3; color: var(--encre); }
+.pdl .pdl__texte { font-size: .97rem; line-height: 1.62; }
+.pdl .pdl__exemple { margin-top: .9rem; padding: .75rem 1rem; border-left: 4px solid var(--signal); border-radius: 0 var(--rayon) var(--rayon) 0; background: var(--surface-2); font-size: .94rem; line-height: 1.55; }
+.pdl .pdl__exemple-titre { display: block; font-family: var(--titre); font-weight: 700; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-doux); margin-bottom: .2rem; }
+.pdl .pdl__ostra { counter-reset: pdl-ostra; margin: .2rem 0 .9rem; }
+.pdl__ostra li { position: relative; padding: .45rem 0 .45rem 2.3rem; font-size: .96rem; line-height: 1.55; border-bottom: 1px solid var(--trait); }
+.pdl__ostra li:last-child { border-bottom: 0; }
+.pdl__ostra-num { position: absolute; left: 0; top: .45rem; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; font-family: var(--donnee); font-size: .74rem; font-weight: 600; color: #fff; background: var(--matiere); }
+html[data-sombre="on"] .pdl__ostra-num { color: #10171F; }
+.pdl .pdl__indice { margin-top: .9rem; padding: .85rem 1rem; border: 1px solid var(--trait); border-radius: var(--rayon); }
+.pdl .pdl__indice-question { font-size: .95rem; line-height: 1.55; }
+.pdl .pdl__indice-reponse { margin-top: .6rem; font-size: .95rem; line-height: 1.55; padding-top: .6rem; border-top: 1px dashed var(--trait); }
+.pdl__voir { margin-top: .6rem; font-size: .84rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--matiere); border-radius: 100px; padding: .35rem .9rem; }
+.pdl__voir:hover { background: var(--matiere-voile); }
+html[data-sombre="on"] .pdl__voir { color: var(--encre); }
+.pdl .pdl__tirage { margin-top: 1rem; padding: .9rem 1rem 1rem; border-radius: var(--rayon); background: var(--matiere-voile); }
+.pdl .pdl__tirage-titre { font-family: var(--titre); font-weight: 700; font-size: .92rem; margin-bottom: .3rem; color: var(--encre); }
+.pdl .pdl__tirage-texte { font-size: .92rem; line-height: 1.5; margin-bottom: .7rem; }
+.pdl__urne { display: grid; grid-template-columns: repeat(10, 1fr); gap: .3rem; max-width: 20rem; margin-bottom: .75rem; }
+.pdl__bille { aspect-ratio: 1; border-radius: 50%; background: var(--surface); border: 1.5px solid var(--encre-pale); transition: background .25s, border-color .25s, transform .25s; }
+.pdl__bille.a-preside { background: var(--trait); border-color: var(--trait); }
+.pdl__bille.preside { background: var(--signal); border-color: var(--signal); transform: scale(1.25); }
+.pdl__tirer { font-size: .86rem; color: #fff; background: var(--matiere); border: 1px solid var(--matiere); border-radius: 100px; padding: .42rem 1rem; }
+.pdl__tirer:hover { background: var(--matiere-fonce); }
+html[data-sombre="on"] .pdl__tirer { color: #10171F; }
+.pdl .pdl__resultat { margin-top: .6rem; min-height: 1.5em; font-family: var(--titre); font-size: .9rem; line-height: 1.45; }
+.pdl__comparaison { display: none; padding: 1.2rem 1.4rem 1.4rem; }
+.pdl.est-comparer .pdl__comparaison { display: grid; gap: 1rem; }
+.pdl.est-comparer .pdl__corps { display: none; }
+.pdl__carte { border: 1px solid var(--trait); border-radius: var(--rayon); overflow: hidden; }
+.pdl .pdl__question { font-family: var(--titre); font-weight: 700; font-size: 1rem; padding: .6rem 1rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); color: var(--encre); }
+.pdl__duo { display: grid; grid-template-columns: 1fr 1fr; }
+.pdl__duo > div { padding: .7rem 1rem; }
+.pdl__duo > div + div { border-left: 1px solid var(--trait); }
+.pdl .pdl__ou { font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .2rem; }
+.pdl .pdl__reponse { font-family: var(--titre); font-weight: 600; font-size: .95rem; line-height: 1.4; color: var(--encre); }
+.pdl__constats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--trait); }
+.pdl .pdl__constat { padding: .65rem 1rem .75rem; font-size: .9rem; line-height: 1.5; }
+.pdl .pdl__constat + .pdl__constat { border-left: 1px solid var(--trait); }
+.pdl .pdl__constat--semblable { background: var(--matiere-voile); }
+.pdl .pdl__etiquette { display: block; font-family: var(--titre); font-weight: 700; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--matiere-fonce); margin-bottom: .15rem; }
+html[data-sombre="on"] .pdl .pdl__etiquette { color: var(--encre); }
+@container pdl (min-width: 46rem) {
+  .pdl__corps { grid-template-columns: minmax(16rem, 19rem) minmax(0, 1fr); }
+  .pdl__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container pdl (max-width: 45.99rem) {
+  .pdl__etapes { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .pdl__etapes::before, .pdl__progres { display: none; }
+  .pdl__etapes > li { flex: 0 0 auto; }
+  .pdl__etape { grid-template-columns: auto auto; gap: .4rem; width: auto; padding: .2rem .6rem .2rem .2rem; border: 1px solid var(--trait); border-radius: 100px; background: var(--surface); }
+  .pdl__num { width: 1.7rem; height: 1.7rem; border-width: 2px; font-size: .7rem; }
+  .pdl__etape.est-courant .pdl__num { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--signal); }
+  .pdl__qui, .pdl__jeton { display: none; }
+  .pdl__court { font-size: .8rem; }
+}
+@container pdl (max-width: 34rem) {
+  .pdl .pdl__fiche { grid-template-columns: 1fr; }
+  .pdl__duo, .pdl__constats { grid-template-columns: 1fr; }
+  .pdl__duo > div + div, .pdl .pdl__constat + .pdl__constat { border-left: 0; border-top: 1px solid var(--trait); }
+  .pdl__scene, .pdl__cote, .pdl__comparaison { padding-left: .9rem; padding-right: .9rem; }
+}
+.pdl.est-plein-ecran { display: grid; grid-template-rows: auto auto minmax(0, 1fr); overflow: hidden; }
+.pdl.est-plein-ecran > .pdl__entete { position: static; }
+.pdl.est-plein-ecran > .pdl__corps { min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(22rem, 38vw, 36rem); }
+.pdl.est-plein-ecran .pdl__scene { min-height: 0; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; justify-content: center; padding: 1.4rem 2rem; }
+.pdl.est-plein-ecran .pdl__piste.est-visible { width: 100%; max-width: 34rem; margin: 0 auto; }
+.pdl.est-plein-ecran .pdl__etape { grid-template-columns: 2.7rem minmax(0, max-content) auto; padding: .55rem .5rem; gap: .8rem; }
+.pdl.est-plein-ecran .pdl__num { width: 2.7rem; height: 2.7rem; font-size: .9rem; }
+.pdl.est-plein-ecran .pdl__etapes::before, .pdl.est-plein-ecran .pdl__progres { left: calc(1.85rem - 1.5px); top: 1.5rem; }
+.pdl.est-plein-ecran .pdl__etapes::before { bottom: 1.5rem; }
+.pdl.est-plein-ecran .pdl__court { font-size: 1.15rem; }
+.pdl.est-plein-ecran .pdl__qui { font-size: .7rem; }
+.pdl.est-plein-ecran .pdl__jeton { width: 1.8rem; height: 1.8rem; }
+.pdl.est-plein-ecran .pdl__precedent, .pdl.est-plein-ecran .pdl__suivant { font-size: .9rem; padding: .5rem 1.1rem; }
+.pdl.est-plein-ecran .pdl__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; border-left: 1px solid var(--trait); }
+.pdl.est-plein-ecran .pdl__texte { font-size: 1.03rem; }
+.pdl.est-plein-ecran.texte-masque > .pdl__corps { grid-template-columns: minmax(0, 1fr) 0; }
+.pdl.est-plein-ecran.texte-masque .pdl__cote { display: none; }
+.pdl.est-plein-ecran > .pdl__comparaison { min-height: 0; overflow-y: auto; overscroll-behavior: contain; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: start; }
+@media (max-width: 52rem) {
+  .pdl.est-plein-ecran > .pdl__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .pdl.est-plein-ecran .pdl__scene { justify-content: flex-start; padding: .9rem 1rem; }
+  .pdl.est-plein-ecran .pdl__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .pdl.est-plein-ecran.texte-masque > .pdl__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+  .pdl.est-plein-ecran > .pdl__comparaison { grid-template-columns: minmax(0, 1fr); }
+}
+@media print {
+  .pdl__onglets, .pdl__nav, .pdl__tirer, .pdl__voir, .pdl__urne { display: none !important; }
+  .pdl__panneau, .pdl__piste { display: block; break-inside: avoid; margin-bottom: 1rem; }
+  .pdl__comparaison { display: grid; }
+}
+</style>
+
+<div class="pdl__entete">
+  <p class="pdl__titre" role="heading" aria-level="3">Le parcours d'une loi, d'Athènes au Québec</p>
+  <p class="pdl__consigne">Suis le projet d'étape en étape</p>
+</div>
+
+<div class="pdl__onglets" role="tablist" aria-label="Parcours">
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-athenes" data-vue="athenes" aria-controls="pdl-corps">Athènes, au 5e siècle av. J.-C.</button>
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-quebec" data-vue="quebec" aria-controls="pdl-corps">Le Québec aujourd'hui</button>
+  <button type="button" class="pdl__onglet" role="tab" id="pdl-onglet-comparer" data-vue="comparer" aria-controls="pdl-comparaison">Comparer</button>
+  <button type="button" class="pdl__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+
+<div class="pdl__corps" id="pdl-corps" role="tabpanel" aria-label="Le parcours choisi">
+  <div class="pdl__scene">
+    <div class="pdl__piste" data-piste="athenes"><p class="pdl__lieu">Athènes, au 5e siècle av. J.-C.</p><div class="pdl__etapes"><span class="pdl__progres" aria-hidden="true"></span><ol class="pdl__liste" aria-label="Étapes à Athènes"></ol></div></div>
+    <div class="pdl__piste" data-piste="quebec"><p class="pdl__lieu">Le Québec aujourd'hui</p><div class="pdl__etapes"><span class="pdl__progres" aria-hidden="true"></span><ol class="pdl__liste" aria-label="Étapes au Québec"></ol></div></div>
+    <div class="pdl__nav">
+      <button type="button" class="pdl__precedent">Étape précédente</button>
+      <button type="button" class="pdl__suivant">Étape suivante</button>
+    </div>
+  </div>
+  <div class="pdl__cote" aria-live="polite"></div>
+</div>
+
+<div class="pdl__comparaison" id="pdl-comparaison" role="tabpanel" aria-labelledby="pdl-onglet-comparer"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("parcours-loi");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+
+  var NS = "http://www.w3.org/2000/svg";
+
+  var pistes = {
+    athenes: {
+      nom: "Athènes",
+      etapes: [
+        {
+          cle: "proposition", court: "Une proposition", qui: "1 citoyen",
+          titre: "Un citoyen fait une proposition",
+          fiche: [["Qui?", "N'importe quel citoyen"], ["Combien?", "1 personne"], ["Choisi comment?", "Il se porte volontaire"]],
+          texte: "N'importe quel citoyen peut proposer une loi ou une décision pour la cité. Sa proposition passe d'abord par la boulè. Attention : celui qui propose en reste responsable pendant un an. S'il propose une mesure contraire aux lois, il peut être poursuivi.",
+          exemple: "En -483, l'argent des mines du Laurion remplit le trésor. Les Athéniens s'apprêtent à le partager entre eux. Thémistocle propose plutôt de construire 200 navires de guerre."
+        },
+        {
+          cle: "boule", court: "La boulè prépare", qui: "500 citoyens tirés au sort",
+          titre: "La boulè étudie et prépare le projet",
+          fiche: [["Qui?", "Le conseil de la boulè"], ["Combien?", "500 citoyens, 50 par tribu"], ["Choisis comment?", "Tirage au sort, pour un an"]],
+          texte: "La boulè étudie la proposition, la met en forme puis l'inscrit à l'ordre du jour de l'ecclésia. Personne ne peut y siéger plus de deux fois dans sa vie. Les 50 membres d'une même tribu assurent la permanence à tour de rôle, pendant le dixième de l'année.",
+          tirage: true
+        },
+        {
+          cle: "debat", court: "L'ecclésia débat", qui: "Les citoyens présents",
+          titre: "L'ecclésia débat sur la Pnyx",
+          fiche: [["Qui?", "Les citoyens qui viennent"], ["Combien?", "Jusqu'à environ 6 000"], ["Choisis comment?", "Personne : chaque citoyen peut venir"]],
+          texte: "Une quarantaine de fois par année, les citoyens se réunissent en plein air sur la colline de la Pnyx. Chaque citoyen peut demander la parole et parler du haut de la tribune. Les bons orateurs ont un net avantage : ils savent convaincre la foule.",
+          exemple: "Thémistocle doit convaincre les citoyens de renoncer à leur part de l'argent."
+        },
+        {
+          cle: "vote", court: "L'ecclésia vote", qui: "Les citoyens présents",
+          titre: "L'ecclésia vote à main levée",
+          fiche: [["Qui?", "Les citoyens présents"], ["Combien?", "Jusqu'à environ 6 000"], ["Comment?", "À main levée, la majorité l'emporte"]],
+          texte: "Après le débat, on vote à main levée. La majorité l'emporte. La décision devient alors celle de toute la cité. Les citoyens ont décidé eux-mêmes, sans représentants : c'est la démocratie directe.",
+          exemple: "Les citoyens acceptent la proposition de Thémistocle. Athènes construit sa flotte de trières."
+        },
+        {
+          cle: "heliee", court: "L'héliée peut annuler", qui: "Des jurés tirés au sort", facultatif: "Seulement si un citoyen conteste",
+          titre: "L'héliée peut annuler la décision",
+          fiche: [["Qui?", "Des jurés de l'héliée, le tribunal populaire"], ["Combien?", "Tirés parmi 6 000 citoyens"], ["Choisis comment?", "Tirage au sort, citoyens de plus de 30 ans"]],
+          texte: "Un citoyen qui juge une décision contraire aux lois peut attaquer son auteur devant l'héliée. C'est le procès d'illégalité, qui apparaît au cours du 5e siècle. Si les jurés donnent raison à l'accusateur, la décision est annulée. Son auteur doit alors payer une amende."
+        },
+        {
+          cle: "magistrats", court: "Les magistrats appliquent", qui: "Tirés au sort ou élus",
+          titre: "Les magistrats appliquent la décision",
+          fiche: [["Qui?", "Les magistrats"], ["Combien?", "De nombreux magistrats, dont 10 stratèges"], ["Choisis comment?", "Tirage au sort, sauf les stratèges, élus"]],
+          texte: "Les magistrats, tirés au sort pour un an, appliquent les décisions de l'ecclésia. Les dix stratèges, élus chaque année, commandent l'armée et la flotte. Périclès a été réélu stratège au moins quinze fois.",
+          exemple: "En -480, à Salamine, Thémistocle commande les navires athéniens. La flotte grecque écrase la flotte perse."
+        }
+      ],
+      special: {
+        cle: "ostracisme",
+        bouton: "Une autre arme du peuple : l'ostracisme",
+        titre: "L'ostracisme : éloigner un homme jugé trop puissant",
+        etapes: [
+          "Une fois par année, l'ecclésia vote : y aura-t-il un ostracisme cette année?",
+          "Si oui, les citoyens se rassemblent sur l'agora. Chacun grave sur un tesson de poterie, l'ostrakon, le nom de l'homme qu'il veut éloigner.",
+          "Il faut au moins 6 000 votes. L'homme dont le nom revient le plus souvent doit quitter l'Attique pendant 10 ans. Il garde toutefois ses biens et sa citoyenneté."
+        ],
+        note: "Même Thémistocle, qui commandait les navires athéniens à Salamine, est ostracisé vers -471. Le dernier ostracisme connu a lieu vers -417.",
+        question: "Dans un puits près de l'Acropole, les archéologues ont trouvé 190 tessons portant le nom de Thémistocle. Ils semblent écrits par quelques personnes seulement. Qu'est-ce que cela peut vouloir dire?",
+        reponse: "Une hypothèse : des adversaires de Thémistocle auraient préparé ces tessons à l'avance pour les distribuer à des votants. On ne peut pas le prouver. L'indice montre toutefois qu'un vote peut être organisé, voire manipulé."
+      }
+    },
+    quebec: {
+      nom: "Québec",
+      etapes: [
+        {
+          cle: "election", court: "Les élections", qui: "Les électeurs", prealable: true,
+          titre: "Avant tout : les électeurs élisent les députés",
+          fiche: [["Qui?", "Les électeurs inscrits"], ["Combien?", "Environ 6,4 millions"], ["Comment?", "Une élection, tous les quatre ans"]],
+          texte: "Le premier lundi d'octobre, tous les quatre ans, les électeurs choisissent un député dans chaque circonscription. Depuis les élections de 2026, l'Assemblée nationale compte 127 députés. Ce sont eux qui voteront les lois au nom de la population.",
+          exemple: "La loi qui fixe cette date sert d'exemple tout au long du parcours. Suis-la d'étape en étape!"
+        },
+        {
+          cle: "presentation", court: "La présentation", qui: "Un ministre ou un député",
+          titre: "Un ministre ou un député présente le projet de loi",
+          fiche: [["Qui?", "Un ministre ou un député"], ["Combien?", "1 personne"], ["Choisi comment?", "Élu dans sa circonscription"]],
+          texte: "L'auteur du projet de loi le dépose devant l'Assemblée nationale. Le texte devient public : tout le monde peut le lire en ligne.",
+          exemple: "Le 7 novembre 2012, le gouvernement présente le projet de loi no 3, qui prévoit des élections à date fixe."
+        },
+        {
+          cle: "consultations", court: "Les consultations", qui: "Citoyens et organismes", facultatif: "Étape facultative",
+          titre: "Une commission consulte la population",
+          fiche: [["Qui?", "Des citoyens, des organismes, des experts"], ["Combien?", "Ceux que la commission choisit d'entendre"], ["Comment?", "En envoyant un mémoire"]],
+          texte: "Une commission parlementaire peut tenir des consultations. Les citoyens et les organismes qui veulent être entendus lui envoient un mémoire. La commission choisit ensuite ceux qu'elle entendra en audience publique."
+        },
+        {
+          cle: "principe", court: "L'adoption du principe", qui: "Les 127 députés",
+          titre: "Les députés adoptent le principe du projet",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Choisis comment?", "Élus"]],
+          texte: "En Chambre, les députés débattent de l'idée générale du projet de loi. Ils votent ensuite pour ou contre son principe.",
+          exemple: "Le principe du projet de loi no 3 est adopté le 21 mai 2013."
+        },
+        {
+          cle: "etude", court: "L'étude détaillée", qui: "Une commission de députés",
+          titre: "Une commission étudie chaque article",
+          fiche: [["Qui?", "Une commission parlementaire"], ["Combien?", "Un petit groupe de députés"], ["Choisis comment?", "Élus"]],
+          texte: "En commission parlementaire, des députés examinent le projet de loi article par article. Ils peuvent le modifier en adoptant des amendements."
+        },
+        {
+          cle: "rapport", court: "La prise en considération", qui: "Les 127 députés",
+          titre: "L'Assemblée examine le rapport de la commission",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Choisis comment?", "Élus"]],
+          texte: "La commission fait rapport à l'Assemblée. Les députés se prononcent sur les résultats de son travail. Ils doivent adopter ce rapport pour que le projet de loi poursuive son chemin."
+        },
+        {
+          cle: "adoption", court: "L'adoption", qui: "Les 127 députés",
+          titre: "Les députés adoptent le projet de loi",
+          fiche: [["Qui?", "Les députés, en Chambre"], ["Combien?", "127"], ["Comment?", "Un vote, la majorité l'emporte"]],
+          texte: "C'est la dernière étape de l'étude du projet de loi. Si la majorité des députés vote pour, le projet de loi est adopté.",
+          exemple: "Le 14 juin 2013, les députés adoptent le projet de loi no 3 à l'unanimité."
+        },
+        {
+          cle: "sanction", court: "La sanction", qui: "La lieutenante-gouverneure",
+          titre: "La sanction : le projet devient une loi",
+          fiche: [["Qui?", "La lieutenante-gouverneure"], ["Combien?", "1 personne"], ["Son rôle?", "Elle représente le roi au Québec"]],
+          texte: "La lieutenante-gouverneure, qui représente le roi au Québec, signe le projet de loi. À ce moment, le projet de loi devient une loi.",
+          exemple: "Le projet de loi no 3 est sanctionné le 14 juin 2013, le jour même de son adoption. Depuis, les élections ont lieu à date fixe : le 1er octobre 2018, le 3 octobre 2022, puis le 5 octobre 2026."
+        },
+        {
+          cle: "tribunaux", court: "Les tribunaux", qui: "Des juges", facultatif: "Seulement si quelqu'un conteste la loi", horsSerie: true,
+          titre: "Un tribunal peut invalider une loi",
+          fiche: [["Qui?", "Des juges"], ["Combien?", "Selon le tribunal"], ["Choisis comment?", "Nommés, ce sont des juristes"]],
+          texte: "Une personne qui croit qu'une loi viole ses droits peut la contester devant un tribunal. Si la loi est contraire à la Constitution ou aux chartes des droits et libertés, le tribunal peut la déclarer invalide."
+        }
+      ]
+    }
+  };
+
+  var comparaisons = [
+    {
+      question: "Qui propose une loi?",
+      athenes: "N'importe quel citoyen.",
+      quebec: "Un ministre ou un député.",
+      semblable: "Dans les deux cas, une personne porte le projet et doit le défendre.",
+      differe: "À Athènes, l'idée peut venir de n'importe quel citoyen. Au Québec, seul un élu peut présenter un projet de loi."
+    },
+    {
+      question: "Qui prépare et étudie le projet?",
+      athenes: "La boulè : 500 citoyens tirés au sort pour un an.",
+      quebec: "Une commission parlementaire : des députés élus.",
+      semblable: "Un petit groupe étudie le projet avant le grand vote.",
+      differe: "Le hasard choisit les membres de la boulè. Les électeurs choisissent les députés."
+    },
+    {
+      question: "Qui vote la loi?",
+      athenes: "Les citoyens présents à l'ecclésia, jusqu'à environ 6 000.",
+      quebec: "Les 127 députés de l'Assemblée nationale.",
+      semblable: "Dans les deux cas, la majorité l'emporte.",
+      differe: "À Athènes, les citoyens votent eux-mêmes : c'est une démocratie directe. Au Québec, ils élisent des députés qui votent en leur nom : c'est une démocratie représentative."
+    },
+    {
+      question: "Qui peut annuler une loi?",
+      athenes: "L'héliée, un tribunal de citoyens tirés au sort.",
+      quebec: "Un tribunal, formé de juges.",
+      semblable: "Dans les deux cas, un tribunal peut annuler une décision contraire aux règles les plus importantes.",
+      differe: "À Athènes, les jurés sont des citoyens ordinaires. Au Québec, ce sont des juges de métier."
+    }
+  ];
+
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/\bno (\d)/g, "no\u00a0$1").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function icone(chemins) {
+    var svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    chemins.forEach(function (d) {
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke", "currentColor");
+      p.setAttribute("stroke-width", "1.7");
+      p.setAttribute("stroke-linecap", "round");
+      p.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(p);
+    });
+    return svg;
+  }
+  var DOCUMENT = ["M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z", "M14 3v4h4", "M9 11h6M9 14h6M9 17h4"];
+  var TESSON = ["M5 8l6-4 8 3-1 9-7 4-6-5z", "M9 10l5 1M8.5 13.5l6 .5"];
+
+  var cote = racine.querySelector(".pdl__cote");
+  var comparaison = racine.querySelector(".pdl__comparaison");
+  var precedent = racine.querySelector(".pdl__precedent");
+  var suivant = racine.querySelector(".pdl__suivant");
+  var replier = racine.querySelector(".pdl__replier");
+  var onglets = Array.prototype.slice.call(racine.querySelectorAll(".pdl__onglet"));
+
+  var etat = { vue: "athenes", rangs: { athenes: 0, quebec: 0 }, special: false };
+  var registre = { athenes: { boutons: [], panneaux: [] }, quebec: { boutons: [], panneaux: [] } };
+
+  function fiche(paires) {
+    var dl = el("dl", "pdl__fiche");
+    paires.forEach(function (paire) {
+      var bloc = el("div");
+      bloc.appendChild(el("dt", "", paire[0]));
+      bloc.appendChild(el("dd", "", paire[1]));
+      dl.appendChild(bloc);
+    });
+    return dl;
+  }
+
+  function construireTirage() {
+    var bloc = el("div", "pdl__tirage");
+    bloc.appendChild(el("p", "pdl__tirage-titre", "À toi de tirer au sort le président du jour"));
+    bloc.appendChild(el("p", "pdl__tirage-texte", "Chaque jour, l'un des 50 membres de garde est tiré au sort pour présider le conseil pendant une nuit et un jour. Personne ne peut présider deux fois."));
+    var urne = el("div", "pdl__urne");
+    urne.setAttribute("aria-hidden", "true");
+    var billes = [];
+    for (var k = 0; k < 50; k += 1) {
+      var bille = el("span", "pdl__bille");
+      urne.appendChild(bille);
+      billes.push(bille);
+    }
+    bloc.appendChild(urne);
+    var tirer = el("button", "pdl__tirer", "Tirer au sort");
+    tirer.type = "button";
+    bloc.appendChild(tirer);
+    var resultat = el("p", "pdl__resultat");
+    resultat.setAttribute("aria-live", "polite");
+    bloc.appendChild(resultat);
+    var deja = [];
+    tirer.addEventListener("click", function () {
+      if (deja.length === 50) {
+        deja = [];
+        billes.forEach(function (b) { b.className = "pdl__bille"; });
+        resultat.textContent = "";
+        tirer.textContent = "Tirer au sort";
+        return;
+      }
+      var libres = [];
+      for (var k = 0; k < 50; k += 1) { if (deja.indexOf(k) < 0) { libres.push(k); } }
+      var choisi = libres[Math.floor(Math.random() * libres.length)];
+      if (deja.length) { billes[deja[deja.length - 1]].className = "pdl__bille a-preside"; }
+      deja.push(choisi);
+      billes[choisi].className = "pdl__bille preside";
+      tirer.setAttribute("data-choisi", String(choisi + 1));
+      if (deja.length === 50) {
+        resultat.textContent = typo("Jour 50 : le membre " + (choisi + 1) + " préside. Les 50 membres ont présidé une fois chacun : personne n'a été choisi deux fois.");
+        tirer.textContent = "Recommencer";
+      } else {
+        var reste = 50 - deja.length;
+        resultat.textContent = typo("Jour " + deja.length + " : le membre " + (choisi + 1) + " préside. " + reste + (reste > 1 ? " membres n'ont" : " membre n'a") + " pas encore présidé.");
+        tirer.textContent = "Tirer au sort le jour suivant";
+      }
+    });
+    return bloc;
+  }
+
+  function construirePanneau(cleePiste, etape, rang, total) {
+    var panneau = el("div", "pdl__panneau");
+    panneau.id = "pdl-p-" + cleePiste + "-" + etape.cle;
+    panneau.setAttribute("data-cle", cleePiste + "-" + etape.cle);
+    var nomPiste = pistes[cleePiste].nom;
+    var sur = etape.prealable ? nomPiste + " : avant tout" : etape.horsSerie ? nomPiste + " : après l'adoption" : nomPiste + " : étape " + rang + " sur " + total;
+    panneau.appendChild(el("p", "pdl__surtitre", sur));
+    var titre = el("p", "pdl__titre-panneau", etape.titre);
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    panneau.appendChild(titre);
+    if (etape.facultatif) { panneau.appendChild(el("p", "pdl__facultatif", etape.facultatif)); }
+    panneau.appendChild(fiche(etape.fiche));
+    panneau.appendChild(el("p", "pdl__texte", etape.texte));
+    if (etape.exemple) {
+      var ex = el("div", "pdl__exemple");
+      ex.appendChild(el("span", "pdl__exemple-titre", cleePiste === "athenes" ? "Un exemple réel : la flotte de Thémistocle" : "Un exemple réel : la loi sur les élections à date fixe"));
+      ex.appendChild(el("p", "", etape.exemple));
+      panneau.appendChild(ex);
+    }
+    if (etape.tirage) { panneau.appendChild(construireTirage()); }
+    return panneau;
+  }
+
+  function construirePiste(cleePiste) {
+    var piste = pistes[cleePiste];
+    var liste = racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"] .pdl__liste');
+    var numerotees = piste.etapes.filter(function (e) { return !e.prealable && !e.horsSerie; }).length;
+    var numero = 0;
+    piste.etapes.forEach(function (etape, index) {
+      if (!etape.prealable && !etape.horsSerie) { numero += 1; }
+      var li = el("li");
+      var bouton = el("button", "pdl__etape" + (etape.facultatif ? " est-facultatif" : "") + (etape.prealable ? " est-prealable" : ""));
+      bouton.type = "button";
+      bouton.setAttribute("data-cle", etape.cle);
+      var num = el("span", "pdl__num", etape.prealable ? "0" : etape.horsSerie ? "+" : String(numero));
+      num.setAttribute("aria-hidden", "true");
+      bouton.appendChild(num);
+      var mots = el("span", "pdl__mots");
+      mots.appendChild(el("span", "pdl__court", etape.court));
+      mots.appendChild(el("span", "pdl__qui", etape.facultatif ? etape.qui + ", si besoin" : etape.qui));
+      bouton.appendChild(mots);
+      var jeton = icone(DOCUMENT);
+      jeton.setAttribute("class", "pdl__jeton");
+      bouton.appendChild(jeton);
+      bouton.setAttribute("aria-controls", "pdl-p-" + cleePiste + "-" + etape.cle);
+      bouton.addEventListener("click", function () {
+        etat.rangs[cleePiste] = index;
+        etat.special = false;
+        afficher();
+      });
+      li.appendChild(bouton);
+      liste.appendChild(li);
+      registre[cleePiste].boutons.push(bouton);
+      var panneau = construirePanneau(cleePiste, etape, numero, numerotees);
+      cote.appendChild(panneau);
+      registre[cleePiste].panneaux.push(panneau);
+    });
+    if (piste.special) {
+      var s = piste.special;
+      var boutonSpecial = el("button", "pdl__special");
+      boutonSpecial.type = "button";
+      boutonSpecial.appendChild(icone(TESSON));
+      boutonSpecial.appendChild(document.createTextNode(typo(s.bouton)));
+      boutonSpecial.setAttribute("aria-controls", "pdl-p-" + cleePiste + "-" + s.cle);
+      racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"]').appendChild(boutonSpecial);
+      var panneau = el("div", "pdl__panneau");
+      panneau.id = "pdl-p-" + cleePiste + "-" + s.cle;
+      panneau.setAttribute("data-cle", cleePiste + "-" + s.cle);
+      panneau.appendChild(el("p", "pdl__surtitre", "Athènes : une autre arme du peuple"));
+      var titre = el("p", "pdl__titre-panneau", s.titre);
+      titre.setAttribute("role", "heading");
+      titre.setAttribute("aria-level", "4");
+      panneau.appendChild(titre);
+      var ol = el("ol", "pdl__ostra");
+      s.etapes.forEach(function (texte, k) {
+        var li = el("li");
+        var n = el("span", "pdl__ostra-num", String(k + 1));
+        n.setAttribute("aria-hidden", "true");
+        li.appendChild(n);
+        li.appendChild(document.createTextNode(typo(texte)));
+        ol.appendChild(li);
+      });
+      panneau.appendChild(ol);
+      panneau.appendChild(el("p", "pdl__texte", s.note));
+      var indice = el("div", "pdl__indice");
+      var q = el("p", "pdl__indice-question");
+      q.appendChild(el("strong", "pdl__etiquette", "Indice à examiner"));
+      q.appendChild(document.createTextNode(typo(s.question)));
+      indice.appendChild(q);
+      var voir = el("button", "pdl__voir", "Voir une hypothèse");
+      voir.type = "button";
+      voir.setAttribute("aria-expanded", "false");
+      var reponse = el("p", "pdl__indice-reponse", s.reponse);
+      reponse.hidden = true;
+      reponse.id = "pdl-indice-reponse";
+      voir.setAttribute("aria-controls", reponse.id);
+      voir.addEventListener("click", function () {
+        var ouvert = reponse.hidden;
+        reponse.hidden = !ouvert;
+        voir.setAttribute("aria-expanded", ouvert ? "true" : "false");
+        voir.textContent = ouvert ? "Masquer l'hypothèse" : "Voir une hypothèse";
+      });
+      indice.appendChild(voir);
+      indice.appendChild(reponse);
+      panneau.appendChild(indice);
+      cote.appendChild(panneau);
+      registre[cleePiste].special = { bouton: boutonSpecial, panneau: panneau };
+      boutonSpecial.addEventListener("click", function () {
+        etat.special = true;
+        afficher();
+      });
+    }
+  }
+
+  function construireComparaison() {
+    comparaisons.forEach(function (c) {
+      var carte = el("div", "pdl__carte");
+      var q = el("p", "pdl__question", c.question);
+      q.setAttribute("role", "heading");
+      q.setAttribute("aria-level", "4");
+      carte.appendChild(q);
+      var duo = el("div", "pdl__duo");
+      [["athenes", "À Athènes"], ["quebec", "Au Québec"]].forEach(function (paire) {
+        var bloc = el("div");
+        bloc.appendChild(el("p", "pdl__ou", paire[1]));
+        bloc.appendChild(el("p", "pdl__reponse", c[paire[0]]));
+        duo.appendChild(bloc);
+      });
+      carte.appendChild(duo);
+      var constats = el("div", "pdl__constats");
+      [["semblable", "Ce qui se ressemble"], ["differe", "Ce qui diffère"]].forEach(function (paire) {
+        var p = el("p", "pdl__constat pdl__constat--" + paire[0]);
+        p.appendChild(el("strong", "pdl__etiquette", paire[1]));
+        p.appendChild(document.createTextNode(typo(c[paire[0]])));
+        constats.appendChild(p);
+      });
+      carte.appendChild(constats);
+      comparaison.appendChild(carte);
+    });
+  }
+
+  function placerProgres(cleePiste) {
+    var boite = racine.querySelector('.pdl__piste[data-piste="' + cleePiste + '"] .pdl__etapes');
+    var barre = boite.querySelector(".pdl__progres");
+    var bouton = registre[cleePiste].boutons[etat.rangs[cleePiste]];
+    if (!bouton || etat.special) { barre.style.height = "0px"; return; }
+    var haut = bouton.offsetTop + bouton.offsetHeight / 2 - barre.offsetTop;
+    barre.style.height = Math.max(0, haut) + "px";
+  }
+
+  function afficher() {
+    var vue = etat.vue;
+    racine.classList.toggle("est-comparer", vue === "comparer");
+    onglets.forEach(function (o) {
+      var actif = o.getAttribute("data-vue") === vue;
+      o.classList.toggle("est-actif", actif);
+      o.setAttribute("aria-selected", actif ? "true" : "false");
+      o.tabIndex = actif ? 0 : -1;
+    });
+    Array.prototype.forEach.call(racine.querySelectorAll(".pdl__piste"), function (p) {
+      p.classList.toggle("est-visible", p.getAttribute("data-piste") === vue);
+    });
+    Array.prototype.forEach.call(cote.querySelectorAll(".pdl__panneau"), function (p) { p.classList.remove("est-visible"); });
+    if (vue === "comparer") { return; }
+    var reg = registre[vue];
+    var rang = etat.rangs[vue];
+    var surSpecial = etat.special && reg.special;
+    reg.boutons.forEach(function (b, k) {
+      var courant = !surSpecial && k === rang;
+      b.classList.toggle("est-courant", courant);
+      b.classList.toggle("est-passe", !surSpecial && k < rang);
+      if (courant) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
+    });
+    if (reg.special) {
+      reg.special.bouton.classList.toggle("est-courant", !!surSpecial);
+      if (surSpecial) { reg.special.bouton.setAttribute("aria-current", "true"); } else { reg.special.bouton.removeAttribute("aria-current"); }
+    }
+    var panneau = surSpecial ? reg.special.panneau : reg.panneaux[rang];
+    panneau.classList.add("est-visible");
+    precedent.disabled = !surSpecial && rang === 0;
+    suivant.disabled = !surSpecial && rang === reg.boutons.length - 1;
+    suivant.textContent = surSpecial ? "Revenir au parcours" : "Étape suivante";
+    placerProgres(vue);
+  }
+
+  construirePiste("athenes");
+  construirePiste("quebec");
+  construireComparaison();
+
+  onglets.forEach(function (o) {
+    o.addEventListener("click", function () {
+      etat.vue = o.getAttribute("data-vue");
+      etat.special = false;
+      afficher();
+    });
+  });
+  racine.querySelector(".pdl__onglets").addEventListener("keydown", function (e) {
+    var rang = onglets.indexOf(document.activeElement);
+    if (rang < 0) { return; }
+    var cible = null;
+    if (e.key === "ArrowRight") { cible = (rang + 1) % onglets.length; }
+    else if (e.key === "ArrowLeft") { cible = (rang - 1 + onglets.length) % onglets.length; }
+    else if (e.key === "Home") { cible = 0; }
+    else if (e.key === "End") { cible = onglets.length - 1; }
+    if (cible === null) { return; }
+    e.preventDefault();
+    etat.vue = onglets[cible].getAttribute("data-vue");
+    etat.special = false;
+    afficher();
+    onglets[cible].focus();
+  });
+  precedent.addEventListener("click", function () {
+    if (etat.special) { etat.special = false; afficher(); return; }
+    if (etat.rangs[etat.vue] > 0) { etat.rangs[etat.vue] -= 1; afficher(); }
+  });
+  suivant.addEventListener("click", function () {
+    if (etat.special) { etat.special = false; afficher(); return; }
+    if (etat.rangs[etat.vue] < registre[etat.vue].boutons.length - 1) { etat.rangs[etat.vue] += 1; afficher(); }
+  });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  window.addEventListener("resize", function () { if (etat.vue !== "comparer") { placerProgres(etat.vue); } });
+  document.addEventListener("fullscreenchange", function () { setTimeout(function () { if (etat.vue !== "comparer") { placerProgres(etat.vue); } }, 60); });
+
+  afficher();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

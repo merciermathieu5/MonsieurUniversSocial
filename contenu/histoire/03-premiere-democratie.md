@@ -236,6 +236,8 @@ L'ecclésia, l'assemblée de tous les citoyens, se réunit une quarantaine de fo
 par année sur la colline de la Pnyx. Chaque citoyen peut y prendre la parole du
 haut de la tribune avant le vote.
 
+::: composant parcours-loi
+
 ## Les classes sociales athéniennes
 
 « Il faut toutefois savoir que, pour les Athéniens, le peuple se limite aux
@@ -249,6 +251,8 @@ graduellement que les institutions démocratiques ont vu le jour à Athènes. »
 
 ::: schema population-athenes
 :::
+
+::: composant qui-est-citoyen
 
 ### Les citoyens athéniens
 
@@ -576,6 +580,8 @@ exécutions. Ils sont également chargés des affaires étrangères, exécutent 
 décisions de l'Assemblée, ordonnent la mobilisation et prennent les décisions
 urgentes.
 
+::: composant athenes-sparte
+
 ::: questions
 1. Qui sont les Égaux et combien sont-ils par rapport à la population totale?
 2. Que se passe-t-il pour un garçon spartiate à partir de 7 ans?
@@ -596,3 +602,23 @@ permettent de vérifier tes connaissances.
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
 - [Par ici la démocratie, Assemblée nationale du Québec](https://paricilademocratie.com/)
 - [Alloprof, La démocratie athénienne](https://www.alloprof.qc.ca/)
+- [Aristote, Constitution d'Athènes, chapitre 44, traduction de F. Kenyon](https://www.ellopos.net/elpenor/greek-texts/ancient-greece/aristotle/athenian-constitution.asp?pg=36)
+- [Hérodote, Histoires, livre VII, 144, traduction de G. C. Macaulay](https://lexundria.com/hdt/7.144/mcly)
+- [World History Encyclopedia, Athenian Democracy](https://www.worldhistory.org/Athenian_Democracy/)
+- [World History Encyclopedia, L'ostracisme](https://www.worldhistory.org/trans/fr/1-14606/ostracisme/)
+- [World History Encyclopedia, Themistocles](https://www.worldhistory.org/Themistocles/)
+- [World History Encyclopedia, Sparta](https://www.worldhistory.org/sparta/)
+- [Larousse, Périclès](https://www.larousse.fr/dictionnaires/college/P%C3%A9ricl%C3%A8s/30188)
+- [Wikipédia, Graphè paranomon](https://fr.wikipedia.org/wiki/Graph%C3%A8_paranomon)
+- [Bibliothèque de l'Assemblée nationale, Étapes de cheminement des projets de loi](https://bibliotheque.assnat.qc.ca/guides/fr/document/155)
+- [Par ici la démocratie, Démystifier les commissions parlementaires](https://paricilademocratie.com/document/950)
+- [Gazette officielle du Québec, avis de consultation générale, 2013](https://www.publicationsduquebec.gouv.qc.ca/fileadmin/gazette/pdf_encrypte/lois_reglements/2013F/60665.pdf)
+- [Loi modifiant la Loi électorale afin de prévoir des élections à date fixe, 2013](https://www.publicationsduquebec.gouv.qc.ca/fileadmin/Fichiers_client/lois_et_reglements/LoisAnnuelles/fr/2013/2013C13F.PDF)
+- [CTV News, Future Quebec elections to be held on first Monday in October, 2013](https://www.ctvnews.ca/montreal/article/future-quebec-elections-to-be-held-on-first-monday-in-october/)
+- [Gouvernement du Québec, Élections provinciales de 2026 : un scrutin aura lieu le 5 octobre](https://www.quebec.ca/nouvelles/actualites/details/elections-provinciales-de-2026-un-scrutin-aura-lieu-le-5-octobre-72333)
+- [Élections Québec, Résultats et statistiques](https://www.electionsquebec.qc.ca/resultats-et-statistiques/)
+- [Élections Québec, Voter au Québec](https://docs.electionsquebec.qc.ca/PRO/6a74a5de39b72/DGE-10629.pdf)
+- [Institut de la statistique du Québec, Perspectives démographiques du Québec et de ses régions, mise à jour 2026](https://statistique.quebec.ca/fr/fichier/perspectives-demographiques-quebec-et-regions-edition-2026.pdf)
+- [Par ici la démocratie, Femmes et vie politique, ligne du temps](https://www.paricilademocratie.com/document/1338)
+- [Justice Canada, Découvrez la Charte](https://justice.gc.ca/fra/sjc-csj/dlc-rfc/ccdl-ccrf/apprend-learn.html)
+- [Revue générale de droit, Do Inferior Tribunals have the Power to declare a Law Unconstitutional?, 1988](https://www.erudit.org/en/revue/rgd/1988/v19/n4/1058503ar.pdf)

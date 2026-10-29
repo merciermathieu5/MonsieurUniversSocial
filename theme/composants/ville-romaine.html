@@ -1,0 +1,2299 @@
+<section class="vro" id="ville-romaine" aria-label="Maquette interactive de Lutèce vers l'an 200">
+<style>
+.vro { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container-type: inline-size; --vro-sur: #3A8A5C; --vro-lieu: #E39A2B; --vro-imagine: #A6A7B6; }
+.vro .vro__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vro .vro__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.vro .vro__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+.vro__scene { position: relative; width: 100%; height: 60vh; height: clamp(17rem, 62.5cqw, 82vh); background: #E3DBCB; overflow: hidden; border-bottom: 1px solid var(--trait); }
+.vro__scene:fullscreen { width: 100%; height: 100%; border: 0; }
+.vro__toile { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; outline: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
+.vro__toile:active { cursor: grabbing; }
+.vro__toile:focus-visible { box-shadow: inset 0 0 0 3px var(--matiere); }
+.vro__reperes { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.vro .vro__repere { position: absolute; left: 0; top: 0; visibility: hidden; pointer-events: auto; margin: 0; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.2; color: #1F2328; background: rgba(255,255,255,.93); border: 1px solid rgba(31,35,40,.2); border-radius: 100px; padding: .24rem .62rem; white-space: nowrap; cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,.22); }
+.vro .vro__repere::after { content: ""; position: absolute; left: 50%; top: 100%; width: 2px; height: 9px; margin-left: -1px; background: rgba(255,255,255,.95); box-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.vro .vro__repere:hover { background: #fff; text-decoration: underline; }
+.vro .vro__repere.est-choisi { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.vro .vro__repere.est-choisi::after { background: var(--matiere-fonce); }
+.vro__outils { position: absolute; top: .65rem; left: .65rem; right: .65rem; display: flex; flex-wrap: wrap; gap: .3rem; pointer-events: none; }
+.vro__outil { pointer-events: auto; font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .8rem; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.vro__outil:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vro__outil--rond { width: 2.05rem; padding: .32rem 0; font-size: .95rem; text-align: center; }
+.vro__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.vro__outil--droite { margin-left: auto; }
+.vro:not(.est-plein-ecran) .vro__outil[data-action="texte"] { display: none; }
+.vro .vro__bulle { position: absolute; left: 0; top: 0; z-index: 3; margin: 0; padding: .22rem .55rem; font-family: var(--titre); font-weight: 600; font-size: .74rem; line-height: 1.25; white-space: nowrap; color: #fff; background: rgba(20,24,28,.86); border-radius: var(--rayon); pointer-events: none; opacity: 0; transition: opacity .12s; }
+.vro .vro__bulle.est-visible { opacity: 1; }
+.vro .vro__chargement { position: absolute; inset: 0; margin: 0; display: flex; align-items: center; justify-content: center; font-family: var(--titre); font-weight: 600; font-size: .95rem; color: #4A4F55; background: #E3DBCB; pointer-events: none; transition: opacity .4s; }
+.vro.est-construite .vro__chargement { opacity: 0; visibility: hidden; }
+.vro__legende { position: absolute; left: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .55rem .75rem; display: grid; gap: .25rem; background: rgba(255,255,255,.95); color: #1F2328; border-radius: var(--rayon); box-shadow: 0 1px 4px rgba(0,0,0,.2); font-family: var(--titre); font-size: .76rem; line-height: 1.3; }
+.vro__legende[hidden] { display: none; }
+.vro__legende span { display: flex; align-items: center; gap: .45rem; }
+.vro__legende i { width: .85rem; height: .85rem; border-radius: 2px; flex: none; }
+.vro__legende small { font-size: .7rem; color: #4A4F55; max-width: 22rem; }
+.vro__aide { position: absolute; right: .65rem; bottom: .65rem; max-width: calc(100% - 1.3rem); margin: 0; padding: .32rem .65rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .03em; line-height: 1.45; color: #1F2328; background: rgba(255,255,255,.88); border-radius: var(--rayon); transition: opacity .5s; pointer-events: none; }
+.vro.a-bouge .vro__aide { opacity: 0; }
+.vro__avis { position: absolute; left: 50%; top: 50%; width: max-content; max-width: min(80%, 26rem); margin: 0; padding: .7rem 1rem; transform: translate(-50%, -50%); background: rgba(20,24,28,.86); color: #fff; border-radius: var(--rayon); font-family: var(--titre); font-size: .88rem; line-height: 1.4; text-align: center; opacity: 0; transition: opacity .25s; pointer-events: none; }
+.vro__avis.est-visible { opacity: 1; }
+.vro__secours { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--surface-2); text-align: center; }
+.vro__secours[hidden] { display: none; }
+.vro .vro__secours-texte { margin: 0; max-width: 30rem; font-family: var(--titre); font-size: .95rem; line-height: 1.5; color: var(--encre-doux); }
+.vro.sans-3d .vro__toile, .vro.sans-3d .vro__outils, .vro.sans-3d .vro__aide, .vro.sans-3d .vro__reperes, .vro.sans-3d .vro__visite { display: none; }
+.vro.sans-3d .vro__scene { height: auto; min-height: 9rem; }
+.vro.a-plan .vro__scene { height: 80vh; height: clamp(20rem, 100cqw, 80vh); }
+.vro.a-plan .vro__secours { flex-direction: column; align-items: stretch; justify-content: flex-start; gap: .6rem; padding: .8rem; }
+.vro.a-plan .vro__secours-texte { align-self: center; }
+.vro__plan { display: block; width: 100%; flex: 1 1 auto; min-height: 0; border-radius: var(--rayon); }
+.vro__visite { display: flex; align-items: center; gap: .6rem 1rem; flex-wrap: wrap; padding: .75rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--matiere-voile); }
+.vro__lancer, .vro__prec, .vro__suiv, .vro__quitter { font-family: var(--titre); font-weight: 600; font-size: .84rem; border-radius: 100px; padding: .42rem 1rem; cursor: pointer; }
+.vro__lancer, .vro__suiv { color: #fff; background: var(--matiere); border: 1px solid var(--matiere); }
+.vro__lancer:hover, .vro__suiv:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.vro__prec, .vro__quitter { color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); }
+.vro__prec:hover, .vro__quitter:hover { color: var(--matiere-fonce); }
+.vro__prec:disabled { opacity: .45; cursor: default; }
+.vro .vro__invite { margin: 0; font-size: .92rem; line-height: 1.45; color: var(--encre-doux); flex: 1 1 16rem; }
+.vro__etapes { display: none; width: 100%; gap: .5rem 1rem; align-items: center; flex-wrap: wrap; }
+.vro.en-visite .vro__etapes { display: flex; }
+.vro.en-visite .vro__lancer, .vro.en-visite .vro__invite { display: none; }
+.vro .vro__etape { margin: 0; flex: 1 1 18rem; font-size: .93rem; line-height: 1.45; }
+.vro .vro__num { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vro .vro__titre-etape { font-family: var(--titre); font-weight: 700; color: var(--matiere-fonce); margin-right: .35rem; }
+.vro__nav { display: flex; gap: .4rem; flex-wrap: wrap; }
+.vro__cote { container-type: inline-size; }
+.vro__choix { display: grid; gap: .55rem; padding: .9rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.vro__groupe { display: grid; grid-template-columns: 12.5rem 1fr; align-items: start; gap: .4rem .75rem; }
+.vro .vro__groupe-nom { margin: 0; min-height: 2.15rem; display: flex; align-items: center; font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vro__boutons { display: flex; flex-wrap: wrap; gap: .4rem; }
+.vro__bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .4rem .9rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.vro__bouton:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vro__bouton[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.vro__contenu { padding: 1.3rem 1.4rem 1.4rem; }
+.vro.est-pret .vro__panneau { display: none; }
+.vro.est-pret .vro__panneau.est-visible { display: block; }
+.vro__panneau + .vro__panneau { margin-top: 1.2rem; }
+.vro.est-pret .vro__panneau + .vro__panneau { margin-top: 0; }
+.vro__fiche { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
+.vro .vro__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
+.vro .vro__role { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; line-height: 1.2; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .45rem; }
+.vro .vro__detail { margin: 0; font-size: .97rem; line-height: 1.6; }
+.vro .vro__detail + .vro__detail { margin-top: .6rem; }
+.vro .vro__auj { margin: 1rem 0 0; padding: .8rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.55; }
+.vro .vro__auj + .vro__auj { margin-top: .6rem; }
+.vro .vro__auj strong { color: var(--matiere-fonce); }
+.vro .vro__source { margin: 0; padding: .55rem 1.4rem .8rem; font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+.vro__etape-donnees { display: none; }
+.vro.est-plein-ecran { display: grid; grid-template-columns: minmax(0, 1fr) minmax(21rem, 28rem); grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.vro.est-plein-ecran > .vro__entete { grid-column: 1 / -1; position: static; }
+.vro.est-plein-ecran > .vro__scene { grid-column: 1; grid-row: 2; height: auto; min-height: 0; border-bottom: 0; }
+.vro.est-plein-ecran > .vro__cote { grid-column: 2; grid-row: 2; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--trait); background: var(--surface); }
+.vro.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr) 0; }
+.vro.est-plein-ecran.texte-masque > .vro__cote { display: none; }
+@media (max-width: 50rem), (max-aspect-ratio: 1/1) {
+  .vro.est-plein-ecran { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1.3fr) minmax(0, 1fr); }
+  .vro.est-plein-ecran > .vro__cote { grid-column: 1; grid-row: 3; border-left: 0; border-top: 1px solid var(--trait); }
+  .vro.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) 0; }
+}
+html[data-sombre="on"] .vro .vro__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .vro .vro__titre { color: var(--encre); }
+html[data-sombre="on"] .vro .vro__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .vro__outil[aria-pressed="true"], html[data-sombre="on"] .vro__bouton[aria-pressed="true"], html[data-sombre="on"] .vro__lancer, html[data-sombre="on"] .vro__suiv { color: #10171F; }
+html[data-sombre="on"] .vro .vro__role, html[data-sombre="on"] .vro .vro__auj strong, html[data-sombre="on"] .vro .vro__titre-etape { color: var(--encre); }
+html[data-sombre="on"] .vro .vro__repere.est-choisi { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .vro .vro__repere.est-choisi::after { background: var(--matiere); }
+@container (max-width: 34rem) {
+  .vro__groupe { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .vro .vro__groupe-nom { min-height: 0; margin-top: .15rem; }
+}
+@container (min-width: 62rem) {
+  .vro__choix { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem 2.2rem; }
+  .vro__groupe { grid-template-columns: minmax(0, 1fr); gap: .3rem; }
+  .vro .vro__groupe-nom { min-height: 0; }
+  .vro.est-pret .vro__panneau.est-visible { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: .8rem 1.2rem; align-items: start; }
+  .vro.est-pret .vro__panneau.est-visible > .vro__fiche { grid-column: 1; grid-row: 1 / span 3; }
+  .vro.est-pret .vro__panneau.est-visible > .vro__auj { grid-column: 2; margin: 0; }
+}
+@media (max-width: 40rem) {
+  .vro__scene { height: 72vh; height: clamp(15rem, 115cqw, 72vh); }
+  .vro__outils { top: .5rem; left: .5rem; right: .5rem; gap: .25rem; }
+  .vro__contenu { padding: 1.1rem 1rem 1rem; }
+  .vro__choix, .vro__visite { padding: .8rem; }
+  .vro__groupe { grid-template-columns: 1fr; }
+  .vro .vro__groupe-nom { min-height: 0; margin-top: .2rem; }
+  .vro__outil { font-size: .72rem; padding: .26rem .62rem; }
+  .vro__outil--rond { width: 1.85rem; padding: .26rem 0; }
+  .vro__aide { display: none; }
+  .vro .vro__repere { font-size: .68rem; padding: .18rem .5rem; }
+}
+@media print {
+  .vro__scene, .vro__visite, .vro__choix, .vro .vro__consigne { display: none; }
+  .vro .vro__panneau { display: block !important; break-inside: avoid; }
+  .vro .vro__panneau + .vro__panneau { margin-top: 1rem !important; }
+}
+.vro ul, .vro ol { list-style: none; margin: 0; padding: 0; }
+.vro ul > li::before, .vro ol > li::before { content: none; }
+.vro li::marker { content: ""; }
+</style>
+<div class="vro__entete">
+<p class="vro__titre" role="heading" aria-level="3">Lutèce, une ville romaine, vers l'an 200</p>
+<p class="vro__consigne">Fais tourner la ville&nbsp;· Choisis un lieu</p>
+</div>
+<div class="vro__scene">
+<canvas class="vro__toile" tabindex="0" role="img" aria-label="Maquette en trois dimensions de Lutèce, l'ancêtre de Paris, vers l'an 200. Avec le clavier&nbsp;: les flèches font tourner la maquette, les touches plus et moins font zoomer. La liste des lieux, sous la maquette, donne la description de chaque partie de la ville."></canvas>
+<div class="vro__reperes" aria-hidden="true"></div>
+<div class="vro__outils">
+<button type="button" class="vro__outil" data-action="ensemble">Vue d'ensemble</button>
+<button type="button" class="vro__outil vro__outil--rond" data-action="plus" aria-label="Zoomer">+</button>
+<button type="button" class="vro__outil vro__outil--rond" data-action="moins" aria-label="Dézoomer">−</button>
+<button type="button" class="vro__outil" data-action="certitude" aria-pressed="false">Ce qu'on sait vraiment</button>
+<button type="button" class="vro__outil vro__outil--droite" data-action="texte" aria-expanded="true">Masquer le texte</button>
+</div>
+<p class="vro__legende" hidden>
+<span><i style="background:var(--vro-sur)"></i>Fouillé par les archéologues&nbsp;: plan connu</span>
+<span><i style="background:var(--vro-lieu)"></i>Emplacement connu, forme imaginée</span>
+<span><i style="background:var(--vro-imagine)"></i>Imaginé d'après ce qu'on sait d'ailleurs</span>
+<small>Les hauteurs sont presque toujours estimées&nbsp;: seuls les plans au sol ont été retrouvés.</small>
+</p>
+<p class="vro__aide">Glisse pour tourner · Clic droit ou Maj pour déplacer · Ctrl + molette pour zoomer</p>
+<p class="vro__avis" role="status"></p>
+<p class="vro__bulle" aria-hidden="true"></p>
+<p class="vro__chargement" aria-hidden="true">Construction de Lutèce…</p>
+<div class="vro__secours" hidden><p class="vro__secours-texte"></p></div>
+</div>
+<div class="vro__cote">
+<div class="vro__visite">
+<button type="button" class="vro__lancer">Commencer la visite guidée</button>
+<p class="vro__invite">Suis une journée à Lutèce, du port de l'île de la Cité jusqu'aux arènes.</p>
+<div class="vro__etapes">
+<p class="vro__etape" aria-live="polite"><span class="vro__num"></span><span class="vro__titre-etape"></span><span class="vro__texte-etape"></span></p>
+<div class="vro__nav">
+<button type="button" class="vro__prec">Précédent</button>
+<button type="button" class="vro__suiv">Suivant</button>
+<button type="button" class="vro__quitter">Quitter la visite</button>
+</div>
+</div>
+</div>
+<p class="vro__etape-donnees" data-partie="accueil" data-titre="Un matin d&#x27;été, vers l&#x27;an 200." data-vue="250,300,3300,205,30,0">Un chaland remonte la Seine vers Lutèce. Suivons une journée dans la ville.</p>
+<p class="vro__etape-donnees" data-partie="port" data-titre="Le port." data-vue="470,690,330,200,26,3">Sur l&#x27;île, les nautes déchargent des amphores de vin et d&#x27;huile dans les entrepôts.</p>
+<p class="vro__etape-donnees" data-partie="pilier" data-titre="Le pilier des Nautes." data-vue="575,735,70,215,14,3">Un batelier salue les dieux romains et gaulois sculptés sur le pilier.</p>
+<p class="vro__etape-donnees" data-partie="ponts" data-titre="Le Petit-Pont." data-vue="368,690,200,120,22,2">On traverse le petit bras de la Seine pour gagner la ville.</p>
+<p class="vro__etape-donnees" data-partie="cardo" data-titre="Le cardo." data-vue="230,350,420,200,22,4">La grande rue monte vers le haut de la colline, entre les boutiques.</p>
+<p class="vro__etape-donnees" data-partie="forum" data-titre="Le forum." data-vue="20,30,420,150,30,6">Au forum, on règle ses affaires et on écoute les nouvelles.</p>
+<p class="vro__etape-donnees" data-partie="thermes-cluny" data-titre="Les thermes." data-vue="70,450,300,210,30,6">Après le travail, direction les thermes du Nord pour un bon bain.</p>
+<p class="vro__etape-donnees" data-partie="aqueduc" data-titre="L&#x27;aqueduc." data-vue="-250,-1100,1800,160,32,0">L&#x27;eau des thermes arrive par un aqueduc long de 26&nbsp;km, depuis des sources au sud.</p>
+<p class="vro__etape-donnees" data-partie="arenes" data-titre="Les arènes." data-vue="790,-170,340,230,32,4">En fin de journée, la foule se presse aux arènes pour un spectacle.</p>
+<p class="vro__etape-donnees" data-partie="maisons" data-titre="Retour à la maison." data-vue="-180,150,330,30,38,3">Le soir, chacun rentre chez soi. Fin de la visite&nbsp;: à toi d&#x27;explorer!</p>
+<div class="vro__choix">
+<div class="vro__groupe">
+<p class="vro__groupe-nom">Le cœur de la ville</p>
+<div class="vro__boutons">
+<button type="button" class="vro__bouton" data-partie="forum" aria-pressed="false" aria-controls="vro-forum">Forum</button>
+<button type="button" class="vro__bouton" data-partie="cardo" aria-pressed="false" aria-controls="vro-cardo" data-court="Cardo">Cardo, la rue principale</button>
+<button type="button" class="vro__bouton" data-partie="maisons" aria-pressed="false" aria-controls="vro-maisons" data-court="Maisons">Maisons et boutiques</button>
+</div>
+</div>
+<div class="vro__groupe">
+<p class="vro__groupe-nom">Se laver et se divertir</p>
+<div class="vro__boutons">
+<button type="button" class="vro__bouton" data-partie="thermes-cluny" aria-pressed="false" aria-controls="vro-thermes-cluny" data-court="Thermes de Cluny">Thermes de Cluny</button>
+<button type="button" class="vro__bouton" data-partie="thermes" aria-pressed="false" aria-controls="vro-thermes" data-court="Thermes">Thermes de l&#x27;Est et du Sud</button>
+<button type="button" class="vro__bouton" data-partie="arenes" aria-pressed="false" aria-controls="vro-arenes">Arènes</button>
+<button type="button" class="vro__bouton" data-partie="theatre" aria-pressed="false" aria-controls="vro-theatre">Théâtre</button>
+</div>
+</div>
+<div class="vro__groupe">
+<p class="vro__groupe-nom">L&#x27;eau et le fleuve</p>
+<div class="vro__boutons">
+<button type="button" class="vro__bouton" data-partie="aqueduc" aria-pressed="false" aria-controls="vro-aqueduc">Aqueduc</button>
+<button type="button" class="vro__bouton" data-partie="seine" aria-pressed="false" aria-controls="vro-seine">La Seine</button>
+<button type="button" class="vro__bouton" data-partie="port" aria-pressed="false" aria-controls="vro-port" data-court="Port">Port de l&#x27;île de la Cité</button>
+<button type="button" class="vro__bouton" data-partie="pilier" aria-pressed="false" aria-controls="vro-pilier" data-court="Pilier des Nautes">Pilier des Nautes</button>
+<button type="button" class="vro__bouton" data-partie="ponts" aria-pressed="false" aria-controls="vro-ponts" data-court="Ponts">Ponts</button>
+</div>
+</div>
+<div class="vro__groupe">
+<p class="vro__groupe-nom">Autour de la ville</p>
+<div class="vro__boutons">
+<button type="button" class="vro__bouton" data-partie="necropole" aria-pressed="false" aria-controls="vro-necropole" data-court="Nécropole">Nécropole</button>
+<button type="button" class="vro__bouton" data-partie="campagne" aria-pressed="false" aria-controls="vro-campagne">Campagne</button>
+</div>
+</div>
+</div>
+<div class="vro__contenu">
+<div class="vro__panneau vro__panneau--accueil" data-partie="accueil" id="vro-accueil">
+<div class="vro__fiche">
+<span class="vro__lieu">Lutèce · Vers l&#x27;an 200</span>
+<span class="vro__role">Une ville romaine au bord de la Seine</span>
+<p class="vro__detail">Tu survoles Lutèce vers l&#x27;an 200. C&#x27;est l&#x27;ancêtre de Paris. Avant la conquête de la Gaule par Jules César, de -58 à -51, un peuple gaulois vit dans la région&nbsp;: les Parisii. À la fin du 1er siècle avant notre ère, sous l&#x27;empereur Auguste, les Romains bâtissent une ville nouvelle sur la rive gauche de la Seine. Elle s&#x27;étage sur le flanc d&#x27;une colline, aujourd&#x27;hui la montagne Sainte-Geneviève.</p>
+<p class="vro__detail">Lutèce est une petite ville&nbsp;: environ 15&nbsp;000 habitants, selon les estimations. Elle a pourtant tout ce qu&#x27;on trouve dans une ville romaine&nbsp;: un forum, des thermes, un théâtre, un amphithéâtre et un aqueduc. C&#x27;est ainsi que Rome romanise la Gaule. Peu à peu, les Gaulois adoptent la langue, les lois et la façon de vivre des Romains.</p>
+<p class="vro__detail">Fais tourner la maquette en glissant avec la souris ou avec le doigt. Choisis un lieu sur la maquette ou dans la liste pour lire sa description, ou suis la visite guidée.</p>
+</div>
+<p class="vro__auj"><strong>À savoir.</strong> Au 4e siècle, on prend l&#x27;habitude de nommer la ville d&#x27;après ses habitants, les Parisii. C&#x27;est de là que vient le nom de Paris.</p>
+<p class="vro__auj"><strong>Une reconstitution.</strong> Presque toute la Lutèce romaine est enfouie sous Paris. Les archéologues connaissent l&#x27;emplacement des grands monuments et de quelques rues. Les hauteurs, les maisons et les champs sont imaginés. Le bouton «&nbsp;Ce qu&#x27;on sait vraiment&nbsp;» colore la maquette selon ce qui a été retrouvé.</p>
+</div>
+<div class="vro__panneau" data-partie="forum" id="vro-forum">
+<div class="vro__fiche">
+<span class="vro__lieu">Forum · Cœur de la ville</span>
+<span class="vro__role">Le forum, centre de la vie publique</span>
+<p class="vro__detail">Le forum est une grande place rectangulaire de 90&nbsp;m sur 180&nbsp;m, bordée de galeries couvertes&nbsp;: les portiques. On y fait des affaires, on y discute, on y apprend les nouvelles. Des boutiques s&#x27;ouvrent sur son mur extérieur.</p>
+<p class="vro__detail">À l&#x27;ouest se dresse un temple du culte impérial&nbsp;: on y honore l&#x27;empereur comme un dieu. À l&#x27;est, une grande basilique sert de tribunal et de lieu de réunion pour les magistrats qui dirigent la ville.</p>
+</div>
+<p class="vro__auj"><strong>Romanisation.</strong> Honorer l&#x27;empereur au forum, c&#x27;est montrer sa fidélité à Rome. Les familles gauloises les plus riches deviennent magistrats et prennent les habitudes des Romains.</p>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Construit à la fin du 1er siècle, le forum est abandonné au 4e siècle. Des pierres des monuments abandonnés servent alors à bâtir le rempart de l&#x27;île de la Cité. Les restes du forum sont enfouis sous la rue Soufflot, près du Panthéon.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Les fouilles ont donné le plan général&nbsp;: la place, les portiques, le temple et la basilique. Les hauteurs et les toits sont imaginés.</p>
+</div>
+<div class="vro__panneau" data-partie="cardo" id="vro-cardo">
+<div class="vro__fiche">
+<span class="vro__lieu">Rue · Axe nord-sud</span>
+<span class="vro__role">Le cardo, la grande rue</span>
+<p class="vro__detail">Le cardo maximus est la rue principale de Lutèce. Il traverse la ville du sud au nord. Les autres rues le croisent à angle droit ou le suivent&nbsp;: elles forment un quadrillage. Sous les rues passent des égouts.</p>
+<p class="vro__detail">Au sud, le cardo devient la route d&#x27;Orléans, qui s&#x27;appelle alors Cenabum. Au nord, il franchit la Seine par l&#x27;île de la Cité. Les routes romaines relient Lutèce au reste de l&#x27;Empire&nbsp;: les soldats, les marchands et les nouvelles circulent plus vite.</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Le cardo est devenu la rue Saint-Jacques. Elle suit encore à peu près le même tracé, 1&nbsp;800 ans plus tard.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Le tracé du cardo est connu. Plusieurs rues du quadrillage ont été retrouvées. Les autres sont prolongées sur la maquette.</p>
+</div>
+<div class="vro__panneau" data-partie="maisons" id="vro-maisons">
+<div class="vro__fiche">
+<span class="vro__lieu">Quartiers · Vie quotidienne</span>
+<span class="vro__role">Les maisons de Lutèce</span>
+<p class="vro__detail">La plupart des habitants vivent dans des maisons d&#x27;un ou deux étages, le long des rues. Au rez-de-chaussée, beaucoup ont une boutique ou un atelier. Les familles riches vivent dans une domus&nbsp;: une grande maison bâtie autour d&#x27;une cour, avec des murs peints et parfois des mosaïques.</p>
+<p class="vro__detail">Les Gaulois bâtissaient surtout en bois et en terre, avec des toits de chaume. À Lutèce, on construit de plus en plus à la romaine&nbsp;: des murs de pierre et des toits de tuiles. Les murs sont couverts d&#x27;un enduit de sable et de chaux, puis peints.</p>
+</div>
+<p class="vro__auj"><strong>Romanisation.</strong> Les habitants apprennent le latin. Ils achètent du vin et de l&#x27;huile d&#x27;olive venus du sud. Ils gardent aussi des habitudes gauloises. Ce mélange, c&#x27;est la culture gallo-romaine.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Les maisons sont imaginées d&#x27;après celles qu&#x27;on a fouillées à Lutèce et ailleurs en Gaule. Leur nombre et leur place exacte sont inconnus.</p>
+</div>
+<div class="vro__panneau" data-partie="thermes-cluny" id="vro-thermes-cluny">
+<div class="vro__fiche">
+<span class="vro__lieu">Thermes · Bains publics</span>
+<span class="vro__role">Les thermes du Nord, à Cluny</span>
+<p class="vro__detail">Les thermes sont des bains publics. On y va presque chaque jour pour se laver, faire du sport et voir ses amis. Le baigneur passe d&#x27;une salle chaude, le caldarium, à une salle tiède, le tepidarium. Il termine par le bain froid du frigidarium.</p>
+<p class="vro__detail">Ces grands thermes occupent tout un îlot&nbsp;: environ un hectare. Au sud s&#x27;étend la palestre, une cour pour les exercices. Au nord se trouvent les salles de bain. Elles sont chauffées par l&#x27;hypocauste&nbsp;: de l&#x27;air chaud circule sous les planchers.</p>
+</div>
+<p class="vro__auj"><strong>Romanisation.</strong> Le bain à la romaine devient une habitude de tous les jours en Gaule. Il faut beaucoup d&#x27;eau&nbsp;: c&#x27;est l&#x27;aqueduc qui l&#x27;apporte.</p>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> C&#x27;est le monument antique le mieux conservé de Paris. Le frigidarium a gardé sa voûte, haute de 14,5&nbsp;m. Il fait partie du musée de Cluny, qu&#x27;on peut visiter.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Le plan est connu. Les thermes datent probablement du 2e siècle. Les toits sont imaginés.</p>
+</div>
+<div class="vro__panneau" data-partie="thermes" id="vro-thermes">
+<div class="vro__fiche">
+<span class="vro__lieu">Thermes · Bains publics</span>
+<span class="vro__role">Deux autres thermes</span>
+<p class="vro__detail">Lutèce compte au moins trois thermes, beaucoup pour une petite ville. Les thermes de l&#x27;Est, sous l&#x27;actuel Collège de France, datent de la fin du 1er siècle. Une partie sert à soigner les malades, l&#x27;autre à se laver.</p>
+<p class="vro__detail">Les thermes du Sud, rue Gay-Lussac, datent de la fin du 1er siècle ou du début du 2e. Leur palestre abrite une piscine de 80&nbsp;m². Leurs latrines publiques accueillent cinquante personnes à la fois&nbsp;: on s&#x27;y assoit côte à côte!</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Rien n&#x27;est visible&nbsp;: ces thermes sont enfouis sous les bâtiments du Quartier latin.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Les emplacements sont connus, mais les fouilles n&#x27;ont révélé qu&#x27;une partie des plans. Les formes sont en partie imaginées.</p>
+</div>
+<div class="vro__panneau" data-partie="arenes" id="vro-arenes">
+<div class="vro__fiche">
+<span class="vro__lieu">Amphithéâtre · Spectacles</span>
+<span class="vro__role">Les arènes de Lutèce</span>
+<p class="vro__detail">Les arènes accueillent de 15&nbsp;000 à 17&nbsp;000 spectateurs&nbsp;: autant, ou même plus, que tous les habitants de la ville. On peut y voir des combats de gladiateurs, des chasses aux animaux et des pièces de théâtre.</p>
+<p class="vro__detail">C&#x27;est un monument mixte. D&#x27;un côté, des gradins entourent une arène en ellipse d&#x27;environ 52&nbsp;m de long. De l&#x27;autre, une scène de 41&nbsp;m de long sert au théâtre. Les arènes sont bâties vers la fin du 1er siècle, en dehors du quadrillage des rues, sur la pente de la colline.</p>
+</div>
+<p class="vro__auj"><strong>Romanisation.</strong> Les spectacles sont offerts par les notables de la ville. Ils rassemblent toute la population et font aimer la façon de vivre romaine.</p>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> À la fin du 5e siècle, les arènes servent de carrière de pierres. Retrouvées lors de travaux vers 1870, elles sont sauvées en 1883, avec l&#x27;appui de Victor Hugo. Elles forment aujourd&#x27;hui un jardin public, rue Monge. Les gradins visibles ont été refaits au 20e siècle.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Le plan est connu grâce aux fouilles. La hauteur des gradins et le bâtiment de scène sont imaginés.</p>
+</div>
+<div class="vro__panneau" data-partie="theatre" id="vro-theatre">
+<div class="vro__fiche">
+<span class="vro__lieu">Théâtre · Spectacles</span>
+<span class="vro__role">Le théâtre de la rue Racine</span>
+<p class="vro__detail">En plus des arènes, Lutèce a un théâtre de taille moyenne, dans la ville même. On y présente des pièces et des spectacles de musique et de danse.</p>
+<p class="vro__detail">Ses gradins forment un arc de cercle. Trois allées courbes les séparent en étages. Le théâtre se trouve au croisement de deux grandes rues, au nord-ouest du forum.</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Il est enfoui sous le lycée Saint-Louis et la rue Racine. Rien n&#x27;est visible.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> L&#x27;emplacement est connu, mais seule une partie du plan a été fouillée. La forme et la taille sont estimées.</p>
+</div>
+<div class="vro__panneau" data-partie="aqueduc" id="vro-aqueduc">
+<div class="vro__fiche">
+<span class="vro__lieu">Aqueduc · Eau courante</span>
+<span class="vro__role">L&#x27;aqueduc de Lutèce</span>
+<p class="vro__detail">L&#x27;aqueduc apporte l&#x27;eau de sources situées au sud, autour de Wissous. Il mesure 26&nbsp;km de long. L&#x27;eau coule toute seule grâce à une pente très douce, le plus souvent dans un canal de pierre enterré.</p>
+<p class="vro__detail">À Arcueil, pour franchir la vallée de la Bièvre, l&#x27;aqueduc passe sur un pont haut de 14&nbsp;m. Arrivée en ville, l&#x27;eau alimente les thermes.</p>
+</div>
+<p class="vro__auj"><strong>Romanisation.</strong> L&#x27;eau courante est le signe d&#x27;une vraie ville romaine. Les ingénieurs romains savent calculer une pente régulière sur des dizaines de kilomètres.</p>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> On voit encore des restes du pont de l&#x27;aqueduc à Arcueil et à Cachan, au sud de Paris. L&#x27;aqueduc ne fonctionnait plus au début du 4e siècle.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Le trajet est connu dans ses grandes lignes. Le canal est enterré&nbsp;: la maquette marque son tracé. Le réservoir d&#x27;arrivée est imaginé. Le pont d&#x27;Arcueil, plus au sud, est hors de la maquette.</p>
+</div>
+<div class="vro__panneau" data-partie="seine" id="vro-seine">
+<div class="vro__fiche">
+<span class="vro__lieu">Fleuve · Transport</span>
+<span class="vro__role">La Seine, une grande route</span>
+<p class="vro__detail">La Seine est une route très fréquentée. Des chalands, des bateaux à fond plat, transportent du blé, du vin, de la pierre, du bois et de la poterie. Il est plus facile de déplacer une lourde charge sur l&#x27;eau que sur une route.</p>
+<p class="vro__detail">Ses rives n&#x27;ont pas de quais de pierre, sauf au port. Au sud-est, une petite rivière se jette dans la Seine&nbsp;: la Bièvre.</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> La Bièvre coule maintenant sous terre, dans les égouts de Paris.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Les rives suivent celles d&#x27;aujourd&#x27;hui, un peu élargies. Leur forme exacte à l&#x27;époque romaine est mal connue.</p>
+</div>
+<div class="vro__panneau" data-partie="port" id="vro-port">
+<div class="vro__fiche">
+<span class="vro__lieu">Port · Les nautes</span>
+<span class="vro__role">Le port et les nautes</span>
+<p class="vro__detail">Le port se trouve sur l&#x27;île de la Cité, au bord du petit bras de la Seine. Des entrepôts y gardent les marchandises. L&#x27;île est aussi un lieu de passage&nbsp;: le cardo y traverse le fleuve.</p>
+<p class="vro__detail">Les bateliers de la Seine, les nautes, forment une association riche et puissante. Ils contrôlent le transport des marchandises sur le fleuve.</p>
+</div>
+<p class="vro__auj"><strong>À savoir.</strong> Au 4e siècle, la ville se replie sur l&#x27;île, que l&#x27;on entoure d&#x27;un rempart vers 308. C&#x27;est à Lutèce que les soldats proclament Julien empereur, en 360.</p>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Sous le parvis de Notre-Dame, la crypte archéologique montre des restes du quai du port antique.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Une partie du quai a été retrouvée. Les entrepôts et les maisons de l&#x27;île sont imaginés. L&#x27;île était plus petite qu&#x27;aujourd&#x27;hui.</p>
+</div>
+<div class="vro__panneau" data-partie="pilier" id="vro-pilier">
+<div class="vro__fiche">
+<span class="vro__lieu">Monument · Dieux romains et gaulois</span>
+<span class="vro__role">Le pilier des Nautes</span>
+<p class="vro__detail">Sous l&#x27;empereur Tibère, qui règne de 14 à 37, les nautes offrent un pilier sculpté de plus de 5&nbsp;m de haut. Son inscription, en latin, le dédie à Jupiter. On y voit des dieux romains, comme Jupiter, Vulcain, Castor et Pollux. À côté figurent des dieux gaulois, comme Ésus, Cernunnos et un taureau accompagné de trois grues.</p>
+<p class="vro__detail">C&#x27;est le plus ancien monument connu qui mentionne les nautes. Il montre bien la romanisation&nbsp;: les Gaulois écrivent en latin et honorent les dieux romains, sans oublier les leurs.</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Ses blocs ont été retrouvés en 1710, sous la cathédrale Notre-Dame. On peut les voir au musée de Cluny, dans le frigidarium des thermes.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> On connaît la forme du pilier, mais pas sa place d&#x27;origine. La maquette le pose sur l&#x27;île, près du port.</p>
+</div>
+<div class="vro__panneau" data-partie="ponts" id="vro-ponts">
+<div class="vro__fiche">
+<span class="vro__lieu">Ponts · Traverser la Seine</span>
+<span class="vro__role">Les ponts de l&#x27;île</span>
+<p class="vro__detail">Deux ponts relient l&#x27;île de la Cité aux rives. Au sud, le Petit-Pont mène à la ville. Au nord, le Grand-Pont mène à la rive droite, d&#x27;où part la route du nord de la Gaule. Les ponts remplacent un gué&nbsp;: un endroit où l&#x27;on peut traverser le fleuve à pied.</p>
+<p class="vro__detail">Au 4e siècle, l&#x27;empereur Julien décrit l&#x27;île&nbsp;: un mur l&#x27;entoure et des ponts de bois y mènent des deux côtés.</p>
+</div>
+<p class="vro__auj"><strong>Aujourd&#x27;hui.</strong> Le Petit-Pont et le pont Notre-Dame occupent à peu près les mêmes emplacements. Ils ont été rebâtis de nombreuses fois.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> L&#x27;emplacement des ponts est probable. Leur forme est imaginée d&#x27;après le texte de Julien.</p>
+</div>
+<div class="vro__panneau" data-partie="necropole" id="vro-necropole">
+<div class="vro__fiche">
+<span class="vro__lieu">Cimetière · Hors de la ville</span>
+<span class="vro__role">La nécropole Saint-Jacques</span>
+<p class="vro__detail">Les Romains enterrent leurs morts hors de la ville&nbsp;: la loi l&#x27;exige. Les tombes s&#x27;alignent le long des routes, à la sortie de Lutèce, pour que les voyageurs se souviennent des défunts.</p>
+<p class="vro__detail">La nécropole Saint-Jacques borde la route d&#x27;Orléans, au sud. Elle a servi du 1er au 4e siècle. Les archéologues y ont trouvé environ 400 sépultures.</p>
+</div>
+<p class="vro__auj"><strong>À savoir.</strong> Au début, on brûle souvent le corps et on garde les cendres dans une urne. Peu à peu, l&#x27;inhumation, c&#x27;est-à-dire l&#x27;enterrement du corps, devient plus courante.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> L&#x27;emplacement est connu. Les tombes sont imaginées.</p>
+</div>
+<div class="vro__panneau" data-partie="campagne" id="vro-campagne">
+<div class="vro__fiche">
+<span class="vro__lieu">Campagne · Nourrir la ville</span>
+<span class="vro__role">La campagne autour de Lutèce</span>
+<p class="vro__detail">Autour de la ville, les paysans cultivent du blé et de l&#x27;orge, élèvent des animaux et plantent de la vigne. De grands domaines agricoles, les villas, appartiennent à de riches propriétaires.</p>
+<p class="vro__detail">La rive droite, basse et humide, est en partie couverte de marais. Elle est encore peu habitée.</p>
+</div>
+<p class="vro__auj"><strong>À savoir.</strong> Julien raconte que les gens de Lutèce cultivent de bonnes vignes et même des figuiers, qu&#x27;ils protègent du froid de l&#x27;hiver avec de la paille.</p>
+<p class="vro__auj"><strong>Sur la maquette.</strong> Les champs, les bois et les fermes sont imaginés. Le relief suit celui d&#x27;aujourd&#x27;hui.</p>
+</div>
+</div>
+<p class="vro__source">Plans et faits&nbsp;: Ville de Paris, Crypte archéologique, «&nbsp;Les grands monuments de Lutèce&nbsp;» (2009); musée Carnavalet, «&nbsp;Paris dans l&#x27;Antiquité&nbsp;»; ministère de la Culture, «&nbsp;Paris antique&nbsp;». Description de l&#x27;île&nbsp;: Julien, Misopogon (4e siècle). Rives et relief&nbsp;: plan actuel de Paris. Hauteurs, maisons, champs et forme des rives&nbsp;: estimations.</p>
+</div>
+<script>
+(function () {
+  "use strict";
+  var racine = document.getElementById("ville-romaine");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"seine":[[-9941,-6361],[-7037,-3557],[-5428,-1366],[-4428,515],[-3693,1437],[-2976,1849],[-2197,1875],[-1571,1898],[-1125,1598],[-722,1366],[-330,1223],[-73,1056],[190,767],[366,667],[491,623],[659,534],[916,423],[1246,300],[1600,-60],[1722,-189],[2095,-552],[2721,-1028],[3483,-1760],[4338,-2815],[6346,-4522],[9949,-7024],[10051,-6876],[6454,-4378],[4462,-2685],[3617,-1640],[2839,-892],[2205,-408],[1800,-80],[1650,180],[1392,478],[1136,734],[916,901],[659,1034],[513,1112],[366,1168],[37,1312],[-293,1368],[-638,1514],[-1035,1742],[-1529,2062],[-2203,2045],[-3024,2011],[-3807,1563],[-4572,605],[-5572,-1274],[-7163,-3443],[-10059,-6239]],"rive_g":[[-9941,-6361],[-7037,-3557],[-5428,-1366],[-4428,515],[-3693,1437],[-2976,1849],[-2197,1875],[-1571,1898],[-1125,1598],[-722,1366],[-330,1223],[-73,1056],[190,767],[366,667],[491,623],[659,534],[916,423],[1246,300],[1600,-60],[1722,-189],[2095,-552],[2721,-1028],[3483,-1760],[4338,-2815],[6346,-4522],[9949,-7024]],"rive_d":[[-10059,-6239],[-7163,-3443],[-5572,-1274],[-4572,605],[-3807,1563],[-3024,2011],[-2203,2045],[-1529,2062],[-1035,1742],[-638,1514],[-293,1368],[37,1312],[366,1168],[513,1112],[659,1034],[916,901],[1136,734],[1392,478],[1650,180],[1800,-80],[2205,-408],[2839,-892],[3617,-1640],[4462,-2685],[6454,-4378],[10051,-6876]],"cite":[[-30,1190],[60,1235],[200,1175],[366,1085],[513,1003],[610,930],[690,860],[735,775],[690,650],[590,600],[491,650],[366,712],[250,795],[150,885],[40,1010],[-30,1120]],"ilots":[[[800,700],[960,745],[1040,700],[1010,600],[900,560],[810,610]],[[1060,665],[1165,625],[1285,505],[1285,465],[1180,500],[1050,600]]],"bievre":[[250,-3600],[450,-2400],[620,-1700],[800,-1250],[1050,-850],[1350,-480],[1700,-170]],"ville":[[-480,1150],[-200,1060],[-60,960],[150,740],[360,620],[560,540],[700,450],[720,250],[640,-120],[520,-450],[330,-700],[-60,-700],[-350,-640],[-560,-380],[-620,0],[-600,600],[-560,1000]],"ponts":[[[362,640],[372,737]],[[505,980],[521,1138]]],"quai":[[385,703],[470,662],[560,618]],"aqueduc":[[-560,-3600],[-430,-2200],[-300,-1300],[-170,-760],[-95,-480]],"routes":[[[-94,-650],[-1053,-3600],[-1500,-5000]],[[520,-250],[590,-580],[700,-800],[750,-1210],[820,-2000],[900,-3600],[1000,-5000]],[[521,1138],[660,1480],[950,2590],[1300,4400]],[[505,1150],[0,1500],[-700,1700],[-1500,2250],[-2600,2400],[-4000,2700]]],"ile_rue":[[372,725],[440,860],[512,990]]};
+  var chaque = function (liste, f) { Array.prototype.forEach.call(liste, f); };
+  var $ = function (s) { return racine.querySelector(s); };
+  var $$ = function (s) { return racine.querySelectorAll(s); };
+  var reduit = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var RAD = Math.PI / 180;
+  // ------------------------------------------------------------ parties de la ville
+  // L'indice de chaque partie est inscrit dans les sommets : un clic sur la maquette
+  // retrouve ainsi la partie touchée (0 = rien).
+  var PARTIES = ["", "forum", "cardo", "maisons", "thermes-cluny", "thermes", "arenes", "theatre",
+    "aqueduc", "seine", "port", "pilier", "ponts", "necropole", "campagne"];
+  var ID = {};
+  PARTIES.forEach(function (c, i) { if (c) { ID[c] = i; } });
+  // ancre : point de l'étiquette (x, y, hauteur au-dessus du sol); vue : cible x, cible y,
+  // distance, lacet (0 = caméra au sud), tangage, hauteur de la cible au-dessus du sol;
+  // imp : 1 toujours visible, 3 seulement de près.
+  var FICHES = {
+    "forum": { ancre: [-25, 45, 24], vue: [-10, 20, 470, 155, 32, 4], imp: 1 },
+    "cardo": { ancre: [196, 240, 8], vue: [170, 140, 640, 200, 26, 4], imp: 2 },
+    "maisons": { ancre: [-262, 128, 11], vue: [-250, 140, 360, 35, 36, 3], imp: 2 },
+    "thermes-cluny": { ancre: [128, 470, 18], vue: [128, 465, 330, 200, 30, 5], imp: 1 },
+    "thermes": { ancre: [271, 330, 13], vue: [140, 20, 900, 150, 38, 0], imp: 2 },
+    "arenes": { ancre: [790, -170, 22], vue: [790, -170, 380, 120, 34, 4], imp: 1 },
+    "theatre": { ancre: [-72, 438, 17], vue: [-72, 420, 300, 200, 32, 4], imp: 2 },
+    "aqueduc": { ancre: [-300, -1300, 7], vue: [-250, -1050, 1900, 160, 30, 0], imp: 2 },
+    "seine": { ancre: [-850, 1520, 5], vue: [100, 900, 2300, 160, 30, 0], imp: 1 },
+    "port": { ancre: [468, 668, 10], vue: [470, 690, 330, 200, 26, 3], imp: 1 },
+    "pilier": { ancre: [572, 735, 8], vue: [572, 735, 70, 215, 14, 3], imp: 3 },
+    "ponts": { ancre: [367, 690, 9], vue: [440, 860, 470, 115, 28, 2], imp: 2 },
+    "necropole": { ancre: [-245, -840, 7], vue: [-230, -840, 430, 30, 34, 2], imp: 2 },
+    "campagne": { ancre: [1650, 2250, 8], vue: [900, 1300, 3600, 200, 26, 0], imp: 3 }
+  };
+  var ENSEMBLE = [210, 330, 2350, 168, 33, 0];
+  function pts(plat) { var r = []; for (var i = 0; i < plat.length; i += 2) { r.push([plat[i], plat[i + 1]]); } return r; }
+  function aire(p) { var a = 0; for (var i = 0; i < p.length; i++) { var q = p[i], r = p[(i + 1) % p.length]; a += q[0] * r[1] - r[0] * q[1]; } return a / 2; }
+  function dedans(x, y, p) {
+    var c = false;
+    for (var i = 0, j = p.length - 1; i < p.length; j = i++) {
+      var a = p[i], b = p[j];
+      if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) { c = !c; }
+    }
+    return c;
+  }
+  function distSeg(x, y, a, b) {
+    var dx = b[0] - a[0], dy = b[1] - a[1], l = dx * dx + dy * dy;
+    var t = l ? ((x - a[0]) * dx + (y - a[1]) * dy) / l : 0;
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    var ex = a[0] + t * dx - x, ey = a[1] + t * dy - y;
+    return Math.sqrt(ex * ex + ey * ey);
+  }
+  function distLigne(x, y, l) { var m = Infinity; for (var i = 1; i < l.length; i++) { var d = distSeg(x, y, l[i - 1], l[i]); if (d < m) { m = d; } } return m; }
+  function distBord(x, y, p) { var m = Infinity; for (var i = 0; i < p.length; i++) { var d = distSeg(x, y, p[i], p[(i + 1) % p.length]); if (d < m) { m = d; } } return m; }
+  function pres(x, y, p, marge) { return dedans(x, y, p) || distBord(x, y, p) < marge; }
+  function dansTri(p, a, b, c) {
+    var d1 = (p[0] - b[0]) * (a[1] - b[1]) - (a[0] - b[0]) * (p[1] - b[1]);
+    var d2 = (p[0] - c[0]) * (b[1] - c[1]) - (b[0] - c[0]) * (p[1] - c[1]);
+    var d3 = (p[0] - a[0]) * (c[1] - a[1]) - (c[0] - a[0]) * (p[1] - a[1]);
+    return !((d1 < 0 || d2 < 0 || d3 < 0) && (d1 > 0 || d2 > 0 || d3 > 0));
+  }
+  // Découpe en triangles (méthode des oreilles) d'un contour simple.
+  function trianguler(p) {
+    var idx = [], res = [], i;
+    for (i = 0; i < p.length; i++) { idx.push(i); }
+    if (aire(p) < 0) { idx.reverse(); }
+    var garde = 0;
+    while (idx.length > 3 && garde++ < 20000) {
+      var trouve = false;
+      for (var k = 0; k < idx.length; k++) {
+        var i0 = idx[(k + idx.length - 1) % idx.length], i1 = idx[k], i2 = idx[(k + 1) % idx.length];
+        var a = p[i0], b = p[i1], c = p[i2];
+        if ((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) <= 1e-9) { continue; }
+        var vide = true;
+        for (var m = 0; m < idx.length; m++) {
+          var j = idx[m];
+          if (j !== i0 && j !== i1 && j !== i2 && dansTri(p[j], a, b, c)) { vide = false; break; }
+        }
+        if (!vide) { continue; }
+        res.push(i0, i1, i2);
+        idx.splice(k, 1);
+        trouve = true;
+        break;
+      }
+      if (!trouve) { break; }
+    }
+    if (idx.length === 3) { res.push(idx[0], idx[1], idx[2]); }
+    return res;
+  }
+  // Décalage d'une ligne vers sa gauche (distance négative : vers la droite), joints en onglet.
+  function decalerLigne(l, dist) {
+    var r = [];
+    for (var i = 0; i < l.length; i++) {
+      var p = l[i], n1 = null, n2 = null, m;
+      if (i > 0) { m = Math.hypot(p[0] - l[i - 1][0], p[1] - l[i - 1][1]); n1 = [-(p[1] - l[i - 1][1]) / m, (p[0] - l[i - 1][0]) / m]; }
+      if (i < l.length - 1) { m = Math.hypot(l[i + 1][0] - p[0], l[i + 1][1] - p[1]); n2 = [-(l[i + 1][1] - p[1]) / m, (l[i + 1][0] - p[0]) / m]; }
+      var n = n1 && n2 ? [n1[0] + n2[0], n1[1] + n2[1]] : (n1 || n2);
+      var nm = Math.hypot(n[0], n[1]);
+      n = [n[0] / nm, n[1] / nm];
+      var f = n1 && n2 ? 1 / Math.max(0.35, n[0] * n1[0] + n[1] * n1[1]) : 1;
+      r.push([p[0] + n[0] * dist * f, p[1] + n[1] * dist * f]);
+    }
+    return r;
+  }
+  // Contour rentré vers l'intérieur (polygone convexe), joints en onglet.
+  function rentrer(p, d) {
+    var s = aire(p) > 0 ? 1 : -1, lignes = [], r = [];
+    for (var i = 0; i < p.length; i++) {
+      var a = p[i], b = p[(i + 1) % p.length], l = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      var nx = -s * (b[1] - a[1]) / l, ny = s * (b[0] - a[0]) / l;
+      lignes.push([[a[0] + nx * d, a[1] + ny * d], [b[0] + nx * d, b[1] + ny * d]]);
+    }
+    for (var k = 0; k < lignes.length; k++) {
+      var L1 = lignes[(k + lignes.length - 1) % lignes.length], L2 = lignes[k];
+      r.push(croiser(L1[0], L1[1], L2[0], L2[1]));
+    }
+    return r;
+  }
+  function croiser(a, b, c, d) {
+    var r = [b[0] - a[0], b[1] - a[1]], s = [d[0] - c[0], d[1] - c[1]];
+    var den = r[0] * s[1] - r[1] * s[0];
+    if (Math.abs(den) < 1e-9) { return [(b[0] + c[0]) / 2, (b[1] + c[1]) / 2]; }
+    var t = ((c[0] - a[0]) * s[1] - (c[1] - a[1]) * s[0]) / den;
+    return [a[0] + t * r[0], a[1] + t * r[1]];
+  }
+  function longueurs(l) { var s = [0]; for (var i = 1; i < l.length; i++) { s.push(s[i - 1] + Math.hypot(l[i][0] - l[i - 1][0], l[i][1] - l[i - 1][1])); } return s; }
+  function surLigne(l, cum, s) {
+    for (var i = 1; i < l.length; i++) {
+      if (s <= cum[i] || i === l.length - 1) {
+        var t = (s - cum[i - 1]) / ((cum[i] - cum[i - 1]) || 1), a = l[i - 1], b = l[i];
+        return { x: a[0] + (b[0] - a[0]) * t, y: a[1] + (b[1] - a[1]) * t, a: Math.atan2(b[1] - a[1], b[0] - a[0]) };
+      }
+    }
+    return { x: l[0][0], y: l[0][1], a: 0 };
+  }
+  function abscisse(l, cum, x, y) {
+    var best = Infinity, sb = 0;
+    for (var i = 1; i < l.length; i++) {
+      var a = l[i - 1], b = l[i], dx = b[0] - a[0], dy = b[1] - a[1], q = dx * dx + dy * dy;
+      var t = Math.max(0, Math.min(1, ((x - a[0]) * dx + (y - a[1]) * dy) / q));
+      var d = Math.hypot(a[0] + t * dx - x, a[1] + t * dy - y);
+      if (d < best) { best = d; sb = cum[i - 1] + t * Math.sqrt(q); }
+    }
+    return sb;
+  }
+  function alea(graine) {
+    var a = graine >>> 0;
+    return function () {
+      a = (a + 0x6D2B79F5) >>> 0;
+      var t = a;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  // ------------------------------------------------------------ données relues
+  var SEINE = D.seine, CITE = D.cite, ILES = [D.cite].concat(D.ilots), BIEVRE = D.bievre;
+  var VILLE = D.ville, AQUEDUC = D.aqueduc, ROUTES = D.routes, PONTS = D.ponts, QUAI = D.quai, RUE_ILE = D.ile_rue;
+  // Grille des rues : axes tournés de 18° (le cardo suit la rue Saint-Jacques).
+  // u : vers l'est le long des décumanus, v : vers le nord le long du cardo.
+  var GRILLE = -18 * RAD, OG = [117, 0];
+  var EU = [Math.cos(GRILLE), Math.sin(GRILLE)], EV = [-Math.sin(GRILLE), Math.cos(GRILLE)];
+  function G(u, v) { return [OG[0] + EU[0] * u + EV[0] * v, OG[1] + EU[1] * u + EV[1] * v]; }
+  function UV(x, y) { var dx = x - OG[0], dy = y - OG[1]; return [dx * EU[0] + dy * EU[1], dx * EV[0] + dy * EV[1]]; }
+  function rectUV(u0, v0, u1, v1) { return [G(u0, v0), G(u1, v0), G(u1, v1), G(u0, v1)]; }
+  var ILOT = 90;   // côté d'un îlot, rue comprise
+  // Monuments sur la grille (îlots entiers) : u0, v0, u1, v1.
+  var M_FORUM = [-180, -45, 0, 45], M_CLUNY = [-180, 405, -90, 495], M_EST = [0, 315, 90, 405];
+  var M_SUD = [-90, -405, 0, -315], M_THEATRE = [-360, 315, -270, 405];
+  var ARENES = { x: 790, y: -170, a: 8 * RAD };
+  var PILIER = [572, 735];
+  function dansMonument(u, v, marge) {
+    var m = marge || 0;
+    return [M_FORUM, M_CLUNY, M_EST, M_SUD, M_THEATRE].some(function (r) { return u > r[0] - m && u < r[2] + m && v > r[1] - m && v < r[3] + m; });
+  }
+  // ------------------------------------------------------------ relief
+  function ss(a, b, x) { var t = Math.max(0, Math.min(1, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function dansEau(x, y) {
+    if (!dedans(x, y, SEINE)) { return false; }
+    for (var i = 0; i < ILES.length; i++) { if (dedans(x, y, ILES[i])) { return false; } }
+    return true;
+  }
+  function distRive(x, y) {
+    var d = distBord(x, y, SEINE);
+    for (var i = 0; i < ILES.length; i++) { d = Math.min(d, distBord(x, y, ILES[i])); }
+    return d;
+  }
+  // Montagne Sainte-Geneviève : environ 34 m au-dessus de la Seine au sommet (Panthéon),
+  // pente vers le fleuve au nord et vers la Bièvre à l'est, plateau au sud.
+  function reliefBrut(x, y) {
+    var nord = ss(700, -150, y), est = 1 - ss(350, 1100, x + 0.3 * y);
+    var h = 3 + 31 * nord * est;
+    h = Math.max(h, 3 + 28 * ss(-700, -1600, y) * ss(1000, 1600, x + 0.3 * y));
+    var db = distLigne(x, y, BIEVRE);
+    h = 2 + (h - 2) * (0.12 + 0.88 * ss(30, 380, db));
+    return h + 14 * ss(2500, 5200, y) * ss(-2000, 0, x);
+  }
+  // Terrassements : le sol est aplani sous les grands monuments.
+  var REPLATS = [];
+  function replat(u0, v0, u1, v1, marge) {
+    var c = G((u0 + u1) / 2, (v0 + v1) / 2);
+    REPLATS.push({ uv: [u0, v0, u1, v1], m: marge, h: reliefBrut(c[0], c[1]) });
+  }
+  replat(M_FORUM[0], M_FORUM[1], M_FORUM[2], M_FORUM[3], 22);
+  replat(M_CLUNY[0] + 3, M_CLUNY[1] + 3, M_CLUNY[2] - 3, M_CLUNY[3] - 3, 16);
+  replat(M_EST[0] + 3, M_EST[1] + 3, M_EST[2] - 3, M_EST[3] - 3, 16);
+  replat(M_SUD[0] + 3, M_SUD[1] + 3, M_SUD[2] - 3, M_SUD[3] - 3, 16);
+  replat(M_THEATRE[0] + 3, M_THEATRE[1] + 3, M_THEATRE[2] - 3, M_THEATRE[3] - 3, 14);
+  var H_ARENES = reliefBrut(ARENES.x, ARENES.y);
+  function relief(x, y) {
+    var h = reliefBrut(x, y), q = UV(x, y);
+    REPLATS.forEach(function (R) {
+      var du = Math.max(R.uv[0] - q[0], 0, q[0] - R.uv[2]), dv = Math.max(R.uv[1] - q[1], 0, q[1] - R.uv[3]);
+      var k = 1 - ss(0, R.m, Math.hypot(du, dv));
+      h += (R.h - h) * k;
+    });
+    var da = Math.hypot(x - ARENES.x, (y - ARENES.y) * 1.25);
+    h += (H_ARENES - h) * (1 - ss(66, 110, da));
+    // Près des rives, la hauteur varie en ligne droite avec la distance à l'eau, de part et d'autre :
+    // la ligne d'eau tombe alors exactement sur la rive, sans dents de scie entre les sommets.
+    var dr = distRive(x, y);
+    if (dansEau(x, y)) { return Math.max(-3, -0.07 * dr); }
+    return Math.min(0.8 + (h - 0.8) * ss(0, 70, dr), 0.07 * dr);
+  }
+  // Maillage du terrain : pas de 36 m au centre, de plus en plus large vers l'horizon.
+  // fa, fb : fenêtre où le pas est réduit de moitié (le petit bras de la Seine n'a que 30 à 45 m).
+  function axes(a, b, pas, fa, fb) {
+    var t = [];
+    for (var v = a; v <= b + 0.1; v += (v >= fa && v < fb ? pas / 2 : pas)) { t.push(v); }
+    var g = [], d = [], p = pas, x0 = a, x1 = b;
+    while (x0 > -60000) { p *= 1.3; x0 -= p; g.unshift(x0); x1 += p; d.push(x1); }
+    return g.concat(t, d);
+  }
+  var TERRAIN = null;
+  function terrain() {
+    if (TERRAIN) { return TERRAIN; }
+    var X = axes(-2700, 3240, 36, 144, 792), Y = axes(-2700, 2700, 36, 468, 828), nx = X.length, ny = Y.length;
+    var h = new Float32Array(nx * ny);
+    for (var j = 0; j < ny; j++) { for (var i = 0; i < nx; i++) { h[j * nx + i] = relief(X[i], Y[j]); } }
+    TERRAIN = { X: X, Y: Y, nx: nx, ny: ny, h: h };
+    return TERRAIN;
+  }
+  function chercher(t, v) {
+    var a = 0, b = t.length - 1;
+    if (v <= t[0]) { return 0; }
+    if (v >= t[b]) { return b - 1; }
+    while (b - a > 1) { var m = (a + b) >> 1; if (t[m] <= v) { a = m; } else { b = m; } }
+    return a;
+  }
+  // Hauteur du sol exactement comme le maillage (interpolation dans le triangle).
+  function sol(x, y) {
+    var T = terrain(), i = chercher(T.X, x), j = chercher(T.Y, y);
+    var s = Math.max(0, Math.min(1, (x - T.X[i]) / (T.X[i + 1] - T.X[i]))), t = Math.max(0, Math.min(1, (y - T.Y[j]) / (T.Y[j + 1] - T.Y[j])));
+    var h00 = T.h[j * T.nx + i], h10 = T.h[j * T.nx + i + 1], h01 = T.h[(j + 1) * T.nx + i], h11 = T.h[(j + 1) * T.nx + i + 1];
+    return s > t ? h00 + s * (h10 - h00) + t * (h11 - h10) : h00 + t * (h01 - h00) + s * (h11 - h01);
+  }
+  // Pied d'un bâtiment posé sur la pente : le point le plus bas de son emprise.
+  function pied(x, y, l, p, a) {
+    var ux = Math.cos(a) * l / 2, uy = Math.sin(a) * l / 2, vx = -Math.sin(a) * p / 2, vy = Math.cos(a) * p / 2;
+    return Math.min(sol(x, y), sol(x + ux + vx, y + uy + vy), sol(x - ux + vx, y - uy + vy), sol(x + ux - vx, y + uy - vy), sol(x - ux - vx, y - uy - vy));
+  }
+  // Bois : grandes taches irrégulières, hors de la ville et loin du fleuve.
+  function bois(x, y) {
+    var n = 0.5 + 0.22 * Math.sin(x / 310 + 1.3) * Math.cos(y / 270 - 0.7) + 0.18 * Math.sin((x + y) / 530 + 2.1) * Math.sin((x - y) / 410) + 0.1 * Math.sin(x / 97 + y / 131);
+    var loin = ss(250, 700, Math.min(distBord(x, y, VILLE), 9999)) * (dedans(x, y, VILLE) ? 0 : 1);
+    return ss(0.58, 0.76, n) * loin;
+  }
+  // ------------------------------------------------------------ couleurs et matières
+  var C = {
+    pierre: [214, 204, 182], enduit: [230, 224, 210], tuile: [166, 100, 76], tuileF: [148, 88, 68],
+    bois: [140, 106, 74], pave: [202, 194, 176], rue: [194, 182, 158], solVille: [176, 168, 128],
+    sable: [206, 192, 156], arene: [208, 188, 146], champ: [128, 142, 84], maison: [222, 210, 186],
+    torchis: [204, 186, 150], tronc: [96, 78, 58], feuille: [88, 118, 62], eau: [70, 116, 134],
+    jardin: [122, 138, 84], quai: [180, 170, 150]
+  };
+  // Palettes : enduits de chaux et torchis, tuiles de terre cuite, feuillages.
+  var MURS = [[234, 226, 208], [228, 214, 184], [216, 198, 162], [224, 216, 198], [210, 190, 156]];
+  var TOITS = [[166, 100, 76], [156, 96, 76], [176, 110, 82], [150, 92, 74], [170, 108, 86]];
+  var FEUILLES = [[88, 118, 62], [100, 126, 66], [78, 108, 58], [108, 128, 70], [92, 112, 60]];
+  function parmi(liste, r) { return liste[Math.floor(r() * liste.length) % liste.length]; }
+  // Matières : 0 uni, 4 pierre, 5 végétal, 6 bois, 7 murs à pilastres, 9 gradins,
+  // 10 campagne, 11 sol, 12 eau, 13 dallage, 14 rue, 15 tuiles.
+  function S(c, part, mat, cert) { return { c: c, part: ID[part] || 0, mat: mat || 0, cert: cert || 0 }; }
+  function varier(c, r, k) { var f = 1 + (r() - 0.5) * k; return [Math.min(255, c[0] * f), Math.min(255, c[1] * f), Math.min(255, c[2] * f)]; }
+  // ------------------------------------------------------------ maillages
+  // Lot : triangles fixes (sol, rampes, prismes). Sommet = position, normale (6 flottants)
+  // + couleur, certitude, partie, matière (8 octets).
+  function Lot() { this.f = []; this.o = []; this.n = 0; }
+  Lot.prototype.sommet = function (p, nor, s) {
+    this.f.push(p[0], p[1], p[2], nor[0], nor[1], nor[2]);
+    this.o.push(s.c[0], s.c[1], s.c[2], s.cert, s.part, s.mat, 0, 0);
+    this.n++;
+  };
+  // L'ordre des sommets est corrigé pour que la face regarde du côté de la normale.
+  Lot.prototype.tri = function (a, b, c, nor, s) {
+    var ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+    var gx = uy * vz - uz * vy, gy = uz * vx - ux * vz, gz = ux * vy - uy * vx;
+    if (gx * nor[0] + gy * nor[1] + gz * nor[2] < 0) { var t = b; b = c; c = t; }
+    this.sommet(a, nor, s); this.sommet(b, nor, s); this.sommet(c, nor, s);
+  };
+  Lot.prototype.quad = function (a, b, c, d, nor, s) { this.tri(a, b, c, nor, s); this.tri(a, c, d, nor, s); };
+  Lot.prototype.dalle = function (contour, h, s) {
+    var t = trianguler(contour);
+    for (var i = 0; i < t.length; i += 3) {
+      var a = contour[t[i]], b = contour[t[i + 1]], c = contour[t[i + 2]];
+      this.tri([a[0], h, -a[1]], [b[0], h, -b[1]], [c[0], h, -c[1]], [0, 1, 0], s);
+    }
+  };
+  Lot.prototype.prisme = function (contour, h0, h1, s) {
+    this.dalle(contour, h1, s);
+    var sens = aire(contour) > 0 ? 1 : -1;
+    for (var i = 0; i < contour.length; i++) {
+      var a = contour[i], b = contour[(i + 1) % contour.length];
+      var dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy);
+      if (l < 1e-6) { continue; }
+      this.quad([a[0], h0, -a[1]], [b[0], h0, -b[1]], [b[0], h1, -b[1]], [a[0], h1, -a[1]], [sens * dy / l, 0, sens * dx / l], s);
+    }
+  };
+  Lot.prototype.ruban = function (ligne, larg, h, s) {
+    var g = decalerLigne(ligne, larg / 2), d = decalerLigne(ligne, -larg / 2);
+    for (var i = 1; i < ligne.length; i++) {
+      this.quad([g[i - 1][0], h, -g[i - 1][1]], [g[i][0], h, -g[i][1]], [d[i][0], h, -d[i][1]], [d[i - 1][0], h, -d[i - 1][1]], [0, 1, 0], s);
+    }
+  };
+  // Rampe : quadrilatère au sol dont le dessus monte d'un coin à l'autre (escaliers).
+  Lot.prototype.rampe = function (q, hs, s) {
+    var T = q.map(function (p, i) { return [p[0], hs[i], -p[1]]; });
+    var ux = T[1][0] - T[0][0], uy = T[1][1] - T[0][1], uz = T[1][2] - T[0][2];
+    var vx = T[3][0] - T[0][0], vy = T[3][1] - T[0][1], vz = T[3][2] - T[0][2];
+    var n = [uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx], nl = Math.hypot(n[0], n[1], n[2]);
+    n = [n[0] / nl, n[1] / nl, n[2] / nl];
+    if (n[1] < 0) { n = [-n[0], -n[1], -n[2]]; }
+    this.quad(T[0], T[1], T[2], T[3], n, s);
+    var sens = aire(q) > 0 ? 1 : -1;
+    for (var i = 0; i < 4; i++) {
+      var a = q[i], b = q[(i + 1) % 4], ha = hs[i], hb = hs[(i + 1) % 4];
+      if (ha < 0.01 && hb < 0.01) { continue; }
+      var dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy), nor = [sens * dy / l, 0, sens * dx / l];
+      var A0 = [a[0], 0, -a[1]], B0 = [b[0], 0, -b[1]], A1 = [a[0], ha, -a[1]], B1 = [b[0], hb, -b[1]];
+      if (ha < 0.01) { this.tri(A0, B0, B1, nor, s); } else if (hb < 0.01) { this.tri(A0, B0, A1, nor, s); } else { this.quad(A0, B0, B1, A1, nor, s); }
+    }
+  };
+  // Boîtes : une instance par boîte. Centre (x, y) du plan, base y0, longueur l selon
+  // l'angle a (radians, depuis l'est), profondeur p, hauteur h.
+  function Boites() { this.f = []; this.o = []; this.n = 0; }
+  Boites.prototype.ajout = function (x, y, y0, l, p, h, a, s) {
+    this.f.push(x, y, y0, a, l, h, p);
+    this.o.push(s.c[0], s.c[1], s.c[2], s.cert, s.part, s.mat, 0, 0);
+    this.n++;
+  };
+  // Triangle de terrain : une normale par sommet, face tournée vers le ciel.
+  Lot.prototype.triSol = function (a, b, c, na, nb, nc, s) {
+    var gy = (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]);
+    if (gy < 0) { var t = b; b = c; c = t; t = nb; nb = nc; nc = t; }
+    this.sommet(a, na, s); this.sommet(b, nb, s); this.sommet(c, nc, s);
+  };
+  // Triangle de terrain dont chaque sommet porte ses propres masques (ville, grève, île) à la place
+  // de la couleur : le nuanceur les interpole, ce qui donne des limites nettes sans dents de scie.
+  Lot.prototype.sommetC = function (p, nor, c, s) {
+    this.f.push(p[0], p[1], p[2], nor[0], nor[1], nor[2]);
+    this.o.push(c[0], c[1], c[2], s.cert, s.part, s.mat, 0, 0);
+    this.n++;
+  };
+  Lot.prototype.triSolC = function (a, b, c, na, nb, nc, ca, cb, cc, s) {
+    var gy = (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]);
+    if (gy < 0) { var t = b; b = c; c = t; t = nb; nb = nc; nc = t; t = cb; cb = cc; cc = t; }
+    this.sommetC(a, na, ca, s); this.sommetC(b, nb, cb, s); this.sommetC(c, nc, cc, s);
+  };
+  // Triangle quelconque : normale calculée, tournée du côté de ref (ou vers le haut).
+  Lot.prototype.tri3 = function (a, b, c, s, ref) {
+    var ux = b[0] - a[0], uy = b[1] - a[1], uz = b[2] - a[2], vx = c[0] - a[0], vy = c[1] - a[1], vz = c[2] - a[2];
+    var n = [uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx], l = Math.hypot(n[0], n[1], n[2]) || 1;
+    n = [n[0] / l, n[1] / l, n[2] / l];
+    var r = ref || [0, 1, 0];
+    if (n[0] * r[0] + n[1] * r[1] + n[2] * r[2] < 0) { n = [-n[0], -n[1], -n[2]]; }
+    this.tri(a, b, c, n, s);
+  };
+  Lot.prototype.quad3 = function (a, b, c, d, s, ref) { this.tri3(a, b, c, s, ref); this.tri3(a, c, d, s, ref); };
+  // Ruban posé sur le relief (rues, routes, ruisseau), rééchantillonné tous les 12 m.
+  Lot.prototype.rubanSol = function (ligne, larg, dz, s) {
+    var l = [], cum = longueurs(ligne), L = cum[cum.length - 1];
+    for (var t = 0; t < L; t += 12) { var p = surLigne(ligne, cum, t); l.push([p.x, p.y]); }
+    l.push(ligne[ligne.length - 1]);
+    if (l.length < 2) { return; }
+    var g = decalerLigne(l, larg / 2), d = decalerLigne(l, -larg / 2);
+    var P = function (q) { return [q[0], sol(q[0], q[1]) + dz, -q[1]]; };
+    for (var i = 1; i < l.length; i++) { this.quad3(P(g[i - 1]), P(g[i]), P(d[i]), P(d[i - 1]), s); }
+  };
+  // ------------------------------------------------------------ construction de la ville
+  // Toit à deux pans : faîtage dans le sens de la longueur l (angle a depuis l'est).
+  function toit(lot, cx, cy, l, p, a, h0, hr, st, mur, deb) {
+    var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux, e = deb === undefined ? 0.5 : deb, L = l / 2 + e, P = p / 2 + e;
+    var Q = function (u, v, h) { return [cx + ux * u + vx * v, h, -(cy + uy * u + vy * v)]; };
+    var A = Q(-L, -P, h0), B = Q(L, -P, h0), Cc = Q(L, P, h0), Dd = Q(-L, P, h0), E = Q(-L, 0, h0 + hr), F = Q(L, 0, h0 + hr);
+    lot.quad3(A, B, F, E, st); lot.quad3(Dd, Cc, F, E, st);
+    var m = mur || st;
+    lot.tri3(A, Dd, E, m, [-ux, 0, uy]); lot.tri3(B, Cc, F, m, [ux, 0, -uy]);
+  }
+  // Toit à quatre pans (grands bâtiments).
+  function toitCroupe(lot, cx, cy, l, p, a, h0, hr, st, deb) {
+    if (l < p) { var t = l; l = p; p = t; a += Math.PI / 2; }
+    var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux, e = deb === undefined ? 0.6 : deb, L = l / 2 + e, P = p / 2 + e;
+    var Q = function (u, v, h) { return [cx + ux * u + vx * v, h, -(cy + uy * u + vy * v)]; };
+    var A = Q(-L, -P, h0), B = Q(L, -P, h0), Cc = Q(L, P, h0), Dd = Q(-L, P, h0), E = Q(-L + P, 0, h0 + hr), F = Q(L - P, 0, h0 + hr);
+    lot.quad3(A, B, F, E, st); lot.quad3(Dd, Cc, F, E, st);
+    lot.tri3(A, Dd, E, st); lot.tri3(B, Cc, F, st);
+  }
+  // Bâtiment sur la grille : boîte posée sur la pente et son toit.
+  function maisonGrille(B, vol, u, v, l, p, h, st, stToit, r, croupe) {
+    var c = G(u, v), b = pied(c[0], c[1], l, p, GRILLE) - 0.4, top = Math.max(b + h, sol(c[0], c[1]) + h * 0.85);
+    B.ajout(c[0], c[1], b - 1.2, l, p, top - b + 1.2, GRILLE, st);
+    var pente = 0.38 + 0.06 * (r ? r() : 0.5);
+    if (croupe) { toitCroupe(vol, c[0], c[1], l, p, GRILLE, top, Math.min(l, p) / 2 * pente, stToit); }
+    else if (l >= p) { toit(vol, c[0], c[1], l, p, GRILLE, top, p / 2 * pente, stToit, st); }
+    else { toit(vol, c[0], c[1], p, l, GRILLE + Math.PI / 2, top, l / 2 * pente, stToit, st); }
+    return top;
+  }
+  function arbre(B, x, y, r, st, partie, echelle, simple) {
+    var k = echelle || 1, h = (5 + r() * 5) * k, c = varier(parmi(FEUILLES, r), r, 0.12), id = ID[partie] || st.part;
+    var b = sol(x, y) - 0.5, a = r() * Math.PI, w = (4 + r() * 3) * k;
+    B.ajout(x, y, b, 0.6, 0.6, h * 0.45 + 0.5, a, { c: C.tronc, part: id, mat: 5, cert: 1 });
+    var f = { c: c, part: id, mat: 5, cert: 1 };
+    B.ajout(x, y, b + h * 0.36, w, w, h * 0.52, a, f);
+    B.ajout(x, y, b + h * 0.3, w * 0.8, w * 0.8, h * 0.62, a + Math.PI / 4, f);
+    if (!simple) { B.ajout(x, y, b + h * 0.62, w * 0.58, w * 0.58, h * 0.42, a + Math.PI / 8, { c: [Math.min(255, c[0] * 1.1), Math.min(255, c[1] * 1.09), Math.min(255, c[2] * 1.05)], part: id, mat: 5, cert: 1 }); }
+  }
+  // Rues du quadrillage : tronçons dans la ville, hors des monuments (coordonnées u, v).
+  function rues() {
+    var t = [];
+    function ligne(fixe, estU) {
+      var run = null;
+      for (var s = -900; s <= 1300; s += 10) {
+        var u = estU ? fixe : s, v = estU ? s : fixe, p = G(u, v);
+        var ok = dedans(p[0], p[1], VILLE) && !dansEau(p[0], p[1]) && !dansMonument(u, v, -2) && Math.hypot(p[0] - ARENES.x, p[1] - ARENES.y) > 80;
+        if (ok) { if (!run) { run = [p]; } else { run[1] = p; } }
+        else if (run) { if (run[1]) { t.push(run); } run = null; }
+      }
+      if (run && run[1]) { t.push(run); }
+    }
+    for (var k = -8; k <= 8; k++) { if (k !== 0) { ligne(k * ILOT, true); } }
+    for (var j = -9; j <= 14; j++) { ligne(-45 + j * ILOT, false); }
+    return t;
+  }
+  var CARDO = [G(0, -700), G(0, 610), PONTS[0][0]];
+  var RUELLE_ILE = [[20, 1135], [200, 1035], [440, 880], [650, 770]];
+  function batir() {
+    var sol_ = new Lot(), vol = new Lot(), B = new Boites();
+    var r = alea(200);
+    var T = terrain();
+    // --- Terrain : une seule matière. Chaque sommet porte trois masques (ville, grève, île) que le
+    // nuanceur interpole : sol de la ville et jardins, sable des rives, sol de l'île, champs ailleurs.
+    // La partie de chaque triangle (pour le clic) suit son centre.
+    var S_CAMP = S(C.champ, "campagne", 10, 0), S_VILLE = S(C.solVille, "maisons", 10, 0);
+    var S_ILE = S(C.solVille, "maisons", 10, 0), S_GREVE = S(C.sable, "seine", 10, 0), S_EAU = S(C.eau, "seine", 12, 2);
+    var nx = T.nx, ny = T.ny, X = T.X, Y = T.Y, hh = T.h, nor = [], mq = [];
+    var borne = function (v) { return Math.max(0, Math.min(255, Math.round(v * 255))); };
+    // Masques d'un point : distance signée à la ville, à la rive et à l'île de la Cité, ramenée de 0 à 255.
+    function masque(x0, y0) {
+      var mv = 0, mg = 0, mi = 0;
+      if (x0 > -1400 && x0 < 2000 && y0 > -1400 && y0 < 2000) {
+        var dv = distBord(x0, y0, VILLE), dc = distBord(x0, y0, CITE);
+        mv = 0.5 + (dedans(x0, y0, VILLE) ? dv : -dv) / 72;
+        mi = 0.5 + (dedans(x0, y0, CITE) ? dc : -dc) / 72;
+      }
+      if (x0 > -4000 && x0 < 4000 && y0 > -4000 && y0 < 4000) { var dr0 = distRive(x0, y0); mg = 0.5 + (dansEau(x0, y0) ? 10 + dr0 : 10 - dr0) / 40; }
+      return [borne(mv), borne(mg), borne(mi)];
+    }
+    // Triangle de terrain : là où la rive le traverse, il est redécoupé (jusqu'à trois fois) en coupant
+    // les côtés qui passent de la terre à l'eau; le point milieu prend la vraie hauteur. Deux triangles
+    // voisins coupent leur côté commun au même point : aucune fente. L'eau est posée à la cote 0 sur les
+    // morceaux mouillés; le terrain entièrement noyé n'est pas dessiné.
+    function milieuSol(P, Q) {
+      var x = (P.p[0] + Q.p[0]) / 2, y = -(P.p[2] + Q.p[2]) / 2;
+      var n = [P.n[0] + Q.n[0], P.n[1] + Q.n[1], P.n[2] + Q.n[2]], l = Math.hypot(n[0], n[1], n[2]) || 1;
+      return { p: [x, relief(x, y), -y], n: [n[0] / l, n[1] / l, n[2] / l], m: masque(x, y) };
+    }
+    function triTerrain(A, B2, C2, st, prof) {
+      var sa = A.p[1] > 0, sb = B2.p[1] > 0, sc = C2.p[1] > 0;
+      if (prof > 0 && !(sa === sb && sb === sc)) {
+        var k = C2, i = A, j = B2;
+        if (sa !== sb && sa !== sc) { k = A; i = B2; j = C2; }
+        else if (sb !== sa && sb !== sc) { k = B2; i = C2; j = A; }
+        var mi = milieuSol(k, i), mj = milieuSol(k, j);
+        triTerrain(k, mi, mj, st, prof - 1);
+        triTerrain(mi, i, j, st, prof - 1);
+        triTerrain(mi, j, mj, st, prof - 1);
+        return;
+      }
+      var a = A.p, b = B2.p, c = C2.p;
+      if (Math.max(a[1], b[1], c[1]) > -0.02) { sol_.triSolC(a, b, c, A.n, B2.n, C2.n, A.m, B2.m, C2.m, st); }
+      if (Math.min(a[1], b[1], c[1]) < 0.01) { sol_.tri([a[0], 0, a[2]], [b[0], 0, b[2]], [c[0], 0, c[2]], [0, 1, 0], S_EAU); }
+    }
+    for (var j = 0; j < ny; j++) {
+      for (var i = 0; i < nx; i++) {
+        var i0 = Math.max(0, i - 1), i1 = Math.min(nx - 1, i + 1), j0 = Math.max(0, j - 1), j1 = Math.min(ny - 1, j + 1);
+        var gx = (hh[j * nx + i1] - hh[j * nx + i0]) / (X[i1] - X[i0]), gy = (hh[j1 * nx + i] - hh[j0 * nx + i]) / (Y[j1] - Y[j0]);
+        var l = Math.hypot(gx, 1, gy);
+        nor.push([-gx / l, 1 / l, gy / l]);
+        mq.push(masque(X[i], Y[j]));
+      }
+    }
+    var V = function (i, j) { return [X[i], hh[j * nx + i], -Y[j]]; };
+    for (var jj = 0; jj < ny - 1; jj++) {
+      for (var ii = 0; ii < nx - 1; ii++) {
+        var cx = (X[ii] + X[ii + 1]) / 2, cy = (Y[jj] + Y[jj + 1]) / 2, st = S_CAMP;
+        if (Math.abs(cx) < 4000 && Math.abs(cy) < 4000) {
+          if (dedans(cx, cy, CITE)) { st = S_ILE; }
+          else if (dedans(cx, cy, VILLE)) { st = S_VILLE; }
+          else if (distRive(cx, cy) < 22 && !dansEau(cx, cy)) { st = S_GREVE; }
+        }
+        var a = jj * nx + ii, b = a + 1, c = a + nx + 1, d = a + nx;
+        var A = { p: V(ii, jj), n: nor[a], m: mq[a] }, Bv = { p: V(ii + 1, jj), n: nor[b], m: mq[b] };
+        var Cv = { p: V(ii + 1, jj + 1), n: nor[c], m: mq[c] }, Dv = { p: V(ii, jj + 1), n: nor[d], m: mq[d] };
+        var prof = Math.abs(cx) < 4500 && Math.abs(cy) < 4500 ? 2 : 0;
+        triTerrain(A, Bv, Cv, st, prof);
+        triTerrain(A, Cv, Dv, st, prof);
+      }
+    }
+    // Eau : la Seine est posée avec le terrain (plus haut); la Bièvre suit le relief.
+    sol_.rubanSol(BIEVRE, 8, 0.2, S(C.eau, "seine", 12, 2));
+    // --- Routes, rues et cardo.
+    ROUTES.forEach(function (l, k) { sol_.rubanSol(l, 7, 0.22, S(C.rue, k === 0 ? "cardo" : "campagne", 14, 2)); });
+    var RUES = rues();
+    RUES.forEach(function (l) { sol_.rubanSol(l, 6, 0.25, S(C.rue, "cardo", 14, 2)); });
+    // Chemin de la ville jusqu'à l'entrée ouest des arènes (prolongement d'une rue du quadrillage).
+    var entreeA = [ARENES.x - 66 * Math.cos(ARENES.a), ARENES.y - 66 * Math.sin(ARENES.a)];
+    sol_.rubanSol([G(520, 45), G(600, 45), entreeA], 6, 0.25, S(C.rue, "cardo", 14, 1));
+    sol_.rubanSol(CARDO, 9, 0.3, S(C.pave, "cardo", 13, 3));
+    sol_.rubanSol(RUE_ILE, 7, 0.3, S(C.pave, "cardo", 13, 2));
+    // --- Forum (îlots u -180 à 0, v -45 à 45) : temple à l'ouest, basilique à l'est,
+    // portiques au nord, à l'ouest et au sud, boutiques sur le mur extérieur.
+    var hf = REPLATS[0].h;
+    var S_F = S(C.pierre, "forum", 7, 3), S_FE = S(C.enduit, "forum", 0, 3), S_FT = S(C.tuile, "forum", 15, 3);
+    var S_COL = S(C.enduit, "forum", 0, 3);
+    sol_.dalle(rectUV(-172, -29, -32, 29), hf + 0.35, S(C.pave, "forum", 13, 3));
+    var boiteUV = function (u0, v0, u1, v1, b, h, st) { var c = G((u0 + u1) / 2, (v0 + v1) / 2); B.ajout(c[0], c[1], b, u1 - u0, v1 - v0, h, GRILLE, st); };
+    // Boutiques (rangées extérieures nord et sud), interrompues par les entrées.
+    [[37, 45], [-45, -37]].forEach(function (bv) {
+      [[-180, -98], [-82, -30]].forEach(function (bu) {
+        boiteUV(bu[0], bv[0], bu[1], bv[1], hf - 3, 8.5, S_F);
+        var c = G((bu[0] + bu[1]) / 2, (bv[0] + bv[1]) / 2);
+        toit(vol, c[0], c[1], bu[1] - bu[0], 8, GRILLE, hf + 5.5, 1.5, S_FT, S_F);
+      });
+    });
+    // Portiques nord et sud : colonnade et toit en appentis.
+    [[29, 37, 1], [-37, -29, -1]].forEach(function (pv) {
+      for (var u = -168; u <= -34; u += 4.2) {
+        if (u > -100 && u < -80) { continue; }
+        var c = G(u, pv[2] > 0 ? pv[0] + 0.6 : pv[1] - 0.6);
+        B.ajout(c[0], c[1], hf, 0.8, 0.8, 6.2, GRILLE, S_COL);
+      }
+      [[-172, -98], [-82, -30]].forEach(function (bu) {
+        var c = G((bu[0] + bu[1]) / 2, (pv[0] + pv[1]) / 2);
+        toit(vol, c[0], c[1], bu[1] - bu[0], 8, GRILLE, hf + 6.2, 1.2, S_FT, S_FE, 0.3);
+      });
+    });
+    // Entrées monumentales au milieu des grands côtés.
+    [41, -41].forEach(function (v) {
+      boiteUV(-102, v - 4, -98, v + 4, hf - 3, 13, S_F); boiteUV(-82, v - 4, -78, v + 4, hf - 3, 13, S_F);
+      boiteUV(-98, v - 4, -82, v + 4, hf + 7.5, 3, S_F);
+    });
+    // Portique ouest, porté par le cryptoportique (galerie souterraine).
+    boiteUV(-180, -45, -172, 45, hf - 6, 6.4, S_F);
+    boiteUV(-180, -45, -178.8, 45, hf, 8, S_F);
+    for (var v = -27; v <= 27; v += 4.2) { var cw = G(-172.6, v); B.ajout(cw[0], cw[1], hf, 0.8, 0.8, 6.2, GRILLE, S_COL); }
+    var cwo = G(-176, 0); toit(vol, cwo[0], cwo[1], 74, 8, GRILLE + Math.PI / 2, hf + 6.2, 1.2, S_FT, S_FE, 0.3);
+    // Temple du culte impérial : podium, cella, colonnade et escalier vers l'est.
+    var ct = G(-148, 0);
+    B.ajout(ct[0], ct[1], hf - 1, 34, 20, 4.2, GRILLE, S_F);
+    var cc = G(-154, 0);
+    B.ajout(cc[0], cc[1], hf + 3.2, 20, 14, 12, GRILLE, S_FE);
+    [-139.5, -135].forEach(function (u) {
+      for (var k = 0; k < 6; k++) { var cp = G(u, -8 + k * 3.2); B.ajout(cp[0], cp[1], hf + 3.2, 1.1, 1.1, 11.5, GRILLE, S_COL); }
+    });
+    toit(vol, ct[0] + EU[0] * 1.5, ct[1] + EU[1] * 1.5, 31, 18.5, GRILLE, hf + 14.7, 4.2, S_FT, S_FE, 0.4);
+    vol.rampe([G(-131, -8), G(-125, -8), G(-125, 8), G(-131, 8)], [hf + 3.2, hf + 0.35, hf + 0.35, hf + 3.2], S(C.pierre, "forum", 9, 3));
+    // Basilique : nef haute et bas-côtés, sur toute la largeur du côté est.
+    boiteUV(-30, -45, 0, 45, hf - 3, 13, S_F);
+    boiteUV(-23, -42, -7, 42, hf + 10, 6, S_F);
+    var cb = G(-15, 0);
+    toit(vol, cb[0], cb[1], 84, 16, GRILLE + Math.PI / 2, hf + 16, 4, S_FT, S_F);
+    [[-30, -23], [-7, 0]].forEach(function (bu) {
+      var c = G((bu[0] + bu[1]) / 2, 0);
+      toit(vol, c[0], c[1], 90, bu[1] - bu[0], GRILLE + Math.PI / 2, hf + 10, 1.6, S_FT, S_F);
+    });
+    // --- Thermes de Cluny (thermes du Nord) : bains au nord, palestre au sud.
+    var hc = REPLATS[1].h, S_TH = S(C.pierre, "thermes-cluny", 7, 3), S_THT = S(C.tuile, "thermes-cluny", 15, 3);
+    sol_.dalle(rectUV(-176, 409, -94, 451), hc + 0.3, S(C.pave, "thermes-cluny", 13, 3));
+    [[-176, 409, -94, 413], [-176, 409, -172, 451], [-98, 409, -94, 451]].forEach(function (q) { boiteUV(q[0], q[1], q[2], q[3], hc - 2, 7, S_TH); });
+    var bains = [[-150, 455, -122, 489, 17, 1], [-174, 457, -150, 487, 11, 0], [-122, 457, -96, 487, 12, 0],
+      [-176, 452, -96, 457, 8, 0], [-160, 489, -112, 494, 7, 0]];
+    bains.forEach(function (q) {
+      boiteUV(q[0], q[1], q[2], q[3], hc - 2, q[4] + 2, S_TH);
+      var c = G((q[0] + q[2]) / 2, (q[1] + q[3]) / 2);
+      toitCroupe(vol, c[0], c[1], q[2] - q[0], q[3] - q[1], GRILLE, hc + q[4], q[5] ? 5 : 3, S_THT);
+    });
+    // --- Thermes de l'Est (Collège de France) et du Sud (rue Gay-Lussac).
+    var he = REPLATS[2].h, hs = REPLATS[3].h, S_T2 = S(C.pierre, "thermes", 7, 2), S_T2T = S(C.tuile, "thermes", 15, 2);
+    [[8, 330, 44, 395, 11], [44, 335, 84, 390, 9], [20, 318, 70, 330, 6]].forEach(function (q) {
+      boiteUV(q[0], q[1], q[2], q[3], he - 2, q[4] + 2, S_T2);
+      var c = G((q[0] + q[2]) / 2, (q[1] + q[3]) / 2);
+      toitCroupe(vol, c[0], c[1], q[2] - q[0], q[3] - q[1], GRILLE, he + q[4], 3, S_T2T);
+    });
+    [[-84, -360, -6, -320, 10], [-84, -400, -60, -360, 7]].forEach(function (q) {
+      boiteUV(q[0], q[1], q[2], q[3], hs - 2, q[4] + 2, S_T2);
+      var c = G((q[0] + q[2]) / 2, (q[1] + q[3]) / 2);
+      toitCroupe(vol, c[0], c[1], q[2] - q[0], q[3] - q[1], GRILLE, hs + q[4], 3, S_T2T);
+    });
+    sol_.dalle(rectUV(-58, -398, -8, -364), hs + 0.3, S(C.pave, "thermes", 13, 2));
+    sol_.dalle(rectUV(-40, -388, -30, -380), hs + 0.45, S(C.eau, "thermes", 12, 2));
+    [[-60, -400, -6, -398], [-60, -364, -6, -362], [-8, -400, -6, -362]].forEach(function (q) { boiteUV(q[0], q[1], q[2], q[3], hs - 2, 6, S_T2); });
+    // --- Théâtre : gradins en arc adossés à la pente, ouverts vers le nord.
+    var ht = REPLATS[4].h, S_GR = S(C.pierre, "theatre", 9, 2), S_TM = S(C.pierre, "theatre", 7, 2);
+    var N = 24;
+    var bandesT = [[11, 20, 0.6, 5], [20.8, 29, 5.4, 9.6], [29.8, 38, 10.4, 14.4]];
+    for (var k = 0; k < N; k++) {
+      var a0 = Math.PI + k * Math.PI / N, a1 = Math.PI + (k + 1) * Math.PI / N;
+      bandesT.forEach(function (bd) {
+        var q = [[bd[1], a0], [bd[0], a0], [bd[0], a1], [bd[1], a1]].map(function (p) { return G(-315 + Math.cos(p[1]) * p[0], 362 + Math.sin(p[1]) * p[0]); });
+        vol.rampe(q, [ht + bd[3], ht + bd[2], ht + bd[2], ht + bd[3]], S_GR);
+      });
+      var am = (a0 + a1) / 2, pm = G(-315 + Math.cos(am) * 39, 362 + Math.sin(am) * 39);
+      B.ajout(pm[0], pm[1], ht - 2, 39 * Math.PI / N + 0.6, 2, 18.4, GRILLE + am + Math.PI / 2, S_TM);
+    }
+    sol_.dalle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(function (k) { var a = Math.PI + k * Math.PI / 12; return G(-315 + Math.cos(a) * 11, 362 + Math.sin(a) * 11); }), ht + 0.3, S(C.pave, "theatre", 13, 2));
+    boiteUV(-355, 363, -275, 371, ht - 2, 12, S_TM);
+    boiteUV(-340, 362, -290, 365, ht - 2, 3.4, S_TM);
+    var cst = G(-315, 367); toit(vol, cst[0], cst[1], 80, 8, GRILLE, ht + 10, 2, S(C.tuile, "theatre", 15, 2), S_TM);
+    // --- Arènes : arène en ellipse, gradins sur plus de la moitié du tour, scène à l'est.
+    var hA = H_ARENES, S_AR = S(C.pierre, "arenes", 9, 3), S_AM = S(C.pierre, "arenes", 7, 3), aa = ARENES.a;
+    var EL = function (x, y) { return [ARENES.x + x * Math.cos(aa) - y * Math.sin(aa), ARENES.y + x * Math.sin(aa) + y * Math.cos(aa)]; };
+    var E = function (rx, ry, th) { return EL(Math.cos(th) * rx, Math.sin(th) * ry); };
+    var ell = []; for (var k2 = 0; k2 < 40; k2++) { ell.push(E(25.9, 22.2, k2 * Math.PI / 20)); }
+    sol_.dalle(ell, hA + 0.3, S(C.arene, "arenes", 11, 3));
+    var t0 = 62 * RAD, t1 = 298 * RAD, NA = 44;
+    var tiers = [[0, 0.32, 2.6, 7.4], [0.35, 0.66, 8, 12.4], [0.69, 1, 13, 17.4]];
+    for (var k3 = 0; k3 < NA; k3++) {
+      var b0 = t0 + (t1 - t0) * k3 / NA, b1 = t0 + (t1 - t0) * (k3 + 1) / NA;
+      tiers.forEach(function (tr) {
+        var ra = function (f) { return [28 + (65 - 28) * f, 24.2 + (50 - 24.2) * f]; };
+        var i0 = ra(tr[0]), o0 = ra(tr[1]);
+        var q = [E(o0[0], o0[1], b0), E(i0[0], i0[1], b0), E(i0[0], i0[1], b1), E(o0[0], o0[1], b1)];
+        vol.rampe(q, [hA + tr[3], hA + tr[2], hA + tr[2], hA + tr[3]], S_AR);
+      });
+      var pa = E(65.8, 50.8, b0), pb = E(65.8, 50.8, b1), pmid = [(pa[0] + pb[0]) / 2, (pa[1] + pb[1]) / 2];
+      B.ajout(pmid[0], pmid[1], hA - 3, Math.hypot(pb[0] - pa[0], pb[1] - pa[1]) + 0.8, 2.2, 21.4, Math.atan2(pb[1] - pa[1], pb[0] - pa[0]), S_AM);
+    }
+    for (var k4 = 0; k4 < 40; k4++) {
+      var c0 = E(27, 23.2, k4 * Math.PI / 20), c1 = E(27, 23.2, (k4 + 1) * Math.PI / 20);
+      B.ajout((c0[0] + c1[0]) / 2, (c0[1] + c1[1]) / 2, hA - 1, Math.hypot(c1[0] - c0[0], c1[1] - c0[1]) + 0.3, 1.2, 3.6, Math.atan2(c1[1] - c0[1], c1[0] - c0[0]), S_AM);
+    }
+    // Scène de 41 m et son mur de fond.
+    var sc = E(33, 0, 0), sa = aa + Math.PI / 2;
+    B.ajout(sc[0], sc[1], hA - 1, 41.2, 7, 3.4, sa, S_AM);
+    var sf = E(38, 0, 0);
+    B.ajout(sf[0], sf[1], hA - 1, 48, 3, 13, sa, S_AM);
+    toit(vol, sf[0], sf[1], 48, 3, sa, hA + 12, 1, S(C.tuile, "arenes", 15, 1), S_AM, 0.2);
+    [-1, 1].forEach(function (s) { var p = EL(36, s * 30); B.ajout(p[0], p[1], hA - 2, 8, 12, 9, aa, S_AM); });
+    // --- Maisons, boutiques et jardins dans les îlots.
+    var S_M = S(C.maison, "maisons", 4, 1), S_MT = S(C.tuile, "maisons", 15, 1);
+    var S_TORCHIS = S(C.torchis, "maisons", 4, 1);
+    function libreMaison(u, v, l, p) {
+      var pts_ = [G(u - l / 2, v - p / 2), G(u + l / 2, v - p / 2), G(u + l / 2, v + p / 2), G(u - l / 2, v + p / 2)];
+      for (var i = 0; i < 4; i++) {
+        var q = pts_[i];
+        if (!dedans(q[0], q[1], VILLE) || dansEau(q[0], q[1]) || distRive(q[0], q[1]) < 25) { return false; }
+        if (Math.hypot(q[0] - ARENES.x, (q[1] - ARENES.y) * 1.2) < 95) { return false; }
+      }
+      return !dansMonument(u, v, Math.max(l, p) / 2 + 1);
+    }
+    function maison(u, v, l, p, dens) {
+      if (r() > dens || !libreMaison(u, v, l, p)) { return; }
+      var h = r() < 0.1 + 0.32 * dens ? 6.4 + r() * 1.3 : 3.5 + r() * 1.3;
+      maisonGrille(B, vol, u, v, l, p, h, { c: varier(parmi(MURS, r), r, 0.05), part: S_M.part, mat: 4, cert: 1 },
+        { c: varier(parmi(TOITS, r), r, 0.06), part: S_MT.part, mat: 15, cert: 1 }, r);
+    }
+    // Cour d'une domus : jardin, colonnes et toit en appentis incliné vers la cour.
+    function peristyle(u0, v0, u1, v1, stToit) {
+      var coins = [G(u0, v0), G(u1, v0), G(u1, v1), G(u0, v1)], hc = -1e9;
+      coins.forEach(function (q) { hc = Math.max(hc, sol(q[0], q[1])); });
+      sol_.dalle(rectUV(u0, v0, u1, v1), hc + 0.12, S(C.jardin, "maisons", 11, 1));
+      var ins = 1.9, stC = { c: C.enduit, part: S_M.part, mat: 4, cert: 1 };
+      var colonne = function (u, v) { var g = G(u, v); B.ajout(g[0], g[1], hc - 0.3, 0.42, 0.42, 3.5, GRILLE, stC); };
+      var nu_ = Math.max(2, Math.round((u1 - u0 - 2 * ins) / 3)), nv = Math.max(2, Math.round((v1 - v0 - 2 * ins) / 3));
+      for (var i = 0; i <= nu_; i++) { var cu = u0 + ins + (u1 - u0 - 2 * ins) * i / nu_; colonne(cu, v0 + ins); colonne(cu, v1 - ins); }
+      for (var k = 1; k < nv; k++) { var cv = v0 + ins + (v1 - v0 - 2 * ins) * k / nv; colonne(u0 + ins, cv); colonne(u1 - ins, cv); }
+      var P = function (u, v, h) { var g = G(u, v); return [g[0], h, -g[1]]; }, haut = hc + 4.3, bas = hc + 3.15, d = ins + 0.4;
+      vol.quad3(P(u0, v0, haut), P(u1, v0, haut), P(u1 - d, v0 + d, bas), P(u0 + d, v0 + d, bas), stToit);
+      vol.quad3(P(u0, v1, haut), P(u1, v1, haut), P(u1 - d, v1 - d, bas), P(u0 + d, v1 - d, bas), stToit);
+      vol.quad3(P(u0, v0, haut), P(u0, v1, haut), P(u0 + d, v1 - d, bas), P(u0 + d, v0 + d, bas), stToit);
+      vol.quad3(P(u1, v0, haut), P(u1, v1, haut), P(u1 - d, v1 - d, bas), P(u1 - d, v0 + d, bas), stToit);
+    }
+    function rangee(u0, u1, v, p, versNord, dens) {
+      for (var u = u0; u < u1 - 5; ) {
+        var w = 7 + r() * 10; if (u + w > u1) { w = u1 - u; }
+        if (w < 5) { break; }
+        maison(u + w / 2, versNord ? v + p / 2 : v - p / 2, w, p, dens);
+        u += w + (r() < 0.08 + 0.3 * (1 - dens) ? 2 + r() * 5 : 0.15);
+      }
+    }
+    function rangeeV(v0, v1, u, p, versEst, dens) {
+      for (var v = v0; v < v1 - 5; ) {
+        var w = 7 + r() * 10; if (v + w > v1) { w = v1 - v; }
+        if (w < 5) { break; }
+        maison(versEst ? u + p / 2 : u - p / 2, v + w / 2, p, w, dens);
+        v += w + (r() < 0.08 + 0.3 * (1 - dens) ? 2 + r() * 5 : 0.15);
+      }
+    }
+    for (var iu = -8; iu < 8; iu++) {
+      for (var iv = -9; iv < 14; iv++) {
+        var u0 = iu * ILOT, v0 = -45 + iv * ILOT, cI = G(u0 + ILOT / 2, v0 + ILOT / 2);
+        if (!dedans(cI[0], cI[1], VILLE) || dansMonument(u0 + ILOT / 2, v0 + ILOT / 2, 0)) { continue; }
+        var centreU = u0 + ILOT / 2, centreV = v0 + ILOT / 2;
+        var dens = 0.95 - 0.5 * ss(120, 520, Math.hypot(centreU * 1.2, (centreV - 120) * 0.85));
+        var a0 = u0 + (iu === 0 ? 4.8 : 3.6), a1 = u0 + ILOT - (iu === -1 ? 4.8 : 3.6);
+        var bv0 = v0 + 3.6, bv1 = v0 + ILOT - 3.6, pS = 10 + r() * 5, pN = 10 + r() * 5, pW = 10 + r() * 5, pE = 10 + r() * 5;
+        // Une domus à cour, de temps en temps, près du centre.
+        if (r() < 0.3 * dens && Math.abs(centreU) < 450) {
+          var du = a0 + 6 + r() * 20, dv = bv0 + 6 + r() * 20, L = 30 + r() * 8, P = 28 + r() * 8, e = 7;
+          if (libreMaison(du + L / 2, dv + P / 2, L, P)) {
+            var stD = { c: varier(C.enduit, r, 0.04), part: S_M.part, mat: 4, cert: 1 }, stDT = { c: varier(parmi(TOITS, r), r, 0.05), part: S_MT.part, mat: 15, cert: 1 };
+            maisonGrille(B, vol, du + L / 2, dv + e / 2, L, e, 5.5, stD, stDT, r);
+            maisonGrille(B, vol, du + L / 2, dv + P - e / 2, L, e, 5.5, stD, stDT, r);
+            maisonGrille(B, vol, du + e / 2, dv + P / 2, e, P - 2 * e, 4.8, stD, stDT, r);
+            maisonGrille(B, vol, du + L - e / 2, dv + P / 2, e, P - 2 * e, 4.8, stD, stDT, r);
+            peristyle(du + e, dv + e, du + L - e, dv + P - e, stDT);
+            var cj = G(du + L / 2, dv + P / 2);
+            arbre(B, cj[0], cj[1], r, S_M, "maisons", 0.6, true);
+            rangee(du + L + 4, a1, bv0, pS, true, dens);
+            rangee(a0, a1, bv1, pN, false, dens);
+            rangeeV(dv + P + 4, bv1 - 16, a0, pW, true, dens * 0.85);
+            rangeeV(bv0 + 16, bv1 - 16, a1, pE, false, dens * 0.85);
+            continue;
+          }
+        }
+        rangee(a0, a1, bv0, pS, true, dens);
+        rangee(a0, a1, bv1, pN, false, dens);
+        rangeeV(bv0 + 16, bv1 - 16, a0, pW, true, dens * 0.85);
+        rangeeV(bv0 + 16, bv1 - 16, a1, pE, false, dens * 0.85);
+        // Jardins et vergers au cœur de l'îlot.
+        for (var n = 0; n < 7; n++) {
+          if (r() > 0.5) { continue; }
+          var ju = u0 + 26 + r() * (ILOT - 52), jv = v0 + 26 + r() * (ILOT - 52), pj = G(ju, jv);
+          if (dedans(pj[0], pj[1], VILLE) && !dansMonument(ju, jv, 4)) { arbre(B, pj[0], pj[1], r, S_M, "maisons", 0.65 + r() * 0.2); }
+        }
+      }
+    }
+    // --- Île de la Cité : quai du port, entrepôts, maisons et pilier des Nautes.
+    var S_Q = S([166, 156, 138], "port", 4, 3), S_E = S(C.maison, "port", 4, 1), S_ET = S(C.tuileF, "port", 15, 1);
+    var cumQ = longueurs(QUAI), LQ = cumQ[cumQ.length - 1];
+    for (var sq = 0; sq < LQ; sq += 6) {
+      var pq = surLigne(QUAI, cumQ, sq + 3);
+      B.ajout(pq.x - Math.sin(pq.a) * 1.2, pq.y + Math.cos(pq.a) * 1.2, -2.5, 6.2, 4.2, 3.6, pq.a, S_Q);
+    }
+    var entrepots = [];
+    [0.18, 0.5, 0.82].forEach(function (f) {
+      var pq = surLigne(QUAI, cumQ, LQ * f), nx_ = -Math.sin(pq.a), ny_ = Math.cos(pq.a);
+      var x = pq.x + nx_ * 13, y = pq.y + ny_ * 13, b = pied(x, y, 28, 10, pq.a) - 0.4;
+      B.ajout(x, y, b - 1, 28, 10, 7, pq.a, S_E);
+      toit(vol, x, y, 28, 10, pq.a, b + 6, 2.2, S_ET, S_E);
+      entrepots.push([x, y]);
+    });
+    // Maisons de l'île : rangées le long de la rue qui relie les deux ponts et d'une ruelle
+    // dans la longueur de l'île, une seconde rangée derrière par endroits, des cours et des jardins.
+    var aR = Math.atan2(RUE_ILE[2][1] - RUE_ILE[0][1], RUE_ILE[2][0] - RUE_ILE[0][0]);
+    var poses = [];
+    function maisonIle(x, y, lw, pw, ang, dens) {
+      if (r() > dens) { return false; }
+      var ux = Math.cos(ang), uy = Math.sin(ang), vx = -uy, vy = ux, rayon = Math.hypot(lw, pw) / 2;
+      var coins = [[1, 1], [1, -1], [-1, 1], [-1, -1]].map(function (k) { return [x + ux * k[0] * lw / 2 + vx * k[1] * pw / 2, y + uy * k[0] * lw / 2 + vy * k[1] * pw / 2]; });
+      if (coins.some(function (q) { return !dedans(q[0], q[1], CITE) || distBord(q[0], q[1], CITE) < 9 || distLigne(q[0], q[1], QUAI) < 14 || Math.hypot(q[0] - PILIER[0], q[1] - PILIER[1]) < 11 || distLigne(q[0], q[1], RUE_ILE) < 4 || distLigne(q[0], q[1], RUELLE_ILE) < 3; })) { return false; }
+      if (entrepots.some(function (e2) { return Math.hypot(e2[0] - x, e2[1] - y) < 20 + rayon; })) { return false; }
+      var moi = { x: x, y: y, l: lw - 0.4, p: pw - 0.4, a: ang };
+      if (poses.some(function (q) { return Math.hypot(q.x - x, q.y - y) < q.r + rayon && chevauche(q, moi); })) { return false; }
+      moi.r = rayon; poses.push(moi);
+      var bb = pied(x, y, lw, pw, ang) - 0.4, hw = r() < 0.3 ? 6.2 + r() * 1.2 : 3.6 + r() * 1.3;
+      var stI = { c: varier(parmi(MURS, r), r, 0.05), part: ID.maisons, mat: 4, cert: 1 };
+      B.ajout(x, y, bb - 1, lw, pw, hw + 1, ang, stI);
+      toit(vol, x, y, lw, pw, ang, bb + hw, pw / 2 * (0.38 + 0.06 * r()), { c: varier(parmi(TOITS, r), r, 0.06), part: ID.maisons, mat: 15, cert: 1 }, stI);
+      return true;
+    }
+    function rangeeIle(ligne, retrait, dens) {
+      var cum = longueurs(ligne), L = cum[cum.length - 1];
+      [-1, 1].forEach(function (cote) {
+        for (var t = 4; t < L - 4; ) {
+          var w = 7 + r() * 7, pq = surLigne(ligne, cum, t + w / 2), nx2 = -Math.sin(pq.a) * cote, ny2 = Math.cos(pq.a) * cote;
+          var pw = 9 + r() * 4, dd = retrait + pw / 2;
+          maisonIle(pq.x + nx2 * dd, pq.y + ny2 * dd, w, pw, pq.a, dens);
+          if (r() < 0.6) { var p2 = 7 + r() * 3; maisonIle(pq.x + nx2 * (retrait + pw + 3 + p2 / 2), pq.y + ny2 * (retrait + pw + 3 + p2 / 2), w * (0.7 + r() * 0.3), p2, pq.a, dens * 0.8); }
+          t += w + (r() < 0.12 ? 3 + r() * 6 : 0.2);
+        }
+      });
+    }
+    sol_.rubanSol(RUELLE_ILE, 5, 0.28, S(C.rue, "cardo", 14, 1));
+    rangeeIle(RUE_ILE, 4.2, 0.97);
+    rangeeIle(RUELLE_ILE, 3.2, 0.9);
+    // Quelques maisons isolées dans le reste de l'île, avec leurs arbres.
+    for (var essaiI = 0; essaiI < 900; essaiI++) {
+      var xi = -30 + r() * 765, yi = 600 + r() * 635, ai = Math.atan2(RUELLE_ILE[3][1] - RUELLE_ILE[0][1], RUELLE_ILE[3][0] - RUELLE_ILE[0][0]) + (r() < 0.5 ? 0 : Math.PI / 2);
+      if (!dedans(xi, yi, CITE) || distBord(xi, yi, CITE) < 14) { continue; }
+      if (!maisonIle(xi, yi, 8 + r() * 6, 7 + r() * 4, ai, 0.72) && r() < 0.25 && distBord(xi, yi, CITE) > 14 && distLigne(xi, yi, RUE_ILE) > 8 && distLigne(xi, yi, RUELLE_ILE) > 6 && !poses.some(function (q) { return Math.hypot(q.x - xi, q.y - yi) < q.r + 3; })) {
+        arbre(B, xi, yi, r, S_E, "maisons", 0.75);
+      }
+    }
+    // Pilier des Nautes (5,24 m) sur une petite place dallée.
+    var hp = sol(PILIER[0], PILIER[1]), S_P = S(C.pierre, "pilier", 4, 1);
+    sol_.dalle(rectangle(PILIER[0], PILIER[1], 12, 12, aR), hp + 0.35, S(C.pave, "pilier", 13, 1));
+    B.ajout(PILIER[0], PILIER[1], hp, 1.5, 1.5, 0.75, aR, S_P);
+    [[0.91, 1.2], [0.86, 1.25], [0.81, 1.2], [0.76, 1.15]].forEach(function (bl, k) {
+      var z = hp + 0.75 + [0, 1.2, 2.45, 3.65][k];
+      B.ajout(PILIER[0], PILIER[1], z, bl[0], bl[0], bl[1], aR, S(k % 2 ? [204, 194, 172] : C.pierre, "pilier", 4, 1));
+    });
+    // --- Ponts de bois : piles, tablier et rampes.
+    var S_BO = S(C.bois, "ponts", 6, 2);
+    PONTS.forEach(function (pt) {
+      var a = pt[0], b = pt[1], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+      var ux = Math.cos(ang), uy = Math.sin(ang), vx = -uy, vy = ux, hp2 = 3.4;
+      var m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+      B.ajout(m[0], m[1], hp2 - 0.6, L, 7, 0.6, ang, S_BO);
+      [-1, 1].forEach(function (k) { B.ajout(m[0] + vx * k * 3.3, m[1] + vy * k * 3.3, hp2, L, 0.25, 1.1, ang, S_BO); });
+      for (var s = 6; s < L - 3; s += 8) {
+        [-2.6, 0, 2.6].forEach(function (o) { B.ajout(a[0] + ux * s + vx * o, a[1] + uy * s + vy * o, -3, 0.5, 0.5, hp2 + 2.4, ang, S_BO); });
+      }
+      [[a, -1], [b, 1]].forEach(function (bout) {
+        var p = bout[0], k = bout[1], q = [p[0] + ux * 12 * k, p[1] + uy * 12 * k], hq = sol(q[0], q[1]) + 0.2;
+        var R = function (pp, o) { return [pp[0] + vx * o, pp[1] + vy * o]; };
+        if (k < 0) { vol.rampe([R(q, -3.5), R(p, -3.5), R(p, 3.5), R(q, 3.5)], [hq, hp2, hp2, hq], S_BO); }
+        else { vol.rampe([R(p, -3.5), R(q, -3.5), R(q, 3.5), R(p, 3.5)], [hp2, hq, hq, hp2], S_BO); }
+      });
+    });
+    // --- Chalands sur la Seine (bateaux à fond plat).
+    var S_COQ = S([116, 86, 58], "seine", 6, 1), S_CHA = S([182, 160, 120], "seine", 6, 1);
+    var cumS = longueurs(D.rive_g), places = [];
+    for (var nb = 0, essai = 0; nb < 16 && essai < 400; essai++) {
+      var sb = cumS[11] + r() * (cumS[22] - cumS[11]), pb = surLigne(D.rive_g, cumS, sb), dd = 22 + r() * 60;
+      var bx = pb.x - Math.sin(pb.a) * dd, by = pb.y + Math.cos(pb.a) * dd, Lb = 12 + r() * 8;
+      if (essai < 60 && nb < 4) { var qp = surLigne(QUAI, cumQ, LQ * (0.1 + nb * 0.25)); bx = qp.x + Math.sin(qp.a) * 6; by = qp.y - Math.cos(qp.a) * 6; pb = qp; Lb = 14; }
+      if (!dansEau(bx, by) || distRive(bx, by) < 4 || places.some(function (p) { return Math.hypot(p[0] - bx, p[1] - by) < 26; })) { continue; }
+      if (PONTS.some(function (pt) { return distSeg(bx, by, pt[0], pt[1]) < 18; })) { continue; }
+      places.push([bx, by]);
+      var ca = Math.cos(pb.a), sa2 = Math.sin(pb.a), Bv = 3.4;
+      var contour = [[-Lb / 2, -Bv / 2], [Lb / 2 - 2, -Bv / 2], [Lb / 2, 0], [Lb / 2 - 2, Bv / 2], [-Lb / 2, Bv / 2]];
+      vol.prisme(contour.map(function (q) { return [bx + ca * q[0] - sa2 * q[1], by + sa2 * q[0] + ca * q[1]]; }), -0.3, 0.9, S_COQ);
+      B.ajout(bx - ca * Lb * 0.1, by - sa2 * Lb * 0.1, 0.9, Lb * 0.4, Bv * 0.6, 0.8, pb.a, S_CHA);
+      nb++;
+    }
+    // --- Aqueduc : canal enterré (levée de terre), regards et réservoir d'arrivée.
+    sol_.rubanSol(AQUEDUC, 4, 0.55, S([190, 180, 156], "aqueduc", 4, 2));
+    var cumA = longueurs(AQUEDUC), LA = cumA[cumA.length - 1];
+    for (var sa = 40; sa < LA - 20; sa += 75) {
+      var pa2 = surLigne(AQUEDUC, cumA, sa);
+      B.ajout(pa2.x, pa2.y, sol(pa2.x, pa2.y) - 0.5, 1.6, 1.6, 1.9, pa2.a, S(C.pierre, "aqueduc", 4, 1));
+    }
+    var fin = AQUEDUC[AQUEDUC.length - 1], hfin = pied(fin[0], fin[1], 10, 10, GRILLE) - 0.5;
+    B.ajout(fin[0], fin[1], hfin - 1, 10, 10, 6.5, GRILLE, S(C.pierre, "aqueduc", 4, 1));
+    toit(vol, fin[0], fin[1], 10, 10, GRILLE, hfin + 5.5, 2, S(C.tuile, "aqueduc", 15, 1), S(C.pierre, "aqueduc", 4, 1));
+    // --- Nécropole Saint-Jacques : tombes et stèles le long de la route d'Orléans.
+    var S_TB = S([178, 172, 158], "necropole", 4, 1);
+    for (var vt = -760; vt > -1180; vt -= 6) {
+      [-1, 1].forEach(function (cote) {
+        if (r() < 0.45) { return; }
+        var off = cote * (8 + r() * (cote < 0 ? 34 : 18)), pt3 = G(off, vt + (r() - 0.5) * 4);
+        if (dedans(pt3[0], pt3[1], VILLE)) { return; }
+        var gros = r() < 0.06, z = sol(pt3[0], pt3[1]) - 0.3;
+        if (gros) { B.ajout(pt3[0], pt3[1], z, 4.5, 4.5, 4.2, GRILLE, S_TB); toit(vol, pt3[0], pt3[1], 4.5, 4.5, GRILLE, z + 4.2, 1.2, S(C.tuile, "necropole", 15, 1), S_TB); }
+        else if (r() < 0.5) { B.ajout(pt3[0], pt3[1], z, 0.7, 0.25, 1.3, GRILLE, S_TB); }
+        else { B.ajout(pt3[0], pt3[1], z, 2.2, 1.1, 0.9, GRILLE, S_TB); }
+      });
+    }
+    // --- Campagne : fermes (villas), bois, arbres le long des rives et des routes.
+    var S_V = S(C.maison, "campagne", 4, 1), S_VT = S(C.tuile, "campagne", 15, 1);
+    var fermes = [[-1500, -700], [-1100, -1900], [400, -2100], [1600, -1500], [2400, -2200], [-2000, 600], [1500, 1600], [2300, 900], [-600, 2400], [300, 2200], [-2300, -1600], [2700, -300]];
+    fermes.forEach(function (f, k) {
+      var a = GRILLE + (k % 3) * 0.3, x = f[0], y = f[1];
+      if (dansEau(x, y)) { return; }
+      var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux;
+      [[0, 0, 32, 12, 5.5], [-6, 24, 22, 9, 5], [20, 12, 9, 20, 4.5]].forEach(function (bt) {
+        var bx2 = x + ux * bt[0] + vx * bt[1], by2 = y + uy * bt[0] + vy * bt[1], b2 = pied(bx2, by2, bt[2], bt[3], a) - 0.4;
+        B.ajout(bx2, by2, b2 - 1, bt[2], bt[3], bt[4] + 1, a, S_V);
+        if (bt[2] >= bt[3]) { toit(vol, bx2, by2, bt[2], bt[3], a, b2 + bt[4], bt[3] * 0.2, S_VT, S_V); }
+        else { toit(vol, bx2, by2, bt[3], bt[2], a + Math.PI / 2, b2 + bt[4], bt[2] * 0.2, S_VT, S_V); }
+      });
+      for (var t = 0; t < 8; t++) { arbre(B, x + (r() - 0.5) * 90, y + (r() - 0.5) * 90, r, S_V, "campagne"); }
+    });
+    var S_A = S(C.feuille, "campagne", 5, 1);
+    for (var ax = -2700; ax < 3240; ax += 24) {
+      for (var ay = -2700; ay < 2700; ay += 24) {
+        var px = ax + (r() - 0.5) * 20, py = ay + (r() - 0.5) * 20, w = bois(px, py);
+        var rive = 0;
+        if (w < 0.5) {
+          var dr = distRive(px, py);
+          rive = dr > 8 && dr < 40 && !dedans(px, py, VILLE) && !dedans(px, py, CITE) && !dansEau(px, py) ? 0.25 : 0;
+        }
+        var loinC = Math.hypot(px - 200, py - 250), lisiere = w > 0.15 && w < 0.75 ? 0.5 : w * 0.1;
+        if (r() > Math.max(lisiere * (loinC < 2400 ? 1 : 0.45), rive)) { continue; }
+        if (dansEau(px, py) || dedans(px, py, VILLE) || dedans(px, py, CITE)) { continue; }
+        if (ROUTES.some(function (l) { return distLigne(px, py, l) < 9; }) || distLigne(px, py, AQUEDUC) < 6) { continue; }
+        arbre(B, px, py, r, S_A, "campagne", 1, loinC > 1500);
+      }
+    }
+    return { sol: sol_, vol: vol, boites: B };
+  }
+  // Deux rectangles orientés {x, y, l, p, a} se chevauchent-ils ? (théorème des axes séparateurs)
+  function chevauche(A, B2) {
+    var axesR = [A.a, A.a + Math.PI / 2, B2.a, B2.a + Math.PI / 2];
+    for (var i = 0; i < 4; i++) {
+      var ax = Math.cos(axesR[i]), ay = Math.sin(axesR[i]);
+      var proj = function (R) {
+        var c = (R.x * ax + R.y * ay), e = Math.abs(Math.cos(R.a) * ax + Math.sin(R.a) * ay) * R.l / 2 + Math.abs(-Math.sin(R.a) * ax + Math.cos(R.a) * ay) * R.p / 2;
+        return [c - e, c + e];
+      };
+      var pa = proj(A), pb = proj(B2);
+      if (pa[1] < pb[0] || pb[1] < pa[0]) { return false; }
+    }
+    return true;
+  }
+  function centre(p) { var x = 0, y = 0; p.forEach(function (q) { x += q[0]; y += q[1]; }); return [x / p.length, y / p.length]; }
+  function bornes(p) { var b = [Infinity, Infinity, -Infinity, -Infinity]; p.forEach(function (q) { b[0] = Math.min(b[0], q[0]); b[1] = Math.min(b[1], q[1]); b[2] = Math.max(b[2], q[0]); b[3] = Math.max(b[3], q[1]); }); return b; }
+  function rectangle(cx, cy, l, p, a) {
+    var ux = Math.cos(a), uy = Math.sin(a), vx = -uy, vy = ux;
+    return [[-1, -1], [1, -1], [1, 1], [-1, 1]].map(function (k) { return [cx + k[0] * l / 2 * ux + k[1] * p / 2 * vx, cy + k[0] * l / 2 * uy + k[1] * p / 2 * vy]; });
+  }
+  // ------------------------------------------------------------ matrices
+  function perspective(fovy, asp, n, f) {
+    var t = 1 / Math.tan(fovy / 2), m = new Float32Array(16);
+    m[0] = t / asp; m[5] = t; m[10] = (f + n) / (n - f); m[11] = -1; m[14] = 2 * f * n / (n - f);
+    return m;
+  }
+  function orthographique(l, r, b, t, n, f) {
+    var m = new Float32Array(16);
+    m[0] = 2 / (r - l); m[5] = 2 / (t - b); m[10] = -2 / (f - n);
+    m[12] = -(r + l) / (r - l); m[13] = -(t + b) / (t - b); m[14] = -(f + n) / (f - n); m[15] = 1;
+    return m;
+  }
+  function regard(e, c, u) {
+    var zx = e[0] - c[0], zy = e[1] - c[1], zz = e[2] - c[2], zl = Math.hypot(zx, zy, zz);
+    zx /= zl; zy /= zl; zz /= zl;
+    var xx = u[1] * zz - u[2] * zy, xy = u[2] * zx - u[0] * zz, xz = u[0] * zy - u[1] * zx, xl = Math.hypot(xx, xy, xz);
+    xx /= xl; xy /= xl; xz /= xl;
+    var yx = zy * xz - zz * xy, yy = zz * xx - zx * xz, yz = zx * xy - zy * xx;
+    var m = new Float32Array(16);
+    m[0] = xx; m[1] = yx; m[2] = zx; m[4] = xy; m[5] = yy; m[6] = zy; m[8] = xz; m[9] = yz; m[10] = zz;
+    m[12] = -(xx * e[0] + xy * e[1] + xz * e[2]); m[13] = -(yx * e[0] + yy * e[1] + yz * e[2]);
+    m[14] = -(zx * e[0] + zy * e[1] + zz * e[2]); m[15] = 1;
+    return m;
+  }
+  function multiplier(a, b) {
+    var r = new Float32Array(16);
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 4; j++) {
+        var s = 0;
+        for (var k = 0; k < 4; k++) { s += a[k * 4 + j] * b[i * 4 + k]; }
+        r[i * 4 + j] = s;
+      }
+    }
+    return r;
+  }
+  function inverser(m) {
+    var a00 = m[0], a01 = m[1], a02 = m[2], a03 = m[3], a10 = m[4], a11 = m[5], a12 = m[6], a13 = m[7];
+    var a20 = m[8], a21 = m[9], a22 = m[10], a23 = m[11], a30 = m[12], a31 = m[13], a32 = m[14], a33 = m[15];
+    var b00 = a00 * a11 - a01 * a10, b01 = a00 * a12 - a02 * a10, b02 = a00 * a13 - a03 * a10, b03 = a01 * a12 - a02 * a11;
+    var b04 = a01 * a13 - a03 * a11, b05 = a02 * a13 - a03 * a12, b06 = a20 * a31 - a21 * a30, b07 = a20 * a32 - a22 * a30;
+    var b08 = a20 * a33 - a23 * a30, b09 = a21 * a32 - a22 * a31, b10 = a21 * a33 - a23 * a31, b11 = a22 * a33 - a23 * a32;
+    var det = b00 * b11 - b01 * b10 + b02 * b09 + b03 * b08 - b04 * b07 + b05 * b06;
+    if (!det) { return null; }
+    det = 1 / det;
+    var o = new Float32Array(16);
+    o[0] = (a11 * b11 - a12 * b10 + a13 * b09) * det; o[1] = (a02 * b10 - a01 * b11 - a03 * b09) * det;
+    o[2] = (a31 * b05 - a32 * b04 + a33 * b03) * det; o[3] = (a22 * b04 - a21 * b05 - a23 * b03) * det;
+    o[4] = (a12 * b08 - a10 * b11 - a13 * b07) * det; o[5] = (a00 * b11 - a02 * b08 + a03 * b07) * det;
+    o[6] = (a32 * b02 - a30 * b05 - a33 * b01) * det; o[7] = (a20 * b05 - a22 * b02 + a23 * b01) * det;
+    o[8] = (a10 * b10 - a11 * b08 + a13 * b06) * det; o[9] = (a01 * b08 - a00 * b10 - a03 * b06) * det;
+    o[10] = (a30 * b04 - a31 * b02 + a33 * b00) * det; o[11] = (a21 * b02 - a20 * b04 - a23 * b00) * det;
+    o[12] = (a11 * b07 - a10 * b09 - a12 * b06) * det; o[13] = (a00 * b09 - a01 * b07 + a02 * b06) * det;
+    o[14] = (a31 * b01 - a30 * b03 - a32 * b00) * det; o[15] = (a20 * b03 - a21 * b01 + a22 * b00) * det;
+    return o;
+  }
+  function transformer(m, p) {
+    var x = p[0], y = p[1], z = p[2];
+    var w = m[3] * x + m[7] * y + m[11] * z + m[15];
+    return [(m[0] * x + m[4] * y + m[8] * z + m[12]) / w, (m[1] * x + m[5] * y + m[9] * z + m[13]) / w,
+      (m[2] * x + m[6] * y + m[10] * z + m[14]) / w, w];
+  }
+  // ------------------------------------------------------------ nuanceurs
+  var SOMMETS = [
+    "#version 300 es",
+    "precision highp float;",
+    "layout(location = 0) in vec3 aPos;",
+    "layout(location = 1) in vec3 aNor;",
+    "layout(location = 4) in vec4 aCol;",
+    "layout(location = 5) in vec2 aInfo;",
+    "#ifdef INSTANCE",
+    "layout(location = 2) in vec4 iA;",
+    "layout(location = 3) in vec3 iB;",
+    "#endif",
+    "uniform mat4 uVue;",
+    "out vec3 vMonde; out vec3 vNor; out vec4 vCol; flat out vec2 vInfo; out float vLoc;",
+    "void main() {",
+    "#ifdef INSTANCE",
+    "  vec3 l = aPos * iB;",
+    "  float c = cos(iA.w), s = sin(iA.w);",
+    "  float ly = -l.z;",
+    "  vec3 m = vec3(iA.x + l.x * c - ly * s, iA.z + l.y, -(iA.y + l.x * s + ly * c));",
+    "  float ny = -aNor.z;",
+    "  vec3 n = vec3(aNor.x * c - ny * s, aNor.y, -(aNor.x * s + ny * c));",
+    "  vLoc = l.y;",
+    "#else",
+    "  vec3 m = aPos; vec3 n = aNor; vLoc = 100.0;",
+    "#endif",
+    "  vMonde = m; vNor = n; vCol = aCol; vInfo = aInfo;",
+    "  gl_Position = uVue * vec4(m, 1.0);",
+    "}"
+  ].join("\n");
+  var FRAG_OMBRE = "#version 300 es\nprecision mediump float;\nvoid main() {}";
+  var FRAG_CHOIX = "#version 300 es\nprecision highp float;\nflat in vec2 vInfo;\nout vec4 o;\nvoid main() { float z = floor(gl_FragCoord.z * 65535.0); o = vec4(vInfo.x / 255.0, floor(z / 256.0) / 255.0, mod(z, 256.0) / 255.0, 1.0); }";
+  var FRAG = [
+    "#version 300 es",
+    "precision highp float;",
+    "precision highp sampler2DShadow;",
+    "in vec3 vMonde; in vec3 vNor; in vec4 vCol; flat in vec2 vInfo; in float vLoc;",
+    "uniform sampler2DShadow uOmbre;",
+    "uniform sampler2D uTerrain;",
+    "uniform mat4 uLum;",
+    "uniform vec3 uSoleil, uCam, uBrume, uAppoint;",
+    "uniform vec2 uBrumeD;",
+    "uniform vec4 uCadre;",
+    "uniform float uTexel, uBiais, uDecal, uSel, uSurvol, uMode;",
+    "out vec4 sortie;",
+    "float h21(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }",
+    "float bruit(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);",
+    "  return mix(mix(h21(i), h21(i + vec2(1.0, 0.0)), f.x), mix(h21(i + vec2(0.0, 1.0)), h21(i + vec2(1.0, 1.0)), f.x), f.y); }",
+    "float ombre(vec3 p, vec3 n) {",
+    "  vec4 q = uLum * vec4(p + n * uDecal, 1.0);",
+    "  vec3 c = q.xyz / q.w * 0.5 + 0.5;",
+    "  if (c.x < 0.0 || c.x > 1.0 || c.y < 0.0 || c.y > 1.0 || c.z > 1.0) return 1.0;",
+    "  float s = 0.0;",
+    "  for (int i = -1; i <= 1; i++) for (int j = -1; j <= 1; j++)",
+    "    s += texture(uOmbre, vec3(c.xy + vec2(float(i), float(j)) * uTexel, c.z - uBiais));",
+    "  return s / 9.0;",
+    "}",
+    "vec2 tourner(vec2 p) { float c = 0.9511, s = 0.3090; return vec2(c * p.x - s * p.y, s * p.x + c * p.y); }",
+    "void main() {",
+    "  float part = vInfo.x, mat = vInfo.y;",
+    "  vec3 n = normalize(vNor);",
+    "  vec3 col = vCol.rgb;",
+    "  vec3 V = normalize(uCam - vMonde);",
+    "  float dist = length(uCam - vMonde);",
+    "  float px = max(length(dFdx(vMonde)), length(dFdy(vMonde)));",
+    "  float fin = 1.0 - smoothstep(0.16, 0.6, px);",
+    "  vec2 uv = vec2(dot(vMonde.xz, vec2(-n.z, n.x)), vMonde.y);",
+    "  bool vertical = abs(n.y) < 0.5;",
+    "  float eau = 0.0;",
+    "  if (mat > 9.5) {",
+    "    vec2 w = vMonde.xz;",
+    "    if (mat < 10.5) {",
+    "      vec4 t = texture(uTerrain, (w - uCadre.xy) * uCadre.zw);",
+    "      vec2 g = tourner(w);",
+    "      vec2 taille = vec2(40.0, 125.0);",
+    "      vec2 bande = floor(g / vec2(440.0, 1000.0));",
+    "      vec2 gg = g + vec2(h21(bande) * 40.0, h21(bande + 5.0) * 90.0);",
+    "      vec2 cel = floor(gg / taille);",
+    "      float hc = h21(cel + 17.0);",
+    "      vec3 champ = hc < 0.26 ? vec3(0.55, 0.60, 0.39) : hc < 0.48 ? vec3(0.64, 0.63, 0.45) : hc < 0.62 ? vec3(0.60, 0.58, 0.44) : hc < 0.82 ? vec3(0.52, 0.58, 0.38) : vec3(0.60, 0.62, 0.43);",
+    "      champ *= 0.95 + 0.07 * bruit(w * 0.045) + 0.04 * (h21(cel + 3.0) - 0.5);",
+    "      vec2 f = fract(gg / taille) * taille; vec2 e = min(f, taille - f);",
+    "      float bord = (1.0 - smoothstep(0.9, 0.9 + px * 1.5, min(e.x, e.y))) * (1.0 - smoothstep(2.0, 6.0, px));",
+    "      champ = mix(champ, vec3(0.43, 0.49, 0.33), bord * 0.35);",
+    "      vec3 pre = vec3(0.50, 0.58, 0.36) * (0.93 + 0.1 * bruit(w * 0.012));",
+    "      col = mix(champ, pre, t.r);",
+    "      float sillon = hc < 0.62 ? smoothstep(0.3, 0.48, abs(fract(gg.x / 2.4) - 0.5)) * (1.0 - smoothstep(0.25, 0.7, px)) : 0.0;",
+    "      col *= 1.0 - 0.07 * sillon;",
+    "      float voute = bruit(w / 9.0) * 0.6 + bruit(w / 3.5) * 0.4;",
+    "      float detail = 1.0 - smoothstep(1.5, 6.0, px);",
+    "      vec3 foret = mix(vec3(0.35, 0.45, 0.27), vec3(0.43, 0.50, 0.30), bruit(w * 0.03)) * (1.0 + detail * (0.22 * voute - 0.11));",
+    "      float bois = smoothstep(0.38, 0.62, t.g + 0.3 * (bruit(w * 0.025) - 0.5) + 0.12 * (bruit(w * 0.09) - 0.5));",
+    "      col = mix(col, foret, bois);",
+    "      vec3 mq = vCol.rgb;",
+    "      float ville = smoothstep(0.38, 0.62, mq.r + 0.12 * (bruit(w * 0.045) - 0.5));",
+    "      float ile = smoothstep(0.45, 0.55, mq.b);",
+    "      float greve = smoothstep(0.42, 0.58, mq.g + 0.08 * (bruit(w * 0.06) - 0.5));",
+    "      if (ville + ile > 0.002) {",
+    "        vec2 xy = vec2(w.x - 117.0, -w.y);",
+    "        vec2 gq = vec2(dot(xy, vec2(0.9511, -0.3090)), dot(xy, vec2(0.3090, 0.9511)));",
+    "        vec2 fl = vec2(mod(gq.x, 90.0), mod(gq.y + 45.0, 90.0));",
+    "        float de = min(min(fl.x, 90.0 - fl.x), min(fl.y, 90.0 - fl.y));",
+    "        vec3 terre = vec3(0.68, 0.62, 0.50) * (0.94 + 0.09 * bruit(w * 0.09));",
+    "        vec2 parc = floor(vec2(gq.x + 3.0, gq.y + 2.0) / vec2(10.0, 6.5));",
+    "        float hp = h21(parc + 31.0);",
+    "        vec3 jardin = hp < 0.38 ? vec3(0.49, 0.55, 0.33) : hp < 0.66 ? vec3(0.56, 0.57, 0.37) : hp < 0.84 ? vec3(0.62, 0.56, 0.42) : vec3(0.45, 0.53, 0.31);",
+    "        vec2 sill = fract(vec2(gq.x + 3.0, gq.y + 2.0) / vec2(10.0, 6.5));",
+    "        float rang = hp < 0.66 ? smoothstep(0.3, 0.5, abs(fract(sill.y * 5.0) - 0.5)) * (1.0 - smoothstep(0.15, 0.5, px)) : 0.0;",
+    "        jardin *= (0.93 + 0.12 * bruit(w * 0.35)) * (1.0 - 0.07 * rang);",
+    "        float allee = 1.0 - smoothstep(0.035, 0.07, min(min(sill.x, 1.0 - sill.x) * 1.6, min(sill.y, 1.0 - sill.y)));",
+    "        jardin = mix(jardin, terre * 0.96, allee * 0.6 * (1.0 - smoothstep(0.3, 0.8, px)));",
+    "        float dA = length(vec2(w.x - 790.0, (w.y - 170.0) * 1.22));",
+    "        vec3 urbain = mix(terre, jardin, smoothstep(17.0, 20.0, de) * smoothstep(74.0, 96.0, dA));",
+    "        col = mix(col, urbain, ville);",
+    "        vec3 cite = mix(vec3(0.64, 0.59, 0.48), vec3(0.52, 0.56, 0.36), 0.75 * smoothstep(0.52, 0.78, bruit(w * 0.022 + 7.0))) * (0.94 + 0.09 * bruit(w * 0.09));",
+    "        col = mix(col, cite, ile);",
+    "      }",
+    "      col = mix(col, vec3(0.76, 0.70, 0.56) * (0.95 + 0.07 * bruit(w * 0.2)), greve);",
+"    } else if (mat < 11.5) {",
+    "      col = vCol.rgb * (0.93 + 0.1 * bruit(w * 0.035));",
+    "    } else if (mat < 12.5) {",
+    "      eau = 1.0;",
+    "    } else if (mat < 13.5) {",
+    "      vec2 d = fract(tourner(w) / vec2(1.05, 1.05));",
+    "      float joint = (1.0 - smoothstep(0.03, 0.03 + px, min(min(d.x, 1.0 - d.x), min(d.y, 1.0 - d.y)))) * fin;",
+    "      col = vCol.rgb * (0.95 + 0.07 * bruit(w * 0.5)) * (1.0 - 0.12 * joint);",
+    "    } else if (mat < 14.5) {",
+    "      col = vCol.rgb * (0.94 + 0.1 * bruit(w * 0.06));",
+    "    } else {",
+    "      vec2 dir = normalize(vec2(-n.z, n.x) + vec2(1e-4, 0.0));",
+    "      float canal = abs(fract(dot(w, dir) / 0.42) - 0.5) * 2.0;",
+    "      float rang = smoothstep(0.82, 0.95, fract(vMonde.y / 0.36));",
+    "      col = vCol.rgb * (0.95 + 0.08 * bruit(w * 0.3)) * (1.0 - fin * (0.16 * smoothstep(0.55, 1.0, canal) + 0.1 * rang));",
+    "    }",
+    "  } else if (mat > 1.5 && mat < 3.5 && vertical) {",
+    "    vec3 bleu = vCol.rgb;",
+    "    float a = 0.0; vec3 bete = vec3(0.86, 0.80, 0.60);",
+    "    if (mat < 2.5) {",
+    "      float rang = floor((uv.y - 1.6) / 2.4);",
+    "      vec2 c = vec2(fract(uv.x / 2.8 + rang * 0.5), fract((uv.y - 1.6) / 2.4));",
+    "      float corps = 1.0 - smoothstep(0.26, 0.31, length(vec2((c.x - 0.48) * 1.5, (c.y - 0.46) * 2.6)));",
+    "      float tete = 1.0 - smoothstep(0.08, 0.12, length(vec2((c.x - 0.78) * 1.6, (c.y - 0.66) * 2.2)));",
+    "      float pattes = step(abs(fract(c.x * 5.0) - 0.5), 0.14) * step(0.12, c.y) * step(c.y, 0.34) * step(0.28, c.x) * step(c.x, 0.7);",
+    "      a = clamp(corps + tete + pattes, 0.0, 1.0) * step(0.0, rang);",
+    "      bete = mod(rang, 2.0) < 1.0 ? vec3(0.88, 0.82, 0.62) : vec3(0.80, 0.55, 0.24);",
+    "    } else {",
+    "      vec2 c = vec2(fract(uv.x / 3.6), (uv.y - 1.0) / 2.0);",
+    "      float dans = step(0.0, c.y) * step(c.y, 1.0);",
+    "      float corps = 1.0 - smoothstep(0.24, 0.29, length(vec2((c.x - 0.46) * 1.4, (c.y - 0.45) * 2.4)));",
+    "      float tete = 1.0 - smoothstep(0.1, 0.15, length(vec2((c.x - 0.8) * 1.5, (c.y - 0.62) * 2.0)));",
+    "      float pattes = step(abs(fract(c.x * 5.0) - 0.5), 0.14) * step(0.05, c.y) * step(c.y, 0.3) * step(0.26, c.x) * step(c.x, 0.72);",
+    "      a = clamp(corps + tete + pattes, 0.0, 1.0) * dans;",
+    "      bete = vec3(0.90, 0.74, 0.38);",
+    "      float ros = (step(0.6, uv.y) * step(uv.y, 0.85) + step(3.2, uv.y) * step(uv.y, 3.45)) * step(0.5, fract(uv.x / 0.7));",
+    "      a = max(a, ros * 0.8); ",
+    "    }",
+    "    col = mix(bleu, bete, a * fin) * (0.96 + 0.06 * bruit(uv * 3.0));",
+    "  } else if (mat > 1.5 && mat < 3.5) {",
+    "    col = vec3(0.62, 0.50, 0.38);",
+    "  } else if (mat > 7.5 && mat < 8.5 && !vertical) {",
+    "    col = vec3(0.62, 0.50, 0.38);",
+    "  } else {",
+    "    float b = bruit(vec2(uv.x * 0.35, uv.y * 0.6) + vMonde.xz * (vertical ? 0.0 : 0.15));",
+    "    col *= 0.93 + 0.1 * b;",
+    "    if (mat > 6.5 && mat < 7.5 && vertical) {",
+    "      float redan = smoothstep(0.42, 0.46, abs(fract(uv.x / 3.2) - 0.5)) * (1.0 - smoothstep(0.3, 1.2, px));",
+    "      col *= 1.0 - 0.14 * redan;",
+    "    }",
+    "    if (mat > 8.5 && mat < 9.5 && !vertical) {",
+    "      float marche = step(0.5, fract(vMonde.y / 0.55)) * (1.0 - smoothstep(0.08, 0.3, px));",
+    "      col *= 1.0 - 0.13 * marche;",
+    "    }",
+    "    if (mat > 4.5 && mat < 5.5) { col *= 0.85 + 0.3 * bruit(vMonde.xz * 0.7); }",
+    "  }",
+    "  float cert = floor(vCol.a * 255.0 + 0.5);",
+    "  if (uMode > 0.5) {",
+    "    float gris = dot(col, vec3(0.3, 0.59, 0.11));",
+    "    col = cert > 2.5 ? vec3(0.20, 0.52, 0.34) : cert > 1.5 ? vec3(0.92, 0.62, 0.18) : cert > 0.5 ? vec3(0.66, 0.66, 0.72) : mix(vec3(gris), vec3(0.86, 0.84, 0.80), 0.55);",
+    "    if (eau > 0.5) { col = mix(vec3(0.62, 0.72, 0.80), vec3(0.92, 0.62, 0.18), 0.0); eau = 0.0; }",
+    "  }",
+    "  float diff = max(dot(n, uSoleil), 0.0);",
+    "  float sh = diff > 0.0 ? ombre(vMonde, n) : 0.0;",
+    "  if (eau > 0.5) {",
+    "    vec2 w = vMonde.xz;",
+    "    float fres = pow(1.0 - max(V.y, 0.0), 3.0);",
+    "    float vague = (bruit(w * 0.11) + bruit(w * 0.31 + 3.0)) * 0.5;",
+    "    vec3 e = mix(vec3(0.24, 0.40, 0.46), vec3(0.56, 0.68, 0.78), 0.15 + fres * 0.5) * (0.96 + 0.08 * mix(0.5, vague, fin));",
+    "    float reflet = pow(max(dot(reflect(-uSoleil, vec3(0.0, 1.0, 0.0)), V), 0.0), 36.0);",
+    "    col = e * (0.8 + 0.2 * sh) + vec3(1.0, 0.95, 0.85) * reflet * 0.16 * sh;",
+    "  } else {",
+    "    float ao = vertical ? mix(0.62, 1.0, smoothstep(0.0, 7.0, vLoc)) : 1.0;",
+    "    vec3 amb = mix(vec3(0.50, 0.45, 0.38), vec3(0.64, 0.69, 0.78), n.y * 0.5 + 0.5);",
+    "    float app = max(dot(n, uAppoint), 0.0);",
+    "    col *= amb * ao * 0.72 + vec3(1.0, 0.92, 0.78) * diff * sh * 0.95 + vec3(0.62, 0.70, 0.86) * app * 0.3 * ao;",
+    "  }",
+    "  bool nu = mat > 9.5 && mat < 10.5;",
+    "  if (!nu && abs(part - uSurvol) < 0.5 && uSurvol > 0.5 && abs(part - uSel) > 0.5) { col = col * 1.07 + vec3(1.0, 0.86, 0.55) * 0.05; }",
+    "  if (!nu && abs(part - uSel) < 0.5 && uSel > 0.5) { float rim = pow(1.0 - max(dot(n, V), 0.0), 2.0); col = col * 1.07 + vec3(1.0, 0.76, 0.26) * (0.075 + 0.34 * rim); }",
+    "  float brume = smoothstep(uBrumeD.x, uBrumeD.y, dist);",
+    "  col = mix(col, uBrume, brume);",
+    "  sortie = vec4(col, 1.0);",
+    "}"
+  ].join("\n");
+  var CIEL_S = "#version 300 es\nprecision highp float;\nlayout(location = 0) in vec2 aPos;\nout vec2 vP;\nvoid main() { vP = aPos; gl_Position = vec4(aPos, 0.9999, 1.0); }";
+  var CIEL_F = [
+    "#version 300 es",
+    "precision highp float;",
+    "in vec2 vP; uniform mat4 uInv; uniform vec3 uBrume; out vec4 o;",
+    "void main() {",
+    "  vec4 a = uInv * vec4(vP, -1.0, 1.0), b = uInv * vec4(vP, 1.0, 1.0);",
+    "  vec3 d = normalize(b.xyz / b.w - a.xyz / a.w);",
+    "  vec3 zenith = vec3(0.42, 0.62, 0.86);",
+    "  o = vec4(mix(uBrume, zenith, smoothstep(0.0, 0.45, d.y)), 1.0);",
+    "}"
+  ].join("\n");
+  // ------------------------------------------------------------ moteur WebGL
+  var toile = $(".vro__toile"), scene = $(".vro__scene"), gl = null, R = null;
+  var cam = { x: ENSEMBLE[0], y: ENSEMBLE[1], d: ENSEMBLE[2], lacet: ENSEMBLE[3], tangage: ENSEMBLE[4], h: ENSEMBLE[5] };
+  var selection = 0, survol = 0, mode = 0, vol = null, demande = false;
+  var SOLEIL = (function () { var v = [-0.645, 0.616, 0.452], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
+  var BRUME = [0.86, 0.88, 0.88];
+  var APPOINT = (function () { var v = [0.62, 0.25, -0.74], l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; })();
+  function compiler(type, src) {
+    var s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { throw new Error(gl.getShaderInfoLog(s)); }
+    return s;
+  }
+  function programme(vs, fs) {
+    var p = gl.createProgram();
+    gl.attachShader(p, compiler(gl.VERTEX_SHADER, vs));
+    gl.attachShader(p, compiler(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(p);
+    if (!gl.getProgramParameter(p, gl.LINK_STATUS)) { throw new Error(gl.getProgramInfoLog(p)); }
+    var u = {}, n = gl.getProgramParameter(p, gl.ACTIVE_UNIFORMS);
+    for (var i = 0; i < n; i++) { var info = gl.getActiveUniform(p, i); u[info.name.replace(/\[0\]$/, "")] = gl.getUniformLocation(p, info.name); }
+    return { p: p, u: u };
+  }
+  function tampon(donnees) { var b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, donnees, gl.STATIC_DRAW); return b; }
+  function vaoLot(lot) {
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    tampon(new Float32Array(lot.f));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 24, 0);
+    gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 24, 12);
+    tampon(new Uint8Array(lot.o));
+    gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, 8, 0);
+    gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.UNSIGNED_BYTE, false, 8, 4);
+    gl.bindVertexArray(null);
+    return { vao: vao, n: lot.n };
+  }
+  function vaoBoites(B) {
+    var f = [];
+    // Boîte unité : x et z de -0,5 à 0,5, y de 0 à 1, cinq faces (pas de dessous).
+    var faces = [[[0, 1, 0], [[-0.5, 1, 0.5], [0.5, 1, 0.5], [0.5, 1, -0.5], [-0.5, 1, -0.5]]],
+      [[1, 0, 0], [[0.5, 0, 0.5], [0.5, 0, -0.5], [0.5, 1, -0.5], [0.5, 1, 0.5]]],
+      [[-1, 0, 0], [[-0.5, 0, -0.5], [-0.5, 0, 0.5], [-0.5, 1, 0.5], [-0.5, 1, -0.5]]],
+      [[0, 0, 1], [[-0.5, 0, 0.5], [0.5, 0, 0.5], [0.5, 1, 0.5], [-0.5, 1, 0.5]]],
+      [[0, 0, -1], [[0.5, 0, -0.5], [-0.5, 0, -0.5], [-0.5, 1, -0.5], [0.5, 1, -0.5]]]];
+    faces.forEach(function (fa) {
+      var n = fa[0], q = fa[1];
+      [[0, 1, 2], [0, 2, 3]].forEach(function (t) {
+        var a = q[t[0]], b = q[t[1]], c = q[t[2]];
+        var g = [(b[1] - a[1]) * (c[2] - a[2]) - (b[2] - a[2]) * (c[1] - a[1]), (b[2] - a[2]) * (c[0] - a[0]) - (b[0] - a[0]) * (c[2] - a[2]), (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])];
+        if (g[0] * n[0] + g[1] * n[1] + g[2] * n[2] < 0) { var x = b; b = c; c = x; }
+        [a, b, c].forEach(function (p) { f.push(p[0], p[1], p[2], n[0], n[1], n[2]); });
+      });
+    });
+    var vao = gl.createVertexArray();
+    gl.bindVertexArray(vao);
+    tampon(new Float32Array(f));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 24, 0);
+    gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.FLOAT, false, 24, 12);
+    tampon(new Float32Array(B.f));
+    gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 4, gl.FLOAT, false, 28, 0); gl.vertexAttribDivisor(2, 1);
+    gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 3, gl.FLOAT, false, 28, 16); gl.vertexAttribDivisor(3, 1);
+    tampon(new Uint8Array(B.o));
+    gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, 8, 0); gl.vertexAttribDivisor(4, 1);
+    gl.enableVertexAttribArray(5); gl.vertexAttribPointer(5, 2, gl.UNSIGNED_BYTE, false, 8, 4); gl.vertexAttribDivisor(5, 1);
+    gl.bindVertexArray(null);
+    return { vao: vao, n: B.n, sommets: f.length / 6 };
+  }
+  // Carte du terrain : prairies humides près de l'eau (rouge) et bois (vert), pour la campagne.
+  var CADRE_T = [-9300, -9300, 18600];
+  function texTerrain() {
+    var N = 256, px = new Uint8Array(N * N * 4), k = CADRE_T[2] / N;
+    for (var j = 0; j < N; j++) {
+      for (var i = 0; i < N; i++) {
+        var x = CADRE_T[0] + (i + 0.5) * k, y = -(CADRE_T[1] + (j + 0.5) * k), o = (j * N + i) * 4;
+        var pres = Math.abs(x) < 6000 && Math.abs(y) < 6000;
+        var humide = pres ? Math.max(1 - ss(60, 260, distBord(x, y, SEINE)) * (y > 900 ? 0.35 : 1), 1 - ss(30, 160, distLigne(x, y, BIEVRE))) : 0;
+        if (y > 1000 && pres && !dansEau(x, y)) { humide = Math.max(humide, 0.55 * (1 - ss(400, 1400, distBord(x, y, SEINE)))); }
+        px[o] = Math.round(255 * Math.max(0, Math.min(1, humide)));
+        px[o + 1] = Math.round(255 * bois(x, y));
+        px[o + 3] = 255;
+      }
+    }
+    var t = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, N, N, 0, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return t;
+  }
+  function demarrer() {
+    try {
+      gl = toile.getContext("webgl2", { antialias: true, alpha: false, powerPreference: "high-performance" });
+    } catch (e) { gl = null; }
+    if (!gl) { return false; }
+    var t0 = performance.now();
+    var M = batir();
+    var t1 = performance.now();
+    R = {};
+    var def = "#version 300 es\n#define INSTANCE\n";
+    var sansInst = SOMMETS, avecInst = SOMMETS.replace("#version 300 es\n", def);
+    R.stat = programme(sansInst, FRAG); R.inst = programme(avecInst, FRAG);
+    R.statO = programme(sansInst, FRAG_OMBRE); R.instO = programme(avecInst, FRAG_OMBRE);
+    R.statC = programme(sansInst, FRAG_CHOIX); R.instC = programme(avecInst, FRAG_CHOIX);
+    R.ciel = programme(CIEL_S, CIEL_F);
+    R.sol = vaoLot(M.sol); R.vol = vaoLot(M.vol); R.boites = vaoBoites(M.boites);
+    R.vaoCiel = gl.createVertexArray();
+    gl.bindVertexArray(R.vaoCiel);
+    tampon(new Float32Array([-1, -1, 3, -1, -1, 3]));
+    gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    gl.bindVertexArray(null);
+    R.terrain = texTerrain();
+    // Carte des ombres.
+    R.T = 2048;
+    R.texO = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, R.texO);
+    gl.texStorage2D(gl.TEXTURE_2D, 1, gl.DEPTH_COMPONENT24, R.T, R.T);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_MODE, gl.COMPARE_REF_TO_TEXTURE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_COMPARE_FUNC, gl.LEQUAL);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    R.fbO = gl.createFramebuffer();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbO);
+    gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.TEXTURE_2D, R.texO, 0);
+    gl.drawBuffers([gl.NONE]); gl.readBuffer(gl.NONE);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    R.stats = { construction: Math.round(t1 - t0), boites: M.boites.n, sol: M.sol.n, volumes: M.vol.n, total: Math.round(performance.now() - t0) };
+    racine.setAttribute("data-moteur", "webgl2");
+    toile.addEventListener("webglcontextlost", function (e) { e.preventDefault(); secours("La maquette 3D s'est interrompue. Recharge la page pour la retrouver."); });
+    return true;
+  }
+  // Taille de la toile (pixels réels) et cadre de sélection.
+  var largeur = 0, hauteur = 0, dpr = 1;
+  function redimensionner() {
+    var w = toile.clientWidth, h = toile.clientHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, w * h > 900000 ? 1.5 : 2);
+    var W = Math.max(1, Math.round(w * dpr)), H = Math.max(1, Math.round(h * dpr));
+    if (W !== largeur || H !== hauteur) {
+      largeur = W; hauteur = H; toile.width = W; toile.height = H;
+      if (R && R.fbC) { gl.deleteFramebuffer(R.fbC); gl.deleteRenderbuffer(R.rbC); gl.deleteRenderbuffer(R.rbP); R.fbC = null; }
+    }
+  }
+  function cadreChoix() {
+    if (R.fbC) { return; }
+    R.fbC = gl.createFramebuffer(); R.rbC = gl.createRenderbuffer(); R.rbP = gl.createRenderbuffer();
+    gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbC); gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA8, largeur, hauteur);
+    gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbP); gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, largeur, hauteur);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbC);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, R.rbC);
+    gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, R.rbP);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+  }
+  function camera() {
+    var t = cam.tangage * RAD, l = cam.lacet * RAD;
+    var cible = [cam.x, cam.h, -cam.y];
+    var oeil = [cam.x + cam.d * Math.cos(t) * Math.sin(l), cam.h + cam.d * Math.sin(t), -cam.y + cam.d * Math.cos(t) * Math.cos(l)];
+    var asp = largeur / hauteur, pres_ = Math.max(1.5, cam.d * 0.02);
+    var proj = perspective(40 * RAD, asp, pres_, 90000);
+    var vue = regard(oeil, cible, [0, 1, 0]);
+    return { oeil: oeil, vp: multiplier(proj, vue) };
+  }
+  function lumiere() {
+    var S_ = Math.max(180, Math.min(5200, cam.d * 1.25)), Rr = 3000 + S_;
+    var c = [cam.x, cam.h, -cam.y];
+    // Recentre sur la grille des texels pour éviter le scintillement des ombres.
+    var texel = 2 * S_ / R.T;
+    var vue = regard([c[0] + SOLEIL[0] * Rr, c[1] + SOLEIL[1] * Rr, c[2] + SOLEIL[2] * Rr], c, [0, 1, 0]);
+    var q = transformer(vue, [0, 0, 0]);
+    var ox = q[0] - Math.round(q[0] / texel) * texel, oy = q[1] - Math.round(q[1] / texel) * texel;
+    var proj = orthographique(-S_ - ox, S_ - ox, -S_ - oy, S_ - oy, 1, 2 * Rr);
+    return { m: multiplier(proj, vue), texel: texel, prof: 2 * Rr };
+  }
+  function dessiner(passe, vp) {
+    var ps = passe === "ombre" ? [R.statO, R.instO] : passe === "choix" ? [R.statC, R.instC] : [R.stat, R.inst];
+    return function (quoi) {
+      var p = quoi === "boites" ? ps[1] : ps[0];
+      gl.useProgram(p.p);
+      gl.uniformMatrix4fv(p.u.uVue, false, vp);
+      if (quoi === "boites") {
+        gl.bindVertexArray(R.boites.vao);
+        gl.drawArraysInstanced(gl.TRIANGLES, 0, R.boites.sommets, R.boites.n);
+      } else {
+        var v = R[quoi];
+        gl.bindVertexArray(v.vao);
+        gl.drawArrays(gl.TRIANGLES, 0, v.n);
+      }
+    };
+  }
+  function uniformes(p, c, L) {
+    gl.useProgram(p.p);
+    gl.uniform1i(p.u.uOmbre, 0); gl.uniform1i(p.u.uTerrain, 1);
+    gl.uniformMatrix4fv(p.u.uLum, false, L.m);
+    gl.uniform3fv(p.u.uSoleil, SOLEIL); gl.uniform3fv(p.u.uCam, c.oeil); gl.uniform3fv(p.u.uBrume, BRUME); gl.uniform3fv(p.u.uAppoint, APPOINT);
+    gl.uniform2f(p.u.uBrumeD, cam.d * 0.9 + 1600, cam.d * 2.6 + 12000);
+    gl.uniform4f(p.u.uCadre, CADRE_T[0], CADRE_T[1], 1 / CADRE_T[2], 1 / CADRE_T[2]);
+    gl.uniform1f(p.u.uTexel, 1 / R.T); gl.uniform1f(p.u.uBiais, 0.6 / L.prof); gl.uniform1f(p.u.uDecal, L.texel * 1.2);
+    gl.uniform1f(p.u.uSel, selection); gl.uniform1f(p.u.uSurvol, survol); gl.uniform1f(p.u.uMode, mode);
+  }
+  var derniereCam = null;
+  function rendre() {
+    redimensionner();
+    var c = camera(), L = lumiere();
+    derniereCam = c;
+    gl.enable(gl.CULL_FACE);
+    // 1. Ombres (volumes seulement).
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbO);
+    gl.viewport(0, 0, R.T, R.T);
+    gl.clear(gl.DEPTH_BUFFER_BIT);
+    gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(2.0, 4.0);
+    var d = dessiner("ombre", L.m);
+    d("vol"); d("boites");
+    gl.disable(gl.POLYGON_OFFSET_FILL);
+    // 2. Image.
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.viewport(0, 0, largeur, hauteur);
+    gl.clearColor(BRUME[0], BRUME[1], BRUME[2], 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    gl.useProgram(R.ciel.p);
+    gl.uniformMatrix4fv(R.ciel.u.uInv, false, inverser(c.vp));
+    gl.uniform3fv(R.ciel.u.uBrume, BRUME);
+    gl.bindVertexArray(R.vaoCiel);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, R.texO);
+    gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, R.terrain);
+    uniformes(R.stat, c, L); uniformes(R.inst, c, L);
+    d = dessiner("image", c.vp);
+    gl.enable(gl.DEPTH_TEST);
+    d("sol"); d("vol"); d("boites");
+    gl.bindVertexArray(null);
+    if (!racine.classList.contains("est-construite")) { racine.classList.add("est-construite"); }
+    placerEtiquettes(c.vp);
+    clearTimeout(minuteurOcc);
+    minuteurOcc = setTimeout(verifierOcclusion, 140);
+  }
+  // Une étiquette cachée par un monument plus proche est masquée : on rend la scène
+  // en petit, avec la profondeur de chaque pixel, et on compare avec celle du repère.
+  var occultes = {}, minuteurOcc = null;
+  function verifierOcclusion() {
+    if (!gl || !R) { return; }
+    var w = Math.max(1, Math.round(largeur / 4)), h = Math.max(1, Math.round(hauteur / 4));
+    if (!R.fbOcc || R.occW !== w || R.occH !== h) {
+      if (R.fbOcc) { gl.deleteFramebuffer(R.fbOcc); gl.deleteRenderbuffer(R.rbOccC); gl.deleteRenderbuffer(R.rbOccP); }
+      R.fbOcc = gl.createFramebuffer(); R.rbOccC = gl.createRenderbuffer(); R.rbOccP = gl.createRenderbuffer();
+      gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbOccC); gl.renderbufferStorage(gl.RENDERBUFFER, gl.RGBA8, w, h);
+      gl.bindRenderbuffer(gl.RENDERBUFFER, R.rbOccP); gl.renderbufferStorage(gl.RENDERBUFFER, gl.DEPTH_COMPONENT24, w, h);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbOcc);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.RENDERBUFFER, R.rbOccC);
+      gl.framebufferRenderbuffer(gl.FRAMEBUFFER, gl.DEPTH_ATTACHMENT, gl.RENDERBUFFER, R.rbOccP);
+      R.occW = w; R.occH = h;
+    }
+    var c = camera();
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbOcc);
+    gl.viewport(0, 0, w, h);
+    gl.clearColor(0, 1, 1, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    var d = dessiner("choix", c.vp);
+    gl.enable(gl.DEPTH_TEST);
+    d("sol"); d("vol"); d("boites");
+    // Lecture différée (tampon de pixels et barrière) : la carte graphique n'attend pas.
+    if (!R.pbo) { R.pbo = gl.createBuffer(); }
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pbo);
+    gl.bufferData(gl.PIXEL_PACK_BUFFER, w * h * 4, gl.STREAM_READ);
+    gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, 0);
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindVertexArray(null);
+    var barriere = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0), essais = 0, jeton = ++verifierOcclusion.n;
+    gl.flush();
+    (function attendre() {
+      if (!gl || jeton !== verifierOcclusion.n) { gl && gl.deleteSync(barriere); return; }
+      var etat = gl.clientWaitSync(barriere, 0, 0);
+      if (etat === gl.TIMEOUT_EXPIRED && essais++ < 90) { window.requestAnimationFrame(attendre); return; }
+      gl.deleteSync(barriere);
+      var lu = new Uint8Array(w * h * 4);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pbo);
+      gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, lu);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+      lireOcclusion(c, lu, w, h);
+    })();
+  }
+  verifierOcclusion.n = 0;
+  function lireOcclusion(c, lu, w, h) {
+    etiquettes.forEach(function (e) {
+      var p = transformer(c.vp, [e.p[0], e.p[2], -e.p[1]]);
+      var sx = Math.floor((p[0] + 1) / 2 * w), sy = Math.floor((p[1] + 1) / 2 * h);
+      if (p[3] <= 0 || sx < 0 || sy < 0 || sx >= w || sy >= h) { occultes[e.cle] = false; return; }
+      var o = (sy * w + sx) * 4, z = (lu[o + 1] * 256 + lu[o + 2]) / 65535;
+      occultes[e.cle] = z < (p[2] * 0.5 + 0.5) - 0.00003;
+    });
+    placerEtiquettes((derniereCam || c).vp);
+  }
+  // Partie visible sous un point de la toile (coordonnées CSS). La réponse arrive un
+  // peu plus tard (lecture différée), par la fonction rappel.
+  function partieSous(x, y, rappel) {
+    cadreChoix();
+    var c = camera(), px = Math.floor(x * dpr), py = Math.floor((toile.clientHeight - y) * dpr);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, R.fbC);
+    gl.viewport(0, 0, largeur, hauteur);
+    gl.enable(gl.SCISSOR_TEST); gl.scissor(px, py, 1, 1);
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.disable(gl.DEPTH_TEST);
+    var d = dessiner("choix", c.vp);
+    gl.enable(gl.DEPTH_TEST);
+    d("sol"); d("vol"); d("boites");
+    if (!R.pboC) { R.pboC = gl.createBuffer(); }
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pboC);
+    gl.bufferData(gl.PIXEL_PACK_BUFFER, 4, gl.STREAM_READ);
+    gl.readPixels(px, py, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, 0);
+    gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+    gl.disable(gl.SCISSOR_TEST);
+    gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+    gl.bindVertexArray(null);
+    var barriere = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0), essais = 0;
+    gl.flush();
+    (function attendre() {
+      if (!gl) { return; }
+      if (gl.clientWaitSync(barriere, 0, 0) === gl.TIMEOUT_EXPIRED && essais++ < 90) { window.requestAnimationFrame(attendre); return; }
+      gl.deleteSync(barriere);
+      var lu = new Uint8Array(4);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, R.pboC);
+      gl.getBufferSubData(gl.PIXEL_PACK_BUFFER, 0, lu);
+      gl.bindBuffer(gl.PIXEL_PACK_BUFFER, null);
+      rappel(lu[0]);
+    })();
+  }
+  // Point du sol sous un point de la toile, en coordonnées du plan.
+  function solSous(x, y) {
+    var c = derniereCam || camera(), inv = inverser(c.vp);
+    if (!inv) { return null; }
+    var nx = x / toile.clientWidth * 2 - 1, ny = 1 - y / toile.clientHeight * 2;
+    var a = transformer(inv, [nx, ny, -1]), b = transformer(inv, [nx, ny, 1]);
+    var dy = b[1] - a[1];
+    if (dy >= -1e-6) { return null; }
+    var t = (cam.h - a[1]) / dy;
+    return [a[0] + (b[0] - a[0]) * t, -(a[2] + (b[2] - a[2]) * t)];
+  }
+  function demander() {
+    if (demande) { return; }
+    demande = true;
+    window.requestAnimationFrame(image);
+  }
+  function image(t) {
+    demande = false;
+    if (vol) {
+      var k = Math.min(1, (t - vol.t0) / vol.duree), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      var de = vol.de, a = vol.a;
+      cam.x = de.x + (a.x - de.x) * e; cam.y = de.y + (a.y - de.y) * e; cam.h = de.h + (a.h - de.h) * e;
+      cam.lacet = de.lacet + (a.lacet - de.lacet) * e; cam.tangage = de.tangage + (a.tangage - de.tangage) * e;
+      var bosse = 1 + Math.sin(Math.PI * e) * vol.bosse;
+      cam.d = Math.exp(Math.log(de.d) + (Math.log(a.d) - Math.log(de.d)) * e) * bosse;
+      if (k >= 1) { vol = null; }
+    }
+    if (gl) { rendre(); }
+    if (vol) { demander(); }
+  }
+  function borner() {
+    cam.tangage = Math.max(6, Math.min(89, cam.tangage));
+    cam.d = Math.max(40, Math.min(9000, cam.d));
+    cam.x = Math.max(-3000, Math.min(3500, cam.x));
+    cam.y = Math.max(-3200, Math.min(3000, cam.y));
+  }
+  // Sur une toile étroite (téléphone tenu debout), on recule pour garder le cadrage.
+  function facteurAspect() {
+    var w = toile.clientWidth, h = toile.clientHeight;
+    return w && h ? Math.max(1, Math.min(1.8, 1.5 / (w / h))) : 1;
+  }
+  function allerA(v, duree) {
+    var a = { x: v[0], y: v[1], d: v[2] * facteurAspect(), lacet: v[3], tangage: v[4], h: (v[5] || 0) + (gl ? Math.max(0, sol(v[0], v[1])) : 0) };
+    var dl = ((a.lacet - cam.lacet) % 360 + 540) % 360 - 180;
+    a.lacet = cam.lacet + dl;
+    if (reduit || duree === 0 || !gl) { cam.x = a.x; cam.y = a.y; cam.d = a.d; cam.lacet = a.lacet; cam.tangage = a.tangage; cam.h = a.h; vol = null; demander(); return; }
+    var trajet = Math.hypot(a.x - cam.x, a.y - cam.y);
+    vol = { de: { x: cam.x, y: cam.y, d: cam.d, lacet: cam.lacet, tangage: cam.tangage, h: cam.h }, a: a, t0: performance.now(),
+      duree: duree || 1700, bosse: Math.min(1.2, trajet / Math.max(cam.d, a.d) * 0.6) };
+    demander();
+  }
+  // ------------------------------------------------------------ étiquettes
+  var calque = $(".vro__reperes"), etiquettes = [];
+  function creerEtiquettes() {
+    Object.keys(FICHES).forEach(function (cle) {
+      var bouton = racine.querySelector('.vro__bouton[data-partie="' + cle + '"]');
+      if (!bouton) { return; }
+      var el = document.createElement("button");
+      el.type = "button";
+      el.className = "vro__repere";
+      el.setAttribute("data-partie", cle);
+      el.setAttribute("tabindex", "-1");
+      el.textContent = bouton.getAttribute("data-court") || bouton.textContent;
+      el.addEventListener("click", function () { choisir(cle, true); });
+      calque.appendChild(el);
+      var f = FICHES[cle];
+      etiquettes.push({ cle: cle, el: el, f: f, p: [f.ancre[0], f.ancre[1], f.ancre[2] + Math.max(0, sol(f.ancre[0], f.ancre[1]))], l: 0, h: 0 });
+    });
+  }
+  var outils = $(".vro__outils");
+  function placerEtiquettes(vp) {
+    var W = toile.clientWidth, H = toile.clientHeight, places = [];
+    var haut = outils ? outils.offsetTop + outils.offsetHeight + 6 : 46;
+    var niveau = cam.d < 700 ? 3 : cam.d < 2600 ? 2 : 1;
+    var liste = etiquettes.slice().sort(function (a, b) {
+      var pa = a.cle === PARTIES[selection] ? 0 : a.f.imp, pb = b.cle === PARTIES[selection] ? 0 : b.f.imp;
+      return pa - pb;
+    });
+    liste.forEach(function (e) {
+      var choisie = e.cle === PARTIES[selection];
+      var montrer = choisie || (e.f.imp <= niveau && !occultes[e.cle]);
+      var p = montrer ? transformer(vp, [e.p[0], e.p[2], -e.p[1]]) : null;
+      if (!p || p[3] <= 0 || p[2] > 1) { e.el.style.visibility = "hidden"; return; }
+      var x = (p[0] + 1) / 2 * W, y = (1 - p[1]) / 2 * H;
+      if (!e.l) { e.l = e.el.offsetWidth; e.h = e.el.offsetHeight; }
+      var bx = [x - e.l / 2, y - e.h - 9, x + e.l / 2, y];
+      var hors = bx[0] < 2 || bx[2] > W - 2 || bx[1] < haut || y > H - 2;
+      var chevauche = places.some(function (q) { return !(bx[2] < q[0] || bx[0] > q[2] || bx[3] < q[1] || bx[1] > q[3]); });
+      if (hors || (chevauche && !choisie)) { e.el.style.visibility = "hidden"; return; }
+      places.push(bx);
+      e.el.style.visibility = "visible";
+      e.el.style.transform = "translate(" + Math.round(x - e.l / 2) + "px," + Math.round(y - e.h - 9) + "px)";
+      e.el.classList.toggle("est-choisi", choisie);
+    });
+  }
+  // ------------------------------------------------------------ interactions
+  var pointeurs = {}, geste = null, appui = null, aideMasquee = false;
+  var bulle = $(".vro__bulle"), minuteurSurvol = null;
+  function nomPartie(id) {
+    var b = racine.querySelector('.vro__bouton[data-partie="' + PARTIES[id] + '"]');
+    return b ? (b.getAttribute("data-court") || b.textContent) : "";
+  }
+  function finSurvol() {
+    clearTimeout(minuteurSurvol);
+    bulle.classList.remove("est-visible");
+    toile.style.cursor = "";
+    if (survol) { survol = 0; demander(); }
+  }
+  // Survol à la souris : la partie visée s'éclaire et son nom s'affiche.
+  function survoler(x, y) {
+    clearTimeout(minuteurSurvol);
+    minuteurSurvol = setTimeout(function () {
+      if (!gl || vol || geste) { return; }
+      partieSous(x, y, function (id) {
+        if (geste) { return; }
+        if (id !== survol) { survol = id; demander(); }
+        toile.style.cursor = id ? "pointer" : "";
+        if (!id) { bulle.classList.remove("est-visible"); return; }
+        bulle.textContent = nomPartie(id);
+        var W = toile.clientWidth, l = bulle.offsetWidth, bx = x + 14 + l > W - 6 ? x - 14 - l : x + 14;
+        bulle.style.transform = "translate(" + Math.round(bx) + "px," + Math.round(y + 14) + "px)";
+        bulle.classList.add("est-visible");
+      });
+    }, 60);
+  }
+  function masquerAide() { if (!aideMasquee) { aideMasquee = true; racine.classList.add("a-bouge"); } }
+  function avis(texte) {
+    var m = $(".vro__avis");
+    m.textContent = texte;
+    m.classList.add("est-visible");
+    clearTimeout(avis.t);
+    avis.t = setTimeout(function () { m.classList.remove("est-visible"); }, 1800);
+  }
+  function tourner(dx, dy) {
+    cam.lacet -= dx / Math.max(300, toile.clientWidth) * 260;
+    cam.tangage += dy / Math.max(240, toile.clientHeight) * 110;
+  }
+  function deplacer(dx, dy) {
+    var mpp = 2 * cam.d * Math.tan(20 * RAD) / toile.clientHeight;
+    var l = cam.lacet * RAD, s = 1 / Math.max(0.35, Math.sin(cam.tangage * RAD));
+    var rx = Math.cos(l), ry = Math.sin(l);   // droite de l'écran, dans le plan (x, y)
+    var fx = -Math.sin(l), fy = Math.cos(l);  // devant, dans le plan
+    cam.x += (-dx * rx + dy * s * fx) * mpp;
+    cam.y += (-dx * ry + dy * s * fy) * mpp;
+  }
+  function zoomer(facteur, x, y) {
+    var avant = x === undefined ? null : solSous(x, y);
+    var d0 = cam.d;
+    cam.d = Math.max(60, Math.min(11000, cam.d * facteur));
+    if (avant) {
+      var k = 1 - cam.d / d0;
+      cam.x += (avant[0] - cam.x) * k;
+      cam.y += (avant[1] - cam.y) * k;
+    }
+  }
+  function brancher() {
+    toile.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    toile.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button > 2) { return; }
+      vol = null;
+      toile.setPointerCapture(e.pointerId);
+      pointeurs[e.pointerId] = { x: e.clientX, y: e.clientY };
+      var n = Object.keys(pointeurs).length;
+      appui = n === 1 ? { x: e.clientX, y: e.clientY, t: performance.now(), bouge: 0 } : null;
+      geste = n === 1 ? (e.button === 2 || e.shiftKey || e.ctrlKey || e.metaKey ? "deplacer" : "tourner") : "pincer";
+      finSurvol();
+      masquerAide();
+    });
+    toile.addEventListener("pointermove", function (e) {
+      var p = pointeurs[e.pointerId];
+      if (!p) {
+        if (e.pointerType === "mouse") { var bt = toile.getBoundingClientRect(); survoler(e.clientX - bt.left, e.clientY - bt.top); }
+        return;
+      }
+      var ids = Object.keys(pointeurs);
+      if (ids.length >= 2) {
+        var a = pointeurs[ids[0]], b = pointeurs[ids[1]];
+        var d0 = Math.hypot(a.x - b.x, a.y - b.y), m0 = [(a.x + b.x) / 2, (a.y + b.y) / 2];
+        var ang0 = Math.atan2(b.y - a.y, b.x - a.x);
+        p.x = e.clientX; p.y = e.clientY;
+        var d1 = Math.hypot(a.x - b.x, a.y - b.y), m1 = [(a.x + b.x) / 2, (a.y + b.y) / 2];
+        var ang1 = Math.atan2(b.y - a.y, b.x - a.x);
+        if (d1 > 0 && d0 > 0) { cam.d = Math.max(60, Math.min(11000, cam.d * d0 / d1)); }
+        deplacer(m1[0] - m0[0], m1[1] - m0[1]);
+        cam.lacet -= (ang1 - ang0) / RAD;
+      } else {
+        var dx = e.clientX - p.x, dy = e.clientY - p.y;
+        p.x = e.clientX; p.y = e.clientY;
+        if (appui) { appui.bouge += Math.abs(dx) + Math.abs(dy); }
+        if (geste === "deplacer") { deplacer(dx, dy); } else { tourner(dx, dy); }
+      }
+      borner();
+      demander();
+    });
+    function fin(e) {
+      if (!pointeurs[e.pointerId]) { return; }
+      delete pointeurs[e.pointerId];
+      if (appui && e.type === "pointerup" && appui.bouge < 6 && performance.now() - appui.t < 600) {
+        var b = toile.getBoundingClientRect();
+        partieSous(e.clientX - b.left, e.clientY - b.top, function (id) { if (id) { choisir(PARTIES[id], false); } });
+      }
+      appui = null;
+      if (!Object.keys(pointeurs).length) { geste = null; }
+    }
+    toile.addEventListener("pointerup", fin);
+    toile.addEventListener("pointercancel", fin);
+    toile.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") { finSurvol(); } });
+    toile.addEventListener("wheel", function (e) {
+      if (!(e.ctrlKey || e.metaKey)) { avis("Pour zoomer, garde la touche Ctrl enfoncée en faisant rouler la molette, ou utilise les boutons + et −."); return; }
+      e.preventDefault();
+      vol = null;
+      var b = toile.getBoundingClientRect(), dy = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY;
+      zoomer(Math.exp(dy * 0.0022), e.clientX - b.left, e.clientY - b.top);
+      borner(); masquerAide(); demander();
+    }, { passive: false });
+    toile.addEventListener("dblclick", function (e) {
+      var b = toile.getBoundingClientRect();
+      vol = null;
+      zoomer(0.55, e.clientX - b.left, e.clientY - b.top);
+      borner(); demander();
+    });
+    toile.addEventListener("keydown", function (e) {
+      var k = e.key, fait = true;
+      if (k === "ArrowLeft") { if (e.shiftKey) { deplacer(60, 0); } else { cam.lacet += 8; } }
+      else if (k === "ArrowRight") { if (e.shiftKey) { deplacer(-60, 0); } else { cam.lacet -= 8; } }
+      else if (k === "ArrowUp") { if (e.shiftKey) { deplacer(0, 60); } else { cam.tangage += 4; } }
+      else if (k === "ArrowDown") { if (e.shiftKey) { deplacer(0, -60); } else { cam.tangage -= 4; } }
+      else if (k === "+" || k === "=") { zoomer(0.8); }
+      else if (k === "-" || k === "_") { zoomer(1.25); }
+      else if (k === "Home") { allerA(ENSEMBLE); }
+      else { fait = false; }
+      if (fait) { e.preventDefault(); e.stopPropagation(); vol = k === "Home" ? vol : null; borner(); masquerAide(); demander(); }
+    });
+    if (window.ResizeObserver) { new ResizeObserver(function () { demander(); }).observe(toile); }
+    window.addEventListener("resize", demander);
+  }
+  // ------------------------------------------------------------ choix, panneaux, visite
+  var boutons = $$(".vro__bouton"), panneaux = $$(".vro__panneau");
+  function choisir(cle, voler) {
+    chaque(boutons, function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-partie") === cle ? "true" : "false"); });
+    chaque(panneaux, function (p) { p.classList.toggle("est-visible", p.getAttribute("data-partie") === cle); });
+    selection = ID[cle] || 0;
+    racine.setAttribute("data-choix", cle);
+    if (voler && FICHES[cle]) { allerA(FICHES[cle].vue); }
+    demander();
+  }
+  var VISITE = [];
+  chaque($$(".vro__etape-donnees"), function (el) {
+    VISITE.push({ partie: el.getAttribute("data-partie"), titre: el.getAttribute("data-titre"), texte: el.textContent.trim(),
+      vue: el.getAttribute("data-vue") ? el.getAttribute("data-vue").split(",").map(Number) : null });
+  });
+  var etape = -1;
+  function allerEtape(i) {
+    etape = Math.max(0, Math.min(VISITE.length - 1, i));
+    var e = VISITE[etape];
+    racine.classList.add("en-visite");
+    $(".vro__num").textContent = "Étape " + (etape + 1) + " sur " + VISITE.length;
+    $(".vro__titre-etape").textContent = e.titre;
+    $(".vro__texte-etape").textContent = e.texte;
+    $(".vro__prec").disabled = etape === 0;
+    $(".vro__suiv").textContent = etape === VISITE.length - 1 ? "Terminer" : "Suivant";
+    choisir(e.partie, false);
+    allerA(e.vue || (FICHES[e.partie] ? FICHES[e.partie].vue : ENSEMBLE), 2200);
+  }
+  function quitterVisite() {
+    etape = -1;
+    racine.classList.remove("en-visite");
+    $(".vro__lancer").focus();
+  }
+  // ------------------------------------------------------------ secours sans WebGL 2
+  // Sans 3D, la toile montre un plan de la ville vu de haut (Canvas 2D), et la liste
+  // des lieux reste la porte d'entrée vers les descriptions.
+  function secours(message) {
+    gl = null;
+    racine.classList.add("sans-3d", "est-construite");
+    var m = $(".vro__secours");
+    m.hidden = false;
+    m.querySelector(".vro__secours-texte").textContent = message;
+    var plan = document.createElement("canvas"), c2 = null;
+    plan.className = "vro__plan";
+    plan.setAttribute("role", "img");
+    plan.setAttribute("aria-label", "Plan de Lutèce vers l'an 200, vu de haut\u00a0: la Seine, l'île de la Cité, les rues en quadrillage et les grands monuments.");
+    try { c2 = plan.getContext("2d"); } catch (e) { c2 = null; }
+    if (!c2) { return; }
+    m.querySelector(".vro__secours-texte").textContent = message + " Voici le plan de la ville, vu de haut.";
+    m.insertBefore(plan, m.firstChild);
+    racine.classList.add("a-plan");
+    dessinerPlan(plan, c2);
+    window.addEventListener("resize", function () { dessinerPlan(plan, c2); });
+  }
+  function dessinerPlan(plan, c2) {
+    var W = plan.clientWidth || 600, H = plan.clientHeight || 420, k = window.devicePixelRatio || 1;
+    plan.width = Math.round(W * k); plan.height = Math.round(H * k);
+    var X0 = -1000, X1 = 1500, Y0 = -1250, Y1 = 1350;
+    var e = Math.min(W / (X1 - X0), H / (Y1 - Y0)), ox = (W - (X1 - X0) * e) / 2, oy = (H - (Y1 - Y0) * e) / 2;
+    var P = function (q) { return [(ox + (q[0] - X0) * e) * k, (oy + (Y1 - q[1]) * e) * k]; };
+    function forme(p, ferme) { c2.beginPath(); p.forEach(function (q, i) { var v = P(q); if (i) { c2.lineTo(v[0], v[1]); } else { c2.moveTo(v[0], v[1]); } }); if (ferme) { c2.closePath(); } }
+    function remplir(p, coul) { forme(p, true); c2.fillStyle = coul; c2.fill(); }
+    function trait(p, coul, l, tirets) { forme(p, false); c2.strokeStyle = coul; c2.lineWidth = Math.max(1, l * e * k); c2.lineJoin = "round"; c2.setLineDash ? c2.setLineDash(tirets || []) : 0; c2.stroke(); if (c2.setLineDash) { c2.setLineDash([]); } }
+    c2.fillStyle = "#C9CF9E"; c2.fillRect(0, 0, plan.width, plan.height);
+    remplir(VILLE, "#E7DDC4");
+    remplir(SEINE, "#8DB4CE");
+    ILES.forEach(function (p) { remplir(p, "#D9D6B4"); });
+    trait(BIEVRE, "#8DB4CE", 10);
+    ROUTES.forEach(function (l) { trait(l, "#FFFFFF", 9); });
+    rues().forEach(function (l) { trait(l, "#FFFFFF", 7); });
+    trait(CARDO, "#FFFFFF", 12); trait(RUE_ILE, "#FFFFFF", 9);
+    trait(AQUEDUC, "#4F7FA0", 7, [6 * k, 4 * k]);
+    PONTS.forEach(function (l) { trait(l, "#5A4632", 8); });
+    [M_FORUM, M_CLUNY, M_EST, M_SUD].forEach(function (m) { remplir(rectUV(m[0] + 3, m[1] + 3, m[2] - 3, m[3] - 3), "#A88E70"); });
+    var demi = []; for (var i = 0; i <= 12; i++) { var a = Math.PI + i * Math.PI / 12; demi.push(G(-315 + Math.cos(a) * 39, 362 + Math.sin(a) * 39)); }
+    remplir(demi, "#A88E70");
+    var ell = []; for (var j = 0; j < 36; j++) { var b = j * Math.PI / 18; ell.push([ARENES.x + Math.cos(b) * 65, ARENES.y + Math.sin(b) * 50]); }
+    remplir(ell, "#A88E70");
+    c2.font = "600 " + Math.round(12 * k) + "px " + (getComputedStyle(racine).getPropertyValue("--titre") || "sans-serif");
+    c2.textAlign = "center";
+    Object.keys(FICHES).forEach(function (cle) {
+      var b = racine.querySelector('.vro__bouton[data-partie="' + cle + '"]');
+      if (!b || ["campagne", "pilier", "maisons"].indexOf(cle) >= 0) { return; }
+      var v = P(FICHES[cle].ancre), t = b.getAttribute("data-court") || b.textContent;
+      c2.lineWidth = 3 * k; c2.strokeStyle = "rgba(255,255,255,.9)"; c2.strokeText(t, v[0], v[1]);
+      c2.fillStyle = "#1F2328"; c2.fillText(t, v[0], v[1]);
+    });
+  }
+  // ------------------------------------------------------------ mise en route
+  chaque(boutons, function (b) {
+    b.addEventListener("click", function () { choisir(b.getAttribute("data-partie"), true); });
+  });
+  chaque($$(".vro__outil"), function (b) {
+    b.addEventListener("click", function () {
+      var a = b.getAttribute("data-action");
+      if (a === "ensemble") { allerA(ENSEMBLE); }
+      else if (a === "plus") { vol = null; zoomer(0.7); borner(); demander(); }
+      else if (a === "moins") { vol = null; zoomer(1.4); borner(); demander(); }
+      else if (a === "certitude") {
+        mode = mode ? 0 : 1;
+        b.setAttribute("aria-pressed", mode ? "true" : "false");
+        $(".vro__legende").hidden = !mode;
+        demander();
+      } else if (a === "texte") {
+        var masque = racine.classList.toggle("texte-masque");
+        b.setAttribute("aria-expanded", masque ? "false" : "true");
+        b.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+        demander();
+      }
+    });
+  });
+  // Entrée et sortie du plein écran (posé par page.js) : la toile change de taille.
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) { document.addEventListener(ev, demander); });
+  $(".vro__lancer").addEventListener("click", function () { allerEtape(0); });
+  $(".vro__prec").addEventListener("click", function () { allerEtape(etape - 1); });
+  $(".vro__suiv").addEventListener("click", function () { if (etape >= VISITE.length - 1) { quitterVisite(); choisir("accueil", false); allerA(ENSEMBLE); } else { allerEtape(etape + 1); } });
+  $(".vro__quitter").addEventListener("click", function () { quitterVisite(); });
+  racine.classList.add("est-pret");
+  choisir("accueil", false);
+  // La ville n'est construite que lorsque la maquette approche de l'écran : la page
+  // reste légère pour l'élève qui ne s'y rend pas.
+  function lancer() {
+    var ok = false;
+    try { ok = demarrer(); } catch (err) { ok = false; racine.setAttribute("data-erreur", String(err && err.message || err).slice(0, 300)); }
+    if (ok) {
+      creerEtiquettes();
+      brancher();
+      allerA(ENSEMBLE, 0);
+    } else {
+      secours("Ton appareil ne peut pas afficher la maquette en 3D. Tu peux quand même choisir un lieu dans la liste pour lire sa description.");
+    }
+  }
+  if (window.IntersectionObserver) {
+    var guet = new IntersectionObserver(function (entrees) {
+      if (entrees.some(function (e) { return e.isIntersecting; })) { guet.disconnect(); setTimeout(lancer, 30); }
+    }, { rootMargin: "400px 0px" });
+    guet.observe(scene);
+  } else {
+    lancer();
+  }
+  // Accès pour les essais automatiques (captures et test dans un DOM simulé).
+  racine.ville = { cam: cam, allerA: allerA, choisir: choisir, batir: batir, etape: function () { return etape; },
+    stats: function () { return R && R.stats; }, rendre: function () { if (gl) { rendre(); } },
+    partieSous: function (x, y) { return new Promise(function (ok) { if (gl) { partieSous(x, y, ok); } else { ok(0); } }); },
+    occultes: function () { return occultes; } };
+})();
+</script>
+</section>

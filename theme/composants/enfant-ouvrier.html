@@ -1,0 +1,952 @@
+<section class="sad" id="enfant-ouvrier" aria-label="Une journée d'enfant ouvrier, d'après les témoignages recueillis par le comité Sadler en 1832">
+<style>
+.sad { --sad-papier: #F7F2E6; --sad-papier-trait: #E2D6BE; --sad-q: #55636E; margin: 1.4rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+html[data-sombre="on"] .sad { --sad-papier: #1E2731; --sad-papier-trait: #34414E; --sad-q: #B6C0C9; }
+.sad .sad__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.sad .sad__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.sad .sad__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .sad .sad__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .sad .sad__titre { color: var(--encre); }
+html[data-sombre="on"] .sad .sad__consigne { color: var(--encre-pale); }
+.sad .sad__onglets { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; padding: .7rem 1.1rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.sad .sad__liste-onglets { display: flex; flex-wrap: wrap; gap: .4rem; }
+.sad .sad__onglet, .sad .sad__replier, .sad .sad__pilule { font-family: var(--titre); font-weight: 600; font-size: .84rem; line-height: 1.25; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.sad .sad__onglet:hover:not([aria-selected="true"]), .sad .sad__replier:hover, .sad .sad__pilule:hover:not(:disabled):not([aria-pressed="true"]) { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.sad .sad__onglet[aria-selected="true"], .sad .sad__pilule[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.sad .sad__pilule:disabled { opacity: .45; cursor: default; }
+.sad .sad__replier { margin-left: auto; font-size: .78rem; padding: .3rem .8rem; }
+.sad:not(.est-plein-ecran) .sad__replier { display: none; }
+html[data-sombre="on"] .sad__onglet[aria-selected="true"], html[data-sombre="on"] .sad__pilule[aria-pressed="true"] { color: #10171F; }
+.sad .sad__corps { container: sad / inline-size; }
+.sad .sad__grille { display: grid; grid-template-columns: minmax(0, 1fr); }
+.sad .sad__scene { min-width: 0; padding: 1.1rem 1.2rem 1.2rem; }
+.sad .sad__cote { min-width: 0; padding: 1.1rem 1.25rem 1.3rem; border-top: 1px solid var(--trait); background: var(--surface); }
+.sad .sad__vue[hidden], .sad .sad__texte[hidden] { display: none; }
+.sad .sad__avis-court { display: none; margin: 0 0 .5rem; font-family: var(--titre); font-size: .76rem; line-height: 1.4; color: var(--encre-doux); }
+.sad .sad__avis { margin: 0 0 1rem; padding: .6rem .85rem; font-family: var(--titre); font-size: .84rem; line-height: 1.45; color: var(--encre-doux); background: var(--surface-2); border-radius: var(--rayon); }
+.sad .sad__frise { position: relative; list-style: none; display: flex; margin: 0 0 1rem; padding: .25rem 0 .7rem; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.sad .sad__frise.est-defilable { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 .9rem, #000 calc(100% - 1.6rem), transparent 100%); mask-image: linear-gradient(to right, transparent 0, #000 .9rem, #000 calc(100% - 1.6rem), transparent 100%); }
+.sad .sad__frise li { flex: 1 0 5.7rem; position: relative; margin: 0; padding: 0; scroll-snap-align: start; }
+.sad .sad__frise li::marker { content: none; }
+.sad .sad__frise li::before { content: none; display: none; }
+.sad .sad__frise li::after { content: ""; position: absolute; top: 1.15rem; left: 50%; width: 100%; height: 2px; background: var(--trait); }
+.sad .sad__frise li:last-child::after { display: none; }
+.sad .sad__moment { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: .28rem; width: 100%; padding: .1rem .25rem; font: inherit; color: var(--encre-doux); background: none; border: 0; cursor: pointer; }
+.sad .sad__pastille { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 50%; background: var(--surface); border: 2px solid var(--trait); font-family: var(--donnee); font-size: .74rem; font-weight: 600; color: var(--encre-doux); transition: background .15s, border-color .15s; }
+.sad .sad__moment:hover .sad__pastille { border-color: var(--matiere); }
+.sad .sad__moment[aria-pressed="true"] .sad__pastille { background: var(--matiere); border-color: var(--matiere); color: #fff; }
+html[data-sombre="on"] .sad__moment[aria-pressed="true"] .sad__pastille { color: #10171F; }
+.sad .sad__heure { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .02em; color: var(--encre-pale); text-align: center; line-height: 1.3; }
+.sad .sad__nom { display: block; font-family: var(--titre); font-weight: 600; font-size: .8rem; line-height: 1.2; text-align: center; color: var(--encre); }
+.sad .sad__moment[aria-pressed="true"] .sad__nom { color: var(--matiere-fonce); }
+.sad .sad__doc { margin: 0 0 1rem; padding: 1rem 1.2rem .9rem; background: var(--sad-papier); border: 1px solid var(--sad-papier-trait); border-radius: var(--rayon); }
+.sad .sad__doc-tete { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .3rem .8rem; margin: 0 0 .7rem; }
+.sad .sad__doc-titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .9rem; line-height: 1.3; color: var(--encre); }
+.sad .sad__etiquette { font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-doux); border: 1px solid var(--sad-papier-trait); border-radius: 100px; padding: .1rem .55rem; white-space: nowrap; }
+.sad .sad__ligne { display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); gap: 0 .35rem; margin: 0 0 .5rem; font-family: var(--corps); font-size: 1.02rem; line-height: 1.55; }
+.sad .sad__ligne--q { color: var(--sad-q); font-style: italic; }
+.sad .sad__ligne--r { color: var(--encre); }
+.sad .sad__qr { padding-top: .22em; font-family: var(--donnee); font-style: normal; font-size: .7rem; font-weight: 600; color: var(--matiere); }
+.sad .sad__coupe { margin: 0 0 .5rem 2.05rem; font-family: var(--donnee); font-size: .78rem; color: var(--encre-pale); }
+.sad .sad__original { margin-top: .6rem; border-top: 1px dashed var(--sad-papier-trait); padding-top: .5rem; }
+.sad .sad__original summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); }
+.sad .sad__original summary:hover { color: var(--matiere-fonce); }
+.sad .sad__original > div { margin-top: .55rem; }
+.sad .sad__original .sad__ligne { font-size: .9rem; }
+.sad .sad__doc-source { margin: .55rem 0 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-doux); }
+.sad .sad__nav { display: flex; justify-content: space-between; gap: .6rem; flex-wrap: wrap; }
+.sad .sad__compteur { margin: 0 0 .3rem; font-family: var(--donnee); font-size: .7rem; letter-spacing: .02em; color: var(--encre-pale); }
+.sad .sad__cote-titre { margin: 0 0 .6rem; font-family: var(--titre); font-weight: 700; font-size: 1.08rem; line-height: 1.25; color: var(--matiere-fonce); }
+.sad .sad__sous { margin: 1.1rem 0 .45rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.sad :where(.sad__cote, .sad__etape) p { margin: 0 0 .7rem; font-size: .97rem; line-height: 1.6; }
+.sad .sad__temoin { margin: 0 0 .7rem; padding: .7rem .9rem; background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; }
+.sad .sad__temoin-nom { display: block; font-family: var(--titre); font-weight: 700; font-size: .92rem; color: var(--encre); }
+.sad .sad__temoin-age { display: block; font-family: var(--donnee); font-size: .68rem; color: var(--encre-doux); margin: .1rem 0 .35rem; }
+.sad .sad__temoin p { margin: 0 0 .3rem; font-size: .86rem; line-height: 1.45; }
+.sad .sad__temoin .sad__ref { margin: 0; font-family: var(--donnee); font-size: .64rem; line-height: 1.5; color: var(--encre-doux); }
+.sad .sad__mots { list-style: none; margin: 0 0 .8rem; padding: 0; }
+.sad .sad__mots li { margin: 0 0 .35rem; padding: 0; font-size: .88rem; line-height: 1.45; }
+.sad .sad__mots li::marker { content: none; }
+.sad .sad__mots li::before { content: none; display: none; }
+.sad .sad__mots strong { color: var(--encre); }
+.sad .sad__afaire { margin: .9rem 0 .2rem; padding: .8rem .95rem .7rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface-2); }
+.sad .sad__afaire + .sad__afaire { margin-top: .6rem; }
+.sad .sad__afaire-etiquette { display: block; margin-bottom: .3rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--matiere); }
+.sad .sad__afaire :where(p) { margin: 0 0 .5rem; font-size: .94rem; }
+.sad .sad__piste-btn { font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--matiere-fonce); background: none; border: 0; padding: .1rem 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.sad .sad__piste-texte { margin: .45rem 0 .1rem; padding-left: .75rem; border-left: 2px solid var(--matiere); color: var(--encre-doux); font-size: .9rem; }
+.sad .sad__piste-texte[hidden] { display: none; }
+.sad .sad__bascule { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1rem; }
+.sad .sad__graphe-titre { margin: 0 0 .5rem; font-family: var(--titre); font-weight: 700; font-size: .9rem; color: var(--encre); }
+.sad .sad__graphe { margin: 0 0 1.4rem; }
+.sad .sad__rangee { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr) 4.4rem; align-items: center; gap: .3rem .7rem; margin: 0 0 .55rem; }
+.sad .sad__qui { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .82rem; line-height: 1.25; color: var(--encre); }
+.sad .sad__qui span { display: block; font-family: var(--donnee); font-weight: 400; font-size: .62rem; color: var(--encre-pale); }
+.sad .sad__piste { position: relative; height: 1.25rem; background: var(--surface-2); border-radius: 3px; }
+.sad .sad__piste--horloge { background-image: repeating-linear-gradient(to right, transparent 0, transparent calc(12.5% - 1px), var(--trait) calc(12.5% - 1px), var(--trait) 12.5%); }
+.sad .sad__piste--axe { height: 1.1rem; background: none; }
+.sad .sad__seg { position: absolute; top: 0; bottom: 0; background: var(--matiere); border-radius: 4px; }
+.sad .sad__seg--duree { left: 0; }
+.sad .sad__tic { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--donnee); font-size: .6rem; color: var(--encre-pale); white-space: nowrap; }
+.sad .sad__tic:first-child { transform: none; }
+.sad .sad__tic:last-child { transform: translateX(-100%); }
+.sad .sad__repere { position: absolute; top: -.25rem; bottom: -.25rem; width: 0; border-left: 2px dashed var(--encre-doux); }
+.sad .sad__repere-nom { position: absolute; top: 0; transform: translateX(-50%); font-family: var(--donnee); font-size: .6rem; font-weight: 600; color: var(--encre); white-space: nowrap; }
+.sad .sad__total { margin: 0; font-family: var(--donnee); font-size: .74rem; color: var(--encre); white-space: nowrap; }
+.sad .sad__legende { list-style: none; margin: .4rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; }
+.sad .sad__legende li { margin: 0; padding: 0; font-family: var(--titre); font-size: .76rem; color: var(--encre-doux); display: flex; align-items: center; gap: .4rem; }
+.sad .sad__legende li::marker { content: none; }
+.sad .sad__legende li::before { content: none; display: none; }
+.sad .sad__cle { display: inline-block; width: 1.4rem; height: .7rem; border-radius: 3px; background: var(--matiere); }
+.sad .sad__cle--vide { background: var(--surface-2); border: 1px solid var(--trait); }
+.sad .sad__cle--repere { width: 0; height: 1rem; border-radius: 0; background: none; border-left: 2px dashed var(--encre-doux); }
+.sad .sad__etapes { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 1rem; padding: 0; }
+.sad .sad__etapes li { margin: 0; padding: 0; }
+.sad .sad__etapes li::marker { content: none; }
+.sad .sad__etapes li::before { content: none; display: none; }
+.sad .sad__etape-num { font-family: var(--donnee); font-size: .7rem; margin-right: .35rem; opacity: .8; }
+.sad .sad__etape-titre { margin: 0 0 .6rem; font-family: var(--titre); font-weight: 700; font-size: 1.02rem; color: var(--matiere-fonce); }
+.sad .sad__deux { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .8rem; margin: 0 0 .9rem; }
+.sad .sad__boite { padding: .8rem 1rem; background: var(--surface-2); border-radius: var(--rayon); border-top: 3px solid var(--matiere); }
+.sad .sad__boite--nuance { border-top-color: var(--encre-pale); }
+.sad .sad__boite-titre { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 700; font-size: .86rem; color: var(--encre); }
+.sad .sad__boite ul { list-style: none; margin: 0; padding: 0; }
+.sad .sad__boite li { margin: 0 0 .4rem; padding: 0; font-size: .9rem; line-height: 1.45; }
+.sad .sad__boite li::marker { content: none; }
+.sad .sad__boite li::before { content: none; display: none; }
+.sad .sad__tableau { width: 100%; border-collapse: collapse; margin: 0 0 .9rem; font-size: .88rem; line-height: 1.4; }
+.sad .sad__tableau th, .sad .sad__tableau td { text-align: left; vertical-align: top; padding: .45rem .55rem; border-bottom: 1px solid var(--trait); }
+.sad .sad__tableau th { text-transform: none; letter-spacing: 0; background: none; color: var(--encre); border-bottom: 1px solid var(--trait); }
+.sad .sad__tableau thead th { font-family: var(--titre); font-size: .78rem; color: var(--encre-doux); background: var(--surface-2); }
+.sad .sad__tableau tbody th { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre); width: 26%; }
+.sad .sad__questions { list-style: none; margin: 0 0 .8rem; padding: 0; display: grid; gap: .6rem; }
+.sad .sad__questions li { margin: 0; padding: .7rem .85rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); }
+.sad .sad__questions li::marker { content: none; }
+.sad .sad__questions li::before { content: none; display: none; }
+.sad .sad__question-fr { margin: 0 0 .2rem; font-family: var(--corps); font-style: italic; font-size: 1rem; color: var(--encre); }
+.sad .sad__question-en { margin: 0 0 .5rem; font-family: var(--donnee); font-size: .66rem; color: var(--encre-pale); }
+.sad .sad__choix { display: flex; flex-wrap: wrap; gap: .4rem; }
+.sad .sad__choix .sad__pilule { font-size: .78rem; padding: .3rem .8rem; }
+.sad .sad__questions li.est-juste { border-color: var(--matiere); }
+.sad .sad__questions li.est-faux { border-color: var(--encre-pale); border-style: dashed; }
+.sad .sad__verdict { margin: .5rem 0 0; font-size: .88rem; line-height: 1.45; color: var(--encre-doux); }
+.sad .sad__verdict strong { color: var(--encre); }
+.sad .sad__bilan { margin: .2rem 0 .8rem; padding: .7rem .9rem; border-radius: var(--rayon); background: var(--matiere-voile); font-family: var(--titre); font-size: .9rem; color: var(--encre); }
+.sad .sad__bilan[hidden] { display: none; }
+.sad .sad__identite { margin: 0 0 .8rem; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: .35rem .8rem; font-size: .88rem; line-height: 1.45; }
+.sad .sad__identite dt { margin: 0; font-family: var(--donnee); font-size: .64rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); padding-top: .2rem; }
+.sad .sad__identite dd { margin: 0; color: var(--encre); }
+.sad .sad__sources { border-top: 1px solid var(--trait); background: var(--surface-2); padding: .6rem 1.2rem; }
+.sad .sad__sources summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); }
+.sad .sad__sources ul { list-style: none; margin: .5rem 0 .2rem; padding: 0; }
+.sad .sad__sources li { margin: 0 0 .25rem; padding: 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-doux); }
+.sad .sad__sources li::marker { content: none; }
+.sad .sad__sources li::before { content: none; display: none; }
+.sad .sad__sources a { color: var(--matiere); }
+@container sad (min-width: 52rem) {
+  .sad .sad__grille { grid-template-columns: minmax(0, 1fr) minmax(17rem, 23rem); }
+  .sad .sad__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container sad (max-width: 34rem) {
+  .sad .sad__scene, .sad .sad__cote { padding-left: .9rem; padding-right: .9rem; }
+  .sad .sad__rangee { grid-template-columns: minmax(0, 1fr) auto; }
+  .sad .sad__rangee .sad__piste { grid-column: 1 / -1; grid-row: 2; }
+  .sad .sad__rangee--axe .sad__qui, .sad .sad__rangee--axe .sad__total { display: none; }
+  .sad .sad__rangee--axe .sad__piste { grid-row: 1; }
+  .sad .sad__doc { padding: .85rem .9rem .8rem; }
+  .sad .sad__ligne { font-size: .97rem; }
+}
+.sad.est-plein-ecran { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; }
+.sad.est-plein-ecran > .sad__entete { position: static; }
+.sad.est-plein-ecran > .sad__corps { display: grid; grid-template-rows: minmax(0, 1fr); min-height: 0; }
+.sad.est-plein-ecran .sad__grille { min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(21rem, 28rem); }
+.sad.est-plein-ecran .sad__scene, .sad.est-plein-ecran .sad__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+.sad.est-plein-ecran .sad__scene { padding: 1.3rem 1.6rem 1.6rem; }
+.sad.est-plein-ecran .sad__cote { border-top: 0; border-left: 1px solid var(--trait); }
+.sad.est-plein-ecran .sad__ligne { font-size: 1.12rem; }
+.sad.est-plein-ecran.texte-masque .sad__grille { grid-template-columns: minmax(0, 1fr) 0; }
+.sad.est-plein-ecran.texte-masque .sad__cote { display: none; }
+.sad.est-plein-ecran.texte-masque .sad__vue { max-width: 72rem; margin: 0 auto; }
+@media (max-width: 50rem), (max-aspect-ratio: 1/1) {
+  .sad.est-plein-ecran .sad__grille { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.3fr) minmax(0, 1fr); }
+  .sad.est-plein-ecran .sad__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .sad.est-plein-ecran.texte-masque .sad__grille { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+  .sad.est-plein-ecran .sad__scene { padding: 1rem .9rem 1.2rem; }
+  .sad.est-plein-ecran .sad__ligne { font-size: 1rem; }
+  .sad.est-plein-ecran .sad__avis { display: none; }
+  .sad.est-plein-ecran .sad__avis-court { display: block; }
+  .sad.est-plein-ecran .sad__titre { font-size: .86rem; }
+  .sad.est-plein-ecran .sad__onglets { padding: .45rem .6rem; gap: .3rem; }
+  .sad.est-plein-ecran .sad__liste-onglets { gap: .3rem; }
+  .sad.est-plein-ecran .sad__onglet { font-size: .74rem; padding: .3rem .6rem; }
+  .sad.est-plein-ecran .sad__replier { font-size: .72rem; padding: .22rem .6rem; }
+}
+@media (prefers-reduced-motion: reduce) { .sad *, .sad *::after { transition: none !important; } .sad__frise { scroll-behavior: auto; } }
+@media print {
+  .sad .sad__onglets, .sad .sad__nav, .sad .sad__piste-btn, .sad .sad__frise, .sad .sad__replier, .sad .sad__choix { display: none !important; }
+  .sad .sad__piste-texte[hidden] { display: block; }
+  .sad .sad__grille { grid-template-columns: 1fr !important; }
+  .sad .sad__cote { border: 0; }
+  .sad .sad__doc, .sad .sad__temoin, .sad .sad__afaire { break-inside: avoid; }
+}
+</style>
+<div class="sad__entete">
+  <p class="sad__titre" role="heading" aria-level="3">Une journée d'enfant ouvrier, d'après les témoignages de 1832</p>
+  <p class="sad__consigne" data-sad="consigne">Choisis un moment</p>
+</div>
+<div class="sad__onglets">
+  <div class="sad__liste-onglets" role="tablist" aria-label="Parties de l'interface">
+    <button type="button" class="sad__onglet" role="tab" id="sad-onglet-journee" data-vue="journee" aria-controls="sad-vue-journee" aria-selected="true">La journée</button>
+    <button type="button" class="sad__onglet" role="tab" id="sad-onglet-horaires" data-vue="horaires" aria-controls="sad-vue-horaires" aria-selected="false" tabindex="-1">Les horaires</button>
+    <button type="button" class="sad__onglet" role="tab" id="sad-onglet-critique" data-vue="critique" aria-controls="sad-vue-critique" aria-selected="false" tabindex="-1">Critique de source</button>
+  </div>
+  <button type="button" class="sad__replier" data-sad="replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="sad__corps">
+<div class="sad__grille">
+  <div class="sad__scene">
+    <div class="sad__vue" id="sad-vue-journee" role="tabpanel" aria-labelledby="sad-onglet-journee"></div>
+    <div class="sad__vue" id="sad-vue-horaires" role="tabpanel" aria-labelledby="sad-onglet-horaires" hidden></div>
+    <div class="sad__vue" id="sad-vue-critique" role="tabpanel" aria-labelledby="sad-onglet-critique" hidden></div>
+  </div>
+  <div class="sad__cote" role="region" aria-label="Explications">
+    <p class="visuellement-cache" role="status" data-sad="statut"></p>
+    <div class="sad__texte" data-vue="journee"></div>
+    <div class="sad__texte" data-vue="horaires" hidden></div>
+    <div class="sad__texte" data-vue="critique" hidden></div>
+  </div>
+</div>
+</div>
+<details class="sad__sources">
+  <summary>Sources</summary>
+  <ul>
+    <li>Rapport du comité Sadler, Parliamentary Papers 1831-1832, vol. XV. Extraits d'Elizabeth Bentley et de Matthew Crabtree&nbsp;: <a href="https://victorianweb.org/history/workers1.html" target="_blank" rel="noopener noreferrer">Laura Del Col, The Victorian Web</a>.</li>
+    <li>Santé d'Elizabeth Bentley et date de son témoignage&nbsp;: <a href="https://spartacus-educational.com/IRbentley.htm" target="_blank" rel="noopener noreferrer">Spartacus Educational</a>. Métier de Matthew Crabtree&nbsp;: <a href="https://spartacus-educational.com/IRcrabtree.htm" target="_blank" rel="noopener noreferrer">Spartacus Educational</a>.</li>
+    <li>Témoignage de Samuel Coulson&nbsp;: <a href="https://historyhome.co.uk/peel/factmine/coulson.htm" target="_blank" rel="noopener noreferrer">The Peel Web</a>.</li>
+    <li>Le comité, ses témoins et la commission de 1833&nbsp;: <a href="https://en.wikipedia.org/wiki/Sadler_report" target="_blank" rel="noopener noreferrer">Wikipédia, Sadler report</a> et <a href="https://en.wikipedia.org/wiki/Factory_Act_1833" target="_blank" rel="noopener noreferrer">Factory Act 1833</a>.</li>
+    <li>Texte de la loi de 1833&nbsp;: <a href="https://education-uk.org/documents/acts/1833-factories-act.html" target="_blank" rel="noopener noreferrer">Education in the UK</a>. Résumé&nbsp;: <a href="https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/" target="_blank" rel="noopener noreferrer">The National Archives</a>.</li>
+    <li>Les traductions des témoignages sont de Monsieur Univers social.</li>
+  </ul>
+</details>
+<script>
+(function () {
+  var racine = document.getElementById("enfant-ouvrier");
+  if (!racine || racine.dataset.pret) { return; }
+  racine.dataset.pret = "1";
+  racine.classList.add("est-pret");
+
+  // Typographie québécoise : insécable devant le deux-points, à l'intérieur
+  // des guillemets, entre un nombre et son unité. Aucune espace devant ; ! ?
+  function typo(s) {
+    return String(s)
+      .replace(/ :/g, "\u00a0:")
+      .replace(/« /g, "«\u00a0")
+      .replace(/ »/g, "\u00a0»")
+      .replace(/(\d) h (\d)/g, "$1\u00a0h\u00a0$2")
+      .replace(/(\d) (h|km|ans|minutes|heures|pence|shillings|penny)\b/g, "$1\u00a0$2")
+      .replace(/\bM\. /g, "M.\u00a0");
+  }
+  function el(tag, cls, texte) {
+    var n = document.createElement(tag);
+    if (cls) { n.className = cls; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    return n;
+  }
+
+  var T = {
+    bentley: { nom: "Elizabeth Bentley", age: "23 ans en 1832. Elle a commencé à travailler à 6 ans.", metier: "Leveuse de bobines dans la filature de lin de M. Busk, à Leeds.", ref: "Témoignage du 4 juin 1832. Rapport du comité Sadler, Parliamentary Papers 1831-1832, vol. XV, p. 195." },
+    crabtree: { nom: "Matthew Crabtree", age: "22 ans en 1832. Il a commencé à 8 ans et y est resté 4 ans.", metier: "Rattacheur de fils dans une fabrique de laine. Né à Dewsbury, dans le Yorkshire, il fabrique des couvertures en 1832.", ref: "Rapport du comité Sadler, Parliamentary Papers 1831-1832, vol. XV, p. 95 à 97." },
+    coulson: { nom: "Samuel Coulson", age: "Père de trois ouvrières, qui ont commencé vers 12, 11 et 8 ans.", metier: "Ses filles travaillent dans des filatures de laine peignée.", ref: "Rapport du comité Sadler, 1832, questions 5044 à 5084." }
+  };
+
+  // Chaque moment : récit, extraits traduits (q, r, coupe) avec l'original anglais.
+  var M = [
+    { id: "lever", heure: "4 h", nom: "Le lever",
+      recit: ["Il fait encore nuit. Les enfants ne se réveillent pas seuls : leurs parents les sortent du lit, parfois encore endormis.", "Chez Elizabeth Bentley, il n'y a pas d'horloge. Sa mère se lève en pleine nuit pour demander l'heure aux mineurs qui partent travailler."],
+      docs: [
+        { t: "crabtree", fr: [["q", "Pendant ces longues heures de travail, pouviez-vous être à l'heure? Comment vous réveilliez-vous?"], ["r", "Je me réveillais rarement tout seul. La plupart du temps, mes parents me réveillaient ou me sortaient du lit, parfois encore endormi."]],
+          en: [["q", "During those long hours of labour could you be punctual; how did you awake?"], ["r", "I seldom did awake spontaneously; I was most generally awoke or lifted out of bed, sometimes asleep, by my parents."]] },
+        { t: "bentley", fr: [["q", "Aviez-vous une horloge?"], ["r", "Non, nous n'en avions pas."], ["coupe"], ["q", "Arriviez-vous à l'heure, en général?"], ["r", "Oui. Ma mère se levait à 4 h du matin, ou même à 2 h du matin. Les mineurs partaient travailler vers 3 h ou 4 h. Quand elle les entendait bouger, elle quittait son lit bien chaud pour sortir leur demander l'heure."]],
+          en: [["q", "Had you a clock?"], ["r", "No, we had not."], ["coupe"], ["q", "Were you generally there in time?"], ["r", "Yes; my mother had been up at 4 o'clock in the morning, and at 2 o'clock in the morning; the colliers used to go to their work about 3 or 4 o'clock, and when she heard them stirring she has got up out of her warm bed, and gone out and asked them the time;"]] }
+      ],
+      mots: [["Mineurs", "ouvriers qui travaillent dans les mines de charbon."]],
+      afaire: [["Pourquoi la mère d'Elizabeth sort-elle en pleine nuit demander l'heure aux mineurs?", "La famille n'a pas d'horloge. Comme un retard coûte cher, la mère se lève très tôt pour ne pas manquer l'heure. On devine une famille qui ne peut pas se permettre de perdre une partie du salaire."]] },
+    { id: "trajet", heure: "Avant 5 h", nom: "Le trajet",
+      recit: ["Matthew Crabtree habite à environ deux milles de l'usine, soit un peu plus de 3 km. Il fait le chemin à pied, en courant, parce qu'il a peur d'être battu s'il arrive en retard.", "Elizabeth Bentley habite elle aussi à deux milles de l'usine. Il lui arrive d'attendre sous la pluie, en pleine nuit, que l'usine ouvre ses portes."],
+      docs: [
+        { t: "crabtree", fr: [["q", "À quelle distance de l'usine habitiez-vous?"], ["r", "À environ deux milles."], ["coupe"], ["q", "Et si vous étiez en retard, vous aviez peur d'être battu cruellement?"], ["r", "J'étais généralement battu quand il m'arrivait d'être en retard. Le matin, en me levant, j'en avais tellement peur que je courais en pleurant tout le long du chemin jusqu'à l'usine."]],
+          en: [["q", "How far did you live from the mill?"], ["r", "About two miles."], ["coupe"], ["q", "And if you had been too late you were under the apprehension of being cruelly beaten?"], ["r", "I generally was beaten when I happened to be too late; and when I got up in the morning the apprehension of that was so great, that I used to run, and cry all the way as I went to the mill."]] },
+        { t: "bentley", fr: [["q", "Habitiez-vous loin de l'usine?"], ["r", "Oui, à deux milles."], ["coupe"], ["r", "Je suis parfois arrivée à Hunslet Car à 2 h du matin, sous une pluie battante. Nous avons dû attendre que l'usine ouvre."]],
+          en: [["q", "Did you live far from the mill?"], ["r", "Yes, two miles."], ["coupe"], ["r", "I have sometimes been at Hunslet Car at 2 o'clock in the morning, when it was streaming down with rain, and we have had to stay until the mill was opened."]] }
+      ],
+      mots: [["Mille", "mesure anglaise de distance. Un mille vaut environ 1,6 km."]],
+      afaire: [["Relève deux raisons qui rendent le trajet pénible pour ces enfants.", "La distance à pied, la nuit, la pluie. Surtout, la peur d'être battu ou mis à l'amende en cas de retard."]] },
+    { id: "retard", heure: "5 h", nom: "Gare aux retards",
+      recit: ["En période de presse, l'usine ouvre à 5 h. Un retard coûte cher. Pour un quart d'heure de retard, on retire à Elizabeth le salaire d'une demi-heure. Elle gagne un penny par heure de travail.", "Dans d'autres usines, comme celle de Matthew Crabtree, les retardataires sont battus."],
+      docs: [
+        { t: "bentley", fr: [["q", "Si vous n'étiez pas arrivée à temps le matin, quelle aurait été la conséquence?"], ["r", "On nous aurait mis au quart."], ["q", "Qu'est-ce que cela veut dire?"], ["r", "Si nous avions un quart d'heure de retard, ils nous enlevaient une demi-heure. Nous ne gagnions qu'un penny de l'heure. Ils nous prenaient un demi-penny de plus."], ["q", "L'amende était donc bien plus grande que le temps perdu?"], ["r", "Oui."], ["q", "Étiez-vous aussi battue quand vous arriviez en retard?"], ["r", "Non, je n'ai jamais été battue moi-même. J'ai vu des garçons être battus parce qu'ils étaient en retard."]],
+          en: [["q", "Supposing you had not been in time enough in the morning at these mills, what would have been the consequence?"], ["r", "We should have been quartered."], ["q", "What do you mean by that?"], ["r", "If we were a quarter of an hour too late, they would take off half an hour; we only got a penny an hour, and they would take a halfpenny more."], ["q", "The fine was much more considerable than the loss of time?"], ["r", "Yes."], ["q", "Were you also beaten for being too late?"], ["r", "No, I was never beaten myself, I have seen the boys beaten for being too late."]] }
+      ],
+      mots: [["Penny", "petite pièce de monnaie anglaise. Il en faut 12 pour faire un shilling."], ["Mis au quart", "puni d'une amende pour un retard."]],
+      afaire: [["Si Elizabeth arrive avec 15 minutes de retard, combien de minutes de salaire perd-elle? Pourquoi l'amende est-elle plus grande que le temps perdu?", "Elle perd le salaire de 30 minutes, soit le double du temps perdu. Elle perd donc aussi la paie de 15 minutes pendant lesquelles elle a bel et bien travaillé."]] },
+    { id: "travail", heure: "De 5 h à 21 h", nom: "Au travail",
+      recit: ["Elizabeth est leveuse de bobines. Quand les bobines d'un métier à filer sont pleines, elle arrête la machine, les enlève, en installe des vides puis remet le métier en marche.", "Les métiers sont nombreux et tournent vite. Elle reste debout toute la journée, sans avoir le temps de rien faire d'autre."],
+      docs: [
+        { t: "bentley", fr: [["q", "Que faisiez-vous dans cette usine?"], ["r", "J'étais une petite leveuse de bobines."], ["q", "Quelles étaient vos heures de travail dans cette usine?"], ["r", "De 5 h du matin à 9 h du soir, quand il y avait beaucoup de commandes."], ["coupe"], ["q", "Expliquez ce que vous deviez faire."], ["r", "Quand les métiers sont pleins, il faut les arrêter, enlever les ailettes, enlever les bobines pleines et les porter jusqu'au rouleau. Ensuite, il faut mettre des bobines vides puis remettre le métier en marche."], ["q", "Est-ce que cela vous oblige à rester constamment debout?"], ["r", "Oui. Il y a tellement de métiers et ils tournent si vite."], ["q", "Votre travail est très excessif?"], ["r", "Oui. On n'a le temps de rien faire."]],
+          en: [["q", "What was your business in that mill?"], ["r", "I was a little doffer."], ["q", "What were your hours of labour in that mill?"], ["r", "From 5 in the morning till 9 at night, when they were thronged."], ["coupe"], ["q", "Explain what it is you had to do?"], ["r", "When the frames are full, they have to stop the frames, and take the flyers off, and take the full bobbins off, and carry them to the roller; and then put empty ones on, and set the frame going again."], ["q", "Does that keep you constantly on your feet?"], ["r", "Yes, there are so many frames, and they run so quick."], ["q", "Your labour is very excessive?"], ["r", "Yes; you have not time for any thing."]] }
+      ],
+      mots: [["Leveuse de bobines", "en anglais, doffer. L'enfant qui remplace les bobines pleines."], ["Métier à filer", "machine qui transforme les fibres en fil."], ["Filature de lin", "usine où l'on fabrique du fil à partir d'une plante, le lin."]],
+      afaire: [["Elizabeth a 6 ans quand elle commence. Combien d'heures passe-t-elle à l'usine en période de presse?", "De 5 h à 21 h, elle passe 16 heures à l'usine. Une seule pause de 40 minutes est prévue, à midi."]] },
+    { id: "dejeuner", heure: "Le matin", nom: "Le déjeuner",
+      recit: ["Chez M. Busk, aucune pause n'est prévue pour le déjeuner. Les enfants mangent quand ils peuvent, entre deux tâches. Souvent, ils n'ont pas le temps.", "Les filles de Samuel Coulson ont un quart d'heure pour déjeuner. En général, elles doivent nettoyer les machines pendant ce temps."],
+      docs: [
+        { t: "bentley", fr: [["q", "Aviez-vous le temps de prendre votre déjeuner ou votre collation?"], ["r", "Non, nous les prenions comme nous pouvions."], ["q", "Et quand le travail allait mal, vous n'aviez presque pas le temps de manger?"], ["r", "Non. Nous étions obligés de laisser notre repas ou de le rapporter à la maison. Quand nous ne le rapportions pas, le surveillant le prenait pour le donner à ses cochons."], ["coupe"], ["q", "Pouviez-vous bien manger dans cette usine?"], ["r", "Non. J'avais peu à manger. Le peu que j'avais, je ne pouvais pas le manger, tant j'avais peu d'appétit. Il était couvert de poussière."], ["q", "Vous parlez du déjeuner?"], ["r", "Oui."]],
+          en: [["q", "Had you any time to get your breakfast or drinking?"], ["r", "No, we got it as we could."], ["q", "And when your work was bad, you had hardly any time to eat it at all?"], ["r", "No; we were obliged to leave it or take it home, and when we did not take it, the overlooker took it, and gave it to his pigs."], ["coupe"], ["q", "Could you eat your food well in that factory?"], ["r", "No, indeed I had not much to eat, and the little I had I could not eat it, my appetite was so poor, and being covered with dust;"], ["q", "You are speaking of the breakfast?"], ["r", "Yes."]] },
+        { t: "coulson", fr: [["q", "Quelles pauses leur accordait-on pour se reposer ou manger pendant ces 19 heures de travail?"], ["r", "Un quart d'heure pour le déjeuner, une demi-heure pour le dîner et un quart d'heure pour la collation."], ["coupe"], ["q", "Une partie de ce temps servait-elle à nettoyer les machines?"], ["r", "En général, elles devaient faire ce qu'on appelle le drying down. Parfois, cela prenait tout le temps du déjeuner ou de la collation. Elles devaient alors manger comme elles pouvaient. Sinon, on rapportait le repas à la maison."]],
+          en: [["q", "What intervals were allowed for rest or refreshment during those 19 hours of labour?"], ["r", "Breakfast a quarter of an hour, and dinner half an hour, and drinking a quarter of an hour."], ["coupe"], ["q", "Was any of that time taken up in cleaning the machinery?"], ["r", "They generally had to do what they call drying down; sometimes this took the whole of the time at breakfast or drinking and they were to get their diner or breakfast as they could; if not, it was brought home."]] }
+      ],
+      mots: [["Déjeuner, dîner, souper", "le repas du matin, du midi et du soir, au Québec comme en Angleterre à l'époque."], ["Collation", "en anglais, drinking. Une courte pause pour boire et manger un peu."], ["Surveillant", "en anglais, overlooker. L'employé qui surveille le travail."]],
+      afaire: [["Qu'arrive-t-il au repas d'Elizabeth quand elle n'a pas le temps de le manger? Que t'apprend ce détail?", "Le surveillant le donne à ses cochons. Les enfants travaillent le ventre vide. Leur nourriture, déjà rare, est perdue."]] },
+    { id: "diner", heure: "Midi", nom: "Le dîner",
+      recit: ["À midi, Elizabeth a 40 minutes pour dîner. C'est la seule pause prévue de sa journée. Elle habite trop loin pour rentrer chez elle : elle mange à l'usine.", "Les filles de Samuel Coulson ont une demi-heure. Matthew Crabtree a une heure."],
+      docs: [
+        { t: "bentley", fr: [["q", "Combien de temps vous accordait-on pour vos repas?"], ["r", "Quarante minutes à midi."], ["coupe"], ["q", "Quelle distance deviez-vous parcourir pour aller dîner?"], ["r", "Nous ne pouvions pas rentrer dîner à la maison."], ["q", "Où dîniez-vous?"], ["r", "À l'usine."]],
+          en: [["q", "What time was allowed for your meals?"], ["r", "Forty minutes at noon."], ["coupe"], ["q", "How far had you to go for dinner?"], ["r", "We could not go home to dinner."], ["q", "Where did you dine?"], ["r", "In the mill."]] }
+      ],
+      mots: [],
+      afaire: [["Combien de temps Elizabeth a-t-elle pour dîner? Compare avec ta propre pause du midi.", "Elle a 40 minutes, au milieu d'une journée de 16 heures. C'est sa seule pause prévue."]] },
+    { id: "coups", heure: "Fin de journée", nom: "Les coups",
+      recit: ["En fin de journée, les enfants sont épuisés. Ils ralentissent ou s'endorment. Le boudineur, l'ouvrier adulte qu'ils aident, doit suivre le rythme de la machine.", "Pour garder les enfants éveillés, il les frappe avec une courroie. Selon Matthew Crabtree, on entend des enfants pleurer à toute heure."],
+      docs: [
+        { t: "crabtree", fr: [["q", "Dans ces usines, les punitions sont-elles continuelles vers la fin de la journée?"], ["r", "Continuelles."], ["q", "Si bien qu'on ne peut presque pas être dans une usine sans entendre pleurer sans arrêt?"], ["r", "Pas une heure sans cela, je crois."], ["q", "Pensez-vous que, même si le surveillant était bon de nature, il serait quand même obligé de battre les enfants pour les garder attentifs à la fin de ces journées de travail extraordinaires?"], ["r", "Oui. La machine produit une quantité régulière de laine cardée. Les enfants doivent donc travailler au même rythme toute la journée. Ils doivent suivre la machine. Même si le boudineur est bon, il doit lui aussi suivre la machine, sinon on lui fait des reproches. Il pousse donc les enfants par toutes sortes de moyens. Le plus souvent, il les frappe avec une courroie quand ils s'endorment."]],
+          en: [["q", "In those mills is chastisement towards the latter part of the day going on perpetually?"], ["r", "Perpetually."], ["q", "So that you can hardly be in a mill without hearing constant crying?"], ["r", "Never an hour, I believe."], ["q", "Do you think that if the overlooker were naturally a humane person it would still be found necessary for him to beat the children, in order to keep up their attention and vigilance at the termination of those extraordinary days of labour?"], ["r", "Yes; the machine turns off a regular quantity of cardings, and of course, they must keep as regularly to their work the whole of the day; they must keep with the machine, and therefore however humane the slubber may be, as he must keep up with the machine or be found fault with, he spurs the children to keep up also by various means but that which he commonly resorts to is to strap them when they become drowsy."]] },
+        { t: "bentley", fr: [["q", "Si vous ralentissiez un peu, ou si vous étiez en retard dans votre travail, que faisaient-ils?"], ["r", "Ils nous frappaient avec la courroie."], ["q", "Ont-ils l'habitude de frapper les derniers à finir de lever les bobines?"], ["r", "Oui."], ["q", "Continuellement?"], ["r", "Oui."], ["q", "Les filles comme les garçons?"], ["r", "Oui."], ["q", "Avez-vous déjà été frappée avec la courroie?"], ["r", "Oui."], ["q", "Durement?"], ["r", "Oui."]],
+          en: [["q", "Suppose you flagged a little, or were too late, what would they do?"], ["r", "Strap us."], ["q", "Are they in the habit of strapping those who are last in doffing?"], ["r", "Yes."], ["q", "Constantly?"], ["r", "Yes."], ["q", "Girls as well as boys?"], ["r", "Yes."], ["q", "Have you ever been strapped?"], ["r", "Yes."], ["q", "Severely?"], ["r", "Yes."]] }
+      ],
+      mots: [["Boudineur", "en anglais, slubber. L'ouvrier adulte qui conduit une machine à préparer la laine. Les enfants l'aident."], ["Courroie", "en anglais, strap. Une bande de cuir."]],
+      afaire: [["Selon Matthew Crabtree, pourquoi le boudineur frappe-t-il les enfants, même s'il est bon? Qui, ou quoi, impose le rythme?", "C'est la machine qui impose le rythme. Le boudineur doit la suivre, sinon il est réprimandé. Il frappe donc les enfants qui s'endorment pour qu'ils suivent eux aussi."], ["Ici, Elizabeth dit qu'elle a été frappée durement. Au moment Gare aux retards, elle dit pourtant qu'elle n'a jamais été battue. Est-ce une contradiction? Relis bien les deux questions.", "Pas forcément. Elle a été frappée parce qu'elle ralentissait dans son travail. Pour ses retards le matin, elle n'a jamais été battue : on lui retirait plutôt du salaire. Lire attentivement chaque question évite de conclure trop vite."]] },
+    { id: "retour", heure: "21 h", nom: "Le retour",
+      recit: ["À 21 h, l'usine ferme enfin. Matthew rentre à pied, épuisé. Il n'a pas de temps à passer avec ses parents ni pour apprendre quoi que ce soit.", "Il soupe, puis va se coucher aussitôt."],
+      docs: [
+        { t: "crabtree", fr: [["q", "Quand vous rentriez le soir après ce travail, étiez-vous très fatigué?"], ["r", "Énormément."], ["q", "Aviez-vous du temps pour être avec vos parents et recevoir leur enseignement?"], ["r", "Non."], ["q", "Que faisiez-vous?"], ["r", "En rentrant, nous mangions le petit souper qu'on nous avait préparé, puis nous allions tout de suite nous coucher. Si le souper n'avait pas été prêt aussitôt, nous nous serions endormis pendant qu'on le préparait."]],
+          en: [["q", "When you got home at night after this labour, did you feel much fatigued?"], ["r", "Very much so."], ["q", "Had you any time to be with your parents, and to receive instruction from them?"], ["r", "No."], ["q", "What did you do?"], ["r", "All that we did when we got home was to get the little bit of supper that was provided for us and go to bed immediately. If the supper had not been ready directly, we should have gone to sleep while it was preparing."]] }
+      ],
+      mots: [],
+      afaire: [["Qu'est-ce que Matthew n'a pas le temps de faire après sa journée?", "Il n'a de temps ni pour sa famille ni pour s'instruire. Il ne fait que souper et dormir avant de recommencer."]] },
+    { id: "coucher", heure: "23 h", nom: "Quatre heures de sommeil",
+      recit: ["En période de presse, les filles de Samuel Coulson travaillent de 3 h du matin à 22 h, parfois jusqu'à 22 h 30. Cet horaire dure environ six semaines.", "Elles se couchent vers 23 h. Leurs parents se lèvent à 2 h pour les habiller. Elles ne dorment pas plus de quatre heures et s'endorment parfois la bouche pleine."],
+      docs: [
+        { t: "coulson", fr: [["q", "Combien de temps pouvaient-elles rester au lit pendant ces longues journées?"], ["r", "Il était près de 11 h avant que nous puissions les mettre au lit, après leur avoir donné un peu à manger. Puis, pour le matin, ma femme veillait toute la nuit, de peur que nous ne puissions pas les préparer à temps."], ["q", "À quelle heure les leviez-vous le matin?"], ["r", "En général, ma femme ou moi, nous nous levions à 2 h pour les habiller."], ["q", "Elles n'avaient donc pas plus de quatre heures de sommeil à ce moment-là?"], ["r", "Non."], ["coupe"], ["q", "Les enfants étaient-ils excessivement fatigués par ce travail?"], ["r", "Bien des fois. Nous avons souvent pleuré en leur donnant le peu de nourriture que nous avions à leur donner. Il fallait les secouer. Bien des fois, elles se sont endormies la bouche pleine."]],
+          en: [["q", "What was the length of time they could be in bed during those long hours?"], ["r", "It was near 11 o'clock before we could get them into bed after getting a little victuals, and then at morning my mistress used to stop up all night, for fear that we could not get them ready for the time"], ["q", "What time did you get them up in the morning?"], ["r", "In general me or my mistress got up at 2 o'clock to dress them."], ["q", "So that they had not above 4 hours sleep at this time?"], ["r", "No, they had not."], ["coupe"], ["q", "Were the children excessively fatigued by this labour?"], ["r", "Many times; we have cried often when we have given them the little victualling we had to give them; we had to shake them, and they have fallen to sleep with the victuals in their mouths many a time."]] }
+      ],
+      mots: [["Période de presse", "en anglais, brisk time. Quelques semaines où l'usine a beaucoup de commandes."]],
+      afaire: [["Les filles de Samuel Coulson travaillent de 3 h à 22 h. Combien d'heures cela fait-il? Combien d'heures leur reste-t-il pour dormir?", "De 3 h à 22 h, cela fait 19 heures à l'usine. Couchées vers 23 h et levées à 2 h, elles dorment environ 3 heures. Leur père confirme qu'elles n'ont pas plus de 4 heures de sommeil."]] },
+    { id: "apres", heure: "Des années plus tard", nom: "Le corps abîmé",
+      recit: ["À 23 ans, Elizabeth Bentley est déformée. Elle raconte que la poussière de la salle des cardes a abîmé sa santé. Sa déformation a commencé vers 13 ans.", "En 1832, elle vit à l'hospice des pauvres."],
+      docs: [
+        { t: "bentley", source: "Extrait reproduit par Spartacus Educational.", fr: [["q", "Le travail dans la salle des cardes a-t-il nui à votre santé?"], ["r", "Oui. Il y avait tant de poussière qu'elle m'entrait dans les poumons. Le travail était si dur. Ma santé est devenue si mauvaise qu'en tirant les paniers vers le bas, je me suis déboîté les os."], ["q", "Vous êtes très déformée à cause de ce travail?"], ["r", "Oui."], ["q", "Quand cela a-t-il commencé?"], ["r", "J'avais environ 13 ans quand cela a commencé. C'est devenu pire depuis."], ["coupe"], ["q", "Où êtes-vous maintenant?"], ["r", "À l'hospice des pauvres."]],
+          en: [["q", "Did working in the card-room affect your health?"], ["r", "Yes; it was so dusty, the dust got up my lungs, and the work was so hard. I got so bad in health, that when I pulled the baskets down, I pulled my bones out of their places."], ["q", "You are considerably deformed in your person in consequence of this labour?"], ["r", "Yes, I am."], ["q", "At what time did it come on?"], ["r", "I was about thirteen years old when it began coming, and it has got worse since."], ["coupe"], ["q", "Where are you now?"], ["r", "In the poor house."]] }
+      ],
+      mots: [["Salle des cardes", "pièce où des machines démêlent les fibres avant le filage."], ["Hospice des pauvres", "en anglais, poor house. Un établissement qui loge les personnes pauvres sans autre ressource."]],
+      afaire: [["Relis la question « Vous êtes très déformée à cause de ce travail? ». Pourquoi peut-on dire qu'elle est orientée?", "La question contient déjà la réponse : elle affirme que le travail a causé la déformation. Elizabeth n'a qu'à dire oui. Cela ne prouve pas que c'est faux, mais l'enquêteur cherche à appuyer son projet de loi."]] }
+  ];
+
+  // Horaires déclarés par les témoins (heures décimales). Les pauses de la famille
+  // Coulson sont placées à titre indicatif : seules leurs durées sont connues.
+  var H = [
+    { t: "bentley", qui: "Elizabeth Bentley", ou: "Lin, Leeds",
+      normal: { debut: 6, fin: 19, pauses: [[12, 12 + 40 / 60]] },
+      presse: { debut: 5, fin: 21, pauses: [[12, 12 + 40 / 60]] } },
+    { t: "crabtree", qui: "Matthew Crabtree", ou: "Laine, Yorkshire",
+      normal: { debut: 6, fin: 20, pauses: [[12, 13]] },
+      presse: { debut: 5, fin: 21, pauses: [[12, 13]] } },
+    { t: "coulson", qui: "Filles de Samuel Coulson", ou: "Laine peignée",
+      normal: { debut: 6, fin: 20.5, pauses: [[8, 8.25], [12, 12.5], [16, 16.25]] },
+      presse: { debut: 3, fin: 22, pauses: [[8, 8.25], [12, 12.5], [16, 16.25]] } }
+  ];
+
+  var Q = [
+    { fr: "Quelles étaient vos heures de travail dans cette usine?", en: "What were your hours of labour in that mill?", qui: "Elizabeth Bentley", juste: "neutre", pourquoi: "La question demande un fait, sans suggérer de réponse." },
+    { fr: "Votre travail est très excessif?", en: "Your labour is very excessive?", qui: "Elizabeth Bentley", juste: "orientee", pourquoi: "Le mot excessif est déjà dans la question. Le témoin n'a qu'à répondre oui." },
+    { fr: "À quelle distance de l'usine habitiez-vous?", en: "How far did you live from the mill?", qui: "Matthew Crabtree", juste: "neutre", pourquoi: "La question demande une distance. Elle ne pousse pas le témoin." },
+    { fr: "Si bien qu'on ne peut presque pas être dans une usine sans entendre pleurer sans arrêt?", en: "So that you can hardly be in a mill without hearing constant crying?", qui: "Matthew Crabtree", juste: "orientee", pourquoi: "La question affirme déjà qu'on entend pleurer sans arrêt. Elle demande seulement au témoin de confirmer." },
+    { fr: "À quel âge ont-elles commencé à travailler?", en: "At what age did they begin to work?", qui: "Samuel Coulson", juste: "neutre", pourquoi: "La question demande un âge, sans proposer de réponse." },
+    { fr: "L'amende était donc bien plus grande que le temps perdu?", en: "The fine was much more considerable than the loss of time?", qui: "Elizabeth Bentley", juste: "orientee", pourquoi: "C'est l'enquêteur qui tire la conclusion. Le témoin n'a qu'à l'approuver." },
+    { fr: "Combien de temps vous accordait-on pour vos repas?", en: "What time was allowed for your meals?", qui: "Elizabeth Bentley", juste: "neutre", pourquoi: "La question demande une durée. Le témoin répond librement : quarante minutes." },
+    { fr: "Les enfants étaient-ils excessivement fatigués par ce travail?", en: "Were the children excessively fatigued by this labour?", qui: "Samuel Coulson", juste: "orientee", pourquoi: "Le mot excessivement oriente la réponse. Une question neutre demanderait plutôt comment se sentaient les enfants." }
+  ];
+
+  var E = [
+    { id: "auteur", nom: "L'enquêteur" },
+    { id: "questions", nom: "Les questions" },
+    { id: "temoins", nom: "Les témoins" },
+    { id: "serment", nom: "Le serment" },
+    { id: "contre", nom: "La contre-enquête" },
+    { id: "loi", nom: "La loi de 1833" }
+  ];
+
+  var CONSIGNES = { journee: "Choisis un moment", horaires: "Compare les horaires", critique: "Examine le document" };
+  var etat = { vue: "journee", moment: 0, periode: "presse", etape: 0, reponses: {} };
+
+  var vues = {};
+  Array.prototype.forEach.call(racine.querySelectorAll(".sad__vue"), function (v) { vues[v.id.replace("sad-vue-", "")] = v; });
+  var textes = {};
+  Array.prototype.forEach.call(racine.querySelectorAll(".sad__texte"), function (t) { textes[t.getAttribute("data-vue")] = t; });
+  var onglets = Array.prototype.slice.call(racine.querySelectorAll(".sad__onglet"));
+  var consigne = racine.querySelector('[data-sad="consigne"]');
+  var cote = racine.querySelector(".sad__cote");
+  var scene = racine.querySelector(".sad__scene");
+  var statut = racine.querySelector('[data-sad="statut"]');
+
+  function afaire(question, piste, cle) {
+    var bloc = el("div", "sad__afaire");
+    bloc.appendChild(el("span", "sad__afaire-etiquette", "À toi"));
+    bloc.appendChild(el("p", null, question));
+    var bouton = el("button", "sad__piste-btn", "Voir une piste de réponse");
+    bouton.type = "button";
+    var reponse = el("p", "sad__piste-texte", piste);
+    reponse.id = "sad-piste-" + cle;
+    reponse.hidden = true;
+    bouton.setAttribute("aria-expanded", "false");
+    bouton.setAttribute("aria-controls", reponse.id);
+    bouton.addEventListener("click", function () {
+      var ouvert = reponse.hidden;
+      reponse.hidden = !ouvert;
+      bouton.setAttribute("aria-expanded", String(ouvert));
+      bouton.textContent = typo(ouvert ? "Cacher la piste" : "Voir une piste de réponse");
+    });
+    bloc.appendChild(bouton);
+    bloc.appendChild(reponse);
+    return bloc;
+  }
+
+  function lignes(contenant, liste) {
+    liste.forEach(function (l) {
+      if (l[0] === "coupe") { contenant.appendChild(el("p", "sad__coupe", "[...]")); return; }
+      var p = el("p", "sad__ligne sad__ligne--" + l[0]);
+      var marque = el("span", "sad__qr", l[0] === "q" ? "Q." : "R.");
+      marque.setAttribute("aria-hidden", "true");
+      p.appendChild(marque);
+      var corps = el("span", null);
+      var cache = el("span", "visuellement-cache", l[0] === "q" ? "Question : " : "Réponse : ");
+      corps.appendChild(cache);
+      corps.appendChild(document.createTextNode(typo(l[1])));
+      p.appendChild(corps);
+      contenant.appendChild(p);
+    });
+  }
+
+  // ------------------------------------------------------------ la journée
+  var vueJ = vues.journee;
+  vueJ.appendChild(el("p", "sad__avis-court", "Journée reconstituée à partir de trois témoignages réels de 1832."));
+  vueJ.appendChild(el("p", "sad__avis", "Cette journée assemble trois témoignages réels, recueillis en 1832 par un comité du Parlement britannique. Aucun enfant n'a vécu exactement cette journée, mais chaque détail vient d'un témoin. Les heures sont celles des périodes de presse."));
+  var frise = el("ol", "sad__frise");
+  frise.setAttribute("aria-label", "Les moments de la journée");
+  var boutonsMoment = [];
+  M.forEach(function (m, i) {
+    var li = el("li");
+    var b = el("button", "sad__moment");
+    b.type = "button";
+    b.setAttribute("data-moment", m.id);
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.setAttribute("aria-controls", "sad-documents");
+    var pastille = el("span", "sad__pastille", String(i + 1));
+    pastille.setAttribute("aria-hidden", "true");
+    b.appendChild(pastille);
+    b.appendChild(el("span", "sad__heure", m.heure));
+    b.appendChild(el("span", "sad__nom", m.nom));
+    b.addEventListener("click", function () { choisirMoment(i, false); });
+    b.addEventListener("keydown", function (ev) {
+      var cible = null;
+      if (ev.key === "ArrowRight") { cible = Math.min(M.length - 1, i + 1); }
+      if (ev.key === "ArrowLeft") { cible = Math.max(0, i - 1); }
+      if (ev.key === "Home") { cible = 0; }
+      if (ev.key === "End") { cible = M.length - 1; }
+      if (cible !== null) { ev.preventDefault(); choisirMoment(cible, true); }
+    });
+    li.appendChild(b);
+    frise.appendChild(li);
+    boutonsMoment.push(b);
+  });
+  vueJ.appendChild(frise);
+  var documents = el("div", "sad__documents");
+  documents.id = "sad-documents";
+  vueJ.appendChild(documents);
+  var nav = el("div", "sad__nav");
+  var precedent = el("button", "sad__pilule", "Moment précédent");
+  precedent.type = "button";
+  var suivant = el("button", "sad__pilule", "Moment suivant");
+  suivant.type = "button";
+  precedent.addEventListener("click", function () { if (etat.moment > 0) { choisirMoment(etat.moment - 1, false); } });
+  suivant.addEventListener("click", function () { if (etat.moment < M.length - 1) { choisirMoment(etat.moment + 1, false); } });
+  nav.appendChild(precedent);
+  nav.appendChild(suivant);
+  vueJ.appendChild(nav);
+
+  function remplirMoment() {
+    var m = M[etat.moment];
+    documents.textContent = "";
+    m.docs.forEach(function (d, k) {
+      var temoin = T[d.t];
+      var doc = el("div", "sad__doc");
+      var tete = el("div", "sad__doc-tete");
+      tete.appendChild(el("p", "sad__doc-titre", "Témoignage de " + temoin.nom));
+      tete.appendChild(el("span", "sad__etiquette", "Traduction de l'anglais"));
+      doc.appendChild(tete);
+      lignes(doc, d.fr);
+      var original = el("details", "sad__original");
+      original.appendChild(el("summary", null, "Voir le texte original en anglais"));
+      var en = el("div");
+      en.setAttribute("lang", "en");
+      lignes(en, d.en);
+      original.appendChild(en);
+      doc.appendChild(original);
+      doc.appendChild(el("p", "sad__doc-source", d.source ? temoin.ref + " " + d.source : temoin.ref));
+      documents.appendChild(doc);
+    });
+    var t = textes.journee;
+    t.textContent = "";
+    t.appendChild(el("p", "sad__compteur", "Moment " + (etat.moment + 1) + " sur " + M.length + " · " + m.heure));
+    var titre = el("p", "sad__cote-titre", m.nom);
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    t.appendChild(titre);
+    m.recit.forEach(function (phrase) { t.appendChild(el("p", null, phrase)); });
+    t.appendChild(el("p", "sad__sous", m.docs.length > 1 ? "Les témoins" : "Le témoin"));
+    var vus = {};
+    m.docs.forEach(function (d) {
+      if (vus[d.t]) { return; }
+      vus[d.t] = true;
+      var temoin = T[d.t];
+      var carte = el("div", "sad__temoin");
+      carte.appendChild(el("span", "sad__temoin-nom", temoin.nom));
+      carte.appendChild(el("span", "sad__temoin-age", temoin.age));
+      carte.appendChild(el("p", null, temoin.metier));
+      carte.appendChild(el("p", "sad__ref", temoin.ref));
+      t.appendChild(carte);
+    });
+    if (m.mots.length) {
+      t.appendChild(el("p", "sad__sous", "Mots à connaître"));
+      var ul = el("ul", "sad__mots");
+      m.mots.forEach(function (mot) {
+        var li = el("li");
+        li.appendChild(el("strong", null, mot[0] + " : "));
+        li.appendChild(document.createTextNode(typo(mot[1])));
+        ul.appendChild(li);
+      });
+      t.appendChild(ul);
+    }
+    m.afaire.forEach(function (a, k) { t.appendChild(afaire(a[0], a[1], m.id + "-" + k)); });
+    statut.textContent = typo("Moment " + (etat.moment + 1) + " sur " + M.length + " : " + m.nom);
+    precedent.disabled = etat.moment === 0;
+    suivant.disabled = etat.moment === M.length - 1;
+  }
+
+  function choisirMoment(i, focus) {
+    etat.moment = i;
+    boutonsMoment.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    remplirMoment();
+    var b = boutonsMoment[i];
+    if (focus) { b.focus(); }
+    if (frise.scrollWidth > frise.clientWidth) {
+      var li = b.parentNode;
+      var gauche = li.offsetLeft - (frise.clientWidth - li.offsetWidth) / 2;
+      if (frise.scrollTo) { frise.scrollTo({ left: Math.max(0, gauche), behavior: reduit() ? "auto" : "smooth" }); }
+    }
+    remonter();
+  }
+
+  function reduit() { return !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches); }
+  function remonter() {
+    if (!racine.classList.contains("est-plein-ecran")) { return; }
+    cote.scrollTop = 0;
+    scene.scrollTop = 0;
+  }
+
+  // ------------------------------------------------------------ les horaires
+  function duree(h) {
+    var heures = Math.floor(h + 1e-9);
+    var minutes = Math.round((h - heures) * 60);
+    if (minutes === 60) { heures += 1; minutes = 0; }
+    return heures + " h" + (minutes ? " " + (minutes < 10 ? "0" : "") + minutes : "");
+  }
+  function heureTexte(h) {
+    var heures = Math.floor(h);
+    var minutes = Math.round((h - heures) * 60);
+    return heures + " h" + (minutes ? " " + (minutes < 10 ? "0" : "") + minutes : "");
+  }
+  function travail(p) {
+    var pause = p.pauses.reduce(function (s, x) { return s + (x[1] - x[0]); }, 0);
+    return (p.fin - p.debut) - pause;
+  }
+  var vueH = vues.horaires;
+  var bascule = el("div", "sad__bascule");
+  bascule.setAttribute("role", "group");
+  bascule.setAttribute("aria-label", "Période");
+  var boutonsPeriode = [["normal", "Temps normal"], ["presse", "Période de presse"]].map(function (p) {
+    var b = el("button", "sad__pilule", p[1]);
+    b.type = "button";
+    b.setAttribute("data-periode", p[0]);
+    b.setAttribute("aria-pressed", p[0] === etat.periode ? "true" : "false");
+    b.addEventListener("click", function () { etat.periode = p[0]; dessinerHoraires(); });
+    bascule.appendChild(b);
+    return b;
+  });
+  vueH.appendChild(bascule);
+  var grapheHeures = el("div", "sad__graphe");
+  var grapheDurees = el("div", "sad__graphe");
+  vueH.appendChild(grapheHeures);
+  vueH.appendChild(grapheDurees);
+  var tableau = el("table", "visuellement-cache");
+  vueH.appendChild(tableau);
+
+  function rangee(qui, ou, piste, total, axe) {
+    var r = el("div", "sad__rangee" + (axe ? " sad__rangee--axe" : ""));
+    var nom = el("p", "sad__qui", qui);
+    if (ou) { nom.appendChild(el("span", null, ou)); }
+    r.appendChild(nom);
+    r.appendChild(piste);
+    r.appendChild(el("p", "sad__total", total));
+    return r;
+  }
+  function dessinerHoraires() {
+    boutonsPeriode.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-periode") === etat.periode ? "true" : "false"); });
+    grapheHeures.textContent = "";
+    grapheDurees.textContent = "";
+    var titreHeures = el("p", "sad__graphe-titre", "Quand sont-ils à l'usine? Combien d'heures y passent-ils?");
+    grapheHeures.appendChild(titreHeures);
+    var axe = el("div", "sad__piste sad__piste--axe");
+    axe.setAttribute("aria-hidden", "true");
+    [0, 6, 12, 18, 24].forEach(function (h) {
+      var tic = el("span", "sad__tic", h + " h");
+      tic.style.left = (h / 24 * 100) + "%";
+      axe.appendChild(tic);
+    });
+    grapheHeures.appendChild(rangee("", "", axe, "", true));
+    H.forEach(function (w) {
+      var p = w[etat.periode];
+      var piste = el("div", "sad__piste sad__piste--horloge");
+      var bornes = [p.debut];
+      p.pauses.forEach(function (x) { bornes.push(x[0], x[1]); });
+      bornes.push(p.fin);
+      for (var k = 0; k < bornes.length; k += 2) {
+        var seg = el("span", "sad__seg");
+        seg.style.left = "calc(" + (bornes[k] / 24 * 100) + "% + 1px)";
+        seg.style.width = "calc(" + ((bornes[k + 1] - bornes[k]) / 24 * 100) + "% - 2px)";
+        seg.title = typo("Au travail de " + heureTexte(bornes[k]) + " à " + heureTexte(bornes[k + 1]));
+        piste.appendChild(seg);
+      }
+      piste.setAttribute("role", "img");
+      piste.setAttribute("aria-label", typo(w.qui + " : à l'usine de " + heureTexte(p.debut) + " à " + heureTexte(p.fin)));
+      grapheHeures.appendChild(rangee(w.qui, w.ou, piste, duree(p.fin - p.debut)));
+    });
+    var legende = el("ul", "sad__legende");
+    var l1 = el("li"); l1.appendChild(el("span", "sad__cle")); l1.appendChild(document.createTextNode(typo("Au travail")));
+    var l2 = el("li"); l2.appendChild(el("span", "sad__cle sad__cle--vide")); l2.appendChild(document.createTextNode(typo("Repas ou hors de l'usine")));
+    legende.appendChild(l1);
+    legende.appendChild(l2);
+    grapheHeures.appendChild(legende);
+
+    grapheDurees.appendChild(el("p", "sad__graphe-titre", "Combien d'heures de travail, repas enlevés?"));
+    var axe2 = el("div", "sad__piste sad__piste--axe");
+    axe2.setAttribute("aria-hidden", "true");
+    [[9, "9 h"], [12, "12 h"]].forEach(function (r) {
+      var nom = el("span", "sad__repere-nom", r[1]);
+      nom.style.left = (r[0] / 20 * 100) + "%";
+      axe2.appendChild(nom);
+    });
+    grapheDurees.appendChild(rangee("", "", axe2, "", true));
+    H.forEach(function (w) {
+      var p = w[etat.periode];
+      var h = travail(p);
+      var piste = el("div", "sad__piste");
+      var seg = el("span", "sad__seg sad__seg--duree");
+      seg.style.width = (h / 20 * 100) + "%";
+      seg.title = typo(duree(h) + " de travail");
+      piste.appendChild(seg);
+      [9, 12].forEach(function (r) {
+        var ligne = el("span", "sad__repere");
+        ligne.style.left = (r / 20 * 100) + "%";
+        piste.appendChild(ligne);
+      });
+      piste.setAttribute("role", "img");
+      piste.setAttribute("aria-label", typo(w.qui + " : " + duree(h) + " de travail"));
+      grapheDurees.appendChild(rangee(w.qui, w.ou, piste, duree(h)));
+    });
+    var legende2 = el("ul", "sad__legende");
+    var r1 = el("li"); r1.appendChild(el("span", "sad__cle sad__cle--repere")); r1.appendChild(document.createTextNode(typo("9 h : limite de la loi de 1833 pour les 9 à 12 ans")));
+    var r2 = el("li"); r2.appendChild(el("span", "sad__cle sad__cle--repere")); r2.appendChild(document.createTextNode(typo("12 h : limite pour les 13 à 17 ans")));
+    legende2.appendChild(r1);
+    legende2.appendChild(r2);
+    grapheDurees.appendChild(legende2);
+
+    tableau.textContent = "";
+    tableau.appendChild(el("caption", null, "Horaires déclarés en " + (etat.periode === "presse" ? "période de presse" : "temps normal")));
+    var entete = el("tr");
+    ["Témoin", "Début", "Fin", "Temps à l'usine", "Travail, repas enlevés"].forEach(function (c) { entete.appendChild(el("th", null, c)); });
+    tableau.appendChild(entete);
+    H.forEach(function (w) {
+      var p = w[etat.periode];
+      var tr = el("tr");
+      [w.qui, heureTexte(p.debut), heureTexte(p.fin), duree(p.fin - p.debut), duree(travail(p))].forEach(function (c) { tr.appendChild(el("td", null, c)); });
+      tableau.appendChild(tr);
+    });
+  }
+
+  function texteHoraires() {
+    var t = textes.horaires;
+    var titre = el("p", "sad__cote-titre", "Lire les horaires");
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    t.appendChild(titre);
+    t.appendChild(el("p", null, "Chaque barre montre les heures que le témoin déclare passer à l'usine. Les petits espaces sont les repas. Pour la famille Coulson, seules les durées des pauses sont connues : leur place dans la journée est approximative."));
+    t.appendChild(el("p", "sad__sous", "Ce que disent les chiffres"));
+    t.appendChild(el("p", null, "En période de presse, Elizabeth et Matthew passent 16 heures à l'usine. Les filles de Samuel Coulson y passent 19 heures. Même en temps normal, chacun travaille plus de 12 heures par jour."));
+    t.appendChild(el("p", "sad__sous", "Et la loi de 1833?"));
+    t.appendChild(el("p", null, "Elle interdit d'embaucher un enfant de moins de 9 ans. Elizabeth (6 ans), Matthew (8 ans) et la plus jeune des filles Coulson n'auraient pas pu entrer à l'usine."));
+    t.appendChild(el("p", null, "Entre 9 et 12 ans, la loi permet au plus 9 heures de travail par jour. Avant 18 ans, elle interdit le travail de nuit, de 20 h 30 à 5 h 30. Commencer à 3 h du matin serait devenu illégal pour les filles Coulson."));
+    t.appendChild(el("p", "sad__sous", "Et la paie?"));
+    t.appendChild(el("p", null, "Selon Samuel Coulson, chacune de ses filles gagne 3 shillings par semaine. En période de presse, elle gagne 3 shillings et 7 pence et demi. Un shilling vaut 12 pence."));
+    t.appendChild(afaire("En période de presse, qui travaille le plus longtemps? Combien d'heures de plus que la limite de 1833 pour un enfant de 9 à 12 ans?", "Les filles de Samuel Coulson : 18 heures de travail, repas enlevés. C'est 9 heures de plus que la limite de 9 heures.", "horaires-0"));
+    t.appendChild(afaire("Pourquoi peut-on dire que les heures de presse sont mal payées?", "Les filles Coulson passent environ 4 h 30 de plus par jour à l'usine. Pour tout ce travail, elles reçoivent seulement 7 pence et demi de plus par semaine.", "horaires-1"));
+  }
+
+  // ------------------------------------------------------------ la critique
+  var vueC = vues.critique;
+  var listeEtapes = el("ol", "sad__etapes");
+  listeEtapes.setAttribute("aria-label", "Les étapes de la critique");
+  var boutonsEtape = E.map(function (e, i) {
+    var li = el("li");
+    var b = el("button", "sad__pilule");
+    b.type = "button";
+    b.setAttribute("data-etape", e.id);
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.setAttribute("aria-controls", "sad-etape");
+    var num = el("span", "sad__etape-num", String(i + 1));
+    num.setAttribute("aria-hidden", "true");
+    b.appendChild(num);
+    b.appendChild(document.createTextNode(typo(e.nom)));
+    b.addEventListener("click", function () { choisirEtape(i); });
+    li.appendChild(b);
+    listeEtapes.appendChild(li);
+    return b;
+  });
+  vueC.appendChild(listeEtapes);
+  var zoneEtape = el("div", "sad__etape");
+  zoneEtape.id = "sad-etape";
+  vueC.appendChild(zoneEtape);
+
+  function titreEtape(texte) {
+    var p = el("p", "sad__etape-titre", texte);
+    p.setAttribute("role", "heading");
+    p.setAttribute("aria-level", "4");
+    return p;
+  }
+  function boite(titre, items, nuance) {
+    var b = el("div", "sad__boite" + (nuance ? " sad__boite--nuance" : ""));
+    b.appendChild(el("p", "sad__boite-titre", titre));
+    var ul = el("ul");
+    items.forEach(function (x) { ul.appendChild(el("li", null, x)); });
+    b.appendChild(ul);
+    return b;
+  }
+
+  function activiteQuestions(z) {
+    z.appendChild(el("p", null, "Une question orientée suggère déjà la réponse au témoin. Une question neutre demande un fait, sans le pousser. Classe ces vraies questions du comité."));
+    var liste = el("ul", "sad__questions");
+    var bilan = el("p", "sad__bilan");
+    bilan.setAttribute("role", "status");
+    bilan.hidden = true;
+    function majBilan() {
+      var faits = Object.keys(etat.reponses).length;
+      if (faits < Q.length) { bilan.hidden = true; return; }
+      var bons = Q.filter(function (q, i) { return etat.reponses[i] === q.juste; }).length;
+      bilan.hidden = false;
+      bilan.textContent = typo(bons + " bonnes réponses sur " + Q.length + ". " + (bons === Q.length ? "Bravo! Tu repères bien les questions orientées." : "Relis les explications des questions en pointillés."));
+    }
+    Q.forEach(function (q, i) {
+      var li = el("li");
+      li.setAttribute("data-question", String(i));
+      li.appendChild(el("p", "sad__question-fr", "« " + q.fr + " »"));
+      var en = el("p", "sad__question-en", q.qui + " · " + q.en);
+      en.setAttribute("lang", "en");
+      li.appendChild(en);
+      var choix = el("div", "sad__choix");
+      choix.setAttribute("role", "group");
+      choix.setAttribute("aria-label", "Question " + (i + 1));
+      var verdict = el("p", "sad__verdict");
+      verdict.setAttribute("aria-live", "polite");
+      [["neutre", "Neutre"], ["orientee", "Orientée"]].forEach(function (c) {
+        var b = el("button", "sad__pilule", c[1]);
+        b.type = "button";
+        b.setAttribute("data-choix", c[0]);
+        b.setAttribute("aria-pressed", "false");
+        b.addEventListener("click", function () {
+          etat.reponses[i] = c[0];
+          Array.prototype.forEach.call(choix.children, function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+          var juste = c[0] === q.juste;
+          li.classList.toggle("est-juste", juste);
+          li.classList.toggle("est-faux", !juste);
+          verdict.textContent = "";
+          verdict.appendChild(el("strong", null, juste ? "Exact. " : "Pas tout à fait. "));
+          verdict.appendChild(document.createTextNode(typo("Cette question est " + (q.juste === "neutre" ? "neutre" : "orientée") + ". " + q.pourquoi)));
+          majBilan();
+        });
+        choix.appendChild(b);
+      });
+      li.appendChild(choix);
+      li.appendChild(verdict);
+      if (etat.reponses[i]) {
+        var deja = choix.querySelector('[data-choix="' + etat.reponses[i] + '"]');
+        if (deja) { deja.click(); }
+      }
+      liste.appendChild(li);
+    });
+    z.appendChild(liste);
+    z.appendChild(bilan);
+    majBilan();
+    var recommencer = el("button", "sad__pilule", "Recommencer");
+    recommencer.type = "button";
+    recommencer.setAttribute("data-sad", "recommencer");
+    recommencer.addEventListener("click", function () { etat.reponses = {}; choisirEtape(1); });
+    z.appendChild(recommencer);
+    z.appendChild(afaire("Choisis une question orientée et réécris-la de façon neutre.", "Par exemple, « Votre travail est très excessif? » peut devenir « Comment décririez-vous votre travail? ».", "neutre"));
+  }
+
+  function choisirEtape(i) {
+    etat.etape = i;
+    boutonsEtape.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+    var z = zoneEtape;
+    z.textContent = "";
+    var e = E[i];
+    z.appendChild(titreEtape((i + 1) + ". " + e.nom));
+    if (e.id === "auteur") {
+      z.appendChild(el("p", null, "Michael Sadler est un député conservateur. En 1832, il présente un projet de loi pour limiter à 10 heures par jour le travail des moins de 18 ans dans les usines de textile."));
+      z.appendChild(el("p", null, "Pour convaincre les autres députés, il préside un comité qui interroge des témoins. Le comité siège pour la première fois le 12 avril 1832. Il remet les témoignages au Parlement le 8 août. Le rapport est publié au début de 1833. Entre-temps, aux élections de la fin de 1832, Sadler est battu à Leeds."));
+      z.appendChild(el("p", null, "Pourquoi est-ce important? Sadler ne cherche pas seulement à comprendre. Il veut prouver que sa loi est nécessaire."));
+      z.appendChild(afaire("Quel est le but de l'auteur de ce document?", "Convaincre le Parlement d'adopter une loi qui limiterait la journée de travail à 10 heures pour les moins de 18 ans.", "auteur"));
+    } else if (e.id === "questions") {
+      activiteQuestions(z);
+    } else if (e.id === "temoins") {
+      z.appendChild(el("p", null, "Le comité entend 89 témoins. Environ la moitié sont des ouvriers. Plusieurs racontent leur enfance à l'usine. La plupart des témoins ouvriers ont été trouvés par le mouvement des 10 heures, qui appuie le projet de Sadler."));
+      z.appendChild(el("p", null, "Un député qui critique le rapport affirme qu'on a choisi des témoins qui ne diraient rien contre les idées de Sadler. Selon lui, sur 21 médecins entendus, 15 vivent à Londres et connaissent peu les usines."));
+      z.appendChild(el("p", null, "Selon ce député, les témoins choisis par Sadler ont occupé tout le temps disponible jusqu'à la fin de la session. Le Parlement est dissous peu après."));
+      z.appendChild(afaire("Pourquoi le choix des témoins peut-il influencer le portrait que donne le rapport?", "Si on choisit surtout des témoins qui appuient le projet, on entend surtout les cas les plus durs. Les usines où les conditions étaient meilleures sont moins représentées.", "temoins"));
+    } else if (e.id === "serment") {
+      z.appendChild(el("p", null, "Devant le comité Sadler, les témoins ne prêtent pas serment : ils ne jurent pas de dire la vérité. En 1833, une nouvelle enquête interroge les témoins sous serment. Peu de témoins de Sadler acceptent alors de témoigner de nouveau, cette fois sous serment."));
+      z.appendChild(el("div", "sad__deux"));
+      var deux = z.lastChild;
+      deux.appendChild(boite("Première explication", ["Ils ont peur de perdre leur emploi. Sadler affirme que des ouvriers ont été renvoyés pour avoir témoigné."]));
+      deux.appendChild(boite("Deuxième explication", ["Ils craignent d'être contredits, parce que leur témoignage exagérait certains faits."], true));
+      z.appendChild(afaire("Laquelle de ces explications te semble la plus probable? Quels documents t'aideraient à trancher?", "Aucune réponse n'est certaine. Pour trancher, il faudrait d'autres sources : les registres des usines, les témoignages de 1833, des lettres d'ouvriers. Un historien croise toujours plusieurs sources.", "serment"));
+    } else if (e.id === "contre") {
+      z.appendChild(el("p", null, "En 1833, le Parlement confie une nouvelle enquête à une commission, la Factory Commission. Ses membres visitent les régions industrielles. Ils entendent sous serment des ouvriers, des patrons et des médecins. Le mouvement des 10 heures tente de la boycotter."));
+      var cadre = el("div", "sad__deux");
+      cadre.appendChild(boite("Ce qu'elle confirme", ["Les enfants des usines travaillent beaucoup trop longtemps.", "Ce travail abîme leur corps pour toujours et cause des maladies souvent incurables.", "La fatigue les empêche de s'instruire."]));
+      cadre.appendChild(boite("Ce qu'elle nuance", ["Les coups sont moins fréquents qu'avant. Ils existent encore, surtout dans les petites usines.", "Dans la plupart des usines, les propriétaires interdisent de frapper les enfants.", "Elle propose 8 heures par jour pour les moins de 13 ans, avec deux équipes, plutôt que 10 heures pour les moins de 18 ans."], true));
+      z.appendChild(cadre);
+      z.appendChild(afaire("En quoi la contre-enquête confirme-t-elle ou nuance-t-elle le rapport Sadler?", "Elle confirme l'essentiel : des journées trop longues qui nuisent aux enfants. Elle nuance la violence, moins répandue que ce que laissent croire certains témoignages.", "contre"));
+    } else if (e.id === "loi") {
+      z.appendChild(el("p", null, "La loi sur les usines de 1833, le Factory Act, s'applique aux usines de textile. Compare-la avec ce que demandait Sadler."));
+      var tab = el("table", "sad__tableau");
+      var thead = el("thead");
+      var tr0 = el("tr");
+      [" ", "Ce que voulait Sadler", "Ce que prévoit la loi de 1833"].forEach(function (c, k) {
+        var th = el("th", null, c);
+        if (k === 0) { th.textContent = ""; th.appendChild(el("span", "visuellement-cache", "Sujet")); }
+        th.setAttribute("scope", "col");
+        tr0.appendChild(th);
+      });
+      thead.appendChild(tr0);
+      tab.appendChild(thead);
+      var tbody = el("tbody");
+      [["Âge minimum", "Aucun enfant de 9 ans ou moins", "Aucun enfant de moins de 9 ans, sauf dans les filatures de soie"],
+       ["De 9 à 12 ans", "10 heures par jour au plus", "9 heures par jour et 48 heures par semaine au plus"],
+       ["De 13 à 17 ans", "10 heures par jour au plus", "12 heures par jour et 69 heures par semaine au plus"],
+       ["La nuit", "Aucun travail de nuit avant 21 ans", "Aucun travail de nuit avant 18 ans, de 20 h 30 à 5 h 30"],
+       ["Autres mesures", "Une journée de 8 heures le samedi", "Deux heures d'école par jour avant 13 ans. Quatre inspecteurs pour faire respecter la loi."]].forEach(function (r) {
+        var tr = el("tr");
+        var th = el("th", null, r[0]);
+        th.setAttribute("scope", "row");
+        tr.appendChild(th);
+        tr.appendChild(el("td", null, r[1]));
+        tr.appendChild(el("td", null, r[2]));
+        tbody.appendChild(tr);
+      });
+      tab.appendChild(tbody);
+      z.appendChild(tab);
+      z.appendChild(el("p", null, "La limite de 9 heures entre en vigueur par étapes, jusqu'en 1836."));
+      z.appendChild(afaire("Sadler a-t-il obtenu ce qu'il voulait? Nomme un gain et une déception pour le mouvement des 10 heures.", "Gain : les 9 à 12 ans travaillent au plus 9 heures et vont à l'école. Des inspecteurs surveillent les usines. Déception : les 13 à 17 ans peuvent encore travailler 12 heures par jour.", "loi"));
+    }
+    remonter();
+  }
+
+  function texteCritique() {
+    var t = textes.critique;
+    var titre = el("p", "sad__cote-titre", "Fiche d'identité du document");
+    titre.setAttribute("role", "heading");
+    titre.setAttribute("aria-level", "4");
+    t.appendChild(titre);
+    var dl = el("dl", "sad__identite");
+    [["Titre", "Rapport du comité sur le travail des enfants dans les usines, appelé rapport Sadler"],
+     ["Auteur", "Un comité de députés présidé par Michael Sadler"],
+     ["Date", "Témoignages recueillis entre avril et août 1832. Rapport publié au début de 1833."],
+     ["Nature", "Des procès-verbaux d'interrogatoires : des questions et des réponses"],
+     ["Destinataire", "Les députés du Parlement britannique"],
+     ["Intention", "Appuyer une loi qui limiterait à 10 heures la journée des moins de 18 ans"]].forEach(function (x) {
+      dl.appendChild(el("dt", null, x[0]));
+      dl.appendChild(el("dd", null, x[1]));
+    });
+    t.appendChild(dl);
+    t.appendChild(el("p", "sad__sous", "Pourquoi il reste précieux"));
+    t.appendChild(el("p", null, "Malgré ses défauts, le rapport donne la parole à des ouvriers et à d'anciens enfants ouvriers, qui ont rarement laissé des écrits. La contre-enquête de 1833 confirme d'ailleurs l'essentiel : les journées sont beaucoup trop longues pour des enfants."));
+    t.appendChild(afaire("Le rapport Sadler suffit-il pour connaître la vie de tous les enfants ouvriers? Donne deux raisons d'être prudent.", "Non. Plusieurs questions sont orientées. Les témoins ont été choisis par les partisans de Sadler. Ils n'ont pas prêté serment. Il faut croiser ce document avec d'autres sources.", "synthese-0"));
+    t.appendChild(afaire("Malgré ses défauts, pourquoi ce document reste-t-il précieux pour un historien?", "Il fait entendre la voix des travailleurs eux-mêmes. La contre-enquête de 1833 confirme l'essentiel de leurs plaintes.", "synthese-1"));
+  }
+
+  // ------------------------------------------------------------ onglets
+  function choisirVue(nom, focus) {
+    etat.vue = nom;
+    onglets.forEach(function (o) {
+      var actif = o.getAttribute("data-vue") === nom;
+      o.setAttribute("aria-selected", actif ? "true" : "false");
+      o.tabIndex = actif ? 0 : -1;
+      if (actif && focus) { o.focus(); }
+    });
+    Object.keys(vues).forEach(function (k) { vues[k].hidden = k !== nom; });
+    Object.keys(textes).forEach(function (k) { textes[k].hidden = k !== nom; });
+    consigne.textContent = typo(CONSIGNES[nom]);
+    remonter();
+  }
+  onglets.forEach(function (o, i) {
+    o.addEventListener("click", function () { choisirVue(o.getAttribute("data-vue"), false); });
+    o.addEventListener("keydown", function (ev) {
+      var j = null;
+      if (ev.key === "ArrowRight") { j = (i + 1) % onglets.length; }
+      if (ev.key === "ArrowLeft") { j = (i - 1 + onglets.length) % onglets.length; }
+      if (ev.key === "Home") { j = 0; }
+      if (ev.key === "End") { j = onglets.length - 1; }
+      if (j !== null) { ev.preventDefault(); choisirVue(onglets[j].getAttribute("data-vue"), true); }
+    });
+  });
+
+  var replier = racine.querySelector('[data-sad="replier"]');
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = typo(masque ? "Afficher le texte" : "Masquer le texte");
+  });
+
+  function majDefilement() { frise.classList.toggle("est-defilable", frise.scrollWidth > frise.clientWidth + 2); }
+  if (window.ResizeObserver) { new window.ResizeObserver(majDefilement).observe(frise); }
+  window.addEventListener("resize", majDefilement);
+  remplirMoment();
+  dessinerHoraires();
+  texteHoraires();
+  choisirEtape(0);
+  texteCritique();
+  choisirVue("journee", false);
+  majDefilement();
+})();
+</script>
+</section>

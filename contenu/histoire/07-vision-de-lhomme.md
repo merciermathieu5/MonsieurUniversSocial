@@ -140,6 +140,8 @@ en à peine plus de temps qu'il n'en aurait fallu pour un unique manuscrit.
 Points de repères : Gutenberg et l'imprimerie
 :::
 
+::: composant imprimerie
+
 ### Les moyens de diffusion des savoirs
 
 ::: cartes
@@ -677,3 +679,13 @@ documents de l'élève et de l'enseignant sont à venir sur le site du
 - [Wikipédia](https://fr.wikipedia.org/)
 - [Le livre scolaire](https://www.lelivrescolaire.fr/)
 - [Paris City Vision, La Joconde](https://www.pariscityvision.com/)
+- [Bibliothèque de l'Université de Princeton, Gutenberg and After : Europe's First Printers, 1450-1470](https://library.princeton.edu/visit/exhibitions/gutenberg-after-europes-first-printers-1450-1470)
+- [Incunabula Short Title Catalogue (ISTC), British Library et CERL](https://data.cerl.org/istc/)
+- [History of Information, By 1500 Printing Presses are Established in 282 Cities](https://historyofinformation.com/detail.php?entryid=36)
+- [École normale supérieure, département d'histoire, l'imprimerie et le livre à la Renaissance](https://histoire.ens.fr/IMG/pdf/presentationagregationseance2.pdf)
+- [Wikipédia (en anglais), Global spread of the printing press](https://en.wikipedia.org/wiki/Global_spread_of_the_printing_press)
+- [Wikipédia (en anglais), Incunable](https://en.wikipedia.org/wiki/Incunable)
+- [Wikipédia (en anglais), Ulrich Zell](https://en.wikipedia.org/wiki/Ulrich_Zell)
+- [Gran Enciclopèdia Catalana, Impremta](https://www.enciclopedia.cat/gran-enciclopedia-catalana/impremta-0)
+- [Universidad Pablo de Olavide, El libro y la Reforma en Sevilla](https://www.upo.es/lareformaensevilla/el-libro-y-la-reforma)
+- [Natural Earth, fonds de carte](https://www.naturalearthdata.com/)

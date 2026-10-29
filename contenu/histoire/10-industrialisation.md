@@ -393,6 +393,8 @@ ouvriers. Jusque dans les années 1880, il n'y a aucune protection sociale : ni
 assurance maladie, ni assurance chômage, ni assurance accident, ni régime de
 retraite. L'ouvrier qui ne travaille pas n'a aucun revenu.
 
+::: composant enfant-ouvrier
+
 #### Les quartiers ouvriers
 
 Prenons l'exemple de la ville de Manchester. Entre 1801 et 1831, sa population
@@ -549,6 +551,8 @@ remonte aux premières grèves ouvrières et explique comment elles sont devenue
 moyen de pression reconnu.
 :::
 
+::: composant qui-dit-quoi
+
 ### Le gouvernement légifère
 
 ![La police montée intervient pendant la grève générale de Winnipeg, en 1919](../medias/10-industrialisation/greve-winnipeg.jpg)
@@ -559,7 +563,7 @@ En voici quelques exemples :
 
 - 1802 : loi qui interdit les journées de travail en usine de plus de 12 heures
   pour les enfants;
-- 1809 : loi qui interdit aux enfants de moins de 9 ans de travailler dans les
+- 1819 : loi qui interdit aux enfants de moins de 9 ans de travailler dans les
   usines de coton;
 - 1842 : loi qui interdit le travail des femmes et des enfants de moins de 10 ans
   dans les mines;
@@ -633,3 +637,16 @@ Le fordisme expliqué
 - [Alloprof, L'industrialisation](https://www.alloprof.qc.ca/)
 - [Musée McCord Stewart](https://www.musee-mccord-stewart.ca/)
 - [Wikipédia](https://fr.wikipedia.org/)
+- [The Victorian Web, témoignages devant le comité Sadler, 1832](https://victorianweb.org/history/workers1.html)
+- [Spartacus Educational, Elizabeth Bentley](https://spartacus-educational.com/IRbentley.htm)
+- [The Peel Web, témoignage de Samuel Coulson](https://historyhome.co.uk/peel/factmine/coulson.htm)
+- [Wikipédia, Sadler report](https://en.wikipedia.org/wiki/Sadler_report)
+- [Education in the UK, texte de la loi sur les usines de 1833](https://education-uk.org/documents/acts/1833-factories-act.html)
+- [The National Archives, 1833 Factory Act](https://www.nationalarchives.gov.uk/education/resources/1833-factory-act/)
+- [UK Parliament, Early factory legislation](https://www.parliament.uk/about/living-heritage/transformingsociety/livinglearning/19thcentury/overview/earlyfactorylegislation/)
+- [Online Library of Liberty, Adam Smith](https://oll.libertyfund.org/quote/adam-smith-butcher-brewer-baker)
+- [Marxists Internet Archive, Manifeste du Parti communiste](https://www.marxists.org/archive/marx/works/1848/communist-manifesto/ch01.htm)
+- [Marxists Internet Archive, Friedrich Engels, A Fair Day's Wages for a Fair Day's Work, 1881](https://www.marxists.org/archive/marx/works/1881/05/07.htm)
+- [Wikipédia, Robert Owen](https://en.wikipedia.org/wiki/Robert_Owen)
+- [Wikipédia, Tolpuddle Martyrs](https://en.wikipedia.org/wiki/Tolpuddle_Martyrs)
+- [Wikipédia, London matchgirls strike of 1888](https://en.wikipedia.org/wiki/London_matchgirls_strike_of_1888)

@@ -451,6 +451,8 @@ grands ports de la Méditerranée, puis remonte les routes commerciales vers
 l'intérieur du continent. Les mêmes réseaux qui enrichissent l'Europe
 transportent ainsi la maladie.
 
+::: composant grand-commerce
+
 ### Une maladie foudroyante
 
 La peste se transmet surtout par les puces des rats noirs, nombreux sur les
@@ -499,3 +501,19 @@ la période sur la ligne du temps.
 - [Wikipédia](https://fr.wikipedia.org/)
 - Bibliothèque nationale de France, 2015
 - Document de Jérôme Lebel
+- [O. J. Benedictow, The Black Death: The Greatest Catastrophe Ever, History Today, 2005](https://www.historytoday.com/archive/black-death-greatest-catastrophe-ever)
+- [Medievalists.net, How the Black Death reached Europe, d'après Hannah Barker, 2021](https://www.medievalists.net/2021/01/black-death-europe/)
+- [Wikipédia, Peste noire](https://fr.wikipedia.org/wiki/Peste_noire)
+- [Wikipedia, Black Death](https://en.wikipedia.org/wiki/Black_Death)
+- [Wikipedia, Black Death in England](https://en.wikipedia.org/wiki/Black_Death_in_England)
+- [Wikipedia, Quarantine](https://en.wikipedia.org/wiki/Quarantine)
+- [Encyclopædia Britannica, Hanseatic League](https://www.britannica.com/topic/Hanseatic-League)
+- [Wikipédia, Foires de Champagne](https://fr.wikipedia.org/wiki/Foires_de_Champagne)
+- [Wikipedia, Bruges](https://en.wikipedia.org/wiki/Bruges)
+- [Wikipedia, Fondaco dei Tedeschi](https://en.wikipedia.org/wiki/Fondaco_dei_Tedeschi)
+- [Wikipedia, Bryggen](https://en.wikipedia.org/wiki/Bryggen)
+- [Wikipedia, Peterhof (Novgorod)](https://en.wikipedia.org/wiki/Peterhof_(Novgorod))
+- [Wikipedia, Scania Market](https://en.wikipedia.org/wiki/Scania_market)
+- [Wikipedia, Woolsack](https://en.wikipedia.org/wiki/Woolsack)
+- [Medievalists.net, The Squirrel Fur Trade in 14th Century Novgorod](https://www.medievalists.net/2012/06/the-squirrel-fur-trade-in-14th-century-novgorod/)
+- [Natural Earth, fonds de carte du domaine public](https://www.naturalearthdata.com/)

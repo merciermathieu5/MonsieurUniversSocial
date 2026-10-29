@@ -1,0 +1,500 @@
+<section class="cgo" id="congo-documents" aria-label="Le Congo de Léopold II en documents">
+<style>
+.cgo { margin: 1.4rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: cgo / inline-size; }
+.cgo ul, .cgo ol { list-style: none; margin: 0; padding: 0; }
+.cgo ul > li::before, .cgo ol > li::before { content: none; }
+.cgo li::marker { content: none; }
+.cgo .cgo__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.cgo .cgo__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.cgo .cgo__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .cgo .cgo__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .cgo .cgo__titre { color: var(--encre); }
+html[data-sombre="on"] .cgo .cgo__consigne { color: var(--encre-pale); }
+.cgo__barre { display: flex; align-items: center; gap: .6rem; padding: .6rem 1rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.cgo__onglets { display: flex; flex-wrap: wrap; gap: .35rem; flex: 1 1 auto; }
+.cgo .cgo__onglet { font-family: var(--titre); font-weight: 600; font-size: .8rem; line-height: 1.2; text-align: left; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .85rem; cursor: pointer; transition: background .12s, color .12s; }
+.cgo .cgo__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.cgo .cgo__onglet[aria-selected="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .cgo .cgo__onglet[aria-selected="true"] { color: var(--encre); background: var(--matiere-voile); border-color: var(--matiere); }
+.cgo__num { font-family: var(--donnee); font-size: .7em; letter-spacing: .06em; margin-right: .35rem; opacity: .8; }
+.cgo .cgo__replier { flex: none; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+.cgo .cgo__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.cgo:not(.est-plein-ecran) .cgo__replier { display: none; }
+.cgo__panneau { display: grid; grid-template-columns: minmax(0, 1fr); }
+.cgo__panneau[hidden] { display: none; }
+.cgo__doc, .cgo__aide { min-width: 0; padding: 1.3rem 1.5rem; }
+.cgo__aide { border-top: 1px solid var(--trait); background: var(--surface-2); }
+@container cgo (min-width: 52rem) {
+  .cgo__panneau { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .cgo__aide { border-top: 0; border-left: 1px solid var(--trait); }
+}
+.cgo__fiche { display: flex; flex-wrap: wrap; gap: .35rem .5rem; margin: 0 0 .8rem; }
+.cgo__fiche li { font-family: var(--donnee); font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; color: var(--matiere-fonce); background: var(--matiere-voile); border-radius: 100px; padding: .2rem .6rem; }
+html[data-sombre="on"] .cgo__fiche li { color: var(--encre); }
+.cgo .cgo__doc-titre { margin: 0 0 .25rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; color: var(--encre); }
+.cgo .cgo__auteur { margin: 0 0 1rem; font-size: .9rem; color: var(--encre-doux); }
+.cgo .cgo__extrait { margin: 0 0 .8rem; padding: 1rem 1.2rem; border-left: 4px solid var(--matiere); background: var(--surface-2); border-radius: 0 var(--rayon) var(--rayon) 0; }
+.cgo .cgo__extrait p { margin: 0 0 .7rem; font-family: var(--texte, inherit); font-size: 1.05rem; line-height: 1.65; }
+.cgo .cgo__extrait p:last-child { margin-bottom: 0; }
+.cgo .cgo__etiquette { display: block; margin-bottom: .45rem; font-family: var(--donnee); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.cgo .cgo__original-bouton, .cgo .cgo__question-bouton, .cgo .cgo__choix { font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--matiere-fonce); background: transparent; border: 1px solid var(--matiere); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; }
+html[data-sombre="on"] .cgo .cgo__original-bouton, html[data-sombre="on"] .cgo .cgo__question-bouton, html[data-sombre="on"] .cgo .cgo__choix { color: var(--encre); }
+.cgo .cgo__original-bouton:hover, .cgo .cgo__question-bouton:hover, .cgo .cgo__choix:hover { background: var(--matiere-voile); }
+.cgo .cgo__original { margin: .7rem 0 0; padding: .8rem 1rem; border: 1px dashed var(--trait); border-radius: var(--rayon); font-size: .92rem; line-height: 1.6; color: var(--encre-doux); }
+.cgo .cgo__original p { margin: 0 0 .5rem; }
+.cgo .cgo__original p:last-child { margin-bottom: 0; }
+.cgo .cgo__source { margin: 1rem 0 0; font-family: var(--donnee); font-size: .72rem; line-height: 1.6; color: var(--encre-doux); }
+.cgo .cgo__source a { color: var(--matiere); }
+.cgo .cgo__rubrique { margin: 0 0 .45rem; font-family: var(--donnee); font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--matiere); }
+.cgo .cgo__aide > p { margin: 0 0 1rem; line-height: 1.6; font-size: .95rem; }
+.cgo__lexique { margin: 0 0 1.1rem; }
+.cgo__lexique li { margin: 0 0 .35rem; font-size: .9rem; line-height: 1.5; }
+.cgo__lexique b { color: var(--matiere-fonce); }
+html[data-sombre="on"] .cgo__lexique b { color: var(--encre); }
+.cgo__questions > li { margin: 0 0 .9rem; padding: 0 0 .9rem; border-bottom: 1px solid var(--trait); }
+.cgo__questions > li:last-child { border-bottom: 0; margin-bottom: 0; }
+.cgo .cgo__question { margin: 0 0 .45rem; font-weight: 600; line-height: 1.5; font-size: .95rem; }
+.cgo .cgo__piste { margin: .55rem 0 0; padding: .6rem .8rem; background: var(--surface); border-radius: var(--rayon); font-size: .9rem; line-height: 1.55; }
+.cgo__bilan { padding: 1.3rem 1.5rem; }
+.cgo .cgo__bilan > p { margin: 0 0 1rem; line-height: 1.6; }
+.cgo__tri > li { display: grid; grid-template-columns: minmax(0, 1fr); gap: .5rem; padding: .8rem 0; border-top: 1px solid var(--trait); }
+@container cgo (min-width: 52rem) { .cgo__tri > li { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, .8fr); align-items: start; } }
+.cgo .cgo__tri-nom { margin: 0; font-weight: 600; line-height: 1.4; }
+.cgo__groupe { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; }
+.cgo__groupe-nom { width: 100%; font-family: var(--donnee); font-size: .64rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.cgo .cgo__choix[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .cgo .cgo__choix[aria-pressed="true"] { color: var(--encre); background: var(--matiere-voile); border-color: var(--matiere); }
+.cgo .cgo__retour { grid-column: 1 / -1; margin: 0; font-size: .9rem; line-height: 1.5; padding: .5rem .8rem; border-radius: var(--rayon); background: var(--surface-2); }
+.cgo .cgo__retour:empty { display: none; }
+.cgo .cgo__retour.est-juste { border-left: 4px solid #2F855A; }
+.cgo .cgo__retour.est-faux { border-left: 4px solid #B7791F; }
+.cgo__suites { display: grid; gap: .6rem; margin: .6rem 0 1.2rem; }
+.cgo__suites li { display: grid; grid-template-columns: 5.6em 1fr; gap: .8rem; line-height: 1.5; font-size: .95rem; }
+.cgo__date { font-family: var(--donnee); font-size: .75rem; font-weight: 700; color: var(--matiere); padding-top: .15rem; }
+.cgo .cgo__synthese { margin: 0 0 .5rem; font-weight: 600; }
+.cgo.est-plein-ecran { display: flex; flex-direction: column; overflow: hidden; }
+.cgo.est-plein-ecran > .cgo__entete, .cgo.est-plein-ecran > .cgo__barre { flex: none; }
+.cgo.est-plein-ecran > .cgo__panneaux { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+.cgo.est-plein-ecran .cgo__panneau:not([hidden]) { flex: 1 1 auto; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+.cgo.est-plein-ecran .cgo__doc, .cgo.est-plein-ecran .cgo__aide, .cgo.est-plein-ecran .cgo__bilan { overflow-y: auto; overscroll-behavior: contain; min-height: 0; }
+.cgo.est-plein-ecran .cgo__doc { padding: 1.8rem 2.2rem; }
+.cgo.est-plein-ecran .cgo__extrait p { font-size: 1.2rem; }
+.cgo.est-plein-ecran > .cgo__pied { display: none; }
+.cgo.est-plein-ecran.texte-masque .cgo__aide { display: none; }
+.cgo.est-plein-ecran.texte-masque .cgo__panneau { grid-template-columns: minmax(0, 1fr); }
+@container cgo (max-width: 52rem) {
+  .cgo.est-plein-ecran .cgo__panneau:not([hidden]) { grid-template-rows: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .cgo.est-plein-ecran.texte-masque .cgo__panneau:not([hidden]) { grid-template-rows: minmax(0, 1fr); }
+}
+@container cgo (max-width: 40rem) {
+  .cgo__barre { padding: .5rem .6rem; align-items: flex-start; }
+  .cgo .cgo__onglet { font-size: .74rem; padding: .32rem .65rem; }
+  .cgo__doc, .cgo__aide, .cgo__bilan, .cgo.est-plein-ecran .cgo__doc { padding: 1rem; }
+  .cgo .cgo__extrait p, .cgo.est-plein-ecran .cgo__extrait p { font-size: 1rem; }
+  .cgo .cgo__extrait { padding: .8rem .9rem; }
+  .cgo__suites li { grid-template-columns: 5em 1fr; gap: .5rem; }
+}
+.cgo .cgo__panneau.cgo__panneau--bilan { grid-template-columns: minmax(0, 1fr); }
+.cgo.est-plein-ecran .cgo__panneau.cgo__panneau--bilan:not([hidden]) { grid-template-rows: minmax(0, 1fr); }
+/* Plein écran sur un écran large : le texte grandit avec l'écran et un
+   document court se centre dans sa colonne. Les marges automatiques ne
+   coupent jamais le haut d'un document plus long que la colonne. */
+@container cgo (min-width: 52.0625rem) {
+  .cgo.est-plein-ecran .cgo__panneau:not(.cgo__panneau--bilan) > .cgo__doc { display: flex; flex-direction: column; padding: 2rem 2.6rem; }
+  .cgo.est-plein-ecran .cgo__panneau:not(.cgo__panneau--bilan) > .cgo__doc > :first-child { margin-top: auto; }
+  .cgo.est-plein-ecran .cgo__panneau:not(.cgo__panneau--bilan) > .cgo__doc > :last-child { margin-bottom: auto; }
+  .cgo.est-plein-ecran .cgo__extrait { padding: 1.3rem 1.6rem; }
+  .cgo.est-plein-ecran .cgo__aide { padding: 1.6rem 1.8rem; }
+  .cgo.est-plein-ecran .cgo__bilan { padding: 1.8rem 2.4rem; }
+  .cgo.est-plein-ecran .cgo__onglet { font-size: clamp(0.8rem, 0.448rem + 0.616vw, 1.200rem); }
+  .cgo.est-plein-ecran .cgo__replier { font-size: clamp(0.78rem, 0.437rem + 0.601vw, 1.170rem); }
+  .cgo.est-plein-ecran .cgo__fiche li { font-size: clamp(0.68rem, 0.381rem + 0.524vw, 1.020rem); }
+  .cgo.est-plein-ecran .cgo__doc-titre { font-size: clamp(1.3rem, 0.728rem + 1.001vw, 1.950rem); }
+  .cgo.est-plein-ecran .cgo__auteur { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .cgo.est-plein-ecran .cgo__extrait p { font-size: clamp(1.2rem, 0.672rem + 0.924vw, 1.800rem); }
+  .cgo.est-plein-ecran .cgo__etiquette { font-size: clamp(0.66rem, 0.370rem + 0.508vw, 0.990rem); }
+  .cgo.est-plein-ecran .cgo__original { font-size: clamp(0.92rem, 0.515rem + 0.708vw, 1.380rem); }
+  .cgo.est-plein-ecran .cgo__original-bouton { font-size: clamp(0.78rem, 0.437rem + 0.601vw, 1.170rem); }
+  .cgo.est-plein-ecran .cgo__source { font-size: clamp(0.72rem, 0.403rem + 0.554vw, 1.080rem); }
+  .cgo.est-plein-ecran .cgo__rubrique { font-size: clamp(0.7rem, 0.392rem + 0.539vw, 1.050rem); }
+  .cgo.est-plein-ecran .cgo__aide > p { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .cgo.est-plein-ecran .cgo__lexique li { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+  .cgo.est-plein-ecran .cgo__question { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .cgo.est-plein-ecran .cgo__question-bouton { font-size: clamp(0.78rem, 0.437rem + 0.601vw, 1.170rem); }
+  .cgo.est-plein-ecran .cgo__piste { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+  .cgo.est-plein-ecran .cgo__bilan > p { font-size: clamp(1rem, 0.560rem + 0.770vw, 1.500rem); }
+  .cgo.est-plein-ecran .cgo__tri-nom { font-size: clamp(1rem, 0.560rem + 0.770vw, 1.500rem); }
+  .cgo.est-plein-ecran .cgo__choix { font-size: clamp(0.78rem, 0.437rem + 0.601vw, 1.170rem); }
+  .cgo.est-plein-ecran .cgo__groupe-nom { font-size: clamp(0.64rem, 0.358rem + 0.493vw, 0.960rem); }
+  .cgo.est-plein-ecran .cgo__retour { font-size: clamp(0.9rem, 0.504rem + 0.693vw, 1.350rem); }
+  .cgo.est-plein-ecran .cgo__suites li { font-size: clamp(0.95rem, 0.532rem + 0.731vw, 1.425rem); }
+  .cgo.est-plein-ecran .cgo__date { font-size: clamp(0.75rem, 0.420rem + 0.578vw, 1.125rem); }
+  .cgo.est-plein-ecran .cgo__synthese { font-size: clamp(1rem, 0.560rem + 0.770vw, 1.500rem); }
+}
+.cgo__pied { padding: .85rem 1.5rem 1rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
+.cgo .cgo__pied p { margin: 0; font-family: var(--donnee); font-size: .72rem; line-height: 1.6; color: var(--encre-doux); }
+@media (prefers-reduced-motion: reduce) {
+  .cgo .cgo__onglet, .cgo .cgo__choix { transition: none; }
+}
+@media print {
+  .cgo__barre, .cgo .cgo__original-bouton, .cgo .cgo__question-bouton, .cgo__tri .cgo__groupe, .cgo .cgo__retour { display: none; }
+  .cgo .cgo__panneau[hidden], .cgo .cgo__piste[hidden], .cgo .cgo__original[hidden] { display: block; }
+  .cgo .cgo__panneau { break-inside: avoid; border-top: 1px solid var(--trait); }
+}
+</style>
+<header class="cgo__entete">
+<p class="cgo__titre" role="heading" aria-level="3">Le Congo de Léopold II en documents</p>
+<p class="cgo__consigne">Lis, questionne, puis conclus</p>
+</header>
+<div class="cgo__barre">
+<div class="cgo__onglets" role="tablist" aria-label="Documents">
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-1" aria-controls="cgo-panneau-1" aria-selected="true"><span class="cgo__num">1</span>Le roi, 1876</button>
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-2" aria-controls="cgo-panneau-2" aria-selected="false" tabindex="-1"><span class="cgo__num">2</span>Williams, 1890</button>
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-3" aria-controls="cgo-panneau-3" aria-selected="false" tabindex="-1"><span class="cgo__num">3</span>Casement, 1904 (I)</button>
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-4" aria-controls="cgo-panneau-4" aria-selected="false" tabindex="-1"><span class="cgo__num">4</span>Casement, 1904 (II)</button>
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-5" aria-controls="cgo-panneau-5" aria-selected="false" tabindex="-1"><span class="cgo__num">5</span>Twain, 1905</button>
+<button type="button" class="cgo__onglet" role="tab" id="cgo-onglet-6" aria-controls="cgo-panneau-6" aria-selected="false" tabindex="-1"><span class="cgo__num">&#10003;</span>Conclure</button>
+</div>
+<button type="button" class="cgo__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="cgo__panneaux">
+
+<div class="cgo__panneau" role="tabpanel" id="cgo-panneau-1" aria-labelledby="cgo-onglet-1">
+<div class="cgo__doc">
+<ul class="cgo__fiche"><li>Document 1</li><li>Discours</li><li>12 septembre 1876</li></ul>
+<p class="cgo__doc-titre" role="heading" aria-level="4">Le roi présente son projet</p>
+<p class="cgo__auteur">Léopold&nbsp;II, roi des Belges, devant des explorateurs et des géographes réunis dans son palais, à Bruxelles.</p>
+<blockquote class="cgo__extrait">
+<span class="cgo__etiquette">Extrait, en français</span>
+<p>«&nbsp;Ouvrir à la civilisation la seule partie de notre globe où elle n'a pas encore pénétré&nbsp;»</p>
+</blockquote>
+<p class="cgo__source">Source&nbsp;: discours d'ouverture de la conférence géographique de Bruxelles, cité par <a href="https://www.herodote.net/12_septembre_1876-evenement-18760912.php">Hérodote.net</a>.</p>
+</div>
+<div class="cgo__aide">
+<p class="cgo__rubrique">Le contexte</p>
+<p>En 1876, l'intérieur de l'Afrique centrale est encore peu connu des Européens. Léopold&nbsp;II invite des savants à Bruxelles. Il fonde une association qui se dit scientifique et humanitaire. Le roi rêve pourtant d'une colonie depuis longtemps. Il n'ira jamais lui-même au Congo.</p>
+<p class="cgo__rubrique">Le lexique</p>
+<ul class="cgo__lexique">
+<li><b>Civilisation&nbsp;:</b> ici, la façon de vivre des Européens, que le roi présente comme supérieure.</li>
+<li><b>Globe&nbsp;:</b> la Terre.</li>
+</ul>
+<p class="cgo__rubrique">Les questions</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">Comment Léopold&nbsp;II présente-t-il son projet?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-1-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-1-1" hidden>Il le présente comme une mission généreuse. Il dit vouloir apporter la civilisation. Il ne parle ni de richesses ni de profits.</p></li>
+<li><p class="cgo__question">Que pense-t-il des peuples qui vivent déjà en Afrique centrale?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-1-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-1-2" hidden>Il dit que la civilisation n'y a «&nbsp;pas encore pénétré&nbsp;». Il considère donc ces peuples comme non civilisés. C'est un préjugé très répandu en Europe à cette époque.</p></li>
+<li><p class="cgo__question">Pourquoi faut-il lire ce document avec prudence?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-1-3">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-1-3" hidden>Le roi cherche des appuis pour son projet. Il a intérêt à le montrer sous un beau jour. Les documents suivants montrent ce qui s'est passé ensuite.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="cgo__panneau" role="tabpanel" id="cgo-panneau-2" aria-labelledby="cgo-onglet-2">
+<div class="cgo__doc">
+<ul class="cgo__fiche"><li>Document 2</li><li>Lettre ouverte</li><li>18 juillet 1890</li></ul>
+<p class="cgo__doc-titre" role="heading" aria-level="4">Une lettre publique au roi</p>
+<p class="cgo__auteur">George Washington Williams, historien et pasteur afro-américain, écrite aux chutes Stanley, au Congo.</p>
+<blockquote class="cgo__extrait">
+<span class="cgo__etiquette">Extraits, traduction</span>
+<p>«&nbsp;Le gouvernement de Votre Majesté pratique la traite des esclaves, en gros et au détail.&nbsp;»</p>
+<p>«&nbsp;Le gouvernement de Votre Majesté a été et est encore coupable de mener des guerres injustes et cruelles contre les habitants.&nbsp;»</p>
+<p>«&nbsp;Tous les crimes commis au Congo l'ont été en votre nom.&nbsp;»</p>
+</blockquote>
+<button type="button" class="cgo__original-bouton" aria-expanded="false" aria-controls="cgo-original-2">Voir le texte original en anglais</button>
+<div class="cgo__original" id="cgo-original-2" lang="en" hidden>
+<p>“Your Majesty's Government is engaged in the slave-trade, wholesale and retail.”</p>
+<p>“Your Majesty's Government has been, and is now, guilty of waging unjust and cruel wars against natives”</p>
+<p>“All the crimes perpetrated in the Congo have been done in your name”</p>
+</div>
+<p class="cgo__source">Source&nbsp;: George Washington Williams, <i>An Open Letter to His Serene Majesty Leopold&nbsp;II</i>, 1890, texte publié par <a href="https://new.blackpast.org/global-african-history/george-washington-williams-open-letter-king-leopold-congo-1890/">BlackPast</a>. Traduction de la fiche.</p>
+</div>
+<div class="cgo__aide">
+<p class="cgo__rubrique">Le contexte</p>
+<p>Williams a combattu dans l'armée de l'Union pendant la guerre de Sécession. Il est ensuite devenu pasteur, élu à l'assemblée de l'État de l'Ohio, puis historien. En 1890, il parcourt le Congo jusqu'aux chutes Stanley. Ce qu'il voit le choque. Il écrit alors une lettre au roi et la fait publier.</p>
+<p class="cgo__rubrique">Le lexique</p>
+<ul class="cgo__lexique">
+<li><b>Lettre ouverte&nbsp;:</b> lettre adressée à une personne, mais publiée pour que tout le monde la lise.</li>
+<li><b>Traite des esclaves&nbsp;:</b> commerce d'êtres humains.</li>
+<li><b>En gros et au détail&nbsp;:</b> à grande échelle comme à petite échelle.</li>
+</ul>
+<p class="cgo__rubrique">Les questions</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">De quoi Williams accuse-t-il le gouvernement du roi?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-2-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-2-1" hidden>De faire le commerce d'esclaves. De mener des guerres injustes et cruelles contre les habitants. Il rend le roi responsable de tous ces crimes.</p></li>
+<li><p class="cgo__question">Pourquoi son témoignage a-t-il du poids?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-2-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-2-2" hidden>Il est allé lui-même au Congo. C'est un témoin direct. Il est aussi historien, habitué à rechercher des faits.</p></li>
+<li><p class="cgo__question">Compare avec le document 1. Que remarques-tu?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-2-3">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-2-3" hidden>Le roi parlait d'apporter la civilisation. Quatorze ans plus tard, Williams décrit l'esclavage et la guerre. Le beau discours ne correspond pas à la réalité.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="cgo__panneau" role="tabpanel" id="cgo-panneau-3" aria-labelledby="cgo-onglet-3">
+<div class="cgo__doc">
+<ul class="cgo__fiche"><li>Document 3</li><li>Rapport officiel</li><li>1904</li></ul>
+<p class="cgo__doc-titre" role="heading" aria-level="4">Un village qui se vide</p>
+<p class="cgo__auteur">Roger Casement, consul britannique au Congo, à propos du district de Lukolela, sur le fleuve Congo.</p>
+<blockquote class="cgo__extrait">
+<span class="cgo__etiquette">Extrait, traduction</span>
+<p>«&nbsp;Lorsque je l'ai visité en 1887, ce district comptait au moins 5&nbsp;000 personnes. Aujourd'hui, après un recensement attentif, on en compte moins de 600.&nbsp;»</p>
+<p>«&nbsp;Les raisons qu'on m'a données pour expliquer cette baisse ressemblaient à celles qu'on m'a données ailleurs&nbsp;: la maladie du sommeil, la mauvaise santé, le manque de nourriture, les méthodes des fonctionnaires locaux pour obliger les gens à travailler et les prélèvements qu'on exige d'eux.&nbsp;»</p>
+</blockquote>
+<button type="button" class="cgo__original-bouton" aria-expanded="false" aria-controls="cgo-original-3">Voir le texte original en anglais</button>
+<div class="cgo__original" id="cgo-original-3" lang="en" hidden>
+<p>“This district had, when I visited it in 1887, numbered fully 5,000 people; today the population is given, after a careful enumeration, at less than 600. The reasons given me for their decline in numbers were similar to those furnished elsewhere, namely, sleeping-sickness, general ill-health, insufficiency of food, and the methods employed to obtain labor from them by local officials and the exactions levied on them.”</p>
+</div>
+<p class="cgo__source">Source&nbsp;: rapport de Roger Casement au gouvernement britannique, 1904, extraits publiés par <a href="https://web.viu.ca/davies/H479B.Imperialism.Nationalism/Br.report.Congo.atrocities.1904.htm">l'Université de l'île de Vancouver</a>. Traduction de la fiche.</p>
+</div>
+<div class="cgo__aide">
+<p class="cgo__rubrique">Le contexte</p>
+<p>Le gouvernement britannique demande à son consul d'enquêter. En 1903, Casement remonte le fleuve Congo pendant plusieurs semaines. Il connaît le pays, car il y a travaillé dans les années 1880. Il peut donc comparer avec ce qu'il a vu avant. Son rapport est publié en 1904.</p>
+<p class="cgo__rubrique">Le lexique</p>
+<ul class="cgo__lexique">
+<li><b>Consul&nbsp;:</b> représentant d'un pays dans une ville étrangère.</li>
+<li><b>Recensement&nbsp;:</b> comptage des habitants.</li>
+<li><b>Maladie du sommeil&nbsp;:</b> maladie grave transmise par une mouche, la mouche tsé-tsé.</li>
+<li><b>Prélèvements&nbsp;:</b> ce qu'on force les gens à donner, comme du caoutchouc ou de la nourriture.</li>
+</ul>
+<p class="cgo__rubrique">Les questions</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">Combien d'habitants le district a-t-il perdus en environ 16 ans?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-3-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-3-1" hidden>Plus de 4&nbsp;400 personnes. Il reste moins de 600 habitants sur 5&nbsp;000. C'est près de 9 personnes sur 10 qui ont disparu du district.</p></li>
+<li><p class="cgo__question">Classe les causes données. Lesquelles viennent directement du système colonial?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-3-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-3-2" hidden>Le travail forcé et les prélèvements viennent directement des fonctionnaires. La maladie et la faim ont d'autres causes. On peut toutefois se demander si des gens forcés de travailler pour d'autres ont encore le temps de cultiver leurs champs.</p></li>
+<li><p class="cgo__question">Les habitants disparus sont-ils tous morts? Que pourrait-il leur être arrivé d'autre?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-3-3">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-3-3" hidden>Pas forcément. Certains ont pu fuir vers une autre région. Le document 4 parle justement de réfugiés. C'est une des raisons pour lesquelles les historiens débattent encore des chiffres.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="cgo__panneau" role="tabpanel" id="cgo-panneau-4" aria-labelledby="cgo-onglet-4">
+<div class="cgo__doc">
+<ul class="cgo__fiche"><li>Document 4</li><li>Rapport officiel</li><li>1904</li></ul>
+<p class="cgo__doc-titre" role="heading" aria-level="4">Des otages pour du caoutchouc</p>
+<p class="cgo__auteur">Roger Casement, consul britannique au Congo, même rapport.</p>
+<blockquote class="cgo__extrait">
+<span class="cgo__etiquette">Extraits, traduction</span>
+<p>«&nbsp;Un gardien armé, au service d'une compagnie privée, m'a dit qu'il avait capturé onze femmes et qu'il les gardait prisonnières. Il voulait forcer leurs maris à apporter la bonne quantité de caoutchouc au prochain jour de marché. Je lui ai demandé ce qui arriverait si les maris n'en apportaient pas assez. Il m'a répondu aussitôt que les femmes resteraient là jusqu'à ce que leurs maris les rachètent.&nbsp;»</p>
+<p>«&nbsp;La moitié de la population était maintenant faite de réfugiés. J'ai interrogé plusieurs groupes. Ils disaient que les soldats du gouvernement les maltraitaient tellement que la vie était devenue insupportable. Chez eux, il ne leur restait plus qu'à être tués s'ils n'apportaient pas une certaine quantité de caoutchouc. J'ai ensuite trouvé d'autres personnes qui ont confirmé ce qu'on m'avait dit.&nbsp;»</p>
+</blockquote>
+<button type="button" class="cgo__original-bouton" aria-expanded="false" aria-controls="cgo-original-4">Voir le texte original en anglais</button>
+<div class="cgo__original" id="cgo-original-4" lang="en" hidden>
+<p>“[A sentry in the employ of one of the concessionary private companies] said he had caught and was detaining as prisoners (eleven women) to compel their husbands to bring in the right amount of rubber required of them on the next market day. When I asked what would become of these women if their husbands failed to bring in the right quantity of rubber he said at once that then they would be kept there until their husbands had redeemed them.”</p>
+<p>“fully half the population now consisted of refugees… I saw and questioned several groups of these people… such ill-treatment at the hands of the government soldiers… life had become intolerable… nothing had remained for them at home but to be killed for failure to bring in a certain amount of rubber… I subsequently found other (members of the tribe) who confirmed the truth of the statements made to me.”</p>
+</div>
+<p class="cgo__source">Source&nbsp;: rapport de Roger Casement au gouvernement britannique, 1904, extraits publiés par <a href="https://web.viu.ca/davies/H479B.Imperialism.Nationalism/Br.report.Congo.atrocities.1904.htm">l'Université de l'île de Vancouver</a>. Les passages sont abrégés. Traduction de la fiche.</p>
+</div>
+<div class="cgo__aide">
+<p class="cgo__rubrique">Le contexte</p>
+<p>Le roi a confié de grandes régions à des compagnies privées. Chaque village doit livrer une quantité fixe de caoutchouc, un quota. Pour obliger les hommes à aller chercher le caoutchouc en forêt, on prend des membres de leur famille en otage.</p>
+<p class="cgo__rubrique">Le lexique</p>
+<ul class="cgo__lexique">
+<li><b>Otage&nbsp;:</b> personne retenue de force pour obliger quelqu'un d'autre à obéir.</li>
+<li><b>Racheter&nbsp;:</b> ici, libérer quelqu'un en payant, en caoutchouc.</li>
+<li><b>Réfugié&nbsp;:</b> personne qui a fui sa région pour se mettre à l'abri.</li>
+</ul>
+<p class="cgo__rubrique">Les questions</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">Pourquoi le gardien retient-il ces femmes?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-4-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-4-1" hidden>Pour forcer leurs maris à livrer le caoutchouc exigé. Les femmes servent d'otages. Le gardien en parle comme d'une chose normale.</p></li>
+<li><p class="cgo__question">Pourquoi tant de gens ont-ils quitté leur village?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-4-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-4-2" hidden>Les soldats les maltraitaient. S'ils ne livraient pas assez de caoutchouc, ils risquaient d'être tués. Fuir était le seul moyen de se protéger.</p></li>
+<li><p class="cgo__question">Comment Casement s'assure-t-il que ce qu'on lui raconte est vrai?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-4-3">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-4-3" hidden>Il interroge plusieurs groupes. Il cherche ensuite d'autres témoins, qui confirment les récits. Il compare les témoignages entre eux, comme le fait un historien.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="cgo__panneau" role="tabpanel" id="cgo-panneau-5" aria-labelledby="cgo-onglet-5">
+<div class="cgo__doc">
+<ul class="cgo__fiche"><li>Document 5</li><li>Texte satirique</li><li>1905</li></ul>
+<p class="cgo__doc-titre" role="heading" aria-level="4">Le roi a peur d'un appareil photo</p>
+<p class="cgo__auteur">Mark Twain, écrivain américain, dans <i>Le soliloque du roi Léopold</i>. C'est le roi, imaginé par Twain, qui parle.</p>
+<blockquote class="cgo__extrait">
+<span class="cgo__etiquette">Extraits, traduction</span>
+<p>«&nbsp;Le kodak a été pour nous une terrible catastrophe. C'est même l'ennemi le plus puissant que nous ayons affronté.&nbsp;»</p>
+<p>«&nbsp;Le seul témoin, dans ma longue expérience, que je n'ai pas réussi à acheter.&nbsp;»</p>
+</blockquote>
+<button type="button" class="cgo__original-bouton" aria-expanded="false" aria-controls="cgo-original-5">Voir le texte original en anglais</button>
+<div class="cgo__original" id="cgo-original-5" lang="en" hidden>
+<p>“The kodak has been a sore calamity to us. The most powerful enemy that has confronted us, indeed.”</p>
+<p>“The only witness I have encountered in my long experience that I couldn't bribe.”</p>
+</div>
+<p class="cgo__source">Source&nbsp;: Mark Twain, <i>King Leopold's Soliloquy</i>, Boston, P.&nbsp;R. Warren, 1905, texte intégral sur le <a href="https://www.gutenberg.org/ebooks/62739">projet Gutenberg</a>. Traduction de la fiche.</p>
+</div>
+<div class="cgo__aide">
+<p class="cgo__rubrique">Le contexte</p>
+<p>Au début des années 1900, des missionnaires photographient les victimes du système. C'est le cas d'Alice Seeley Harris, une missionnaire britannique. Ses photos sont projetées sur grand écran lors de conférences en Grande-Bretagne. Mark Twain, très célèbre, met alors des mots dans la bouche du roi pour se moquer de lui.</p>
+<p class="cgo__rubrique">Le lexique</p>
+<ul class="cgo__lexique">
+<li><b>Kodak&nbsp;:</b> petit appareil photo portable, du nom de la compagnie qui le fabrique.</li>
+<li><b>Satire&nbsp;:</b> texte qui se moque de quelqu'un pour le critiquer.</li>
+<li><b>Soliloque&nbsp;:</b> discours d'une personne qui parle seule.</li>
+<li><b>Acheter un témoin&nbsp;:</b> lui donner de l'argent pour qu'il se taise ou qu'il mente.</li>
+</ul>
+<p class="cgo__rubrique">Les questions</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">Qui parle vraiment dans ce texte? Le roi a-t-il dit ces mots?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-5-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-5-1" hidden>Non. C'est Mark Twain qui invente ce discours. Il fait parler le roi pour mieux le critiquer. Le texte dénonce le roi même si c'est lui qui «&nbsp;parle&nbsp;».</p></li>
+<li><p class="cgo__question">Pourquoi un appareil photo serait-il un ennemi pour le roi?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-5-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-5-2" hidden>Une photo montre la réalité à des gens qui ne sont jamais allés au Congo. Elle est plus difficile à contester qu'un récit. Elle a fait réagir le public en Europe et en Amérique.</p></li>
+<li><p class="cgo__question">Que veut dire Twain quand il écrit que le roi n'a pas pu «&nbsp;acheter&nbsp;» ce témoin?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-5-3">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-5-3" hidden>Il sous-entend que le roi achetait le silence des gens. Un appareil photo, lui, ne peut pas être payé pour se taire.</p></li>
+</ol>
+</div>
+</div>
+
+<div class="cgo__panneau cgo__panneau--bilan" role="tabpanel" id="cgo-panneau-6" aria-labelledby="cgo-onglet-6">
+<div class="cgo__bilan">
+<p class="cgo__rubrique">Trier les documents</p>
+<p>Pour chaque document, choisis son point de vue. Dis ensuite si son auteur a vu lui-même la situation au Congo.</p>
+<ul class="cgo__tri">
+<li data-doc="1" data-vue="defend" data-temoin="non"><p class="cgo__tri-nom">1. Léopold&nbsp;II, discours, 1876</p>
+<div class="cgo__groupe" role="group" aria-label="Point de vue du document 1"><span class="cgo__groupe-nom">Point de vue</span><button type="button" class="cgo__choix" data-q="vue" data-v="defend" aria-pressed="false">Défend le projet du roi</button><button type="button" class="cgo__choix" data-q="vue" data-v="denonce" aria-pressed="false">Dénonce le système</button></div>
+<div class="cgo__groupe" role="group" aria-label="Témoin direct, document 1"><span class="cgo__groupe-nom">Témoin direct?</span><button type="button" class="cgo__choix" data-q="temoin" data-v="oui" aria-pressed="false">Oui</button><button type="button" class="cgo__choix" data-q="temoin" data-v="non" aria-pressed="false">Non</button></div>
+<p class="cgo__retour" aria-live="polite" data-juste="Le roi vante son propre projet. Il n'est jamais allé au Congo."></p></li>
+<li data-doc="2" data-vue="denonce" data-temoin="oui"><p class="cgo__tri-nom">2. Williams, lettre ouverte, 1890</p>
+<div class="cgo__groupe" role="group" aria-label="Point de vue du document 2"><span class="cgo__groupe-nom">Point de vue</span><button type="button" class="cgo__choix" data-q="vue" data-v="defend" aria-pressed="false">Défend le projet du roi</button><button type="button" class="cgo__choix" data-q="vue" data-v="denonce" aria-pressed="false">Dénonce le système</button></div>
+<div class="cgo__groupe" role="group" aria-label="Témoin direct, document 2"><span class="cgo__groupe-nom">Témoin direct?</span><button type="button" class="cgo__choix" data-q="temoin" data-v="oui" aria-pressed="false">Oui</button><button type="button" class="cgo__choix" data-q="temoin" data-v="non" aria-pressed="false">Non</button></div>
+<p class="cgo__retour" aria-live="polite" data-juste="Williams accuse le roi. Il a voyagé au Congo en 1890."></p></li>
+<li data-doc="3" data-vue="denonce" data-temoin="oui"><p class="cgo__tri-nom">3. Casement, rapport, 1904 (Lukolela)</p>
+<div class="cgo__groupe" role="group" aria-label="Point de vue du document 3"><span class="cgo__groupe-nom">Point de vue</span><button type="button" class="cgo__choix" data-q="vue" data-v="defend" aria-pressed="false">Défend le projet du roi</button><button type="button" class="cgo__choix" data-q="vue" data-v="denonce" aria-pressed="false">Dénonce le système</button></div>
+<div class="cgo__groupe" role="group" aria-label="Témoin direct, document 3"><span class="cgo__groupe-nom">Témoin direct?</span><button type="button" class="cgo__choix" data-q="temoin" data-v="oui" aria-pressed="false">Oui</button><button type="button" class="cgo__choix" data-q="temoin" data-v="non" aria-pressed="false">Non</button></div>
+<p class="cgo__retour" aria-live="polite" data-juste="Casement montre les effets du système sur la population. Il a visité Lukolela en 1887 puis de nouveau en 1903."></p></li>
+<li data-doc="4" data-vue="denonce" data-temoin="oui"><p class="cgo__tri-nom">4. Casement, rapport, 1904 (otages)</p>
+<div class="cgo__groupe" role="group" aria-label="Point de vue du document 4"><span class="cgo__groupe-nom">Point de vue</span><button type="button" class="cgo__choix" data-q="vue" data-v="defend" aria-pressed="false">Défend le projet du roi</button><button type="button" class="cgo__choix" data-q="vue" data-v="denonce" aria-pressed="false">Dénonce le système</button></div>
+<div class="cgo__groupe" role="group" aria-label="Témoin direct, document 4"><span class="cgo__groupe-nom">Témoin direct?</span><button type="button" class="cgo__choix" data-q="temoin" data-v="oui" aria-pressed="false">Oui</button><button type="button" class="cgo__choix" data-q="temoin" data-v="non" aria-pressed="false">Non</button></div>
+<p class="cgo__retour" aria-live="polite" data-juste="Casement a parlé lui-même au gardien et aux réfugiés. Son rapport dénonce les otages et les violences."></p></li>
+<li data-doc="5" data-vue="denonce" data-temoin="non"><p class="cgo__tri-nom">5. Twain, texte satirique, 1905</p>
+<div class="cgo__groupe" role="group" aria-label="Point de vue du document 5"><span class="cgo__groupe-nom">Point de vue</span><button type="button" class="cgo__choix" data-q="vue" data-v="defend" aria-pressed="false">Défend le projet du roi</button><button type="button" class="cgo__choix" data-q="vue" data-v="denonce" aria-pressed="false">Dénonce le système</button></div>
+<div class="cgo__groupe" role="group" aria-label="Témoin direct, document 5"><span class="cgo__groupe-nom">Témoin direct?</span><button type="button" class="cgo__choix" data-q="temoin" data-v="oui" aria-pressed="false">Oui</button><button type="button" class="cgo__choix" data-q="temoin" data-v="non" aria-pressed="false">Non</button></div>
+<p class="cgo__retour" aria-live="polite" data-juste="Attention au piège. Le roi «&nbsp;parle&nbsp;», mais c'est Twain qui se moque de lui. Twain écrit à partir des témoignages et des photos des autres."></p></li>
+</ul>
+<p class="cgo__rubrique">Les conséquences</p>
+<ul class="cgo__suites">
+<li><span class="cgo__date">Quotas</span><span>Chaque village doit livrer du caoutchouc. Ceux qui n'y arrivent pas sont punis. Des femmes et des enfants sont pris en otage.</span></li>
+<li><span class="cgo__date">Population</span><span>Des villages se vident. Des gens fuient, d'autres meurent de faim, de maladie ou de violence. Les historiens ne s'entendent pas sur le nombre de victimes, mais la plupart constatent une forte baisse de la population.</span></li>
+<li><span class="cgo__date">1904</span><span>Le rapport Casement est publié. Edmund Dene Morel et Roger Casement fondent la Congo Reform Association, une association qui fait campagne contre le système du roi.</span></li>
+<li><span class="cgo__date">1905</span><span>La commission d'enquête que le roi a dû nommer en 1904 publie son rapport. Elle confirme pour l'essentiel le rapport Casement.</span></li>
+<li><span class="cgo__date">1908</span><span>Le 15&nbsp;novembre, la Belgique enlève le Congo à son roi. Il devient une colonie belge, le Congo belge.</span></li>
+<li><span class="cgo__date">1960</span><span>Le Congo devient indépendant le 30&nbsp;juin, après 52&nbsp;ans de colonisation belge.</span></li>
+</ul>
+<p class="cgo__rubrique">Pour conclure</p>
+<ol class="cgo__questions">
+<li><p class="cgo__question">Pourquoi le discours de 1876 ne suffit-il pas pour savoir ce qui s'est passé au Congo?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-6-1">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-6-1" hidden>C'est le point de vue du roi, qui parle de ses intentions avant la colonisation. Il ne décrit pas ce qui s'est passé ensuite. Il faut le comparer avec des témoins qui ont vu la situation sur place.</p></li>
+<li><p class="cgo__question">Selon toi, qu'est-ce qui a fini par faire tomber le système de Léopold&nbsp;II?</p>
+<button type="button" class="cgo__question-bouton" aria-expanded="false" aria-controls="cgo-piste-6-2">Piste de réponse</button>
+<p class="cgo__piste" id="cgo-piste-6-2" hidden>Les témoignages se sont accumulés pendant des années. Le rapport officiel de Casement, les photos des missionnaires et la campagne de la Congo Reform Association ont alerté l'opinion publique. Le roi n'a plus pu nier les faits.</p></li>
+</ol>
+</div>
+</div>
+
+</div>
+<div class="cgo__pied">
+<p>Les extraits en anglais sont traduits pour la fiche. Les crochets et les points de suspension signalent des passages abrégés dans le texte original. Les photos de victimes ne sont pas reproduites ici.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("congo-documents");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  racine.classList.add("est-pret");
+  var tous = function (sel) { return Array.prototype.slice.call(racine.querySelectorAll(sel)); };
+
+  /* onglets */
+  var onglets = tous(".cgo__onglet");
+  function choisir(onglet, focaliser) {
+    onglets.forEach(function (o) {
+      var actif = o === onglet;
+      o.setAttribute("aria-selected", actif ? "true" : "false");
+      o.setAttribute("tabindex", actif ? "0" : "-1");
+      document.getElementById(o.getAttribute("aria-controls")).hidden = !actif;
+    });
+    if (focaliser) onglet.focus();
+  }
+  onglets.forEach(function (o, i) {
+    o.addEventListener("click", function () { choisir(o, false); });
+    o.addEventListener("keydown", function (e) {
+      var n = onglets.length, cible = null;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") cible = onglets[(i + 1) % n];
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") cible = onglets[(i - 1 + n) % n];
+      else if (e.key === "Home") cible = onglets[0];
+      else if (e.key === "End") cible = onglets[n - 1];
+      if (cible) { e.preventDefault(); choisir(cible, true); }
+    });
+  });
+  choisir(onglets[0], false);
+
+  /* boutons qui déplient : texte original et pistes de réponse */
+  tous(".cgo__original-bouton, .cgo__question-bouton").forEach(function (b) {
+    var cible = document.getElementById(b.getAttribute("aria-controls"));
+    var etiquettes = b.classList.contains("cgo__original-bouton")
+      ? ["Voir le texte original en anglais", "Masquer le texte original"]
+      : ["Piste de réponse", "Masquer la piste"];
+    b.addEventListener("click", function () {
+      var ouvrir = cible.hidden;
+      cible.hidden = !ouvrir;
+      b.setAttribute("aria-expanded", ouvrir ? "true" : "false");
+      b.textContent = etiquettes[ouvrir ? 1 : 0];
+    });
+  });
+
+  /* tri des documents */
+  tous(".cgo__tri > li").forEach(function (ligne) {
+    var retour = ligne.querySelector(".cgo__retour");
+    var choix = { vue: null, temoin: null };
+    Array.prototype.forEach.call(ligne.querySelectorAll(".cgo__choix"), function (b) {
+      b.addEventListener("click", function () {
+        var q = b.getAttribute("data-q");
+        choix[q] = b.getAttribute("data-v");
+        Array.prototype.forEach.call(ligne.querySelectorAll('.cgo__choix[data-q="' + q + '"]'), function (autre) {
+          autre.setAttribute("aria-pressed", autre === b ? "true" : "false");
+        });
+        retour.classList.remove("est-juste", "est-faux");
+        if (!choix.vue || !choix.temoin) { retour.textContent = "Fais aussi l'autre choix."; return; }
+        var juste = choix.vue === ligne.getAttribute("data-vue") && choix.temoin === ligne.getAttribute("data-temoin");
+        retour.classList.add(juste ? "est-juste" : "est-faux");
+        retour.textContent = (juste ? "Bien vu. " : "Relis le document. ") + (juste ? retour.getAttribute("data-juste") : indice(ligne));
+      });
+    });
+  });
+  function indice(ligne) {
+    return ligne.getAttribute("data-temoin") === "oui"
+      ? "L'auteur a-t-il vu lui-même ce qu'il raconte? Approuve-t-il le roi ou le critique-t-il?"
+      : "L'auteur est-il allé au Congo? Approuve-t-il vraiment le roi ou le critique-t-il?";
+  }
+
+  /* plein écran : repli du texte */
+  var replier = racine.querySelector(".cgo__replier");
+  function poserRepli(masque) {
+    racine.classList.toggle("texte-masque", masque);
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  }
+  replier.addEventListener("click", function () { poserRepli(!racine.classList.contains("texte-masque")); });
+  if (window.MutationObserver) {
+    new MutationObserver(function () {
+      if (!racine.classList.contains("est-plein-ecran") && racine.classList.contains("texte-masque")) poserRepli(false);
+    }).observe(racine, { attributes: true, attributeFilter: ["class"] });
+  }
+})();
+</script>
+</section>

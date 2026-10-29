@@ -1,0 +1,427 @@
+<section class="qec" id="qui-est-citoyen" aria-label="Interface : qui est citoyen à Athènes? La population filtrée par les critères de citoyenneté, puis comparée au Québec">
+<style>
+.qec { --qec-neutre: #B3BCC2; --qec-neutre-trait: #6E7B85; --qec-fantome: #EEF0EB; --qec-fantome-trait: #B9C1B4; --qec-droit: #5F82AD; --qec-vote: #22374F; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: qec / inline-size; }
+html[data-sombre="on"] .qec { --qec-neutre: #4A5663; --qec-neutre-trait: #8B98A3; --qec-fantome: #1C2631; --qec-fantome-trait: #3A4756; --qec-droit: #5577A0; --qec-vote: #A9C8EA; }
+.qec ul, .qec ol { list-style: none; margin: 0; padding: 0; }
+.qec li { margin: 0; padding: 0; }
+.qec ul > li::before, .qec ol > li::before { content: none; display: none; }
+.qec ul > li::marker, .qec ol > li::marker { content: none; }
+.qec p { margin: 0; }
+.qec [hidden] { display: none !important; }
+.qec .qec__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.qec .qec__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.qec__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .qec .qec__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .qec .qec__titre { color: var(--encre); }
+html[data-sombre="on"] .qec__consigne { color: var(--encre-pale); }
+.qec__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.qec__scene { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: .5rem; padding: 1rem 1.2rem 1.1rem; background: var(--surface-2); }
+.qec .qec__lieu { font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); text-align: center; }
+.qec .qec__compte { font-family: var(--titre); font-size: .95rem; color: var(--encre); text-align: center; }
+.qec__compte strong { font-weight: 800; font-size: 1.35rem; color: var(--matiere-fonce); margin-right: .3rem; }
+html[data-sombre="on"] .qec__compte strong { color: var(--encre); }
+.qec__grille { display: block; width: 100%; max-width: 30rem; height: auto; margin: 0 auto; overflow: visible; }
+.qec__fig circle, .qec__fig path { fill: var(--qec-neutre); stroke: var(--qec-neutre-trait); stroke-width: 1.2; transition: fill .45s ease, stroke .45s ease; transition-delay: var(--qec-delai, 0ms); }
+.qec__fig.est-retire circle, .qec__fig.est-retire path { fill: var(--qec-fantome); stroke: var(--qec-fantome-trait); stroke-dasharray: 3 2.4; }
+.qec__fig.est-droit circle, .qec__fig.est-droit path { fill: var(--qec-droit); stroke: var(--qec-droit); }
+.qec__fig.est-vote circle, .qec__fig.est-vote path { fill: var(--qec-vote); stroke: var(--qec-vote); }
+.qec__demi { opacity: 0; transition: opacity .45s ease; }
+.qec__demi.est-visible { opacity: 1; }
+.qec__demi circle, .qec__demi path { fill: var(--qec-vote); stroke: var(--qec-vote); stroke-width: 1.2; }
+.qec__bande { opacity: 0; transition: opacity .35s ease; pointer-events: none; }
+.qec__bande.est-visible { opacity: 1; }
+.qec__bande-fond { fill: var(--surface); stroke: var(--trait); stroke-width: 1; }
+.qec__bande-texte { font-family: var(--titre); font-weight: 700; font-size: 13px; fill: var(--encre); }
+.qec .qec__echelle { font-family: var(--donnee); font-size: .7rem; letter-spacing: .04em; color: var(--encre-doux); text-align: center; }
+.qec__nav { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-top: .2rem; }
+.qec__precedent, .qec__suivant, .qec__replier, .qec__etape { font-family: var(--titre); font-weight: 600; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.qec__precedent, .qec__suivant { font-size: .9rem; border-radius: 100px; padding: .5rem 1.15rem; border: 1px solid var(--trait); background: var(--surface); color: var(--encre-doux); }
+.qec__precedent:hover:not(:disabled) { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec__precedent:disabled { opacity: .45; cursor: default; }
+.qec__suivant { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.qec__suivant:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .qec__suivant { color: #10171F; }
+.qec__replier { position: absolute; top: .65rem; right: .65rem; z-index: 2; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; }
+.qec__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec:not(.est-plein-ecran) .qec__replier { display: none; }
+.qec__cote { padding: 1.1rem 1.3rem 1.3rem; border-top: 1px solid var(--trait); }
+.qec .qec__etapes { display: flex; flex-wrap: wrap; gap: .3rem .35rem; align-items: center; margin-bottom: 1.1rem; }
+.qec .qec__groupe { flex: 0 0 100%; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-top: .25rem; }
+.qec__etape { display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .22rem .65rem .22rem .25rem; }
+.qec__etape:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.qec__num { display: inline-grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; font-family: var(--donnee); font-size: .7rem; background: var(--surface-2); border: 1px solid var(--trait); }
+.qec__etape.est-passe .qec__num { background: var(--matiere-voile); border-color: var(--matiere); }
+.qec__etape[aria-current="step"] { color: var(--encre); border-color: var(--signal); box-shadow: 0 0 0 2px var(--signal); }
+.qec__etape[aria-current="step"] .qec__num { background: var(--matiere); border-color: var(--matiere); color: #fff; }
+html[data-sombre="on"] .qec__etape[aria-current="step"] .qec__num { color: #10171F; }
+.qec .qec__surtitre { font-family: var(--donnee); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.qec .qec__titre-etape { font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.3; color: var(--matiere-fonce); margin-bottom: .5rem; }
+html[data-sombre="on"] .qec .qec__titre-etape { color: var(--encre); }
+.qec .qec__explication { font-size: .97rem; line-height: 1.62; }
+.qec .qec__et-toi { margin-top: .8rem; padding: .75rem 1rem; border-radius: var(--rayon); background: var(--matiere-voile); font-size: .95rem; line-height: 1.55; }
+.qec__et-toi strong { font-family: var(--titre); }
+.qec .qec__bilan { margin-top: 1.1rem; border-top: 1px solid var(--trait); }
+.qec__ligne { display: grid; grid-template-columns: 1.2rem 3.1rem minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding: .45rem 0; border-bottom: 1px solid var(--trait); font-family: var(--titre); font-size: .86rem; line-height: 1.3; }
+.qec__pastille { width: 1rem; height: 1rem; border-radius: 50%; background: var(--qec-neutre); border: 1.5px solid var(--qec-neutre-trait); }
+.qec__ligne--retire .qec__pastille { background: var(--qec-fantome); border: 1.5px dashed var(--qec-fantome-trait); }
+.qec__ligne--droit .qec__pastille { background: var(--qec-droit); border-color: var(--qec-droit); }
+.qec__ligne--vote .qec__pastille { background: var(--qec-vote); border-color: var(--qec-vote); }
+.qec__nb { font-family: var(--donnee); font-weight: 600; font-size: .86rem; text-align: right; white-space: nowrap; }
+.qec__pers { font-family: var(--donnee); font-size: .74rem; color: var(--encre-doux); text-align: right; white-space: nowrap; }
+.qec__ligne.est-fort { font-weight: 700; }
+.qec__ligne.est-fort .qec__nb { color: var(--matiere-fonce); }
+html[data-sombre="on"] .qec__ligne.est-fort .qec__nb { color: var(--encre); }
+.qec__ligne.est-neuf { animation: qec-entre .5s ease both; }
+@keyframes qec-entre { from { opacity: 0; transform: translateY(-.3rem); } to { opacity: 1; transform: none; } }
+@container qec (min-width: 42rem) {
+  .qec__corps { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  .qec__cote { border-top: 0; border-left: 1px solid var(--trait); }
+}
+@container qec (max-width: 30rem) {
+  .qec__scene { padding: .9rem .8rem 1rem; }
+  .qec__cote { padding: 1rem .9rem 1.1rem; }
+  .qec__ligne { grid-template-columns: 1rem 2.6rem minmax(0, 1fr); }
+  .qec__pers { grid-column: 3; text-align: left; }
+}
+.qec.est-plein-ecran { display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; }
+.qec.est-plein-ecran > .qec__entete { position: static; }
+.qec.est-plein-ecran > .qec__corps { min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(21rem, 30vw, 28rem); }
+.qec.est-plein-ecran .qec__scene { min-height: 0; justify-content: center; padding: 1.2rem 1.6rem 1.2rem; }
+.qec.est-plein-ecran .qec__grille { flex: 1 1 auto; min-height: 0; max-width: none; width: 100%; height: 100%; max-height: none; }
+.qec.est-plein-ecran .qec__cote { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; border-left: 1px solid var(--trait); }
+.qec.est-plein-ecran .qec__explication { font-size: 1.03rem; }
+.qec.est-plein-ecran.texte-masque > .qec__corps { grid-template-columns: minmax(0, 1fr) 0; }
+.qec.est-plein-ecran.texte-masque .qec__cote { display: none; }
+@media (max-width: 52rem) {
+  .qec.est-plein-ecran > .qec__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .qec.est-plein-ecran .qec__cote { border-left: 0; border-top: 1px solid var(--trait); }
+  .qec.est-plein-ecran.texte-masque > .qec__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) 0; }
+}
+@media print {
+  .qec__nav, .qec__replier, .qec__etapes { display: none !important; }
+  .qec__corps { grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<div class="qec__entete">
+  <p class="qec__titre" role="heading" aria-level="3">Qui est citoyen? La population d'Athènes, filtrée</p>
+  <p class="qec__consigne">Applique les critères un à un</p>
+</div>
+
+<div class="qec__corps">
+  <div class="qec__scene">
+    <button type="button" class="qec__replier" aria-expanded="true">Masquer le texte</button>
+    <p class="qec__lieu"></p>
+    <p class="qec__compte"></p>
+    <svg class="qec__grille" viewBox="0 0 400 500" role="img" aria-label="Grille de 100 silhouettes"></svg>
+    <p class="qec__echelle"></p>
+    <div class="qec__nav">
+      <button type="button" class="qec__precedent">Étape précédente</button>
+      <button type="button" class="qec__suivant">Premier critère</button>
+    </div>
+  </div>
+  <div class="qec__cote">
+    <ol class="qec__etapes" aria-label="Étapes"></ol>
+    <div class="qec__texte" aria-live="polite">
+      <p class="qec__surtitre"></p>
+      <p class="qec__titre-etape"></p>
+      <p class="qec__explication"></p>
+      <p class="qec__et-toi" hidden></p>
+    </div>
+    <ol class="qec__bilan" aria-label="Bilan des silhouettes"></ol>
+  </div>
+</div>
+
+<script>
+(function () {
+  var racine = document.getElementById("qui-est-citoyen");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+
+  var NS = "http://www.w3.org/2000/svg";
+  var COLONNES = 10;
+  var CASE_L = 40;
+  var CASE_H = 50;
+
+  /* Les groupes occupent des bandes continues, lues de gauche à droite. */
+  var GROUPES = {
+    esclaves: [0, 25], meteques: [25, 45], femmes: [45, 90], citoyens: [90, 100],
+    exclus: [0, 30], abstention: [30, 53], votants: [53, 100]
+  };
+  var ETIQUETTES = {
+    esclaves: "Esclaves", meteques: "Métèques", femmes: "Femmes et enfants",
+    exclus: "Ne peuvent pas voter", abstention: "N'ont pas voté"
+  };
+
+  var etapes = [
+    {
+      court: "Tous les habitants", pays: "athenes",
+      surtitre: "Athènes, à l'époque de Périclès",
+      titre: "Environ 400 000 habitants",
+      texte: "À l'époque de Périclès, environ 400 000 personnes vivent en Attique, le territoire d'Athènes. Chaque silhouette en représente 4 000. Qui, parmi elles, a le droit de voter? Applique les critères de citoyenneté un à un.",
+      compte: ["100", "silhouettes sur 100"], suivant: "Premier critère",
+      retires: [], droit: [], vote: [], bandes: []
+    },
+    {
+      court: "Être libre", pays: "athenes",
+      surtitre: "Premier critère",
+      titre: "Être libre",
+      texte: "Les esclaves forment plus du quart de la population. Ils appartiennent à leur propriétaire et n'ont aucun droit politique. On les retire. Il reste 75 silhouettes sur 100.",
+      compte: ["75", "silhouettes sur 100"], suivant: "Critère suivant",
+      retires: ["esclaves"], droit: [], vote: [], bandes: ["esclaves"]
+    },
+    {
+      court: "Avoir des parents athéniens", pays: "athenes",
+      surtitre: "Deuxième critère",
+      titre: "Être né de parents athéniens",
+      texte: "Depuis une loi de Périclès, en -451, il faut être né d'un père athénien et d'une mère fille de citoyen. Les métèques, environ 20 % des habitants, sont des étrangers libres. Ils paient des impôts et font leur service militaire, mais ils ne votent pas. Il reste 55 silhouettes.",
+      compte: ["55", "silhouettes sur 100"], suivant: "Critère suivant",
+      retires: ["esclaves", "meteques"], droit: [], vote: [], bandes: ["esclaves", "meteques"]
+    },
+    {
+      court: "Être un homme adulte et soldat", pays: "athenes",
+      surtitre: "Troisième critère",
+      titre: "Avoir plus de 18 ans et avoir fait son service militaire",
+      texte: "Les enfants sont trop jeunes. Les femmes ne font pas de service militaire et n'ont aucun droit politique. Ensemble, les femmes et les enfants des familles de citoyens forment environ 45 % de la population. Il reste les citoyens : 10 silhouettes, environ 40 000 hommes.",
+      compte: ["10", "silhouettes ont le droit de voter"], suivant: "Qui vient à l'ecclésia?",
+      retires: ["esclaves", "meteques", "femmes"], droit: ["citoyens"], vote: [], bandes: ["esclaves", "meteques", "femmes"]
+    },
+    {
+      court: "Venir à l'ecclésia", pays: "athenes",
+      surtitre: "Un jour d'assemblée",
+      titre: "Avoir le droit de voter ne veut pas dire voter",
+      texte: "L'ecclésia se réunit sur la colline de la Pnyx, qui peut accueillir environ 6 000 citoyens. Beaucoup de citoyens sont des paysans qui peuvent difficilement quitter leurs terres. Un jour d'assemblée, au plus 1,5 habitant sur 100 décide donc pour toute la cité.",
+      compte: ["1,5", "silhouette, au plus, décide ce jour-là"], suivant: "Et au Québec?",
+      retires: ["esclaves", "meteques", "femmes"], droit: ["citoyens"], vote: [], present: true, bandes: ["esclaves", "meteques", "femmes"]
+    },
+    {
+      court: "Qui peut voter?", pays: "quebec",
+      surtitre: "Et au Québec?",
+      titre: "7 habitants sur 10 peuvent voter",
+      texte: "Pour voter au Québec, il faut avoir 18 ans, avoir la citoyenneté canadienne, habiter au Québec depuis au moins six mois et être inscrit sur la liste électorale. Ce droit s'est élargi peu à peu : les femmes votent depuis 1940, les Autochtones qui vivent dans les réserves depuis 1969. En 2026, environ 6,4 millions de personnes étaient inscrites, sur environ 9,1 millions d'habitants.",
+      compte: ["70", "silhouettes peuvent voter"], suivant: "Qui a voté?",
+      retires: ["exclus"], droit: ["abstention", "votants"], vote: [], bandes: ["exclus"]
+    },
+    {
+      court: "Qui a voté?", pays: "quebec",
+      surtitre: "Le 5 octobre 2026",
+      titre: "Un peu moins de la moitié des habitants a voté",
+      texte: "Aux élections du 5 octobre 2026, 66,93 % des personnes inscrites ont voté, soit environ 4,3 millions de personnes. Elles n'ont pas voté les lois elles-mêmes : elles ont élu les 127 députés de l'Assemblée nationale, qui voteront les lois en leur nom.",
+      etToi: "À ton âge, tu ne pourrais voter ni à Athènes ni au Québec. Au Québec, tu pourras voter à 18 ans, que tu sois une fille ou un garçon.",
+      compte: ["47", "silhouettes ont voté"], suivant: "Recommencer",
+      retires: ["exclus"], droit: ["abstention"], vote: ["votants"], bandes: ["exclus", "abstention"]
+    }
+  ];
+
+  var PAYS = {
+    athenes: { lieu: "L'Attique à l'époque de Périclès", echelle: "1 silhouette = 4 000 personnes" },
+    quebec: { lieu: "Le Québec en 2026", echelle: "1 silhouette = environ 90 000 personnes" }
+  };
+
+  var BILANS = {
+    athenes: [
+      { de: 0, signe: "", nb: "100", nom: "Habitants de l'Attique", pers: "environ 400 000", genre: "neutre" },
+      { de: 1, signe: "\u2212", nb: "25", nom: "Esclaves", pers: "plus de 100 000", genre: "retire" },
+      { de: 2, signe: "\u2212", nb: "20", nom: "Métèques", pers: "environ 80 000", genre: "retire" },
+      { de: 3, signe: "\u2212", nb: "45", nom: "Femmes et enfants des familles de citoyens", pers: "environ 180 000", genre: "retire" },
+      { de: 3, signe: "=", nb: "10", nom: "Citoyens", pers: "environ 40 000", genre: "droit", fort: true },
+      { de: 4, signe: "", nb: "1,5", nom: "Présents à l'ecclésia, au plus", pers: "environ 6 000", genre: "vote", fort: true }
+    ],
+    quebec: [
+      { de: 5, signe: "", nb: "100", nom: "Habitants du Québec", pers: "environ 9,1 millions", genre: "neutre" },
+      { de: 5, signe: "\u2212", nb: "30", nom: "Ne peuvent pas voter ou ne sont pas inscrits", pers: "environ 2,7 millions", genre: "retire" },
+      { de: 5, signe: "=", nb: "70", nom: "Électeurs inscrits", pers: "environ 6,4 millions", genre: "droit", fort: true },
+      { de: 6, signe: "\u2212", nb: "23", nom: "N'ont pas voté le 5 octobre 2026", pers: "environ 2,1 millions", genre: "droit" },
+      { de: 6, signe: "=", nb: "47", nom: "Ont voté", pers: "environ 4,3 millions", genre: "vote", fort: true }
+    ]
+  };
+
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function svgEl(nom, attributs) {
+    var n = document.createElementNS(NS, nom);
+    Object.keys(attributs || {}).forEach(function (cle) { n.setAttribute(cle, attributs[cle]); });
+    return n;
+  }
+  function dessinerSilhouette(parent) {
+    parent.appendChild(svgEl("circle", { cx: "20", cy: "13", r: "7" }));
+    parent.appendChild(svgEl("path", { d: "M8 46v-11a12 12 0 0 1 24 0v11z" }));
+  }
+  function dansGroupes(i, liste) {
+    return liste.some(function (nom) { var g = GROUPES[nom]; return i >= g[0] && i < g[1]; });
+  }
+
+  var grille = racine.querySelector(".qec__grille");
+  var lieu = racine.querySelector(".qec__lieu");
+  var compte = racine.querySelector(".qec__compte");
+  var echelle = racine.querySelector(".qec__echelle");
+  var precedent = racine.querySelector(".qec__precedent");
+  var suivant = racine.querySelector(".qec__suivant");
+  var listeEtapes = racine.querySelector(".qec__etapes");
+  var surtitre = racine.querySelector(".qec__surtitre");
+  var titre = racine.querySelector(".qec__titre-etape");
+  var explication = racine.querySelector(".qec__explication");
+  var etToi = racine.querySelector(".qec__et-toi");
+  var bilan = racine.querySelector(".qec__bilan");
+  var replier = racine.querySelector(".qec__replier");
+
+  /* ------------------------------------------------- la grille de silhouettes */
+
+  var defs = svgEl("defs");
+  var clip = svgEl("clipPath", { id: "qec-moitie" });
+  clip.appendChild(svgEl("rect", { x: "0", y: "0", width: "20", height: "50" }));
+  defs.appendChild(clip);
+  grille.appendChild(defs);
+
+  var figures = [];
+  for (var i = 0; i < 100; i += 1) {
+    var col = i % COLONNES;
+    var rang = Math.floor(i / COLONNES);
+    var g = svgEl("g", { "class": "qec__fig", transform: "translate(" + (col * CASE_L) + " " + (rang * CASE_H) + ")" });
+    g.style.setProperty("--qec-delai", (col * 18) + "ms");
+    dessinerSilhouette(g);
+    grille.appendChild(g);
+    figures.push(g);
+  }
+  /* La moitié de silhouette : 6 000 présents sur 40 000 citoyens, soit 1,5 sur 10. */
+  var demi = svgEl("g", { "class": "qec__demi", transform: "translate(" + (1 * CASE_L) + " " + (9 * CASE_H) + ")" });
+  var demiInterieur = svgEl("g", { "clip-path": "url(#qec-moitie)" });
+  dessinerSilhouette(demiInterieur);
+  demi.appendChild(demiInterieur);
+  grille.appendChild(demi);
+
+  var bandes = {};
+  Object.keys(ETIQUETTES).forEach(function (nom) {
+    var bornes = GROUPES[nom];
+    var sx = 0;
+    var sy = 0;
+    for (var k = bornes[0]; k < bornes[1]; k += 1) {
+      sx += (k % COLONNES) * CASE_L + CASE_L / 2;
+      sy += Math.floor(k / COLONNES) * CASE_H + CASE_H / 2;
+    }
+    var n = bornes[1] - bornes[0];
+    var cx = Math.round(sx / n);
+    var cy = Math.round(sy / n);
+    var texte = ETIQUETTES[nom];
+    var largeur = Math.round(texte.length * 7.4 + 22);
+    var groupe = svgEl("g", { "class": "qec__bande", "data-bande": nom, "aria-hidden": "true" });
+    groupe.appendChild(svgEl("rect", { "class": "qec__bande-fond", x: String(cx - largeur / 2), y: String(cy - 12), width: String(largeur), height: "24", rx: "12" }));
+    var t = svgEl("text", { "class": "qec__bande-texte", x: String(cx), y: String(cy + 4.5), "text-anchor": "middle" });
+    t.textContent = texte;
+    groupe.appendChild(t);
+    grille.appendChild(groupe);
+    bandes[nom] = groupe;
+  });
+
+  /* ----------------------------------------------------- la liste des étapes */
+
+  var boutonsEtapes = [];
+  etapes.forEach(function (etape, index) {
+    if (index === 0 || etapes[index - 1].pays !== etape.pays) {
+      listeEtapes.appendChild(el("li", "qec__groupe", etape.pays === "athenes" ? "À Athènes" : "Au Québec"));
+    }
+    var li = el("li");
+    var bouton = el("button", "qec__etape");
+    bouton.type = "button";
+    bouton.setAttribute("data-etape", String(index));
+    var num = el("span", "qec__num", String(index + 1));
+    num.setAttribute("aria-hidden", "true");
+    bouton.appendChild(num);
+    bouton.appendChild(el("span", "qec__etape-nom", etape.court));
+    bouton.setAttribute("aria-label", typo("Étape " + (index + 1) + " : " + etape.court));
+    bouton.addEventListener("click", function () { aller(index); });
+    li.appendChild(bouton);
+    listeEtapes.appendChild(li);
+    boutonsEtapes.push(bouton);
+  });
+
+  /* ------------------------------------------------------------ l'affichage */
+
+  var courante = -1;
+
+  function remplirBilan(index) {
+    var pays = etapes[index].pays;
+    var precedentes = bilan.getAttribute("data-pays") === pays ? Number(bilan.getAttribute("data-etape")) : -1;
+    bilan.textContent = "";
+    bilan.setAttribute("data-pays", pays);
+    bilan.setAttribute("data-etape", String(index));
+    BILANS[pays].forEach(function (ligne) {
+      if (ligne.de > index) { return; }
+      var li = el("li", "qec__ligne qec__ligne--" + ligne.genre + (ligne.fort ? " est-fort" : ""));
+      if (ligne.de > precedentes && precedentes >= 0) { li.classList.add("est-neuf"); }
+      var pastille = el("span", "qec__pastille");
+      pastille.setAttribute("aria-hidden", "true");
+      li.appendChild(pastille);
+      li.appendChild(el("span", "qec__nb", (ligne.signe ? ligne.signe + " " : "") + ligne.nb));
+      li.appendChild(el("span", "qec__nom-ligne", ligne.nom));
+      li.appendChild(el("span", "qec__pers", ligne.pers));
+      bilan.appendChild(li);
+    });
+  }
+
+  function aller(index) {
+    if (index < 0 || index >= etapes.length) { return; }
+    var etape = etapes[index];
+    courante = index;
+    racine.setAttribute("data-etape", String(index + 1));
+    figures.forEach(function (fig, k) {
+      var classe = "qec__fig";
+      if (dansGroupes(k, etape.retires)) { classe += " est-retire"; }
+      else if (etape.present && k === 90) { classe += " est-vote"; }
+      else if (dansGroupes(k, etape.vote)) { classe += " est-vote"; }
+      else if (dansGroupes(k, etape.droit)) { classe += " est-droit"; }
+      fig.setAttribute("class", classe);
+    });
+    demi.setAttribute("class", "qec__demi" + (etape.present ? " est-visible" : ""));
+    Object.keys(bandes).forEach(function (nom) {
+      bandes[nom].setAttribute("class", "qec__bande" + (etape.bandes.indexOf(nom) >= 0 ? " est-visible" : ""));
+    });
+    var pays = PAYS[etape.pays];
+    lieu.textContent = typo(pays.lieu);
+    echelle.textContent = typo(pays.echelle);
+    compte.textContent = "";
+    compte.appendChild(el("strong", "", etape.compte[0]));
+    compte.appendChild(document.createTextNode(typo(etape.compte[1])));
+    grille.setAttribute("aria-label", typo("Grille de 100 silhouettes, " + pays.lieu + " : " + etape.compte[0] + " " + etape.compte[1] + "."));
+    surtitre.textContent = typo(etape.surtitre);
+    titre.textContent = typo(etape.titre);
+    explication.textContent = typo(etape.texte);
+    if (etape.etToi) {
+      etToi.textContent = "";
+      etToi.appendChild(el("strong", "", "Et toi? "));
+      etToi.appendChild(document.createTextNode(typo(etape.etToi)));
+      etToi.hidden = false;
+    } else {
+      etToi.hidden = true;
+    }
+    boutonsEtapes.forEach(function (b, k) {
+      if (k === index) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
+      b.classList.toggle("est-passe", k < index);
+    });
+    remplirBilan(index);
+    precedent.disabled = index === 0;
+    suivant.textContent = typo(etape.suivant);
+  }
+
+  precedent.addEventListener("click", function () { aller(courante - 1); });
+  suivant.addEventListener("click", function () {
+    aller(courante === etapes.length - 1 ? 0 : courante + 1);
+  });
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+
+  aller(0);
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

@@ -100,6 +100,12 @@ réfléchir à une organisation complexe de leur communauté.
 
 ## Les premiers foyers de sédentarisation
 
+L'agriculture n'est pas née à un seul endroit. Dans plusieurs régions du
+monde, des humains ont domestiqué des plantes et des animaux, chacun à sa
+façon et à son rythme. La carte présente les principaux foyers.
+
+::: composant foyers-sedentarisation
+
 ### La fin de la période glaciaire
 
 Il y a environ 10 000 ans, la planète sortait d'une période de glaciation, au
@@ -448,3 +454,25 @@ l'espoir d'assurer la prospérité et la survie de la communauté.
 - [Service national du RÉCIT en univers social](https://histoire.recitus.qc.ca/)
 - [Dossiers documentaires du RÉCIT](https://documents.recitus.qc.ca/)
 - [Alloprof](https://www.alloprof.qc.ca/)
+- [Larson et coll., Current perspectives and the future of domestication studies, PNAS, 2014](https://www.pnas.org/doi/10.1073/pnas.1323964111)
+- [Zeder, The Origins of Agriculture in the Near East, Current Anthropology, 2011](https://www.journals.uchicago.edu/doi/10.1086/659307)
+- [Hérodote.net, Les migrations du Néolithique](https://www.herodote.net/Migrations_du_Neolithique_7500_5000_av_J_C_-synthese-3673-623.php)
+- [Hancock, Origines de l'agriculture mondiale, World History Encyclopedia](https://www.worldhistory.org/trans/fr/2-1886/origines-de-lagriculture-mondiale/)
+- [Smith, The Initial Domestication of Cucurbita pepo in the Americas 10,000 Years Ago, Science, 1997](https://www.science.org/doi/10.1126/science.276.5314.932)
+- [Piperno et coll., Starch grain and phytolith evidence for early ninth millennium B.P. maize from the Central Balsas River Valley, Mexico, PNAS, 2009](https://www.pnas.org/doi/10.1073/pnas.0812525106)
+- [L'Encyclopédie canadienne, Iroquoiens du Saint-Laurent](https://www.thecanadianencyclopedia.ca/fr/article/iroquoiens-du-saint-laurent)
+- [L'Encyclopédie canadienne, Stadaconé](https://www.thecanadianencyclopedia.ca/fr/article/stadacone)
+- [ScienceDaily, Earliest Known Evidence Of Peanut, Cotton And Squash Farming Found, 2007 (d'après Dillehay et coll., Science)](https://www.sciencedaily.com/releases/2007/06/070628162623.htm)
+- [Spooner et coll., A single domestication for potato based on multilocus AFLP genotyping, PNAS, 2005](https://www.pnas.org/doi/10.1073/pnas.0507400102)
+- [Wikipédia (en anglais), Foxtail millet](https://en.wikipedia.org/wiki/Foxtail_millet)
+- [EurekAlert, Rice domestication traced to the beginning of the Holocene, 2017 (d'après Zuo et coll., PNAS)](https://eurekalert.org/news-releases/709501)
+- [Fuller et coll., The Domestication Process and Domestication Rate in Rice, Science, 2009 (résumé de Stone Pages)](https://www.stonepages.com/news/archives/003240.html)
+- [FAO, Année internationale du riz 2004](https://www.fao.org/3/Y5167E/y5167e02.htm)
+- [UNESCO, Kuk Early Agricultural Site](https://whc.unesco.org/en/list/887)
+- [Wikipédia (en anglais), Sugarcane](https://en.wikipedia.org/wiki/Sugarcane)
+- [Winchell et coll., Evidence for Sorghum Domestication in Fourth Millennium BC Eastern Sudan, Current Anthropology, 2017](https://www.journals.uchicago.edu/doi/10.1086/693898)
+- [Manning et coll., 4500-Year old domesticated pearl millet from the Tilemsi Valley, Mali, Journal of Archaeological Science, 2011](https://doi.org/10.1016/j.jas.2010.09.007)
+- [Crop Trust, Sorghum](https://www.croptrust.org/knowledge-hub/crops/sorghum/)
+- [Wikipédia (en anglais), Donkey](https://en.wikipedia.org/wiki/Donkey)
+- [Wikipédia (en anglais), Eastern Agricultural Complex (d'après Smith et Yarnell, 2009)](https://en.wikipedia.org/wiki/Eastern_Agricultural_Complex)
+- [Natural Earth, données cartographiques du domaine public](https://www.naturalearthdata.com/)

@@ -1,0 +1,522 @@
+<section class="ats" id="athenes-sparte" aria-label="Comparateur : Athènes et Sparte au 5e siècle av. J.-C.">
+<style>
+.ats { --ats-ath: var(--matiere); --ats-spa: #8C2F2B; --ats-juste: #2E6B45; --ats-faux: #9E3A2E; --ats-sur-etat: #fff; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; container: ats / inline-size; }
+html[data-sombre="on"] .ats { --ats-spa: #E8988C; --ats-juste: #7CC495; --ats-faux: #F0907F; --ats-sur-etat: #10171F; }
+.ats ul, .ats ol { list-style: none; margin: 0; padding: 0; }
+.ats li { margin: 0; padding: 0; }
+.ats ul > li::before, .ats ol > li::before { content: none; display: none; }
+.ats ul > li::marker, .ats ol > li::marker { content: none; }
+.ats p { margin: 0; }
+.ats [hidden] { display: none !important; }
+.ats__symboles { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ats .ats__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ats .ats__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.ats__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .ats .ats__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .ats .ats__titre { color: var(--encre); }
+html[data-sombre="on"] .ats__consigne { color: var(--encre-pale); }
+.ats__barre { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.ats__onglets { display: flex; flex-wrap: wrap; gap: .4rem; flex: 1 1 auto; }
+.ats__onglet, .ats__replier { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.ats__onglet:hover, .ats__replier:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.ats__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ats__onglet--test { border-style: dashed; border-color: var(--matiere); color: var(--matiere-fonce); }
+.ats__onglet--test.est-actif { border-style: solid; }
+.ats__replier { margin-left: auto; font-size: .78rem; padding: .3rem .8rem; }
+html[data-sombre="on"] .ats__onglet.est-actif { color: #10171F; }
+.ats__contenu { container: atscontenu / inline-size; }
+.ats__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
+.ats__panneau.est-visible { display: block; }
+.ats__panneau:focus { outline: none; }
+.ats__panneau:focus-visible { outline: 3px solid var(--signal); outline-offset: -3px; }
+.ats__colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.ats__cote { --c: var(--ats-ath); background: var(--surface-2); border-top: 4px solid var(--c); border-radius: var(--rayon); padding: .9rem 1.1rem 1rem; }
+.ats__cote--sparte { --c: var(--ats-spa); }
+.ats .ats__cite { display: flex; align-items: center; gap: .55rem; margin-bottom: .55rem; font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ats__embleme { width: 1.8rem; height: 1.8rem; flex: none; color: var(--c, var(--matiere)); }
+.ats .ats__resume { font-family: var(--titre); font-weight: 700; font-size: 1.04rem; line-height: 1.3; color: var(--c); margin-bottom: .45rem; }
+.ats__detail { font-size: .95rem; line-height: 1.6; }
+.ats__constats { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; margin-top: 1rem; }
+.ats__constat { padding: .8rem 1rem; border-radius: var(--rayon); font-size: .93rem; line-height: 1.55; background: var(--matiere-voile); }
+.ats__constat--differe { background: transparent; border: 1px solid var(--trait); }
+.ats .ats__etiquette { display: block; font-family: var(--titre); font-weight: 700; font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--matiere-fonce); margin-bottom: .25rem; }
+html[data-sombre="on"] .ats__etiquette { color: var(--encre); }
+@container atscontenu (max-width: 36rem) { .ats__colonnes, .ats__constats { grid-template-columns: 1fr; } .ats__panneau { padding: 1.1rem 1rem 1.1rem; } }
+.ats__apercu { display: none; }
+.ats__apercu-tete, .ats__ligne { display: grid; grid-template-columns: minmax(7.5rem, .75fr) 1fr 1fr; gap: .8rem; align-items: start; }
+.ats__apercu-tete { padding: 0 .6rem .55rem; border-bottom: 2px solid var(--trait); font-family: var(--donnee); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ats__apercu-tete span { display: flex; align-items: center; gap: .45rem; }
+.ats__apercu-tete .ats__embleme { width: 1.5rem; height: 1.5rem; }
+.ats__apercu-tete .ats__col-athenes { --c: var(--ats-ath); }
+.ats__apercu-tete .ats__col-sparte { --c: var(--ats-spa); }
+.ats__ligne { width: 100%; text-align: left; font: inherit; color: inherit; background: none; border: 0; border-bottom: 1px solid var(--trait); border-radius: 0; padding: .7rem .6rem; cursor: pointer; transition: background .15s; }
+.ats__ligne:hover { background: var(--surface-2); }
+.ats__ligne.est-actif { background: var(--matiere-voile); box-shadow: inset 4px 0 0 var(--signal); }
+.ats__ligne-nom { font-family: var(--titre); font-weight: 700; font-size: .9rem; line-height: 1.35; color: var(--encre); }
+.ats__ligne-val { font-family: var(--titre); font-size: .92rem; line-height: 1.4; }
+.ats__ligne-val--athenes { color: var(--ats-ath); }
+.ats__ligne-val--sparte { color: var(--ats-spa); }
+.ats .ats__apercu-note { margin-top: .9rem; font-family: var(--titre); font-size: .82rem; color: var(--encre-pale); }
+.ats__test { max-width: 42rem; margin: 0 auto; text-align: center; }
+.ats .ats__progression { font-family: var(--donnee); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .55rem; }
+.ats__points { display: flex; justify-content: center; flex-wrap: wrap; gap: .35rem; margin-bottom: 1.1rem; }
+.ats__point { width: .7rem; height: .7rem; border-radius: 50%; background: var(--trait); }
+.ats__point.est-courant { background: var(--signal); }
+.ats__point.est-juste { background: var(--ats-juste); }
+.ats__point.est-faux { background: var(--ats-faux); }
+.ats .ats__enonce { font-family: var(--titre); font-weight: 600; font-size: 1.2rem; line-height: 1.4; color: var(--encre); margin-bottom: 1.1rem; min-height: 3.4rem; display: flex; align-items: center; justify-content: center; }
+.ats__choix { display: flex; justify-content: center; flex-wrap: wrap; gap: .6rem; }
+.ats__reponse, .ats__suivant, .ats__recommencer { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--titre); font-weight: 600; font-size: .95rem; color: var(--encre); background: var(--surface); border: 2px solid var(--trait); border-radius: 100px; padding: .5rem 1.1rem .5rem .7rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.ats__reponse:hover:not(:disabled) { border-color: var(--matiere); background: var(--matiere-voile); }
+.ats__reponse:disabled { cursor: default; opacity: .55; }
+.ats__reponse .ats__embleme { width: 1.75rem; height: 1.75rem; padding: .1rem; border-radius: 50%; background: #fff; }
+.ats__reponse--athenes { --c: var(--ats-ath); }
+.ats__reponse--sparte { --c: var(--ats-spa); }
+.ats__duo { display: inline-flex; }
+.ats__duo .ats__embleme + .ats__embleme { margin-left: -.45rem; }
+.ats__duo .ats__embleme:first-child { color: var(--ats-ath); }
+.ats__duo .ats__embleme:last-child { color: var(--ats-spa); }
+.ats__reponse.est-juste { opacity: 1; color: var(--ats-sur-etat); background: var(--ats-juste); border-color: var(--ats-juste); }
+.ats__reponse.est-faux { opacity: 1; color: var(--ats-sur-etat); background: var(--ats-faux); border-color: var(--ats-faux); }
+.ats .ats__retro { margin-top: 1.1rem; padding: .85rem 1.1rem; border-radius: var(--rayon); background: var(--matiere-voile); text-align: left; font-size: .95rem; line-height: 1.55; }
+.ats .ats__verdict { display: block; font-family: var(--titre); font-weight: 700; margin-bottom: .2rem; }
+.ats__suivant, .ats__recommencer { margin-top: 1rem; padding: .5rem 1.2rem; color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.ats__suivant:hover, .ats__recommencer:hover { background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .ats__suivant, html[data-sombre="on"] .ats__recommencer { color: #10171F; }
+.ats .ats__score { font-family: var(--titre); font-weight: 700; font-size: 1.6rem; color: var(--encre); margin: .4rem 0 .3rem; }
+.ats__message { font-size: 1rem; line-height: 1.55; }
+.ats.est-plein-ecran { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 1fr); grid-template-rows: auto auto minmax(0, 1fr); overflow: hidden; }
+.ats.est-plein-ecran > .ats__entete, .ats.est-plein-ecran > .ats__barre { grid-column: 1 / -1; }
+.ats.est-plein-ecran > .ats__entete { position: static; }
+.ats.est-plein-ecran > .ats__apercu { display: flex; flex-direction: column; grid-column: 1; grid-row: 3; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 1.3rem 1.5rem 1.4rem; }
+.ats.est-plein-ecran .ats__apercu-liste { flex: 1 1 auto; display: grid; grid-auto-rows: minmax(min-content, 1fr); }
+.ats.est-plein-ecran .ats__ligne { align-items: center; }
+.ats.est-plein-ecran .ats__ligne-nom { font-size: 1rem; }
+.ats.est-plein-ecran .ats__ligne-val { font-size: 1.02rem; }
+.ats.est-plein-ecran > .ats__contenu { grid-column: 2; grid-row: 3; min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-left: 1px solid var(--trait); }
+.ats.est-plein-ecran .ats__colonnes, .ats.est-plein-ecran .ats__constats { grid-template-columns: 1fr; }
+.ats.est-plein-ecran .ats__detail { font-size: 1.02rem; }
+.ats.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr) 0; }
+.ats.est-plein-ecran.texte-masque > .ats__contenu { display: none; }
+.ats.est-plein-ecran.texte-masque .ats__ligne-nom { font-size: 1.1rem; }
+.ats.est-plein-ecran.texte-masque .ats__ligne-val { font-size: 1.2rem; }
+.ats.est-plein-ecran.est-test, .ats.est-plein-ecran.est-test.texte-masque { grid-template-columns: minmax(0, 1fr); }
+.ats.est-plein-ecran.est-test > .ats__apercu { display: none; }
+.ats.est-plein-ecran.est-test > .ats__contenu { display: block; grid-column: 1; border-left: 0; }
+.ats.est-plein-ecran.est-test .ats__test { padding-top: 6vh; }
+.ats.est-plein-ecran.est-test .ats__enonce { font-size: 1.45rem; }
+.ats:not(.est-plein-ecran) .ats__replier, .ats.est-test .ats__replier { display: none; }
+@media (max-width: 52rem) {
+  .ats.est-plein-ecran, .ats.est-plein-ecran.texte-masque { grid-template-columns: minmax(0, 1fr); }
+  .ats.est-plein-ecran > .ats__apercu { display: none; }
+  .ats.est-plein-ecran > .ats__contenu, .ats.est-plein-ecran.texte-masque > .ats__contenu { display: block; grid-column: 1; border-left: 0; }
+  .ats.est-plein-ecran .ats__replier { display: none; }
+}
+@media print {
+  .ats__barre, .ats__panneau--test, .ats__apercu { display: none !important; }
+  .ats__panneau { display: block; break-inside: avoid; border-top: 1px solid var(--trait); }
+}
+</style>
+
+<svg class="ats__symboles" aria-hidden="true" focusable="false">
+  <symbol id="ats-chouette" viewBox="0 0 32 32"><path d="M7 4.5l4.4 3.7A10.6 10.6 0 0 1 16 7.2a10.6 10.6 0 0 1 4.6 1L25 4.5V17c0 6.7-4 11.5-9 11.5S7 23.7 7 17z" fill="currentColor"/><circle cx="12" cy="14.2" r="3.7" fill="#fff"/><circle cx="20" cy="14.2" r="3.7" fill="#fff"/><circle cx="12" cy="14.2" r="1.7" fill="currentColor"/><circle cx="20" cy="14.2" r="1.7" fill="currentColor"/><path d="M16 17.4l-1.7 2.8h3.4z" fill="#fff"/></symbol>
+  <symbol id="ats-bouclier" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13.5" fill="currentColor"/><circle cx="16" cy="16" r="10.8" fill="none" stroke="#fff" stroke-width="1.2" opacity=".55"/><path d="M10.3 22.6L16 8.8l5.7 13.8" fill="none" stroke="#fff" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="ats__entete">
+  <p class="ats__titre" role="heading" aria-level="3">Athènes ou Sparte&nbsp;: deux cités, deux modèles</p>
+  <p class="ats__consigne">Choisis un aspect</p>
+</div>
+
+<div class="ats__barre">
+  <div class="ats__onglets" role="tablist" aria-label="Aspects comparés"></div>
+  <button type="button" class="ats__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+
+<div class="ats__apercu" role="region" aria-label="Vue d'ensemble des aspects">
+  <div class="ats__apercu-tete" aria-hidden="true"><span>Aspect</span><span class="ats__col-athenes"></span><span class="ats__col-sparte"></span></div>
+  <div class="ats__apercu-liste"></div>
+  <p class="ats__apercu-note">Clique sur une ligne pour lire les explications.</p>
+</div>
+
+<div class="ats__contenu"></div>
+
+<script>
+(function () {
+  var racine = document.getElementById("athenes-sparte");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+
+  var CITES = { athenes: "Athènes", sparte: "Sparte" };
+
+  var aspects = [
+    {
+      cle: "regime",
+      nom: "Le régime politique",
+      athenes: { resume: "Une démocratie directe", texte: "Depuis les réformes de Clisthène, en -507, le pouvoir appartient aux citoyens. Ils se réunissent à l'ecclésia pour voter eux-mêmes les lois. Ils décident aussi de la guerre et de la paix." },
+      sparte: { resume: "Une oligarchie", texte: "Un petit groupe d'hommes dirige la cité. Deux rois, issus de deux familles, commandent l'armée. La gérousia et les cinq éphores détiennent l'essentiel du pouvoir." },
+      semblable: "Les deux cités ont une assemblée où les citoyens se réunissent pour voter.",
+      differe: "À Athènes, l'assemblée débat puis décide. À Sparte, elle approuve ou rejette, sans discuter, ce que d'autres ont préparé."
+    },
+    {
+      cle: "citoyens",
+      nom: "Qui est citoyen?",
+      athenes: { resume: "Environ 40 000 hommes, 10 % des habitants", texte: "Il faut avoir plus de 18 ans, être né d'un père athénien et d'une mère fille de citoyen, puis avoir fait son service militaire. Sur environ 400 000 habitants, 1 sur 10 est citoyen." },
+      sparte: { resume: "À peine 5 000 Égaux, 2 % des habitants", texte: "Les seuls citoyens sont les Égaux, une caste de guerriers. Ils sont à peine 5 000 sur une population de 250 000. Toute leur vie est vouée à la guerre." },
+      semblable: "Dans les deux cités, les femmes, les étrangers et les esclaves ne sont pas citoyens.",
+      differe: "À Athènes, 1 habitant sur 10 est citoyen. À Sparte, c'est 1 sur 50."
+    },
+    {
+      cle: "lois",
+      nom: "Qui fait les lois?",
+      athenes: { resume: "La boulè prépare, l'ecclésia débat puis vote", texte: "La boulè, un conseil de 500 citoyens tirés au sort, prépare les projets. À l'ecclésia, chaque citoyen peut prendre la parole du haut de la tribune. On vote ensuite à main levée." },
+      sparte: { resume: "La gérousia prépare, l'Assemblée acclame", texte: "Seule la gérousia peut préparer les lois. L'Assemblée des Égaux les approuve ou non, sans les discuter. Elle vote par acclamations, c'est-à-dire en criant." },
+      semblable: "Dans les deux cités, un conseil prépare les décisions avant qu'une assemblée les vote.",
+      differe: "À Athènes, tout citoyen peut parler devant l'assemblée. À Sparte, l'Assemblée ne discute pas : elle crie oui ou non."
+    },
+    {
+      cle: "dirigeants",
+      nom: "Qui dirige?",
+      athenes: { resume: "Le tirage au sort, sauf pour les stratèges", texte: "La plupart des charges sont tirées au sort pour un an : chaque citoyen a la même chance d'être choisi. Les dix stratèges, qui commandent l'armée et la flotte, sont élus chaque année. Périclès a été réélu au moins quinze fois." },
+      sparte: { resume: "Des chefs à vie et deux rois héréditaires", texte: "Les 28 gérontes, des hommes de plus de 60 ans, sont élus à vie par acclamation. Les deux rois héritent de leur titre. Les cinq éphores, remplacés chaque année, surveillent les rois et les habitants." },
+      semblable: "Les deux cités élisent une partie de leurs dirigeants.",
+      differe: "À Athènes, les charges durent un an et le hasard donne sa chance à chacun. À Sparte, les gérontes gardent leur place jusqu'à leur mort."
+    },
+    {
+      cle: "education",
+      nom: "L'éducation des garçons",
+      athenes: { resume: "Former un citoyen qui sait débattre", texte: "Dès 7 ans, les garçons apprennent avec des maîtres privés : lecture, écriture, poèmes d'Homère, musique. À partir de 14 ans, ils font du sport et s'exercent à débattre. À 18 ans, ils commencent leur formation militaire." },
+      sparte: { resume: "Former un soldat", texte: "À 7 ans, le garçon appartient à l'État, qui le prépare à devenir soldat. Jusqu'à 30 ans, il vit pratiquement en caserne avec son unité. Jusqu'à 60 ans, il participe chaque jour aux exercices guerriers." },
+      semblable: "Dans les deux cités, l'éducation des garçons change à 7 ans. Elle les prépare à défendre la cité.",
+      differe: "Athènes forme aussi l'esprit et la parole, utiles à l'assemblée. Sparte forme d'abord le corps du soldat."
+    },
+    {
+      cle: "femmes",
+      nom: "Les femmes",
+      athenes: { resume: "À la maison, sans aucun droit", texte: "Les femmes n'ont aucun droit politique. Elles vivent au gynécée, dirigent le travail de la maison et sortent surtout pour les fêtes religieuses. Vers 14 ans, on les marie sans leur demander leur avis." },
+      sparte: { resume: "Mères de soldats, mais plus libres", texte: "Elles ne votent pas non plus. On attend d'elles qu'elles donnent naissance à de robustes enfants. Elles peuvent toutefois faire du sport, se déplacer librement et posséder des terres." },
+      semblable: "Dans les deux cités, les femmes n'ont aucun droit politique.",
+      differe: "La Spartiate fait du sport, se déplace et possède des biens. L'Athénienne sort rarement de la maison."
+    },
+    {
+      cle: "travail",
+      nom: "Les non-citoyens",
+      athenes: { resume: "Des métèques libres et des esclaves", texte: "Les métèques, près de 20 % des habitants, sont des étrangers libres : artisans, commerçants, parfois très riches. Les esclaves, plus du quart de la population, appartiennent à leur propriétaire. Certains sont affranchis et deviennent métèques." },
+      sparte: { resume: "40 hilotes pour un Égal", texte: "Les hilotes, environ 200 000, sont des esclaves qui cultivent les terres des Égaux. La loi les ignore : on peut les tuer impunément. Les périèques, eux, sont des paysans libres sans droits civiques." },
+      semblable: "Les deux cités reposent sur le travail d'esclaves, qui n'ont aucun droit.",
+      differe: "À Sparte, il y a 40 hilotes pour un citoyen. Chaque année, la cité leur déclare même officiellement la guerre."
+    },
+    {
+      cle: "puissance",
+      nom: "La puissance",
+      athenes: { resume: "Une puissance de la mer", texte: "Le port du Pirée devient le plus grand centre de commerce de la Méditerranée. L'argent des mines du Laurion paie une flotte de trières. Athènes dirige la ligue de Délos." },
+      sparte: { resume: "Une puissance de la terre", texte: "Sparte se replie sur elle-même et devient une cité militaire. Ses hoplites, des fantassins lourdement armés, sont redoutés. Elle dirige la ligue du Péloponnèse." },
+      semblable: "Chacune dirige une ligue de cités alliées. Ces deux blocs s'affrontent dans la guerre du Péloponnèse, de -431 à -404.",
+      differe: "Athènes mise sur sa flotte et le commerce. Sparte mise sur son armée de terre. C'est Sparte qui l'emporte, en -404."
+    }
+  ];
+
+  var enonces = [
+    { texte: "Les citoyens votent les lois à main levée.", rep: "athenes", expl: "À Athènes, l'ecclésia vote à main levée. À Sparte, l'Assemblée vote par acclamations." },
+    { texte: "Un conseil de 28 hommes de plus de 60 ans prépare les lois.", rep: "sparte", expl: "C'est la gérousia de Sparte. Ses membres sont élus à vie." },
+    { texte: "Les femmes n'ont aucun droit politique.", rep: "deux", expl: "Ni l'Athénienne ni la Spartiate ne participe à l'assemblée." },
+    { texte: "À 7 ans, le garçon appartient à l'État, qui en fait un soldat.", rep: "sparte", expl: "À Athènes, ce sont des maîtres privés qui instruisent les garçons." },
+    { texte: "La plupart des charges publiques sont tirées au sort.", rep: "athenes", expl: "À Athènes, le tirage au sort donne à chaque citoyen la même chance d'exercer une charge." },
+    { texte: "La cité repose sur le travail d'esclaves.", rep: "deux", expl: "Les esclaves à Athènes, les hilotes à Sparte : aucun n'a de droits." },
+    { texte: "Deux rois commandent l'armée.", rep: "sparte", expl: "Sparte a deux rois, issus de deux familles. Ils héritent de leur titre." },
+    { texte: "Grâce à son port, la cité devient le plus grand centre de commerce de la Méditerranée.", rep: "athenes", expl: "C'est le Pirée, le port d'Athènes." },
+    { texte: "La cité dirige une ligue de cités alliées.", rep: "deux", expl: "La ligue de Délos pour Athènes, la ligue du Péloponnèse pour Sparte." },
+    { texte: "Les femmes peuvent faire du sport et posséder des terres.", rep: "sparte", expl: "Les Spartiates sont plus libres que les Athéniennes, sans pour autant voter." }
+  ];
+
+  var NOMS_REPONSES = { athenes: "Athènes", sparte: "Sparte", deux: "Les deux" };
+
+  function typo(s) {
+    return String(s).replace(/ ([:»])/g, "\u00a0$1").replace(/« /g, "«\u00a0").replace(/(\d) (\d{3})\b/g, "$1\u00a0$2").replace(/(\d) %/g, "$1\u00a0%");
+  }
+  function el(nom, classe, texte) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined) { n.textContent = typo(texte); }
+    return n;
+  }
+  function embleme(cite) {
+    var ns = "http://www.w3.org/2000/svg";
+    var svg = document.createElementNS(ns, "svg");
+    svg.setAttribute("class", "ats__embleme");
+    svg.setAttribute("viewBox", "0 0 32 32");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    var use = document.createElementNS(ns, "use");
+    use.setAttribute("href", cite === "athenes" ? "#ats-chouette" : "#ats-bouclier");
+    svg.appendChild(use);
+    return svg;
+  }
+
+  var onglets = racine.querySelector(".ats__onglets");
+  var contenu = racine.querySelector(".ats__contenu");
+  var liste = racine.querySelector(".ats__apercu-liste");
+  var replier = racine.querySelector(".ats__replier");
+  var boutons = [];
+  var panneaux = [];
+  var lignes = [];
+
+  ["athenes", "sparte"].forEach(function (c) {
+    var tete = racine.querySelector(".ats__col-" + c);
+    tete.appendChild(embleme(c));
+    tete.appendChild(document.createTextNode(CITES[c]));
+  });
+
+  function selectionner(index, donnerFocus) {
+    boutons.forEach(function (b, i) {
+      var actif = i === index;
+      b.classList.toggle("est-actif", actif);
+      b.setAttribute("aria-selected", actif ? "true" : "false");
+      b.tabIndex = actif ? 0 : -1;
+    });
+    panneaux.forEach(function (p, i) { p.classList.toggle("est-visible", i === index); });
+    lignes.forEach(function (l, i) {
+      l.classList.toggle("est-actif", i === index);
+      if (i === index) { l.setAttribute("aria-current", "true"); } else { l.removeAttribute("aria-current"); }
+    });
+    racine.classList.toggle("est-test", index === aspects.length);
+    if (donnerFocus) { boutons[index].focus(); }
+  }
+
+  function basculerTexte(masquer) {
+    racine.classList.toggle("texte-masque", masquer);
+    replier.setAttribute("aria-expanded", masquer ? "false" : "true");
+    replier.textContent = masquer ? "Afficher le texte" : "Masquer le texte";
+  }
+
+  aspects.forEach(function (aspect, index) {
+    var onglet = el("button", "ats__onglet", aspect.nom);
+    onglet.type = "button";
+    onglet.id = "ats-onglet-" + aspect.cle;
+    onglet.setAttribute("role", "tab");
+    onglet.setAttribute("aria-controls", "ats-panneau-" + aspect.cle);
+    onglets.appendChild(onglet);
+    boutons.push(onglet);
+
+    var panneau = el("div", "ats__panneau");
+    panneau.id = "ats-panneau-" + aspect.cle;
+    panneau.setAttribute("role", "tabpanel");
+    panneau.setAttribute("aria-labelledby", onglet.id);
+    panneau.tabIndex = 0;
+
+    var colonnes = el("div", "ats__colonnes");
+    ["athenes", "sparte"].forEach(function (c) {
+      var cote = el("div", "ats__cote ats__cote--" + c);
+      var cite = el("p", "ats__cite");
+      cite.appendChild(embleme(c));
+      cite.appendChild(document.createTextNode(CITES[c]));
+      cote.appendChild(cite);
+      cote.appendChild(el("p", "ats__resume", aspect[c].resume));
+      cote.appendChild(el("p", "ats__detail", aspect[c].texte));
+      colonnes.appendChild(cote);
+    });
+    panneau.appendChild(colonnes);
+
+    var constats = el("div", "ats__constats");
+    [["semblable", "Ce qui se ressemble"], ["differe", "Ce qui diffère"]].forEach(function (paire) {
+      var constat = el("p", "ats__constat ats__constat--" + paire[0]);
+      constat.appendChild(el("strong", "ats__etiquette", paire[1]));
+      constat.appendChild(document.createTextNode(typo(aspect[paire[0]])));
+      constats.appendChild(constat);
+    });
+    panneau.appendChild(constats);
+    contenu.appendChild(panneau);
+    panneaux.push(panneau);
+
+    var ligne = el("button", "ats__ligne");
+    ligne.type = "button";
+    ligne.setAttribute("aria-controls", panneau.id);
+    ligne.appendChild(el("span", "ats__ligne-nom", aspect.nom));
+    ligne.appendChild(el("span", "ats__ligne-val ats__ligne-val--athenes", aspect.athenes.resume));
+    ligne.appendChild(el("span", "ats__ligne-val ats__ligne-val--sparte", aspect.sparte.resume));
+    liste.appendChild(ligne);
+    lignes.push(ligne);
+
+    onglet.addEventListener("click", function () { selectionner(index); });
+    ligne.addEventListener("click", function () {
+      selectionner(index);
+      if (racine.classList.contains("texte-masque")) { basculerTexte(false); }
+    });
+  });
+
+  /* ------------------------------------------------------------ le test */
+
+  var ongletTest = el("button", "ats__onglet ats__onglet--test", "Teste-toi");
+  ongletTest.type = "button";
+  ongletTest.id = "ats-onglet-test";
+  ongletTest.setAttribute("role", "tab");
+  ongletTest.setAttribute("aria-controls", "ats-panneau-test");
+  onglets.appendChild(ongletTest);
+  boutons.push(ongletTest);
+
+  var panneauTest = el("div", "ats__panneau ats__panneau--test");
+  panneauTest.id = "ats-panneau-test";
+  panneauTest.setAttribute("role", "tabpanel");
+  panneauTest.setAttribute("aria-labelledby", ongletTest.id);
+  var test = el("div", "ats__test");
+  var progression = el("p", "ats__progression");
+  var points = el("ol", "ats__points");
+  points.setAttribute("aria-hidden", "true");
+  var enonce = el("p", "ats__enonce");
+  enonce.setAttribute("aria-live", "polite");
+  var choix = el("div", "ats__choix");
+  choix.setAttribute("role", "group");
+  choix.setAttribute("aria-label", "Ta réponse");
+  var retro = el("p", "ats__retro");
+  retro.setAttribute("aria-live", "polite");
+  var suivant = el("button", "ats__suivant", "Énoncé suivant");
+  suivant.type = "button";
+  var bilan = el("div", "ats__bilan");
+  var score = el("p", "ats__score");
+  var message = el("p", "ats__message");
+  var recommencer = el("button", "ats__recommencer", "Recommencer");
+  recommencer.type = "button";
+  bilan.appendChild(el("p", "ats__progression", "Ton résultat"));
+  bilan.appendChild(score);
+  bilan.appendChild(message);
+  bilan.appendChild(recommencer);
+
+  enonces.forEach(function () { points.appendChild(el("li", "ats__point")); });
+  var reponses = {};
+  ["athenes", "sparte", "deux"].forEach(function (cle) {
+    var bouton = el("button", "ats__reponse ats__reponse--" + cle);
+    bouton.type = "button";
+    bouton.setAttribute("data-choix", cle);
+    if (cle === "deux") {
+      var duo = el("span", "ats__duo");
+      duo.appendChild(embleme("athenes"));
+      duo.appendChild(embleme("sparte"));
+      bouton.appendChild(duo);
+    } else {
+      bouton.appendChild(embleme(cle));
+    }
+    bouton.appendChild(document.createTextNode(NOMS_REPONSES[cle]));
+    bouton.addEventListener("click", function () { repondre(cle); });
+    choix.appendChild(bouton);
+    reponses[cle] = bouton;
+  });
+
+  test.appendChild(progression);
+  test.appendChild(points);
+  test.appendChild(enonce);
+  test.appendChild(choix);
+  test.appendChild(retro);
+  test.appendChild(suivant);
+  test.appendChild(bilan);
+  panneauTest.appendChild(test);
+  contenu.appendChild(panneauTest);
+  panneaux.push(panneauTest);
+
+  var etat = { rang: 0, justes: 0, repondu: false };
+
+  function afficherEnonce() {
+    var item = enonces[etat.rang];
+    etat.repondu = false;
+    progression.textContent = typo("Énoncé " + (etat.rang + 1) + " sur " + enonces.length);
+    enonce.textContent = typo(item.texte);
+    Array.prototype.forEach.call(points.children, function (p, i) { p.classList.toggle("est-courant", i === etat.rang); });
+    Object.keys(reponses).forEach(function (cle) {
+      var b = reponses[cle];
+      b.disabled = false;
+      b.classList.remove("est-juste", "est-faux");
+      b.removeAttribute("aria-pressed");
+    });
+    retro.hidden = true;
+    retro.textContent = "";
+    suivant.hidden = true;
+    bilan.hidden = true;
+    progression.hidden = false;
+    points.hidden = false;
+    enonce.hidden = false;
+    choix.hidden = false;
+  }
+
+  function repondre(cle) {
+    if (etat.repondu) { return; }
+    etat.repondu = true;
+    var item = enonces[etat.rang];
+    var juste = cle === item.rep;
+    if (juste) { etat.justes += 1; }
+    Object.keys(reponses).forEach(function (k) { reponses[k].disabled = true; });
+    reponses[cle].classList.add(juste ? "est-juste" : "est-faux");
+    reponses[cle].setAttribute("aria-pressed", "true");
+    reponses[item.rep].classList.add("est-juste");
+    var point = points.children[etat.rang];
+    point.classList.remove("est-courant");
+    point.classList.add(juste ? "est-juste" : "est-faux");
+    retro.textContent = "";
+    var verdict = el("strong", "ats__verdict", juste ? "Exact!" : "Pas tout à fait. La bonne réponse : " + NOMS_REPONSES[item.rep] + ".");
+    retro.appendChild(verdict);
+    retro.appendChild(document.createTextNode(typo(item.expl)));
+    retro.hidden = false;
+    suivant.textContent = etat.rang === enonces.length - 1 ? "Voir mon résultat" : "Énoncé suivant";
+    suivant.hidden = false;
+    suivant.focus();
+  }
+
+  function afficherBilan() {
+    progression.hidden = true;
+    enonce.hidden = true;
+    choix.hidden = true;
+    retro.hidden = true;
+    suivant.hidden = true;
+    score.textContent = typo(etat.justes + " sur " + enonces.length);
+    var texte;
+    if (etat.justes === enonces.length) { texte = "Parfait! Tu distingues très bien les deux cités."; }
+    else if (etat.justes >= 7) { texte = "Très bien! Relis les aspects où tu as hésité."; }
+    else { texte = "Relis les aspects du comparateur, puis recommence."; }
+    message.textContent = typo(texte);
+    bilan.hidden = false;
+    recommencer.focus();
+  }
+
+  suivant.addEventListener("click", function () {
+    if (etat.rang < enonces.length - 1) {
+      etat.rang += 1;
+      afficherEnonce();
+      reponses.athenes.focus();
+    } else {
+      afficherBilan();
+    }
+  });
+
+  recommencer.addEventListener("click", function () {
+    etat.rang = 0;
+    etat.justes = 0;
+    Array.prototype.forEach.call(points.children, function (p) { p.classList.remove("est-juste", "est-faux", "est-courant"); });
+    afficherEnonce();
+    reponses.athenes.focus();
+  });
+
+  ongletTest.addEventListener("click", function () { selectionner(aspects.length); });
+
+  /* --------------------------------------------- clavier dans les onglets */
+
+  onglets.addEventListener("keydown", function (e) {
+    var rang = boutons.indexOf(document.activeElement);
+    if (rang < 0) { return; }
+    var cible = null;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") { cible = (rang + 1) % boutons.length; }
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") { cible = (rang - 1 + boutons.length) % boutons.length; }
+    else if (e.key === "Home") { cible = 0; }
+    else if (e.key === "End") { cible = boutons.length - 1; }
+    if (cible === null) { return; }
+    e.preventDefault();
+    selectionner(cible, true);
+  });
+
+  replier.addEventListener("click", function () {
+    basculerTexte(!racine.classList.contains("texte-masque"));
+  });
+
+  afficherEnonce();
+  selectionner(0);
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

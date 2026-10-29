@@ -263,6 +263,8 @@ l'ouverture de la conférence de Berlin, en 1884, les Européens occupaient
 environ le cinquième du continent, surtout des comptoirs côtiers. Trente ans
 plus tard, il ne leur échappe presque plus rien.
 
+::: composant partage-afrique
+
 ::: questions
 1. Qui organise la conférence de Berlin, et pourquoi?
 2. Quelle règle adoptée à Berlin déclenche la course au clocher?
@@ -419,6 +421,8 @@ mutilations et celle de l'effondrement démographique. Le scandale fut assez
 grand pour que la Belgique retire le Congo à son roi en 1908.
 :::
 
+::: composant congo-documents
+
 ### Les frontières tracées après la conférence de Berlin
 
 Dans les années qui suivent la conférence de Berlin, les États européens
@@ -504,3 +508,20 @@ batailles historiques, comme celles de la Somme ou de Verdun. Les colonies
 - [Alloprof, L'exploration de l'Afrique](https://www.alloprof.qc.ca/fr/eleves/bv/histoire/exploration-de-l-afrique-notions-avancees-h1089)
 - [Encyclopædia Universalis](https://www.universalis.fr/)
 - [Wikipédia](https://fr.wikipedia.org/)
+- [Natural Earth, données cartographiques du domaine public](https://www.naturalearthdata.com/)
+- [Wikipedia, Scramble for Africa](https://en.wikipedia.org/wiki/Scramble_for_Africa)
+- [Wikipedia, French Congo](https://en.wikipedia.org/wiki/French_Congo)
+- [Wikipedia, British Somaliland](https://en.wikipedia.org/wiki/British_Somaliland)
+- [Wikipedia, Kayes](https://en.wikipedia.org/wiki/Kayes)
+- [Wikipédia, Conquête de l'Algérie par la France](https://fr.wikipedia.org/wiki/Conqu%C3%AAte_de_l%27Alg%C3%A9rie_par_la_France)
+- [Wikipédia, Guinée française](https://fr.wikipedia.org/wiki/Guin%C3%A9e_fran%C3%A7aise)
+- [German History in Documents and Images, traité germano-britannique de 1890](https://germanhistorydocs.org/)
+- [Hérodote.net, 12 septembre 1876, la conférence géographique de Bruxelles](https://www.herodote.net/12_septembre_1876-evenement-18760912.php)
+- [BlackPast, lettre ouverte de George Washington Williams au roi Léopold II, 1890](https://new.blackpast.org/global-african-history/george-washington-williams-open-letter-king-leopold-congo-1890/)
+- [Université de l'île de Vancouver, extraits du rapport Casement, 1904](https://web.viu.ca/davies/H479B.Imperialism.Nationalism/Br.report.Congo.atrocities.1904.htm)
+- [Projet Gutenberg, Mark Twain, King Leopold's Soliloquy, 1905](https://www.gutenberg.org/ebooks/62739)
+- [Wikipedia, Congo Free State](https://en.wikipedia.org/wiki/Congo_Free_State)
+- [Wikipedia, Casement Report](https://en.wikipedia.org/wiki/Casement_Report)
+- [Wikipedia, Congo Reform Association](https://en.wikipedia.org/wiki/Congo_Reform_Association)
+- [Wikipedia, Alice Seeley Harris](https://en.wikipedia.org/wiki/Alice_Seeley_Harris)
+- [Wikipedia, George Washington Williams](https://en.wikipedia.org/wiki/George_Washington_Williams)
