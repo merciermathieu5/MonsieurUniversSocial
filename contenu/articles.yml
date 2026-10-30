@@ -20,6 +20,80 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296814/pq-promesse-bape-qsl-environnement-quebec-retrait"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-10-30"
+    titre: "Le PQ veut « consulter » avant de déclencher un BAPE sur le terminal de conteneurs"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296937/projet-48-logements-iles-madeleine"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-10-30"
+    titre: "48 nouveaux logements aux Îles en partenariat avec Hydro-Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296593/foret-producteurs-prives-baisse-vente"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-10-30"
+    titre: "Pas de répit pour l’industrie forestière"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/international/asie-et-oceanie/2026-10-30/philippines/le-volcan-mayon-entre-en-eruption-et-projette-une-colonne-de-cendres.php"
+    fiche: "04"
+    media: "La Presse"
+    date: "2026-10-30"
+    titre: "Philippines | Le volcan Mayon entre en éruption et projette une colonne de cendres"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/affaires/2026-10-30/negociations/des-agents-de-controle-de-l-aeroport-montreal-trudeau-manifestent.php"
+    fiche: "02"
+    media: "La Presse"
+    date: "2026-10-30"
+    titre: "Négociations  | Des agents de contrôle de l’aéroport Montréal-Trudeau manifestent"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/ohdio/premiere/emissions/phare-ouest/segments/rattrapage/2515874/point-sur-cop17-alain-branchaud"
+    fiche: "13"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "Renforcer et accroître la biodiversité mondiale d’ici 2030"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296984/transfert-services-familles-autochtone-tno"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "R.J. Simpson se dit prêt à transférer la protection de l’enfance aux Premières Nations"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296969/opposition-tgv-alto-agriculteurs-lanaudiere"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "Lanaudière : agriculteurs et défenseurs de l’environnement font front commun contre le TGV"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2296966/capsules-action-patrimoine-bati-patrimots"
+    fiche: "03"
+    media: "Radio-Canada"
+    date: "2026-10-29"
+    titre: "Des capsules pour aider les élus à conserver le patrimoine"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2296873/microplastique-particules-eau-chimie"
     fiche: "09"
