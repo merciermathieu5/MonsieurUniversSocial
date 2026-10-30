@@ -93,6 +93,34 @@ const midi = anim.etat().n;
 verifier("moins de métros à 13 h qu'à 8 h", midi.metro < pointe.metro, midi.metro + " / " + pointe.metro);
 anim.aller(3 * 60 + 1440);
 verifier("à 3 h du matin, le métro ne roule plus", !(anim.etat().n.metro > 0), JSON.stringify(anim.etat().n));
+/* Chaque trajet, dans les deux sens : vitesse constante entre les stations, arrêt à chaque station
+   intermédiaire et nulle part ailleurs, au point exact où la station est dessinée. */
+const stationsDe = {};
+tous(".mtr__station").forEach((c) => { stationsDe[c.getAttribute("data-station")] = [Number(c.getAttribute("cx")), Number(c.getAttribute("cy"))]; });
+let arretsMal = [], vitesseMal = [];
+anim.trajets.forEach((tr) => {
+  [0, 1].forEach((sens) => {
+    const h = 0.004, pos = (e) => { const d = anim.distance(tr, e, sens); return anim.point(tr, sens === 0 ? d : tr.L - d); };
+    const dist = (e) => anim.distance(tr, e, sens);
+    let n = 0, enArret = false, vmin = Infinity, vmax = 0;
+    for (let e = h; e < tr.duree - 2 * h; e += h) {
+      const v = (dist(e + h) - dist(e)) / h, avant = dist(e) - dist(e - h), apres = dist(e + 2 * h) - dist(e + h);
+      if (v < 1e-9) {
+        if (!enArret) {
+          n++; const p = pos(e);
+          const proche = Math.min(...Object.values(stationsDe).map((q) => Math.hypot(p[0] - q[0], p[1] - q[1])));
+          if (proche > 0.05) arretsMal.push(tr.l + " sens " + sens + " (" + proche.toFixed(2) + ")");
+        }
+        enArret = true;
+      } else { enArret = false; if (avant > 0 && apres > 0) { vmin = Math.min(vmin, v); vmax = Math.max(vmax, v); } }
+    }
+    const attendus = tr.arret > 0 ? tr.dSt.length - 2 : 0;
+    if (n !== attendus) arretsMal.push(tr.l + " sens " + sens + " : " + n + " arrêts au lieu de " + attendus);
+    if (vmax - vmin > vmax * 0.01) vitesseMal.push(tr.l + " sens " + sens);
+  });
+});
+verifier("les véhicules s'arrêtent à chaque station, et seulement aux stations, dans les deux sens", arretsMal.length === 0, arretsMal.slice(0, 4).join("; "));
+verifier("vitesse constante entre les stations", vitesseMal.length === 0, vitesseMal.join("; "));
 const curseur = un(".mtr__curseur");
 curseur.value = "1050"; curseur.dispatchEvent(new window.Event("input", { bubbles: true }));
 verifier("le curseur change l'heure (17 h 30)", un(".mtr__heure").textContent === "17 h 30" && anim.etat().t === 1050);
