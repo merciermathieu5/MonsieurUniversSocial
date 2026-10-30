@@ -2,10 +2,10 @@
  * Test de la maquette 3D du Vieux-Québec (fiche de géographie 03) dans un DOM simulé.
  *     node outils/test_vieux_quebec.js [composant.html]
  *
- * Le DOM simulé n'a pas de WebGL : on vérifie donc le mode de secours, la liste des 18 lieux, les
+ * Le DOM simulé n'a pas de WebGL : on vérifie donc le mode de secours, la liste des 19 lieux, les
  * panneaux, le filtre par période de création, les couleurs des régimes, l'activité et sa rétroaction, les
  * textes, puis la construction de la maquette sans carte graphique (relief et falaise, bâtiments,
- * arbres, aucune coordonnée invalide, 18 lieux bien situés, funiculaire et ses gares, église, portes percées), la désélection,
+ * arbres, aucune coordonnée invalide, 19 lieux bien situés, funiculaire et ses gares, église, portes percées), la désélection,
  * le bouton Réinitialiser et les règles des étiquettes calmes, de
  * la molette et du recadrage. Le composant est inséré dans une fiche minimale, avec page.js quand il
  * est présent, pour vérifier aussi le bouton Plein écran que la page lui ajoute.
@@ -52,7 +52,7 @@ const SEPT = ["place-royale", "ursulines", "place-armes", "maison-jacquet", "for
 // Éléments présentés dans la fiche (sections et photos) : tous doivent être dans la maquette.
 const DE_LA_FICHE = SEPT.concat(["notre-dame-victoires", "frontenac", "porte-saint-louis", "porte-saint-jean", "porte-prescott", "seminaire", "funiculaire", "petit-champlain", "terminal"]);
 const RETIRES = ["casse-cou", "musee"];
-const N = 18;
+const N = 19;
 
 console.log("MISE EN PLACE");
 verifier("composant présent", !!racine && !!api);
@@ -63,8 +63,8 @@ verifier("sans WebGL : mode de secours", racine.classList.contains("sans-3d") &&
 verifier("le message de secours est rempli", un(".vqc__secours-texte").textContent.length > 60);
 const boutons = tous(".vqc__lieu");
 const lieux = api.lieux;
-verifier("18 lieux dans la liste", boutons.length === N, boutons.length);
-verifier("18 lieux dans les données, numérotés dans l'ordre", lieux.length === N && lieux.every((l, i) => l.num === i + 1 && boutons[i].getAttribute("data-lieu") === l.id));
+verifier("19 lieux dans la liste", boutons.length === N, boutons.length);
+verifier("19 lieux dans les données, numérotés dans l'ordre", lieux.length === N && lieux.every((l, i) => l.num === i + 1 && boutons[i].getAttribute("data-lieu") === l.id));
 const bouton = (id) => boutons.find((b) => b.getAttribute("data-lieu") === id);
 const num = (id) => lieux.find((l) => l.id === id).num;
 verifier("tous les éléments présentés dans la fiche sont dans la maquette", DE_LA_FICHE.every((id) => lieux.some((l) => l.id === id)), DE_LA_FICHE.filter((id) => !lieux.some((l) => l.id === id)).join());
@@ -138,7 +138,7 @@ verifier("Réinitialiser ramène la caméra à la vue d'ensemble", /function rei
 
 console.log("FILTRE PAR PÉRIODE DE CRÉATION");
 verifier("la barre du filtre annonce la période de création", /Période de création/.test(un(".vqc__barre-nom").textContent) && /période de création/.test(un(".vqc__barre").getAttribute("aria-label")));
-const parPeriode = { fr: [1, 2, 3, 4, 5, 6, 10, 11, 13, 15], br: [7, 12, 17, 18], co: [8, 9, 14, 16] };
+const parPeriode = { fr: [1, 2, 3, 4, 5, 6, 10, 11, 13, 15], br: [7, 12, 17, 18], co: [8, 9, 14, 16, 19] };
 ["fr", "br", "co"].forEach((code) => {
   clic(un(`.vqc__filtre[data-filtre="${code}"]`));
   const garde = lieux.filter((l) => l.o === code).map((l) => l.num);
@@ -177,7 +177,7 @@ clic(un(".vqc__activite-lancer"));
 verifier("la question s'affiche et le bandeau invite à répondre", /Sous quel régime ce lieu a-t-il été créé\?/.test(texteContenu()) && !un(".vqc__bandeau").hidden);
 verifier("pendant la question, la maquette est neutre (pas d'indice de couleur)", api.etat().regime === 2 && api.etat().activite === true);
 let bons = 0;
-verifier("une partie compte 12 lieux tirés au hasard parmi les 18", api.etat().nbQuestions === 12 && /Lieu 1 sur 12/.test(texteContenu()));
+verifier("une partie compte 12 lieux tirés au hasard parmi les 19", api.etat().nbQuestions === 12 && /Lieu 1 sur 12/.test(texteContenu()));
 for (let i = 0; i < 12; i++) {
   const nom = un(".vqc__contenu .vqc__nom").textContent;
   const lieu = lieux.find((l) => l.nom === nom);
@@ -230,7 +230,7 @@ const okIdx = (m) => { const n = m.pos.length / 3; for (let i = 0; i < m.idx.len
 verifier("terrain et couronne : indices valides, aucune valeur invalide", okIdx(T) && okIdx(C));
 verifier("le terrain reste léger (moins de 260 000 triangles en tout)", T.ntri + C.ntri < 260000, T.ntri + C.ntri);
 verifier("la construction reste rapide", Date.now() - t0 < 4000, (Date.now() - t0) + " ms");
-// Les 18 lieux : chaque numéro est sur son objet réel (bâtiment, rempart ou zone du sol).
+// Les 19 lieux : chaque numéro est sur son objet réel (bâtiment, rempart ou zone du sol).
 const Z = api.zones();
 function zoneEn(x, y) {
   const S = { x0: -800, y1: 920, x1: 800 }, k = Z.w / (S.x1 - S.x0);
@@ -248,7 +248,7 @@ const proches = lieux.map((l) => {
   return m;
 });
 const situes = lieux.map((l, i) => proches[i] < 45 || zoneEn(l.ancre[0], l.ancre[1]) === l.num);
-verifier("les 18 lieux sont situés sur leur objet réel (bâtiment, rempart, funiculaire ou zone)", situes.every(Boolean), lieux.filter((l, i) => !situes[i]).map((l) => l.id).join());
+verifier("les 19 lieux sont situés sur leur objet réel (bâtiment, rempart, funiculaire ou zone)", situes.every(Boolean), lieux.filter((l, i) => !situes[i]).map((l) => l.id).join());
 verifier("la place d'Armes est juste devant le Château Frontenac", (() => { const a = lieux[num("place-armes") - 1].ancre, f = lieux[num("frontenac") - 1].ancre; return a[1] > f[1] && Math.hypot(a[0] - f[0], a[1] - f[1]) < 120 && zoneEn(a[0], a[1]) === num("place-armes"); })());
 verifier("la maison Jacquet est rue Saint-Louis, près de la rue des Jardins", (() => { const a = lieux[num("maison-jacquet") - 1].ancre; return Math.abs(a[0] - 8) < 20 && Math.abs(a[1] - 28) < 20; })(), lieux[num("maison-jacquet") - 1].ancre.join());
 verifier("la terrasse Dufferin longe la falaise, devant le Château", (() => { const t = lieux[num("terrasse") - 1].ancre, f = lieux[num("frontenac") - 1].ancre; return zoneEn(t[0], t[1]) === num("terrasse") && t[0] > f[0]; })());
@@ -256,6 +256,16 @@ verifier("les zones du sol couvrent la place Royale, la place d'Armes, la terras
 verifier("la carte des zones code jusqu'à 21 lieux (numéro × 12, couleurs pour 21 lieux)", /t\[j \* w \+ i\] = z\[0\] \* 12;/.test(script) && (script.match(/255\.0 \/ 12\.0/g) || []).length === 2 && /uCoulLieu\[21\]/.test(script) && /new Float32Array\(63\)/.test(script));
 // Le funiculaire : toute la voie, de la terrasse (en haut) à la maison Louis-Jolliet (en bas).
 const zDe = (id) => { let zmin = Infinity, zmax = -Infinity, xs = []; for (let v = 0; v < M.vol.n; v++) { if (M.vol.o[v * 8 + 4] !== num(id)) continue; const z = M.vol.f[v * 6 + 1]; zmin = Math.min(zmin, z); zmax = Math.max(zmax, z); xs.push(M.vol.f[v * 6]); } return { zmin, zmax, n: xs.length, x0: Math.min(...xs), x1: Math.max(...xs) }; };
+{
+  // Édifice Price : tour Art déco d'environ 82 m, qui recule par paliers et finit en toit pointu
+  const pts = [];
+  for (let v = 0; v < M.vol.n; v++) if (M.vol.o[v * 8 + 4] === num("price")) pts.push([M.vol.f[v * 6], M.vol.f[v * 6 + 1], M.vol.f[v * 6 + 2]]);
+  const zmin = Math.min(...pts.map((p) => p[1])), zmax = Math.max(...pts.map((p) => p[1])), h = zmax - zmin;
+  const largeur = (a, b) => { const q = pts.filter((p) => p[1] >= zmin + a * h && p[1] <= zmin + b * h); return q.length ? Math.max(...q.map((p) => p[0])) - Math.min(...q.map((p) => p[0])) : 0; };
+  const bas = largeur(0, 0.6), palier = largeur(0.76, 0.84), toit = largeur(0.95, 1);
+  verifier("l'édifice Price est une tour d'environ 82 m (avec son épi)", pts.length > 50 && h > 75 && h < 100, h.toFixed(1) + " m");
+  verifier("l'édifice Price recule par paliers et se termine en pointe", bas > 0 && palier < bas - 1.5 && toit < palier * 0.6, [bas, palier, toit].map((v) => v.toFixed(1)).join(" / "));
+}
 const fu = zDe("funiculaire");
 verifier("funiculaire : une voie inclinée d'environ 55 m de dénivelé (fiche : 59 m), de la terrasse au Petit-Champlain", /\(S\.funi \|\| \[\]\)\.forEach\(function \(s\) \{ funiculaire\(lot, lirePoints\(s\)\); \}\);/.test(script) && fu.zmax - fu.zmin > 45 && fu.x1 - fu.x0 > 30, (fu.zmax - fu.zmin).toFixed(1) + " m, " + (fu.x1 - fu.x0).toFixed(1) + " m");
 {
@@ -367,10 +377,10 @@ if (srcApres && srcRepos && srcAttendre) {
     const regle = new Function("etat", `var filtre = etat.filtre, choisi = etat.choisi, activite = etat.activite; ${srcActive} ${srcPermis} ${srcVisible} return visible;`);
     const etiq = (l, dedans) => ({ l, dedans });
     const vis = (filtre, choisi, activite, dedans) => lieux.filter((l) => regle({ filtre, choisi, activite })(etiq(l, dedans === undefined ? true : dedans))).map((l) => l.num).join();
-    verifier("sans filtre, les 18 étiquettes sont affichées", vis("tous", null, null) === lieux.map((l) => l.num).join(), vis("tous", null, null));
+    verifier("sans filtre, les 19 étiquettes sont affichées", vis("tous", null, null) === lieux.map((l) => l.num).join(), vis("tous", null, null));
     verifier("filtre Régime britannique : seules les étiquettes des lieux créés par les Britanniques restent", vis("br", null, null) === "7,12,17,18", vis("br", null, null));
     verifier("filtre Régime français : les lieux créés plus tard (terrasse, funiculaire, terminal) disparaissent", vis("fr", null, null) === "1,2,3,4,5,6,10,11,13,15", vis("fr", null, null));
-    verifier("filtre Période contemporaine : quatre étiquettes", vis("co", null, null) === "8,9,14,16", vis("co", null, null));
+    verifier("filtre Période contemporaine : cinq étiquettes (avec l'édifice Price)", vis("co", null, null) === "8,9,14,16,19", vis("co", null, null));
     verifier("une étiquette hors du cadre reste cachée", vis("tous", null, null, false) === "");
     verifier("pendant l'activité, seule l'étiquette du lieu demandé paraît", vis("tous", null, { ordre: [lieux[4]], i: 0 }) === "5");
   }
