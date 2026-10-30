@@ -3025,6 +3025,8 @@ html[data-sombre="on"] .cme { --cme-mer: #17324A; --cme-mer-survol: #1F4262; --c
 .cme__forme--meso { fill: var(--cme-meso); }
 .cme__forme--egypte { fill: var(--cme-egypte); }
 .cme__point--reduit .cme__forme { stroke-width: 1.2px; }
+.cme__nom--reduit { font-size: calc(var(--k) * 12px); }
+.cme__renvoi { stroke: var(--encre-pale); stroke-width: calc(var(--k) * .8px); }
 .cme__halo { fill: none; stroke: var(--encre); stroke-width: 2.4px; vector-effect: non-scaling-stroke; opacity: 0; }
 .cme__point.est-choisi .cme__halo { opacity: 1; }
 .cme__nom { font-family: var(--titre); font-weight: 600; font-size: calc(var(--k) * 15px); fill: var(--encre); paint-order: stroke; stroke: var(--cme-halo); stroke-width: calc(var(--k) * 4px); stroke-linejoin: round; }
@@ -3085,7 +3087,7 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
   .cme__choix { padding: .8rem; }
   .cme__groupe { grid-template-columns: 1fr; }
   .cme__groupe-tete { min-height: 0; margin-top: .2rem; }
-  .cme__nom, .cme__etiq--continent, .cme__etiq--region { display: none; }
+  .cme__nom, .cme__renvoi, .cme__etiq--continent, .cme__etiq--region { display: none; }
   .cme__point.est-choisi .cme__nom { display: inline; }
   .cme__vues { position: static; padding: .6rem .6rem 0; }
   .cme__vue { font-size: .72rem; padding: .25rem .65rem; }
@@ -3125,22 +3127,22 @@ html[data-sombre="on"] .cme .cme__role, html[data-sombre="on"] .cme .cme__auj st
 <text class="cme__etiq cme__etiq--continent" x="140.4" y="544" text-anchor="middle" dominant-baseline="middle">Afrique</text>
 <g class="cme__zoom" data-zoom="mesopotamie"><rect class="cme__cadre" x="462.5" y="284.1" width="285.6" height="199.9"/><text class="cme__cadre-nom" x="470.5" y="475.0">Mésopotamie</text></g>
 <g class="cme__zoom" data-zoom="egypte"><rect class="cme__cadre" x="193.2" y="412.9" width="302.8" height="212"/><text class="cme__cadre-nom" x="201.2" y="615.9">Égypte</text></g>
-<g class="cme__point cme__point--reduit" data-lieu="eridu"><circle class="cme__halo" cx="647.7" cy="445.8" r="9"/><circle class="cme__forme cme__forme--meso" cx="647.7" cy="445.8" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="ur"><circle class="cme__halo" cx="649.8" cy="442.3" r="9"/><circle class="cme__forme cme__forme--meso" cx="649.8" cy="442.3" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="uruk"><circle class="cme__halo" cx="639.6" cy="434.1" r="9"/><circle class="cme__forme cme__forme--meso" cx="639.6" cy="434.1" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="lagash"><circle class="cme__halo" cx="655.4" cy="430.8" r="9"/><circle class="cme__forme cme__forme--meso" cx="655.4" cy="430.8" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="umma"><circle class="cme__halo" cx="644.2" cy="425.4" r="9"/><circle class="cme__forme cme__forme--meso" cx="644.2" cy="425.4" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="nippur"><circle class="cme__halo" cx="630.1" cy="415" r="9"/><circle class="cme__forme cme__forme--meso" cx="630.1" cy="415" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="babylone"><circle class="cme__halo" cx="613.2" cy="405.9" r="9"/><circle class="cme__forme cme__forme--meso" cx="613.2" cy="405.9" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="mari"><circle class="cme__halo" cx="540.5" cy="359" r="9"/><circle class="cme__forme cme__forme--meso" cx="540.5" cy="359" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="assur"><circle class="cme__halo" cx="587.2" cy="336.1" r="9"/><circle class="cme__forme cme__forme--meso" cx="587.2" cy="336.1" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="ninive"><circle class="cme__halo" cx="584.5" cy="314.2" r="9"/><circle class="cme__forme cme__forme--meso" cx="584.5" cy="314.2" r="3.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="bouto"><circle class="cme__halo" cx="331" cy="431.7" r="9"/><rect class="cme__forme cme__forme--egypte" x="327.8" y="428.5" width="6.4" height="6.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="memphis"><circle class="cme__halo" cx="338.8" cy="465.2" r="9"/><rect class="cme__forme cme__forme--egypte" x="335.6" y="462.0" width="6.4" height="6.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="abydos"><circle class="cme__halo" cx="345.6" cy="555.3" r="9"/><rect class="cme__forme cme__forme--egypte" x="342.4" y="552.1" width="6.4" height="6.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="thebes"><circle class="cme__halo" cx="360.6" cy="568.4" r="9"/><rect class="cme__forme cme__forme--egypte" x="357.4" y="565.2" width="6.4" height="6.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="nekhen"><circle class="cme__halo" cx="362.6" cy="583.3" r="9"/><rect class="cme__forme cme__forme--egypte" x="359.4" y="580.1" width="6.4" height="6.4"/></g>
-<g class="cme__point cme__point--reduit" data-lieu="elephantine"><circle class="cme__halo" cx="363.3" cy="608.2" r="9"/><rect class="cme__forme cme__forme--egypte" x="360.1" y="605.0" width="6.4" height="6.4"/></g>
+<g class="cme__point cme__point--reduit" data-lieu="eridu"><circle class="cme__halo" cx="647.7" cy="445.8" r="9"/><circle class="cme__forme cme__forme--meso" cx="647.7" cy="445.8" r="3.4"/><line class="cme__renvoi" x1="651.2" y1="445.8" x2="696.0" y2="464.0"/><text class="cme__nom cme__nom--reduit" x="700" y="468" text-anchor="start">Eridu</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="ur"><circle class="cme__halo" cx="649.8" cy="442.3" r="9"/><circle class="cme__forme cme__forme--meso" cx="649.8" cy="442.3" r="3.4"/><line class="cme__renvoi" x1="653.3" y1="442.3" x2="696.0" y2="448.0"/><text class="cme__nom cme__nom--reduit" x="700" y="452" text-anchor="start">Ur</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="uruk"><circle class="cme__halo" cx="639.6" cy="434.1" r="9"/><circle class="cme__forme cme__forme--meso" cx="639.6" cy="434.1" r="3.4"/><line class="cme__renvoi" x1="643.1" y1="434.1" x2="696.0" y2="432.0"/><text class="cme__nom cme__nom--reduit" x="700" y="436" text-anchor="start">Uruk</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="lagash"><circle class="cme__halo" cx="655.4" cy="430.8" r="9"/><circle class="cme__forme cme__forme--meso" cx="655.4" cy="430.8" r="3.4"/><line class="cme__renvoi" x1="658.9" y1="430.8" x2="696.0" y2="416.0"/><text class="cme__nom cme__nom--reduit" x="700" y="420" text-anchor="start">Lagash</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="umma"><circle class="cme__halo" cx="644.2" cy="425.4" r="9"/><circle class="cme__forme cme__forme--meso" cx="644.2" cy="425.4" r="3.4"/><line class="cme__renvoi" x1="647.7" y1="425.4" x2="696.0" y2="400.0"/><text class="cme__nom cme__nom--reduit" x="700" y="404" text-anchor="start">Umma</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="nippur"><circle class="cme__halo" cx="630.1" cy="415" r="9"/><circle class="cme__forme cme__forme--meso" cx="630.1" cy="415" r="3.4"/><line class="cme__renvoi" x1="633.6" y1="415.0" x2="696.0" y2="384.0"/><text class="cme__nom cme__nom--reduit" x="700" y="388" text-anchor="start">Nippur</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="babylone"><circle class="cme__halo" cx="613.2" cy="405.9" r="9"/><circle class="cme__forme cme__forme--meso" cx="613.2" cy="405.9" r="3.4"/><text class="cme__nom cme__nom--reduit" x="603" y="404" text-anchor="end">Babylone</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="mari"><circle class="cme__halo" cx="540.5" cy="359" r="9"/><circle class="cme__forme cme__forme--meso" cx="540.5" cy="359" r="3.4"/><text class="cme__nom cme__nom--reduit" x="532" y="352" text-anchor="end">Mari</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="assur"><circle class="cme__halo" cx="587.2" cy="336.1" r="9"/><circle class="cme__forme cme__forme--meso" cx="587.2" cy="336.1" r="3.4"/><text class="cme__nom cme__nom--reduit" x="597" y="340" text-anchor="start">Assur</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="ninive"><circle class="cme__halo" cx="584.5" cy="314.2" r="9"/><circle class="cme__forme cme__forme--meso" cx="584.5" cy="314.2" r="3.4"/><text class="cme__nom cme__nom--reduit" x="594" y="318" text-anchor="start">Ninive</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="bouto"><circle class="cme__halo" cx="331" cy="431.7" r="9"/><rect class="cme__forme cme__forme--egypte" x="327.8" y="428.5" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="341" y="436" text-anchor="start">Bouto</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="memphis"><circle class="cme__halo" cx="338.8" cy="465.2" r="9"/><rect class="cme__forme cme__forme--egypte" x="335.6" y="462.0" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="349" y="469" text-anchor="start">Memphis</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="abydos"><circle class="cme__halo" cx="345.6" cy="555.3" r="9"/><rect class="cme__forme cme__forme--egypte" x="342.4" y="552.1" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="356" y="559" text-anchor="start">Abydos</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="thebes"><circle class="cme__halo" cx="360.6" cy="568.4" r="9"/><rect class="cme__forme cme__forme--egypte" x="357.4" y="565.2" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="371" y="572.5" text-anchor="start">Thèbes</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="nekhen"><circle class="cme__halo" cx="362.6" cy="583.3" r="9"/><rect class="cme__forme cme__forme--egypte" x="359.4" y="580.1" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="373" y="587.5" text-anchor="start">Hiérakonpolis</text></g>
+<g class="cme__point cme__point--reduit" data-lieu="elephantine"><circle class="cme__halo" cx="363.3" cy="608.2" r="9"/><rect class="cme__forme cme__forme--egypte" x="360.1" y="605.0" width="6.4" height="6.4"/><text class="cme__nom cme__nom--reduit" x="353" y="612.5" text-anchor="end">Éléphantine</text></g>
 <g class="cme__echelle" aria-hidden="true"><path class="cme__echelle-trait" d="M24 669v5h109v-5"/><text class="cme__echelle-texte" x="141.0" y="675">500 km</text></g>
 </svg>
 <svg class="cme__svg" data-carte="mesopotamie" viewBox="0 0 1000 700" role="img" aria-label="Carte de la Mésopotamie, entre le Tigre et l&#x27;Euphrate, avec Mari, Assur, Ninive et Babylone. Un cadre délimite le pays de Sumer.">
