@@ -146,6 +146,8 @@ aux principaux axes commerciaux de transport. Sa situation géographique la
 place au coeur des échanges avec le reste du Québec, les provinces maritimes,
 l'ouest du Canada et les États-Unis.
 
+::: composant montreal-territoire
+
 ::: questions
 1. Un journaliste écrit que Montréal compte deux millions d'habitants. De quel
    territoire parle-t-il parmi les trois?
@@ -256,6 +258,8 @@ Se déplacer à Montréal
 Le Réseau express métropolitain
 :::
 
+::: composant montreal-transport
+
 ### Le métro
 
 Le métro de Montréal dessert l'île de Montréal ainsi que Laval et Longueuil.
@@ -267,8 +271,6 @@ de métro le plus achalandé au Canada, devant celui de Toronto, avec environ
 978 000 déplacements un jour de semaine à la fin de 2025.
 
 ### Le REM
-
-![Le Réseau express métropolitain](../medias/02-metropole/stations-rem.png)
 
 Le Réseau express métropolitain est un métro léger entièrement automatisé,
 sans conducteur. C'est le plus grand projet de transport collectif de la
@@ -282,7 +284,7 @@ région depuis le métro lui-même. Sa mise en service s'est faite par étapes :
 Le réseau compte donc 23 stations sur 63 km, avec trois correspondances au
 métro : Bonaventure sur la ligne orange, McGill sur la ligne verte et
 Édouard-Montpetit sur la ligne bleue. L'antenne vers l'aéroport est annoncée
-pour 2027, ce qui portera le réseau à 27 stations sur 67 km.
+pour 2027, ce qui portera le réseau à 26 stations sur 67 km.
 
 ::: savais-tu
 Le REM emprunte le tunnel sous le mont Royal, creusé à partir de 1912 et donc
@@ -445,7 +447,7 @@ Le gouvernement de René Lévesque, porté au pouvoir en 1976, fait adopter la
 plus fertiles de la province, autour de Montréal. La loi crée des zones
 agricoles permanentes où la construction résidentielle est encadrée.
 Aujourd'hui, plus de 2 200 km² du territoire de la Communauté métropolitaine
-de Montréal sont protégés à ce titre, soit environ la moitié de sa superficie.
+de Montréal sont protégés à ce titre, soit 58 % de son territoire terrestre.
 
 ### L'étalement urbain et les gaz à effet de serre
 
@@ -471,6 +473,8 @@ Canada](https://ici.radio-canada.ca/info/2022/03/etalement-urbain-densite-popula
 qui compare la densité et l'usage du transport en commun d'une ville à l'autre.
 Situe Montréal parmi les autres villes canadiennes.
 :::
+
+::: composant etalement-enjeu
 
 ### La gestion des déchets
 

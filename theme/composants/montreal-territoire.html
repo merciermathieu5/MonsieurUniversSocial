@@ -1,0 +1,542 @@
+<section class="mtt" id="montreal-territoire" data-reinitialiser aria-label="Carte interactive : le territoire de la région métropolitaine de Montréal">
+<style>
+.mtt { --mtt-montreal: #E9A9A4; --mtt-laval: #F1C48E; --mtt-longueuil: #AFD394; --mtt-nord: #EDDC8C; --mtt-sud: #CDB8E2; --mtt-neutre: #E7E3D8; --mtt-hors: #F1EFEA; --mtt-eau: #9DC7E8; --mtt-eau-trait: #6E9FC7; --mtt-eau-nom: #2D5F8A; --mtt-bord: #FFFFFF; --mtt-secteur-bord: #5E5A52; --mtt-halo: #FBFBF8; --mtt-pont: #3A3F45; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: mtt / inline-size; }
+html[data-sombre="on"] .mtt { --mtt-montreal: #8E4F4B; --mtt-laval: #8E6936; --mtt-longueuil: #4F7340; --mtt-nord: #7D6F2C; --mtt-sud: #65558A; --mtt-neutre: #36414C; --mtt-hors: #222C36; --mtt-eau: #1C3A55; --mtt-eau-trait: #2F5878; --mtt-eau-nom: #9CC7EC; --mtt-bord: #1A232D; --mtt-secteur-bord: #D8D2C4; --mtt-halo: #18222D; --mtt-pont: #E3DED3; }
+.mtt .mtt__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mtt .mtt__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mtt .mtt__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .mtt .mtt__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mtt .mtt__titre { color: var(--encre); }
+html[data-sombre="on"] .mtt .mtt__consigne { color: var(--encre-pale); }
+.mtt .mtt__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.mtt .mtt__visuel, .mtt .mtt__lecture { min-width: 0; }
+.mtt .mtt__carte { position: relative; background: var(--mtt-hors); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.mtt .mtt__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.mtt.est-glisse .mtt__svg { cursor: grabbing; }
+.mtt__fond { fill: var(--mtt-hors); }
+.mtt__ville { fill: var(--mtt-neutre); stroke: none; cursor: pointer; transition: opacity .25s, fill .25s; }
+.mtt.avec-secteurs .mtt__ville[data-secteur="montreal"] { fill: var(--mtt-montreal); }
+.mtt.avec-secteurs .mtt__ville[data-secteur="laval"] { fill: var(--mtt-laval); }
+.mtt.avec-secteurs .mtt__ville[data-secteur="longueuil"] { fill: var(--mtt-longueuil); }
+.mtt.avec-secteurs .mtt__ville[data-secteur="nord"] { fill: var(--mtt-nord); }
+.mtt.avec-secteurs .mtt__ville[data-secteur="sud"] { fill: var(--mtt-sud); }
+.mtt.avec-villes .mtt__ville { stroke: var(--mtt-bord); stroke-width: .9px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.mtt .mtt__ville:hover { filter: brightness(.94); }
+.mtt .mtt__ville.est-estompe { opacity: .32; }
+.mtt__bords { fill: none; stroke: var(--mtt-secteur-bord); stroke-width: 1.6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; pointer-events: none; opacity: 0; }
+.mtt.avec-secteurs .mtt__bords { opacity: .75; }
+.mtt__choix { fill: none; stroke: var(--signal); stroke-width: 3px; vector-effect: non-scaling-stroke; stroke-linejoin: round; pointer-events: none; }
+.mtt__choix--ville { fill: var(--signal); fill-opacity: .28; }
+.mtt__eau-forme { fill: var(--mtt-eau); stroke: var(--mtt-eau-trait); stroke-width: .5px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.mtt:not(.avec-eau) .mtt__eau-forme { fill: var(--mtt-eau); stroke: none; opacity: .65; }
+.mtt__pont { fill: var(--mtt-pont); stroke: var(--mtt-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.mtt__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--mtt-halo); stroke-linejoin: round; pointer-events: none; }
+.mtt__etiquette--ville { font-weight: 600; fill: var(--encre); }
+.mtt__etiquette--grande { font-weight: 700; }
+.mtt__etiquette--choisie { fill: var(--encre); font-weight: 700; }
+.mtt__etiquette--secteur { font-family: var(--donnee) !important; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; fill: var(--mtt-secteur-bord); pointer-events: auto !important; cursor: pointer; }
+.mtt__etiquette--eau { font-style: italic; font-weight: 500; fill: var(--mtt-eau-nom); }
+.mtt__etiquette--pont { font-weight: 500; fill: var(--mtt-pont); }
+.mtt__etiquette--hors { font-style: italic; fill: var(--encre-pale); }
+.mtt .mtt__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.mtt .mtt__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.mtt .mtt__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mtt .mtt__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.mtt .mtt__recentrer[hidden] { display: none; }
+.mtt .mtt__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.mtt:not(.est-plein-ecran) .mtt__replier { display: none; }
+.mtt .mtt__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.mtt .mtt__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtt ul > li::before, .mtt ol > li::before { content: none; display: none; }
+.mtt ul > li::marker, .mtt ol > li::marker { content: none; }
+.mtt .mtt__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.mtt .mtt__couches > li { margin: 0; padding: 0; }
+.mtt .mtt__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.mtt .mtt__couche:hover { background: var(--matiere-voile); }
+.mtt .mtt__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.mtt .mtt__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case::after { border-color: #10171F; }
+.mtt .mtt__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.mtt .mtt__vue { padding: 1rem 1.2rem 1rem; }
+.mtt .mtt__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.mtt .mtt__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtt .mtt__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.mtt .mtt__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.mtt .mtt__pastille[data-secteur="montreal"] { background: var(--mtt-montreal); }
+.mtt .mtt__pastille[data-secteur="laval"] { background: var(--mtt-laval); }
+.mtt .mtt__pastille[data-secteur="longueuil"] { background: var(--mtt-longueuil); }
+.mtt .mtt__pastille[data-secteur="nord"] { background: var(--mtt-nord); }
+.mtt .mtt__pastille[data-secteur="sud"] { background: var(--mtt-sud); }
+.mtt .mtt__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.mtt .mtt__chiffres > div { min-width: 0; }
+.mtt .mtt__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.mtt .mtt__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.mtt .mtt__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.mtt .mtt__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtt .mtt__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.mtt .mtt__liste > li { margin: 0; padding: 0; }
+.mtt .mtt__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.mtt .mtt__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.mtt .mtt__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.mtt .mtt__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.mtt .mtt__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.mtt .mtt__toutes { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.mtt .mtt__toutes > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.mtt .mtt__toutes > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.mtt .mtt__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.mtt .mtt__grille > li { margin: 0; padding: 0; }
+.mtt .mtt__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.mtt .mtt__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.mtt .mtt__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.mtt .mtt__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.mtt .mtt__retour:hover { background: var(--matiere-voile); }
+.mtt .mtt__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.mtt .mtt__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.mtt .mtt__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.mtt .mtt__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container mtt (min-width: 46rem) {
+  .mtt .mtt__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .mtt .mtt__visuel { border-right: 1px solid var(--trait); }
+  .mtt .mtt__lecture { border-top: 0; }
+}
+@container mtt (max-width: 30rem) {
+  .mtt .mtt__barre, .mtt .mtt__vue, .mtt .mtt__source { padding-left: .8rem; padding-right: .8rem; }
+  .mtt .mtt__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
+}
+.mtt.est-plein-ecran, .texte section.mtt.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.mtt.est-plein-ecran > .mtt__entete { flex: none; }
+.mtt.est-plein-ecran > .mtt__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.mtt.est-plein-ecran .mtt__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.mtt.est-plein-ecran .mtt__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.mtt.est-plein-ecran .mtt__svg, .texte .mtt.est-plein-ecran svg.mtt__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.mtt.est-plein-ecran .mtt__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.mtt.est-plein-ecran > .mtt__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.mtt.est-plein-ecran.texte-masque > .mtt__corps { grid-template-columns: minmax(0, 1fr); }
+.mtt.est-plein-ecran.texte-masque .mtt__lecture { display: none; }
+.mtt.est-plein-ecran.texte-masque .mtt__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .mtt.est-plein-ecran > .mtt__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .mtt.est-plein-ecran .mtt__visuel { border-right: 0; }
+  .mtt.est-plein-ecran .mtt__lecture { border-top: 1px solid var(--trait); }
+  .mtt.est-plein-ecran.texte-masque > .mtt__corps { grid-template-rows: minmax(0, 1fr); }
+  .mtt.est-plein-ecran > .mtt__source { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mtt__ville { transition: none; }
+}
+@media print {
+  .mtt .mtt__outils, .mtt .mtt__replier, .mtt .mtt__barre { display: none; }
+  .mtt .mtt__svg { max-height: none; }
+  .mtt .mtt__corps { grid-template-columns: minmax(0, 1fr); }
+  .mtt .mtt__visuel { border-right: 0; }
+  .mtt { break-inside: avoid; }
+}
+</style>
+<div class="mtt__entete">
+<p class="mtt__titre" role="heading" aria-level="3">La région métropolitaine de Montréal&nbsp;: secteurs, villes et cours d'eau</p>
+<p class="mtt__consigne">Touche un secteur ou une ville</p>
+</div>
+<div class="mtt__corps">
+<div class="mtt__visuel">
+<div class="mtt__carte">
+<svg class="mtt__svg" viewBox="0 0 1000 892" role="img" aria-labelledby="mtt-svg-titre">
+<title id="mtt-svg-titre">Carte de la Communauté métropolitaine de Montréal&nbsp;: ses cinq secteurs, ses 82 municipalités, le fleuve Saint-Laurent, les rivières et les lacs qui l'entourent.</title>
+<rect class="mtt__fond" x="-2000" y="-2000" width="5000" height="5000"/>
+<g class="mtt__villes"></g>
+<path class="mtt__bords" d=""/>
+<path class="mtt__choix" d=""/>
+<g class="mtt__eau"></g>
+<g class="mtt__ponts"></g>
+<g class="mtt__etiquettes"></g>
+</svg>
+<button type="button" class="mtt__bouton-carte mtt__replier" aria-expanded="true">Masquer le texte</button>
+<div class="mtt__outils">
+<button type="button" class="mtt__bouton-carte mtt__zoom mtt__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="mtt__bouton-carte mtt__zoom mtt__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="mtt__bouton-carte mtt__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="mtt__barre">
+<p class="mtt__barre-titre" id="mtt-couches-titre">Ce que la carte montre</p>
+<ul class="mtt__couches" aria-labelledby="mtt-couches-titre">
+<li><button type="button" class="mtt__couche" data-couche="secteurs" aria-pressed="true"><span class="mtt__couche-case" aria-hidden="true"></span>Les cinq secteurs</button></li>
+<li><button type="button" class="mtt__couche" data-couche="villes" aria-pressed="true"><span class="mtt__couche-case" aria-hidden="true"></span>Les villes</button></li>
+<li><button type="button" class="mtt__couche" data-couche="eau" aria-pressed="true"><span class="mtt__couche-case" aria-hidden="true"></span>Les cours d'eau</button></li>
+<li><button type="button" class="mtt__couche" data-couche="ponts" aria-pressed="false"><span class="mtt__couche-case" aria-hidden="true"></span>Les ponts de l'île</button></li>
+</ul>
+</div>
+</div>
+<div class="mtt__lecture">
+<div class="mtt__vue" tabindex="-1"></div>
+<p class="mtt__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="mtt__source">Tracés&nbsp;: © les contributeurs d'OpenStreetMap, sous licence ODbL (openstreetmap.org/copyright), simplifiés. Population (décret de population 2026) et superficie terrestre&nbsp;: ministère des Affaires municipales et de l'Habitation, Répertoire des municipalités. Secteurs&nbsp;: Communauté métropolitaine de Montréal.</p>
+<script>
+/* Données géographiques : © contributeurs d'OpenStreetMap, licence ODbL (https://www.openstreetmap.org/copyright).
+   Population et superficie : MAMH, Répertoire des municipalités du Québec (décret de population 2026). */
+(function () {
+  var racine = document.getElementById("montreal-territoire");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":892,"eau":[{"d":"M602.5 539l-0.5 18 4 5 3.5 1.5 3 12.5 7 16-25.5-8.5 2-8.5-3-7.5-1-17-2 14-0.5-5.5-1.5 0-1 9 0-9-2 0.5-0.5-3 3.5-1-3.5 0 2-0.5-2-1 4-1-3.5 0 0.5-1.5 3.5 0 1-6-3 2.5 7-27.5 4-6 2.5-0.5-1-2 2.5-1.5-2 0.5 0.5-1.5 3-0.5-1-0.5 7.5-13-2 1.5 0.5-3-2 4-1.5-1 7.5-10.5-1.5-2 3-2 5.5-10.5 1.5-7.5-3.5-9.5-0.5-8.5 4-13 4-6.5-1.5-0.5 4.5-5-1 0.5 0.5-2 4-3.5-1.5 0.5 0.5-2.5 3.5-5-1-6 1.5-5-4.5-18 1.5-16 1-6 5-6.5 4.5-11 1.5-10.5 4-2.5 11-13 3-5.5 1 0.5-0.5-1 2-0.5 6-7 0.5-2.5-6 4.5 8.5-7-0.5-1 7.5-10.5 3.5-8 2 0-1-0.5 1 0-0.5-1 2.5-6 8.5-8.5 7.5-14 11-9.5 10.5-22.5 9.5-8 12-3.5 9.5-5.5 30.5-37 21-39 12.5-28.5 6-7.5 8-17 12.5-14.5 6.5-11 5.5-20.5 4-25 17 0-17.5 49-10 17.5-5 11.5-4.5 27.5 1.5 15-0.5 12-1.5 1-0.5-1.5-6.5 21-5.5 8-2.5 8-11.5 11.5-9.5 2.5-6.5 4.5-2 5.5-8 9-2.5 1-1 4.5-2-0.5-9.5 8.5 0 2-3.5 3-4 8-9 10.5-6.5 4.5-7 10-19.5 12-5 8-5.5 6-39.5 50 0 7-5.5 14-1 8-1-0.5-1 4 0 7.5 2 3-1.5 14-2.5 11.5 1 1.5-0.5 6.5-5.5 12.5-3 12.5 0 14.5-2 10-2.5 5.5-1.5 0.5 1 0.5-1.5 2.5 0.5-2.5-1.5 1 0.5 1.5-5 8.5-1-0.5 0.5 1.5-9.5 11-1.5-1 1 1.5-3.5 6-1-0.5 1 1-3.5 3.5 0 3 0-1.5-1 2-2-1 1.5 2-6.5 11.5-1.5-0.5-2 1.5-4 4.5 2.5-2.5 1 1.5-3 2.5-1-1.5-0.5 4.5-2 0.5 1 1-2 0-1 2-2.5-0.5 0.5 8.5-1.5 0.5 0.5 3.5-1.5 0.5zM833 121.5l2.5-4.5 0-20 1.5-4-2.5 3.5-2 11.5 2-5.5 1 0.5-1.5 10 1 3.5zM599 552l2.5-9-1.5-11.5-3-2 3-2-1.5-2.5-4.5 9.5 2 13.5zM632 466l-1 2.5-3-0.5 4 1.5-3 1.5-1.5-1.5 1 2-1 2.5 1.5-2.5 2.5 0.5 0 2.5 2 2 4.5-3 5.5-9.5-2 0 4.5-4.5-5.5 1 6-1.5 4-5 2-7.5-9 8-8.5 4zM647 397.5l-0.5 3.5 4.5-1.5 3.5-5.5-0.5-5 1 3 1.5-1 0-3 5-10.5 0.5-9-1-3-2.5 8.5-2.5 3.5-3 8.5-5 6.5zM642.5 385.5l-0.5 3 7.5-6 0-3.5-5 2zM639 385l11.5-9.5 3.5-5 2-9.5-1-12.5 0.5-7.5-8.5 8.5-5.5 1-3.5 7.5-1.5 16 0.5 7 3 9.5 2.5-6.5zM644.5 342l6.5-3.5 2.5 0.5 2.5-4.5-5.5-0.5-2.5 1.5-2.5 2zM696 282.5l-1.5 0-5 5-1.5 3.5 0 3.5 4.5-3.5 3-5.5-3 0 3.5-1.5zM711.5 256.5l-6 7.5-7.5 13 6 0 1.5-3.5 12.5-14 13.5-10 0.5-2.5-9.5 6.5-7.5-1zM731 246.5l38.5-36 16-22-4 4.5-8 2-4 3-4.5 7.5-7.5 5.5-15 7.5-4 8 0-2-10.5 7.5-11 17.5 5.5 2zM728 231l6.5-3.5 7-8.5-3-0.5-6 5zM787 163.5l-9.5 9.5-1 3 7-6zM812 169l-2-4.5-2 1.5-3 5.5-0.5 4-3 6 12.5-3.5 2-3-4.5 1.5 4-2-2 0 1.5-0.5-3-5-1.5 2-1.5 0 1-2.5zM829 125l4.5-3 1.5-19.5-5.5 15.5zM825 145l2 0 3.5-5 1.5-6-6.5 8.5zM812 168.5l2.5 4.5 1.5 0.5 6-5 3.5-7.5-2.5-0.5 3.5-1.5 1.5-3-5 1 6.5-5 4-15-18.5 25.5zM645 425l-1 5.5 5.5 2 3-1.5 3-14 3-8.5-1.5-4.5-5 1.5-2.5 2.5zM635.5 436l-2-1-3.5 5 1 2-2 8.5 0 5.5 3.5-4.5 5-19-1-3zM638 445l-1 5 3.5 2 11.5-6.5-9.5-1.5zM638.5 441.5l0.5 3 3.5-1 9 1.5 1.5-3-0.5-10.5-3 1.5-4.5-2zM643.5 415.5l-4.5 5.5 0.5 3-2 1.5-0.5 3.5 1 2 1-5.5 5-4z"},{"d":"M341 711l2-3 5-0.5 11.5-4.5-3.5-3.5 1.5-2-1-0.5 0.5-2-2.5 0.5-3.5-3-1 1.5-3.5 0.5-2 2.5-5.5 2-2.5-0.5-7.5-7-6.5-11 0-3.5 4.5-2-1-2.5-4-2-5 2-0.5 2-3 1.5-1 1.5-1-1 1-1-4-1.5-2 2.5-0.5-1.5-3 2-3-2 2-2-11 1-0.5-2-3 1-1.5-1.5-2 2 4-6-3.5-4.5 6 1 8-2.5 4 1.5 3 0 0.5-1 0 1 3-5 1.5 0.5 6.5-4 6-0.5 4.5-3 6 0 3-1.5 2.5 1.5 0.5-2.5 3.5-3.5 7-2 3.5-3 3-0.5 7.5-5 7 3.5 0 1.5 2.5-3.5 2-0.5 3 1 1 3 0.5-2 3-0.5-1-1.5 2.5-2 0.5-2 5-0.5 4-2.5 2 1 0.5-9 6.5-5.5 9.5 1 4 4 1 4 4-1.5 3 2.5 1-1.5 3.5 0.5 4 4.5 1.5 0-2-1 1.5-2 3 2.5 3-2.5 4-0.5 7 2 4.5-2.5 19 4.5 3 2.5 6-1.5 2 1.5 1-1 10 2-3 2.5-7.5-2 5 2 7.5-2.5-6 3-12.5-1.5 3.5 2 7.5 0.5 7-1.5 18 13.5 8.5 1-0.5 1 6-0.5 0 9-6 3-5.5 0-7-3-1.5-2.5-3.5-1 0-2.5 1.5 0-1.5-2-8-1.5-0.5-1-1.5 1-11.5-2.5-27 9.5 7-2 4.5 2 3.5-2 1.5 1 0.5-1.5 8-3 1-2.5 1 2-7 3.5-2.5 3.5-1-1-4 3-2.5-1-1 1-4 0-4.5 8.5-3-0.5-2 2.5-0.5-1.5-1.5 2 0.5-4-6-3.5-6.5 3.5-3.5-1-1 1.5 0.5 8.5 2.5 4-2.5 10-1 1-0.5-2.5-6-6-5 2-1.5 4-5 4 0 6-3.5 1-1.5 4-9 7 5 1-0.5 1.5-4.5 1 0.5 2-5.5 3.5-6 7.5-3 0.5 1.5 2.5-4 2.5-3.5 7-5.5 4-3-2-1.5 1.5-2-1-1.5 2-2.5-1-5 1.5-3.5 3 3.5 4.5-3.5 3-1.5-1-1 1.5-2-2-10 3.5-3-1-2.5 2.5-0.5-5-4 4-4-1.5-4.5 2.5-4-1.5 0 3-8-2.5 1.5-3-1-5.5-3 5-1-1 1.5-5-3.5 6-16.5-0.5-0.5-1.5 0.5 2-8.5 4-7.5-7.5-1-2.5 4.5-5.5 7 0.5 0.5-3.5-1-2-4-0.5 3-2-10.5 3-4-1.5-7-10.5-4.5-4-0.5-4-2.5 1-4-2.5-1-3.5-2-1 1.5 0-0.5-2.5-3-0.5-2.5-4.5-1-4 1-1.5-1.5-1-1.5-5 2.5-3-2-1-0.5-4 4.5-3 4 0-1.5 2.5 0.5 3 3.5 1.5 0.5 1.5-1.5 2 1.5-0.5 1.5 2-3 4.5 1 0.5-1 1 2 8.5 1.5 1.5 6.5 2.5 1 4 5.5-2 13.5 7 6.5-5 13.5-4 7.5 3 1 3 3-0.5 1 1.5 2 0.5 3.5 5.5 4.5-3.5 3-4.5 3.5-1.5 3 1 0.5-2 7-3.5 1 1zM436 683l1-4-2-3.5-1.5-9.5-2 2.5 2-3-1.5-1.5-2 3-3 0-1.5 2.5-2 7-4 6 2 1 4.5-3 2.5 0.5 2.5 4.5 3.5 1.5zM364 737.5l-5-0.5-3.5 3.5 1 1 4.5-1zM329 659.5l-2-1.5-0.5 3-3 0.5-2 2 0.5 2 2 1.5 7.5-1-0.5-1 3-3-4.5 1-2-1zM369.5 721l-6 9-1-1-3 6-5 4.5 0.5 2.5 0.5-3 3-2.5 5.5 0 1.5-1.5-1 0 1-1-1.5-0.5 7-1.5-6-0.5 7-0.5-6-2 3-0.5-1-0.5 0-2 7.5-11.5z"},{"d":"M269 627l-2.5 10.5 3.5 2 0.5 2.5-1.5 1.5 1-1-3-0.5-1 2.5 4.5-1 1.5 3.5 0.5-1 2 1-0.5 4 2.5 1 4 6 0 3.5-2-1 7.5 3.5 0.5 3-3.5-1.5-10.5 4-2-3-2-0.5-0.5 2.5-1-1.5-7.5 2-4 4.5-3.5 1-3 3.5 0 3.5-4 0-0.5-2.5-3-1 0-2-2.5-0.5-1 1-1.5-1.5-2 0-4-5 1-1.5-0.5-2.5 6.5-16 3.5 0.5 1-3 1.5 1 1-1.5 0-3-3 0.5 1-3-5 1.5 3-2-2.5-1.5-3.5 3.5-1-2-5-2.5-7-0.5-3.5 2 0 3.5-4.5 2.5-3-0.5-6.5-4.5-7-10-1.5-4 2-6-13.5 2-4-1.5 0 1.5-1.5 0-4.5-4.5-3.5 1.5-3-5.5 0-3.5-4-1-9-4.5 0-2 2.5-1.5-1-1-7 2.5-2-1.5-0.5-2-4 0 1-1.5-5-0.5-9-6-5.5 0-14-6-2.5-3.5-3 1.5-2-2.5-3 1-5.5-4.5 0-2.5-5.5 0-2 1.5-2.5-3-3.5 4.5-4.5 0-1 2.5-5.5 0.5-5.5-5 4-12.5-15 3.5-2-0.5-1-2.5-3 0-2 2 1.5-4-8-4-7 1-1-2.5 2-1.5-5.5 0.5-3.5 3-2.5-1.5-3 2-3 0-1 2.5 2.5 4.5-2 1.5-1.5-1-0.5 1-2.5-3.5-4.5 0.5 0-1-1 1 1-1.5-2 1 2-3-2 1.5-1-1.5-4.5 2 0-10 2 0.5 5-5.5 8 0.5 10.5-8-14 4.5-9-5-0.5-3.5 1.5-2.5-1.5-1.5 2 1 4.5-0.5 1.5-8 4.5-2 5 1 1 1.5-3.5 5.5 2.5 0 4.5 3 5 0 4-4 11.5-1 14.5-5.5 6.5 2 0.5 2 5.5-1.5 2.5 0.5 1 2 3.5 0.5-0.5 2.5 1.5 0.5 10.5-2 4 2.5 7.5-3 4 0.5 4.5-2.5 4.5 0 5 8 3 11 0.5 10-4 6 1.5 0-1 0.5 10-1.5 1 1.5-0.5-2.5 1 0.5 0 1.5 0.5-1 7 0 7.5 4.5 0 1.5 2-1 2 1.5 1 6.5-3.5 3 3 2.5 3.5 8 8.5 7 14.5 4.5 1 2.5 0.5-1.5 0 1 5 1.5 1-2 10-4.5 3-1 3 0.5 3-2.5-0.5-3.5 3.5-2-3 2.5 0 5 6.5 7.5 3-0.5 8-7 3-1.5 4 0 8.5-4.5 3-3.5 8.5-4 8.5 1 4-2.5 0.5-6.5 10.5-7 2-3 8-4-1-4 5.5-7.5-1.5-1.5 2-3.5 2-0.5-2-1.5 3.5-3 16.5-3.5 5-7 5-3 5.5-1 3 2 13-1-2 5.5 1.5 1-3.5 2.5-0.5 4.5-2-0.5-4.5 3-3.5-1.5 1 1.5-1 0.5-0.5 5.5-6.5 3.5-2 6.5-6 1.5-3.5 6.5-6 0.5-3.5 4.5-1 6-2 1 2-1 0 2.5 1.5-0.5 0.5 2-3 0.5-1.5 4 5.5-1 1.5 4-3.5 3 0 4-2 0-1 2-1.5 0 0 2.5 2.5 0-0.5 2.5-3.5 1 8.5 6-0.5 3.5-3.5 1.5-5-2-2.5 2 1.5 1-1.5 2.5-6.5-1 1.5 3-6 2.5-1-1.5 0 4zM248 640.5l-0.5 2.5-1.5-1.5-1 1.5 1 2-1 2 4 0.5-0.5-1.5 3.5 0.5 3.5-1.5 0-2-2-1-4 2zM225 637.5l0.5 1 6.5-3 2.5-4 2 0 2-2 0.5-2.5-5 2 0 1.5-3.5-0.5 0 1.5-5 2.5-1.5 3zM272 667.5l1 1.5 1.5 0 6.5-4-7.5-1-2 1zM43.5 547.5l1.5-2.5 1.5 0 0-1.5 5.5-4.5 7.5 2-3.5-3-11-2.5-9 2.5-2.5 3-15 7.5 0 2 8 0 13.5-3 17.5 0 5-1.5-3.5 0.5-3-0.5-0.5-1.5z"},{"d":"M125 869l1.5 5.5-1.5 6-3.5 0.5-4.5 4.5-5.5 0-2.5 3.5-7.5 5-103.5 0 0-16.5 8 6.5 4.5-10.5-1-0.5 4.5-1.5 2 1-1-3.5 1-1-1.5-2.5 2 2.5-1.5 1 1 1.5 6-5.5-1-2 1.5 2-0.5-1.5 0.5 0.5 1.5-3 2.5-1-0.5-1.5-1.5 0.5-0.5-1.5 1.5 1-1.5-3.5 2.5 4.5 0.5-1-2-4 2 5.5 1.5-1.5-2-4 2.5 4-2.5-5 3 4.5 3-0.5-2.5-5.5 2-1.5-2 1.5 2.5-0.5-2 1 2 0 0.5 1.5-0.5-1.5-1.5 1 1.5 0.5-1.5 0.5 1 1 0.5-1-0.5 2 1.5-2.5-1 3 3-1 5.5 1 0-1.5-1 1-5.5-2 3.5 0-2.5-1 2 0-1-1.5-3 1.5 3-1.5-3 0.5 2-1.5-3 0.5 2.5-1.5 1 1-1-1.5-2.5 1 2.5-1.5 3.5 6 1.5 1 0.5-1-1.5-0.5-3-5 3.5 5-2.5-5.5-1.5 0 1.5-1 4.5 8 1.5-5-2.5-4.5 2.5 4.5-2-4.5 2.5 3.5 2-3.5-1-1.5 4-1.5 1 1.5 9-4.5 24.5-19 7 0.5 1.5-1.5 2 1 2.5-3 1.5 0.5 1-3.5-1 5 4.5-3.5 2-6-1-3.5 1-5.5 1.5-0.5-1-1 7-7 1.5 0 1-5 0.5 1 3.5-4-2 1-1-1.5-4 0-4-4.5 4.5 4 0-1 5 2.5 3.5-5-2.5-5 2-1-1.5 2.5 2 3 3-5 3.5-2.5 4 0 1 2.5 3.5-0.5 4-4 8.5-5 11-3 11 1 12.5-2.5 6.5 2 4 4 1.5-1 1 1.5 1.5-1 0-2 1 1.5 7-1.5 3.5 5 11-3 7.5-4.5 1.5 4 1 0 2.5-1.5-3.5 1-0.5-3.5 3-0.5 0-2.5 6-0.5 0-1 4-1.5 4 1 13-0.5 2-7 2-3 5-1.5 2 0.5 6-4 1 1-1-1 1 1 3-1-3.5 3.5-0.5 3 8 9-4 0.5-5.5-6-1 4.5-3.5-2 3.5 2.5-2.5 1-0.5 2.5-6.5 3.5-2-0.5-2.5 4.5-3.5 1.5-3-1-3 2 0 1.5-4-0.5-4.5 1.5-3-1-1 1-1-1.5-5.5-0.5-1.5 2.5 0-2-3 0-1.5 2.5-0.5-1 0.5 2.5-4 5.5-5.5 3.5-4.5-1.5-3 1.5-2 3 0-1.5-2 0-2 4-1.5 0 1.5 0-0.5-1.5-7.5 7.5 1.5 0.5-0.5 1.5-4.5 1.5-2.5 3-1-0.5-1 2 1.5 1-1 1-1.5-1 0.5 1.5-5 0.5-4.5 10 0.5 1.5-2 2-4 0-10.5-5.5-4.5 0-3.5 2.5 2-3 21 2.5-1-3 5-8.5 2.5-1.5 2.5 1.5 1.5-4.5 3-2 5.5-0.5 0.5-1.5-2.5-3.5 3-0.5 5-7.5 7.5-2.5 8.5 1 4-4-3.5 2.5-3.5-1.5-5.5 1.5-4-1.5-0.5-3-2.5 0-4 4-5 1.5-8.5-3.5-3.5-4.5-3.5-2-7 5.5-5.5 0 0 1.5-4.5 3.5-2.5 0.5-8.5-2.5-3.5 3-12 4-6 13 0 4.5-0.5-7.5 1.5-1 0.5-3 1.5-0.5 2-4.5-3.5 1-2.5 2.5 0.5-1.5-1.5 0-2 4.5 2.5 1.5-0.5-2.5 1 3 0.5 8-1 1 2.5 1 0.5 1-1.5-0.5 2.5 2.5 1.5 6 2 1-1 2-5.5-4.5-1.5 4-3.5 0.5 0.5 3 10.5-1 1-4 6.5 0.5 7-4 5.5 2.5-0.5 2-5-1-4 2 8 0-7.5 0-2.5 2.5-2-0.5 3.5-1.5-5 2-1.5 3-5.5 4 2 1.5-1.5 4.5-1 1-2.5-1 1 1.5-1.5 1.5 0.5 3.5 2 0.5 8 11.5-6 0 0 9-1 2.5-2-1-3.5 2 0 2zM205.5 771.5l-3-1.5-7.5 1-5.5-2 13 4.5 8-1zM116.5 807.5l2.5 1.5 2-6-1-1-6 1.5 1 4zM110.5 808.5l2 4 2 0 1-3.5-2.5-2.5-3 0.5z"},{"d":"M581.5 591.5l-2-2 2 1.5 2-0.5 10.5-7 26 9 1.5 9.5 0.5 32-5.5 12-11 8.5-8 2-20.5 0-4.5-18.5-11.5-9.5 13-16 4.5-9 1-10.5zM586.5 592.5l-4.5 2.5-0.5 6.5-4 12 2 4 8.5-3.5 6-10.5 0.5-5 5.5-4-4.5-9-3 1z"},{"d":"M163.5 852l11 4 2.5 0-2-1.5 0.5-1 3.5 2.5 4 1 5-0.5 4-1.5 15.5 0 11.5-2 25-9.5 1 1-2.5-6.5 9 1.5 17.5-16.5 10.5-12 22.5-39.5 4.5-11 0.5-7 1 5 2.5-5-10.5 26.5 1.5-4 11.5-18 7.5 2 1 5.5-3 5.5-5 6-2-1 1.5 1.5-7.5 7.5-20.5 34-23.5 24.5-13.5 10.5-29 10.5-36.5 0.5-10.5-1-25.5-7.5-10.5-1.5-8.5-12 13 1z"},{"d":"M335.5 532l-3.5 2.5 0 4.5 4-2.5 11.5 2 3-0.5 0 1.5 5 3.5 1.5 4-3 3-0.5 4.5-2.5 1.5 0 3 3.5 0 2-8.5 5.5-5 1.5-4 3-1 10 0 6.5 4.5 3.5-3 5.5-0.5 2 1.5 4.5 0 0.5 4.5 2 1.5 16.5 0.5 9.5-1.5 4-3 1.5 1-3.5 3 2-1 4.5-4 1.5-4 1.5 0 3-3 2.5-5.5 8-5.5 4.5-6 4-1.5 1 2.5 0.5-2 3-2 3.5-5 3-1 1.5-2.5 9-1 2.5-1.5 5 0.5 5-12 6.5-6 1-5.5-2.5-4 4-7 2.5-2-2.5 3.5-1 4.5 1.5-4 3.5-3 2-9 5-8 9-23.5 11-13 5.5-3 29-28 4.5-1 11-9.5 5.5-1 7-6 12-20-7-3-12.5 11.5-4 10.5-10.5 9-3 1-7 7.5-11 5-6 6-10 5-15.5 16-3 7.5-2 1 1.5-1 1 1-2.5 4.5 0 7.5-3 10-16 24-7 19.5 4-4-0.5 2.5-5 8-6 4.5-8 1.5-7.5 4.5-4.5 6-8 3-4.5 5-6.5 1-8 8-5 0.5-2.5 3 2.5 2.5-9 7.5-7-2-4 0.5-3.5-2-7.5 1-10.5-4.5-7 1.5-6.5-2.5-10.5 0.5-3.5-2.5-20 1.5-4-1zM596 362l4-4.5 0.5-3.5-3 3 0-1.5-2.5 1.5-1 4-3 2.5 0 2.5zM361.5 536l1.5 1-1 3.5-3.5-2-2.5 3-4-3 0.5-2z"},{"d":"M884.5 125l-1.5-6.5 2.5-8.5-4-5.5-0.5-3.5 4-9 6.5-37.5 0-6.5-2.5-11.5 1-12 3.5-8.5 6.5-6 2-4-0.5-4-3-4 1.5 0 4 5-1.5 7-7.5 8-2.5 7-1.5 12.5 3 8.5 0 9.5-3 11-3 24-5 10.5 4 9.5-2.5 8 3 8.5-2 13 0.5 15 4.5 13 1.5 22.5 5 9.5 0 3-5.5 9.5-3.5 19-5 13-7 15-10.5 13-8.5 25-0.5 24 3.5 34.5-3 10.5 0 7-2 10-4 9-0.5 7.5 3.5 8.5 5.5 6.5 2.5 7.5-3.5 42-4 15-11 29-12 6.5-4 6-9.5 25-8 10-9.5 17.5-1.5 7.5-3.5 4.5-1.5-1.5 3.5-5 0.5-6.5 10-18.5 7.5-9.5 10-25.5 6-7 9-4 3.5-7 8.5-22 3.5-14.5 2-14 1.5-30-5.5-9.5-8-5.5-1-4.5 8.5-22.5 3-19.5-2-38 1-27.5 5.5-21.5 10-12.5 13-26 5-20.5 5-11-5.5-14-2-26-2.5-10z"},{"d":"M330.5 525.5l6.5-5.5-6.5-9.5 0-7.5 2.5-8 1.5-0.5-0.5-1.5 3-2.5 4.5-0.5 4-4 3.5-1 0.5-3 6.5-4 0-4.5 2-3 3 1 6-1.5 6-5 0-4-2.5-2.5 1.5 0.5-1-1 1-3 4.5-4 0-5.5-1.5-1.5-0.5 1 0-3.5 2-0.5 1.5-2 1.5 1.5 5-5.5 2.5 1 5-5.5 6.5 0 2-1.5 3.5-5 1.5-4.5-1.5-1.5 3-0.5 6-5 0.5-5-1.5-1 6-4 7-13 8.5-5.5 2.5 0.5-7.5 10-6.5 5.5 1.5 1-0.5 2-1.5-0.5-1.5 1.5-0.5-1-1.5 3.5 1.5 2.5 1.5 0-1.5 0.5 0.5 0.5-2 0-3.5 6-5 2 0 12-3 5.5-4.5 2.5-2.5 5.5-6-0.5 0.5 2-3-2.5 1.5 2-2 0.5 0 3.5-2.5 2-1 2.5-3.5-2.5 1-1-1.5-2-1.5-0.5 1-3.5-2.5 0-0.5 2 1 9.5-2 1.5 0.5 2.5-1-0.5-2.5 3 1.5 5.5-1.5 1.5 0.5 4.5-14.5 4-1.5 4.5 0.5 4.5-5 2-7 7-2.5 1.5-5-0.5-1.5 1.5-2-2-1.5 2.5 3 2-2 6.5 2.5 5.5-2 1-0.5 4 2.5 4-1 3-2.5 1.5zM385 437l6.5-1-3 4-4.5 2.5-1.5-4z"},{"d":"M815 656.5l-6 7-0.5 3 2.5 4-0.5 7 4.5 13 0 13-4.5 14-5 8.5-0.5 3 1.5 14.5 10.5 22-2 12.5 2.5 16 0 20.5-1.5 24 0.5 10-1.5 5.5 5.5 0.5-5.5 0 0 4-3 8 1.5 2.5 0 10-1 5.5-1.5 0.5 1.5 0 1 2.5 0.5 6.5-11.5 0 0-6.5 1.5-0.5-0.5-8.5-1.5-1 2 0.5-2-1.5 2.5 0-2-1 2.5 0-2.5-1 2.5 0.5 0.5-6.5 2-4-0.5-4 1.5 0 5-12.5 1.5-35-0.5-4.5-2.5-1 2.5 0.5 0-4.5-2.5-0.5 2.5 0 0-7-3-16 1-12.5 1 2-4-15.5-6.5-3-3-23.5 1.5-5.5 3.5-2 2-3 2.5-14.5 3.5-6.5-2 2.5 2-3.5-4-11.5-1.5 7-1-1 0-13 1.5-5-2-3 0.5-4.5 2.5-5.5 6.5-6.5 0.5-2-3.5-18.5-9.5-13.5 2-2 2 1.5 8.5 17 3.5 16.5z"},{"d":"M627 616.5l1.5 6-1 3 1.5 5.5 2 1-0.5 2-3.5 7.5-2 0.5-2.5 9-8 8.5-11.5 6.5-5.5-2-0.5 1 0-1-2-1-9.5 2-12-5.5-3 0 0 2 0-2-3.5 0.5-2 3.5-4.5-4.5 14.5 0 2-1.5 25-1.5 9-4 8.5-9.5 3.5-13-1.5-32-9-23-1-7 2 0.5-1-4.5 4 9 2 7-1-1 5.5 6.5 4 10.5z"},{"d":"M603.5 342.5l-1.5 3.5-6 1.5-1.5-0.5 5.5-1.5-6 1.5-8.5-2.5-5.5 0.5-31 12-11-4.5-7.5 0-3 3.5-14-0.5-8 6.5-4-4.5-6 3.5-11.5-1.5-7 5-8.5 2-14.5-0.5-6 4.5 0 3.5-4.5 4.5-3.5 1-3.5 5-2-0.5 1.5-5.5 4.5-4 2.5-4.5 9-6.5 6.5-1.5 8 2 8.5-4.5 2-5.5 6-4 12 0 10 2.5 5-5 4.5-1.5 3 1 3 3.5 0 1-3-2.5 1.5 3 5.5 2 5.5-3 5 0 4.5-1.5 4 3.5 6 0.5 26-9 2.5-1-3 0 7.5-2 9 2.5zM516 349.5l-1-2-3.5 0.5-5.5 5.5 4.5 2.5 3.5-2 5-0.5zM479.5 357.5l-8 6.5 3.5 0.5 8.5-6zM498.5 357.5l3-1.5 3.5 1 1-2-10-4-11 0-2 2 5.5 6 6.5 1z"},{"d":"M497 633l28.5-17 8.5-8.5 25.5-15 14.5-17.5 10-8.5 1-7z"},{"d":"M549 656l0-13.5 4.5-6 1.5 1.5-3 3.5 4.5-4.5 1.5-1.5-1.5 1-2-1.5 6.5-6.5 11.5 9.5 4.5 18.5-6.5 0-2.5-3-2.5 2-14-0.5zM560.5 644.5l8-2 2.5-4-11 1.5-1 2z"},{"d":"M285.5 88.5l-2.5 8 2 6.5-6-7-4 3.5-4 0.5-0.5-2 3.5-3.5-0.5-4-3-1.5-3.5 4-1.5-1-0.5 1.5-2 0 2.5-4.5-2.5-3.5-1 4-4-2.5-8 3-2-1.5-6.5 2-5-1 1.5-3 5-0.5 8.5-3.5 2 2 5-5 10.5-3.5 1.5-1-1-2 2-1 1.5 1 3 7.5 6.5 2.5 1 2 3 0z"},{"d":"M799 591.5l5.5 10.5-6 4.5 0 4.5 4.5 5-0.5-2 2 1.5 0 1-1.5 1-4-3.5-7-1.5-4.5 2-1-1.5 0 1.5-4.5-1.5-1-12.5 3-7.5 4.5-1.5 5.5-7 2.5 1.5z"},{"d":"M297 588l-1.5-4 2.5 0.5 2-2 1 1.5 3.5-1 5.5 7.5 4 1-1.5 2 7.5-2 2 2 2-2-1.5-2 7.5-0.5 9.5-10 1.5-5.5 3 1 6-6 0-3 2.5-3.5-1.5-3 6 1 1.5 3-1 2.5-3.5 5-5 1.5-2.5 3.5-0.5-0.5-0.5 4-3 2-2 6.5-10.5 5.5-0.5 2-3.5 0-5.5 6-2.5 0-0.5-1.5-3.5 2-4.5-2-5.5-13z"},{"d":"M609 349l8-4.5 5 0 2 2.5 18-6 1.5-10.5-3-0.5-1.5-2.5-7.5 1.5-12 9-16 4.5-1.5 3.5zM639 334.5l1.5-2-3-1.5 0.5-1-7 3-3.5 3.5 4 0.5 2 2z"},{"d":"M542 648l7-5.5 0 13.5-19 3 0-9 10.5-1z"},{"d":"M375.5 866l-6-4-4 8-3.5 2-8.5 11-7.5 1-4 3.5-9.5 1-5 5.5 5-6 9-1 3-3 8.5-1.5 8-10.5 4-2.5 4-8.5 6.5 4.5 2-1 1.5-5 3.5-1.5 2.5-4-1.5-2.5 4.5-7.5-1.5-4 0-3 6-2.5 0-3.5 1.5-2 5-1-5.5 2.5 0 4.5-5 3.5 0.5 5.5-5 7.5 2 4-6 4-1.5 5.5z"},{"d":"M530 273.5l1.5-2 1.5 1.5 2.5-2.5 1 3.5 3 0.5 0.5-3.5 3.5-2-2-2 3.5 0 0-2 4-2.5 0.5-3-1.5-0.5 4.5-1.5-2-0.5 1.5-2.5 2.5 0.5 0.5 3.5-2 4.5 1.5 2.5-3 2.5 0.5 3.5-2.5 4.5 2.5 1.5-3.5 3.5 3 1.5-4 1 1.5 3.5-3.5 1.5 3.5 2-0.5 3 1.5 2.5 3-1.5-2-2 1.5-1.5 11 0.5 2.5-2 4.5 7-3.5 0 0.5 5.5-3.5-0.5 4.5 4-4.5 3-2 9 1 6-4 6.5 0 5 2 3-2.5 2 0 4-5.5 1 1 7.5-0.5-4-4-1-6 2.5-3-0.5 3 0.5 5.5-3 4 1.5 0-4 6-1.5-0.5-3 2.5-2.5-2.5-2.5 0.5-5.5 3.5-5.5-1-6.5 1.5-6 1.5-4.5 3.5-2-4.5-3.5 4 0.5-1-5.5 4 0-5-7-2.5 2-10.5-0.5-1.5 1.5 2 2-3 2-2-3.5 0.5-2.5-3-1.5 0.5-2 3 0-1.5-4 3.5 0-2.5-2 3.5-3.5-2.5-1.5 2-4.5 0-4 3-2-1.5-2.5 2-7.5-2.5-1-1.5 2 1.5 1.5-4.5 1 1.5 0.5-0.5 3.5-4 2 0 2.5-3.5 0 2.5 1.5-4 2.5-0.5 3-3-0.5-1-3-2.5 2-1.5-1.5-2 2.5 0.5 2-2 4-4.5-1.5-9.5 0.5-6 2.5-0.5 1.5-3-0.5-1 2.5-3.5-1 0 2-2.5 1.5-4.5 7-5 5.5-2 0.5-0.5 2-8.5 4-0.5 2-2.5-2 1.5 3-2.5 1.5-1.5-1.5-1 2.5-1-2-2.5 0.5 0-2.5-8 3-2.5-2-4.5 1.5-6.5-2-10 0-0.5 2.5-4.5 1-4 5-5.5 2-19.5-3.5-1.5-2-2 1.5-3.5-3-12.5-0.5-15-3-4.5 1.5-6.5-1-1.5 2-1.5-1 1.5 0.5 1.5-1.5 4 1 7-1.5 15 3 12.5 0 4 3.5 1.5-1.5 1.5 1.5 19.5 4 5.5-2 4-5 4-1 1.5-2.5 9.5-0.5 6 2 6-1 1.5 1.5 8.5-2.5 0 2 2 0 1 2 1-2.5 1.5 1 2-1-1-3 2.5 1.5 0-1.5 9-4 0-2 2.5-0.5 5-5.5 7.5-11 3 1 1-2.5 2.5 1 4.5-3.5 6-1 6 0 4.5 1.5z"},{"d":"M529 663.5l1 1-5.5 0-8-1.5-20-12-7-2.5-7 0-17 7-0.5-1 16.5-6.5 6.5-0.5 8 2 18 11.5 7 2z"},{"d":"M248 575.5l-0.5-1 0 1.5-1 0 1 2 8.5-3.5 3 0 0 2.5-7 2-6.5-1.5-2.5 2 1.5-2-1.5-0.5-2 2 0.5-4-2 0.5 5.5-3.5 3.5 1z"},{"d":"M401.5 760.5l0.5 4.5-2 5.5 2 9.5-4 7-0.5 2 1.5 2.5-5 13.5 6 6.5 0.5 9.5-2.5 6.5-1-5 2.5-2.5-0.5-8.5-5.5-6 2-4.5 0-4 2.5-5-1-5 4.5-7.5-2-8.5z"},{"d":"M-2 387l0-4 3 1.5 6-3 2 2.5 2 0 5.5-5 10-2.5 1.5 1-1 2.5 1.5 0.5 10-4.5 11 1.5 6.5-3 2.5 7 1 1 1.5-1-1 1.5-1.5-1-3-7-6 3-11.5-1.5-9 4.5-2-0.5 0-3-1.5 0-9 2-5 5.5-3-1-1-2-6 3-3.5-1 1 3z"},{"d":"M794.5 619.5l-6.5-2.5-1-2.5 1 2 16.5 7.5 3 3 5.5 16.5-0.5 8.5-7.5 14 1 23.5 1.5 3-3 6.5-4 5-0.5 11 2 5.5-1 1.5-2-5.5-1-7 2-7 4-3.5 2.5-5.5-1.5-27.5 7-14 0.5-8.5-2.5-11-4-7z"},{"d":"M401.5 760.5l3-7 13-4 3-4.5 5-2 3-7.5 6-8-0.5-1.5 2-2-0.5 3.5-6.5 8.5-3 7.5-5 2-2.5 4.5-13 4z"},{"d":"M17.5 584l-3 0-0.5 2.5-2 1.5-7-1.5-7 3 7-3.5 8 1 2-4 2.5 0.5 2.5-1.5 0.5-4.5 5.5-9.5-9.5-5-2.5-2 1-1 11.5 7.5-6.5 15z"},{"d":"M610 562l0.5 2 1-3.5 1 1-4-9.5-4-21-1.5 0.5z"},{"d":"M-2 553l2 1 5-5.5-7-3z"},{"d":"M585 560.5l0 3.5 1-3.5-1.5 8-1.5 0-0.5 2-0.5-2-6 5 0.5 1-1.5 0.5 0.5-1-1 1-12 15-7 4.5 6-4 11-14.5 9.5-8 0.5-1.5 0 1 1.5-1z"},{"d":"M661.5 366l0.5 7.5-1-0.5-1.5 3 1 3-0.5-1.5-4 7-1-1.5 2-1 1.5-3.5-0.5-1 1.5-1-2.5 0.5-1.5 3 0.5-3 2.5-3 2-8z"},{"d":"M271.5 842.5l8-5 1.5 1-6.5 7.5z"},{"d":"M525 649l2.5-5 7.5-4 12.5-11.5 14-20 2-4.5 0.5-11 3.5-5.5-3.5 8-1 11.5-14 21-13.5 12.5-7.5 4z"},{"d":"M276 535l2.5-1 3 3-6.5 3.5-1.5-3.5z"},{"d":"M439 707.5l1.5 1 0 3.5 4.5 1 0 3.5-9.5 7.5 3-5 5-2.5 1-2-4.5-2 0-4-4-1z"},{"d":"M434.5 693.5l1-4 1 3.5-2.5 5.5 1.5 2.5-1 3 1.5 3.5-4.5-6.5z"},{"d":"M168 847.5l-3.5-1-1 4 5 1.5 2.5-3.5z"},{"d":"M1002 639.5l0 5-3 6.5 2.5 5.5-4 5.5 1.5 6-3.5 4 3.5 1.5 0.5 6 2.5 0.5 0 93-1 2.5 1 6-2-4 2-5.5 0-91.5-3-1-0.5-6-3-1.5 3-4-1.5-6 4-5.5-2.5-5.5 3.5-7.5z"},{"d":"M607.5 559l-3.5-17.5 0.5-1 4.5 20.5-1 0z"}],"eauNoms":[{"n":"Fleuve Saint-Laurent","x":630,"y":466,"r":-68,"p":1},{"n":"Fleuve Saint-Laurent","x":748,"y":262,"r":-50,"p":2},{"n":"Rivière des Prairies","x":468,"y":511,"r":-32,"p":1},{"n":"Rivière des Mille Îles","x":386,"y":444,"r":-42,"p":1},{"n":"Rivière des Mille Îles","x":508,"y":353,"r":-5,"p":2},{"n":"Lac des Deux Montagnes","x":232,"y":602,"r":-18,"p":1},{"n":"Lac Saint-Louis","x":398,"y":702,"r":-14,"p":1},{"n":"Lac Saint-François","x":58,"y":862,"r":-24,"p":2},{"n":"Rivière Richelieu","x":896,"y":300,"r":-80,"p":2},{"n":"Bassin de La Prairie","x":600,"y":628,"r":-60,"p":3},{"n":"Canal de Beauharnois","x":255,"y":838,"r":-12,"p":3}],"secteurs":{"montreal":{"nom":"Agglomération de Montréal","lignes":"Agglomération\nde Montréal","lab":[[452,598]],"texte":"L'agglomération de Montréal correspond à l'île de Montréal et à quelques îles voisines. Elle réunit la ville de Montréal et 15 autres municipalités, comme Westmount, Dorval et Côte-Saint-Luc. La ville de Montréal est divisée en 19 arrondissements.","pop":2170228,"sup":496.9,"nb":16,"contour":"M641 402.5l-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-4 20-4.5 9.5-7.5 9.5 0.5 7-8 4.5-11 3-26 3.5-21.5 1.5-11-2.5-9-4.5-12.5-4.5-12-2-27 1-32 3-20 11-5.5 5-4.5 6-12-2.5-25.5-3-10-2-14.5-5-4.5 0.5-5 1.5-7.5 5-9.5 2.5-17 1-9.5-4-20.5-18.5-0.5-14.5-7-24 10-3.5 11.5-12 13-24.5 5.5-6.5 7.5-4 8-7 11-13 4.5-3 4.5-1.5 5 4 8 3 10.5 0.5 1.5 3.5 3.5 1.5 3 4 2.5-1.5 3.5-5.5 2.5-1 7.5 0 8.5 2.5 7.5-1.5 4.5 2.5 3 0 4 3 8 1.5 10.5 0.5 5.5-1 4-5 4-3 4.5-0.5 5-9 7.5-4.5 6-5.5 8.5-3.5 2-4 5.5-3.5 14.5-4 2-2 8.5-15 0.5-8 17-30.5 5-17 4-8 17-19 34.5-23.5 11.5-10.5 11.5-7.5 2.5-3.5 5-14.5 25-6 1.5 1.5 9-1 1.5 2.5-3 5.5-1 5-5 7.5-1.5 15 1.5 10.5 5.5 10z"},"laval":{"nom":"Laval","lignes":"Laval","lab":[[478,432]],"texte":"Laval occupe l'île Jésus, entre la rivière des Prairies et la rivière des Mille Îles. Ce secteur ne compte qu'une seule municipalité, la ville de Laval. C'est la troisième ville la plus peuplée du Québec, après Montréal et Québec.","pop":459650,"sup":246.14,"nb":1,"contour":"M334 525l4-5.5-2-2.5-1.5-10-0.5-8.5 2.5-4.5 6-1 12-7.5 3-4 1-2.5 4-3.5 5.5-2 3 0.5 2-1.5 1.5-13.5 4.5-6.5 0-7.5 1-2.5 2-0.5 3 1 5.5-2.5 4.5-0.5 7.5-5.5 4.5-8 0.5-8 2.5-2.5 4.5-2 2.5-10 7-6.5 11.5-14 1-4.5 8-5 2-4.5 8.5-6 6 0 3 2 5-1 7.5-5.5 3-3.5 6 3 6.5 2 4-0.5 6-3 2 3.5 1.5 1 8-6.5 3-1 9.5 1 5-3.5 6.5-0.5 8.5 4 4 0.5 32-12.5 9 2.5 8.5-1.5 7 0.5-5 14.5-2.5 3.5-11.5 7.5-11.5 10.5-34.5 23.5-17 19-4 8-5 17-17 30.5-0.5 8-8.5 15-2 2-14.5 4-5.5 3.5-2 4-8.5 3.5-6 5.5-7.5 4.5-5 9-4.5 0.5-4 3-4 5-5.5 1-10.5-0.5-8-1.5-4-3-3 0-4.5-2.5-7.5 1.5-8.5-2.5-7.5 0-2.5 1-3.5 5.5-2.5 1.5-3-4-3.5-1.5-1.5-3.5-10.5-0.5-8-3-5-4z"},"longueuil":{"nom":"Agglomération de Longueuil","lignes":"Agglomération\nde Longueuil","lab":[[722,585]],"texte":"L'agglomération de Longueuil se trouve sur la Rive-Sud, face à Montréal, de l'autre côté du fleuve Saint-Laurent. Elle réunit cinq villes : Longueuil, Brossard, Boucherville, Saint-Bruno-de-Montarville et Saint-Lambert. Les ponts Jacques-Cartier et Samuel-De Champlain la relient à l'île de Montréal.","pop":459212,"sup":281.99,"nb":5,"contour":"M727.5 480l2-13.5-0.5-4.5-63.5-71.5-10 9.5-3 2-6.5 2-5-1.5-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-3.5 18-5 11.5 6.5-0.5 15 4 5.5 2.5 5.5 0.5 2-1 1.5 2 2.5-0.5 3 4 2 0.5 2 2 0 1.5 4 0 0 1.5 6 0.5 0.5-1 13.5 0-0.5 5.5 37 2.5 1.5 1.5 2.5-3-0.5-3.5 2.5-3.5-4.5-5.5 2.5-2.5 4.5 2.5 1-1.5-3.5-3 2.5-3-2-2 9-8.5-0.5-1.5 4-5 2.5 2 10.5-20 5.5-17.5 2.5 2.5 7-25-4.5-4.5 10-7 2 0 12.5-22 4-5.5 1.5-13.5-13-14.5-1.5-0.5-1 6.5-6.5 0.5-2.5-0.5-5.5-6.5-4.5 4-7.5-8-1 8z"},"nord":{"nom":"Couronne nord","lignes":"Couronne nord","lab":[[318,318]],"texte":"La couronne nord regroupe 20 municipalités au nord de la rivière des Mille Îles et du lac des Deux Montagnes, comme Terrebonne, Mirabel, Blainville et Repentigny. Son territoire est beaucoup plus grand que l'île de Montréal, mais il compte bien moins d'habitants par kilomètre carré.","pop":654453,"sup":1337.63,"nb":20,"contour":""},"sud":{"nom":"Couronne sud","lignes":"Couronne sud","lab":[[866,392],[218,738]],"texte":"La couronne sud regroupe 40 municipalités sur la Rive-Sud au-delà de l'agglomération de Longueuil et à l'ouest de l'île de Montréal, comme Châteauguay, Vaudreuil-Dorion, Chambly et Saint-Constant. C'est le secteur qui compte le plus de municipalités et qui couvre le plus grand territoire.","pop":561706,"sup":1450.88,"nb":40,"contour":""}},"ordre":["montreal","laval","longueuil","nord","sud"],"villes":[{"id":"montreal","n":"Montréal","s":"montreal","d":"M606.5 344.5l25-6 1.5 1.5 9-1 1.5 2.5-3 5.5-1 5-5 7.5-1.5 15 1.5 10.5 5.5 10 1 7.5-5.5 14.5-27.5-6-17.5-11.5-7 5-11 10 24.5 15.5-1 4.5 27.5 6.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-1.5 9.5-2.5 10.5-4.5 9.5-7.5 9.5 0.5 7-8 4.5-11 3-26 3.5-21.5 1.5-11-2.5-9-4.5-15.5-5-9-1.5-27 1 2-19 0.5 0-2-10 1 0-3-13.5 12.5-13-10.5-10-21 23-9.5-8-4.5-7 2-1.5-6-6 4.5-2.5 3-7.5-10.5-10-1.5 1-1-0.5-1.5 0.5-2-2 1.5-1.5-4.5-1.5-8 5.5-0.5-1-6.5 3.5-3-4 0.5-0.5-0.5 0-4-5.5-14 9 2 3.5-11.5 8.5 3.5 8-8.5 6 2 3-4.5 5 0.5 0.5-5.5 5 1 1.5-11.5 7.5-2.5 0.5-7 6-3.5-1-2.5 1.5-0.5-1.5-1.5 1-1.5-2-12.5 7-1.5 1.5-9.5-11.5-27.5-16 5.5-5.5 9-18.5 4-6 5.5-6.5 7.5-4 8-7 9-10.5 6.5-5.5 4.5-1.5 5 4 8 3 10.5 0.5 1.5 3.5 3.5 1.5 3 4 2.5-1.5 2.5-4 2-2 9-0.5 8.5 2.5 7.5-1.5 4.5 2.5 3 0 4 3 18.5 2 5.5-1 2-1.5 2-3.5 4-3 4.5-0.5 5-9 7.5-4.5 6-5.5 8.5-3.5 2-4 8-4.5 12-3 3.5-4 2.5-5.5 4.5-7.5 0.5-8 17-30.5 3.5-9 1.5-8 4-8 17-19 34.5-23.5 11.5-10.5 11.5-7.5 2.5-3.5zM557 569l5 2.5-0.5 0 2 3-4 4.5-1-0.5-8.5 8-12-7 1.5-2-3.5-2.5 1.5-2-2.5-1.5 2.5-5 2.5 1 2-2.5 1 0.5 1-1.5 2.5 0 5 4 0.5-1.5zM484.5 570l8.5 8 3.5-2 6 4 0.5-1 4 2.5 0-8 4-7 1.5 1-2 3.5 15.5 9.5-0.5 1 1 0.5-7.5 2-4.5 3.5-5 6-2.5 5.5-2 1.5 1 1-0.5 1 19.5 10.5-5.5 3-3-1.5-1.5 0.5-17.5-9.5-2.5 4-4.5 0.5-7-3.5 4.5-7-1.5-1 5.5-30.5 6 5 1 0 7.5-8-5-4.5 1-1.5-0.5-2.5 1.5-0.5 0.5-2 2.5 1 3.5-1 4.5 3 7-13.5 0.5 0 1-1.5 4.5 1.5 5.5-10-4-0.5-16.5-7-12.5 28-12 14z","x":548,"y":516,"pop":1913561,"sup":363.78,"rang":1},{"id":"laval","n":"Laval","s":"laval","d":"M334 525l4-5.5-2-2.5-1.5-10-0.5-8.5 2.5-4.5 6-1 9.5-6.5 2.5-1 3-4 1-2.5 4-3.5 5.5-2 3 0.5 2-1.5 0.5-2 0-3.5 1-3 0-5 4.5-6.5 0-7.5 1-2.5 2-0.5 3 1 5.5-2.5 4.5-0.5 7.5-5.5 4.5-8 0.5-8 2.5-2.5 4.5-2 2.5-10 7-6.5 11.5-14 1-4.5 8-5 2-4.5 8.5-6 2-0.5 4 0.5 3 2 5-1 7.5-5.5 3-3.5 6 3 6.5 2 4-0.5 6-3 2 3.5 1.5 1 8-6.5 3-1 9.5 1 5-3.5 6.5-0.5 8.5 4 4 0.5 32-12.5 9 2.5 8.5-1.5 7 0.5-5 14.5-2.5 3.5-11.5 7.5-11.5 10.5-34.5 23.5-17 19-4 8-1.5 8-3.5 9-17 30.5-0.5 8-8.5 15-2 2-14.5 4-5.5 3.5-2 4-8.5 3.5-6 5.5-7.5 4.5-5 9-4.5 0.5-4 3-2 3.5-2 1.5-5.5 1-10.5-0.5-8-1.5-4-3-3 0-4.5-2.5-7.5 1.5-8.5-2.5-7.5 0-2.5 1-3.5 5.5-2.5 1.5-3-4-3.5-1.5-1.5-3.5-10.5-0.5-8-3-5-4z","x":470,"y":455,"pop":459650,"sup":246.14,"rang":2},{"id":"longueuil","n":"Longueuil","s":"longueuil","d":"M627 567l-3.5-3.5 6-7.5-4-7.5-21-10-3.5-20 7.5-8.5 5.5-10.5 10-21-0.5-5.5 1.5-6 6-1.5 3.5 1.5 4 0 2-2.5 4-1.5 1.5 1-1.5 2.5 40 43.5 5-5.5 1.5-2.5 25.5 27-13 19.5 10 11.5 1.5 0 0 0.5 1.5 1.5 2.5-7-0.5-3 2-1.5 24.5 26-5.5 17.5-10.5 20-2.5-2-4 5 0.5 1.5-9 8.5 2 2-1.5 2-60-56.5-6 5.5-0.5-0.5-0.5 1 0.5 1-4 3z","x":671.2,"y":545.8,"pop":268546,"sup":115.8,"rang":3},{"id":"terrebonne","n":"Terrebonne","s":"nord","d":"M617.5 342l-7.5 2-3.5 0.5-7-0.5-6.5 1.5-11-2.5-32 12.5-4-0.5-8.5-4-6.5 0.5-5 3.5-9.5-1-3 1-8 6.5-1.5-1-2-3.5-6 3-4 0.5-6.5-2-6-3-3 3.5-7.5 5.5-5 1-3-2-4-0.5-2 0.5-8.5 6-2 4.5-5 3.5-8.5-14-1.5 1.5-6-6-4 4.5-4-4 0 2.5-1 1.5-1.5 1-0.5-1-1.5 1.5-46-43.5 6.5-1.5 11 2.5 15 0.5 3 3.5 2.5-1.5 3.5 2.5 2.5-0.5 6.5 2 9.5 0.5 4-2 2.5-3-2-11.5 1-1 4-1 1-2.5 4 0.5-4-19.5 15.5-4-71.5-68 9.5-3 2.5 0 6.5-6.5 2-1 14 13.5 2 4.5 4.5 0.5 0.5-7 11 3.5 0 2 6 1.5 5.5 5 33 1-3 8 3 1.5 0.5-1.5 1.5 0.5-0.5 1.5 5 1-10 27.5 8 4-7 19.5 23.5 22 64 11 1-3 4.5-1.5 1.5 0.5 7.5-2 1.5-7 3.5 1 2-29 20 0.5 8.5 7 0 3.5 11 8 1.5 2 0 6.5 2.5 2.5 0 5 2.5 2.5 0.5-1 3.5 3.5 1 5-3 0.5-4.5 4.5-0.5 4z","x":485.7,"y":309.6,"pop":126199,"sup":154.11,"rang":4},{"id":"brossard","n":"Brossard","s":"longueuil","d":"M643.5 584l-37.5-1.5 3.5 11.5 0 5.5-3 15.5-5 11.5 6.5-0.5 15 4 5.5 2.5 4 0 1.5 0.5 2-1 1.5 2 2.5-0.5 3 4 2 0.5 2 2 0 1.5 2-0.5 2 0.5 0 1.5 1-0.5 5 1 0.5-1 13.5 0-0.5 5.5 37 2.5 1.5 1.5 2.5-3-0.5-3.5 2.5-3.5-4.5-5.5 2.5-2.5 4.5 2.5 1-1.5-3.5-3 1-1-60-56.5-6 5.5-0.5-0.5-0.5 1 0.5 1-3 3z","x":656.8,"y":615.5,"pop":98240,"sup":45.14,"rang":5},{"id":"repentigny","n":"Repentigny","s":"nord","d":"M626 339.5l0-3 3-4 3-2 6.5-1-0.5-4 0-4-1.5-9-13-9.5-1 1.5-11-8 0-3.5-8.5-6.5 3.5-64.5 6 0 2.5 3 2-3-1.5-2 1.5-1-0.5-0.5 2-2.5 2.5 1.5 0.5-1 7 7 0 3.5 33.5 37.5-0.5-9.5 1.5-1 4-1.5 3-4.5 10.5 6.5 1.5-1.5-1.5-0.5 1-1.5-1.5-1 1-1.5-1-0.5 0.5-1.5-0.5-0.5 1-1.5 1.5 1 1-1.5-2-1 1-3.5 4 2.5 0.5-1 12.5 13 4.5 2.5-19 29.5-2 5.5 0 6-1 4-16 22.5-11 13-1.5 3-3 0-4.5 2.5-2.5-1-1.5-2.5-9 1-1.5-1.5z","x":646,"y":278.1,"pop":90815,"sup":60.59,"rang":6},{"id":"mirabel","n":"Mirabel","s":"nord","d":"M75.5 452.5l5-29-33.5-6.5 4-18.5 12.5 2.5-2.5-19-1.5 0.5-1.5-1-1.5-6-8-11 3-2-1.5-2 4-1 2.5-2 3 4 1.5-1 0.5 1 5.5-4-2-3 2.5-2.5 0.5 0-2.5-3.5 0.5-1 1 0.5 2.5-1 0-1 8.5 11 2-12.5 9-1-3 15 4-1.5 0 1 1.5-0.5-3 17.5 3.5-2 3-2 1-2-0.5-2.5-2.5-2-0.5-2 2 0 4.5 1.5-0.5-3.5 4-3.5 2.5 0 3 3 0.5-4 3-2.5 11 2.5 5-3.5 6-2 4-3 9.5-4 4.5-0.5 0.5 3 4-2.5 3.5 1 3-1 16-12 1.5-7 2.5-2.5 1.5-3 3.5-1 0.5-2 3.5-1 7-6 3 1.5 3 0 0-5 1-1.5-13-12 16.5-10 17 15 2 0 1.5-4 4.5-3 3-3.5 4 1.5 3.5 3 3 0.5 0.5-4.5 1.5-2.5 13 11.5 3.5-4-2.5-2.5 8.5-8.5-6-5.5 0.5-1 3.5-1 2.5 0.5-4-3.5 5-7 5-4.5-1-1 10-10.5 73 70-4.5 0.5-6 4-0.5-1-1.5 1.5-3.5-1-3 2 0.5 2.5-2 0.5-1.5 1-0.5-0.5-1 1.5-1-1-1 1.5-1-1-1 1.5-1-1-1.5 1-0.5-0.5-6 6-1.5 3.5-6.5 4-5 5 2.5 2-9.5 10 46.5 45-2.5 1-9-8-1 1-1-1-0.5 1 8 8-2.5 0 0 1-3 1-1 1.5-3.5-0.5-2-2.5-5.5 2.5 2.5 2.5-1.5-1-2 0.5-4.5 1.5-13 2.5-8-8-1 1 26.5 24.5 0 11-3.5 0 0-3.5-1.5 0 0-1.5-1.5 0 0-1.5-7 7.5-1.5 0.5-12.5-11.5 0-3.5-8.5 1 0-3.5-5 5.5 0.5 15.5-2-3.5-2.5 1-1.5-2-1-0.5-1.5 1 0.5 1-14.5 3-2 2.5 0.5 4.5 0.5 0.5 2.5 14.5-7 10.5-1.5-1.5 1-1.5-3.5-3-4.5 1.5 0-2-3.5 1-0.5-2-1.5 0.5-3.5-1.5-1 1.5 2 1.5-2 1-3.5 0-2.5-1.5-4 10.5-3 0-0.5 0.5-2-0.5-0.5 1-1.5-0.5 0-1-7.5 8-0.5-1-0.5 0.5-2-1.5-26.5 25.5 13 13.5-5 4.5-13-13.5-22 21.5-12-12.5 10-9.5-16.5-17-2.5 2-32-33-35 33.5-4-0.5z","x":203.1,"y":395.4,"pop":68402,"sup":483.88,"rang":7},{"id":"blainville","n":"Blainville","s":"nord","d":"M388.5 405.5l-20-19.5-2 1.5 6.5 6.5-3 3.5-1.5-1.5 0 1.5-1-1-1 2.5-1.5 2-19-17.5-8 8.5-34-32.5 9.5-10-2.5-2 5-5 6.5-4 1.5-3.5 6-6 0.5 0.5 1.5-1 1 1 1-1.5 1 1 1-1.5 1 1 1-1.5 0.5 0.5 1.5-1 2-0.5-0.5-2.5 3-2 3.5 1 1.5-1.5 0.5 1 6-4 4.5-0.5 46.5 43.5-14.5 15.5 8 8-3.5 4 8.5 8-2-0.5-2 0.5-2 2-1-2-1.5 0-3.5 1.5-0.5-0.5 0.5 2.5-3 1-1.5 2.5z","x":357.8,"y":360.8,"pop":61742,"sup":54.9,"rang":8},{"id":"mascouche","n":"Mascouche","s":"nord","d":"M483 242.5l1.5 2 4.5 2.5 8 3 0 1 6-5.5-0.5-0.5 6-4-0.5-4 1-0.5-0.5-1.5 0-2 2.5-3.5 1-4 3.5-3.5 19 18.5 18.5-18.5 0.5 1 2 0.5 0-5.5 8 1 0-4.5 23 3.5-1.5 25.5 20.5 1-2.5 41.5-20-0.5-2 29-3.5-1-1.5 7-7.5 2-1.5-0.5-4.5 1.5-1 3-64-11-23.5-22 7-19.5-8-4z","x":540.8,"y":272.9,"pop":56649,"sup":106.86,"rang":9},{"id":"chateauguay","n":"Châteauguay","s":"sud","d":"M456.5 643l-32 3-14.5 7.5-5.5 3.5-5.5 5-17 20-3.5 6.5 41 9-0.5 2 2 1-1.5 2-1 3.5 3.5 6-6 4 2 1.5-0.5 2.5-6.5 5.5 2.5 1.5-6 6.5-1.5 1.5-1.5-2.5-3 5 0.5 1-1 1.5 0.5 0.5-4.5 1-5 9-0.5 3 0.5 0.5-0.5 3.5-1-1-1.5 1.5 11 12 2-6-0.5-3 3-6.5 13.5-5 3-4 4.5-2 3-7.5 2.5-2.5 1.5-4 2.5-2 0-2 0.5-1.5 34.5 5 13 5.5 3-8 5.5 2 1-1-58-60.5 0.5-2 7-8.5z","x":429.4,"y":699.1,"pop":53484,"sup":35.75,"rang":10},{"id":"dollard-des-ormeaux","n":"Dollard-des-Ormeaux","s":"montreal","d":"M402.5 578.5l20-13.5-7.5-7-1.5 1-1-0.5-1.5 0.5-2-2 1.5-1.5-4.5-1.5-8 5.5-0.5-1-6.5 3.5-3-4 0.5-0.5-0.5 0-4-5.5-14 9 2 3.5-11.5 8.5 3.5 8-8.5 6 8 11.5 23.5-16.5 2 3.5 12.5-8.5z","x":385.7,"y":572.6,"pop":50216,"sup":14.99,"rang":11},{"id":"saint-eustache","n":"Saint-Eustache","s":"nord","d":"M366.5 474l-1-3 1-0.5-0.5-0.5 2-0.5-5.5-6.5-1.5 1.5-15-13-4 3-4-5.5 0-5-12-11 0 11-3.5 0 0-3.5-1.5 0 0-1.5-1.5 0 0-1.5-7 7.5-1.5 0.5-12.5-11.5 0-3.5-8.5 1 0-3.5-5 5.5 0.5 15.5-2-3.5-2.5 1-1.5-2-1-0.5-1.5 1 0.5 1-14.5 3-2 2.5 0.5 4.5 0.5 0.5 2.5 14.5-7 10.5-1.5-1.5 1-1.5-3-2.5-5 1 0-2-3.5 1-0.5-2-1.5 0.5-4-1.5-0.5 1.5 2 1.5-2 1-3.5 0-2.5-1.5-4.5 11 5 2 0.5-1.5 35.5 37-1.5-8 1.5-0.5 0.5 2 7-0.5 0.5 1 3.5-1.5 16.5-3 0-1 1.5-0.5 0-1 3-0.5 1.5 1.5 4-1.5 2-2 0.5-2.5-2-11 3 1 0.5 1 0-0.5 2.5 0.5 7 7.5 2-0.5-3.5-3.5 1-1.5 1 1 1-1.5 13 14.5-1-6-0.5-8.5 2.5-4.5 6-1 9.5-6.5 2.5-1 3-4 1.5-3.5 3.5-2.5z","x":299.1,"y":476.6,"pop":47448,"sup":70.4,"rang":12},{"id":"vaudreuil-dorion","n":"Vaudreuil-Dorion","s":"sud","d":"M176 697l8.5-6.5-1-1.5 2.5 0.5 3 2.5 2.5-1 1 0 1-1-9-14.5 2-1.5-14-19-5.5-4 2.5-2-5.5-7-6.5 4.5-10-12.5-2 1.5-8-9-6-3.5 2-2-4.5-2 3-0.5 4 0.5 5.5-3.5 2.5 2.5 1-0.5 9.5 10.5 12 5.5 3-2 1 1.5 2.5-1.5 1 1 2-1.5 0.5 1.5 28-20.5 13 0.5 0.5 4-5 30 2 1 0.5-1 2-1 5.5 8.5 2-1.5-0.5-0.5 6.5-14 3-0.5 20.5-9 4 0.5 0.5 14.5 4 4.5-9.5 5 5 10-0.5 6.5-3 3.5-3.5 1-3.5 4-0.5 3 0.5 1.5-6 2.5 0 1.5 2.5 1.5 1 5 2.5 4.5 0 5.5 3.5 7.5 3.5 3 4 1 1.5 3.5 1.5 1.5 14 8-6.5 8.5-4 2-2.5-1-1 1-14.5-1zM75 632l8.5 2 1-5.5 18 6.5 9-23-4.5-1.5 4-6-20.5-7 0.5-4-8-1.5z","x":215.2,"y":671.5,"pop":46423,"sup":73.05,"rang":13},{"id":"boucherville","n":"Boucherville","s":"longueuil","d":"M635.5 417l5.5-14.5 5 1.5 6.5-2 3-2 10-9.5 63.5 71.5 0.5 4.5-2 13.5-3.5 6.5-4 13 0 18-2 6.5-9-9.5-2.5 4-15.5-16.5-1.5 2.5-5 5.5-40-43.5 1.5-2.5-0.5-0.5-2-0.5-1.5 0.5-2 1.5-1.5 2-4 0-3.5-1.5-6 1.5-2.5-19 1-7z","x":677.6,"y":455.5,"pop":42067,"sup":71.16,"rang":14},{"id":"cote-saint-luc","n":"Côte-Saint-Luc","s":"montreal","d":"M503 604.5l2.5 1.5-1.5 1.5-5.5-3-3.5 5-4.5 0.5-7-3.5 4.5-7-1.5-1 4.5-22 2 1.5 3.5-2 6 4 0.5-1 12.5 8-3.5 3.5-5 8-2 2 0.5 0 0 2zM510.5 571l-2.5 4 0.5 0-1 1-1-0.5 1-3.5 3.5-5.5 1.5 1z","x":497.9,"y":593,"pop":37875,"sup":6.81,"rang":15},{"id":"pointe-claire","n":"Pointe-Claire","s":"montreal","d":"M382.5 665.5l12 2.5 4.5-6 5.5-5 20-11-12.5-36.5 0-2 1.5 0-3.5-11 3.5-2.5-12-17-12.5 8.5-2-3.5-23.5 16.5 9.5 14.5-1 0 2.5 4.5-5 0z","x":394.3,"y":622.5,"pop":37413,"sup":18.94,"rang":16},{"id":"saint-constant","n":"Saint-Constant","s":"sud","d":"M540 681.5l2 0 1.5 1 5-0.5 3.5-10.5 7.5 0.5 12.5 7 5.5 0.5 3 1.5 3 0 0 1.5 1 1.5-0.5 2.5 2 0.5-0.5 2-8 0 1.5 0.5-2 5-3.5-1.5 0.5 1.5-1.5 0 8 3-1 2 15.5 6.5-1 0.5 1.5 1 0.5 2.5 9.5 6.5-1 1.5 4 2.5 0-4 0.5 0 0 6.5-1 1 1 0.5 3 9-1.5 1-14-9-1 0.5 1 0.5 0.5 0 0 0.5-9.5-3.5 1 1.5-1.5 2 0.5 2-1 0.5 1 2-1.5 1.5 1.5 0.5-1.5 2 0.5 0.5 0.5-1 0.5 1.5-16-5.5 0 8.5-4 12 0.5 3-1 3.5 2.5 1 0 1-1 2.5 1 0.5-0.5 1 0.5 0.5-1.5 4 0.5 0.5 0 3.5 1.5 0.5 1 1-0.5 1 2 1.5-0.5 2-49-20.5 2.5-4 2.5-7 5.5-5-15.5-5.5 4.5-6 4-2-23-8.5 0.5-0.5 3-0.5 3.5-2 1.5 0.5 2-1.5 3.5-6.5 4.5-4 4.5-5.5 3-1 2-5.5 6-12.5z","x":555.7,"y":721.2,"pop":32108,"sup":56.01,"rang":17},{"id":"chambly","n":"Chambly","s":"sud","d":"M768 660l-5.5-6 3.5-14.5-13.5-13.5 2.5 0.5-0.5-2 2-1 0.5-1.5 2.5 0 2.5-1.5 1-1.5 2 1 0.5-3.5 3 0.5-1-2-3-1.5 2.5-2 0-2.5 2.5-4 0.5-4.5 22.5-5-1 5 0.5 9 2 2.5 5 1.5 5 3.5 2.5 3.5 1.5 3.5-2 1 3.5 5 3.5 13-0.5 9-10.5 1.5-3 2.5-11 1-2-0.5-4 17z","x":784.1,"y":632.9,"pop":31966,"sup":25.09,"rang":18},{"id":"sainte-julie","n":"Sainte-Julie","s":"sud","d":"M782.5 478.5l-2.5 23-9.5-11-5-4-1 6.5-6.5 0.5-2.5-0.5-5.5-6.5-4.5 4-7.5-8-1 8-9.5-10.5 2-13.5-0.5-4.5-17.5-20 6-11 1-0.5-2-2 2-2-1.5-1.5 1-1 3.5 3.5-1-2.5 1-1-1.5-1.5-1.5-6 1 1 1-0.5 2-2.5 0.5 0.5 1-0.5-4.5-4.5 0-1.5 11.5 11.5 1-5-1-4.5 6 7 7.5-15-4.5-5 0.5-0.5 19.5 20.5 0.5-1 10 11.5 3.5-8 12.5 12.5-6.5 13.5 12 12.5-6 4-5 3.5 0.5 1-5 5z","x":752.2,"y":451,"pop":30987,"sup":48.72,"rang":19},{"id":"boisbriand","n":"Boisbriand","s":"nord","d":"M394 440l-3.5 0.5-5.5 2.5-3-1-2 0.5-1 2.5 0 7.5-4.5 6.5 0 5-1 3 0 3.5-0.5 2-2 1.5-4.5 0-1-3 1-0.5-0.5-0.5 2-0.5-5.5-6.5-1.5 1.5-15-13-4 3-4-5.5 0-5-38.5-35.5 1-1 8 8 13-2.5 4.5-1.5 2-0.5 1.5 1-2.5-2.5 5.5-2.5 2 2.5 3.5 0.5 1-1.5 3-1 0-1 2.5 0-8-8 0.5-1 1 1 1-1 9 8 2.5-1 5.5 4.5-0.5 0 9.5 9.5 3 0.5 2 2.5 1.5-1.5 5.5-1 17.5 17-1 0.5 0 2.5 2 0.5 0.5-2.5 0 1.5 1 0-1 1z","x":353.8,"y":433.2,"pop":29814,"sup":27.83,"rang":20},{"id":"sainte-therese","n":"Sainte-Thérèse","s":"nord","d":"M377 419l3.5-1 2.5-2 6.5-8-0.5-1.5-0.5-0.5 0-0.5-20-19.5-2 1.5 6.5 6.5-3 3.5-1.5-1.5 0 1.5-1-1-1 2.5-1.5 2-19-17.5-8 8.5 17 16.5 1 0.5-0.5 0 9.5 9.5 3 0.5 2 2.5 1.5-1.5z","x":365.6,"y":403.3,"pop":27230,"sup":9.35,"rang":21},{"id":"la-prairie","n":"La Prairie","s":"sud","d":"M708.5 683.5l1.5-13.5-0.5-3.5 2.5 0 2-1.5-10-10 6.5 0.5-1.5-3.5-1.5-1.5-37-2.5 0.5-5.5-13.5 0-0.5 1-5-1-1 0.5 0-1.5-2-0.5-2 0.5 0-1.5-2-2-2-0.5-3-4-2.5 0.5-1-2-2.5 1-1.5-0.5-4 0-5.5-2.5-15-4-6.5 0.5-7.5 9.5 0.5 11.5 27 18-7.5 7.5 3.5 2.5 3.5-2 5 3 1.5-1.5 6.5 4 1.5-3.5 2 1.5 3.5-3.5 23.5 15.5 31 18.5 11.5 8 0-1 1.5-2.5-4.5-3 1-3.5-2.5-10-1.5-0.5z","x":658.1,"y":663.5,"pop":27145,"sup":43.38,"rang":22},{"id":"saint-bruno-de-montarville","n":"Saint-Bruno-de-Montarville","s":"longueuil","d":"M745 576.5l2.5 2.5 7-25-4.5-4.5 4.5-3.5 5.5-3.5 2 0 12.5-22 4-5.5 1.5-13.5-9.5-11-5-4-1 6.5-6.5 0.5-2.5-0.5-5.5-6.5-4.5 4-7.5-8-1 8-9.5-10.5-3.5 6.5-4 13 0 18-2 6.5-9-9.5-2.5 4 10 10.5-13 19.5 10 11.5 1.5 0 0 0.5 1.5 1.5 2.5-7-0.5-3 2-1.5z","x":742.1,"y":524.6,"pop":26887,"sup":42.25,"rang":23},{"id":"beloeil","n":"Beloeil","s":"sud","d":"M847 423l1.5-7.5 12.5 13-1.5 14-0.5 10-2 12-3.5 15-8.5 22-3 6.5-3.5 2-13-13.5-9 5.5-4 6-12-12 4.5-6.5 12-7.5 10.5-23.5 3-10.5 1.5 1 1-4 2.5 2.5 1-3.5 2.5 3 1.5-1 4 4 1.5-10.5z","x":837.4,"y":471.1,"pop":25318,"sup":24.31,"rang":24},{"id":"l-assomption","n":"L'Assomption","s":"nord","d":"M627.5 222l4-0.5 8 8 0.5-1.5-8.5-9 4.5-5.5 3-2-0.5-2 1-1 1.5 1.5 5.5-6.5-4.5-5 1-1.5-4-4 9-8.5 2 0.5 3.5-4.5 4.5 1.5 1.5 1.5 4.5 1.5 1 1 0 6 0.5 1.5 3.5-8 0-1.5-2.5-2.5-1-2-0.5-6 2-3-0.5-0.5-2.5-1-2 1-0.5-2-1.5-0.5-0.5 1 2 1.5-3.5 0 0.5 1.5-1 2-0.5 0.5-1-1.5 1-2.5-3 0-1.5-0.5 11-11.5-25-26 1.5 0 0.5-1.5 4-1.5 2-3.5 4-1.5 3-10.5 3.5-31.5 20.5 21.5 2.5-2.5 0.5-2.5 60 61.5-6 6.5-2 5.5-4 5-1-1.5-4 4-1-1-6.5 4.5-0.5-0.5-1.5 2 2.5 2-3 2.5-1.5-1.5-2 2.5-3.5-4-2.5 2.5 4.5 4.5-1 1 3 3-3 2.5 0.5 1-4 5-1.5 6.5-1.5 1 2 2-3.5 6.5 0.5 0-1.5 2-5-5-1 0.5 2 2.5-1 0.5 4 4-1 1-3 7.5-5 4.5-2 3-4-2.5-1 3.5 2 1-1 1.5-1.5-1-1 1.5 0.5 0.5-0.5 1.5 1 0.5-1 1.5 1.5 1-1 1.5 1.5 0.5-1.5 1.5-10.5-6.5-3 4.5-4 1.5-1.5 1 0.5 9.5-33.5-37.5 0-3.5z","x":679.2,"y":175,"pop":25050,"sup":98.92,"rang":25},{"id":"candiac","n":"Candiac","s":"sud","d":"M634 679l-6.5-4-1.5 1.5-5-3-3.5 2-3.5-2.5 7.5-7.5-27-18-0.5 16 1.5-0.5 2 1-1.5 5 2 0-0.5 2.5-2 1-0.5 1.5 0.5 0.5 1-1 2 0.5-3 3.5 2.5 2-1 1.5 1 1-0.5 2-0.5 7.5 11.5 8-2.5 3 0 1 3.5 2-0.5 17.5-1 1 1 0.5 3 9 17.5-12.5 0-1-1 0 0.5-1-0.5-2-1.5 0 0-2-1.5 1-1.5-5 1.5-1.5 0.5 1 7-5-3-1-4 1.5 2.5-11.5-1.5-1.5 13-10z","x":613.7,"y":689.1,"pop":24919,"sup":17.2,"rang":26},{"id":"saint-lambert","n":"Saint-Lambert","s":"longueuil","d":"M643.5 584l-37.5-1.5-1-9.5-3-5.5 7.5-3.5-0.5-1.5 1-0.5-5.5-23.5 21 10 4 7.5-6 7.5z","x":618.6,"y":565.8,"pop":23472,"sup":7.64,"rang":27},{"id":"saint-lazare","n":"Saint-Lazare","s":"sud","d":"M75 632l-9.5 46.5 110.5 18.5 8.5-6.5-1-1.5 2.5 0.5 3 2.5 2.5-1 1 0 1-1-9-14.5 2-1.5-14-19-5.5-4 2.5-2-5.5-7-6.5 4.5-10-12.5-2 1.5-8-9-6-3.5 2-2-22-9-9 23-18-6.5-1 5.5z","x":125.9,"y":660.3,"pop":22917,"sup":67.07,"rang":28},{"id":"mont-royal","n":"Mont-Royal","s":"montreal","d":"M525.5 543l2 0.5 5.5-10-4-0.5-16.5-7-12.5 28-12 14-3.5 2 6.5 6.5 1-8.5 6 5 1 0 7.5-8-5-4.5 1-1.5-0.5-2.5 1.5-0.5 0.5-2 2.5 1 3.5-1 4.5 3 7-13.5 0.5 0 1-1.5z","x":510,"y":548.2,"pop":22809,"sup":7.46,"rang":29},{"id":"sainte-marthe-sur-le-lac","n":"Sainte-Marthe-sur-le-Lac","s":"nord","d":"M303.5 512l19 19.5-4.5 3-11 13-8 7-29.5-30.5-1.5-8 1.5-0.5 0.5 2 7-0.5 0.5 1 3.5-1.5 16.5-3 0-1 1.5-0.5 0-1 3-0.5z","x":296.2,"y":530.1,"pop":21914,"sup":8.63,"rang":30},{"id":"varennes","n":"Varennes","s":"sud","d":"M757.5 352.5l-11.5 16 4.5 5-10.5 24 4.5 5-2.5 5.5-5 9.5-6-7 1 4.5-1 5-11.5-11.5 0 1.5 4.5 4.5-1 0.5-0.5-0.5-2 2.5-1 0.5-1-1 1.5 6 1.5 1.5-1 1 1 2.5-3.5-3.5-1 1 1.5 1.5-2 2 2 2-1 0.5-6 11-46-51.5 1.5-6 0.5-13.5 1-0.5-2-3 0-7.5 1-4 1 0.5-0.5-0.5 1.5-7.5 2.5-5.5 0-3 3-5.5 0-7 10-11.5 10.5-15.5 8-9zM639 385l11.5-9.5 3.5-5 2-9.5-1-2.5 0.5-3-0.5-7 0.5-7.5-2.5 1.5-6 7-5.5 1-3.5 7.5-1.5 16 0.5 7 1.5 6.5 1.5 3 2.5-6.5zM647 397.5l-0.5 3.5 4.5-1.5 0-1 2-1 1.5-3.5-0.5-5 1 3 1.5-1 0-3 3-4 2-6.5 0.5-9-1-3-2.5 8.5-2.5 3.5-3 8.5-2.5 4.5-2.5 2z","x":708.1,"y":366.1,"pop":21505,"sup":94.84,"rang":31},{"id":"dorval","n":"Dorval","s":"montreal","d":"M458 614l-1 0 2 10-0.5 0-2 19-32 3-12.5-36.5 0-2 1.5 0-3.5-11 3.5-2.5-11-15.5 20-13.5 3 3-0.5 1.5-1 1-1.5 5-4.5 2.5 6 6-2 1.5 4.5 7 9.5 8 21-23 10.5 10-12.5 13zM445.5 631.5l0.5-1-2-0.5-4 0-1 1.5 1 1 3.5 1z","x":435.2,"y":610.3,"pop":21054,"sup":20.84,"rang":32},{"id":"westmount","n":"Westmount","s":"montreal","d":"M557 569l5 2.5-0.5 0 2 3-4 4.5-1-0.5-8.5 8-12-7 1.5-2-3.5-2.5 1.5-2-2.5-1.5 2.5-5 2.5 1 2-2.5 1 0.5 1-1.5 2.5 0 5 4 0.5-1.5z","x":548.4,"y":574.5,"pop":20369,"sup":4.02,"rang":33},{"id":"kirkland","n":"Kirkland","s":"montreal","d":"M363.5 598.5l9.5 14.5-1 0 2.5 4.5-15 0-9.5 7-3-4.5-2.5 2-1-1.5-3 1 1 3.5-2.5 0-0.5-1.5-1.5 1 0.5 2.5-1.5 0.5-0.5-1.5-1 0-0.5 0 0 1-6 1.5-0.5-1.5-5.5 1.5-1-5.5-1 0-0.5-4-0.5-1 1.5 0-0.5-2 1.5-1 0.5 1.5 2.5-1.5 3.5 1 1-0.5 6-5.5 2.5-0.5 11.5-7.5-1-1.5 5.5-5-0.5-0.5 4.5-5z","x":347.9,"y":612.5,"pop":19689,"sup":9.62,"rang":34},{"id":"mont-saint-hilaire","n":"Mont-Saint-Hilaire","s":"sud","d":"M861 428.5l-1.5 14-0.5 10-3.5 19-4 13-9 21 2.5 2 1-1 3-5 11.5 8.5-4 7.5-12.5 9-4.5 8.5 12 12 4.5-9 14-10.5 9.5 9.5 5-5.5 2.5-1 1-2.5 4-4.5-3-3 1-0.5-0.5-0.5 5-5 4 0 3-4.5 2-6-0.5-7-8-9 0-4 3-22 2.5 2.5 1 0 0.5-1.5-41.5-43.5z","x":872.9,"y":488.3,"pop":19501,"sup":43.82,"rang":35},{"id":"beaconsfield","n":"Beaconsfield","s":"montreal","d":"M382.5 665.5l-25.5-3-10-2-14.5-5-4.5 0.5-5.5-27 5-2 0.5 1.5 6-1.5 0-1 0.5 0 1 0 0.5 1.5 1.5-0.5-0.5-2.5 1.5-1 0.5 1.5 2.5 0-1-3.5 3-1 1 1.5 2.5-2 3 4.5 9.5-7 10 0z","x":353.3,"y":642.1,"pop":19423,"sup":11.0,"rang":36},{"id":"deux-montagnes","n":"Deux-Montagnes","s":"nord","d":"M334 525l-7 5-4.5 1.5-19-19.5 4-1.5 2-3-1.5-12.5 3 1 0.5 1 0-0.5 2.5 0.5 7 7.5 2-0.5-3.5-3.5 1-1.5 1 1 1-1.5 7.5 8 5.5 6.5 0.5 4 2 2.5z","x":321.2,"y":514.1,"pop":18482,"sup":6.16,"rang":37},{"id":"sainte-catherine","n":"Sainte-Catherine","s":"sud","d":"M583.5 681l-3 0-3-1.5-5.5-0.5-12.5-7-7.5-0.5-3.5 10.5-5 0.5-1.5-1-2 0 7-21.5 1.5-0.5 1-5.5 29-4 8-2.5 8-4.5-0.5 21-1.5 0.5 0.5 1.5-5 13.5-1 0-2 1.5z","x":570.8,"y":664.2,"pop":17780,"sup":9.11,"rang":38},{"id":"saint-basile-le-grand","n":"Saint-Basile-le-Grand","s":"sud","d":"M782.5 478.5l43 43-9 24.5-7.5 9-4 8.5-5 7.5-1.5 5-8 3-9-10 2 4.5-1.5 1.5-9.5-11 2.5-2.5-17-17.5 2-1.5 2 0 12.5-22 4-5.5z","x":792.8,"y":533.2,"pop":17196,"sup":35.84,"rang":39},{"id":"mercier","n":"Mercier","s":"sud","d":"M400 770l2-6-0.5-3 3-6.5 13.5-5 3-4 4.5-2 3-7.5 2.5-2.5 1.5-4 2.5-2 0-2 0.5-1.5 34.5 5 13 5.5-35 86.5z","x":442.2,"y":765.2,"pop":16032,"sup":45.89,"rang":40},{"id":"sainte-anne-des-plaines","n":"Sainte-Anne-des-Plaines","s":"nord","d":"M360.5 317.5l-47.5-45 40-38.5-6-7 32.5-9.5 71.5 68-15.5 4 4 19.5-4-0.5-1 2.5-4 1-1 1 2 11.5-2.5 3-4 2-9.5-0.5-6.5-2-2.5 0.5-3.5-2.5-2.5 1.5-3-3.5-15-0.5-11-2.5-6.5 1.5z","x":382.8,"y":277.3,"pop":15874,"sup":93.98,"rang":41},{"id":"beauharnois","n":"Beauharnois","s":"sud","d":"M365.5 836.5l-23-25-6 13.5-11-12.5-11-7.5-8.5 12.5-22 3-8.5-50-9.5-15 8-6.5 1.5 0 4.5 3.5 2.5 0 9-5.5 10-2 14-8.5 17-1.5 7-2.5 15-12.5 9-8.5 0 18.5 2 2 4.5-0.5 3.5 10.5 16 16.5-1.5 2 0.5 1-0.5 6-2.5 4-2.5 7.5 1 0 0 1-4 6-0.5 2.5 1.5 2.5-3 5.5 1 1.5 5 0 0 3-1 1-0.5-0.5z","x":332.9,"y":776.3,"pop":15313,"sup":67.91,"rang":42},{"id":"pincourt","n":"Pincourt","s":"sud","d":"M273 725.5l-7-33 13-4 0.5-4.5-1.5 0-0.5-0.5-0.5 1-11-8-7.5 3-11 1 0 2.5-3.5 0.5-2 1.5 0 1.5 2.5 1.5 1 5 2 3 0.5 7 1 3 4 5.5 2 2 4 1 1.5 3.5 1.5 1.5z","x":260.2,"y":696.8,"pop":15233,"sup":7.1,"rang":43},{"id":"rosemere","n":"Rosemère","s":"nord","d":"M414.5 414l-4.5 2-2.5 2.5-0.5 8-4.5 8-5.5 4-1 0 0-1.5 0 2-1.5 0.5-1-0.5 0-1 0-2 1 0-17.5-17 5-2.5 7.5-8.5-1-2 0.5-2.5 1.5-2.5 3-1-0.5-2.5 0.5 0.5 3.5-1.5 1.5 0 1 2 2-2 2-0.5 2 0.5-8.5-8 6.5-6.5 13 12 0.5-0.5 1.5 1-0.5 0.5 4.5 3.5-5.5 5.5z","x":400.5,"y":411.1,"pop":14204,"sup":10.71,"rang":44},{"id":"saint-amable","n":"Saint-Amable","s":"sud","d":"M798 392.5l-5.5 4.5 12 12-5 3.5-5 4-2 7-1.5-1-4.5 10-12.5-12.5-3.5 8-10-11.5-0.5 1-19.5-20.5 10-23.5-4.5-5 11.5-16 9.5 10.5 17-14.5 21.5 22.5 0.5 6-3 9-2 4z","x":774.8,"y":388.7,"pop":14129,"sup":36.72,"rang":45},{"id":"carignan","n":"Carignan","s":"sud","d":"M714.5 631l1.5-2-2-2 9-8.5-0.5-1.5 4-5 2.5 2 10.5-20 5.5-17.5 2.5 2.5 7-25-4.5-4.5 4.5-3.5 3.5-2 17 17.5-2.5 2.5 9.5 11 1.5-1.5-2-4.5 9 10 8-3-0.5 4-3.5 6.5-2 9-22.5 5-0.5 4.5-2.5 4 0 2.5-2.5 2 3 1.5 1 2-3-0.5-0.5 3.5-2-1-1 1.5-2.5 1.5-2.5 0-0.5 1.5-2 1 0.5 2-2.5-0.5 13.5 13.5-3.5 14.5 5.5 6-1 1 0 2.5-10 11.5-0.5 5.5-2 4-9-2.5-6.5-5-1 4-9.5-11-7-5.5-12.5-12.5 2.5-3-0.5-3.5 2.5-3.5-4.5-5.5 2.5-2.5 4.5 2.5 1-1.5-3.5-3zM782 673.5l4-17 2 0.5 11-1 3-2.5 10.5-1.5 0-10-3-12-3.5-5 2-1 5.5 8 4 17.5-1 3-4.5 4.5-4.5 8 0 3 2 3.5-0.5 5 1.5 6-4 3-13-0.5z","x":750.1,"y":618.8,"pop":12657,"sup":62.32,"rang":46},{"id":"l-ile-perrot","n":"L'Île-Perrot","s":"sud","d":"M279.5 684l-1.5 0-0.5-0.5-0.5 1-19-15 0.5-6.5-5-10 9.5-5 17.5 14.5 8.5 3.5 8.5-0.5-9 27-6.5 2.5 2-11-1 0.5-3-2z","x":275.5,"y":669.5,"pop":11924,"sup":5.43,"rang":47},{"id":"notre-dame-de-l-ile-perrot","n":"Notre-Dame-de-l'Île-Perrot","s":"sud","d":"M276 727.5l-3-2-7-33 13-4 1-6 3 2 1-0.5-2 11 6.5-2.5 9-27 8.5-0.5 9.5-2.5 7.5-5 7-2 2.5 0 14.5 5 10 2 25.5 3 12 2.5-12.5 14-9.5 17.5-6.5 9.5-11.5 11-15 12.5-7 2.5-17 1.5-5 2.5-5.5-8-6-4-7 0-11.5 1.5z","x":326.2,"y":695.8,"pop":11727,"sup":28.06,"rang":48},{"id":"contrec-ur","n":"Contrecœur","s":"sud","d":"M802 257l-36.5-38 4-4.5 10.5-9 12-17.5 2.5-12.5 3-8 13-18 7-13 1.5-5.5 3-16.5 4.5-11.5 10-17 5.5-15 12.5-19 5.5-14 16 17-2.5 8.5-8.5 11-3 9.5-3.5 23 0 4.5-0.5 1.5 1.5 19-0.5 5.5-3-1.5-4 12-2-1-2 3.5 1 0.5-2.5 4 15 15.5-3 2.5-4 8.5-9.5 9-3 6.5-1-1-1.5 1 1 1-3.5 9.5-7 13-2-2-3 1.5-4.5 5-3 4 0 1 1.5 1.5-5 4.5-1.5-1.5-4 6.5-5 2-1.5 2-1-1-2.5 2 7.5 8.5-1.5 1-1.5-1z","x":826.1,"y":159.1,"pop":10695,"sup":62.63,"rang":49},{"id":"bois-des-filion","n":"Bois-des-Filion","s":"nord","d":"M425.5 396l10-12.5 1-4.5 3-1.5-8.5-14-1.5 1.5-6-6-4 4.5-4-4 0 2.5-1 1.5-1.5 1-0.5-1-1.5 1.5 4 4-0.5 0.5 12 11-3 3.5-0.5 1 1 1-5 4.5z","x":426.4,"y":375.5,"pop":10657,"sup":4.26,"rang":50},{"id":"lorraine","n":"Lorraine","s":"nord","d":"M422.5 398.5l-4.5-3.5 0.5-0.5-1.5-1-0.5 0.5-13-12-3 2.5-8-8 14.5-15.5 19.5 19.5-3 3.5-0.5 1 1 1-5 4.5 6.5 5.5z","x":410.7,"y":378.6,"pop":9730,"sup":5.89,"rang":51},{"id":"otterburn-park","n":"Otterburn Park","s":"sud","d":"M825.5 521.5l5-7 5.5-4 5.5-2 1-2.5 2.5 1.5 1-1 3-5 11.5 8.5-4 7.5-12.5 9-4.5 8.5z","x":843,"y":517.3,"pop":9487,"sup":5.35,"rang":52},{"id":"delson","n":"Delson","s":"sud","d":"M583.5 681l1.5 0 2-1.5 1 0 5-13.5-0.5-1.5 2-1.5 3 1-1.5 5 2-0.5-0.5 3-2 1-0.5 1.5 0.5 0.5 1-1 2 0.5-3 3.5 2.5 2-1 1.5 1 1-0.5 2-0.5 7.5 11.5 8-2.5 3 0 1 3.5 2-1 15-4-2.5 1-1.5-9.5-6.5-0.5-2.5-1.5-1 1-0.5-15.5-6.5 1-2-8-3 1.5 0-0.5-1.5 3.5 1.5 2-5-1.5-0.5 8 0 0.5-2-2-0.5 0.5-2.5-1-1.5z","x":594.1,"y":694.1,"pop":8802,"sup":7.67,"rang":53},{"id":"saint-philippe","n":"Saint-Philippe","s":"sud","d":"M642 793.5l-2.5-4.5 2-1-2.5-4 2.5-1.5-1.5-2.5-0.5 0.5-0.5-1-4.5 3.5-1.5-3-2.5 1.5-1-2.5 0.5-3-1-4 0-3.5-5-6.5 10-7.5-1-1-12.5 9-0.5 0 1.5-1.5-1-0.5 1.5-2.5-2-1.5 3-2-3.5-2.5 1.5-1-4-2 1-1-1.5-1 0-3-1.5-1.5 0-1 3-2-1.5-3 5.5-4-1-1.5 1-0.5-1-1.5 9.5-6.5 0-1-1-0.5 0-1-1 0 0.5-1-0.5-2-1.5 0 0-2-1.5 1-1.5-5 1.5-1.5 0.5 1 7-5-3-1-4 1.5 2.5-11.5-1.5-1.5 13-10-6-4 1.5-3.5 2 1.5 3.5-3.5 23.5 15.5 31 18.5 11.5 8-2 3.5-1 0-1.5 1.5-4.5 1-3 2.5 0 4.5-2 1 1.5 2-0.5 3.5-2 4.5-1 0-1 7.5-7 8 1 0.5-1 1.5-1-1-1.5-3-14 9.5 1 2.5 0 2.5-1.5 1 0.5 1-15.5 10.5 2.5 5.5z","x":655.1,"y":730.7,"pop":8674,"sup":61.91,"rang":54},{"id":"hampstead","n":"Hampstead","s":"montreal","d":"M517 585.5l-1.5 1.5-8.5-5.5-0.5-6 1 0.5 3-5.5 16 11.5-7.5 2z","x":514.5,"y":579.4,"pop":7466,"sup":1.77,"rang":55},{"id":"saint-joseph-du-lac","n":"Saint-Joseph-du-Lac","s":"nord","d":"M250 566l-27-27.5-6 6.5-30-30.5 24-23 2 1.5 0.5-0.5 0.5 1 7.5-8 0 1 1.5 0.5 0.5-1 2 0.5 0.5-0.5 2 0.5 0.5-0.5 5 2.5 0.5-1.5 50 52-14.5 11.5-2 1-2.5 3z","x":235.5,"y":524,"pop":7368,"sup":41.39,"rang":56},{"id":"les-cedres","n":"Les Cèdres","s":"sud","d":"M121 717.5l-19.5-33.5 73 12.5 73 40.5 6 0 11.5 19-10.5 6.5-4.5 1-9.5 1-9 4-6.5 1.5-4 4.5-5.5 4.5-6 0-3 1.5-3 0-1-1-1-2.5-1 0-6 2-5.5 0.5-4.5-2-7.5-7-3.5-1.5-11 1-9.5 3-12.5-22-0.5 0-3.5-6.5-1 0.5-2.5-4.5 1-0.5z","x":181.3,"y":735.1,"pop":7150,"sup":77.37,"rang":57},{"id":"charlemagne","n":"Charlemagne","s":"nord","d":"M622.5 304.5l1.5 2 0 6.5 2.5 2.5 0 5 2.5 2.5 0.5-1 3.5 3.5 1 5 4.5-1-0.5-4 0-4-1.5-9-13-9.5z","x":631.3,"y":316.6,"pop":6658,"sup":2.09,"rang":58},{"id":"pointe-calumet","n":"Pointe-Calumet","s":"nord","d":"M299 554.5l-15-15.5-14.5 11.5-2 1-2.5 3-15 11.5 23 23.5 9-18.5 4-6 5.5-6.5z","x":274.4,"y":562.7,"pop":6422,"sup":4.55,"rang":59},{"id":"mcmasterville","n":"McMasterville","s":"sud","d":"M838.5 510l-13-13.5-9 5.5-4 6 13 13.5 5-7z","x":824.9,"y":508.2,"pop":6134,"sup":3.12,"rang":60},{"id":"oka","n":"Oka","s":"nord","d":"M253.5 612l-20-0.5-23.5 1-34.5-3.5-28.5-16-45.5-22.5 20-17 19-18 4 3.5-2-0.5-1.5 4.5 3.5 4 1 2 3 1-1 3-1-1-1 3 0.5 0.5 0.5-1 2 0.5 2-3.5 4 3-1 4 1.5 0.5 1.5-6 0.5 1 5-2.5 6-5.5-6.5-7 18-17.5 13 13.5 5-4.5-13-13.5 2.5-2.5 30 30.5 6-6.5 50 51-11.5 12-9 3.5-1 0zM157.5 543l-12-12.5-3.5 3.5 12 12.5zM178.5 600.5l0 0.5 1 0zM169 598l1.5-1.5-2 0-0.5 1zM196.5 539l-6.5 6 2 2.5 6-6zM189 544l-2.5-3 6-5.5 2.5 2.5zM173.5 598l-1-0.5 1-2 0.5 0.5zM160 592.5l-0.5 2 0.5 0.5 0.5-2zM149 569.5l4-2.5 1.5 2 2.5-0.5 1.5 2.5 2.5-0.5-0.5-2.5 4-1 3 2.5 1 0.5 1-1 8.5 9.5-2.5 5.5 1 2 1.5-2 1.5 2-0.5 1-1.5 0-0.5 3 0.5 1-2 1 0 0.5-1-0.5-4 4-2.5-1 0-0.5 2 0-0.5-1 0 1-1.5 0 0.5-2-1 2.5-5.5-1.5-2-1 1-2 1 0.5 1-1.5-2.5-0.5-0.5-3.5-2 0 0 2 1.5-0.5 0.5 2-0.5 3-4.5-4-3-4.5 0-2.5 1.5-0.5-0.5-1.5-2 0-0.5-1.5 1.5 7 2.5 3.5-2 1-3.5-5.5-0.5-3-3-2.5 2.5-1.5 1-1.5-1-6.5-2-1.5-2 1 1-2.5-1 1.5-2.5-1.5 0-1-0.5 0.5-0.5-1.5-0.5 1-3.5-2.5-5.5 0.5 0-7.5 2.5 0 6.5-1.5 0.5-2 2 0.5-0.5 3.5 1.5 0.5-0.5 1 0.5 0.5 0.5-1 3.5 1-2.5 7 2 0.5 2.5-6 1.5 0 0.5-1.5 1.5 0.5-2 4 1.5 1.5-4 4z","x":192,"y":573.3,"pop":6124,"sup":57.1,"rang":61},{"id":"richelieu","n":"Richelieu","s":"sud","d":"M842.5 697.5l-6-6-3 3 1.5 8.5-0.5 4-22-22.5-1 1-2.5-8.5 0.5-5.5-2-3.5 0-2.5 4.5-8.5 4.5-4.5 1-3-0.5-3-3.5-14.5-5-7.5-3-5.5-6-5.5-5.5-1.5-2-2 0-0.5 3-3.5 3 0 0.5 3.5 21 10.5 1-1.5 2.5-0.5-3-1.5 1-3-4.5-2.5 0.5-1 13.5 7 1-2 10.5 5 3-0.5 2.5 5 1 5-1 0 0 1 1 0.5 0 1.5-1.5 10-6 1 11 10.5 3 8-3 1-2 25z","x":829.7,"y":655.8,"pop":6070,"sup":30.94,"rang":62},{"id":"vercheres","n":"Verchères","s":"sud","d":"M704 256.5l-19 29.5-2 5.5 0 4.5 11-1 2.5-2 2.5-3.5 4.5 2 63.5 71.5 20-17 2.5 2.5 14-17-33.5-36.5 2-1-2.5-3 5-3-8-9 4.5-2.5 3-6.5 0.5 1 1.5-1.5-2.5-3 1-2-2.5-2.5 6.5-5.5 1.5 1.5 3-2.5 3 3.5 1-0.5-0.5-1 2.5-3.5-2-2 1.5-2.5-1-1.5 1.5-2 2 2.5 2-1-27.5-28.5-8 11.5-4.5 3-4 1-3 1.5-10.5 10-3 0.5-7 4.5-4 1-4.5-1.5-2.5-2.5-3.5-0.5z","x":748.7,"y":290,"pop":5823,"sup":72.83,"rang":63},{"id":"hudson","n":"Hudson","s":"sud","d":"M204.5 612l-28 20.5-0.5-1.5-2 1.5-1-1-2.5 1.5-1-1.5-3 2-12-5.5-9.5-10.5-1 0.5-2.5-2.5-5.5 3.5-4-0.5-3 0.5-22-8.5 4-6-20.5-7 0.5-4-8-1.5 2.5-14 5.5-12 5 1.5 51 25.5 28.5 16z","x":135.8,"y":602.5,"pop":5540,"sup":21.58,"rang":64},{"id":"sainte-anne-de-bellevue","n":"Sainte-Anne-de-Bellevue","s":"montreal","d":"M297.5 665.5l-8.5 0.5-8.5-3.5-3.5-2.5 3.5-4 1.5 2 4-6.5 0-3.5-4-6-2.5-7 5-7.5 4 2.5-1.5-2.5 1-0.5 1 1.5 2.5-3 2 1.5 1.5-1 0.5 1 4.5-2.5-0.5-1 3-1.5 1 1.5 1.5-1 1-1.5 12.5-7 1.5 2 0.5 2-1.5 0 0.5 1 0.5 4 1 0 1 5.5-22.5 16.5z","x":297.8,"y":639.3,"pop":5337,"sup":10.56,"rang":65},{"id":"montreal-ouest","n":"Montréal-Ouest","s":"montreal","d":"M503 604.5l2.5 1.5-1.5 1.5-5.5-3-1 1 17.5 9.5 1.5-0.5 3 1.5 5.5-3-19.5-10.5z","x":512,"y":609.6,"pop":5204,"sup":1.42,"rang":66},{"id":"montreal-est","n":"Montréal-Est","s":"montreal","d":"M630 416l-22-5-17.5-11.5-7 5-11 10 24.5 15.5-1 4.5 27.5 6.5 12-24z","x":605.3,"y":420.8,"pop":5038,"sup":12.22,"rang":67},{"id":"saint-mathias-sur-richelieu","n":"Saint-Mathias-sur-Richelieu","s":"sud","d":"M851.5 547l-26-25.5-9 24.5-7.5 9-4 8.5-5 7.5-2 9-3.5 5-3 15.5 0.5 9 3-3.5 3 0 0.5 3.5 21 10.5 1-1.5 2.5-0.5-3-1.5 1-3-4.5-2.5 0.5-1 13.5 7 1-2 10.5 5 6-0.5 2-5-1.5-5.5-1 0 3-5 0-3.5 1 0-2-0.5 2.5-2.5-0.5-3.5 1.5-1.5 0-2 1-1.5 4.5 0.5 2-2.5-2-1 0.5 0 1.5-1 1 1.5 6 2.5 2-2 2-0.5 1.5-6.5-0.5-4-1.5-2 3-4z","x":830.8,"y":577.5,"pop":4626,"sup":47.05,"rang":68},{"id":"baie-d-urfe","n":"Baie-D'Urfé","s":"montreal","d":"M297.5 665.5l8.5-0.5 9.5-2.5 7.5-5 5-1.5-5.5-27.5-23 16.5z","x":312.7,"y":649.6,"pop":3713,"sup":6.04,"rang":69},{"id":"saint-sulpice","n":"Saint-Sulpice","s":"nord","d":"M687 241l1.5-2 5-4.5 3-7.5 1-1-4-4 1-0.5-2-2.5 1-0.5 5 5 1.5-2-0.5 0 3.5-6.5-2-2 1.5-1 1.5-6.5 4-5-0.5-1 3-2.5-3-3 1-1-4.5-4.5 2.5-2.5 3.5 4 2-2.5 1.5 1.5 3-2.5-2.5-2 1.5-2 0.5 0.5 6.5-4.5 1 1 4-4 1 1.5 4-5 2-5.5 6-6.5 25.5 26 4.5 1.5 4-1 6-3.5 5-1.5 8 1.5-3.5 8-8.5 12-14.5 14-9.5 13.5-4.5 3-4 1-3 1.5-10.5 10-3 0.5-7 4.5-4 1-4.5-1.5-2.5-2.5-3.5-0.5-7 9-4.5-2.5z","x":735.8,"y":210,"pop":3671,"sup":36.03,"rang":70},{"id":"saint-jean-baptiste","n":"Saint-Jean-Baptiste","s":"sud","d":"M873.5 569l-22-22 4-8.5 14.5-11 9.5 9.5 5-5.5 2.5-1 1-2.5 3.5-4 0.5-1-3-2.5 1-0.5-0.5-0.5 5-5 4 0 3-4.5 2-6-0.5-7-8-9 0.5-9 14 13 0-4 12.5 12.5 1.5-2 0.5-13 29.5 31-13 36 12.5 13-12.5 30.5-11-12.5-5 12.5-1-1.5-3.5 4.5-4.5 0-3 2-2.5 0 5 5.5-3.5 1z","x":910.7,"y":546.7,"pop":3335,"sup":72.66,"rang":71},{"id":"saint-mathieu-de-beloeil","n":"Saint-Mathieu-de-Beloeil","s":"sud","d":"M847 423l-6.5-6 0 2-2 3 0.5 1.5-8.5-9.5-1.5 1-2-2-1 0-4.5 4.5-23.5-25-5.5 4.5 12 12-5 3.5-5 4-2 7-1.5-1-11 23.5 12 12.5-6 4-5 3.5 0.5 1-5 5 24 24 4.5-6.5 12-7.5 10.5-23.5 3-10.5 1.5 1 1-4 2.5 2.5 1-3.5 2.5 3 1.5-1 4 4 1.5-10.5z","x":809.8,"y":445.7,"pop":3019,"sup":28.88,"rang":72},{"id":"saint-isidore","n":"Saint-Isidore","s":"sud","d":"M475 850l-27-29 38-94.5 5.5 2 1-1-3-3 2 0 3.5-5.5 7 2 0.5-1 24 8.5-4 2-4.5 6 15.5 5.5-5.5 5-2.5 7-6 10 0.5 0.5-1.5 1-4 11-4-4.5-20 36-8 24 5.5 1.5z","x":487.5,"y":778.5,"pop":2879,"sup":51.28,"rang":73},{"id":"lery","n":"Léry","s":"sud","d":"M363.5 711.5l0 19 2 1.5 4.5-0.5 3.5 10.5 15.5 16 1.5-1.5 1 1 0.5-3.5-0.5-0.5 0.5-3 5-9 4.5-1-0.5-0.5 1-1.5-0.5-1 3-5 1.5 2.5 1.5-1.5 6-6.5-2.5-1.5 6.5-5.5 0.5-2.5-2-1.5 6-4-3.5-6 1-3.5 1.5-2-2-1 0.5-2-41-9-6 11-4 6.5z","x":390.5,"y":718.2,"pop":2820,"sup":10.18,"rang":74},{"id":"saint-mathieu","n":"Saint-Mathieu","s":"sud","d":"M612 733.5l17.5-12.5 0.5 0 0.5 1.5-9.5 6.5 1 1.5-1 0.5 1 1.5-5.5 4 1.5 3-3 2 0 1 1.5 1.5 0 3 1.5 1-1 1 4 2-1.5 1 3.5 2.5-3 2 2 1.5-1.5 2.5 1 0.5-1.5 1.5 0.5 0 12.5-9 1 1-10 7.5 5 6.5 0 3.5 1 4-8 14-2.5-1.5-2 3-1 3 2 1.5-0.5 1.5-1.5-1-0.5 1.5-5-3 0.5-1.5-1-0.5 0.5-1.5 1.5-3.5-15-8.5-1.5 4.5-9.5-3 2 2-0.5 2-16-6.5 0.5-2-2-1.5 0.5-1-1-1-1.5-0.5 0-3.5-0.5-0.5 1.5-4-0.5-0.5 0.5-1-1-0.5 1-2.5 0-1-2.5-1 1-3.5-0.5-3 4-12 0-8.5 16 5.5-0.5-1.5-0.5 1-0.5-0.5 1.5-2-1.5-0.5 1.5-1.5-1-2 1-0.5-0.5-2 1.5-2-1-1.5 9.5 3.5 0-0.5-0.5 0-1-0.5 1-0.5 14 9z","x":598.1,"y":758.8,"pop":2643,"sup":31.37,"rang":75},{"id":"terrasse-vaudreuil","n":"Terrasse-Vaudreuil","s":"sud","d":"M258 669.5l9 6.5-8.5 3.5-11 1 0.5-2.5 3.5-4 3.5-1z","x":256.9,"y":675.9,"pop":1887,"sup":1.08,"rang":76},{"id":"pointe-des-cascades","n":"Pointe-des-Cascades","s":"sud","d":"M253.5 737l8.5 1 1-1 3 0.5 3.5-1.5 6.5-8.5 4.5 1 15-2 3.5 0.5 6 4 5.5 8-9 6-10 2-9 5.5-2.5 0-4.5-3.5-1.5 0-9 7z","x":282.7,"y":739.8,"pop":1870,"sup":2.66,"rang":77},{"id":"vaudreuil-sur-le-lac","n":"Vaudreuil-sur-le-Lac","s":"sud","d":"M231 638l-3.5 0-2 1-2-1.5-5.5-21-5 30 2 1 0.5-1 2-1 5.5 8.5 2-1.5-0.5-0.5z","x":220.5,"y":638.8,"pop":1342,"sup":1.37,"rang":78},{"id":"senneville","n":"Senneville","s":"montreal","d":"M295 611l-27.5-16-6 6.5-9 3.5-1 0 7 24 0.5 14.5 18 16.5 3.5-4 1.5 2 4-6 0-4-4-6-2.5-7 5-7.5 4 2.5-1.5-2.5 1-0.5 1 1.5 2.5-3 2 1.5 1.5-1 0.5 1 4.5-2.5-0.5-1 2-1 1-0.5 1 1.5 1-1z","x":274,"y":624.2,"pop":1052,"sup":7.25,"rang":79},{"id":"calixa-lavallee","n":"Calixa-Lavallée","s":"sud","d":"M834.5 291l-41.5-43.5-2 1-2-2.5-1.5 2 1 1.5-1.5 2.5 2 2-2.5 3.5 0.5 1-1 0.5-3-3.5-3 2.5-1.5-1.5-5.5 5-1 0.5 2.5 2.5-1 2 2.5 3-1.5 1.5-0.5-1-3 6.5-4.5 2.5 8 9-5 3 2.5 3-2 1 33.5 36.5 17.5-20.5-1.5-1.5 9-8z","x":798.8,"y":288.6,"pop":527,"sup":32.74,"rang":80},{"id":"l-ile-cadieux","n":"L'Île-Cadieux","s":"sud","d":"M253.5 612l-20-0.5-16 1 6 25 2 1.5 2-1 5.5-0.5 21.5-9 4 0.5z","x":236.7,"y":623.2,"pop":119,"sup":0.59,"rang":81},{"id":"l-ile-dorval","n":"L'Île-Dorval","s":"montreal","d":"M445.5 631.5l0.5-1-2-0.5-4 0-1 1.5 1 1 3.5 1z","x":442.4,"y":631.5,"pop":9,"sup":0.18,"rang":82}],"bords":"M641 402.5l-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-4 20-4.5 9.5-7.5 9.5 0.5 7-8 4.5-11 3-26 3.5-21.5 1.5-11-2.5-9-4.5-12.5-4.5-12-2-27 1-32 3-20 11-5.5 5-4.5 6-12-2.5-25.5-3-10-2-14.5-5-4.5 0.5-5 1.5-7.5 5-9.5 2.5-17 1-9.5-4-20.5-18.5-0.5-14.5-7-24 10-3.5 11.5-12 13-24.5 5.5-6.5 7.5-4 8-7 11-13 4.5-3 4.5-1.5 5 4 8 3 10.5 0.5 1.5 3.5 3.5 1.5 3 4 2.5-1.5 3.5-5.5 2.5-1 7.5 0 8.5 2.5 7.5-1.5 4.5 2.5 3 0 4 3 8 1.5 10.5 0.5 5.5-1 4-5 4-3 4.5-0.5 5-9 7.5-4.5 6-5.5 8.5-3.5 2-4 5.5-3.5 14.5-4 2-2 8.5-15 0.5-8 17-30.5 5-17 4-8 17-19 34.5-23.5 11.5-10.5 11.5-7.5 2.5-3.5 5-14.5 25-6 1.5 1.5 9-1 1.5 2.5-3 5.5-1 5-5 7.5-1.5 15 1.5 10.5 5.5 10z M334 525l4-5.5-2-2.5-1.5-10-0.5-8.5 2.5-4.5 6-1 12-7.5 3-4 1-2.5 4-3.5 5.5-2 3 0.5 2-1.5 1.5-13.5 4.5-6.5 0-7.5 1-2.5 2-0.5 3 1 5.5-2.5 4.5-0.5 7.5-5.5 4.5-8 0.5-8 2.5-2.5 4.5-2 2.5-10 7-6.5 11.5-14 1-4.5 8-5 2-4.5 8.5-6 6 0 3 2 5-1 7.5-5.5 3-3.5 6 3 6.5 2 4-0.5 6-3 2 3.5 1.5 1 8-6.5 3-1 9.5 1 5-3.5 6.5-0.5 8.5 4 4 0.5 32-12.5 9 2.5 8.5-1.5 7 0.5-5 14.5-2.5 3.5-11.5 7.5-11.5 10.5-34.5 23.5-17 19-4 8-5 17-17 30.5-0.5 8-8.5 15-2 2-14.5 4-5.5 3.5-2 4-8.5 3.5-6 5.5-7.5 4.5-5 9-4.5 0.5-4 3-4 5-5.5 1-10.5-0.5-8-1.5-4-3-3 0-4.5-2.5-7.5 1.5-8.5-2.5-7.5 0-2.5 1-3.5 5.5-2.5 1.5-3-4-3.5-1.5-1.5-3.5-10.5-0.5-8-3-5-4z M727.5 480l2-13.5-0.5-4.5-63.5-71.5-10 9.5-3 2-6.5 2-5-1.5-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-3.5 18-5 11.5 6.5-0.5 15 4 5.5 2.5 5.5 0.5 2-1 1.5 2 2.5-0.5 3 4 2 0.5 2 2 0 1.5 4 0 0 1.5 6 0.5 0.5-1 13.5 0-0.5 5.5 37 2.5 1.5 1.5 2.5-3-0.5-3.5 2.5-3.5-4.5-5.5 2.5-2.5 4.5 2.5 1-1.5-3.5-3 2.5-3-2-2 9-8.5-0.5-1.5 4-5 2.5 2 10.5-20 5.5-17.5 2.5 2.5 7-25-4.5-4.5 10-7 2 0 12.5-22 4-5.5 1.5-13.5-13-14.5-1.5-0.5-1 6.5-6.5 0.5-2.5-0.5-5.5-6.5-4.5 4-7.5-8-1 8z M860 38l16 17-2.5 8.5-8.5 11-3 9.5-4 29 1.5 19-0.5 5.5-3-1.5-4 12-2-1-2 3.5 1 0.5-2.5 4 15 15.5-3 2.5-4 8.5-9.5 9-3 6.5-1-1-1.5 1 1 1-3.5 9.5-7 13-2-2-3 1.5-7.5 9 1.5 2.5-5 4.5-1.5-1.5-4 6.5-5 2-1.5 2-1-1-2.5 2 7.5 8.5-1.5 1-1.5-1-1 2.5 32.5 34-6 10.5-9 8 1.5 1.5-31.5 37.5-2.5-2.5-3 2.5 21.5 22.5 0.5 6-3 9-2 4-3 2.5 23.5 25 4.5-4.5 1 0 2 2 1.5-1 8.5 9.5 1.5-6.5 6.5 6 1.5-7.5 12.5 13-0.5-9 41.5 43.5-1.5 1.5-2.5-2.5-2.5 17 14 13 0-4 12.5 12.5 1.5-2 0.5-13 29.5 31-13 36 12.5 13-12.5 30.5-11-12.5-5 12.5-1-1.5-3.5 4.5-4.5 0-5.5 2.5 5 5-3.5 1-38-38.5-2.5 5 1.5 2 0.5 4-1.5 6.5-2 0.5-2 2-6-2.5-1-1.5-2 1 2 1-2 2.5-4.5-0.5-2.5 5 0.5 3.5-2.5 2.5 2 0.5-1 0 0 3.5-3 5 1 0 1.5 5.5-2 5-3 0 2.5 5 1 5-1 1 1 2-1.5 10-6 1 11 10.5 3 8-3 1-2 25-7.5 9.5-6-6-3 3 1.5 8.5-0.5 4-22-22.5-1 1-1-3-4 3-13-0.5-25.5-25-1 3.5-10 11.5-0.5 5.5-2 4-9-2.5-6.5-5-1 4-9.5-11-7-5.5-12.5-12.5 1.5 3.5-6.5-0.5 10 10-2 1.5-2.5 0-1 17-7.5 11.5 1.5 0.5 2.5 10-1 3.5 4.5 3-1.5 2.5 0 1-2 3.5-7 2.5-3 2.5 0 4.5-2 1 1.5 2-0.5 3.5-2 4.5-1 0-1 7.5-7 8 1 0.5-1 1.5-1-1-1.5-3-14 9.5 1 2.5-1 4.5-15.5 10.5 2.5 5.5-11.5 8-2.5-4.5 2-1-2.5-4 2.5-1.5-1.5-2.5-0.5 0.5-0.5-1-4.5 3.5-1.5-3-2.5 1.5-1-4.5-0.5 0-7 13-2.5-1.5-2 3-1 3 2 1.5-0.5 1.5-1.5-1-0.5 1.5-5-3 0-3.5 1.5-3.5-15-8.5-1.5 4.5-9.5-3 2 2-0.5 2-65-27-3.5 6 0.5 0.5-5.5 12-4-4.5-20 36-8 24 5.5 1.5-13 16.5-85.5-91.5-1.5 2 0.5 1-0.5 6-2.5 4-2.5 7.5 1 0 0 1-4 6-0.5 2.5 1.5 2.5-3 5.5 1 1.5 5 0 0 3-1 1-0.5-0.5-17 35-23-25-6 13.5-11-12.5-11-7.5-8.5 12.5-22 3-8.5-50-9.5-15-11.5 7-14 2-9 4-6.5 1.5-4 4.5-5.5 4.5-6 0-3 1.5-3 0-3-3.5-6 2-5.5 0.5-4.5-2-7.5-7-3.5-1.5-11 1-9.5 3-12.5-22-4-6.5-1 0.5-2.5-4.5 1-0.5-32.5-56-36-5.5 20-100.5 5.5-12 10.5 4.5 20-17 19-18 4 3.5-2-0.5-1.5 4.5 3.5 4 1 2 3 1-1 3-1-1-1 3 0.5 0.5 0.5-1 2 0.5 2-3.5 4 3-1 4 1.5 0.5 1.5-6 0.5 1 5-2.5 6-5.5-6.5-7-7.5 7.5-12-12.5 13.5-13-16.5-17-2.5 2-32-33-35 33.5-4-0.5 15-82.5-33.5-6.5 4-18.5 12.5 2.5-2.5-19-1.5 0.5-1.5-1-1.5-6-8-11 3-2-1.5-2 4-1 2.5-2 3 4 1.5-1 0.5 1 5.5-4-2-3 3-2.5-2.5-3.5 0.5-1 3.5-0.5 0-1 8.5 11 2-12.5 9-1-3 15 4-1.5 0 1 1.5-0.5-3 17.5 1 0 5.5-4 1-2-0.5-2.5-2.5-2-0.5-2 2 0 4.5 1.5-0.5-3.5 4-3.5 2.5 0 3 3 0.5-4.5 3.5-2 10.5 2.5 5-3.5 6-2 4-3 9.5-4 4.5-0.5 0.5 3 4-2.5 3.5 1 3-1 7.5-6 3.5-2 5.5-4.5 1-6.5 4-5.5 3.5-1 0.5-2 3.5-1 7-6 3 1.5 3 0 0-5 1-1.5-13-12 16.5-10 17 15 2 0 1.5-4 7.5-6.5 4 1.5 3.5 3 3 0.5 0.5-4.5 1.5-2.5 13 11.5 3.5-4-2.5-2.5 8.5-8.5-5.5-6.5 3.5-1 2.5 0.5-4-3.5 5-7 5-4.5-1-1 10-10.5 25.5 25 40-38.5-6-7 42-12.5 2.5 0 6.5-6.5 2-1 14 13.5 2 4.5 4.5 0.5 0.5-7 11 3.5 0 2 6 1.5 5.5 5 33 1-3 8 3 1.5 0.5-1.5 1.5 0.5-0.5 1.5 5 1 1.5 2 4.5 2.5 8 3 0 1 6-5.5-0.5-0.5 6-4-0.5-4 1-0.5-0.5-1.5 0-2 2.5-3.5 1-4 3.5-3.5 19 18.5 18.5-18.5 2.5 1.5 0-5.5 8 1 0-4.5 23 3.5-1.5 25.5 20.5 1 1-22.5 6 0 2.5 3 2-3-1.5-2 1.5-1 1.5-3 2.5 1.5 0.5-1 6 5.5 4-0.5 8 8 0.5-1.5-8.5-9 7.5-7.5-0.5-2 1-1 1.5 1.5 5.5-6.5-4.5-5 1-1.5-4-4 9-8.5 2 0.5 3-4 5 1 1 1.5 5.5 1.5 1 8.5 3.5-7 0-2.5-3-3-1-2 0-5.5 2-3-0.5-0.5-2.5-1-2 1-0.5-2-1.5-0.5-0.5 1 2 1.5-3.5 0 0.5 1.5-1.5 2.5-1-1.5 1-2.5-3 0-1.5-0.5 11-11.5-25-26 1.5 0 0.5-1.5 4-1.5 2-3.5 4-1.5 3-10.5 3.5-31.5 20.5 21.5 2.5-2.5 0.5-2.5 84.5 87 6.5 2 3-1 9.5-4.5 3.5-0.5 6 1.5 1-7.5 3-8 13-18 7-13 1.5-5.5 3-16.5 4.5-11.5 10-17 5.5-15 12.5-19zM503.5 720l0.5-0.5 3-0.5 3.5-2 2.5 0 4.5-7.5 9-9.5 3-1 8-18 2.5 0.5 7-21.5 1.5-0.5 1-5.5-22.5 1.5-10-2.5-9-4.5-15.5-5-9-1.5-27 1-14.5 13.5-7 8.5-0.5 2 55 57.5 2 0 3.5-5.5 7 2 0.5-1zM169 598l1.5-1.5-2 0-0.5 1zM196.5 539l-6.5 6 2 2.5 6-6zM189 544l-2.5-3 6-5.5 2.5 2.5zM149 569.5l4-2.5 1.5 2 2.5-0.5 1.5 2.5 2.5-0.5-0.5-2.5 4-1 3 2.5 1 0.5 1-1 8.5 9.5-2.5 5.5 1 2 1.5-2 1.5 2-2 1-0.5 3 0.5 1-3 1-4 4-2.5-1 0-0.5 2 0-0.5-1 0 1-1.5 0 0.5-2-1 2.5-5.5-1.5-2-1 1-2 1 0.5 1-1.5-2.5-0.5-0.5-3.5-2 0 0 2 1.5-0.5 0.5 2-0.5 3-4.5-4-3-4.5 0-2.5 1.5-0.5-0.5-1.5-2 0-0.5-1.5 1.5 7 2.5 3.5-2 1-3.5-5.5-0.5-3-3-2.5 2.5-1.5 1-1.5-1-6.5-2-1.5-2 1 1-2.5-1 1.5-2.5-1.5 0-1-0.5 0.5-0.5-1.5-0.5 1-3.5-2.5-5.5 0.5 0-7.5 9-1.5 0.5-2 2 0.5-0.5 3.5 1.5 0.5-0.5 1 4.5 0.5-2.5 7 2 0.5 2.5-6 1.5 0 0.5-1.5 1.5 0.5-2 4 1.5 1.5-4 4z","ponts":[{"n":"Jacques-Cartier","nom":"Pont Jacques-Cartier","p":[588.0,533.9]},{"n":"Samuel-De Champlain","nom":"Pont Samuel-De Champlain","p":[619.2,592.6]},{"n":"Victoria","nom":"Pont Victoria","p":[601.6,567.9]},{"n":"Honoré-Mercier","nom":"Pont Honoré-Mercier","p":[509.7,641.8]},{"n":"Pie-IX","nom":"Pont Pie-IX","p":[514.2,452.8]},{"n":"Papineau-Leblanc","nom":"Pont Papineau-Leblanc","p":[498.7,477.0]},{"n":"Viau","nom":"Pont Viau","p":[491.9,497.1]},{"n":"Médéric-Martin","nom":"Pont Médéric-Martin","p":[464.4,515.4]},{"n":"Lachapelle","nom":"Pont Lachapelle","p":[452.5,523.5]},{"n":"Louis-Bisson","nom":"Pont Louis-Bisson","p":[425.4,546.9]},{"n":"Charles-De Gaulle","nom":"Pont Charles-De Gaulle","p":[617.5,341.2]},{"n":"Galipeault","nom":"Pont Galipeault","p":[281.2,663.1]},{"n":"Île-aux-Tourtes","nom":"Pont de l'Île-aux-Tourtes","p":[261.1,644.4]}],"hors":[{"n":"Kahnawake","x":468,"y":738}],"total":{"pop":4305249,"sup":3813.54}};
+  var NS = "http://www.w3.org/2000/svg", W = D.W, H = D.H, ZOOM_MAX = 7;
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, " :").replace(/« /g, "« ").replace(/ »/g, " »"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, " "); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function km2(x) { return dec(x, x < 10 ? 2 : 1) + " km²"; }
+  function dens(pop, sup) { return nb(pop / sup) + " hab./km²"; }
+  function rang(n) { return n === 1 ? "1re" : n + "e"; }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".mtt__svg"), gVilles = q(".mtt__villes"), gEau = q(".mtt__eau"), gPonts = q(".mtt__ponts"), gEtiq = q(".mtt__etiquettes");
+  var bords = q(".mtt__bords"), contourChoix = q(".mtt__choix"), vueTexte = q(".mtt__vue"), annonce = q(".mtt__annonce");
+  var VILLE = {}, CHEMIN = {};
+  D.villes.forEach(function (v) {
+    VILLE[v.id] = v;
+    CHEMIN[v.id] = svgEl("path", { "class": "mtt__ville", d: v.d, "data-ville": v.id, "data-secteur": v.s }, gVilles);
+  });
+  D.eau.forEach(function (e) { svgEl("path", { "class": "mtt__eau-forme", d: e.d }, gEau); });
+  bords.setAttribute("d", D.bords);
+  var DEPART = { secteurs: true, villes: true, eau: true, ponts: false };
+  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H } };
+  for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
+
+  /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return etat.vue.w < W - .5; }
+  function bornerVue(v) {
+    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * H / W;
+    return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vue;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    q(".mtt__recentrer").hidden = !estZoome();
+    etiqueter();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    var w = b.width || 800, h = b.height || 800 * H / W;
+    var s = Math.min(w / v.w, h / v.h);
+    var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    appliquerVue();
+  }
+  function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
+  q(".mtt__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".mtt__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  q(".mtt__recentrer").addEventListener("click", function () { etat.vue = { x: 0, y: 0, w: W, h: H }; appliquerVue(); });
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (!estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+
+  /* ----- étiquettes : chacune réserve un rectangle ; celles qui en chevauchent une autre
+     déjà posée ne sont pas affichées. Les plus importantes passent en premier. */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    while (gPonts.firstChild) { gPonts.removeChild(gPonts.firstChild); }
+    var u = unite(), v = etat.vue, places = [];
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtt__carte > .mtt__bouton-carte, .mtt__outils"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function poser(x, y, texte, classe, px, opt) {
+      opt = opt || {};
+      var lignes = typo(texte).split("\n"), t = px * u, larg = 0;
+      lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+      var haut = lignes.length * t * 1.15, m = 1.5 * u, rot = opt.r || 0, boites = [];
+      if (rot) {
+        /* Un nom incliné réserve une chaîne de petits carrés le long de sa ligne. */
+        var a = rot * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), nbo = Math.max(1, Math.ceil(larg / haut));
+        for (var j = 0; j < nbo; j++) {
+          var off = -larg / 2 + (j + .5) * larg / nbo, cx = x + ca * off, cy = y + sa * off, dm = haut / 2 + m;
+          boites.push([cx - dm, cy - dm, cx + dm, cy + dm]);
+        }
+      } else { boites.push([x - larg / 2 - m, y - haut / 2 - m, x + larg / 2 + m, y + haut / 2 + m]); }
+      if (!opt.force && !boites.every(libre)) { return null; }
+      boites.forEach(function (bo) { places.push(bo); });
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": "middle", "font-size": t.toFixed(2), "stroke-width": (opt.halo || 3) * u }, gEtiq);
+      if (rot) { n.setAttribute("transform", "rotate(" + rot + " " + x.toFixed(1) + " " + y.toFixed(1) + ")"); }
+      if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+      else {
+        lignes.forEach(function (l, j) {
+          var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+          ts.textContent = l;
+        });
+      }
+      return n;
+    }
+    var ch = etat.choix, villeChoisie = ch && ch.type === "ville" ? VILLE[ch.id] : null;
+    var secteurChoisi = ch ? (ch.type === "secteur" ? ch.id : villeChoisie.s) : null;
+    if (villeChoisie) { poser(villeChoisie.x, villeChoisie.y, villeChoisie.n, "mtt__etiquette--ville mtt__etiquette--choisie", 13.5, { force: true, halo: 3.6 }); }
+    if (etat.couches.secteurs) {
+      D.ordre.forEach(function (k) {
+        var s = D.secteurs[k];
+        s.lab.forEach(function (p) {
+          /* Sur un petit écran, le nom du secteur rapetisse avant de disparaître. */
+          var tailles = k === secteurChoisi ? [12.5, 10, 8.5] : [11, 9.5, 8], n = null;
+          for (var j = 0; j < tailles.length && !n; j++) { n = poser(p[0], p[1], s.lignes, "mtt__etiquette--secteur", tailles[j], { chasse: .72, halo: 3.4 }); }
+          if (n) { n.setAttribute("data-secteur", k); }
+        });
+      });
+    }
+    function nomVille(vl) {
+      var px = vl.rang === 1 ? 14 : vl.rang <= 3 ? 12.5 : vl.pop >= 50000 ? 11 : 9.5;
+      return poser(vl.x, vl.y, vl.n, "mtt__etiquette--ville" + (vl.rang <= 3 ? " mtt__etiquette--grande" : ""), px, {});
+    }
+    var faits = {};
+    if (etat.couches.villes) {
+      D.villes.forEach(function (vl) { if (vl.pop >= 100000 && vl !== villeChoisie) { nomVille(vl); faits[vl.id] = 1; } });
+    }
+    if (etat.couches.eau) {
+      D.eauNoms.forEach(function (e) { poser(e.x, e.y, e.n, "mtt__etiquette--eau", e.p === 1 ? 11.5 : 10.5, { r: e.r, chasse: .5, halo: 2.6 }); });
+    }
+    if (etat.couches.ponts) {
+      D.ponts.forEach(function (p) {
+        var g = svgEl("g", { "class": "mtt__pont-groupe" }, gPonts);
+        svgEl("rect", { "class": "mtt__pont", x: (p.p[0] - 3.4 * u).toFixed(2), y: (p.p[1] - 1.6 * u).toFixed(2), width: (6.8 * u).toFixed(2), height: (3.2 * u).toFixed(2), rx: (1.2 * u).toFixed(2) }, g);
+        var ti = svgEl("title", {}, g); ti.textContent = p.nom;
+        places.push([p.p[0] - 4 * u, p.p[1] - 2.4 * u, p.p[0] + 4 * u, p.p[1] + 2.4 * u]);
+      });
+    }
+    if (etat.couches.villes) {
+      var liste = D.villes.slice().sort(function (a, b) {
+        var pa = a.s === secteurChoisi ? 0 : 1, pb = b.s === secteurChoisi ? 0 : 1;
+        return pa - pb || a.rang - b.rang;
+      });
+      liste.forEach(function (vl) { if (vl !== villeChoisie && !faits[vl.id]) { nomVille(vl); } });
+    }
+    if (etat.couches.ponts) {
+      D.ponts.forEach(function (p) {
+        if (!poser(p.p[0] + 5 * u + p.n.length * 4.6 * u * .55, p.p[1], p.n, "mtt__etiquette--pont", 9, { chasse: .55, halo: 2.6 })) {
+          poser(p.p[0] - 5 * u - p.n.length * 4.6 * u * .55, p.p[1], p.n, "mtt__etiquette--pont", 9, { chasse: .55, halo: 2.6 });
+        }
+      });
+    }
+    D.hors.forEach(function (h) { poser(h.x, h.y, h.n, "mtt__etiquette--hors", 9.5, {}); });
+  }
+
+  /* ----- fiches */
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined) {
+      if (val.secteur) { var pa = el("span", "mtt__pastille"); pa.setAttribute("data-secteur", val.secteur); pa.setAttribute("aria-hidden", "true"); b.appendChild(pa); }
+      el("span", "mtt__choisir-nom", nom, b);
+      if (val.texte) { el("span", "mtt__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "mtt__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+  }
+  function entete(sur, titre, secteur) {
+    vueTexte.innerHTML = "";
+    el("span", "mtt__surtitre", sur, vueTexte);
+    var h = el("p", "mtt__intertitre", null, vueTexte);
+    h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    if (secteur) { var pa = el("span", "mtt__pastille", null, h); pa.setAttribute("data-secteur", secteur); pa.setAttribute("aria-hidden", "true"); }
+    el("span", "", titre, h);
+  }
+  function ficheAccueil() {
+    entete("Communauté métropolitaine de Montréal", "82 municipalités, cinq secteurs");
+    chiffres(vueTexte, [["Population en 2026", nb(D.total.pop)], ["Superficie terrestre", km2(D.total.sup)]]);
+    el("p", "mtt__paragraphe", "La région métropolitaine déborde largement de l'île de Montréal. On la divise en cinq secteurs : deux agglomérations, Laval et deux couronnes de banlieues, au nord et au sud.", vueTexte);
+    el("span", "mtt__rubrique", "Les cinq secteurs", vueTexte);
+    var ul = el("ul", "mtt__liste", null, vueTexte);
+    D.ordre.forEach(function (k) {
+      var s = D.secteurs[k], li = el("li", "", null, ul);
+      li.appendChild(bouton("mtt__choisir", s.nom, { secteur: k, texte: nb(s.pop) + " hab." }, function () { choisir({ type: "secteur", id: k }); }, false));
+    });
+    el("p", "mtt__note", "Touche une ville sur la carte pour lire sa fiche. Les couleurs montrent les secteurs.", vueTexte);
+  }
+  function ficheSecteur(k) {
+    var s = D.secteurs[k];
+    entete("Secteur de la région métropolitaine", s.nom, k);
+    chiffres(vueTexte, [["Population en 2026", nb(s.pop)], ["Superficie terrestre", km2(s.sup)], ["Densité", dens(s.pop, s.sup)], ["Municipalités", String(s.nb)]]);
+    el("p", "mtt__paragraphe", s.texte, vueTexte);
+    var part = Math.round(s.pop / D.total.pop * 100);
+    el("p", "mtt__paragraphe", "Ce secteur regroupe environ " + part + "\u00a0% des habitants de la région métropolitaine.", vueTexte);
+    var vs = D.villes.filter(function (v) { return v.s === k; });
+    if (vs.length > 1) {
+      el("span", "mtt__rubrique", "Les villes les plus peuplées", vueTexte);
+      var ul = el("ul", "mtt__liste", null, vueTexte);
+      vs.slice(0, 5).forEach(function (v) {
+        el("li", "", null, ul).appendChild(bouton("mtt__choisir", v.n, { texte: nb(v.pop) + " hab." }, function () { choisir({ type: "ville", id: v.id }); }));
+      });
+      var det = el("details", "mtt__toutes", null, vueTexte);
+      el("summary", "", "Toutes les municipalités du secteur (" + vs.length + ")", det);
+      var gr = el("ul", "mtt__grille", null, det);
+      vs.slice().sort(function (a, b) { return a.n.localeCompare(b.n, "fr"); }).forEach(function (v) {
+        el("li", "", null, gr).appendChild(bouton("", v.n, undefined, function () { choisir({ type: "ville", id: v.id }); }));
+      });
+    } else {
+      el("li", "", null, el("ul", "mtt__liste", null, vueTexte)).appendChild(bouton("mtt__choisir", "Fiche de la ville de " + vs[0].n, { texte: nb(vs[0].pop) + " hab." }, function () { choisir({ type: "ville", id: vs[0].id }); }));
+    }
+    var act = el("div", "mtt__actions", null, vueTexte);
+    act.appendChild(bouton("mtt__retour", "Revenir aux cinq secteurs", undefined, function () { choisir(null); }));
+  }
+  function ficheVille(id) {
+    var v = VILLE[id], s = D.secteurs[v.s];
+    entete("Municipalité · " + s.nom, v.n, v.s);
+    chiffres(vueTexte, [["Population en 2026", nb(v.pop)], ["Superficie terrestre", km2(v.sup)], ["Densité", dens(v.pop, v.sup)], ["Rang selon la population", rang(v.rang) + " sur 82"]]);
+    var phrase;
+    if (v.rang === 1) { phrase = v.n + " est la municipalité la plus peuplée de la région métropolitaine et de tout le Québec. Elle est divisée en 19 arrondissements."; }
+    else if (v.rang === 82) { phrase = v.n + " est la municipalité la moins peuplée des 82 municipalités de la région métropolitaine."; }
+    else { phrase = v.n + " est la " + rang(v.rang) + " municipalité la plus peuplée des 82 municipalités de la région métropolitaine."; }
+    el("p", "mtt__paragraphe", phrase, vueTexte);
+    if (s.nb > 1) {
+      var dv = v.pop / v.sup, ds = s.pop / s.sup;
+      var comp = dv > ds * 1.15 ? "plus élevée que" : dv < ds / 1.15 ? "plus faible que" : "proche de";
+      el("p", "mtt__paragraphe", "Sa densité est " + comp + " la moyenne de son secteur, qui est de " + dens(s.pop, s.sup) + ".", vueTexte);
+    }
+    var act = el("div", "mtt__actions", null, vueTexte);
+    act.appendChild(bouton("mtt__retour", "Voir le secteur : " + s.nom, undefined, function () { choisir({ type: "secteur", id: v.s }); }));
+  }
+
+  /* ----- choix */
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function rendre() {
+    var ch = etat.choix, secteur = ch ? (ch.type === "secteur" ? ch.id : VILLE[ch.id].s) : null;
+    D.villes.forEach(function (v) {
+      CHEMIN[v.id].classList.toggle("est-estompe", !!ch && ch.type === "secteur" && v.s !== secteur);
+    });
+    if (ch && ch.type === "ville") { contourChoix.setAttribute("d", VILLE[ch.id].d); contourChoix.setAttribute("class", "mtt__choix mtt__choix--ville"); }
+    else if (ch && ch.type === "secteur") { contourChoix.setAttribute("d", D.secteurs[ch.id].contour); contourChoix.setAttribute("class", "mtt__choix"); }
+    else { contourChoix.setAttribute("d", ""); contourChoix.setAttribute("class", "mtt__choix"); }
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.classList.toggle("avec-secteurs", etat.couches.secteurs);
+    racine.classList.toggle("avec-villes", etat.couches.villes);
+    racine.classList.toggle("avec-eau", etat.couches.eau);
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtt__couche"), function (b) {
+      b.setAttribute("aria-pressed", etat.couches[b.getAttribute("data-couche")] ? "true" : "false");
+    });
+    if (!ch) { ficheAccueil(); } else if (ch.type === "secteur") { ficheSecteur(ch.id); } else { ficheVille(ch.id); }
+    etiqueter();
+  }
+  function choisir(c, focaliser) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    rendre();
+    var lecture = q(".mtt__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    if (focaliser !== false && etat.choix && etat.choix.type === "secteur") { /* la fiche reste à côté de la carte : pas de saut de focus */ }
+  }
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    var cible = ev.target;
+    var sect = cible.closest ? cible.closest("[data-secteur]") : null;
+    if (sect && sect.tagName.toLowerCase() === "text") { choisir({ type: "secteur", id: sect.getAttribute("data-secteur") }); return; }
+    var p = cible.closest ? cible.closest(".mtt__ville") : null;
+    if (!p) { return; }
+    var id = p.getAttribute("data-ville");
+    if (etat.couches.villes) { choisir({ type: "ville", id: id }); }
+    else { choisir({ type: "secteur", id: VILLE[id].s }); }
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtt__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.getAttribute("data-couche");
+      etat.couches[c] = !etat.couches[c];
+      if (c === "villes" && !etat.couches.villes && etat.choix && etat.choix.type === "ville") { etat.choix = { type: "secteur", id: VILLE[etat.choix.id].s }; }
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".mtt__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  /* Réinitialiser (bouton posé par page.js) : aucun choix, couches de départ, carte entière. */
+  function reinitialiser() {
+    etat.choix = null;
+    for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
+    etat.vue = { x: 0, y: 0, w: W, h: H };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    q(".mtt__recentrer").hidden = true;
+    rendre();
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtt__toutes"), function (d) { d.open = false; });
+    var lecture = q(".mtt__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.mtt = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; }, choisir: choisir };
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
