@@ -625,6 +625,7 @@ urbain mondial, avec des documents à analyser.
 - [Radio-Canada, des milliers de croisiéristes déferlent sur Québec](https://ici.radio-canada.ca/nouvelle/1128388/milliers-croisieristes-deferlent-sur-quebec)
 - [Ville de Québec, l'église de Notre-Dame-des-Victoires](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/eglise_de_notre_dame_des_victoires.aspx)
 - [Parcs Canada, lieu historique national de l'Église-Notre-Dame-des-Victoires](https://www.pc.gc.ca/apps/dfhd/page_nhs_eng.aspx?id=691)
+- [Ville de Québec, l'édifice Price](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/edifice_price.aspx)
 - [Ville de Québec, la rue du Petit-Champlain](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_du_petit_champlain.aspx)
 - [Ville de Québec, le Vieux-Port](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/vieux_port.aspx)
 - [Ville de Québec, les fortifications de Québec](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/fortifications_de_quebec.aspx)
