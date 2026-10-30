@@ -328,7 +328,7 @@ funiculaire.
 La valeur patrimoniale du Vieux-Québec tient à une concentration rare :
 plusieurs époques y ont laissé leurs traces sans que les suivantes les
 effacent. On y lit le régime français, le régime britannique et la période
-contemporaine, souvent dans la même rue. Repère sur la maquette les lieux
+contemporaine, souvent dans la même rue. Repère sur la maquette les principaux lieux
 présentés dans cette fiche, puis découvre à quel régime chacun remonte et ce
 que les régimes suivants y ont changé.
 
@@ -625,7 +625,6 @@ urbain mondial, avec des documents à analyser.
 - [Radio-Canada, des milliers de croisiéristes déferlent sur Québec](https://ici.radio-canada.ca/nouvelle/1128388/milliers-croisieristes-deferlent-sur-quebec)
 - [Ville de Québec, l'église de Notre-Dame-des-Victoires](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/eglise_de_notre_dame_des_victoires.aspx)
 - [Parcs Canada, lieu historique national de l'Église-Notre-Dame-des-Victoires](https://www.pc.gc.ca/apps/dfhd/page_nhs_eng.aspx?id=691)
-- [Ville de Québec, l'escalier Casse-Cou et la côte de la Montagne](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/escalier_casse_cou_cote_de_la_montage.aspx)
 - [Ville de Québec, la rue du Petit-Champlain](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_du_petit_champlain.aspx)
 - [Ville de Québec, le Vieux-Port](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/vieux_port.aspx)
 - [Ville de Québec, les fortifications de Québec](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/fortifications_de_quebec.aspx)
