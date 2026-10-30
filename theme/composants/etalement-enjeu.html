@@ -1,0 +1,759 @@
+<section class="enj" id="etalement-enjeu" data-reinitialiser aria-label="Interface&nbsp;: évaluer les propositions des groupes en présence sur l'étalement urbain">
+<!--
+  Moteur « Enjeu » : évaluer les propositions des groupes en présence (compétence 2 en géographie).
+  Parcours en fenêtres : départ (l'enjeu et les documents), une fenêtre par groupe (sa proposition et
+  son évaluation), puis le bilan (tableau de comparaison, position, synthèse).
+
+  Le code ne contient aucun contenu. Tout vient du bloc de données JSON (la balise script de classe
+  enj__donnees, plus bas) : l'enjeu, les documents, les critères, les groupes et les textes de l'interface.
+
+  Pour créer une nouvelle instance (une autre fiche, un autre enjeu) :
+  1. copier ce fichier sous un autre nom dans theme/composants/ (par exemple tourisme-enjeu.html);
+  2. changer l'id de la section (id="tourisme-enjeu"), sans toucher à la classe « enj »;
+  3. remplacer seulement le bloc JSON (mêmes clés : titre, consigne, question, intro, documents,
+     criteres, groupes, echelle, textes). Les libellés absents de « textes » prennent
+     une valeur par défaut.
+  4. insérer « ::: composant tourisme-enjeu » dans la fiche.
+  Le script initialise chaque section .enj de la page une seule fois (garde data-pret) : plusieurs
+  instances peuvent cohabiter dans la même page.
+-->
+<style>
+.enj { --enj-c: var(--matiere); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.enj ul > li::before, .enj ol > li::before { content: none; display: none; }
+.enj ul > li::marker, .enj ol > li::marker { content: none; }
+.enj ul, .enj ol { list-style: none; margin: 0; padding: 0; }
+.enj .enj__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.enj .enj__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.enj__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+/* parcours : une pastille par fenêtre */
+.enj__parcours { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; padding: .7rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.enj__parcours-nom { flex-basis: 100%; margin: 0 0 .1rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.enj__etape { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .7rem .32rem .38rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
+.enj__etape:hover { color: var(--encre); background: var(--matiere-voile); }
+.enj__etape[aria-current="step"] { color: var(--encre); border-color: var(--enj-c); box-shadow: inset 0 0 0 1px var(--enj-c); }
+.enj__etape--bout { padding-left: .7rem; }
+.enj__num { display: inline-flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; font-family: var(--titre); font-weight: 700; font-size: .68rem; color: var(--enj-c); background: var(--surface); border: 2px solid var(--enj-c); box-sizing: border-box; flex: none; }
+.enj__etape.est-complete .enj__num { color: #fff; background: var(--enj-c); }
+.enj__etape.est-partielle .enj__num { background: linear-gradient(to top, color-mix(in srgb, var(--enj-c) 35%, transparent) 50%, var(--surface) 50%); }
+/* fenêtre */
+.enj__scene { position: relative; }
+.enj__fenetre { padding: 1.3rem 1.4rem 1.4rem; }
+.enj__fenetre.est-entree { animation: enj-entree .26s ease-out; }
+@keyframes enj-entree { from { opacity: 0; transform: translateX(var(--enj-dx, 12px)); } to { opacity: 1; transform: none; } }
+.enj__fenetre:focus { outline: none; }
+.enj__fenetre-titre { margin: 0 0 .5rem; font-family: var(--titre); font-weight: 700; font-size: 1.22rem; line-height: 1.3; color: var(--encre); }
+.enj__fenetre-titre:focus-visible { outline: 2px solid var(--matiere); outline-offset: 3px; border-radius: 3px; }
+.enj__surtitre { display: flex; align-items: center; gap: .45rem; margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.enj__pastille { width: .8rem; height: .8rem; border-radius: 50%; background: var(--enj-c); flex: none; }
+.enj__question-texte { margin: 0 0 .6rem; font-family: var(--titre); font-weight: 700; font-size: 1.2rem; line-height: 1.35; color: var(--matiere-fonce); max-width: 46rem; }
+.enj__intro { margin: 0 0 1.1rem; font-size: .95rem; line-height: 1.65; color: var(--encre-doux); max-width: 46rem; }
+.enj__texte { margin: 0 0 .7rem; font-size: .95rem; line-height: 1.65; }
+.enj__docs { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.enj__doc { padding: 1rem 1.1rem; background: var(--surface-2); border-radius: var(--rayon); border-left: 4px solid var(--matiere); }
+.enj__doc--reference { border-left-color: #6E8B3D; }
+.enj__doc-nom { margin: 0 0 .5rem; font-family: var(--titre); font-weight: 700; font-size: 1rem; color: var(--encre); }
+.enj__chiffres { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .6rem; margin: .7rem 0 0; }
+.enj__chiffre { background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .55rem .7rem; }
+.enj__chiffre-valeur { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.2; color: var(--matiere-fonce); }
+.enj__chiffre-texte { display: block; font-size: .8rem; line-height: 1.4; color: var(--encre-doux); margin-top: .15rem; }
+.enj__source { margin: .9rem 0 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-pale); }
+/* fenêtre d'un groupe */
+.enj__groupe-grille { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+.enj__proposition { margin: 0 0 1rem; padding: .9rem 1.1rem; border-left: 5px solid var(--enj-c); background: var(--surface-2); border-radius: 0 var(--rayon) var(--rayon) 0; }
+.enj__proposition-nom { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
+.enj__proposition p { margin: 0; font-family: var(--titre); font-weight: 600; font-size: 1.05rem; line-height: 1.5; color: var(--encre); }
+.enj__bloc { margin: .9rem 0 0; }
+.enj__bloc-nom { margin: 0 0 .3rem; font-family: var(--titre); font-weight: 700; font-size: .88rem; color: var(--encre); }
+.enj__liste > li { position: relative; margin: 0 0 .35rem; padding-left: 1rem; font-size: .93rem; line-height: 1.55; }
+.enj__liste > li > .enj__puce { position: absolute; left: 0; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--enj-c); }
+.enj__eval { padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); align-self: start; }
+.enj__section-nom { margin: 0 0 .35rem; font-family: var(--titre); font-weight: 700; font-size: 1rem; color: var(--encre); }
+.enj__aide { margin: 0 0 .5rem; font-size: .86rem; line-height: 1.5; color: var(--encre-pale); }
+.enj__etat-eval { display: inline-block; margin: 0 0 .6rem; font-family: var(--donnee); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); }
+.enj__etat-eval.est-complete { color: #2F7D4F; font-weight: 700; }
+.enj__critere { display: grid; grid-template-columns: minmax(0, 1fr); gap: .4rem; padding: .7rem 0; border-top: 1px solid var(--trait); }
+.enj__critere-nom { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .92rem; color: var(--encre); }
+.enj__critere-aide { margin: .1rem 0 0; font-size: .82rem; line-height: 1.45; color: var(--encre-pale); }
+.enj__echelle { display: flex; flex-wrap: wrap; gap: .35rem; }
+.enj__note { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .85rem; cursor: pointer; }
+.enj__note:hover { background: var(--matiere-voile); color: var(--encre); }
+.enj__note[aria-pressed="true"][data-valeur="2"] { color: #fff; background: #2F7D4F; border-color: #2F7D4F; }
+.enj__note[aria-pressed="true"][data-valeur="1"] { color: #1F2328; background: #E8B64A; border-color: #E8B64A; }
+.enj__note[aria-pressed="true"][data-valeur="0"] { color: #fff; background: #B5473A; border-color: #B5473A; }
+/* bilan */
+.enj__bilan-intro { margin: 0 0 .9rem; font-size: .95rem; line-height: 1.6; color: var(--encre-doux); }
+.enj__reste { margin: 0 0 1rem; padding: .7rem .9rem; border-radius: var(--rayon); background: var(--surface-2); font-size: .9rem; line-height: 1.5; }
+.enj__reste-liens { display: inline-flex; flex-wrap: wrap; gap: .35rem; margin-left: .3rem; vertical-align: middle; }
+.enj__tableau-defile { overflow-x: auto; margin: 0 0 1.2rem; }
+.enj__tableau { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.enj .enj__tableau th, .enj .enj__tableau td { padding: .5rem .5rem; border-bottom: 1px solid var(--trait); text-align: center; vertical-align: middle; background: transparent; color: var(--encre-doux); }
+.enj .enj__tableau tbody tr:nth-child(even) { background: transparent; }
+.enj .enj__tableau { margin: 0; }
+.enj .enj__tableau thead th { font-family: var(--donnee); font-size: .62rem; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); }
+.enj .enj__tableau tbody th { text-align: left; font-family: var(--titre); font-weight: 600; font-size: .84rem; text-transform: none; letter-spacing: 0; color: var(--encre); }
+.enj .enj__tableau tbody tr.est-appuyee { background: var(--matiere-voile); }
+.enj__ligne-nom { display: inline-flex; align-items: center; gap: .4rem; background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; text-decoration: underline; text-decoration-color: var(--trait); text-underline-offset: 3px; }
+.enj__ligne-nom:hover { text-decoration-color: currentColor; }
+.enj__case { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-width: 2rem; padding: .12rem .4rem; border-radius: 100px; font-family: var(--titre); font-weight: 700; font-size: .74rem; }
+.enj__case--2 { color: #fff; background: #2F7D4F; }
+.enj__case--1 { color: #1F2328; background: #E8B64A; }
+.enj__case--0 { color: #fff; background: #B5473A; }
+.enj__case--vide { color: var(--encre-pale); }
+.enj__score { font-family: var(--titre); font-weight: 700; color: var(--encre); white-space: nowrap; }
+.enj__legende { margin: .5rem 0 0; font-size: .78rem; line-height: 1.5; color: var(--encre-pale); }
+.enj__position { padding: 1.1rem 1.2rem 1.2rem; border: 1px solid var(--trait); border-radius: var(--rayon); }
+.enj .enj__question-pos { margin: 1.3rem 0 .5rem; font-family: var(--titre); font-weight: 600; font-size: .92rem; color: var(--encre); }
+.enj .enj__section-nom + .enj__question-pos { margin-top: .4rem; }
+.enj__choix { display: flex; flex-wrap: wrap; gap: .4rem; }
+.enj__outil { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: transparent; border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .8rem; cursor: pointer; }
+.enj__outil:hover { color: var(--encre); background: var(--matiere-voile); }
+.enj__outil[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.enj__justif { display: block; width: 100%; box-sizing: border-box; min-height: 6.5rem; margin: 0; padding: .7rem .8rem; font-family: var(--texte, inherit); font-size: .95rem; line-height: 1.55; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); resize: vertical; }
+.enj__justif:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.enj__amorce { margin: .4rem 0 0; font-size: .82rem; line-height: 1.5; color: var(--encre-pale); }
+.enj__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0 0; }
+.enj__principal { font-family: var(--titre); font-weight: 600; font-size: .88rem; color: #fff; background: var(--matiere-fonce); border: 0; border-radius: 100px; padding: .6rem 1.15rem; cursor: pointer; }
+.enj__principal:hover { background: var(--matiere); }
+.enj__principal[disabled] { opacity: .4; cursor: default; }
+.enj__synthese { margin: 1rem 0 0; padding: 1rem 1.1rem; background: var(--surface-2); border: 1px solid var(--trait); border-radius: var(--rayon); }
+.enj__synthese[hidden] { display: none; }
+.enj__synthese-ligne { margin: 0 0 .45rem; font-size: .93rem; line-height: 1.55; }
+.enj__synthese-ligne strong { color: var(--encre); }
+.enj__citation { margin: .6rem 0; padding: .6rem .8rem; border-left: 3px solid var(--matiere); background: var(--surface); font-size: .93rem; line-height: 1.6; white-space: pre-wrap; }
+.enj__retro > li { position: relative; margin: .35rem 0 0; padding: .45rem .7rem .45rem 2rem; border-radius: var(--rayon); background: var(--surface); font-size: .88rem; line-height: 1.5; }
+.enj__retro > li::after { content: ""; position: absolute; left: .75rem; top: .85em; width: .55rem; height: .55rem; border-radius: 50%; background: var(--matiere); }
+.enj__retro > li.est-attention::after { background: #C27B1A; }
+.enj__retro > li.est-ok::after { background: #2F7D4F; }
+/* navigation entre fenêtres */
+.enj__nav { display: flex; align-items: center; justify-content: space-between; gap: .6rem; padding: .75rem 1.2rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
+.enj__nav-milieu { font-family: var(--donnee); font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); text-align: center; }
+.enj__nav-bouton { font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .5rem 1rem; cursor: pointer; min-width: 7.5rem; }
+.enj__nav-bouton:hover { color: var(--encre); background: var(--matiere-voile); }
+.enj__nav-bouton--suivant { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.enj__nav-bouton--suivant:hover { color: #fff; background: var(--matiere); }
+.enj__nav-bouton[hidden] { display: inline-block; visibility: hidden; }
+.enj__replier { display: none; }
+.enj__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (min-width: 52rem) {
+  .enj__docs { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+  .enj__groupe-grille { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.6rem; }
+}
+.enj.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; }
+.enj.est-plein-ecran .enj__scene { flex: 1 1 auto; min-height: 0; overflow: auto; }
+.enj.est-plein-ecran .enj__replier { display: inline-flex; margin-left: auto; }
+.enj.est-plein-ecran.texte-masque .enj__repliable { display: none; }
+html[data-sombre="on"] .enj .enj__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .enj .enj__titre { color: var(--encre); }
+html[data-sombre="on"] .enj__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .enj__question-texte, html[data-sombre="on"] .enj__chiffre-valeur { color: var(--encre); }
+html[data-sombre="on"] .enj__outil[aria-pressed="true"] { color: var(--surface); background: var(--encre); border-color: var(--encre); }
+html[data-sombre="on"] .enj__principal, html[data-sombre="on"] .enj__nav-bouton--suivant { color: var(--surface); background: var(--encre); border-color: var(--encre); }
+html[data-sombre="on"] .enj__principal:hover, html[data-sombre="on"] .enj__nav-bouton--suivant:hover { background: var(--encre-doux); }
+html[data-sombre="on"] .enj__etat-eval.est-complete { color: #7FC79A; }
+@media (max-width: 40rem) {
+  .enj__fenetre { padding: 1.1rem 1rem 1.2rem; }
+  .enj__parcours { padding: .6rem .8rem; }
+  .enj__etape-nom { display: none; }
+  .enj__etape { padding: .3rem; }
+  .enj__etape--bout { padding: .3rem .6rem; }
+  .enj__etape--bout .enj__etape-nom { display: inline; }
+  .enj__nav { padding: .65rem .8rem; }
+  .enj__nav-bouton { min-width: 0; padding: .55rem .85rem; }
+  .enj__position { padding: 1rem .9rem; }
+}
+@media (prefers-reduced-motion: reduce) { .enj * { transition: none !important; animation: none !important; } }
+@media print { .enj__parcours, .enj__nav, .enj__actions, .enj__echelle { display: none; } }
+</style>
+
+<div class="enj__entete">
+  <p class="enj__titre" role="heading" aria-level="3"></p>
+  <p class="enj__consigne"></p>
+</div>
+<nav class="enj__parcours">
+  <p class="enj__parcours-nom"></p>
+  <span class="enj__etapes"></span>
+  <button type="button" class="enj__outil enj__replier" data-action="texte" aria-expanded="true"></button>
+</nav>
+<div class="enj__scene">
+  <div class="enj__fenetre" tabindex="-1"></div>
+</div>
+<div class="enj__nav">
+  <button type="button" class="enj__nav-bouton enj__nav-bouton--precedent" data-action="precedent"></button>
+  <span class="enj__nav-milieu"></span>
+  <button type="button" class="enj__nav-bouton enj__nav-bouton--suivant" data-action="suivant"></button>
+</div>
+<p class="enj__annonce" aria-live="polite"></p>
+
+<script type="application/json" class="enj__donnees">
+{
+  "titre": "L'étalement urbain : qui propose quoi?",
+  "consigne": "Évalue les propositions, puis prends position",
+  "question": "Comment loger les nouveaux habitants de la région de Montréal sans sacrifier les terres agricoles qui l'entourent?",
+  "intro": "Plusieurs groupes sont concernés par l'étalement urbain. Chacun défend ses intérêts et fait une proposition. Lis d'abord le document de référence sur le zonage agricole. Découvre ensuite chaque groupe, un à la fois. Évalue sa proposition selon quatre critères. Au bilan, compare les propositions et prends position.",
+  "documents": [
+    {
+      "type": "reference",
+      "titre": "La référence : le zonage agricole",
+      "paragraphes": [
+        "En 1978, le Québec adopte la Loi sur la protection du territoire agricole, appelée aujourd'hui Loi sur la protection du territoire et des activités agricoles. Elle crée une zone agricole où l'agriculture passe en premier.",
+        "Dans cette zone, il faut l'autorisation de la Commission de protection du territoire agricole du Québec (CPTAQ) pour construire une maison, diviser un terrain ou l'utiliser à autre chose qu'à l'agriculture.",
+        "La CPTAQ décide aussi si un terrain peut être retiré de la zone agricole (une exclusion) ou y être ajouté (une inclusion). Une ville qui veut bâtir un quartier sur une terre agricole doit donc d'abord convaincre la CPTAQ."
+      ],
+      "chiffres": [
+        {
+          "valeur": "1978",
+          "texte": "adoption de la loi qui protège le territoire agricole"
+        },
+        {
+          "valeur": "220 353 ha",
+          "texte": "de zone agricole dans le Grand Montréal, soit environ 2 200 km²"
+        },
+        {
+          "valeur": "58 %",
+          "texte": "du territoire terrestre du Grand Montréal est en zone agricole"
+        }
+      ],
+      "source": "Sources : Légis Québec, loi P-41.1; Commission de protection du territoire agricole du Québec; Communauté métropolitaine de Montréal, mémoire sur le projet de loi 86 (2025)."
+    },
+    {
+      "type": "chiffres",
+      "titre": "L'étalement en chiffres",
+      "paragraphes": [
+        "Plus on construit loin du centre, plus les trajets s'allongent. La plupart se font alors en automobile, ce qui augmente les émissions de gaz à effet de serre."
+      ],
+      "chiffres": [
+        {
+          "valeur": "100 000",
+          "texte": "personnes viennent chaque jour travailler dans la région de Montréal depuis les municipalités voisines"
+        },
+        {
+          "valeur": "94 %",
+          "texte": "de ces trajets se font en automobile"
+        },
+        {
+          "valeur": "645 000 $",
+          "texte": "prix médian d'une maison unifamiliale dans la région métropolitaine, en avril 2026"
+        }
+      ],
+      "source": "Sources : Communauté métropolitaine de Montréal; Association professionnelle des courtiers immobiliers du Québec."
+    }
+  ],
+  "echelle": [
+    {
+      "valeur": 2,
+      "nom": "Oui",
+      "symbole": "Oui"
+    },
+    {
+      "valeur": 1,
+      "nom": "En partie",
+      "symbole": "En partie"
+    },
+    {
+      "valeur": 0,
+      "nom": "Non",
+      "symbole": "Non"
+    }
+  ],
+  "criteres": [
+    {
+      "cle": "terres",
+      "nom": "Protège les terres agricoles",
+      "court": "Terres agricoles",
+      "aide": "La proposition garde-t-elle les terres cultivables pour l'agriculture?",
+      "oui": "protège les terres agricoles",
+      "non": "menace les terres agricoles"
+    },
+    {
+      "cle": "logement",
+      "nom": "Répond au besoin de logements",
+      "court": "Logements",
+      "aide": "Permet-elle de loger les personnes qui arrivent, à un prix abordable?",
+      "oui": "aide à loger plus de gens",
+      "non": "ne règle pas le manque de logements"
+    },
+    {
+      "cle": "auto",
+      "nom": "Réduit les déplacements en auto",
+      "court": "Moins d'auto",
+      "aide": "Les gens pourront-ils se déplacer à pied, à vélo ou en transport en commun, ce qui réduit les gaz à effet de serre?",
+      "oui": "réduit les déplacements en auto",
+      "non": "allonge les déplacements en auto"
+    },
+    {
+      "cle": "faisable",
+      "nom": "Est facile à réaliser",
+      "court": "Facile à réaliser",
+      "aide": "Est-elle réaliste : coût, temps, accord de la population?",
+      "oui": "est réaliste",
+      "non": "est difficile à réaliser"
+    }
+  ],
+  "groupes": [
+    {
+      "cle": "upa",
+      "nom": "Les agriculteurs et l'UPA",
+      "court": "Agriculteurs (UPA)",
+      "couleur": "#6E8B3D",
+      "qui": "L'Union des producteurs agricoles (UPA) représente les agriculteurs du Québec.",
+      "interets": [
+        "Garder les terres fertiles pour cultiver et nourrir la population.",
+        "Éviter que les projets de construction fassent grimper le prix des terres."
+      ],
+      "proposition": "Ne plus grignoter la zone agricole : arrêter d'en retirer des terres et freiner les constructions qui n'ont rien à voir avec l'agriculture.",
+      "arguments": [
+        "Selon l'UPA, la zone agricole du Québec a perdu environ 57 000 hectares de plus qu'elle n'en a gagné entre 1998 et 2022.",
+        "Une terre sur laquelle on a bâti est perdue pour l'agriculture."
+      ],
+      "source": "Source : Union des producteurs agricoles, mémoire sur le projet de loi 86 (janvier 2025)."
+    },
+    {
+      "cle": "cmm",
+      "nom": "La Communauté métropolitaine de Montréal",
+      "court": "Communauté métropolitaine",
+      "couleur": "#2D5A97",
+      "qui": "Elle regroupe les 82 municipalités de la région métropolitaine et planifie leur développement.",
+      "interets": [
+        "Accueillir les nouveaux habitants sans étendre la ville sans fin.",
+        "Rendre le transport en commun utile au plus grand nombre."
+      ],
+      "proposition": "Construire plus densément près des gares, des stations de métro et du REM, tout en gardant la zone agricole. C'est le Plan métropolitain d'aménagement et de développement (PMAD), en vigueur depuis 2012.",
+      "arguments": [
+        "Le PMAD visait à loger 40 % des nouveaux ménages près du transport en commun. L'objectif est atteint et il passe à 60 % d'ici 2031.",
+        "Le PMAD vise aussi à augmenter de 6 % la superficie cultivée d'ici 2031."
+      ],
+      "source": "Sources : Observatoire Grand Montréal, bilan du PMAD; Communauté métropolitaine de Montréal, mémoire sur le projet de loi 86 (2025)."
+    },
+    {
+      "cle": "banlieues",
+      "nom": "Les municipalités de banlieue",
+      "court": "Municipalités de banlieue",
+      "couleur": "#8A5A9E",
+      "qui": "Les villes des couronnes nord et sud se développent rapidement.",
+      "interets": [
+        "Attirer des familles et des entreprises.",
+        "Augmenter leurs revenus : près de la moitié des revenus des municipalités du Québec vient des taxes foncières, payées sur la valeur des maisons et des immeubles."
+      ],
+      "proposition": "Ouvrir de nouveaux quartiers résidentiels en périphérie. Quand l'espace manque, certaines demandent à la CPTAQ de retirer des terres de la zone agricole.",
+      "arguments": [
+        "Chaque nouvelle maison rapporte des taxes qui paient les services : routes, parcs, loisirs.",
+        "Beaucoup de familles veulent s'installer en banlieue."
+      ],
+      "source": "Source : ministère des Affaires municipales et de l'Habitation, La fiscalité des organismes municipaux (données de 2024)."
+    },
+    {
+      "cle": "promoteurs",
+      "nom": "Les constructeurs et les promoteurs immobiliers",
+      "court": "Constructeurs et promoteurs",
+      "couleur": "#B5663A",
+      "qui": "Ils bâtissent les maisons et les immeubles. Plusieurs sont membres de l'Association des professionnels de la construction et de l'habitation du Québec (APCHQ).",
+      "interets": [
+        "Trouver des terrains où construire.",
+        "Construire et vendre plus de logements."
+      ],
+      "proposition": "Construire beaucoup plus de logements, plus vite, avec des règles plus simples et des terrains plus faciles à obtenir.",
+      "arguments": [
+        "Selon la Société canadienne d'hypothèques et de logement, le Québec devrait bâtir 100 000 nouveaux logements par année d'ici 2035 pour que les prix redeviennent abordables.",
+        "Selon l'APCHQ, les règles de zonage rendent les terrains adaptés de plus en plus difficiles à trouver."
+      ],
+      "source": "Source : APCHQ, mémoire présenté pour le budget du Québec 2026-2027."
+    },
+    {
+      "cle": "familles",
+      "nom": "Les familles qui cherchent une maison",
+      "court": "Familles",
+      "couleur": "#C2913A",
+      "qui": "Des jeunes familles et des ménages qui veulent devenir propriétaires.",
+      "interets": [
+        "Avoir plus d'espace, une cour et des parcs près de la maison.",
+        "Payer un prix qu'elles peuvent se permettre."
+      ],
+      "proposition": "Pouvoir acheter une maison abordable, même si elle se trouve loin du centre, en banlieue.",
+      "arguments": [
+        "En avril 2026, le prix médian d'une maison unifamiliale atteint 645 000 $ dans la région métropolitaine. L'écart de prix se creuse entre l'île et les couronnes.",
+        "Les ménages qui choisissent la banlieue parlent du prix plus bas, des espaces verts et d'une densité plus faible."
+      ],
+      "source": "Source : Association professionnelle des courtiers immobiliers du Québec (avril 2026)."
+    },
+    {
+      "cle": "vivreenville",
+      "nom": "Vivre en Ville",
+      "court": "Vivre en Ville",
+      "couleur": "#2A8C82",
+      "qui": "Un organisme québécois qui aide les villes à se développer sans s'étaler.",
+      "interets": [
+        "Protéger les milieux naturels et les terres agricoles.",
+        "Créer des quartiers où l'on peut se déplacer à pied, à vélo ou en transport en commun."
+      ],
+      "proposition": "Croître sans s'étaler : bâtir d'abord dans la ville existante, sur les terrains vacants, les friches et les stationnements. La croissance se concentre dans les centres et le long des axes de transport collectif.",
+      "arguments": [
+        "Les terrains vacants, les friches et les grands stationnements offrent de la place pour construire sans toucher aux terres agricoles.",
+        "Des quartiers plus denses rapprochent les gens des services et raccourcissent les trajets."
+      ],
+      "source": "Source : Vivre en Ville, Croître sans s'étaler : les outils (2018)."
+    },
+    {
+      "cle": "quebec",
+      "nom": "Le gouvernement du Québec",
+      "court": "Gouvernement du Québec",
+      "couleur": "#3E6E9E",
+      "qui": "Il adopte les lois, comme celle qui protège le territoire agricole. Il finance aussi les grands projets.",
+      "interets": [
+        "Garder des terres pour nourrir la population.",
+        "Régler la crise du logement."
+      ],
+      "proposition": "Protéger davantage les meilleures terres agricoles et bâtir des milieux de vie complets, où l'on peut se déplacer sans auto, tout en répondant au besoin de logements.",
+      "arguments": [
+        "Sa Politique nationale de l'architecture et de l'aménagement du territoire, dévoilée en 2022, veut « offrir une protection accrue aux terres agricoles de meilleure qualité ».",
+        "En décembre 2024, il dépose le projet de loi 86 pour assurer la pérennité du territoire agricole."
+      ],
+      "source": "Sources : gouvernement du Québec, Politique nationale de l'architecture et de l'aménagement du territoire (2022); projet de loi 86 (2024)."
+    }
+  ],
+  "textes": {
+    "questionSur": "L'enjeu",
+    "groupes": "Les groupes en présence",
+    "documents": "Les documents",
+    "masquer": "Masquer le texte",
+    "afficher": "Afficher le texte",
+    "qui": "Qui est-ce?",
+    "interets": "Ses intérêts",
+    "proposition": "Sa proposition",
+    "arguments": "Ses arguments",
+    "evaluer": "Évalue la proposition",
+    "evaluerAide": "Choisis une réponse pour chaque critère. Clique de nouveau sur une réponse pour l'effacer.",
+    "tableau": "Ton tableau de comparaison",
+    "bilan": "Score",
+    "legende": "Oui vaut 2 points, En partie vaut 1 point, Non vaut 0 point. Clique sur le nom d'un groupe pour revenir à sa fenêtre.",
+    "position": "Ma position",
+    "quelleProposition": "Quelle proposition appuies-tu?",
+    "quelCritere": "Quel critère compte le plus pour toi?",
+    "justifier": "Justifie ta position",
+    "amorce": "Pour t'aider : « J'appuie la proposition de… parce que… Elle a toutefois une limite :… »",
+    "voirSynthese": "Voir ma synthèse",
+    "synthese": "Ma synthèse",
+    "annonceReinit": "Interface réinitialisée",
+    "depart": "Départ",
+    "commencer": "Commencer avec le premier groupe",
+    "precedent": "Précédent",
+    "suivant": "Suivant",
+    "voirBilan": "Voir le bilan",
+    "groupe": "Groupe",
+    "sur": "sur",
+    "parcours": "Les étapes",
+    "evaluationComplete": "Évaluation complète",
+    "evaluationPartielle": "critères évalués sur",
+    "bilanFenetre": "Le bilan",
+    "bilanIntro": "Compare les propositions que tu as évaluées, puis prends position.",
+    "evaluees": "Propositions évaluées",
+    "aCompleter": "Il reste à évaluer :"
+  }
+}
+</script>
+
+<script>
+(function () {
+  "use strict";
+  var NB = " ";
+  function chaque(liste, f) { Array.prototype.forEach.call(liste, f); }
+  function echapper(t) { return String(t == null ? "" : t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  var PALETTE = ["#6E8B3D", "#2D5A97", "#8A5A9E", "#B5663A", "#C2913A", "#2A8C82", "#3E6E9E", "#9E3E5A"];
+  // Libellés de l'interface s'ils manquent dans les données (le contenu, lui, vient toujours du JSON).
+  var DEFAUTS = { depart: "Départ", commencer: "Commencer", precedent: "Précédent", suivant: "Suivant", voirBilan: "Voir le bilan",
+    groupe: "Groupe", sur: "sur", parcours: "Les étapes", bilanFenetre: "Le bilan", evaluer: "Évalue la proposition",
+    evaluationComplete: "Évaluation complète", evaluationPartielle: "critères évalués sur", evaluees: "Propositions évaluées",
+    aCompleter: "Il reste à évaluer\u00a0:", tableau: "Ton tableau de comparaison", bilan: "Score", position: "Ma position",
+    quelleProposition: "Quelle proposition appuies-tu?", quelCritere: "Quel critère compte le plus pour toi?", justifier: "Justifie ta position",
+    voirSynthese: "Voir ma synthèse", synthese: "Ma synthèse", masquer: "Masquer le texte", afficher: "Afficher le texte",
+    qui: "Qui est-ce?", interets: "Ses intérêts", proposition: "Sa proposition", arguments: "Ses arguments", annonceReinit: "Interface réinitialisée" };
+
+  function demarrer(racine, D) {
+    var T = {}; Object.keys(DEFAUTS).forEach(function (k) { T[k] = DEFAUTS[k]; }); Object.keys(D.textes || {}).forEach(function (k) { T[k] = D.textes[k]; });
+    var $ = function (s) { return racine.querySelector(s); };
+    var GROUPES = D.groupes || [], CRITERES = D.criteres || [], ECHELLE = D.echelle || [];
+    var MAX = 0; ECHELLE.forEach(function (e) { MAX = Math.max(MAX, e.valeur); });
+    var PAR_CLE = {}; GROUPES.forEach(function (g, i) { g.couleur = g.couleur || PALETTE[i % PALETTE.length]; PAR_CLE[g.cle] = g; });
+    var NOM_NOTE = {}; ECHELLE.forEach(function (e) { NOM_NOTE[e.valeur] = e.nom; });
+    var DERNIERE = GROUPES.length + 1; // 0 = départ, 1 à N = groupes, N + 1 = bilan
+    var reduit = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    var etat, justifTexte = "";
+    function etatDepart() { return { fenetre: 0, notes: {}, appui: null, priorite: null, synthese: false }; }
+    etat = etatDepart();
+
+    $(".enj__titre").textContent = D.titre || "";
+    $(".enj__consigne").textContent = D.consigne || "";
+    $(".enj__parcours-nom").textContent = T.parcours;
+    $(".enj__parcours").setAttribute("aria-label", T.parcours);
+    var replier = $(".enj__replier"); replier.textContent = T.masquer;
+    var zoneEtapes = $(".enj__etapes"), fenetre = $(".enj__fenetre"), scene = $(".enj__scene"), annonce = racine.querySelector(".enj__annonce");
+    var btPrec = $(".enj__nav-bouton--precedent"), btSuiv = $(".enj__nav-bouton--suivant"), milieu = $(".enj__nav-milieu");
+    btPrec.textContent = T.precedent;
+    function dire(t) { if (annonce) { annonce.textContent = t; } }
+
+    zoneEtapes.innerHTML =
+      '<button type="button" class="enj__etape enj__etape--bout" data-fenetre="0"><span class="enj__etape-nom">' + echapper(T.depart) + "</span></button>" +
+      GROUPES.map(function (g, i) {
+        return '<button type="button" class="enj__etape" data-fenetre="' + (i + 1) + '" style="--enj-c:' + echapper(g.couleur) + '" aria-label="' + echapper(T.groupe + " " + (i + 1) + NB + ": " + (g.court || g.nom)) + '"><span class="enj__num" aria-hidden="true">' + (i + 1) + '</span><span class="enj__etape-nom" aria-hidden="true">' + echapper(g.court || g.nom) + "</span></button>";
+      }).join("") +
+      '<button type="button" class="enj__etape enj__etape--bout" data-fenetre="' + DERNIERE + '"><span class="enj__etape-nom">' + echapper(T.bilanFenetre) + "</span></button>";
+
+    function nbNotes(cle) { var n = etat.notes[cle], k = 0; if (n) { CRITERES.forEach(function (c) { if (n[c.cle] != null) { k++; } }); } return k; }
+    function total(cle) { var n = etat.notes[cle], t = 0; if (n) { CRITERES.forEach(function (c) { if (n[c.cle] != null) { t += n[c.cle]; } }); } return t; }
+    function complets() { return GROUPES.filter(function (g) { return nbNotes(g.cle) === CRITERES.length; }); }
+    function liste(items, couleur) {
+      return '<ul class="enj__liste" style="--enj-c:' + echapper(couleur) + '">' + (items || []).map(function (t) { return '<li><span class="enj__puce" aria-hidden="true"></span>' + echapper(t) + "</li>"; }).join("") + "</ul>";
+    }
+    function titreId() { return racine.id + "-titre"; }
+
+    // ------------------------------------------------------------ fenêtre de départ
+    function fenetreDepart() {
+      return '<p class="enj__surtitre">' + echapper(T.questionSur || "") + '</p>' +
+        '<p class="enj__fenetre-titre enj__question-texte" tabindex="-1">' + echapper(D.question || "") + "</p>" +
+        '<p class="enj__intro">' + echapper(D.intro || "") + "</p>" +
+        '<div class="enj__docs">' + (D.documents || []).map(function (d) {
+          return '<div class="enj__doc' + (d.type === "reference" ? " enj__doc--reference" : "") + '"><p class="enj__doc-nom">' + echapper(d.titre) + "</p>" +
+            (d.paragraphes || []).map(function (p) { return '<p class="enj__texte enj__repliable">' + echapper(p) + "</p>"; }).join("") +
+            (d.chiffres && d.chiffres.length ? '<div class="enj__chiffres">' + d.chiffres.map(function (c) { return '<div class="enj__chiffre"><span class="enj__chiffre-valeur">' + echapper(c.valeur) + '</span><span class="enj__chiffre-texte">' + echapper(c.texte) + "</span></div>"; }).join("") + "</div>" : "") +
+            (d.source ? '<p class="enj__source">' + echapper(d.source) + "</p>" : "") + "</div>";
+        }).join("") + "</div>";
+    }
+
+    // ------------------------------------------------------------ fenêtre d'un groupe : texte et évaluation
+    function etatEval(g) {
+      var k = nbNotes(g.cle);
+      return k === CRITERES.length ? T.evaluationComplete : k + " " + T.evaluationPartielle + " " + CRITERES.length;
+    }
+    function fenetreGroupe(i) {
+      var g = GROUPES[i - 1], n = etat.notes[g.cle] || {};
+      return '<div style="--enj-c:' + echapper(g.couleur) + '">' +
+        '<p class="enj__surtitre"><span class="enj__pastille" aria-hidden="true"></span>' + echapper(T.groupe + " " + i + " " + T.sur + " " + GROUPES.length) + "</p>" +
+        '<p class="enj__fenetre-titre" tabindex="-1">' + echapper(g.nom) + "</p>" +
+        '<div class="enj__groupe-grille"><div class="enj__presentation">' +
+          '<p class="enj__texte">' + echapper(g.qui) + "</p>" +
+          '<div class="enj__proposition"><span class="enj__proposition-nom">' + echapper(T.proposition) + "</span><p>" + echapper(g.proposition) + "</p></div>" +
+          '<div class="enj__bloc enj__repliable"><p class="enj__bloc-nom">' + echapper(T.interets) + "</p>" + liste(g.interets, g.couleur) + "</div>" +
+          '<div class="enj__bloc enj__repliable"><p class="enj__bloc-nom">' + echapper(T.arguments) + "</p>" + liste(g.arguments, g.couleur) + "</div>" +
+          (g.source ? '<p class="enj__source">' + echapper(g.source) + "</p>" : "") +
+        '</div><div class="enj__eval">' +
+          '<p class="enj__section-nom">' + echapper(T.evaluer) + "</p>" +
+          '<p class="enj__etat-eval' + (nbNotes(g.cle) === CRITERES.length ? " est-complete" : "") + '">' + echapper(etatEval(g)) + "</p>" +
+          '<p class="enj__aide">' + echapper(T.evaluerAide || "") + "</p>" +
+          CRITERES.map(function (c) {
+            return '<div class="enj__critere"><div><p class="enj__critere-nom">' + echapper(c.nom) + '</p><p class="enj__critere-aide">' + echapper(c.aide) + '</p></div><span class="enj__echelle" role="group" aria-label="' + echapper(c.nom) + '">' +
+              ECHELLE.map(function (e) { return '<button type="button" class="enj__note" data-critere="' + echapper(c.cle) + '" data-valeur="' + e.valeur + '" aria-pressed="' + (n[c.cle] === e.valeur ? "true" : "false") + '">' + echapper(e.nom) + "</button>"; }).join("") +
+              "</span></div>";
+          }).join("") +
+        "</div></div></div>";
+    }
+
+    // ------------------------------------------------------------ fenêtre du bilan
+    function tableau() {
+      var tete = '<tr><th scope="col">' + echapper(T.groupes || "") + "</th>" + CRITERES.map(function (c) { return '<th scope="col">' + echapper(c.court || c.nom) + "</th>"; }).join("") + '<th scope="col">' + echapper(T.bilan) + "</th></tr>";
+      var corps = GROUPES.map(function (g, i) {
+        var n = etat.notes[g.cle] || {};
+        return '<tr' + (etat.appui === g.cle ? ' class="est-appuyee"' : "") + '><th scope="row"><button type="button" class="enj__ligne-nom" data-fenetre="' + (i + 1) + '" style="--enj-c:' + echapper(g.couleur) + '"><span class="enj__pastille" aria-hidden="true"></span>' + echapper(g.court || g.nom) + "</button></th>" +
+          CRITERES.map(function (c) {
+            var v = n[c.cle];
+            return "<td>" + (v == null ? '<span class="enj__case enj__case--vide" aria-label="non évalué">·</span>' : '<span class="enj__case enj__case--' + v + '">' + echapper(NOM_NOTE[v]) + "</span>") + "</td>";
+          }).join("") +
+          '<td class="enj__score">' + (nbNotes(g.cle) ? total(g.cle) + NB + "/" + NB + (MAX * CRITERES.length) : "·") + "</td></tr>";
+      }).join("");
+      return '<p class="enj__section-nom">' + echapper(T.tableau) + '</p><div class="enj__tableau-defile"><table class="enj__tableau"><thead>' + tete + "</thead><tbody>" + corps + '</tbody></table><p class="enj__legende">' + echapper(T.legende || "") + "</p></div>";
+    }
+    function reste() {
+      var manquent = GROUPES.map(function (g, i) { return { g: g, i: i + 1 }; }).filter(function (x) { return nbNotes(x.g.cle) < CRITERES.length; });
+      var ligne = "<strong>" + echapper(T.evaluees) + NB + ":</strong> " + complets().length + " " + T.sur + " " + GROUPES.length + ".";
+      if (manquent.length) {
+        ligne += " " + echapper(T.aCompleter) + '<span class="enj__reste-liens">' + manquent.map(function (x) { return '<button type="button" class="enj__outil" data-fenetre="' + x.i + '">' + echapper(x.g.court || x.g.nom) + "</button>"; }).join("") + "</span>";
+      }
+      return '<p class="enj__reste">' + ligne + "</p>";
+    }
+    function fenetreBilan() {
+      return '<p class="enj__fenetre-titre" tabindex="-1">' + echapper(T.bilanFenetre) + "</p>" +
+        '<p class="enj__bilan-intro">' + echapper(T.bilanIntro || "") + "</p>" +
+        '<div class="enj__reste-bloc">' + reste() + "</div>" +
+        '<div class="enj__tableau-bloc">' + tableau() + "</div>" +
+        '<div class="enj__position"><p class="enj__section-nom">' + echapper(T.position) + "</p>" +
+          '<p class="enj__question-pos">' + echapper(T.quelleProposition) + '</p><div class="enj__choix" role="group" aria-label="' + echapper(T.quelleProposition) + '">' +
+          GROUPES.map(function (g) { return '<button type="button" class="enj__outil" data-appui="' + echapper(g.cle) + '" aria-pressed="' + (etat.appui === g.cle ? "true" : "false") + '">' + echapper(g.court || g.nom) + "</button>"; }).join("") + "</div>" +
+          '<p class="enj__question-pos">' + echapper(T.quelCritere) + '</p><div class="enj__choix" role="group" aria-label="' + echapper(T.quelCritere) + '">' +
+          CRITERES.map(function (c) { return '<button type="button" class="enj__outil" data-priorite="' + echapper(c.cle) + '" aria-pressed="' + (etat.priorite === c.cle ? "true" : "false") + '">' + echapper(c.court || c.nom) + "</button>"; }).join("") + "</div>" +
+          '<p class="enj__question-pos"><label for="' + racine.id + '-justif">' + echapper(T.justifier) + "</label></p>" +
+          '<textarea class="enj__justif" id="' + racine.id + '-justif" rows="4"></textarea><p class="enj__amorce">' + echapper(T.amorce || "") + "</p>" +
+          '<div class="enj__actions"><button type="button" class="enj__principal" data-action="synthese">' + echapper(T.voirSynthese) + "</button></div>" +
+          '<div class="enj__synthese" hidden aria-live="polite"></div>' +
+        "</div>";
+    }
+
+    // Rétroaction : aucune bonne réponse imposée, des pistes pour mieux justifier.
+    function retroactions() {
+      var r = [], g = etat.appui ? PAR_CLE[etat.appui] : null, c = null;
+      CRITERES.forEach(function (x) { if (x.cle === etat.priorite) { c = x; } });
+      var evalues = complets();
+      if (!g) { r.push(["attention", "Choisis la proposition que tu appuies."]); return r; }
+      if (nbNotes(g.cle) < CRITERES.length) { r.push(["attention", "Évalue d'abord la proposition que tu appuies selon les " + CRITERES.length + " critères."]); }
+      if (evalues.length < 2) { r.push(["attention", "Évalue au moins une autre proposition pour pouvoir comparer."]); }
+      if (!c) { r.push(["attention", "Indique le critère qui compte le plus pour toi."]); }
+      var n = etat.notes[g.cle] || {};
+      if (c && n[c.cle] === 0) { r.push(["attention", "Tu dis que «" + NB + (c.court || c.nom) + NB + "» compte le plus, mais tu juges que cette proposition ne le respecte pas. Explique ce choix ou revois ton évaluation."]); }
+      if (c && n[c.cle] === MAX) { r.push(["ok", "Ton choix est cohérent avec ton critère le plus important."]); }
+      var meilleur = null;
+      evalues.forEach(function (x) { if (x.cle !== g.cle && total(x.cle) > total(g.cle) && (!meilleur || total(x.cle) > total(meilleur.cle))) { meilleur = x; } });
+      if (meilleur && nbNotes(g.cle) === CRITERES.length) { r.push(["attention", "La proposition «" + NB + (meilleur.court || meilleur.nom) + NB + "» obtient un meilleur score (" + total(meilleur.cle) + " points contre " + total(g.cle) + "). Explique pourquoi tu préfères quand même la tienne."]); }
+      var mots = (justifTexte || "").trim().split(/\s+/).filter(Boolean).length;
+      if (mots === 0) { r.push(["attention", "Écris ta justification."]); }
+      else if (mots < 20) { r.push(["attention", "Ta justification est courte. Ajoute un fait tiré d'un document ou d'un argument de groupe."]); }
+      else { r.push(["ok", "Ta justification est assez développée. Vérifie qu'elle s'appuie sur au moins un fait."]); }
+      return r;
+    }
+    function phrasePiste() {
+      var g = etat.appui ? PAR_CLE[etat.appui] : null;
+      if (!g || !nbNotes(g.cle)) { return ""; }
+      var n = etat.notes[g.cle] || {}, pour = [], contre = [];
+      CRITERES.forEach(function (c) { if (n[c.cle] === MAX) { pour.push(c.oui); } else if (n[c.cle] === 0) { contre.push(c.non); } });
+      var p = "J'appuie la proposition de «" + NB + (g.court || g.nom) + NB + "»";
+      if (pour.length) { p += " parce qu'elle " + pour.join(" et qu'elle ") + "."; } else { p += "."; }
+      if (contre.length) { p += " Elle a toutefois une limite" + NB + ": elle " + contre[0] + "."; }
+      return p;
+    }
+    function rendreSynthese() {
+      var boite = fenetre.querySelector(".enj__synthese");
+      if (!boite) { return; }
+      if (!etat.synthese) { boite.hidden = true; boite.innerHTML = ""; return; }
+      var g = etat.appui ? PAR_CLE[etat.appui] : null, c = null;
+      CRITERES.forEach(function (x) { if (x.cle === etat.priorite) { c = x; } });
+      var piste = phrasePiste();
+      boite.innerHTML =
+        '<p class="enj__section-nom">' + echapper(T.synthese) + "</p>" +
+        '<p class="enj__synthese-ligne"><strong>Proposition appuyée' + NB + ":</strong> " + echapper(g ? g.nom : "aucune") + (g && nbNotes(g.cle) ? " (" + total(g.cle) + NB + "/" + NB + (MAX * CRITERES.length) + ")" : "") + "</p>" +
+        '<p class="enj__synthese-ligne"><strong>Critère le plus important' + NB + ":</strong> " + echapper(c ? c.nom : "aucun") + "</p>" +
+        '<p class="enj__synthese-ligne"><strong>' + echapper(T.evaluees) + NB + ":</strong> " + complets().length + " " + T.sur + " " + GROUPES.length + "</p>" +
+        ((justifTexte || "").trim() ? '<p class="enj__synthese-ligne"><strong>Ma justification' + NB + ":</strong></p><p class=\"enj__citation\">" + echapper(justifTexte.trim()) + "</p>" : "") +
+        (piste ? '<p class="enj__synthese-ligne"><strong>Une phrase pour démarrer' + NB + ":</strong> " + echapper(piste) + "</p>" : "") +
+        '<ul class="enj__retro">' + retroactions().map(function (x) { return '<li class="est-' + x[0] + '">' + echapper(x[1]) + "</li>"; }).join("") + "</ul>";
+      boite.hidden = false;
+    }
+
+    // ------------------------------------------------------------ rendu d'ensemble
+    function rendreEtapes() {
+      chaque(zoneEtapes.querySelectorAll(".enj__etape"), function (b) {
+        var i = Number(b.getAttribute("data-fenetre"));
+        if (i === etat.fenetre) { b.setAttribute("aria-current", "step"); } else { b.removeAttribute("aria-current"); }
+        if (i >= 1 && i <= GROUPES.length) {
+          var k = nbNotes(GROUPES[i - 1].cle);
+          b.classList.toggle("est-complete", k === CRITERES.length);
+          b.classList.toggle("est-partielle", k > 0 && k < CRITERES.length);
+          b.setAttribute("title", etatEval(GROUPES[i - 1]));
+        }
+      });
+    }
+    function rendreNav() {
+      var f = etat.fenetre;
+      btPrec.hidden = f === 0;
+      btSuiv.hidden = f === DERNIERE;
+      btSuiv.textContent = f === 0 ? T.commencer : (f === GROUPES.length ? T.voirBilan : T.suivant);
+      milieu.textContent = f === 0 ? T.depart : (f === DERNIERE ? T.bilanFenetre : T.groupe + " " + f + " " + T.sur + " " + GROUPES.length);
+    }
+    function rendreFenetre() {
+      var f = etat.fenetre;
+      fenetre.innerHTML = f === 0 ? fenetreDepart() : (f === DERNIERE ? fenetreBilan() : fenetreGroupe(f));
+      var titre = fenetre.querySelector(".enj__fenetre-titre");
+      if (titre) { titre.id = titreId(); }
+      fenetre.setAttribute("aria-labelledby", titreId());
+      var j = fenetre.querySelector(".enj__justif");
+      if (j) { j.value = justifTexte; j.addEventListener("input", function () { justifTexte = j.value; if (etat.synthese) { rendreSynthese(); } }); }
+      rendreSynthese();
+    }
+    function tout() { rendreEtapes(); rendreNav(); rendreFenetre(); }
+
+    function aller(i, avecFocus) {
+      i = Math.max(0, Math.min(DERNIERE, Number(i) || 0));
+      var sens = i >= etat.fenetre ? 1 : -1;
+      etat.fenetre = i;
+      tout();
+      scene.scrollTop = 0;
+      if (!reduit) {
+        fenetre.style.setProperty("--enj-dx", (sens * 12) + "px");
+        fenetre.classList.remove("est-entree"); void fenetre.offsetWidth; fenetre.classList.add("est-entree");
+      }
+      if (avecFocus) {
+        var t = fenetre.querySelector(".enj__fenetre-titre");
+        if (t && t.focus) { t.focus({ preventScroll: true }); }
+        var haut = racine.getBoundingClientRect ? racine.getBoundingClientRect().top : 0;
+        if (haut < 0 && racine.scrollIntoView && !racine.classList.contains("est-plein-ecran")) { racine.scrollIntoView({ block: "start", behavior: reduit ? "auto" : "smooth" }); }
+      }
+      dire(i === 0 ? T.depart : (i === DERNIERE ? T.bilanFenetre : T.groupe + " " + i + " " + T.sur + " " + GROUPES.length + NB + ": " + GROUPES[i - 1].nom));
+    }
+    function noter(critere, valeur) {
+      var f = etat.fenetre;
+      if (f < 1 || f > GROUPES.length) { return; }
+      var cle = GROUPES[f - 1].cle;
+      var n = etat.notes[cle] || (etat.notes[cle] = {});
+      if (n[critere] === valeur) { delete n[critere]; } else { n[critere] = valeur; }
+      rendreEtapes();
+      chaque(fenetre.querySelectorAll('.enj__note[data-critere="' + critere + '"]'), function (b) { b.setAttribute("aria-pressed", n[critere] === Number(b.getAttribute("data-valeur")) ? "true" : "false"); });
+      var e = fenetre.querySelector(".enj__etat-eval");
+      if (e) { e.textContent = etatEval(GROUPES[f - 1]); e.classList.toggle("est-complete", nbNotes(cle) === CRITERES.length); }
+    }
+    function reinitialiser() {
+      etat = etatDepart();
+      justifTexte = "";
+      tout();
+      scene.scrollTop = 0;
+      dire(T.annonceReinit);
+    }
+
+    racine.addEventListener("click", function (ev) {
+      var cible = ev.target.closest ? ev.target.closest("button") : null;
+      if (!cible || !racine.contains(cible)) { return; }
+      if (cible.classList.contains("plein-ecran") || cible.classList.contains("reinitialiser")) { return; }
+      if (cible.hasAttribute("data-fenetre")) {
+        var i = Number(cible.getAttribute("data-fenetre"));
+        // Un second clic sur l'étape en cours ramène au départ (désélection).
+        if (cible.classList.contains("enj__etape") && i === etat.fenetre && i !== 0) { aller(0, true); return; }
+        aller(i, true); return;
+      }
+      if (cible.hasAttribute("data-critere")) { noter(cible.getAttribute("data-critere"), Number(cible.getAttribute("data-valeur"))); return; }
+      if (cible.hasAttribute("data-appui")) { var a = cible.getAttribute("data-appui"); etat.appui = etat.appui === a ? null : a; chaque(fenetre.querySelectorAll("[data-appui]"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-appui") === etat.appui ? "true" : "false"); }); var tb = fenetre.querySelector(".enj__tableau-bloc"); if (tb) { tb.innerHTML = tableau(); } if (etat.synthese) { rendreSynthese(); } return; }
+      if (cible.hasAttribute("data-priorite")) { var p = cible.getAttribute("data-priorite"); etat.priorite = etat.priorite === p ? null : p; chaque(fenetre.querySelectorAll("[data-priorite]"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-priorite") === etat.priorite ? "true" : "false"); }); if (etat.synthese) { rendreSynthese(); } return; }
+      var action = cible.getAttribute("data-action");
+      if (action === "precedent") { aller(etat.fenetre - 1, true); return; }
+      if (action === "suivant") { aller(etat.fenetre + 1, true); return; }
+      if (action === "synthese") { etat.synthese = true; rendreSynthese(); var bx = fenetre.querySelector(".enj__synthese"); if (bx && bx.scrollIntoView) { bx.scrollIntoView({ block: "nearest", behavior: reduit ? "auto" : "smooth" }); } return; }
+      if (action === "texte") {
+        var masque = racine.classList.toggle("texte-masque");
+        cible.setAttribute("aria-expanded", masque ? "false" : "true");
+        cible.textContent = masque ? T.afficher : T.masquer;
+      }
+    });
+    racine.addEventListener("keydown", function (ev) {
+      var tag = ev.target && ev.target.tagName;
+      if (tag === "TEXTAREA" || tag === "INPUT") { return; }
+      if (ev.key === "ArrowRight" && etat.fenetre < DERNIERE) { ev.preventDefault(); aller(etat.fenetre + 1, true); }
+      else if (ev.key === "ArrowLeft" && etat.fenetre > 0) { ev.preventDefault(); aller(etat.fenetre - 1, true); }
+      else if (ev.key === "Escape" && etat.fenetre !== 0) { aller(0, true); }
+    });
+    racine.addEventListener("reinitialiser", reinitialiser);
+
+    tout();
+    // Accès pour les essais automatiques.
+    racine.enjeu = { aller: aller, noter: noter, reinitialiser: reinitialiser, donnees: D,
+      suivant: function () { aller(etat.fenetre + 1); }, precedent: function () { aller(etat.fenetre - 1); },
+      etat: function () { return { fenetre: etat.fenetre, notes: JSON.parse(JSON.stringify(etat.notes)), appui: etat.appui, priorite: etat.priorite, synthese: etat.synthese, justification: justifTexte }; },
+      total: total, retroactions: retroactions, phrasePiste: phrasePiste, derniere: DERNIERE };
+  }
+
+  chaque(document.querySelectorAll("section.enj"), function (racine) {
+    if (racine.getAttribute("data-pret") === "1") { return; }
+    var bloc = racine.querySelector("script.enj__donnees");
+    if (!bloc) { return; }
+    var D;
+    try { D = JSON.parse(bloc.textContent); } catch (err) { racine.setAttribute("data-erreur", "données illisibles"); return; }
+    racine.setAttribute("data-pret", "1");
+    racine.classList.add("est-pret");
+    demarrer(racine, D);
+  });
+})();
+</script>
+</section>

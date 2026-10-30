@@ -1,0 +1,654 @@
+<section class="mtr" id="montreal-transport" data-reinitialiser aria-label="Carte interactive : le transport collectif de la région de Montréal, par étages">
+<style>
+.mtr { --mtr-verte: #00A651; --mtr-orange: #F08123; --mtr-jaune: #F2C500; --mtr-bleue: #0083CA; --mtr-rem: #7FB51F; --mtr-exo: #5A4B8C; --mtr-srb: #C2266E; --mtr-terre: #F1EEE6; --mtr-hors: #E9E6DF; --mtr-eau: #A9CFEC; --mtr-eau-nom: #2D5F8A; --mtr-bord: #C9C2B3; --mtr-halo: #FBFBF8; --mtr-gaine: #FFFFFF; --mtr-viaduc: #2B3138; --mtr-tirets: #FFFFFF; --mtr-station: #FFFFFF; --mtr-station-trait: #1A2530; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: mtr / inline-size; }
+html[data-sombre="on"] .mtr { --mtr-verte: #2FC271; --mtr-orange: #F59A4A; --mtr-jaune: #F5D33A; --mtr-bleue: #3DA5E6; --mtr-rem: #9ACD3C; --mtr-exo: #A796E0; --mtr-srb: #EA5C9E; --mtr-terre: #26313C; --mtr-hors: #1D262F; --mtr-eau: #17324A; --mtr-eau-nom: #9CC7EC; --mtr-bord: #3D4A57; --mtr-halo: #18222D; --mtr-gaine: #18222D; --mtr-viaduc: #E8E3D8; --mtr-tirets: #18222D; --mtr-station: #18222D; --mtr-station-trait: #F1EEE7; }
+.mtr .mtr__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mtr .mtr__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mtr .mtr__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .mtr .mtr__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mtr .mtr__titre { color: var(--encre); }
+html[data-sombre="on"] .mtr .mtr__consigne { color: var(--encre-pale); }
+.mtr .mtr__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.mtr .mtr__visuel, .mtr .mtr__lecture { min-width: 0; }
+.mtr .mtr__etages { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; padding: .6rem 1.2rem; border-bottom: 1px solid var(--trait); }
+.mtr .mtr__etages-titre { margin: 0 .3rem 0 0; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtr .mtr__etage { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; }
+.mtr .mtr__etage:hover { background: var(--matiere-voile); }
+.mtr .mtr__etage:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__etage[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .mtr .mtr__etage[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.mtr .mtr__carte { position: relative; background: var(--mtr-hors); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.mtr .mtr__svg { display: block; width: 100%; height: auto; max-height: 76vh; user-select: none; -webkit-user-select: none; }
+.mtr.est-glisse .mtr__svg { cursor: grabbing; }
+.mtr__fond { fill: var(--mtr-hors); }
+.mtr__terre { fill: var(--mtr-terre); stroke: var(--mtr-bord); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.mtr__bords { fill: none; stroke: var(--mtr-bord); stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+.mtr__eau-forme { fill: var(--mtr-eau); stroke: none; }
+.mtr__ligne { --c: var(--encre-pale); cursor: pointer; transition: opacity .25s; }
+.mtr__ligne[data-ligne="verte"] { --c: var(--mtr-verte); }
+.mtr__ligne[data-ligne="orange"] { --c: var(--mtr-orange); }
+.mtr__ligne[data-ligne="jaune"] { --c: var(--mtr-jaune); }
+.mtr__ligne[data-ligne="bleue"] { --c: var(--mtr-bleue); }
+.mtr__ligne[data-ligne="rem"] { --c: var(--mtr-rem); }
+.mtr__ligne[data-ligne="vh"], .mtr__ligne[data-ligne="sj"], .mtr__ligne[data-ligne="msh"], .mtr__ligne[data-ligne="can"], .mtr__ligne[data-ligne="mas"] { --c: var(--mtr-exo); }
+.mtr__ligne[data-ligne="srb"] { --c: var(--mtr-srb); }
+.mtr__ligne path { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.mtr__gaine { stroke: var(--mtr-gaine); stroke-width: 6px; }
+.mtr__gaine--aerien { stroke: var(--mtr-viaduc); stroke-width: 7.5px; }
+.mtr__trace { stroke: var(--c); stroke-width: 3.6px; }
+.mtr__tirets { stroke: var(--mtr-tirets); stroke-width: 1.3px; stroke-dasharray: 3 4; stroke-linecap: butt !important; }
+.mtr__prise { stroke: transparent; stroke-width: 16px; }
+.mtr__ligne.est-estompe { opacity: .14; }
+.mtr__ligne.est-choisie .mtr__trace { stroke-width: 5.2px; }
+.mtr__ligne.est-choisie .mtr__gaine { stroke-width: 8px; }
+.mtr__ligne.est-choisie .mtr__gaine--aerien { stroke-width: 9.5px; }
+.mtr__station { fill: var(--mtr-station); stroke: var(--mtr-station-trait); cursor: pointer; transition: opacity .25s; }
+.mtr__station.est-estompe { opacity: .14; }
+.mtr__station.est-choisie { fill: var(--signal); stroke: var(--mtr-station-trait); }
+.mtr__station:hover { fill: var(--matiere-voile); }
+.mtr__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--mtr-halo); stroke-linejoin: round; pointer-events: none; }
+.mtr__etiquette--station { font-weight: 600; fill: var(--encre); }
+.mtr__etiquette--choisie { font-weight: 700; }
+.mtr__etiquette--eau { font-style: italic; font-weight: 500; fill: var(--mtr-eau-nom); }
+.mtr__etiquette--ville { font-family: var(--donnee) !important; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; fill: var(--encre-pale); }
+.mtr .mtr__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.mtr .mtr__vues { position: absolute; left: .55rem; top: .55rem; z-index: 2; display: flex; gap: .3rem; }
+.mtr .mtr__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.mtr .mtr__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mtr .mtr__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__bouton-carte[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); box-shadow: inset 0 0 0 1px var(--matiere); }
+.mtr .mtr__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.mtr .mtr__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.mtr:not(.est-plein-ecran) .mtr__replier { display: none; }
+.mtr ul > li::before, .mtr ol > li::before { content: none; display: none; }
+.mtr ul > li::marker, .mtr ol > li::marker { content: none; }
+.mtr .mtr__bas { display: grid; grid-template-columns: minmax(0, 1fr); gap: .5rem 1.2rem; padding: .6rem 1.2rem .8rem; border-bottom: 1px solid var(--trait); }
+.mtr .mtr__petit-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtr .mtr__coupe { display: block; width: 100%; height: auto; max-width: 26rem; }
+.mtr__coupe-ciel { fill: var(--surface-2); }
+.mtr__coupe-sol { fill: #C9B38F; }
+html[data-sombre="on"] .mtr__coupe-sol { fill: #4D4232; }
+.mtr__coupe-ligne-sol { stroke: #7A6447; stroke-width: 1.5; }
+html[data-sombre="on"] .mtr__coupe-ligne-sol { stroke: #A08A66; }
+.mtr__coupe-tunnel { fill: var(--surface); stroke: #7A6447; stroke-width: 1; }
+html[data-sombre="on"] .mtr__coupe-tunnel { fill: #1A232D; stroke: #A08A66; }
+.mtr__coupe-texte { font-family: var(--donnee); font-size: 8.5px; letter-spacing: .06em; text-transform: uppercase; fill: var(--encre-pale); }
+.mtr__coupe-nom { font-family: var(--titre); font-weight: 700; font-size: 9.5px; fill: var(--encre); paint-order: stroke; stroke: var(--surface); stroke-width: 2.4px; stroke-linejoin: round; }
+.mtr__coupe-groupe { cursor: pointer; transition: opacity .25s; }
+.mtr__coupe-groupe.est-estompe { opacity: .22; }
+.mtr__coupe-pilier { fill: var(--encre-pale); }
+.mtr__coupe-rem { fill: none; stroke: var(--mtr-rem); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.mtr__coupe-train { stroke: var(--mtr-station-trait); stroke-width: .8; }
+.mtr__coupe-train--metro { fill: var(--mtr-orange); }
+.mtr__coupe-train--exo { fill: var(--mtr-exo); }
+.mtr__coupe-train--srb { fill: var(--mtr-srb); }
+.mtr__coupe-train--rem { fill: var(--mtr-rem); }
+.mtr__coupe-fenetre { fill: #fff; opacity: .85; }
+.mtr .mtr__legende { display: flex; flex-direction: column; gap: .3rem; margin: 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .78rem; color: var(--encre-doux); }
+.mtr .mtr__legende > li { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; }
+.mtr__icone { width: 2.2rem; height: .8rem; flex: none; overflow: visible; }
+.mtr__icone path { fill: none; stroke-linecap: butt; }
+.mtr .mtr__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.mtr .mtr__vue { padding: 1rem 1.2rem 1rem; }
+.mtr .mtr__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.mtr .mtr__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtr .mtr__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.mtr .mtr__pastille { --c: var(--encre-pale); width: 1.4rem; height: .45rem; flex: none; border-radius: 100px; background: var(--c); }
+.mtr .mtr__pastille[data-ligne="verte"] { --c: var(--mtr-verte); }
+.mtr .mtr__pastille[data-ligne="orange"] { --c: var(--mtr-orange); }
+.mtr .mtr__pastille[data-ligne="jaune"] { --c: var(--mtr-jaune); }
+.mtr .mtr__pastille[data-ligne="bleue"] { --c: var(--mtr-bleue); }
+.mtr .mtr__pastille[data-ligne="rem"] { --c: var(--mtr-rem); }
+.mtr .mtr__pastille[data-ligne="vh"], .mtr .mtr__pastille[data-ligne="sj"], .mtr .mtr__pastille[data-ligne="msh"], .mtr .mtr__pastille[data-ligne="can"], .mtr .mtr__pastille[data-ligne="mas"] { --c: var(--mtr-exo); }
+.mtr .mtr__pastille[data-ligne="srb"] { --c: var(--mtr-srb); }
+.mtr .mtr__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.mtr .mtr__chiffres > div { min-width: 0; }
+.mtr .mtr__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.mtr .mtr__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .9rem; line-height: 1.3; color: var(--encre); }
+.mtr .mtr__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.mtr .mtr__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.mtr .mtr__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mtr .mtr__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.mtr .mtr__liste > li { margin: 0; padding: 0; }
+.mtr .mtr__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.mtr .mtr__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.mtr .mtr__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.mtr .mtr__choisir-val { flex: none; font-family: var(--donnee); font-size: .68rem; color: var(--encre-pale); }
+.mtr .mtr__groupe-titre { display: block; margin: .6rem 0 .3rem; font-family: var(--titre); font-weight: 700; font-size: .84rem; color: var(--matiere-fonce); }
+.mtr .mtr__stations { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.mtr .mtr__stations > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.mtr .mtr__stations > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.mtr .mtr__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.mtr .mtr__grille > li { margin: 0; padding: 0; }
+.mtr .mtr__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.mtr .mtr__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.mtr .mtr__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.mtr .mtr__puces { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.mtr .mtr__puces > li { margin: 0; padding: 0; }
+.mtr .mtr__puce { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .75rem .3rem .5rem; cursor: pointer; }
+.mtr .mtr__puce:hover { background: var(--matiere-voile); }
+.mtr .mtr__puce:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.mtr .mtr__retour:hover { background: var(--matiere-voile); }
+.mtr .mtr__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.mtr .mtr__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container mtr (min-width: 46rem) {
+  .mtr .mtr__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .mtr .mtr__visuel { border-right: 1px solid var(--trait); }
+  .mtr .mtr__lecture { border-top: 0; }
+  .mtr .mtr__bas { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; }
+}
+@container mtr (max-width: 30rem) {
+  .mtr .mtr__etages, .mtr .mtr__bas, .mtr .mtr__vue, .mtr .mtr__source { padding-left: .8rem; padding-right: .8rem; }
+  .mtr .mtr__etage { font-size: .74rem; padding: .28rem .65rem; }
+  .mtr .mtr__etages-titre { width: 100%; }
+  .mtr .mtr__bouton-carte { font-size: .72rem; }
+}
+.mtr.est-plein-ecran, .texte section.mtr.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.mtr.est-plein-ecran > .mtr__entete { flex: none; }
+.mtr.est-plein-ecran > .mtr__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.mtr.est-plein-ecran .mtr__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.mtr.est-plein-ecran .mtr__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.mtr.est-plein-ecran .mtr__svg, .texte .mtr.est-plein-ecran svg.mtr__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.mtr.est-plein-ecran .mtr__bas { flex: none; }
+.texte .mtr.est-plein-ecran svg.mtr__coupe { max-height: 7.5rem; width: auto; }
+.mtr.est-plein-ecran .mtr__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.mtr.est-plein-ecran > .mtr__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.mtr.est-plein-ecran.texte-masque > .mtr__corps { grid-template-columns: minmax(0, 1fr); }
+.mtr.est-plein-ecran.texte-masque .mtr__lecture { display: none; }
+.mtr.est-plein-ecran.texte-masque .mtr__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .mtr.est-plein-ecran > .mtr__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .mtr.est-plein-ecran .mtr__visuel { border-right: 0; }
+  .mtr.est-plein-ecran .mtr__bas { display: none; }
+  .mtr.est-plein-ecran .mtr__lecture { border-top: 1px solid var(--trait); }
+  .mtr.est-plein-ecran.texte-masque > .mtr__corps { grid-template-rows: minmax(0, 1fr); }
+  .mtr.est-plein-ecran > .mtr__source { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mtr__ligne, .mtr__station, .mtr__coupe-groupe { transition: none; }
+}
+@media print {
+  .mtr .mtr__outils, .mtr .mtr__vues, .mtr .mtr__replier, .mtr .mtr__etages { display: none; }
+  .mtr .mtr__svg { max-height: none; }
+  .mtr .mtr__corps { grid-template-columns: minmax(0, 1fr); }
+  .mtr .mtr__visuel { border-right: 0; }
+  .mtr { break-inside: avoid; }
+}
+</style>
+<div class="mtr__entete">
+<p class="mtr__titre" role="heading" aria-level="3">Le transport collectif par étages&nbsp;: sous terre, au sol et entre les deux</p>
+<p class="mtr__consigne">Choisis un étage, une ligne ou une station</p>
+</div>
+<div class="mtr__corps">
+<div class="mtr__visuel">
+<div class="mtr__etages" role="group" aria-labelledby="mtr-etages-titre">
+<p class="mtr__etages-titre" id="mtr-etages-titre">Étages</p>
+<button type="button" class="mtr__etage" data-etage="tous" aria-pressed="true">Tous</button>
+<button type="button" class="mtr__etage" data-etage="sous" aria-pressed="false">Souterrain</button>
+<button type="button" class="mtr__etage" data-etage="mixte" aria-pressed="false">Mixte</button>
+<button type="button" class="mtr__etage" data-etage="surface" aria-pressed="false">Surface</button>
+</div>
+<div class="mtr__carte">
+<svg class="mtr__svg" viewBox="80 190 880 616" role="img" aria-labelledby="mtr-svg-titre">
+<title id="mtr-svg-titre">Carte du métro, du REM, des trains de banlieue d'exo et du SRB Pie-IX dans la région de Montréal.</title>
+<rect class="mtr__fond" x="-2000" y="-2000" width="5000" height="5000"/>
+<path class="mtr__terre" d=""/>
+<path class="mtr__bords" d=""/>
+<g class="mtr__eau"></g>
+<g class="mtr__lignes"></g>
+<g class="mtr__stations-carte"></g>
+<g class="mtr__etiquettes"></g>
+</svg>
+<div class="mtr__vues" role="group" aria-label="Cadrage de la carte">
+<button type="button" class="mtr__bouton-carte mtr__vue-bouton" data-vue="region" aria-pressed="true">Région</button>
+<button type="button" class="mtr__bouton-carte mtr__vue-bouton" data-vue="centre" aria-pressed="false">Centre</button>
+</div>
+<button type="button" class="mtr__bouton-carte mtr__replier" aria-expanded="true">Masquer le texte</button>
+<div class="mtr__outils">
+<button type="button" class="mtr__bouton-carte mtr__zoom mtr__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="mtr__bouton-carte mtr__zoom mtr__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+</div>
+</div>
+<div class="mtr__bas">
+<div>
+<p class="mtr__petit-titre">Vue en coupe&nbsp;: à quelle hauteur roulent-ils?</p>
+<svg class="mtr__coupe" viewBox="0 0 330 168" role="img" aria-labelledby="mtr-coupe-titre">
+<title id="mtr-coupe-titre">Coupe&nbsp;: le REM passe d'un viaduc au sol puis sous terre; les trains et le SRB roulent au sol; le métro roule sous terre.</title>
+<rect class="mtr__coupe-ciel" x="0" y="0" width="330" height="72"/>
+<rect class="mtr__coupe-sol" x="0" y="72" width="330" height="96"/>
+<line class="mtr__coupe-ligne-sol" x1="0" y1="72" x2="330" y2="72"/>
+<text class="mtr__coupe-texte" x="4" y="12">Dans les airs</text>
+<text class="mtr__coupe-texte" x="4" y="66">Au sol</text>
+<text class="mtr__coupe-texte" x="4" y="86">Sous terre</text>
+<g class="mtr__coupe-groupe" data-etage="mixte">
+<rect class="mtr__coupe-tunnel" x="196" y="96" width="70" height="16" rx="3"/>
+<rect class="mtr__coupe-pilier" x="60" y="34" width="4" height="38"/>
+<rect class="mtr__coupe-pilier" x="92" y="34" width="4" height="38"/>
+<path class="mtr__coupe-rem" d="M44 32 H112 L150 68 H176 L204 104 H262"/>
+<rect class="mtr__coupe-train mtr__coupe-train--rem" x="66" y="23" width="30" height="8" rx="2.5"/>
+<text class="mtr__coupe-nom" x="100" y="20">REM</text>
+</g>
+<g class="mtr__coupe-groupe" data-etage="surface">
+<rect class="mtr__coupe-train mtr__coupe-train--exo" x="240" y="60" width="44" height="11" rx="2"/>
+<rect class="mtr__coupe-fenetre" x="245" y="62.5" width="34" height="3"/>
+<text class="mtr__coupe-nom" x="246" y="55">Train</text>
+<rect class="mtr__coupe-train mtr__coupe-train--srb" x="292" y="60" width="30" height="11" rx="3"/>
+<rect class="mtr__coupe-fenetre" x="296" y="62.5" width="22" height="3"/>
+<text class="mtr__coupe-nom" x="296" y="55">SRB</text>
+</g>
+<g class="mtr__coupe-groupe" data-etage="sous">
+<rect class="mtr__coupe-tunnel" x="60" y="122" width="96" height="20" rx="4"/>
+<rect class="mtr__coupe-train mtr__coupe-train--metro" x="68" y="127" width="58" height="11" rx="2.5"/>
+<rect class="mtr__coupe-fenetre" x="73" y="129.5" width="48" height="3"/>
+<text class="mtr__coupe-nom" x="132" y="136">Métro</text>
+</g>
+</svg>
+</div>
+<div>
+<p class="mtr__petit-titre">Sur la carte</p>
+<ul class="mtr__legende">
+<li><svg class="mtr__icone" viewBox="0 0 36 12" aria-hidden="true"><path d="M2 6h32" stroke="var(--mtr-gaine)" stroke-width="7"/><path d="M2 6h32" stroke="var(--encre-doux)" stroke-width="4"/><path d="M2 6h32" stroke="var(--mtr-tirets)" stroke-width="1.4" stroke-dasharray="3 4"/></svg><span>Tirets blancs&nbsp;: sous terre</span></li>
+<li><svg class="mtr__icone" viewBox="0 0 36 12" aria-hidden="true"><path d="M2 6h32" stroke="var(--mtr-gaine)" stroke-width="7"/><path d="M2 6h32" stroke="var(--encre-doux)" stroke-width="4"/></svg><span>Trait plein&nbsp;: au sol</span></li>
+<li><svg class="mtr__icone" viewBox="0 0 36 12" aria-hidden="true"><path d="M2 6h32" stroke="var(--mtr-viaduc)" stroke-width="8"/><path d="M2 6h32" stroke="var(--encre-doux)" stroke-width="4"/></svg><span>Bordure foncée&nbsp;: viaduc ou pont</span></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mtr__lecture">
+<div class="mtr__vue" tabindex="-1"></div>
+<p class="mtr__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="mtr__source">Tracés et stations&nbsp;: © les contributeurs d'OpenStreetMap, sous licence ODbL (openstreetmap.org/copyright), simplifiés; les étages du REM sont tirés des tunnels et des ponts indiqués dans OpenStreetMap. Faits sur les lignes&nbsp;: Wikipédia (métro de Montréal, REM, trains d'exo), gouvernement du Québec (ARTM) et Noovo (SRB Pie-IX), consultés en octobre 2026.</p>
+<script>
+/* Tracés et stations : © contributeurs d'OpenStreetMap, licence ODbL (https://www.openstreetmap.org/copyright). */
+(function () {
+  var racine = document.getElementById("montreal-transport");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":892,"cadre":{"x":80,"y":190,"w":880,"h":616},"centre":{"x":410,"y":446,"w":240},"eau":[{"d":"M602.5 539l-0.5 18 4 5 3.5 1.5 3 12.5 7 16-25.5-8.5 2-8.5-3-7.5-1-17-2 14-0.5-5.5-1.5 0-1 9 0-9-2 0.5-0.5-3 3.5-1-3.5 0 2-0.5-2-1 4-1-3.5 0 0.5-1.5 3.5 0 1-6-3 2.5 7-27.5 4-6 2.5-0.5-1-2 2.5-1.5-2 0.5 0.5-1.5 3-0.5-1-0.5 7.5-13-2 1.5 0.5-3-2 4-1.5-1 7.5-10.5-1.5-2 3-2 5.5-10.5 1.5-7.5-3.5-9.5-0.5-8.5 4-13 4-6.5-1.5-0.5 4.5-5-1 0.5 0.5-2 4-3.5-1.5 0.5 0.5-2.5 3.5-5-1-6 1.5-5-4.5-18 1.5-16 1-6 5-6.5 4.5-11 1.5-10.5 4-2.5 11-13 3-5.5 1 0.5-0.5-1 2-0.5 6-7 0.5-2.5-6 4.5 8.5-7-0.5-1 7.5-10.5 3.5-8 2 0-1-0.5 1 0-0.5-1 2.5-6 8.5-8.5 7.5-14 11-9.5 10.5-22.5 9.5-8 12-3.5 9.5-5.5 30.5-37 21-39 12.5-28.5 6-7.5 8-17 12.5-14.5 6.5-11 5.5-20.5 4-25 17 0-17.5 49-10 17.5-5 11.5-4.5 27.5 1.5 15-0.5 12-1.5 1-0.5-1.5-6.5 21-5.5 8-2.5 8-11.5 11.5-9.5 2.5-6.5 4.5-2 5.5-8 9-2.5 1-1 4.5-2-0.5-9.5 8.5 0 2-3.5 3-4 8-9 10.5-6.5 4.5-7 10-19.5 12-5 8-5.5 6-39.5 50 0 7-5.5 14-1 8-1-0.5-1 4 0 7.5 2 3-1.5 14-2.5 11.5 1 1.5-0.5 6.5-5.5 12.5-3 12.5 0 14.5-2 10-2.5 5.5-1.5 0.5 1 0.5-1.5 2.5 0.5-2.5-1.5 1 0.5 1.5-5 8.5-1-0.5 0.5 1.5-9.5 11-1.5-1 1 1.5-3.5 6-1-0.5 1 1-3.5 3.5 0 3 0-1.5-1 2-2-1 1.5 2-6.5 11.5-1.5-0.5-2 1.5-4 4.5 2.5-2.5 1 1.5-3 2.5-1-1.5-0.5 4.5-2 0.5 1 1-2 0-1 2-2.5-0.5 0.5 8.5-1.5 0.5 0.5 3.5-1.5 0.5zM833 121.5l2.5-4.5 0-20 1.5-4-2.5 3.5-2 11.5 2-5.5 1 0.5-1.5 10 1 3.5zM599 552l2.5-9-1.5-11.5-3-2 3-2-1.5-2.5-4.5 9.5 2 13.5zM632 466l-1 2.5-3-0.5 4 1.5-3 1.5-1.5-1.5 1 2-1 2.5 1.5-2.5 2.5 0.5 0 2.5 2 2 4.5-3 5.5-9.5-2 0 4.5-4.5-5.5 1 6-1.5 4-5 2-7.5-9 8-8.5 4zM647 397.5l-0.5 3.5 4.5-1.5 3.5-5.5-0.5-5 1 3 1.5-1 0-3 5-10.5 0.5-9-1-3-2.5 8.5-2.5 3.5-3 8.5-5 6.5zM642.5 385.5l-0.5 3 7.5-6 0-3.5-5 2zM639 385l11.5-9.5 3.5-5 2-9.5-1-12.5 0.5-7.5-8.5 8.5-5.5 1-3.5 7.5-1.5 16 0.5 7 3 9.5 2.5-6.5zM644.5 342l6.5-3.5 2.5 0.5 2.5-4.5-5.5-0.5-2.5 1.5-2.5 2zM696 282.5l-1.5 0-5 5-1.5 3.5 0 3.5 4.5-3.5 3-5.5-3 0 3.5-1.5zM711.5 256.5l-6 7.5-7.5 13 6 0 1.5-3.5 12.5-14 13.5-10 0.5-2.5-9.5 6.5-7.5-1zM731 246.5l38.5-36 16-22-4 4.5-8 2-4 3-4.5 7.5-7.5 5.5-15 7.5-4 8 0-2-10.5 7.5-11 17.5 5.5 2zM728 231l6.5-3.5 7-8.5-3-0.5-6 5zM787 163.5l-9.5 9.5-1 3 7-6zM812 169l-2-4.5-2 1.5-3 5.5-0.5 4-3 6 12.5-3.5 2-3-4.5 1.5 4-2-2 0 1.5-0.5-3-5-1.5 2-1.5 0 1-2.5zM829 125l4.5-3 1.5-19.5-5.5 15.5zM825 145l2 0 3.5-5 1.5-6-6.5 8.5zM812 168.5l2.5 4.5 1.5 0.5 6-5 3.5-7.5-2.5-0.5 3.5-1.5 1.5-3-5 1 6.5-5 4-15-18.5 25.5zM645 425l-1 5.5 5.5 2 3-1.5 3-14 3-8.5-1.5-4.5-5 1.5-2.5 2.5zM635.5 436l-2-1-3.5 5 1 2-2 8.5 0 5.5 3.5-4.5 5-19-1-3zM638 445l-1 5 3.5 2 11.5-6.5-9.5-1.5zM638.5 441.5l0.5 3 3.5-1 9 1.5 1.5-3-0.5-10.5-3 1.5-4.5-2zM643.5 415.5l-4.5 5.5 0.5 3-2 1.5-0.5 3.5 1 2 1-5.5 5-4z"},{"d":"M341 711l2-3 5-0.5 11.5-4.5-3.5-3.5 1.5-2-1-0.5 0.5-2-2.5 0.5-3.5-3-1 1.5-3.5 0.5-2 2.5-5.5 2-2.5-0.5-7.5-7-6.5-11 0-3.5 4.5-2-1-2.5-4-2-5 2-0.5 2-3 1.5-1 1.5-1-1 1-1-4-1.5-2 2.5-0.5-1.5-3 2-3-2 2-2-11 1-0.5-2-3 1-1.5-1.5-2 2 4-6-3.5-4.5 6 1 8-2.5 4 1.5 3 0 0.5-1 0 1 3-5 1.5 0.5 6.5-4 6-0.5 4.5-3 6 0 3-1.5 2.5 1.5 0.5-2.5 3.5-3.5 7-2 3.5-3 3-0.5 7.5-5 7 3.5 0 1.5 2.5-3.5 2-0.5 3 1 1 3 0.5-2 3-0.5-1-1.5 2.5-2 0.5-2 5-0.5 4-2.5 2 1 0.5-9 6.5-5.5 9.5 1 4 4 1 4 4-1.5 3 2.5 1-1.5 3.5 0.5 4 4.5 1.5 0-2-1 1.5-2 3 2.5 3-2.5 4-0.5 7 2 4.5-2.5 19 4.5 3 2.5 6-1.5 2 1.5 1-1 10 2-3 2.5-7.5-2 5 2 7.5-2.5-6 3-12.5-1.5 3.5 2 7.5 0.5 7-1.5 18 13.5 8.5 1-0.5 1 6-0.5 0 9-6 3-5.5 0-7-3-1.5-2.5-3.5-1 0-2.5 1.5 0-1.5-2-8-1.5-0.5-1-1.5 1-11.5-2.5-27 9.5 7-2 4.5 2 3.5-2 1.5 1 0.5-1.5 8-3 1-2.5 1 2-7 3.5-2.5 3.5-1-1-4 3-2.5-1-1 1-4 0-4.5 8.5-3-0.5-2 2.5-0.5-1.5-1.5 2 0.5-4-6-3.5-6.5 3.5-3.5-1-1 1.5 0.5 8.5 2.5 4-2.5 10-1 1-0.5-2.5-6-6-5 2-1.5 4-5 4 0 6-3.5 1-1.5 4-9 7 5 1-0.5 1.5-4.5 1 0.5 2-5.5 3.5-6 7.5-3 0.5 1.5 2.5-4 2.5-3.5 7-5.5 4-3-2-1.5 1.5-2-1-1.5 2-2.5-1-5 1.5-3.5 3 3.5 4.5-3.5 3-1.5-1-1 1.5-2-2-10 3.5-3-1-2.5 2.5-0.5-5-4 4-4-1.5-4.5 2.5-4-1.5 0 3-8-2.5 1.5-3-1-5.5-3 5-1-1 1.5-5-3.5 6-16.5-0.5-0.5-1.5 0.5 2-8.5 4-7.5-7.5-1-2.5 4.5-5.5 7 0.5 0.5-3.5-1-2-4-0.5 3-2-10.5 3-4-1.5-7-10.5-4.5-4-0.5-4-2.5 1-4-2.5-1-3.5-2-1 1.5 0-0.5-2.5-3-0.5-2.5-4.5-1-4 1-1.5-1.5-1-1.5-5 2.5-3-2-1-0.5-4 4.5-3 4 0-1.5 2.5 0.5 3 3.5 1.5 0.5 1.5-1.5 2 1.5-0.5 1.5 2-3 4.5 1 0.5-1 1 2 8.5 1.5 1.5 6.5 2.5 1 4 5.5-2 13.5 7 6.5-5 13.5-4 7.5 3 1 3 3-0.5 1 1.5 2 0.5 3.5 5.5 4.5-3.5 3-4.5 3.5-1.5 3 1 0.5-2 7-3.5 1 1zM436 683l1-4-2-3.5-1.5-9.5-2 2.5 2-3-1.5-1.5-2 3-3 0-1.5 2.5-2 7-4 6 2 1 4.5-3 2.5 0.5 2.5 4.5 3.5 1.5zM364 737.5l-5-0.5-3.5 3.5 1 1 4.5-1zM329 659.5l-2-1.5-0.5 3-3 0.5-2 2 0.5 2 2 1.5 7.5-1-0.5-1 3-3-4.5 1-2-1zM369.5 721l-6 9-1-1-3 6-5 4.5 0.5 2.5 0.5-3 3-2.5 5.5 0 1.5-1.5-1 0 1-1-1.5-0.5 7-1.5-6-0.5 7-0.5-6-2 3-0.5-1-0.5 0-2 7.5-11.5z"},{"d":"M269 627l-2.5 10.5 3.5 2 0.5 2.5-1.5 1.5 1-1-3-0.5-1 2.5 4.5-1 1.5 3.5 0.5-1 2 1-0.5 4 2.5 1 4 6 0 3.5-2-1 7.5 3.5 0.5 3-3.5-1.5-10.5 4-2-3-2-0.5-0.5 2.5-1-1.5-7.5 2-4 4.5-3.5 1-3 3.5 0 3.5-4 0-0.5-2.5-3-1 0-2-2.5-0.5-1 1-1.5-1.5-2 0-4-5 1-1.5-0.5-2.5 6.5-16 3.5 0.5 1-3 1.5 1 1-1.5 0-3-3 0.5 1-3-5 1.5 3-2-2.5-1.5-3.5 3.5-1-2-5-2.5-7-0.5-3.5 2 0 3.5-4.5 2.5-3-0.5-6.5-4.5-7-10-1.5-4 2-6-13.5 2-4-1.5 0 1.5-1.5 0-4.5-4.5-3.5 1.5-3-5.5 0-3.5-4-1-9-4.5 0-2 2.5-1.5-1-1-7 2.5-2-1.5-0.5-2-4 0 1-1.5-5-0.5-9-6-5.5 0-14-6-2.5-3.5-3 1.5-2-2.5-3 1-5.5-4.5 0-2.5-5.5 0-2 1.5-2.5-3-3.5 4.5-4.5 0-1 2.5-5.5 0.5-5.5-5 4-12.5-15 3.5-2-0.5-1-2.5-3 0-2 2 1.5-4-8-4-7 1-1-2.5 2-1.5-5.5 0.5-3.5 3-2.5-1.5-3 2-3 0-1 2.5 2.5 4.5-2 1.5-1.5-1-0.5 1-2.5-3.5-4.5 0.5 0-1-1 1 1-1.5-2 1 2-3-2 1.5-1-1.5-4.5 2 0-10 2 0.5 5-5.5 8 0.5 10.5-8-14 4.5-9-5-0.5-3.5 1.5-2.5-1.5-1.5 2 1 4.5-0.5 1.5-8 4.5-2 5 1 1 1.5-3.5 5.5 2.5 0 4.5 3 5 0 4-4 11.5-1 14.5-5.5 6.5 2 0.5 2 5.5-1.5 2.5 0.5 1 2 3.5 0.5-0.5 2.5 1.5 0.5 10.5-2 4 2.5 7.5-3 4 0.5 4.5-2.5 4.5 0 5 8 3 11 0.5 10-4 6 1.5 0-1 0.5 10-1.5 1 1.5-0.5-2.5 1 0.5 0 1.5 0.5-1 7 0 7.5 4.5 0 1.5 2-1 2 1.5 1 6.5-3.5 3 3 2.5 3.5 8 8.5 7 14.5 4.5 1 2.5 0.5-1.5 0 1 5 1.5 1-2 10-4.5 3-1 3 0.5 3-2.5-0.5-3.5 3.5-2-3 2.5 0 5 6.5 7.5 3-0.5 8-7 3-1.5 4 0 8.5-4.5 3-3.5 8.5-4 8.5 1 4-2.5 0.5-6.5 10.5-7 2-3 8-4-1-4 5.5-7.5-1.5-1.5 2-3.5 2-0.5-2-1.5 3.5-3 16.5-3.5 5-7 5-3 5.5-1 3 2 13-1-2 5.5 1.5 1-3.5 2.5-0.5 4.5-2-0.5-4.5 3-3.5-1.5 1 1.5-1 0.5-0.5 5.5-6.5 3.5-2 6.5-6 1.5-3.5 6.5-6 0.5-3.5 4.5-1 6-2 1 2-1 0 2.5 1.5-0.5 0.5 2-3 0.5-1.5 4 5.5-1 1.5 4-3.5 3 0 4-2 0-1 2-1.5 0 0 2.5 2.5 0-0.5 2.5-3.5 1 8.5 6-0.5 3.5-3.5 1.5-5-2-2.5 2 1.5 1-1.5 2.5-6.5-1 1.5 3-6 2.5-1-1.5 0 4zM248 640.5l-0.5 2.5-1.5-1.5-1 1.5 1 2-1 2 4 0.5-0.5-1.5 3.5 0.5 3.5-1.5 0-2-2-1-4 2zM225 637.5l0.5 1 6.5-3 2.5-4 2 0 2-2 0.5-2.5-5 2 0 1.5-3.5-0.5 0 1.5-5 2.5-1.5 3zM272 667.5l1 1.5 1.5 0 6.5-4-7.5-1-2 1zM43.5 547.5l1.5-2.5 1.5 0 0-1.5 5.5-4.5 7.5 2-3.5-3-11-2.5-9 2.5-2.5 3-15 7.5 0 2 8 0 13.5-3 17.5 0 5-1.5-3.5 0.5-3-0.5-0.5-1.5z"},{"d":"M125 869l1.5 5.5-1.5 6-3.5 0.5-4.5 4.5-5.5 0-2.5 3.5-7.5 5-103.5 0 0-16.5 8 6.5 4.5-10.5-1-0.5 4.5-1.5 2 1-1-3.5 1-1-1.5-2.5 2 2.5-1.5 1 1 1.5 6-5.5-1-2 1.5 2-0.5-1.5 0.5 0.5 1.5-3 2.5-1-0.5-1.5-1.5 0.5-0.5-1.5 1.5 1-1.5-3.5 2.5 4.5 0.5-1-2-4 2 5.5 1.5-1.5-2-4 2.5 4-2.5-5 3 4.5 3-0.5-2.5-5.5 2-1.5-2 1.5 2.5-0.5-2 1 2 0 0.5 1.5-0.5-1.5-1.5 1 1.5 0.5-1.5 0.5 1 1 0.5-1-0.5 2 1.5-2.5-1 3 3-1 5.5 1 0-1.5-1 1-5.5-2 3.5 0-2.5-1 2 0-1-1.5-3 1.5 3-1.5-3 0.5 2-1.5-3 0.5 2.5-1.5 1 1-1-1.5-2.5 1 2.5-1.5 3.5 6 1.5 1 0.5-1-1.5-0.5-3-5 3.5 5-2.5-5.5-1.5 0 1.5-1 4.5 8 1.5-5-2.5-4.5 2.5 4.5-2-4.5 2.5 3.5 2-3.5-1-1.5 4-1.5 1 1.5 9-4.5 24.5-19 7 0.5 1.5-1.5 2 1 2.5-3 1.5 0.5 1-3.5-1 5 4.5-3.5 2-6-1-3.5 1-5.5 1.5-0.5-1-1 7-7 1.5 0 1-5 0.5 1 3.5-4-2 1-1-1.5-4 0-4-4.5 4.5 4 0-1 5 2.5 3.5-5-2.5-5 2-1-1.5 2.5 2 3 3-5 3.5-2.5 4 0 1 2.5 3.5-0.5 4-4 8.5-5 11-3 11 1 12.5-2.5 6.5 2 4 4 1.5-1 1 1.5 1.5-1 0-2 1 1.5 7-1.5 3.5 5 11-3 7.5-4.5 1.5 4 1 0 2.5-1.5-3.5 1-0.5-3.5 3-0.5 0-2.5 6-0.5 0-1 4-1.5 4 1 13-0.5 2-7 2-3 5-1.5 2 0.5 6-4 1 1-1-1 1 1 3-1-3.5 3.5-0.5 3 8 9-4 0.5-5.5-6-1 4.5-3.5-2 3.5 2.5-2.5 1-0.5 2.5-6.5 3.5-2-0.5-2.5 4.5-3.5 1.5-3-1-3 2 0 1.5-4-0.5-4.5 1.5-3-1-1 1-1-1.5-5.5-0.5-1.5 2.5 0-2-3 0-1.5 2.5-0.5-1 0.5 2.5-4 5.5-5.5 3.5-4.5-1.5-3 1.5-2 3 0-1.5-2 0-2 4-1.5 0 1.5 0-0.5-1.5-7.5 7.5 1.5 0.5-0.5 1.5-4.5 1.5-2.5 3-1-0.5-1 2 1.5 1-1 1-1.5-1 0.5 1.5-5 0.5-4.5 10 0.5 1.5-2 2-4 0-10.5-5.5-4.5 0-3.5 2.5 2-3 21 2.5-1-3 5-8.5 2.5-1.5 2.5 1.5 1.5-4.5 3-2 5.5-0.5 0.5-1.5-2.5-3.5 3-0.5 5-7.5 7.5-2.5 8.5 1 4-4-3.5 2.5-3.5-1.5-5.5 1.5-4-1.5-0.5-3-2.5 0-4 4-5 1.5-8.5-3.5-3.5-4.5-3.5-2-7 5.5-5.5 0 0 1.5-4.5 3.5-2.5 0.5-8.5-2.5-3.5 3-12 4-6 13 0 4.5-0.5-7.5 1.5-1 0.5-3 1.5-0.5 2-4.5-3.5 1-2.5 2.5 0.5-1.5-1.5 0-2 4.5 2.5 1.5-0.5-2.5 1 3 0.5 8-1 1 2.5 1 0.5 1-1.5-0.5 2.5 2.5 1.5 6 2 1-1 2-5.5-4.5-1.5 4-3.5 0.5 0.5 3 10.5-1 1-4 6.5 0.5 7-4 5.5 2.5-0.5 2-5-1-4 2 8 0-7.5 0-2.5 2.5-2-0.5 3.5-1.5-5 2-1.5 3-5.5 4 2 1.5-1.5 4.5-1 1-2.5-1 1 1.5-1.5 1.5 0.5 3.5 2 0.5 8 11.5-6 0 0 9-1 2.5-2-1-3.5 2 0 2zM205.5 771.5l-3-1.5-7.5 1-5.5-2 13 4.5 8-1zM116.5 807.5l2.5 1.5 2-6-1-1-6 1.5 1 4zM110.5 808.5l2 4 2 0 1-3.5-2.5-2.5-3 0.5z"},{"d":"M581.5 591.5l-2-2 2 1.5 2-0.5 10.5-7 26 9 1.5 9.5 0.5 32-5.5 12-11 8.5-8 2-20.5 0-4.5-18.5-11.5-9.5 13-16 4.5-9 1-10.5zM586.5 592.5l-4.5 2.5-0.5 6.5-4 12 2 4 8.5-3.5 6-10.5 0.5-5 5.5-4-4.5-9-3 1z"},{"d":"M163.5 852l11 4 2.5 0-2-1.5 0.5-1 3.5 2.5 4 1 5-0.5 4-1.5 15.5 0 11.5-2 25-9.5 1 1-2.5-6.5 9 1.5 17.5-16.5 10.5-12 22.5-39.5 4.5-11 0.5-7 1 5 2.5-5-10.5 26.5 1.5-4 11.5-18 7.5 2 1 5.5-3 5.5-5 6-2-1 1.5 1.5-7.5 7.5-20.5 34-23.5 24.5-13.5 10.5-29 10.5-36.5 0.5-10.5-1-25.5-7.5-10.5-1.5-8.5-12 13 1z"},{"d":"M335.5 532l-3.5 2.5 0 4.5 4-2.5 11.5 2 3-0.5 0 1.5 5 3.5 1.5 4-3 3-0.5 4.5-2.5 1.5 0 3 3.5 0 2-8.5 5.5-5 1.5-4 3-1 10 0 6.5 4.5 3.5-3 5.5-0.5 2 1.5 4.5 0 0.5 4.5 2 1.5 16.5 0.5 9.5-1.5 4-3 1.5 1-3.5 3 2-1 4.5-4 1.5-4 1.5 0 3-3 2.5-5.5 8-5.5 4.5-6 4-1.5 1 2.5 0.5-2 3-2 3.5-5 3-1 1.5-2.5 9-1 2.5-1.5 5 0.5 5-12 6.5-6 1-5.5-2.5-4 4-7 2.5-2-2.5 3.5-1 4.5 1.5-4 3.5-3 2-9 5-8 9-23.5 11-13 5.5-3 29-28 4.5-1 11-9.5 5.5-1 7-6 12-20-7-3-12.5 11.5-4 10.5-10.5 9-3 1-7 7.5-11 5-6 6-10 5-15.5 16-3 7.5-2 1 1.5-1 1 1-2.5 4.5 0 7.5-3 10-16 24-7 19.5 4-4-0.5 2.5-5 8-6 4.5-8 1.5-7.5 4.5-4.5 6-8 3-4.5 5-6.5 1-8 8-5 0.5-2.5 3 2.5 2.5-9 7.5-7-2-4 0.5-3.5-2-7.5 1-10.5-4.5-7 1.5-6.5-2.5-10.5 0.5-3.5-2.5-20 1.5-4-1zM596 362l4-4.5 0.5-3.5-3 3 0-1.5-2.5 1.5-1 4-3 2.5 0 2.5zM361.5 536l1.5 1-1 3.5-3.5-2-2.5 3-4-3 0.5-2z"},{"d":"M884.5 125l-1.5-6.5 2.5-8.5-4-5.5-0.5-3.5 4-9 6.5-37.5 0-6.5-2.5-11.5 1-12 3.5-8.5 6.5-6 2-4-0.5-4-3-4 1.5 0 4 5-1.5 7-7.5 8-2.5 7-1.5 12.5 3 8.5 0 9.5-3 11-3 24-5 10.5 4 9.5-2.5 8 3 8.5-2 13 0.5 15 4.5 13 1.5 22.5 5 9.5 0 3-5.5 9.5-3.5 19-5 13-7 15-10.5 13-8.5 25-0.5 24 3.5 34.5-3 10.5 0 7-2 10-4 9-0.5 7.5 3.5 8.5 5.5 6.5 2.5 7.5-3.5 42-4 15-11 29-12 6.5-4 6-9.5 25-8 10-9.5 17.5-1.5 7.5-3.5 4.5-1.5-1.5 3.5-5 0.5-6.5 10-18.5 7.5-9.5 10-25.5 6-7 9-4 3.5-7 8.5-22 3.5-14.5 2-14 1.5-30-5.5-9.5-8-5.5-1-4.5 8.5-22.5 3-19.5-2-38 1-27.5 5.5-21.5 10-12.5 13-26 5-20.5 5-11-5.5-14-2-26-2.5-10z"},{"d":"M330.5 525.5l6.5-5.5-6.5-9.5 0-7.5 2.5-8 1.5-0.5-0.5-1.5 3-2.5 4.5-0.5 4-4 3.5-1 0.5-3 6.5-4 0-4.5 2-3 3 1 6-1.5 6-5 0-4-2.5-2.5 1.5 0.5-1-1 1-3 4.5-4 0-5.5-1.5-1.5-0.5 1 0-3.5 2-0.5 1.5-2 1.5 1.5 5-5.5 2.5 1 5-5.5 6.5 0 2-1.5 3.5-5 1.5-4.5-1.5-1.5 3-0.5 6-5 0.5-5-1.5-1 6-4 7-13 8.5-5.5 2.5 0.5-7.5 10-6.5 5.5 1.5 1-0.5 2-1.5-0.5-1.5 1.5-0.5-1-1.5 3.5 1.5 2.5 1.5 0-1.5 0.5 0.5 0.5-2 0-3.5 6-5 2 0 12-3 5.5-4.5 2.5-2.5 5.5-6-0.5 0.5 2-3-2.5 1.5 2-2 0.5 0 3.5-2.5 2-1 2.5-3.5-2.5 1-1-1.5-2-1.5-0.5 1-3.5-2.5 0-0.5 2 1 9.5-2 1.5 0.5 2.5-1-0.5-2.5 3 1.5 5.5-1.5 1.5 0.5 4.5-14.5 4-1.5 4.5 0.5 4.5-5 2-7 7-2.5 1.5-5-0.5-1.5 1.5-2-2-1.5 2.5 3 2-2 6.5 2.5 5.5-2 1-0.5 4 2.5 4-1 3-2.5 1.5zM385 437l6.5-1-3 4-4.5 2.5-1.5-4z"},{"d":"M815 656.5l-6 7-0.5 3 2.5 4-0.5 7 4.5 13 0 13-4.5 14-5 8.5-0.5 3 1.5 14.5 10.5 22-2 12.5 2.5 16 0 20.5-1.5 24 0.5 10-1.5 5.5 5.5 0.5-5.5 0 0 4-3 8 1.5 2.5 0 10-1 5.5-1.5 0.5 1.5 0 1 2.5 0.5 6.5-11.5 0 0-6.5 1.5-0.5-0.5-8.5-1.5-1 2 0.5-2-1.5 2.5 0-2-1 2.5 0-2.5-1 2.5 0.5 0.5-6.5 2-4-0.5-4 1.5 0 5-12.5 1.5-35-0.5-4.5-2.5-1 2.5 0.5 0-4.5-2.5-0.5 2.5 0 0-7-3-16 1-12.5 1 2-4-15.5-6.5-3-3-23.5 1.5-5.5 3.5-2 2-3 2.5-14.5 3.5-6.5-2 2.5 2-3.5-4-11.5-1.5 7-1-1 0-13 1.5-5-2-3 0.5-4.5 2.5-5.5 6.5-6.5 0.5-2-3.5-18.5-9.5-13.5 2-2 2 1.5 8.5 17 3.5 16.5z"},{"d":"M627 616.5l1.5 6-1 3 1.5 5.5 2 1-0.5 2-3.5 7.5-2 0.5-2.5 9-8 8.5-11.5 6.5-5.5-2-0.5 1 0-1-2-1-9.5 2-12-5.5-3 0 0 2 0-2-3.5 0.5-2 3.5-4.5-4.5 14.5 0 2-1.5 25-1.5 9-4 8.5-9.5 3.5-13-1.5-32-9-23-1-7 2 0.5-1-4.5 4 9 2 7-1-1 5.5 6.5 4 10.5z"},{"d":"M603.5 342.5l-1.5 3.5-6 1.5-1.5-0.5 5.5-1.5-6 1.5-8.5-2.5-5.5 0.5-31 12-11-4.5-7.5 0-3 3.5-14-0.5-8 6.5-4-4.5-6 3.5-11.5-1.5-7 5-8.5 2-14.5-0.5-6 4.5 0 3.5-4.5 4.5-3.5 1-3.5 5-2-0.5 1.5-5.5 4.5-4 2.5-4.5 9-6.5 6.5-1.5 8 2 8.5-4.5 2-5.5 6-4 12 0 10 2.5 5-5 4.5-1.5 3 1 3 3.5 0 1-3-2.5 1.5 3 5.5 2 5.5-3 5 0 4.5-1.5 4 3.5 6 0.5 26-9 2.5-1-3 0 7.5-2 9 2.5zM516 349.5l-1-2-3.5 0.5-5.5 5.5 4.5 2.5 3.5-2 5-0.5zM479.5 357.5l-8 6.5 3.5 0.5 8.5-6zM498.5 357.5l3-1.5 3.5 1 1-2-10-4-11 0-2 2 5.5 6 6.5 1z"},{"d":"M497 633l28.5-17 8.5-8.5 25.5-15 14.5-17.5 10-8.5 1-7z"},{"d":"M549 656l0-13.5 4.5-6 1.5 1.5-3 3.5 4.5-4.5 1.5-1.5-1.5 1-2-1.5 6.5-6.5 11.5 9.5 4.5 18.5-6.5 0-2.5-3-2.5 2-14-0.5zM560.5 644.5l8-2 2.5-4-11 1.5-1 2z"},{"d":"M285.5 88.5l-2.5 8 2 6.5-6-7-4 3.5-4 0.5-0.5-2 3.5-3.5-0.5-4-3-1.5-3.5 4-1.5-1-0.5 1.5-2 0 2.5-4.5-2.5-3.5-1 4-4-2.5-8 3-2-1.5-6.5 2-5-1 1.5-3 5-0.5 8.5-3.5 2 2 5-5 10.5-3.5 1.5-1-1-2 2-1 1.5 1 3 7.5 6.5 2.5 1 2 3 0z"},{"d":"M799 591.5l5.5 10.5-6 4.5 0 4.5 4.5 5-0.5-2 2 1.5 0 1-1.5 1-4-3.5-7-1.5-4.5 2-1-1.5 0 1.5-4.5-1.5-1-12.5 3-7.5 4.5-1.5 5.5-7 2.5 1.5z"},{"d":"M297 588l-1.5-4 2.5 0.5 2-2 1 1.5 3.5-1 5.5 7.5 4 1-1.5 2 7.5-2 2 2 2-2-1.5-2 7.5-0.5 9.5-10 1.5-5.5 3 1 6-6 0-3 2.5-3.5-1.5-3 6 1 1.5 3-1 2.5-3.5 5-5 1.5-2.5 3.5-0.5-0.5-0.5 4-3 2-2 6.5-10.5 5.5-0.5 2-3.5 0-5.5 6-2.5 0-0.5-1.5-3.5 2-4.5-2-5.5-13z"},{"d":"M609 349l8-4.5 5 0 2 2.5 18-6 1.5-10.5-3-0.5-1.5-2.5-7.5 1.5-12 9-16 4.5-1.5 3.5zM639 334.5l1.5-2-3-1.5 0.5-1-7 3-3.5 3.5 4 0.5 2 2z"},{"d":"M542 648l7-5.5 0 13.5-19 3 0-9 10.5-1z"},{"d":"M375.5 866l-6-4-4 8-3.5 2-8.5 11-7.5 1-4 3.5-9.5 1-5 5.5 5-6 9-1 3-3 8.5-1.5 8-10.5 4-2.5 4-8.5 6.5 4.5 2-1 1.5-5 3.5-1.5 2.5-4-1.5-2.5 4.5-7.5-1.5-4 0-3 6-2.5 0-3.5 1.5-2 5-1-5.5 2.5 0 4.5-5 3.5 0.5 5.5-5 7.5 2 4-6 4-1.5 5.5z"},{"d":"M530 273.5l1.5-2 1.5 1.5 2.5-2.5 1 3.5 3 0.5 0.5-3.5 3.5-2-2-2 3.5 0 0-2 4-2.5 0.5-3-1.5-0.5 4.5-1.5-2-0.5 1.5-2.5 2.5 0.5 0.5 3.5-2 4.5 1.5 2.5-3 2.5 0.5 3.5-2.5 4.5 2.5 1.5-3.5 3.5 3 1.5-4 1 1.5 3.5-3.5 1.5 3.5 2-0.5 3 1.5 2.5 3-1.5-2-2 1.5-1.5 11 0.5 2.5-2 4.5 7-3.5 0 0.5 5.5-3.5-0.5 4.5 4-4.5 3-2 9 1 6-4 6.5 0 5 2 3-2.5 2 0 4-5.5 1 1 7.5-0.5-4-4-1-6 2.5-3-0.5 3 0.5 5.5-3 4 1.5 0-4 6-1.5-0.5-3 2.5-2.5-2.5-2.5 0.5-5.5 3.5-5.5-1-6.5 1.5-6 1.5-4.5 3.5-2-4.5-3.5 4 0.5-1-5.5 4 0-5-7-2.5 2-10.5-0.5-1.5 1.5 2 2-3 2-2-3.5 0.5-2.5-3-1.5 0.5-2 3 0-1.5-4 3.5 0-2.5-2 3.5-3.5-2.5-1.5 2-4.5 0-4 3-2-1.5-2.5 2-7.5-2.5-1-1.5 2 1.5 1.5-4.5 1 1.5 0.5-0.5 3.5-4 2 0 2.5-3.5 0 2.5 1.5-4 2.5-0.5 3-3-0.5-1-3-2.5 2-1.5-1.5-2 2.5 0.5 2-2 4-4.5-1.5-9.5 0.5-6 2.5-0.5 1.5-3-0.5-1 2.5-3.5-1 0 2-2.5 1.5-4.5 7-5 5.5-2 0.5-0.5 2-8.5 4-0.5 2-2.5-2 1.5 3-2.5 1.5-1.5-1.5-1 2.5-1-2-2.5 0.5 0-2.5-8 3-2.5-2-4.5 1.5-6.5-2-10 0-0.5 2.5-4.5 1-4 5-5.5 2-19.5-3.5-1.5-2-2 1.5-3.5-3-12.5-0.5-15-3-4.5 1.5-6.5-1-1.5 2-1.5-1 1.5 0.5 1.5-1.5 4 1 7-1.5 15 3 12.5 0 4 3.5 1.5-1.5 1.5 1.5 19.5 4 5.5-2 4-5 4-1 1.5-2.5 9.5-0.5 6 2 6-1 1.5 1.5 8.5-2.5 0 2 2 0 1 2 1-2.5 1.5 1 2-1-1-3 2.5 1.5 0-1.5 9-4 0-2 2.5-0.5 5-5.5 7.5-11 3 1 1-2.5 2.5 1 4.5-3.5 6-1 6 0 4.5 1.5z"},{"d":"M529 663.5l1 1-5.5 0-8-1.5-20-12-7-2.5-7 0-17 7-0.5-1 16.5-6.5 6.5-0.5 8 2 18 11.5 7 2z"},{"d":"M248 575.5l-0.5-1 0 1.5-1 0 1 2 8.5-3.5 3 0 0 2.5-7 2-6.5-1.5-2.5 2 1.5-2-1.5-0.5-2 2 0.5-4-2 0.5 5.5-3.5 3.5 1z"},{"d":"M401.5 760.5l0.5 4.5-2 5.5 2 9.5-4 7-0.5 2 1.5 2.5-5 13.5 6 6.5 0.5 9.5-2.5 6.5-1-5 2.5-2.5-0.5-8.5-5.5-6 2-4.5 0-4 2.5-5-1-5 4.5-7.5-2-8.5z"},{"d":"M-2 387l0-4 3 1.5 6-3 2 2.5 2 0 5.5-5 10-2.5 1.5 1-1 2.5 1.5 0.5 10-4.5 11 1.5 6.5-3 2.5 7 1 1 1.5-1-1 1.5-1.5-1-3-7-6 3-11.5-1.5-9 4.5-2-0.5 0-3-1.5 0-9 2-5 5.5-3-1-1-2-6 3-3.5-1 1 3z"},{"d":"M794.5 619.5l-6.5-2.5-1-2.5 1 2 16.5 7.5 3 3 5.5 16.5-0.5 8.5-7.5 14 1 23.5 1.5 3-3 6.5-4 5-0.5 11 2 5.5-1 1.5-2-5.5-1-7 2-7 4-3.5 2.5-5.5-1.5-27.5 7-14 0.5-8.5-2.5-11-4-7z"},{"d":"M401.5 760.5l3-7 13-4 3-4.5 5-2 3-7.5 6-8-0.5-1.5 2-2-0.5 3.5-6.5 8.5-3 7.5-5 2-2.5 4.5-13 4z"},{"d":"M17.5 584l-3 0-0.5 2.5-2 1.5-7-1.5-7 3 7-3.5 8 1 2-4 2.5 0.5 2.5-1.5 0.5-4.5 5.5-9.5-9.5-5-2.5-2 1-1 11.5 7.5-6.5 15z"},{"d":"M610 562l0.5 2 1-3.5 1 1-4-9.5-4-21-1.5 0.5z"},{"d":"M-2 553l2 1 5-5.5-7-3z"},{"d":"M585 560.5l0 3.5 1-3.5-1.5 8-1.5 0-0.5 2-0.5-2-6 5 0.5 1-1.5 0.5 0.5-1-1 1-12 15-7 4.5 6-4 11-14.5 9.5-8 0.5-1.5 0 1 1.5-1z"},{"d":"M661.5 366l0.5 7.5-1-0.5-1.5 3 1 3-0.5-1.5-4 7-1-1.5 2-1 1.5-3.5-0.5-1 1.5-1-2.5 0.5-1.5 3 0.5-3 2.5-3 2-8z"},{"d":"M271.5 842.5l8-5 1.5 1-6.5 7.5z"},{"d":"M525 649l2.5-5 7.5-4 12.5-11.5 14-20 2-4.5 0.5-11 3.5-5.5-3.5 8-1 11.5-14 21-13.5 12.5-7.5 4z"},{"d":"M276 535l2.5-1 3 3-6.5 3.5-1.5-3.5z"},{"d":"M439 707.5l1.5 1 0 3.5 4.5 1 0 3.5-9.5 7.5 3-5 5-2.5 1-2-4.5-2 0-4-4-1z"},{"d":"M434.5 693.5l1-4 1 3.5-2.5 5.5 1.5 2.5-1 3 1.5 3.5-4.5-6.5z"},{"d":"M168 847.5l-3.5-1-1 4 5 1.5 2.5-3.5z"},{"d":"M1002 639.5l0 5-3 6.5 2.5 5.5-4 5.5 1.5 6-3.5 4 3.5 1.5 0.5 6 2.5 0.5 0 93-1 2.5 1 6-2-4 2-5.5 0-91.5-3-1-0.5-6-3-1.5 3-4-1.5-6 4-5.5-2.5-5.5 3.5-7.5z"},{"d":"M607.5 559l-3.5-17.5 0.5-1 4.5 20.5-1 0z"}],"eauNoms":[{"n":"Fleuve Saint-Laurent","x":630,"y":466,"r":-68,"p":1},{"n":"Fleuve Saint-Laurent","x":748,"y":262,"r":-50,"p":2},{"n":"Rivière des Prairies","x":468,"y":511,"r":-32,"p":1},{"n":"Rivière des Mille Îles","x":386,"y":444,"r":-42,"p":1},{"n":"Rivière des Mille Îles","x":508,"y":353,"r":-5,"p":2},{"n":"Lac des Deux Montagnes","x":232,"y":602,"r":-18,"p":1},{"n":"Lac Saint-Louis","x":398,"y":702,"r":-14,"p":1},{"n":"Lac Saint-François","x":58,"y":862,"r":-24,"p":2},{"n":"Rivière Richelieu","x":896,"y":300,"r":-80,"p":2}],"cmm":"M860 38l16 17-2.5 8.5-8.5 11-3 9.5-4 29 1.5 19-0.5 5.5-3-1.5-4 12-2-1-2 3.5 1 0.5-2.5 4 15 15.5-3 2.5-4 8.5-9.5 9-3 6.5-1-1-1.5 1 1 1-3.5 9.5-7 13-2-2-3 1.5-7.5 9 1.5 2.5-5 4.5-1.5-1.5-4 6.5-5 2-1.5 2-1-1-2.5 2 7.5 8.5-1.5 1-1.5-1-1 2.5 32.5 34-6 10.5-9 8 1.5 1.5-31.5 37.5-2.5-2.5-3 2.5 21.5 22.5 0.5 6-3 9-2 4-3 2.5 23.5 25 4.5-4.5 1 0 2 2 1.5-1 8.5 9.5 1.5-6.5 6.5 6 1.5-7.5 12.5 13-0.5-9 41.5 43.5-1.5 1.5-2.5-2.5-2.5 17 14 13 0-4 12.5 12.5 1.5-2 0.5-13 29.5 31-13 36 12.5 13-12.5 30.5-11-12.5-5 12.5-1-1.5-3.5 4.5-4.5 0-5.5 2.5 5 5-3.5 1-38-38.5-2.5 5 1.5 2 0.5 4-1.5 6.5-2 0.5-2 2-6-2.5-1-1.5-2 1 2 1-2 2.5-4.5-0.5-2.5 5 0.5 3.5-2.5 2.5 2 0.5-1 0 0 3.5-3 5 1 0 1.5 5.5-2 5-3 0 2.5 5 1 5-1 1 1 2-1.5 10-6 1 11 10.5 3 8-3 1-2 25-7.5 9.5-6-6-3 3 1.5 8.5-0.5 4-22-22.5-1 1-1-3-4 3-13-0.5-25.5-25-1 3.5-10 11.5-0.5 5.5-2 4-9-2.5-6.5-5-1 4-9.5-11-7-5.5-12.5-12.5 1.5 3.5-6.5-0.5 10 10-2 1.5-2.5 0-1 17-7.5 11.5 1.5 0.5 2.5 10-1 3.5 4.5 3-1.5 2.5 0 1-2 3.5-7 2.5-3 2.5 0 4.5-2 1 1.5 2-0.5 3.5-2 4.5-1 0-1 7.5-7 8 1 0.5-1 1.5-1-1-1.5-3-14 9.5 1 2.5-1 4.5-15.5 10.5 2.5 5.5-11.5 8-2.5-4.5 2-1-2.5-4 2.5-1.5-1.5-2.5-0.5 0.5-0.5-1-4.5 3.5-1.5-3-2.5 1.5-1-4.5-0.5 0-7 13-2.5-1.5-2 3-1 3 2 1.5-0.5 1.5-1.5-1-0.5 1.5-5-3 0-3.5 1.5-3.5-15-8.5-1.5 4.5-9.5-3 2 2-0.5 2-65-27-3.5 6 0.5 0.5-5.5 12-4-4.5-20 36-8 24 5.5 1.5-13 16.5-85.5-91.5-1.5 2 0.5 1-0.5 6-2.5 4-2.5 7.5 1 0 0 1-4 6-0.5 2.5 1.5 2.5-3 5.5 1 1.5 5 0 0 3-1 1-0.5-0.5-17 35-23-25-6 13.5-11-12.5-11-7.5-8.5 12.5-22 3-8.5-50-9.5-15-11.5 7-14 2-9 4-6.5 1.5-4 4.5-5.5 4.5-6 0-3 1.5-3 0-3-3.5-6 2-5.5 0.5-4.5-2-7.5-7-3.5-1.5-11 1-9.5 3-12.5-22-4-6.5-1 0.5-2.5-4.5 1-0.5-32.5-56-36-5.5 20-100.5 5.5-12 10.5 4.5 20-17 19-18 4 3.5-2-0.5-1.5 4.5 3.5 4 1 2 3 1-1 3-1-1-1 3 0.5 0.5 0.5-1 2 0.5 2-3.5 4 3-1 4 1.5 0.5 1.5-6 0.5 1 5-2.5 6-5.5-6.5-7-7.5 7.5-12-12.5 13.5-13-16.5-17-2.5 2-32-33-35 33.5-4-0.5 15-82.5-33.5-6.5 4-18.5 12.5 2.5-2.5-19-1.5 0.5-1.5-1-1.5-6-8-11 3-2-1.5-2 4-1 2.5-2 3 4 1.5-1 0.5 1 5.5-4-2-3 3-2.5-2.5-3.5 0.5-1 3.5-0.5 0-1 8.5 11 2-12.5 9-1-3 15 4-1.5 0 1 1.5-0.5-3 17.5 1 0 5.5-4 1-2-0.5-2.5-2.5-2-0.5-2 2 0 4.5 1.5-0.5-3.5 4-3.5 2.5 0 3 3 0.5-4.5 3.5-2 10.5 2.5 5-3.5 6-2 4-3 9.5-4 4.5-0.5 0.5 3 4-2.5 3.5 1 3-1 7.5-6 3.5-2 5.5-4.5 1-6.5 4-5.5 3.5-1 0.5-2 3.5-1 7-6 3 1.5 3 0 0-5 1-1.5-13-12 16.5-10 17 15 2 0 1.5-4 7.5-6.5 4 1.5 3.5 3 3 0.5 0.5-4.5 1.5-2.5 13 11.5 3.5-4-2.5-2.5 8.5-8.5-5.5-6.5 3.5-1 2.5 0.5-4-3.5 5-7 5-4.5-1-1 10-10.5 25.5 25 40-38.5-6-7 42-12.5 2.5 0 6.5-6.5 2-1 14 13.5 2 4.5 4.5 0.5 0.5-7 11 3.5 0 2 6 1.5 5.5 5 33 1-3 8 3 1.5 0.5-1.5 1.5 0.5-0.5 1.5 5 1 1.5 2 4.5 2.5 8 3 0 1 6-5.5-0.5-0.5 6-4-0.5-4 1-0.5-0.5-1.5 0-2 2.5-3.5 1-4 3.5-3.5 19 18.5 18.5-18.5 2.5 1.5 0-5.5 8 1 0-4.5 23 3.5-1.5 25.5 20.5 1 1-22.5 6 0 2.5 3 2-3-1.5-2 1.5-1 1.5-3 2.5 1.5 0.5-1 6 5.5 4-0.5 8 8 0.5-1.5-8.5-9 7.5-7.5-0.5-2 1-1 1.5 1.5 5.5-6.5-4.5-5 1-1.5-4-4 9-8.5 2 0.5 3-4 5 1 1 1.5 5.5 1.5 1 8.5 3.5-7 0-2.5-3-3-1-2 0-5.5 2-3-0.5-0.5-2.5-1-2 1-0.5-2-1.5-0.5-0.5 1 2 1.5-3.5 0 0.5 1.5-1.5 2.5-1-1.5 1-2.5-3 0-1.5-0.5 11-11.5-25-26 1.5 0 0.5-1.5 4-1.5 2-3.5 4-1.5 3-10.5 3.5-31.5 20.5 21.5 2.5-2.5 0.5-2.5 84.5 87 6.5 2 3-1 9.5-4.5 3.5-0.5 6 1.5 1-7.5 3-8 13-18 7-13 1.5-5.5 3-16.5 4.5-11.5 10-17 5.5-15 12.5-19zM503.5 720l0.5-0.5 3-0.5 3.5-2 2.5 0 4.5-7.5 9-9.5 3-1 8-18 2.5 0.5 7-21.5 1.5-0.5 1-5.5-22.5 1.5-10-2.5-9-4.5-15.5-5-9-1.5-27 1-14.5 13.5-7 8.5-0.5 2 55 57.5 2 0 3.5-5.5 7 2 0.5-1zM169 598l1.5-1.5-2 0-0.5 1zM196.5 539l-6.5 6 2 2.5 6-6zM189 544l-2.5-3 6-5.5 2.5 2.5zM149 569.5l4-2.5 1.5 2 2.5-0.5 1.5 2.5 2.5-0.5-0.5-2.5 4-1 3 2.5 1 0.5 1-1 8.5 9.5-2.5 5.5 1 2 1.5-2 1.5 2-2 1-0.5 3 0.5 1-3 1-4 4-2.5-1 0-0.5 2 0-0.5-1 0 1-1.5 0 0.5-2-1 2.5-5.5-1.5-2-1 1-2 1 0.5 1-1.5-2.5-0.5-0.5-3.5-2 0 0 2 1.5-0.5 0.5 2-0.5 3-4.5-4-3-4.5 0-2.5 1.5-0.5-0.5-1.5-2 0-0.5-1.5 1.5 7 2.5 3.5-2 1-3.5-5.5-0.5-3-3-2.5 2.5-1.5 1-1.5-1-6.5-2-1.5-2 1 1-2.5-1 1.5-2.5-1.5 0-1-0.5 0.5-0.5-1.5-0.5 1-3.5-2.5-5.5 0.5 0-7.5 9-1.5 0.5-2 2 0.5-0.5 3.5 1.5 0.5-0.5 1 4.5 0.5-2.5 7 2 0.5 2.5-6 1.5 0 0.5-1.5 1.5 0.5-2 4 1.5 1.5-4 4z","bords":"M641 402.5l-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-4 20-4.5 9.5-7.5 9.5 0.5 7-8 4.5-11 3-26 3.5-21.5 1.5-11-2.5-9-4.5-12.5-4.5-12-2-27 1-32 3-20 11-5.5 5-4.5 6-12-2.5-25.5-3-10-2-14.5-5-4.5 0.5-5 1.5-7.5 5-9.5 2.5-17 1-9.5-4-20.5-18.5-0.5-14.5-7-24 10-3.5 11.5-12 13-24.5 5.5-6.5 7.5-4 8-7 11-13 4.5-3 4.5-1.5 5 4 8 3 10.5 0.5 1.5 3.5 3.5 1.5 3 4 2.5-1.5 3.5-5.5 2.5-1 7.5 0 8.5 2.5 7.5-1.5 4.5 2.5 3 0 4 3 8 1.5 10.5 0.5 5.5-1 4-5 4-3 4.5-0.5 5-9 7.5-4.5 6-5.5 8.5-3.5 2-4 5.5-3.5 14.5-4 2-2 8.5-15 0.5-8 17-30.5 5-17 4-8 17-19 34.5-23.5 11.5-10.5 11.5-7.5 2.5-3.5 5-14.5 25-6 1.5 1.5 9-1 1.5 2.5-3 5.5-1 5-5 7.5-1.5 15 1.5 10.5 5.5 10z M334 525l4-5.5-2-2.5-1.5-10-0.5-8.5 2.5-4.5 6-1 12-7.5 3-4 1-2.5 4-3.5 5.5-2 3 0.5 2-1.5 1.5-13.5 4.5-6.5 0-7.5 1-2.5 2-0.5 3 1 5.5-2.5 4.5-0.5 7.5-5.5 4.5-8 0.5-8 2.5-2.5 4.5-2 2.5-10 7-6.5 11.5-14 1-4.5 8-5 2-4.5 8.5-6 6 0 3 2 5-1 7.5-5.5 3-3.5 6 3 6.5 2 4-0.5 6-3 2 3.5 1.5 1 8-6.5 3-1 9.5 1 5-3.5 6.5-0.5 8.5 4 4 0.5 32-12.5 9 2.5 8.5-1.5 7 0.5-5 14.5-2.5 3.5-11.5 7.5-11.5 10.5-34.5 23.5-17 19-4 8-5 17-17 30.5-0.5 8-8.5 15-2 2-14.5 4-5.5 3.5-2 4-8.5 3.5-6 5.5-7.5 4.5-5 9-4.5 0.5-4 3-4 5-5.5 1-10.5-0.5-8-1.5-4-3-3 0-4.5-2.5-7.5 1.5-8.5-2.5-7.5 0-2.5 1-3.5 5.5-2.5 1.5-3-4-3.5-1.5-1.5-3.5-10.5-0.5-8-3-5-4z M727.5 480l2-13.5-0.5-4.5-63.5-71.5-10 9.5-3 2-6.5 2-5-1.5-4 11-13.5 27.5-1 7 2.5 19-1.5 6 0.5 5.5-15.5 31.5-7.5 8.5 9 43.5-1 0.5 0.5 1.5-7.5 3.5 3 5.5 1 9.5 4 14.5-3.5 18-5 11.5 6.5-0.5 15 4 5.5 2.5 5.5 0.5 2-1 1.5 2 2.5-0.5 3 4 2 0.5 2 2 0 1.5 4 0 0 1.5 6 0.5 0.5-1 13.5 0-0.5 5.5 37 2.5 1.5 1.5 2.5-3-0.5-3.5 2.5-3.5-4.5-5.5 2.5-2.5 4.5 2.5 1-1.5-3.5-3 2.5-3-2-2 9-8.5-0.5-1.5 4-5 2.5 2 10.5-20 5.5-17.5 2.5 2.5 7-25-4.5-4.5 10-7 2 0 12.5-22 4-5.5 1.5-13.5-13-14.5-1.5-0.5-1 6.5-6.5 0.5-2.5-0.5-5.5-6.5-4.5 4-7.5-8-1 8z","lignes":{"verte":{"nom":"Ligne verte","num":"Ligne 1 du métro","etage":"sous","chiffres":[["Mise en service","14 octobre 1966"],["Stations","27"],["Longueur","22,1 km"],["Terminus","Angrignon et Honoré-Beaugrand"]],"texte":"La ligne verte traverse le centre-ville d'ouest en est, sous la rue De Maisonneuve et la rue Sherbrooke. C'est une des deux premières lignes du métro, ouvertes en 1966.","segs":[{"k":"sous","d":"M546.2 616.6l1.9-1.6 1-1.7 1-0.8 6.1-2 5-2.6 1-1.4 0.4-3.2 0.7-0.9 8.7 0.1 1.1-0.3 0.4-1 0.4-6.3"},{"k":"sous","d":"M563.4 564.6l-6.6 8.3-0.5 1.5 0.2 1.6 1.3 1.7 3.1 1.5 1.5-0.5 2.7-2.3 1.3 0 3.4 3.9 3.5 3.2 0.9 1.5 0.3 1.4-0.7 10.4"},{"k":"sous","d":"M567.9 557.9l-4.5 6.7"},{"k":"sous","d":"M597.4 455.2l-10.2 25 0.2 2.3 2.3 3.9 0.6 3.2-5.3 11.8 0 1.6 0.9 3.3 0 1.2-4.4 10.3 0 2.2 0.4 1.4 4.8 3.5 0.7 1.2 0 1.7-12.1 19.3-2.2 2-1 2.4-4.2 6.4"}],"st":["angrignon","monk","jolicoeur","verdun","de-l-eglise","lasalle","charlevoix","lionel-groulx","atwater","guy-concordia","peel","mcgill","place-des-arts","saint-laurent","berri-uqam","beaudry","papineau","frontenac","prefontaine","joliette","pie-ix","viau","assomption","cadillac","langelier","radisson","honore-beaugrand"]},"orange":{"nom":"Ligne orange","num":"Ligne 2 du métro","etage":"sous","chiffres":[["Mise en service","14 octobre 1966"],["Stations","31"],["Longueur","30 km"],["Terminus","Côte-Vertu et Montmorency"]],"texte":"La ligne orange forme un grand U autour du mont Royal. C'est la ligne la plus longue du métro. En 2007, trois stations ont été ajoutées à Laval, jusqu'à Montmorency.","segs":[{"k":"sous","d":"M486.5 543.4l10 8.6 6 6.5 8.2 7 2 0.4 3.2-2.6 1.6-0.1 10.8 6.6 0.4 0.7-1.3 5.9 17.7 10.8 2.8-1.4 2.9-3.1 1.1-0.6 1.7 0 2.2 1.5 1.5 0.2 3.6-1.9 1.7-2.9 3.3-3.2 0.4-4.2 1.3-3.5 9.1-11.5 6-10.3 0-0.8-25.2-17-3.4-2.2-3.3-1.4-11.7-7.6-39.3-16-3.2-2.3-4.1-0.7-6.7-5-2.2-0.3-14.2 0-4.5 1-5.2 0.1-2.6 1.6"}],"st":["cote-vertu","du-college","de-la-savane","namur","plamondon","cote-sainte-catherine","snowdon","villa-maria","vendome","place-saint-henri","lionel-groulx","georges-vanier","lucien-l-allier","bonaventure","square-victoria-oaci","place-d-armes","champ-de-mars","berri-uqam","sherbrooke","mont-royal","laurier","rosemont","beaubien","jean-talon","jarry","cremazie","sauve","henri-bourassa","cartier","de-la-concorde","montmorency"]},"jaune":{"nom":"Ligne jaune","num":"Ligne 4 du métro","etage":"sous","chiffres":[["Mise en service","1967"],["Stations","3"],["Longueur","4,25 km"],["Terminus","Berri-UQAM et Longueuil-Université-de-Sherbrooke"]],"texte":"La ligne jaune est la plus courte. Elle passe sous le fleuve Saint-Laurent pour relier Montréal à Longueuil. Elle a été ouverte en 1967, à temps pour l'Exposition universelle, avec un arrêt à l'île Sainte-Hélène (station Jean-Drapeau).","segs":[{"k":"sous","d":"M582.1 546.3l2.3 1.5 6.2 1.9 2.7-0.1 2.3-1 11.2-10.5 0.4-1.5 0.3-4.6"},{"k":"sous","d":"M581.2 545.8l0.9 0.5"},{"k":"sous","d":"M577.5 543.3l3.7 2.5"}],"st":["berri-uqam","jean-drapeau","longueuil-universite-de-sherbrooke"]},"bleue":{"nom":"Ligne bleue","num":"Ligne 5 du métro","etage":"sous","chiffres":[["Mise en service","16 juin 1986"],["Stations","12"],["Longueur","9,7 km"],["Terminus","Snowdon et Saint-Michel"]],"texte":"La ligne bleue relie Snowdon à Saint-Michel, en passant par l'Université de Montréal. C'est la plus récente. Cinq nouvelles stations doivent la prolonger vers l'est, jusqu'à Anjou.","segs":[{"k":"sous","d":"M527.6 573.5l1.5-7.6 6.1-9.8 2.1-4.8 2.5-4.2 0.3-2.1-0.5-3.9-1.4-3.3-0.7-0.7-7.5-3.9-0.9-1.4-0.1-2 2-5 4-5.8 2-1 10.8-17.2 0.4-1.3-0.3-3.1 1.1-1.8"}],"st":["snowdon","cote-des-neiges","universite-de-montreal","edouard-montpetit","outremont","acadie","parc","de-castelnau","jean-talon","fabre","d-iberville","saint-michel"]},"rem":{"nom":"REM","num":"Réseau express métropolitain","etage":"mixte","chiffres":[["Mise en service","2023 à 2026, par étapes"],["Stations","23"],["Conduite","Automatique, sans conducteur"],["Terminus","Brossard, Deux-Montagnes et Anse-à-l'Orme"]],"texte":"Le REM est un métro léger automatisé. Il change d'étage selon l'endroit : il roule au sol, sur des viaducs et des ponts, puis sous terre au centre-ville et sous le mont Royal. Ses antennes ont ouvert le 31 juillet 2023 (Rive-Sud), le 17 novembre 2025 (Deux-Montagnes) et le 18 mai 2026 (Anse-à-l'Orme). Une antenne vers l'aéroport est prévue pour 2027.","note":"Correspondances avec le métro : McGill (ligne verte), Édouard-Montpetit (ligne bleue) et Gare Centrale, reliée à Bonaventure (ligne orange).","segs":[{"k":"sol","d":"M314 509.7l2.8 1.4 5.3 3.8 4.9 1.8"},{"k":"aerien","d":"M327 516.7l4.4 1.5 1.8 1.2 4.3 5.6"},{"k":"sol","d":"M337.5 525l4.3 5.8"},{"k":"aerien","d":"M341.8 530.8l1.2 1.4 2 1.2 7.5 0.2"},{"k":"sol","d":"M352.5 533.6l1.7 0.2 1.7 0.9 6 5.7"},{"k":"aerien","d":"M361.9 540.4l1.3 1.4"},{"k":"sol","d":"M363.2 541.8l2.2 1.3 13.9 2.1"},{"k":"aerien","d":"M379.3 545.2l14.9 4.7"},{"k":"sol","d":"M394.2 549.9l14.2 4.5"},{"k":"aerien","d":"M408.4 554.4l1.3 0.4"},{"k":"sol","d":"M409.7 554.8l3.8 1.2 1.9 0.2 11.6-2 27.6-14"},{"k":"aerien","d":"M454.6 540.2l12.1-6.3"},{"k":"sol","d":"M466.7 533.9l0.2-0.1"},{"k":"aerien","d":"M466.9 533.8l1.3-0.7"},{"k":"sol","d":"M468.2 533.1l6.8-3.4"},{"k":"aerien","d":"M475 529.7l4.4-1.8 4 0"},{"k":"sol","d":"M483.4 527.9l0.5 0.1"},{"k":"aerien","d":"M483.9 528l2.7 0.9"},{"k":"sol","d":"M486.6 528.9l29.4 12.1"},{"k":"sous","d":"M516 541l1 0.4"},{"k":"sol","d":"M517 541.4l6.6 2.7"},{"k":"sous","d":"M523.6 544.1l0.1 0.1"},{"k":"sol","d":"M523.7 544.2l0.6 0.2"},{"k":"sous","d":"M524.3 544.4l43.4 10.4 7.6 5.2"},{"k":"sol","d":"M575.3 560l0.5 0.2"},{"k":"aerien","d":"M575.8 560.2l4.9 3.2 0.9 1"},{"k":"sol","d":"M581.6 564.4l0.3 1.4-0.2 2.2"},{"k":"aerien","d":"M581.7 568l0 4.7 1.1 1.8 1.9 0.3 5.1-1.5 1.3 0.3 0.9 0.9 0.3 1.8-1.3 5-1 1.6-2.3 2.4-0.4 1.8 0.6 1.2 1.9 1.9 4.5 0.5"},{"k":"sol","d":"M594.3 590.7l2.6 0"},{"k":"aerien","d":"M596.9 590.7l15 1 18.2 2.8"},{"k":"sol","d":"M630.1 594.5l8.8 1.5 14.4 0.9 2.5 0.8 1.8 1.3 16.9 17.5 4.5 3.6"},{"k":"aerien","d":"M679 620.1l0.8 1 0.2 1.1-0.4 1.2-0.9 0.8"},{"k":"sol","d":"M678.7 624.2l-2.5 1.2"},{"k":"aerien","d":"M315.9 632.4l5.6-3.7 10.5-4.5 4.5-2.6 18.2-12.7 13.6-4.5 9.4-6.7 5-2.9 1.4-0.1 2.9 0.6 1.6-0.4 33.9-23.7 1.8-1.7 4-6"},{"k":"sol","d":"M428.3 563.5l2.5-4.2-0.4-1.2-2.4-2.3-0.2-0.9 0.4-1 16-8.4"}],"st":["anse-a-l-orme","bois-franc","brossard","canora","cote-de-liesse","des-sources","deux-montagnes","du-quartier","du-ruisseau","fairview-pointe-claire","gare-centrale","grand-moulin","kirkland","mcgill","montpellier","panama","pierrefonds-roxboro","sainte-dorothee","sunnybrooke","ville-de-mont-royal","edouard-montpetit","ile-bigras","ile-des-s-urs"]},"vh":{"nom":"Train Vaudreuil-Hudson","num":"Ligne 11 du réseau exo","etage":"surface","chiffres":[["Gares","18"],["Longueur","51,2 km"],["Terminus","Lucien-L'Allier et Vaudreuil (Hudson pour quelques trains)"],["Premiers trains","1887"]],"texte":"Ce train de banlieue longe le lac Saint-Louis, dans l'ouest de l'île, puis traverse l'île Perrot jusqu'à Vaudreuil-Dorion. Des trains de passagers y circulent depuis 1887.","segs":[{"k":"sol","d":"M562.7 573.1l0.2-0.2"},{"k":"sol","d":"M560.4 575.3l2.3-2.2"},{"k":"sol","d":"M560.2 575.4l0.2-0.1"},{"k":"sol","d":"M554 581l6.2-5.6"},{"k":"sol","d":"M553.9 581.1l0.1-0.1"},{"k":"sol","d":"M552.8 581.9l1.1-0.8"},{"k":"sol","d":"M552.7 582l0.1-0.1"},{"k":"sol","d":"M551.1 583.3l1.6-1.3"},{"k":"sol","d":"M551 583.4l0.1-0.1"},{"k":"sol","d":"M545.2 588.1l5.8-4.7"},{"k":"sol","d":"M544.9 588.3l0.3-0.2"},{"k":"sol","d":"M544.5 588.5l0.4-0.2"},{"k":"sol","d":"M544.3 588.7l0.2-0.2"},{"k":"sol","d":"M543.8 589.1l0.5-0.4"},{"k":"sol","d":"M543.2 589.5l0.6-0.4"},{"k":"sol","d":"M542.6 590l0.6-0.5"},{"k":"sol","d":"M542.4 590.1l0.2-0.1"},{"k":"sol","d":"M529.9 599.4l12.5-9.3"},{"k":"sol","d":"M529.7 599.6l0.2-0.2"},{"k":"sol","d":"M525.6 602.6l4.1-3"},{"k":"sol","d":"M525.3 602.8l0.3-0.2"},{"k":"sol","d":"M523.1 604.5l2.2-1.7"},{"k":"sol","d":"M522.5 604.9l0.6-0.4"},{"k":"sol","d":"M518.8 607.6l3.7-2.7"},{"k":"sol","d":"M516.3 609.5l2.5-1.9"},{"k":"sol","d":"M515 610.4l1.3-0.9"},{"k":"sol","d":"M510.1 611.4l2.5 0 2.4-1"},{"k":"sol","d":"M506.9 610.8l3.2 0.6"},{"k":"sol","d":"M506.5 610.8l0.4 0"},{"k":"sol","d":"M484.7 611.8l12-2.7 9.8 1.7"},{"k":"sol","d":"M483.9 612l0.8-0.2"},{"k":"sol","d":"M483.1 612.2l0.8-0.2"},{"k":"sol","d":"M483.1 612.2l-3.6 0.7-11.2 1.1-58.3-1.5-4.2 0.3-4.2 0.7-4.1 1.3-10.5 4.5-32.4 12.5-28.6 6.6-5.6 2-30.5 15.7-5.7 2.3-2 1.9-6.1 8.2-3.2 3.3-4.9 3.6-5.7 2.7-7.5 1.9-21.9 1.4-1.8-0.5-5.1-3.3"},{"k":"sol","d":"M208.5 666.3l11.8 7.6"},{"k":"sol","d":"M208.5 666.3l-3.3-2.6-5.3-7.2-6.2-3.1-2.2-1.8-7.7-10.4-1.6-3.7-7.4-9.8-16.6-11.2-9.2-9.5-7.5-5.4"},{"k":"sol","d":"M569.2 566.4l2.5-2.6"},{"k":"sol","d":"M569.1 566.5l0.1-0.1"},{"k":"sol","d":"M568.2 567.4l0.9-0.9"},{"k":"sol","d":"M567.9 567.7l0.3-0.3"},{"k":"sol","d":"M567.7 567.9l0.2-0.2"},{"k":"sol","d":"M567.2 568.4l0.5-0.5"},{"k":"sol","d":"M567.2 568.4l4.4-4.6"},{"k":"sol","d":"M562.9 572.9l4.3-4.5"}],"st":["lucien-l-allier","vendome","montreal-ouest","lachine","dorval","pine-beach","valois","pointe-claire","cedar-park","beaconsfield","beaurepaire","baie-d-urfe","sainte-anne-de-bellevue","ile-perrot","pincourt-terrasse-vaudreuil","dorion","vaudreuil","hudson"]},"sj":{"nom":"Train Saint-Jérôme","num":"Ligne 12 du réseau exo","etage":"surface","chiffres":[["Gares","14"],["Longueur","62,8 km"],["Terminus","Lucien-L'Allier et Saint-Jérôme"],["Service actuel","Depuis 1997"]],"texte":"Ce train relie le centre-ville à Laval et à la couronne nord, jusqu'à Saint-Jérôme, une ville située en dehors de la région métropolitaine. Il croise le métro aux stations Parc et De la Concorde.","segs":[{"k":"sol","d":"M248.7 264.9l0.8 1.9 1.3 1.9 114.8 123 1.6 3.1-0.4 3.3-1.5 2.1-4.3 2.9-1.4 2.7 0.3 3.1 1.7 2.5 2 1.2 2.3 0.4 30.5-1.4 2.5 0.9 12.4 7.7 10.7 2.3 2.5 1.1 2.2 2.1 31.3 45.3 9 25.1 10 15.1 3.2 1.8 53.7 12.6 1.8 1.2 0.5 1.3-0.3 1.4-4.8 7.9-5.1 5-18.9 30.5-0.4 2.7 0.1 30.4 0.3 2.8 1 1.5 2.2 1.1 3-0.2 7.3-4.9 25.7-19.1 8.4-6.8 9.5-8.7 7.4-8"},{"k":"sol","d":"M508.9 569.6l-1.5 2.3-0.7 2.5 0 14.1"},{"k":"sol","d":"M510.8 566.6l-1.9 3"},{"k":"sol","d":"M511.2 565.9l-0.4 0.7"},{"k":"sol","d":"M514.3 561l-3.1 4.9"},{"k":"sol","d":"M514.4 560.8l-0.1 0.2"},{"k":"sol","d":"M518.6 554.1l-4.2 6.7"},{"k":"sol","d":"M518.7 553.9l-0.1 0.2"},{"k":"sol","d":"M524.8 544.3l-6.1 9.6"},{"k":"sol","d":"M525.5 543l-0.7 1.3"},{"k":"sol","d":"M526 542.3l-0.5 0.7"},{"k":"sol","d":"M527.2 540.9l-1.2 1.4"},{"k":"sol","d":"M536.1 527.9l-0.3 1.7-4.9 8-3.7 3.3"},{"k":"sol","d":"M536.1 527.8l0 0.1"},{"k":"sol","d":"M533.2 525.5l2.1 0.8 0.8 1.5"},{"k":"sol","d":"M532.8 525.4l1.1 0.2"},{"k":"sol","d":"M532.6 525.3l0.2 0.1"},{"k":"sol","d":"M523 523.1l9.6 2.2"},{"k":"sol","d":"M522.8 523l0.2 0.1"},{"k":"sol","d":"M488.7 515l34.1 8"},{"k":"sol","d":"M488.4 514.9l0.3 0.1"},{"k":"sol","d":"M480.8 513.1l7.6 1.8"},{"k":"sol","d":"M475.7 509.5l2.1 2.3 3 1.3"},{"k":"sol","d":"M475.1 508.7l0.6 0.8"},{"k":"sol","d":"M474.9 508.4l0.2 0.3"},{"k":"sol","d":"M474.8 508.3l0.1 0.1"},{"k":"sol","d":"M474.3 507.5l0.5 0.8"},{"k":"sol","d":"M473.5 506.2l0.8 1.3"},{"k":"sol","d":"M473.3 506l0.2 0.2"},{"k":"sol","d":"M472.9 505.2l0.4 0.8"},{"k":"sol","d":"M466.1 493.6l1.3 3.2 5.5 8.4"},{"k":"sol","d":"M466 493.2l0.1 0.4"},{"k":"sol","d":"M462 481.8l4 11.4"},{"k":"sol","d":"M461.3 479.7l0.7 2.1"},{"k":"sol","d":"M461.1 479.3l0.2 0.4"},{"k":"sol","d":"M456 468l2.5 3.9 2.6 7.4"},{"k":"sol","d":"M455.9 467.9l0.1 0.1"},{"k":"sol","d":"M453.1 463.8l2.8 4.1"},{"k":"sol","d":"M449.9 459.3l3.2 4.5"},{"k":"sol","d":"M448.4 457.1l1.5 2.2"},{"k":"sol","d":"M427.2 426.5l21.2 30.6"},{"k":"sol","d":"M569.6 565.7l1.9-2"},{"k":"sol","d":"M569.3 566.1l0.3-0.4"},{"k":"sol","d":"M517.1 608.7l1.4-1"}],"st":["lucien-l-allier","vendome","montreal-ouest","parc","chabanel","bois-de-boulogne","de-la-concorde","vimont","sainte-rose","rosemere","sainte-therese","blainville","mirabel","saint-jerome"]},"msh":{"nom":"Train Mont-Saint-Hilaire","num":"Ligne 13 du réseau exo","etage":"surface","chiffres":[["Gares","7"],["Terminus","Gare Centrale et Mont-Saint-Hilaire"],["Service actuel","Depuis 2000"]],"texte":"Ce train part de la Gare Centrale, traverse le fleuve sur le pont Victoria, puis dessert la Rive-Sud jusqu'à Mont-Saint-Hilaire.","segs":[{"k":"sol","d":"M575.6 559.7l-2.9-2"},{"k":"sol","d":"M576 560l-0.4-0.3"},{"k":"sol","d":"M576.5 560.3l5.1 3.8 0.5 1.7-0.4 7.1 1.1 1.6 1.7 0.4 8.5-2.8 32.1-15.5 7.2-2.4 113-10.8 3.5-0.7 81.3-34.6 4.3-0.9 9.6-0.1 1.7-0.4 1.5-1.5 12.1-25.4 2.6-2.4 4.6-1.8"}],"st":["gare-centrale","saint-lambert","longueuil-saint-hubert","saint-bruno","saint-basile-le-grand","mcmasterville","mont-saint-hilaire"]},"can":{"nom":"Train Candiac","num":"Ligne 14 du réseau exo","etage":"surface","chiffres":[["Gares","9"],["Longueur","25,6 km"],["Terminus","Lucien-L'Allier et Candiac"],["Service actuel","Depuis 2001"]],"texte":"Ce train relie le centre-ville à LaSalle, puis traverse le fleuve pour desservir Sainte-Catherine, Saint-Constant, Delson et Candiac, dans la couronne sud.","segs":[{"k":"sol","d":"M562.9 572.9l4.8-5"},{"k":"sol","d":"M562.7 573.1l0.2-0.2"},{"k":"sol","d":"M560.4 575.3l2.3-2.2"},{"k":"sol","d":"M560.2 575.4l0.2-0.1"},{"k":"sol","d":"M554 581l6.2-5.6"},{"k":"sol","d":"M553.9 581.1l0.1-0.1"},{"k":"sol","d":"M552.8 581.9l1.1-0.8"},{"k":"sol","d":"M552.7 582l0.1-0.1"},{"k":"sol","d":"M551.1 583.3l1.6-1.3"},{"k":"sol","d":"M551 583.4l0.1-0.1"},{"k":"sol","d":"M545.2 588.1l5.8-4.7"},{"k":"sol","d":"M544.9 588.3l0.3-0.2"},{"k":"sol","d":"M544.5 588.5l0.4-0.2"},{"k":"sol","d":"M544.3 588.7l0.2-0.2"},{"k":"sol","d":"M543.8 589.1l0.5-0.4"},{"k":"sol","d":"M543.2 589.5l0.6-0.4"},{"k":"sol","d":"M542.6 590l0.6-0.5"},{"k":"sol","d":"M542.4 590.1l0.2-0.1"},{"k":"sol","d":"M529.9 599.4l12.5-9.3"},{"k":"sol","d":"M529.7 599.6l0.2-0.2"},{"k":"sol","d":"M525.6 602.6l4.1-3"},{"k":"sol","d":"M525.3 602.8l0.3-0.2"},{"k":"sol","d":"M523.1 604.5l2.2-1.7"},{"k":"sol","d":"M522.5 604.9l0.6-0.4"},{"k":"sol","d":"M518.8 607.6l3.7-2.7"},{"k":"sol","d":"M516.3 609.5l2.5-1.9"},{"k":"sol","d":"M515.8 609.9l0.5-0.4"},{"k":"sol","d":"M515.5 610.1l0.3-0.2"},{"k":"sol","d":"M506.8 615.3l0.3-1.7 1.3-1.3 4.7-0.8 2.4-1.4"},{"k":"sol","d":"M506.8 615.3l0 20.8-4.6 16 0.1 4.9 0.7 1.8 1.2 1.6 2.2 1.6 46.2 25.6 5.1 2.1 29.1 9.9"},{"k":"sol","d":"M594.1 702.1l-2.3-0.7"},{"k":"sol","d":"M594.3 702.2l-0.2-0.1"},{"k":"sol","d":"M595.8 702.7l-1.5-0.5"},{"k":"sol","d":"M608.7 707.2l-12.9-4.5"},{"k":"sol","d":"M609.5 707.4l-0.8-0.2"},{"k":"sol","d":"M611.9 708.2l-2.4-0.8"},{"k":"sol","d":"M612.9 708.6l-1-0.4"},{"k":"sol","d":"M506.8 620.5l0-4.7"},{"k":"sol","d":"M506.8 621.1l0-0.6"},{"k":"sol","d":"M506.8 622.9l0-1.8"},{"k":"sol","d":"M506.8 623.2l0-0.3"},{"k":"sol","d":"M506.8 624.2l0-1"},{"k":"sol","d":"M506.8 624.7l0-0.5"},{"k":"sol","d":"M506.8 627.2l0-2.5"},{"k":"sol","d":"M506.8 628.2l0-1"},{"k":"sol","d":"M506.5 637.5l0.4-2.1-0.1-7.2"},{"k":"sol","d":"M505.8 640l0.7-2.5"},{"k":"sol","d":"M505.7 640.1l0.1-0.1"},{"k":"sol","d":"M502.7 650.5l3-10.4"},{"k":"sol","d":"M502.3 653.5l0.4-3"},{"k":"sol","d":"M502.2 655l0.1-1.5"},{"k":"sol","d":"M503.3 659.2l-0.9-2.1-0.2-2.1"},{"k":"sol","d":"M503.5 659.4l-0.2-0.2"},{"k":"sol","d":"M504.1 660.2l-0.6-0.8"},{"k":"sol","d":"M504.4 660.5l-0.3-0.3"},{"k":"sol","d":"M505.9 661.6l-1.5-1.1"},{"k":"sol","d":"M505.9 661.6l2.2 1.2"},{"k":"sol","d":"M587.4 699.9l-29.7-10.2-5.1-2.1-45.2-25.1"},{"k":"sol","d":"M569.8 565.9l1.9-1.9"},{"k":"sol","d":"M569.4 566.2l0.4-0.3"},{"k":"sol","d":"M569.3 566.4l0.1-0.2"},{"k":"sol","d":"M569.1 566.6l0.2-0.2"},{"k":"sol","d":"M568.2 567.4l0.9-0.8"},{"k":"sol","d":"M567.9 567.7l0.3-0.3"},{"k":"sol","d":"M569.8 565.9l-0.4 0.3"}],"st":["lucien-l-allier","vendome","montreal-ouest","du-canal","lasalle-can","sainte-catherine","saint-constant","delson","candiac"]},"mas":{"nom":"Train Mascouche","num":"Ligne 15 du réseau exo","etage":"surface","chiffres":[["Mise en service","1er décembre 2014"],["Gares","11"],["Longueur","44 km"],["Terminus","Côte-de-Liesse et Mascouche"]],"texte":"La ligne la plus récente d'exo traverse l'est de l'île, puis Repentigny, Terrebonne et Mascouche. Depuis le 12 janvier 2026, elle s'arrête à la gare Côte-de-Liesse, où l'on change pour le REM.","segs":[{"k":"sol","d":"M498 530.4l-0.2 1.6 0.7 1.4 4.2 1.9"},{"k":"sol","d":"M498.9 528.3l-0.3 0.6"},{"k":"sol","d":"M499.4 527l-0.5 1.3"},{"k":"sol","d":"M499.8 526.1l-0.4 0.9"},{"k":"sol","d":"M500.1 525.4l-0.3 0.7"},{"k":"sol","d":"M501.7 521.3l-1.6 4.1"},{"k":"sol","d":"M501.8 521l-0.1 0.3"},{"k":"sol","d":"M502.6 519l-0.8 2"},{"k":"sol","d":"M502.8 518.6l-0.2 0.4"},{"k":"sol","d":"M503 518.1l-0.2 0.5"},{"k":"sol","d":"M503.4 517l-0.4 1.1"},{"k":"sol","d":"M503.6 516.7l-0.2 0.3"},{"k":"sol","d":"M506.5 509.5l-2.9 7.2"},{"k":"sol","d":"M506.6 509.3l-0.1 0.2"},{"k":"sol","d":"M508.4 504.9l-1.8 4.4"},{"k":"sol","d":"M508.4 504.7l0 0.2"},{"k":"sol","d":"M508.6 504.3l-0.2 0.4"},{"k":"sol","d":"M508.8 503.9l-0.2 0.4"},{"k":"sol","d":"M509.9 501l-1.1 2.9"},{"k":"sol","d":"M510 500.9l-0.1 0.1"},{"k":"sol","d":"M512 495.9l-2 5"},{"k":"sol","d":"M512.1 495.6l-0.1 0.3"},{"k":"sol","d":"M514.7 489.3l-2.6 6.3"},{"k":"sol","d":"M514.8 489.1l-0.1 0.2"},{"k":"sol","d":"M516.4 486.1l-1.6 3"},{"k":"sol","d":"M516.6 485.9l-0.2 0.2"},{"k":"sol","d":"M518.4 482.7l-1.8 3.2"},{"k":"sol","d":"M518.5 482.5l-0.1 0.2"},{"k":"sol","d":"M521.5 477.4l-3 5.1"},{"k":"sol","d":"M521.7 477.1l-0.2 0.3"},{"k":"sol","d":"M526.5 469l-4.8 8.1"},{"k":"sol","d":"M526.6 468.7l-0.1 0.3"},{"k":"sol","d":"M533.9 456.5l-7.3 12.2"},{"k":"sol","d":"M537.7 449.7l-3.8 6.8"},{"k":"sol","d":"M538 449.4l-0.3 0.3"},{"k":"sol","d":"M545.8 438.1l-3.6 4.1-4.2 7.2"},{"k":"sol","d":"M546.3 437.5l-0.5 0.6"},{"k":"sol","d":"M550.1 433.4l-3.8 4.1"},{"k":"sol","d":"M550.8 432.7l-0.7 0.7"},{"k":"sol","d":"M560.2 422.6l-9.4 10.1"},{"k":"sol","d":"M561.9 420.8l-1.7 1.8"},{"k":"sol","d":"M562.7 419.9l-0.8 0.9"},{"k":"sol","d":"M572.5 409.4l-9.8 10.5"},{"k":"sol","d":"M572.7 409.1l-0.2 0.3"},{"k":"sol","d":"M574.1 407.7l-1.4 1.4"},{"k":"sol","d":"M575.9 405.7l-1.8 2"},{"k":"sol","d":"M598.2 383.1l-6.1 5.3-16.2 17.3"},{"k":"sol","d":"M598.4 382.9l-0.2 0.2"},{"k":"sol","d":"M609.1 374.3l-2.6 1.5-8.1 7.1"},{"k":"sol","d":"M609.9 374l-0.8 0.3"},{"k":"sol","d":"M610.7 373.7l-0.8 0.3"},{"k":"sol","d":"M610.9 373.7l-0.2 0"},{"k":"sol","d":"M620.9 370.6l-10 3.1"},{"k":"sol","d":"M621.3 370.5l-0.4 0.1"},{"k":"sol","d":"M622.1 370.3l-0.8 0.2"},{"k":"sol","d":"M628.8 365.5l-0.5 1.6-1.3 1.3-4.9 1.9"},{"k":"sol","d":"M634.8 345.7l-1 2.5-3 3.8-0.9 2-0.7 3.2-0.4 8.3"},{"k":"sol","d":"M634.9 345.3l-0.1 0.4"},{"k":"sol","d":"M635 342.6l-0.1 2.7"},{"k":"sol","d":"M634.7 338.4l0.3 4.2"},{"k":"sol","d":"M634 332.1l0.7 6.3"},{"k":"sol","d":"M633.4 328.8l0.6 3.3"},{"k":"sol","d":"M632.7 323.5l0.7 5.3"},{"k":"sol","d":"M632.7 322.7l0 0.8"},{"k":"sol","d":"M633.7 313.6l-1 9.1"},{"k":"sol","d":"M633.7 313.6l1.1-9.9-0.3-1.5-1.6-1.1-5.4-1.2-1.7 0.1-1.7 0.8-1.2 1.4-1.2 6.1-1.4 1.6-4.5 0.5-43.3 16.8-4.2 0.7-23.1-3.9-1.2-0.5-0.5-1 0.1-1.2 7.2-10.3"}],"st":["cote-de-liesse","ahuntsic","sauve","saint-michel-montreal-nord","saint-leonard-montreal-nord","anjou","riviere-des-prairies","pointe-aux-trembles","repentigny","terrebonne","mascouche"]},"srb":{"nom":"SRB Pie-IX","num":"Service rapide par bus","etage":"surface","chiffres":[["Mise en service","Novembre 2022"],["Longueur","Environ 11 km"],["Terminus","Laval et Montréal"]],"texte":"Sur le boulevard Pie-IX, des autobus roulent dans des voies réservées, au centre de la rue. Ils évitent ainsi la circulation, entre Laval et le sud de Montréal.","segs":[{"k":"sol","d":"M564.8 491.8l-1.2-0.5"},{"k":"sol","d":"M568.5 493.5l-0.6-0.3"},{"k":"sol","d":"M568.6 493.5l-0.1 0"},{"k":"sol","d":"M569.2 493.8l-0.6-0.3"},{"k":"sol","d":"M574.8 496.4l-0.6-0.3"},{"k":"sol","d":"M575.3 496.6l-0.5-0.2"},{"k":"sol","d":"M579.8 498.7l-0.6-0.3"},{"k":"sol","d":"M580.3 498.9l-0.5-0.2"},{"k":"sol","d":"M558.4 489l0.6 0.2"},{"k":"sol","d":"M558.4 489l-4.9-2.9"},{"k":"sol","d":"M547.5 482.2l-1.1-0.6"},{"k":"sol","d":"M541.4 478.5l-1.2-0.8"},{"k":"sol","d":"M536.8 475.6l-1.2-0.8"},{"k":"sol","d":"M532.8 473.1l-1.2-0.7"},{"k":"sol","d":"M528.4 470.4l-1-0.7"},{"k":"sol","d":"M517.4 456.5l0.6 0.9"},{"k":"sol","d":"M517.1 456.2l0.3 0.3"},{"k":"sol","d":"M516.4 455.2l0.1 0.3"},{"k":"sol","d":"M516.3 454.9l0.1 0.3"},{"k":"sol","d":"M518.3 457.8l-0.3-0.4"},{"k":"sol","d":"M524.3 465.9l-0.6-0.9"},{"k":"sol","d":"M521.3 461.8l-0.9-1.2"}],"st":[]}},"ordre":["verte","orange","jaune","bleue","rem","vh","sj","msh","can","mas","srb"],"etages":{"sous":{"nom":"Souterrain","titre":"Le métro, sous terre","texte":"Le métro roule entièrement sous terre, sur des pneus. Ses stations sont en moyenne à environ 15 m sous la surface. La plus profonde, Charlevoix, a son quai à près de 30 m. Le réseau compte 68 stations sur quatre lignes. Il dessert l'île de Montréal, Laval et Longueuil."},"mixte":{"nom":"Mixte","titre":"Le REM, sur plusieurs étages","texte":"Le REM passe d'un étage à l'autre. Dans le centre-ville, il roule en tunnel, notamment dans un tunnel de 5 km creusé sous le mont Royal à partir de 1912. Ailleurs, il roule au sol ou sur des viaducs. Il traverse le fleuve sur le pont Samuel-De Champlain."},"surface":{"nom":"Surface","titre":"Les trains et le SRB, au sol","texte":"Les trains de banlieue d'exo roulent au sol, sur des voies ferrées. Ils relient les couronnes nord et sud au centre-ville. Le SRB Pie-IX, lui, est un autobus rapide qui roule dans des voies qui lui sont réservées."}},"stations":{"atwater":{"n":"Atwater","p":[559.2,569.9],"l":["verte"]},"berri-uqam":{"n":"Berri-UQAM","p":[578.1,542.6],"l":["verte","orange","jaune"],"f":"C'est la seule station où se croisent trois lignes du métro : la verte, l'orange et la jaune."},"viau":{"n":"Viau","p":[588.5,493.1],"l":["verte"]},"monk":{"n":"Monk","p":[554,611.4],"l":["verte"]},"de-l-eglise":{"n":"De l'Église","p":[573.7,598.9],"l":["verte"]},"charlevoix":{"n":"Charlevoix","p":[571.9,582.2],"l":["verte"],"f":"C'est la station la plus profonde du métro : son quai est à près de 30 m sous la surface."},"prefontaine":{"n":"Préfontaine","p":[583.3,514],"l":["verte"]},"mcgill":{"n":"McGill","p":[570.2,554.4],"l":["verte","rem"],"f":"On y passe de la ligne verte au REM."},"cadillac":{"n":"Cadillac","p":[588.9,476.2],"l":["verte"]},"honore-beaugrand":{"n":"Honoré-Beaugrand","p":[597.4,455.2],"l":["verte"]},"radisson":{"n":"Radisson","p":[594.1,462.5],"l":["verte"]},"langelier":{"n":"Langelier","p":[591.6,469.9],"l":["verte"]},"assomption":{"n":"Assomption","p":[588.9,484.2],"l":["verte"]},"pie-ix":{"n":"Pie-IX","p":[585.3,500.6],"l":["verte"]},"joliette":{"n":"Joliette","p":[585.7,508.4],"l":["verte"]},"frontenac":{"n":"Frontenac","p":[584.8,523.2],"l":["verte"]},"papineau":{"n":"Papineau","p":[584.8,533.3],"l":["verte"]},"beaudry":{"n":"Beaudry","p":[581.1,537.8],"l":["verte"]},"saint-laurent":{"n":"Saint-Laurent","p":[575.3,547.1],"l":["verte"]},"place-des-arts":{"n":"Place-des-Arts","p":[572.7,550.2],"l":["verte"]},"peel":{"n":"Peel","p":[567.6,558.2],"l":["verte"]},"guy-concordia":{"n":"Guy-Concordia","p":[564,563.8],"l":["verte"]},"lasalle":{"n":"LaSalle","p":[574.3,590.2],"l":["verte"]},"verdun":{"n":"Verdun","p":[569.9,602.6],"l":["verte"]},"jolicoeur":{"n":"Jolicoeur","p":[562.4,605.2],"l":["verte"]},"angrignon":{"n":"Angrignon","p":[546.1,616.6],"l":["verte"],"f":"Terminus de la ligne verte. Avec Longueuil, c'est une des stations les moins profondes du métro."},"lionel-groulx":{"n":"Lionel-Groulx","p":[563.6,577.8],"l":["verte","orange"],"f":"Les lignes verte et orange s'y croisent."},"lucien-l-allier":{"n":"Lucien-L'Allier","p":[570.7,564.2],"l":["orange","vh","sj","can"],"f":"Trois lignes de train d'exo y commencent : Vaudreuil-Hudson, Saint-Jérôme et Candiac. La ligne orange du métro a une station du même nom."},"villa-maria":{"n":"Villa-Maria","p":[534,580.6],"l":["orange"]},"snowdon":{"n":"Snowdon","p":[527.6,574.2],"l":["orange","bleue"],"f":"Les lignes orange et bleue s'y croisent. C'est un terminus de la ligne bleue."},"jean-talon":{"n":"Jean-Talon","p":[538.8,516.7],"l":["orange","bleue"],"f":"Les lignes orange et bleue s'y croisent."},"cote-vertu":{"n":"Côte-Vertu","p":[486.3,543.4],"l":["orange"]},"du-college":{"n":"Du Collège","p":[494.1,549.7],"l":["orange"]},"de-la-savane":{"n":"De La Savane","p":[502.6,558.4],"l":["orange"]},"namur":{"n":"Namur","p":[509.1,564.3],"l":["orange"]},"plamondon":{"n":"Plamondon","p":[520.4,564.9],"l":["orange"]},"cote-sainte-catherine":{"n":"Côte-Sainte-Catherine","p":[524.2,567],"l":["orange"]},"vendome":{"n":"Vendôme","p":[546,586.9],"l":["orange","vh","sj","can"],"f":"On y passe de la ligne orange aux trains d'exo vers Vaudreuil-Hudson, Saint-Jérôme et Candiac."},"place-saint-henri":{"n":"Place Saint-Henri","p":[559.1,583.1],"l":["orange"]},"georges-vanier":{"n":"Georges-Vanier","p":[566.6,570.7],"l":["orange"]},"bonaventure":{"n":"Bonaventure","p":[573.7,560.8],"l":["orange"]},"square-victoria-oaci":{"n":"Square-Victoria-OACI","p":[576.6,556.6],"l":["orange"]},"place-d-armes":{"n":"Place d'Armes","p":[579.2,552.3],"l":["orange"]},"champ-de-mars":{"n":"Champ-de-Mars","p":[581.6,547.9],"l":["orange"]},"sherbrooke":{"n":"Sherbrooke","p":[572.9,538.7],"l":["orange"]},"mont-royal":{"n":"Mont-Royal","p":[562.7,532.4],"l":["orange"]},"laurier":{"n":"Laurier","p":[557.6,528.6],"l":["orange"]},"rosemont":{"n":"Rosemont","p":[550.9,525],"l":["orange"]},"beaubien":{"n":"Beaubien","p":[545.1,521],"l":["orange"]},"jarry":{"n":"Jarry","p":[527.4,512.4],"l":["orange"]},"cremazie":{"n":"Crémazie","p":[519.7,509.2],"l":["orange"]},"sauve":{"n":"Sauvé","p":[506.4,503.9],"l":["orange","mas"]},"henri-bourassa":{"n":"Henri-Bourassa","p":[497.6,500.2],"l":["orange"]},"de-la-concorde":{"n":"De la Concorde","p":[466.4,493.4],"l":["orange","sj"]},"montmorency":{"n":"Montmorency","p":[457.5,496.1],"l":["orange"],"f":"Terminus de la ligne orange, à Laval. Elle fait partie des trois stations ouvertes à Laval en 2007."},"cartier":{"n":"Cartier","p":[487.4,494.1],"l":["orange"]},"longueuil-universite-de-sherbrooke":{"n":"Longueuil-Université-de-Sherbrooke","p":[607.6,532],"l":["jaune"],"f":"Terminus de la ligne jaune, sur la Rive-Sud. Avec Angrignon, c'est une des stations les moins profondes du métro."},"jean-drapeau":{"n":"Jean-Drapeau","p":[599.2,545.4],"l":["jaune"],"f":"Elle se trouve sur l'île Sainte-Hélène. Elle a été ouverte pour l'Exposition universelle de 1967."},"outremont":{"n":"Outremont","p":[537.7,537.2],"l":["bleue"]},"cote-des-neiges":{"n":"Côte-des-Neiges","p":[531.2,562.4],"l":["bleue"]},"saint-michel":{"n":"Saint-Michel","p":[548.9,494.6],"l":["bleue"]},"d-iberville":{"n":"D'Iberville","p":[546.8,502.3],"l":["bleue"]},"fabre":{"n":"Fabre","p":[543,508.6],"l":["bleue"]},"de-castelnau":{"n":"De Castelnau","p":[533.8,520.9],"l":["bleue"]},"parc":{"n":"Parc","p":[530.4,526.1],"l":["bleue","sj"]},"acadie":{"n":"Acadie","p":[531,533.8],"l":["bleue"]},"edouard-montpetit":{"n":"Édouard-Montpetit","p":[539.5,547.9],"l":["bleue","rem"],"f":"On y passe de la ligne bleue au REM, près de l'Université de Montréal."},"universite-de-montreal":{"n":"Université-de-Montréal","p":[535.7,555.1],"l":["bleue"]},"kirkland":{"n":"Kirkland","p":[334.1,622.9],"l":["rem"]},"canora":{"n":"Canora","p":[523.4,544],"l":["rem"]},"ville-de-mont-royal":{"n":"Ville-de-Mont-Royal","p":[516.2,541.1],"l":["rem"]},"anse-a-l-orme":{"n":"Anse-à-l'Orme","p":[315.9,632.3],"l":["rem"],"f":"Terminus du REM dans l'ouest de l'île. Cette antenne a ouvert le 18 mai 2026."},"des-sources":{"n":"Des Sources","p":[405.2,583.4],"l":["rem"]},"fairview-pointe-claire":{"n":"Fairview-Pointe-Claire","p":[371.9,601.8],"l":["rem"]},"cote-de-liesse":{"n":"Côte-de-Liesse","p":[502.4,535.4],"l":["rem","mas"],"f":"Depuis le 12 janvier 2026, le train de Mascouche s'y arrête : on y change pour le REM."},"ile-des-s-urs":{"n":"Île-des-Sœurs","p":[594.8,590.7],"l":["rem"]},"du-quartier":{"n":"Du Quartier","p":[674.2,616.1],"l":["rem"]},"brossard":{"n":"Brossard","p":[676.3,625.4],"l":["rem"],"f":"Terminus du REM sur la Rive-Sud. L'antenne de la Rive-Sud a ouvert le 31 juillet 2023."},"panama":{"n":"Panama","p":[646.3,596.5],"l":["rem"]},"gare-centrale":{"n":"Gare Centrale","p":[573.9,558.9],"l":["rem","msh"],"f":"Grande gare du centre-ville. On y prend le REM et le train de Mont-Saint-Hilaire. Un passage la relie à la station Bonaventure de la ligne orange."},"montpellier":{"n":"Montpellier","p":[494.6,532.2],"l":["rem"]},"du-ruisseau":{"n":"Du Ruisseau","p":[480.9,527.7],"l":["rem"]},"bois-franc":{"n":"Bois-Franc","p":[464.3,535.1],"l":["rem"]},"pierrefonds-roxboro":{"n":"Pierrefonds-Roxboro","p":[389.8,547.8],"l":["rem"]},"ile-bigras":{"n":"Île-Bigras","p":[358.7,537.4],"l":["rem"]},"sainte-dorothee":{"n":"Sainte-Dorothée","p":[351.5,533.6],"l":["rem"]},"grand-moulin":{"n":"Grand-Moulin","p":[332.4,518.8],"l":["rem"]},"deux-montagnes":{"n":"Deux-Montagnes","p":[314,509.7],"l":["rem"],"f":"Terminus du REM dans la couronne nord. Cette antenne a ouvert le 17 novembre 2025."},"sunnybrooke":{"n":"Sunnybrooke","p":[409.2,554.7],"l":["rem"]},"pincourt-terrasse-vaudreuil":{"n":"Pincourt-Terrasse-Vaudreuil","p":[254.3,680.1],"l":["vh"]},"montreal-ouest":{"n":"Montréal-Ouest","p":[517.4,608.7],"l":["vh","sj","can"]},"hudson":{"n":"Hudson","p":[142.1,602.1],"l":["vh"]},"vaudreuil":{"n":"Vaudreuil","p":[209.4,666.9],"l":["vh"]},"dorion":{"n":"Dorion","p":[241.7,680.9],"l":["vh"]},"sainte-anne-de-bellevue":{"n":"Sainte-Anne-de-Bellevue","p":[285.1,657.9],"l":["vh"]},"beaconsfield":{"n":"Beaconsfield","p":[362.3,628.9],"l":["vh"]},"cedar-park":{"n":"Cedar Park","p":[383.5,620.7],"l":["vh"]},"pointe-claire":{"n":"Pointe-Claire","p":[396.2,615.4],"l":["vh"]},"valois":{"n":"Valois","p":[405.2,612.8],"l":["vh"]},"pine-beach":{"n":"Pine Beach","p":[425.4,613],"l":["vh"]},"dorval":{"n":"Dorval","p":[441,613.4],"l":["vh"]},"lachine":{"n":"Lachine","p":[465.3,614],"l":["vh"]},"ile-perrot":{"n":"Île-Perrot","p":[274.3,670.4],"l":["vh"]},"baie-d-urfe":{"n":"Baie-d'Urfé","p":[311.6,644.9],"l":["vh"]},"beaurepaire":{"n":"Beaurepaire","p":[333,636.8],"l":["vh"]},"sainte-therese":{"n":"Sainte-Thérèse","p":[372.8,412.7],"l":["sj"]},"saint-jerome":{"n":"Saint-Jérôme","p":[248.8,265.3],"l":["sj"]},"blainville":{"n":"Blainville","p":[349,373.8],"l":["sj"]},"vimont":{"n":"Vimont","p":[441.6,447.3],"l":["sj"]},"bois-de-boulogne":{"n":"Bois-de-Boulogne","p":[491.8,515.7],"l":["sj"]},"chabanel":{"n":"Chabanel","p":[505.8,519.2],"l":["sj"]},"mirabel":{"n":"Mirabel","p":[308.9,330.8],"l":["sj"]},"rosemere":{"n":"Rosemère","p":[401.6,414.2],"l":["sj"]},"sainte-rose":{"n":"Sainte-Rose","p":[425.2,424.2],"l":["sj"]},"mont-saint-hilaire":{"n":"Mont-Saint-Hilaire","p":[865.8,475.9],"l":["msh"]},"mcmasterville":{"n":"McMasterville","p":[826.6,509.6],"l":["msh"]},"saint-basile-le-grand":{"n":"Saint-Basile-le-Grand","p":[770,533.8],"l":["msh"]},"saint-bruno":{"n":"Saint-Bruno","p":[718.4,545.9],"l":["msh"]},"longueuil-saint-hubert":{"n":"Longueuil-Saint-Hubert","p":[672.8,550.2],"l":["msh"]},"saint-lambert":{"n":"Saint-Lambert","p":[618.5,559.9],"l":["msh"]},"candiac":{"n":"Candiac","p":[612.9,708.6],"l":["can"]},"delson":{"n":"Delson","p":[593.4,701.9],"l":["can"]},"saint-constant":{"n":"Saint-Constant","p":[571.4,694.4],"l":["can"]},"sainte-catherine":{"n":"Sainte-Catherine","p":[548.8,685.6],"l":["can"]},"lasalle-can":{"n":"LaSalle","p":[506.2,638.6],"l":["can"]},"du-canal":{"n":"Du Canal","p":[506.8,625.8],"l":["can"]},"mascouche":{"n":"Mascouche","p":[550.1,312.1],"l":["mas"]},"repentigny":{"n":"Repentigny","p":[634.6,305.5],"l":["mas"]},"pointe-aux-trembles":{"n":"Pointe-aux-Trembles","p":[619.4,371],"l":["mas"]},"riviere-des-prairies":{"n":"Rivière-des-Prairies","p":[595.3,385.5],"l":["mas"]},"anjou":{"n":"Anjou","p":[551.7,431.7],"l":["mas"]},"saint-leonard-montreal-nord":{"n":"Saint-Léonard-Montréal-Nord","p":[536.7,451.6],"l":["mas"]},"saint-michel-montreal-nord":{"n":"Saint-Michel-Montréal-Nord","p":[526,469.8],"l":["mas"]},"terrebonne":{"n":"Terrebonne","p":[608.1,313.3],"l":["mas"]},"ahuntsic":{"n":"Ahuntsic","p":[501.8,521.4],"l":["mas"]}},"villes":[{"n":"Laval","x":452,"y":418},{"n":"Longueuil","x":690,"y":520},{"n":"Terrebonne","x":486,"y":300},{"n":"Châteauguay","x":429,"y":712},{"n":"Saint-Jérôme","x":230,"y":255},{"n":"Repentigny","x":652,"y":284}]};
+  var NS = "http://www.w3.org/2000/svg", F = D.cadre, R = F.h / F.w, ZOOM_MAX = 8;
+  var VUES = { region: { x: F.x, y: F.y, w: F.w }, centre: D.centre };
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, " :").replace(/« /g, "« ").replace(/ »/g, " »"); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".mtr__svg"), gLignes = q(".mtr__lignes"), gStations = q(".mtr__stations-carte"), gEtiq = q(".mtr__etiquettes");
+  var vueTexte = q(".mtr__vue"), annonce = q(".mtr__annonce");
+  q(".mtr__terre").setAttribute("d", D.cmm);
+  q(".mtr__bords").setAttribute("d", D.bords);
+  D.eau.forEach(function (e) { svgEl("path", { "class": "mtr__eau-forme", d: e.d }, q(".mtr__eau")); });
+  var GROUPE = {}, CERCLE = {};
+  D.ordre.slice().reverse().forEach(function (k) {
+    var l = D.lignes[k], g = svgEl("g", { "class": "mtr__ligne", "data-ligne": k, "data-etage": l.etage }, null);
+    l.segs.forEach(function (s) { svgEl("path", { "class": "mtr__gaine" + (s.k === "aerien" ? " mtr__gaine--aerien" : ""), d: s.d }, g); });
+    l.segs.forEach(function (s) {
+      svgEl("path", { "class": "mtr__trace", d: s.d }, g);
+      if (s.k === "sous") { svgEl("path", { "class": "mtr__tirets", d: s.d }, g); }
+      svgEl("path", { "class": "mtr__prise", d: s.d }, g);
+    });
+    var ti = svgEl("title", {}, g); ti.textContent = l.nom;
+    GROUPE[k] = g;
+  });
+  /* Le métro est dessiné par-dessus les trains, le REM entre les deux. */
+  ["srb", "mas", "can", "msh", "sj", "vh", "rem", "bleue", "jaune", "orange", "verte"].forEach(function (k) { gLignes.appendChild(GROUPE[k]); });
+  Object.keys(D.stations).forEach(function (id) {
+    var s = D.stations[id];
+    CERCLE[id] = svgEl("circle", { "class": "mtr__station", cx: s.p[0], cy: s.p[1], r: 2, "data-station": id }, gStations);
+    var ti = svgEl("title", {}, CERCLE[id]); ti.textContent = typo(s.n);
+  });
+  function niveau(id) {
+    var s = D.stations[id], e = {};
+    s.l.forEach(function (k) { e[D.lignes[k].etage] = 1; });
+    return e;
+  }
+  function importance(id) {
+    var s = D.stations[id], n = s.l.length * 2;
+    s.l.forEach(function (k) { var st = D.lignes[k].st; if (st[0] === id || st[st.length - 1] === id) { n += 3; } });
+    if (s.f) { n += 1; }
+    return n;
+  }
+  var ETAT0 = { etage: "tous", choix: null, vue: "region" };
+  var etat = { etage: "tous", choix: null, vue: "region", vb: null, vueAvant: null };
+
+  /* ----- cadrage */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function bornerVue(v) {
+    var w = Math.min(F.w, Math.max(F.w / ZOOM_MAX, v.w)), h = w * R;
+    return { x: Math.max(F.x, Math.min(F.x + F.w - w, v.x)), y: Math.max(F.y, Math.min(F.y + F.h - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vb;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__vue-bouton"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-vue") === etat.vue ? "true" : "false"); });
+    etiqueter();
+  }
+  function allerVue(nom) { etat.vue = nom; var v = VUES[nom]; etat.vb = bornerVue({ x: v.x, y: v.y, w: v.w }); appliquerVue(); }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vb;
+    var w = b.width || 800, h = b.height || 800 * R;
+    var s = Math.min(w / v.w, h / v.h), ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vb, w = Math.min(F.w, Math.max(F.w / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vb = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    etat.vue = "libre"; etat.vueAvant = null;
+    appliquerVue();
+  }
+  function centreVue() { return { x: etat.vb.x + etat.vb.w / 2, y: etat.vb.y + etat.vb.h / 2 }; }
+  q(".mtr__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".mtr__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtr__vue-bouton"), function (b) {
+    b.addEventListener("click", function () { etat.vueAvant = null; allerVue(b.getAttribute("data-vue")); });
+  });
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (etat.vb.w >= F.w - .5 || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vb.x, vy: etat.vb.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vb = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vb.w });
+    etat.vue = "libre"; etat.vueAvant = null;
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+
+  /* ----- étiquettes */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vb;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function lignesVisibles() {
+    var ch = etat.choix, vis = {};
+    D.ordre.forEach(function (k) {
+      var l = D.lignes[k];
+      if (ch && ch.type === "ligne") { vis[k] = k === ch.id; }
+      else if (ch && ch.type === "station") { vis[k] = D.stations[ch.id].l.indexOf(k) >= 0; }
+      else { vis[k] = etat.etage === "tous" || l.etage === etat.etage; }
+    });
+    return vis;
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    var u = unite(), v = etat.vb, places = [], vis = lignesVisibles(), ch = etat.choix;
+    var zoomFort = v.w < F.w * .45, larg = svg.getBoundingClientRect().width || 800;
+    /* Sur un petit écran, les stations rapetissent tant que la carte montre toute la région. */
+    var fs = larg < 520 && !zoomFort ? .62 : 1;
+    Object.keys(D.stations).forEach(function (id) {
+      var s = D.stations[id], c = CERCLE[id], visible = s.l.some(function (k) { return vis[k]; });
+      var grand = s.l.length > 1 || importance(id) >= 5;
+      c.setAttribute("r", ((grand ? 3.6 : 2.6) * u * (zoomFort ? 1.15 : 1) * fs).toFixed(2));
+      c.setAttribute("stroke-width", ((grand ? 1.6 : 1.1) * u * fs).toFixed(2));
+      c.classList.toggle("est-estompe", !visible);
+      c.classList.toggle("est-choisie", !!ch && ch.type === "station" && ch.id === id);
+    });
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__carte > .mtr__bouton-carte, .mtr__outils, .mtr__vues"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function texte(x, y, t, classe, px, ancre, opt) {
+      opt = opt || {};
+      var s = typo(t), taille = px * u, larg = s.length * taille * (opt.chasse || .55), haut = taille * 1.15, m = 1.2 * u, boites = [];
+      if (opt.r) {
+        var a = opt.r * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), nbo = Math.max(1, Math.ceil(larg / haut));
+        for (var j = 0; j < nbo; j++) { var off = -larg / 2 + (j + .5) * larg / nbo, cx = x + ca * off, cy = y + sa * off, dm = haut / 2 + m; boites.push([cx - dm, cy - dm, cx + dm, cy + dm]); }
+      } else {
+        var x0 = ancre === "start" ? x : ancre === "end" ? x - larg : x - larg / 2;
+        boites.push([x0 - m, y - haut / 2 - m, x0 + larg + m, y + haut / 2 + m]);
+      }
+      if (!opt.force && !boites.every(libre)) { return null; }
+      boites.forEach(function (b) { places.push(b); });
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), dy: ".35em", "class": classe, "text-anchor": ancre, "font-size": taille.toFixed(2), "stroke-width": ((opt.halo || 3) * u).toFixed(2) }, gEtiq);
+      if (opt.r) { n.setAttribute("transform", "rotate(" + opt.r + " " + x.toFixed(1) + " " + y.toFixed(1) + ")"); }
+      n.textContent = s;
+      return n;
+    }
+    function nomStation(id, px, force, classe) {
+      var s = D.stations[id], d = (px * .5 + 4) * u, essais = [[d, 0, "start"], [-d, 0, "end"], [0, -d * 1.1, "middle"], [0, d * 1.1, "middle"]];
+      for (var j = 0; j < essais.length; j++) {
+        var e = essais[j];
+        if (texte(s.p[0] + e[0], s.p[1] + e[1], s.n, classe || "mtr__etiquette--station", px, e[2], { force: force && j === essais.length - 1 })) { return true; }
+      }
+      return false;
+    }
+    /* Chaque station visible réserve sa place, pour que les noms ne la cachent pas. */
+    Object.keys(D.stations).forEach(function (id) {
+      if (CERCLE[id].classList.contains("est-estompe")) { return; }
+      var s = D.stations[id], r = 3.6 * u * fs;
+      places.push([s.p[0] - r, s.p[1] - r, s.p[0] + r, s.p[1] + r]);
+    });
+    if (ch && ch.type === "station") { nomStation(ch.id, 13, true, "mtr__etiquette--station mtr__etiquette--choisie"); }
+    var candidats = [];
+    if (ch && ch.type === "ligne") { candidats = D.lignes[ch.id].st.slice(); }
+    else {
+      candidats = Object.keys(D.stations).filter(function (id) { return !CERCLE[id].classList.contains("est-estompe"); });
+    }
+    candidats.sort(function (a, b) { return importance(b) - importance(a); });
+    var seuil = ch && ch.type === "ligne" ? 0 : (v.w < F.w * .35 ? 0 : v.w < F.w * .7 ? 4 : 5);
+    candidats.forEach(function (id) {
+      if (ch && ch.type === "station" && id === ch.id) { return; }
+      if (importance(id) < seuil) { return; }
+      nomStation(id, importance(id) >= 5 ? 10.5 : 9.5, false);
+    });
+    D.eauNoms.forEach(function (e) { texte(e.x, e.y, e.n, "mtr__etiquette--eau", 10.5, "middle", { r: e.r, chasse: .5, halo: 2.6 }); });
+    D.villes.forEach(function (c) { texte(c.x, c.y, c.n, "mtr__etiquette--ville", 9.5, "middle", { chasse: .68 }); });
+  }
+
+  /* ----- fiches */
+  function puce(k, parent) {
+    var b = el("button", "mtr__puce", null, parent);
+    b.type = "button";
+    var pa = el("span", "mtr__pastille", null, b); pa.setAttribute("data-ligne", k); pa.setAttribute("aria-hidden", "true");
+    el("span", "", D.lignes[k].nom, b);
+    b.addEventListener("click", function () { choisir({ type: "ligne", id: k }); });
+    return b;
+  }
+  function entete(sur, titre, ligne) {
+    vueTexte.innerHTML = "";
+    el("span", "mtr__surtitre", sur, vueTexte);
+    var h = el("p", "mtr__intertitre", null, vueTexte);
+    h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    if (ligne) { var pa = el("span", "mtr__pastille", null, h); pa.setAttribute("data-ligne", ligne); pa.setAttribute("aria-hidden", "true"); }
+    el("span", "", titre, h);
+  }
+  function listeLignes(etages) {
+    etages.forEach(function (e) {
+      el("span", "mtr__groupe-titre", "Étage " + D.etages[e].nom.toLowerCase(), vueTexte);
+      var ul = el("ul", "mtr__puces", null, vueTexte);
+      D.ordre.forEach(function (k) { if (D.lignes[k].etage === e) { puce(k, el("li", "", null, ul)); } });
+    });
+  }
+  function retour(texteBouton, action) {
+    var b = el("button", "mtr__retour", texteBouton, vueTexte); b.type = "button";
+    b.addEventListener("click", action);
+  }
+  function ficheAccueil() {
+    entete("Transport collectif", "Trois façons de traverser la métropole");
+    el("p", "mtr__paragraphe", "Pour franchir l'eau et éviter les bouchons, la métropole superpose ses réseaux : le métro roule sous terre, les trains et le SRB roulent au sol, tandis que le REM passe d'un étage à l'autre.", vueTexte);
+    listeLignes(["sous", "mixte", "surface"]);
+    el("p", "mtr__note", "Touche une ligne ou une station sur la carte pour lire sa fiche. Le bouton Centre rapproche la carte du centre-ville.", vueTexte);
+  }
+  function ficheEtage(e) {
+    var t = D.etages[e];
+    entete("Étage " + t.nom.toLowerCase(), t.titre);
+    el("p", "mtr__paragraphe", t.texte, vueTexte);
+    listeLignes([e]);
+    retour("Revoir tous les étages", function () { choisirEtage("tous"); });
+  }
+  function ficheLigne(k) {
+    var l = D.lignes[k];
+    entete(l.num + " · étage " + D.etages[l.etage].nom.toLowerCase(), l.nom, k);
+    var dl = el("dl", "mtr__chiffres", null, vueTexte);
+    l.chiffres.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    el("p", "mtr__paragraphe", l.texte, vueTexte);
+    if (l.note) { el("p", "mtr__note", l.note, vueTexte); }
+    if (l.st.length) {
+      var det = el("details", "mtr__stations", null, vueTexte);
+      el("summary", "", (l.etage === "surface" ? "Les gares" : "Les stations") + " sur la carte (" + l.st.length + ")", det);
+      var gr = el("ul", "mtr__grille", null, det);
+      l.st.forEach(function (id) {
+        var b = el("button", "", D.stations[id].n, el("li", "", null, gr)); b.type = "button";
+        b.addEventListener("click", function () { choisir({ type: "station", id: id }); });
+      });
+    }
+    retour("Fermer la fiche", function () { choisir(null); });
+  }
+  function ficheStation(id) {
+    var s = D.stations[id], n = niveau(id), noms = [];
+    if (n.sous) { noms.push("sous terre"); }
+    if (n.mixte) { noms.push("REM"); }
+    if (n.surface) { noms.push("au sol"); }
+    entete(s.l.length > 1 ? "Station de correspondance" : "Station ou gare", s.n);
+    el("span", "mtr__rubrique", s.l.length > 1 ? "Lignes qui s'y arrêtent" : "Ligne qui s'y arrête", vueTexte);
+    var ul = el("ul", "mtr__puces", null, vueTexte);
+    s.l.forEach(function (k) { puce(k, el("li", "", null, ul)); });
+    if (s.f) { el("p", "mtr__paragraphe", s.f, vueTexte); }
+    else if (s.l.length > 1) { el("p", "mtr__paragraphe", "On peut y changer de ligne.", vueTexte); }
+    retour("Fermer la fiche", function () { choisir(null); });
+  }
+
+  /* ----- choix */
+  function rendre() {
+    var vis = lignesVisibles(), ch = etat.choix;
+    D.ordre.forEach(function (k) {
+      GROUPE[k].classList.toggle("est-estompe", !vis[k]);
+      GROUPE[k].classList.toggle("est-choisie", !!ch && ch.type === "ligne" && ch.id === k);
+    });
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__etage"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-etage") === etat.etage ? "true" : "false"); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__coupe-groupe"), function (g) {
+      var e = g.getAttribute("data-etage"), actif;
+      if (ch && ch.type === "ligne") { actif = D.lignes[ch.id].etage === e; }
+      else if (ch && ch.type === "station") { actif = !!niveau(ch.id)[e]; }
+      else { actif = etat.etage === "tous" || etat.etage === e; }
+      g.classList.toggle("est-estompe", !actif);
+    });
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.setAttribute("data-etage", etat.etage);
+    if (ch && ch.type === "ligne") { ficheLigne(ch.id); }
+    else if (ch && ch.type === "station") { ficheStation(ch.id); }
+    else if (etat.etage !== "tous") { ficheEtage(etat.etage); }
+    else { ficheAccueil(); }
+    etiqueter();
+  }
+  function dansCentre(p) { var c = VUES.centre; return p[0] > c.x && p[0] < c.x + c.w && p[1] > c.y && p[1] < c.y + c.w * R; }
+  function vueVoulue(c) {
+    if (c.type === "ligne") { return D.lignes[c.id].etage === "sous" ? "centre" : "region"; }
+    var s = D.stations[c.id];
+    return etat.vue === "region" && dansCentre(s.p) && D.stations[c.id].l.every(function (k) { return D.lignes[k].etage === "sous"; }) ? "centre" : null;
+  }
+  function choisir(c) {
+    var meme = !!c && !!etat.choix && c.type === etat.choix.type && c.id === etat.choix.id;
+    if (!c || meme) {
+      etat.choix = null;
+      if (etat.vueAvant) { var av = etat.vueAvant; etat.vueAvant = null; allerVue(av); }
+    } else {
+      etat.choix = c;
+      var vv = vueVoulue(c);
+      if (vv && etat.vue !== vv && etat.vue !== "libre") {
+        if (!etat.vueAvant) { etat.vueAvant = etat.vue; }
+        allerVue(vv);
+      }
+    }
+    rendre();
+    var lecture = q(".mtr__lecture"); if (lecture) { lecture.scrollTop = 0; }
+  }
+  function choisirEtage(e) {
+    etat.etage = e === etat.etage ? "tous" : e;
+    etat.choix = null;
+    if (etat.vueAvant) { var av = etat.vueAvant; etat.vueAvant = null; allerVue(av); }
+    rendre();
+  }
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtr__etage"), function (b) {
+    b.addEventListener("click", function () { choisirEtage(b.getAttribute("data-etage")); });
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtr__coupe-groupe"), function (g) {
+    g.addEventListener("click", function () { choisirEtage(g.getAttribute("data-etage")); });
+  });
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    var t = ev.target, st = t.closest ? t.closest(".mtr__station") : null;
+    if (st && !st.classList.contains("est-estompe")) { choisir({ type: "station", id: st.getAttribute("data-station") }); return; }
+    var lg = t.closest ? t.closest(".mtr__ligne") : null;
+    if (lg) { choisir({ type: "ligne", id: lg.getAttribute("data-ligne") }); }
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape") {
+      if (etat.choix) { ev.stopPropagation(); choisir(null); }
+      else if (etat.etage !== "tous") { ev.stopPropagation(); choisirEtage("tous"); }
+    }
+  });
+  var replier = q(".mtr__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  /* Réinitialiser (bouton posé par page.js) : tous les étages, aucun choix, toute la région. */
+  function reinitialiser() {
+    etat.etage = ETAT0.etage; etat.choix = ETAT0.choix; etat.vueAvant = null;
+    etat.vue = ETAT0.vue; etat.vb = bornerVue({ x: F.x, y: F.y, w: F.w });
+    svg.setAttribute("viewBox", F.x + " " + F.y + " " + F.w + " " + F.h);
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__vue-bouton"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-vue") === "region" ? "true" : "false"); });
+    rendre();
+    var lecture = q(".mtr__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.mtr = { etat: function () { return { etage: etat.etage, choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", vue: etat.vue, viewBox: svg.getAttribute("viewBox") }; }, choisir: choisir, choisirEtage: choisirEtage };
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  etat.vb = bornerVue({ x: F.x, y: F.y, w: F.w });
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
