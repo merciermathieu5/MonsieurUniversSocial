@@ -2,7 +2,8 @@
  * Test de la carte du territoire de la région métropolitaine (fiche de géographie 02) dans un DOM simulé.
  *     node outils/test_montreal_territoire.js [composant.html]
  * On vérifie les 82 municipalités et les cinq secteurs, le choix d'un secteur ou d'une ville,
- * la désélection (second clic, Échap), les couches, Réinitialiser (page.js) et la typographie.
+ * les 19 arrondissements, les ponts de l'île, la désélection (second clic, Échap), les couches,
+ * le zoom à deux doigts, Réinitialiser (page.js) et la typographie.
  */
 const fs = require("fs");
 const path = require("path");
@@ -64,13 +65,33 @@ clic(ville("brossard"));
 clic(tous(".mtt__vue .mtt__retour")[0]);
 verifier("le bouton Voir le secteur passe de la ville à son secteur", choix() === "secteur:longueuil");
 
+console.log("ARRONDISSEMENTS");
+verifier("19 arrondissements dessinés", tous(".mtt__arr").length === 19);
+verifier("population des arrondissements : 1 762 949 en tout (2021)", racine.mtt.arr().reduce((s, a) => s + a.pop, 0) === 1762949);
+clic(un('.mtt__arr[data-arr="rosemont-la-petite-patrie"]'));
+verifier("un clic sur Rosemont-La Petite-Patrie ouvre sa fiche", choix() === "arr:rosemont-la-petite-patrie" && /141 813/.test(un(".mtt__vue").textContent) && /3e sur 19/.test(un(".mtt__vue").textContent));
+verifier("l'arrondissement choisi est entouré", un(".mtt__choix").getAttribute("d") === un('.mtt__arr[data-arr="rosemont-la-petite-patrie"]').getAttribute("d"));
+clic(tous(".mtt__vue .mtt__retour")[0]);
+verifier("depuis l'arrondissement, on revient à la ville de Montréal", choix() === "ville:montreal" && tous(".mtt__vue .mtt__liste .mtt__choisir").length === 19);
+clic(tous(".mtt__vue .mtt__liste .mtt__choisir").find((b) => /Verdun/.test(b.textContent)));
+verifier("la liste de la ville ouvre un arrondissement", choix() === "arr:verdun");
+clic(un('.mtt__couche[data-couche="arrondissements"]'));
+verifier("masquer les arrondissements : on revient à la ville et leurs limites disparaissent", choix() === "ville:montreal" && !racine.classList.contains("avec-arrondissements"));
+clic(un('.mtt__couche[data-couche="arrondissements"]'));
+touche("Escape");
+
 console.log("COUCHES");
 clic(un('.mtt__couche[data-couche="villes"]'));
 verifier("masquer les villes : la ville devient son secteur, plus de noms de villes", !racine.classList.contains("avec-villes") && tous(".mtt__etiquette--ville").length === 0);
 clic(ville("mirabel"));
 verifier("sans les villes, un clic choisit le secteur", choix() === "secteur:nord");
 clic(un('.mtt__couche[data-couche="ponts"]'));
-verifier("la couche des ponts affiche 13 ponts", tous(".mtt__pont").length === 13);
+verifier("la couche des ponts affiche 15 ponts et le tunnel", tous(".mtt__pont-groupe").length === 16 && tous(".mtt__pont-tablier--tunnel").length === 1, tous(".mtt__pont-groupe").length);
+clic(un('.mtt__pont-groupe[data-pont="jacques-cartier"] .mtt__pont-prise'));
+verifier("un clic sur le pont Jacques-Cartier ouvre sa fiche", choix() === "pont:jacques-cartier" && titre() === "Pont Jacques-Cartier" && /1930/.test(un(".mtt__vue").textContent));
+verifier("le pont choisi est mis en valeur", !!un('.mtt__pont-groupe.est-choisi[data-pont="jacques-cartier"]'));
+clic(un('.mtt__pont-groupe[data-pont="jacques-cartier"] .mtt__pont-prise'));
+verifier("un second clic sur le pont désélectionne", choix() === "");
 clic(un('.mtt__couche[data-couche="eau"]'));
 verifier("masquer les cours d'eau retire leurs noms", tous(".mtt__etiquette--eau").length === 0 && !racine.classList.contains("avec-eau"));
 clic(un(".mtt__zoom-plus"));
@@ -81,6 +102,17 @@ clic(un(".mtt__replier"));
 clic(un(".mtt__entete .reinitialiser"));
 verifier("Réinitialiser ramène l'état exact du départ", etatDepart() === depart, etatDepart());
 verifier("Réinitialiser garde le texte masqué", racine.classList.contains("texte-masque"));
+const carte = un(".mtt__carte");
+const doigt = (x, y, id) => ({ clientX: x, clientY: y, identifier: id, target: carte });
+const toucher = (type, liste) => { const ev = new window.Event(type, { bubbles: true, cancelable: true }); ev.touches = liste; carte.dispatchEvent(ev); return ev; };
+const avant = un(".mtt__svg").getAttribute("viewBox"), raf = window.requestAnimationFrame;
+window.requestAnimationFrame = undefined;
+const d1 = toucher("touchstart", [doigt(300, 300, 1), doigt(340, 300, 2)]);
+toucher("touchmove", [doigt(260, 300, 1), doigt(380, 300, 2)]);
+toucher("touchend", []);
+window.requestAnimationFrame = raf;
+verifier("pincer à deux doigts rapproche la carte", d1.defaultPrevented && un(".mtt__svg").getAttribute("viewBox") !== avant && carte.classList.contains("est-zoomee"), un(".mtt__svg").getAttribute("viewBox"));
+clic(un(".mtt__entete .reinitialiser"));
 verifier("Réinitialiser ramène la carte entière", un(".mtt__svg").getAttribute("viewBox") === "0 0 1000 892" && un(".mtt__recentrer").hidden);
 
 console.log("TYPOGRAPHIE ET STRUCTURE");
@@ -90,6 +122,8 @@ function parcourir() { textes.push(racine.querySelector(".mtt__lecture").textCon
 parcourir();
 ["montreal", "laval", "longueuil", "nord", "sud"].forEach((k) => { racine.mtt.choisir({ type: "secteur", id: k }); parcourir(); racine.mtt.choisir(null); });
 ["montreal", "l-ile-dorval", "terrebonne", "westmount"].forEach((k) => { racine.mtt.choisir({ type: "ville", id: k }); parcourir(); racine.mtt.choisir(null); });
+racine.mtt.arr().forEach((a) => { racine.mtt.choisir({ type: "arr", id: a.id }); parcourir(); racine.mtt.choisir(null); });
+racine.mtt.ponts().forEach((p) => { racine.mtt.choisir({ type: "pont", id: p.id }); parcourir(); racine.mtt.choisir(null); });
 const copie = racine.cloneNode(true); copie.querySelectorAll("style, script, svg").forEach((n) => n.remove());
 const t = copie.textContent + textes.join(" ");
 verifier("aucun tiret cadratin ou demi-cadratin", !/[–—]/.test(t));
