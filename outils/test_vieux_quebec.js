@@ -2,10 +2,10 @@
  * Test de la maquette 3D du Vieux-Québec (fiche de géographie 03) dans un DOM simulé.
  *     node outils/test_vieux_quebec.js [composant.html]
  *
- * Le DOM simulé n'a pas de WebGL : on vérifie donc le mode de secours, la liste des 20 lieux, les
+ * Le DOM simulé n'a pas de WebGL : on vérifie donc le mode de secours, la liste des 18 lieux, les
  * panneaux, le filtre par période de création, les couleurs des régimes, l'activité et sa rétroaction, les
  * textes, puis la construction de la maquette sans carte graphique (relief et falaise, bâtiments,
- * arbres, aucune coordonnée invalide, 20 lieux bien situés, funiculaire, église, escalier), la désélection,
+ * arbres, aucune coordonnée invalide, 18 lieux bien situés, funiculaire et ses gares, église, portes percées), la désélection,
  * le bouton Réinitialiser et les règles des étiquettes calmes, de
  * la molette et du recadrage. Le composant est inséré dans une fiche minimale, avec page.js quand il
  * est présent, pour vérifier aussi le bouton Plein écran que la page lui ajoute.
@@ -50,8 +50,9 @@ function clic(el) { if (el) el.dispatchEvent(new window.MouseEvent("click", { bu
 const texteContenu = () => un(".vqc__contenu").textContent;
 const SEPT = ["place-royale", "ursulines", "place-armes", "maison-jacquet", "fortifications", "citadelle", "terrasse"];
 // Éléments présentés dans la fiche (sections et photos) : tous doivent être dans la maquette.
-const DE_LA_FICHE = SEPT.concat(["notre-dame-victoires", "frontenac", "porte-saint-louis", "porte-saint-jean", "porte-prescott", "seminaire", "casse-cou", "funiculaire", "petit-champlain", "terminal"]);
-const N = 20;
+const DE_LA_FICHE = SEPT.concat(["notre-dame-victoires", "frontenac", "porte-saint-louis", "porte-saint-jean", "porte-prescott", "seminaire", "funiculaire", "petit-champlain", "terminal"]);
+const RETIRES = ["casse-cou", "musee"];
+const N = 18;
 
 console.log("MISE EN PLACE");
 verifier("composant présent", !!racine && !!api);
@@ -62,14 +63,14 @@ verifier("sans WebGL : mode de secours", racine.classList.contains("sans-3d") &&
 verifier("le message de secours est rempli", un(".vqc__secours-texte").textContent.length > 60);
 const boutons = tous(".vqc__lieu");
 const lieux = api.lieux;
-verifier("20 lieux dans la liste", boutons.length === N, boutons.length);
-verifier("20 lieux dans les données, numérotés dans l'ordre", lieux.length === N && lieux.every((l, i) => l.num === i + 1 && boutons[i].getAttribute("data-lieu") === l.id));
+verifier("18 lieux dans la liste", boutons.length === N, boutons.length);
+verifier("18 lieux dans les données, numérotés dans l'ordre", lieux.length === N && lieux.every((l, i) => l.num === i + 1 && boutons[i].getAttribute("data-lieu") === l.id));
 const bouton = (id) => boutons.find((b) => b.getAttribute("data-lieu") === id);
 const num = (id) => lieux.find((l) => l.id === id).num;
 verifier("tous les éléments présentés dans la fiche sont dans la maquette", DE_LA_FICHE.every((id) => lieux.some((l) => l.id === id)), DE_LA_FICHE.filter((id) => !lieux.some((l) => l.id === id)).join());
 verifier("la liste est regroupée par section de la fiche (4 groupes nommés)", tous(".vqc__choix .vqc__groupe").length === 4 && tous(".vqc__choix ul.vqc__lieux").length === 4);
 const REGIMES_VERIFIES = { "notre-dame-victoires": ["fr", "br,co"], "porte-saint-louis": ["fr", "co"], "porte-saint-jean": ["fr", "co"], "porte-prescott": ["br", "co"],
-  "casse-cou": ["fr", "co"], "petit-champlain": ["fr", "br,co"], "terminal": ["co", ""], "funiculaire": ["co", "fr"], "place-royale": ["fr", "br,co"] };
+  "petit-champlain": ["fr", "br,co"], "terminal": ["co", ""], "funiculaire": ["co", "fr"], "place-royale": ["fr", "br,co"] };
 verifier("régime de création et transformations des nouveaux lieux (d'après les sources)", Object.keys(REGIMES_VERIFIES).every((id) => { const l = lieux.find((x) => x.id === id); return l.o === REGIMES_VERIFIES[id][0] && l.t.join() === REGIMES_VERIFIES[id][1]; }));
 verifier("chaque lieu a un régime d'origine valide et des transformations valides", lieux.every((l) => ["fr", "br", "co"].includes(l.o) && l.t.every((t) => ["fr", "br", "co"].includes(t) && t !== l.o)));
 verifier("les trois régimes sont représentés", ["fr", "br", "co"].every((c) => lieux.some((l) => l.o === c)));
@@ -137,7 +138,7 @@ verifier("Réinitialiser ramène la caméra à la vue d'ensemble", /function rei
 
 console.log("FILTRE PAR PÉRIODE DE CRÉATION");
 verifier("la barre du filtre annonce la période de création", /Période de création/.test(un(".vqc__barre-nom").textContent) && /période de création/.test(un(".vqc__barre").getAttribute("aria-label")));
-const parPeriode = { fr: [1, 2, 3, 4, 5, 6, 10, 11, 13, 14, 16], br: [7, 12, 18, 19], co: [8, 9, 15, 17, 20] };
+const parPeriode = { fr: [1, 2, 3, 4, 5, 6, 10, 11, 13, 15], br: [7, 12, 17, 18], co: [8, 9, 14, 16] };
 ["fr", "br", "co"].forEach((code) => {
   clic(un(`.vqc__filtre[data-filtre="${code}"]`));
   const garde = lieux.filter((l) => l.o === code).map((l) => l.num);
@@ -176,7 +177,7 @@ clic(un(".vqc__activite-lancer"));
 verifier("la question s'affiche et le bandeau invite à répondre", /Sous quel régime ce lieu a-t-il été créé\?/.test(texteContenu()) && !un(".vqc__bandeau").hidden);
 verifier("pendant la question, la maquette est neutre (pas d'indice de couleur)", api.etat().regime === 2 && api.etat().activite === true);
 let bons = 0;
-verifier("une partie compte 12 lieux tirés au hasard parmi les 20", api.etat().nbQuestions === 12 && /Lieu 1 sur 12/.test(texteContenu()));
+verifier("une partie compte 12 lieux tirés au hasard parmi les 18", api.etat().nbQuestions === 12 && /Lieu 1 sur 12/.test(texteContenu()));
 for (let i = 0; i < 12; i++) {
   const nom = un(".vqc__contenu .vqc__nom").textContent;
   const lieu = lieux.find((l) => l.nom === nom);
@@ -229,7 +230,7 @@ const okIdx = (m) => { const n = m.pos.length / 3; for (let i = 0; i < m.idx.len
 verifier("terrain et couronne : indices valides, aucune valeur invalide", okIdx(T) && okIdx(C));
 verifier("le terrain reste léger (moins de 260 000 triangles en tout)", T.ntri + C.ntri < 260000, T.ntri + C.ntri);
 verifier("la construction reste rapide", Date.now() - t0 < 4000, (Date.now() - t0) + " ms");
-// Les 20 lieux : chaque numéro est sur son objet réel (bâtiment, rempart ou zone du sol).
+// Les 18 lieux : chaque numéro est sur son objet réel (bâtiment, rempart ou zone du sol).
 const Z = api.zones();
 function zoneEn(x, y) {
   const S = { x0: -800, y1: 920, x1: 800 }, k = Z.w / (S.x1 - S.x0);
@@ -247,21 +248,67 @@ const proches = lieux.map((l) => {
   return m;
 });
 const situes = lieux.map((l, i) => proches[i] < 45 || zoneEn(l.ancre[0], l.ancre[1]) === l.num);
-verifier("les 20 lieux sont situés sur leur objet réel (bâtiment, rempart, funiculaire ou zone)", situes.every(Boolean), lieux.filter((l, i) => !situes[i]).map((l) => l.id).join());
+verifier("les 18 lieux sont situés sur leur objet réel (bâtiment, rempart, funiculaire ou zone)", situes.every(Boolean), lieux.filter((l, i) => !situes[i]).map((l) => l.id).join());
 verifier("la place d'Armes est juste devant le Château Frontenac", (() => { const a = lieux[num("place-armes") - 1].ancre, f = lieux[num("frontenac") - 1].ancre; return a[1] > f[1] && Math.hypot(a[0] - f[0], a[1] - f[1]) < 120 && zoneEn(a[0], a[1]) === num("place-armes"); })());
 verifier("la maison Jacquet est rue Saint-Louis, près de la rue des Jardins", (() => { const a = lieux[num("maison-jacquet") - 1].ancre; return Math.abs(a[0] - 8) < 20 && Math.abs(a[1] - 28) < 20; })(), lieux[num("maison-jacquet") - 1].ancre.join());
 verifier("la terrasse Dufferin longe la falaise, devant le Château", (() => { const t = lieux[num("terrasse") - 1].ancre, f = lieux[num("frontenac") - 1].ancre; return zoneEn(t[0], t[1]) === num("terrasse") && t[0] > f[0]; })());
-verifier("les zones du sol couvrent la place Royale, la place d'Armes, la terrasse, la Citadelle, la rue du Petit-Champlain et l'escalier", ["place-royale", "place-armes", "terrasse", "citadelle", "petit-champlain", "casse-cou"].every((id) => Z.t.some((v) => Math.round(v / 12) === num(id))));
+verifier("les zones du sol couvrent la place Royale, la place d'Armes, la terrasse, la Citadelle, la rue du Petit-Champlain", ["place-royale", "place-armes", "terrasse", "citadelle", "petit-champlain"].every((id) => Z.t.some((v) => Math.round(v / 12) === num(id))));
 verifier("la carte des zones code jusqu'à 21 lieux (numéro × 12, couleurs pour 21 lieux)", /t\[j \* w \+ i\] = z\[0\] \* 12;/.test(script) && (script.match(/255\.0 \/ 12\.0/g) || []).length === 2 && /uCoulLieu\[21\]/.test(script) && /new Float32Array\(63\)/.test(script));
 // Le funiculaire : toute la voie, de la terrasse (en haut) à la maison Louis-Jolliet (en bas).
 const zDe = (id) => { let zmin = Infinity, zmax = -Infinity, xs = []; for (let v = 0; v < M.vol.n; v++) { if (M.vol.o[v * 8 + 4] !== num(id)) continue; const z = M.vol.f[v * 6 + 1]; zmin = Math.min(zmin, z); zmax = Math.max(zmax, z); xs.push(M.vol.f[v * 6]); } return { zmin, zmax, n: xs.length, x0: Math.min(...xs), x1: Math.max(...xs) }; };
 const fu = zDe("funiculaire");
 verifier("funiculaire : une voie inclinée d'environ 55 m de dénivelé (fiche : 59 m), de la terrasse au Petit-Champlain", /\(S\.funi \|\| \[\]\)\.forEach\(function \(s\) \{ funiculaire\(lot, lirePoints\(s\)\); \}\);/.test(script) && fu.zmax - fu.zmin > 45 && fu.x1 - fu.x0 > 30, (fu.zmax - fu.zmin).toFixed(1) + " m, " + (fu.x1 - fu.x0).toFixed(1) + " m");
+{
+  // la voie du funiculaire est posée contre la falaise : ses rails ne passent jamais sous le relief
+  let sous = 0, rails = 0, cab = 0;
+  for (let v = 0; v < M.vol.n; v++) {
+    if (M.vol.o[v * 8 + 4] !== num("funiculaire")) continue;
+    const r = M.vol.o[v * 8], g = M.vol.o[v * 8 + 1], b = M.vol.o[v * 8 + 2];
+    const x = M.vol.f[v * 6], y = -M.vol.f[v * 6 + 2], z = M.vol.f[v * 6 + 1];
+    if (r === 91 && g === 85 && b === 80) { rails++; if (z < api.H(x, y) + 0.3) sous++; }
+    if (r === 236 && g === 229 && b === 211) cab++;
+  }
+  verifier("funiculaire : quatre rails sur deux voies, jamais sous la falaise, et deux cabines au cadre crème", rails >= 4 * 6 * 30 && sous === 0 && cab >= 1000, rails + " sommets de rails, " + sous + " sous le relief, " + cab + " sommets crème");
+}
 const nd = zDe("notre-dame-victoires");
 verifier("Notre-Dame-des-Victoires : un bâtiment à elle, avec pignon et clocheton au-dessus du faîte", nd.n > 60 && nd.zmax - nd.zmin > 22, (nd.zmax - nd.zmin).toFixed(1) + " m");
-const cc = zDe("casse-cou");
-verifier("l'escalier du Casse-Cou est modélisé (marches et garde-corps)", cc.n > 40 && cc.zmax - cc.zmin > 6, cc.n + " sommets, " + (cc.zmax - cc.zmin).toFixed(1) + " m");
-verifier("chaque nouvelle porte et le terminal ont leur bâtiment", ["porte-saint-louis", "porte-saint-jean", "porte-prescott", "terminal"].every((id) => zDe(id).n > 20));
+verifier("l'escalier du Casse-Cou et le Musée de la civilisation ne sont plus des lieux (ni liste, ni modèle d'escalier)",
+  RETIRES.every((id) => !lieux.some((l) => l.id === id) && !un(`.vqc__lieu[data-lieu="${id}"]`)) && !/function escalier\(/.test(script) && !/Casse-Cou/.test(un(".vqc__source").textContent));
+verifier("chaque porte et le terminal ont leur modèle", ["porte-saint-louis", "porte-saint-jean", "porte-prescott", "terminal"].every((id) => zDe(id).n > 20));
+// Les portes : la rue passe dessous. Un rayon tiré le long de la rue, à hauteur d'une personne, ne touche
+// aucun triangle de la maquette (ni la porte, ni un rempart, ni un bâtiment).
+const DONNEES = JSON.parse(composant.split("\n").find((l) => l.trim().startsWith("var D = {")).trim().replace(/^var D = /, "").replace(/;\s*$/, ""));
+function rayonLibre(O, Dir, L) {
+  const f = M.vol.f;
+  for (let t = 0; t < M.vol.n; t += 3) {
+    const a = [f[t * 6], f[t * 6 + 1], f[t * 6 + 2]], b = [f[t * 6 + 6], f[t * 6 + 7], f[t * 6 + 8]], c = [f[t * 6 + 12], f[t * 6 + 13], f[t * 6 + 14]];
+    if (Math.min(a[0], b[0], c[0]) > Math.max(O[0], O[0] + Dir[0] * L) + 0.01 || Math.max(a[0], b[0], c[0]) < Math.min(O[0], O[0] + Dir[0] * L) - 0.01) continue;
+    if (Math.min(a[2], b[2], c[2]) > Math.max(O[2], O[2] + Dir[2] * L) + 0.01 || Math.max(a[2], b[2], c[2]) < Math.min(O[2], O[2] + Dir[2] * L) - 0.01) continue;
+    const e1 = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], e2 = [c[0] - a[0], c[1] - a[1], c[2] - a[2]];
+    const p = [Dir[1] * e2[2] - Dir[2] * e2[1], Dir[2] * e2[0] - Dir[0] * e2[2], Dir[0] * e2[1] - Dir[1] * e2[0]];
+    const det = e1[0] * p[0] + e1[1] * p[1] + e1[2] * p[2];
+    if (Math.abs(det) < 1e-9) continue;
+    const s0 = [O[0] - a[0], O[1] - a[1], O[2] - a[2]], u = (s0[0] * p[0] + s0[1] * p[1] + s0[2] * p[2]) / det;
+    if (u < 0 || u > 1) continue;
+    const q = [s0[1] * e1[2] - s0[2] * e1[1], s0[2] * e1[0] - s0[0] * e1[2], s0[0] * e1[1] - s0[1] * e1[0]];
+    const w = (Dir[0] * q[0] + Dir[1] * q[1] + Dir[2] * q[2]) / det;
+    if (w < 0 || u + w > 1) continue;
+    const d = (e2[0] * q[0] + e2[1] * q[1] + e2[2] * q[2]) / det;
+    if (d >= 0 && d <= L) return false;
+  }
+  return true;
+}
+const portes = DONNEES.scene.portes || [];
+verifier("trois portes modélisées à part (Saint-Louis, Saint-Jean, Prescott), pas en blocs pleins", portes.length === 3 && portes.map((p) => lieux[p[0] - 1].id).join() === "porte-saint-louis,porte-saint-jean,porte-prescott");
+portes.forEach((p) => {
+  const id = lieux[p[0] - 1].id, u = [p[3], p[4]], v = [-u[1], u[0]], hu = p[6], s0 = p[8], cv = p[9];
+  const cx = p[1] + v[0] * (cv + s0), cy = p[2] + v[1] * (cv + s0), zr = api.H(cx, cy);
+  const libre = [1.2, 2.2].every((hz) => rayonLibre([cx - u[0] * (hu + 2), zr + hz, -(cy - u[1] * (hu + 2))], [u[0], 0, -u[1]], 2 * hu + 4));
+  const porteLa = !rayonLibre([cx - v[0] * 14, zr + (p[7] === 3 ? 6.6 : 8.6), -(cy - v[1] * 14)], [v[0], 0, -v[1]], 28);
+  verifier(`${id} : la rue passe dessous (rien à 1,2 m ni à 2,2 m du sol) et la porte est bien là, au-dessus`, libre && porteLa, "libre " + libre + ", porte " + porteLa);
+});
+verifier("Saint-Louis : tourelles en poivrière; Saint-Jean : tourelles crénelées; Prescott : passerelle entre deux culées",
+  /tourelle\(dExt \* \(hu \+ 0\.7\), sg \* \(hv - 1\.2\), zr \+ 4\.5, zT \+ 1\.8, sorte === 1\)/.test(script) && /if \(sorte === 3\) \{/.test(script) && /creneaux\(/.test(script));
 verifier("le quartier du Petit-Champlain regroupe les maisons de la rue", zDe("petit-champlain").n > 500, zDe("petit-champlain").n);
 const vuesL = api.vues();
 verifier("chaque lieu a sa vue (cible, distance, lacet, tangage)", lieux.every((l) => vuesL[l.id] && vuesL[l.id].every((v) => isFinite(v)) && vuesL[l.id][2] > 100));
@@ -320,10 +367,10 @@ if (srcApres && srcRepos && srcAttendre) {
     const regle = new Function("etat", `var filtre = etat.filtre, choisi = etat.choisi, activite = etat.activite; ${srcActive} ${srcPermis} ${srcVisible} return visible;`);
     const etiq = (l, dedans) => ({ l, dedans });
     const vis = (filtre, choisi, activite, dedans) => lieux.filter((l) => regle({ filtre, choisi, activite })(etiq(l, dedans === undefined ? true : dedans))).map((l) => l.num).join();
-    verifier("sans filtre, les 20 étiquettes sont affichées", vis("tous", null, null) === lieux.map((l) => l.num).join(), vis("tous", null, null));
-    verifier("filtre Régime britannique : seules les étiquettes des lieux créés par les Britanniques restent", vis("br", null, null) === "7,12,18,19", vis("br", null, null));
-    verifier("filtre Régime français : les lieux créés plus tard (terrasse, musée, funiculaire) disparaissent", vis("fr", null, null) === "1,2,3,4,5,6,10,11,13,14,16", vis("fr", null, null));
-    verifier("filtre Période contemporaine : cinq étiquettes", vis("co", null, null) === "8,9,15,17,20", vis("co", null, null));
+    verifier("sans filtre, les 18 étiquettes sont affichées", vis("tous", null, null) === lieux.map((l) => l.num).join(), vis("tous", null, null));
+    verifier("filtre Régime britannique : seules les étiquettes des lieux créés par les Britanniques restent", vis("br", null, null) === "7,12,17,18", vis("br", null, null));
+    verifier("filtre Régime français : les lieux créés plus tard (terrasse, funiculaire, terminal) disparaissent", vis("fr", null, null) === "1,2,3,4,5,6,10,11,13,15", vis("fr", null, null));
+    verifier("filtre Période contemporaine : quatre étiquettes", vis("co", null, null) === "8,9,14,16", vis("co", null, null));
     verifier("une étiquette hors du cadre reste cachée", vis("tous", null, null, false) === "");
     verifier("pendant l'activité, seule l'étiquette du lieu demandé paraît", vis("tous", null, { ordre: [lieux[4]], i: 0 }) === "5");
   }
