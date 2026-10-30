@@ -662,6 +662,9 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       for (var i = 0; i < r.p.length; i += 2) { pts.push([r.p[i], r.p[i + 1]]); }
       for (var j = 1; j < pts.length; j++) { cum.push(cum[j - 1] + Math.sqrt(Math.pow(pts[j][0] - pts[j - 1][0], 2) + Math.pow(pts[j][1] - pts[j - 1][1], 2))); }
       var dSt = r.st.map(function (k) { return cum[k]; }), L = cum[cum.length - 1], n = dSt.length;
+      /* les stations confondues sur la carte (moins de 0,3 unité) ne comptent qu'une fois */
+      var dSt2 = [dSt[0]]; for (var k2 = 1; k2 < dSt.length; k2++) { if (dSt[k2] - dSt2[dSt2.length - 1] > .3) { dSt2.push(dSt[k2]); } else if (k2 === dSt.length - 1) { dSt2[dSt2.length - 1] = dSt[k2]; } }
+      dSt = dSt2; n = dSt.length;
       var roule = Math.max(1, r.duree - r.arret * Math.max(0, n - 2)), v = L / roule;
       return { l: r.l, mode: A.lignes[r.l].mode, pts: pts, cum: cum, dSt: dSt, L: L, v: v, arret: r.arret, duree: r.duree, sens: [r.aller, r.retour] };
     });
@@ -679,7 +682,12 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       var x = 0, temps = 0;
       for (var i = 0; i < t.dSt.length - 1; i++) {
         var seg = (t.dSt[i + 1] - t.dSt[i]) / t.v;
-        if (e <= temps + seg) { return t.dSt[i] + (e - temps) * t.v; }
+        if (e <= temps + seg) {
+          /* départ en douceur et freinage avant la station : courbe en S plutôt que vitesse constante */
+          var f = (e - temps) / seg;
+          if (t.arret > 0) { f = f * f * (3 - 2 * f); }
+          return t.dSt[i] + f * (t.dSt[i + 1] - t.dSt[i]);
+        }
         temps += seg; x = t.dSt[i + 1];
         if (i < t.dSt.length - 2) { if (e <= temps + t.arret) { return x; } temps += t.arret; }
       }
@@ -732,6 +740,7 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       var b = svg.getBoundingClientRect(), c = carte.getBoundingClientRect();
       return { x: b.left - c.left, y: b.top - c.top, w: b.width, h: b.height };
     }
+    var cache = {}, fond = "", themeCache = null;
     function dessiner() {
       if (!ctx) { return; }
       var tb = taille(), r = window.devicePixelRatio || 1;
@@ -742,7 +751,8 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       if (toile.width !== W2 || toile.height !== H2) { toile.width = W2; toile.height = H2; }
       ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, W2, H2);
       var v = etat.vb, s = Math.min(tb.w / v.w, tb.h / v.h), ox = (tb.w - v.w * s) / 2, oy = (tb.h - v.h * s) / 2;
-      var vis = lignesVisibles(), cache = {}, fond = window.getComputedStyle ? window.getComputedStyle(racine).getPropertyValue("--mtr-station-trait").trim() : "#1A2530";
+      var vis = lignesVisibles(), theme = document.documentElement.getAttribute("data-sombre") || "";
+      if (theme !== themeCache) { themeCache = theme; cache = {}; fond = window.getComputedStyle ? window.getComputedStyle(racine).getPropertyValue("--mtr-station-trait").trim() : "#1A2530"; }
       var z = Math.min(2, Math.max(.8, Math.sqrt(F.w / v.w) * .8));
       ctx.setTransform(r, 0, 0, r, 0, 0);
       vehicules(st.t, function (t, p) {
@@ -756,7 +766,12 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       });
       ctx.globalAlpha = 1;
     }
-    function afficher() {
+    var minuteAffichee = null;
+    function afficher(force) {
+      /* La carte est redessinée à chaque image ; le texte, seulement quand la minute change. */
+      var m = Math.floor(st.t);
+      if (!force && m === minuteAffichee) { dessiner(); return; }
+      minuteAffichee = m;
       heureSortie.textContent = hm(st.t);
       curseur.value = String(Math.round(st.t));
       curseur.setAttribute("aria-valuetext", hm(st.t) + ", " + periode(st.t));
@@ -786,10 +801,10 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       if (st.boucle) { window.cancelAnimationFrame(st.boucle); st.boucle = 0; }
       st.dernier = 0;
       if (st.joue) { st.boucle = window.requestAnimationFrame(etape); }
-      afficher();
+      afficher(true);
     }
     jouer.addEventListener("click", function () { lancer(!st.joue); });
-    curseur.addEventListener("input", function () { st.t = Number(curseur.value); st.actif = true; afficher(); });
+    curseur.addEventListener("input", function () { st.t = Number(curseur.value); st.actif = true; afficher(true); });
     Array.prototype.forEach.call(racine.querySelectorAll(".mtr__vitesse"), function (b) {
       b.addEventListener("click", function () {
         st.vitesse = Number(b.getAttribute("data-vitesse"));
@@ -801,8 +816,8 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
       Array.prototype.forEach.call(racine.querySelectorAll(".mtr__vitesse"), function (b2) { b2.setAttribute("aria-pressed", b2.getAttribute("data-vitesse") === "1" ? "true" : "false"); });
       lancer(false);
     }
-    afficher();
-    return { dessiner: dessiner, arreter: arreter, etat: function () { return { t: st.t, actif: st.actif, joue: st.joue, n: nombres(st.t) }; }, aller: function (m) { st.t = m; st.actif = true; afficher(); } };
+    afficher(true);
+    return { dessiner: dessiner, arreter: arreter, etat: function () { return { t: st.t, actif: st.actif, joue: st.joue, n: nombres(st.t) }; }, aller: function (m) { st.t = m; st.actif = true; afficher(true); } };
   })();
 
   /* Réinitialiser (bouton posé par page.js) : tous les étages, aucun choix, toute la région. */
