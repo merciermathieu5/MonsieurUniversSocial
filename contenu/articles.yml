@@ -21,6 +21,38 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2297719/nunavut-cabinet-demission"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-11-03"
+    titre: "Nunavut : Brian Koonoo quitte le Cabinet et ses quatre ministères"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2297689/rimouski-ecole-agriculture-gp-demolition"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-11-03"
+    titre: "Vers la démolition de l’ancienne école d’agriculture de Rimouski?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2297785/hydro-quebec-electricite-approvisionnement-importation"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-03"
+    titre: "Hydro-Québec est en quête d’électricité pour éviter une pénurie dès 2029"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2297646/bruno-marchand-bilan-promesses-electorales"
+    fiche: "02"
+    media: "Radio-Canada"
+    date: "2026-11-03"
+    titre: "Le maire Marchand échappe deux promesses électorales en banlieue"
+    garder: ""
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/info/long-format/2294770/loi-indiens-carcross-taxes-territoire-citoyen-autochtones"
     fiche: "12"
     media: "Radio-Canada"
@@ -45,6 +77,14 @@ articles:
     garder: ""
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/info/videos/1-10799518/centreport-veut-devenir-un-pole-agroalimentaire-et-industriel"
+    fiche: "10"
+    media: "Radio-Canada"
+    date: "2026-11-02"
+    titre: "CentrePort veut devenir un pôle agroalimentaire et industriel"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/entreprises/2026-11-02/centres-de-donnees/les-geants-technos-empruntent-a-gogo-et-effraient-wall-street.php"
     fiche: "07"
     media: "La Presse"
@@ -66,6 +106,14 @@ articles:
     media: "Radio-Canada"
     date: "2026-11-02"
     titre: "La saison des croisières est terminée à Saguenay"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2297653/monastere-ursuline-porte-ouverte-trois-rivieres"
+    fiche: "03"
+    media: "Radio-Canada"
+    date: "2026-11-02"
+    titre: "Imaginer le futur de la maison blanche des Ursulines"
     garder: ""
     note: ""
 
