@@ -5976,3 +5976,84 @@ choix, et les deux autres se seraient éteintes.
 15 contrôles jsdom sur le filtre, dont les trois décomptes par catégorie, la
 désactivation en géographie et la combinaison avec le menu des réalités
 sociales.
+
+## Fiche : L'expansion européenne dans le monde
+
+### Les explorateurs et leurs voyages (livraison 152)
+
+Le petit module des explorateurs devient une carte, sur le modèle de celui du
+traité de Tordesillas. Les sept explorateurs y sont toujours, avec leurs textes
+d'origine intacts, mais chacun a maintenant ses voyages : douze en tout, 108
+escales datées, l'aller en trait plein et le retour en pointillé. Colomb a ses
+quatre voyages, Cartier ses trois.
+
+La carte reprend le centrage de la fiche de notes (Natural Earth, projection
+Equal Earth). La vue d'ensemble montre l'aller du voyage le plus connu de chacun
+et une frise de 1480 à 1550 sous la carte. Le bouton de lecture fait avancer le
+temps : les routes se dessinent dans l'ordre, avec un petit navire au bout du
+trait. Choisir un explorateur ouvre sa fiche, puis l'onglet de ses voyages, où
+chaque escale recadre la carte et porte une date et deux ou trois phrases.
+
+Le « Le savais-tu? » de la fiche de notes s'affiche sous chaque fiche. Le
+parcours guidé (Précédente, Suivante) traverse les sept explorateurs escale par
+escale et se termine sur un défi : sept routes mystères à associer au bon
+explorateur.
+
+### Les noms qui dépassaient
+
+Les noms d'océans et de continents ne sont plus posés à un endroit fixe. Chacun
+a plusieurs positions possibles et ne s'affiche que là où il tient au complet
+dans le cadre, sans toucher une escale ni le nom d'une route. Au zoom, ceux qui
+ne trouvent pas de place disparaissent plutôt que de déborder.
+
+### Ce qui change dans les textes existants
+
+Deux retouches seulement. Colomb affichait « Expédition » au singulier : la
+ligne indique maintenant ses quatre départs, 1492, 1493, 1498 et 1502.
+L'étiquette de service écrivait « Au service du Espagne » et « du Angleterre » :
+c'est corrigé.
+
+### À vérifier de ton côté
+
+1. Le texte de Cabot dit qu'il a découvert « le golfe du Saint-Laurent ».
+   Aucune source consultée ne l'appuie. L'endroit même où il a touché terre
+   reste débattu. Je n'ai pas touché au texte; je te propose de retirer ce
+   passage.
+2. Pour Magellan, la fiche de notes dit « environ 240 marins ». Plusieurs
+   sources disent 237, d'autres environ 270. J'ai gardé 240 pour rester
+   cohérent avec la fiche.
+3. La fiche de notes dit que Cabot a « disparu en mer avec ses navires » en
+   1498. Un des cinq navires est revenu en Irlande, endommagé. J'ai écrit
+   qu'on perd sa trace.
+4. Cabral n'est pas dans la fiche de notes. Son « Le savais-tu? » sur le
+   bois-brésil est de moi.
+5. Trois dates varient selon les sources. Le retour de Colomb enchaîné à Cadix
+   (fin octobre ou novembre 1500) s'affiche « automne 1500 », celui de Gama à
+   Lisbonne « fin de l'été 1499 », celui de Cartier en 1542 « 1542 ».
+
+Les routes en haute mer sont plausibles, pas relevées : la note sous la carte
+le dit.
+
+### Une lecture plus lente et une carte qui ne bouge plus
+
+La lecture allait trop vite et la carte se déplaçait un peu dès le départ. La
+cause du déplacement : la légende sous le curseur passait d'une à trois lignes
+selon l'escale, ce qui changeait la hauteur de la carte et forçait un nouveau
+cadrage. Cette légende a maintenant une hauteur fixe de deux lignes, et la
+colonne qui la porte s'élargit un peu pour que toutes les légendes y tiennent.
+Au lancement, la carte ne se recadre plus que si le voyage déborde de la vue.
+
+Le rythme suit maintenant les étapes plutôt que le calendrier : chaque escale
+reste affichée deux secondes et demie, même un hivernage de six mois, et chaque
+traversée dure de 3 à 8,5 secondes selon sa longueur. Le voyage de Gama passe
+d'environ 40 secondes à 80, le tour du monde de Magellan dure deux minutes. La
+vue d'ensemble ralentit aussi pendant les voyages : environ une minute au total.
+
+### Le compte
+
+24 problèmes, identiques avant et après. Nouvel essai
+`outils/test_explorateurs.js` : 84 contrôles jsdom, tous au vert, dont la
+cohérence des dates de chaque voyage, la vue d'ensemble à mi-chemin du voyage de
+Dias, le parcours guidé complet, le défi à 7 sur 7 et la typographie. Les essais
+de Tordesillas, de la route de la soie, du commerce triangulaire, de
+Tenochtitlan et des explorations africaines restent au vert.
