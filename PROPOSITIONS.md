@@ -6034,6 +6034,21 @@ c'est corrigé.
 Les routes en haute mer sont plausibles, pas relevées : la note sous la carte
 le dit.
 
+### Une lecture plus lente et une carte qui ne bouge plus
+
+La lecture allait trop vite et la carte se déplaçait un peu dès le départ. La
+cause du déplacement : la légende sous le curseur passait d'une à trois lignes
+selon l'escale, ce qui changeait la hauteur de la carte et forçait un nouveau
+cadrage. Cette légende a maintenant une hauteur fixe de deux lignes, et la
+colonne qui la porte s'élargit un peu pour que toutes les légendes y tiennent.
+Au lancement, la carte ne se recadre plus que si le voyage déborde de la vue.
+
+Le rythme suit maintenant les étapes plutôt que le calendrier : chaque escale
+reste affichée deux secondes et demie, même un hivernage de six mois, et chaque
+traversée dure de 3 à 8,5 secondes selon sa longueur. Le voyage de Gama passe
+d'environ 40 secondes à 80, le tour du monde de Magellan dure deux minutes. La
+vue d'ensemble ralentit aussi pendant les voyages : environ une minute au total.
+
 ### Le compte
 
 24 problèmes, identiques avant et après. Nouvel essai
