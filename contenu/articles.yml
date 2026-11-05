@@ -21,6 +21,30 @@
 articles:
 
   # ---------------- À JUGER ----------------
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2297956/infrastructures-priorite-autochtones-budget-2026"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-11-05"
+    titre: "Les infrastructures, la priorité des peuples autochtones pour le budget 2026"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2298566/projet-filiere-batterie-chantier-becancour"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-05"
+    titre: "Le plus gros projet de la filière batterie sur le point d’échouer?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2298462/budget-federal-cote-nord-foresterie-investissement"
+    fiche: "06"
+    media: "Radio-Canada"
+    date: "2026-11-05"
+    titre: "Budget fédéral : l’industrie forestière espère de l’aide d’Ottawa"
+    garder: ""
+    note: ""
+
   - adresse: "https://ici.radio-canada.ca/recit-numerique/17639/bombes-parc-marin-saguenay-saint-laurent-seconde-guerre-modiale-contamination"
     fiche: "13"
     media: "Radio-Canada"
@@ -45,6 +69,22 @@ articles:
     garder: ""
     note: ""
 
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2298316/mikisew-cour-federale-oleoduc-pacific-link"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-11-04"
+    titre: "Le projet d’oléoduc Pacific Link contesté en Cour fédérale par la Nation crie Mikisew"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/espaces-autochtones/2298374/mississaugas-credit-investissement-first-nations-bank"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-11-04"
+    titre: "Mississaugas of the Credit investit 15 M$ dans First Nations Bank"
+    garder: ""
+    note: ""
+
   - adresse: "https://www.lapresse.ca/affaires/economie/2026-11-04/canola-et-acier/la-chine-et-le-canada-prolongent-leur-accord-jusqu-a-la-fin-de-2028.php"
     fiche: "09"
     media: "La Presse"
@@ -66,6 +106,14 @@ articles:
     media: "Radio-Canada"
     date: "2026-11-04"
     titre: "Pourquoi un terminal de conteneurs à Québec?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/nouvelle/2298258/prolongation-accord-chine-canola-acier"
+    fiche: "09"
+    media: "Radio-Canada"
+    date: "2026-11-04"
+    titre: "La Chine et le Canada prolongent jusqu’à la fin de 2028 l’accord sur le canola et l’acier"
     garder: ""
     note: ""
 
@@ -282,6 +330,14 @@ articles:
     media: "Journal de Montréal"
     date: "2026-10-31"
     titre: "Le gel des prix alimentaires «pénalise le consommateur», selon un expert en agroalimentaire"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.lapresse.ca/voyage/trucs-et-conseils/2026-10-31/salon-international-tourisme-voyages/le-tour-du-monde-a-montreal_1.php"
+    fiche: "05"
+    media: "La Presse"
+    date: "2026-10-31"
+    titre: "Salon international Tourisme Voyages | Le tour du monde… à Montréal"
     garder: ""
     note: ""
 
