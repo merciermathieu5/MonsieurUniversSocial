@@ -447,7 +447,7 @@ James à Montréal, il y a près de 1 000 kilomètres à vol d'oiseau.
 
 ### Les lignes à 735 000 volts
 
-![Le réseau de transport d'électricité du Québec](../medias/07-territoire-energetique-quebec/carte-reseau-transport.png)
+::: composant hydro-quebec-reseau
 
 ![Des pylônes à haute tension près de Chapais](../medias/07-territoire-energetique-quebec/pylones-chapais.jpg)
 
@@ -565,6 +565,16 @@ l'outil Icograms en tenant compte des enjeux d'une communauté autochtone.
    a changé. Nomme deux différences.
 :::
 
+### Faut-il un nouveau barrage?
+
+Le débat sur les besoins d'électricité se joue aussi sur le terrain. Sur la
+Basse-Côte-Nord, à l'est de la Romaine, Hydro-Québec étudie depuis 2023 la
+rivière du Petit Mécatina, où aucune centrale n'a encore été construite. Avant
+toute décision, plusieurs groupes font entendre leur voix. Évalue leurs
+propositions, puis prends position.
+
+::: composant barrage-enjeu
+
 ## Le projet Minecraft du RÉCIT
 
 Le Service national du RÉCIT propose une tâche en deux temps, prévue pour six
@@ -603,3 +613,10 @@ Expérimentation dans la classe de Nicolas
 - [Régie de l'énergie du Canada, profil énergétique du Québec](https://www.cer-rec.gc.ca/fr/donnees-analyse/marches-energetiques/profils-energetiques-provinces-territoires/profils-energetiques-provinces-territoires-quebec.html)
 - [Encyclopédie canadienne, Convention de la Baie-James et du Nord québécois](https://www.thecanadianencyclopedia.ca/fr/article/convention-de-la-baie-james-et-du-nord-quebecois)
 - [Alloprof, les territoires énergétiques de la Jamésie et de la Côte-Nord](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/es-territoires-energetiques-de-la-jamesie-et-de-la-cote-nord-g1041)
+- [Fondation Rivières, la rivière du Petit Mécatina](https://fondationrivieres.org/en/?p=55969)
+- [Noovo, Hydro-Québec lance une étude préliminaire sur la rivière du Petit Mécatina](https://www.noovo.info/nouvelle/hydro-quebec-lance-une-etude-preliminaire-sur-la-riviere-du-petit-mecatina.html)
+- [Radio-Canada, des avis partagés sur un barrage au Petit Mécatina (2023)](https://ici.radio-canada.ca/nouvelle/1969402)
+- [Radio-Canada, le chef d'Unamen Shipu et Fondation Rivières contre un barrage (2023)](https://ici.radio-canada.ca/nouvelle/2011303)
+- [Le Nord-Côtier, Incertitude pour le parachèvement de la route 138 en Basse-Côte-Nord (19 juin 2026)](https://lenord-cotier.com/2026/06/19/incertitude-pour-le-parachevement-de-la-route-138-en-basse-cote-nord/)
+- [Radio-Canada, Réévaluation complète du projet de route 138 en Basse-Côte-Nord (juin 2026)](https://ici.radio-canada.ca/nouvelle/2262641/transports-route-138-basse-cote-nord)
+- [Ministère des Transports du Québec, prolongement de la route 138 sur la Basse-Côte-Nord](https://www.quebec.ca/transports/infrastructures-projets/projets/projets-routiers/cote-nord/prolongement-route-138-basse-cote-nord)

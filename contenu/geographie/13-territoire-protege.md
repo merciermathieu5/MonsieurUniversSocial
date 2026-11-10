@@ -174,6 +174,8 @@ sont formées par éruptions volcaniques. Leur relief est montagneux et compte
 de nombreux cratères, dont celui du volcan Wolf, actif, qui culmine à 1 707
 mètres.
 
+::: composant galapagos-iles
+
 ::: galerie
 ![L'archipel des Galápagos vu par satellite](../medias/13-territoire-protege/galapagos-satellite.jpg)
 
@@ -380,15 +382,18 @@ semelle.
 
 ## Anticosti, un patrimoine québécois
 
-![L'île d'Anticosti dans le golfe du Saint-Laurent](../medias/13-territoire-protege/carte-golfe.png)
+::: composant anticosti-carte
+
+La carte a deux thèmes, comme cette section : les fossiles, qui ont valu à l'île
+son inscription, puis les cerfs, qui posent le dilemme de sa protection.
 
 ![La rivière à l'Huile, sur l'île d'Anticosti](../medias/13-territoire-protege/riviere-huile.jpg)
 
 Le 19 septembre 2023, le Comité du patrimoine mondial réuni à Riyad a inscrit
 l'île d'Anticosti sur la Liste du patrimoine mondial. C'est le premier site
 naturel du Québec à y figurer. L'île se trouve dans le golfe du Saint-Laurent.
-Elle couvre 9 289 kilomètres carrés, avec plus de 550 kilomètres de littoral,
-ce qui en fait la plus grande île de la province.
+Elle couvre environ 7 943 kilomètres carrés, avec plus de 550 kilomètres de
+littoral, ce qui en fait la plus grande île de la province.
 
 ### Protégée pour ses fossiles
 
@@ -397,7 +402,8 @@ le meilleur laboratoire naturel du monde pour l'étude des fossiles et des
 couches sédimentaires de la **première extinction de masse du vivant**,
 survenue à la fin de l'Ordovicien. Les couches de l'île couvrent dix millions
 d'années d'histoire de la Terre, entre 447 et 437 millions d'années avant
-aujourd'hui. Plus de 1 440 espèces fossiles y sont connues. Des milliers de
+aujourd'hui. Plus de 1 440 taxons fossiles, c'est-à-dire des espèces et
+d'autres groupes d'êtres vivants, y sont connus. Des milliers de
 surfaces de roche permettent d'observer les animaux à coquille, et parfois à
 corps mou, qui vivaient dans les fonds peu profonds d'une ancienne mer
 tropicale.

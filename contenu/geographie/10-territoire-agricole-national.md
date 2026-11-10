@@ -332,6 +332,13 @@ laisser bétonner; de l'autre, les municipalités doivent bien loger une populat
 qui grandit. À toi de te faire une idée.
 :::
 
+::: composant zone-agricole-qc
+
+La carte montre, pour chaque MRC, la part de son territoire que la loi protège.
+Compare l'île de Montréal, Laval et Mirabel, puis active le Grand Montréal : tu y
+retrouveras le chiffre de la fiche sur la métropole, 58 % du territoire terrestre
+en zone agricole.
+
 ::: activite
 Le balado **[Aujourd'hui l'histoire](https://ici.radio-canada.ca/ohdio/premiere/emissions/aujourd-hui-l-histoire/segments/entrevue/61227/loi-sur-la-protection-du-territoire-agricole-jean-garon-pq-jean-charles-panneton)**
 raconte le combat de Jean Garon pour faire accepter cette loi.

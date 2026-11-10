@@ -1,0 +1,627 @@
+<section class="ant" id="anticosti-carte" data-reinitialiser aria-label="Carte interactive : l'île d'Anticosti, ses fossiles et ses cerfs">
+<style>
+.ant { --ant-mer: #CFE0EC; --ant-terre: #EFEBDF; --ant-cote: #7FA0B8; --ant-falaise: #B0662E; --ant-riv: #4D88B8; --ant-riv-unesco: #B0662E; --ant-parc: #A9CF8E; --ant-parc-bord: #4E8A3A; --ant-reserve: #CDE2B8; --ant-halo: #FBFBF8; --ant-fossile: #8C5A2B; --ant-cerf: #7A3F86; --ant-lacher: rgba(122, 63, 134, .16); --ant-encart-terre: #E3DFD3; }
+html[data-sombre="on"] .ant { --ant-mer: #14273A; --ant-terre: #2A333C; --ant-cote: #2F5878; --ant-falaise: #E59B5F; --ant-riv: #7FB6E2; --ant-riv-unesco: #E59B5F; --ant-parc: #3E5F37; --ant-parc-bord: #8DC07A; --ant-reserve: #33473A; --ant-halo: #18222D; --ant-fossile: #E5B47A; --ant-cerf: #D3A5EA; --ant-lacher: rgba(211, 165, 234, .16); --ant-encart-terre: #36414C; }
+.ant { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: ant / inline-size; }
+.ant .ant__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.ant .ant__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.ant .ant__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .ant .ant__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .ant .ant__titre { color: var(--encre); }
+html[data-sombre="on"] .ant .ant__consigne { color: var(--encre-pale); }
+.ant .ant__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.ant .ant__visuel, .ant .ant__lecture { min-width: 0; }
+.ant .ant__carte { position: relative; background: var(--ant-mer); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.ant .ant__carte.est-zoomee { touch-action: none; }
+.ant .ant__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.ant.est-glisse .ant__svg { cursor: grabbing; }
+.ant__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--ant-halo); stroke-linejoin: round; pointer-events: none; }
+.ant .ant__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.ant .ant__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.ant .ant__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.ant .ant__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.ant .ant__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.ant .ant__recentrer[hidden] { display: none; }
+.ant .ant__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.ant:not(.est-plein-ecran) .ant__replier { display: none; }
+.ant .ant__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.ant .ant__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ant ul > li::before, .ant ol > li::before { content: none; display: none; }
+.ant ul > li::marker, .ant ol > li::marker { content: none; }
+.ant .ant__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.ant .ant__couches > li { margin: 0; padding: 0; }
+.ant .ant__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.ant .ant__couche:hover { background: var(--matiere-voile); }
+.ant .ant__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.ant .ant__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.ant .ant__couche--radio .ant__couche-case { border-radius: 50%; }
+.ant .ant__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.ant .ant__couche[aria-pressed="true"] .ant__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.ant .ant__couche[aria-pressed="true"] .ant__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.ant .ant__couche--radio[aria-pressed="true"] .ant__couche-case::after { left: .27rem; top: .27rem; width: .32rem; height: .32rem; border: 0; border-radius: 50%; background: #fff; transform: none; }
+html[data-sombre="on"] .ant .ant__couche[aria-pressed="true"] .ant__couche-case::after { border-color: #10171F; }
+html[data-sombre="on"] .ant .ant__couche--radio[aria-pressed="true"] .ant__couche-case::after { background: #10171F; }
+.ant .ant__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.ant .ant__vue { padding: 1rem 1.2rem 1rem; }
+.ant .ant__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.ant .ant__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ant .ant__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.ant .ant__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.ant .ant__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.ant .ant__chiffres > div { min-width: 0; }
+.ant .ant__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.ant .ant__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.ant .ant__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.ant .ant__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.ant .ant__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.ant .ant__liste > li { margin: 0; padding: 0; }
+.ant .ant__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.ant .ant__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.ant .ant__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.ant .ant__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.ant .ant__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.ant .ant__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.ant .ant__toutes { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.ant .ant__toutes > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.ant .ant__toutes > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.ant .ant__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.ant .ant__grille > li { margin: 0; padding: 0; }
+.ant .ant__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.ant .ant__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.ant .ant__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.ant .ant__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.ant .ant__retour:hover { background: var(--matiere-voile); }
+.ant .ant__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.ant .ant__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.ant .ant__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.ant .ant__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.ant .ant__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container ant (min-width: 46rem) {
+  .ant .ant__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .ant .ant__visuel { border-right: 1px solid var(--trait); }
+  .ant .ant__lecture { border-top: 0; }
+}
+@container ant (max-width: 30rem) {
+  .ant .ant__barre, .ant .ant__vue, .ant .ant__source { padding-left: .8rem; padding-right: .8rem; }
+  .ant .ant__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
+}
+.ant.est-plein-ecran, .texte section.ant.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.ant.est-plein-ecran > .ant__entete { flex: none; }
+.ant.est-plein-ecran > .ant__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.ant.est-plein-ecran .ant__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.ant.est-plein-ecran .ant__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.ant.est-plein-ecran .ant__svg, .texte .ant.est-plein-ecran svg.ant__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.ant.est-plein-ecran .ant__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.ant.est-plein-ecran > .ant__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.ant.est-plein-ecran.texte-masque > .ant__corps { grid-template-columns: minmax(0, 1fr); }
+.ant.est-plein-ecran.texte-masque .ant__lecture { display: none; }
+.ant.est-plein-ecran.texte-masque .ant__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .ant.est-plein-ecran > .ant__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .ant.est-plein-ecran .ant__visuel { border-right: 0; }
+  .ant.est-plein-ecran .ant__lecture { border-top: 1px solid var(--trait); }
+  .ant.est-plein-ecran.texte-masque > .ant__corps { grid-template-rows: minmax(0, 1fr); }
+  .ant.est-plein-ecran > .ant__source { display: none; }
+}
+@media print {
+  .ant .ant__outils, .ant .ant__replier, .ant .ant__barre { display: none; }
+  .ant .ant__svg { max-height: none; }
+  .ant .ant__corps { grid-template-columns: minmax(0, 1fr); }
+  .ant .ant__visuel { border-right: 0; }
+  .ant { break-inside: avoid; }
+}
+.ant__ile { fill: var(--ant-terre); stroke: var(--ant-cote); stroke-width: .8px; vector-effect: non-scaling-stroke; }
+.ant__falaise { fill: none; stroke: var(--ant-falaise); stroke-width: 3.2px; stroke-linejoin: round; vector-effect: non-scaling-stroke; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.ant.theme-fossiles .ant__falaise { opacity: .85; }
+.ant__pa { stroke: var(--ant-parc-bord); stroke-width: .9px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.ant__pa[data-type="parc"] { fill: var(--ant-parc); }
+.ant__pa[data-type="reserve"] { fill: var(--ant-reserve); stroke-dasharray: 3 2; }
+.ant__pa:hover { filter: brightness(.95); }
+.ant__aires { display: none; }
+.ant.avec-aires .ant__aires { display: inline; }
+.ant__riv { fill: none; stroke: var(--ant-riv); stroke-width: 1.1px; vector-effect: non-scaling-stroke; stroke-linecap: round; opacity: .75; }
+.ant.theme-fossiles .ant__riv[data-unesco="1"] { stroke: var(--ant-riv-unesco); stroke-width: 3px; opacity: 1; }
+.ant__lacher { fill: var(--ant-lacher); stroke: var(--ant-cerf); stroke-width: 1.4px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; display: none; pointer-events: none; }
+.ant.theme-cerfs .ant__lacher { display: inline; }
+.ant__lieu { cursor: pointer; transition: opacity .25s; }
+.ant__lieu .ant__rond { stroke: var(--ant-halo); stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
+.ant__lieu[data-theme="fossiles"] .ant__rond { fill: var(--ant-fossile); }
+.ant__lieu[data-theme="cerfs"] .ant__rond { fill: var(--ant-cerf); }
+.ant__lieu[data-theme="les deux"] .ant__rond { fill: var(--encre); }
+.ant__lieu.est-estompe { opacity: .25; }
+.ant__lieu.est-choisi .ant__rond { stroke: var(--signal); stroke-width: 3px; }
+.ant__pa.est-choisi { stroke: var(--signal); stroke-width: 2.6px; }
+.ant__encart-fond { fill: var(--ant-mer); stroke: var(--trait); stroke-width: 1px; }
+.ant__encart-terre { fill: var(--ant-encart-terre); }
+.ant__encart-cadre { fill: none; stroke: var(--signal); stroke-width: 1.4px; }
+.ant__encart text { font-family: var(--titre); font-size: 8px; fill: var(--encre-pale); font-style: italic; }
+.ant__etiquette--lieu { font-weight: 700; fill: var(--encre); }
+.ant__etiquette--choisi { font-weight: 700; fill: var(--encre); }
+.ant__etiquette--riv { font-style: italic; fill: var(--ant-riv); }
+.ant__etiquette--parc { font-style: italic; font-weight: 600; fill: var(--ant-parc-bord); }
+.ant__etiquette--eau { font-style: italic; fill: #3C6A90; }
+html[data-sombre="on"] .ant__etiquette--eau { fill: #8FB8DA; }
+.ant__etiquette--theme { font-weight: 700; fill: var(--ant-cerf); }
+.ant .ant__themes { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 .55rem; padding: 0; list-style: none; }
+.ant .ant__themes > li { margin: 0; padding: 0; }
+.ant .ant__theme { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .34rem .95rem; cursor: pointer; }
+.ant .ant__theme:hover { background: var(--matiere-voile); }
+.ant .ant__theme:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.ant .ant__theme[aria-pressed="true"] { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+html[data-sombre="on"] .ant .ant__theme[aria-pressed="true"] { background: var(--matiere-voile); color: var(--encre); border-color: var(--matiere); }
+.ant .ant__frise, .ant .ant__densite { display: block; width: 100%; max-width: 30rem; height: auto; margin: .2rem 0 .9rem; }
+.ant__frise text, .ant__densite text { font-family: var(--donnee); font-size: 10px; fill: var(--encre-doux); }
+.ant__frise .ant__f-barre { fill: var(--ant-fossile); opacity: .3; }
+.ant__frise .ant__f-ext { fill: var(--signal); }
+.ant__frise .ant__f-axe { stroke: var(--encre-pale); stroke-width: 1px; }
+.ant__densite .ant__d-case { fill: var(--surface-2); stroke: var(--trait); stroke-width: 1px; }
+.ant__densite .ant__d-cerf { fill: var(--ant-cerf); }
+@media (prefers-reduced-motion: reduce) { .ant__falaise, .ant__lieu { transition: none; } }
+@container ant (min-width: 46rem) {
+  .ant .ant__corps { grid-template-columns: minmax(0, 1fr); }
+  .ant .ant__visuel { border-right: 0; }
+  .ant .ant__lecture { border-top: 1px solid var(--trait); }
+  .ant .ant__vue { padding: 1.1rem 1.6rem 1.2rem; }
+  .ant .ant__vue > .ant__chiffres { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 56rem; }
+  .ant .ant__vue > .ant__paragraphe, .ant .ant__vue > .ant__note { max-width: 48rem; }
+  .ant .ant__vue > .ant__liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); max-width: 56rem; }
+}
+.ant.est-plein-ecran .ant__vue > .ant__chiffres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ant.est-plein-ecran .ant__vue > .ant__liste { display: flex; }
+.ant.est-plein-ecran .ant__vue { padding: 1rem 1.2rem; }
+</style>
+<div class="ant__entete">
+<p class="ant__titre" role="heading" aria-level="3">Anticosti&nbsp;: des fossiles et des cerfs</p>
+<p class="ant__consigne">Choisis un thème, puis un lieu</p>
+</div>
+<div class="ant__corps">
+<div class="ant__visuel">
+<div class="ant__carte">
+<svg class="ant__svg" viewBox="0 0 1000 512" role="img" aria-labelledby="ant-svg-titre">
+<title id="ant-svg-titre">Carte de l'île d'Anticosti : côtes, rivières, aires protégées et lieux liés aux fossiles et aux cerfs</title>
+<path class="ant__ile" d=""/>
+<g class="ant__aires"></g>
+<path class="ant__falaise" d=""/>
+<g class="ant__rivieres"></g>
+<circle class="ant__lacher" r="1"/>
+<g class="ant__lieux"></g>
+<g class="ant__encart"></g>
+<g class="ant__etiquettes"></g>
+</svg>
+<button type="button" class="ant__bouton-carte ant__replier" aria-expanded="true">Masquer le texte</button>
+<div class="ant__outils">
+<button type="button" class="ant__bouton-carte ant__zoom ant__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="ant__bouton-carte ant__zoom ant__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="ant__bouton-carte ant__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="ant__barre">
+<p class="ant__barre-titre">Le thème</p>
+<ul class="ant__themes">
+<li><button type="button" class="ant__theme" data-theme="fossiles" aria-pressed="true">Les fossiles</button></li>
+<li><button type="button" class="ant__theme" data-theme="cerfs" aria-pressed="false">Les cerfs</button></li>
+</ul>
+<ul class="ant__couches">
+<li><button type="button" class="ant__couche" data-couche="aires" aria-pressed="true"><span class="ant__couche-case" aria-hidden="true"></span>Les aires protégées</button></li>
+</ul>
+</div>
+</div>
+<div class="ant__lecture">
+<div class="ant__vue" tabindex="-1"></div>
+<p class="ant__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="ant__source">Inscription, critère et superficie du bien (18&nbsp;240&nbsp;ha)&nbsp;: UNESCO et Parcs Canada. Âge des couches et extinction&nbsp;: Parcs Canada et Radio-Canada. Cerfs (nombre introduit, densités, effets sur la forêt)&nbsp;: Université Laval, ULaval nouvelles, 29&nbsp;avril&nbsp;2023; estimation de plus de 115&nbsp;000&nbsp;cerfs&nbsp;: Le Québec maritime. Chute Vauréal, canyons, grotte à la Patate et saison du parc&nbsp;: Tourisme Côte-Nord et Le Québec maritime. Côtes, rivières, lieux et aires protégées&nbsp;: © les contributeurs d'OpenStreetMap, licence ODbL, simplifiés; la réserve de biodiversité n'y figure pas. Carte de situation&nbsp;: Natural Earth.</p>
+<script>
+(function () {
+  var racine = document.getElementById("anticosti-carte");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":512,"ile":"M403.2 94.9l10 1 52.6 18.4 42.3 10.9 10.6 6.9 12.3 1 3.5 9 19 1 2 2 1.3 5.9 3.2 4 12.9 3 9.7 0 1.9 5.9 13.9 3.5 7.4 4.5 6.1 7.4 20-.5 4.2 8 5.5 1 1.9 4.9 4.2 1.5 3.3 4.5 13.8 2 6.8 5 5.2-1 4.8 6.9 10.7 3 1.9 5.5 8.7 3.9 1.6 6 10.7 5.5-5.2 3.4-.3 3 2.6 3 4.8 0-1.6 3.5 1.6 3.9 7.1 1.5-1.9 3 .9 3 6.8 6 16.1-3 7.1 3.5-1.3 4.4 2.3 3.5 4.5 2 6.1-2 4.9 4 6.4 2.5 1.6 6.9-.3 7.5 2.6 3.9 7.1 .5 2.6 4 7.4 2.5 2.9 3.5 5.2 0 5.8-3.5 3.2 1 7.4 8.4 8.7 5-.6-1.5 3.2 0 5.2-4.5 8 .5 7.4 6.5 12.6 3-.3 8.9 2.6 2 5.1-.5 2.6-2 15.5-1 2.9 10 2 2 15.4 6.9-.6 5 1.9 4.4-3.2 3 .3 3 10.7 2 1.3 5-2 4.9 .7 2 4.5 6 8.4 4.4 4.5 12.5 5.1 .5 4.9 4.9 2.9 11-.7 2.9 3.6 7.5 1.6 2.5 7.7 3 1.3 5.4-2.9 2-1.3 3.5-4.5 2.5-4.2 6.9-.3 2.5 2.9 7-3.5 .5-7.1-3.5-11 1-6.4 5.4-7.8 0-4.5 6.5-5.2-3.5-7.7 0-13.9-4.5-16.4 6-12.6-4.5-5.5 5-13.2-3 1.3-1.5-4.5 4-1-2-5.2-2-10 2.5-4.8-1.5-23.9 1-14.2 5-7.4-5.5-10-3-15.2-7.9-9.3-1-5.8-4.5-13.2-2-3.9-3.9-7.1-3-6.5 1.5-4.2-5-9.6-1.5-1-2.5 2.9-2.9-4.2 1-1 2.9 2 1-6.2 .5-9-1.5-7.1-4.4-1.3 .5 1.6 1-6.1-.5-6.4-1.5-2.6 1.5-20.7-6-17.1-2-26.1-12.4-7.7 0-7.5-3-10.9 0-6.2-5-9-1.9-24.2-10.5-6.4 0-10-4.5-2-2.9-22.5-8.5-5.9-5.4-11.2-6-3.6-6-7.4-4.4-3.6-7-4.5-4-4.8-.5-6.5 2-5.8-4.9-25.1-13-5.5-.5-15.8-7.4-4.2 .5-18.4-8-8.4 .5-3.2-2.9 6.4-1.5 1.3-6-12.9-20.4-1.9-5.9 3.2-9-1.9-1-1-6.4-3.9-4-.9-5-10-12.9-33.6-25.3-7.4-9.9-1.9-3.5 1.6 .5-3.6-2-6.7-8.9-27.5-14-2.9-3.9-10.3-3.5-10.3-8.4-19-5-4.2-5-2.9 3-10.4-2.5-7.1-4.5-12.9-4.4 0-2-6.7 1.5-4.9-2.5-.9 1-7.8-4-.3-2-4.2 1-12.3-5.4-2.9-4-12.9-8.5-3.2-12.4-7.1-4.5-3.9 3.5 4.2-4.9-7.4-2 1.9-1-1.9-2-5.5 .5 .7 3.5-2 1.5 1.7 .9-.4 3 4.5 6.5-.6 3-10.6-3-9.1-11.9-3.2-7.5-17.4-7.4-5.8-5.5 1.3-7.5 4.2-4.9 3.2-.5 2.2-6 7.5-3 1.2-2.4 17.8-2.5 8.1-3 9.3 .5 14.8-8.5 13.6 2 9.7-5.4 19.3 1 8.4-3.5 16.8 7.4 6.4 5.5 9.4-2.5 25.8 8.5 15.2 13.4 11.6 2 5.1 2.9 13.3-2 13.5 4.5 13.9 0 26.4 9.5 12.6 1.9 9.7-.5 12.6 4 23.5 2zM841 468.9l-1.3-2-.7 1z","cote":"M403.2 94.9l10 1 52.6 18.4 42.3 10.9 10.6 6.9 12.3 1 3.5 9 19 1 2 2 1.3 5.9 3.2 4 12.9 3 9.7 0 1.9 5.9 13.9 3.5 7.4 4.5 6.1 7.4 20-.5 4.2 8 5.5 1 1.9 4.9 4.2 1.5 3.3 4.5 13.8 2 6.8 5 5.2-1 4.8 6.9 10.7 3 1.9 5.5 8.7 3.9 1.6 6 10.7 5.5-5.2 3.4-.3 3 2.6 3 4.8 0-1.6 3.5 1.6 3.9 7.1 1.5-1.9 3 .9 3 6.8 6 16.1-3 7.1 3.5-1.3 4.4 2.3 3.5 4.5 2 6.1-2 4.9 4 6.4 2.5 1.6 6.9-.3 7.5 2.6 3.9 7.1 .5 2.6 4 7.4 2.5 2.9 3.5 5.2 0 5.8-3.5 3.2 1 7.4 8.4 8.7 5-.6-1.5 3.2 0 5.2-4.5 8 .5 7.4 6.5 12.6 3-.3 8.9 2.6 2 5.1-.5 2.6-2 15.5-1 2.9 10 2 2 15.4 6.9-.6 5 1.9 4.4-3.2 3 .3 3 10.7 2 1.3 5-2 4.9 .7 2 4.5 6 8.4 4.4 4.5 12.5 5.1 .5 4.9 4.9 2.9 11-.7 2.9 3.6 7.5 1.6 2.5 7.7 3 1.3 5.4-2.9 2-1.3 3.5-4.5 2.5-4.2 6.9-.3 2.5 2.9 7-3.5 .5-7.1-3.5-11 1-6.4 5.4-7.8 0-4.5 6.5-5.2-3.5-7.7 0-13.9-4.5-16.4 6-12.6-4.5-5.5 5-13.2-3 1.3-1.5-4.5 4-1-2-5.2-2-10 2.5-4.8-1.5-23.9 1-14.2 5-7.4-5.5-10-3-15.2-7.9-9.3-1-5.8-4.5-13.2-2-3.9-3.9-7.1-3-6.5 1.5-4.2-5-9.6-1.5-1-2.5 2.9-2.9-4.2 1-1 2.9 2 1-6.2 .5-9-1.5-7.1-4.4-1.3 .5 1.6 1-6.1-.5-6.4-1.5-2.6 1.5-20.7-6-17.1-2-26.1-12.4-7.7 0-7.5-3-10.9 0-6.2-5-9-1.9-24.2-10.5-6.4 0-10-4.5-2-2.9-22.5-8.5-5.9-5.4-11.2-6-3.6-6-7.4-4.4-3.6-7-4.5-4-4.8-.5-6.5 2-5.8-4.9-25.1-13-5.5-.5-15.8-7.4-4.2 .5-18.4-8-8.4 .5-3.2-2.9 6.4-1.5 1.3-6-12.9-20.4-1.9-5.9 3.2-9-1.9-1-1-6.4-3.9-4-.9-5-10-12.9-33.6-25.3-7.4-9.9-1.9-3.5 1.6 .5-3.6-2-6.7-8.9-27.5-14-2.9-3.9-10.3-3.5-10.3-8.4-19-5-4.2-5-2.9 3-10.4-2.5-7.1-4.5-12.9-4.4 0-2-6.7 1.5-4.9-2.5-.9 1-7.8-4-.3-2-4.2 1-12.3-5.4-2.9-4-12.9-8.5-3.2-12.4-7.1-4.5-3.9 3.5 4.2-4.9-7.4-2 1.9-1-1.9-2-5.5 .5 .7 3.5-2 1.5 1.7 .9-.4 3 4.5 6.5-.6 3-10.6-3-9.1-11.9-3.2-7.5-17.4-7.4-5.8-5.5 1.3-7.5 4.2-4.9 3.2-.5 2.2-6 7.5-3 1.2-2.4 17.8-2.5 8.1-3 9.3 .5 14.8-8.5 13.6 2 9.7-5.4 19.3 1 8.4-3.5 16.8 7.4 6.4 5.5 9.4-2.5 25.8 8.5 15.2 13.4 11.6 2 5.1 2.9 13.3-2 13.5 4.5 13.9 0 26.4 9.5 12.6 1.9 9.7-.5 12.6 4 23.5 2z","riv":[{"n":"Rivière Jupiter","d":"M535.5 261.8l-2.9 2-2-1.5 .4-1.5-2.3 2-6.4 .5-9.1-.5-4.5-2.5-3.9-4-10 1-8-4-7.1 0-12.3-6.9-6.8-1.5-3.2-3-3.5 0 0-2.5-5.5-5.4-2.3-.5-1.3-2.5-2.5 .5-1.7-3.5-2.5 0-2-3.5-2.2-1-1-1 0-2.9-2.6-1-3.2-5.5 .6-2.5-3.8 .5-.7-3-2.9-.5-1.9-1.9-1.9 2.4-4.6-.5-2.5-3.4-2.3 .5-2.3-2-2.2 0-5.8-6-4.2 5.5-3.6 1-.3 3.9-9 3-3.2-2-4.2 1.5-2.9-1 0 2.5-1.3 1.5-4.6-.5-5.4 9.5 3.5 5.4-1.6 4.5 .6 3.5-.9 2.4 1.6 3-.7 2.5 2.3 3-.6 3 3.8 4.9-2.9 4 .7 4.5-13.9 3.5-1.3 2.4-2.6 1.5-7.4 0M560 267.7l-1.9 .5-2-1.9-6.1-2-1.6-3-4.5 1-7.1-2.5-2.9 1 1.6 1","unesco":true,"x":391.9,"y":202.4},{"n":"Rivière Vauréal","d":"M575.8 285.6l1.9-1.5-1.9-4.4 3.2-1.5-2.2-3.5 1.3-3-.7-1.5 13.2-5.4 2 1 7.4-2 1.9-2.5-.6-1.5 2.9-4 5.8-1 7.7-9.4 10-2.5 3.9-4 1-4.9 2.2-2 1.3-3.5-1.9 0 .3-2.5 1.3-2.5 3.6-2.4 0-1.5 1.6 .5 .6-1.5 4.5-2 5.8 0 6.2-11.9 8.4-3","unesco":true,"x":627.5,"y":243.0},{"n":"Rivière de la Chaloupe","d":"M651 334.3l1.3-1.5 6.1-1 .6-2 2.9-1.9 11 6.4 1.6-.5 0-4 2.6-1.4 2.9 1.9 .6 2 6.2 2 1.6-2.5 9 1.5 8.7-4.9 5.2 2.4 2.2-1 4.2 2-1.9 3.5 1 1.5-1 4.5 1 2 2.9 1.4-1 2.5 1 3-1 2 2.6 7.9 .3 3-1.3 1 .7 1.5-3.6 2.5-3.2 0 0 1.5-4.8 4.5 .3 7.4-2.9 5.5-.7 2.9 1 1-1.6 2 1.3 3.5-2.6 6.5 .3 2.4-1.3 1.5-2.9 0-1.6 4 .3 2.5-.9-.5-2.6 5-1.3-.5-2.6 3.9-5.1 4-.7 9.5-2.6 2.9 .7 2","unesco":false,"x":720.4,"y":364.2},{"n":"Rivière Bec-Scie","d":"M236.5 92.9l-3 7.9 0 3-2.2 1.5-2.9-1-12.9 5-.7 2.5-1.6 1 1.3 1.5-4.2 5.9 .3 5.5-1.2 3-4.6 2.9-2.9-.5-.3 3-1.9 1.5 .3 3-2.6 .5 .3 2-4.2 6.4 1.7 3","unesco":false,"x":210.5,"y":122.8},{"n":"Rivière à l'Huile","d":"M389.4 152l-2.9-3-3.3 0-2.9 4.5-6.4 3.5-1.3 3.9-3.2 0-6.5 3.5-.3-2.5-2.9-1.4 .6-2.5-.6-1-5.8-.5-2-5.5-1.9-1.5-.6-3.5 2.9-8.9-2-4 2.3-14.4-2-9.4 1-1.5-.6-2 .6-2 1.3-.5 1-3.5-.7-1.4 1-2 .3-4 2.3-2 .3-2","unesco":false,"x":351.3,"y":140.2},{"n":"Rivière Sainte-Marie","d":"M257.1 97.4l.6 2-1.6 3.9-.6 7 .6 1-1.3 .5 2 6.9-1.6 3.5 .9 1.5-3.2 3-.3 1.5 .9 1.5-2.5 4.9-.4 4-2.9 7.4-1.9 10.5 .7 3.5-1 6.9-2.3 4-2.6 1.5 .7 2-2.3-2","unesco":false,"x":249.8,"y":140.7},{"n":"Rivière à la Patate","d":"M519 206.2l3.3-2-.4-2.5 2.6-2-1-2.5 .7-1-3.2-1.5-.4-2.5 2-3.4 2.9-.5 2.6-4 .6-1.5-.6-3 .9-1.5 5.2-2.5-1.6-6.4 4.8-2.5 18.1 4 1.9-7.5-1.3-2.5 1.3-4.4 3.2-1","unesco":false,"x":533.4,"y":169.0},{"n":"Rivière Observation","d":"M576.5 201.7l10.3-1.5 7.7 1.5 2-2-1.3-1 .3-2 6.1-6.9 1.3-6 1-2 2.9 0 0-2 1.9-3","unesco":false,"x":597.6,"y":194.3},{"n":"Rivière aux Saumons","d":"M588.4 308.5l-2.6-2.5 .3-2.5-1.9-2 .6-1-1.9-1.5 2.3-3.4-1-1 .3-1.5 3.6-2.5-1.6-.5-.4-1.5 7.8-3 4.2 1 1.9-1 2.3 2 3.2-1 7.7-3.9 5.8 0 2.6-2 .7 1.5 .6-2 1.9-.5 2.3 .5 .6 1.5 9.7-2 5.2 1 1.3 2-1 2.4 7.7 2.5-1.6 2.5 2 3 9.3 1.5 2.6 4.4 5.8 2 7.4-1 8.7 2.5 2-.5 2.9 4 2.6-1.5 0 3.5 5.1 3.5 11 1 7.1-3.5 7.7 1 3.9-1.5 .3 1.5 1.3 .5 7.8-3.5 4.5 1 7.7-5.5 4.5 3.5 6.2 0 11.2-5 4.6 1 .6-1-1-1.5 1.7 1 1.6-2.4 .9 .4","unesco":false,"x":681.0,"y":301.4},{"n":"Rivière Ferrée","d":"M626.5 328.8l-.7 5.5 2.6 5 6.4 2.5 2.9 5.4-3.5 4.5-.3 4 .6 2.5 6.1 8.4 .7 8.4-.7 2.5 2.9 7-9.3 15.9-1 4-3.8 4.9-1.3 4.5-2.9 3.5-.7 3.9 2.3 4 .6 4.5","unesco":false,"x":643.0,"y":383.2},{"n":"Rivière Chicotte","d":"M506.1 303.5l-.3 1.5 1.9 2.5-1.2 5 .3 2.9 8.7 7 1 3 4.1 3 7.8 11.9-1.3 6.9-5.8 8.5 .3 8.4 1.9 2.5-2.9 5.5 .4 4.9 2.9 8-.7 8.4-2.9 2","unesco":false,"x":524.1,"y":351.6},{"n":"Rivière Dauphiné","d":"M734.2 337.8l4.2 0 6.1 2.5 2.3 5.9-3.3 2.5-.6 6-2.6 2.5-.6 5.4 1.3 3-4.2 2.5 0 2 2.2 2.5-2.9 1.5 0 3.4-1.3 0-.6 4-2.6 3 0 3-2.6 4.9-8 11-1 3.9 .3 5 2.6 1 0 5.5 1.9 3.4-.6 3.5-5.2 6-3.2 9.4-5.5 .5-4.2 3.5","unesco":false,"x":727.0,"y":395.2},{"n":"Rivière du Brick","d":"M461.3 273.7l-1 2-3.8 3.5-6.5 0-1.9 3-2.9 2.4-4.6 1-7.1-2.9-5.1 1.4-2.3 10-5.5 6.9-4.5 4.5-10 4.5 .4 2-1.7 3.4 1.3 4.5 4.9 3 1.3 2.5-2.6 5.9-1.6 0-.4 3","unesco":false,"x":420.7,"y":301.0},{"n":"Rivière à la Loutre","d":"M315.2 126.2l-1 1 .6 7.4-1.3 2-1.2 14.4-3.3 5.5 1.6 6.9-2.2 7-3.6 1-5.8 7.4-2.2-2-2.9 1-1-1.5-3.5 1-2.3 3.5-.6 10-2.6 3.9 .3 1.5-2.9 4.5-3.2-.5","unesco":false,"x":301.8,"y":175.2},{"n":"Rivière Schmitt","d":"M778.1 379.5l3.5 5 4.9 2.5 9-1 3.5-5.5 3.3-2.5 0-2 7.7-3.9-.6-1.5 .6-4 1.6-1.5-.3-2.5 13.9-.5-1.3-2.5 .6-1.4-1.6-2.5 1-2-1.3-.5 3.9-4.5 .6-3.5-.3-3.9 4.5-6 0-11.4-1.3-1 .3-2.5-.9-1.5","unesco":false,"x":822.5,"y":362.2},{"n":"Rivière Bell","d":"M775.5 383l2.6 6 2.5 1.9 1 5 1.6 3 3.3 2-.4 2.5 1 1-.3 1.9 1.3 5.5-2 5 .7 1.5 3.2 .5 .6 8.9 3.9 3-3.9 5.9 1.3 6.5-2.2 2-2.6 6.9 6.4 9 .4 6.9-2.6 3","unesco":false,"x":794.1,"y":430.3},{"n":"Rivière Galiote","d":"M481.6 280.7l-1.6 8.9-1.6 2.5-3.9 4.5-6.4 0-3.3 4.4-.3 3-6.1 7-4.9 10.4 1 1.5-1.6 5 .6 1.4 9.4 3 5.8 5 .3 2.5-1.3 2.5 1 3.4-3.5 5.5 .9 2.5-.9 1.5 .3 10.4-2.6 3","unesco":false,"x":453.9,"y":329.5}],"pa":[{"n":"Réserve écologique du Grand-Lac-Salé","d":"M430.6 335.8l11.7-2 2.5 3.5 1.3-.5 1 4 1.9 1.5 5.8 1.9 3.3-1.4-2.6 2.9 .6 1.5-6.1 6.5 0 3.5-1.6-.5-3.6-7-4.5-4-5.8-.5-5.6 1.9-6-5.3-14.7-7.2 1.8-3.3 7.1-.5z","x":440.1,"y":340.1,"km2":23},{"n":"Réserve écologique de la Pointe-Heath","d":"M948.7 459.5l4.3 1.9 1.1 2.6-1.6 1.2-1.5 .3-6.8-3.5-11.3 1-1 .5-.6-4.5-1.9-2 .6-2.5-.6-5.9 19.3 0zM962.3 442.1l-2 4-1.3-2 3.3-6.5-8.1-3.4-1.9-2.5-3.6-8.5 .3-3.9 2.3 0-.7 2.9 5.2 10 7.7 3 1.3 5.4z","x":940.2,"y":455.5,"km2":18},{"n":"Parc national d'Anticosti","d":"M616.8 320.4l-10.3 3-3.9-2 .9-2-4.1 0-3.3-2 .4-3.5-5.9 2-4.5 6-2.6-1-1.9-4-9.7 5-4.2-1-5.1-4-5.8 1.5-5.2-10.4-4.5-.5-2.3-2-1.6 3 1.6 6.4-2.2 7-3.9 3.5-3.9 .5-4.8 9.9-5.8 4-6.5-6.5-9.6-7.4-6.5-9-3.9-10.9 2.3-7 34.2-1.4-.7-1 1.3-5 0-6.5 1-1-2.3-2.4 1.3-1.5-1.3-2 1.3-2-.6-1.5 1.6-3.5-.3-1.5-3.2-.5 .9-4.4-.6-1 2.9-1.5 1.3-2.5 7.1 2.5 9.3-.5 6.8 4 0 1.9 10 5 1.3-1 1-2-1.3-1.5 0-3.9-10.7-10-4.5-6.4-3.9-2 1.6-6-1.6-1.5-2.9 .5-2.2-2.9-4.2 .5-3.6-8.5 .4-2 9.3 7 6.8-.5 9-3 .3-1.5 13.6 1 2.2 2.5 2.6 .5 2.6-5.5-.6-3 10.6 5.5 6.5 1.5 5.8-1 1.6 3.5-7.4 6.4 13.5 4 9.4-5 3.8-3.9-3.5-.5-2-3 1.7-1 .9-3-1.9-3 1.6-2.4 2.6-.5 1-3.5 5.4-3.5 0-4.5 4.6-1.5 6.7 1 9.4-6.9 0-2.9 9.3 1.4 6.8 5 5.2-1 4.8 6.9 10.7 3 1.9 5.5 8.7 3.9 1.6 6 10.7 5.5-5.2 3.4-.3 3 2.6 3 4.8 0-1.6 3.5 1.6 3.9 7.1 1.5-1.9 2.9-5.5 1.6-3.9-3-1.9-5.4-5.2-4.5-1.6-5.5 1.9-3.9-6.1-4.5-1.3-5-8.7-4-1.9-5.4-7.5-.5-2.5-2-3.6-5.5-4.5 1.5-2.6-1.5-.9 1.5 1.2 4-.9 1.5-3.9 1.5-.6 2-5.8 1.5-2.6 4.9-2.9 2-1.6 5-3.6 1.5-1.6 2.9-2.3-.5-1.6 2-4.8 1.5-1.6 5.5-4.5 1-6.5 5.9-5.5 3-4.2-.5-1.6 5.5 3.6 2-2.6 3-1.6 6.9 19 4.5 2.6-2 .9 4.5 22 13.9 14.5 17.4-29.4 9.4 2 6-5.2 2.9-5.8 0-5.1-1.4zM603.9 190.8l-5.8 6.9 .9 2.5-7.1 5.5-5.4-3-9.4-.5-1.9-2.5 10.9-1.5 6.8 1 .3-2.5 6.2-7.9 2.2-8 6.6-6 2.6 3.1-1.4 3.9-4.9 3.5zM552.3 185.8l-4.9 0-1.3-5 1-4.5 6.8 2.5 2.6 0 1.6 2.5z","x":591.5,"y":289.0,"km2":561}],"pts":{"port-menier":[99.4,100.3],"vaureal":[634.5,228.5],"patate":[551.0,182.3],"observation":[590.6,204.7],"kalimazoo":[364.5,122.7],"baie-tour":[719.4,253.3],"pointe-heath":[954.8,464.5],"jupiter-mer":[338.4,273.2],"lacher":[141.9,109.3],"golfe":[471.0,447.1],"detroit":[277.4,9.9],"gaspesie":[67.7,491.8],"baie-ellis":[83.9,109.3]},"encart":{"W":230,"H":144,"terre":"M224 0.4l-.2 1.1-4.7 3.3-6.6 3.1-.4 1.6-2.3 2.3-1-.6-.6 1.7-3.3 .2-.9-2-5.2 1.7 .4-.8-1.5 .7-.1-1-5.3 3.8-2.9 .8-.8-1.4 0 1.4-2.4-.9-2.1 1.5-.4-.6 0 1-.8-.3 1.2 1.3-.5 .8-3 1.4-.9 2.2-.1-1.4-1.7 .9 .8 .3 .3 2.6-1.1 2.8-1.2-.5 .1-2.3-1.7 3.5-.8-.7-2.5 2.2-.7 1.6 .7 1.2-5.7 2.1-1.2 1.6 .9 1.1-4.6 2.6-.3-1.7-1.3 1.2-.5-1.4-1.3 1.6-1.1-.8-2.4 1-.3-.9-2.6 1.1-.6-.3 .5-1.1-1.9 1.6-5.6 0-6.1 2.2-1-.2 3.1-1.8-2.9 1.2-1.3-2.1-5.2-.3-2.6-1.2-5.4 .2 .6-.7-4.6 0-5.9 2.2-5.8-2.2-5 1.1-4.4-1.2-6.4 1.1-5.7-1.1-7.1 1.5-3.4-.8-1.2 1.5-.8-.4 .2 1.1-4-.2-1.4-1.6-1.5 1.7 1.7 .9-2.9-.6-1.7 2.9-3 1.6-1.4 3.5-1.3 0-1.7 8.3-1.9 2.7-10.1 1.1-1.6 2-2 .1 1.6 .7 .1 1-3.1 1.3-.8 .1 1.1-1.2-1.1-1.9 .6 1.7-3.1 1.9-1.3 2.1 .9 .6-2.3 .3-3.8 3-1 3.2-1.6 .9-3.3 6.6-3.4 3.3-2.1-.2-2.4-2.7-2.4 .2-3.3-2.3-9.4-2 0-79.7zM0 79.9l3.1 1.3-1.5 .7 .4 .9 5.8-.7 4.6 2.5 3.2 .3 1.5 2 1.7 .5-3 7.8-3.1 2.7-1.4 3.6-3.7 1.1-3.4 7.4-4.2 2.8zM0.4 115.7l6.5-3.3 2.2-2.4 2.8-4.5 1.8-1.2 1.1-2.9 6.5-7.4 1.8-3.7 9.2-8.4 1.4-.3 7.8-6 9.7-4.9 19.7-7.8 9.7-1.3 9 1 6.1 2.8 4.9 4.6 .8 2.9-5.8-2.7 1.2 .9-.9 .5 2.1 0 .3 .7-.8 .2 3.8 3.1-1.6 1.7 1.4 .9-2.1 2.5-5.9 1.9-.8 2.9-2.7 .4-.4 1.4-4.4 2.5-2.2 .2-5.2-2.5-1.6-1.2-.1-1.3-2.5 2.8-3.3-.3 0 1.1-2.7-1.2-1.1 1.4-4.5 1.3 1.7 .3 5.2-2 2.2 2 6.2 1.8 2.7 6.4 6.3-4.4 2.8-.7 .7 .2-1.5 1.4 3.7-.8 .6 1-1.1 .4 1.4 1 .5-1.3 .8 .5-2 1.5-1.2 2.6-.5 2.5 .9-.8-1.4 4.3-6 4.7 2.4-.2 0 1.1 2.6-1.1 .7 .8 2.7-.5-1.5 5 1.6 3-.9 1.1 2.2 .1-.1 4.3 1.5 1.4-.2 1.5-1.2 .6 2.2-.9 0 3.2 4.5-.2 1.5 1.5 2.7-.4 2.7 1.2-1.6 1.6-2.9 .6 5.6 3.7-.6 .5 1.3 .5 .1-1.1 3.3 0 .4 .4-1.1-.1 .9 .8-1.4 .1 4.3 .3-2.2 .8 1.3 1.1 1.5-1.3-.2 1 2-.5-.5-1.2 6.3 .9-1.2 .3 1.8 .9-2.3 1.7 2 .4 .7-1.5 2 .7-.3 1.2 2-1.5-1.2 .4 .4-.5 2.1-.6 5.4-4.1 .5 4.4 3.8 1.8 1.9-1.8 1.7 2.1-48.1 0 4.6-5.1-.4 1.8 1-.4-.1-1.5-1.3-1.2-1.8 3.5-.9-.1 .8-1.9-.6-1.9-.6 .3-2.6-4.6 2.4 6-2.8 4.8-2.6 .3-89.8 0zM0.1 113.8l1.6-1.8 1.1 .3-2.8 3.1zM8.5 103.5l1.5-.5-1.6 1.1zM31.5 81l.5 .2-.7 .2zM125.3 139.7l-.3-.6 1-.1zM131.1 127.1l-2.9-.1 .4 1.1-1 0 .5 1-1.9-.1 .9 1.3-2.2-.3 1.3 1-1.5-.6 .8 1.9 1.2-.2-.2 1.6-1.4 .6 1.7 .3-.5 .8-3.9 .9-2.1-1.3-.2-1.5-1.8 .2 2.2-2-1 .6 0-1.5-2.5-.5 2.3-2.3-2.6 1.8-.9-.8 .3 1-1.4 .7 1.9 0-1.4 1.2-5.4-1.6-3-2.6 0-1 1.3 .5-.3-1-5.9-.4 .9-5.1-1.1 1-3.5-.7-.5-1.2 2.7-5 3.5-3.7 .3 3.9-1.7 2.6 1.8 .8 1 3.1 1-.1-1.5 3 1.7-.9 0 1.3 1.7 .4-.3-2 .8-.8 2.7 .8 .5 1.4-.1-.8 2 .1 1.4 2.1 9.7-.5-1.8-.6 1.8-.5 9 .5zM139.6 100l-5.5 6.3 2.5 .9-3.2 .4 1.3-4.3 5.3-4.8 2.7-.2-2.2 1.9 .9-1.6-1.2 .2-4.6 4.3zM142.1 94.7l-1.3 .3 .8-.4zM94.2 96.1l-.6-2.6 2.6-.5 .6-1.6-.6 2.6zM96.1 89.6l.8 1.3-1.8 1.4 0-.3zM96.3 48l5.6-1.8 17.4 4.7 6.3 3.1 4.9 4.3 4.8 1.3 3.3 4.6-2.3 1.8-6.4 .1-12.6-3.8-7.3-3.5-.6-2.4-2-2.4zM105.3 39.3l.7 .9 0 .2-1-.3zM167.8 134.5l-1 .7-.3-.1zM162 139.8l-7.8 4.4-3.3 0-.6-1.1-2.1 1.1-5.1 0-1.5-2.5-1.4-7 6.8-9.8 .7-3.8 .3 .7 6.4-9.9 1.6 .8 1.3-.7-1.4 3 2.8 1.4-1.4 3.7 .7 1.5-3.8 8.8 2-2.4 .8-.3-.1 1.1-3.1 3.7-3.5 .9-3.7 2.9 1.6 .2 1.9-2.1 2.2-.5-1.2 2.7-3.8 .9-.4 .9 1.6-.7 1.2 .7-2.8 1.7-.7 1.6 1 .4 2.5-1.4 1.5 .8-.4 1.7 1.6-.9-.1-2 5-5.1-4.4 2.4-1.4-1.1 7.3-6.3-1.5 .1-3.8 3.2 5.5-5.7 1.2 1.9-1.3 1.9 1.3 .4 1-2.5 3 2.1 1.8-.3-1.1 2.1 1.1-.7-2.1 1.8 1.8 .6 .4 1.5-4.8 1.5-.4 .7zM219.5 117.2l.9 .7-1.4 0zM217.7 114.6l-.9-3.1 .3-2 1.7 1.9-.4 1.5-1 .1 1.7 2.5-1.8 2.1-.6-1.3zM160.7 108.1l.4 .1-.4 .3zM224.2 106l.3 1-1.2-.4zM220.9 98.3l2.6-1.1 .9 1.6zM229.9 114.5l-3.5 1.4-3.6-2.1 1.7-2.9 5.5-1.3zM229.7 102.2l-1.2 1.4 .2-1.3-1.1 .5 .9-2-.6-.4-.2 1.1-1.8 .8 .3-1.8-.7 1.7-1.7 .6 2.5-3.4-5.3 2.7-.9-.8 8-3.9-3.2 1.2-1-.8 2.5-6-.6-.7-1.1 3.7-3 2.1-.8-.1 .9-1.7-.7 .4-.8-1.8-.4 4.7-1.8 .1-.1-2.8-.4 3.1-5.4-.2 .9 .8-.6 .2-1.1-1.3 .7 1.6-1.3 .8-2.8-1.3-2.4 .3-.4-1.4-2.1 1.2-.3-1.3-2.9-.2-1.5 1.1-1.5-1.2-.6 .9-2.2-.8 .5-1.1-7 1.1 1.4-2.3-1.3 .3-1.1 2.3-1.6-.7-1.4 1.3-7.7 1.1-2.4-1.4 .4-3.1-1.9-3.1 6.5-5.5 5.9-6.7 1.2-.4-1.7 1.2 5-2.6-2.4 .5-4-1.3-8.3 1.9 .8-1.9 6.5-5.1-2.8 3.7 1 1.4 .6-1.8 .5 1.4 1.5 .1 4.7-12.8 .7-.2-.1 1.9 2.1-.3 2.2 2.2 2.7 .1-2.4-.5-1.3-3 3.3 0 .9-1.3-3.4 .9-.3-.8 1.3 .1 1.3-1.6-4 .1-.5-2.9 3.4-4.3 1.2 .7 .3 2.1 .4-1.5 2.6 1-1.9-2.3-.8 .7-1-3.3 8.8-20.9 2.9-.4-1.7 0 .5-.3-2.3-1.6 3.4-1 3.5-3.7-2.4-2.3 1.6 .7 1.2-.7-1.2-.8 2.8-1.9-.2-1.2 .9-.2-.7-.9 1.1-1.8 12.3-6.9 1 .1-1 2.7 3.7 .7-1.3-2.4 3.4-.5 0 5-1-.3-.7 2-7-1.5 1.1 2.1-.9 1 1.6 1.6 .1-.9 2.9-.4 .4 3.1-1 .3 .4 .7-1.5 3.9-.7-.5-2.3 3.7-.9-1.2 .5-2.9-.8 .6 0 3.5 .9 1.2-2.2 3.2-1.1 0 .8 .4-2.1 3-1.3-.4 1 .7-.2 1.3-1.2 2.4-2.2 1.5 .4 .7-1.9 3.4-.1 .7 .9-.7-.7 2.7-2 1.7 1.8 .6-1.1 4 4.4-6.7 1.4-1.1 .6 1.1 0-1.3 .9 .2 .4-2.7 3-3.2 1.1 1.7-2 3.5 2.7-2.3 .1 1.3 .7-1.6 3.1 2.5 3.7-1.8 0 2.1-7.4 3.7-2.6 3.8 4.1-3-.9 .9 1.8-.3-1.5 1.8 .9 .4-.3 .7-3.5 3 4.6-2.1 1.5 1.1-1 .5 1.7-.5 0 2 1.8-2.4-.2 2.9 1-1.8zM227.7 54.9l-1.2 1.1 .2-1.1zM226.8 54.7l1-1.5 1.1 .8zM224.8 40.2l.1 .6-.6-.2zM225.5 40.1l1.3 0 .3 .6zM173.7 32.2l-.9 .7 .5-1.6-.8-.9 .6 .1zM230 26.9l-1.2 2.4-1-.7 .4-1.4zM180.1 26.3l.2 1-.5 .1zM204.2 27.1l-.4-.9 1.2 .3zM228 23.7l1.6-.6-.3 1.9zM185.5 19.8l-1.8 .7 2.9-1.7zM188.3 16.8l-.8 1.2-.7 0 .3-.9zM186.9 16.8l-1 .8-1.3-.3 .9-1z","cadre":[94.1,44.6,46.0,23.2],"qc":[14.8,24.8],"gaspesie":[71.2,77.7],"tn":[209.2,69.8],"golfe":[141.0,92.4]}};
+  var W = D.W, H = D.H;
+  var NS = "http://www.w3.org/2000/svg";
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»").replace(/(\d) (%|km|m|ha|h)(?![a-zà-ÿ])/g, "$1\u00a0$2"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined) {
+      if (val.pastille) { var pa = el("span", "ant__pastille"); pa.style.background = val.pastille; pa.setAttribute("aria-hidden", "true"); b.appendChild(pa); }
+      el("span", "ant__choisir-nom", nom, b);
+      if (val.texte) { el("span", "ant__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "ant__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function paragraphe(t, parent) { return el("p", "ant__paragraphe", t, parent); }
+  /* ----- moteur de carte : vue (viewBox) zoomable, glisser, pincer, étiquettes sans chevauchement. */
+  function moteurCarte(o) {
+    var svg = q(".ant__svg"), carte = q(".ant__carte"), gEtiq = q(".ant__etiquettes"), ZMAX = o.zoomMax || 6;
+    var m = { vue: { x: 0, y: 0, w: W, h: H }, glisseFini: false };
+    function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+    function estZoome() { return m.vue.w < W - .5; }
+    function borner(v) {
+      var w = Math.min(W, Math.max(W / ZMAX, v.w)), h = w * H / W;
+      return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+    }
+    function appliquer() {
+      var v = m.vue;
+      svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+      q(".ant__recentrer").hidden = !estZoome();
+      carte.classList.toggle("est-zoomee", estZoome());
+      etiqueter();
+    }
+    function pointCarte(cx, cy) {
+      var b = svg.getBoundingClientRect(), v = m.vue;
+      var w = b.width || 800, h = b.height || 800 * H / W;
+      var s = Math.min(w / v.w, h / v.h);
+      var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+      return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+    }
+    function zoomerVers(f, p) {
+      var v = m.vue, w = Math.min(W, Math.max(W / ZMAX, v.w * f)), r = w / v.w;
+      if (Math.abs(r - 1) < 1e-4) { return; }
+      m.vue = borner({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+      appliquer();
+    }
+    function centre() { return { x: m.vue.x + m.vue.w / 2, y: m.vue.y + m.vue.h / 2 }; }
+    m.cadrer = function (x0, y0, x1, y1, marge) {
+      /* Rapproche la carte sur un rectangle (coordonnées de la carte). */
+      marge = marge || 0;
+      var w = Math.max(x1 - x0, (y1 - y0) * W / H) * (1 + marge);
+      m.vue = borner({ x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - w * H / W / 2, w: w });
+      appliquer();
+    };
+    q(".ant__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centre()); });
+    q(".ant__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centre()); });
+    q(".ant__recentrer").addEventListener("click", function () { m.vue = { x: 0, y: 0, w: W, h: H }; appliquer(); });
+    var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+    svg.addEventListener("wheel", function (ev) {
+      if (!pleinEcran()) { return; }
+      ev.preventDefault();
+      var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+      molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+      molette.cx = ev.clientX; molette.cy = ev.clientY;
+      if (molette.attente) { return; }
+      var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+      if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+    }, { passive: false });
+    var glisse = null, pince = null, pinceAttente = 0;
+    svg.addEventListener("pointerdown", function (ev) {
+      if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+      glisse = { x: ev.clientX, y: ev.clientY, vx: m.vue.x, vy: m.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+    });
+    svg.addEventListener("pointermove", function (ev) {
+      if (!glisse) { return; }
+      var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+      if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+      if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+      m.vue = borner({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: m.vue.w });
+      appliquer();
+    });
+    function finGlisse() {
+      if (glisse && glisse.bouge) { m.glisseFini = true; window.setTimeout(function () { m.glisseFini = false; }, 0); }
+      glisse = null; racine.classList.remove("est-glisse");
+    }
+    svg.addEventListener("pointerup", finGlisse);
+    svg.addEventListener("pointercancel", finGlisse);
+    /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+    function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+    function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+    function vueSous(p, mi, w) {
+      var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+      var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+      return { x: p.x - (mi.x - (b.left || 0) - ox) / s, y: p.y - (mi.y - (b.top || 0) - oy) / s, w: w };
+    }
+    carte.addEventListener("touchstart", function (ev) {
+      if (ev.touches.length !== 2) { return; }
+      ev.preventDefault();
+      glisse = null; racine.classList.remove("est-glisse");
+      var mi = milieu(ev.touches);
+      pince = { d: ecart(ev.touches), w: m.vue.w, p: pointCarte(mi.x, mi.y), m: mi };
+    }, { passive: false });
+    carte.addEventListener("touchmove", function (ev) {
+      if (!pince || ev.touches.length !== 2) { return; }
+      ev.preventDefault();
+      pince.m = milieu(ev.touches);
+      pince.w2 = Math.min(W, Math.max(W / ZMAX, pince.w * pince.d / ecart(ev.touches)));
+      if (pinceAttente) { return; }
+      var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } m.vue = borner(vueSous(pince.p, pince.m, pince.w2)); appliquer(); };
+      if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+    }, { passive: false });
+    function finPince(ev) {
+      if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+      pince = null; m.glisseFini = true; window.setTimeout(function () { m.glisseFini = false; }, 350);
+    }
+    carte.addEventListener("touchend", finPince);
+    carte.addEventListener("touchcancel", finPince);
+    carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+    function unite() {
+      var b = svg.getBoundingClientRect(), v = m.vue;
+      if (!b.width || !b.height) { return v.w / 760; }
+      return 1 / Math.min(b.width / v.w, b.height / v.h);
+    }
+    /* Chaque étiquette réserve un rectangle; celle qui en chevauche une autre déjà posée n'est pas affichée. */
+    function etiqueter() {
+      while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+      var u = unite(), v = m.vue, places = [];
+      function libre(r) {
+        if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+        for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+        return true;
+      }
+      Array.prototype.forEach.call(racine.querySelectorAll(".ant__carte > .ant__bouton-carte, .ant__outils"), function (bt) {
+        var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+        var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+        places.push([a.x, a.y, b2.x, b2.y]);
+      });
+      function reserver(r) { places.push(r); }
+      function poser(x, y, texte, classe, px, opt) {
+        opt = opt || {};
+        var lignes = typo(texte).split("\n"), t = px * u, larg = 0, ancre = opt.ancre || "middle";
+        lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+        var haut = lignes.length * t * 1.15, mg = 1.5 * u;
+        var x0 = ancre === "start" ? x : (ancre === "end" ? x - larg : x - larg / 2);
+        var boite = [x0 - mg, y - haut / 2 - mg, x0 + larg + mg, y + haut / 2 + mg];
+        if (!opt.force && !libre(boite)) { return null; }
+        places.push(boite);
+        var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": ((opt.halo || 3) * u).toFixed(2) }, gEtiq);
+        if (opt.attrs) { for (var a in opt.attrs) { if (Object.prototype.hasOwnProperty.call(opt.attrs, a)) { n.setAttribute(a, opt.attrs[a]); } } }
+        if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+        else {
+          lignes.forEach(function (l, j) {
+            var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+            ts.textContent = l;
+          });
+        }
+        return n;
+      }
+      /* Essaie plusieurs positions autour d'un point (à droite, à gauche, dessus, dessous). */
+      function poserAutour(x, y, texte, classe, px, rayon, opt) {
+        opt = opt || {};
+        var r = rayon * u, essais = opt.essais || ["d", "g", "h", "b"];
+        for (var i = 0; i < essais.length; i++) {
+          var e = essais[i], o2 = {};
+          for (var k in opt) { if (Object.prototype.hasOwnProperty.call(opt, k)) { o2[k] = opt[k]; } }
+          o2.force = false;
+          var n = null;
+          if (e === "d") { o2.ancre = "start"; n = poser(x + r, y, texte, classe, px, o2); }
+          else if (e === "g") { o2.ancre = "end"; n = poser(x - r, y, texte, classe, px, o2); }
+          else if (e === "h") { n = poser(x, y - r - px * u * .6, texte, classe, px, o2); }
+          else { n = poser(x, y + r + px * u * .6, texte, classe, px, o2); }
+          if (n) { return n; }
+        }
+        if (opt.force) {
+          var o3 = {}; for (var k2 in opt) { if (Object.prototype.hasOwnProperty.call(opt, k2)) { o3[k2] = opt[k2]; } }
+          var aDroite = x < v.x + v.w * .6;
+          o3.ancre = aDroite ? "start" : "end";
+          return poser(aDroite ? x + r : x - r, y, texte, classe, px, o3);
+        }
+        return null;
+      }
+      o.etiqueter({ poser: poser, autour: poserAutour, reserver: reserver, u: u, vue: v });
+    }
+    m.appliquer = appliquer;
+    m.etiqueter = etiqueter;
+    m.unite = unite;
+    m.pointCarte = pointCarte;
+    m.estZoome = estZoome;
+    m.remettre = function () {
+      m.vue = { x: 0, y: 0, w: W, h: H };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+      q(".ant__recentrer").hidden = true;
+      carte.classList.remove("est-zoomee");
+    };
+    var replier = q(".ant__replier");
+    replier.addEventListener("click", function () {
+      var masque = racine.classList.toggle("texte-masque");
+      replier.setAttribute("aria-expanded", masque ? "false" : "true");
+      replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+      window.setTimeout(etiqueter, 60);
+    });
+    var taille = "";
+    function mesurer() {
+      var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+      if (t !== taille) { taille = t; etiqueter(); }
+    }
+    if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+    return m;
+  }
+  var L = [
+    { id: "vaureal", n: "Chute et canyon de la Vauréal", theme: "fossiles", txt: "La chute Vauréal tombe de 76\u00a0m au fond d'un canyon de plus de 90\u00a0m de profondeur et de 3,2\u00a0km de long. Les parois du canyon montrent les couches de roche, empilées comme les pages d'un livre.", sur: "Parc national d'Anticosti" },
+    { id: "observation", n: "Canyon de l'Observation", theme: "fossiles", txt: "Un canyon d'environ 4\u00a0km de long, aux parois de 30 à 50\u00a0m. Comme ailleurs sur l'île, la rivière a creusé la roche calcaire et mis les couches à nu.", sur: "Parc national d'Anticosti" },
+    { id: "patate", n: "Grotte à la Patate", theme: "fossiles", txt: "Une grotte de 625\u00a0m creusée dans le calcaire, l'une des plus longues cavités souterraines du Québec. On la visite avec un casque et une lampe.", sur: "Parc national d'Anticosti" },
+    { id: "baie-tour", n: "Baie de la Tour", theme: "fossiles", txt: "Une plage de galets sur la côte nord de l'île. Le long du littoral, des milliers de surfaces de roche laissent voir les animaux à coquille de l'ancienne mer tropicale.", sur: "Littoral" },
+    { id: "jupiter-mer", n: "Embouchure de la rivière Jupiter", theme: "fossiles", txt: "Le bien inscrit à l'UNESCO comprend le lit majeur des deux grandes rivières de l'île, la Jupiter et la Vauréal, en plus du littoral.", sur: "Bien du patrimoine mondial" },
+    { id: "kalimazoo", n: "Chute Kalimazoo", theme: "fossiles", txt: "Une chute accessible par un sentier, près de la côte nord. Comme la Vauréal, elle coule sur les couches de roche calcaire de l'île.", sur: "Côte nord" },
+    { id: "port-menier", n: "Port-Menier", theme: "les deux", txt: "Le seul village de l'île, au bord de la baie Ellis. Il porte le nom d'Henri Menier, le chocolatier français qui a acheté l'île en 1895 pour en faire un domaine de chasse privé. Les cerfs y sont faciles à voir, même au cœur du village.", sur: "Municipalité de L'Île-d'Anticosti" },
+    { id: "lacher", n: "Le lâcher des cerfs", theme: "cerfs", txt: "Vers la fin du 19e siècle, Menier fait lâcher environ 220 cerfs de Virginie dans l'ouest de l'île. L'espèce n'y vivait pas. Sans prédateur, elle se multiplie et finit par occuper toute l'île.", sur: "Ouest de l'île" },
+    { id: "pointe-heath", n: "Pointe Heath", theme: "cerfs", txt: "La réserve écologique de la Pointe-Heath protège la pointe est de l'île. Même dans les aires protégées, la forêt porte la trace du broutage des cerfs, qui a modifié l'écosystème de toute l'île.", sur: "Réserve écologique" }
+  ];
+  var LI = {}; L.forEach(function (l) { l.p = D.pts[l.id]; LI[l.id] = l; });
+  var svg = q(".ant__svg"), gAires = q(".ant__aires"), gRiv = q(".ant__rivieres"), gLieux = q(".ant__lieux"), gEnc = q(".ant__encart");
+  var vueTexte = q(".ant__vue"), annonce = q(".ant__annonce");
+  q(".ant__ile").setAttribute("d", D.ile); q(".ant__falaise").setAttribute("d", D.cote);
+  var lacher = q(".ant__lacher"); lacher.setAttribute("cx", D.pts.lacher[0]); lacher.setAttribute("cy", D.pts.lacher[1]); lacher.setAttribute("r", 46);
+  D.riv.forEach(function (r) { svgEl("path", { "class": "ant__riv", d: r.d, "data-unesco": r.unesco ? "1" : "0" }, gRiv); });
+  var GA = {};
+  D.pa.forEach(function (a, i) { GA[i] = svgEl("path", { "class": "ant__pa", d: a.d, "data-type": a.n.indexOf("Parc") === 0 ? "parc" : "reserve", "data-aire": i }, gAires); });
+  var G = {};
+  L.forEach(function (l) {
+    var g = svgEl("g", { "class": "ant__lieu", "data-lieu": l.id, "data-theme": l.theme }, gLieux);
+    svgEl("circle", { "class": "ant__rond", cx: l.p[0], cy: l.p[1], r: 6 }, g);
+    G[l.id] = g;
+  });
+  /* Carte de situation */
+  var E = D.encart, ex = W - E.W - 12, ey = 10;
+  gEnc.setAttribute("transform", "translate(" + ex + " " + ey + ")");
+  svgEl("rect", { "class": "ant__encart-fond", x: 0, y: 0, width: E.W, height: E.H }, gEnc);
+  svgEl("path", { "class": "ant__encart-terre", d: E.terre }, gEnc);
+  svgEl("rect", { "class": "ant__encart-cadre", x: E.cadre[0], y: E.cadre[1], width: E.cadre[2], height: E.cadre[3] }, gEnc);
+  [["Québec", E.qc], ["Gaspésie", E.gaspesie], ["Terre-Neuve", E.tn], ["golfe du Saint-Laurent", E.golfe]].forEach(function (t) { var n = svgEl("text", { x: t[1][0], y: t[1][1], "text-anchor": "middle" }, gEnc); n.textContent = typo(t[0]); });
+  var DEPART = { theme: "fossiles", aires: true };
+  var etat = { choix: null };
+  function remettreEtat() { etat.theme = DEPART.theme; etat.aires = DEPART.aires; etat.choix = null; }
+  remettreEtat();
+  var M = moteurCarte({ zoomMax: 6, etiqueter: etiqueter });
+  function etiqueter(E2) {
+    var u = E2.u, zoom = W / E2.vue.w, ch = etat.choix;
+    L.forEach(function (l) { G[l.id].firstChild.setAttribute("r", (6.5 * u).toFixed(2)); E2.reserver([l.p[0] - 7 * u, l.p[1] - 7 * u, l.p[0] + 7 * u, l.p[1] + 7 * u]); });
+    var enc = [ex, ey, ex + D.encart.W, ey + D.encart.H]; E2.reserver(enc);
+    if (ch && ch.type === "lieu") { var c = LI[ch.id]; E2.autour(c.p[0], c.p[1], c.n, "ant__etiquette--choisi", 12.5, 10, { force: true, halo: 3.4 }); }
+    L.forEach(function (l) {
+      if (ch && ch.type === "lieu" && ch.id === l.id) { return; }
+      if (l.theme !== etat.theme && l.theme !== "les deux" && zoom < 1.6) { return; }
+      E2.autour(l.p[0], l.p[1], l.n, "ant__etiquette--lieu", 10.5, 9, {});
+    });
+    if (etat.theme === "cerfs") { E2.poser(D.pts.lacher[0] + 10, D.pts.lacher[1] - 58, "zone du lâcher, fin du 19e siècle", "ant__etiquette--theme", 10, {}); }
+    if (etat.aires) { D.pa.forEach(function (a) { if (a.n.indexOf("Parc") === 0) { E2.poser(a.x, a.y + 18, "parc national d'Anticosti", "ant__etiquette--parc", 10, { chasse: .5 }); } }); }
+    D.riv.forEach(function (r) { if (r.unesco || zoom >= 1.8) { E2.poser(r.x, r.y, r.n.replace("Rivière ", "riv. "), "ant__etiquette--riv", 9.5, { chasse: .5 }); } });
+    E2.poser(D.pts.golfe[0], D.pts.golfe[1], "golfe du Saint-Laurent", "ant__etiquette--eau", 13, { chasse: .5 });
+    E2.poser(D.pts.detroit[0], D.pts.detroit[1] + 8, "détroit de Jacques-Cartier", "ant__etiquette--eau", 11, { chasse: .5 });
+  }
+  function entete(sur, titre, couleur) {
+    vueTexte.innerHTML = "";
+    el("span", "ant__surtitre", sur, vueTexte);
+    var h = el("p", "ant__intertitre", null, vueTexte); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    if (couleur) { var pa = el("span", "ant__pastille", null, h); pa.style.background = couleur; pa.style.borderRadius = "50%"; pa.setAttribute("aria-hidden", "true"); }
+    el("span", "", titre, h);
+  }
+  function frise() {
+    /* De 447 à 437 millions d'années : l'extinction tombe vers 444 millions d'années. */
+    var s = svgEl("svg", { "class": "ant__frise", viewBox: "0 0 360 92", role: "img", "aria-label": typo("Frise : les couches d'Anticosti couvrent de 447 à 437 millions d'années; l'extinction survient vers 444 millions d'années") }, vueTexte);
+    function X(ma) { return 20 + (447 - ma) * 32; }
+    svgEl("rect", { "class": "ant__f-barre", x: X(447), y: 22, width: X(437) - X(447), height: 16, rx: 3 }, s);
+    svgEl("line", { "class": "ant__f-axe", x1: X(447), x2: X(437), y1: 44, y2: 44 }, s);
+    [447, 445, 443, 441, 439, 437].forEach(function (m) { svgEl("line", { "class": "ant__f-axe", x1: X(m), x2: X(m), y1: 41, y2: 47 }, s); var t = svgEl("text", { x: X(m), y: 60, "text-anchor": "middle" }, s); t.textContent = m; });
+    svgEl("rect", { "class": "ant__f-ext", x: X(444) - 2, y: 16, width: 4, height: 28 }, s);
+    var t1 = svgEl("text", { x: X(444), y: 11, "text-anchor": "middle" }, s); t1.textContent = typo("extinction, vers 444");
+    var t2 = svgEl("text", { x: X(447), y: 74, "text-anchor": "start" }, s); t2.textContent = typo("en millions d'années avant aujourd'hui");
+    var t3 = svgEl("text", { x: X(447), y: 88, "text-anchor": "start" }, s); t3.textContent = typo("de la fin de l'Ordovicien au début du Silurien");
+  }
+  function densite() {
+    /* Trois carrés de 1 km² : plus de 20 cerfs, 15 et 7,5. */
+    var s = svgEl("svg", { "class": "ant__densite", viewBox: "0 0 360 120", role: "img", "aria-label": typo("Comparaison : plus de 20 cerfs par kilomètre carré, 15 et 7,5") }, vueTexte);
+    [[20, "plus de 20 / km²", "sans contrôle"], [15, "15 / km²", "seuil testé"], [7.5, "7,5 / km²", "seuil testé"]].forEach(function (c, i) {
+      var x0 = 10 + i * 118, y0 = 6, cote = 82;
+      svgEl("rect", { "class": "ant__d-case", x: x0, y: y0, width: cote, height: cote, rx: 3 }, s);
+      var n = Math.floor(c[0]), k = 0;
+      for (var r = 0; r < 5 && k < n; r++) { for (var col = 0; col < 5 && k < n; col++) { svgEl("circle", { "class": "ant__d-cerf", cx: x0 + 10 + col * 15.5, cy: y0 + 10 + r * 15.5, r: 4.2 }, s); k++; } }
+      if (c[0] === 7.5) { svgEl("circle", { "class": "ant__d-cerf", cx: x0 + 10 + 2 * 15.5, cy: y0 + 10 + 15.5, r: 4.2, opacity: .45 }, s); }
+      var t = svgEl("text", { x: x0 + cote / 2, y: y0 + cote + 14, "text-anchor": "middle" }, s); t.textContent = typo(c[1]);
+      var t2 = svgEl("text", { x: x0 + cote / 2, y: y0 + cote + 27, "text-anchor": "middle" }, s); t2.textContent = typo(c[2]);
+    });
+  }
+  function ficheFossiles() {
+    entete("Patrimoine mondial de l'UNESCO depuis 2023", "Les fossiles d'Anticosti");
+    chiffres(vueTexte, [["Inscription", "2023"], ["Critère", "valeur géologique"], ["Bien protégé", "18\u00a0240\u00a0ha"], ["Organismes fossiles", "plus de 1\u00a0440"]]);
+    paragraphe("Il y a environ 447 à 437 millions d'années, Anticosti était le fond d'une mer tropicale peu profonde. Les coquillages et les animaux de cette mer sont restés pris dans le calcaire, couche après couche.", vueTexte);
+    frise();
+    paragraphe("Ces couches racontent la première extinction de masse du vivant, à la fin de l'Ordovicien : près de 85\u00a0% de la vie marine disparaît. Les falaises du littoral et les canyons des rivières Vauréal et Jupiter, en orange sur la carte, sont les pages de ce livre.", vueTexte);
+    el("p", "ant__note", "Les couches de roche sont doucement inclinées vers le sud-ouest. Le bien inscrit, de 18\u00a0240\u00a0ha, est entouré d'une zone tampon de 89\u00a0740\u00a0ha.", vueTexte);
+    listeLieux("fossiles");
+  }
+  function ficheCerfs() {
+    entete("Une espèce introduite par l'humain", "Les cerfs d'Anticosti");
+    chiffres(vueTexte, [["Cerfs lâchés par Menier", "environ 220"], ["Achat de l'île", "1895"], ["Densité naturelle", "plus de 20 / km²"], ["Population", "des dizaines de milliers"]]);
+    paragraphe("Henri Menier achète l'île en 1895 pour en faire un domaine de chasse et y fait lâcher environ 220 cerfs de Virginie. Sans prédateur, le troupeau compte aujourd'hui des dizaines de milliers de bêtes; une source touristique avance même plus de 115\u00a0000.", vueTexte);
+    densite();
+    paragraphe("Les cerfs ont d'abord mangé les feuillus, puis les jeunes sapins baumiers, qu'ils ne broutaient pas avant. Depuis les années 1930, les jeunes sapins sont broutés presque partout. L'épinette blanche, que les cerfs aiment moins, prend peu à peu leur place. Des chercheurs de l'Université Laval ont testé des densités de 7,5 et 15 cerfs par km² : à 15, la forêt pourrait se régénérer.", vueTexte);
+    el("p", "ant__note", "Le dilemme : la chasse au cerf fait vivre l'île, mais le cerf transforme la forêt.", vueTexte);
+    listeLieux("cerfs");
+  }
+  function listeLieux(theme) {
+    el("span", "ant__rubrique", "Les lieux à explorer", vueTexte);
+    var ul = el("ul", "ant__liste", null, vueTexte);
+    L.forEach(function (l) {
+      if (l.theme !== theme && l.theme !== "les deux") { return; }
+      el("li", "", null, ul).appendChild(bouton("ant__choisir", l.n, { pastille: couleurLieu(l) }, function () { choisir({ type: "lieu", id: l.id }); }));
+    });
+  }
+  function couleurLieu(l) { return l.theme === "fossiles" ? "var(--ant-fossile)" : (l.theme === "cerfs" ? "var(--ant-cerf)" : "var(--encre)"); }
+  function ficheLieu(id) {
+    var l = LI[id];
+    entete(l.sur, l.n, couleurLieu(l));
+    paragraphe(l.txt, vueTexte);
+    if (id === "vaureal" || id === "observation" || id === "patate") { el("p", "ant__note", "Le parc national d'Anticosti accueille les visiteurs l'été, de la fin de juin à la fin d'août.", vueTexte); }
+    var act = el("div", "ant__actions", null, vueTexte);
+    act.appendChild(bouton("ant__retour", "Fermer la fiche", undefined, function () { choisir(null); }));
+  }
+  function ficheAire(i) {
+    var a = D.pa[i], parc = a.n.indexOf("Parc") === 0;
+    entete(parc ? "Aire protégée · parc national du Québec" : "Aire protégée · réserve écologique", a.n, parc ? "var(--ant-parc)" : "var(--ant-reserve)");
+    paragraphe(parc ? "Le parc national protège notamment la chute et le canyon de la Vauréal, le canyon de l'Observation et la grotte à la Patate. Il accueille les visiteurs l'été, de la fin de juin à la fin d'août." : "Une réserve écologique protège un milieu naturel rare; on n'y va pas en touriste, elle sert surtout à la conservation et à la recherche.", vueTexte);
+    el("p", "ant__note", "Le bien de l'UNESCO se trouve à l'intérieur d'un réseau d'aires protégées : un parc national, deux réserves écologiques et une réserve de biodiversité, que la carte ne montre pas.", vueTexte);
+    var act = el("div", "ant__actions", null, vueTexte);
+    act.appendChild(bouton("ant__retour", "Fermer la fiche", undefined, function () { choisir(null); }));
+  }
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function rendre() {
+    var ch = etat.choix;
+    racine.classList.toggle("theme-fossiles", etat.theme === "fossiles"); racine.classList.toggle("theme-cerfs", etat.theme === "cerfs");
+    racine.classList.toggle("avec-aires", etat.aires);
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : ""); racine.setAttribute("data-theme", etat.theme);
+    L.forEach(function (l) { G[l.id].classList.toggle("est-estompe", l.theme !== etat.theme && l.theme !== "les deux"); G[l.id].classList.toggle("est-choisi", !!ch && ch.type === "lieu" && ch.id === l.id); });
+    D.pa.forEach(function (a, i) { GA[i].classList.toggle("est-choisi", !!ch && ch.type === "aire" && ch.id === String(i)); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".ant__theme"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-theme") === etat.theme ? "true" : "false"); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".ant__couche"), function (b) { b.setAttribute("aria-pressed", etat[b.getAttribute("data-couche")] ? "true" : "false"); });
+    if (!ch) { if (etat.theme === "fossiles") { ficheFossiles(); } else { ficheCerfs(); } } else if (ch.type === "lieu") { ficheLieu(ch.id); } else { ficheAire(+ch.id); }
+    M.etiqueter();
+  }
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    if (etat.choix && etat.choix.type === "lieu") { var l = LI[etat.choix.id]; if (l.theme !== "les deux" && l.theme !== etat.theme) { etat.theme = l.theme; } }
+    rendre();
+    var lecture = q(".ant__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    if (etat.choix) { annonce.textContent = typo(etat.choix.type === "lieu" ? LI[etat.choix.id].n : D.pa[+etat.choix.id].n); }
+  }
+  svg.addEventListener("click", function (ev) {
+    if (M.glisseFini) { return; }
+    var t = ev.target.closest ? ev.target.closest("[data-lieu]") : null;
+    if (t) { choisir({ type: "lieu", id: t.getAttribute("data-lieu") }); return; }
+    var a = ev.target.closest ? ev.target.closest("[data-aire]") : null;
+    if (a) { choisir({ type: "aire", id: a.getAttribute("data-aire") }); }
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".ant__theme"), function (b) {
+    b.addEventListener("click", function () { etat.theme = b.getAttribute("data-theme"); etat.choix = null; rendre(); annonce.textContent = typo("Thème : " + b.textContent); });
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".ant__couche"), function (b) {
+    b.addEventListener("click", function () { var c = b.getAttribute("data-couche"); etat[c] = !etat[c]; if (!etat.aires && etat.choix && etat.choix.type === "aire") { etat.choix = null; } rendre(); });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  function reinitialiser() {
+    remettreEtat(); M.remettre(); rendre();
+    var lecture = q(".ant__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.ant = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", theme: etat.theme, aires: etat.aires, vue: svg.getAttribute("viewBox") }; }, choisir: choisir, lieux: function () { return L; }, aires: function () { return D.pa; } };
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

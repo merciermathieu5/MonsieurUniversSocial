@@ -124,6 +124,8 @@ Attention au piège : « algonquien » et « iroquoien » désignent des famille
 langues, pas des nations. Dire d'une personne qu'elle est algonquienne revient à
 dire d'un Espagnol qu'il est latin.
 
+::: composant nations-quebec
+
 ::: video I6qKlqoGW84
 Les nations autochtones du Québec
 :::
@@ -180,6 +182,8 @@ Onze communautés y vivent, et plus de 300 zones de trappage, de chasse et de
 pêche y sont rattachées. Chacune est confiée à un maître de trappe qui en répond
 devant la communauté, un système de gestion du territoire qui existait bien avant
 les cartes gouvernementales.
+
+::: composant eeyou-istchee-categories
 
 ::: video i_OGA6S68mo
 Eeyou Istchee

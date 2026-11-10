@@ -432,17 +432,18 @@ biome amazonien ont été déboisés à ce jour, soit à peu près 17 % du total
 Déforestation en Amazonie, causes et conséquences
 :::
 
-::: schema deforestation-amazonie
-:::
+::: composant amazonie-deforestation
 
-La courbe s'est pourtant inversée. Entre août 2024 et juillet 2025, 5 796
+La courbe s'est pourtant inversée. Entre août 2024 et juillet 2025, 5 731
 kilomètres carrés ont été déboisés dans l'Amazonie brésilienne, une baisse de
-11 % sur un an et le plus bas total depuis onze ans. C'est la quatrième baisse
+12 % sur un an et le plus bas total depuis onze ans. C'est la quatrième baisse
 consécutive. Le pic récent remonte à 2020-2021, avec 13 038 kilomètres carrés.
-La déforestation a donc été réduite de plus de moitié en quatre ans.
+La déforestation a donc été réduite de plus de moitié en quatre ans. Pour
+août 2025 à juillet 2026, l'estimation publiée en octobre 2026 est de 3 335
+kilomètres carrés, le plus bas total depuis le début des mesures, en 1988.
 
 Source : Institut national de recherches spatiales du Brésil, programme PRODES,
-données publiées en octobre 2025
+taux définitif de 2025 et estimation de 2026 publiée en octobre 2026
 {: .source-texte }
 
 ::: note
