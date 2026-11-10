@@ -393,6 +393,28 @@ def ouvrir(chemin: Path) -> tuple[dict, str]:
     return (yaml.safe_load(entete) or {}), corps.strip()
 
 
+# Un nombre écrit avec des espaces de milliers (« 2 106 », « 1 762 949 »), même
+# coupé par un saut de ligne dans la source. Un groupe de quatre chiffres
+# (« 1977 150 ») n'est pas un nombre de ce genre.
+NOMBRE_MILLIERS = re.compile(r"(?<![\d.,])\d{1,3}(?:[ \n\u00a0]\d{3})+(?!\d)")
+BALISE_OU_SCRIPT = re.compile(r"(<script\b.*?</script>|<style\b.*?</style>|<[^>]+>)",
+                              re.DOTALL | re.IGNORECASE)
+
+
+def lier_nombres(html: str) -> str:
+    """Rend insécables les espaces de milliers, dans le texte seulement.
+
+    Sans cela, « 2 106 mégawatts » peut se couper en fin de ligne et laisser
+    « 2 » seul d'un côté. Les balises, les scripts et les styles ne sont pas
+    touchés.
+    """
+    morceaux = BALISE_OU_SCRIPT.split(html)
+    for i in range(0, len(morceaux), 2):
+        morceaux[i] = NOMBRE_MILLIERS.sub(
+            lambda m: re.sub(r"[ \n]", "\u00a0", m.group(0)), morceaux[i])
+    return "".join(morceaux)
+
+
 def mettre_en_forme(corps: str, credits: dict) -> tuple[str, list]:
     """Fait passer un corps Markdown dans toute la chaîne de mise en forme.
 
@@ -403,8 +425,8 @@ def mettre_en_forme(corps: str, credits: dict) -> tuple[str, list]:
     md = markdown.Markdown(extensions=EXTENSIONS_MD,
                            extension_configs={"toc": {"slugify":
                                                       lambda v, s: glisser(v)}})
-    html = marquer_sources(jumeler_videos(ranger_figures(
-        habiller_images(md.convert(convertir_blocs(corps, credits)), credits))))
+    html = lier_nombres(marquer_sources(jumeler_videos(ranger_figures(
+        habiller_images(md.convert(convertir_blocs(corps, credits)), credits)))))
     return html, [t for t in md.toc_tokens]
 
 

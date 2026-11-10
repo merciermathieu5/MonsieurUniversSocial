@@ -124,6 +124,7 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
 .tfm__cercle { stroke: var(--tfm-cercle-bord); stroke-width: 1.5px; vector-effect: non-scaling-stroke; cursor: pointer; transition: r .5s ease, opacity .25s; fill-opacity: .92; }
 .tfm__cercle[data-r="eur"] { fill: var(--tfm-eur-fort); } .tfm__cercle[data-r="asp"] { fill: var(--tfm-asp-fort); } .tfm__cercle[data-r="ame"] { fill: var(--tfm-ame-fort); }
 .tfm__cercle[data-r="afr"] { fill: var(--tfm-afr-fort); } .tfm__cercle[data-r="mo"] { fill: var(--tfm-mo-fort); }
+.tfm__avis { margin: .4rem 0 0; font-family: var(--titre); font-size: .74rem; line-height: 1.35; color: var(--encre-pale); }
 .tfm__cercle.est-depart { fill-opacity: .14; stroke-width: 2.5px; stroke-dasharray: 6 4; }
 .tfm__cercle.est-depart[data-r="eur"] { stroke: var(--tfm-eur-fort); } .tfm__cercle.est-depart[data-r="asp"] { stroke: var(--tfm-asp-fort); } .tfm__cercle.est-depart[data-r="ame"] { stroke: var(--tfm-ame-fort); }
 .tfm__cercle.est-depart[data-r="afr"] { stroke: var(--tfm-afr-fort); } .tfm__cercle.est-depart[data-r="mo"] { stroke: var(--tfm-mo-fort); }
@@ -187,6 +188,7 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
 <div class="tfm__groupe">
 <p class="tfm__barre-titre" id="tfm-annee-titre">Année</p>
 <ul class="tfm__puces" aria-labelledby="tfm-annee-titre"><li><button type="button" class="tfm__puce tfm__annee" data-annee="2019" aria-pressed="false">2019</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2020" aria-pressed="false">2020</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2021" aria-pressed="false">2021</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2022" aria-pressed="false">2022</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2023" aria-pressed="false">2023</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2024" aria-pressed="false">2024</button></li><li><button type="button" class="tfm__puce tfm__annee" data-annee="2025" aria-pressed="false">2025</button></li></ul>
+<p class="tfm__avis" hidden>Les départs par région ne sont publiés que jusqu'en 2022.</p>
 </div>
 <div class="tfm__groupe">
 <p class="tfm__barre-titre" id="tfm-mesure-titre">Les cercles montrent</p>
@@ -473,7 +475,29 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
     bar.setAttribute("role", "img");
     bar.setAttribute("aria-label", typo("Dans leur propre région : " + Math.round(D.intra.meme[i] / tot * 100) + " %, vers une autre région : " + Math.round(D.intra.autre[i] / tot * 100) + " %"));
   }
+  function ficheDeparts() {
+    var a = etat.annee, i = iAn(a), tot = 0, tot0 = 0;
+    D.regions.forEach(function (r) { tot += r.dep[i]; tot0 += r.dep[0]; });
+    entete("Les départs en " + a, mio(tot) + " de départs");
+    chiffres(vueTexte, [["Touristes partis à l'étranger", mio(tot)], ["Par rapport à 2019", a === 2019 ? "année de référence" : pct(tot, tot0)]]);
+    para({
+      2019: "En 2019, l'Europe est la région d'où partent le plus de touristes : près d'un voyage international sur deux commence en Europe.",
+      2020: "En 2020, les départs chutent partout. Les habitants de l'Asie et du Pacifique, qui voyageaient beaucoup, restent presque tous chez eux : 58 millions de départs, contre 388 millions en 2019.",
+      2021: "En 2021, l'Asie et le Pacifique envoient encore moins de touristes qu'en 2020 : 31 millions. La Chine garde ses frontières fermées.",
+      2022: "En 2022, les Européens et les Américains voyagent de nouveau. L'Asie et le Pacifique restent loin derrière : 117 millions de départs, moins du tiers de 2019."
+    }[a]);
+    el("span", "tfm__rubrique", "D'où partent les touristes en " + a, vueTexte);
+    var ul = el("ul", "tfm__liste", null, vueTexte);
+    D.regions.slice().sort(function (x, y) { return y.dep[i] - x.dep[i]; }).forEach(function (r) {
+      el("li", "", null, ul).appendChild(bouton("tfm__choisir", r.n, { couleur: couleurR(r.id), texte: dec(r.dep[i], 0) + " M · " + Math.round(r.dep[i] / tot * 100) + " %" }, function () { choisir({ type: "region", id: r.id }); }));
+    });
+    el("span", "tfm__rubrique", "Où vont les touristes en " + a, vueTexte);
+    partage(i, vueTexte);
+    para("Un départ, c'est un touriste qui quitte son pays pour en visiter un autre. Il est compté dans sa région d'origine : un Québécois qui part au Mexique compte pour les Amériques.", "tfm__note");
+    para("ONU Tourisme ne publie les départs par région que jusqu'en 2022. Pour 2023 et après, choisis « Les arrivées ».", "tfm__note");
+  }
   function ficheMonde() {
+    if (etat.mesure === "departs") { ficheDeparts(); return; }
     var a = etat.annee, i = iAn(a), v = D.monde[i];
     entete("Le monde en " + a + (a === 2025 ? " (chiffres provisoires)" : ""), mio(v) + " d'arrivées");
     chiffres(vueTexte, [["Touristes internationaux", mio(v)], ["Par rapport à 2019", a === 2019 ? "année de référence" : pct(v, D.monde[0])]]);
@@ -507,8 +531,13 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
     if (departsDispo(a)) { p.push(["Départs en " + a, mio(r.dep[i])]); }
     chiffres(vueTexte, p);
     para(r.texte);
-    el("span", "tfm__rubrique", "Arrivées, en millions", vueTexte);
-    grapheAnnees(r.a, a, vueTexte);
+    if (etat.mesure === "departs") {
+      el("span", "tfm__rubrique", "Départs, en millions (publiés jusqu'en 2022)", vueTexte);
+      grapheAnnees(r.dep, a, vueTexte);
+    } else {
+      el("span", "tfm__rubrique", "Arrivées, en millions", vueTexte);
+      grapheAnnees(r.a, a, vueTexte);
+    }
     var s = r.a[0] - r.dep[0];
     para(s > 0 ? "En 2019, la région a reçu " + mio(s) + " de touristes de plus qu'elle n'en a envoyé à l'étranger : elle attire plus de visiteurs qu'elle n'en fait partir."
                : "En 2019, la région a envoyé " + mio(-s) + " de touristes de plus qu'elle n'en a reçu : ses habitants voyagent beaucoup à l'étranger.", "tfm__note");
@@ -537,7 +566,6 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
   function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
   function rendre() {
     var ch = etat.choix, a = etat.annee, mesure = etat.mesure;
-    if (mesure === "departs" && !departsDispo(a)) { mesure = etat.mesure = "arrivees"; }
     var regionChoisie = ch ? (ch.type === "region" ? ch.id : PAYS[ch.id].r) : null;
     D.regions.forEach(function (r) {
       var v = valeur(r, a, mesure), c = CERCLE[r.id];
@@ -555,10 +583,14 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
     gMarques.style.display = etat.top ? "" : "none";
     Object.keys(MARQUE).forEach(function (k) { MARQUE[k].setAttribute("class", "tfm__marque" + (ch && ch.type === "pays" && ch.id === k ? " est-choisi" : "")); });
     paysChoisi.setAttribute("d", ch && ch.type === "pays" ? PAYS[ch.id].d : "");
-    Array.prototype.forEach.call(racine.querySelectorAll(".tfm__annee"), function (b) { b.setAttribute("aria-pressed", Number(b.getAttribute("data-annee")) === a ? "true" : "false"); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".tfm__annee"), function (b) {
+      var an = Number(b.getAttribute("data-annee")), bloque = mesure === "departs" && !departsDispo(an);
+      b.setAttribute("aria-pressed", an === a ? "true" : "false");
+      b.disabled = bloque; b.title = bloque ? typo("Les départs par région ne sont publiés que jusqu'en 2022.") : "";
+    });
+    q(".tfm__avis").hidden = mesure !== "departs";
     Array.prototype.forEach.call(racine.querySelectorAll(".tfm__mesure"), function (b) {
       b.setAttribute("aria-pressed", b.getAttribute("data-mesure") === mesure ? "true" : "false");
-      if (b.getAttribute("data-mesure") === "departs") { b.disabled = !departsDispo(a); b.title = departsDispo(a) ? "" : typo("Les départs par région ne sont publiés que jusqu'en 2022."); }
     });
     q('.tfm__couche[data-couche="top"]').setAttribute("aria-pressed", etat.top ? "true" : "false");
     if (!ch) { ficheMonde(); } else if (ch.type === "region") { ficheRegion(ch.id); } else { fichePays(ch.id); }
@@ -608,7 +640,12 @@ html[data-sombre="on"] .tfm { --tfm-mer: #15202B; --tfm-terre: #2B3540; --tfm-co
     b.addEventListener("click", function () { etat.annee = Number(b.getAttribute("data-annee")); rendre(); });
   });
   Array.prototype.forEach.call(racine.querySelectorAll(".tfm__mesure"), function (b) {
-    b.addEventListener("click", function () { etat.mesure = b.getAttribute("data-mesure"); rendre(); });
+    b.addEventListener("click", function () {
+      etat.mesure = b.getAttribute("data-mesure");
+      /* les départs par région s'arrêtent en 2022 : on y ramène l'année */
+      if (etat.mesure === "departs" && !departsDispo(etat.annee)) { etat.annee = 2022; annonce.textContent = typo("Départs en 2022, dernière année publiée"); }
+      rendre();
+    });
   });
   q('.tfm__couche[data-couche="top"]').addEventListener("click", function () {
     etat.top = !etat.top;
