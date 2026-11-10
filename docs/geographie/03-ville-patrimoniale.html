@@ -3650,10 +3650,372 @@ composantes en fin de vie. On conserve.</p>
 parties du bâtiment existant, tout en respectant les caractéristiques du
 bâtiment d'origine. On restaure. Quand une partie a complètement disparu, on
 peut la rebâtir à partir de documents écrits ou d'images anciennes. On
-reconstitue : les portes Saint-Louis, Saint-Jean et Prescott ont toutes les
-trois été refaites de cette façon. Dans les trois cas, le but reste le même :
+reconstitue. La porte Saint-Louis a été rebâtie en 1878 et la porte Saint-Jean
+en 1939. La porte Prescott, démolie en 1871, est un cas à part : la passerelle
+construite en 1983 à son emplacement porte son nom, mais n'a rien de commun avec
+l'ancienne porte. Dans tous les cas, le but reste le même :
 la conservation. La restauration et la reconstitution ne sont pas des fins en
 elles-mêmes, ce sont des moyens de faire durer un ensemble.</p>
+<section class="pav" id="patrimoine-avant-apres" data-reinitialiser aria-label="Conserver, restaurer, reconstituer : quatre lieux de Québec avant et après">
+<style>
+.pav { clear: both; margin: 1.6rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.pav .pav__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .4rem 1rem; flex-wrap: wrap; }
+.pav .pav__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.pav .pav__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); flex: 1 1 10rem; text-align: right; line-height: 1.35; }
+.pav__barre { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
+.pav__vues { display: flex; flex-wrap: wrap; gap: .4rem; }
+.pav__vue, .pav__replier, .pav__choix { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.pav__vue:hover, .pav__replier:hover, .pav__choix:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.pav__vue[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.pav__vue-fait { display: inline-block; width: .5rem; height: .5rem; margin-left: .45rem; border-radius: 50%; background: currentColor; opacity: 0; vertical-align: .1em; }
+.pav__vue.est-tranche .pav__vue-fait { opacity: .75; }
+.pav__replier { display: none; margin-left: auto; font-size: .78rem; padding: .3rem .8rem; }
+.pav .pav__figure { margin: 0; }
+.pav__cadre { display: flex; justify-content: center; background: var(--surface-2); }
+.pav__scene { --pav-pos: 50%; position: relative; width: min(100%, calc(72vh * var(--pav-rapport, 1.33))); aspect-ratio: var(--pav-ratio, 4 / 3); overflow: hidden; background: var(--surface-2); cursor: ew-resize; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.pav__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; -webkit-user-drag: none; }
+.pav__image--avant { clip-path: inset(0 calc(100% - var(--pav-pos)) 0 0); }
+.pav__repere { position: absolute; top: .7rem; z-index: 2; font-family: var(--donnee); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: #fff; background: rgba(18,26,34,.78); padding: .3rem .6rem; border-radius: var(--rayon); pointer-events: none; transition: opacity .2s; }
+.pav__repere--avant { left: .7rem; }
+.pav__repere--apres { right: .7rem; }
+.pav__scene.est-a-gauche .pav__repere--avant, .pav__scene.est-a-droite .pav__repere--apres { opacity: 0; }
+.pav__curseur { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.pav__trait { position: absolute; top: 0; bottom: 0; left: var(--pav-pos); z-index: 2; width: 0; pointer-events: none; }
+.pav__trait::before { content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: #fff; box-shadow: 0 0 6px rgba(0,0,0,.45); }
+.pav__poignee { position: absolute; top: 50%; left: 0; width: 2.6rem; height: 2.6rem; margin: -1.3rem 0 0 -1.3rem; border-radius: 50%; background: #fff; color: #1A2530; box-shadow: 0 2px 10px rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; }
+.pav__poignee svg { display: block; width: 1.4rem; height: 1.4rem; }
+.pav__curseur:focus-visible ~ .pav__trait .pav__poignee { outline: 3px solid var(--signal); outline-offset: 2px; }
+.pav .pav__absent { display: none; position: absolute; inset: 0; z-index: 3; margin: 0; padding: 1.5rem; place-items: center; align-content: center; gap: .5rem; text-align: center; background: var(--surface-2); font-family: var(--titre); font-size: .92rem; color: var(--encre-doux); }
+.pav .pav__absent code { font-family: var(--donnee); font-size: .7rem; color: var(--encre-doux); background: var(--fond-creux); padding: .2rem .5rem; border-radius: var(--rayon); }
+.pav__scene.est-absent { cursor: auto; }
+.pav__scene.est-absent .pav__absent { display: grid; }
+.pav__scene.est-absent .pav__trait, .pav__scene.est-absent .pav__repere { display: none; }
+.pav .pav__panneau { display: grid; gap: .6rem; margin: 0; padding: .9rem 1.2rem 1rem; border-top: 1px solid var(--trait); }
+.pav .pav__lieu { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.pav .pav__legende { margin: 0; padding-left: .8rem; border-left: 3px solid var(--matiere); font-family: var(--titre); font-weight: 600; font-size: .9rem; line-height: 1.45; color: var(--encre); }
+.pav .pav__note { margin: 0; font-family: var(--titre); font-size: .82rem; line-height: 1.4; color: var(--encre-doux); font-style: italic; }
+.pav .pav__note:empty { display: none; }
+.pav__verdict { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .5rem; }
+.pav .pav__question { margin: 0 .3rem 0 0; font-family: var(--titre); font-weight: 700; font-size: .86rem; color: var(--encre); }
+.pav__choix[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.pav .pav__retour { margin: 0; padding: .65rem .85rem; border-radius: var(--rayon); background: var(--surface-2); border-left: 3px solid var(--trait); font-family: var(--titre); font-size: .88rem; line-height: 1.5; color: var(--encre); }
+.pav .pav__retour:empty { display: none; }
+.pav .pav__retour.est-juste { border-left-color: #2E8B57; }
+.pav .pav__retour.est-faux { border-left-color: #C0392B; }
+.pav .pav__retour.est-debat { border-left-color: #D68910; }
+.pav .pav__bilan { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .06em; color: var(--encre-pale); }
+.pav .pav__pied { display: grid; gap: .5rem; margin: 0; padding: .7rem 1.2rem .8rem; border-top: 1px solid var(--trait); background: var(--surface-2); }
+.pav__credits { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem 1.4rem; }
+.pav__credits[hidden] { display: none; }
+.pav__credit { display: flex; align-items: baseline; gap: .45rem; font-family: var(--donnee); font-size: .68rem; line-height: 1.5; color: var(--encre-pale); }
+.pav .pav__sources summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); }
+.pav .pav__sources ul { list-style: none; margin: .5rem 0 .2rem; padding: 0; }
+.pav ul > li::before { content: none; display: none; }
+.pav ul > li::marker { content: none; }
+.pav .pav__sources li { margin: 0 0 .25rem; padding: 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-doux); }
+.pav.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; }
+.pav.est-plein-ecran .pav__replier { display: inline-flex; }
+.pav.est-plein-ecran .pav__corps { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); }
+.pav.est-plein-ecran .pav__figure { display: flex; min-height: 0; }
+.pav.est-plein-ecran .pav__cadre { flex: 1 1 auto; min-height: 0; align-items: center; container-type: size; }
+.pav.est-plein-ecran .pav__scene { width: min(100cqw, calc(100cqh * var(--pav-rapport, 1.33))); }
+.pav.est-plein-ecran .pav__panneau { border-top: 0; border-left: 1px solid var(--trait); overflow-y: auto; overscroll-behavior: contain; align-content: start; }
+.pav.est-plein-ecran .pav__pied { flex: 0 0 auto; }
+.pav.est-plein-ecran .pav__sources { display: none; }
+.pav.est-plein-ecran.texte-masque .pav__corps { grid-template-columns: minmax(0, 1fr); }
+.pav.est-plein-ecran.texte-masque .pav__repliable { display: none; }
+html[data-sombre="on"] .pav .pav__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .pav .pav__titre { color: var(--encre); }
+html[data-sombre="on"] .pav .pav__consigne { color: var(--encre-pale); }
+html[data-sombre="on"] .pav__vue[aria-pressed="true"] { color: #10171F; }
+html[data-sombre="on"] .pav__choix[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .pav .pav__retour.est-juste { border-left-color: #5CC98B; }
+html[data-sombre="on"] .pav .pav__retour.est-faux { border-left-color: #F07B6E; }
+html[data-sombre="on"] .pav .pav__retour.est-debat { border-left-color: #F2B33D; }
+body[data-classe="on"] .pav__credits { display: none; }
+@media (max-width: 40rem) {
+  .pav__barre { padding: .7rem .8rem; }
+  .pav .pav__panneau, .pav .pav__pied { padding-left: .8rem; padding-right: .8rem; }
+  .pav__repere { top: .45rem; font-size: .62rem; }
+  .pav__repere--avant { left: .45rem; }
+  .pav__repere--apres { right: .45rem; }
+  .pav.est-plein-ecran { overflow-y: auto; }
+  .pav.est-plein-ecran .pav__corps { display: flex; flex-direction: column; flex: 1 0 auto; }
+  .pav.est-plein-ecran .pav__figure { flex: 0 0 auto; }
+  .pav.est-plein-ecran .pav__cadre { container-type: normal; }
+  .pav.est-plein-ecran .pav__scene { width: min(100%, calc(62vh * var(--pav-rapport, 1.33))); }
+  .pav.est-plein-ecran .pav__panneau { border-left: 0; border-top: 1px solid var(--trait); overflow: visible; }
+  .pav.est-plein-ecran.texte-masque { overflow: hidden; }
+  .pav.est-plein-ecran.texte-masque .pav__corps { flex: 1 1 auto; min-height: 0; }
+  .pav.est-plein-ecran.texte-masque .pav__figure { flex: 1 1 auto; min-height: 0; }
+  .pav.est-plein-ecran.texte-masque .pav__cadre { container-type: size; }
+  .pav.est-plein-ecran.texte-masque .pav__scene { width: min(100cqw, calc(100cqh * var(--pav-rapport, 1.33))); }
+}
+@media (prefers-reduced-motion: reduce) { .pav * { transition: none !important; animation: none !important; } }
+@media print { .pav__barre, .pav__verdict, .pav__retour { display: none; } .pav__scene { cursor: auto; } }
+</style>
+<header class="pav__entete">
+<p class="pav__titre" role="heading" aria-level="3">Conserver, restaurer, reconstituer&nbsp;: avant et après</p>
+<p class="pav__consigne">Choisis un lieu, compare les deux photos, puis donne ton verdict</p>
+</header>
+<div class="pav__barre">
+<div class="pav__vues" data-pav="vues" role="group" aria-label="Lieux à comparer"></div>
+<button type="button" class="pav__replier" data-pav="replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="pav__corps">
+<figure class="pav__figure">
+<div class="pav__cadre">
+<div class="pav__scene" data-pav="scene" style="--pav-ratio: 1100 / 825; --pav-rapport: 1.333">
+<img class="pav__image pav__image--apres" data-pav="apres" src="../medias/03-ville-patrimoniale/porte-kent-2010.jpg" alt="Photographie de la porte Kent en 2010" loading="lazy" decoding="async" draggable="false">
+<img class="pav__image pav__image--avant" data-pav="avant" src="../medias/03-ville-patrimoniale/porte-kent-1890.jpg" alt="Photographie de la porte Kent vers 1890" loading="lazy" decoding="async" draggable="false">
+<span class="pav__repere pav__repere--avant" data-pav="repere-avant" aria-hidden="true">Vers 1890</span>
+<span class="pav__repere pav__repere--apres" data-pav="repere-apres" aria-hidden="true">2010</span>
+<input class="pav__curseur" data-pav="curseur" type="range" min="0" max="100" step="1" value="50" aria-label="Comparer la photo ancienne et la photo récente">
+<span class="pav__trait" aria-hidden="true"><span class="pav__poignee"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/></svg></span></span>
+<p class="pav__absent">Images à récupérer <code>python outils\images.py</code></p>
+</div>
+</div>
+</figure>
+<div class="pav__panneau pav__repliable">
+<p class="pav__lieu" data-pav="lieu"></p>
+<p class="pav__legende" data-pav="legende"></p>
+<p class="pav__note" data-pav="note"></p>
+<div class="pav__verdict" role="group" aria-labelledby="pav-question">
+<p class="pav__question" id="pav-question">Selon toi, qu'a-t-on fait ici?</p>
+<button type="button" class="pav__choix" data-choix="conserver" aria-pressed="false">Conserver</button>
+<button type="button" class="pav__choix" data-choix="restaurer" aria-pressed="false">Restaurer</button>
+<button type="button" class="pav__choix" data-choix="reconstituer" aria-pressed="false">Reconstituer</button>
+</div>
+<p class="pav__retour" data-pav="retour" aria-live="polite"></p>
+<p class="pav__bilan" data-pav="bilan"></p>
+</div>
+</div>
+<div class="pav__pied pav__repliable">
+<div class="pav__credits" data-credits="kent"><div class="pav__credit"><span>Photographie ancienne</span><details class="credit"><summary>Source</summary><span>Wm. Notman & Son, Porte Kent Quebec 1890 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Porte_Kent_Quebec_1890.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Domaine public.</span></details></div><div class="pav__credit"><span>Photographie récente</span><details class="credit"><summary>Source</summary><span>SaphirQC - Odette Tremblay, Porte Kent, Québec, QC, Canada (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Porte_Kent,_Qu%C3%A9bec,_QC,_Canada.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 3.0.</span></details></div></div>
+<div class="pav__credits" data-credits="jesuites" hidden><div class="pav__credit"><span>Photographie ancienne</span><details class="credit"><summary>Source</summary><span>Edgar Gariépy, Maison des Jesuites, Sillery, 1924 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Maison_des_Jesuites,_Sillery,_1924.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Domaine public.</span></details></div><div class="pav__credit"><span>Photographie récente</span><details class="credit"><summary>Source</summary><span>Cephas, Maison des Jésuites de Sillery 03 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Maison_des_J%C3%A9suites_de_Sillery_03.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 4.0.</span></details></div></div>
+<div class="pav__credits" data-credits="place-royale" hidden><div class="pav__credit"><span>Photographie ancienne</span><details class="credit"><summary>Source</summary><span>Studio Livernois, Quartier Vieux-Quebec-Basse-Ville - Place Royale - eglise Notre-Dame-des-Victoires BAnQ P560S1P774 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Quartier_Vieux-Quebec-Basse-Ville_-_Place_Royale_-_eglise_Notre-Dame-des-Victoires_BAnQ_P560S1P774.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Domaine public.</span></details></div><div class="pav__credit"><span>Photographie récente</span><details class="credit"><summary>Source</summary><span>Gilbert Bochenek, Québec-Place Royale 2011 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Qu%C3%A9bec-Place_Royale_2011.JPG" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 3.0.</span></details></div></div>
+<div class="pav__credits" data-credits="porte-prescott" hidden><div class="pav__credit"><span>Photographie ancienne</span><details class="credit"><summary>Source</summary><span>William Notman, Porte Prescott Quebec 1860 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Porte_Prescott_Quebec_1860.jpg" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Domaine public.</span></details></div><div class="pav__credit"><span>Photographie récente</span><details class="credit"><summary>Source</summary><span>Jeangagnon, Porte Prescott 05 (recadrée), <a href="https://commons.wikimedia.org/wiki/File:Porte_Prescott_05.JPG" rel="noopener" target="_blank">Wikimedia Commons</a>. Licence&nbsp;: Creative Commons BY-SA 4.0.</span></details></div></div>
+<details class="pav__sources">
+<summary>Sources</summary>
+<ul>
+<li>Wikipédia, «&nbsp;<a href="https://fr.wikipedia.org/wiki/Portes_de_Qu%C3%A9bec" target="_blank" rel="noopener noreferrer">Portes de Québec</a>&nbsp;», sections Porte Kent et Porte Prescott.</li>
+<li>Répertoire du patrimoine culturel du Québec, «&nbsp;<a href="https://www.patrimoine-culturel.gouv.qc.ca/rpcq/detail.do?methode=consulter&amp;id=92887&amp;type=bien" target="_blank" rel="noopener noreferrer">Maison des Jésuites-de-Sillery</a>&nbsp;».</li>
+<li>Wikipédia, «&nbsp;<a href="https://fr.wikipedia.org/wiki/Place_Royale_(Qu%C3%A9bec)" target="_blank" rel="noopener noreferrer">Place Royale (Québec)</a>&nbsp;».</li>
+<li>Marc Grignon, «&nbsp;<a href="https://id.erudit.org/iderudit/18268ac" target="_blank" rel="noopener noreferrer">La “Porte Prescott”&nbsp;: un prétexte pour reconstruire</a>&nbsp;», Continuité, n<sup>o</sup>&nbsp;20, été 1983, p.&nbsp;44.</li>
+<li>Photographies&nbsp;: Wikimedia Commons, recadrées pour superposer les deux vues.</li>
+</ul>
+</details>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("patrimoine-avant-apres");
+  if (!racine || racine.dataset.pret) return;
+  racine.dataset.pret = "1";
+  // Chaque lieu a sa paire de photos, recadrées dans medias/03-ville-patrimoniale
+  // pour que les deux vues se superposent. Leurs crédits vivent dans
+  // medias/sources.yml. Les retours suivent les trois actions de la fiche :
+  // juste, faux, ou discutable quand le cas lui-même fait débat.
+  var DOSSIER = "../medias/03-ville-patrimoniale/";
+  var VUES = [
+    { cle: "kent", nom: "Porte Kent", lieu: "Porte Kent · Vieux-Québec",
+      avant: { image: "porte-kent-1890.jpg", date: "Vers 1890", alt: "Photographie de la porte Kent vers 1890" },
+      apres: { image: "porte-kent-2010.jpg", date: "2010", alt: "Photographie de la porte Kent en 2010" },
+      largeur: 1100, hauteur: 825,
+      legende: "La porte Kent est bâtie en 1878 et 1879, après le départ de la garnison britannique. Elle fait partie du plan de lord Dufferin, qui voulait garder les fortifications au lieu de les raser. Elle n'a jamais servi à défendre la ville\u00a0: elle est décorative.",
+      note: "",
+      retours: {
+        conserver: ["juste", "Oui. La porte Kent n'a jamais été démolie ni refaite. Depuis bientôt 150 ans, on l'entretient et on répare ce qui s'use. Compare la tourelle, les créneaux et l'arche\u00a0: l'essentiel n'a pas changé."],
+        restaurer: ["faux", "Pas vraiment. On restaure un bâtiment détérioré pour lui rendre un état plus ancien. La porte Kent est restée debout et a gardé sa forme\u00a0: on l'entretient, on la conserve."],
+        reconstituer: ["faux", "Non. On reconstitue ce qui a disparu. La porte Kent n'a jamais disparu\u00a0: elle est debout depuis 1879. On la conserve."]
+      } },
+    { cle: "jesuites", nom: "Maison des Jésuites", lieu: "Maison des Jésuites · Sillery, à Québec",
+      avant: { image: "jesuites-1924.jpg", date: "1924", alt: "Photographie de la maison des Jésuites de Sillery en 1924, aux murs couverts de planches" },
+      apres: { image: "jesuites-2019.jpg", date: "2019", alt: "Photographie de la maison des Jésuites de Sillery en 2019, aux murs blancs" },
+      largeur: 1100, hauteur: 804,
+      legende: "Cette maison de Sillery date du début du 18e siècle. En 1924, des planches de bois couvrent ses murs. Elle est classée en 1929, parmi les trois premiers biens classés du Québec. En 1946, on menace pourtant de la démolir.",
+      note: "",
+      retours: {
+        restaurer: ["juste", "Oui. Achetée en 1948 par Roland Gagné, la maison est restaurée, puis de nouveau de 1985 à 1987. Les travaux lui ont redonné l'aspect qu'elle avait au milieu du 18e siècle. Regarde les murs de la partie principale\u00a0: les planches de 1924 ont disparu."],
+        conserver: ["faux", "Pas seulement. La maison n'est pas restée telle quelle\u00a0: en 1948, puis de 1985 à 1987, on l'a restaurée pour lui rendre l'aspect qu'elle avait au milieu du 18e siècle."],
+        reconstituer: ["faux", "Non. La maison n'a jamais disparu, même si on a voulu la démolir en 1946. On l'a restaurée en 1948, puis de 1985 à 1987, pour lui rendre l'aspect qu'elle avait au milieu du 18e siècle."]
+      } },
+    { cle: "place-royale", nom: "Place Royale", lieu: "Église Notre-Dame-des-Victoires · place Royale",
+      avant: { image: "place-royale-1900.jpg", date: "Vers 1900", alt: "Photographie de l'église Notre-Dame-des-Victoires vers 1900" },
+      apres: { image: "place-royale-2011.jpg", date: "2011", alt: "Photographie de l'église Notre-Dame-des-Victoires en 2011" },
+      largeur: 720, hauteur: 1107,
+      legende: "L'église Notre-Dame-des-Victoires est bâtie de 1688 à 1723 sur la place Royale. Pendant des décennies, le quartier se dégrade. En 1967, le gouvernement du Québec décide de le réhabiliter.",
+      note: "",
+      retours: {
+        restaurer: ["juste", "Oui, en partie. Sur la place Royale, on a restauré des bâtiments anciens. Mais on a aussi reconstruit des maisons disparues et démoli des ajouts des 19e et 20e siècles pour retrouver l'allure des 17e et 18e siècles. Ce choix a fait débat\u00a0: un projet idéologique pour les uns, une façon de mettre le patrimoine en valeur et d'attirer les touristes pour les autres."],
+        reconstituer: ["juste", "Oui, en partie. Sur la place Royale, on a reconstruit des maisons disparues. Mais on a aussi restauré des bâtiments anciens et démoli des ajouts des 19e et 20e siècles pour retrouver l'allure des 17e et 18e siècles. Ce choix a fait débat\u00a0: un projet idéologique pour les uns, une façon de mettre le patrimoine en valeur et d'attirer les touristes pour les autres."],
+        conserver: ["faux", "Pas seulement. Le quartier était détérioré\u00a0: à partir de 1967, on y a restauré des bâtiments, reconstruit des maisons disparues et démoli des ajouts des 19e et 20e siècles pour retrouver l'allure des 17e et 18e siècles."]
+      } },
+    { cle: "porte-prescott", nom: "Porte Prescott", lieu: "Porte Prescott · côte de la Montagne",
+      avant: { image: "porte-prescott-1860.jpg", date: "1860", alt: "Photographie de la porte Prescott en 1860, surmontée de son corps de garde" },
+      apres: { image: "porte-prescott-2016.jpg", date: "2016", alt: "Photographie de la passerelle pour piétons de la côte de la Montagne en 2016" },
+      largeur: 1000, hauteur: 879,
+      legende: "La porte Prescott est bâtie en 1797 dans la côte de la Montagne. Elle est surmontée d'un corps de garde où logent les soldats. On la démolit en 1871. En 1983, on construit au même endroit une passerelle pour piétons.",
+      note: "Les deux photos ne sont pas prises du même endroit\u00a0: la séparation ne tombe pas sur les mêmes murs.",
+      retours: {
+        reconstituer: ["debat", "C'est ce qu'on dit souvent, mais c'est discutable. Reconstituer, c'est rebâtir ce qui a disparu d'après des documents anciens. Or la passerelle de 1983 rappelle la porte sans la copier\u00a0: compare sa forme avec celle de 1860. Dès 1983, dans la revue Continuité, Marc Grignon y voyait «\u00a0un prétexte pour reconstruire\u00a0»."],
+        conserver: ["faux", "Non. La porte de 1797 a été démolie en 1871\u00a0: il ne restait rien à conserver. En 1983, on a bâti à sa place une construction nouvelle."],
+        restaurer: ["faux", "Non. On ne restaure pas ce qui n'existe plus\u00a0: la porte avait disparu depuis 1871. En 1983, on a bâti une passerelle qui l'évoque. Peut-on parler de reconstitution? C'est discutable."]
+      } }
+  ];
+  function $(cle) { return racine.querySelector('[data-pav="' + cle + '"]'); }
+  var scene = $("scene"), avant = $("avant"), apres = $("apres"), curseur = $("curseur");
+  var repereAvant = $("repere-avant"), repereApres = $("repere-apres");
+  var zoneVues = $("vues"), lieu = $("lieu"), legende = $("legende"), note = $("note");
+  var retour = $("retour"), bilan = $("bilan"), replier = $("replier");
+  var choix = Array.prototype.slice.call(racine.querySelectorAll(".pav__choix"));
+  var credits = Array.prototype.slice.call(racine.querySelectorAll(".pav__credits"));
+  var boutons = [];
+  var verdicts = {};
+  var courante = 0;
+  var glisse = false;
+  // Une étiquette s'efface dès que la séparation la recouvre : la date
+  // ancienne ne doit jamais rester posée sur la photo récente, ni l'inverse.
+  function etiquettes(v) {
+    var largeur = scene.clientWidth;
+    if (largeur && repereAvant.offsetWidth) {
+      var x = v / 100 * largeur;
+      scene.classList.toggle("est-a-gauche", x < repereAvant.offsetLeft + repereAvant.offsetWidth + 6);
+      scene.classList.toggle("est-a-droite", x > repereApres.offsetLeft - 6);
+    } else {
+      scene.classList.toggle("est-a-gauche", v < 18);
+      scene.classList.toggle("est-a-droite", v > 86);
+    }
+  }
+  function poser(valeur) {
+    var v = Math.max(0, Math.min(100, Number(valeur) || 0));
+    v = Math.round(v * 10) / 10;
+    var entier = Math.round(v);
+    var vue = VUES[courante];
+    scene.style.setProperty("--pav-pos", v + "%");
+    curseur.value = String(entier);
+    curseur.setAttribute("aria-valuetext", vue.avant.date + " sur " + entier + "\u00a0% de l'image, " + vue.apres.date + " sur " + (100 - entier) + "\u00a0%");
+    etiquettes(v);
+  }
+  function deplacer(x) {
+    var boite = scene.getBoundingClientRect();
+    if (!boite.width) return;
+    poser((x - boite.left) / boite.width * 100);
+  }
+  function changer(img, src, alt) {
+    if (img.getAttribute("src") !== src) img.setAttribute("src", src);
+    img.alt = alt;
+  }
+  function afficherVerdict() {
+    var vue = VUES[courante];
+    var pris = verdicts[vue.cle] || null;
+    choix.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.choix === pris ? "true" : "false"); });
+    retour.classList.remove("est-juste", "est-faux", "est-debat");
+    if (pris) {
+      retour.textContent = vue.retours[pris][1];
+      retour.classList.add("est-" + vue.retours[pris][0]);
+    } else {
+      retour.textContent = "";
+    }
+    var n = 0;
+    VUES.forEach(function (v, i) {
+      if (verdicts[v.cle]) n++;
+      boutons[i].classList.toggle("est-tranche", !!verdicts[v.cle]);
+    });
+    bilan.textContent = "Verdicts donnés\u00a0: " + n + " sur " + VUES.length;
+  }
+  function montrer(i) {
+    var vue = VUES[i];
+    courante = i;
+    scene.classList.remove("est-absent");
+    changer(avant, DOSSIER + vue.avant.image, vue.avant.alt);
+    changer(apres, DOSSIER + vue.apres.image, vue.apres.alt);
+    repereAvant.textContent = vue.avant.date;
+    repereApres.textContent = vue.apres.date;
+    scene.style.setProperty("--pav-ratio", vue.largeur + " / " + vue.hauteur);
+    scene.style.setProperty("--pav-rapport", String(Math.round(vue.largeur / vue.hauteur * 1000) / 1000));
+    lieu.textContent = vue.lieu;
+    legende.textContent = vue.legende;
+    note.textContent = vue.note;
+    credits.forEach(function (c) { c.hidden = c.getAttribute("data-credits") !== vue.cle; });
+    boutons.forEach(function (b, j) { b.setAttribute("aria-pressed", j === i ? "true" : "false"); });
+    afficherVerdict();
+    poser(50);
+  }
+  VUES.forEach(function (vue, i) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "pav__vue";
+    b.appendChild(document.createTextNode(vue.nom));
+    var fait = document.createElement("span");
+    fait.className = "pav__vue-fait";
+    fait.setAttribute("aria-hidden", "true");
+    b.appendChild(fait);
+    b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+    b.addEventListener("click", function () { montrer(i); });
+    zoneVues.appendChild(b);
+    boutons.push(b);
+  });
+  // Un deuxième clic sur le verdict choisi le retire, comme la touche Échap.
+  choix.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var cle = VUES[courante].cle;
+      if (verdicts[cle] === b.dataset.choix) delete verdicts[cle];
+      else verdicts[cle] = b.dataset.choix;
+      afficherVerdict();
+    });
+  });
+  [avant, apres].forEach(function (img) {
+    img.addEventListener("error", function () { scene.classList.add("est-absent"); });
+  });
+  // À la souris, un clic place la séparation et le glissement la suit. Au
+  // doigt, on attend le mouvement : un défilement vertical de la page reste
+  // possible (touch-action: pan-y) et l'annule sans rien déplacer.
+  scene.addEventListener("pointerdown", function (e) {
+    if (scene.classList.contains("est-absent")) return;
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    glisse = true;
+    if (scene.setPointerCapture && e.pointerId !== undefined) {
+      try { scene.setPointerCapture(e.pointerId); } catch (erreur) { /* capture facultative */ }
+    }
+    if (e.pointerType !== "touch") deplacer(e.clientX);
+  });
+  scene.addEventListener("pointermove", function (e) { if (glisse) deplacer(e.clientX); });
+  scene.addEventListener("pointerup", function (e) {
+    if (glisse && e.pointerType === "touch") deplacer(e.clientX);
+    glisse = false;
+  });
+  scene.addEventListener("pointercancel", function () { glisse = false; });
+  curseur.addEventListener("input", function () { poser(curseur.value); });
+  window.addEventListener("resize", function () { etiquettes(Number(curseur.value)); });
+  // En plein écran, on peut replier le texte pour laisser toute la place aux photos.
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  // Espace et Entrée activent les boutons du composant : on les garde ici
+  // pour que le diaporama de la page ne change pas de section en même temps.
+  // Échap retire le verdict du lieu montré, s'il y en a un.
+  racine.addEventListener("keydown", function (e) {
+    if (e.key === " " || e.key === "Enter") { e.stopPropagation(); return; }
+    if (e.key === "Escape" && verdicts[VUES[courante].cle]) {
+      delete verdicts[VUES[courante].cle];
+      afficherVerdict();
+      e.stopPropagation();
+    }
+  });
+  // Réinitialiser (bouton ajouté par page.js grâce à data-reinitialiser) :
+  // premier lieu, séparation au milieu, aucun verdict.
+  racine.addEventListener("reinitialiser", function () {
+    glisse = false;
+    verdicts = {};
+    montrer(0);
+  });
+  montrer(0);
+})();
+</script>
+</section>
+
 <figure class="video">
 <iframe src="https://www.youtube-nocookie.com/embed/wQdlwdapCe4"
   title="Une maison d'exception du site patrimonial du Vieux-Québec" loading="lazy" allowfullscreen
@@ -3799,6 +4161,10 @@ urbain mondial, avec des documents à analyser.</p>
 <li><a href="https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_saint_jean.aspx">Ville de Québec, la rue Saint-Jean</a></li>
 <li><a href="https://www.veterans.gc.ca/en/node/152032">Anciens Combattants Canada, plaque de la porte Prescott</a></li>
 <li><a href="https://fr.wikipedia.org/wiki/Porte_Prescott">Wikipédia, porte Prescott</a></li>
+<li><a href="https://fr.wikipedia.org/wiki/Portes_de_Qu%C3%A9bec">Wikipédia, portes de Québec</a></li>
+<li><a href="https://id.erudit.org/iderudit/18268ac">Marc Grignon, « La “Porte Prescott” : un prétexte pour reconstruire », Continuité, n° 20, 1983</a></li>
+<li><a href="https://www.patrimoine-culturel.gouv.qc.ca/rpcq/detail.do?methode=consulter&amp;id=92887&amp;type=bien">Répertoire du patrimoine culturel du Québec, maison des Jésuites-de-Sillery</a></li>
+<li><a href="https://fr.wikipedia.org/wiki/Place_Royale_%28Qu%C3%A9bec%29">Wikipédia, place Royale</a></li>
 <li><a href="https://www.openstreetmap.org/copyright">OpenStreetMap, données de la maquette 3D du Vieux-Québec (© les contributeurs d'OpenStreetMap, licence ODbL)</a></li>
 <li><a href="https://open-meteo.com/en/docs/elevation-api">Open-Meteo, altitude du relief de la maquette 3D (modèle Copernicus DEM GLO-90)</a></li>
 </ul>

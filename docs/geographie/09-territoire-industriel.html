@@ -528,6 +528,572 @@ achètent nettement plus de vêtements qu'il y a quinze ans. De la fabrication
 des matières premières au transport, en passant par le lavage et le recyclage,
 le cycle de vie d'un vêtement produit une pollution considérable.</p>
 <p class="source-texte">Source : Joséfa Lopez et Elisa Bellanger, Le Monde</p>
+<section class="vch" id="vetement-chaine" data-reinitialiser aria-label="Carte interactive&nbsp;: la chaîne de fabrication d'un t-shirt, du champ de coton au magasin">
+<style>
+.vch { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: vch / inline-size; }
+.vch .vch__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vch .vch__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.vch .vch__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .vch .vch__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .vch .vch__titre { color: var(--encre); }
+html[data-sombre="on"] .vch .vch__consigne { color: var(--encre-pale); }
+.vch ul > li::before, .vch ol > li::before { content: none; display: none; }
+.vch ul > li::marker, .vch ol > li::marker { content: none; }
+.vch [hidden] { display: none !important; }
+.vch .vch__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.vch .vch__visuel, .vch .vch__lecture { min-width: 0; }
+.vch .vch__carte { position: relative; background: var(--vch-mer); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.vch .vch__carte.est-zoomee { touch-action: none; }
+.vch .vch__svg { display: block; width: 100%; height: auto; max-height: 76vh; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.vch.est-glisse .vch__svg { cursor: grabbing; }
+.vch__fond { fill: var(--vch-mer); }
+.vch__terre { fill: var(--vch-terre); stroke: var(--vch-cote); stroke-width: .6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.vch__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--vch-halo); stroke-linejoin: round; pointer-events: none; }
+.vch .vch__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.vch .vch__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.vch .vch__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vch .vch__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vch .vch__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.vch .vch__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.vch:not(.est-plein-ecran) .vch__replier { display: none; }
+.vch .vch__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); display: flex; flex-wrap: wrap; gap: .55rem 1.4rem; align-items: flex-start; }
+.vch .vch__groupe { min-width: 0; }
+.vch .vch__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vch .vch__puces { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.vch .vch__puces > li { margin: 0; padding: 0; }
+.vch .vch__puce { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem; cursor: pointer; font-variant-numeric: tabular-nums; }
+.vch .vch__puce:hover { background: var(--matiere-voile); }
+.vch .vch__puce:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vch .vch__puce[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .vch .vch__puce[aria-pressed="true"] { color: #10171F; }
+.vch .vch__puce:disabled { opacity: .4; cursor: not-allowed; }
+.vch .vch__couche { padding-left: .45rem; }
+.vch .vch__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.vch .vch__couche[aria-pressed="true"] { color: var(--matiere-fonce); background: var(--surface); border-color: var(--matiere); }
+.vch .vch__couche[aria-pressed="true"] .vch__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.vch .vch__couche[aria-pressed="true"] .vch__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+html[data-sombre="on"] .vch .vch__couche[aria-pressed="true"] { color: var(--matiere-fonce); }
+html[data-sombre="on"] .vch .vch__couche[aria-pressed="true"] .vch__couche-case::after { border-color: #10171F; }
+.vch .vch__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.vch .vch__vue { padding: 1rem 1.2rem 1rem; }
+.vch .vch__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.vch .vch__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vch .vch__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.vch .vch__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.vch .vch__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.vch .vch__chiffres > div { min-width: 0; }
+.vch .vch__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.vch .vch__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.vch .vch__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.vch .vch__rubrique { display: block; margin: .2rem 0 .4rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vch .vch__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.vch .vch__liste > li { margin: 0; padding: 0; }
+.vch .vch__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.vch .vch__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.vch .vch__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vch .vch__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.vch .vch__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.vch .vch__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.vch .vch__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.vch .vch__retour:hover { background: var(--matiere-voile); }
+.vch .vch__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vch .vch__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.vch .vch__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.vch .vch__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.vch .vch__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container vch (min-width: 46rem) {
+  .vch .vch__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .vch .vch__visuel { border-right: 1px solid var(--trait); }
+  /* La fiche prend la hauteur de la carte et défile à l'intérieur : pas de vide sous la carte. */
+  .vch .vch__lecture { border-top: 0; position: relative; min-height: 22rem; }
+  .vch .vch__lecture > .vch__vue { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .vch.est-plein-ecran .vch__lecture { position: static; }
+  .vch.est-plein-ecran .vch__lecture > .vch__vue { position: static; overflow: visible; }
+}
+@container vch (max-width: 30rem) {
+  .vch .vch__barre, .vch .vch__vue, .vch .vch__source { padding-left: .8rem; padding-right: .8rem; }
+  .vch .vch__puce { font-size: .74rem; padding: .26rem .65rem; }
+  .vch .vch__couche { padding-left: .4rem; }
+}
+.vch.est-plein-ecran, .texte section.vch.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.vch.est-plein-ecran > .vch__entete { flex: none; }
+.vch.est-plein-ecran > .vch__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.vch.est-plein-ecran .vch__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.vch.est-plein-ecran .vch__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.vch.est-plein-ecran .vch__svg, .texte .vch.est-plein-ecran svg.vch__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.vch.est-plein-ecran .vch__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.vch.est-plein-ecran > .vch__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.vch.est-plein-ecran.texte-masque > .vch__corps { grid-template-columns: minmax(0, 1fr); }
+.vch.est-plein-ecran.texte-masque .vch__lecture { display: none; }
+.vch.est-plein-ecran.texte-masque .vch__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .vch.est-plein-ecran > .vch__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .vch.est-plein-ecran .vch__visuel { border-right: 0; }
+  .vch.est-plein-ecran .vch__lecture { border-top: 1px solid var(--trait); }
+  .vch.est-plein-ecran.texte-masque > .vch__corps { grid-template-rows: minmax(0, 1fr); }
+  .vch.est-plein-ecran > .vch__source { display: none; }
+  .vch.est-plein-ecran .vch__barre { padding-top: .45rem; padding-bottom: .5rem; }
+}
+@media print {
+  .vch .vch__outils, .vch .vch__replier, .vch .vch__barre { display: none; }
+  .vch .vch__svg { max-height: none; }
+  .vch .vch__corps { grid-template-columns: minmax(0, 1fr); }
+  .vch .vch__visuel { border-right: 0; }
+  .vch { break-inside: avoid; }
+}
+.vch { --vch-mer: #DCE9F2; --vch-terre: #ECE7DC; --vch-cote: #FFFFFF; --vch-halo: #F7F5F0; --vch-bra: #BFD7A8; --vch-bgd: #F2C79A; --vch-can: #E7B9B4; --vch-trace: #2F4B6E; --vch-futur: rgba(47, 75, 110, .35); }
+html[data-sombre="on"] .vch { --vch-mer: #15202B; --vch-terre: #2B3540; --vch-cote: #15202B; --vch-halo: #15202B; --vch-bra: #3F5E33; --vch-bgd: #7A5530; --vch-can: #6E4441; --vch-trace: #A9C6EA; --vch-futur: rgba(169, 198, 234, .35); }
+.vch__pays[data-pays="bra"] { fill: var(--vch-bra); } .vch__pays[data-pays="bgd"] { fill: var(--vch-bgd); } .vch__pays[data-pays="can"] { fill: var(--vch-can); }
+.vch__pays { stroke: var(--vch-cote); stroke-width: .6px; vector-effect: non-scaling-stroke; }
+.vch__trace { fill: none; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.vch__trace.est-futur { stroke: var(--vch-futur); stroke-width: 1.6px; stroke-dasharray: 3 4; }
+.vch__trace.est-fait { stroke: var(--vch-trace); stroke-width: 2.6px; }
+.vch__trace.est-actif { stroke: var(--signal); stroke-width: 3.6px; }
+.vch__trace.est-terre.est-fait, .vch__trace.est-terre.est-actif { stroke-dasharray: 7 4; }
+.vch__trace.est-cache { display: none; }
+.vch__trace.est-dessin { animation: vch-dessin 1.4s ease-out both; }
+@keyframes vch-dessin { from { stroke-dashoffset: var(--vch-long); } to { stroke-dashoffset: 0; } }
+.vch__lieu { cursor: pointer; }
+.vch__lieu circle { fill: var(--surface); stroke: var(--matiere-fonce); vector-effect: non-scaling-stroke; stroke-width: 2px; }
+.vch__lieu.est-passe circle { fill: var(--vch-trace); stroke: var(--surface); }
+.vch__lieu.est-choisi circle { fill: var(--signal); stroke: var(--surface); }
+.vch__lieu.est-alerte circle { fill: #B3261E; stroke: #fff; }
+.vch__etiquette--lieu { font-weight: 700; fill: var(--encre); }
+.vch__etiquette--choisi { font-weight: 700; fill: var(--encre); }
+.vch__etiquette--mer { font-style: italic; font-weight: 500; fill: #2D5F8A; }
+html[data-sombre="on"] .vch__etiquette--mer { fill: #9CC7EC; }
+.vch__etiquette--km { font-family: var(--donnee) !important; font-weight: 500; fill: var(--encre-doux); }
+.vch .vch__pas { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+.vch .vch__numero { width: 2rem; height: 2rem; padding: 0; justify-content: center; }
+.vch .vch__nav { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .85rem; cursor: pointer; }
+.vch .vch__nav:hover { background: var(--matiere-voile); }
+.vch .vch__nav:disabled { opacity: .4; cursor: not-allowed; }
+.vch .vch__nav:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vch .vch__compteur { margin: 0 0 .9rem; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; font-family: var(--titre); color: var(--encre-doux); font-size: .86rem; }
+.vch .vch__compteur strong { font-size: 1.5rem; color: var(--matiere-fonce); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.vch .vch__jauge { height: .45rem; border-radius: 100px; background: var(--surface-2); overflow: hidden; margin: -.4rem 0 1rem; }
+.vch .vch__jauge > span { display: block; height: 100%; background: var(--matiere); transition: width .5s ease; }
+.vch .vch__alerte { margin: 0 0 .85rem; padding: .6rem .8rem; border-radius: var(--rayon); background: rgba(179, 38, 30, .08); border-left: 3px solid #B3261E; font-size: .9rem; line-height: 1.5; }
+@media (prefers-reduced-motion: reduce) { .vch__trace.est-dessin { animation: none; } .vch .vch__jauge > span { transition: none; } }
+@media (max-width: 40rem) {
+  .vch .vch__groupe { flex: 1 1 100%; min-width: 0; }
+  .vch .vch__pas { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: .1rem; }
+  .vch .vch__pas > * { flex: none; }
+  .vch .vch__puces { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .vch .vch__puces > li { flex: none; }
+}
+</style>
+<div class="vch__entete">
+<p class="vch__titre" role="heading" aria-level="3">La chaîne d'un t-shirt&nbsp;: du champ de coton au magasin</p>
+<p class="vch__consigne">Suis les étapes une à une</p>
+</div>
+<div class="vch__corps">
+<div class="vch__visuel">
+<div class="vch__carte">
+<svg class="vch__svg" viewBox="0 0 1000 580" role="img" aria-labelledby="vch-svg-titre">
+<title id="vch-svg-titre">Carte du monde&nbsp;: le parcours d'un t-shirt de coton, du Brésil au Bangladesh puis à Montréal.</title>
+<rect class="vch__fond" x="-3000" y="-3000" width="8000" height="8000"/>
+<path class="vch__terre" d=""/>
+<g class="vch__pays-groupe"></g>
+<g class="vch__traces"></g>
+<g class="vch__lieux"></g>
+<g class="vch__etiquettes"></g>
+</svg>
+<button type="button" class="vch__bouton-carte vch__replier" aria-expanded="true">Masquer le texte</button>
+<div class="vch__outils">
+<button type="button" class="vch__bouton-carte vch__zoom vch__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="vch__bouton-carte vch__zoom vch__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="vch__bouton-carte vch__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="vch__barre">
+<div class="vch__groupe">
+<p class="vch__barre-titre" id="vch-pas-titre">Les étapes du t-shirt</p>
+<div class="vch__pas" role="group" aria-labelledby="vch-pas-titre">
+<button type="button" class="vch__nav vch__precedent">Précédent</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 1 : Le coton pousse">1</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 2 : Le coton traverse deux océans">2</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 3 : La filature">3</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 4 : Le tricotage">4</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 5 : La teinture">5</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 6 : La confection">6</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 7 : L&#39;effondrement du Rana Plaza">7</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 8 : Le t-shirt traverse les océans">8</button>
+<button type="button" class="vch__puce vch__numero" aria-pressed="false" aria-label="Étape 9 : En vente à Montréal">9</button>
+<button type="button" class="vch__nav vch__suivant">Suivant</button>
+</div>
+</div>
+<div class="vch__groupe">
+<p class="vch__barre-titre" id="vch-route-titre">Route vers Montréal</p>
+<ul class="vch__puces" aria-labelledby="vch-route-titre">
+<li><button type="button" class="vch__puce vch__route" data-route="suez" aria-pressed="true">Par le canal de Suez</button></li>
+<li><button type="button" class="vch__puce vch__route" data-route="cap" aria-pressed="false">Par le cap de Bonne-Espérance</button></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="vch__lecture">
+<div class="vch__vue" tabindex="-1"></div>
+<p class="vch__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="vch__source">Coton&nbsp;: département de l'Agriculture des États-Unis (USDA), cité par Fibre2Fashion (2025); Abrapa, cité par Agrolink (2025); Comité consultatif international du coton (ICAC, 2025); <i>The Daily Star</i> (Bangladesh, 2025). Vêtements&nbsp;: Organisation mondiale du commerce (OMC), données de 2024, citées par Fibre2Fashion. Travailleuses et salaire minimum&nbsp;: FashionUnited (novembre 2023). Rana Plaza et Accord de 2013&nbsp;: Wikipédia. Mer Rouge&nbsp;: Lloyd's List et BIMCO, cités par Maritime Professional (janvier 2026). Distances calculées sur la carte, à vol d'oiseau sur terre et le long des routes maritimes habituelles sur mer (tracés simplifiés). Un t-shirt donné peut suivre un autre parcours. Fond de carte&nbsp;: Natural Earth (domaine public).</p>
+<script>
+/* Données : USDA, Abrapa, ICAC, OMC, FashionUnited, Lloyd's List. Fond : Natural Earth. */
+(function () {
+  var racine = document.getElementById("vetement-chaine");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":580,"zoomMax":14,"terre":"M1029.8 343.6l-1.1 0.6l1.1 0.9zM1020.4 352.1l0 1.6l1.2-1.9l1.5 1.6l1.7-1.2l0.3 0.5l2.1 0.7l0.7-0.7l0.9 0l0.7 0.8l0-2.8l-2.1-1.1l-1.3 0.8l-0.8-0.6l-3.4 0.2zM1027 333.1l0.2 0.7l0.6 0.7l0.2-0.3zM1025.8 379.3l0.7 0.7l0.3-1.3l-0.9-0.1zM1018.8 326.8l0.8 1.7l-0.3 1.4l0.8 1.8l-0.1 3.1l1.5 2.7l1.6 1.1l-1.9-3.8l-0.3-3.1l0.5-1l3.8 1.4l-1.2-1.9l-1.5-1.1l0.1-0.8l1.7-1.3l-0.1-2.7l-2 1l-0.2 1.4l-1.4 1.8l-0.8-0.7l1.5-2.1l0-2.2l-0.6-0.8l0.6-2.1l-1.7 2.1zM1022.1 320.1l0.4 1.5l1-0.4l0.6-2.2l-0.4-0.7l-1.2 0.8zM1022.5 354.5l1.4-0.3l-0.1-0.3l-1-0.1zM1019.9 417.9l0.6 0.9l2.3-7.5l-0.7 0.5l-1 2.3l-1.9 2.4l1.1 0.9zM1020.5 354.9l0.2 0.4l1.2-0.4l0.4-1.1zM1018.9 343.3l2.7 0l0.3-0.6l-2.2-1.6l-0.8 0.7zM1017.5 335.8l0.3 0.6l0.6-0.8l0.6 2.5l0.7-0.2l0.6 0.6l0.5-0.4l-1.1-1.1l0.3-0.9l-0.5-0.8l-0.6 0.4l-1.1-0.8zM925.6 525.9l1.8 0.9l0.8 1.9l1.6 1l4 0.6l1.2-0.3l5.4-3l2.5-0.5l2.5-2.1l6.5-0.8l2.4 0.3l0.1 0.6l2.8-0.5l1 0l0.4 0.5l1.4-0.4l5.1-4.8l2.3-0.7l6-3l5.7-0.2l7.8-3l4.5-0.6l29-92.8l-0.6 0.1l-0.4 1.3l-1.2-1.2l-0.6 1.2l-0.3-1.1l-1.9-0.6l-2.1 1.5l0.5-1.9l-2.3-3.9l-2.1-1.6l-0.6 0.2l-0.1 1l-1.1 1.1l-0.6-0.8l-0.7 0.7l-0.2-0.8l-0.5-0.1l-0.8 3l-0.5 0.5l-0.3-0.7l-0.6 0.2l0.1-1.4l-0.5 1.3l-1.9 1.3l0.3 2.2l-1.3-0.5l-1 0.9l0.1 0.8l0.7 0.1l-0.1 0.5l-1.4-0.8l-0.5 0.5l-0.3-0.5l0.1 1.1l-0.7 0.2l-0.5 1.5l0.6 1.3l-1.2 1.7l0.7 0.5l-1.2 0l-0.9-0.7l-1 0.6l-0.6-1l-0.4 1.3l-0.7 0.4l1.1 2.5l-0.4 1l-0.9-0.4l-0.7 2.3l-1.4-5.7l-1.3 2l-3 3l-0.3 4.5l-2.6 2.1l-3.2 4.7l-1.8 1.6l-2.7 1.4l-3.8 1l-2-0.2l-1.9 1.5l-2.4 0.6l-3.8 2l-2.9-0.4l-3.4 2.1l-3 2.6l-3.6 1.8l-2.1 2.9l-1 0.6l0.7-3.4l-0.9 0.6l-2.2 3.9l0.1 1.5l-1 2.8l-1.8 2.5l-1.2 3.1l0.9 7.8l-0.8 2.4l-0.6 0.5l-0.3-0.3l-0.1-1.7l-0.6 0.3l0.4-1.3l-0.7-1.2l-0.4 0.6l0.1 2.1l0.7 1.3l-0.4 0.9l-0.6 0.5l-0.5-0.2l-0.1-2.6l-0.4 0.8l-0.5-0.2l1.4 6.3l-0.8 4l0.7 5.8l-1.9 7.6l-0.2 7.1l-3 6.9l-2.3 2.3l-0.7 0l-0.5-0.6zM1017.9 380.5l0.9 0.7l0.5-0.5zM1017.7 337.8l0.6 0.3l-0.2-1.1l-0.2 0zM1012.5 353.3l0.5 0.9l2.1 1.4l2.4-1.1l0.1-1.4l-1.8-1.9l-3.1 0.2zM1015.2 307l0.3 1.7l-0.4 1.1l0.4 0.3l0.5-1.6zM998.6 393.1l0.9 0.2l2.6-1.2l4.8-5l6.9-3.2l1.8-1.7l-1.4-0.6l-1.5 0.8l-3.5 0.2l-2.8 0.9l-1.3 1.7l-4.1 2.3l-1.6 1.6l-0.8 2l0.5 0.7zM1010 344.1l0.3 0.6l3.7-0.7l-1.3-0.2zM1009.4 379.7l1.1-0.6l1.9 0.4l1.6-1.4l-0.8-0.8l-1.8 0.8l-1-0.3zM993.3 291.7l0.3 1.3l0.6 0.3l1.7-4.8l0.8 0.2l0.3 1.1l1.1-0.9l1.3 1.6l0.3-2.3l0.7-0.1l1.4 0.9l1.1 1.5l-0.7 2.4l0.7 3.4l0.7 1l3.2 2l1.3-0.8l0.6 2.4l1.2-2.2l-0.5-2.8l-1-1.3l1-3.3l0.6-0.2l2 5.7l-0.2-3.1l0.9-0.9l0.5-1.4l-1.1-5.5l-0.5-1.6l-1.1-0.7l0.5-2l-0.7-1.9l-0.5 0l-2.9-2.8l0.5 4.2l-1.1 0l-0.3 0.9l-1.2-0.6l-0.3 2.3l-1.4-0.1l-0.7 2.1l-1.4 0.9l-0.2-2l-0.8-1.1l-1.1-0.5l-1.5 1.5l-0.5 1.6l-2.1 0.7l-0.6 0.6zM1012.2 344.9l-0.2 0.6l0.7 2.2l-0.2-2.6zM1009.9 311.7l0.3 1.6l0.5 0.3l0-0.4zM1009.5 291.8l0 0.6l0.4 1l0-1.3zM1009.2 275.2l0.1 1.7l0.5-0.2zM1005.4 344.2l0.4 0.8l3.8-0.7l-0.5-1l-3-0.4zM981.4 349.2l0.4 4.4l0.3 0.3l1.6-0.4l0.5 0.6l0.3 5l-1.4 5.1l0.4 1.2l1 1l1.1-0.6l2 0l-0.5-2.5l0.8-3.1l0.4-5.3l-0.6-4.3l1.7-1.7l1-0.1l0.7 0.6l0 2.4l-0.8 2l2.9 3.3l-0.7 2.9l0.4 1l1.9 0.4l0.5-1.7l2.7-1l0.5 0.2l0-1.9l-0.7 0l-1.7-2.6l0.7-2.4l-0.4-1.7l-3.7-5.8l1.2-0.1l0.9-1.2l1.7-0.8l2.9-3.8l0.6-0.1l1.4 0.7l0-2l-0.9-0.5l-1.5 0.5l0.1 0.6l-2.4 0l-1.4 1l-1.7-0.6l-1.9 3l-0.5 0.4l-1.5-0.2l-0.6-2l-1.2-1l-0.8-1.8l-0.2-2.1l0.8-2.6l0.7-1.1l1-0.5l1.8 0.5l8.5-0.3l1.2 1l2.1 0.1l2.8-0.8l3.5-6.1l-0.5-1.1l-0.7 0.1l-1.8 2.6l-2.5 2.2l-3.7-0.6l-1.1 0.6l-1.7-1l-3.6-0.3l-0.8-1l-1.4-0.5l-0.9 0.4l-1.2 2.3l-0.8 0.1l-0.6-0.7l-1.9 4.2l0.1 1.5l-0.5 0.4l0.4 3.8l-0.5-0.3l-0.9 1.3l-0.9 2.9l0 3l-1.1 3.2zM1006.7 274.8l0.9 1.4l-0.4-3.2zM999.5 260.8l1 2.3l2.7 2.3l-0.2 1.2l0.7 1.2l1 1.1l1.7 0.1l0.6 0.5l-1.5-3.1l-0.4-3.5l-2-2.2zM1003.1 382.2l3.3-0.6l-0.3-0.8l-1.8 0.1l-0.2-0.3l-0.6 0.2zM1000.6 266.7l1 3.5l0.9-0.2l0.6 1l0.5 3.6l1.1 0.7l-0.2-1.4l0.6 0.5l0.5-0.7l-1.5-2.7l-0.3-2.5l-1-1l-0.7 0.5l-0.9-0.8l0.6-0.6l-0.9-0.8l-0.3 0.1l0.6 1zM1003.7 280l0.1 0.5l0.6 0.3l-0.1-0.6zM999.7 276.6l0.7 1.1l0.8 0.1l1.9-0.8l-0.3-1.6l-1.1-0.8l-0.7 0.1zM1001.1 382.3l0.6 0.6l1-2zM998.9 341.7l0.3 0.9l1.1-1.3l0.1 1.5l0.5-0.9l1-0.1l0.1-0.9l-0.8-0.2l-0.4 0.5l-0.4-1.1l-1.1 0.2zM998.9 381.4l0.3 0.3l-1.1 1.1l1.4 0.2l1.1-1.5l0.6-0.2l-0.6-0.4l-0.8 0.5zM999.1 357.5l0.7 0.5l0.5-1.2l-1-0.3zM997.8 275.7l0.1 3.1l0.6-0.9l0.5-3.1l1.1-1.6l-0.6-5l-0.7 4.6zM995.7 364.6l1.4-0.3l0.1-1.1l0.7-1l-0.1 1.4l-0.9 1.6l0.2 1l0.7 0.1l0.8-1.5l1-0.5l-0.9-1.1l0.5-2.1l0.6 0.3l-0.4-2.5l-1 1.3l-0.3 1.5l-0.4-1.5l-1.6 1.3l0.1 1.3zM998.8 280l0.2 0.5l0.7 0l-0.3-0.8zM995 260.7l0.2 3.8l1.2-1.6l2.8 2.5l-1-2.3zM997.5 381.9l1 0.2l0.2-0.8l-0.5-0.2zM997.3 254.5l0.7 0.8l0.6-0.3l0.1-1.7l-1-1.2zM976.6 239.3l2.7 8.4l0.8 0.4l1.1 1.9l0.6-0.2l-0.3-2l1.7 1.1l0 0.9l-0.9 1.7l0.4 2.2l0.8-0.5l1.3 1.2l1.1 0.2l0.5-1.1l1.1-0.5l2.9 2.3l1.3 1.9l0.1-1.2l-1.3-2.7l0.5-0.2l2.8 2.7l1 2.2l1.5 0.8l1.3 0l0 1.3l0.9 0.7l-0.1-2.7l-1.6-0.5l0-0.8l-1.4-2.1l0.9-0.5l-0.1-0.7l-2.3-1.3l0.1 1.3l-0.7 0.5l-1.2-2.5l-1.4-0.7l-0.6-0.1l-1.1 1l0.5 0.9l-0.3 0.3l-2-1.3l-1-2.3l0.1-0.9l-2-3.4l0.6-1.9l-0.4-1.5l2-1.5l0.5-5.3l-2.3-3.1l-0.5-4.5l-0.6-0.1l-0.2 0.9l-0.8 0.2l-2.8-1.5l-1.9-0.3l-0.8 0.6l0.1 4.9l0.6 1.5l1.2 7.3l-0.7 0.2zM997.2 393.2l0.9-0.8l-0.1-0.3l-0.7 0.7zM993.7 276.5l0.9 2l1.4 0.9l1 1.6l0.6-0.2l0.4-1.1l-1-1.9l-0.1-1.5l1-5.3l-0.3-0.8l-1.2-0.4l-1 0.6l-0.5 2.2l0.5 2.4l-1.5 0.7zM995.7 173l1 0.9l0.8-1.9l-0.3-0.5zM996.9 260.5l-0.5-0.1l1.1 1.5zM994.8 396.5l2.6-1.5l-0.1-1l-2.4 1.7zM983.3 383.8l0.4 0.9l1-0.5l3.7 1l1.3-0.2l0.5-0.5l0.9 0.4l5.2-1.7l0-0.7l1-0.8l-0.3-1.3l-0.7 0.4l0.5 0.2l-0.2 0.5l-2.4 1.8l-1.5-0.9l-2.3 0.7l-3.4-2l-3.2 1.1zM990 264.9l1 1.2l0.3 6.9l0.9-1.1l2.3-1.1l0-1l1-1.2l0.1-1.9l-1.1 0.5l-0.4-0.9l-0.9 0.2l-2.8-1.9zM993.6 257.6l-0.3 0.4l2.1 2zM993.6 182.9l0.3 1.8l0.5-0.3l-0.3-1.6l1.3-1.5l-0.6-0.9l-0.2 1.1l-0.8 0l0.3 0.5zM993.1 295.1l0.8 1.1l1.4-1.1l-1.2-0.8zM994.4 335.8l-0.4 0.7l1-0.2zM994.2 362.8l-0.5 1.1l0.6 1.2l0.5-1.4zM994.3 271.3l-0.6 0.7l0.1 1.1zM991.8 261.2l-0.1 0.4l0.8 0.8l0.2-0.8zM989.4 298.9l1.8 0.5l0.5-0.4l-1.7-0.9zM990.1 394.5l0.6 0.3l0.8-0.9zM989.6 262.1l0.6 1.3l0-3.1l-0.5 0.3zM988.2 255.1l-0.1 0.8l1 1.2l0.2-1.5zM985.7 145.6l0 0.7l0.9 0.7l1.5 2.8l0.5-0.9l-1.9-4l-0.3 0.9zM987.5 370.9l0.4-2.9l-0.2-1.1l-0.3 2.3zM981.8 255.9l1.8 1.6l1.6 3.6l1.6 1.7l0.6-0.5l0.3-1.9l-0.5-2.9l-1.7-1.7l-0.3 0.2l-0.7-0.5l-2.5-0.2zM986.5 246.7l0.9 2.1l0.2 0l-0.1-1.8zM985.2 304l1.7-0.7l-0.3-0.8zM979.2 388.8l0.4 0.8l2.1 0.4l2 2.4l1.2 0.6l1.2-0.5l0.7-1l-1.1-2.1l-0.9-0.2l-1.3-1.9l-0.7 0.4l-3.3 0.4zM984.1 146.8l0 1l0.5 0.6l0.1-0.8zM983.4 148.8l0.3 0.8l0.7-0.2l-0.5-0.6zM982.4 193.9l0.7 0.4l-0.1-1.3l-0.2 0.7zM981 262.2l0.7 1.8l1.3 0l-0.5-1.2l-0.4 0.3zM982.2 271.8l-0.1 1.1l0.8-0.7zM939.2 331.3l1.4 1.9l-0.6 2.5l1 1.4l-0.4 1l1.5 0.9l-0.7 0.5l-0.1 1.1l0.3 0.2l1.1-0.8l-0.4-1l1.4 1.8l-0.2 3.4l0.6 0.8l0.5 5.6l1.4-0.4l1.5 1l3.4-0.9l0.4 0.9l0.1 2.8l1.9-1.3l1.3 0.4l1.7-1.2l0.4-1.3l1.1 1.6l1.2-0.2l0.3 1.5l1.7-1l0.7 0.4l0.4-0.3l0 0.8l0.4 0.2l0.4-0.3l0.5 4.3l5.7-3.4l0.4 2.7l0.9-1.1l0-1.6l0.5 0.3l0.2-1l0-0.4l-0.6 0.7l-0.1-1.5l-0.6 0.2l0.6-1l-0.4-0.8l0.8-0.5l0-1.9l0.9-0.3l0.1-0.6l-0.1-1.2l-0.8-0.4l0.5-2l-0.5-0.2l1.9-2.5l0-1.3l0.7 0.7l2.9-2.6l-0.5-2.6l0.3-3.2l0.9-2.9l1-1l-0.1-0.8l1.1 0.9l1.4 0.4l1.6-0.4l0.4-0.6l-5.2-6l1.1-1.7l-1.9-2.9l-0.3-1.5l-1.1-0.7l-0.1-1.4l-1-1l1.4-0.1l0.3-0.5l0.5 0.4l0.6-0.3l-1.4-2.2l0.4-0.8l0.3-0.2l0.5 1.4l0.7-0.3l-0.2-0.8l-1-0.4l0.2-0.4l1.4 0.4l2.2-0.7l0.1-0.7l-1.7-1.9l0.2-0.8l1.8 0l1.9-0.8l0.4-1.5l-2.9-1.3l-1.1-1.3l-1.6 0.5l-0.1-0.4l0.6-0.4l-0.5-1.1l-1.7 0.7l0-3.1l-1.6-1.2l-0.3-1.4l-0.6-0.3l-1.3 1.8l-0.2-1.9l-3.3 7.9l-0.5 0.5l-0.7-0.4l-0.7 1.1l0.7 1.8l-0.7 1l-1.8 0.4l0.4-0.9l-2.6 2.1l-1.7 0.5l-0.3 1.9l-3.5 6l-6.1 2.3l-0.7 1l0 1.5l-0.9-0.3l0.1 2.1l-0.9 3l0.4 0.5l-3.3-1.5l-2.1-0.2l-1-1.6l-1.1 0.6l-1.7 4.6zM981.9 382.2l-0.2 1.9l0.6-1.1zM982.1 264.8l-1-0.5l0.7 1.6zM981.5 138.7l0 1.9l0.6 1.3zM981 194.7l0.6 0.1l0.3-0.5l-0.8-0.3zM972.4 284.9l4.7-5.1l1-3.8l1.7-0.8l0.5-1.6l1.3-1l-1.5-4.8l-0.6 2.9l0.1 2.1l-3.9 6.5l-1 0.6l-1.9 3zM970.2 385.6l1.1 0.5l5-1.5l0.8-0.8l0.2 0.9l1.8-0.1l-0.2-0.6l1.4-0.1l-0.5-2.4l-1 0.6l-0.6-0.8l-1.2 0.4l-0.6-1.2l-1.5 0.1l0.1 1.1l1.5 1.6l-1.7 0.6l-0.9-1.7l-1.7-0.3l-1.5 0.9zM395.9 248.3l0.4 0.6l0.4-0.4l0.7 0.4l1.5 3.6l0.5 0.1l-0.4 0.5l1.3 3.2l1.9-0.5l-0.9 0.9l-1.5-0.1l-0.5-1l-0.7 0.7l0.2 4.1l0.7-0.4l0.5 0.5l-1.2 0.5l0.2 1l1.1 0.9l0.7-0.1l-0.3 0.9l1 1.6l0.5-0.9l0.1 0.8l2-0.4l0.1 1.2l-0.7 0.7l1.6-0.8l0.5 0.3l-1.3 0.7l0.1 1.6l0.7 0.4l0 0.7l0.7-0.4l0 1.5l0.3 0.2l0.4-0.9l0.5 0.2l1.4 3.9l1.6 0.6l1 1.5l0.5-0.1l0 2.1l1 0.6l0.6 2.2l0.9 0.9l-0.5 0.3l0 1.5l1.1-0.1l-0.6 0.9l-0.8-0.3l-0.1 0.4l0.6 1.2l0.8 0.5l0.4 1.8l0.6 0.6l1-0.1l-0.1 0.8l-2 0.1l5.2 2.8l1.9 2.3l1.9 1.3l0.6 1.2l1.8 1.1l4.9 5.9l3.7 2.7l3.1 1.4l7-3.9l8.1-1.2l-1.2-0.1l0.8-0.4l3.4 1l0.6-0.9l0.8 1l-1 0l3.6 1.1l1.4 1l2.5-1.6l3-1.1l4.6-3.1l2.9-0.3l1.1-1.6l2-1l7.2-0.8l1-0.9l-0.5 0.7l4.2 0.5l1.8 1.9l1.1 2.2l1-0.3l0.4 0.3l-1 0.6l1.2 0.8l-0.4 1.6l0.9 2.7l2.5 2.2l3.2-0.7l1-0.7l0-0.7l0.5 0.5l-0.5 0.9l1.6-1.3l0.5 0.6l2.8-0.2l0-1.8l0.6 0.7l0.7 0l-0.2 1l0.5 0.3l0.1-0.8l1 0.6l0.4 2.7l1.8 0.9l0.3-0.8l0.7 0.1l0.3 1.1l-0.7 0.4l1.5 3.2l-0.4 7.6l-1.9 4.6l0.9 0.6l0.1 2.3l-0.5-0.2l-0.7 0.7l0.9 1.5l1.9 0.7l-0.9 0.7l-1.3-0.6l-0.5-1.1l-0.2 4.1l-1.6 1.9l-0.5 0.1l-0.5-0.7l2.4 7.2l1 0.4l-0.8 0l1.4 2.7l3.1 3.8l6.1 9l1.7 4.4l0.2 2.5l1.2 1.4l-0.9 0.5l1 2.9l1.2 2.1l2.4 8.2l-0.1 1.8l-1.6 2.1l3.5 11.5l-0.3 4.4l-0.8 2.7l-0.8 1.4l-1.9 1.4l-1.8 3.8l-2.4 11.9l-1.2 1.8l0 12.3l2.8 5.2l2.8 7.1l1.1 4.1l4 8.5l0 9.8l1.2 4.5l0.4 7.1l0.6 1.1l0.7 4.7l1.4 3.2l2.9 3.5l1.8 4.3l1.4 5.6l3.2 6.9l0.2 4l-0.8 1.3l-0.7-0.2l-0.5 0.6l2.1 4.7l-0.5 1.9l0.5 1.4l0.2-1.2l0.9-0.1l0.3 1.4l1.1 0l0.8 0.7l-0.1 0.6l2.8 0.9l2.1-1.7l1.8-0.5l3.2 0.1l1.9-1.6l1.2-0.3l2.8 0.3l1.8-0.4l4.3 0.9l0.8-1l2.2 0.3l1.1-1.6l3.2-0.1l5.2-3.5l4.3-4l6.4-7l5-8.6l4.6-4.7l2.9-9l0.6-4.2l-0.6 0.9l-0.9-1.3l1-2l2.5-2.1l7-3.4l2.3-3.2l0.3-1.3l-0.6-0.3l1.2-4.5l0.1-4l-0.3-0.7l-0.5 1l-0.9-8.3l-1-1.9l0.3-4l0.9 0.3l4.1-4.6l1.7-0.8l0.2-0.7l0.5 0.2l2.5-4.4l2.6-2.4l2.8-1.8l4-1.5l3.4-3.1l-0.1-0.8l0.8-0.4l2.7-4.3l0.4-2l1-2.3l-0.2-1.7l-0.4 0.2l0-8.4l-0.5-0.1l0.7-1.9l-0.4-0.8l0.3-2.8l-0.4-3.9l1-2.8l-0.4-0.5l0.5-0.5l-2.1-2.9l-1.5-0.9l-0.2-4.7l-0.8-1.4l-0.5-2.8l0.6-2.6l0-1.1l-0.6-0.3l0.1-1.4l1.1-2.9l-2.7-4l-0.3-1.5l2-8.1l0.6-0.3l2.2-6l1.1-1.9l0.5-3.3l0.8-0.8l1-0.1l1.1-1.5l0.1-1.4l1.6-0.5l1.1-1.5l2-4.1l6.4-9.3l3.7-4.5l7.3-6.3l8.1-11.7l4.4-9.7l0.7-3.5l1.7-4l0.7-2.8l1-1.4l2.8-7.1l0.2-5.2l1.1-0.5l0.8 0.2l-0.9-1l0 0.5l-0.5-0.1l0.3-1l-0.5-3.9l0.6-2.8l-2-0.9l-2.8 2.6l-4.9 1.6l-1.6-0.4l-2.3 1.1l-2.6-0.2l-3.5 2.4l-3.2-0.5l-3.7 2.3l-2.4 0l-2.3-2l-3.1-4.5l-2.5 0.3l3.2-3.3l-0.2-1.6l-1.6-3l-0.2 0.4l-0.7-0.2l-1.2-2.1l-0.6 0l-0.7-2.1l-2.7-2.2l-2.2-3.7l-4.3-2.2l-1.6-2.6l-0.4 1.5l-2.1-4.1l-1.5-6.6l-2.2-5.2l-5.1-4.6l-1.6-7.3l-0.6-4.8l0.4-0.7l-1.5-2.7l-0.4-2.3l-3-3.5l-1.3-0.6l-1-1.2l-1.2-4.6l0.1-0.8l1-0.1l-2.7-3l-6.1-11.9l-0.7-2.9l-1.4-2.3l-0.2-1.6l-4.2-5.9l-0.3-1.8l-1.1-1.7l0.5-1.5l2.9 5l0.7 2.3l2.3 2.8l2.1 1.5l0.6-1.4l0.7-6.7l0.8-1.1l-0.7 7.6l0.5-0.4l1.8 0.6l9.5 14.9l0.6 1.8l-0.3 0.8l1.8 3l1.6 0.5l2.5 2.7l3 6.2l0 3.9l1.6 5.1l2.2 3.3l1.5 0.7l3.1 2.8l2.4 6.1l2.5 4.5l2.5 2.6l2.5 6l0.3 1.9l-0.3 2.1l0.4 1.9l-0.5 0.5l0.8 0.6l0.4 1.1l1 5.3l0.9 1.8l0 2.5l1.2 3.2l0.7-0.2l1.6 0.7l1.4-0.3l1.1-0.8l1.8-0.1l2.5-2.9l4.7-0.8l2.6-1.1l2.3-2.2l2.9 0l1.4-2.3l1.2-1.1l8.2-3.3l3.6-2.5l-0.2-2.9l1.3-1.7l4.2-1.6l1.8-1.4l2.1-0.2l0.9 0.4l1.2-0.4l0.7-1.6l-0.2-1.5l0.8-1.5l3.7-0.8l1.4-4.3l1.4-0.9l2.6-0.6l-0.8-3.7l0.2-3.2l1.1-1.9l0.3 0.9l1.1 0.1l1.3-4l1.7-2.1l1.2-4.1l-0.1-1.6l-1.8-0.8l-3.3-4.8l-0.9-0.7l-1.1 0.1l-5.2-1.9l-2.4-2.7l-1.4-2.8l-1-3.6l-0.2-4l-1.3 3.1l-4.2 5.4l-0.7 2l-0.7-0.1l0.6 0.3l-0.2 0.8l-1.9 1l-5.2-0.4l-1.5 0.9l-1.4 0l-1.5-1.9l-1.2 0l0.2-1.3l-1-0.2l1-0.3l0.5-2.1l-0.9-2.6l0-2.1l-1.4-1.4l-0.9 1l-0.6 3.1l0.5 3.2l-3.7-6.2l-0.2-0.7l0.4-0.1l0.1-1.1l-1-1.9l0.5-0.1l-3.4-2.8l-1.1-1.3l0.2-0.4l-2-1.3l-0.1-0.9l-4.2-7.9l-1.2-0.3l0.7-1.1l1 0.1l0.4-1l-0.8-1.1l-0.4 0.9l-0.4-0.9l0.6-0.3l1.7 0.4l1.2-0.5l0.3-2.4l0.9 0.4l-0.8 0.5l2.4 1.7l1.9-0.8l0.6 1.4l2.4 2.6l0.3 1.5l0.9 0.5l0.1 1l0.9 0.8l1.4 3.2l1.4 1.5l1.9 0.2l1.9 1.1l1.2 1.6l4.6 3.3l2.2 0.1l2.3 1.1l3.6-2.5l0.2 0.8l-1.7 0.9l0.5 0.4l2.6-1.2l0.6-0.9l-0.3-0.2l-1.2 0.5l-0.6-0.3l1.3-1l0.9-0.3l1.5 0.4l1.6 1.8l2.1 5.5l2 0.8l4.2 0.5l1.1 0.7l1.7-0.3l4 0.9l0.4-0.5l0.7 0.7l3.2 1l0.6-0.5l1.4 0.3l1.1-0.5l0.6 0.5l1.4-0.7l3.4 0.3l0.2-0.8l1.9-0.3l2.7 1.2l0.4-0.7l6.9-0.7l1.1 1.2l0.3 2l2.1 0.6l1.1 3.2l1 1.3l0.8 0.7l0.7-0.5l1.2 0.8l0.4-0.3l0.2 1.2l1.4-0.8l-0.6 0.9l1.3 2.2l2.7 1.9l1.9 0.4l3.2-1.5l-0.9 2.6l-3.4 1.6l-1.1-0.9l-0.3 0.9l7.6 8.1l2.3 0.5l3.8-2.3l0.7-2.1l-0.4-1.1l-0.7-0.6l0.7-1.4l-0.2-0.9l1.7 0.1l-0.5 0.4l0.1 1l0.7 0.2l-0.4 1.4l2-0.2l-1.5 1.5l1.7 3.5l0 5.6l1.1 2.8l0.3 2l0.3-0.7l0.3 0.4l-0.2 2.2l3.6 12.4l1.9 4.2l0.7 0.3l0.4 1.3l-0.3 0.2l0.8 1.8l2.2 3.4l3.5 11l4 6.9l2.6 7.3l0.7 1l0.6 2l-0.3 0.1l-0.7-2.2l0.5 2.8l1.2 3.1l2.5 3.4l2 1.4l2.2-1.8l0.4-2.9l0.9-1.2l2.3-1l1.8 0.5l-1.7-0.8l-0.4-1.4l1.3-3.9l2.2-0.4l-0.4-5.1l-0.7-0.8l0.3-3.7l1.2-4l0-3.9l-1.3-1.4l0.4-0.4l0.7 1.1l-1.3-4.1l0.1-1.6l-0.9-3.3l0.5-3.7l1.4-1l1.5 0.7l0.9-3.2l2 0l1.9-1.3l0-3.1l3.1-2.9l1.5-2.6l1.7-1.2l2-4.7l2.3-2.8l-0.9 0l0-0.8l0.9-0.6l0.5 1l2.5-1.1l1.8-2.4l0.6-2.2l-1.1-3l0.7-1.4l2.3-0.9l1.4-2.2l0.4 2.3l0.6 0.1l0.1-0.6l0.7 0.6l0.5-0.2l-0.1-2.3l0.9 2.7l0.3-0.8l0.9 0.4l-0.6-1.6l1.8 1.2l0.5-1l0.3 0.8l0.8-1.2l0-2.5l0.5 2.2l0.8-0.4l-0.1 1.2l0.7 0.3l0.7-2.1l0.2 0.8l1.2-0.5l-0.2-1.8l-1.6-2.1l-0.5 0.1l0-0.7l0.9 0.2l1.4 1.8l1-0.2l0.9-1.2l2.2 3.1l0.7 2l-0.3 0.7l0.2 0.4l0.2-0.7l0.3 0.6l-0.4 0.3l0.4 1.1l0.3-0.3l0.7 2.2l3.8 4.9l0.1-0.6l0.7 1.4l0.5-0.6l0.1 1l-0.4 0l0.8 1.4l-0.3-0.8l0.7 0.7l0.2-1.2l2 0.8l-0.1 0.8l1.7 1.7l-1-0.4l-0.3 0.3l0.7 1l-1.2-0.3l1.3 1.9l1.1 0.8l0.3-1.2l3.8 8.7l-0.1 8.8l0.8-0.3l0.1 1.2l0.5-0.9l0-1.1l-0.4 0.2l0.5-1.3l0.4 2.8l0.8-1l0.5 1.5l1 0l0.4-0.9l0.2 1.3l0.4 0.2l1.2-2.6l2.1-1.5l-0.4-1l0.8 0.6l1.2-1.2l0.3-1.8l-0.4-1.7l1.5 1.4l1.3 3.2l1.4-0.1l0 3l0.7 0.8l1.3 5.8l1.8 3.9l0.4 2.6l0.2 0.4l0.2-1.4l2 4.2l1 4.6l-0.2 0.6l0.4 0.2l0.1 2.7l1 0.1l-0.4 0.8l0.1 3.4l-0.7 1.8l0.8 3.7l0.4-0.1l-0.8 5.2l-0.4 0.1l0.6 5.2l0.6 0.3l0.6-0.9l0.5 0.5l0.5 1.1l1.2 1l0.2 1l0.8 0.6l0.5 1.4l1 0.1l-0.1 0.8l0.8 0.6l0 1.3l2.2 2.6l0.9 2.6l1.7 9.3l0.8 2l-0.3 0.4l2.7 4.1l0 2.2l6.4 5.9l2.7 1.8l0.6 1.3l1.1-0.7l-0.4 0.7l0.7 0.4l0.8-0.6l-0.5-0.4l0.5-0.5l1.1 0.7l-0.2-1.9l-1.9-5l-1.6-2l-0.5-4.9l0.1-5.2l-1.7-4.3l-7.5-8.4l-2 0l-2-1.8l-0.7-0.1l-1.3-2.3l0.4-0.5l1.4 2.6l-1.6-6l-0.6-1.4l-0.3 0.3l-0.5-0.8l-1.1-4l-1.8 0.4l-0.6-0.3l-1-6l1-3.3l0.2-3.3l1.1-4.1l-0.5-2.9l0.2-2.1l-0.5-1.7l2.3-1.2l1.6 0.7l0.4 4.5l4 0.1l3.4 3l0.3-0.3l2.6 4l0.5 3.2l0.9-0.1l0.7-1.2l0.9 1.4l-0.6 1.6l0.6 0.6l0.9-0.8l5.4 3.7l-0.7 2.3l0.7 5l-0.4 0.8l1.4-0.2l1.4-2.7l2.7-1.7l-0.8-2.3l1.6 1.4l0.8-0.5l-1.5-2.3l1.4 1l0.7-1.5l-1.2-0.8l0.9-0.2l-0.5-1.1l1.3 0.5l0.2-1.2l0.8 0.9l-0.4 0.4l0.7-0.1l3-1.8l0.3-1l2.7-2.4l0.7-0.2l0.7-3.5l-0.7-4l0.5-0.5l0.5 0.8l-1.3-3.9l-0.4-3.3l-3.5-8.7l-4.3-5.4l-0.8 0l-7.3-7.6l-0.1-1.6l-3.2-3.1l-1.6-2.6l0.3-5.4l0.7-0.4l1.2-2.2l0.1-2.5l0.5 0.2l0.1-0.1l-1-0.9l2 0.1l1.5-1.5l-0.7-0.5l1.6-1.3l1.3-0.1l0.2-0.7l0.8 0.3l-0.5-1.3l0.4-0.2l1.2 1.5l1.4 0.3l0.4 0.9l1.5-0.6l0.1-0.5l1.5 0.8l-0.4 1.9l0.2 1.2l1.8 2.6l-0.2 0.5l1.2 0.6l0.9-0.2l0.4-1.2l-1.1-0.9l0-0.9l-1-0.6l0.5-2l0.8 0.5l1.6-1.7l2.3-0.3l1-1.5l1.6 0.5l0.1-1.1l1.1 0.9l0.6-0.9l0.7 0.2l0.1-1.3l0.5 0.4l1.4-0.9l-0.5-2l-0.9-1.1l0.7 0.2l-0.8-1l0.1-1l0.4 0l0.3 1.4l2.3 2l-0.5 0.4l0.6 0.5l-0.4 0.3l0.6 0.4l0.3-0.6l0.6 0.7l-0.3-2.1l1.2 0.2l0.1-1.1l1 0.6l1.1-1l1.4 0.5l0.4-0.7l1 0.2l1.3-1l1 0.2l-0.1-1.3l0.5-0.5l-0.3-0.5l0.7-0.5l0-0.9l0.7 0.2l0.7-0.7l0.5 0.6l0-1.3l0.7 0l1-2.3l-1-1.2l0.6-0.4l0.2 0.5l0.3-0.3l-0.5-0.7l2.3 0l-0.4-1.1l0.9-0.6l-0.2-1.4l1.2-0.2l-0.6-1.1l1.7 0.2l-0.7-1.1l-0.4-2.3l-1.1 0.3l-0.7-0.6l1 0l1.2-1.5l-1.6-2l0.5-0.6l0.6 1.1l0.7-0.3l0-2.3l0.8-1.8l-0.4-0.9l0.3-1.7l-0.4-0.6l0.7-0.2l0.2-1.4l0.5 0.3l-0.2 0.6l0.5 0.3l-0.3-0.7l1.4-0.5l-1.2-1.8l0.1-1.7l-1.3-1l0.2-0.5l0.6-0.2l1.1 0.7l-0.5-1.9l-0.6-0.8l-0.9 0.3l1.1-1.6l-1.8-0.6l-2.4-1.7l-2.1 0.9l-1-0.9l-0.7 0.1l0.4-0.5l1.7-0.1l0.1-0.9l1.1-1.2l1.6-0.7l-1.7-2.1l-5-3.3l2 0.6l0.9 0.9l2.2 1l-0.1-0.5l-2.1-1l2 0.2l-0.5-1l-2.1-1.4l-1.1-1.4l-2.5-1.3l-0.7-1.8l-5.4-6.7l-5.7-3l-0.1-2.3l1.7-3.6l-1-0.6l0-0.4l0.6-0.2l0.6 0.9l0.8-0.4l-0.4-1.4l0.6-0.2l-0.6-0.9l0.8 0l2.5-1.8l1.9 0.7l0.4-0.6l-0.6-0.7l0-1.7l-2.7-0.6l-0.2 0.4l-1.2-0.1l-4.4-1.9l-1.5 0.8l0.3 0.4l-0.9 1.3l-0.1 1l-1.7 0.1l-1.8-1l-0.4-1.9l-1.5-1.7l-3.9-0.7l-2-1.3l-1.1-1.3l-0.1-2.5l0.6-0.2l1.3 0.8l2.3-0.6l0.4-1.1l-0.3-1.8l0.4-0.7l2.4-1.7l0.8-3.2l2.3 0.1l0.2-0.4l2.8 2.2l-0.2 2.7l-0.8 0.6l0.5 1l-0.7 0.5l0.5 0.8l2 0.1l-0.2 0.7l0.4 0.6l-1.6 0.9l0.8 1l1.5-0.7l-0.2-0.7l0.9-0.3l0.5-1.5l1.3-1.2l2.3-0.9l0.1-0.5l1.8 0.2l0.5-0.6l2.2 1.7l0.2-0.6l2.7 1l0.9 1.2l0.5 2.5l1.5 0.6l-1.2 0.7l0.1 1.6l-0.4 0.5l2 0.3l-0.3 0.7l2 1.1l0.9-1.3l2 1.2l0.8-0.6l0.5 1.1l0.9 0.1l3.3 3.5l-0.2 0.5l-1.9-0.8l-0.6 1.2l0.3 0.4l1.2 0l1.6 2.7l1.6 1.5l-0.5 1.2l0.7 0.4l-0.2 2.2l1.9 1.8l0 0.5l-0.7 0.2l0.4 1.6l0.5-0.7l1 0.9l0.3-0.3l0.7 0.4l-0.7-0.5l0.1-0.5l0.8 0.3l0.5-1.3l1.1 1.2l0.2-0.9l-0.5-0.8l1.2 0.3l-0.5-1.2l1-0.3l1.9 0.7l-0.2-1.2l2.4-0.4l-0.9-4.5l-0.7-0.1l-2.6-5.1l-8.5-8l-5.7-3.4l0.3-0.4l-1-2.1l0.9-1l1.7-0.7l0.1-0.9l1.1-0.9l0.2-1.2l0.9-0.6l-2.3-3.7l0-1.9l-23.5-33.4l-82.3-80.7l-164.6 0l0.2 0.8l1.6 0.9l0.4 0.8l6.2-0.3l5.6 1l2.3 1.9l-0.6 0.3l0.8 1.4l2.3 0.4l-1.3 0.2l-2.3-0.7l-1.4-2.1l-3.5-1.6l-5 0.7l0.1 1l2.5 2.1l-1.2 1.1l0 1.3l-3.1 1.4l0.1 0.8l-1 0.3l-7.1-0.8l0.9-0.1l-0.2-0.8l1.3 0l-0.3 0.5l1.2 0.3l2.2-0.6l-0.9-0.8l1.1-0.2l1-1.9l1-0.5l-0.6-1.3l0.6-1l-4-1.5l-2.2-3l-16.5 0l0.8 1.3l0.2-0.4l0.9 0.1l-0.3 0.6l0.5 0l0-0.5l0.7 0.1l4 1.8l1.7 0.1l-0.1 1.2l-0.9 0.7l-5.1-1.7l-6.9-1.1l-2.7-0.9l-9.8-0.9l-1.4 0.5l-0.3-0.6l-5.2-0.3l3.6 0.9l1.5-0.1l-0.3 0.4l3.2 1.9l-0.7 0.7l-1.7 0l0.4 0.7l-0.4 0.4l-1.9-0.3l-0.3-0.5l0.5-0.4l-1.3-0.8l-2.5 0.4l-2.5 1l-5.1 0l-1.2 0.6l-0.1 0.5l-3.8-0.2l0.9-0.5l-0.8-0.6l0.2-0.9l1.4-0.2l-2 0l-3.8 1.1l1.1 0.4l-0.5 0.4l-1.5-0.5l-7.5 2l-1.2 0l0.3 0.7l-2.5 0.2l0.1 2l-3.2 0.6l-2-0.3l-3.5-1.7l1.3-1.1l3.4-0.3l-3.3-2l-7.6-0.6l2.9 1.4l0.4 0.8l-0.4 2.3l2.3 1l0.5 0.8l-0.6 1.5l0.2 0.7l-1.6-0.3l0.1-0.4l-1.5-0.6l-3.3-0.3l-1.7 1.3l-2.2 0.5l-2.3 1.2l0.2 0.9l2.4 1.8l-1.6 0.8l-9.5-2l-0.2 0.6l-0.7 0.2l0.3 0.5l2.3 1.3l2.5 0.3l0.5 0.8l-0.1 0.5l-1.5 0.5l-8.1-2.2l-2.8-3.2l0.7-1.3l-0.4-0.6l-4-1.2l0.4-0.5l-5.2-2.1l2.4 0l0.9 0.8l4.3 1l1-0.2l2.2 0.7l9.9 1.1l4.2-0.8l2.7-1.7l0-1.3l-0.7-0.2l-1-1.4l-16.8-4.5l-6.5-0.4l-1 0.5l0.2-0.8l-3.2-0.2l-0.4-0.4l2.1-0.2l-3.2-0.8l0 0.4l-1.1 0.4l-3.3-0.1l-0.7-0.4l-0.5 0.4l0-0.4l-0.7-0.2l-0.2 0.5l-0.5-0.7l-22.6 0l0 0.4l-1.8-0.4l-1.8 0.2l-0.2 0.7l0.5 0.5l-1.3 0.4l0.1-1.7l-1 0.4l-0.7 0.8l-0.1-0.8l-1.8 0.4l1.4-0.8l-2.1-0.1l-0.5 0.6l-1.7 0.5l1.6 0.1l0.3 0.6l-1.5-0.2l-0.2 0.9l-4.4 1.9l1.7 0.4l-2.5 0.2l0.6 0.7l-0.1 0.5l-1.1-0.9l-2.7 0.9l-0.7 0.9l1.4-0.3l0 0.5l1.2 0.2l-0.1 0.5l-2-0.6l-1.4 0.9l0.9 0.4l-1.9 0.1l-1.3 0.7l0.4 0.4l-2 0.8l0.2 1.2l-1 0.3l0.4 0.5l-1-0.2l0.1-0.6l-0.5 0l-0.4 0.5l0.6-0.1l0 0.5l0.4 0.1l-1.5 1.7l0.8 0.7l-2.6 0.7l-0.6 1l-2.2 0.9l-3 2.5l0.2 0.3l-1.3 0.5l-0.2-0.4l-1.8 0l-0.6 0.3l0.7 0.6l-1.3 0.9l-1.9 0l-1.9 0.6l-0.7 0.7l2.5 0l0.3 0.6l-4-0.2l-0.7 0.9l-1.3 0l-1.8 0.8l-0.1 0.5l0.5 0.3l3.2 0.3l-4.3-0.1l0 0.6l1.1 0.8l-0.8 0.3l0.3 0.9l2.2 0.2l-2.5 0.4l0.3 1.5l1.2 0l-1.1 0.7l1 1.2l-0.8 0.2l-0.2 1.7l3.3-2.7l0.4 0l-1.8 1.8l1.1 0.4l-1.9 0.2l-0.8 0.6l-0.2 1.6l3-1l-0.6 1.2l0.8 0.8l-1.7-0.5l-0.1 1.6l1.5 1l1.9 0.4l-0.2 0.6l0.6 0.2l0.4-0.3l0.5 0.5l1.5 0l2.3-0.5l4.9-3.5l1.6 0.1l0.8-1.1l-0.1-0.9l0.6-0.3l0.8 1.6l1.3 0.3l0.3 2.9l0.5 0.1l0.2 0.9l0.8 0.6l0.2 1l2.5 3.3l1.6 1.2l-0.1 0.6l-0.6 0.1l0.3 0.6l-0.9 0l1.8 2.3l-0.2 1.4l4.4 0l0.5-0.5l-0.5-1.3l1.1-0.9l4.5-0.5l1.7-3.7l-0.2-0.8l0.5-0.9l-0.4-1.3l0.5-1.6l-0.4-0.8l0.8-0.3l-1.3-0.5l1.4-0.1l4.2-1.8l0.9-0.9l-1.6-0.4l2.6-1.5l-3.6-2.9l-1 0.1l-1.4-0.6l-0.7-3.3l0.2-0.5l0.8 0.1l-0.3-0.7l0.6-1.3l-0.7-0.8l1.9-0.5l-0.4-0.8l1.6-0.3l-0.3-0.6l0.6-0.4l6.4-2.5l0.7-1.1l1.4-1l-1.3-1.2l1.1-1l-0.1-1l1.9-0.7l0.4-0.8l2.1 0.4l4.6-0.4l0.3 0.6l2.1 0.7l0.3 1.9l-2.2 0.4l-2.5 2.6l-3.1 1.4l-0.8 0.7l0.1 0.5l-2.2 0.4l0.3 0.5l-1.3 1.3l0.9 1.5l-0.1 1.1l1.3 1.5l-0.5 2l0.4 1.6l3.8 0.9l-0.1 1.4l1.5-0.6l0.8 0.6l-0.4 0.8l1.4-0.6l3.1-0.2l3.7-1.2l0.4 0.3l0.9-0.3l-0.1-0.4l1.1 0.1l0.4-0.4l0.2 0.4l6.1-1l0.7 1.2l1.5 0.7l2.1 0l1.6 1.1l-3.3-0.4l-0.5 0.7l-1.4-0.1l-0.5 0.6l-1-0.3l0 1.1l-3.2 0.1l-4.9-0.7l-0.3 0.5l-3.3 0.2l-1 0.7l-1.7 0.3l-0.1 1.1l0.8 0.6l-0.4 0.4l1.1 1.2l2.4 0.2l-0.3 1.8l0.5 2.5l-1.4 1l-2.1-0.4l-2.8-2.5l-2.7 0.6l-0.9 2.2l-0.9 0.8l0.9 4.9l-0.6 1.7l-1.2 1l-1.8 0.3l-0.3 1.2l-0.8 0.8l-2.1 0.4l-1.1-0.3l-0.7-1.1l0.9 0l-2.3-0.6l-5.1 1.2l-1.3 1.1l-6.6 1.4l-3-1l1.3-0.5l-0.4-1.1l-0.8-0.5l-0.6 0.2l-0.2 1.3l-2-0.6l-1.5 1.3l-2.4 1l-1.7-0.2l-0.3-0.4l0.6-0.4l-0.1-0.9l-0.9 0.3l-2.8-0.6l0.3-0.9l-1-0.9l1.1 0l-0.2-0.4l-1.8-0.3l0.6-0.9l-0.2-1l1.3-1.1l-0.1-0.3l0.7-0.1l0.4-1.4l1.4-0.2l0.6-0.8l-2.2-0.8l0-1.5l0.7-1l-0.3-1.3l0.5-0.7l-2.2 0.7l-1.7 1.6l-2.7 0.3l-1.1 1.2l0.7 0.6l1.2-0.1l-0.6 0.7l-1.6-0.4l0 4.2l1.6 0.8l0.2 2.1l1 1.5l-1 1.1l0.9 0.2l0.4 1.5l-1.3 0.1l-0.4 1.8l-0.6-0.7l-0.2 0.7l-0.5-0.1l-0.4-0.9l-2.7 0.1l-0.6 1.3l-3.4-0.2l-1.8 0.6l-1.6 1.3l-1 0.1l-1.1 2.8l-1.8 2.4l-0.9 0.1l1.5 0.5l-2.4 0.4l2.1 0.7l-2.4 0l-6 2.2l-0.4 2.8l-1.2 1.2l-3.8 1.3l-0.2 0.9l0.5 0.4l-1.6 0.5l-3.4-0.4l-0.4-1.3l-2.2 0l0.9 2.2l0.3 2.4l-1.5-0.1l-0.5 0.5l-1.5-0.3l-0.9 0.5l-1.9-1.4l-4.7 1.1l-0.9 0.7l1.4 1.3l-1.2 0.6l1.3 1l1.5 0l3.9 0.9l0.1 0.6l1.1 0.2l-0.2 0.7l1.6 0.1l-0.5 0.6l0.6 0.6l-0.2 1.1l1 1.4l2.3 1l0.3 2.5l-0.6 0.2l1.5 1.5l-1.1-0.6l-0.8 4.1l0.4-0.3l0.2 0.3l-0.6 0.6l-1.1 4.8l-1.2 0.9l-1.9 0.2l-4.7-0.9l-3.5 0.5l-4.9-1.1l-4.5 0.4l-2.3-1l-2.2 0.9l-0.5 0.9l-1.9 0.3l-1.2 0.8l-0.3 0.9l1.1 0.9l-0.4 1l0.8-0.1l0.2 1l-0.8 3.2l0.5 0.4l0.2 3.2l-1 4.6l-2.4 3.9l-0.5 2.7l0.9 0.5l0 1.3l1.8-0.1l-0.6 0.1l0.2 3.7l-0.8 3.6l1.3-0.5l3 0.6l3.7-1.4l1.8 2.3l0.5-0.1l-0.5 1.1l1.2 2.3l1.6 0.8l1.1-0.5l0.8-1.5l1.9-0.5l1.3-1l6.1 0l1.4-0.6l1 0.4l2.2-3.3l1.2-0.9l2.2-0.1l-0.1-1l1.2-2.7l2.8-2.3l-1.5-1.5l-0.4-2.3l3.6-5.5l1.1-0.5l-0.5-0.6l1.1-1.1l4-1.1l4.4-3.3l-0.3-1.1l0.6-0.6l-0.9-3l0.8-1.4l2.4-1.8l3 0.9l1.3-0.3l1.3 1l2.6 0.8l1.7-0.6l0.6-0.9l2.8-1.9l1.9-0.5l2.8-2.7l2 0.5l3.3 1.8l1.4 3.6l0 1.2l0.8 0.2l1.7 1.8l-0.2 0.7l2 0.6l3.9 4.1l1.8 1.1l2.4 0l1.3 2.1l1.5 0.4l-0.3 0.7l1.6-0.3l0.7 0.9l0.1 1.2l2.9 1.2l2.2 5.3l0 0.9l-1.2 0.8l-0.7 2.9l0.3 0.5l1.3 0l1.8-2.4l0.2-2l2-1l-0.3-1.9l-2.4-1.9l1.4-3.5l0.9-0.2l0.9 0.8l1.8 0.3l0.9 1.7l1.1 0.6l0.3-2l-2.1-2.2l-7.9-4.2l0.8-2l-3.8-0.1l-2.4-1.6l-2.1-2.2l-1.9-4.3l-4.5-3.1l-0.6-2.4l0.9-1.2l-1.1-1.3l0.1-0.9l2.8-1l0.6-0.6l1.5 0l0.4 0.9l-0.7 0.5l1.4 3l0.4 0l1.1-2.3l1 0.1l-0.4 1l-0.4-0.3l0 1.2l0.7 1.4l-0.4-2.2l1.5 0.5l-0.6-1l0.7 0.5l0.6 2.3l-0.8-0.4l0.3-0.2l-0.4-0.6l-0.3 0.4l1 1.3l1 0.9l0.4-0.4l0.5 0.4l-1.1 0.2l0.5 0.7l-0.7-0.2l0.3 0.3l0.6 0l0.3 0.9l0.2-0.5l2 1.7l0.2 0.7l1.6-0.1l1.9 0.7l2.3 2l-3.1-0.1l0.8 0.5l1.4-0.3l2.2 0.8l7 5l-0.5 5.6l0.4 1.1l-0.4 0.1l0.7 1l1.5 0.9l0.4 1.2l-1.1 0.1l1 1.6l0.8 0.4l-1-1.4l0.3-0.6l1.5 2.3l1.7 1.4l1.5 0.1l0 0.6l-1.2 0.1l1.8 2.7l0.5-0.6l0.6 0.8l1.9-0.5l1.4 0.3l0.4-0.4l2.8 1.4l-1.1 0.9l-4-1.8l-0.6 0.8l-1-0.1l-1 1.5l2.3 2.6l-0.2 1.6l0.7 1.1l0.6 0.7l0.2-1.3l0.5-0.2l1.8 3l0.3-1.7l0.4-0.1l1.9 1.7l-2.1-5.4l1.1 0.1l0.6 0.8l1.2-0.7l-1.2-0.8l-0.6-1.4l1.3-0.5l0.6 0.4l0-0.5l1.7 1.7l0.3-0.5l-0.6-2.5l-1.3-0.8l1.6 0.2l0.8 1.4l1.3 0.7l0.1-0.7l-1.2-0.6l-0.8-2.1l-2.6-1l-0.7-1l-1.6 0.9l1.5 0.3l1.2 1.6l-3.6-1.8l1.5-1l-0.7-0.6l0.1-0.7l0.9 0.2l0.1 0.8l0.6-0.4l-3.2-4.3l0-2.3l1-0.4l0 0.9l1.7 0.9l0.4 1.1l1.1 0.2l-1-0.8l0.1-0.7l0.7 0.2l1.2 1.2l0-0.7l-0.8-1.1l2.2 0.9l-0.5-0.9l-1.4-0.4l-0.4-1.6l1.1 0.1l1.4-1.1l1.2 0.4l1.1-0.7l3.6 1.1l0.4 0.8l2.3 0l-1.6 1.5l-0.1 4.3l2.9-0.4l-0.6 1.2l0.7 0.9l0 0.8l0.7 0.4l-0.8 0.9l0.7 1.3l-1 0.4l-0.9-1.4l0 1.4l-0.4 0.5l3.8 1.5l0.1 1.2l-0.6 0.4l1.9 2.5l-0.7 0.3l-0.1 0.7l3.6-0.1l-0.6 0.9l-2.1 0.6l2.2-0.2l0 0.6l1.1-0.9l2.6 0.5l1.2 2l1.9 0.9l2-0.8l0.9 0.2l0.5-3.1l2.7 0.3l2.8 1.4l1.6 1.8l1.7 0.8l3.4-0.8l3.5-3.2l2.9 1.2l2.4-1.6l0.6 1.2l-1.2 1.8l0.8 1.6l-0.5 2.2l0.7 0.8l0.8 4.1l-1.1 2l-2.8 14.1l-1.2 1.4l-2 1l-1.8 0.2l-0.4-0.4l-2 0.5l-1.7-1.2l0.2 0.5l-0.6 0.5l-1.3-0.9l0.3-1l1 0.6l-1.1-1l-1.4 0.4l-1.8-0.7l-0.4 0.7l-1 0.1l0.8-0.7l-2.1 0.6l-0.6 1.1l-1.2 0.2l-1.8 1.6l-1.4 0.5l-2.4-1.2l-3.9-0.9l-1.3-0.8l-5.5-1.3l-2 0.5l-1.9-2.3l-3.3-0.3l-1.4-0.8l-2-0.3l-0.8-0.6l-0.2-1.5l-3.6-1.6l-2.2-0.1l-0.9 0.7l-1.4 0.1l-2.6 1.9l-1.3 1.7l-0.3 1.5l1 3.3l0 1.3l-1.5 2.5l-2.4 1.2l-1.8-0.8l-3.5-2.7l-4.2-1.6l-2.7-0.2l-1.7-0.9l-0.9-1.2l-0.6-2.7l-0.8-1.2l-2.7-0.7l-1.4-1l-3.5-1.1l-2.1 0.6l-1.9-0.3l-4.2-2l-1.2-2.1l-0.8 0.5l-0.2-0.8l-1.6-0.2l-1-1.7l0.2-1.2l2.3-2.1l1.6-2.9l-0.5-2l-1.7-1.4l-0.4-1.4l2.4-3.6l-0.3-1.1l-2.5 1.8l-0.9-2.4l-2-0.7l-2.1 0.7l-2.2 1.6l-2.5 0.1l-2.8-1.2l0.1 0.7l-1.2 0.2l-1.7-0.8l-1.6 1.1l-3 1.1l-2.1-1.3l-3.8 0l-1 0.6l-2.1 0l-1.5 1l-5.2 0.4l-3.8 1.8l-1.4 1.7l-1.5-0.1l-2.6 1.4l-2.3 2.1l-2.2 0.4l-2.4-0.1l-0.5-1.5l-1.7 1l-1.2-0.3l-2.5 0.6l-1.1-0.2l-2.4-2.1l0-1.5l-2.6 0.6l-1.9 5.2l-2.4 4.2l-6.6 3.8l-3.1 3.6l-0.5 2.6l-2 3.5l-0.5 3.8l0.8 1.4l-0.1 1.8l-2.4 4l-1.2 1.7l-4.5 4l-5.8 2.2l-1 1.4l-2 5l-3.5 2.7l-1.9 4.6l-0.6 3.8l-4.4 4.8l-0.4 1l0.5-0.1l-1.6 3.3l-0.8 2.8l-2.6 3.8l-0.8 6.1l0.7-1.4l1.1 2.4l0.4-0.4l0.4 0.3l0.8 2.4l-1.3 2.9l0.2 1.5l-0.4 0.5l1.2 2l0.5 4.4l-0.3 3.8l-1.9 5.4l-0.4 3.7l-1.4 3.7l-1.4 2.1zM647 87.8l0.7-3.8l2.3-0.6l0.9-0.9l1 0.2l-0.4-0.9l1.8-1l0.1-1l1.9-0.4l1.6-1.4l2.4-1l3.9 1.3l1-0.8l1.6 0.2l1.1 1l0.7 2.6l-0.5 2.9l1.5 1.1l-6.2-0.1l-1 2.1l2.1 1.8l-3.9-0.3l-0.4 0.7l0.4 0.7l2.1 0.7l2.5 3.4l0.4 1.5l1.2 0.1l1.4 1.4l2.7 0.5l0.8 4.8l2.1 2.9l-0.8-2.5l0.3-1.3l0.6-0.6l2.3-0.1l1.9 2.9l2.8 2.2l0.2 0.9l-1.3 0.3l0.2 0.7l-1.7 0.2l-1.2-0.8l-1.8-0.1l-1-1l0 3.2l0.6 1.7l1.2 1.4l-0.2-1l1.8 0.4l0.5 1.5l-1.1-0.1l0.1 1.8l0.6-0.4l1.5 0.6l1 1.4l2.4 10.2l-6.4 1.7l-4.3-0.7l-2.5-1.4l-2-2l-3.1-0.6l-1.2-0.7l-1.7-4l-0.2-3.2l0.8 0.3l0.4-1.7l-0.4-1.3l0.3-2.9l1.2-0.6l1.8 0.2l-1-1.1l-1.6-0.4l-1.5-1.1l-9.9-11l-0.2-4.2l-0.5 1.3l-1-2.3l-2.4-1.6l-0.3-0.6l0.6-1.4zM576.1 108l0.8-1.4l2.4-0.5l3 0.3l0.3-1.1l-2.9-1.2l-3.7-4.8l1.3-1.5l-0.1-2.1l0.6-0.9l1.3-0.1l0.1-4.4l0.7-1.3l-0.2-1.6l0.7-0.2l0 0.9l1.8-0.4l0.3-2l-0.5-2.2l2-0.7l1.3-1.9l0.4-1.3l2.4-0.7l1.4 0.2l0.1-1l0.5 1.1l1.8 0.3l-0.6 0.4l-2.9-0.3l1.6 0.6l-0.5 0.8l-1.1-0.6l0.2 0.6l3.5 0.8l2.6-0.4l0.9 0.5l0.8-0.5l0.1 1.1l-3.8 2.5l4.1 1.5l0.4 0.9l-0.4 1.7l0.9 0.6l1.5 0l1.3-1.4l2.2-0.4l1.2-1.4l1.5 0.4l1.9-0.3l0.4-1.5l-1.5-0.3l-2.5 0.6l-2.3-2.1l-0.7-2l1.1-1l0.4 0.6l-0.8 0.8l2.6-2.5l2.5-0.6l0.9 0.2l2.4-1.7l2.3 0l1.3-0.7l0.4 0.4l1.8-0.5l0.4 1l-2.7 1.1l0.2 0.6l-2.5 0.2l0.7 1.1l2 1.3l-0.7 0.1l-0.2 0.6l-0.6-0.1l-0.8 2.1l0.2 0.8l-1.4 0.5l-1.5-0.7l-0.4 0.3l0.7 0.4l-0.9 0.6l2.3 0.9l1.3 1.3l1.3 0l1.5 1.3l2.1 0.7l5.4 4.2l6.4 3.7l1.7 3.4l-0.6 2.4l-4.2 2.6l-3.3-0.7l-3.9 0.9l-5.1-1.3l-1.3-0.9l-1.3 0.4l-1.7-2l-1.8 0.2l-1-0.4l-0.8-0.8l0-0.7l-0.6-0.2l-0.9 0.5l-5.5-0.2l-3.5 1.4l-3 2l-0.7 1l-8-0.5l0.1 1.4l2.4 1l-2.8 0.5l-0.6 0.5l0.5 0.7l-3.4 0.1l-0.6-0.7l-0.5 0.2l0.4 0.4l-0.4 0.3l-0.9 0.1l-0.8-0.7l-2.2 0.2zM977.2 137.7l1 0.7l0.2-0.3l-0.8-1.1zM975.9 313.5l0.1 0.6l0.4 0.5l0.1-1zM974.6 137.7l0.5 0.7l0.8 0.2l-0.5-0.9zM972 145.9l0.7 0.6l2-0.8l-0.3-0.9l-0.9-0.1l-1.2 0.4zM974.5 380.6l-0.8 0.2l0.1 1.1zM967.4 198.2l0.6 2.8l1.4 2.4l3.8 4.4l-0.5-3.2l0.8-3.7l-1-10l-2.2-1.7l-1.5 1.4zM972.4 291.3l0.1 0.9l0.7-0.4l0-1zM966.3 384.3l2.2 0.8l0.9-0.2l-0.2-0.5l1.1-2.4l-1.3-1.1l-1.6 1.4l-0.1 1.7zM964.7 373.2l0.2 0.7l1.1-0.3l-0.1-0.2zM960.8 380.7l0.5 1.2l1.7 1.2l0.3 1.6l0.9-1.4l1.7-1.2l-0.5-1.1l-1.6-0.9l-1 0.7zM962.5 162.8l0.5 0.7l1.2 0.3l-0.3-0.6zM921.9 373l4 0.6l1.3 0.7l-0.4 1.8l3.5 0.6l2.6 1.5l2.3 0.4l1.3-0.8l2.3 0.3l3.1 1l2.3 1.5l3.8 0.9l4.9 0.6l2.6-0.7l5.4 2.8l-0.6-2.1l0.4-3.5l-1.4-1l-2.5 0.6l-2-0.4l-0.9-0.6l0.1-1.5l-0.6-0.5l-0.3-1.6l-1.9-0.2l-2.2-1.5l-1.6 0.2l-0.8-1.4l-0.6-0.1l-2 3l-3.9-0.7l-0.9 0.3l-2.8-0.8l-0.4-1.5l-0.8-1.2l-1.3 0.1l-2.1-0.9l-0.7-0.8l-1.1-0.5l-1.1 1.1l-3.1-1l-1 1.2l-0.5 1.9l-0.5 0.1l-0.8 1.6l-0.5-0.5zM953.8 374.4l1.7 0.9l3-0.6l1.2-0.8l-0.4-0.7l-4.8 0.2zM934.7 310l0.2 0.8l0.8 0.5l-0.5 0.6l0.9 0.1l0.3-1.1l-0.7-2zM933 350.3l0.2 1.7l1.1-0.6l0.8 0.7l1.1-2.3l-0.3-0.7l-1.6-1l-0.8 0.2zM926 222.5l1.1 4.3l3.8 1.8l0.7-0.2l0.4-0.8l0.8-0.1l1.4-1.9l0.1-3.1l0.4-1.4l0.7-0.6l-0.7-1.6l-1.5-1.1l-0.1 0.9l-1.7-0.4l-3.6 0.9l0 0.9zM934.8 478.9l-0.5 1.5l0.2 1.7zM930.4 212.8l1.1 0.3l-0.1-0.6zM922.7 345.3l2.8 0.8l0.8 3.7l2.8 1.4l-0.2-1l1-1.9l-2-0.6l-1.8-5.6l-0.8 0.2l-0.2 0.7l-0.4-0.7l-0.7 0.5l-0.2 1.1zM879.3 302.8l1.7 3.6l4 4.9l2.3 1.4l1.9 3.4l0.9 0.8l0.5 2.8l4 2.9l2.5 8.8l2.2 1.8l2.7 5l2.3 6.4l0.1 1.9l2.8 5.3l2.3 2.5l1.6 3.2l5.3 5.4l3 4.7l0.4 0l0.1-2l1.7 1.1l1.2-1l1.6 1.4l0.9-4.6l0-4.9l0.5-2l-0.3-1.2l0.9-3l-1.8-3.5l-0.8-0.7l-1.8 0l-1.3 0.8l0.7-2.5l-1.3-1.6l-0.6-4.5l-2.8-0.8l-1.2-1.8l0-1.3l1.4-0.3l-0.9-0.5l-0.6 0.6l0.1-0.8l1.5-1.4l-0.5-1.4l-1.4-1.3l-2.6 1.4l1.2-0.8l0.1-1l-0.8-0.8l0.7 0.1l0-1l0.5 0.2l-0.6-1.3l-1.2-0.5l-0.2 0.5l-0.5-0.4l-0.4 1.4l0.9 0.6l-1.2-0.3l-0.2-0.5l0.4-1.8l-0.6-0.7l0.8 0.2l-0.1-1.1l-1.9-0.6l0.2 0.7l0.8 0.5l-0.2 1.5l-1.9-2.7l-1.3-0.5l1-0.5l0.2-1.2l-0.6-0.7l-0.8 0.3l-0.2 1.4l-1.5-2.5l-1 0.1l0.1 1.5l-1.4-1.2l-3.5-5.8l-6.3-5.2l-0.4-1.9l-3.2-4.6l-6.1-0.5l-2.3-1.8l-1.7 0.2zM920 334.6l1 0l0.9 0.7l0.4-0.3l-2-1.7zM919 327.2l0 0.3l0.8-0.1l0.6 1.2l0.4-1.3l-0.4-1zM920 335.3l-0.8 0.3l0.3 1.6l0.6-0.3l0.3-1zM917.7 326.8l0.1 0.7l0.4 0.2l0.1-0.9zM915.3 328.4l-0.2 0.5l0.4 0.7l0.3-0.4zM914.7 273.1l-0.7 0.3l0.9 2zM909.1 364.1l0.5 1.1l0.6-0.5zM906 263.2l0.3 0.9l0.5 0.1l-0.3-0.6zM900.5 349.5l0.8 0.3l0 0.9l1.1 2l0-1.9l-1.8-2.8zM900.7 302.8l0.3 0.1l0.3-0.9l-0.4-0.3zM898.7 345.2l0.2 1.3l1 0.7l-0.7-1.8zM898 296.2l0.4 0.9l0.8-0.6l-0.4-0.6zM894.6 340.4l1 2.3l1 1.1l0.9-0.3l-1.7-4.8l-0.8 0.3zM893.4 336.5l0.4 0.3l0.6-1.9l-0.7-1.5l0.2 1.3zM892.1 286.6l-0.6-0.5l0.1 2.2l0.4-0.3zM888.1 325.1l1.4 2.8l0.9 0.7l0.3 1.3l0.6 0.2l0.5-2.3l-2.5-3.3l-0.5 0.6zM889.7 265.2l0.4 1.3l0.4 0.2l-0.2-1.6zM889.3 269.9l-0.3 0.5l1 0.6zM888.8 260.1l0.2 2l0.5-0.8zM882 317l0.5 1l2.6 1.8l0-1l-2.7-2.3zM882.2 238.3l-0.2 0.3l0.5 1.2l0.1-1.1zM872.6 291.5l-0.6 0.5l0.9 2.3l0.3-1.3zM864.6 258.6l0.1 0.8l0.3-0.3l0.5 3.5l-0.8 2.2l0.9 1.9l-0.2 0.1l-0.1 0.7l0.4 0.1l0-6l0.5-0.7l-0.7-2.3l0.5-1.6l-0.2-1.8l-0.8 1l0 2.3zM864.6 271.2l0.2 1.2l0.5 0.1l0.3-1l-0.4-1.1zM862.8 224.9l0.5 0.6l0.5 0.5l0.1-1zM848.7 204.5l0.3 2.3l0.4-1zM812.5 281.5l-0.3 4.2l-0.3-0.3l-0.1 1.3l1.8 9.8l0.5 1.2l1.8 1.2l3.4-1.5l1.3-1.2l0.8-2.8l-0.1-2.2l-2.5-6.6l-0.7-0.5l-2.6-4.9l-2.1-2.5l-1.2-0.1l0 0.7l-0.5-0.1l1.4 0.7l-0.3 0.1l0.2 2.1zM718.8 601.8l1.5-0.8l3.1 0.8l0.8-0.8l-1 0.2l-0.4-0.6l1.4-0.4l0.7 0.4l1-1.4l-0.6-0.3l-3.1 0.8l0.7-1.2l-1 0.4l0.3-0.8l-0.7 0l-0.1 0.9l-0.6-0.1l0.7-1.9l-1.7 1.9l0.2 0.5zM715.6 216.7l0.2 0.7l1-1.7l-0.4-0.9zM710 450.6l0.8 0.5l1.2-1l-0.3-1.9l-0.6 0.4zM700.9 454.2l0.4 1.2l1.8 0.3l0.3-1.1l-0.6-1.3l-0.8-0.2zM697.2 261l1.8 1.2l1.8-0.2l1.5-1.1l-1.4-0.7l-1.5 0.2l-1.3-0.5zM692.1 195.3l1.3 0.2l-0.5-0.7zM650.3 461.6l1.3 6.3l-0.7 4.3l1.1 3.8l1.2 1.3l1.8 0.6l1.5 1.3l1.7-0.2l2.4-1.7l2.4-0.4l2.1-2l2.2-5l2.3-7.9l8.3-23.1l0.7-2.5l0.2-3.7l1.6-2.4l0.4-1.9l-0.3-5.4l1-0.3l1 2.7l1.5-3.3l-0.7-3.7l-0.7-9.5l-2.7-5.7l-1.3 2.1l-0.6 0.2l0.4 2.1l-0.7 2.4l-2.4 2.5l-0.9-0.6l-0.7 0.8l0.3 1.3l-1 2.3l0.5 1.6l-0.6 0l-1.2 1.7l-0.2-1.3l-0.5 0.3l-1.2 2.2l-0.2 1.6l-0.3-1.1l-0.5-0.1l-2.2 2.2l-0.1 1.6l-0.9-0.9l-2 0.5l-0.5 1l-1.1 0.2l-0.5-0.4l-1.4 1.2l-1.8 0.3l-0.5 2.7l-2.1 3.9l-0.1 5.1l0.6 2.5l-0.2 1.9l0.8 2l-0.5 2.8l-3.1 7l-1.3 1l-1.2 3.3zM680.5 431.8l0.5-1l0.5-1.2l-0.8 1.3zM678 183.9l-0.4 0.3l0.8 2.1zM675.1 410l0.1 0.7l0.5 0.1l0-1.2zM662.2 406.5l-0.3 0.3l0.3 1.6l0.5-1.3zM658.6 403.8l1.2 1l-0.2-1.6zM656.1 404.2l0.1 0.5l0.8 0.2l-0.6-0.6zM654.5 401.4l0.9 0.9l-0.3-3.1zM646.9 235.5l-0.1 1.3l1.5 1.1l-0.5-1.3l0 0.4l-0.4-0.1zM640.4 364.5l0.4 0.5l0.6-2.8l-0.8-0.2zM639.3 241.8l0.2 1.6l1.8 0.2zM639.8 379.4l0.3 0.3l0.7-0.5l0.4-1.5zM638.3 369.2l1.2 1.6l0.5-0.4l-1.1-3.8zM619.1 -10.4l0.4 1l1.3 0.7l4.3-1.1l-3.7-1.3zM620.8 187l0.1 0.4l1.5 1.2l0.3-0.1zM598.7 136.6l0.8 1.9l2 0.8l1.8-0.9l1-1.2l1.4-0.1l-0.6-1.6l2.1-1.9l-3.5 1.6l-2.6-0.2l-0.2 1.1zM580.2 131l0.3 1.3l1.2-0.8l0.4-1.9l-1.2 0.5zM577.9 133.9l0.4 1l0.3-0.3l-0.2-1.8zM576.8 128.1l0.9-0.2l0.7-0.5l-0.5-0.2zM576.8 123.1l-1.2-0.5l-0.6 0.4l1.1 0.4zM564.2 134.3l0.2 1.4l3.5 0.5l1 0.4l0.4 0.8l5.6-0.6l0.2-1.4l-1.9 1l-0.4-1.2l-1 0.3l-3-0.7l-1.4 0.4l-1-0.7l0.1-0.5l-0.9 0.3l-0.8-0.7l-0.1 0.7zM571.4 115.5l1.3 0.9l1.7 0l-1.1-1.8zM572.8 124l0.8-0.2l0.5-0.5l-1 0.2zM571.7 118.7l0.7 1.1l-0.4 0.4l0.5 0.6l0.6-0.8l-0.1-1.2zM570.6 126.3l0.4 0.8l0.5-0.6l-0.3-0.8zM568 111.5l0.4 0.9l0.4-0.3l0.5 0.3l0.2-1.1l-0.6 0.4zM567.6 121.8l0.1 0.3l1.1 1.1l-0.2-1.1zM565.7 108.2l0.5 0.4l0.5-0.6l-0.7-0.5zM561.4 130.7l0.5 0.4l0.2-0.5l-0.6-0.7zM552.1 122l0.1 0.9l0.5 0.4l0.7-0.2zM550.7 120.7l1.6 0.5l-0.3-1.9l-0.6-0.1zM551.3 118.2l0.7 0.1l-0.2-1zM547 27.5l0.4 0.4l-0.2 0.5l1 0.5l-0.5 0.8l1.1-1.1l3-0.9l-2.1-0.6zM547.4 25.7l1.2 0.3l0.5 0.7l1.5-0.5l-1.3-1zM538.6 21.1l1.6 0.1l0.6-0.6l-1.4-0.5l0 0.5l-0.8 0.1zM535.1 31.2l0 1.2l0.7 0.8l-0.4 0.6l2.3-1.9l-0.4-1.2l0.6-0.5l-0.4-0.4l-1.2 0.3zM535.1 96l1.9 0l-3-0.4zM520.2 122.5l0.9 1.2l1.1 0.1l3.4 2.2l1.8 0.5l1 1.2l2.4 0.6l0.7-1.9l-0.9-2.1l1.6-4.2l-1.7 0.7l-5 0.9l-2-1.1l-1.5 0.8l-0.7-0.7zM529.7 35.3l0.4 1.3l1.7-4.4l-0.1 0zM529.6 -10.2l0.2-0.7l-1.3-0.3l-1.7 0.6l-0.5 0.8zM528 132l0 0.5l0.8 0.3l0-0.3zM524.4 41.4l1.3 0.4l0.2-0.6l-1.3-0.7zM519 -7.1l5.1-0.6l1.6-1l-1.2-0.4l-0.7 0.4l-0.4-0.9l0.8-0.6l-0.2-0.3l-1.6 0.8l0.3 0.6l-0.7 0.9l0-0.9l-0.9-0.5l-0.6 0.7l-1.3 0.2l2.6 0.5zM515.9 -6.7l0.5 0.2l2.2-0.7zM517.1 37.5l-1-0.4l-1.5 0.6l-0.1 0.9l-0.7-0.8l-1 0.8l-1.1 0.2l1.1 2.1l1.3 0.1l0.8 1.8l0.7-0.6l1.4-0.2l-0.8-0.5l-0.7 0.5l0.1-1l1-0.4l-0.5-1.1l1.3-0.2zM514.1 143.7l0.8 0.1l0.4-0.6l-1.1-0.3zM512 42.2l0 0.6l1.5 0.6l1-0.3l-0.1-0.5l-1.6-0.6zM510.6 97.7l1.2 0.3l-0.1-0.7zM510.6 42.4l0.3 0.5l0.2-0.3l0.6-1.5zM507.9 39.6l0.5 1.5l2.2 0.5l0.6-0.7l-0.5-1.4l-1.4-0.3zM509.2 3.8l0.3 0.1l1 0l-0.1-0.4zM503.6 108.2l1.1 1.8l-0.2 1.9l0.5 0.4l-0.4 4.4l0.3-0.5l0.6 0.7l1.2-0.2l0.4-1.4l1.9 0.4l0.4-4.3l-0.2-1.3l0.5-1.1l-0.9-2.1l0.2-0.5l-1.5-1.2l-2.5 2l-1.3-0.3zM504.9 99.8l0.5 1.3l-0.3 0.8l1 1.1l-0.3 0.6l1.5 1l1.3-3.7l-0.4-4.2l-0.4-0.2l-0.2 1.5l-1.8 0.5zM506.3 314.3l0.9 0.4l1.2-2.3l-0.1-0.8l-0.7 0l-1.3 1.9zM503.8 42.2l-0.7 0l-0.1-0.7l-0.3 1.3zM498.7 331.1l-0.9 0.7l0.4 1.3l0.8-1.1zM487.1 111.2l0 0.5l1.6 0.6l-0.2-1zM481.4 113.6l0.5 0.5l0.7-0.3l0.4 0.8l1.1 0.4l1.5-2l-1.2-0.5l0-0.9l-1.4 0.6zM452.3 31.7l1.4 1l0.9 0l0.2 0.6l1.2-0.6l-0.7 1.5l-1.7 0.9l0.4 0.5l-0.6 0.7l1.8-0.1l-0.1-1l0.6 0.2l1.3-0.5l-1 1.7l-0.4 1.8l0.3 0.2l-1 1.7l0.7-0.1l0.8-2.6l0.5-0.2l0 0.7l1.3-0.8l0.7 0.5l-0.8 0.3l-0.1 0.8l0.6 0.8l-1.8 2.2l0.4 0.9l0.4 0.3l0.5-0.6l2.8 0.2l2.6-0.7l-1.4 1.6l1.3 1.9l1 0l-0.8 2.6l0.8 0.9l-0.8-0.5l-0.4 0.6l-2-0.1l-1.2 0.5l0.2-0.5l-0.9-0.5l-0.9 0.2l0.7 1.2l-1.3 1.3l2-0.4l0.4 1.6l-0.7 0.9l-3.9 2l1.1 1.1l1.9-0.5l0.8 0.3l-0.3 0.4l1.2-0.1l1.1 0.8l0.9 0.1l2.4-0.8l-1.9 1.6l-3.7 0.1l-2.7 2.9l-2.8 2.1l1.9 0.2l1.5-1.2l1.9-0.4l1.8 0.7l1-1.8l1.5-0.4l3.4 0.5l0.1-0.5l1.6-0.1l0 0.4l0.9 0.3l0.8-0.5l-0.9-0.4l0.1-0.4l1.8 0.5l3.5 0l2.7-0.7l1.6-1.2l0.1-0.8l-2.9-0.5l1-0.4l0-0.8l1.4-0.4l-0.1-0.6l1.3-0.6l0.5-2l-0.3-0.8l-1.3-0.7l-2.4-0.2l-1 0.7l-0.7-0.4l1-1.1l-0.3-0.8l-1.7-1.4l1.2 0.2l-1-1.7l0.4-0.5l-1.9-1.6l-1.9-0.9l-1.3-3.6l-1.6-1.4l-1.5-0.5l-2.3 0.1l2.1-1l-1.2-0.8l1.9-0.8l2.6-3.4l-0.9-0.9l-6.6 0.3l0.7-0.8l-0.5-0.2l0.1-0.4l2.7-1.4l0.6-1.3l-4.6 0.5l-1.8-0.2l-0.3 1.2l-1 0.1l-0.3 0.7l0.5 0.7l-1.2 0l-0.5 0.9l0.4 0.5l-0.7 0.7l0.4 0.6l-1.5-0.4l-0.5-1.4zM476.9 117l0.7 0.2l0.9-0.9l-0.2-0.4zM469.9 20.5l1.1 0.5l0 1.1l0.9-2.2l-1.1-0.6l-0.6 0.4l0.5 0.6zM464.1 25.4l0.6 0.4l1.3-0.1l-1.5-0.8zM457.9 45.7l0.5 0.1l1.1-0.9l-0.2-0.6zM456.3 39.2l0.5 0.7l0.4-0.2l-0.4-0.9zM437.7 54.1l1.5 0.2l-1.5 1.3l2.1-0.2l-1.4 1.1l1.6-0.3l-0.6 0.8l1.9-0.1l3.2-0.9l0.1-0.7l1.1 0.2l3.9-1.8l0.4 0.3l2-0.4l-0.4-0.5l1.6-2.4l-0.7-4.4l2.6-1.4l-0.1-1.1l0.7 0.1l-0.4-0.7l-0.8 0l0.4-0.6l-1.3-1.7l-3.1 0.4l0.3-0.5l-1.3-0.5l-0.7 0.9l-0.4-0.5l-2.1 0.5l-0.4 1.1l-1.4 0.8l1.8 0.3l-1.5 1.2l0.1 0.4l-3.3-0.3l-1.9 0.4l0.7 0.5l-0.1 0.7l-0.4-0.3l-0.9 0.1l2.3 0.7l-1.2 0.4l0.4 0.5l-1.2 0.3l0.1 0.6l3.3 1l-3.1 2.6l0.9 0.1l-1 0.7l0.3 0.6zM452.6 38.9l0.6-0.3l0.2 0.6l0.7-0.3l-0.1-0.6l1.3-1.2l-1.2 0.9l-1.1 0.2zM452.9 13l1 1.1l0.3 0.1l-0.2-0.5l0.6-0.5zM451.4 30.2l0.9 0l1.7-1.5l0.4-1.2l-1.8 0.8l0 0.4l-1.1 0l0.5 1.1zM449.9 31.1l1.1 0.2l0.3-0.3l-0.4-0.3zM401.1 1.6l1.6 0.4l3.2-0.6l2.7 0.4l-1.8 0.9l2 0l-0.2 0.5l-6.8 0.6l0.6 0.5l4.2-0.2l1.3 0.9l-0.5 0.8l1.2-0.1l-1.8 1l-1.6-0.1l-0.1 0.9l5-0.4l2.5 1.3l4.7 0.6l2.3-0.5l0.6-0.6l3.7-0.6l6.7-1.9l0.9-1.1l1.1 0l1.6-1.2l-0.5-0.9l0.7-0.6l-2.2-0.1l0-0.8l-1.2 0l0.4-0.8l-1-0.4l1.5-0.8l-2.6 0.5l-2.3-0.9l-0.9 0.2l-0.1 0.8l-2 0l-1.3 0.8l-2.2-0.6l0 1.2l-1.6-1.3l-1.8 0.3l-0.6 1l-1.9-1l-1.1 1.7l-1.1-0.2l-1.3 1.2l-0.9-1.4l0.9-0.6l-0.2-0.5l-2.7-1.3l-1.4-0.1l-0.8 0.4l1.7 0.9l-0.1 0.5l-2.8-0.9l-1.1 0.5l0.3 0.5l-1.5 0.3l0.3 0.8zM415.3 168.8l0.1 1l1.3-0.9l0.1-1.3zM412.3 173.8l0.6 0.2l1.7-1l0.4-2.7l-0.6 0.2l-1.1 2.7zM312.9 -0.5l0.8-0.1l0.4 0.7l-0.9 1.3l2.3 0.5l-0.8 0.4l0.5 0.6l-0.9 2.7l0.5 0.4l2.5-1.6l1.7-0.1l0.3-1.2l0.6 1.1l1.1 0.3l-0.2 0.7l-1-0.8l-3.2 0.8l-1.4 1.1l3.9-0.3l-3.8 0.8l-0.4 0.9l1.9 3.4l0.6-0.1l-1 1.3l1.8 0.9l-0.5 0.9l1.4-0.1l-0.8 0.5l0.2 0.7l-0.4 0.4l0.6 0.3l0 0.9l1.3 0.3l-0.1 0.7l1.4 0.1l-1.3 0.6l0.6 0.3l1.7-0.4l2.2 0.1l1.3 0.6l1-1.1l-1.9 0.3l2.9-1.1l-1 1.4l0 0.7l1.9 0.6l-0.4 0.9l2.2 0.7l1-0.5l-0.5 0.9l1.4 0.4l0.9-0.1l-0.2-0.6l1.4 0.3l0.9-0.5l0.2-1.3l-1-0.6l1.7 0.1l1.5-0.9l2.6-3.5l-0.2-0.2l1.2-0.4l-0.2-1.1l1.1-1.5l-1.2-0.5l2.3-0.1l1.2-0.9l-0.6-0.6l1.5 0.3l1.8-1.6l1.8-0.8l0.4-1.4l-1.3 0l-0.5-0.4l1.5 0.1l2.2-0.9l-0.8-1.5l-1 0.1l-0.1-0.5l2.5-0.1l2.5-1l-1-0.7l5.8-0.5l0-0.7l2.1-1.5l1.2 0.3l-2.7 1.9l0.6 0.4l2.5-1l1.1 0.3l0.6-0.6l0.3 0.5l2.7-1.1l-0.1-0.9l1.6 0.6l1.9-0.6l6.1-4l3.3-1l-0.3-0.7l0.5-0.6l3.4 1l1.1-0.1l0.1-0.4l12.8-1.4l4.6-1.8l2.6-0.5l0.2-0.4l1.6 0l-0.1-0.5l4.4-0.7l-81.7 0l-3.6 2.3l-1.3 1.4l0.8 0.2l-2.3 0.5l-2.6-0.6l-3 1.3l0.5 0.2l-4.2 3.5l0.3 0.5l2.9 0.4l-2.7 0.7zM406.9 174.4l0.3 1.1l1.1-0.1l0.2-1.9l-1.1 0zM402.5 172.5l0.9 1.8l1-0.8l1.4-2.3zM403 148.6l0.9 0.7l0.7 0.1l0.6-0.6l-1.9-0.6zM400.7 173.7l0.4 0.6l0.5-0.6l-0.6-0.5zM400.8 269.1l0.2 0.4l0.5-0.2l0-0.7zM399.1 169.7l-0.8 0.5l0.4 1.5l0.5-0.7zM397.2 175.6l0.7 0.7l0.4-0.9l-0.1-0.3zM372.2 122.1l0.3 0.7l1.1 0.2l1.1-0.6zM373.3 240.9l0.5 0.4l0.6-0.8l-0.9-0.7zM371.8 245.4l0.1 0.7l0.4-0.2l0-0.8zM369.7 245l0.1 2.1l0.8 0.2l0.3-0.5zM367.4 237.4l0.2 1l0.4-0.6l0.8 0zM366.9 117.7l0.2 0.5l0.8 0.2l0-0.8zM366.3 247.3l0.6 0.6l0.4-0.6l-0.4-0.7zM363.5 235l0.3 0.9l1.1-0.7l-0.1-0.7zM362.2 119l0.3 0.5l1.5 0l-1.2-0.7zM326.4 -11.1l0.5-0.1l1.5-0.9l-1.9 0zM315.7 -11.7l2.9 0.5l-1.3 0.4l1.5 0.5l5.6-1.1l-0.1-0.6l-1.9-0.5l-5.2 0zM-1.3 139.9l1.4 0.2l0.9 0.8l0.2 0.8l2.2 0.5l-0.3 1.4l1 0l0.9 1.1l0.8 2.3l-0.8 4l0.1 1.9l0.5 0.7l-0.8 1.6l0.4 1.9l-0.3 1.2l0.5 0.9l-0.6 2.1l0.5 0.6l-0.7 1.8l0.1 1.1l2 2.2l1.7 5l-1.9 2.7l0.4 0.2l-0.2 1l-0.6-0.3l0.1-0.6l-1.3 0.5l-1.7-0.3l-0.1 0.6l1.2 1.6l0 1.2l2 1.4l0.5 1.3l2.2-0.9l-0.1 1.7l1.9 2l0.1 3.5l-1.4 4l0.6 1.6l-0.9 0.1l1 1.1l-0.3-1.1l0.8-0.1l3.7 5.2l0.4 4l2.5-1.5l0.8-1.8l-2-4.7l-0.8 1.2l-0.8-1.2l0.8-2.9l-0.2-3.7l-0.6-1.4l0.6-5l-0.8-0.9l-0.3 0.5l-0.4-4.1l-1.1-1.6l0.7-3.3l-0.7-0.5l0.1-1.5l-0.4-0.1l0-0.7l-0.5 0l-0.1-2.3l-1.8-3.5l1.2-6.1l1.5-2.6l0-1.1l0.4 0.2l-0.2 0.4l0.6-0.1l1.4 1.4l1.2-0.6l0.5 0.3l0 1.1l1.9 0.9l-1.1 2.8l0 7.5l-0.9 0.5l-0.8 1.5l0.8 0.7l0.9-1.9l2.1 6.2l2.2 0.6l-0.8 1.7l0.2 1.7l1.5 0.9l0.1 2l1.1 0l0.6 2l-1.6 1.7l-0.4 1.6l0.5 0.8l1.1-0.5l-0.6 1.1l1.1-0.2l0.1 0.7l2 1.7l-0.3 0.3l-0.5-0.3l0.5 2.6l1.6 0.7l-0.3 0.6l-0.8-0.5l2.5 3.2l1.1 3.8l1.6 3.2l0.2 1.7l-0.6 1.8l0.4 2.1l0.7 0.8l-0.6 2l-1.6 1.7l0.6 0.4l0.1 0.9l-2 1.1l0.2 2.3l1.4 3.8l3.7 2.7l1.3 2.8l2.8 1.5l3.2 0.6l1 1.7l2.6 2.6l3.2 1.5l1.2 1.2l3.7 1l0.8 1.3l1.5 0.6l1.4 1.4l2.3 0.3l2.6 1.5l4.8-1.9l1.6-1.1l1.4-0.2l-0.8-0.4l0.5-0.7l0.4 0.6l0.7-0.1l-0.2 0.6l2.6 1.1l-1.5-1.1l0.3-0.4l1.6 1.3l5.7 8.6l3.2 3.1l3.2 0.4l3.1 2.1l2.2 0.5l3 1.6l-0.2-0.4l2.7 0.5l0.8-1.2l1.1 0.2l0.5 2.3l-0.5 0.1l-0.6-0.7l-0.4 0.5l3.3 4.6l0.9 2.4l2.7 3.9l-0.8 1l0.9 0.9l-1 2.5l0.7 2.3l1.3 0.5l0.7 1.3l1.1-1.3l-1-1.2l-0.2-1l0.8 0.5l1.2 1.2l0.4 1.9l1.5 0.6l2.3 2.5l0 1.3l-0.7 1.1l0.5 0.8l1.3 0.4l-0.5-1.5l0.7 0l1.5 3.4l0.1-1l0.9-0.4l1.8 0.1l0.3 0.6l1.8 0.4l0.8 2.4l1 0.5l1-1.2l0.4 3.2l1 0.3l2.9-1.6l-1.6-3.3l0-0.7l3.2-2.3l0.4-1.4l0.8-0.7l1.9-0.2l2.2 2.1l0.3 1.6l0.2-0.7l0.7 0.5l0.5-0.5l0.7 1l-0.9-0.5l-0.7 1.7l-0.6 0.2l3.9 8.6l-0.5 2.3l0.8 2.3l-1.3 1.4l0.6 1.2l0.2 3.5l-0.3 1.9l-0.8 1.1l0.5-0.1l0.2 1.6l0.2-0.2l0.2 0.5l0.7 0.1l-1.3 3.1l-0.9 1.5l-0.6 0.3l0.1 0.9l-0.6 0.9l-1.2 1.2l-0.4-0.8l0.1 0.8l-1.1 0.2l-0.8 0.7l0 3.2l-0.9-0.2l-1.1 1.3l0.8 0.8l-0.6 1.1l0.3 0.5l-4.9 2.2l0 3.9l-1.9 3l0.7 1.3l-0.6 0l-0.4 1.5l-1.5 1.4l0.7 4.9l-0.7 2l2.8 2.5l0.9-1.5l0.2 0.6l0.5 0l0.4-1.9l0.4 2.1l-0.9 3.3l-3.5 3.4l-1.8 2.9l-0.3 2.5l2.2 5.6l-0.1 1.1l-1 0.3l0.1 1l4.7 3.5l2.3 3.7l1.3 3.1l1.7 2.2l4.4 10.8l2.4 4.3l0.7 2.6l1.5 1.4l1 3l1.5 1.7l3.3 5.8l0.1 2.5l-0.4 0.4l2.4 4.4l1.9 1.5l2.2 2.9l6.4 4.5l5.8 2.9l4.4 3.3l1.1 2.2l4.7 3.8l4 16.8l0.5 8.3l-0.8 1.2l0.1 1.1l1.2 1.7l0.4 6l1.2 3.3l-0.4 3l0.9 3l0.5 6.8l-0.4 1.3l0.3 4.6l-0.6 1.4l1.8 3.9l0.4 2.6l-0.8 1.1l0.2 1.5l3.8 9.4l0.2 3.1l-0.4 0.7l1.1 2.9l-0.5 2.7l0.6 4.9l-0.7 2.5l0.4 0.9l-0.4 1.1l0.3 3.4l-0.4 0.3l0.5 2.3l-1.5 0.3l0.1 0.7l0.6 1.9l1.4 1.7l0.6 2.4l2.4 3.6l0.4 2.8l-0.7 0.9l1.1 5.8l2.5 3.3l1.5 0l0.6-1.3l1.7 0.8l-0.5 1.1l1.4 0.4l0.8 1.4l-1.3-0.1l0.8 1.1l-0.3 1l1 1.6l-0.5 1.6l0.9 1.5l0.2 1l-0.5 0.3l0.4 1.3l2.7 1.2l0.3 0.8l0 0.7l-0.7 0.4l0.3-1.3l-2.1-1l-0.2 1.4l1.2 1.1l0.6-0.1l-0.8 0.7l0.2 1.2l0.8 0.5l-1.3 0.7l0.7 1.5l-0.7 0.2l-0.4-1.9l-0.6-0.2l-0.4 0.4l0.3 1.3l-3 0.5l1.1 1.4l-1.6 2.6l1.5 1l-0.8-1.1l1.4-0.8l0.5 1l2.1 0.7l0-0.5l0.6 0.1l1.3 1.8l-0.6 1.1l0.9 0.6l-0.8 0.1l-0.1 0.6l2.1 1.3l1-0.2l0.3-1.1l1.9 1.9l-4.4-0.5l1.5 2.1l1.3 0.1l-0.6 0.5l1.8 3.7l0.7 0.5l-0.1-2.1l0.4 1.8l0.8 0.6l-1 0l0.2 1l1.7 1l18.9 0l-0.1-0.7l0.8 0.7l1.9-0.1l0.2-0.6l-0.9-2.8l0.2-1.3l3.9-4.7l-1.5-0.6l0.9-0.8l-0.3-1.4l-1.5-1.1l-3-0.4l-3.1-2.2l-1.3-1.3l-0.4-1.4l1-3.5l1-0.3l1.1-1l2.1 0.2l-0.7-1.6l0.7-1l0-0.9l-1.2-3.4l0.8-1.9l1.6-1.1l-3-1l0-0.4l1.5-0.8l2.4 1.8l1.1-0.4l0.1-0.5l-0.8-2l-0.9-0.9l-1.4 0.6l0.7 0.2l0 0.5l-1.1 0.3l-0.6-0.1l-0.1-0.8l-2-0.7l-2.6-6.1l0.8-0.7l5.4 2.1l2.4-0.2l1.8-1.1l0.2-1.1l-1.4-2.4l0-1.5l0.5-0.3l-0.5-2.3l-1.1-0.7l-0.7-2.1l2 0.7l2.8 0.2l4.7-0.8l5.8-2.1l1.9-1.7l0.1-1.8l1.5-4l-0.7-2.9l-1.5-0.5l-1.7-2.1l0-2.8l-1.9-1.8l-3.3-1.7l-1.4-2l0.3-0.6l-0.6-1.3l3 2.7l2.8 0l4.2 2.3l2.1-0.6l3.2 0.8l2.6-1.4l1.1-1.5l0.7-3.2l2.3-3.3l1-5.1l-0.6-1.6l0.3-2.6l1.6-1.5l0.1-2l0.4 0.1l-0.1-2.7l0.8 0.7l1.7-0.6l0.1 0.8l-0.5 0.1l0.4 1.4l-0.8 1.1l0 1l-0.7 0.2l-0.1 1.9l-1.3 1.6l-0.7 0.4l-0.7-0.1l0.4 1.5l3.5-4.6l1.7-4.4l1.1-5.8l1.5-2.6l1.6-1.6l0.1-4l0.5-1.5l-0.1-0.9l-0.6 0.7l-1.8-6.8l0.5-0.3l0.2 1l0.3-1l-0.5-0.3l-0.4-1.7l0.8-1.5l-1.3-0.5l-0.1-0.5l0.9 0.2l0.3-0.9l0.8 0.2l0 0.6l0.9-1.4l-0.2-0.8l3.9-4.3l3.3-2.5l2.1 0l0.5-1.1l2.9-1.8l-0.5-0.4l0.1-0.8l3-0.8l0.6 0.5l-0.9 0.3l0.3 0.3l2.7-0.7l0.3-1.2l0.8 1.1l3.8-0.1l0.3-0.9l-0.3-1.1l1-1.5l2.7-1.8l-0.5-2.7l0.2-1.5l0.5-1.9l1.5-1.9l1.2-4.6l0.8-1l-0.2-7.4l1.9-3.1l-0.5-3l0.8-7.4l-1.3-6.9l0.3-3.6l-0.4-2.4l-0.4-0.2l0.1-0.6l0.5 0.4l0.1-0.8l-0.6-0.1l0.7-1.9l0.3 0.4l0.7-0.7l-1.1-1.2l0.7-0.8l0.7 0.7l0.1 1.1l0.5 0l1.5-2.1l3.1-8.8l1.6-2.2l1.5-1.1l2.1-3.7l-0.1-0.8l0.5 0l1.7-2.7l1.9-7.3l-0.1-5.5l-2.7-10.2l-0.7-0.7l-1.9-0.5l-2.6 0.3l-2.5-1.1l-0.6-1.2l-1.4-0.7l-1.9-2.1l-1.9-2.9l-6.4-5l-2.2-0.4l-4.4 0.7l-1.7-1l-1.6 0.3l-3-1.9l-1.9-0.5l-0.3 0.7l-2 0.5l-0.9 0.9l0.1-1.4l-0.5-0.2l-1.1 2.8l0-1.3l-0.6 0.2l0.4-2l0.6-0.3l-0.2-1.1l-0.9 1.1l-0.5-0.5l0.9-1.3l-0.5-1.8l-1.8-1.6l-1.1 1.3l-0.6-1.9l-0.8-0.1l-2.5-1.8l-1.7-0.4l-0.8-1.1l-1.4-0.2l-0.6-0.6l-0.7 0.1l-0.1 0.4l-0.5-0.3l-2.4 0.4l-1.4 2.4l-0.1 1.4l0.5 0.6l-0.5 0.6l-1-0.7l-1.2 2l-0.9 0.5l-1 3.4l-0.6 0.5l1.1-4.9l-1.7 1.1l-1.2-0.6l-1.8 1l-1.2-1.4l-0.5-2.7l1.3 2.9l1.9-0.5l1.1 0.5l0.9-0.5l0.4-1.1l1.2 0.5l0.2-0.9l0.6 0.4l0.9-0.7l1.8-6.4l-3.1-0.7l-1.8 0.4l-3.1-0.7l-1.7 0.9l-0.6 3.7l0.4 1.1l-0.2 0.8l-0.6-1.8l-3 2.3l1.3-1.8l0.5-2l-0.4-0.8l-1.3 0.5l1.2-3.1l2.3-1.8l2-3.5l1.7-1.9l-0.3-2.9l-2.1-1l-1.1-1.8l-1.9-11.3l-1.1-1.3l-0.9 0.7l-0.6-2.6l-0.8 1.2l-0.2-1.7l-1-0.7l0.1-0.6l-2.5-2.8l-2.4-0.8l-1.6-1.2l-0.8 1.1l-0.5-1.6l-2.9-0.7l-3.5 0l-1.2 0.5l-0.1 0.6l-4.4-1.1l-1 1.8l-0.1-2.9l-1.3-0.9l-1.8-2.6l-1.3-0.6l-1.3 1.3l0.5-4.3l-2.7-3.9l-4-3.1l-1.3 0.4l-1.4-0.3l-2.2 1.1l-1-0.9l1.3-0.2l0.6-1.7l0.3 0.3l0.9-0.6l-0.2-0.7l-0.7 0.3l1.3-2l-0.8-1.1l-1.3-0.5l-1.1-1.5l-0.8 0.5l-0.1 0.7l-1.1-1.6l-1.2 0.9l-0.8-2.2l-0.7 0.4l0.2-0.9l-0.7-1.3l2.1-0.2l2.2-1.1l-10.3 0.6l0.1 0.5l1.1 0.3l-3.8 2.2l-1.2 0.2l-3-1.1l-1.6-2.1l-8.1 0.8l-0.6-1.2l-0.2-2.7l-1.7-1.5l-1.7-0.5l-1.7 0.1l-0.6-3.2l-0.6-0.7l-0.9 0.5l-0.5 1.2l0.3 1.5l1.5-0.3l0 1.1l-1.1-0.2l-0.7 0.8l-5.5 2.4l-0.3 2.5l1.5 4.7l-0.3 2l-0.8 1.2l-1.8 0.4l-1.6-4.2l2.6-4.9l-0.4-1.8l0.4-0.2l-0.7-1l-0.3-2.2l2-0.9l1.7-1.8l-0.4-1.7l-0.9-0.6l-0.9 0.1l-2 1.3l-0.7 1.8l-2 1l-2.8 2.3l-3.5-0.1l-0.9 1.9l-2.2-0.7l-2.9 2.9l-1.3 2.7l0.6-0.2l-0.7 4.1l-1.7 0.6l-1.2 2.1l-3 2.4l0.5 1.6l-0.2 2.1l-0.4-0.1l0.2-0.8l-2.1-3.2l-2.6-3.4l-4.3-1.7l-2-0.4l-2.5 2.3l-3.2 1.8l-2.2 0.6l-0.9-0.2l-1.3-1.8l0.3 1l-1.2 0.1l-0.6-0.5l0.3-0.9l-0.7-0.2l0.1-1.1l-1.7-1.5l-2.1-3.7l-1.6-5.6l1.1-2l-0.1-1.1l-0.5-0.3l0.4-0.9l0.3 0.1l0-2.8l0.6-0.6l-0.1 0.9l0.5 0.3l0.4-5.3l1.2-3.8l1.2-2l-0.5-2.8l0.3-0.2l0.2 0.3l0.7-1l-0.7-1.4l-1.1-0.7l0.4 0.7l-1 0.1l-0.6-1l-0.6-0.1l0.5-0.6l0.8 0.7l-1.7-2.4l-1.1-0.3l-0.2 0.4l-1.6-1.1l-2.2 0.5l-2-0.7l0 0.5l-1.8 0.9l-2.3 0.1l-2.5-0.2l-0.8-0.6l-2.4 1l-1.3-1.2l-0.3 0.9l-1-0.6l3.1-4.2l2.5-9.7l-0.8-0.3l1.5-1.9l-0.2 1.2l0.6 1.4l2.6-5.7l-0.6 0.1l0-0.5l1.2-1.3l-0.8 0.1l-0.2-0.4l1.3-1.3l0.5-2l4.1-5.4l-0.9-2.2l-1.4 0.1l0.6 0.2l-0.3 0.4l-2.9-0.8l-2 0.2l-1.9 0.8l-4.1 0.8l-2.5 1.5l-1.9 6l-1.1 1.2l-0.6 2.1l-3.5 2.6l-0.2 0.3l0.6-0.1l0 1.3l-1.2 0.9l-1.5-0.4l-0.1-1l-2 0.2l-2.1 1.2l-2.9 0.2l-2.9 1.3l-1.4 0.1l-0.8-1.9l-1.4-1l-2.5-0.4l-1.4-3.2l0-3l-1.9-4.2l-0.5-3.5l0.2-0.2l0.8-1.6l-1.1-3.1l0.3-2.8l3.4-9.8l4.8-9l1-6.4l-1.1 5l-0.3-1.1l0.3-2.6l0.7-1.5l-0.7-0.3l0-0.7l1.3 0.5l-0.2 0.5l2.4-3.2l-1.2 1.2l-0.3-1.3l1.8-0.8l-0.1 0.5l1.1-1l-0.8 0.4l-0.3-0.7l1.4-0.1l1.9-1l-1.9 0.7l0.5-1l0.3 0.3l1.3-0.6l-0.2-0.9l1.7 0l-0.7 0.7l4.7-2.6l2.7-2l-0.4-0.1l0.1-1.8l0.9-0.3l-0.2 1.1l0.7 0.2l-0.9 0.6l4.2-1.8l2.8-0.3l1.8 1l1.5 0.2l0.8-0.2l0-0.6l1.2-0.6l0.8 0.4l0.3 1l1 0.1l0 1.1l-0.6 0.3l1.9 0.8l1.7-0.8l0.4 1l1.1-1.3l0.1-0.9l2.1 1.7l-0.1 1.1l0.7-0.5l0.3 0.3l0.9-1l-0.5-0.7l-1.2-0.5l-0.4-1l1.7-1.1l0.2-1.2l-1.1 0.7l-0.5-0.5l0.7-0.6l-0.2-0.3l-1.2 0.6l-1.2 0l-0.3-0.5l1.1-1.2l2.2 1.1l1.4-0.9l1.8-0.4l3 0.3l0.9-1.5l0.3 1.8l-0.9 0.4l3.1-0.6l1.3-1.2l0 0.7l-1 0.5l4-0.8l0.2 0.4l-1.1 0.1l2.7 1.2l0.9 1.6l-0.5 0.6l0.3 0.4l4.1-1.2l0.6-0.8l1.1-0.2l1.1 0.9l2.6 5.6l-2.4 5.7l0.2 0.7l0.9-1.3l0.7 0.6l-1.8 1.9l0.9 3.4l1.1-0.3l-0.5 1.8l-0.4-0.6l-0.4 1.2l0.6 0.2l-0.1-0.6l0.7-0.1l0.1 3.2l1.2 0.9l0.5 2.7l-0.4 1.1l3.2-0.8l-1.3 1.8l1.9-2.2l-0.4 0l1.6-2.6l1.6-5.4l0-5.3l-0.4-0.6l0.9-3.2l-0.9-7.1l1.1-6.5l2.8-4.6l2.2-1.8l0.1-0.9l0.5 0.5l0.7-0.7l-0.2-0.4l2.7-0.9l0.3-0.7l3.1-1.8l2.8-3.1l2-1l1.9-0.1l3.4-3.7l4.1-1l-0.6 1l1.6-1.5l-0.8 0.6l-0.1-0.9l-1.2 0.2l1.5-1.7l-0.7-0.7l0.8-0.5l0.2 0.6l1.2 0.2l2.1-1.5l0.3-1.6l-1.2 1l0.3-1.1l-2.5 0.1l0.2-1l0.4 0.7l1.9-0.7l0.3-0.6l0.9 0.8l0.3-2.4l0.3 3.9l0.1-5.6l-1.9 0l-0.3-1.5l0.3-0.1l0.5 1.2l0.6-0.4l-0.4-1l0.5-0.6l0.5 0.1l0.2-1.1l-0.5-0.5l0.6-0.1l0.7-1.1l-2.5-2.5l0.6-0.2l0.2 0.7l0.3-0.2l1.4 1.2l-0.2-1.5l0.6 0.1l1.2-4.4l2.6-1.3l-0.3 0.7l-0.8 0.2l-1.4 1.9l0.4 0.5l-0.9 0.7l0.6-0.2l0.4 0.5l-0.9 0.2l-0.3 0.9l0.5 0.8l0.8-0.2l-0.6 1.7l0.6 0.3l-2.1 2.7l-0.3 1.2l5.8-6.5l-0.1-1l0.5-0.8l-0.5-1.6l0.2-1.7l1.7 1.5l-0.4 1l4.4-3.7l0.2-0.8l0.2 0.2l1.6-3l-0.9-0.6l4.3-0.7l5.7-2l-2.2 0.4l1-0.9l-1.7 0.8l-3.5 0.3l2.9-1.7l5.5-0.5l0.5-0.8l1.1 0.3l1.9-1l0.1 0.7l2.9-0.7l0.5-1.4l-0.3-0.6l-0.5 0.1l0.4 0.2l0 1l-1.6 0.3l-0.4-2.3l-0.8-0.6l2-1.3l-0.3-1.1l4.7-4.8l0.8 0.3l0.7-0.8l2.4-0.5l1.6-1.7l1 0.6l0.8-1.2l1 0.1l0.2 0.5l1.2-0.9l2.6-0.5l1-0.7l-0.3-0.4l0.5-1.1l2.4 0.2l1.5-1.1l0.8 0.5l4.8-2l1.2-1.3l0.4 0.7l-2.5 2l1.2 0.2l-7.6 4.2l0.7-0.2l-1.4 1.6l-0.4 1.6l0.9 0.2l0.4 1.1l1.2-0.1l0.3-0.5l5.1-3.3l0.4-1l0.5 0.3l0.7-0.7l1.1 0.7l0.4-0.9l1 0.2l9.6-3.1l-1.2-0.4l0.6-1l1.2 0.4l4.9-2.1l0.3-1.1l-1.2-0.1l-0.1-0.6l-2.3 1.7l0.7 0.2l-1.1 0.8l-0.9 0l0.9-1.4l1.9-1.1l1.4-2.2l0.2-1.2l-2.1 0.9l-3.1 3l-1 2.3l-1.2 0.1l-0.3-1l-2.4 1.2l-0.7-0.1l0.1-0.5l-3.5-0.6l-0.8-0.7l0.9-0.4l-0.2-0.3l-2.2-0.4l-0.1-2.7l0.6-1.1l-1.4-0.3l3.2-2.8l-0.9-0.6l-2.5 0.8l-0.4-1.1l-1.5-0.8l1.8-0.5l2 0.8l4.1-1.8l0.9-1.3l-0.4-0.5l0.7 0l0.1-0.5l-1.5-1.3l-2.3-0.3l-4.2 0.6l-9.5 3.5l-3.2 1.9l-5.7 4.3l-1.5 0.2l4.8-3.5l1.6-1.6l-1.9-1.1l2.5 0.6l7-4.6l3.6-0.7l2.9-2.9l2-1l4.6-0.5l9 0.1l2.7 0.3l0.4 0.6l6.2-0.7l7.5-4.6l5.7-0.8l5.9-3.2l-0.6-0.7l0.8-0.6l-1.2-0.3l1.3-0.4l1.1-2.5l-0.1-1.1l-1.4-1.3l-3.4 1.2l-0.2-0.5l1.6-0.8l-0.3-1.6l-2.8-0.3l3.7-1.5l-1.2-0.5l-0.2-0.7l-1.7 0.4l-1.1-0.2l-0.2-1.3l-1.3 0l-0.9-0.2l-0.1-0.5l-2.8 0.7l1.7-1.4l-0.3-0.7l0.4-0.6l-0.8 0.2l-0.2-0.8l-1.3 0.3l-0.7-0.4l0.5-1.1l-0.7-0.2l0.8-0.4l-1.2-0.2l0.5-0.5l-1.4-0.8l2.9 0.2l0.8-1.3l-1.5-1l0.4-0.7l-1.1-0.3l1-0.4l0.6 0.7l0.6-0.4l-0.8-0.4l0.7-1.2l-1-0.2l-0.3-0.7l-2.1 0.2l2.5-1.5l-1.7-0.1l1.2-0.7l-0.2-0.8l-0.6-0.1l0.4-0.7l-1.2-0.1l0.9-0.4l-0.1-0.5l-1.1-0.1l0.8-0.6l-0.3-1.2l-0.6 0.1l0.4-1l-0.7-0.1l0.5-0.7l-0.9-0.3l-2.1 1.7l0 0.5l-1.1 0l-0.3 1.2l-0.6 0l-0.2 0.6l-1.1 0.4l0.5 0.6l-2.5 0.9l-0.4 0.7l-0.7-0.6l-5.8 2.7l0.3-1.1l-0.6 0.3l-0.1-0.7l-1.1 0.6l0.5-1.6l-0.6-0.6l-2.8 0.1l1.6-1.7l-0.9-0.3l1-1.1l0.1-1l-1.4-0.4l2-0.2l0.7-1.5l2-1.4l0.2-0.6l-2 0.5l-0.5-0.8l-3.4-0.3l-0.4-1.2l0.8-0.5l-1.1 0l-0.2-0.8l-1.3-0.2l0.6-0.9l-2.4-1.3l-3.8 1.3l-1.8-0.7l-1.1 0.3l-4.6-1.2l-3.2 1l-0.9 1.7l0.8 1.1l-4 2.7l1.5 0.1l-0.7 0.6l0.5 0.3l-0.7 0.5l-0.1 1l-0.5 0.3l0.6 0.4l-1.4 1.4l-0.8-0.2l-0.9 1.1l-4.3 2.8l2.7 2.6l0.2 1l-0.4 2.4l-2.1 3.3l-1.6 1.5l-5.3 3l-8.2 2.6l0.6 2.1l-0.4 0.3l0.5 0.5l-1.2 1.4l-1.3 4.4l0 1.7l-3 2.1l0.2 1.2l-1.1 1.1l-0.6-1.6l-2.1 1.2l-0.8 1l-0.8-0.7l-1.1-0.1l0.4-2l-1.7-2l-0.9-0.1l1-0.9l-0.8-2.6l2.6-3.4l0.2-1.8l2.2-2.4l0.1-1.1l-1.6-0.7l-2.9-0.3l-4.6 0.4l0.2-0.6l-0.8-1l-4.9-1.8l-0.7-1.8l-1.5-1.4l-4.7-1.7l-1.7-0.1l-5.9 1.2l1.8-1.5l1.9-5.6l-3.1-0.1l-0.6 0.5l-1-1.8l5.2-5.5l5.9-3.7l2.8-1.1l-0.2-0.7l3-1.2l1 0.4l-0.1-0.7l1.2-0.6l2.1-0.2l-0.7-0.4l0.1-0.4l2.8 0l2.6-0.6l1.3-1.2l-3.5-1.7l1.2-0.1l2.8 0.8l2.4-0.4l0.8-0.4l0.2-0.5l0.8 0l0.1-0.7l2.2 0.7l0.3-0.5l1.3 0.3l2.8-0.8l5.8-3.3l-5.5-0.5l-1.6-1.5l-1.6-0.5l2.6 0l2.3 0.9l1.4 1.1l2.1 0l6.3-2.6l-1.4-0.7l0.4-0.6l3.4-0.2l1.9 1.2l2.4 0l0.3-0.3l0-1.6l0.7 0.2l0.3 1.1l0.9 0l7.5-2.2l1.7-1.4l-1.1-1.3l0.8-0.9l-0.7 0.1l-0.1-0.8l4.3-0.7l0.2-0.6l-0.9-0.3l1.9-0.6l-2.3-0.3l0.1-0.5l-0.6-0.3l1-0.4l-8.7-0.6l-1.3 1.8l0.9 0.6l-1.1 0.9l-2.2 0.2l-4.2 2.6l0.6-1.2l-0.5-0.2l-1.4 0.6l-0.5 0.8l1.3 0.3l-4.5 1.8l-0.9-1.8l0.1-0.6l1-1.1l1.5 0l0.9-1.6l-1.7-1.4l-2.5 0.8l-3.9 2.3l-0.4-0.7l1.5-1.2l-0.7-1.3l1.8 0.2l0.2-0.5l0.2 0.5l0.9-0.6l-2.7-0.2l0.4-0.4l-2.4 0.3l-1.9-0.3l3-1l-12.4 0l0.3 0.5l5.4 1.1l-1.9 0.4l-0.5 0.7l-2.2 0.9l2.6-0.5l-0.3 1.2l-5 1.5l-2.3 0.2l-1.5 0.9l-0.3 1.4l-0.7 0.5l-0.8-0.2l0.3-0.4l-1.4 0.1l0.1-0.7l3.5-2.4l-1.7 0.4l0.6-0.5l-1.8 0.1l-0.3-0.8l2 0.2l5.1-1.1l-1.1-0.3l-0.3-1.3l-2.5-1.5l-1.6 0.2l-0.8 0.9l-0.9-0.3l-0.6 0.7l-3.5 0.6l-0.7 0.7l2.9 0.2l1.3 0.8l-1.1 0.6l-2.6 0.1l-0.3 0.8l0.2 0.6l2.3 0.2l-1 0.7l-1.2-0.3l-0.9-1.1l-0.5 0.3l0.1 0.5l-1.6 0.3l-4.2-0.4l-5.9 0.4l-2.2-1.2l-3.1 0.1l0-0.5l-1.5-0.6l0.5-1.2l-1.6-0.3l-6.9 0.9l-2.4 1l0.7 0.4l1.8 0l0.9-0.5l4.5-0.2l-1.4 0.6l-4.7 0.5l-1.2 0.7l-1.1 3l-1.9-0.4l0.9-0.8l-0.7-1.1l-1.1 0.4l0.2-0.7l-1.6-0.1l-0.4-0.9l-8.4 1l-7.4-0.4l-0.2-0.4l5.9-1.5l-0.6-1l-2.2-0.7l-1.8 0l-0.1 0.4l-3-0.2l-6.1-1.3l-80.3 78.8zM266.5 48.7l0.1-0.9l1.9-1l4.2-0.8zM245.1 342.9l-1.6-0.6l1.4-1l1.1 0l1.6-3.5l-0.3 1.9l-1.1 2.1l1.3-0.3l-1.4 1.1zM234.1 4.5l0.5 1.1l2.5 0.4l3.8-0.5l0.5-0.5l3.1 0.1l0.3-0.2l-0.3-0.7l0.7-0.2l0.4 0.6l0.8 0.2l-0.2 0.6l0.9-0.6l1.5 0l-0.6 0.7l1.5 1.3l0.1 0.7l2.3 0.8l-1.8 0.6l1.2 1.3l0.6-0.1l2.1 1.2l2 0l0.7 1.2l1.5 0.6l3.2 0.4l2.9 1l0.9-0.1l1-1.1l-0.8-0.4l-0.4-1l-2.3-1.4l0.2-0.4l-1.3-0.3l-1-1.9l1.2-0.1l1.6 1.1l0.5-0.9l2 2.2l0.5-0.6l0.3 0.7l0.8-0.2l2.4 1.7l0.5-1.1l1.5 0l-0.4-1.2l0.6-1.5l0.6 1.5l1.8-1.6l-0.4-0.8l0.3-0.3l-1.4-0.1l-0.4-0.8l1.5-0.6l-0.8-0.2l0.7-0.5l-1.5-0.8l-0.9 0.3l-1-0.7l-0.5 0.3l-0.7-1.4l0.7-0.4l-0.9-0.7l-0.9 0.1l0.3-0.5l-0.6-0.4l0.3-0.7l-0.8-0.4l1.7 0.8l1.4 0.1l0.7-0.3l-1-0.8l0-0.6l1.6 0.5l0.3-0.9l1.1-0.2l1.7 1.7l0.9-0.1l-0.5 0.5l2.4-0.2l-1.6 1l1.1 2.2l0.6-0.4l1.9 1l1.4-1l0.9-1.3l-0.6-0.3l0.7-0.4l0.5 0.5l1.6 0.1l1.2-0.6l-0.1-0.6l1.8-0.1l-1.1-0.6l0.5-0.6l1.6 0.3l1-0.4l-0.7-0.7l2.1 0l-1.6-1.3l-4.6 0.6l2.2-1.2l-1.3-0.5l-1.3 0.3l0.1-0.7l0.8-0.2l-2.4-0.8l0.4-0.5l-0.3-0.2l-1.6 0.5l-1.3-0.3l0.1-0.3l-1.5 0.4l1.1-1l-1.9 0.4l-0.2-0.6l1-0.4l-3.4-0.2l-0.7-0.6l1.4-0.2l1-0.8l-1-0.5l4 0.2l0.7-0.4l-4.7-1l1.9-0.5l2.1 0.2l0.4-0.8l-30.2 0l-0.2 0.4l1.6 0.2l-0.5 0.5l1.8-0.1l-0.6 0.5l1.5 0.7l-2.9 0.7l-0.9 1l5.8-1l-0.5 0.6l0.6 0.1l0.6 0.7l1.3-0.3l-0.4 0.9l1.3 0.1l0.7 3.4l-9.4 3.5l1 1.4l-0.2 0.9l-7.3 0.7l0.1 0.6l-4.3-1.2l-0.8 0.9l-3 0.9zM287.5 465.4l-0.3 0.8l0.9-0.3zM283.1 470l0.8 0.2l-0.3-1.2zM258.9 74.7l3.4-0.6l5.4 0.7l3.5-1.1l-0.2 1l-1.1 0.4l1.9 0.2l1.1-0.9l1.8 0l-3.1 2.3l-1.8 0.7l-0.2 0.4l0.5 0.3l1.8-0.2l2.4-2.2l1.2-0.6l-0.1 0.6l0.3-0.1l1.9-2.1l0.5 0.5l0 1.4l-2.1 2.6l0.5 0.2l1.8-1.2l-0.6 2.2l2-0.2l2.9-4.1l-0.1-1l-1.7 0.9l1.9-2.5l-1.7 0.5l-2.1 1.5l-0.3-0.5l1.2-1.1l-0.4-0.2l2.8-1.5l0.8-1.2l-3.5 0.8l1.1-0.8l-0.7-0.3l0.4-0.4l-0.6-0.2l2.2-1.3l0.1-0.9l-1-0.5l-1.8 0.4l0-0.8l-3.5 1.8l0.9-1.7l-0.4 0.3l-2.5-0.3l0.9-0.7l-0.2-0.3l2-1.2l-2.2 0.2l0.1-0.8l-2.9 1.8l0.7-1.3l5.1-4.6l0.3-0.6l-0.6-0.1l0.1-0.6l1.9-0.5l0.4-0.7l-0.9 0.5l-1-0.4l-2.7 1.1l-1.9 1.4l-5.5 5.9l0 0.9l-0.6-0.2l-1 0.7l-0.1 0.6l0.5 0.3l-0.5 0.8l-1.1-0.3l-2 2.2l-0.5-0.2l0.3-0.4l-1.5 0.8l2.6 0.3l-4.4 2.6zM266.6 15.4l1.2 1.1l1.1-0.9zM267.8 78.3l0.6-0.2l0-1.1zM266.6 19.6l-0.8 0.4l1.2 0.2zM253.3 -6.4l0.1 0.5l3.4 0.1l0.3-0.6l-2.5-0.4zM255.2 333.9l1.7 0.2l0.2-1l-1.3 0.2zM254 20.7l2-0.6l0.1-0.6l-0.7 0zM253.3 332.1l-0.2 1.1l1.8 0.3l0.9-1.3l-0.8-0.6zM253.4 331.3l0.9-0.9l0-0.7l-0.9 0.3zM252.7 -8.1l0.8 0.6l0.8-0.4l-0.2-0.7zM251.2 10.9l0.7 1l1.6 0l-0.2-0.5zM252.4 321.6l0.5 0.8l0.4-0.5l-0.5-1zM251.8 333.1l0.8 0.3l0.5-1.3l-0.2-2.1zM244.6 -4.3l2.9 0.2l2.6-0.5l1.2-0.7l1.4-1.9l-1.9-0.3l-2.8 0.3l-3.1 1.7zM244.3 64.2l1.9 1.3l0.4 0.9l4.2 1.4l1.8-0.1l0-0.8l-3.6-2.2l-3.3-0.8zM250 334.7l0.5 0.6l1.1-1.6l-1.4 0.3zM249.2 -10.8l-0.5 0.7l2.4-0.6zM248.1 76.4l0.9-0.1l2.1-1.8l-2.3 1zM245 -11l1.1-0.1l1.9-0.5l-0.5-0.2zM238.3 79.2l0.8 0.2l-0.2 0.8l1.2 0.1l0.2 0.8l1.4 0.3l0.6-0.3l0.4 0.5l-0.5 0.3l1.7 0.4l0.4-1.1l2.2-1l-0.3-0.3l-3.7 0.3l-1.7-0.7l-0.6 0.4l-0.5-1.4l0.9-1.3zM242 -9.1l1.8-0.3l2.6-1.2l-3.7 0.9zM242.1 -12.5l2 0.3l2.2-0.3zM244 -11.7l-4.2 0.1l1.9 0.5l0.2-0.4zM234 -12.5l1.8 0.4l2.4-0.3l1.7 0.5l-0.5-0.6zM233.7 8.3l1.3 0.7l0.6-0.6l-0.9-0.4zM229.6 8.9l1.1 1.1l1.6-0.4l-0.3-0.7zM203.1 8.3l4.5-0.4l-0.4 2.1l3-0.7l6.6-3l1.8 0.8l-0.2 0.8l3.5 0.9l3.4-1.2l-1-1.1l-2.9 0.2l0.6-0.6l0.1-1.5l-2.7-1.1l-0.4-0.6l-1.5-0.3l-0.6-0.8l-1.8 0.7l-0.3-0.8l0.8-1l-0.6-0.4l-1.1 0.3l-5.4 4.3l-1 1.5l-2.8 0.8zM219.8 14.9l0.8 0.7l0.6-0.2l2.7-2l0-0.7l-1.9 0.1l-1.4 0.9zM218.8 -0.3l0.4 0.6l-0.3 0.5l0.8 0.3l1.8-0.1l-1.2-0.4l0.2-0.5zM209.8 13.5l4.3-0.9l3.4-1.9l-4.5 0.1l-3 1.6zM216.5 257.4l0.4 0.5l0.5-0.5l-0.6-0.9zM216 0.6l0.5 0.9l0.6-0.4l0-1.1l-0.6-0.1zM210.9 247.6l0.1 1.2l0.4 0.4l-0.2 0.7l0.9 0.2l-0.2-1.8zM209.5 239.2l0 2.2l0.8-1.8l1.5 0.1l-1.1-1.4l-0.4 1.2zM210.5 268.8l1.2-0.5l0.1-0.4l-0.8 0.3zM210.8 253.3l0.4 0.9l0.4-2.2zM210.2 243.3l-0.1 0.6l0.2 1.7l0.4-0.2l0.2-1.5zM208.9 37.1l1-0.6l0.5-0.7l-0.6 0.2zM209.4 235.1l0.5 0.4l0.4-0.6l-0.5-0.4zM205.3 275.1l3.9-0.4l0.1-3l0.6-1l-3.2 0.7l0.7 0.7l-0.2 1.8zM204.5 38.1l1.2-0.5l-0.6 0.8l1-0.3l1.5-0.9l-0.4 0.9l2.2-2.2l-0.6-0.8l-0.9 0.9l0.2-0.6l-2.8 1l-0.1 0.4l1.2-0.2zM204 600.2l0.9 0.7l0.1 0.5l-0.6 0l0.3 0.8l1.9 0.3l-0.3-1.4l0.4-0.4l0.3 1.2l1 1.3l0.6 0l-2.6-5.7l-1.4-0.1l0.4 1l-0.5 0.9l0.5 0.5zM206.8 264l0.7-0.3l0.1-1l-0.5 0.3zM206.5 105.1l1 0.1l0-0.7zM204.5 104.9l1.2-0.3l0-0.2l-0.5-0.1zM201.8 593.9l2 2.6l1.7 0.3l-2.6-3.5zM202.4 598.1l0.9 0.9l0 0.7l1-1.5l-0.4-0.6zM200.8 594.4l1.3 3.1l1.3-0.6l-2.2-2.8zM201.3 592.7l0.3 0.6l0.8-0.4l-0.1-0.2zM200 583.4l0.2-0.6l-1.1-2.1l1.9 0.8l0-1.1l-2.1-2.5l0.5-1.5l-1.4-0.7l0.1 1.2l-1.3 0.4l0.3 0.5l-0.3 0.4l2.3 2.3l-0.5 0.3l0 2.2zM199.7 577.7l0 0.5l1 0.9l-0.4-1.1zM196.8 574.2l0.9 0.5l0.5-0.3l-0.4-0.4zM193.1 564.3l1.5 5.3l0.1 1.7l2.3 0.7l-0.1-1l0.7-1.1l-1.9-1.7l0.9-0.6l-0.5-0.8l0.1-0.6l-0.9-1.4zM195.1 269.9l1.7 0.5l0.8-0.6l-0.3-1l-0.6 0.9l-0.8-0.4zM194.3 -10.7l0.5-0.2l0.1 0.3l1.6-0.5l-0.9-0.3zM187.7 229.9l5.2 0.1l1.6-1.5l0.1-0.8l-6.3-0.7l-0.6 0.8zM190 50.1l3.5 1.4l0.6-0.8l-0.6-1.2l-2.5 0zM157.5 227.3l2.1 2.3l0.7-0.8l1.6-0.4l2.1 0.6l3.5-0.4l1 1l0.3-0.2l0.1 1.7l0.7 0.8l2.3-3.6l1.6-0.3l0.6 0.6l3.2-1.3l2 0.1l1.4 0.1l0.9 1.1l1.8-2.2l-1.2-1.7l-3.6-1.2l0.1-0.5l1.6-0.3l-2.1-0.2l-0.6-2.1l-1.1 0.2l-2.9-1.5l-1.2 0.3l-1.3-0.2l-1.2 1.1l-4.3-1.3l-1.9 0.4l-0.5 1.1l1.4 0.3l1.2 0.9l-0.7 2.1l1.5 2.2l-0.2 0.6l-1.8 0.8l-6.1-1.3zM133.7 -12l0.3 1.1l0.9 0.3l6.3 0.4l-0.9 1.4l0.1 0.7l0.9 0.1l10.8-0.6l7.1-1l3.9-1.3l0.4 0.1l-0.2 0.6l0.3 0.2l2.7 0.2l-0.4 0.5l6.2 0.3l3.7-0.6l1-1.2l-1.2-0.2l-2.2 0.6l0.3-1.1l1.6 0.3l1.7-0.8l1.7 0.4l0.8-0.4l0.8 0.4l1.4-0.9l-47.4 0zM178.7 -8.9l0.4 0.2l1.3-0.6l-0.3-0.3zM178.9 262.3l0.2 0.7l0.1 0.8l0.2-1.1zM175.5 261.8l0.6 1.4l0.8 0.6l-0.1-0.7zM173.3 -8.6l1.6 0.1l0.4-0.4zM171.2 207.8l0.6 0.7l0.7 0.3l0-0.5l-0.9-0.1l0-0.6zM167.1 204.8l-0.2 0.5l1.7 0.3zM163.3 213.3l2.1-0.2l0.8-1.9l-0.9 0.9l-1.1-0.2l-0.8 0.5zM163 224.5l-0.1 0.3l1.8 1l-0.3-0.8zM162.1 206.4l1.4-1l0.9-2.1l-0.5 0.3l-0.1 1.1zM163.6 203.4l-0.5-0.3l-0.4-0.4l0 0.7zM159.2 200.9l1 0.5l0.3 1.1l0.1-0.7l-0.7-0.8l-0.5-2.9l0.3 2.2zM117.6 208.2l1.5-0.4l0 0.8l2.1-0.9l0.9-1.3l2.2-0.3l3.2-2.6l3.7 0.1l0.4 1l-1.7 0.6l0.7 1l2.3 0.6l0.6-0.7l0.4 0.9l2.4-0.1l0.7 1.2l3.3 1.6l2.5 0l0.5 3l1.2 1.6l3.6 0.7l0.3 1.3l-3.1 3.1l6.6-0.8l3.6 0.6l0.6-0.5l0.1 0.4l3.8-1l0.5-0.5l0.1-0.7l-1.4-0.5l-1.3-1.5l-3.3-0.4l0.7-1.5l-0.4-0.7l-4.3-1.3l-0.9-1.3l-0.8 0.5l-0.2-0.6l0.9-0.2l-1.3-1.3l-0.6 0.4l-3.7-3.2l-2.4-0.2l-1.9-2.3l0.2-0.4l-2.2-0.3l-1-0.9l-2.1 0.3l-0.4-0.6l-3.4-0.1l-5.1 1.2l-4 1.9l-1.3 1.4l-0.2 1.7zM159.1 192.4l0.6 2.4l-0.5 0.7l0.9-0.1zM155.6 188.4l1.5 0.6l0.6 1.1l-0.5 1.6l-0.5 0.1l0.4 0.9l0.8-2.7l-1.9-2.4zM156.6 198.1l-0.2 0.4l1.3 0.8zM152.8 180.3l1.6 0.3l0.8 1.6l-0.6 2.2l-0.8 0.7l0.5 0.7l1.4-2.4l0.1-1.1l-1.4-2zM151.5 -4.7l0.2 0.4l0.6-0.4l0.3-0.7zM148.2 181.5l0.7 1l3.6-0.9l0-0.4l-1.8 0.2l-0.8-0.5l-1.1 1.1zM149 195.1l0.4 2.5l0.8 0.1l0.4-2.6l-0.4 0.4l0.1-0.8zM147.7 192.8l1.1 0.8l0.1 1.1l1.5-1l-0.2-3.4l-0.8-0.6l-0.8 2.9zM141.1 228.2l1.2 0.7l0.8 1.6l1.7 0.3l0.6 0.6l0.5-0.8l0.7 0.1l0.5-0.7l1.3 0.6l1.3-0.3l-0.3-1.3l-3.1-1.5l-3-0.6l-1.5 0.4zM146.8 206.9l0.7 0.9l0.5-0.7zM144.1 204.4l1.6 0.4l0.7 1.5l0.8 0.2l-1.6-2.1zM132 284.4l-0.4 0.1l0.1 1.2l0.4-0.7zM129.2 222.6l1.3-0.1l-1.2-0.4zM124.4 209.5l0.7 1l1.9-1l-0.3-1.5l-1.1-0.3l-0.6 0.8l0.2 1.2zM124.3 350.8l0.6 0.1l1-1.7l-0.4-0.3l-1 0.5zM118.8 290.2l0.8 0.7l0.2-0.3l-0.5-1.4zM106.9 217l1-1.1l0.3-0.6l-1 0.5zM99.8 165.8l0.6 0.5l0.4-0.4l-0.5-0.5zM83.9 338.6l0.3 0.3l1.1-1.5zM79.9 337.3l0.6 0.6l0.9-0.7l-0.4-1l-1.1 0.6zM78.5 335l1 0.5l0.3-0.5l-1-0.7zM75.3 333.4l0.7 0.2l0.3 1.5l1 1.5l-1.5 1.8l0.5 0.9l2-0.4l0.5-1.1l-2.5-5.1zM75.1 335.1l0.5 1.1l0.6-0.4l-0.3-0.9zM12.7 165.8l-0.3 0.9l0.8 2l0.5-1.4l-0.6-0.2l0.1-0.8zM9 193.3l0-1.7l1-2.4l-1.5 2.7zM2.4 173.8l0.6 0.3l0.5-1.8zM1.8 145.1l0.1 0.8l0.6 0l-0.1-0.5zM-2.1 142.3l1.3 0l0.1-0.3l-1.1-0.1z","pays":{"can":"M249.8 -12.5l-0.2 0.4l2 0.2l-1.1 0.4l0.2 0.1l2.4-0.1l-1 0.2l-0.2 0.3l1.8 0.8l-1.4 0.5l-1.8 0.1l-0.9 1l6.4-1.1l-0.9 0.3l0.5 0.1l-0.7 0.3l0.6 0l-0.1 0.3l0.7 0.5l0.8 0l0-0.4l0.9 0l-0.8 1l1.6 0l-0.4 0.3l0.7 1.4l0.1 1.8l-2.3 0.7l-1.5 1l-5.6 1.8l0.1 0.6l0.9 0.8l-0.1 0.9l-7.4 0.7l0.6 1l-0.7 0.5l-0.2-0.2l0.6-0.5l-0.5-0.6l-4-0.8l-0.7 0.4l-0.1 0.5l-3 0.9l-1 0.9l0 0.6l0.5 0.5l2.5 0.4l3.8-0.5l0.5-0.5l3.1 0.1l0.3-0.2l-0.3-0.7l0.9-0.2l0.2 0.6l0.9 0.1l-0.3 0.7l0.9-0.6l2 0l-1.1 0.7l1.5 1.3l0.1 0.7l1.2-0.3l-0.8 0.6l1.4 0l1 0.5l-2.3 0.6l1.2 1.3l1.4-0.2l-0.8 0.4l2.1 0.9l2 0l0.7 1.2l1.5 0.6l3.2 0.4l2.9 1l0.9-0.1l0.2-0.7l0.8-0.4l-0.8-0.3l-0.4-1.1l-2.5-1.5l0.4-0.3l-1.3-0.3l-1.1-1.9l1.3-0.1l1.6 1.1l0.3-1.1l1.1 1.4l0.7 0.1l0.4 0.9l0.6-0.7l0.2 0.8l0.5 0.1l0.3-0.4l2.4 1.8l0.5-1.1l1.5 0l-0.4-1.2l0.7-1.8l0.5 0.6l0 1.2l0.5 0l0.8-1.5l0.5-0.1l0-0.7l-0.7-0.1l0.6-0.3l-1.5 0l-0.1-0.8l-0.6-0.2l1.2 0l0.7-0.5l-1.2-0.2l1.1-0.4l-0.3-0.4l-1.2-0.5l-1.2 0.5l0.2-0.4l-0.9-0.5l-0.6 0.6l0.2-0.9l-0.4 0l0-0.6l-0.5-0.3l0.8-0.3l-0.9-0.7l-1.3 0.3l0.7-0.7l-0.7-0.4l0.4-0.7l-1.3-0.4l1-0.1l1.2 0.9l1.4 0.1l0.7-0.3l-1-0.8l-0.1-0.6l1.7 0.5l0.3-0.9l1.1-0.2l0.8 1.2l0.9 0.5l1.4-0.3l-1 0.7l2.7-0.3l2.2-0.8l-4.1 1.9l0.2 1l0.9 1.2l1.5-1l-0.7 0.8l0.3 0.4l0.9-0.2l0.5 0.6l1.4-1l0.9-1.3l-0.8-0.2l0.8-0.1l0.2-0.5l0.4 0.6l1.6 0.1l1.2-0.6l-0.3-0.7l2 0l-1.3-0.7l0.6-0.2l-0.2-0.3l1.9 0.3l1-0.4l-1.1-0.7l1.6 0.3l0.9-0.3l-1.6-1.3l-1.1 0.4l-4.2 0.3l2.9-1.3l-1.3-0.5l-1 0.4l-2.2-0.2l-0.2-0.1l2 0l0.2-0.5l0.8-0.2l-1.8-0.9l-1.2 0.2l1-0.6l-0.3-0.2l-1.7 0.5l-0.4 0.7l-0.2-0.3l0.5-0.7l-1.4 0.1l0.4-0.4l-2.3 0.7l1.9-1.3l-1.4 0.2l-0.5 0.5l0-0.3l-0.7 0.2l0.6-0.4l-0.3-0.4l1.2-0.4l-3.4-0.2l-0.4-0.6l-3-0.5l4.1 0.3l1-0.8l-1.7-0.4l-2 0.2l3.6-0.4l3.1 0.3l0.7-0.4l-1.2-0.5l-3.5-0.4l-2.3 0.2l4.2-0.8l2.1 0.2l0.5-0.4l-0.1-0.4zM286.9 -3.4l0.4-0.1l1.1-0.4l-0.7 0zM278.9 57.2l0.4-0.7l-0.8 0.2l-0.1 0.4l-1-0.5l-2.7 1.1l-1.9 1.4l-0.3 0.7l-1.2 0.7l0.3 0.4l-1.1 0.5l-3.2 3.6l0.1 1l-0.7-0.3l-1 0.7l-0.1 0.6l0.7 0.2l-0.7 0.7l0.2 0.4l-1.3-0.5l-2 2.3l-0.6-0.3l0.4-0.4l-1.5 0.8l2.9 0.2l-4.7 2.7l-0.1 1.6l2.2-0.2l1.2-0.4l-0.1 0.2l5.5 0.5l3.7-1.1l-0.4 1l-1.1 0.4l1.9 0.2l1.1-0.9l2.1 0l-3.4 2.3l-1.8 0.7l-0.2 0.4l0.5 0.3l1.8-0.2l2.4-2.2l1.7-0.8l-0.6 0.8l0.3-0.1l1.8-2.1l0.6 0.4l0 1.5l-2.1 2.6l0.5 0.2l2-1.4l-0.8 2.4l1.1-0.4l0.9 0.2l2.9-4.1l-0.1-1l-1 1l-0.9 0.3l0.5-1.2l1.6-1.7l-1.7 0.5l-1.7 1.6l-0.6 0l-0.1-0.7l1.2-1l-0.9 0l1.2-0.3l0.1-0.5l2-0.9l0.8-1.2l-4.3 1.2l1.9-1.2l-0.9-0.2l0.6-0.5l-1.1 0.1l2.7-1.6l0.1-0.9l-1-0.5l-1.3 0.1l-0.6 0.4l0.1-0.9l-3.8 2l1.2-1.9l-0.7 0.6l0.1-0.5l-2.6 0.1l1.2-0.9l-1.1 0.2l2.9-1.7l-1.4-0.1l-1 0.3l0.3-0.8l-3.2 2.3l1-1.8l5.1-4.6l0.3-0.6l-0.7-0.1l0.1-0.6zM281 64.8l-0.6 0.1l-0.3 0.6l1.2-0.3zM123.5 -10.6l-79.9 78.8l89 0l1.1-1.7l0.9 0.3l-0.7 1.4l0 1.2l1.8 0.4l0.8 0.6l2.8-0.4l1.3 0.8l-0.1 0.7l1.5-0.1l1.1 1.1l2.6-0.7l0.4 0.5l2.3 0l0.4 0.5l1.6 0l4.7-1.4l9.1 6.5l-0.3 1.3l0.4 0.8l1.7-0.4l-0.5 2.2l1.4-0.2l0.3 0.6l-0.9 0.9l2.7 2.2l-2.5 8.5l-3.7 4.7l-2.7 1.6l-0.6 0.7l-0.2 1.6l0.9 0.7l1 0l5.5-2.6l4.2-0.8l5.5-2.1l0.7-0.5l0.2-2.7l1.5-0.6l7.6-0.2l2.3-2.1l5.4-3.5l6.5-2.7l0.1-0.4l-1-0.5l1 0.2l1.6-1l1-0.2l2.8-2.2l3.5-1.7l4-1.1l6.5-4.4l1.6-1.6l-0.5-0.5l-3.2-1.2l4.3 1.2l4-2.9l3.1-1.7l3.5-0.7l2.9-2.9l2-1l4.6-0.5l7 0.4l2-0.3l2.7 0.3l0.4 0.6l3.6-0.7l2.6 0l7.5-4.7l4-0.7l1.7 0l5.9-3.2l-0.9-0.9l0.8 0.1l0.3-0.5l-1.9-0.3l2-0.4l0.4-1.5l0.7-1l-0.1-1.1l-1.4-1.3l-1.1 0.2l-2.2 1.1l-0.4-0.6l1.7-0.8l-0.3-1.6l-3-0.1l-0.2 0.4l1.3 0l-2.7 0.5l-7.2 3.1l1.2-1l-0.6-0.7l0.7 0.3l1.6-1l4.5-1l1-0.7l2.9-0.7l1.4-0.9l-1.2-0.5l-0.2-0.7l-1.7 0.4l-1.2-0.2l-0.1-1.3l-0.8-0.2l-2.7 1.6l2.1-1.5l-0.8-0.1l-0.1-0.5l-3.4 1l2.3-1.7l-0.4-0.7l0.5-0.6l-0.8 0.3l-0.2-0.9l-1.3 0.3l-1-0.6l0.6-0.2l0.2-0.7l-1.2 0l1.3-0.6l-1.6-0.2l0.9-0.5l-2-1.1l3.5 0.5l0.8-1.3l-0.6-0.7l-1-0.3l0.5-0.7l-1.7-0.3l2-0.5l0.7-1.2l-1.1-0.2l-0.2-0.7l-2.8 0.5l1.9-0.7l1.3-1.1l-2.1 0l-1.4 0.5l3-1.3l-0.2-0.8l-0.7 0l0.5-0.8l-2.4 0.1l2.1-0.6l-0.1-0.5l-0.9 0.2l0.2-0.3l-0.5-0.1l0.9-0.5l-0.3-1.2l-0.7 0.3l0.7-0.9l-0.2-0.3l-1.7 0.2l1.5-0.7l0-0.3l-0.9-0.3l-2.1 1.7l0.2 0.5l-1.3 0l-0.5 0.9l0.9 0.6l-1.3-0.3l-0.1 0.6l-1.2 0.4l0.1 0.4l0.6 0.2l-1.2 0.1l-1.5 0.8l-0.2 1l-0.6 0.5l0.3-0.9l-0.6-0.5l-1.9 1.2l-3.4 1.1l-0.9 0.9l0.7-1.6l-1.6 1l0.9-0.6l0-0.8l-2.3 1.8l-2.4 0.6l2.9-1.1l1.1-1.3l0.1-1l-0.6-0.6l-2 0.1l-2.1 0.7l-1.1-0.3l1.7-0.7l0.2 0.5l0.5-0.2l1.6-1.7l-1-0.1l1.1-1.3l0.1-1l-2.7-0.4l3.3-0.2l0.7-1.6l2-1.3l0.2-0.6l-2.1 0.5l-0.4-0.8l-3.4-0.3l-0.6-0.7l0.5-0.3l-0.6-0.1l1.1-0.6l-0.5-0.3l-1.4 0.4l0.8-0.4l-0.2-0.5l-0.7-0.3l-1 0.3l1-1.1l-0.6 0l-1.8-1.3l-3.6 1l-0.2 0.3l-1.8-0.7l-1.7 0.5l0.5-0.3l-4.5-1.1l-3.2 1l-0.9 1.7l0.9 1l-4.1 2.8l1.9 0l-1.1 0.7l0.6 0.3l-0.8 0.5l-0.1 1l-0.5 0.3l0.7 0.2l-1.5 1.3l0.2 0.4l-1-0.3l-1 0.7l0.1 0.4l-3.5 1.9l-0.8 0.9l-0.1 0.3l2.8 2.3l0.2 1l-0.4 2.4l-2.1 3.3l-1.6 1.5l-5.3 3l-8.2 2.6l0.2 1.7l0.5 0.4l-0.5 0.3l0.6 0.4l-0.5 0.3l0.2 0.5l-1 0.7l-0.8 2.7l0.1 0.8l-0.6 0.9l0.1 1.7l-3.1 2.1l0.2 1.2l-1.4 1.4l0.2-1.2l-0.5-0.7l-2.1 1.2l-0.6 1l0.4 1.6l-0.7-1.8l-0.7-0.5l-1.2-0.1l-1.8 0.8l2.1-1.2l0.2-1.6l-1.7-2l-1.2-0.1l1.3-0.9l-0.8-2.6l2.6-3.4l0.1-1.8l2.3-2.4l0.1-1.1l-1.6-0.7l-2.9-0.3l-4 0.1l-1.6 0.9l1.2-1.2l-0.8-1l-4.9-1.8l-0.7-1.8l-1.5-1.4l-2.7-0.7l-2-1l-1.7-0.1l-6.6 1.3l2.5-1.6l1.9-5.6l-3.1-0.1l-2.1 1.8l1.5-1.7l-1.1-1.4l1.2-0.8l4.2-4.4l-0.1-0.3l1.1-0.4l4.8-3.3l2.8-1.1l-0.3-0.6l0.8 0l2.2-1l-0.4-0.6l1.5 0.7l-0.1-0.7l1.2-0.6l2.1-0.2l-0.8-0.4l0.2-0.4l2.8 0l2.6-0.6l1.3-1.2l-2.3-1.4l-2.4 0.5l1.4-0.5l-3-0.9l0 0.4l-0.8-0.1l0.4-1l3.1 1.3l1.2-0.1l2.9 0.8l2.4-0.3l0.8-0.5l0.1-0.6l0.9 0.1l0-0.6l0.8-0.2l0.2 0.5l1.3 0.3l0.2-0.5l1.4 0.3l2.8-0.8l5.8-3.3l-5.5-0.5l-1.6-1.5l-2.8-0.4l-0.5 0.3l-0.7-0.5l5 0.1l2.3 0.9l1.4 1.1l2.1 0l6.3-2.6l-1.5-0.8l0.4-0.5l3.5-0.2l1.9 1.2l1.3-0.3l1.1 0.3l0.3-0.3l-0.1-1.3l-0.8-0.8l-1.2 0.1l1.2-0.4l0.7 0.2l0.4 0.4l-0.3 0.2l0.9 0.2l0.2 1.1l0.5 0.1l7.9-2.3l1.7-1.4l-1.1-1.3l0.8-0.9l-0.7 0.2l-0.2-1l4.4-0.6l0.2-0.6l-1.6-0.1l2.6-0.8l-2.4-0.3l0.2-0.5l-1.1-0.2l1.5-0.5l-5.1-0.6l-3.6 0l-1.3 1.8l1.1 0.5l-1.3 0.7l0.5 0.2l-2.7 0.3l-2.5 1.9l-3.6 1.9l-3.2 1l-0.9-1.9l0.2-0.6l0.9-1.1l1.6 0l0.9-1.6l-1.7-1.4l-2.5 0.8l-3.9 2.3l-0.4-0.6l1.5-1.3l-0.1-0.7l-0.9-0.5l2.9-0.5l-2.8-0.2l1-0.4l-2.4 0.3l-0.7-0.4l-1.7 0l3.5-0.9l-12.4 0l0.3 0.5l2.6 0.7l0.8-0.2l0.5 0.6l2-0.2l-0.1 0.4l0.3 0l-1.4 0.5l1-0.6l-2.2 0.3l-0.5 0.5l0.4 0.1l-2.6 1l1.6 0l1.3-0.7l0.1 0.4l-0.6 0.8l0.5 0l-5.6 1.7l-2.3 0.2l-1.5 0.9l-0.3 1.5l-1.4 1l-2 0l0.1 0.8l-0.4 0.3l-0.5-1.5l2.9 0.2l0.5-0.5l-1-0.1l0.6-0.4l-1.4 0.1l0.1-0.7l3.5-2.4l-2.9 0.7l1.8-0.8l-1.9 0.1l-0.3-0.7l-1.3-0.1l-0.4 0l0 0.4l-2.6 0.1l0.1 0.7l-0.4 0.1l0.2 0.6l1.6-0.2l1.2 0.4l-1.6 0.7l-1.1-0.3l-0.9-1.1l-0.5 0.3l0.3 0.5l-1.8 0.3l-4.2-0.4l-3.8 0.5l-2.1-0.1l-2.2-1.2l-3.2 0.1l-0.2-0.2l0.3-0.3l-1.5-0.6l0.5-1.2l-1.6-0.3l-6.9 0.9l-2.4 1l0.7 0.4l1.8 0l0.9-0.5l3.1-0.1l1-0.5l2.4-0.2l-3.4 1.2l-4.7 0.5l-1.2 0.7l-0.4 0.4l0.2 0.6l-0.6 0.7l0.2 0.6l-0.4 0.7l-1.5-0.3l-0.7 0.8l0.1 1.1l-1.2-2.3l1.6 0l0.6-0.5l-0.7-1.1l-1.3 0.6l0.4-0.9l-1.6-0.1l-0.4-0.9l-8.4 1l-7.4-0.4l-0.6-0.3l3.4-1.1l2 0l0.9-0.5l-0.6-1l-2.2-0.7l-1.8 0l0 0.4l-3.1-0.2l-3.5-1zM280.1 55.2l0.5-0.2l0.2-0.3l-0.3 0.1zM279.2 65.4l-1.2 0.2l0.1 0.3zM277.5 60.5l0.3-0.2l0.2-0.2l-0.5 0zM277.6 -11.3l0.3-0.2l-1.4 0.1zM276.7 75.4l0.7-0.9l-1.1 1.1zM271.2 12.1l-1.2 0.3l0.8 0.3l1-0.4zM269.8 31.4l-1.1-0.1l0.5 0.5l0.5 0zM269.2 37.2l-0.3-0.2l-0.6 0.4l0.2 0.1zM267.8 16.5l1.1-0.9l-0.2-0.3l-2.1 0.1l0 0.3zM268.1 14.3l-0.3 0.3l0.7 0.5l0.3-0.2zM266.7 20.5l0.3-0.3l-0.4-0.6l-0.7 0.1l-0.1 0.3zM256.8 -5.8l0.3-0.6l-2.5-0.4l-1.3 0.4l0.1 0.5zM254 20.7l2-0.6l0.1-0.6l-0.7 0zM253.5 -7.5l0.8-0.4l-0.2-0.7l-1.4 0.5zM249.2 82.5l2.7-1.6l1.4-2.2l0.2-1.2l-2.1 0.9l-3.1 3l-0.9 2.1l0.3 0.7l2.3-0.1l3.7-1.6l-0.2-0.4l0.5-0.7l-1.3-0.1l0-0.6l-2.3 1.7l1.1-0.1l-1.4 1.1l-1.3 0.2l0.4-0.9l0.8-0.4zM253.5 11.9l-0.2-0.5l-2.1-0.5l0.7 1zM252.7 -7.2l-1.9-0.3l-2.8 0.3l-3.1 1.7l-0.3 1.2l2.9 0.2l2.6-0.5l1.2-0.7zM250.8 67.8l1.8-0.1l0-0.8l-3.6-2.2l-3.3-0.8l-1.4 0.3l2 1.3l0.3 0.9zM249.2 -10l1.9-0.7l-1.9-0.1l-0.5 0.7zM248.6 76.2l2.5-1.7l-2.3 1l-0.7 0.9l0.9-0.1zM250.4 92.1l0.4-0.4l-1.6 0.3zM248.8 84.6l0.3-0.4l-0.6 0.1zM248.5 25.2l0.1-0.3l-0.9 0.8zM197.2 86.9l11.8 0l1.2-1.3l1.3-0.3l0.4 0.4l3.4-3.1l2.7-3.8l4.3-3.5l0.6 0.2l-0.3 0.7l0.3 0.3l2.8-0.6l1 1.2l-2.6 6.4l1.1 0.6l-0.8 1.5l0.3 0.6l1.3 0l0.2 0.4l1.7-0.1l1.3-0.6l0.1-0.6l0.7-0.3l-0.5 0.4l0.7 0.5l4.8-2l1-0.8l0.1-0.7l0.3 0.7l0.7-0.1l-3 2.3l1.1-0.3l4.5 0.2l-3 0.7l-0.5 0.9l-0.6-0.5l0.4-0.8l-0.3-0.2l-0.2 0.4l-5.8 2.7l1-0.3l-0.6 0.4l-1.7 0.6l-0.7 0.6l1.3-0.7l-2 2.1l-0.4 1.6l0.2 0.3l0.7-0.2l0.4 1.2l1.2-0.1l0.2-0.5l2.1-1l3.1-2.3l0.3-1l0.5-0.2l0.1 0.5l0.6-0.7l0.5 0.6l0.7 0.1l0.4-0.9l1 0.2l9.6-3.1l-1.5-0.4l0.8-0.4l0-0.6l-0.3-0.5l-1.1 0.1l-0.3-1l-2.4 1.2l-0.9-0.1l0.3-0.5l-2.1 0l-0.6-0.6l-0.7 0.1l-1-0.8l1-0.4l-0.2-0.3l-2.2-0.4l-0.1-2.7l0.6-1.1l-1.7-0.2l2-1.3l1.5-1.6l-1.2-0.3l0.3-0.3l-2.5 0.8l-0.4-1.1l-1.6-0.7l-1.3 0.2l3.2-0.8l2 0.8l4.1-1.8l0.9-1.3l-0.7-0.7l1.1 0.2l0-0.5l-1.5-1.3l-2.3-0.3l-4.2 0.6l-9.5 3.5l-3.2 1.9l-5.7 4.3l-3.3 1.3l-3.5 1l-5 2.5l-2.7 2.8zM248 -11.6l-0.5-0.2l-2.5 0.8l1.1-0.1zM240.2 80l-0.5-1.5l0.9-1.3l-2.3 2l0.9 0.2l-0.3 0.8l1.3 0.1l0.1 0.8l1.4 0.3l1.2-0.7l-0.5 0.4l0.4 0.5l-0.6 0.3l0.5 0l0.2 0.4l1 0l0.4-1.1l2.2-1l-0.3-0.3l-3.7 0.3l-1.7-0.7zM242 -9.1l1.8-0.3l2.6-1.2l-1-0.1l-2.7 1l-0.8 0.4zM246.3 -12.5l-4.2 0l2 0.3zM244 -11.7l-2.8-0.2l-1.4 0.3l1.9 0.5l0.2-0.4zM241.8 11.6l-1.8-0.1l1 0.3zM240.9 -7l0.9-0.3l0-0.1l-0.8-0.1zM240 73.2l0.5-0.2l0.1-0.2l-0.1 0zM240.3 73.3l-0.6 0.1l-0.3 0.6l0.2 0zM239.4 -12.5l-5.4 0l1.8 0.4l2.4-0.3l1.7 0.5zM235 9l0.7-0.4l-0.1-0.2l-0.9-0.4l-1 0.3zM233.5 -12.5l-3.5 0l1.6 0.1zM229.6 8.9l1.1 1.1l1.6-0.4l0-0.6zM226.7 90.5l0.3-0.1l0.4-0.5l-0.2 0zM225.3 88.7l0.6-0.2l0.3-0.5l-0.5 0.1zM215.1 2.5l-0.4-0.9l0.8-0.3l0.1-0.6l-0.6-0.4l-1.1 0.3l-1.6 1l-3.8 3.3l-0.9 1.5l-2.9 0.8l-1.6 1.1l4.7-0.4l-0.8 2l0.2 0.1l3-0.7l6.6-3l0.7 0l-0.2 0.5l1.4 0.3l-0.3 0.8l3.5 0.9l3.4-1.2l-1-0.4l0.4-0.1l-0.4-0.6l-3.5 0.3l1.2-0.7l0.1-1.5l-2.7-1.1l-0.4-0.6l-1.6-0.3l-0.5-0.8zM223.9 12.7l-1.9 0.1l-1.4 0.9l-0.8 1.2l0.8 0.7l0.6-0.2l2.7-2zM223.8 -12.5l-1.1 0l0.5 0zM223.7 -0.9l-0.4-0.2l-0.2 0.2l0.3 0.2zM221.8 18.9l1.1-0.2l0.6-0.2l-1.3 0.2zM220.2 0.6l0.3-0.5l-1.7-0.4l0.5 0.6l-0.4 0.5l1.3 0l-0.5 0.3l1.8-0.1zM217 -5.6l1.2-0.5l0.8-1.1l-0.5-0.2l-1.4 0.6l-0.5 0.8zM217.5 10.7l-4.5 0.1l-3 1.6l-0.2 1.1l2.3-0.2l2-0.7l2.1-0.9zM216.5 1.5l0.6-0.4l0-1.1l-0.6-0.1l-0.5 0.7zM214.2 78.1l0.9-0.2l0.5-0.4l-0.6 0.2zM214.4 22.5l0.4 0l0.7-0.3l-0.4-0.1zM213.5 23.1l0.3-0.1l0.4-0.3l-0.5 0.2zM211.4 -10.9l-1 0.4l0.1 0.2zM208.9 37.1l1-0.6l0.5-0.7l-0.6 0.2zM210.1 -10.3l0-0.4l-0.7 0.3zM210 31.1l-0.4 0.1l-0.3 0.5l0.3-0.3zM209.4 35.9l-0.6-0.8l-2 1.7l1.3-1.4l-3.6 2.7l2.3-1l-1.7 1.3l1-0.3l2-1.4l-1.1 1.2l0.2 0.2zM208 35l0.4-0.3l0-0.4l-0.2 0.1zM207.1 34.5l0.4-0.2l0-0.2l-0.3 0.1zM205.2 36.8l1.5-0.5l0.7-0.6l-2.1 0.7zM202 84.8l1.2-1.2l-1.1 0.7l-1.3 0.5zM201.6 84.3l0.5-0.1l0.7-0.6l-0.6 0.1zM197.9 48.8l-0.2 0l-0.1 0.3zM196.6 54.9l0.6-0.6l-1.5 0.4zM196.5 -11.1l-0.9-0.3l-1.3 0.7l1.1-0.5l-0.5 0.6zM190.9 -11.4l0.3-0.4l-0.5-0.3l-1.6 0.2l-0.8 0.5l0.2 0.5l-1.1-0.4l-0.5 0.7l-3.6 0.6l-0.7 0.7l3.1 0.2l-0.1 0.3l1.6 0.6l2.3 0.3l5.1-1.1l-1.2-0.2l-0.2-1.4l-1.7-1zM193.5 51.5l0.6-0.8l-0.6-1.2l-2.5 0l-1 0.6l0.5 0.4zM181.7 -12.5l-47.5 0l-0.5 0.5l0.3 1.1l0.9 0.3l6.6 0.5l-1.2 1.3l0.1 0.7l0.9 0.1l10.8-0.6l7.1-1l3.9-1.3l0.6 0.1l-0.4 0.6l0.3 0.2l3.1 0.2l-0.8 0.5l6.2 0.3l3.7-0.6l0.7-0.5l-0.4-0.3l0.7-0.4l-1.2-0.2l-2.9 0.8l1.1-0.8l-0.5-0.6l2 0.4l1.7-0.8l1.7 0.4l1-0.5l-0.1 0.4l0.7 0.1zM181 -9.4l0.4-0.3l0-0.2l-0.7 0.2zM180.4 -9.3l-0.3-0.3l-1.4 0.7l0.4 0.2zM178.8 -10.7l1-0.5l-0.7 0l0.1 0.2zM179.1 14.6l0.3-0.1l-0.5-0.1zM174.9 -8.5l0.4-0.4l-2 0.3zM166.3 -8l-1.6-0.1l0.3 0.2zM151.7 -4.3l0.6-0.4l0.3-0.7l-1.1 0.7zM150.5 -6.4l-0.1 0.1l0.6 0.1zM150.1 -3.3l-0.1 0.5l1-0.5zM150.2 -6.6l-0.2-0.2l-0.3 0.2z","bra":"M181.8 326.3l-0.8 0.2l-0.2-3l-1.1-2.4l-0.7 0.3l-1.7 1.9l-1.1-1.4l-0.3 0.8l0.4 0.7l-4.9 0l-1-0.3l-1.3 0.4l-0.1 3.8l2.3 0l0.7 1.1l0 1.2l-0.5 0.2l-0.9-0.6l-2.5 0.8l-0.1 4.2l1.9 2.2l0.1 1.4l1 2.5l-2.1 18.1l-1.1 0l-0.8-0.9l-1.7 0.1l-0.7 1l-3.7 0.9l-3.5 3.3l-0.8 0.3l-0.3 3l-1 2.7l0.6 2.1l-2.6 2.5l-0.1 1l0.4 1.4l-1 0.4l-0.1 1l1.3 1.3l-0.2 0.9l1.2 2.4l2.7 3.7l0.1 0.7l-0.9 1.7l1.7 0l1.9 0.6l1.2 2.8l3.9-0.2l2.7-3.1l-0.2 2.3l0.6 6.8l0.4-0.4l0.9 0.7l1.5-0.8l3.2 0.2l2.6 0.9l1.3-0.8l0.9-1.6l1.5-0.1l1.1-1.7l1.3-0.7l2.1-2.1l2.7-0.6l1.6 0l0.7-0.5l0.6 2.5l-0.5 2.1l0.8 3l-0.2 1.3l1.1 2.8l0.4 0l0.6 1.3l2.2 1.6l0.4 1.1l2.1 0.5l1.1-0.3l1.6 1.2l1.1-0.1l1.5 1.9l2.8 0.9l1.6 2.1l3.1-0.2l2.5 1.7l1.8 7.4l-1.3 0.1l1.7 2.2l0.8 4.5l6.9 0.3l0.8-0.3l0.1 1.2l-0.4 1.2l0.7 3l1.9 1.6l0.7 0l1.9 4l-0.7 3.9l0.4 0.8l-1.2 3.9l1.3 1.3l-1.1 1.1l2 4.6l-0.1 2.8l0.5 3.4l1 0l0.7 0.4l2.7 0.5l1.2-0.2l0.7-0.8l1 1l1.9 0.5l1 1.8l0.1 1.2l1.9 5.9l0.9 0.3l2.2-1.1l1.8 1.3l-0.3 0.4l0.5 5.5l-0.4 2.5l0.8 0.3l1.1-0.6l0.6 0.3l0.6 0.5l1.4 3.1l0.5 3.6l-0.3 1.3l-1.2 0.7l-0.5 0.9l-1.9 0.7l-0.8 1.7l-2.2 1.9l0.4 0.9l-0.9 0l-2.9 6.6l-0.9 1l-1.1 2.2l0.3 0.4l1.4 0.1l0.2-0.7l1.1-0.2l3.9 3.5l0.6 1.7l0.7-0.3l0.6-1l2.2 2.3l2.6 1.1l1.9 2l2.1 1.1l1 1.8l2.3 1.8l-1.1 2.3l0.5 2.5l0.8 0.5l2.1-3.2l0.4-3.7l0.6-1.4l-0.6-1.5l0.4-2.7l1.5-1.5l0.2-2.3l0.3 0.4l0.1-2.1l-0.6-0.6l-0.3-1.1l1.5 1.8l1.7-0.7l0.1 1l-0.5 0l0.4 1.5l-0.8 1l0 1l-0.7 0.2l0 1.9l-1.4 1.6l-0.7 0.5l-0.7-0.2l0.4 1.5l3.5-4.6l1.7-4.4l1.1-5.8l1.5-2.6l1.6-1.6l0.3-2.7l-0.6-2.8l0-2l-0.9-2.7l-0.2-1.6l-0.5-0.8l0.5-0.5l-0.1-1.3l-0.4-0.5l0.5-0.2l0.4-1.2l-1.3-0.5l-0.3-0.7l1.1 0.4l0.2-0.9l0.9 0.2l0 0.6l0.9-1.4l-0.3-0.7l3.1-3l0.9-1.5l3.3-2.4l2.1 0l0.5-1.1l1.4-1.2l1.5-0.6l-0.5-0.4l0-0.8l2-0.2l1.1-0.6l0.9 0.6l-1.2 0.2l0.3 0.3l2.7-0.7l-0.2-1l0.3-0.4l1 1.3l3.8-0.1l0.3-0.9l-0.3-1.1l1-1.5l2.7-1.8l-0.5-2.7l0.2-1.5l0.5-1.9l1.5-1.9l1.2-4.6l0.8-1l-0.2-7.4l0.6-1.5l1.3-1.6l-0.5-3l0.8-7.4l-1.3-6.9l0.3-3.6l-0.3 0.4l-0.1-2.8l-0.4-0.1l0.1-1.3l0.8-1.2l0.2-1.4l-0.4-0.7l0.6-0.9l0.8 0.8l0.1 1.1l0.5 0l1.5-2.1l1.2-2.8l1.1-4.9l0.2-0.2l-0.1 1.1l0.7-1.3l-0.1-0.7l0.4 0l1.3-2.2l1.5-1.1l2.1-3.7l-0.1-0.9l0.5 0.1l1.7-2.7l0.8-1.8l1.1-5.5l-0.1-5.5l-2.7-10.2l-0.7-0.7l-1.9-0.5l-2.6 0.3l-2.5-1.1l-0.6-1.2l-1.4-0.7l-1.9-2.1l-1.9-2.9l-0.9-0.4l-1.4-1.5l-4.1-3.1l-2.2-0.4l-4.4 0.7l-1.7-1l-0.5 0.4l-1.1-0.1l-3-1.9l-1.9-0.5l-0.3 0.7l-2 0.5l-1.1 1.3l0.3-1.8l-0.5-0.2l-0.9 2.8l-1.2 1.5l0.5-3.7l0.3-0.9l0.6-0.3l-0.2-1.1l-1 1.2l-0.4-0.6l0.9-1.3l-0.5-1.8l-0.5 0.3l0.2-0.3l-1.5-1.6l-1.1 1.5l-0.6-2.1l-0.8-0.1l-1.7-1.4l-0.8 0l0-0.4l-1.7-0.4l-0.8-1.1l-1.4-0.2l-0.6-0.6l-0.7 0.1l0 0.6l-0.6-0.5l-0.5 0.3l-0.5-0.3l-0.7 0.6l-0.3-0.4l-0.4 0.2l-1.4 2.4l-0.1 1.4l0.6 0.5l-0.5 0.8l-0.6-0.8l-0.5 0l-1.2 2l-0.9 0.5l-1 3.4l-0.8 0.9l1.3-5.3l-1.7 1.1l-1.2-0.6l-1.8 1.1l-1.2-1.5l-1-3.7l0.3-0.5l-0.2-0.6l-4.5 3.8l-1.1 0.3l-0.5-0.4l-1.5-0.1l1.8-1.1l1.1 0l0.3-1l0.8-1l0.1-1.5l1.3-2.1l0.5-1.8l2.3-1.8l2-3.5l1.7-1.9l-0.3-2.9l-0.9-0.8l-1.2-0.2l-0.6-1.6l-0.5-0.2l-1.9-11.3l-1.1-1.3l-0.3 0l-0.5 1.4l-3 5.1l-1.5 4.4l-1.4 1.4l-1.1-0.1l-0.5-0.8l-0.7 0.5l-1.1-0.6l-1.6 1.4l-2.3-1.2l-1.3-1.6l-1.8 0.9l-1.5 0.2l-0.9-0.6l-0.8 1.5l0.9 1.3l-0.2 1l-2.2-0.5l-1.6 0.4l-1.2-0.8l-1.1 0.4l-0.9 1.4l-1.7 0.3l-0.3 0.8l-1.3-0.4l-0.7 0.9l0 0.8l-1.5 0.5l-0.5-0.6l-1.1-0.4l-1.9-2.1l-0.3-0.9l0-2.2l-0.6-0.5l-0.4-1.9l0.8-3.8l-0.1-1.4l0.8-0.7l0.6-1.3l-0.8-1.7l0.2-0.9l-0.5-0.6l-1.4-0.3l0.8-3.2l-1-1l-0.5 0.3l-1.7 0l0.5 1.5l-1.8 2.4l-1.2 0.1l-1.2 1.3l-1.1 0.6l-1.5 0.5l-1.1-0.3l-1.3 0.8l-0.3 2l-0.4 0.5l-0.5 0l-1.5-2.1l-0.8 0.3l-2.2-0.2l-0.7-1.1l-1.6-0.1l-0.9-0.8l0.5 1.5l1.8 2.5l0 2.2l0.8 3.1l-0.2 1l2.9 0.5l-0.1 1.1l-0.3 0.5l-2.4 1.2l-0.8 2.3l-0.5 0.5l-0.7 0l-1.1 1.1l-1.6 0.9l-1.6 2.4l-0.4 0l0.2-0.9l-0.7-0.8l-1.7 1.1l-1 0.2zM305.2 409.2l0.7-0.7l-0.3-0.7l-0.4 1zM304.7 411.6l0.1-0.8l-0.3 0l-0.2 0.3zM288.1 465.9l-0.6-0.5l-0.4 0.6l0.1 0.2zM283.9 470.2l0-0.6l-0.3-0.6l-0.5 1zM277.9 351l0.4-0.5l0.1-1.3l-0.4 0.4zM276.6 340.8l-0.4 0l-0.2 0.6zM273.6 491.5l0.3-1.4l-0.1-0.9l-0.4 1zM272.1 483.8l0.3-1l-0.2-0.3l-0.4 0.6zM256.5 334.8l-3.1-0.7l-1.7 0.9l-0.6 3.7l0.4 1l0.5 0.1l-0.6 0.1l-0.1 0.7l1.1 3.2l1.9-0.5l1.1 0.5l0.9-0.5l0.4-1.1l1.2 0.5l0.2-1.1l0.6 0.6l0.9-0.7l-0.1-1l1.2-1.9l0.7-3.5l-3.1-0.7zM255.8 334.2l1.1-0.1l0.2-1l-1.3 0.2l-0.6 0.6zM255.8 332.2l-0.8-0.6l-1.7 0.5l-0.2 1.1l1.8 0.3zM253.4 331.3l0.9-0.9l0-0.7l-0.9 0.3zM252.9 322.4l0.4-0.5l-0.5-1l-0.4 0.7zM252.6 333.4l0.5-1.5l-0.2-1.9l-0.3 1.5l-0.7 0.7l-0.1 0.9zM250.5 335.3l1.2-1.1l-0.1-0.5l-1.4 0.3l-0.2 0.7zM246.2 341.8l1.3-0.6l1.5-1.9l0.5-2l-0.4-0.8l-1.2 0.7l-0.6 1.2l0 1.3z","bgd":"M840.78 206.86l0.21 0.43l0.22 0.79l0.75 0.84l0.2 0.09l0.3-0.08l0.29-0.56l0.1-0.52l-0.13-0.65l-0.34-1.01l-0.02-0.35l0.61 1.63l0.33 1.2l0.19-0.26l0.1-0.35l0.32-0.23l0.15-0.36l0.05-0.6l-0.04-0.46l-0.19-0.65l0.01-0.54l0.33-0.44l-0.19 0.88l0.12 0.59l0.2 0.48l0.26 0.52l0.65-0.64l0.26-0.11l-0.35 0.78l0 0.32l0.08 0.4l0.45 0.4l0.28-0.08l0.16-0.38l0.11-0.83l0.73-1.18l-0.02-0.57l-0.17-0.41l-0.63-0.85l-0.01-0.26l-0.4-0.65l-0.09-0.43l0.04-0.29l0.35-0.13l-0.41-0.46l-0.13-0.37l0.44-0.44l-0.18-0.74l-0.38-0.44l-0.57-0.12l-0.62-0.49l1.23 0.19l-0.12-0.64l0-0.23l0.11-0.07l0.23 0.82l0.38 0.94l0.13 1l0.17 0.38l1.08 1.69l0.64 0.69l0.84-0.09l0.23-0.16l0.29-0.52l0.32-0.34l0.19-0.49l0.12 0.49l0.3 0.49l0.92 1.13l0.69 1.16l0.21-0.3l-0.02 0.68l0.78 1.93l0.63 1.1l0.2 0.95l0.58 1.9l0.8 1.07l0.69 1.09l0.07-0.01l-0.56-1.51l-0.26-0.29l-0.2-0.5l-0.16-0.51l0.05-0.36l0.22-0.39l0.19-0.07l1.01 0.67l0.19 0.32l0.12-0.04l0.09-0.2l-0.34-0.9l-0.6-2.64l-1.28-4.15l-0.67-1.18l-0.17-0.18l-0.26-0.78l-0.35-1.41l-0.82-1.99l-0.23 0.04l-0.2-0.25l-0.11 0l-0.28 0.24l-0.29-0.08l-0.2 0.03l0.27 1.01l-0.04 0.19l-0.39 0.61l-0.06 0.4l0.31 1.01l-0.03 0.29l-0.18 0.27l-0.28 0.14l-0.29-0.06l-0.22-0.24l-0.52-0.92l-0.17-0.08l-0.1 0.09l0.15 0.69l-0.13-0.02l-0.13-0.15l-0.59-1.49l-0.62-1.15l-0.12-0.45l-0.04-1.43l0.31-0.55l0.03-0.41l0.66 0.01l0.17-0.08l0.1-0.26l0.19-0.2l0.22-0.09l0.18-0.03l0.35 0.2l0.1-0.11l0.1-0.9l0.44-0.09l0.11-0.19l-0.05-0.47l0.09-1.53l-0.14-0.61l0.07-0.08l0.62 0.26l0.23 0l0.11-0.11l0-0.19l-0.13-0.23l-0.48-0.39l-0.83-0.52l-0.71-0.33l-2.31 0.15l-0.82-0.19l-3.48 0.11l-0.81-0.15l-1.11-0.41l-0.75-0.19l-0.09-0.07l-0.17-0.38l-0.13-1.02l-0.48-1.53l-0.04-0.56l-0.77-1.26l-0.22-0.23l-0.22-0.01l-0.09 0.16l0.02 0.29l0.16 0.33l-0.08 0.37l-0.31 0.12l-0.43-0.12l-0.37-0.18l-0.52-0.37l-0.45-0.53l-0.17-0.58l-0.24-0.38l-0.24-0.18l-0.16-0.05l-0.11 0.04l-0.07 0.2l0.36 0.49l0 0.19l-0.11 0.04l-0.2-0.09l-0.27 0.05l-0.31-0.15l-0.34-0.07l-0.09-0.33l-0.36-0.43l-0.53-0.48l-0.48-0.29l-0.19 0.04l-0.02 0.33l0.05 0.12l0.41 0.25l0.11 0.37l-0.81 1.54l-0.04 0.72l0.04 0.37l0.15 0.26l0.21 0.16l0.46 0.12l0.57 0.51l0.53 0.68l0.25 0.2l0.43 0.23l0.73 0.03l0.15 0.19l0.22 0.49l0.19 0.18l0.42 0.24l0.07 0.17l-0.04 0.2l-0.13 0.16l-0.27 0.1l-0.28 0.04l-1.22-0.11l-0.05 1.25l-0.15 0.44l-0.14 0l-0.42-0.22l-0.15 0.04l-0.18 1.11l0.02 0.47l0.68 0.78l0.36 0.14l0.24-0.11l0.24 0.15l0.32 0.35l0.47 0.24l0.62 0.11l0.4 0.29l0.1 0.24l0.14 1.26l-0.14 1.82l0.33 0.56l0.68 0.76l0.02 0.79l0.13 0.21l0.76 0.25l0.16 0.13l-0.14 0.81l0.43 1.1l0.32 0.96l0.02 0.22l0.95 1.98zM853.26 210.15l0.25-0.03l-0.07-0.57l-0.25-0.62l-0.11-0.01l-0.19 0.08l0.22 0.75l-0.01 0.23zM852.76 208.77l0.03-0.75l-0.18-0.24l0.01 0.66zM850.69 205.41l0.16-0.16l-0.09-0.24l-0.61-1.07l-0.05 0.1l0.03 0.69l0.35 0.54zM849.05 206.79l0.36-0.39l-0.02-0.6l-0.18-0.46l-0.51-0.86zM847.27 207.07l0.69-0.19l0.13-0.4l-0.23-1.81l-0.72-0.85l-0.48-0.97l-0.38-0.28l-0.35 0.15l0.19 0.49l0.24 0.42l0.09 0.31l0.44 0.42l0.22 0.54l0.16 0.65l-0.38 1.46zM846.48 202.25l-0.47-0.64l-0.16 0.12l0.16 0.22z"},"lieux":{"mt":{"n":"Mato Grosso","p":[233.54,407.94]},"santos":{"n":"Santos","p":[279.61,470.32]},"ctg":{"n":"Chattogram","p":[851.92,205.54]},"dhaka":{"n":"Région de Dhaka","p":[844.05,197.1]},"mtl":{"n":"Montréal","p":[202.48,84.56]}},"traces":{"terre-br":{"p":[[233.54,407.94],[239.72,417.12],[246.04,426.22],[252.48,435.24],[259.06,444.17],[265.77,453.0],[272.62,461.72],[279.61,470.32]],"km":1572,"mode":"terre"},"mer-cap":{"p":[[279.79,471.65],[289.25,478.79],[298.82,485.74],[308.53,492.47],[317.81,497.2],[327.16,501.73],[336.57,506.05],[346.06,510.15],[355.61,514.02],[365.21,517.66],[374.88,521.06],[384.6,524.21],[394.37,527.11],[404.19,529.75],[414.05,532.13],[423.95,534.24],[433.88,536.07],[443.85,537.63],[453.84,538.91],[463.85,539.9],[473.88,540.61],[483.91,541.03],[493.96,541.17],[504.0,541.01],[514.04,540.57],[524.07,539.84],[534.09,538.82],[544.08,537.52],[554.18,534.79],[564.22,531.78],[574.2,528.48],[584.1,524.91],[593.93,521.08],[603.69,517.0],[613.37,512.66],[622.97,508.08],[632.49,503.28],[641.46,496.56],[650.3,489.63],[659.03,482.51],[667.63,475.21],[676.12,467.74],[684.48,460.11],[692.73,452.33],[700.85,444.42],[708.86,436.37],[716.75,428.21],[724.53,419.94],[731.72,411.98],[738.81,403.94],[745.79,395.83],[752.67,387.66],[759.45,379.44],[766.13,371.17],[772.71,362.87],[779.19,354.54],[785.58,346.19],[791.86,337.82],[798.06,329.45],[804.17,321.09],[810.18,312.74],[816.12,304.4],[820.1,294.43],[823.96,284.48],[827.7,274.57],[831.32,264.71],[834.83,254.91],[838.23,245.17],[841.53,235.5],[845.13,225.65],[848.64,215.9],[852.07,206.26]],"km":16451,"mode":"mer"},"terre-bd":{"p":[[851.92,205.54],[844.05,197.1]],"km":225,"mode":"terre"},"terre-bd2":{"p":[[844.05,197.1],[851.92,205.54]],"km":225,"mode":"terre"},"suez":{"p":[[852.07,206.26],[850.02,216.28],[847.86,226.4],[845.58,236.59],[843.18,246.87],[838.47,257.87],[833.62,268.97],[828.63,280.14],[823.49,291.38],[818.19,302.67],[809.49,297.63],[800.73,292.64],[791.93,287.7],[783.08,282.82],[774.19,278.0],[765.25,273.26],[756.26,268.6],[747.23,264.02],[737.25,263.46],[727.28,263.0],[717.31,262.66],[707.35,262.43],[697.39,262.31],[687.44,262.3],[676.62,261.59],[665.79,261.02],[654.97,260.58],[649.35,250.66],[643.61,240.81],[637.76,231.05],[631.8,221.38],[626.06,209.95],[620.17,198.65],[614.12,187.5],[607.91,176.51],[605.24,170.26],[602.52,164.07],[601.65,160.18],[600.77,156.3],[590.77,151.36],[580.68,146.68],[570.49,142.29],[560.72,138.66],[550.88,135.3],[540.97,132.21],[530.99,129.4],[520.95,126.88],[510.85,124.66],[500.63,125.16],[490.44,125.97],[480.28,127.07],[470.15,128.46],[460.05,130.15],[450.0,132.12],[441.28,128.03],[432.45,124.18],[423.51,120.6],[414.45,117.28],[405.28,114.24],[396.0,111.48],[387.08,107.43],[378.01,103.69],[368.78,100.24],[359.38,97.11],[349.83,94.31],[340.1,91.83],[330.22,89.68],[320.17,87.88],[309.97,86.42],[299.62,85.32],[289.12,84.56],[278.69,81.29],[267.97,78.46],[256.96,76.07],[250.93,71.56],[244.67,67.29],[236.23,68.11],[227.74,69.12],[220.74,73.66],[213.85,78.32],[208.14,81.4],[202.48,84.56]],"km":18279,"mode":"mer"},"cap":{"p":[[852.07,206.26],[850.02,216.28],[847.86,226.4],[845.58,236.59],[843.18,246.87],[838.47,257.87],[833.62,268.97],[828.63,280.14],[823.49,291.38],[818.19,302.67],[812.13,311.12],[805.98,319.6],[799.74,328.08],[793.41,336.58],[786.98,345.07],[780.45,353.55],[773.82,362.01],[767.09,370.44],[760.26,378.84],[753.33,387.18],[746.29,395.48],[739.14,403.71],[731.89,411.86],[724.53,419.94],[716.75,428.21],[708.86,436.37],[700.85,444.42],[692.73,452.33],[684.48,460.11],[676.12,467.74],[667.63,475.21],[659.03,482.51],[650.3,489.63],[641.46,496.56],[632.49,503.28],[622.97,508.08],[613.37,512.66],[603.69,517.0],[593.93,521.08],[584.1,524.91],[574.2,528.48],[564.22,531.78],[554.18,534.79],[544.08,537.52],[537.1,530.51],[530.25,523.28],[523.52,515.85],[516.91,508.23],[510.4,500.43],[503.99,492.47],[497.68,484.34],[491.45,476.06],[485.25,467.19],[479.14,458.19],[473.1,449.07],[467.13,439.82],[461.23,430.48],[455.4,421.03],[449.63,411.51],[443.91,401.91],[438.25,392.24],[432.64,382.52],[427.09,372.75],[421.57,362.95],[416.11,353.12],[410.68,343.26],[405.29,333.4],[399.94,323.54],[394.62,313.69],[389.34,303.86],[384.08,294.05],[378.84,284.29],[373.63,274.57],[368.43,264.9],[363.25,255.3],[358.07,245.77],[352.9,236.33],[347.73,226.98],[342.55,217.74],[337.35,208.61],[332.14,199.61],[326.9,190.75],[322.87,181.03],[318.82,171.46],[314.73,162.05],[310.61,152.8],[306.43,143.73],[302.18,134.85],[297.84,126.18],[293.41,117.73],[288.84,109.51],[284.14,101.53],[277.73,94.68],[271.08,88.15],[264.17,81.94],[256.96,76.07],[250.93,71.56],[244.67,67.29],[236.23,68.11],[227.74,69.12],[220.74,73.66],[213.85,78.32],[208.14,81.4],[202.48,84.56]],"km":23601,"mode":"mer"}},"cadres":{"monde":null,"bresil":[260.1,437.0,230],"bgd":[844.0,197.9,95]},"etapes":[{"id":"coton","n":"Le coton pousse","lieu":"mt","pays":"Brésil","traces":[],"cadre":"bresil","textes":["Le coton est une plante. Ses graines sont entourées de fibres blanches. Après la récolte, une machine sépare les fibres des graines (c'est l'égrenage), puis on presse les fibres en grosses balles.","Le Brésil est devenu le premier exportateur de coton du monde : 30,5 % des exportations mondiales en 2024-2025. L'État du Mato Grosso, au centre du pays, produit à lui seul environ 70 % du coton brésilien."],"ailleurs":"Les États-Unis sont le deuxième exportateur de coton (25,8 % des exportations mondiales). La Chine et l'Inde en produisent beaucoup, mais l'utilisent surtout dans leurs propres usines."},{"id":"oceans","n":"Le coton traverse deux océans","lieu":"ctg","pays":"Brésil, puis Bangladesh","traces":["terre-br","mer-cap"],"cadre":"monde","textes":["Les balles partent en camion jusqu'au port de Santos, puis en navire. Elles contournent l'Afrique par le cap de Bonne-Espérance et traversent l'océan Indien jusqu'à Chattogram, le grand port du Bangladesh.","En 2024-2025, le Bangladesh est devenu le plus grand importateur de coton du monde. Le Brésil est son premier fournisseur : 23 % du coton acheté par le Bangladesh cette année-là."],"ailleurs":"Le Bangladesh achète aussi son coton en Inde, en Afrique de l'Ouest et aux États-Unis."},{"id":"filature","n":"La filature","lieu":"dhaka","pays":"Bangladesh","traces":["terre-bd"],"cadre":"bgd","textes":["Du port, le coton gagne en camion les usines de la région de Dhaka, la capitale.","Dans une filature, les balles sont ouvertes et nettoyées. Les fibres sont démêlées, étirées, puis tordues ensemble : elles deviennent un fil, enroulé sur des bobines."],"ailleurs":"La Chine, l'Inde et le Pakistan produisent aussi beaucoup de fil de coton, qu'ils vendent aux usines de vêtements d'autres pays."},{"id":"tricotage","n":"Le tricotage","lieu":"dhaka","pays":"Bangladesh","traces":[],"cadre":"bgd","textes":["Un t-shirt n'est pas fait de tissu tissé comme une chemise, mais de tissu tricoté, le jersey : c'est ce qui le rend souple et extensible.","De grandes machines circulaires tricotent le fil en un long tube de tissu, roulé en rouleaux."],"ailleurs":"Pour les jeans et les chemises, le tissu est tissé : des fils se croisent à angle droit sur un métier à tisser."},{"id":"teinture","n":"La teinture","lieu":"dhaka","pays":"Bangladesh","traces":[],"cadre":"bgd","textes":["Le tissu est lavé, blanchi, puis teint dans de grandes cuves. Il faut beaucoup d'eau, d'énergie et de produits chimiques.","Si les usines rejettent leurs eaux usées sans les traiter, ces produits polluent les rivières voisines, où des gens se lavent, pêchent et puisent de l'eau."],"ailleurs":"Les usines de teinture se trouvent souvent près des usines de confection, pour gagner du temps et réduire le transport."},{"id":"confection","n":"La confection","lieu":"dhaka","pays":"Bangladesh","traces":[],"cadre":"bgd","textes":["Le tissu est coupé selon un patron, puis des couturières assemblent les morceaux à la machine à coudre. Chaque personne fait souvent une seule opération, des centaines de fois par jour.","Le Bangladesh est le deuxième exportateur de vêtements du monde, après la Chine : 6,9 % des exportations mondiales en 2024. Les vêtements font plus de 80 % de ses exportations. Plus de 4,4 millions de personnes y travaillent, dont 70 % de femmes.","Depuis décembre 2023, leur salaire minimum est de 12\u00a0500 takas par mois, soit environ 114 dollars américains. Les syndicats demandaient 23\u00a0000 takas.","C'est un pays atelier : des marques étrangères y font fabriquer leurs vêtements, surtout parce que la main-d'œuvre coûte peu cher."],"ailleurs":"La Chine fournit 29,6 % des exportations mondiales de vêtements (2024), devant le Bangladesh (6,9 %), le Viet Nam (6,1 %), la Türkiye (3,2 %) et l'Inde (2,9 %)."},{"id":"rana","n":"L'effondrement du Rana Plaza","lieu":"dhaka","pays":"Savar, Bangladesh","traces":[],"cadre":"bgd","textes":["Le 24 avril 2013, à Savar, près de Dhaka, le Rana Plaza s'effondre. Cet immeuble de huit étages abritait cinq usines de vêtements. Bilan : 1\u00a0134 morts et environ 2\u00a0500 blessés.","La veille, de larges fissures étaient apparues dans les murs. Les commerces et la banque du rez-de-chaussée avaient fermé, mais les patrons des usines ont obligé les ouvrières et les ouvriers à revenir travailler.","On y fabriquait des vêtements pour plusieurs marques occidentales, dont Joe Fresh, la marque des magasins Loblaw au Canada. Le 15 mai 2013, des marques, des détaillants et des syndicats ont signé l'Accord sur la sécurité incendie et la sécurité des bâtiments au Bangladesh, qui oblige à inspecter les usines."],"ailleurs":"Ce drame a fait connaître au monde entier les conditions de travail dans les pays ateliers."},{"id":"navire","n":"Le t-shirt traverse les océans","lieu":"mtl","pays":"Bangladesh, puis Canada","traces":["terre-bd2","ROUTE"],"cadre":"monde","textes":["Les t-shirts, pliés et emballés, retournent en camion au port de Chattogram. Ils partent en conteneurs, sur d'immenses porte-conteneurs, jusqu'au port de Montréal.","Le chemin le plus court passe par le canal de Suez. Mais depuis novembre 2023, des rebelles houthis du Yémen ont attaqué des navires en mer Rouge : presque tous les porte-conteneurs ont alors fait le détour par le cap de Bonne-Espérance. Les attaques ont cessé à la fin de 2025 et quelques compagnies sont revenues à Suez en 2026."],"ailleurs":"Compare les deux routes avec les boutons : le détour par l'Afrique allonge le voyage de plusieurs milliers de kilomètres."},{"id":"vente","n":"En vente à Montréal","lieu":"mtl","pays":"Canada","traces":[],"cadre":"monde","textes":["Du port, les t-shirts vont dans un entrepôt, puis en camion jusqu'aux magasins. Le t-shirt est enfin en vente.","Si on additionne tous ses déplacements, il a parcouru presque la distance du tour de la Terre (environ 40\u00a0000 km) et même davantage s'il est passé par le cap de Bonne-Espérance. C'est la mondialisation : chaque étape se fait là où elle coûte le moins cher."],"ailleurs":"Regarde l'étiquette d'un de tes vêtements : dans quel pays a-t-il été fabriqué?"}],"mers":[{"n":"Océan\nAtlantique","p":[340.9,304.4]},{"n":"Océan\nIndien","p":[785.9,437.0]},{"n":"Mer\nMéditerranée","p":[542.5,136.0]}]};
+  var NS = "http://www.w3.org/2000/svg", W = D.W, H = D.H, ZOOM_MAX = D.zoomMax || 6;
+  var MOINS = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/ ([;!?])/g, "$1").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = Math.abs(x).toFixed(n).split("."); return (x < 0 ? "-" : "") + nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".vch__svg"), carte = q(".vch__carte"), gEtiq = q(".vch__etiquettes"), vueTexte = q(".vch__vue"), annonce = q(".vch__annonce");
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined && val !== null) {
+      if (val.couleur) { var pa = el("span", "vch__pastille", null, b); pa.style.background = val.couleur; pa.setAttribute("aria-hidden", "true"); }
+      el("span", "vch__choisir-nom", nom, b);
+      if (val.texte) { el("span", "vch__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "vch__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function entete(sur, titre, couleur) {
+    vueTexte.innerHTML = "";
+    el("span", "vch__surtitre", sur, vueTexte);
+    var h = el("p", "vch__intertitre", null, vueTexte);
+    h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    if (couleur) { var pa = el("span", "vch__pastille", null, h); pa.style.background = couleur; pa.setAttribute("aria-hidden", "true"); }
+    el("span", "", titre, h);
+  }
+  function para(t, classe) { return el("p", classe || "vch__paragraphe", t, vueTexte); }
+  function couleurVar(nom) {
+    var v = window.getComputedStyle ? window.getComputedStyle(racine).getPropertyValue(nom) : "";
+    return (v && v.trim()) || "#888";
+  }
+  var etat = { choix: null, vue: { x: 0, y: 0, w: W, h: H } };
+  /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return etat.vue.w < W - .5; }
+  function bornerVue(v) {
+    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * H / W;
+    return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vue;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    q(".vch__recentrer").hidden = !estZoome();
+    carte.classList.toggle("est-zoomee", estZoome());
+    etiqueter();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    var w = b.width || 800, h = b.height || 800 * H / W;
+    var s = Math.min(w / v.w, h / v.h);
+    var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    appliquerVue();
+  }
+  function cadrer(x, y, w) { etat.vue = bornerVue({ x: x - w / 2, y: y - w * H / W / 2, w: w }); appliquerVue(); }
+  function vueEntiere() { etat.vue = { x: 0, y: 0, w: W, h: H }; appliquerVue(); }
+  function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
+  q(".vch__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".vch__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  q(".vch__recentrer").addEventListener("click", vueEntiere);
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false, pince = null, pinceAttente = 0;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+  /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+  function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+  function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  function vueSous(p, m, w) {
+    var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+    var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+    return { x: p.x - (m.x - (b.left || 0) - ox) / s, y: p.y - (m.y - (b.top || 0) - oy) / s, w: w };
+  }
+  carte.addEventListener("touchstart", function (ev) {
+    if (ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    glisse = null; racine.classList.remove("est-glisse");
+    var m = milieu(ev.touches);
+    pince = { d: ecart(ev.touches), w: etat.vue.w, p: pointCarte(m.x, m.y), m: m };
+  }, { passive: false });
+  carte.addEventListener("touchmove", function (ev) {
+    if (!pince || ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    pince.m = milieu(ev.touches);
+    pince.w2 = Math.min(W, Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
+    if (pinceAttente) { return; }
+    var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } etat.vue = bornerVue(vueSous(pince.p, pince.m, pince.w2)); appliquerVue(); };
+    if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  function finPince(ev) {
+    if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+    pince = null; glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 350);
+  }
+  carte.addEventListener("touchend", finPince);
+  carte.addEventListener("touchcancel", finPince);
+  carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+  /* ----- étiquettes : chacune réserve un rectangle ; celles qui en chevauchent une autre
+     déjà posée ne sont pas affichées. Les plus importantes passent en premier. */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    var u = unite(), v = etat.vue, places = [];
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".vch__carte > .vch__bouton-carte, .vch__outils"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function reserver(r) { places.push(r); }
+    function poser(x, y, texte, classe, px, opt) {
+      opt = opt || {};
+      var lignes = typo(texte).split("\n"), t = px * u, larg = 0;
+      lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+      var haut = lignes.length * t * 1.15, m = 1.5 * u;
+      var ancre = opt.ancre || "middle", x0 = ancre === "start" ? x : (ancre === "end" ? x - larg : x - larg / 2);
+      var boite = [x0 - m, y - haut / 2 - m, x0 + larg + m, y + haut / 2 + m];
+      if (!opt.force && !libre(boite)) { return null; }
+      places.push(boite);
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": ((opt.halo || 3) * u).toFixed(2) }, gEtiq);
+      if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+      else {
+        lignes.forEach(function (l, j) {
+          var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+          ts.textContent = l;
+        });
+      }
+      return n;
+    }
+    etiquettes(poser, u, v, reserver, libre);
+  }
+  var gPays = q(".vch__pays-groupe"), gTraces = q(".vch__traces"), gLieux = q(".vch__lieux"), TRACE = {}, ET = D.etapes;
+  q(".vch__terre").setAttribute("d", D.terre);
+  Object.keys(D.pays).forEach(function (k) { svgEl("path", { "class": "vch__pays", d: D.pays[k], "data-pays": k }, gPays); });
+  Object.keys(D.traces).forEach(function (k) {
+    var t = D.traces[k], d = "M" + t.p.map(function (p) { return p[0] + " " + p[1]; }).join("L");
+    TRACE[k] = svgEl("path", { "class": "vch__trace", d: d, "data-trace": k }, gTraces);
+    var L = 0; for (var i = 1; i < t.p.length; i++) { L += Math.sqrt(Math.pow(t.p[i][0] - t.p[i - 1][0], 2) + Math.pow(t.p[i][1] - t.p[i - 1][1], 2)); }
+    TRACE[k].style.setProperty("--vch-long", (L * 1.05).toFixed(0));
+  });
+  function remettre() { etat.route = "suez"; }
+  remettre();
+  function tracesDe(i) { return ET[i].traces.map(function (k) { return k === "ROUTE" ? etat.route : k; }); }
+  function kmJusqua(i) { var s = 0; for (var j = 0; j <= i; j++) { tracesDe(j).forEach(function (k) { s += D.traces[k].km; }); } return s; }
+  function kmTotal() { return kmJusqua(ET.length - 1); }
+  function indice() { return etat.choix ? Number(etat.choix.id) : -1; }
+  function nav() {
+    var lecture = el("div", "vch__actions", null, vueTexte), i = indice();
+    if (i > 0) { lecture.appendChild(bouton("vch__retour", "Étape précédente", null, function () { aller(i - 1); })); }
+    if (i < ET.length - 1) { lecture.appendChild(bouton("vch__retour", i < 0 ? "Commencer le parcours" : "Étape suivante", null, function () { aller(i + 1); })); }
+    if (i >= 0) { lecture.appendChild(bouton("vch__retour", "Revenir à la vue d'ensemble", null, function () { choisir(null); })); }
+  }
+  function ficheEnsemble() {
+    entete("Un t-shirt de coton vendu à Montréal", "Du champ de coton au magasin");
+    para("Avant d'arriver en magasin, un simple t-shirt de coton a souvent traversé plusieurs pays et plusieurs océans. Suis un parcours possible, étape par étape : le coton du Brésil, la fabrication au Bangladesh, puis la vente au Québec.");
+    var c = el("p", "vch__compteur", null, vueTexte);
+    el("strong", "", nb(kmTotal()) + " km", c); el("span", "", "parcourus en tout (route par " + (etat.route === "suez" ? "le canal de Suez" : "le cap de Bonne-Espérance") + ")", c);
+    el("span", "vch__rubrique", "Les neuf étapes", vueTexte);
+    var ul = el("ul", "vch__liste", null, vueTexte);
+    ET.forEach(function (e, j) { el("li", "", null, ul).appendChild(bouton("vch__choisir", (j + 1) + ". " + e.n, { texte: e.pays }, function () { aller(j); })); });
+    nav();
+  }
+  function ficheEtape(i) {
+    var e = ET[i], km = kmJusqua(i), etapeKm = 0;
+    tracesDe(i).forEach(function (k) { etapeKm += D.traces[k].km; });
+    entete("Étape " + (i + 1) + " sur " + ET.length + " · " + e.pays, e.n);
+    var c = el("p", "vch__compteur", null, vueTexte);
+    el("strong", "", nb(km) + " km", c); el("span", "", "parcourus depuis le champ" + (etapeKm ? ", dont " + nb(etapeKm) + " km à cette étape" : ""), c);
+    var j = el("div", "vch__jauge", null, vueTexte), s = el("span", "", null, j); s.style.width = (km / kmTotal() * 100).toFixed(1) + "%";
+    j.setAttribute("role", "img"); j.setAttribute("aria-label", typo(Math.round(km / kmTotal() * 100) + " % du parcours total"));
+    e.textes.forEach(function (t, k) { para(t, e.id === "rana" && k === 0 ? "vch__alerte" : null); });
+    if (e.id === "navire") {
+      chiffres(vueTexte, [["Par le canal de Suez", nb(D.traces.suez.km) + " km"], ["Par le cap de Bonne-Espérance", nb(D.traces.cap.km) + " km"]]);
+    }
+    el("span", "vch__rubrique", e.id === "vente" ? "À toi" : "Ailleurs dans le monde", vueTexte);
+    para(e.ailleurs, "vch__note");
+    nav();
+  }
+  function aller(i) { etat.choix = { type: "etape", id: String(i) }; apres(); }
+  function choisir(c) {
+    etat.choix = c && !(etat.choix && etat.choix.id === c.id) ? c : null;
+    apres();
+  }
+  function apres() {
+    rendre(true);
+    var i = indice(), cad = i < 0 ? null : D.cadres[ET[i].cadre];
+    if (cad) { cadrer(cad[0], cad[1], cad[2]); } else { vueEntiere(); }
+    var lecture = q(".vch__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = typo(i < 0 ? "Vue d'ensemble" : "Étape " + (i + 1) + " : " + ET[i].n);
+  }
+  var derniere = -2;
+  function rendre(anime) {
+    var i = indice();
+    Object.keys(TRACE).forEach(function (k) {
+      var classe = "vch__trace" + (D.traces[k].mode === "terre" ? " est-terre" : ""), etatTrace = "est-futur";
+      for (var j = 0; j < ET.length; j++) { if (tracesDe(j).indexOf(k) >= 0) { etatTrace = j < i ? "est-fait" : (j === i ? "est-actif" : "est-futur"); } }
+      if (i < 0) { etatTrace = "est-fait"; }
+      var autreRoute = (k === "suez" || k === "cap") && k !== etat.route;
+      if (autreRoute) { etatTrace = "est-futur"; }
+      if (etatTrace === "est-actif" && anime && i !== derniere && !MOINS && D.traces[k].mode === "mer") { classe += " est-dessin"; TRACE[k].style.strokeDasharray = TRACE[k].style.getPropertyValue("--vch-long"); }
+      else { TRACE[k].style.strokeDasharray = ""; }
+      TRACE[k].setAttribute("class", classe + " " + etatTrace);
+    });
+    derniere = i;
+    var rang = q(".vch__pas");
+    Array.prototype.forEach.call(racine.querySelectorAll(".vch__numero"), function (b, j) {
+      b.setAttribute("aria-pressed", j === i ? "true" : "false");
+      if (j === i && rang.scrollWidth > rang.clientWidth) { rang.scrollLeft = Math.max(0, b.offsetLeft - rang.offsetLeft - rang.clientWidth / 2 + b.offsetWidth / 2); }
+    });
+    q(".vch__precedent").disabled = i <= 0;
+    q(".vch__suivant").disabled = i >= ET.length - 1;
+    Array.prototype.forEach.call(racine.querySelectorAll(".vch__route"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-route") === etat.route ? "true" : "false"); });
+    if (i < 0) { ficheEnsemble(); } else { ficheEtape(i); }
+    racine.setAttribute("data-choix", i < 0 ? "" : "etape:" + i);
+    etiqueter();
+  }
+  function etiquettes(poser, u, v, reserver) {
+    while (gLieux.firstChild) { gLieux.removeChild(gLieux.firstChild); }
+    var i = indice(), lieuActif = i >= 0 ? ET[i].lieu : null, passes = {};
+    for (var j = 0; j < i; j++) { passes[ET[j].lieu] = true; }
+    passes.mt = passes.mt || i >= 0;
+    Object.keys(D.lieux).forEach(function (k) {
+      var l = D.lieux[k], g = svgEl("g", { "class": "vch__lieu" + (k === lieuActif ? (ET[i].id === "rana" ? " est-alerte" : " est-choisi") : (passes[k] ? " est-passe" : "")), "data-lieu": k }, gLieux);
+      svgEl("circle", { cx: l.p[0], cy: l.p[1], r: (k === lieuActif ? 7 : 5.5) * u }, g);
+      var ti = svgEl("title", {}, g); ti.textContent = l.n;
+      reserver([l.p[0] - 7 * u, l.p[1] - 7 * u, l.p[0] + 7 * u, l.p[1] + 7 * u]);
+    });
+    var ordre = Object.keys(D.lieux).sort(function (a, b) { return (b === lieuActif) - (a === lieuActif); });
+    ordre.forEach(function (k) {
+      var l = D.lieux[k], px = k === lieuActif ? 12.5 : 10.5, cl = k === lieuActif ? "vch__etiquette--choisi" : "vch__etiquette--lieu";
+      var ok = poser(l.p[0] + 10 * u, l.p[1], l.n, cl, px, { ancre: "start" }) || poser(l.p[0] - 10 * u, l.p[1], l.n, cl, px, { ancre: "end" }) || poser(l.p[0], l.p[1] - 14 * u, l.n, cl, px) || poser(l.p[0], l.p[1] + 14 * u, l.n, cl, px);
+      if (!ok && k === lieuActif) { poser(l.p[0] - 10 * u, l.p[1], l.n, cl, px, { ancre: "end", force: true }); }
+    });
+    D.mers.forEach(function (m) { if (v.w > W * .5) { poser(m.p[0], m.p[1], m.n, "vch__etiquette--mer", 10.5, { chasse: .55 }); } });
+  }
+  /* ----- interactions */
+  gLieux.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    var g = ev.target.closest ? ev.target.closest(".vch__lieu") : null; if (!g) { return; }
+    var k = g.getAttribute("data-lieu"), i = indice(), cible = -1;
+    for (var j = 0; j < ET.length; j++) { if (ET[j].lieu === k && cible < 0) { cible = j; } }
+    if (k === "santos") { cible = 1; }
+    if (cible === i || (i >= 0 && ET[i].lieu === k)) { choisir(null); return; }
+    aller(cible);
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".vch__numero"), function (b, j) {
+    b.addEventListener("click", function () { if (indice() === j) { choisir(null); } else { aller(j); } });
+  });
+  q(".vch__precedent").addEventListener("click", function () { var i = indice(); if (i > 0) { aller(i - 1); } });
+  q(".vch__suivant").addEventListener("click", function () { var i = indice(); if (i < ET.length - 1) { aller(i + 1); } });
+  Array.prototype.forEach.call(racine.querySelectorAll(".vch__route"), function (b) {
+    b.addEventListener("click", function () { etat.route = b.getAttribute("data-route"); rendre(false); });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.target && /input|textarea/i.test(ev.target.tagName)) { return; }
+    if (ev.key === "ArrowRight" && indice() < ET.length - 1) { ev.preventDefault(); aller(indice() + 1); }
+    if (ev.key === "ArrowLeft" && indice() > 0) { ev.preventDefault(); aller(indice() - 1); }
+  });
+  racine.vch = { etat: function () { return { choix: etat.choix ? "etape:" + etat.choix.id : "", route: etat.route, vue: svg.getAttribute("viewBox"), km: kmTotal() }; }, aller: aller, choisir: choisir, donnees: D };
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".vch__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  racine.addEventListener("reinitialiser", function () {
+    etat.choix = null;
+    etat.vue = { x: 0, y: 0, w: W, h: H };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    q(".vch__recentrer").hidden = true;
+    carte.classList.remove("est-zoomee");
+    remettre();
+    rendre();
+    var lecture = q(".vch__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  });
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
+
 <figure class="video">
 <iframe src="https://www.youtube-nocookie.com/embed/3DdU7c66E9g"
   title="Pourquoi s'habiller pollue la planète" loading="lazy" allowfullscreen
@@ -657,6 +1223,564 @@ canadiennes et deux écluses américaines.</p>
 du Nord. Deux ouvrages rendent la chose possible : le canal Welland, qui
 contourne les chutes du Niagara entre le lac Ontario et le lac Érié et les écluses de Sault-Sainte-Marie, entre le lac Huron et le lac Supérieur.</p>
 <p class="source-texte">Source : Corporation de gestion de la Voie maritime du Saint-Laurent</p>
+<section class="vmp" id="voie-maritime-profil" data-reinitialiser aria-label="Profil interactif : la voie maritime du Saint-Laurent, écluse par écluse">
+<style>
+.vmp { --vmp-mer: #CFE0EC; --vmp-ciel: #F5F3EE; --vmp-eau: #7FB3DA; --vmp-eau-fonce: #3F7FB0; --vmp-sol: #D9CDB4; --vmp-sol-trait: #A8987A; --vmp-ca: #F1EEE6; --vmp-us: #E5E1D6; --vmp-porte: #2D3238; --vmp-halo: #FBFBF8; --vmp-grille: rgba(60, 60, 50, .14); --vmp-us-porte: #8A4B2E; --vmp-industrie: #8B3A2E; --vmp-navire: #B4462F; }
+html[data-sombre="on"] .vmp { --vmp-mer: #14273A; --vmp-ciel: #1A232D; --vmp-eau: #2F6B9A; --vmp-eau-fonce: #7FB6E2; --vmp-sol: #3A3328; --vmp-sol-trait: #6E624E; --vmp-ca: #2A333C; --vmp-us: #232B33; --vmp-porte: #E3DED3; --vmp-halo: #18222D; --vmp-grille: rgba(230, 225, 210, .12); --vmp-us-porte: #E59B76; --vmp-industrie: #F08C70; --vmp-navire: #F08C70; }
+.vmp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: vmp / inline-size; }
+.vmp .vmp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vmp .vmp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.vmp .vmp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .vmp .vmp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .vmp .vmp__titre { color: var(--encre); }
+html[data-sombre="on"] .vmp .vmp__consigne { color: var(--encre-pale); }
+.vmp .vmp__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.vmp .vmp__visuel, .vmp .vmp__lecture { min-width: 0; }
+.vmp .vmp__carte { position: relative; background: var(--vmp-mer); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.vmp .vmp__carte.est-zoomee { touch-action: none; }
+.vmp .vmp__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.vmp.est-glisse .vmp__svg { cursor: grabbing; }
+.vmp__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--vmp-halo); stroke-linejoin: round; pointer-events: none; }
+.vmp .vmp__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.vmp .vmp__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.vmp .vmp__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vmp .vmp__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.vmp .vmp__recentrer[hidden] { display: none; }
+.vmp .vmp__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.vmp:not(.est-plein-ecran) .vmp__replier { display: none; }
+.vmp .vmp__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.vmp .vmp__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp ul > li::before, .vmp ol > li::before { content: none; display: none; }
+.vmp ul > li::marker, .vmp ol > li::marker { content: none; }
+.vmp .vmp__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.vmp .vmp__couches > li { margin: 0; padding: 0; }
+.vmp .vmp__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.vmp .vmp__couche:hover { background: var(--matiere-voile); }
+.vmp .vmp__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.vmp .vmp__couche--radio .vmp__couche-case { border-radius: 50%; }
+.vmp .vmp__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.vmp .vmp__couche--radio[aria-pressed="true"] .vmp__couche-case::after { left: .27rem; top: .27rem; width: .32rem; height: .32rem; border: 0; border-radius: 50%; background: #fff; transform: none; }
+html[data-sombre="on"] .vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case::after { border-color: #10171F; }
+html[data-sombre="on"] .vmp .vmp__couche--radio[aria-pressed="true"] .vmp__couche-case::after { background: #10171F; }
+.vmp .vmp__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.vmp .vmp__vue { padding: 1rem 1.2rem 1rem; }
+.vmp .vmp__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.vmp .vmp__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.vmp .vmp__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.vmp .vmp__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.vmp .vmp__chiffres > div { min-width: 0; }
+.vmp .vmp__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.vmp .vmp__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.vmp .vmp__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.vmp .vmp__liste > li { margin: 0; padding: 0; }
+.vmp .vmp__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.vmp .vmp__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.vmp .vmp__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.vmp .vmp__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.vmp .vmp__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.vmp .vmp__toutes { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.vmp .vmp__toutes > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.vmp .vmp__toutes > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.vmp .vmp__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.vmp .vmp__grille > li { margin: 0; padding: 0; }
+.vmp .vmp__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.vmp .vmp__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.vmp .vmp__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.vmp .vmp__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.vmp .vmp__retour:hover { background: var(--matiere-voile); }
+.vmp .vmp__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.vmp .vmp__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.vmp .vmp__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.vmp .vmp__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container vmp (min-width: 46rem) {
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .vmp .vmp__visuel { border-right: 1px solid var(--trait); }
+  .vmp .vmp__lecture { border-top: 0; }
+}
+@container vmp (max-width: 30rem) {
+  .vmp .vmp__barre, .vmp .vmp__vue, .vmp .vmp__source { padding-left: .8rem; padding-right: .8rem; }
+  .vmp .vmp__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
+}
+.vmp.est-plein-ecran, .texte section.vmp.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.vmp.est-plein-ecran > .vmp__entete { flex: none; }
+.vmp.est-plein-ecran > .vmp__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.vmp.est-plein-ecran .vmp__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.vmp.est-plein-ecran .vmp__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.vmp.est-plein-ecran .vmp__svg, .texte .vmp.est-plein-ecran svg.vmp__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.vmp.est-plein-ecran .vmp__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.vmp.est-plein-ecran > .vmp__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.vmp.est-plein-ecran.texte-masque > .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+.vmp.est-plein-ecran.texte-masque .vmp__lecture { display: none; }
+.vmp.est-plein-ecran.texte-masque .vmp__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .vmp.est-plein-ecran > .vmp__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .vmp.est-plein-ecran .vmp__visuel { border-right: 0; }
+  .vmp.est-plein-ecran .vmp__lecture { border-top: 1px solid var(--trait); }
+  .vmp.est-plein-ecran.texte-masque > .vmp__corps { grid-template-rows: minmax(0, 1fr); }
+  .vmp.est-plein-ecran > .vmp__source { display: none; }
+}
+@media print {
+  .vmp .vmp__outils, .vmp .vmp__replier, .vmp .vmp__barre { display: none; }
+  .vmp .vmp__svg { max-height: none; }
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+  .vmp .vmp__visuel { border-right: 0; }
+  .vmp { break-inside: avoid; }
+}
+.vmp .vmp__carte { background: var(--vmp-ciel); }
+.vmp .vmp__carte.vue-plan { background: var(--vmp-mer); }
+.vmp .vmp__svg[hidden] { display: none; }
+.vmp__grille line { stroke: var(--vmp-grille); stroke-width: 1px; }
+.vmp__grille text, .vmp__axe { font-family: var(--donnee); font-size: 11px; fill: var(--encre-pale); }
+.vmp__sol { fill: var(--vmp-sol); stroke: var(--vmp-sol-trait); stroke-width: 1px; stroke-linejoin: round; }
+.vmp__eau { fill: var(--vmp-eau); fill-opacity: .55; stroke: none; }
+.vmp__surface { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 2.4px; stroke-linejoin: round; }
+.vmp__coupure { fill: var(--vmp-ciel); stroke: var(--vmp-eau-fonce); stroke-width: 1.4px; }
+.vmp__ecluse { cursor: pointer; }
+.vmp__ecluse .vmp__porte { fill: var(--vmp-porte); }
+.vmp__ecluse[data-pays="us"] .vmp__porte { fill: var(--vmp-us-porte); }
+.vmp__ecluse .vmp__prise { fill: transparent; }
+.vmp__ecluse:hover .vmp__porte { fill: var(--matiere); }
+.vmp__ecluse.est-choisie .vmp__porte { fill: var(--signal); }
+.vmp__ecluse.est-choisie .vmp__halo-choix { fill: var(--signal); fill-opacity: .18; }
+.vmp__halo-choix { fill: none; }
+.vmp__section { cursor: pointer; }
+.vmp__section .vmp__prise { fill: transparent; }
+.vmp__section:hover .vmp__nom-section { fill: var(--matiere); }
+.vmp__section.est-choisie .vmp__nom-section { fill: var(--signal); }
+.vmp__nom-section { font-family: var(--titre); font-weight: 700; font-size: 13px; fill: var(--encre); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 4px; stroke-linejoin: round; }
+.vmp__nom-lac { font-family: var(--titre); font-style: italic; font-size: 10.5px; fill: var(--vmp-eau-fonce); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; }
+.vmp__nom-ecluse { font-family: var(--titre); font-weight: 600; font-size: 10.5px; fill: var(--encre-doux); pointer-events: none; }
+.vmp__ecluse.est-choisie .vmp__nom-ecluse { fill: var(--signal); font-weight: 700; }
+.vmp__repere { stroke: var(--encre-pale); stroke-width: .8px; stroke-dasharray: 2 2; }
+.vmp__alt { font-family: var(--donnee); font-size: 11px; font-weight: 600; fill: var(--vmp-eau-fonce); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; }
+.vmp__navire { transition: transform .7s ease-in-out; pointer-events: none; }
+.vmp__navire path { fill: var(--vmp-navire); stroke: var(--vmp-halo); stroke-width: 1px; }
+.vmp__industries { display: none; }
+.vmp.avec-industries .vmp__industries { display: inline; }
+.vmp__ind { cursor: pointer; }
+.vmp__ind circle { fill: var(--surface); stroke: var(--vmp-industrie); stroke-width: 1.6px; }
+.vmp__ind path { fill: var(--vmp-industrie); }
+.vmp__ind.est-choisie circle { fill: var(--vmp-industrie); }
+.vmp__ind.est-choisie path { fill: var(--surface); }
+.vmp__ca { fill: var(--vmp-ca); }
+.vmp__us { fill: var(--vmp-us); }
+.vmp__front { fill: none; stroke: var(--encre-pale); stroke-width: 1.2px; stroke-dasharray: 6 3 1.5 3; }
+.vmp__prov { fill: none; stroke: var(--encre-pale); stroke-width: .9px; stroke-dasharray: 2 2.5; }
+.vmp__fleuve { fill: none; stroke: var(--vmp-mer); stroke-width: 5px; stroke-linecap: round; stroke-linejoin: round; }
+.vmp__fleuve-bord { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 6.4px; stroke-linecap: round; stroke-linejoin: round; opacity: .35; }
+.vmp__riv { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 1.2px; opacity: .55; }
+.vmp__canal { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 2.2px; stroke-linecap: round; }
+.vmp__pt { cursor: pointer; }
+.vmp__pt circle { fill: var(--vmp-porte); stroke: var(--vmp-halo); stroke-width: 1.2px; }
+.vmp__pt[data-pays="us"] circle { fill: var(--vmp-us-porte); }
+.vmp__pt.est-choisie circle { fill: var(--signal); }
+.vmp__ville { fill: var(--encre); }
+.vmp__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--vmp-halo); stroke-linejoin: round; pointer-events: none; stroke-width: 3px; }
+.vmp__et-ville { font-size: 11px; font-weight: 600; fill: var(--encre); }
+.vmp__et-ecluse { font-size: 11px; font-weight: 700; fill: var(--vmp-porte); }
+.vmp__et-lac { font-size: 13px; font-style: italic; fill: var(--vmp-eau-fonce); }
+.vmp__et-pays { font-family: var(--donnee) !important; font-size: 11px; letter-spacing: .14em; fill: var(--encre-pale); }
+.vmp__et-ind { font-size: 10.5px; font-weight: 600; fill: var(--vmp-industrie); }
+.vmp .vmp__navig { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 .9rem; }
+.vmp .vmp__navig .vmp__retour { flex: 1 1 12rem; }
+.vmp .vmp__navig .vmp__retour[disabled] { opacity: .45; cursor: default; }
+.vmp .vmp__principal { background: var(--matiere-fonce); color: #fff; border-color: var(--matiere-fonce); }
+.vmp .vmp__principal:hover { background: var(--matiere); color: #fff; }
+html[data-sombre="on"] .vmp .vmp__principal { background: var(--matiere-voile); color: var(--encre); }
+.vmp .vmp__facteur { display: block; font-family: var(--donnee); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--vmp-industrie); margin: 0 0 .25rem; }
+@media (prefers-reduced-motion: reduce) { .vmp__navire { transition: none; } }
+/* Le profil est large : hors plein écran, la fiche passe sous la vue plutôt qu'à côté. */
+@container vmp (min-width: 46rem) {
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+  .vmp .vmp__visuel { border-right: 0; }
+  .vmp .vmp__lecture { border-top: 1px solid var(--trait); }
+  .vmp .vmp__vue { padding: 1.1rem 1.6rem 1.2rem; }
+  .vmp .vmp__vue > .vmp__chiffres { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 56rem; }
+  .vmp .vmp__vue > .vmp__paragraphe, .vmp .vmp__vue > .vmp__note { max-width: 48rem; }
+  .vmp .vmp__vue > .vmp__liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 52rem; }
+  .vmp .vmp__navig { max-width: 40rem; }
+}
+.vmp.est-plein-ecran .vmp__vue > .vmp__chiffres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vmp.est-plein-ecran .vmp__vue > .vmp__liste { display: flex; }
+.vmp.est-plein-ecran .vmp__vue { padding: 1rem 1.2rem; }
+.vmp__nom-ind { font-family: var(--titre); font-weight: 600; font-size: 10px; fill: var(--vmp-industrie); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; pointer-events: none; }
+</style>
+<div class="vmp__entete">
+<p class="vmp__titre" role="heading" aria-level="3">La voie maritime du Saint-Laurent, écluse par écluse</p>
+<p class="vmp__consigne">Touche une écluse ou fais monter un navire</p>
+</div>
+<div class="vmp__corps">
+<div class="vmp__visuel">
+<div class="vmp__carte">
+<svg class="vmp__svg vmp__profil" viewBox="0 0 1000 540" role="img" aria-labelledby="vmp-titre-profil">
+<title id="vmp-titre-profil">Profil en long de la voie maritime : l'altitude de l'eau de Montréal au lac Érié et les quinze écluses</title>
+<g class="vmp__grille"></g>
+<g class="vmp__fond"></g>
+<g class="vmp__sections"></g>
+<g class="vmp__ecluses"></g>
+<g class="vmp__industries vmp__industries--profil"></g>
+<g class="vmp__navire"><g transform="scale(1.35)"><path d="M-13 -2 L13 -2 L9 5 L-10 5 Z M-6 -2 L-6 -8 L3 -8 L3 -2 Z"/></g></g>
+</svg>
+<svg class="vmp__svg vmp__plan" viewBox="0 0 1000 603" role="img" aria-labelledby="vmp-titre-plan" hidden>
+<title id="vmp-titre-plan">Carte de la voie maritime entre Montréal et le lac Érié, avec les écluses</title>
+<path class="vmp__us" d=""/>
+<path class="vmp__ca" d=""/>
+<path class="vmp__riv" d=""/>
+<path class="vmp__fleuve-bord" d=""/>
+<path class="vmp__fleuve" d=""/>
+<path class="vmp__canal vmp__canaux" d=""/>
+<path class="vmp__canal vmp__welland" d=""/>
+<path class="vmp__front" d=""/>
+<path class="vmp__prov" d=""/>
+<g class="vmp__villes"></g>
+<g class="vmp__pts"></g>
+<g class="vmp__industries vmp__industries--plan"></g>
+<g class="vmp__etiquettes"></g>
+</svg>
+<button type="button" class="vmp__bouton-carte vmp__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="vmp__barre">
+<p class="vmp__barre-titre">Ce que la vue montre</p>
+<ul class="vmp__couches">
+<li><button type="button" class="vmp__couche vmp__couche--radio" data-vue="profil" aria-pressed="true"><span class="vmp__couche-case" aria-hidden="true"></span>Le profil (les altitudes)</button></li>
+<li><button type="button" class="vmp__couche vmp__couche--radio" data-vue="plan" aria-pressed="false"><span class="vmp__couche-case" aria-hidden="true"></span>La carte (où sont les écluses)</button></li>
+<li><button type="button" class="vmp__couche" data-couche="industries" aria-pressed="true"><span class="vmp__couche-case" aria-hidden="true"></span>Industries et énergie</button></li>
+</ul>
+</div>
+</div>
+<div class="vmp__lecture">
+<div class="vmp__vue" tabindex="-1"></div>
+<p class="vmp__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="vmp__source">Dénivellations, altitudes (Montréal 6,1&nbsp;m, lac Ontario 75,0&nbsp;m, lac Érié 174,3&nbsp;m) et distances&nbsp;: Corporation de gestion de la Voie maritime du Saint-Laurent, «&nbsp;The St. Lawrence Seaway, Montreal to Lake Ontario&nbsp;» et page des écluses et canaux. Montée totale, ouverture et trafic&nbsp;: L'Encyclopédie canadienne, «&nbsp;Voie maritime du Saint-Laurent&nbsp;». Écluses du canal Welland (14,2&nbsp;m en moyenne)&nbsp;: Great Lakes Sailing et Université Brock. Durée d'une éclusée&nbsp;: St. Lawrence Seaway Development Corporation (États-Unis). Le profil n'est pas à l'échelle horizontale; les niveaux entre deux écluses relient les altitudes connues et varient avec les saisons. Carte&nbsp;: Natural Earth (domaine public) et © les contributeurs d'OpenStreetMap, licence ODbL, pour le tracé du fleuve.</p>
+<script>
+(function () {
+  var racine = document.getElementById("voie-maritime-profil");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":603,"ca":"M884.4 13.9l-14.5 15.7-6.3 10.9-3.4 .9-6 6-3 1.3-5.7 1.4-8.3-.2-4.2-1.1-1.6-.7-3.5-4.4-3.4-2.4-14.6 1-3.8-2.2-3.3-4.2-2.7-.4 1.8 1.6 4.9 8.2 7.1 1.3 20.4 7 3.3 .4 8.7 4.7 2.9-2.3 1 2.7-.8 3 1.7 4.6 5.4 7.8-7 4.9-12.9 .2-6 1.4-7.8 10.4-3 .5-11.9 7-3.3 .8-2.4 2.7-6.7 4.5-5.5 1.3-5.4 5.5-4.4 10.4-17.1 9.1-8.1 8.2 10.6-2.8 21.8-10 4.9-3.6 4-5.3 1.1-5.7 4.3-1.8 5.1-4.5 14.9-3.7 2.7-1.1 4.7-4.7 2.6-1 13.1 .3 6-2.4 5.4-4.3 10.1-13 1.3-.8 3 .2 11-7.8 5.6-7 3-.5 3.4-1.9 11.2 1.7 4.8-1.1 1.6 2.6 5.2-2.2 2.2-4.1 0-2.9-2.7-7.8 0-6.6 4.3-8.4 4-4.5 1.9-6.4-1.4-5.7 1.1-6 4.7-8.6 69.5 0 0 141.8-26.5 .2-.3-6.1 2.7-4.8-2.4-5.9-5.1 1.8-1.6-2.2-7.4 10.4-2.7 6.9-15.8 .1 .4-5.7 2.3-6.4-.5-2.2-1.9-1.7-3.9 16.1-180 1.2-25.6-2.1-6.9 3.9-10 4.1-6.1 4.7-9.6 3.1-18.8 11.4-57.8 52.9-12.4 16-.9-1.5-2.7-1.4-4.4 3.1-13.1 16.3-4.4 3-4.8 2-13.4 2.4-8 5.6-9.2 .1-3.3 2.2-6.3 1.8-3.5 3.5-10.1 5.2-4.6 3.4-1.5 .4-3.3-2.8-3.6 3.7-5.5 2.6-9.7 .4-2.9-2.4-2.9 2.4-4.9 1.2-5.6 2.7-7.8 5.7-5.7 1.6-6.8 7-8.9 5.3-1.3 3.1-1.5 1-9.6 2 0-1.2 1.8-2.4-3-.1-2.5-1.3 9.2-10.1 7.8-3.8 5.3 0 1.5-.7 1.2-2.3-2.7-1-2-2.8-15.9 12.5-1.3-1 1.3-7.3 5.4-6.5-2-.4-3.3 .4-17.8 8.1-2.9 .6-1.7-.7-4.3-4.3-1.4 .3-3.4 3.4-3 1.3-1.7 .1-2.8-2.4-1.2 0-5.5 1.6-17.8 8.2-6.4 1-2.3 1.7-1.4 2.9-.4 3.7 4.6-2 8.4-5.8 6.4-1.7 3.7-3.4 14.9-1.2 0 1.2-3.8 1.4 2 2.6-1.1 2.3-1.8 1.4 1.7 2.3 2.8 .1 5.7-2.4 0-1.2-4.7 0 0-1.4 5-4.5 12.3-1.1 4-2.5 10.2-3.5-3.4 14.5-2.3 6.1-3.5 5.3 1.8 .1 7.9-2.7 7.2 1.7 12-6.6 4-4.4 5.5-1.4-5.5 6.3-1.4 5.7-3.5 3.6-8.7 3.8-3.5 2.9 .6 1.7-3.2 3.2-1.1 2.8 .4 3.5 1.6-.5 3.6-4.2 4.4 2.1 11.3-2.7 4.1 1.2 .9 2.4-2 .8-5.8 .1-2.3 .9-7 4.1-14.7 5.3-5 4.8-5.7 .3-.5-2.7-7-.3-2.2-.8 7.4-10.4 1.8-3.9-11.9 6.7-6-.5-3.4-7.4 5.7 3.3 2.6-.5 1.9-4.2-5.6 2.6-3.6-3-5.6 .8-10.7 3.5-5.2 .2-1.9-.7-9.7-7.3-2.2-2.5 3.6-.3 2.9-2.3-9.3-5.1-8.1 1.4-2 1.1-2.1-2.1-2.4-.3-2.4 1.3-1.5 2.3 7.1 2 1.3 2-5.8-.8-8.7-2.4-2.8 .4-14 6.3-12.8 .6-2.6 .9-35 3.6-19.3 5.5-7.8 4.7-2.8 .6-14.4-2.7-8.4 3.5-19 3.8-6 2.5-3.2 .6-10-1-3.4 1-8.6 5.8-7.5 .8-2.7 2.6-2.5 5.1-8.9 5.7-10.7 10.4-7.8 5.3-4.5 4.9-10.3-1.4-3.1 .8-5.1 9-5.6 1.9-5.4 3.6-1.6 2.3-2.1 12.2-8.9 14.8-8.9 10-3.5 6.2 .3 7.1 4.3 5.6 6.5 3.9 13.3 4.7 6.6 1.3 13.6-.8 6.7 .7 5.6 3 3.1 .7 5.3-3.8 8.2-3.5 7.6-5.8 12.9-2.2 4.1-1.5 1.2 22.8-2.1 7.5 .4 3.6-1.9-1.3-1.2 3.3 5.9 6.3-1.5 5.2 .1 3.4 3 3.8 6.7 5.2 5.8 3 1.6 2.6-1.4 3.9-5.3 4.1-15.1 3.6-2.4 3.9-2.5-.7-5.8-3.7-6.3-1.3-22.4 1.3-10.6-1.4-1.8 .5-3.3 3.5-1.5 .4-11.3-.8-3.6 .5-5 2.6-10.1-4.2-15.8 6.6-5.4 0-42.3 7.5-6 2.8-9.2 8.8 0-338.7 7.4 .8 6.7 3.1 6.1 4.1 5.7 2.2 5.5-3 7.4-7.6 1-3.3 0-14.8 1.8-12.3-.4-1.9-7.2-6-8-4.7-1-8 .9-3.8 2.8-.8 3.6 1.4 2-1.4 2.5-5.7 1.6-.9 9.2-1.3 3.3 1.3 1 2.1-3.5 6.8 7.6 .3 1.5 1-1 6.8 10.7 0 .5 2.2 .9 .4 3.7-1.8 3.5 2.4 10.3-.6-1.2-1.9-6.7-4-.4-2.5 5.7-8.3 0-5.9-1.1-2-6.5 3.9 3.2 3.5-.5 3.9-2.7 2.8-3.7 .1-2.3-1.6 1.4-4.8-1-2.6-5.6-2.7 3.8-2.5-.4-1.7-2.3-.7-2.6-2.7-.4-1.9 1.1-3.4-3.2-1-3-2.7-4.9 2.6-2.5-2.2-.7-10.1-1.4-1-5.6-.9-1.6-2-.7-5.1-1.7-1.5-5.3-1.8-3.7-4 1.8-1.3-1.5-.5-2.3-2.5-.7-2 9.5 1.3 3.6-1.8 .7-4.6-2.7-5.3-3.8-1.3-2.6-4-3.4 2.7-1.3 2.6-1.9-2.6 .9-3.8-2.6-2 .5-3.1 2.4-2.7 4.5-2.6 5.4-8.9-1.6-4.8-3.1-2.9 .3-4.4-2.6-2.8-4-1.1-7.7 1.8-1.7 1.4-.9 2.4 .4 2.2 2.7 2 .6 1.6-.7 1.7-8.3-1.6-1.9-2.7-1.6-.5-3.9 .7-2.1-.5 0-72.3 925.6 0-6.1 4.2-24.6 3.7zM108.4 273.2l3.8-5.1 6.4-2 12.9-.6 6.9-1.1 1.3-.7 .5-2.7 1.5-.6 3.6 2.6 3.7-.9 5.1-16.1 .5-4.3-.7-2.7-8.7-14.8-7.3-1.5-1.8-2.3-2.7 1.2-1.8-2.1 .8-3-1.9 1.3-2.1-1.8-1.5-17.6 2.5-3.8 1.1-5.1-.8-1.5-6 9.2-3.1 8.1 0 3.8 4.7 4.3 .4 1.3-3.5 .8-2.2 2-.5 1.6 .6 4.2 1.4 2 .2 1.9-3.2 3.5-3.1 2-12.4 16.3-6.7 3.5-9.4 .3-1.8 2.5 4.9 1.5 8-4.3 3.9-1.1 2.4 .7 .8 1.4-.1 32 1 2.1 3.7 1.1 1.9-1.2 1.2-2.7-.1-2.6-3.4-2.4zM572 160.2l.3-1.7-2.1 1.9-4-.9-2.2 .4-3.2 6.2-12.6 13 1.9 2.7-2.5 4.6-3.1 3.2-7.4 3.7-13 3-2.8 2.1 6.1 1.9 3.4-.4 2.6-1.5 2.7 5.3-5.1 4.8-2.5 4 3.5 4 3.9-1.3 3.5-3.3 2.7-4.5 1.5-5-4.3 .8-1.6-1.4 .3-3.4 1.3-1.1 7.2-2.7 6.1-.3 2.1-1 2.4-5-.3-1.8-2.1 .4-2.1-3.4 1.6-4 6-5.6 3.1-.4 1.1-1.1 .9-4.6zM188 526.9l-1-1.4 1.3 1.3 1 3.8-.5 3.5zM550.9 291.5l7.2-4.8-1.5 2.1zM962.7 142.1l6-2.9-.7 2.9zM27.8 602.7l-21.3-1.5-6.5-2.1 0-2.5 27.6 2.1 6.7 2.5-3.7 .2zM853.6 89.1l-13.2 4.5-7.9 .3-2.6-1.6-1-3.6 1.6-3 3.5-2.4 11.5 .4 5.7-2.1 2.4-1.8 8.5-1.4-1.1 3.1zM858.3 71.6l-4.4-5.4-.5-1.5 1.1-1.7 8 1 3.8 2.5 4.2 1.5 0 1.3-2.7 .5-4.9 2.5zM860.6 49.2l-2.1-1.8 .5-1.7 6.4-3.2 1.3 .2 .2 2-1.9 2.2zM913.1 40.2l.2 10.2-4.1 3-3.6 4.4-2.8 .1-13.2-4.1-10.5-.5-17.6 7-4.5-.2-2.1-2.6 13.3-9.1 3.4-5.2 11.3-1.2 9.8-5.3 3.5-3.9 6.4-11.8 1.5-1.5 12.6-10.8 5-2 1.2 .2 .2 1.5-4.1 14.8-.6 5-3.9 6.1zM907.4 9.3l2.8 .4 .1 1.2-6.6 4.6-3.2 3.5-6.5 11.6-4.6 4.7-3.9 1.9-4.4 1-8.5 .3-3-1.7 .2-2.5 2-3.1 14.6-15.1 8.7-4.9 5.1 .3zM180.5 522.4l-2.4-.5-5.4-6-.1-1.2 .4-1.6-.2 1.7 .8 1.3zM584.4 260.7l2-1.9 .2 .9zM559.6 276.3l.6-1.7 2.8-1.8zM546.9 288.9l-20.7 .1-3.9-1.5 2.5 .1 7.6-2.7 12-.1 6.2-1.2 4.7-.1 1.3 .7-5.5 4zM548.8 276.9l-4.9 1.9-10.5 1 5.3-4.6 4.7-2.8 5-1.3 6.3-.4zM531.7 296.1l-1.9 3 2.6 1.4-6.5 3.7-2.2 2-1.2 .7-3.1-1.2-2 0-2.5 1.1 0-1.1 1.6-1.5 1.2-2.5-4.5-.4 .4-3.1 5.4-7.5 3.2-1.5 4.6 .7 4.6 1.8 2.9 2.3zM473.7 299l18.2-7.2 3.1 .3-.5 4.4-8.4 9.6-4.5 .7-5.7-.4-4.9-1.7-.1-3.6zM11.2 90.1l-1.4-4.7 .8-2.7 5.2-4.3 3.8 2.3 2.2 .5 6.4-5.4 2.3 0-.9 1.3 2.9 1.3-2.9 5.1 .9 1.3-11.1 7.9 1-2.6-1.6 1.1-1.4 3.3-1.2 .7-3-1.5zM18.1 165.5l2.3 1.8-3.6 6.7-1 3.5 1.8 2.8-2.3-.2-3.1-3-4.8-8.5 1-3.8 2.9 1.9z","us":"M1000 602.7l-493.3 0-8-6.8-4.2-5.1-2.8-6.7-2.8-10.9-4.1-5.8-1.3-3.8-.1-23.7-1.2-11.1-.9-.4-1.6 5.7 .4 12.2-3.1 6-1.3 5.5 .7 5.8 3.3 6.6 5.5 6.4 2.5 8.9 4.6 9.1 10.9 8.1-43 0 4.1-15.4-.3-5.6-7.5-16.6-4.9-23.5-1.6-1.2-.9 5.3 1 4.3 .4 15.9 1.8 6.1 4.3 5.4 1.7 3.5-2.3 8.3 .5 13.5-313.5 0 .9-1.3 10.7-3.8 4.6-8.6 3.5-2.2 2.1-3.3 2.9-6.9 3.7-4.8 18.3-10.1 2.1-2.5 1.3-3.3 .2-10.6-4.3-10.1-1-8.3-3.2-3.5-.5-1.6 1.1-4.3 4.7-5.1 .7-4.2-3.6-4.7-15.1-1.9-5.2-3.6-.1-2.7 1.9-5 .4-4.5-1.3-20.3 9.1-1.6 17.4-7.1 14.6-2.6 8.7-4.3 41.8-6.6 20.7 3.1 16.3-2.7 48.4 9.3 3.3 1.7 .1 2 3.7 1.1 9.6 9 5.6 2.7 6.1 0 17-6.3 6.2-1.4 51.8 2.6-1 2.6 .9 1.4 1.1 .9 2.6 .2 1.5-.8 .6-5.2 1.5-2.2 13.9-3 8.7-4.1 1.6-2.9 5.2 2.8 6-11.8 4.7-4.8 5.2-3.8 14.1-7 9.6-9.3 2.4-.5 9.1 2.9 9.1-1.9 2.8-1.4 7.9-9.1-3.7-2.7 .6-4.2 5.8-8.5-1.8-1.1-1.4 .6-2.5 4.4-1.4-8.9 .2-4.3 1.2-3.6-3.9-11.2-.6-4.3-8.1-7.4 3.4-4.7 6.6-3.3-1.9 5 3.7 2.7 1.5-2.7 5.9-5 2.1-3 1.6-7.4 1.9-1.9 6.5-1.9 1.5-2.2 .4-2.1-1-1.6-2.3-.6-2.1 .8-3.8 3.5-2.5 .9-8.4 0-.8-1.1 1.4-2.2 7.8-5.9 2.4-5-2.6 .6-2.1 2 .5-2.5 1.4-1.5-1.9-2.1-5.4 1-1.2-2.5-8.7 4.4-1.8 4.7-1 .9-1.2-.2-1.2-2.6 .9-2.6-.7-2.2-2.4-2.3-4.3-2.1-.7-4 1.2-2.7 23.5-17.2 17.5-8.1 17.6-15.4 2-3 7.6-3.3 1-3.8 8.7-5.8 1.4-2.6-1.2-6.9-1.6-2.6 12.4-16.1 58-53.1 19-11.6 7.3-1.9 10.4-6.9 7.9-2.9 4.9-3.3 4.8-1 23.3 2.3 180.3-1.2-.5 1.2 1 6.4-.8 2-2 .8-.7 9.7-2.2 8.4 .6 5.6 3.1 4-.1 2.3-1.7 3.5-2.8 .9-1.3 3.9 3.6 4.8 .5 3.3-.7 1.2-.9-.2-1.8-4.1-1.6-.4-1.7 1.6-.7 3.9 .7 5-.4 2.7-2.1 1.9 1.2 3.3-.2 3.2 .8 0-.2 2.5 1.6 7.5 .9 1.6 3 1.1 .8 2.8-.9 3.1-2.4 2.1 2.9 7-1.5 4.8-.3 5.1 .8 2.4 .9-7.4 1.2-3 1.6-.1 0 12.5 1.5 3.2 1.9 14.6 2.1 4.7-9.3 10.7-3.6 2.3 1.3 6.4-4.7 19 .6 8 2.5-3.4 1.5-.2 .6 1.6-.8 5.9 0 9.9 .6 3.5 3.9 10.4-1.8 7.9 .6 2.1 4 5 0 7.6 2-2 .8-3-.3-3.3-3-6.1 1.4-10-.7-3.8-3.2-4.7-.7-3.8-.5-9.1 1.4-3.2-2.5-9 .6-4.9 6.6-14.5 0-5.1-1.9-2.6 11.3-11.2 1.2-2-1.8-1-1.1-2.6 1-6.1 3.4-10.7-.9-3.5 .7-4.2 1.8-3.7 2-1.6-.9 3.3 1.1 1.6 1.7 0 .9-1.5-.9-11.1-4.9-3.1-1.2-5.5-5.1-4.3 1.6-.7 4.1 .7 3.6-2.6 3.8 3.2 1.7-.1 .9-4.3-4.8-1.8 .1-5.8 3.9-13 .8-9.7 1-3.2 5.5-8.6 .1-3.3-3.7 4.1-1.2-3.9-.2-3.3 2.1-13.3-.3-3.7-6.2-4 1.6-5 4.8-4.8 2.3-.9 2.4 0-.6 2.7 1.3 1.9 2.2 0 1.9-1.9 .7-2.8 26.1-.1zM617.2 479.1l.1-2.9-2.7-1.7-3.4-.9-14.9-2-11.9-3.3-19.6 0 7 8.9 10 3.2 4.7 3.1 3.7 1 7.1 .5 15.6-1.9 2.2-1.3zM956 144.1l-3.8 3.7-2.1 5.7-1.8 12.7-1 0-2.8-15.4 .7-5.9-3.7-1.2-.7-3.3 16.6-.2zM187.5 511l-7 11.4-2.4-.5-5.4-6 1.6-7.6-.2-2.7 7.1-1 5.6 2.3 1.2 1.7zM575.9 271.5l0-3.9-1.8-.6 0-1.5 2.8 0 .7-1.3 2.4-1.2 1.6 0-.9 1.4 .9 1.1 3.1-5.4 1.7-1.3 .7 2.9 2.3-2.9 3.3-1-2.6 5.3-2.7 3-5.4 3.3-3.9 3.5-1.2 .3zM560.7 279.8l-1-.6 0-3.3 2-2.7 3.5-1.1 1.5-1.4 1.5 1 3.2-1 .9 2.5-8.3 5.8zM544 325.9l6.8-4.6 1.5 .2-2.1 6.3-6.6 6.2-.4-6.1zM944.5 215.3l-2.5-1.2-3-8 0-7.5 .9-2.8-.9 0 1.6-5.5 1.3-1.7 4.3-1.6 3.5-2.5 1.4 2.4 .1 2.3-3 5-.9 5.6-3.3 3.7-.4 2 .7 .5 4.8-1.1 .8 3.7-1.5 3.4z","qcon":"M800.5 35.5l-.1 .3M807.2 99l-2.6 .7-1.4-1-16.4-17.1 11.4-48.2-8.6-4.2-6.4-.5-5.5-2.1-13.3-8.9-2.9-.1-3.5 2.6-11.4 1.9-21.9-.9-3.9 .8-11.7 7-31.2 3.6-10.4 6.2-31.4 12.1-8.6 .8-3.6 1.3-3.2 2.5-7.4 10.4-1.9 1.2-8.8 1.2-3.9-1-1.7-1.3-5.8-6.4-4.6-6.6-6.8-3.7-1.8-3.2-3.5-1.9-10.8-2.7-12.8 1.8-1.6 1.4-2 4.1-1.4 1.2-5.5 2.4-5.7-.3-7.9-5.6-.3-1.5-3.9-2.1-22.1-6.3-3.6-1.8-3.3-2.9-2.6-7.7-4.3-7.5-1.2-8.8-1.1-2.6-1.4-1.8-3.9-1.8-.7-1.7M759.4 141.6l-4.4-.2 6.3-1.7","front":"M758.5 137.8l-3.5 3.6M755 141.4l-21-2.1-4.8 1-4.9 3.3-10.1 4.1-5.9 4.7-9.6 2.9-19 11.6-58 53.1-7.5 10.2-10.3 11.9-3.3 8-2 2.5-26.6 11.4-11.2 8.2-3.9 4.9 1.3 6.8-2.2 3.2-19.2 8.3-3 5.6-14.2 12.7-46.2 82.7-6 3.7-249.6-1.2-8.5 2.8-57.2 28.7 11.2 23 4.5 12.2 1.3 20.2-.4 4.5-1.9 5 .1 2.7 1.3 3.4 4.3 5.6-1.1 8.4 3.1 4.2 3.4 2.8 6.4 3.1 2.8 2.3 .9 3.3-1.4 7.7-5.9 9.2-7.6 7.1-95.9 47.6M755 141.4l12.3-3.6M1000 140l-242.7 1.6-2.3-.2","fleuve":"M896.4 62.2l5.2 1.8 11.9-2.2 2.9-8.1-2.9-8.3-.1-3.2 5.5-9.2-.1-6.4 3.1-6.8-1.4-5.1 1.9-5.7M888.8 61.8l7.6 .4M579.2 262.5l12.4-3.9 3.5-3.8 2.2-5.3 3.6-5 3.4-1.9 8.7-10.4 31.9-32.9 18.9-16.4 10.7-7.9 .9-3.2 2-1.9 9.6-5.7 3.8-.5 2.6-2.3 4.2-1.5 3.5-3.4 6.2-2.1 16.5-9.8 15.3-6.2 9.3 1.9 13.8-3.2 .1 1-1.8 3.2-4.7-.2-3.1 1.8-3.6 0-.9-.5 .2-2.1M915.3 42.2l-.6-2.3M820 97l5.7-2.3 .9-1.8-.2-2.3 1.4-3.2 8.4-3.2 9.1 1.5 10.1-5.3 2.3 .4 8.4-2.3 13.1-11.1 9.6-5.6M921.9 19.8l6.9-15.1 5.4-7.1 12-11.9 4.9-8.9M558.9 284.2l.3-7.5 4.2-2.9 4.6-.7 11.2-10.6M807.4 105.1l12.6-8.1M762.7 137.1l8.1-3.4 6.2-.9 8.7-4 3.1-2.8-.3-4.3 4.7-3.6 3-4.7 11.2-8.3","canaux":"M736.1 145.2l10.5-1.7M861.2 84.2l2.2-5.3M890.4 63.8l4.6-1.1 6.1 2.8 8.8-1.1M910.3 64.4l5.4-.4 2.8-3 0-7.1-1.9-5.5","riv":"M478.4 0l.7 1.7 3.9 1.8 1.4 1.8 1.1 2.6 1.2 8.8 4.3 7.6 2.6 7.6 3.3 2.9 3.6 1.8 22.1 6.3 3.9 2.1 .3 1.5 7.8 5.6 5.8 .3 5.5-2.3 1.4-1.3 2-4.1 1.6-1.4 12.8-1.8 10.8 2.7 3.4 1.9 1.9 3.3 6.7 3.6 4.7 6.6 5.8 6.4 1.7 1.3 3.8 1.1 8.9-1.3 1.9-1.2 7.3-10.4 3.3-2.5 3.6-1.3 8.6-.8 31.4-12 10.4-6.2 31.1-3.7 11.7-7 3.9-.8 22 .9 11.4-1.9 3.4-2.5 3 0 13.2 8.9 5.6 2.1 6.4 .5 8.2 3.8 2.5 2.6M167.7 465.6l1.3 20.1-.4 4.5-1.9 5 .1 2.8M942.6 126.6l1.6-3.3 6.4-6.8 1.3-3.3 .1-11.5 1.9-14.8-3.7-12.4 1.8-10.9-1.8-14.8 6.5-10.6 3.4-14.4 .1-3.5-1.7-3.9 .9-5.2-.2-8.7 .8-2.5","welland":"M140.6 541l.6-6.4 3.7-18 1.2-17.9 2.1-9.2 0-5.5-1.6-6.2-1.4-3.6","pts":{"saint-lambert":[916.6,48.2],"cote-sainte-catherine":[910.1,64.4],"beauharnois-inf":[864.2,81.4],"beauharnois-sup":[861.5,82.5],"snell":[746.5,142.8],"eisenhower":[737.0,145.2],"iroquois":[675.7,172.7],"w1":[146.2,475.7],"w2":[145.1,481.2],"w3":[144.6,488.4],"w4":[148.8,496.8],"w5":[148.9,497.8],"w6":[149.1,498.7],"w7":[147.3,501.9],"w8":[141.6,538.1],"montreal":[911.8,46.1],"erie":[47.3,582.0],"ontario":[364.9,401.2],"hamilton":[58.6,469.7],"moses-saunders":[743.9,140.1],"centrale-beauharnois":[868.5,81.0],"toronto":[123.9,394.9],"kingston":[516.1,286.1],"cornwall":[752.8,137.9],"massena":[730.8,154.8],"buffalo":[192.2,539.4],"port-colborne":[141.6,539.4],"st-catharines":[142.4,488.0],"valleyfield":[833.5,93.0]}};
+  var W = D.W, H = D.H;
+  var NS = "http://www.w3.org/2000/svg";
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»").replace(/(\d) (%|km|m|ha|h)(?![a-zà-ÿ])/g, "$1\u00a0$2"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined) {
+      if (val.pastille) { var pa = el("span", "vmp__pastille"); pa.style.background = val.pastille; pa.setAttribute("aria-hidden", "true"); b.appendChild(pa); }
+      el("span", "vmp__choisir-nom", nom, b);
+      if (val.texte) { el("span", "vmp__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "vmp__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function paragraphe(t, parent) { return el("p", "vmp__paragraphe", t, parent); }
+  /* ----- les quinze écluses, de Montréal vers le lac Érié */
+  var E = [
+    { id: "saint-lambert", n: "Écluse de Saint-Lambert", court: "Saint-Lambert", lieu: "Saint-Lambert (Québec)", pays: "ca", canal: "canal de la Rive-Sud", lev: 4.5, levT: "4,5\u00a0m (15\u00a0pieds)", x: 932, note: "Première écluse en remontant le fleuve : elle fait passer les navires du port de Montréal au bassin de La Prairie." },
+    { id: "cote-sainte-catherine", n: "Écluse de Côte-Sainte-Catherine", court: "Côte-Sainte-Catherine", lieu: "Sainte-Catherine (Québec)", pays: "ca", canal: "canal de la Rive-Sud", lev: 9.1, levT: "9,1\u00a0m (30\u00a0pieds)", x: 884, note: "Le canal de la Rive-Sud contourne les rapides de Lachine. Après cette écluse, le navire entre dans le lac Saint-Louis." },
+    { id: "beauharnois-inf", n: "Écluse inférieure de Beauharnois", court: "Beauharnois inf.", lieu: "Beauharnois (Québec)", pays: "ca", canal: "canal de Beauharnois", lev: 12.5, levT: "environ 12,5\u00a0m", x: 806, note: "Les deux écluses de Beauharnois, l'une après l'autre, montent les navires d'environ 25\u00a0m en tout pour franchir le barrage de Beauharnois." },
+    { id: "beauharnois-sup", n: "Écluse supérieure de Beauharnois", court: "Beauharnois sup.", lieu: "Beauharnois (Québec)", pays: "ca", canal: "canal de Beauharnois", lev: 12.5, levT: "environ 12,5\u00a0m", x: 786, note: "Après la seconde écluse de Beauharnois, le canal mène au lac Saint-François." },
+    { id: "snell", n: "Écluse Snell", court: "Snell", lieu: "Massena (New York)", pays: "us", canal: "canal Wiley-Dondero", lev: 13.7, levT: "13,7\u00a0m (45\u00a0pieds)", x: 690, note: "Une des deux seules écluses américaines de la voie maritime. Avec l'écluse Eisenhower, elle monte les navires d'environ 26\u00a0m." },
+    { id: "eisenhower", n: "Écluse Eisenhower", court: "Eisenhower", lieu: "Massena (New York)", pays: "us", canal: "canal Wiley-Dondero", lev: 11.6, levT: "11,6\u00a0m (38\u00a0pieds)", x: 662, note: "Elle mène au lac Saint-Laurent, le réservoir formé par le barrage Moses-Saunders, construit en même temps que la voie maritime." },
+    { id: "iroquois", n: "Écluse d'Iroquois", court: "Iroquois", lieu: "Iroquois (Ontario)", pays: "ca", canal: "canal d'Iroquois", lev: 1, levT: "de 0,6 à 1,8\u00a0m, selon le niveau de l'eau", x: 572, note: "Une petite écluse de contrôle. Sa dénivellation change avec le niveau du lac Ontario, que le navire atteint ensuite." },
+    { id: "w1", n: "Écluse 1 du canal Welland", court: "1", lieu: "Port Weller, St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 338, note: "Première des huit écluses du canal Welland, à l'entrée du lac Ontario." },
+    { id: "w2", n: "Écluse 2 du canal Welland", court: "2", lieu: "St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 318, note: "Le canal Welland gravit l'escarpement du Niagara, la marche que l'eau franchit plus à l'est aux chutes du Niagara." },
+    { id: "w3", n: "Écluse 3 du canal Welland", court: "3", lieu: "St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 298, note: "Les sept premières écluses du canal se partagent presque toute la montée de 99,4\u00a0m." },
+    { id: "w4", n: "Écluse 4 du canal Welland", court: "4", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 270, note: "Les écluses 4, 5 et 6 forment un escalier : elles se suivent sans bassin entre elles. Elles sont aussi doublées pour que les navires montent et descendent en même temps." },
+    { id: "w5", n: "Écluse 5 du canal Welland", court: "5", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 257, note: "Deuxième marche de l'escalier de Thorold, les écluses jumelées 4, 5 et 6." },
+    { id: "w6", n: "Écluse 6 du canal Welland", court: "6", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 244, note: "Dernière marche de l'escalier de Thorold." },
+    { id: "w7", n: "Écluse 7 du canal Welland", court: "7", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 214, note: "Après cette écluse, le navire est presque au niveau du lac Érié." },
+    { id: "w8", n: "Écluse 8 du canal Welland", court: "8", lieu: "Port Colborne (Ontario)", pays: "ca", canal: "canal Welland", lev: .4, levT: "faible, autour d'un mètre au plus", x: 128, note: "Une écluse de contrôle, à l'entrée du lac Érié : elle règle surtout le niveau de l'eau dans le canal. Le navire est arrivé à 174,3\u00a0m d'altitude." }
+  ];
+  var PENTE = { 2: 1, 5: 2, 7: 1 }; /* montée douce du fleuve entre deux écluses (dessin) */
+  var NIV = [6.1];
+  E.forEach(function (e, i) { NIV.push(NIV[i] + e.lev + (PENTE[i + 1] || 0)); });
+  var ECL = {}; E.forEach(function (e, i) { e.num = i + 1; ECL[e.id] = e; });
+  var SECTIONS = [
+    { id: "erie", n: "Lac Érié", x0: 56, x1: 128, alt: "174,3\u00a0m", txt: "Le navire est arrivé : 174,3\u00a0m au-dessus du niveau de la mer, soit environ 168\u00a0m plus haut que le port de Montréal. Au-delà, les lacs Huron, Michigan et Supérieur sont encore un peu plus haut (176,3\u00a0m et 183,5\u00a0m).", fx: 92 },
+    { id: "welland", n: "Canal Welland", x0: 128, x1: 345, alt: "", txt: "Le canal Welland relie le lac Ontario au lac Érié en contournant les chutes du Niagara. Ses huit écluses montent les navires de 99,4\u00a0m sur 43,5\u00a0km : c'est la plus grande dénivellation de tout le parcours.", fx: 236 },
+    { id: "ontario", n: "Lac Ontario", x0: 345, x1: 572, alt: "75,0\u00a0m", txt: "Le lac Ontario est à 75,0\u00a0m d'altitude. Depuis Montréal, le navire est monté d'environ 69\u00a0m grâce aux sept écluses du fleuve. Sur sa rive ouest, Hamilton est le grand port industriel canadien de la région.", fx: 450 },
+    { id: "fleuve", n: "Fleuve Saint-Laurent", x0: 572, x1: 980, alt: "", txt: "Entre Montréal et le lac Ontario, le fleuve était coupé de rapides. Sept écluses, réparties dans quatre canaux, permettent aux navires de les contourner : canal de la Rive-Sud, canal de Beauharnois, canal Wiley-Dondero et canal d'Iroquois.", fx: 770 },
+    { id: "montreal", n: "Port de Montréal", x0: 940, x1: 995, alt: "6,1\u00a0m", txt: "Les navires venus de l'océan Atlantique remontent le fleuve jusqu'ici sans écluse. À partir de Montréal, ils doivent monter les marches de la voie maritime pour atteindre le cœur du continent.", fx: 966 }
+  ];
+  var SEC = {}; SECTIONS.forEach(function (s) { SEC[s.id] = s; });
+  var INDUSTRIES = [
+    { id: "montreal", n: "Port de Montréal", facteur: "Transport", pl: "montreal", x: 966, txt: "Le port relie les navires de mer, le chemin de fer et la route. Les marchandises lourdes y changent de mode de transport." },
+    { id: "centrale-beauharnois", n: "Centrale de Beauharnois", facteur: "Énergie", pl: "centrale-beauharnois", x: 820, txt: "Hydro-Québec y produit de l'électricité avec l'eau détournée dans le canal de Beauharnois. Les deux écluses de Beauharnois franchissent ce barrage." },
+    { id: "moses-saunders", n: "Barrage Moses-Saunders", facteur: "Énergie", pl: "moses-saunders", x: 640, txt: "Entre Cornwall (Ontario) et Massena (New York), ce barrage a été construit en même temps que la voie maritime. Il produit de l'électricité pour le Canada et les États-Unis et retient le lac Saint-Laurent." },
+    { id: "hamilton", n: "Hamilton", facteur: "Matières premières et transport", pl: "hamilton", x: 372, txt: "Le grand port industriel canadien des Grands Lacs. Le minerai de fer y arrive par bateau et y devient de l'acier : la sidérurgie canadienne de la région s'y concentre." }
+  ];
+  var IND = {}; INDUSTRIES.forEach(function (s) { IND[s.id] = s; });
+  /* ----- dessin du profil */
+  var prof = q(".vmp__profil"), plan = q(".vmp__plan");
+  function Y(alt) { return 460 - alt * 2.05; }
+  var gGr = q(".vmp__grille"), gFond = q(".vmp__fond"), gSec = q(".vmp__sections"), gEcl = q(".vmp__ecluses"), gIndP = q(".vmp__industries--profil"), navire = q(".vmp__navire");
+  [0, 50, 100, 150].forEach(function (a) {
+    svgEl("line", { x1: 50, x2: 995, y1: Y(a), y2: Y(a) }, gGr);
+    var t = svgEl("text", { x: 46, y: Y(a) + 4, "text-anchor": "end" }, gGr); t.textContent = a + "\u00a0m";
+  });
+  var tAx = svgEl("text", { x: 8, y: 16, "class": "vmp__axe" }, gGr); tAx.textContent = typo("Altitude de l'eau (au-dessus du niveau de la mer)");
+  /* Ligne d'eau : de l'ouest (gauche) vers l'est (droite), elle descend marche par marche. */
+  var pts = [[56, NIV[15]]];
+  for (var i = 15; i >= 1; i--) {
+    var e = E[i - 1], haut = NIV[i], bas = NIV[i - 1] + (PENTE[i] || 0);
+    pts.push([e.x - 3, haut]); pts.push([e.x + 3, bas]);
+    if (PENTE[i]) { pts.push([(E[i - 2] ? E[i - 2].x : 990) - 3, NIV[i - 1]]); pts.push([(E[i - 2] ? E[i - 2].x : 990) - 3, NIV[i - 1]]); }
+  }
+  pts.push([995, NIV[0]]);
+  var ligne = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + Y(p[1]).toFixed(1); }).join("");
+  var fondEau = ligne + "L995 " + (Y(NIV[0]) + 14).toFixed(1);
+  for (var k2 = pts.length - 1; k2 >= 0; k2--) { var lac = pts[k2][0] < 128 || (pts[k2][0] > 345 && pts[k2][0] < 572); fondEau += "L" + pts[k2][0].toFixed(1) + " " + (Y(pts[k2][1]) + (lac ? 26 : 12)).toFixed(1); }
+  fondEau += "Z";
+  var sol = "M56 " + (Y(NIV[15]) + 6) + ligne.replace(/^M[^L]+/, "") + "L995 470L56 470Z";
+  svgEl("path", { "class": "vmp__sol", d: sol }, gFond);
+  svgEl("path", { "class": "vmp__eau", d: fondEau }, gFond);
+  svgEl("path", { "class": "vmp__surface", d: ligne }, gFond);
+  /* Le lac Ontario n'est pas à l'échelle : une coupure le rappelle. */
+  svgEl("path", { "class": "vmp__coupure", d: "M452 " + (Y(75) - 12) + "l6 0 -4 32 -6 0z" }, gFond);
+  svgEl("path", { "class": "vmp__coupure", d: "M462 " + (Y(75) - 12) + "l6 0 -4 32 -6 0z" }, gFond);
+  function niveauEn(x) {
+    for (var j = 0; j < pts.length - 1; j++) { if (x >= pts[j][0] && x <= pts[j + 1][0]) { var a = pts[j], b = pts[j + 1]; var t = b[0] === a[0] ? 0 : (x - a[0]) / (b[0] - a[0]); return a[1] + (b[1] - a[1]) * t; } }
+    return NIV[0];
+  }
+  SECTIONS.forEach(function (s) {
+    var g = svgEl("g", { "class": "vmp__section", "data-section": s.id }, gSec);
+    var yN = s.id === "fleuve" ? 108 : (s.id === "montreal" ? Y(NIV[0]) - 34 : Y(niveauEn(s.fx)) - 30);
+    svgEl("rect", { "class": "vmp__prise", x: s.id === "fleuve" ? 680 : s.x0, y: yN - 14, width: s.id === "fleuve" ? 180 : s.x1 - s.x0, height: 24 }, g);
+    var t = svgEl("text", { "class": "vmp__nom-section", x: s.fx, y: yN, "text-anchor": "middle" }, g); t.textContent = typo(s.id === "montreal" ? "Montréal" : s.n);
+    if (s.alt) { var ta = svgEl("text", { "class": "vmp__alt", x: s.fx, y: yN + 14, "text-anchor": "middle" }, g); ta.textContent = s.alt; }
+  });
+  [["lac Saint-Laurent", 617, 6], ["lac Saint-François", 738, 4], ["lac Saint-Louis", 845, 2], ["bassin de\nLa Prairie", 908, 1]].forEach(function (l) {
+    var t = svgEl("text", { "class": "vmp__nom-lac", x: l[1], y: Y(NIV[l[2]]) - 14, "text-anchor": "middle" }, gSec);
+    l[0].split("\n").forEach(function (li, j) { var ts = svgEl("tspan", { x: l[1], dy: j ? "1.1em" : (l[0].indexOf("\n") >= 0 ? "-.55em" : "0") }, t); ts.textContent = typo(li); });
+  });
+  var GE = {};
+  E.forEach(function (e, i) {
+    var g = svgEl("g", { "class": "vmp__ecluse", "data-ecluse": e.id, "data-pays": e.pays }, gEcl);
+    var y1 = Y(NIV[i + 1]), y0 = Y(NIV[i] + (PENTE[i + 1] || 0));
+    svgEl("rect", { "class": "vmp__halo-choix", x: e.x - 9, y: y1 - 10, width: 18, height: Math.max(20, y0 - y1 + 22), rx: 4 }, g);
+    svgEl("rect", { "class": "vmp__porte", x: e.x - 2.2, y: y1 - 5, width: 4.4, height: Math.max(5, y0 - y1 + 12) }, g);
+    var RANG = { "saint-lambert": 0, "cote-sainte-catherine": 1, "beauharnois-inf": 0, "beauharnois-sup": 2, "snell": 0, "eisenhower": 1, "iroquois": 0 };
+    var base = 488 + (e.id.charAt(0) === "w" ? 0 : RANG[e.id] * 14);
+    svgEl("line", { "class": "vmp__repere", x1: e.x, x2: e.x, y1: y0 + 14, y2: base - 11 }, g);
+    var t = svgEl("text", { "class": "vmp__nom-ecluse", x: e.x, y: base, "text-anchor": "middle" }, g); t.textContent = typo(e.court);
+    svgEl("rect", { "class": "vmp__prise", x: e.x - 11, y: Math.min(y1, y0) - 14, width: 22, height: base - Math.min(y1, y0) + 18 }, g);
+    GE[e.id] = g;
+  });
+  var tw = svgEl("text", { "class": "vmp__nom-ecluse", x: 236, y: 530, "text-anchor": "middle" }, gEcl); tw.textContent = typo("écluses du canal Welland");
+  function icone(g, x, y, r) {
+    svgEl("circle", { cx: x, cy: y, r: r }, g);
+    svgEl("path", { d: "M" + (x - r * .55) + " " + (y + r * .45) + "v-" + (r * .55) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .3) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .3) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .85) + "z" }, g);
+  }
+  var GIP = {};
+  INDUSTRIES.forEach(function (s) {
+    var g = svgEl("g", { "class": "vmp__ind", "data-ind": s.id }, gIndP);
+    var y = s.id === "montreal" ? Y(NIV[0]) - 62 : (s.id === "hamilton" ? Y(75) - 62 : Y(niveauEn(s.x)) - 46);
+    icone(g, s.x, y, 9);
+    var tn = svgEl("text", { "class": "vmp__nom-ind", x: s.x, y: y - 14, "text-anchor": "middle" }, g); tn.textContent = typo(s.id === "montreal" ? "Port" : (s.id === "centrale-beauharnois" ? "Centrale" : (s.id === "moses-saunders" ? "Barrage" : "Hamilton")));
+    GIP[s.id] = g;
+  });
+  /* ----- dessin du plan */
+  q(".vmp__ca").setAttribute("d", D.ca); q(".vmp__us").setAttribute("d", D.us);
+  q(".vmp__riv").setAttribute("d", D.riv); q(".vmp__fleuve").setAttribute("d", D.fleuve); q(".vmp__fleuve-bord").setAttribute("d", D.fleuve);
+  q(".vmp__canaux").setAttribute("d", D.canaux); q(".vmp__welland").setAttribute("d", D.welland);
+  q(".vmp__front").setAttribute("d", D.front); q(".vmp__prov").setAttribute("d", D.qcon);
+  var gPts = q(".vmp__pts"), gIndPl = q(".vmp__industries--plan"), gEt = q(".vmp__etiquettes"), gVil = q(".vmp__villes");
+  var GP = {};
+  E.slice().reverse().forEach(function (e) {
+    var p = D.pts[e.id], g = svgEl("g", { "class": "vmp__pt", "data-ecluse": e.id, "data-pays": e.pays }, gPts);
+    svgEl("circle", { cx: p[0], cy: p[1], r: e.id.charAt(0) === "w" ? 3.2 : 4.6 }, g);
+    svgEl("circle", { cx: p[0], cy: p[1], r: 9, style: "fill:transparent;stroke:none" }, g);
+    GP[e.id] = g;
+  });
+  var GIPl = {};
+  INDUSTRIES.forEach(function (s) { var p = D.pts[s.pl], g = svgEl("g", { "class": "vmp__ind", "data-ind": s.id }, gIndPl); var dx = { montreal: 0, "centrale-beauharnois": 6, "moses-saunders": 14, hamilton: 0 }[s.id], dy = { montreal: -18, "centrale-beauharnois": 20, "moses-saunders": -20, hamilton: -18 }[s.id]; icone(g, p[0] + dx, p[1] + dy, 8); GIPl[s.id] = g; });
+  function t(x, y, txt, cl, anc) { var n = svgEl("text", { x: x, y: y, "class": cl, "text-anchor": anc || "middle" }, gEt); n.textContent = typo(txt); return n; }
+  [["montreal", "Montréal", -8, -8, "end"], ["toronto", "Toronto", 0, -9, "middle"], ["kingston", "Kingston", 0, -9, "middle"], ["cornwall", "Cornwall", -8, -8, "end"], ["massena", "Massena", -8, 14, "end"], ["buffalo", "Buffalo", 8, 4, "start"], ["port-colborne", "Port Colborne", -8, 12, "end"], ["st-catharines", "St. Catharines", -8, -4, "end"], ["hamilton", "Hamilton", -7, 2, "end"], ["valleyfield", "Salaberry-de-Valleyfield", -6, 14, "end"]].forEach(function (v) {
+    var p = D.pts[v[0]]; svgEl("circle", { "class": "vmp__ville", cx: p[0], cy: p[1], r: 2.2 }, gVil); t(p[0] + v[2], p[1] + v[3] + 4, v[1], "vmp__et-ville", v[4]);
+  });
+  t(D.pts.ontario[0], D.pts.ontario[1], "lac Ontario", "vmp__et-lac");
+  t(D.pts.erie[0], D.pts.erie[1], "lac Érié", "vmp__et-lac");
+  t(470, 120, "CANADA", "vmp__et-pays"); t(640, 600, "ÉTATS-UNIS", "vmp__et-pays");
+  t(770, 30, "QUÉBEC", "vmp__et-pays"); t(560, 255, "ONTARIO", "vmp__et-pays");
+  var pS = D.pts["saint-lambert"], pC = D.pts["cote-sainte-catherine"], pB = D.pts["beauharnois-sup"], pSn = D.pts.snell, pI = D.pts.iroquois, pW = D.pts.w4;
+  var ETP = [
+    t(pS[0] + 8, pS[1] + 2, "Saint-Lambert", "vmp__et-ecluse", "start"), t(pC[0] - 6, pC[1] + 15, "Côte-Sainte-Catherine", "vmp__et-ecluse", "end"),
+    t(pB[0] - 6, pB[1] - 12, "Beauharnois (2)", "vmp__et-ecluse", "end"), t(pSn[0] + 8, pSn[1] + 16, "Snell et Eisenhower", "vmp__et-ecluse", "start"),
+    t(pI[0] - 8, pI[1] + 14, "Iroquois", "vmp__et-ecluse", "end"), t(pW[0] + 12, pW[1] + 2, "Canal Welland (8)", "vmp__et-ecluse", "start")
+  ];
+  /* ----- état */
+  var DEPART = { vue: "profil", industries: true };
+  var etat = { choix: null, navire: 0 };
+  function remettreEtat() { etat.vue = DEPART.vue; etat.industries = DEPART.industries; etat.choix = null; etat.navire = 0; }
+  remettreEtat();
+  var vueTexte = q(".vmp__vue"), annonce = q(".vmp__annonce");
+  function positionNavire(s) {
+    if (s === 0) { return [970, Y(NIV[0])]; }
+    if (s === 15) { return [96, Y(NIV[15])]; }
+    var x = E[s - 1].x - 15; if (s >= 8 && s <= 14) { x = E[s - 1].x - 7; }
+    if (s === 7) { x = 520; }
+    return [x, Y(niveauEn(x))];
+  }
+  function placerNavire() { var p = positionNavire(etat.navire); navire.setAttribute("transform", "translate(" + p[0].toFixed(1) + " " + (p[1] - 4).toFixed(1) + ")"); }
+  /* ----- fiches */
+  function entete(sur, titre) {
+    vueTexte.innerHTML = "";
+    el("span", "vmp__surtitre", sur, vueTexte);
+    var h = el("p", "vmp__intertitre", null, vueTexte); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    el("span", "", titre, h);
+  }
+  function fermer() { var act = el("div", "vmp__actions", null, vueTexte); act.appendChild(bouton("vmp__retour", "Fermer la fiche", undefined, function () { choisir(null); })); }
+  function ficheAccueil() {
+    entete("Montréal → lac Érié", "Un escalier d'eau de 168\u00a0m");
+    chiffres(vueTexte, [["Montée totale", "environ 168\u00a0m"], ["Écluses", "15"], ["Ouverture", "1959"], ["Fret par année", "environ 44\u00a0millions de tonnes"]]);
+    paragraphe("Un navire qui part de Montréal doit monter de 6,1\u00a0m à 174,3\u00a0m d'altitude pour atteindre le lac Érié. Les rapides du fleuve et les chutes du Niagara l'en empêcheraient : quinze écluses, treize canadiennes et deux américaines, le hissent marche par marche.", vueTexte);
+    var nav = el("div", "vmp__navig", null, vueTexte);
+    nav.appendChild(bouton("vmp__retour vmp__principal", "Faire monter un navire depuis Montréal", undefined, function () { monter(1); }));
+    el("span", "vmp__rubrique", "Pourquoi les industries s'installent au bord de la voie", vueTexte);
+    paragraphe("Le minerai de fer est la principale marchandise transportée : la voie maritime a permis d'exploiter les gisements du Québec et du Labrador. Un bateau transporte à bas prix des cargaisons lourdes. Les barrages bâtis avec la voie fournissent de l'électricité.", vueTexte);
+    var ul = el("ul", "vmp__liste", null, vueTexte);
+    INDUSTRIES.forEach(function (s) { el("li", "", null, ul).appendChild(bouton("vmp__choisir", s.n, { texte: s.facteur }, function () { choisir({ type: "ind", id: s.id }); })); });
+    var det = el("details", "vmp__toutes", null, vueTexte);
+    el("summary", "", "Les quinze écluses", det);
+    var gr = el("ul", "vmp__grille", null, det);
+    E.forEach(function (e) { el("li", "", null, gr).appendChild(bouton("", e.num + ". " + e.n.replace("Écluse ", "").replace(/^de |^d'/, ""), undefined, function () { choisir({ type: "ecl", id: e.id }); })); });
+  }
+  function ficheEcluse(id) {
+    var e = ECL[id];
+    entete("Écluse " + e.num + " sur 15 · " + (e.pays === "us" ? "États-Unis" : "Canada"), e.n);
+    chiffres(vueTexte, [["Le navire monte de", e.levT], ["Lieu", e.lieu], ["Section", e.canal], ["Pays", e.pays === "us" ? "États-Unis" : "Canada"]]);
+    paragraphe(e.note, vueTexte);
+    if (e.num === 1) { el("p", "vmp__note", "Une éclusée prend environ une demi-heure : on ferme les portes, on fait entrer l'eau puis le navire monte avec elle.", vueTexte); }
+    var nav = el("div", "vmp__navig", null, vueTexte);
+    var b1 = bouton("vmp__retour vmp__principal", "← Écluse suivante, vers le lac Érié", undefined, function () { monter(e.num + 1); });
+    var b2 = bouton("vmp__retour", "Écluse précédente, vers Montréal →", undefined, function () { monter(e.num - 1); });
+    if (e.num === 15) { b1.disabled = true; b1.textContent = typo("Arrivé au lac Érié"); }
+    if (e.num === 1) { b2.textContent = typo("Revenir au port de Montréal →"); }
+    nav.appendChild(b1); nav.appendChild(b2);
+    fermer();
+  }
+  function ficheSection(id) {
+    var s = SEC[id];
+    entete(id === "montreal" ? "Point de départ" : (id === "erie" ? "Point d'arrivée" : "Section de la voie"), s.n);
+    if (s.alt) { chiffres(vueTexte, [["Altitude de l'eau", s.alt]]); }
+    paragraphe(s.txt, vueTexte);
+    fermer();
+  }
+  function ficheIndustrie(id) {
+    var s = IND[id];
+    entete("Facteur de localisation · " + s.facteur, s.n);
+    paragraphe(s.txt, vueTexte);
+    fermer();
+  }
+  /* ----- rendu */
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function rendre() {
+    var ch = etat.choix;
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.classList.toggle("avec-industries", etat.industries);
+    if (etat.vue === "profil") { prof.removeAttribute("hidden"); plan.setAttribute("hidden", ""); } else { plan.removeAttribute("hidden"); prof.setAttribute("hidden", ""); }
+    q(".vmp__carte").classList.toggle("vue-plan", etat.vue === "plan");
+    E.forEach(function (e) { var c = !!ch && ch.type === "ecl" && ch.id === e.id; GE[e.id].classList.toggle("est-choisie", c); GP[e.id].classList.toggle("est-choisie", c); });
+    SECTIONS.forEach(function (s) { racine.querySelector('[data-section="' + s.id + '"]').classList.toggle("est-choisie", !!ch && ch.type === "sec" && ch.id === s.id); });
+    INDUSTRIES.forEach(function (s) { var c = !!ch && ch.type === "ind" && ch.id === s.id; GIP[s.id].classList.toggle("est-choisie", c); GIPl[s.id].classList.toggle("est-choisie", c); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".vmp__couche"), function (b) {
+      var v = b.getAttribute("data-vue"); b.setAttribute("aria-pressed", (v ? etat.vue === v : etat.industries) ? "true" : "false");
+    });
+    placerNavire();
+    if (!ch) { ficheAccueil(); } else if (ch.type === "ecl") { ficheEcluse(ch.id); } else if (ch.type === "sec") { ficheSection(ch.id); } else { ficheIndustrie(ch.id); }
+  }
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    if (etat.choix && etat.choix.type === "ecl") { etat.navire = ECL[etat.choix.id].num; }
+    if (etat.choix && etat.choix.type === "sec") { etat.navire = { montreal: 0, fleuve: etat.navire, ontario: 7, welland: etat.navire, erie: 15 }[etat.choix.id]; }
+    rendre();
+    var lecture = q(".vmp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    if (etat.choix && etat.choix.type === "ecl") { var e = ECL[etat.choix.id]; annonce.textContent = typo(e.n + " : le navire monte de " + e.levT); }
+  }
+  function monter(n) {
+    if (n <= 0) { etat.choix = null; etat.navire = 0; rendre(); annonce.textContent = typo("Le navire est au port de Montréal"); return; }
+    if (n > 15) { return; }
+    etat.choix = { type: "ecl", id: E[n - 1].id }; etat.navire = n; rendre();
+    var e = E[n - 1]; annonce.textContent = typo(e.n + " : le navire monte de " + e.levT);
+  }
+  function clicVisuel(ev) {
+    var tg = ev.target;
+    var ec = tg.closest ? tg.closest("[data-ecluse]") : null;
+    if (ec) { choisir({ type: "ecl", id: ec.getAttribute("data-ecluse") }); return; }
+    var se = tg.closest ? tg.closest("[data-section]") : null;
+    if (se) { choisir({ type: "sec", id: se.getAttribute("data-section") }); return; }
+    var ind = tg.closest ? tg.closest("[data-ind]") : null;
+    if (ind) { choisir({ type: "ind", id: ind.getAttribute("data-ind") }); }
+  }
+  prof.addEventListener("click", clicVisuel);
+  plan.addEventListener("click", clicVisuel);
+  Array.prototype.forEach.call(racine.querySelectorAll(".vmp__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var v = b.getAttribute("data-vue");
+      if (v) { etat.vue = v; } else { etat.industries = !etat.industries; if (!etat.industries && etat.choix && etat.choix.type === "ind") { etat.choix = null; } }
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".vmp__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  function reinitialiser() {
+    remettreEtat(); rendre();
+    Array.prototype.forEach.call(racine.querySelectorAll(".vmp__toutes"), function (d) { d.open = false; });
+    var lecture = q(".vmp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Vue réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.vmp = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", vue: etat.vue, industries: etat.industries, navire: etat.navire }; }, choisir: choisir, monter: monter, ecluses: function () { return E; }, niveaux: function () { return NIV; } };
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
+
+<p>Suis un navire de Montréal jusqu'au lac Érié. Repère la section où il monte le
+plus, puis active la carte pour voir où se trouvent les écluses et les
+installations qui profitent de la voie.</p>
 <div class="videos-duo"><figure class="video">
 <iframe src="https://www.youtube-nocookie.com/embed/Z9iwADqEnaI"
   title="La voie maritime du Saint-Laurent" loading="lazy" allowfullscreen
