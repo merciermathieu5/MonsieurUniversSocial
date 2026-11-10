@@ -1,0 +1,86 @@
+/*
+ * Test de la carte d'Anticosti (fiche de géographie 13) dans un DOM simulé.
+ *     node outils/test_anticosti_carte.js [composant.html]
+ */
+const fs = require("fs");
+const path = require("path");
+const { JSDOM } = require("jsdom");
+const RACINE = path.join(__dirname, "..");
+const fichier = process.argv[2] || path.join(RACINE, "theme", "composants", "anticosti-carte.html");
+const composant = fs.readFileSync(fichier, "utf8");
+const dom = new JSDOM(`<!DOCTYPE html><html lang="fr-CA"><head><meta charset="utf-8"></head><body><main><article class="fiche"><div class="texte">${composant}</div></article></main></body></html>`, { runScripts: "outside-only", pretendToBeVisual: true });
+const { window } = dom;
+window.scrollTo = () => {};
+const script = composant.slice(composant.indexOf("<script>") + 8, composant.lastIndexOf("</script>"));
+window.eval(script);
+const pageJs = path.join(RACINE, "theme", "page.js");
+if (fs.existsSync(pageJs)) window.eval(fs.readFileSync(pageJs, "utf8"));
+window.eval(script);
+const racine = window.document.getElementById("anticosti-carte");
+let echecs = 0;
+function verifier(nom, ok, detail) { console.log(`    ${ok ? "ok     " : "ECHEC  "}${nom}${!ok && detail !== undefined ? "  (" + detail + ")" : ""}`); if (!ok) echecs++; }
+const un = (s) => racine.querySelector(s), tous = (s) => Array.from(racine.querySelectorAll(s));
+const clic = (el) => el && el.dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+const touche = (k) => racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: k, bubbles: true }));
+const choix = () => racine.getAttribute("data-choix");
+const api = racine.ant;
+const textes = [];
+const lire = () => textes.push(un(".ant__lecture").textContent);
+console.log("MISE EN PLACE");
+verifier("composant présent et initialisé une seule fois", !!racine && racine.getAttribute("data-pret") === "1" && racine.classList.contains("est-pret"));
+verifier("page.js ajoute Réinitialiser avant Plein écran", !!un(".ant__entete .reinitialiser") && un(".ant__entete .reinitialiser").nextElementSibling === un(".ant__entete .plein-ecran"));
+verifier("au départ : aucun choix", choix() === "");
+lire();
+const depart = JSON.stringify(api.etat());
+
+console.log("DONNÉES");
+verifier("9 lieux, 3 aires protégées", api.lieux().length === 9 && tous(".ant__lieu").length === 9 && tous(".ant__pa").length === 3);
+verifier("Jupiter et Vauréal marquées comme bien de l'UNESCO", tous('.ant__riv[data-unesco="1"]').length === 2);
+verifier("thème des fossiles au départ : 2023, 18 240 ha, frise", /2023/.test(un(".ant__vue").textContent) && /18 240/.test(un(".ant__vue").textContent) && !!un(".ant__frise"));
+console.log("THÈMES");
+clic(un('.ant__theme[data-theme="cerfs"]'));
+verifier("thème des cerfs : 220 cerfs, 1895, densités", racine.classList.contains("theme-cerfs") && /220/.test(un(".ant__vue").textContent) && /1895/.test(un(".ant__vue").textContent) && tous(".ant__densite .ant__d-cerf").length === 43, tous(".ant__densite .ant__d-cerf").length + " " + racine.className); lire();
+console.log("CHOIX ET DÉSÉLECTION");
+clic(un('.ant__lieu[data-lieu="vaureal"]'));
+verifier("un lieu des fossiles ramène le thème des fossiles", choix() === "lieu:vaureal" && api.etat().theme === "fossiles" && /76 m/.test(un(".ant__vue").textContent)); lire();
+clic(un('.ant__lieu[data-lieu="vaureal"]'));
+verifier("un second clic désélectionne", choix() === "");
+clic(un('.ant__pa[data-aire="2"]'));
+verifier("le parc national a sa fiche", /Parc national/.test(un(".ant__vue").textContent)); lire();
+touche("Escape");
+verifier("Échap désélectionne", choix() === "");
+api.lieux().forEach((l) => { api.choisir({ type: "lieu", id: l.id }); lire(); }); api.choisir(null);
+clic(un('.ant__couche[data-couche="aires"]'));
+verifier("masquer les aires protégées", !racine.classList.contains("avec-aires"));
+
+console.log("RÉINITIALISATION");
+clic(un(".ant__replier"));
+clic(un(".ant__entete .reinitialiser"));
+verifier("Réinitialiser ramène l'état exact du départ", JSON.stringify(api.etat()) === depart, JSON.stringify(api.etat()));
+verifier("Réinitialiser garde le texte masqué", racine.classList.contains("texte-masque"));
+const carte = un(".ant__carte");
+const doigt = (x, y, id) => ({ clientX: x, clientY: y, identifier: id, target: carte });
+const toucher = (type, liste) => { const ev = new window.Event(type, { bubbles: true, cancelable: true }); ev.touches = liste; carte.dispatchEvent(ev); return ev; };
+const avant = un(".ant__svg").getAttribute("viewBox"), raf = window.requestAnimationFrame;
+window.requestAnimationFrame = undefined;
+const d1 = toucher("touchstart", [doigt(300, 300, 1), doigt(340, 300, 2)]);
+toucher("touchmove", [doigt(260, 300, 1), doigt(380, 300, 2)]);
+toucher("touchend", []);
+window.requestAnimationFrame = raf;
+verifier("pincer à deux doigts rapproche la carte", d1.defaultPrevented && un(".ant__svg").getAttribute("viewBox") !== avant && carte.classList.contains("est-zoomee"));
+clic(un(".ant__entete .reinitialiser"));
+verifier("Réinitialiser ramène la carte entière", un(".ant__svg").getAttribute("viewBox") === avant && un(".ant__recentrer").hidden);
+console.log("TYPOGRAPHIE ET STRUCTURE");
+lire();
+const copie = racine.cloneNode(true); copie.querySelectorAll("style, script, svg").forEach((n) => n.remove());
+const t = copie.textContent + textes.join(" ") + Array.from(racine.querySelectorAll("svg text")).map((n) => n.textContent).join(" ");
+verifier("aucun tiret cadratin ou demi-cadratin", !/[–—]/.test(t));
+verifier("aucune virgule devant « et »", !/, et /.test(t));
+verifier("aucune espace avant ; ! ?", !/[   ][;!?]/.test(t));
+verifier("espace insécable devant les deux-points", !/ :/.test(t));
+const ids = tous("[id]").map((n) => n.id).concat([racine.id]);
+verifier("aucun id en double", new Set(ids).size === ids.length);
+verifier("classes préfixées ant__", tous("[class]").every((n) => { const c = n.getAttribute("class"); return !c || /(^|\s)ant/.test(c) || /reinitialiser|plein-ecran|entete-actions/.test(c); }));
+verifier("sources citées", /UNESCO/.test(un(".ant__source").textContent));
+console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
+process.exit(echecs ? 1 : 0);

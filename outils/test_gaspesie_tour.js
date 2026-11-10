@@ -1,0 +1,92 @@
+/*
+ * Test de la carte du tour de la Gaspésie (fiche de géographie 05) dans un DOM simulé.
+ *     node outils/test_gaspesie_tour.js [composant.html]
+ */
+const fs = require("fs");
+const path = require("path");
+const { JSDOM } = require("jsdom");
+const RACINE = path.join(__dirname, "..");
+const fichier = process.argv[2] || path.join(RACINE, "theme", "composants", "gaspesie-tour.html");
+const composant = fs.readFileSync(fichier, "utf8");
+const dom = new JSDOM(`<!DOCTYPE html><html lang="fr-CA"><head><meta charset="utf-8"></head><body><main><article class="fiche"><div class="texte">${composant}</div></article></main></body></html>`, { runScripts: "outside-only", pretendToBeVisual: true });
+const { window } = dom;
+window.scrollTo = () => {};
+const script = composant.slice(composant.indexOf("<script>") + 8, composant.lastIndexOf("</script>"));
+window.eval(script);
+const pageJs = path.join(RACINE, "theme", "page.js");
+if (fs.existsSync(pageJs)) window.eval(fs.readFileSync(pageJs, "utf8"));
+window.eval(script);
+const racine = window.document.getElementById("gaspesie-tour");
+let echecs = 0;
+function verifier(nom, ok, detail) { console.log(`    ${ok ? "ok     " : "ECHEC  "}${nom}${!ok && detail !== undefined ? "  (" + detail + ")" : ""}`); if (!ok) echecs++; }
+const un = (s) => racine.querySelector(s), tous = (s) => Array.from(racine.querySelectorAll(s));
+const clic = (el) => el && el.dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+const touche = (k) => racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: k, bubbles: true }));
+const choix = () => racine.getAttribute("data-choix");
+const api = racine.gsp;
+const textes = [];
+const lire = () => textes.push(un(".gsp__lecture").textContent);
+console.log("MISE EN PLACE");
+verifier("composant présent et initialisé une seule fois", !!racine && racine.getAttribute("data-pret") === "1" && racine.classList.contains("est-pret"));
+verifier("page.js ajoute Réinitialiser avant Plein écran", !!un(".gsp__entete .reinitialiser") && un(".gsp__entete .reinitialiser").nextElementSibling === un(".gsp__entete .plein-ecran"));
+verifier("au départ : aucun choix", choix() === "");
+lire();
+const depart = JSON.stringify(api.etat());
+
+console.log("DONNÉES");
+const A = api.attraits();
+verifier("12 attraits dessinés", A.length === 12 && tous(".gsp__attrait").length === 12);
+verifier("route 132 et parcs dessinés", un(".gsp__route-trait").getAttribute("d").length > 500 && tous(".gsp__pa").length === 5);
+verifier("boucle de 885 km", /885 km/.test(un(".gsp__vue").textContent));
+console.log("SAISONS");
+const ouverts = (s) => A.filter((a) => api.ouvert(a, s)).length;
+verifier("l'été ouvre tous les attraits sauf ceux d'hiver", ouverts("ete") === 10, ouverts("ete"));
+verifier("l'hiver en ouvre peu", ouverts("hiver") === 5, ouverts("hiver"));
+clic(un('.gsp__saison[data-saison="hiver"]'));
+verifier("en hiver, les attraits fermés pâlissent", tous(".gsp__attrait.est-ferme").length === 7 && /motoneige/.test(un(".gsp__vue").textContent)); lire();
+["printemps", "ete", "automne"].forEach((s) => { clic(un(`.gsp__saison[data-saison="${s}"]`)); lire(); });
+console.log("CHOIX ET DÉSÉLECTION");
+clic(un('.gsp__attrait[data-attrait="forillon"]'));
+verifier("un clic sur Forillon ouvre sa fiche", choix() === "forillon" && /Forillon/.test(un(".gsp__vue").textContent) && tous(".gsp__mois .est-ouvert").length === 4); lire();
+clic(un('.gsp__attrait[data-attrait="forillon"]'));
+verifier("un second clic désélectionne", choix() === "");
+clic(tous(".gsp__vue .gsp__retour").find((b) => /Faire le tour/.test(b.textContent)));
+verifier("faire le tour commence aux jardins de Reford", choix() === "reford");
+for (let i = 0; i < 11; i++) { clic(tous(".gsp__vue .gsp__retour").find((b) => /suivante/.test(b.textContent))); lire(); }
+verifier("le tour finit à Miguasha", choix() === "miguasha");
+touche("Escape");
+verifier("Échap désélectionne", choix() === "");
+clic(un('.gsp__couche[data-couche="route"]'));
+verifier("masquer la route 132", !racine.classList.contains("avec-route"));
+
+console.log("RÉINITIALISATION");
+clic(un(".gsp__replier"));
+clic(un(".gsp__entete .reinitialiser"));
+verifier("Réinitialiser ramène l'état exact du départ", JSON.stringify(api.etat()) === depart, JSON.stringify(api.etat()));
+verifier("Réinitialiser garde le texte masqué", racine.classList.contains("texte-masque"));
+const carte = un(".gsp__carte");
+const doigt = (x, y, id) => ({ clientX: x, clientY: y, identifier: id, target: carte });
+const toucher = (type, liste) => { const ev = new window.Event(type, { bubbles: true, cancelable: true }); ev.touches = liste; carte.dispatchEvent(ev); return ev; };
+const avant = un(".gsp__svg").getAttribute("viewBox"), raf = window.requestAnimationFrame;
+window.requestAnimationFrame = undefined;
+const d1 = toucher("touchstart", [doigt(300, 300, 1), doigt(340, 300, 2)]);
+toucher("touchmove", [doigt(260, 300, 1), doigt(380, 300, 2)]);
+toucher("touchend", []);
+window.requestAnimationFrame = raf;
+verifier("pincer à deux doigts rapproche la carte", d1.defaultPrevented && un(".gsp__svg").getAttribute("viewBox") !== avant && carte.classList.contains("est-zoomee"));
+clic(un(".gsp__entete .reinitialiser"));
+verifier("Réinitialiser ramène la carte entière", un(".gsp__svg").getAttribute("viewBox") === avant && un(".gsp__recentrer").hidden);
+console.log("TYPOGRAPHIE ET STRUCTURE");
+lire();
+const copie = racine.cloneNode(true); copie.querySelectorAll("style, script, svg").forEach((n) => n.remove());
+const t = copie.textContent + textes.join(" ") + Array.from(racine.querySelectorAll("svg text")).map((n) => n.textContent).join(" ");
+verifier("aucun tiret cadratin ou demi-cadratin", !/[–—]/.test(t));
+verifier("aucune virgule devant « et »", !/, et /.test(t));
+verifier("aucune espace avant ; ! ?", !/[   ][;!?]/.test(t));
+verifier("espace insécable devant les deux-points", !/ :/.test(t));
+const ids = tous("[id]").map((n) => n.id).concat([racine.id]);
+verifier("aucun id en double", new Set(ids).size === ids.length);
+verifier("classes préfixées gsp__", tous("[class]").every((n) => { const c = n.getAttribute("class"); return !c || /(^|\s)gsp/.test(c) || /reinitialiser|plein-ecran|entete-actions/.test(c); }));
+verifier("sources citées", /Tourisme Gaspésie/.test(un(".gsp__source").textContent));
+console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
+process.exit(echecs ? 1 : 0);

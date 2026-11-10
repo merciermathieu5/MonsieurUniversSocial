@@ -1,0 +1,559 @@
+<section class="vmp" id="voie-maritime-profil" data-reinitialiser aria-label="Profil interactif : la voie maritime du Saint-Laurent, écluse par écluse">
+<style>
+.vmp { --vmp-mer: #CFE0EC; --vmp-ciel: #F5F3EE; --vmp-eau: #7FB3DA; --vmp-eau-fonce: #3F7FB0; --vmp-sol: #D9CDB4; --vmp-sol-trait: #A8987A; --vmp-ca: #F1EEE6; --vmp-us: #E5E1D6; --vmp-porte: #2D3238; --vmp-halo: #FBFBF8; --vmp-grille: rgba(60, 60, 50, .14); --vmp-us-porte: #8A4B2E; --vmp-industrie: #8B3A2E; --vmp-navire: #B4462F; }
+html[data-sombre="on"] .vmp { --vmp-mer: #14273A; --vmp-ciel: #1A232D; --vmp-eau: #2F6B9A; --vmp-eau-fonce: #7FB6E2; --vmp-sol: #3A3328; --vmp-sol-trait: #6E624E; --vmp-ca: #2A333C; --vmp-us: #232B33; --vmp-porte: #E3DED3; --vmp-halo: #18222D; --vmp-grille: rgba(230, 225, 210, .12); --vmp-us-porte: #E59B76; --vmp-industrie: #F08C70; --vmp-navire: #F08C70; }
+.vmp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: vmp / inline-size; }
+.vmp .vmp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.vmp .vmp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.vmp .vmp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .vmp .vmp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .vmp .vmp__titre { color: var(--encre); }
+html[data-sombre="on"] .vmp .vmp__consigne { color: var(--encre-pale); }
+.vmp .vmp__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.vmp .vmp__visuel, .vmp .vmp__lecture { min-width: 0; }
+.vmp .vmp__carte { position: relative; background: var(--vmp-mer); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.vmp .vmp__carte.est-zoomee { touch-action: none; }
+.vmp .vmp__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.vmp.est-glisse .vmp__svg { cursor: grabbing; }
+.vmp__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--vmp-halo); stroke-linejoin: round; pointer-events: none; }
+.vmp .vmp__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.vmp .vmp__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.vmp .vmp__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.vmp .vmp__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.vmp .vmp__recentrer[hidden] { display: none; }
+.vmp .vmp__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.vmp:not(.est-plein-ecran) .vmp__replier { display: none; }
+.vmp .vmp__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.vmp .vmp__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp ul > li::before, .vmp ol > li::before { content: none; display: none; }
+.vmp ul > li::marker, .vmp ol > li::marker { content: none; }
+.vmp .vmp__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.vmp .vmp__couches > li { margin: 0; padding: 0; }
+.vmp .vmp__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.vmp .vmp__couche:hover { background: var(--matiere-voile); }
+.vmp .vmp__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.vmp .vmp__couche--radio .vmp__couche-case { border-radius: 50%; }
+.vmp .vmp__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.vmp .vmp__couche--radio[aria-pressed="true"] .vmp__couche-case::after { left: .27rem; top: .27rem; width: .32rem; height: .32rem; border: 0; border-radius: 50%; background: #fff; transform: none; }
+html[data-sombre="on"] .vmp .vmp__couche[aria-pressed="true"] .vmp__couche-case::after { border-color: #10171F; }
+html[data-sombre="on"] .vmp .vmp__couche--radio[aria-pressed="true"] .vmp__couche-case::after { background: #10171F; }
+.vmp .vmp__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.vmp .vmp__vue { padding: 1rem 1.2rem 1rem; }
+.vmp .vmp__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.vmp .vmp__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.vmp .vmp__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.vmp .vmp__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.vmp .vmp__chiffres > div { min-width: 0; }
+.vmp .vmp__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.vmp .vmp__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.vmp .vmp__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.vmp .vmp__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.vmp .vmp__liste > li { margin: 0; padding: 0; }
+.vmp .vmp__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.vmp .vmp__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.vmp .vmp__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.vmp .vmp__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.vmp .vmp__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.vmp .vmp__toutes { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.vmp .vmp__toutes > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.vmp .vmp__toutes > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.vmp .vmp__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.vmp .vmp__grille > li { margin: 0; padding: 0; }
+.vmp .vmp__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.vmp .vmp__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.vmp .vmp__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.vmp .vmp__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.vmp .vmp__retour:hover { background: var(--matiere-voile); }
+.vmp .vmp__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.vmp .vmp__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.vmp .vmp__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.vmp .vmp__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.vmp .vmp__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container vmp (min-width: 46rem) {
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .vmp .vmp__visuel { border-right: 1px solid var(--trait); }
+  .vmp .vmp__lecture { border-top: 0; }
+}
+@container vmp (max-width: 30rem) {
+  .vmp .vmp__barre, .vmp .vmp__vue, .vmp .vmp__source { padding-left: .8rem; padding-right: .8rem; }
+  .vmp .vmp__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
+}
+.vmp.est-plein-ecran, .texte section.vmp.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.vmp.est-plein-ecran > .vmp__entete { flex: none; }
+.vmp.est-plein-ecran > .vmp__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.vmp.est-plein-ecran .vmp__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.vmp.est-plein-ecran .vmp__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.vmp.est-plein-ecran .vmp__svg, .texte .vmp.est-plein-ecran svg.vmp__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.vmp.est-plein-ecran .vmp__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.vmp.est-plein-ecran > .vmp__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.vmp.est-plein-ecran.texte-masque > .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+.vmp.est-plein-ecran.texte-masque .vmp__lecture { display: none; }
+.vmp.est-plein-ecran.texte-masque .vmp__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .vmp.est-plein-ecran > .vmp__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .vmp.est-plein-ecran .vmp__visuel { border-right: 0; }
+  .vmp.est-plein-ecran .vmp__lecture { border-top: 1px solid var(--trait); }
+  .vmp.est-plein-ecran.texte-masque > .vmp__corps { grid-template-rows: minmax(0, 1fr); }
+  .vmp.est-plein-ecran > .vmp__source { display: none; }
+}
+@media print {
+  .vmp .vmp__outils, .vmp .vmp__replier, .vmp .vmp__barre { display: none; }
+  .vmp .vmp__svg { max-height: none; }
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+  .vmp .vmp__visuel { border-right: 0; }
+  .vmp { break-inside: avoid; }
+}
+.vmp .vmp__carte { background: var(--vmp-ciel); }
+.vmp .vmp__carte.vue-plan { background: var(--vmp-mer); }
+.vmp .vmp__svg[hidden] { display: none; }
+.vmp__grille line { stroke: var(--vmp-grille); stroke-width: 1px; }
+.vmp__grille text, .vmp__axe { font-family: var(--donnee); font-size: 11px; fill: var(--encre-pale); }
+.vmp__sol { fill: var(--vmp-sol); stroke: var(--vmp-sol-trait); stroke-width: 1px; stroke-linejoin: round; }
+.vmp__eau { fill: var(--vmp-eau); fill-opacity: .55; stroke: none; }
+.vmp__surface { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 2.4px; stroke-linejoin: round; }
+.vmp__coupure { fill: var(--vmp-ciel); stroke: var(--vmp-eau-fonce); stroke-width: 1.4px; }
+.vmp__ecluse { cursor: pointer; }
+.vmp__ecluse .vmp__porte { fill: var(--vmp-porte); }
+.vmp__ecluse[data-pays="us"] .vmp__porte { fill: var(--vmp-us-porte); }
+.vmp__ecluse .vmp__prise { fill: transparent; }
+.vmp__ecluse:hover .vmp__porte { fill: var(--matiere); }
+.vmp__ecluse.est-choisie .vmp__porte { fill: var(--signal); }
+.vmp__ecluse.est-choisie .vmp__halo-choix { fill: var(--signal); fill-opacity: .18; }
+.vmp__halo-choix { fill: none; }
+.vmp__section { cursor: pointer; }
+.vmp__section .vmp__prise { fill: transparent; }
+.vmp__section:hover .vmp__nom-section { fill: var(--matiere); }
+.vmp__section.est-choisie .vmp__nom-section { fill: var(--signal); }
+.vmp__nom-section { font-family: var(--titre); font-weight: 700; font-size: 13px; fill: var(--encre); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 4px; stroke-linejoin: round; }
+.vmp__nom-lac { font-family: var(--titre); font-style: italic; font-size: 10.5px; fill: var(--vmp-eau-fonce); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; }
+.vmp__nom-ecluse { font-family: var(--titre); font-weight: 600; font-size: 10.5px; fill: var(--encre-doux); pointer-events: none; }
+.vmp__ecluse.est-choisie .vmp__nom-ecluse { fill: var(--signal); font-weight: 700; }
+.vmp__repere { stroke: var(--encre-pale); stroke-width: .8px; stroke-dasharray: 2 2; }
+.vmp__alt { font-family: var(--donnee); font-size: 11px; font-weight: 600; fill: var(--vmp-eau-fonce); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; }
+.vmp__navire { transition: transform .7s ease-in-out; pointer-events: none; }
+.vmp__navire path { fill: var(--vmp-navire); stroke: var(--vmp-halo); stroke-width: 1px; }
+.vmp__industries { display: none; }
+.vmp.avec-industries .vmp__industries { display: inline; }
+.vmp__ind { cursor: pointer; }
+.vmp__ind circle { fill: var(--surface); stroke: var(--vmp-industrie); stroke-width: 1.6px; }
+.vmp__ind path { fill: var(--vmp-industrie); }
+.vmp__ind.est-choisie circle { fill: var(--vmp-industrie); }
+.vmp__ind.est-choisie path { fill: var(--surface); }
+.vmp__ca { fill: var(--vmp-ca); }
+.vmp__us { fill: var(--vmp-us); }
+.vmp__front { fill: none; stroke: var(--encre-pale); stroke-width: 1.2px; stroke-dasharray: 6 3 1.5 3; }
+.vmp__prov { fill: none; stroke: var(--encre-pale); stroke-width: .9px; stroke-dasharray: 2 2.5; }
+.vmp__fleuve { fill: none; stroke: var(--vmp-mer); stroke-width: 5px; stroke-linecap: round; stroke-linejoin: round; }
+.vmp__fleuve-bord { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 6.4px; stroke-linecap: round; stroke-linejoin: round; opacity: .35; }
+.vmp__riv { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 1.2px; opacity: .55; }
+.vmp__canal { fill: none; stroke: var(--vmp-eau-fonce); stroke-width: 2.2px; stroke-linecap: round; }
+.vmp__pt { cursor: pointer; }
+.vmp__pt circle { fill: var(--vmp-porte); stroke: var(--vmp-halo); stroke-width: 1.2px; }
+.vmp__pt[data-pays="us"] circle { fill: var(--vmp-us-porte); }
+.vmp__pt.est-choisie circle { fill: var(--signal); }
+.vmp__ville { fill: var(--encre); }
+.vmp__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--vmp-halo); stroke-linejoin: round; pointer-events: none; stroke-width: 3px; }
+.vmp__et-ville { font-size: 11px; font-weight: 600; fill: var(--encre); }
+.vmp__et-ecluse { font-size: 11px; font-weight: 700; fill: var(--vmp-porte); }
+.vmp__et-lac { font-size: 13px; font-style: italic; fill: var(--vmp-eau-fonce); }
+.vmp__et-pays { font-family: var(--donnee) !important; font-size: 11px; letter-spacing: .14em; fill: var(--encre-pale); }
+.vmp__et-ind { font-size: 10.5px; font-weight: 600; fill: var(--vmp-industrie); }
+.vmp .vmp__navig { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 .9rem; }
+.vmp .vmp__navig .vmp__retour { flex: 1 1 12rem; }
+.vmp .vmp__navig .vmp__retour[disabled] { opacity: .45; cursor: default; }
+.vmp .vmp__principal { background: var(--matiere-fonce); color: #fff; border-color: var(--matiere-fonce); }
+.vmp .vmp__principal:hover { background: var(--matiere); color: #fff; }
+html[data-sombre="on"] .vmp .vmp__principal { background: var(--matiere-voile); color: var(--encre); }
+.vmp .vmp__facteur { display: block; font-family: var(--donnee); font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; color: var(--vmp-industrie); margin: 0 0 .25rem; }
+@media (prefers-reduced-motion: reduce) { .vmp__navire { transition: none; } }
+/* Le profil est large : hors plein écran, la fiche passe sous la vue plutôt qu'à côté. */
+@container vmp (min-width: 46rem) {
+  .vmp .vmp__corps { grid-template-columns: minmax(0, 1fr); }
+  .vmp .vmp__visuel { border-right: 0; }
+  .vmp .vmp__lecture { border-top: 1px solid var(--trait); }
+  .vmp .vmp__vue { padding: 1.1rem 1.6rem 1.2rem; }
+  .vmp .vmp__vue > .vmp__chiffres { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 56rem; }
+  .vmp .vmp__vue > .vmp__paragraphe, .vmp .vmp__vue > .vmp__note { max-width: 48rem; }
+  .vmp .vmp__vue > .vmp__liste { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 52rem; }
+  .vmp .vmp__navig { max-width: 40rem; }
+}
+.vmp.est-plein-ecran .vmp__vue > .vmp__chiffres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.vmp.est-plein-ecran .vmp__vue > .vmp__liste { display: flex; }
+.vmp.est-plein-ecran .vmp__vue { padding: 1rem 1.2rem; }
+.vmp__nom-ind { font-family: var(--titre); font-weight: 600; font-size: 10px; fill: var(--vmp-industrie); paint-order: stroke; stroke: var(--vmp-ciel); stroke-width: 3px; pointer-events: none; }
+</style>
+<div class="vmp__entete">
+<p class="vmp__titre" role="heading" aria-level="3">La voie maritime du Saint-Laurent, écluse par écluse</p>
+<p class="vmp__consigne">Touche une écluse ou fais monter un navire</p>
+</div>
+<div class="vmp__corps">
+<div class="vmp__visuel">
+<div class="vmp__carte">
+<svg class="vmp__svg vmp__profil" viewBox="0 0 1000 540" role="img" aria-labelledby="vmp-titre-profil">
+<title id="vmp-titre-profil">Profil en long de la voie maritime : l'altitude de l'eau de Montréal au lac Érié et les quinze écluses</title>
+<g class="vmp__grille"></g>
+<g class="vmp__fond"></g>
+<g class="vmp__sections"></g>
+<g class="vmp__ecluses"></g>
+<g class="vmp__industries vmp__industries--profil"></g>
+<g class="vmp__navire"><g transform="scale(1.35)"><path d="M-13 -2 L13 -2 L9 5 L-10 5 Z M-6 -2 L-6 -8 L3 -8 L3 -2 Z"/></g></g>
+</svg>
+<svg class="vmp__svg vmp__plan" viewBox="0 0 1000 603" role="img" aria-labelledby="vmp-titre-plan" hidden>
+<title id="vmp-titre-plan">Carte de la voie maritime entre Montréal et le lac Érié, avec les écluses</title>
+<path class="vmp__us" d=""/>
+<path class="vmp__ca" d=""/>
+<path class="vmp__riv" d=""/>
+<path class="vmp__fleuve-bord" d=""/>
+<path class="vmp__fleuve" d=""/>
+<path class="vmp__canal vmp__canaux" d=""/>
+<path class="vmp__canal vmp__welland" d=""/>
+<path class="vmp__front" d=""/>
+<path class="vmp__prov" d=""/>
+<g class="vmp__villes"></g>
+<g class="vmp__pts"></g>
+<g class="vmp__industries vmp__industries--plan"></g>
+<g class="vmp__etiquettes"></g>
+</svg>
+<button type="button" class="vmp__bouton-carte vmp__replier" aria-expanded="true">Masquer le texte</button>
+</div>
+<div class="vmp__barre">
+<p class="vmp__barre-titre">Ce que la vue montre</p>
+<ul class="vmp__couches">
+<li><button type="button" class="vmp__couche vmp__couche--radio" data-vue="profil" aria-pressed="true"><span class="vmp__couche-case" aria-hidden="true"></span>Le profil (les altitudes)</button></li>
+<li><button type="button" class="vmp__couche vmp__couche--radio" data-vue="plan" aria-pressed="false"><span class="vmp__couche-case" aria-hidden="true"></span>La carte (où sont les écluses)</button></li>
+<li><button type="button" class="vmp__couche" data-couche="industries" aria-pressed="true"><span class="vmp__couche-case" aria-hidden="true"></span>Industries et énergie</button></li>
+</ul>
+</div>
+</div>
+<div class="vmp__lecture">
+<div class="vmp__vue" tabindex="-1"></div>
+<p class="vmp__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="vmp__source">Dénivellations, altitudes (Montréal 6,1&nbsp;m, lac Ontario 75,0&nbsp;m, lac Érié 174,3&nbsp;m) et distances&nbsp;: Corporation de gestion de la Voie maritime du Saint-Laurent, «&nbsp;The St. Lawrence Seaway, Montreal to Lake Ontario&nbsp;» et page des écluses et canaux. Montée totale, ouverture et trafic&nbsp;: L'Encyclopédie canadienne, «&nbsp;Voie maritime du Saint-Laurent&nbsp;». Écluses du canal Welland (14,2&nbsp;m en moyenne)&nbsp;: Great Lakes Sailing et Université Brock. Durée d'une éclusée&nbsp;: St. Lawrence Seaway Development Corporation (États-Unis). Le profil n'est pas à l'échelle horizontale; les niveaux entre deux écluses relient les altitudes connues et varient avec les saisons. Carte&nbsp;: Natural Earth (domaine public) et © les contributeurs d'OpenStreetMap, licence ODbL, pour le tracé du fleuve.</p>
+<script>
+(function () {
+  var racine = document.getElementById("voie-maritime-profil");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":603,"ca":"M884.4 13.9l-14.5 15.7-6.3 10.9-3.4 .9-6 6-3 1.3-5.7 1.4-8.3-.2-4.2-1.1-1.6-.7-3.5-4.4-3.4-2.4-14.6 1-3.8-2.2-3.3-4.2-2.7-.4 1.8 1.6 4.9 8.2 7.1 1.3 20.4 7 3.3 .4 8.7 4.7 2.9-2.3 1 2.7-.8 3 1.7 4.6 5.4 7.8-7 4.9-12.9 .2-6 1.4-7.8 10.4-3 .5-11.9 7-3.3 .8-2.4 2.7-6.7 4.5-5.5 1.3-5.4 5.5-4.4 10.4-17.1 9.1-8.1 8.2 10.6-2.8 21.8-10 4.9-3.6 4-5.3 1.1-5.7 4.3-1.8 5.1-4.5 14.9-3.7 2.7-1.1 4.7-4.7 2.6-1 13.1 .3 6-2.4 5.4-4.3 10.1-13 1.3-.8 3 .2 11-7.8 5.6-7 3-.5 3.4-1.9 11.2 1.7 4.8-1.1 1.6 2.6 5.2-2.2 2.2-4.1 0-2.9-2.7-7.8 0-6.6 4.3-8.4 4-4.5 1.9-6.4-1.4-5.7 1.1-6 4.7-8.6 69.5 0 0 141.8-26.5 .2-.3-6.1 2.7-4.8-2.4-5.9-5.1 1.8-1.6-2.2-7.4 10.4-2.7 6.9-15.8 .1 .4-5.7 2.3-6.4-.5-2.2-1.9-1.7-3.9 16.1-180 1.2-25.6-2.1-6.9 3.9-10 4.1-6.1 4.7-9.6 3.1-18.8 11.4-57.8 52.9-12.4 16-.9-1.5-2.7-1.4-4.4 3.1-13.1 16.3-4.4 3-4.8 2-13.4 2.4-8 5.6-9.2 .1-3.3 2.2-6.3 1.8-3.5 3.5-10.1 5.2-4.6 3.4-1.5 .4-3.3-2.8-3.6 3.7-5.5 2.6-9.7 .4-2.9-2.4-2.9 2.4-4.9 1.2-5.6 2.7-7.8 5.7-5.7 1.6-6.8 7-8.9 5.3-1.3 3.1-1.5 1-9.6 2 0-1.2 1.8-2.4-3-.1-2.5-1.3 9.2-10.1 7.8-3.8 5.3 0 1.5-.7 1.2-2.3-2.7-1-2-2.8-15.9 12.5-1.3-1 1.3-7.3 5.4-6.5-2-.4-3.3 .4-17.8 8.1-2.9 .6-1.7-.7-4.3-4.3-1.4 .3-3.4 3.4-3 1.3-1.7 .1-2.8-2.4-1.2 0-5.5 1.6-17.8 8.2-6.4 1-2.3 1.7-1.4 2.9-.4 3.7 4.6-2 8.4-5.8 6.4-1.7 3.7-3.4 14.9-1.2 0 1.2-3.8 1.4 2 2.6-1.1 2.3-1.8 1.4 1.7 2.3 2.8 .1 5.7-2.4 0-1.2-4.7 0 0-1.4 5-4.5 12.3-1.1 4-2.5 10.2-3.5-3.4 14.5-2.3 6.1-3.5 5.3 1.8 .1 7.9-2.7 7.2 1.7 12-6.6 4-4.4 5.5-1.4-5.5 6.3-1.4 5.7-3.5 3.6-8.7 3.8-3.5 2.9 .6 1.7-3.2 3.2-1.1 2.8 .4 3.5 1.6-.5 3.6-4.2 4.4 2.1 11.3-2.7 4.1 1.2 .9 2.4-2 .8-5.8 .1-2.3 .9-7 4.1-14.7 5.3-5 4.8-5.7 .3-.5-2.7-7-.3-2.2-.8 7.4-10.4 1.8-3.9-11.9 6.7-6-.5-3.4-7.4 5.7 3.3 2.6-.5 1.9-4.2-5.6 2.6-3.6-3-5.6 .8-10.7 3.5-5.2 .2-1.9-.7-9.7-7.3-2.2-2.5 3.6-.3 2.9-2.3-9.3-5.1-8.1 1.4-2 1.1-2.1-2.1-2.4-.3-2.4 1.3-1.5 2.3 7.1 2 1.3 2-5.8-.8-8.7-2.4-2.8 .4-14 6.3-12.8 .6-2.6 .9-35 3.6-19.3 5.5-7.8 4.7-2.8 .6-14.4-2.7-8.4 3.5-19 3.8-6 2.5-3.2 .6-10-1-3.4 1-8.6 5.8-7.5 .8-2.7 2.6-2.5 5.1-8.9 5.7-10.7 10.4-7.8 5.3-4.5 4.9-10.3-1.4-3.1 .8-5.1 9-5.6 1.9-5.4 3.6-1.6 2.3-2.1 12.2-8.9 14.8-8.9 10-3.5 6.2 .3 7.1 4.3 5.6 6.5 3.9 13.3 4.7 6.6 1.3 13.6-.8 6.7 .7 5.6 3 3.1 .7 5.3-3.8 8.2-3.5 7.6-5.8 12.9-2.2 4.1-1.5 1.2 22.8-2.1 7.5 .4 3.6-1.9-1.3-1.2 3.3 5.9 6.3-1.5 5.2 .1 3.4 3 3.8 6.7 5.2 5.8 3 1.6 2.6-1.4 3.9-5.3 4.1-15.1 3.6-2.4 3.9-2.5-.7-5.8-3.7-6.3-1.3-22.4 1.3-10.6-1.4-1.8 .5-3.3 3.5-1.5 .4-11.3-.8-3.6 .5-5 2.6-10.1-4.2-15.8 6.6-5.4 0-42.3 7.5-6 2.8-9.2 8.8 0-338.7 7.4 .8 6.7 3.1 6.1 4.1 5.7 2.2 5.5-3 7.4-7.6 1-3.3 0-14.8 1.8-12.3-.4-1.9-7.2-6-8-4.7-1-8 .9-3.8 2.8-.8 3.6 1.4 2-1.4 2.5-5.7 1.6-.9 9.2-1.3 3.3 1.3 1 2.1-3.5 6.8 7.6 .3 1.5 1-1 6.8 10.7 0 .5 2.2 .9 .4 3.7-1.8 3.5 2.4 10.3-.6-1.2-1.9-6.7-4-.4-2.5 5.7-8.3 0-5.9-1.1-2-6.5 3.9 3.2 3.5-.5 3.9-2.7 2.8-3.7 .1-2.3-1.6 1.4-4.8-1-2.6-5.6-2.7 3.8-2.5-.4-1.7-2.3-.7-2.6-2.7-.4-1.9 1.1-3.4-3.2-1-3-2.7-4.9 2.6-2.5-2.2-.7-10.1-1.4-1-5.6-.9-1.6-2-.7-5.1-1.7-1.5-5.3-1.8-3.7-4 1.8-1.3-1.5-.5-2.3-2.5-.7-2 9.5 1.3 3.6-1.8 .7-4.6-2.7-5.3-3.8-1.3-2.6-4-3.4 2.7-1.3 2.6-1.9-2.6 .9-3.8-2.6-2 .5-3.1 2.4-2.7 4.5-2.6 5.4-8.9-1.6-4.8-3.1-2.9 .3-4.4-2.6-2.8-4-1.1-7.7 1.8-1.7 1.4-.9 2.4 .4 2.2 2.7 2 .6 1.6-.7 1.7-8.3-1.6-1.9-2.7-1.6-.5-3.9 .7-2.1-.5 0-72.3 925.6 0-6.1 4.2-24.6 3.7zM108.4 273.2l3.8-5.1 6.4-2 12.9-.6 6.9-1.1 1.3-.7 .5-2.7 1.5-.6 3.6 2.6 3.7-.9 5.1-16.1 .5-4.3-.7-2.7-8.7-14.8-7.3-1.5-1.8-2.3-2.7 1.2-1.8-2.1 .8-3-1.9 1.3-2.1-1.8-1.5-17.6 2.5-3.8 1.1-5.1-.8-1.5-6 9.2-3.1 8.1 0 3.8 4.7 4.3 .4 1.3-3.5 .8-2.2 2-.5 1.6 .6 4.2 1.4 2 .2 1.9-3.2 3.5-3.1 2-12.4 16.3-6.7 3.5-9.4 .3-1.8 2.5 4.9 1.5 8-4.3 3.9-1.1 2.4 .7 .8 1.4-.1 32 1 2.1 3.7 1.1 1.9-1.2 1.2-2.7-.1-2.6-3.4-2.4zM572 160.2l.3-1.7-2.1 1.9-4-.9-2.2 .4-3.2 6.2-12.6 13 1.9 2.7-2.5 4.6-3.1 3.2-7.4 3.7-13 3-2.8 2.1 6.1 1.9 3.4-.4 2.6-1.5 2.7 5.3-5.1 4.8-2.5 4 3.5 4 3.9-1.3 3.5-3.3 2.7-4.5 1.5-5-4.3 .8-1.6-1.4 .3-3.4 1.3-1.1 7.2-2.7 6.1-.3 2.1-1 2.4-5-.3-1.8-2.1 .4-2.1-3.4 1.6-4 6-5.6 3.1-.4 1.1-1.1 .9-4.6zM188 526.9l-1-1.4 1.3 1.3 1 3.8-.5 3.5zM550.9 291.5l7.2-4.8-1.5 2.1zM962.7 142.1l6-2.9-.7 2.9zM27.8 602.7l-21.3-1.5-6.5-2.1 0-2.5 27.6 2.1 6.7 2.5-3.7 .2zM853.6 89.1l-13.2 4.5-7.9 .3-2.6-1.6-1-3.6 1.6-3 3.5-2.4 11.5 .4 5.7-2.1 2.4-1.8 8.5-1.4-1.1 3.1zM858.3 71.6l-4.4-5.4-.5-1.5 1.1-1.7 8 1 3.8 2.5 4.2 1.5 0 1.3-2.7 .5-4.9 2.5zM860.6 49.2l-2.1-1.8 .5-1.7 6.4-3.2 1.3 .2 .2 2-1.9 2.2zM913.1 40.2l.2 10.2-4.1 3-3.6 4.4-2.8 .1-13.2-4.1-10.5-.5-17.6 7-4.5-.2-2.1-2.6 13.3-9.1 3.4-5.2 11.3-1.2 9.8-5.3 3.5-3.9 6.4-11.8 1.5-1.5 12.6-10.8 5-2 1.2 .2 .2 1.5-4.1 14.8-.6 5-3.9 6.1zM907.4 9.3l2.8 .4 .1 1.2-6.6 4.6-3.2 3.5-6.5 11.6-4.6 4.7-3.9 1.9-4.4 1-8.5 .3-3-1.7 .2-2.5 2-3.1 14.6-15.1 8.7-4.9 5.1 .3zM180.5 522.4l-2.4-.5-5.4-6-.1-1.2 .4-1.6-.2 1.7 .8 1.3zM584.4 260.7l2-1.9 .2 .9zM559.6 276.3l.6-1.7 2.8-1.8zM546.9 288.9l-20.7 .1-3.9-1.5 2.5 .1 7.6-2.7 12-.1 6.2-1.2 4.7-.1 1.3 .7-5.5 4zM548.8 276.9l-4.9 1.9-10.5 1 5.3-4.6 4.7-2.8 5-1.3 6.3-.4zM531.7 296.1l-1.9 3 2.6 1.4-6.5 3.7-2.2 2-1.2 .7-3.1-1.2-2 0-2.5 1.1 0-1.1 1.6-1.5 1.2-2.5-4.5-.4 .4-3.1 5.4-7.5 3.2-1.5 4.6 .7 4.6 1.8 2.9 2.3zM473.7 299l18.2-7.2 3.1 .3-.5 4.4-8.4 9.6-4.5 .7-5.7-.4-4.9-1.7-.1-3.6zM11.2 90.1l-1.4-4.7 .8-2.7 5.2-4.3 3.8 2.3 2.2 .5 6.4-5.4 2.3 0-.9 1.3 2.9 1.3-2.9 5.1 .9 1.3-11.1 7.9 1-2.6-1.6 1.1-1.4 3.3-1.2 .7-3-1.5zM18.1 165.5l2.3 1.8-3.6 6.7-1 3.5 1.8 2.8-2.3-.2-3.1-3-4.8-8.5 1-3.8 2.9 1.9z","us":"M1000 602.7l-493.3 0-8-6.8-4.2-5.1-2.8-6.7-2.8-10.9-4.1-5.8-1.3-3.8-.1-23.7-1.2-11.1-.9-.4-1.6 5.7 .4 12.2-3.1 6-1.3 5.5 .7 5.8 3.3 6.6 5.5 6.4 2.5 8.9 4.6 9.1 10.9 8.1-43 0 4.1-15.4-.3-5.6-7.5-16.6-4.9-23.5-1.6-1.2-.9 5.3 1 4.3 .4 15.9 1.8 6.1 4.3 5.4 1.7 3.5-2.3 8.3 .5 13.5-313.5 0 .9-1.3 10.7-3.8 4.6-8.6 3.5-2.2 2.1-3.3 2.9-6.9 3.7-4.8 18.3-10.1 2.1-2.5 1.3-3.3 .2-10.6-4.3-10.1-1-8.3-3.2-3.5-.5-1.6 1.1-4.3 4.7-5.1 .7-4.2-3.6-4.7-15.1-1.9-5.2-3.6-.1-2.7 1.9-5 .4-4.5-1.3-20.3 9.1-1.6 17.4-7.1 14.6-2.6 8.7-4.3 41.8-6.6 20.7 3.1 16.3-2.7 48.4 9.3 3.3 1.7 .1 2 3.7 1.1 9.6 9 5.6 2.7 6.1 0 17-6.3 6.2-1.4 51.8 2.6-1 2.6 .9 1.4 1.1 .9 2.6 .2 1.5-.8 .6-5.2 1.5-2.2 13.9-3 8.7-4.1 1.6-2.9 5.2 2.8 6-11.8 4.7-4.8 5.2-3.8 14.1-7 9.6-9.3 2.4-.5 9.1 2.9 9.1-1.9 2.8-1.4 7.9-9.1-3.7-2.7 .6-4.2 5.8-8.5-1.8-1.1-1.4 .6-2.5 4.4-1.4-8.9 .2-4.3 1.2-3.6-3.9-11.2-.6-4.3-8.1-7.4 3.4-4.7 6.6-3.3-1.9 5 3.7 2.7 1.5-2.7 5.9-5 2.1-3 1.6-7.4 1.9-1.9 6.5-1.9 1.5-2.2 .4-2.1-1-1.6-2.3-.6-2.1 .8-3.8 3.5-2.5 .9-8.4 0-.8-1.1 1.4-2.2 7.8-5.9 2.4-5-2.6 .6-2.1 2 .5-2.5 1.4-1.5-1.9-2.1-5.4 1-1.2-2.5-8.7 4.4-1.8 4.7-1 .9-1.2-.2-1.2-2.6 .9-2.6-.7-2.2-2.4-2.3-4.3-2.1-.7-4 1.2-2.7 23.5-17.2 17.5-8.1 17.6-15.4 2-3 7.6-3.3 1-3.8 8.7-5.8 1.4-2.6-1.2-6.9-1.6-2.6 12.4-16.1 58-53.1 19-11.6 7.3-1.9 10.4-6.9 7.9-2.9 4.9-3.3 4.8-1 23.3 2.3 180.3-1.2-.5 1.2 1 6.4-.8 2-2 .8-.7 9.7-2.2 8.4 .6 5.6 3.1 4-.1 2.3-1.7 3.5-2.8 .9-1.3 3.9 3.6 4.8 .5 3.3-.7 1.2-.9-.2-1.8-4.1-1.6-.4-1.7 1.6-.7 3.9 .7 5-.4 2.7-2.1 1.9 1.2 3.3-.2 3.2 .8 0-.2 2.5 1.6 7.5 .9 1.6 3 1.1 .8 2.8-.9 3.1-2.4 2.1 2.9 7-1.5 4.8-.3 5.1 .8 2.4 .9-7.4 1.2-3 1.6-.1 0 12.5 1.5 3.2 1.9 14.6 2.1 4.7-9.3 10.7-3.6 2.3 1.3 6.4-4.7 19 .6 8 2.5-3.4 1.5-.2 .6 1.6-.8 5.9 0 9.9 .6 3.5 3.9 10.4-1.8 7.9 .6 2.1 4 5 0 7.6 2-2 .8-3-.3-3.3-3-6.1 1.4-10-.7-3.8-3.2-4.7-.7-3.8-.5-9.1 1.4-3.2-2.5-9 .6-4.9 6.6-14.5 0-5.1-1.9-2.6 11.3-11.2 1.2-2-1.8-1-1.1-2.6 1-6.1 3.4-10.7-.9-3.5 .7-4.2 1.8-3.7 2-1.6-.9 3.3 1.1 1.6 1.7 0 .9-1.5-.9-11.1-4.9-3.1-1.2-5.5-5.1-4.3 1.6-.7 4.1 .7 3.6-2.6 3.8 3.2 1.7-.1 .9-4.3-4.8-1.8 .1-5.8 3.9-13 .8-9.7 1-3.2 5.5-8.6 .1-3.3-3.7 4.1-1.2-3.9-.2-3.3 2.1-13.3-.3-3.7-6.2-4 1.6-5 4.8-4.8 2.3-.9 2.4 0-.6 2.7 1.3 1.9 2.2 0 1.9-1.9 .7-2.8 26.1-.1zM617.2 479.1l.1-2.9-2.7-1.7-3.4-.9-14.9-2-11.9-3.3-19.6 0 7 8.9 10 3.2 4.7 3.1 3.7 1 7.1 .5 15.6-1.9 2.2-1.3zM956 144.1l-3.8 3.7-2.1 5.7-1.8 12.7-1 0-2.8-15.4 .7-5.9-3.7-1.2-.7-3.3 16.6-.2zM187.5 511l-7 11.4-2.4-.5-5.4-6 1.6-7.6-.2-2.7 7.1-1 5.6 2.3 1.2 1.7zM575.9 271.5l0-3.9-1.8-.6 0-1.5 2.8 0 .7-1.3 2.4-1.2 1.6 0-.9 1.4 .9 1.1 3.1-5.4 1.7-1.3 .7 2.9 2.3-2.9 3.3-1-2.6 5.3-2.7 3-5.4 3.3-3.9 3.5-1.2 .3zM560.7 279.8l-1-.6 0-3.3 2-2.7 3.5-1.1 1.5-1.4 1.5 1 3.2-1 .9 2.5-8.3 5.8zM544 325.9l6.8-4.6 1.5 .2-2.1 6.3-6.6 6.2-.4-6.1zM944.5 215.3l-2.5-1.2-3-8 0-7.5 .9-2.8-.9 0 1.6-5.5 1.3-1.7 4.3-1.6 3.5-2.5 1.4 2.4 .1 2.3-3 5-.9 5.6-3.3 3.7-.4 2 .7 .5 4.8-1.1 .8 3.7-1.5 3.4z","qcon":"M800.5 35.5l-.1 .3M807.2 99l-2.6 .7-1.4-1-16.4-17.1 11.4-48.2-8.6-4.2-6.4-.5-5.5-2.1-13.3-8.9-2.9-.1-3.5 2.6-11.4 1.9-21.9-.9-3.9 .8-11.7 7-31.2 3.6-10.4 6.2-31.4 12.1-8.6 .8-3.6 1.3-3.2 2.5-7.4 10.4-1.9 1.2-8.8 1.2-3.9-1-1.7-1.3-5.8-6.4-4.6-6.6-6.8-3.7-1.8-3.2-3.5-1.9-10.8-2.7-12.8 1.8-1.6 1.4-2 4.1-1.4 1.2-5.5 2.4-5.7-.3-7.9-5.6-.3-1.5-3.9-2.1-22.1-6.3-3.6-1.8-3.3-2.9-2.6-7.7-4.3-7.5-1.2-8.8-1.1-2.6-1.4-1.8-3.9-1.8-.7-1.7M759.4 141.6l-4.4-.2 6.3-1.7","front":"M758.5 137.8l-3.5 3.6M755 141.4l-21-2.1-4.8 1-4.9 3.3-10.1 4.1-5.9 4.7-9.6 2.9-19 11.6-58 53.1-7.5 10.2-10.3 11.9-3.3 8-2 2.5-26.6 11.4-11.2 8.2-3.9 4.9 1.3 6.8-2.2 3.2-19.2 8.3-3 5.6-14.2 12.7-46.2 82.7-6 3.7-249.6-1.2-8.5 2.8-57.2 28.7 11.2 23 4.5 12.2 1.3 20.2-.4 4.5-1.9 5 .1 2.7 1.3 3.4 4.3 5.6-1.1 8.4 3.1 4.2 3.4 2.8 6.4 3.1 2.8 2.3 .9 3.3-1.4 7.7-5.9 9.2-7.6 7.1-95.9 47.6M755 141.4l12.3-3.6M1000 140l-242.7 1.6-2.3-.2","fleuve":"M896.4 62.2l5.2 1.8 11.9-2.2 2.9-8.1-2.9-8.3-.1-3.2 5.5-9.2-.1-6.4 3.1-6.8-1.4-5.1 1.9-5.7M888.8 61.8l7.6 .4M579.2 262.5l12.4-3.9 3.5-3.8 2.2-5.3 3.6-5 3.4-1.9 8.7-10.4 31.9-32.9 18.9-16.4 10.7-7.9 .9-3.2 2-1.9 9.6-5.7 3.8-.5 2.6-2.3 4.2-1.5 3.5-3.4 6.2-2.1 16.5-9.8 15.3-6.2 9.3 1.9 13.8-3.2 .1 1-1.8 3.2-4.7-.2-3.1 1.8-3.6 0-.9-.5 .2-2.1M915.3 42.2l-.6-2.3M820 97l5.7-2.3 .9-1.8-.2-2.3 1.4-3.2 8.4-3.2 9.1 1.5 10.1-5.3 2.3 .4 8.4-2.3 13.1-11.1 9.6-5.6M921.9 19.8l6.9-15.1 5.4-7.1 12-11.9 4.9-8.9M558.9 284.2l.3-7.5 4.2-2.9 4.6-.7 11.2-10.6M807.4 105.1l12.6-8.1M762.7 137.1l8.1-3.4 6.2-.9 8.7-4 3.1-2.8-.3-4.3 4.7-3.6 3-4.7 11.2-8.3","canaux":"M736.1 145.2l10.5-1.7M861.2 84.2l2.2-5.3M890.4 63.8l4.6-1.1 6.1 2.8 8.8-1.1M910.3 64.4l5.4-.4 2.8-3 0-7.1-1.9-5.5","riv":"M478.4 0l.7 1.7 3.9 1.8 1.4 1.8 1.1 2.6 1.2 8.8 4.3 7.6 2.6 7.6 3.3 2.9 3.6 1.8 22.1 6.3 3.9 2.1 .3 1.5 7.8 5.6 5.8 .3 5.5-2.3 1.4-1.3 2-4.1 1.6-1.4 12.8-1.8 10.8 2.7 3.4 1.9 1.9 3.3 6.7 3.6 4.7 6.6 5.8 6.4 1.7 1.3 3.8 1.1 8.9-1.3 1.9-1.2 7.3-10.4 3.3-2.5 3.6-1.3 8.6-.8 31.4-12 10.4-6.2 31.1-3.7 11.7-7 3.9-.8 22 .9 11.4-1.9 3.4-2.5 3 0 13.2 8.9 5.6 2.1 6.4 .5 8.2 3.8 2.5 2.6M167.7 465.6l1.3 20.1-.4 4.5-1.9 5 .1 2.8M942.6 126.6l1.6-3.3 6.4-6.8 1.3-3.3 .1-11.5 1.9-14.8-3.7-12.4 1.8-10.9-1.8-14.8 6.5-10.6 3.4-14.4 .1-3.5-1.7-3.9 .9-5.2-.2-8.7 .8-2.5","welland":"M140.6 541l.6-6.4 3.7-18 1.2-17.9 2.1-9.2 0-5.5-1.6-6.2-1.4-3.6","pts":{"saint-lambert":[916.6,48.2],"cote-sainte-catherine":[910.1,64.4],"beauharnois-inf":[864.2,81.4],"beauharnois-sup":[861.5,82.5],"snell":[746.5,142.8],"eisenhower":[737.0,145.2],"iroquois":[675.7,172.7],"w1":[146.2,475.7],"w2":[145.1,481.2],"w3":[144.6,488.4],"w4":[148.8,496.8],"w5":[148.9,497.8],"w6":[149.1,498.7],"w7":[147.3,501.9],"w8":[141.6,538.1],"montreal":[911.8,46.1],"erie":[47.3,582.0],"ontario":[364.9,401.2],"hamilton":[58.6,469.7],"moses-saunders":[743.9,140.1],"centrale-beauharnois":[868.5,81.0],"toronto":[123.9,394.9],"kingston":[516.1,286.1],"cornwall":[752.8,137.9],"massena":[730.8,154.8],"buffalo":[192.2,539.4],"port-colborne":[141.6,539.4],"st-catharines":[142.4,488.0],"valleyfield":[833.5,93.0]}};
+  var W = D.W, H = D.H;
+  var NS = "http://www.w3.org/2000/svg";
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»").replace(/(\d) (%|km|m|ha|h)(?![a-zà-ÿ])/g, "$1\u00a0$2"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined) {
+      if (val.pastille) { var pa = el("span", "vmp__pastille"); pa.style.background = val.pastille; pa.setAttribute("aria-hidden", "true"); b.appendChild(pa); }
+      el("span", "vmp__choisir-nom", nom, b);
+      if (val.texte) { el("span", "vmp__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "vmp__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function paragraphe(t, parent) { return el("p", "vmp__paragraphe", t, parent); }
+  /* ----- les quinze écluses, de Montréal vers le lac Érié */
+  var E = [
+    { id: "saint-lambert", n: "Écluse de Saint-Lambert", court: "Saint-Lambert", lieu: "Saint-Lambert (Québec)", pays: "ca", canal: "canal de la Rive-Sud", lev: 4.5, levT: "4,5\u00a0m (15\u00a0pieds)", x: 932, note: "Première écluse en remontant le fleuve : elle fait passer les navires du port de Montréal au bassin de La Prairie." },
+    { id: "cote-sainte-catherine", n: "Écluse de Côte-Sainte-Catherine", court: "Côte-Sainte-Catherine", lieu: "Sainte-Catherine (Québec)", pays: "ca", canal: "canal de la Rive-Sud", lev: 9.1, levT: "9,1\u00a0m (30\u00a0pieds)", x: 884, note: "Le canal de la Rive-Sud contourne les rapides de Lachine. Après cette écluse, le navire entre dans le lac Saint-Louis." },
+    { id: "beauharnois-inf", n: "Écluse inférieure de Beauharnois", court: "Beauharnois inf.", lieu: "Beauharnois (Québec)", pays: "ca", canal: "canal de Beauharnois", lev: 12.5, levT: "environ 12,5\u00a0m", x: 806, note: "Les deux écluses de Beauharnois, l'une après l'autre, montent les navires d'environ 25\u00a0m en tout pour franchir le barrage de Beauharnois." },
+    { id: "beauharnois-sup", n: "Écluse supérieure de Beauharnois", court: "Beauharnois sup.", lieu: "Beauharnois (Québec)", pays: "ca", canal: "canal de Beauharnois", lev: 12.5, levT: "environ 12,5\u00a0m", x: 786, note: "Après la seconde écluse de Beauharnois, le canal mène au lac Saint-François." },
+    { id: "snell", n: "Écluse Snell", court: "Snell", lieu: "Massena (New York)", pays: "us", canal: "canal Wiley-Dondero", lev: 13.7, levT: "13,7\u00a0m (45\u00a0pieds)", x: 690, note: "Une des deux seules écluses américaines de la voie maritime. Avec l'écluse Eisenhower, elle monte les navires d'environ 26\u00a0m." },
+    { id: "eisenhower", n: "Écluse Eisenhower", court: "Eisenhower", lieu: "Massena (New York)", pays: "us", canal: "canal Wiley-Dondero", lev: 11.6, levT: "11,6\u00a0m (38\u00a0pieds)", x: 662, note: "Elle mène au lac Saint-Laurent, le réservoir formé par le barrage Moses-Saunders, construit en même temps que la voie maritime." },
+    { id: "iroquois", n: "Écluse d'Iroquois", court: "Iroquois", lieu: "Iroquois (Ontario)", pays: "ca", canal: "canal d'Iroquois", lev: 1, levT: "de 0,6 à 1,8\u00a0m, selon le niveau de l'eau", x: 572, note: "Une petite écluse de contrôle. Sa dénivellation change avec le niveau du lac Ontario, que le navire atteint ensuite." },
+    { id: "w1", n: "Écluse 1 du canal Welland", court: "1", lieu: "Port Weller, St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 338, note: "Première des huit écluses du canal Welland, à l'entrée du lac Ontario." },
+    { id: "w2", n: "Écluse 2 du canal Welland", court: "2", lieu: "St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 318, note: "Le canal Welland gravit l'escarpement du Niagara, la marche que l'eau franchit plus à l'est aux chutes du Niagara." },
+    { id: "w3", n: "Écluse 3 du canal Welland", court: "3", lieu: "St. Catharines (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 298, note: "Les sept premières écluses du canal se partagent presque toute la montée de 99,4\u00a0m." },
+    { id: "w4", n: "Écluse 4 du canal Welland", court: "4", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 270, note: "Les écluses 4, 5 et 6 forment un escalier : elles se suivent sans bassin entre elles. Elles sont aussi doublées pour que les navires montent et descendent en même temps." },
+    { id: "w5", n: "Écluse 5 du canal Welland", court: "5", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 257, note: "Deuxième marche de l'escalier de Thorold, les écluses jumelées 4, 5 et 6." },
+    { id: "w6", n: "Écluse 6 du canal Welland", court: "6", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 244, note: "Dernière marche de l'escalier de Thorold." },
+    { id: "w7", n: "Écluse 7 du canal Welland", court: "7", lieu: "Thorold (Ontario)", pays: "ca", canal: "canal Welland", lev: 14.13, levT: "environ 14,2\u00a0m (moyenne des écluses 1 à 7)", x: 214, note: "Après cette écluse, le navire est presque au niveau du lac Érié." },
+    { id: "w8", n: "Écluse 8 du canal Welland", court: "8", lieu: "Port Colborne (Ontario)", pays: "ca", canal: "canal Welland", lev: .4, levT: "faible, autour d'un mètre au plus", x: 128, note: "Une écluse de contrôle, à l'entrée du lac Érié : elle règle surtout le niveau de l'eau dans le canal. Le navire est arrivé à 174,3\u00a0m d'altitude." }
+  ];
+  var PENTE = { 2: 1, 5: 2, 7: 1 }; /* montée douce du fleuve entre deux écluses (dessin) */
+  var NIV = [6.1];
+  E.forEach(function (e, i) { NIV.push(NIV[i] + e.lev + (PENTE[i + 1] || 0)); });
+  var ECL = {}; E.forEach(function (e, i) { e.num = i + 1; ECL[e.id] = e; });
+  var SECTIONS = [
+    { id: "erie", n: "Lac Érié", x0: 56, x1: 128, alt: "174,3\u00a0m", txt: "Le navire est arrivé : 174,3\u00a0m au-dessus du niveau de la mer, soit environ 168\u00a0m plus haut que le port de Montréal. Au-delà, les lacs Huron, Michigan et Supérieur sont encore un peu plus haut (176,3\u00a0m et 183,5\u00a0m).", fx: 92 },
+    { id: "welland", n: "Canal Welland", x0: 128, x1: 345, alt: "", txt: "Le canal Welland relie le lac Ontario au lac Érié en contournant les chutes du Niagara. Ses huit écluses montent les navires de 99,4\u00a0m sur 43,5\u00a0km : c'est la plus grande dénivellation de tout le parcours.", fx: 236 },
+    { id: "ontario", n: "Lac Ontario", x0: 345, x1: 572, alt: "75,0\u00a0m", txt: "Le lac Ontario est à 75,0\u00a0m d'altitude. Depuis Montréal, le navire est monté d'environ 69\u00a0m grâce aux sept écluses du fleuve. Sur sa rive ouest, Hamilton est le grand port industriel canadien de la région.", fx: 450 },
+    { id: "fleuve", n: "Fleuve Saint-Laurent", x0: 572, x1: 980, alt: "", txt: "Entre Montréal et le lac Ontario, le fleuve était coupé de rapides. Sept écluses, réparties dans quatre canaux, permettent aux navires de les contourner : canal de la Rive-Sud, canal de Beauharnois, canal Wiley-Dondero et canal d'Iroquois.", fx: 770 },
+    { id: "montreal", n: "Port de Montréal", x0: 940, x1: 995, alt: "6,1\u00a0m", txt: "Les navires venus de l'océan Atlantique remontent le fleuve jusqu'ici sans écluse. À partir de Montréal, ils doivent monter les marches de la voie maritime pour atteindre le cœur du continent.", fx: 966 }
+  ];
+  var SEC = {}; SECTIONS.forEach(function (s) { SEC[s.id] = s; });
+  var INDUSTRIES = [
+    { id: "montreal", n: "Port de Montréal", facteur: "Transport", pl: "montreal", x: 966, txt: "Le port relie les navires de mer, le chemin de fer et la route. Les marchandises lourdes y changent de mode de transport." },
+    { id: "centrale-beauharnois", n: "Centrale de Beauharnois", facteur: "Énergie", pl: "centrale-beauharnois", x: 820, txt: "Hydro-Québec y produit de l'électricité avec l'eau détournée dans le canal de Beauharnois. Les deux écluses de Beauharnois franchissent ce barrage." },
+    { id: "moses-saunders", n: "Barrage Moses-Saunders", facteur: "Énergie", pl: "moses-saunders", x: 640, txt: "Entre Cornwall (Ontario) et Massena (New York), ce barrage a été construit en même temps que la voie maritime. Il produit de l'électricité pour le Canada et les États-Unis et retient le lac Saint-Laurent." },
+    { id: "hamilton", n: "Hamilton", facteur: "Matières premières et transport", pl: "hamilton", x: 372, txt: "Le grand port industriel canadien des Grands Lacs. Le minerai de fer y arrive par bateau et y devient de l'acier : la sidérurgie canadienne de la région s'y concentre." }
+  ];
+  var IND = {}; INDUSTRIES.forEach(function (s) { IND[s.id] = s; });
+
+  /* ----- dessin du profil */
+  var prof = q(".vmp__profil"), plan = q(".vmp__plan");
+  function Y(alt) { return 460 - alt * 2.05; }
+  var gGr = q(".vmp__grille"), gFond = q(".vmp__fond"), gSec = q(".vmp__sections"), gEcl = q(".vmp__ecluses"), gIndP = q(".vmp__industries--profil"), navire = q(".vmp__navire");
+  [0, 50, 100, 150].forEach(function (a) {
+    svgEl("line", { x1: 50, x2: 995, y1: Y(a), y2: Y(a) }, gGr);
+    var t = svgEl("text", { x: 46, y: Y(a) + 4, "text-anchor": "end" }, gGr); t.textContent = a + "\u00a0m";
+  });
+  var tAx = svgEl("text", { x: 8, y: 16, "class": "vmp__axe" }, gGr); tAx.textContent = typo("Altitude de l'eau (au-dessus du niveau de la mer)");
+  /* Ligne d'eau : de l'ouest (gauche) vers l'est (droite), elle descend marche par marche. */
+  var pts = [[56, NIV[15]]];
+  for (var i = 15; i >= 1; i--) {
+    var e = E[i - 1], haut = NIV[i], bas = NIV[i - 1] + (PENTE[i] || 0);
+    pts.push([e.x - 3, haut]); pts.push([e.x + 3, bas]);
+    if (PENTE[i]) { pts.push([(E[i - 2] ? E[i - 2].x : 990) - 3, NIV[i - 1]]); pts.push([(E[i - 2] ? E[i - 2].x : 990) - 3, NIV[i - 1]]); }
+  }
+  pts.push([995, NIV[0]]);
+  var ligne = pts.map(function (p, k) { return (k ? "L" : "M") + p[0].toFixed(1) + " " + Y(p[1]).toFixed(1); }).join("");
+  var fondEau = ligne + "L995 " + (Y(NIV[0]) + 14).toFixed(1);
+  for (var k2 = pts.length - 1; k2 >= 0; k2--) { var lac = pts[k2][0] < 128 || (pts[k2][0] > 345 && pts[k2][0] < 572); fondEau += "L" + pts[k2][0].toFixed(1) + " " + (Y(pts[k2][1]) + (lac ? 26 : 12)).toFixed(1); }
+  fondEau += "Z";
+  var sol = "M56 " + (Y(NIV[15]) + 6) + ligne.replace(/^M[^L]+/, "") + "L995 470L56 470Z";
+  svgEl("path", { "class": "vmp__sol", d: sol }, gFond);
+  svgEl("path", { "class": "vmp__eau", d: fondEau }, gFond);
+  svgEl("path", { "class": "vmp__surface", d: ligne }, gFond);
+  /* Le lac Ontario n'est pas à l'échelle : une coupure le rappelle. */
+  svgEl("path", { "class": "vmp__coupure", d: "M452 " + (Y(75) - 12) + "l6 0 -4 32 -6 0z" }, gFond);
+  svgEl("path", { "class": "vmp__coupure", d: "M462 " + (Y(75) - 12) + "l6 0 -4 32 -6 0z" }, gFond);
+  function niveauEn(x) {
+    for (var j = 0; j < pts.length - 1; j++) { if (x >= pts[j][0] && x <= pts[j + 1][0]) { var a = pts[j], b = pts[j + 1]; var t = b[0] === a[0] ? 0 : (x - a[0]) / (b[0] - a[0]); return a[1] + (b[1] - a[1]) * t; } }
+    return NIV[0];
+  }
+  SECTIONS.forEach(function (s) {
+    var g = svgEl("g", { "class": "vmp__section", "data-section": s.id }, gSec);
+    var yN = s.id === "fleuve" ? 108 : (s.id === "montreal" ? Y(NIV[0]) - 34 : Y(niveauEn(s.fx)) - 30);
+    svgEl("rect", { "class": "vmp__prise", x: s.id === "fleuve" ? 680 : s.x0, y: yN - 14, width: s.id === "fleuve" ? 180 : s.x1 - s.x0, height: 24 }, g);
+    var t = svgEl("text", { "class": "vmp__nom-section", x: s.fx, y: yN, "text-anchor": "middle" }, g); t.textContent = typo(s.id === "montreal" ? "Montréal" : s.n);
+    if (s.alt) { var ta = svgEl("text", { "class": "vmp__alt", x: s.fx, y: yN + 14, "text-anchor": "middle" }, g); ta.textContent = s.alt; }
+  });
+  [["lac Saint-Laurent", 617, 6], ["lac Saint-François", 738, 4], ["lac Saint-Louis", 845, 2], ["bassin de\nLa Prairie", 908, 1]].forEach(function (l) {
+    var t = svgEl("text", { "class": "vmp__nom-lac", x: l[1], y: Y(NIV[l[2]]) - 14, "text-anchor": "middle" }, gSec);
+    l[0].split("\n").forEach(function (li, j) { var ts = svgEl("tspan", { x: l[1], dy: j ? "1.1em" : (l[0].indexOf("\n") >= 0 ? "-.55em" : "0") }, t); ts.textContent = typo(li); });
+  });
+  var GE = {};
+  E.forEach(function (e, i) {
+    var g = svgEl("g", { "class": "vmp__ecluse", "data-ecluse": e.id, "data-pays": e.pays }, gEcl);
+    var y1 = Y(NIV[i + 1]), y0 = Y(NIV[i] + (PENTE[i + 1] || 0));
+    svgEl("rect", { "class": "vmp__halo-choix", x: e.x - 9, y: y1 - 10, width: 18, height: Math.max(20, y0 - y1 + 22), rx: 4 }, g);
+    svgEl("rect", { "class": "vmp__porte", x: e.x - 2.2, y: y1 - 5, width: 4.4, height: Math.max(5, y0 - y1 + 12) }, g);
+    var RANG = { "saint-lambert": 0, "cote-sainte-catherine": 1, "beauharnois-inf": 0, "beauharnois-sup": 2, "snell": 0, "eisenhower": 1, "iroquois": 0 };
+    var base = 488 + (e.id.charAt(0) === "w" ? 0 : RANG[e.id] * 14);
+    svgEl("line", { "class": "vmp__repere", x1: e.x, x2: e.x, y1: y0 + 14, y2: base - 11 }, g);
+    var t = svgEl("text", { "class": "vmp__nom-ecluse", x: e.x, y: base, "text-anchor": "middle" }, g); t.textContent = typo(e.court);
+    svgEl("rect", { "class": "vmp__prise", x: e.x - 11, y: Math.min(y1, y0) - 14, width: 22, height: base - Math.min(y1, y0) + 18 }, g);
+    GE[e.id] = g;
+  });
+  var tw = svgEl("text", { "class": "vmp__nom-ecluse", x: 236, y: 530, "text-anchor": "middle" }, gEcl); tw.textContent = typo("écluses du canal Welland");
+  function icone(g, x, y, r) {
+    svgEl("circle", { cx: x, cy: y, r: r }, g);
+    svgEl("path", { d: "M" + (x - r * .55) + " " + (y + r * .45) + "v-" + (r * .55) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .3) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .3) + "l" + (r * .35) + " -" + (r * .3) + "v" + (r * .85) + "z" }, g);
+  }
+  var GIP = {};
+  INDUSTRIES.forEach(function (s) {
+    var g = svgEl("g", { "class": "vmp__ind", "data-ind": s.id }, gIndP);
+    var y = s.id === "montreal" ? Y(NIV[0]) - 62 : (s.id === "hamilton" ? Y(75) - 62 : Y(niveauEn(s.x)) - 46);
+    icone(g, s.x, y, 9);
+    var tn = svgEl("text", { "class": "vmp__nom-ind", x: s.x, y: y - 14, "text-anchor": "middle" }, g); tn.textContent = typo(s.id === "montreal" ? "Port" : (s.id === "centrale-beauharnois" ? "Centrale" : (s.id === "moses-saunders" ? "Barrage" : "Hamilton")));
+    GIP[s.id] = g;
+  });
+
+  /* ----- dessin du plan */
+  q(".vmp__ca").setAttribute("d", D.ca); q(".vmp__us").setAttribute("d", D.us);
+  q(".vmp__riv").setAttribute("d", D.riv); q(".vmp__fleuve").setAttribute("d", D.fleuve); q(".vmp__fleuve-bord").setAttribute("d", D.fleuve);
+  q(".vmp__canaux").setAttribute("d", D.canaux); q(".vmp__welland").setAttribute("d", D.welland);
+  q(".vmp__front").setAttribute("d", D.front); q(".vmp__prov").setAttribute("d", D.qcon);
+  var gPts = q(".vmp__pts"), gIndPl = q(".vmp__industries--plan"), gEt = q(".vmp__etiquettes"), gVil = q(".vmp__villes");
+  var GP = {};
+  E.slice().reverse().forEach(function (e) {
+    var p = D.pts[e.id], g = svgEl("g", { "class": "vmp__pt", "data-ecluse": e.id, "data-pays": e.pays }, gPts);
+    svgEl("circle", { cx: p[0], cy: p[1], r: e.id.charAt(0) === "w" ? 3.2 : 4.6 }, g);
+    svgEl("circle", { cx: p[0], cy: p[1], r: 9, style: "fill:transparent;stroke:none" }, g);
+    GP[e.id] = g;
+  });
+  var GIPl = {};
+  INDUSTRIES.forEach(function (s) { var p = D.pts[s.pl], g = svgEl("g", { "class": "vmp__ind", "data-ind": s.id }, gIndPl); var dx = { montreal: 0, "centrale-beauharnois": 6, "moses-saunders": 14, hamilton: 0 }[s.id], dy = { montreal: -18, "centrale-beauharnois": 20, "moses-saunders": -20, hamilton: -18 }[s.id]; icone(g, p[0] + dx, p[1] + dy, 8); GIPl[s.id] = g; });
+  function t(x, y, txt, cl, anc) { var n = svgEl("text", { x: x, y: y, "class": cl, "text-anchor": anc || "middle" }, gEt); n.textContent = typo(txt); return n; }
+  [["montreal", "Montréal", -8, -8, "end"], ["toronto", "Toronto", 0, -9, "middle"], ["kingston", "Kingston", 0, -9, "middle"], ["cornwall", "Cornwall", -8, -8, "end"], ["massena", "Massena", -8, 14, "end"], ["buffalo", "Buffalo", 8, 4, "start"], ["port-colborne", "Port Colborne", -8, 12, "end"], ["st-catharines", "St. Catharines", -8, -4, "end"], ["hamilton", "Hamilton", -7, 2, "end"], ["valleyfield", "Salaberry-de-Valleyfield", -6, 14, "end"]].forEach(function (v) {
+    var p = D.pts[v[0]]; svgEl("circle", { "class": "vmp__ville", cx: p[0], cy: p[1], r: 2.2 }, gVil); t(p[0] + v[2], p[1] + v[3] + 4, v[1], "vmp__et-ville", v[4]);
+  });
+  t(D.pts.ontario[0], D.pts.ontario[1], "lac Ontario", "vmp__et-lac");
+  t(D.pts.erie[0], D.pts.erie[1], "lac Érié", "vmp__et-lac");
+  t(470, 120, "CANADA", "vmp__et-pays"); t(640, 600, "ÉTATS-UNIS", "vmp__et-pays");
+  t(770, 30, "QUÉBEC", "vmp__et-pays"); t(560, 255, "ONTARIO", "vmp__et-pays");
+  var pS = D.pts["saint-lambert"], pC = D.pts["cote-sainte-catherine"], pB = D.pts["beauharnois-sup"], pSn = D.pts.snell, pI = D.pts.iroquois, pW = D.pts.w4;
+  var ETP = [
+    t(pS[0] + 8, pS[1] + 2, "Saint-Lambert", "vmp__et-ecluse", "start"), t(pC[0] - 6, pC[1] + 15, "Côte-Sainte-Catherine", "vmp__et-ecluse", "end"),
+    t(pB[0] - 6, pB[1] - 12, "Beauharnois (2)", "vmp__et-ecluse", "end"), t(pSn[0] + 8, pSn[1] + 16, "Snell et Eisenhower", "vmp__et-ecluse", "start"),
+    t(pI[0] - 8, pI[1] + 14, "Iroquois", "vmp__et-ecluse", "end"), t(pW[0] + 12, pW[1] + 2, "Canal Welland (8)", "vmp__et-ecluse", "start")
+  ];
+
+  /* ----- état */
+  var DEPART = { vue: "profil", industries: true };
+  var etat = { choix: null, navire: 0 };
+  function remettreEtat() { etat.vue = DEPART.vue; etat.industries = DEPART.industries; etat.choix = null; etat.navire = 0; }
+  remettreEtat();
+  var vueTexte = q(".vmp__vue"), annonce = q(".vmp__annonce");
+  function positionNavire(s) {
+    if (s === 0) { return [970, Y(NIV[0])]; }
+    if (s === 15) { return [96, Y(NIV[15])]; }
+    var x = E[s - 1].x - 15; if (s >= 8 && s <= 14) { x = E[s - 1].x - 7; }
+    if (s === 7) { x = 520; }
+    return [x, Y(niveauEn(x))];
+  }
+  function placerNavire() { var p = positionNavire(etat.navire); navire.setAttribute("transform", "translate(" + p[0].toFixed(1) + " " + (p[1] - 4).toFixed(1) + ")"); }
+
+  /* ----- fiches */
+  function entete(sur, titre) {
+    vueTexte.innerHTML = "";
+    el("span", "vmp__surtitre", sur, vueTexte);
+    var h = el("p", "vmp__intertitre", null, vueTexte); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    el("span", "", titre, h);
+  }
+  function fermer() { var act = el("div", "vmp__actions", null, vueTexte); act.appendChild(bouton("vmp__retour", "Fermer la fiche", undefined, function () { choisir(null); })); }
+  function ficheAccueil() {
+    entete("Montréal → lac Érié", "Un escalier d'eau de 168\u00a0m");
+    chiffres(vueTexte, [["Montée totale", "environ 168\u00a0m"], ["Écluses", "15"], ["Ouverture", "1959"], ["Fret par année", "environ 44\u00a0millions de tonnes"]]);
+    paragraphe("Un navire qui part de Montréal doit monter de 6,1\u00a0m à 174,3\u00a0m d'altitude pour atteindre le lac Érié. Les rapides du fleuve et les chutes du Niagara l'en empêcheraient : quinze écluses, treize canadiennes et deux américaines, le hissent marche par marche.", vueTexte);
+    var nav = el("div", "vmp__navig", null, vueTexte);
+    nav.appendChild(bouton("vmp__retour vmp__principal", "Faire monter un navire depuis Montréal", undefined, function () { monter(1); }));
+    el("span", "vmp__rubrique", "Pourquoi les industries s'installent au bord de la voie", vueTexte);
+    paragraphe("Le minerai de fer est la principale marchandise transportée : la voie maritime a permis d'exploiter les gisements du Québec et du Labrador. Un bateau transporte à bas prix des cargaisons lourdes. Les barrages bâtis avec la voie fournissent de l'électricité.", vueTexte);
+    var ul = el("ul", "vmp__liste", null, vueTexte);
+    INDUSTRIES.forEach(function (s) { el("li", "", null, ul).appendChild(bouton("vmp__choisir", s.n, { texte: s.facteur }, function () { choisir({ type: "ind", id: s.id }); })); });
+    var det = el("details", "vmp__toutes", null, vueTexte);
+    el("summary", "", "Les quinze écluses", det);
+    var gr = el("ul", "vmp__grille", null, det);
+    E.forEach(function (e) { el("li", "", null, gr).appendChild(bouton("", e.num + ". " + e.n.replace("Écluse ", "").replace(/^de |^d'/, ""), undefined, function () { choisir({ type: "ecl", id: e.id }); })); });
+  }
+  function ficheEcluse(id) {
+    var e = ECL[id];
+    entete("Écluse " + e.num + " sur 15 · " + (e.pays === "us" ? "États-Unis" : "Canada"), e.n);
+    chiffres(vueTexte, [["Le navire monte de", e.levT], ["Lieu", e.lieu], ["Section", e.canal], ["Pays", e.pays === "us" ? "États-Unis" : "Canada"]]);
+    paragraphe(e.note, vueTexte);
+    if (e.num === 1) { el("p", "vmp__note", "Une éclusée prend environ une demi-heure : on ferme les portes, on fait entrer l'eau puis le navire monte avec elle.", vueTexte); }
+    var nav = el("div", "vmp__navig", null, vueTexte);
+    var b1 = bouton("vmp__retour vmp__principal", "← Écluse suivante, vers le lac Érié", undefined, function () { monter(e.num + 1); });
+    var b2 = bouton("vmp__retour", "Écluse précédente, vers Montréal →", undefined, function () { monter(e.num - 1); });
+    if (e.num === 15) { b1.disabled = true; b1.textContent = typo("Arrivé au lac Érié"); }
+    if (e.num === 1) { b2.textContent = typo("Revenir au port de Montréal →"); }
+    nav.appendChild(b1); nav.appendChild(b2);
+    fermer();
+  }
+  function ficheSection(id) {
+    var s = SEC[id];
+    entete(id === "montreal" ? "Point de départ" : (id === "erie" ? "Point d'arrivée" : "Section de la voie"), s.n);
+    if (s.alt) { chiffres(vueTexte, [["Altitude de l'eau", s.alt]]); }
+    paragraphe(s.txt, vueTexte);
+    fermer();
+  }
+  function ficheIndustrie(id) {
+    var s = IND[id];
+    entete("Facteur de localisation · " + s.facteur, s.n);
+    paragraphe(s.txt, vueTexte);
+    fermer();
+  }
+
+  /* ----- rendu */
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function rendre() {
+    var ch = etat.choix;
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.classList.toggle("avec-industries", etat.industries);
+    if (etat.vue === "profil") { prof.removeAttribute("hidden"); plan.setAttribute("hidden", ""); } else { plan.removeAttribute("hidden"); prof.setAttribute("hidden", ""); }
+    q(".vmp__carte").classList.toggle("vue-plan", etat.vue === "plan");
+    E.forEach(function (e) { var c = !!ch && ch.type === "ecl" && ch.id === e.id; GE[e.id].classList.toggle("est-choisie", c); GP[e.id].classList.toggle("est-choisie", c); });
+    SECTIONS.forEach(function (s) { racine.querySelector('[data-section="' + s.id + '"]').classList.toggle("est-choisie", !!ch && ch.type === "sec" && ch.id === s.id); });
+    INDUSTRIES.forEach(function (s) { var c = !!ch && ch.type === "ind" && ch.id === s.id; GIP[s.id].classList.toggle("est-choisie", c); GIPl[s.id].classList.toggle("est-choisie", c); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".vmp__couche"), function (b) {
+      var v = b.getAttribute("data-vue"); b.setAttribute("aria-pressed", (v ? etat.vue === v : etat.industries) ? "true" : "false");
+    });
+    placerNavire();
+    if (!ch) { ficheAccueil(); } else if (ch.type === "ecl") { ficheEcluse(ch.id); } else if (ch.type === "sec") { ficheSection(ch.id); } else { ficheIndustrie(ch.id); }
+  }
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    if (etat.choix && etat.choix.type === "ecl") { etat.navire = ECL[etat.choix.id].num; }
+    if (etat.choix && etat.choix.type === "sec") { etat.navire = { montreal: 0, fleuve: etat.navire, ontario: 7, welland: etat.navire, erie: 15 }[etat.choix.id]; }
+    rendre();
+    var lecture = q(".vmp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    if (etat.choix && etat.choix.type === "ecl") { var e = ECL[etat.choix.id]; annonce.textContent = typo(e.n + " : le navire monte de " + e.levT); }
+  }
+  function monter(n) {
+    if (n <= 0) { etat.choix = null; etat.navire = 0; rendre(); annonce.textContent = typo("Le navire est au port de Montréal"); return; }
+    if (n > 15) { return; }
+    etat.choix = { type: "ecl", id: E[n - 1].id }; etat.navire = n; rendre();
+    var e = E[n - 1]; annonce.textContent = typo(e.n + " : le navire monte de " + e.levT);
+  }
+  function clicVisuel(ev) {
+    var tg = ev.target;
+    var ec = tg.closest ? tg.closest("[data-ecluse]") : null;
+    if (ec) { choisir({ type: "ecl", id: ec.getAttribute("data-ecluse") }); return; }
+    var se = tg.closest ? tg.closest("[data-section]") : null;
+    if (se) { choisir({ type: "sec", id: se.getAttribute("data-section") }); return; }
+    var ind = tg.closest ? tg.closest("[data-ind]") : null;
+    if (ind) { choisir({ type: "ind", id: ind.getAttribute("data-ind") }); }
+  }
+  prof.addEventListener("click", clicVisuel);
+  plan.addEventListener("click", clicVisuel);
+  Array.prototype.forEach.call(racine.querySelectorAll(".vmp__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var v = b.getAttribute("data-vue");
+      if (v) { etat.vue = v; } else { etat.industries = !etat.industries; if (!etat.industries && etat.choix && etat.choix.type === "ind") { etat.choix = null; } }
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".vmp__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+  });
+  function reinitialiser() {
+    remettreEtat(); rendre();
+    Array.prototype.forEach.call(racine.querySelectorAll(".vmp__toutes"), function (d) { d.open = false; });
+    var lecture = q(".vmp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Vue réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.vmp = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", vue: etat.vue, industries: etat.industries, navire: etat.navire }; }, choisir: choisir, monter: monter, ecluses: function () { return E; }, niveaux: function () { return NIV; } };
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

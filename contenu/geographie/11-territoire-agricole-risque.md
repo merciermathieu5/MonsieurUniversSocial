@@ -150,6 +150,8 @@ et 30 fois supérieurs à ceux de la saison sèche. Environ 15 % du pays, fait d
 collines et de montagnes, reste à l'abri des crues. Mais près de 56 % des
 terres sont habituellement inondées sous 30 centimètres à 3 mètres d'eau.
 
+::: composant bangladesh-mousson
+
 ::: activite
 Le reportage **[Le Bangladesh frappé par de fortes crues](https://www.lapresse.ca/international/asie-et-oceanie/2024-08-22/le-bangladesh-frappe-par-de-fortes-crues.php)**,
 paru dans La Presse en août 2024, montre à quoi ressemble une crue récente.
@@ -429,8 +431,10 @@ Lancée en 2007 par l'Union africaine, cette initiative réunit onze pays : le
 Sénégal, la Mauritanie, le Mali, le Burkina Faso, le Niger, le Nigeria, le Tchad,
 le Soudan, l'Érythrée, l'Éthiopie et Djibouti. Elle vise à restaurer 100 millions
 d'hectares de terres dégradées d'ici 2030, le long d'une bande de quelque 8 000
-kilomètres au sud du Sahara, à séquestrer 250 millions de tonnes de carbone et à
+kilomètres au sud du Sahara, à stocker 250 millions de tonnes de dioxyde de carbone et à
 créer 10 millions d'emplois.
+
+::: composant sahel-muraille
 
 ::: note
 Le projet avance lentement. Sur les 100 millions d'hectares prévus pour 2030,

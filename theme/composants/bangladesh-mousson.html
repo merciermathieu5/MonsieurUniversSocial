@@ -1,0 +1,698 @@
+<section class="bgm" id="bangladesh-mousson" data-reinitialiser aria-label="Carte et graphique interactifs : la mousson mois par mois au Bangladesh, pluie, débit des fleuves, crues et saisons du riz">
+<style>
+.bgm { --bgm-hors: #EEF3F6; --bgm-terre: #ECE7DC; --bgm-terre-trait: #C9C0AE; --bgm-eau: #A9CBE3; --bgm-eau-nom: #2D5F8A; --bgm-halo: #FBFBF8; --bgm-encre-carte: #2F3A44; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: bgm / inline-size; }
+html[data-sombre="on"] .bgm { --bgm-hors: #1B2732; --bgm-terre: #36414C; --bgm-terre-trait: #56626E; --bgm-eau: #1C3A55; --bgm-eau-nom: #9CC7EC; --bgm-halo: #18222D; --bgm-encre-carte: #E3DED3; }
+.bgm .bgm__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bgm .bgm__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.bgm .bgm__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .bgm .bgm__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .bgm .bgm__titre { color: var(--encre); }
+html[data-sombre="on"] .bgm .bgm__consigne { color: var(--encre-pale); }
+.bgm .bgm__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.bgm .bgm__visuel, .bgm .bgm__lecture { min-width: 0; }
+.bgm .bgm__carte { position: relative; background: var(--bgm-hors); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.bgm .bgm__carte.est-zoomee { touch-action: none; }
+.bgm .bgm__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.bgm.est-glisse .bgm__svg { cursor: grabbing; }
+.bgm__fond { fill: var(--bgm-hors); }
+.bgm__terre { fill: var(--bgm-terre); stroke: var(--bgm-terre-trait); stroke-width: .6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.bgm__eau { fill: var(--bgm-eau); stroke: none; }
+.bgm__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--bgm-halo); stroke-linejoin: round; pointer-events: none; }
+.bgm__etiquette--lieu { font-weight: 600; fill: var(--encre); }
+.bgm__etiquette--choisie { font-weight: 700; fill: var(--encre); }
+.bgm__etiquette--eau { font-style: italic; font-weight: 500; fill: var(--bgm-eau-nom); }
+.bgm__etiquette--pale { font-style: italic; fill: var(--encre-pale); }
+.bgm .bgm__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.bgm .bgm__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.bgm .bgm__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.bgm .bgm__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm .bgm__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.bgm .bgm__recentrer[hidden] { display: none; }
+.bgm .bgm__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.bgm:not(.est-plein-ecran) .bgm__replier { display: none; }
+.bgm .bgm__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.bgm .bgm__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.bgm .bgm__barre-titre + .bgm__couches, .bgm .bgm__barre > * + .bgm__barre-titre { margin-top: 0; }
+.bgm .bgm__barre > .bgm__bloc + .bgm__bloc { margin-top: .55rem; }
+.bgm ul > li::before, .bgm ol > li::before { content: none; display: none; }
+.bgm ul > li::marker, .bgm ol > li::marker { content: none; }
+.bgm .bgm__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.bgm .bgm__couches > li { margin: 0; padding: 0; }
+.bgm .bgm__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.bgm .bgm__couche:hover { background: var(--matiere-voile); }
+.bgm .bgm__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm .bgm__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.bgm .bgm__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.bgm .bgm__couche[aria-pressed="true"] .bgm__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.bgm .bgm__couche[aria-pressed="true"] .bgm__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+html[data-sombre="on"] .bgm .bgm__couche[aria-pressed="true"] .bgm__couche-case::after { border-color: #10171F; }
+.bgm .bgm__segments { display: inline-flex; flex-wrap: wrap; gap: .3rem; margin: 0; padding: 0; list-style: none; }
+.bgm .bgm__segment { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .85rem; cursor: pointer; }
+.bgm .bgm__segment:hover { background: var(--matiere-voile); }
+.bgm .bgm__segment:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm .bgm__segment[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .bgm .bgm__segment[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.bgm .bgm__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.bgm .bgm__vue { padding: 1rem 1.2rem 1rem; }
+.bgm .bgm__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.bgm .bgm__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.bgm .bgm__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.bgm .bgm__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.bgm .bgm__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.bgm .bgm__chiffres > div { min-width: 0; }
+.bgm .bgm__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.bgm .bgm__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.bgm .bgm__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.bgm .bgm__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.bgm .bgm__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.bgm .bgm__liste > li { margin: 0; padding: 0; }
+.bgm .bgm__points { margin: 0 0 .9rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+.bgm .bgm__points > li { margin: 0; padding: 0 0 0 1rem; position: relative; font-size: .92rem; line-height: 1.5; }
+.bgm .bgm__points > li::before { content: "" !important; display: block !important; position: absolute; left: .1rem; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--matiere); }
+.bgm .bgm__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.bgm .bgm__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.bgm .bgm__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm .bgm__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.bgm .bgm__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.bgm .bgm__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.bgm .bgm__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.bgm .bgm__retour:hover { background: var(--matiere-voile); }
+.bgm .bgm__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm .bgm__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.bgm .bgm__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.bgm .bgm__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.bgm .bgm__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container bgm (min-width: 46rem) {
+  .bgm .bgm__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .bgm .bgm__visuel { border-right: 1px solid var(--trait); }
+  .bgm .bgm__lecture { border-top: 0; }
+}
+@container bgm (max-width: 30rem) {
+  .bgm .bgm__barre, .bgm .bgm__vue, .bgm .bgm__source { padding-left: .8rem; padding-right: .8rem; }
+  .bgm .bgm__couche, .bgm .bgm__segment { font-size: .74rem; }
+}
+.bgm.est-plein-ecran, .texte section.bgm.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.bgm.est-plein-ecran > .bgm__entete { flex: none; }
+.bgm.est-plein-ecran > .bgm__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.bgm.est-plein-ecran .bgm__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.bgm.est-plein-ecran .bgm__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.bgm.est-plein-ecran .bgm__svg, .texte .bgm.est-plein-ecran svg.bgm__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.bgm.est-plein-ecran .bgm__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.bgm.est-plein-ecran > .bgm__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.bgm.est-plein-ecran.texte-masque > .bgm__corps { grid-template-columns: minmax(0, 1fr); }
+.bgm.est-plein-ecran.texte-masque .bgm__lecture { display: none; }
+.bgm.est-plein-ecran.texte-masque .bgm__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .bgm.est-plein-ecran > .bgm__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .bgm.est-plein-ecran .bgm__visuel { border-right: 0; }
+  .bgm.est-plein-ecran .bgm__lecture { border-top: 1px solid var(--trait); }
+  .bgm.est-plein-ecran.texte-masque > .bgm__corps { grid-template-rows: minmax(0, 1fr); }
+  .bgm.est-plein-ecran > .bgm__source { display: none; }
+  .bgm.est-plein-ecran .bgm__barre { padding-top: .4rem; padding-bottom: .45rem; }
+  .bgm.est-plein-ecran .bgm__barre-titre { display: none; }
+}
+@media print {
+  .bgm .bgm__outils, .bgm .bgm__replier, .bgm .bgm__barre { display: none; }
+  .bgm .bgm__svg { max-height: none; }
+  .bgm .bgm__corps { grid-template-columns: minmax(0, 1fr); }
+  .bgm .bgm__visuel { border-right: 0; }
+  .bgm { break-inside: avoid; }
+}
+
+.bgm { --bgm-pays: #E8E3D8; --bgm-bgd: #DCE7C8; --bgm-bgd-crue: #8FBBD9; --bgm-fleuve: #3F7FB5; --bgm-pluie: #4C86B8; --bgm-debit: #B4502B; --bgm-vent: #2F3A44; --bgm-colline: #CFC4AE; --bgm-boro: #7A9A3A; --bgm-aus: #C9A227; --bgm-aman: #3F8F5A; --bgm-crue: #3F7FB5; }
+html[data-sombre="on"] .bgm { --bgm-pays: #26303A; --bgm-bgd: #34433A; --bgm-bgd-crue: #2F5878; --bgm-fleuve: #6FB0E6; --bgm-pluie: #5E9BD0; --bgm-debit: #EE8A62; --bgm-vent: #E3DED3; --bgm-colline: #3A3F44; --bgm-boro: #9DBE58; --bgm-aus: #E0BC45; --bgm-aman: #6CC08A; --bgm-crue: #6FB0E6; }
+.bgm .bgm__fond { fill: var(--bgm-eau); }
+.bgm .bgm__carte { background: var(--bgm-eau); }
+.bgm__pays { fill: var(--bgm-pays); stroke: var(--bgm-terre-trait); stroke-width: .5px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.bgm__colline { fill: var(--bgm-colline); stroke: none; cursor: pointer; }
+.bgm__colline.est-choisi { stroke: var(--signal); stroke-width: 2.5px; vector-effect: non-scaling-stroke; }
+.bgm__bgd { fill: var(--bgm-bgd); stroke: var(--encre-doux); stroke-width: 1.2px; vector-effect: non-scaling-stroke; transition: fill .4s; pointer-events: none; }
+.bgm__div { fill: none; stroke: var(--bgm-terre-trait); stroke-width: .6px; stroke-dasharray: 3 2; vector-effect: non-scaling-stroke; pointer-events: none; }
+.bgm__lacs { fill: var(--bgm-eau); pointer-events: none; }
+.bgm__fleuve { fill: none; stroke: var(--bgm-fleuve); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; transition: stroke-width .4s; }
+.bgm__fleuve-prise { fill: none; stroke: transparent; stroke-width: 16px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.bgm__fleuve-groupe.est-choisi .bgm__fleuve { stroke: var(--signal); }
+.bgm__vent { fill: none; stroke: var(--bgm-vent); stroke-width: 2.4px; vector-effect: non-scaling-stroke; stroke-linecap: round; opacity: .7; pointer-events: none; }
+.bgm__vent-tete { fill: var(--bgm-vent); opacity: .7; pointer-events: none; }
+.bgm__lieu { fill: var(--surface); stroke: var(--encre); stroke-width: 1.5px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.bgm__lieu--cap { fill: var(--encre); stroke: var(--surface); }
+.bgm__lieu.est-choisi { stroke: var(--signal); stroke-width: 3px; }
+.bgm__etiquette--fleuve { font-style: italic; font-weight: 600; fill: var(--bgm-eau-nom); }
+.bgm__etiquette--pays { font-weight: 600; fill: var(--encre-pale); letter-spacing: .06em; }
+.bgm__graphe { display: block; width: 100%; height: auto; margin: .1rem 0 .2rem; user-select: none; -webkit-user-select: none; }
+.bgm__graphe text { font-family: var(--donnee); fill: var(--encre-pale); }
+.bgm__graphe .bgm__axe { stroke: var(--trait); stroke-width: 1px; }
+.bgm__graphe .bgm__grille { stroke: var(--trait); stroke-width: 1px; stroke-dasharray: 2 3; }
+.bgm__mois-fond { fill: transparent; cursor: pointer; }
+@media (hover: hover) { .bgm__mois-fond:hover { fill: var(--matiere-voile); } }
+.bgm__mois-fond.est-choisi { fill: var(--matiere-voile); stroke: var(--matiere); stroke-width: 1px; }
+.bgm__colonne { fill: var(--bgm-pluie); pointer-events: none; opacity: .75; }
+.bgm__colonne.est-choisi { opacity: 1; }
+.bgm__debit { fill: none; stroke: var(--bgm-debit); stroke-width: 2.2px; pointer-events: none; }
+.bgm__debit-pt { fill: var(--bgm-debit); pointer-events: none; }
+.bgm__bande { pointer-events: none; }
+.bgm__bande--semis { opacity: .4; }
+.bgm__bande--pousse { opacity: .65; }
+.bgm__bande-nom { font-family: var(--titre) !important; font-weight: 700; fill: var(--encre) !important; cursor: pointer; }
+.bgm__graphe .bgm__nom-mois { font-family: var(--titre); font-weight: 600; fill: var(--encre-doux); }
+.bgm__graphe .bgm__nom-mois.est-choisi { fill: var(--encre); font-weight: 800; }
+.bgm__graphe .bgm__titre-axe { font-weight: 700; }
+.bgm__curseur { display: flex; align-items: center; gap: .6rem; margin: 0 0 .2rem; }
+.bgm__curseur input { flex: 1; min-width: 0; accent-color: var(--matiere); }
+.bgm__curseur output { flex: none; min-width: 5.5rem; font-family: var(--titre); font-weight: 700; font-size: .9rem; color: var(--encre); }
+.bgm__pas { width: 1.9rem; height: 1.9rem; flex: none; padding: 0; font-family: var(--titre); font-weight: 700; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 50%; cursor: pointer; }
+.bgm__pas:hover { background: var(--matiere-voile); }
+.bgm__pas:focus-visible, .bgm__mois-fond:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.bgm__cles { display: flex; flex-wrap: wrap; gap: .3rem .8rem; margin: .45rem 0 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .74rem; color: var(--encre-doux); }
+.bgm__cles > li { display: inline-flex; align-items: center; gap: .3rem; margin: 0; padding: 0; }
+.bgm__puce { width: .95rem; height: .95rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.15); }
+.bgm__puce--trait { height: .25rem; border: 0; border-radius: 2px; }
+.bgm__jauge { display: grid; grid-template-columns: 4.2rem 1fr 3rem; align-items: center; gap: .25rem .5rem; margin: 0 0 .9rem; font-family: var(--titre); font-size: .82rem; }
+.bgm__jauge-barre { height: .7rem; border-radius: 3px; background: var(--bgm-crue); }
+.bgm__jauge-val { font-family: var(--donnee); font-size: .74rem; color: var(--encre-doux); text-align: right; }
+.texte .bgm.est-plein-ecran svg.bgm__graphe, .bgm.est-plein-ecran svg.bgm__graphe { max-height: 30vh; }
+@media (max-width: 40rem) { .texte .bgm.est-plein-ecran svg.bgm__graphe, .bgm.est-plein-ecran svg.bgm__graphe { max-height: 17vh; } .bgm.est-plein-ecran .bgm__cles, .bgm.est-plein-ecran .bgm__ligne-bas { display: none; } }
+.bgm__ligne-bas { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+</style>
+<div class="bgm__entete">
+<p class="bgm__titre" role="heading" aria-level="3">La mousson mois par mois au Bangladesh</p>
+<p class="bgm__consigne">Choisis un mois, puis touche un lieu ou un fleuve</p>
+</div>
+<div class="bgm__corps">
+<div class="bgm__visuel">
+<div class="bgm__carte">
+<svg class="bgm__svg" viewBox="0 0 1000 978" role="img" aria-labelledby="bangladesh-mousson-svg-titre">
+<title id="bangladesh-mousson-svg-titre">Carte du Bangladesh et de ses voisinsCarte du Bangladesh et de ses voisins : les fleuves, dont l'épaisseur suit le débit du mois, puis les vents de la mousson.nbsp;: les fleuves, dont l'épaisseur suit le débit du mois, ainsi que les vents de la mousson.</title>
+<rect class="bgm__fond" x="-3000" y="-3000" width="7000" height="7000"/>
+<path class="bgm__pays" d=""/>
+<path class="bgm__colline" d="" data-lieu="meghalaya"/>
+<path class="bgm__bgd" d=""/>
+<path class="bgm__div" d=""/>
+<path class="bgm__lacs" d=""/>
+<g class="bgm__fleuves"></g>
+<g class="bgm__vents"></g>
+<g class="bgm__points"></g>
+<g class="bgm__etiquettes"></g>
+</svg>
+<button type="button" class="bgm__bouton-carte bgm__replier" aria-expanded="true">Masquer le texte</button>
+<div class="bgm__outils">
+<button type="button" class="bgm__bouton-carte bgm__zoom bgm__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="bgm__bouton-carte bgm__zoom bgm__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="bgm__bouton-carte bgm__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="bgm__barre">
+<div class="bgm__bloc">
+<p class="bgm__barre-titre" id="bangladesh-mousson-graphe-titre">Pluie, débit et calendrier du riz, mois par mois</p>
+<svg class="bgm__graphe" viewBox="0 0 640 262" role="img" aria-labelledby="bangladesh-mousson-graphe-titre"></svg>
+<div class="bgm__curseur">
+<button type="button" class="bgm__pas bgm__pas--moins" aria-label="Mois précédent">&lsaquo;</button>
+<input type="range" class="bgm__mois" min="0" max="11" step="1" value="6" aria-label="Mois">
+<button type="button" class="bgm__pas bgm__pas--plus" aria-label="Mois suivant">&rsaquo;</button>
+<output class="bgm__mois-texte"></output>
+</div>
+</div>
+<div class="bgm__bloc bgm__ligne-bas">
+<ul class="bgm__couches" aria-label="Couches de la carte">
+<li><button type="button" class="bgm__couche" data-couche="vents" aria-pressed="true"><span class="bgm__couche-case" aria-hidden="true"></span>Les vents</button></li>
+</ul>
+</div>
+<ul class="bgm__cles" aria-label="Légende">
+<li><span class="bgm__puce" style="background:var(--bgm-pluie)"></span>Pluie (mm)</li>
+<li><span class="bgm__puce bgm__puce--trait" style="background:var(--bgm-debit)"></span>Débit du Brahmapoutre</li>
+<li><span class="bgm__puce" style="background:var(--bgm-aman);opacity:.4"></span>Semis ou repiquage</li>
+<li><span class="bgm__puce" style="background:var(--bgm-aman)"></span>Récolte</li>
+</ul>
+</div>
+</div>
+<div class="bgm__lecture">
+<div class="bgm__vue" tabindex="-1"></div>
+<p class="bgm__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="bgm__source">Pluie&nbsp;: moyennes mensuelles 1991-2020 pour l'ensemble du Bangladesh, CRU TS 4.08, portail des connaissances sur les changements climatiques de la Banque mondiale. Débit&nbsp;: Brahmapoutre à Bahadurabad, moyennes 1969-1992, Global Runoff Data Centre (station 2651100). Calendrier du riz&nbsp;: Shelley et autres, Journal of International Cooperation for Agricultural Development, vol. 14. Parts de la récolte&nbsp;: FAO, SMIAR, fiche pays du Bangladesh, 2025. Inondations&nbsp;: OMM, Programme associé de gestion des crues, étude du Bangladesh; BUET, cité par The Daily Star, juillet 2020. Fond de carte et fleuves&nbsp;: Natural Earth. Consulté en novembre 2026.</p>
+<script>
+/* Mousson au Bangladesh : CRU TS 4.08 (Banque mondiale CCKP), GRDC 2651100, Shelley et al., FAO GIEWS, OMM APFM, BUET. */
+(function () {
+  var racine = document.getElementById("bangladesh-mousson");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":978,"autres":"M835.9 2185.9l3.7-5.2l5.8 0.6l-0.9 2.3l1 2.3zM854.5 2172.8l-4.6-6.9l0.9-7.3l2.1-2.2l2.2 0.8l0.7 1.7l-1.2 5.2l1.1 7.1zM844.7 2037.2l-3.8-1.4l-0.5 1.4l-2.1 0.5l-1.3-2.5l0.4-5.3l-1 0l0 3l-2.6-0.5l-1.1 2.5l0.5 5.3l2.4 2.8l0.3 3.3l-2.2 2.4l-1.1-3.9l-3-0.2l-3.8 9.5l2.7 2.4l2.5-2.9l1.2 0.8l1 3.1l4.2 4l0.5 8.9l-1.5 2.9l4.5 8.4l-2.4 13.9l2.2 5.1l0.2 10.5l-4.6 6l1.9 1.3l-4.2 4.4l-0.3 2.6l-5.4-5l0.9 3l-7.3 0l2.3 7l4 2.5l1 3.3l1.7 0.9l-4.7 3.7l2.8 4.3l0.2 2l-2.9 3.7l1.9 5.5l-2.9 0.5l0.3 2.6l-6.2 6.2l0.8 3.2l-3.6 2l0.4 1.2l-1.3 0.9l-5.5 1.7l4.6 6l-3.8 0.7l-2 4.5l-16.3 0l2.3-5.2l0.4-17.3l4.8-9.1l2.1 1.7l2.1-3.6l1 0.9l-0.2 7.2l1.1 0.5l7.4-2.3l1.1-2.7l-1.3-5.9l-3.2-2.5l0.1-1.5l4.6-0.9l-0.2-1.9l-1.8-2l-5.9-1.2l-2.1-6.3l0.5-34.1l4.3-7.2l3.2-0.5l0.6-1.7l-3.8-1.8l-0.9-2.2l-1.3-16.5l3.6-5.4l2.7 0.7l1.9-2.6l1.7-7l0-7.4l2.9-6.3l-3.6-2.6l2.9-12l3.2-6.1l-2.7-4l1.5-1.9l-0.3-5.8l2.8-1.2l-1.8-7.7l0.5-3.1l-1.7-2l0.8-2.9l5.8-8.1l0.5-7.7l6.3-7.9l0.9-5l4.6-1.9l1.7 1.6l1.8-0.6l-0.9-1.7l0.9-2.3l0.6 1.6l4.5 0.1l2.1 4.2l-1.5 4.9l0.6 13.9l2.7-0.9l-0.2 2.3l-5.9 7l-3.8 2.5l-1.2-3.8l-2.4 1.7l1.8 4l4.6 0.2l7.1 8.1l-3 5.1l-1.2 17.4zM802.2 2068.9l-1.8 2.3l-1.7-10.1l1.7-13.5l4.5-3.9l2.7 3.9l-1 9.6l-0.8 3.2l-3.5 4.9zM846.5 1944.3l2.5 5.7l-8.1-3.9zM894.8 1884.5l-0.7 2.8l-2.7 1.7l2.1-12.8zM931 1774.7l3.7-6.5l2.7-1.3l-2.6 6.1l-1.8 1.9zM-754.1 1637.7l2.6-5l6.4 4l6 5.5l0.3 2.7l-5.6 3l-3.2-2zM933.3 1226.1l-7.6-1.8l-18.1-22.2l-1.8-4.9l12.2-1l5.9-4.1l5.5 5.4l10.4 0.1l0.9 1l-0.5 9.4l1.8 6.4l-0.4 3.4l-3.2 6.1zM900.3 1044.3l8.3 9.5l-0.6 6.7l2.3 9.2l-0.8 2.3l-9.4-9.4l-5-20.4zM843.2 1051.3l-13-25.2l1-3.5l3.9 2.7l2.1 3.5l6.8 20.2l1.4 11.2l-1.6-2.7zM297.7 816.3l-3.1-1.2l-1.1-6.5l1.4-5.3l6.2 3.5l3 3.3l-0.4 5.2zM202.6 801l-10-0.9l-1.6-0.8l-1.2-3.8l6.3-20.2l3.8-7.3l3.6-1.5l2.7 15l-0.5 8.7l-4 2.9l1.5 3.9zM1594.9 2185.9l-2.4-6.9l1.3-2.3l-6.3 0.5l-4.1-4.3l0.9-3.4l-1.5-2.6l0.2-2l5.6-1.9l0-1.1l-2 0l6.8-5.4l0.5-1.6l-1.4-3.2l-5.3 0.1l-8.7 6.2l-4.4-2l-3.2-4.9l0.2-2.7l3.7-4.3l14.2-3.5l2.8-1.9l1.2-2.8l-0.9-2.4l-6.4-3.1l-5.8-4.7l-0.3-1.5l1.5-8.2l11.2-1.8l1.1-2l-4.8-2.5l-4.4-0.3l-2.2-3.8l3.7-9.2l2.9-0.4l-0.8-7.2l3.4-7.2l-5.9 0.3l-0.5-2.7l3.8-0.7l0.7-1.4l-6.7 0l-1.3-1.4l-0.1-1.6l3.2-0.7l1.3-2.2l-2.2-11.7l-5.9-5.9l3.2-4.9l-4-10.4l-0.4-5.6l1.2-2.8l-1.5-14.7l-10.2-9l-1.4-7l-1.3 2.1l-2.6-10.4l-0.1-1.9l1.8-1.5l0-4.8l-2.7 4.8l-1-6.4l-3.5-4.4l1.7-3.5l-0.7-1.6l-4.3-7.6l-4.8-3l-0.1-3l-2.7-2l0.1-3.1l-6.4-10.7l1 0.9l0.8-1.8l-7.5-1.9l-0.6-4.6l1.8-7.4l-0.8-5.8l0.8-2l-2.7-9.4l-0.8-10.3l0.8-2l-5.4-8.9l-0.9 0l-0.9 6.4l2.7 3.9l-0.1 4l-2.4 5.8l2.5 8l-2.6 19.7l2.2 9.2l-3.6 12.1l2.4 5.8l-2.1 0.8l-2.6-2.8l-0.9 2.9l-0.4-5.2l-1.5-1.3l2.8-3.4l-1.8-2.9l2.7-2.3l-0.9-4.5l2.2 0.1l0.1-1.1l-2.8-2l-5.8-0.9l1.8-4l-3.3-1.6l-1.2-4.3l0.8-3.7l2.8 0.7l-0.9-12.3l1-3.8l-3.8-3.2l-2.7-12.3l6.1-14.3l-1.5-8.4l1.8 0l-1.2-3.4l-1.5 1.5l-6.3-8.9l-6.4-12.6l-1.8-9.6l2.7-10.2l-3.1 3.6l-1.4-0.7l-1.8-7.9l-5.1-12l1.5-3.8l-3.2-2.5l-2-3.7l0-4l2.5-3.6l5.1-1.6l6.5 8.1l4.6 2.4l-5.9-9.8l2.3-1l-4.7-3.6l1.1-2.3l-3-5.1l-1.5 2l0.9 3.1l-1.9 1.6l-1.8-0.9l-1.7-5.7l-0.9 0l0.6 8.7l-3.5 3l-3.3-1l-4.6-18.3l-2.7-4.2l2.8-11.3l-0.4-3.5l-1.1-2.2l-4-2.8l1.7-1.9l2.8 0l-1.8-3.9l2-5.3l-0.4-11.5l2.1-4.9l-5.6-0.4l-1.4-1.7l-3.5-6.2l-0.1-7.4l-2.1-3.1l1-2.2l2.2-0.7l1.3-4.9l0.8 0.7l3.7-2.7l-4.4-11.9l1.7-5.9l-4.1-10.5l0.1-8.6l-2.4-5.3l1.1-3.6l-2.8-4.4l1.8-3l0.1-9.4l-0.8-1.9l-2-0.6l0.8-3.9l-2.7-3.5l-7.1-5.3l-8.1-9.8l-0.9-6.5l0.4-2.6l3.8-1.7l2.5-4.8l4.1-21l-3.2-11.5l-0.5-6.2l1.9-11.9l4.8-8.1l3.8-2.6l4.9-1.1l-3.6-2.9l-10.8 6.9l-10.8-0.9l-6.4 0.9l-3.1 1.9l-7-0.7l-2.7 0.9l-4.3 4.8l-5.3-28.2l-2.4 3.9l-3.4-0.9l-4-5.6l-3.3-10.3l0-3.9l1.9-3l-1.5-3.2l1-5l-1 0l-1.8 6.9l-1.4-1l-0.6-3.8l2-6l-1.1-0.9l-2.6 0.9l-1.1-2.9l2-13.2l-4.4-6.6l-1-3.9l2.3-3.7l7.8 2.5l3.6-1.8l-7.7-3.5l-5.9 0.4l-3.6 7.1l-4-7.8l-0.6-4.6l1.8-3.4l-2.7-0.6l-2.7-8.3l-8-3.8l0.8-3.1l-15.5-12.3l-1.7-10.4l-3.6 9.9l-1.8-3l-2.7 2.1l3.9 5l7.9 6.1l0 4.7l-8.1 10.3l0.8 6.4l7.2 14.6l0.1 6.1l-3.2 6.5l-1 6.4l-1.4 0.9l-4.4-1.1l2.7 5l-6.3-1l4.8 5l0.3 4.1l-4.6 11.6l-2.9 1.2l1.5 2.7l-2.3 3.6l-8.8 7.8l-4.9 12l-8.3 8.2l-7.5 3l-16.2 2.7l-4.7-3.7l-5.7-2.1l-8.8-7l-3.2-4.3l-0.5-6.3l-4.3-11.2l-0.5-6.1l1.2-2.3l6.9-5.2l-3.9-0.4l-6.7 5.5l-4.6 0.9l3 4.1l1.4 6.7l4.7 6.7l0.7 2.7l-1.5 7.9l9.9 16l3.5 3.7l-2 3.4l-2.2 1.3l-2.5 5.8l-21.9 6.4l-2.8-1l-2.7-4.6l-9.3-3.9l7.9 7.5l0.1 3.6l-11.5 12.6l-4.9 0.6l1.2-5.6l-5.8 6.6l-3.2 0.4l0.9-5l-9.5 9.7l-2.7 4.5l-5.5 0l-4.1-11.2l1 13.8l-4.6 8.8l-1.3 11.1l-3 5.7l-18.6 20.9l-14.1 11.6l-5.5 1.1l-8.4-1.1l-2.1-0.7l-0.9-1.8l-0.7-14.1l4-4.1l0.2-4.9l3.2-3l3.4-9l0.5-7.8l-3-9.5l2.1-6.3l-3 2.7l-1.4 3.2l2.7 9.5l-0.9 8.3l-3.9 5.3l-1.9 6.3l-3 3.8l-3 1.2l-1.7-3.7l4.9-11l-0.4-4.8l-6.5 12.3l-0.8 4.9l0.9 10.7l-1.5 3.3l-5.2 1.3l-3.8-1.6l-2.5-4.1l-1.4-11l3-16.2l-1.2-4.6l-2.8 7.9l-1.3-6l1.7-6l3.6-4.8l11.6-2.8l-4.3-1.4l-1.3-1.6l-4.6 1.3l-1.7-2.4l-8.6 10.6l0.4 15l-2.4 17.9l-2.8 5.8l-4.8 1.5l-2.8 4.5l-5 0l-12-3.8l1.6-2.7l4.1-2.6l0.8-2.9l-1.8-2.8l-3.9 3.8l-0.6-9.7l-1.8-5.9l3.7-6.2l5.9-2l1.7-1.8l0.5-2.9l-4.6 3.1l-3.4-15.9l4.8-8.1l7.8-2.4l4.4-7.2l-3.4 4.4l-9.7 2.1l-5.1 6.5l-0.8 9.2l2.8 8l-3.1 5.9l-7.8 5.4l-5.4 11.7l-3.2 3.5l-4.9 1.4l-3.3-1.1l-3.1-7.7l-0.3 2.6l-1.4-0.2l-2.8-4.3l13.4-8.8l3.8-5l1.3-7.2l3.2-3.7l0.9-5.5l2.6-2.4l0.1-2l-3.6 3.2l-8 17.1l-11.9 11.1l-3.3 1.7l-3.1-0.6l-0.5-3.8l10.5-11.9l4.8-11l0.7-12.6l-2.5-7l5.2-13.7l3.6-1.1l-1.4-2.6l-2-13.6l0.6-3.4l2.7-1.9l0.1-2.1l-4.6 2.3l-1.7-0.3l-0.9-3l-0.9 3.2l1.8 20.9l-7.4 14.9l-5.8 3.4l6.8-12.9l-0.8-2.5l-3 2.6l-1 4.6l-2 2.7l-2.9 0.2l-5.3-3.1l-1.9 15.2l-10.4 16.6l-8.9 3.6l-2.7 7.6l-5.1 0.9l-1.9-1.1l-4.6 4.2l-4.9-6.7l0.1-20.5l3-16.6l-0.3-10.8l3-5.7l1.9-11.3l-0.6-8.8l0.6-1.5l7.6 1.3l1.4-2.8l0.6-6.3l-2.4-2.1l3.2-1.7l1.3-2.4l0.3-9.5l2-7.8l3.1-4.7l-2.7-16.3l5.4 0l5.4-6.9l-2.6 0l1.7-4.8l0-11l4.1-9.3l-0.4-2.4l-3.7-1.9l-0.4-3.8l1.3-1.3l6.1 2.9l3.6-2.6l-0.4-2.6l-3.1-1.7l-0.4-1.8l0.4-6.5l1-1.9l3.5-1.1l0-3.4l6.4 3.9l-2.3-9.5l-0.9-21.1l-2.1-5.5l0.8-5.6l7.2 5.3l-3.2-6.9l0.6-3.2l-4.2-6.6l-2.5-12.4l-5.6-5.6l-2.4-16.6l-4.7-10.2l0.4-4.2l5.4-3.4l0.4-3.3l-1.8-6.5l-2.5-4l-0.6-4.9l-2.7-3.8l-1.9-8.6l-2.1-1.3l-8.6 0.5l-1.8-1.6l0.4-6.4l7.7 2.5l3.7-4l-3.6-7l-5.2-1.8l-2.6-7.3l-9.4-12l-1.9-4.3l1.9 0.5l0.4-1.4l-1.8-13.4l-13.1-13.3l1-1.1l2.4 2l4.8-0.1l8.9-1.9l-3.5-1.9l-3.2 2.4l-2.1-0.9l-7.8-11.4l-0.5-6.8l-2 3.1l0.2 3.7l-2.1 0.6l-5.4-2.4l-1.5-2.2l-1.8 1.1l-2-2.6l-0.2-8.5l2.2-2.6l-1.6-8.8l3.3-6.5l-0.8-3l4.5-3.4l-6.3 0.9l-2.3-2.1l1.3-3.8l-0.8-6.8l2.7-7.5l-1-12l3.7-9.9l-0.9-2.2l-4.8 10.5l-0.7 4.2l1.1 11.8l-5.2 6.6l-2.7 1.8l-3.5-1.9l-1.3-6.5l-1.5-0.8l-2 2.8l0.6 3l5.3 6.2l-0.4 13.6l4.2 9.3l-1.4 6.4l-4.8 4.8l0.9 3.1l-1.8 1.4l-3-3.4l-5.5-1.9l-6.8-7l-10.4-5.4l-4.1-5.3l-3.3-0.2l-1.4-3.5l0.4-3.3l-3.8-9.7l-6.3-6.1l-3.6-7.8l-9.1-11.9l-1.9-5.3l1-8.2l5.2-3.5l3 0.2l1.9 3.4l5.7 0.5l3.4 7.8l-2 2.1l5.7 4.2l6.9 1.7l0.7 3.6l4.2 3.1l5.6 1.7l4.9-0.4l12.6-8.9l2.6-3l0-3l4.1-4.4l1.3-12.2l-0.9-1l-7.9 0.2l-1.3-1.5l0.7-1.6l2.3-1.1l-7.2-1.4l-11.6-10l-2.2-4.6l-5-2.1l-1.1-2.1l1-2.7l2.3-1.4l5.8 0.6l-0.8-2.4l4.4-6.5l-2.7-3.9l-3.1 7.8l-3 2.4l-5.2-1.5l-1.5-4.1l1.2-4.3l4.3-3.2l-3.9-0.5l-3.7 6.4l-6-0.1l-1.6-1.4l-0.1-3.5l-2.6 5.1l-1.9 0.8l0.7-11.2l7.1-10.7l2.6-1.8l7.6 0.1l-1.6-3.3l2.6-1.6l-0.7-1.2l-3-1.8l-1.3 3l-12.7 0.9l-1.3 3.1l-2.7 1.1l-4.5-3.1l2.6-2l-6.3-3.3l1.8-1.7l-2.6-2.7l0.6-1.6l2-0.5l-0.8-2.1l-3 1.9l-1.4 3.1l-2.9-2.9l-1.8 4.4l-1.3 0.4l-3.1-2l-5.2-14.2l-0.2-3.5l-1 0l-0.3 8.3l-1.4 0.6l-2.8-10.9l-3.6 5.3l-5.3 2.6l-10.9-2.4l-1.8 1.5l-3.8-2.3l-2.5-3.6l6.3 19.7l7.8 15.9l0.4 3.8l-4.9-6l-7-19l-2.2-1.7l-2.9 1.8l-0.4 9.1l3.7 11.8l4.5 5.9l-4.5-3.8l-9.9-16.8l-2.7-8.9l-7.6-9.4l-1.4-7.4l9.5 0l4.9-5.9l0.9 3l1 0l3.5-9l0-0.9l-4.2 1.2l-9.3 8.7l-3.6-0.8l-0.4-4.5l1.8-7.6l2.3-2.5l2.9-10.8l2-2.5l3.2-1.3l1.4-3.3l1.2-7.2l-2.4 2.1l-1.3 5.8l-1.7 2l-2.1-0.4l-1.6-6.4l0.1-3.1l7.1-14.6l-1.7-3.1l-1.7 5.9l-4.9 8.7l0.3 12.1l-1.2 6.3l-10.5 16.2l-5 11l-2.3 1.8l-2.7-0.2l-11.6-11.1l0.8-4.3l2.8-4l8.5-5.9l10.4-3l-6.5-1.2l-6.1-6.8l-2.1-14.7l-2.1-3.7l-3-0.2l0.5 3.2l-1.4 3l-2.2 1.2l-1.4-2.5l2.7-0.9l-3.7-2.9l-1.9-9.3l-2-4.1l-7.7-12.6l-3.6-2.7l9.6 17.2l1.2 11.3l2.7 8l-0.9 8.9l1.1 14.8l-1.1 2.9l-4.4-7l-5.8-15.8l-2.7-4.1l-12.2-11.6l-4.4-11.8l-7-8.5l-9.5-4.6l-10-31.3l-3.2-6l-1.4-12.8l-6.1-6.4l-1.6-4.4l-4.1-4.9l-0.8-2.5l1.4-9.4l-0.9-5.7l0.7-5.3l3.7-5.4l3.2-9l6.4-0.3l5-6.1l4.2 1.4l1.7 2.4l1.8 7.3l2.5 2l8.6 1.6l4.3-1l3.4 0.8l4.5 14.5l1.6 1.9l5.8-2.3l3.7-5.1l-6.6-24.7l-2.2-37.9l2.3-22l-4.4-25.1l-3-9.7l5.1-2.1l0.1-3.7l-7.8-49.4l-2.2-6.9l-0.6-19.4l-2-4.4l-5.1-5.3l-2.1-15.6l-1.9-2.4l-4.3-1.8l-2.5-3.8l-0.9-14.8l-3.4-20.4l0.7-7.8l3.3-7.6l-1.4-5.3l0.2-5.5l-2.9-3.1l-0.2-4l-3.1-4.1l-1.4-9.1l-5-16.4l0.8-14l-2.7-1.5l-2.1 1.3l-1.7 6.7l-2 1.9l-5.7-12l-5.6 1.9l-6.4 8.5l-5.4 2.7l-2-1l-8.8-11l-1.8 0.1l-0.9 10.5l3.4 16.6l-0.2 5.7l-4.7 7l-11.5 6.5l-7.2 11.5l-2.5 7l6.8 26.3l-2.5 3.5l-2.7 0.5l-2.3 5.3l-4.1 4.3l-7.9 2.7l-4-0.2l-1.9 3.6l-2.1 1.2l-1.3-3.5l-5.3-1.9l-1.7-1.9l-0.7-5.7l-1.9-1.4l-5.3-20.1l-2.2-2l-0.9-3.6l-0.4 1.2l-5.6-6.9l-2.9 0.1l-2.2 5.5l0.1 6.4l2.4 12l-0.5 4.8l-4.4-1.2l-3.1-4.3l-6.3-32.9l2.8-3.7l-3.8-2.6l-4-13.7l-4.3-3.8l-7.7-19.3l0.4-3.5l3.5-0.1l1.2-2.3l-0.8-2.2l-4.3-1.9l-0.5-3.1l1.2-2.8l7-2.2l4-10.2l0.4-2.7l-2.1-5.2l0.5-3.9l7.6-11.5l2.3-1l4.7 1l1.6-1l1.5-11.4l1.6-3.7l5.5-0.4l14.8 2.5l8.5-1.5l3.2-3.3l3-13.9l1.4 0.5l3.5 8.1l4.9 1.8l3.8-3l-1.2-8.2l1.3-1.9l9.7 1.9l0.9 5.5l4 4l2.7 0.6l1.7-1l3.8-14.8l-0.9-11.1l2.9-1l6.7 4.1l-3-8.5l14.9 0.6l3.3-1.5l2.6-3.5l0.4-15.6l7-6.4l2.5-12.7l6.7-18.7l0.2-6.8l-2.3-7.2l0.7-2.4l3.8-1.7l5 1.7l11.9 7.9l12.8-4l2.2-4.4l-1.4-4.8l-4.5-2.6l0.6-1.7l-5.5-4.2l-3.4-1.1l-0.7-4.1l-7-3.5l-3.2-3.8l-9.2-1.5l-8.1-6.8l-7.4-1.1l-3-3.6l-7.8-2.4l-4.2-0.2l-6 1.9l-7.4-1.2l-14 1.8l-8.4-0.3l-2.5 3.3l-4.4-1.2l-2 3.7l-3.1 0.4l-5.6-0.7l-4-4.4l-2.2-0.2l-3.4 2.3l-5.6 1.4l-6.4-0.4l-19.5-5.9l-6.3-3.3l-5.9 1.8l-7.3-0.2l-41.3 7l-3.7-0.4l-5.2-3.2l-2.1-0.3l-4 2.4l-11.1-2.7l-5.3 1.4l-10.8-1l-13.3 2.8l-4.7-0.1l-10.2-4.3l-20.6-4.5l-29.2-12.3l-11.7 1.7l-1.6-2.8l-1.6-10l3.7-16.6l1.5-20.9l-4.3-12.9l-2.5-12.9l0.5-3.6l5.7-9.9l0.6-3.4l-5.6-2.5l4.4-2.4l0.4-2l-1.9-2.4l-3.2 1.2l-4.5-6.4l-0.7-7.4l-4.2-8.9l-8.2-2.2l-0.4-8.9l-5.2 0.5l-0.9 1.2l1 6.8l-3.6-0.8l-3.2 3.9l0.9 1.8l4.6 1.3l-4.9 3.1l0 1.7l4.8 0.4l1 1.8l-1.1 2.4l-5.7 4.8l-2.3 9l-3.1-0.4l-4.3-5.2l-9.8 0.7l-2.6-3.2l-5.3 2.7l-2.1-0.2l-5-2.8l-3.2-3.7l-4.6-2.1l-3.3-5.9l-10.7-5l-1.6-1.8l-2.1-11.3l-4.5-9l-0.1-3.8l3.5 0.7l1.1-0.6l-0.1-2l-6.2-2.8l0.2-2.3l-1.8-2.6l-4.3-1.3l-9.2-7.1l-3.8 2.6l-2.7 5.1l0.1 2.4l2.7 2.9l7 2.9l2.1 5.3l3.4-0.8l-0.4 3.1l3.9 1.4l0.7 2.7l-2.7 1.9l-5.8 1.4l-3.7-1.2l-5.8-5.8l-3.6-0.6l-2.6 1.7l-2 4.8l-2.1 0.8l-2.2-1l-3.1-6.7l-4.8-1.8l-11.1 4l-2.3-1.6l7.5-4.9l1.2-2.6l-0.3-1.8l-5.6-4l0.2-2.5l-2.2-0.8l0.6-3.4l-5.9-2.3l-2.7-4.4l-8.5-2l-8.4-7.7l-6.8-2.3l-1.7-2l-0.5-8.5l-1.2-0.8l-4.3 6.4l-5.1 14l0.2 2.4l2.7 2.4l0.9-4.2l1.4-1l14.2 4.4l4.5 10.9l0.3 3.6l-6.5-0.1l-2.2-1.2l-12.5 11.5l-1.4 9.5l-14.1 5.2l-7.2 5.7l-3.2 7.9l2.2 3.4l-0.7 4.4l-3.3 2.5l-6.8 15.2l1.7 11.1l5.3 8l13.1-4.2l4.3 2.2l8 9.2l9.5 6.4l3.5 3.9l0.6 8.8l6.8 4.3l7.2 8.9l8.3 0.8l9.6 4.6l5.2-4.1l4.8-0.5l-0.1-2.6l4 1.6l5.6 6.2l0.2 3.1l-2.2 6l5.6 9l5 1.4l3 2.8l9.5 0.2l1.3 2.5l-1.3 2.8l-6 5.2l-0.2 5.3l-2.4 0.5l1.9 3l-14.1-4.1l-4.3 5.1l-7.9-0.8l-11.8-3.7l-4.7-0.1l-5.2 3.2l-11-3.5l-4.5 0.8l-1.3 2.4l-0.8 17.5l-4.5 8.1l-2.1 7.1l-6.9 10.2l-1.2 0.9l-9.3-1.8l-1.4-5.4l-4-3.9l-4.9 0.6l-6.6 3.6l3.5 10.3l-4.4 6.3l-2.6 0.7l-1.5 5l-3.1 0.9l-0.6 6.3l-2.8 5.1l-0.7 4.3l4.6 1.7l3.3 4.9l0.5 9.1l3.2 5.1l3.8 0.9l34.5 18.1l9.8 7.7l20.9 3.1l3.4-6.4l7.1 3.3l3.1 4.1l1.1 10.5l-1.9 3.5l-5 2.1l-2.1 3l0.7 4.3l-1.2 6l3.5 5.6l3.2 0.8l-3.1 6.2l1.7 4.4l0 5.7l-8.1 7.9l-7.8 0.4l-2.1 1.7l0 5.3l-3.3 6.2l1.2 4.9l-2.8 13.1l0.2 1.6l3.2 1.5l-0.6 3.8l2.6 2l3.7-0.1l5 7.7l7.5 5.8l2 3.9l4.9-4.4l1.7 1.4l-6.6 20.2l-4.4 7.9l1.4 5.9l10.4 4.4l6.2-2.3l18 5l-0.7 2.8l-11.8 12l-1.8 3.6l-1.6 14.3l7.2 13.8l6.7 4.6l-1 9.4l-3.8 6l6.4 22.4l-0.8 3.3l-3 2l5.7 2.9l4.1 14.4l-1.7 4.5l1.6 9l2.9 5.6l-1.9 1.3l7 10.7l2.1 8.7l-2.4 3l-2.2-1.1l0.7 2.1l-1.6 5.4l2.7 7.8l0.5 13.4l-3.2 1.9l-3.1-0.6l-0.5 3.5l-8.5-4.9l-2.1-6.9l-1.9 0l-1.2 2.5l2.5 6.2l9.4 6.1l2.7 4.4l3.6 17.3l5.5 8.4l-0.3 8.2l-3.9 1.1l-2.5-3.4l-1.9 3.9l-2.6 0.4l-8.7-5.8l-5.6-1.4l-1.3-2.6l-1.2-11.1l-0.8-2.6l-1 0l-2.7 9.4l2.7 9.4l-1.9 2l-5.1-0.1l-1-2.5l2.7-2.5l-1-4.9l-1.4 4.3l-3 2.7l2.5 8.5l-0.8 2.3l-3.7 1.8l-4.5-0.6l-2.7-2.7l1.9-4.4l-4.9-12.7l2.5-16.3l-1.2-4.2l2.6-8.3l1-9.8l4.8-4.8l0.6-2.6l-1.1-2.9l-4.9-2.9l-1.2-2.1l7.2-8.4l-4.8 1.4l-4.2 5.7l0.6 4.1l4.2 2.3l-5.4 13.1l-1.5 1.3l-1.5-1.2l-4.8-0.1l-0.4-3.5l3.4-6.9l-1.8-13.1l5.7-10.9l-0.4-2.8l-2.6-0.1l-5.4 13.8l0.9 8.8l-3.1 6l-0.6 11.1l-4.1 11.3l-0.3 12l7.8-1.6l1.2 4l-2.7 7.6l-2.7-1.1l1 9.8l-0.6 3.6l-2.2-1.6l-0.8 9.4l-3.6-0.6l-1.1-1.9l-0.9 3.1l1.9 2.8l-4.1 1.4l-2.5-1.5l-0.8-3.1l1-3.7l2.4-2.7l2.1-8.2l-3.3-12l3.7-7.8l-0.2-4.1l-4.7-7.6l2.5-5.6l0.1-3.1l-2.6-2.1l0.6 2.6l-3.4 6.3l2.5 12.2l-2.5 0.6l-2.7 8.5l0.1 5.3l2.3 6l-2 5.7l-6.2 3.5l-2.2-0.1l-1.3-10.2l1.3-3.9l-4.9 1.9l-3.2-4.9l-0.9 2.6l3.2 7.3l-1.7 5l-1.8 1.4l-1.6-0.6l-1.6-22.2l-3.3-4.8l-1.5-0.1l4.5 17.5l-1.6 9.7l3 5.4l-3.6 2.4l-3.2 0l-2.2-6.7l-1.8-1.6l-2.1 1.4l-3.5-9l-0.1-2.8l3.9-8.9l-1.2-3.9l1.1-2.1l-7.3-14.3l0.7-2.6l-1.7-7.6l1.3-4.6l8.7-12.5l-3.2-12.9l-15.4-7.2l-0.5-3.3l-4.5 2.3l-4.5-2.3l-4.8-6.1l-4.2-18.7l-1.7-1.6l-2.8-0.1l2.2 3.9l3.2 17.3l2.4 4.7l5.6 5.7l16.4 3.7l3.7 3.3l1.6 5.7l-1.2 3.9l-7 7.9l-3.4 2l-5.5 0.5l1 4.7l-8.8 18.8l-1.8 2.5l-9.4 6l-0.8 3l-7.7 6.4l-10.3 5.4l-6.9 5.2l-10.8 0.7l-20.1 5.7l-16.7 7l-6.4 1.3l-4.9-1.2l-7.2 1.4l-18.1 11.1l-19.2 21.2l-6.7 10.3l-3.9 11.7l0.9 13.3l16 39.7l-1.5 3.7l-5-1.1l-4.9 1.1l1.4 2.3l2.8 1.1l10 0.7l1.7 3.4l-0.1 2.5l-1.4 0.9l-3.6-1.2l-2.7 2.1l6.1 2l1.1 2l6.3-4l-5.2 5.9l-3.6 2.8l-7 2.3l-22.6 19.1l-3.5 8.2l-0.5 9.1l6.4-4.6l2.5 1.5l1-6.8l1.8 3.2l-5.5 10.3l-9.8 7.2l1.1 1.3l6.9-4.3l-16.6 11.4l-15.3 5.4l-2.2 2l-3.7 12.8l-9.9 10.7l1.6 2.5l2.9 0.5l-3.8 2.4l-6.4-3.8l-9.6-8.4l-8.7 0.1l-4.8-5.1l-2.7-5.9l-1 3.1l3 7l8.2 5.4l7.8 1.3l3.4 5.7l7.6 3.2l-13.7 7.8l-23.6 9.5l-4.3-1.8l-3.2 2.2l-24.5 6.6l-7.5 4.3l-7.2 0.3l-14.5 6.5l1.8-1.9l-3.1 0.5l-8.6 5.4l-9 3.5l-4 0l-0.4-3.5l-2.2-0.1l-0.4-1.8l12.5-5.1l-1 4.1l8.1-5l-1.7-1.6l0.9-2.4l0-14.7l-12.3-3.6l-4.8 0.6l-15.9 14.8l-6.8 2l-6.2 6.3l-2.3 4.1l0.5 3.4l-8.8 12.5l1.5 5.3l-6.4 4.4l0.8 3.3l2-1.9l0.6 1.5l-0.6 4.4l3.6-2.9l6.8-2.6l-0.5-5.4l2 1l2.5-1l-5.3-2.8l0-1l2.6 0l4.5-4l-1.8-3.4l1.8-3.5l8.1 2.1l5.5-5.1l4.3 0.2l1.1-2.1l1.8 6.4l-2.7 1.5l-0.9 3l-5.4 2.7l-2.4-3.4l-1.3 3.6l-2.7-0.9l1.9 3.9l3.7-0.4l32.3-16.4l-31.5 16.6l-20.6 14.4l-14.6 14.8l-9.7 7l-16.3 14.9l-10.6 14.3l-2.1 0.7l-4.8-4.6l-2.5 6.6l2.7 4l2.7-4l2.5 0.7l-5.1 9.9l-10 14.1l-4.5 2.1l-11.7 20.1l-12.3 13.7l-3.3 6.3l-7 5.1l-4.9 6.8l-6.7 4.1l-4.6 0l-1.2 2.1l4.4 1.5l10.3-7.6l-27.1 25.6l-4 11l-4.7 3.9l-39.8 19l-21.2 13.5l-4.2 3.8l-3.3 6.6l-4.1 4.4l-7 5.8l-2.7-3l0.1 7.9l-2.9 2l-3.7 10l-8.1 9.7l-5.6 3.9l-4-3.9l-2.8 0.1l0.3 3l5.7 2.6l0.9 1.9l-6.9 4.3l-4.5-0.1l3.5 6.1l-19.9 8.9l-25.2 17.5l-1.7-1.9l-6 4.3l-15.7 6.3l-32.1 20.5l-6.8 9.5l-4.6 1.9l-2.3 2.4l-9.4 11.5l-1 4.6l-5.1 9.9l0.3 6.3l1.7 2.6l6.1 3l2.7-1.1l2.3 1.3l1.3-2l-1.8-14l2.4 6.9l-0.2 13.9l-3.6 19.2l-3.3 10.1l-1.8-0.3l-0.7-2.2l-1.7 0.7l3.5 5.9l-6.4 2l-7.3 7.6l-17.7 9.9l-4.1-0.5l-5.9 5.6l-4.8 0.2l-2.1 2.7l-10.4 1.9l-13 7.6l-6.7 1.5l-7.3-3.7l-2.6 0.7l-6.8-1.3l-2.2-0.7l0.8-1.7l-2.3-2.1l-2.2-0.1l1.2 3.1l-7-1.2l-10.4 2.9l1.5-3.6l-2.2-2.5l-4.7 2.2l-2.1-1l-5.6 1l-7.6 5l-1.4 1.8l1.4 4.5l-0.7 2.5l-3.1 4l-5.3 15.1l-1.4 7.5l-3.1 6.9l-0.8 9.9l-2 0.5l-6.1 6.5l-8.1 5.8l-3.7 4.9l2.7 7.8l-0.9 2.1l-13.5-10.8l-0.9-5.4l0.8-13.4l-1.7-6.8l-0.9 3.9l-1.8-1.9l2.1 5.6l-0.2 11.9l-7.9 21.2l-3 4.5l-0.6-18.1l-3.5-6l-13.9-3.4l-1 2.7l-5.9 0.2l-6.2 2.7l-2.2-1.7l-15.5 10.4l-5.7 1.6l-14.9 13.9l-10.3 26.2l-0.5 2.2l1.8 0.9l-11.1 15.6l-4.8 12l-1.1 14.5l-3.8 16l0.2 11.3l7 43.1l6.8 7.5l2.5 8.2l-1.2 2.8l-3.7 2.1l7.3 0.9l-2.8 13.9l-0.1 17.8l-6.2 12.7l-5.4 0.9l-5.3 6.3l0.5 1.5l3-0.9l6.3-5.7l1.9 1.8l-1.6 5.1l0.3 6.5l3.2 17.4l13.1 32.7l-0.5 6.4l-3.2 8.5l11.6 31.3l0.6 5.5l-0.9 0l-8.1-21.7l-6.4-7.5l-1.8-5.1l-5.5-7.1l-0.8 15.8l-1.9-1.2l-0.4-6.8l-3.2-2.9l-0.3 5.1l-5 5.8l0.4 3.4l8.3 13.6l13.2 1.8l6.1 2.8l-0.5 2.5l5.9 5.5l0.9-2.1l1.7-0.4l2.7 11.7l-1.8 15.2l-1.8-0.9l-0.8 5l2.6-0.9l-0.1 3.3l-3.4 7.5l0.9 5.8l-3.7 5.5l-4.5 43.8l-3 12.6l-4.3 8.8l-2.2 11.7l-11 24.5l-4.7 4l-7.2 11.3l-7 3.7l-1.1 1.8l1.2 0.6l6.9-4.1l-17.8 29.4l-1.2 5.4l-508 0l0-3020l3815.8 0l0 3020l-293.5 0l-2.6-5.8l-15.5-16.1l-0.3-1.3l3.1 0.3l-6.4-6.4l0.1-2.5l-5.8 2.7l-0.6 2.7l3.3 19.3l-3.7-1.1l-0.5-4.9l-2.4-3.2l-7.7-5.1l-16.2-6.8l-1.8-0.2l-1.6 2.5l-3.7-1.4l-4.4-14.3l3.6 0.9l3.3-1.2l4.8-4.7l1.1-3.3l-1.1-2.9l-1.9-1.3l-1.7 1.6l2.7 2.9l-4.6 4.1l-2.4-0.3l-1.1-3.3l0.4-6.4l2.3-6l-4.5 5l-0.8-3.5l0.8-3.3l-3.6 2l-1.8-0.2l-0.9-1.8l-2.7 0.9l1.7 2l-0.7 3l3.5-2.1l0.9 1.6l0 4.4l2.7 2.1l1.4 4.5l-1.1 2.9l-4.8-2.6l-8.1-8.9l-5.6-3.6l0.2-1.3l-5.1-6.4l-2-3.5l0.8-2.9l1 1.5l1.7 0.4l-1.7-1.2l3.5-4.8l-2.6 2l-1.9-0.9l2.7-2l-6.7 0.2l-0.6-1.2l2.8-2.9l-7.3 0.9l4.5 5.9l2.8 0.1l-1 7.8l-6.3-9.4l-6.3-0.5l0-6.2l-1.5-3.7l-2 3.2l1.7 7.8l-6.3-5.7l-0.9-2.1l2.7 0.9l-0.5-2.4l-3.1-0.5l-4.9-8.1l-8.7-6.7l-10.3-1l-2.4 0.8l-3.4 6.1l-2.3 1.2l-8.1-0.2l-1.9 3.1l-7.6-1.1l-5.8 1l-2.9 1l-1.8 4.1l-1.4 0.1l-12.5-6.7l-9.8-2.5l-21.2-3l-7.3 3.4l-5.8 1.1l-1.4 1.5l-0.4 5.9l-6.4-3l1.9-2.5l-0.8-2.4l-2.2-1.4l-2.4 1.4l-1.4-0.8l-4.1 0.8l1.8-3l-2.7 0l1.8-3.9l-3.6-1l4.1-9.1l3.1 1.2l3.7-6.9l-0.9-4.3l-6.4-11.4l3.6-4.1l1-4.9l1.2 0.7l2.6-2.1l0.6-4.9l-4.1-7.8l-3.1-2.6l8.8-14.7l-1.5-7.9l-2.8-5.5l2.6-6.3l6.5-3.1l0.5-8.4l-1.9-2.8l3.3-8.5l-4.3 3.6l-9.8 0.4l-27.5-5.9l-11.5-6.5l0.7-8.3l-2.9 13.4l-19.2 4.3l-9.6 0l-2.6 1.1l-8.1-5l-1.4 2.7l-3.6 2.9l-24.3 9.3l-1.8 1.5l-2.3 5.2l-2.7-0.8l1.9 0.9l-1.2 4.7l-5.7 3.3l0.5 7.3l4.2 5.9l9.9 9.4l4 13.7l-1.5 4.8l-5.3 8.4l-3.8 17.1l-4.8 8.1l-3.5 17.6l0 6.2l2.6 12.2l0 12.3l4.2 12.4l-3.9 14.1l3.5 4.2l1.4 7l-4.3 5.7l-0.8 5.1l-3.4 6.5l-9.2 10.4zM269.3 778.3l-7.2-2.4l-1-4.5l4.2-8.9l4.5-4.3l2.6 2.9l-2.8 9.4zM201.7 759.2l-1 4.6l-2.7 4l-3.1 1.7l-1.3-3.5l3-9.3l1.5-1.4l1.8 0.4zM1513.2 2161.6l-2.4 1.4l-1-0.6l-5.3-8.3l1.6-5.9l3.4-3.9l6.2 2l0.1 6.5l-3.1 6.2l4.6-1.7l0.8 8.6l-2.7-3.8zM956.9 2147.2l-2.5 1.2l-0.2-1.6l1.1-1.3zM1500 2147.2l-2.3-5.4l-4.9-0.5l3.4-5l-0.7-2l-3.6 3l0.2-4.1l10.2-5.2l0.8 0.5l-2.4 4.6l1.1 1.2l3.7 0l0.5-4.4l2.4-1.2l1.6-4.3l1.9 0.8l1.9 5.6l-1.1 2.6l-4.1 0l-2.3 5l-4.9 2.9zM1567.7 2114.6l0 10.4l-2.5 2.5l-2.8-2.7l3.4-12.7zM1539.7 2137.3l4.5-16.3l-2.7-6.4l2.3-3.4l-4-11.4l-0.1-6.9l1.8-5.9l2.3 2.4l7.2 1.9l2.4 2.7l-1 7.4l3.6 8.3l1.7-8.3l1.6-2.4l2.1 2.9l0.5 9.6l-1.9 8.6l-8.5 13.8l-5.5 5.1zM1530.3 2111.5l0.4-5.2l2.3-1l0.8-2l4.3 6.9l-0.9 3.2l-2.9 1.3zM1480.2 2108l-1.1-2.2l-1.5 0l0.6-2l-1.5-2.4l3-1.5l2.1 5.5zM1478.5 2074.8l0.7-4.8l1.4-0.1l1.6 2.3l-0.2 3.4zM1544.3 2031.5l-4.8 7.7l1.9 13.6l-1.7 1.7l-8.1-32.5l0.9-10.8l1.9 0.1l1 2.2l3.5 16.4l3-1zM1011.9 1981.3l-2 0.3l-1.8-1.3l2.5-2zM1491 1918.5l0.9 1.1l-1.8 9.8l-0.9 0l0.1-10zM1454.1 1669.3l2.7 6.1l-1 6.6zM1069.1 1637.7l10.7-17.1l2.2-2.1l2.4 9.8l-5 11.6l-3.4 0.7zM1036.6 1615.5l0 3.4l-5.4 6l-0.5 4.5l-4 4.4l1.9-4.7l-4.6-14.1l1-4.5l12.5-8.3l4.4-8.9l16.4-18l2.5 3.4l0.7 7.2l-1.7 7.2l-3.3 6.7l-7.9 10.1zM1443.7 1565.8l-0.1 12.8l-3.1 3.3l-4.1-1.4l-0.8-6.4l-6.7-6.8l1.3-4.5l1.7-1.3l0.3-3.2l-4.3-12.3l2.4-5.9l4.4-2.5l2.2-0.4l11.3 3.9l0.6 5.4l-2.8 4.4l0 10.8zM959.9 1135.9l-1.5 0l-1.1-1.8l-1.7 0.9l0.3 3.6l-8.2 0.8l-3.8-3.1l-6.4-12.7l1.7-2.4l-1-2.3l-8.1-3.9l-3.6-6.5l2-0.8l-1-2.3l5.2-6.6l5.6 0.7l3.2 4.5l8.5 7.4l5-1.6l2.9 0.5l11.9 9l-0.6 7.7l-3.4 2.1zM1559.9 2185.9l-2-2.2l-1.2-10.4l1.1-3.5l4.5 5l4.7 8.7l3.1 2.4zM1573.6 2185.8l0.2 0.1l-0.5 0zM2083.2 2185.9l-18.2 0l0-8.2l-5-10.8l1.8 0l-2.7-3l8.1 1l5.9 5z","bgd":"M784.2 739l4.4 25.1l-2.3 22l1.9 34.3l1.7 10.8l4.7 14.6l0.5 2.9l-1.2 2.3l-5.6 4.8l-2.7 0.3l-1.6-1.9l-1.9-8.7l-2.6-5.8l-3.4-0.8l-4.3 1l-8.6-1.6l-2.5-2l-1.8-7.3l-1.7-2.4l-4.2-1.4l-5 6.1l-6.4 0.3l-3.2 9l-4.4 7.9l0.9 8.5l-1.4 9.4l1.8 4.5l3.1 2.9l1.6 4.4l5.4 4.6l-1 11.5l0.5 5.9l1.4 5.3l4.4 7.4l3.7 12.1l0.1 3.1l-1.1 1.1l-3.3-3.4l-3-7.5l-9-16.7l-3.1-10.8l-6.8-6l-4.9-8.4l-5.9-7l-1.1-5.4l1.1-9.3l-0.9-6.2l-7.3-13.6l-2.7-2.2l-2.2-4.6l-0.4-2.4l1.8 0.9l2.6-5.3l2.1-1.5l2.5 0.9l-3-4.2l-0.7-5.7l4.2-5.4l-0.5-2.4l2.3-3.5l0-4l-1.7-1.2l0.9-4.1l-0.5-1.1l-1.7 7l-1.6 2.1l-2.2-0.1l-1-1.7l1-6.2l-0.9 0l-0.7 2.4l-1.2-0.1l-1.7-3.8l0.4-3.3l4.9-3.1l-0.8-1l-2.2 1.7l-0.9-1.2l0.8-2.2l3.1-1.3l0-1l-6.1 0.5l-4.6 1.5l-1.2-1.2l0.2-3.4l1.4-3.1l2.3-1.2l-1-1.5l0.5-1.4l3.2-2l0-1l-2.6 0.8l-1.9 2.3l-2.3-11.9l-2.2-3.5l0-5.4l-3.4-14.7l-0.2-5l1.8 0.9l-0.7-1.9l-1.2 0.3l-0.9 4.6l-0.8 0l-3.6-9.1l0.5-5.8l3.1-3.8l-0.2-2.3l-3.5-2.7l-0.4-3.6l8.6-4.2l4.4-12.8l-2.6 0l-1.4 8.9l-11.3 8.8l0.3 2.3l4.3 2.6l-0.1 2.8l-2.2 1.7l-2.9-0.2l-2-3.2l-3.7-21.7l-8.9-17.8l-16.8-23.8l-4.2-1.7l-5.2-7.1l-1 0.6l-0.9-0.7l-0.5-5l4.1-12l0.1-3.5l-1 0l-2.7 10.2l-1.3 1.6l-2.9 0.9l-1.8 2.4l-0.3 6.6l-3.9-2.4l-5.1-0.6l0 1l2.8 0.9l0.3 1.3l-1.3 1.3l-9.1 0.7l5.5 2.6l-0.3 2.1l-1.7 1.2l-4.3 0.7l-5.2-0.8l-0.2-3.2l-8.1-0.9l2.3 4l-1 1l-3-0.1l0 1.1l11.1 3.5l1.4 2.8l-3 9.5l-5.1 4.6l-9.9 2.3l-5-2.5l-2.6-3.9l-1.4-6.1l-5.3-9.9l-2 0.6l3.8 6l0.7 7l-6.9 2l-4-0.2l-1.7-1.5l-0.8-1.9l-3.6-2.7l-3.2-5.2l-1-4.1l-5.3-0.3l-2.2-6l-3.2-2.1l-3.2-6.3l-7-22.4l-10.2-14l-1.4-3.8l1.4-17.9l3.3-8.6l-0.5-2.7l0.8 0l-2.2-4.7l-0.1-1.9l1.5-1.2l-1-1.1l-3.3 1.2l-2.3-3.1l-1.6-7l0.2-8.4l1.1-3.3l3.2-2l7.7 0l3-1.7l0.2-5.3l-1.4-2.7l-3.6-0.1l-0.4 0.6l3.6 3.2l-0.9 3l-3.8-1.5l-7.8 3.9l-2.5-6.2l0.5-4.1l2.1-3.3l3.3-1.6l-0.8-1l-1 1l-1-1.4l-7 2.3l0.7 2l-2.2 1.8l-4.3 0l-5.1-2.7l2.9 3.7l9.3 1.4l1.1 1.1l0.2 12.9l-2.5 4.5l-1 4.8l-4.4-1.9l-25.8-5l-5-1.9l-4.5-3l-0.1 1.7l1.2 1.6l17.1 10.3l5.2 6.7l9.9 3.5l8.7 1l4.9 6.8l0.5 2.4l0.5 5.1l-2.7-3.5l1.2 11.3l-0.5 3.4l-3.6 5.1l-0.8 0.9l-1.6-0.4l0.3-2.6l1.3-1l0-1l-0.9 0l-4.7 4.4l-9.1 1.1l-0.7 2.4l2.6 8.6l5.1 7.7l0.4 3.5l3.9 3.1l-2.6 2.3l-5.8-0.5l-2.5 3.2l-2.8 8.8l-3.7 0.8l2.2 1.9l-0.6 1.9l-1.8 0.8l-1.6-1.7l-2.8 1.9l8.2 4l1.3-2.6l2.2 0.4l2.3 2l1.8 3.6l2.6 14.2l-1.6 2.7l-5.4 1.9l-2.3 12.3l2.7-3.9l-0.2-4.4l1.5-3.5l2-1.1l4.8 0.1l4.7 2.9l6.2 13.9l-2.7-1l0 3.2l4.2 10.6l-0.6 8.9l-4.2 11l-3.1 5.1l-2.6 0.6l-4.9 3.2l-1.7 5.5l-5 8.3l-1.5 0.7l-4-1.5l-2.7-2.4l4.4-13.8l-1.8-6l0.4-6.3l-2.2-0.5l0.6 2.9l-1 8.5l2.6 1.9l0.3 2.5l-2.1 2.5l-0.6 2.5l-1.6-0.1l-1.4 7.8l-4.9 7.4l-3.1 7.8l-2.4 13.5l-2.3 4.7l-7.3 6.3l-4.3 1.8l-12.1-4.2l-0.6-2.4l0.9-1.8l2.3 0.5l-1-2l2.8-4.5l-0.7-2.9l0.7-1.5l-3.7 7.7l-4.1 3.6l-2.3 0.3l-3.3-1.6l1.2-11.7l1.5-3.2l5.4-4.9l2.6-7.8l5.4-5l2.3-3.5l1.1-0.5l2.9 1.1l2.8-2l2.1-3.2l0.9-3.9l-0.4-3.8l-3.9 9.5l-7.6 3.2l-7.8 8.5l-4.1 8.3l-2.6 1l-5.5-1.9l1.9-5.9l3.2-2.7l-0.1-6.5l1.1-3.8l3.9-3l0.8-1.7l-3.4 1.2l-1.7 2.5l-2 7.1l-5.5 6.4l0 8.3l-2 1.8l-2.3-0.9l-2.1-2.5l-2.6-9.2l-0.3-10.6l-1.5-9.5l-2.7-5.6l-0.4-4.9l3-8.5l10.9-16l2-5.1l1.6-1.4l-3.6 2.5l-4.6 4.8l-3.6 6.9l-2.3-0.7l-4-3.2l1.5 7.9l-0.5 3.1l-5.5 10.7l3 8.2l1.5 9.6l-0.2 7.5l-1.1 1.8l-2.2 1.2l-6.4-0.7l0 1.1l5.1 2.7l1.6 2.2l0.5 3.4l-0.8 5.5l5.4 10.4l-0.9 2.3l-3.8 0.9l-4.9 5.3l-3.6 1.7l-1.4 0.2l-1.3-2.8l-5.3 2.6l-2.2-0.2l-6.3-2.7l-1.1-4.3l1.4-2.5l-2.2-4.1l-3.7 7.9l4.1 6.3l6.7 5.9l-1.4 2.9l-2.9 2l-4.8-1.9l-4.8 0.6l1.4 5.9l-2.5 2.6l-2.8-1.8l-3.7-5.8l0.2-2.5l-1.5-6l0.4-3.3l4.5-6.9l-0.2-12.8l1.1-8.4l4.5-11.8l-1.6-6l-3.4-4.9l-0.1-2l5.1-7.7l0.6-6.1l2.1-5.3l-6 8.4l-0.5 1.3l1.2 3.3l-4.9 5.8l3.6 8.6l0.4 4.6l-1.6 4.5l-2.1 12.7l-2.4 1.3l-1.1-2.2l-0.1-6.4l1.8-6.4l-6-14.3l0.2-12.2l-1.3-3.1l-1 0l-1.1 9.5l1.1 18.1l1 0l1.4-4.9l3.2 8.1l-1.2 5.7l-2.3 0.9l-0.2 1.6l4.2 8.8l-1.3 7.7l-6.3 7.2l0.2 11.2l-3.1 4.9l-4.7 4.3l-1.5 0.1l-3.4-3.9l-0.9-5.8l0.4-6.5l2.8-10.4l-3.6-10.2l-1 0l-0.8 2.2l1.8 5.6l-0.5 3.7l-3.5 4l-3.7 7.9l-2.2-1.8l1.4 9.2l-2.8 8.5l0.4 1.6l2.7 1.4l-6.4 4.6l-2.5 0.3l-2.5-1.5l-0.8-2.6l2.1-5.3l-4.3-14.7l-0.6-0.6l-1.2 0.8l-2.6 3.4l-4.6-2.1l-1.9-2.1l-3.6-14.2l1.8-12.3l-4.5-9.4l0.4-9.3l2.4-3l-0.3-3.5l-1.8-5.2l-5.8-7.7l-1.2-3l1.9-1.3l-2.9-5.6l-1.6-9l1.7-4.5l-4.1-14.4l-5.7-2.9l3-2l0.8-3.3l-6.4-22.4l3.8-6l1-9.4l-1.5-1.5l-3.7-1.2l-1.5-1.9l-2.8-6.8l-4.4-7l1.6-14.3l1.8-3.6l11.8-12l0.7-2.8l-5.5-0.8l-12.5-4.2l-6.2 2.3l-8.7-2.8l-1.7-1.6l-1.3-2.8l-0.1-3.1l4.4-7.9l6.3-17.1l0.3-3.1l-1.7-1.4l-3.3 3.7l-1.6 0.7l-2-3.9l-7.5-5.8l-5-7.7l-5-0.5l-1.3-1.4l0.6-3.8l-3.2-1.5l2.6-14.7l-1.2-4.9l3.3-6.2l0-5.3l2.1-1.7l7.8-0.4l8.1-7.9l0-5.7l-1.7-4.4l3.2-4.9l-0.1-1.3l-3.2-0.8l-0.4-1.8l-3.1-3.8l1.2-6l-0.7-4.3l2.1-3l5-2.1l1.9-3.5l-1.1-10.5l-3.1-4.1l-4.3-2.6l-2.8-0.7l-3.4 6.4l-2.9 0.2l-6.5-2.2l-11.5-1.1l-9.8-7.7l-34.5-18.1l-3.8-0.9l-3.2-5.1l-0.5-9.1l-3.3-4.9l-4.6-1.7l0.7-4.3l2.8-5.1l0.6-6.3l3.1-0.9l1.5-5l0.9-1l1.7 0.3l4.4-6.3l-3.5-10.3l6.6-3.6l4.9-0.6l4 3.9l1.4 5.4l9.3 1.8l1.2-0.9l6.9-10.2l1.6-3.3l0.5-3.8l3-3.8l1.5-4.3l1.1-9.4l-0.3-8.1l1.3-2.4l4.5-0.8l11 3.5l5.2-3.2l4.7 0.1l11.8 3.7l7.9 0.8l2.4-3.9l1.9-1.2l10.8 3.9l3.3 0.2l-1.9-3l2.4-0.5l0.2-5.3l6-5.2l1.3-2.8l-1.3-2.5l-9.5-0.2l-3-2.8l-5-1.4l-3.1-3.8l-1.1-4.2l-1.4-1l2.2-6l-0.2-3.1l-5.6-6.2l-4-1.6l0.1 2.6l-4.8 0.5l-3.7 3.7l-1.5 0.4l-2.8-0.6l-6.8-4l-8.3-0.8l-2.3-3.3l-3.6-2.8l-1.3-2.8l-6.8-4.3l-0.6-8.8l-3.5-3.9l-9.5-6.4l-8-9.2l-4.3-2.2l-10.6 4.1l-2.5 0.1l-5.3-8l-1.7-11.1l1.8-2.2l2.4-8.1l2.6-4.9l3.3-2.5l0.7-4.4l-2-2l-0.2-1.4l3.2-7.9l7.2-5.7l14.1-5.2l1.1-2.1l0.3-7.4l4-4.5l6.2-3.9l2.3-3.1l2.2 1.2l6.5 0.1l-0.3-3.6l-4.5-10.9l-14.2-4.4l-1.4 1l-0.9 4.2l-1.7-0.5l-1-1.9l-0.2-2.4l2.4-4.7l2.7-9.3l4.3-6.4l1.2 0.8l0.5 8.5l1.7 2l6.8 2.3l8.4 7.7l8.5 2l2.7 4.4l5.9 2.3l-0.6 3.4l2.2 0.8l-0.2 2.5l5.6 4l0.3 1.8l-1.2 2.6l-7.5 4.9l2.3 1.6l11.1-4l4.8 1.8l3.1 6.7l2.2 1l2.1-0.8l2-4.8l2.6-1.7l3.6 0.6l5.8 5.8l3.7 1.2l5.8-1.4l2.7-1.9l-0.7-2.7l-3.9-1.4l0.4-3.1l-3.4 0.8l-2.1-5.3l-7-2.9l-2.7-2.9l-0.1-2.4l2.7-5.1l3.8-2.6l6 3.8l3.2 3.3l4.3 1.3l1.8 2.6l-0.2 2.3l6.2 2.8l0.1 2l-1.1 0.6l-3.5-0.7l0.1 3.8l4.5 9l2.1 11.3l1.6 1.8l10.7 5l3.3 5.9l4.6 2.1l3.2 3.7l5 2.8l2.1 0.2l3.8-2.6l1.5-0.1l2.6 3.2l9.8-0.7l1.3 0.5l3 4.7l3.1 0.4l0.9-1.4l1.4-7.6l5.7-4.8l1.1-2.4l-1-1.8l-4.8-0.4l0-1.7l4.9-3.1l-4.6-1.3l-0.9-1.8l3.2-3.9l3.6 0.8l-1-6.8l0.9-1.2l2.8-0.9l2.4 0.4l0.7 2.2l-0.3 6.7l1.9 1l4.8 0l1.5 1.2l1.4 4.6l2.8 4.3l0.7 7.4l4.5 6.4l3.2-1.2l1.9 2.4l-0.4 2l-4.4 2.4l5.6 2.5l-0.6 3.4l-5.7 9.9l-0.5 3.6l2.5 12.9l4.3 12.9l-1.5 20.9l-3.7 16.6l1.6 10l1.6 2.8l2 0.4l4.7-1.9l5-0.2l29.2 12.3l20.6 4.5l10.2 4.3l4.7 0.1l13.3-2.8l10.8 1l5.3-1.4l11.1 2.7l4-2.4l2.1 0.3l5.2 3.2l3.7 0.4l41.3-7l7.3 0.2l5.9-1.8l6.3 3.3l19.5 5.9l6.4 0.4l5.6-1.4l3.4-2.3l2.2 0.2l4 4.4l5.6 0.7l3.1-0.4l2-3.7l4.4 1.2l2.5-3.3l8.4 0.3l14-1.8l7.4 1.2l6-1.9l4.2 0.2l7.8 2.4l3 3.6l4.6 1.4l2.8-0.3l4.7 4.9l3.4 1.9l9.2 1.5l3.2 3.8l7 3.5l0.7 4.1l3.4 1.1l5.5 4.2l0.5 0.7l-1.1 1l4.5 2.6l1.4 4.8l-2.2 4.4l-12.8 4l-2.2-0.7l-0.7-1.8l-9-5.4l-5-1.7l-3.8 1.7l-0.7 2.4l2.3 7.2l-0.2 6.8l-6.7 18.7l-2.5 12.7l-1.4 2.1l-5.6 4.3l-0.4 15.6l-2.6 3.5l-3.3 1.5l-14.9-0.6l-0.1 1.7l3 4.9l0.1 1.9l-6.7-4.1l-2.9 1l-0.4 2.6l1.3 8.5l-3.8 14.8l-1.7 1l-2.7-0.6l-4-4l-0.9-5.5l-9.7-1.9l-1.3 1.9l1.2 8.2l-1.5 2.2l-2.3 0.8l-4.9-1.8l-3.5-8.1l-1.4-0.5l-3 13.9l-3.2 3.3l-8.5 1.5l-14.8-2.5l-5.5 0.4l-1.6 3.7l-1.5 11.4l-1.6 1l-4.7-1l-2.3 1l-3.1 3.5l-4.5 8l-0.5 3.9l2.1 5.2l-3.1 10.5l-1.3 2.4l-7 2.2l-1.2 2.8l0.5 3.1l4.3 1.9l0.8 2.2l-1.2 2.3l-3.5 0.1l0.2 6l3.8 7.2l3.3 9.6l4.3 3.8l4 13.7l3.8 2.6l-2.8 3.7l1.5 3.8l3.1 23.1l1.7 6l3.1 4.3l4.4 1.2l0.5-4.8l-2.4-12l-0.1-6.4l2.2-5.5l2.9-0.1l2.6 2l3 4.9l0.4-1.2l0.9 3.6l2.2 2l5.3 20.1l1.9 1.4l0.7 5.7l1.7 1.9l5.3 1.9l1.3 3.5l2.1-1.2l1.9-3.6l4 0.2l7.9-2.7l4.1-4.3l2.2-3.3l0.1-2l2.7-0.5l2.5-3.5l-6.1-20.5l-0.7-5.8l2.5-7l7.2-11.5l11.5-6.5l4.7-7l0.2-5.7l-3.4-16.6l-0.2-5.5l1.1-5l1.8-0.1l8.8 11l2 1l3.1-0.7l2.3-2l6.4-8.5l5.6-1.9l2.6 4l1.3 5.5l1.8 2.5l2-1.9l1.7-6.7l2.1-1.3l2.7 1.5l0.4 3.1l-1.6 6.1l0.4 4.8l5 16.4l1.4 9.1l3.1 4.1l0.2 4l2.9 3.1l-0.2 5.5l1.4 5.3l-3.3 7.6l-0.7 7.8l3.4 20.4l-0.1 10l1 4.8l2.5 3.8l4.3 1.8l1.9 2.4l2.1 15.6l5.1 5.3l2 4.4l0.6 19.4l2.2 6.9l7.8 49.4l-0.1 3.7l-3.5 0.7l-1.6 1.4zM702 779.3l0.5 9.5l4.7 9.5l1.2 5.7l-1.8 12.3l-1.2 2.5l-8.7-0.1l0.6 3l-2.9 0.7l-2-2l-0.9-3.5l2.1-4l0.4-5l-0.7-5.8l-2.8-9.5l0.8-5.4l2.4-4.1l3.4 1.6l0.6 1.9l-1.9 6.5l2-2.6l0.8-3.4l-1.1-6.8zM695.8 767.1l-3.3 10.9l-4 9.2l-1.1-2.4l2.1-11.9l-1-7.4l1.4-4.3l3.2-3.6zM640.5 663.5l11.7 15.5l0.9 6.2l-1.1 4.8l-6.3 0.7l-4.1-2.3l-3.9-5.8l-3-10.3l3-7.4zM595.2 677.5l10.1-3.7l1.4 2.7l-1.3 3.4l-5.5 3.1l-3.3 0.2l-2.7-1.8zM598.5 696.5l1 3.5l2 1.8l2 13.3l-5.9 11.7l-6.3 3.9l-1.5 2.5l-2.5 1.7l-5.4-0.7l-2.3-3.2l3.8-4.6l3.3-6.2l1.2-7l0.9-21.3l2.3-0.4zM575.8 721.1l0.1-7.7l0.8-2.9l1.8 0.9l0.2 2.6l-1.4 5.7zM572.7 715.2l-2-0.9l2.6-6.4l0.4-6.5l2.1-5.8l1.8 3.2l0.6 5.6l-0.6 2.9zM571.3 718.3l1.2-1.1l0.8 2l0 7.8l-1.1 3.3l-2.5 0.7l-1.4-2.2l0.2-4l2-7.6zM548.3 673.4l11.6 11.9l-2.7 13.7l0.2 23.2l-1.1 3.7l-7 11l-2.3 2l-0.9-2l-4.3 3.9l-3.4 6l-5.8 1.9l-1.1-3.2l5.6-12.5l-7.4 10.9l-2.1 0.4l-0.8-2.8l0.5-4.1l3.4-7.3l-1.5-3.2l1.3-5.3l6.1-14.5l1.3-13.6l-1.4-7.1l0.6-2.6l-1.5-2.7l-1.5-8.7l-1.5-3.4l-9.6-7.3l-2.1-0.6l-0.3-10.3l2.9-11.9l2.3-2.6l7.2-1.7l4.4 13.3l8.3 14.1zM532.3 625.7l4.3 5.9l-11.5-0.8l-7.8 6.4l0.4 5.8l-1.8 2.4l-3-3.1l-0.7-2.8l-4.9-2.1l1.1-1.6l-0.1-7.9l1.4-4.5l1.7-0.8l6.7 0.6l0.9-2l6.3-0.2zM535.2 610.8l-4.5 0l4.5 5l-4.1-0.5l-4.9-5.4l-1.4-0.4l-3.5 1.5l-5-0.2l-2.1-3.3l2.6-4.6l4.4-3.6l3.3-0.3zM532.6 686.7l0.8-8.4l1.5 2l0.3 4.4zM528.9 686.7l-2.4-0.6l0-2.8l1.7-0.1l2.5 2.5l3.3 7.5l0.4 3.4l-1.8-4l-1 2.6l0.9 5.7l-0.9 2.5l-0.9-5.9l0.9 0zM519 738.9l-0.8-0.9l-7.2 4.8l1.1-6.5l1.5-2.4l4-1.9l3.5-4l1.6 0l2.7-3.1l2.7-0.7l-2.6 8.8l-1-4l-3.5 15.4l-2.8 3.4l-2.5 0.8l-1.4-0.7l-0.7-3.6zM525.5 749.7l0 3l1.7 3.9l-2.1 0.5l-1.3 3.3l-2-0.8l-3.3 6l-2.5 2.1l-2.4-0.1l0-1.1l3.7-1l-2.8-3l1.6-5.9zM516.3 557.7l-2.3 1.1l-2.5-0.7l-6.6-6.1l-1.4-2.1l0.4-1.3l3.4 0l11 5.1l5.1 3.8l1.1 3.1l-7.5-4.6zM514.5 594.1l0.7 2.4l-6.1 6.4l-1.8-7.9l5.1-0.1zM503.7 740.9l5.9 6.4l1.7 3.8l-1.3 4.6l-8 6.4l-1.7-0.9l-1.1-4.6l2.4-5.3l0.4-9zM491.1 756.6l5.1-8l3-0.8l-0.4 3.1l-3.3 5.7l-3.2 11.3l-2.4 2.4l-0.6-7.1zM498.4 740.9l-0.9 3.6l-3.7 4.3l-0.9 3l-0.8 0l2.5-7.3l2-3.2zM328 777.5l6.1 3.8l0.7 4l-1.6 2.5l-3.9-2.1l-6.7-8.2l1.6-4.1l0-2.8l-2.4-10.9l1.5-0.1l1.4 2l1.8 11.7z","div":"M540.6 522.9l0.4-0.5M541 522.4l2.9-1.8M543.9 520.6l1.3-1.5M545.2 519.1l-1-1.6M544.2 517.5l0.6-1.3M544.8 516.2l1.5-0.8M546.3 515.4l2.1-0.3M548.4 515.1l0.3-0.7M548.7 514.4l-1.2-1.6M547.5 512.8l-3.5-3.6M544 509.2l1.2-1.2M545.2 508l1-1.9M546.2 506.1l0.1-1M546.3 505.1l-0.3-1.1M546 504l-0.6-0.9M545.4 503.1l-0.7-0.7M544.7 502.4l-1.9-1.3M542.8 501.1l-0.5-0.9M542.3 500.2l0.3-1.3M542.6 498.9l2-3.2M544.6 495.7l2.8-7M547.4 488.7l0.2-1M547.6 487.7l-0.1-1.2M547.5 486.5l-0.7-3.1M546.8 483.4l0.1-1.1M546.9 482.3l0.5-1.1M547.4 481.2l0.7-0.8M548.1 480.4l0.8-0.8M548.9 479.6l0.9-0.5M549.8 479.1l0.9-0.4M550.7 478.7l0.9-0.1M551.6 478.6l4 0.1M555.6 478.7l1-0.1M556.6 478.6l0.9-0.3M557.5 478.3l0.9-0.4M558.4 477.9l0.8-0.5M559.2 477.4l3 2M562.2 479.4l0.9 0.5M563.1 479.9l0.7 0.3M563.8 480.2l0.8 0.2M564.6 480.4l1.3-0.7M565.9 479.7l1.8-1.5M567.7 478.2l5-7M572.7 471.2l2.7-6M575.4 465.2l0.6-3.5M576 461.7l-0.5-2.8M575.5 458.9l1.1-3.4M576.6 455.5l1.5-1.4M578.1 454.1l2.2-1.3M580.3 452.8l2.6-3M582.9 449.8l0.9-3M583.8 446.8l-2.5-1.5M581.3 445.3l0.9-2.1M582.2 443.2l-2.3-3.4M579.9 439.8l0.2-0.6M580.1 439.2l-0.6-2.9M579.5 436.3l0.8-0.5M580.3 435.8l1.5-0.4M581.8 435.4l1.5-0.5M583.3 434.9l4.3-6.1M587.6 428.8l1.8 1.4M589.4 430.2l1 0.4M590.4 430.6l0.9-0.2M591.3 430.4l0.4-1.1M591.7 429.3l-0.3-1.6M591.4 427.7l0-1.5M591.4 426.2l1.2-0.7M592.6 425.5l2.6-0.2M595.2 425.3l2.2-0.8M597.4 424.5l1.7-1.2M599.1 423.3l10.8 5.6M609.9 428.9l3.4 0.7M613.3 429.6l4.4-3.7M617.7 425.9l0.8-0.5M618.5 425.4l0.9-0.4M619.4 425l1.6-0.2M621 424.8l0.9 0.2M621.9 425l0.7 0.5M622.6 425.5l0.2 0.5M622.8 426l-0.2 0.5M622.6 426.5l-0.5 0.5M622.1 427l-1.8 1.5M620.3 428.5l-3.6 2.1M616.7 430.6l-0.5 0.5M616.2 431.1l-0.3 0.5M615.9 431.6l0 0.7M615.9 432.3l0.7 0.4M616.6 432.7l3.2 0.8M619.8 433.5l0.6 0.5M620.4 434l0.3 0.4M620.7 434.4l-0.4 0.3M620.3 434.7l-0.5 0.1M619.8 434.8l-2.8 0.6M617 435.4l-0.5 0.2M616.5 435.6l-0.5 0.3M616 435.9l-0.5 0.4M615.5 436.3l-0.4 0.6M615.1 436.9l-0.2 1.1M614.9 438l0.1 1.3M615 439.3l1 2.2M616 441.5l0.4 1.2M616.4 442.7l0.2 1.2M616.6 443.9l-0.1 1.9M616.5 445.8l0.2 2.6M616.7 448.4l0.2 1M616.9 449.4l0.5 1.5M617.4 450.9l0.2 1M617.6 451.9l0.7 2.3M618.3 454.2l1.1 1.4M619.4 455.6l0.7 1M620.1 456.6l0 0.2M620.1 456.8l0 1.1M620.1 457.9l-0.4 1.9M599.1 423.3l1-1.7M600.1 421.6l1.1-1M601.2 420.6l1.9-4.9M603.1 415.7l4.5-2M607.6 413.7l2.8-2M610.4 411.7l-1.8-2.9M608.6 408.8l1.5-1.5M610.1 407.3l0.9-0.3M611 407l0.7-1.3M611.7 405.7l-0.3-1.1M611.4 404.6l-0.6-1.1M610.8 403.5l-0.9-0.9M609.9 402.6l-2.8-2.6M607.1 400l2.2-1.6M609.3 398.4l0.1-1.7M609.4 396.7l-0.2-0.8M609.2 395.9l-0.5-2.6M608.7 393.3l-1.6-0.8M607.1 392.5l-1.4-0.1M605.7 392.4l-1.1-0.6M604.6 391.8l-1-1.2M603.6 390.6l0-0.5M603.6 390.1l0.2-0.5M603.8 389.6l0.3-0.3M604.1 389.3l0.9-1M605 388.3l1.2-1.6M606.2 386.7l1.4-2.7M607.6 384l1.8-4.8M609.4 379.2l-2.3-1.3M607.1 377.9l-0.7-0.5M606.4 377.4l-0.9-0.9M605.5 376.5l-0.7-1.6M604.8 374.9l-1.6-2M603.2 372.9l-0.1-1.1M603.1 371.8l0.8-0.5M603.9 371.3l1.3-0.4M605.2 370.9l1-0.6M606.2 370.3l0.4-0.8M606.6 369.5l0.1-0.9M606.7 368.6l0-0.9M606.7 367.7l0.1-0.9M606.8 366.8l0.4-0.9M607.2 365.9l0.5-0.8M607.7 365.1l0.5-0.8M608.2 364.3l0.1-1.1M608.3 363.2l-0.6-1.7M607.7 361.5l-0.7-1.1M607 360.4l-1.4-0.7M605.6 359.7l-4-0.1M601.6 359.6l-1.1 0.1M600.5 359.7l-0.7 0.1M599.8 359.8l-0.6 0M599.2 359.8l-0.7-0.2M598.5 359.6l-0.9-2.6M597.6 357l0.9-7.5M598.5 349.5l-0.4-6.4M598.1 343.1l-0.9-3M597.2 340.1l-1.8-6.5M595.4 333.6l-15.6 1.6M579.8 335.2l-3.8-1.7M576 333.5l-8.6-14.1M567.4 319.4l1.5-5.2M568.9 314.2l1.1-2.4M570 311.8l1.4-2.1M571.4 309.7l0.5-1.4M571.9 308.3l0-1.9M571.9 306.4l-1.9-6.3M570 300.1l0.3-4.7M505.6 598.6l-0.4 0.5M505.2 599.1l-2.3 1.3M502.9 600.4l-3.4-1.6M499.5 598.8l-1.8-1.8M497.7 597l-3-2.3M494.7 594.7l-2.6-0.6M492.1 594.1l-1.7-0.4M490.4 593.7l-0.3 0.3M490.1 594l-1.6 0.5M488.5 594.5l-1.5 1M487 595.5l-1.2 2.3M485.8 597.8l1.3 0.2M487.1 598l2.1-0.3M489.2 597.7l1 0.8M490.2 598.5l0.1 2.5M490.3 601l-0.1-0.1M490.2 600.9l-0.2 0.8M490 601.7l-0.6 0.8M489.4 602.5l-0.2 0.8M489.2 603.3l-1 1M488.2 604.3l-1.5 2.3M486.7 606.6l-1.3 0.9M485.4 607.5l-0.8 0.2M484.6 607.7l-1.1 0.1M483.5 607.8l-1.6-0.6M481.9 607.2l-1.8-1.3M480.1 605.9l-2.6-3.2M477.5 602.7l-0.7-2.3M476.8 600.4l-0.3-3.7M476.5 596.7l-0.5-1.2M476 595.5l-0.8-1M475.2 594.5l-1.1-0.6M474.1 593.9l-1.4-0.2M472.7 593.7l-6.5 1.3M466.2 595l-1.2 2.2M465 597.2l-1 2.6M464 599.8l-2.4 1.4M461.6 601.2l-2.2 2.2M459.4 603.4l-1.1 1.8M458.3 605.2l-2.6 2.4M455.7 607.6l-0.7 0.9M455 608.5l-1.8 4M453.2 612.5l-3.3 4.6M449.9 617.1l-3.1 3.3M446.8 620.4l-1.9 1M444.9 621.4l-2.2 0.5M442.7 621.9l-4.7 0.8M438 622.7l-0.1-0.1M437.9 622.6l-5.3-2.8M432.6 619.8l-1-0.9M431.6 618.9l-2.7-3.2M428.9 615.7l-0.8-0.5M428.1 615.2l-2-0.9M426.1 614.3l-0.7-0.5M425.4 613.8l-0.6-1.1M424.8 612.7l-0.8-2.6M424 610.1l-0.5-1.3M423.5 608.8l-1.8-2.4M421.7 606.4l-4.2-3.9M417.5 602.5l-2.1-2.6M415.4 599.9l-3.2-6.9M412.2 593l-1.3-1.9M410.9 591.1l-1-0.6M409.9 590.5l-2.3-0.5M407.6 590l-1.1-0.9M406.5 589.1l-0.6-0.9M405.9 588.2l-0.4-1.1M405.5 587.1l-0.2-1.3M405.3 585.8l0.1-1.7M405.4 584.1l2.6 2.3M408 586.4l1.4 0.5M409.4 586.9l0.9-2.1M410.3 584.8l2.1-2.9M412.4 581.9l0.8-0.6M413.2 581.3l1.7-0.6M414.9 580.7l0.4-1.2M415.3 579.5l-0.8-1.4M414.5 578.1l-1.8-0.7M412.7 577.4l-1.5 0.3M411.2 577.7l-1.1 1M410.1 578.7l-1.2 0.8M408.9 579.5l-1.7-0.2M407.2 579.3l-1.9-2.5M405.3 576.8l0.4-3M405.7 573.8l-0.3-2.5M405.4 571.3l-7-1.9M398.4 569.4l1.1-2.1M399.5 567.3l2.7-2.6M402.2 564.7l1.4-2.2M403.6 562.5l-3.9 0M399.7 562.5l-3.3-3.8M396.4 558.7l-2-5.5M394.4 553.2l0.2-4.6M394.6 548.6l1 0M395.6 548.6l0.4 0.8M396 549.4l0.5 0.5M396.5 549.9l1.8 0.8M398.3 550.7l-2.5-11.9M395.8 538.8l-1.2-2.9M394.6 535.9l-2.6-2.4M392 533.5l-4.1-2.2M387.9 531.3l-3.8-0.4M384.1 530.9l-2.1 3.1M382 534l-0.5-0.9M381.5 533.1l-0.4-0.9M381.1 532.2l-0.1-1.1M381 531.1l0.2-1M381.2 530.1l0.8-0.6M382 529.5l1.8-1.4M383.8 528.1l1.2-1.4M385 526.7l-0.7-0.7M384.3 526l-1.4-0.6M382.9 525.4l-0.8-1.6M382.1 523.8l-0.6-1.8M381.5 522l-0.8-1.4M380.7 520.6l-1.7-1.9M379 518.7l-7.8-11.7M371.2 507l-1.3-0.7M369.9 506.3l-1.8 0.2M368.1 506.5l-2.1 0.6M366 507.1l-3.8 0.3M362.2 507.4l-5.4-7M356.8 500.4l-0.4-1.3M356.4 499.1l6.8-17.8M363.2 481.3l0.1-2.8M363.3 478.5l-0.2-1.2M363.1 477.3l-1.9-5.7M361.2 471.6M361.2 471.6l4.3 3M365.5 474.6l11.8 5M377.3 479.6l3 1.8M380.3 481.4l5.2 4.7M385.5 486.1l3.4 0.7M388.9 486.8l2.3-0.7M391.2 486.1l4-2.6M395.2 483.5l2.1-0.8M397.3 482.7l7.3-0.7M404.6 482l3-0.8M407.6 481.2l0-1.7M407.6 479.5l-1.3-6.7M406.3 472.8l-0.4-2.2M405.9 470.6l0.6-3.1M406.5 467.5l1.7-4.4M408.2 463.1l11.3-9.4M419.5 453.7l1.6-1.6M421.1 452.1l1.2-2M422.3 450.1l1-1.9M423.3 448.2l0.3-5.1M423.6 443.1l1.4-2.4M425 440.7l-0.4-0.3M424.6 440.4l0.2-2.1M424.8 438.3l0.5-2M425.3 436.3l-0.4-1M424.9 435.3l-0.1-0.6M424.8 434.7l0.2-1.3M425 433.4l-0.5-1.3M424.5 432.1l-2.4-0.6M422.1 431.5l0-3.1M422.1 428.4l-0.1-0.8M422 427.6l-0.4-0.4M421.6 427.2l-1.5-1.2M420.1 426l-3.5-3.8M416.6 422.2l-0.3-0.6M416.3 421.6l-0.7-0.5M415.6 421.1l-0.2-0.2M415.4 420.9l-0.2-0.2M415.2 420.7l-0.1-1.3M415.1 419.4l0.1-5.6M415.2 413.8l-0.8-5.5M414.4 408.3l0-1.4M414.4 406.9l1.2-10.4M415.6 396.5l0.1-5.3M415.7 391.2l1.1-4.5M416.8 386.7l0.2-2.9M417 383.8l-0.1-2.7M416.9 381.1l-0.4-1.7M416.5 379.4l0.7-1.5M417.2 377.9l1.5-1.8M418.7 376.1l0.9-3.6M419.6 372.5l0-1.9M419.6 370.6l-0.6-2.7M419 367.9l0.2-1.6M419.2 366.3l1.4-6.6M420.6 359.7l-0.1-3M420.5 356.7l-0.6-2.6M419.9 354.1l-0.9-1.5M419 352.6l-1.1-1.4M417.9 351.2l-2.4-2.2M415.5 349l-3.8-2.1M411.7 346.9l-2.3-1.5M409.4 345.4l-1.4-1.4M408 344l-1.7-3.6M406.3 340.4l-1.2-2.8M405.1 337.6l-3.2-15.6M401.9 322l-0.1-1.1M401.8 320.9l0.7-12.1M402.5 308.8l1.2-7.6M403.7 301.2l1.8-7.8M405.5 293.4l2.9-6.1M408.4 287.3l1.3-1.9M409.7 285.4l1.5-1.9M411.2 283.5l1.9-2.8M413.1 280.7l0.8-3.6M413.9 277.1l-1.2-7.9M412.7 269.2l3-7M415.7 262.2l0.4-1M416.1 261.2l0.8-1.2M416.9 260l1.9-1.1M418.8 258.9l0.8-0.2M405.5 293.4l-10.1-0.9M395.4 292.5l-13 0M382.4 292.5l-12.5-4.2M369.9 288.3l-8-1.8M361.9 286.5l-8.8 5M353.1 291.5l-4.1-4.1M349 287.4l-3.4-7.3M345.6 280.1l-0.4-5.5M345.2 274.6l-5.4-1.3M339.8 273.3l-14.3 0M325.5 273.3l-11.1-0.4M361.2 471.6l-3.1-1.3M358.1 470.3l-3.3-0.8M354.8 469.5l-3.5-0.2M351.3 469.3l-10.9 1.1M340.4 470.4l-3.6-0.7M336.8 469.7l-2.9-1.3M333.9 468.4l-2.8-1.9M331.1 466.5l-5.1-4.3M326 462.2l-1.2-1.5M324.8 460.7l-0.4-1.3M324.4 459.4l0.2-1.4M324.6 458l0.4-1.8M325 456.2l0-1.5M325 454.7l-0.5-1.3M324.5 453.4l-0.9-1.1M323.6 452.3l-0.9-1.1M322.7 451.2l-0.9-1.2M321.8 450l-0.4-1.1M321.4 448.9l-0.3-1.1M321.1 447.8l-0.5-1.3M320.6 446.5l-0.5-0.7M320.1 445.8l-1.3-1M318.8 444.8l-3-3M315.8 441.8l-3-4M312.8 437.8l-1.1-0.9M311.7 436.9l-1.2-0.7M310.5 436.2l-1.2-0.5M309.3 435.7l-1.2-0.2M308.1 435.5l-1.4 0M306.7 435.5l-1.3 1.8M305.4 437.3l-1.8 1.2M303.6 438.5l-8.5 4M295.1 442.5l-2.4 0.5M292.7 443l-2.5-0.4M290.2 442.6l-1.1-0.5M289.1 442.1l-1.9-1.4M287.2 440.7l-3.2-1.7M284 439l-0.9-0.8M283.1 438.2l-2-3.1M281.1 435.1l-0.3-0.8M438 622.7l1.9 1.8M439.9 624.5l2.5 4.3M442.4 628.8l-1.9 1.5M440.5 630.3l-0.3 0.1M440.2 630.4l-1-0.2M439.2 630.2l-0.4 0.1M438.8 630.3l-0.4 0.3M438.4 630.6l-0.4 0.7M438 631.3l-0.5 1M437.5 632.3l-0.1 0.6M437.4 632.9l0.1 0.3M437.5 633.2l0.4 0.3M437.9 633.5l0.5 0.6M438.4 634.1l0.1 0.5M438.5 634.6l-0.4 0.5M438.1 635.1l-0.6 0.4M437.5 635.5l-0.7 0.3M436.8 635.8l-0.6 0.4M436.2 636.2l-0.5 1M435.7 637.2l0 1.1M435.7 638.3l0.2 0.8M435.9 639.1l0.3 0.5M436.2 639.6l1.2 0.6M437.4 640.2l0.6 0.7M438 640.9l-0.1 0.6M437.9 641.5l-0.5 0.7M437.4 642.2l-4.1 2.6M433.3 644.8l-1.1 1.5M432.2 646.3l0 0.7M432.2 647l0.8 0.4M433 647.4l3.3 0.4M436.3 647.8l1.2 0.4M437.5 648.2l0.6 1M438.1 649.2l0.2 1M438.3 650.2l-0.2 1M438.1 651.2l-0.4 0.4M437.7 651.6l-0.6 0M437.1 651.6l-0.6-0.3M436.5 651.3l-0.6-0.2M435.9 651.1l-0.8 0.1M435.1 651.2l-0.7 0.6M434.4 651.8l0 0.5M434.4 652.3l1.4 1.4M435.8 653.7l0.9 1.2M436.7 654.9l1.5 4.4M438.2 659.3l0.5 0.4M438.7 659.7l1.7 1.1M440.4 660.8l0.7 0.8M441.1 661.6l0.4 0.9M441.5 662.5l0.7 2.2M442.2 664.7l0 1.8M442.2 666.5l-0.1 1.4M442.1 667.9l-0.2 0.7M441.9 668.6l-1.1 2.6M440.8 671.2l-0.3 1M440.5 672.2l-0.2 1.3M440.3 673.5l0.1 0.7M440.4 674.2l0.4 0.5M440.8 674.7l2.1 1.2M442.9 675.9l0.1 0M443 675.9l0.3 0.5M443.3 676.4l0.3 0.5M443.6 676.9l0.6 1.8","meghalaya":"M761.2 315.7l-0.5-2.7l-7-3.5l-3.2-3.8l-9.2-1.5l-8.1-6.8l-7.4-1.1l-3-3.6l-7.8-2.4l-4.2-0.2l-6 1.9l-7.4-1.2l-14 1.8l-8.4-0.3l-2.5 3.3l-4.4-1.2l-2 3.7l-3.1 0.4l-5.6-0.7l-4-4.4l-2.2-0.2l-3.4 2.3l-5.6 1.4l-6.4-0.4l-19.5-5.9l-6.3-3.3l-5.9 1.8l-7.3-0.2l-41.3 7l-3.7-0.4l-5.2-3.2l-2.1-0.3l-4 2.4l-11.1-2.7l-5.3 1.4l-10.8-1l-13.3 2.8l-4.7-0.1l-10.2-4.3l-20.6-4.5l-29.2-12.3l-11.7 1.7l-2.7-7.9l0.2-10.5l1.1-3.8l8.8-3l1.7-1.9l2-11.5l8.3-1.2l4.2-2.7l0.2-4.1l-6.7-8.2l-0.6-8.6l3-5.2l1.7-7.5l8-10.4l12.4-10.5l24.8-3.6l6.5-4.3l3.1-0.4l12.9 1l6.6 4.3l0.9 2.7l-2.3 7.3l5.9-3.8l4-4.6l2.2 0.7l2.3 4.7l14.3-4.4l1.8 0.4l1.5 4.9l4.8-2.6l7.1-1.2l7.4 1.5l6.6-0.3l1.7 3l3.5 1l2 2.4l-0.7 7.5l1 1.6l3.9-2.3l2.7 2l15-4.5l0.5 15.6l1.1 3.5l1.9 0.8l6.2-3l7.9-10l4.1-3.2l7.3-2.2l7.6-0.5l7-3.7l0.8-2l-4.8 2.7l-3.2-1l15.7-20.8l1.9-0.5l4.2 1.7l1 3.8l-1.8 8.7l5.3 1.2l6-5.3l4.5-11.5l7.3-5.8l2.3-0.2l8.7 6.6l4.1 0.8l12.9-3l4.4 0.3l14.5-4.5l12 0.4l2 1.7l-1.2 2.6l-11.3 10.9l0.5 4.6l3.8 1.2l0.9 2.8l-6.3 14.8l0.9 8.9l-0.9 9.4l1.5 0.7l6.5-4.2l11.7-1.9l8.6-5.3l4.1 1.8l8.4 7.4l15.3 16.3l3.2-0.4l5-3.2l2.9 0.2l0.1 3.4l-5.5 7.5l-6.8 6.2l4.6 3.1l2.2 3.2l8.6 3.2l11.5 11l1.2 3.1l-1.6 6.5l3.3 6.9l-17.3 6.7l-4.1 4.6l-11.6 0.8l-0.4 3.2l-6.2 2.1z","lacs":"M-1327.5 2122.5l-5.3-0.5l-2 1.6l0.9-6.3l-3.9-2.2l0.3-4.3l6.4 7.9l1.3 0.9l3.7-0.6l5.8 3.1l0.6 2.4l-1.6 0.9zM-1355.3 1726.6l-6.8 0.5l-4.3 4.2l-5.2-5.6l-7.5 3.7l-1.3 4.2l-5.1 0.7l-2.9 3.9l-3.6-2.1l-2.7 0.6l0-5.9l2.2 0.5l6.3-3.5l3.2-4l0.5-10.2l3.4 2.9l9.8 1l1.1-1l2.2 1.2l1.4-2.7l-0.2-5.3l4.8 3l6.4 1.4l2.6 3.5l0.3 2.9l-6.6 3.9zM-965.1 1534.9l0 4.3l-5.4 0.9l0 1l2.7 0.9l-2.3 3.9l-1.3 8l5.4 7.8l-3.4 3.6l-2.5 12.6l-6.3 2.7l-5.8-2l-5 0l-5.9-3l-5.5 2l2.3-3.4l4.9 0.7l2.8 1.7l4.1-1l11 2.5l3-2.5l2-7.7l-1.6-7.5l-7.6-4.6l-6.4-5.8l5.9 2.5l5 4.4l2.7-11.9l-0.3-1.9l-2.4-1.1l-0.9-2.2l2.1-4.1l-7.5 0.4l-4.5-1.8l-0.7-1.7l1.6-2.4l-7.7-5l-3.2-3.8l9.5 3.9l3.1-1l2.1 2.8l3.3 1.2l-0.5-6.4l1.1 0l2.2 7.4l1.4 0.6l2.6-4.1l5.9-2.3l-5.4-4.1l3.6-1l-1.9-1.9l1-1.1l5.7 1.2l4.3 10.7l-1 0l0.8 2.8zM-359.2 814.8l-3.6 7.5l-2.2 0.1l-5-2.6l-8.9-15.4l-4.6 0.5l-1-2.7l3.7-2.7l-5.4-7.8l-11.8-4.5l-4.6 2.5l-2.7 7l-6.1 7.3l-10.9-10.4l-10-0.2l-2.5-2.2l15.2 0l8.6 5.8l3-2.7l1-3.7l-0.1-4.5l-3.5-2.9l3.6-0.7l2.7 1.8l2.7-5l1.4 1.8l6.9-0.1l3.4 1.3l1-3l4.1 3.9l2.5 0.3l3.3 3.7l1.4-0.8l4.9 1.3l-1.8 2.9l4 7.7l1.5-2.2l4.5 4l0.8-1.1l-3.1-2.8l0.4-1.9l4.5-2.2l0.3 2.5l1.5 0.3l1-3.7l3.6 1.3l0.9 0.6l-1 7l-2.1 2.4l2.6 0.7l0.5 1.7l4-1.3l0.8 2l1.1-2.4l-0.7-2.2l1.8-2.3l-0.9-5.1l-6.1-13.3l3.8-0.2l1.7 1l1.4 4.1l4.7 3.9l2.6-0.6l0.3 3.5l-3.7-1.9l-0.9 6l7.2 6.9l-7.7 7.2l-4.8 2.8l-3.8-1.1zM-237.4 -420.9l0-6l-2.2-5.8l-9.7-20.1l1.9-2.8l5.5 7.1l7.6 13.7l4.9 3.2l0.8 6.8l-1.9 5.9l-2.7 0.7zM-330.4 -454.6l-1.1 3.9l-2-0.2l-1.8-10.5l-1.7-0.7l-0.5-6.2l-3.7-7.4l1-1.2l6.3 1.6l3.8 6.1zM-661.3 -497l-16.2 12.9l-0.7 0.1l-2.8-0.1l0.8 0l-2.4-1.9l-4.6-1.9l-2-3.1l2.2-3.9l-1.3-11.9l0.9-5.8l4.1-3.5l5.7 0.2l11 3.3l5.8 2.3l3.3 3.7l0.1 4.7zM-697.5 -490.1l-8.4 1.2l-2.2-3.1l-4.6 0.9l-5.2-2l-2.5-5.3l-2.1-1.5l3.5-1.9l3.2 1.9l3.1-2.4l-0.9-2.4l1.7-2.1l1.9-8.4l-1.9-9.2l3.1-1.6l7.9 2.3l3 2.9l0.5 3.2l-1.1 1.7l-4.2 0.4l-2.2 2.6l-0.3 3l2.9 5.6l5.9 3.5l2.7 5.9zM-396.5 -524l-1.1 5.3l-0.8 1.1l-2.3-0.2l-2.5-2.4l-2.2-7l2.5-8.1l4.7-6.7l3.8-1.1l5.2 5.8l0.2 8.4l-5.3 1.8zM-302.2 -564.7l-16.8 8.8l-3.3-2l-12.6 1.9l-2.2-1.9l-9.5 2.8l-5.3-11.8l3-7.8l8.5-1.6l4.1 0.3l3.2 3.2l3.7-3l4.2-0.8l26.5 3.8zM-408 -578l-8.7 0l-1.5-3.4l-3.2-1.3l-1.4-3.8l-4.9 1.9l-3.3-0.9l6.5-6.4l9.9-4.7l4.9 0.2l6.2 5l0.8 5l-5.2 4.8zM-347.7 -598.4l7-4.4l7.5 1.8l3-1.5l-2-1.8l-2.5 0.8l-3-1l-5.3-6.2l2.8-7.4l4.5-2.3l3.9 3.2l2.8 6l1.4 10.8l2.1 4.7l-0.8 1.7l-2.6 1.3l-5.3-1.1l-2.5 1.2l-2.2 8.1l-6.9 2l-1.2-0.6l0-3.1l-2.4-3.7l0-1.6l5.1 0.6zM-1301.9 -590.5l-1.3 5.9l-1.5 0.8l-4.8 0.3l-3.5-1.4l-16.8-17.4l-5-4.4l-2.7-0.5l1-1l-4.7-9.9l-6.3-5.9l1.6-1.7l-0.1-2.4l-2.3-4.7l2.6 1.1l4.1 9.3l3.3 4l4.4 2.3l-0.5 2.4l1 1.4l17.6 19.6l1.5 3.3l3.3 2.3l3.9 0.5l2-2.3l-13.5-13.4l1-1l4 4.4l3.1 1.1l2.7-0.6l1.8 5.8l6.1 1.1l2-0.4l0.8-7l-3.6-1.9l3.2-3.4l3.4-1.1l-2.8 4l2.2-1.1l2.3 1.1l-2.2 2.9l-1.3 6.8l-1.9 2.2l5.5 8.4l0.8 3.3l-2.9-2.5l-4.8-8.5zM-440.4 -612.5l-9.8-0.7l-4.5 2.1l-6.2-6l-2.1-4l-5-2.5l-1.2 0.1l-0.8 2.5l-6.4-1l-2.7 3.4l-2.5 0.3l-14.1-6.6l-1.2-4.1l15.3-1.1l4.3 1.2l-2.4-2.1l-1.7-4.3l-3.1-0.5l1.4-2l6.7-0.9l7.3 3.1l2.1-3.5l2.9-1.5l5.7-0.2l1.2 2l-0.7 1.5l-4.1 3.7l1.6 0.7l3.9-2l1.3 4l8 1.9l2.1 3l3.9 1l7.8 6.2l2.4 4.1l6.9 5.5l-8-1.1l-7.4-4zM-1393.9 -709.4l4.7-4.9l0.5 9.6l3.3-0.1l1.2 2.2l4.1 0.7l-0.9 4.8l2.4 4.3l6.6 0.6l-2 4.8l5.1 10.6l-0.4 5.2l-2.2-0.2l-2.8-2.3l-4.2 2l-1.9-2.9l-3.4-0.7l-0.9-3.3l-10-3.7l0-27.2zM497.3 -203.6l3.4-1.8l6.9 1.2l9.6 7.4l0.2 5.9l-7.9 1.2l-3.4-1.9l-4.1 2.7l-3.3-1.1l0.8-2l-3.5-1.6l-2 1.3l-1.7-2.3l-3.9 3l-3.9-1.6l-6.4-7.3l2-4.5l14.4 0zM-122.1 -371.8l0 1l2.9-12.9l-4.9-12.1l0.2-1.6l2.6-0.8l4.1 7.9l4.6 3.4l1.3 4.7l-1.7 9.1l-2.5 3l-7.4 3.3zM-233.8 -418.1l0.6-0.1l0.3 0.1zM-22 -436.4l0 6.6l-1.6 2.8l-1.8 0.2l-7-5.3l-0.8-5.3l-3.6-8.9l3.8-8.3l10.2-4l4.7 2.4l0.7 3.2zM-42.5 -485.1l-1.8-5.9l-7.4-1.4l-2-1.9l-2.5-8.7l1.3-4.2l7.7 1.4l4.5 9.9l7.1-0.9l0.9 7.7l-1.3 4l-4.5 2zM-95 -537.3l-4.8 0.7l2 2.5l0.7 8.3l-2.4 11.3l-3.7 4.3l-7.1-1.5l1.2-1.8l2.4-0.1l0-1l-2.3-0.5l0.2-2l2.4-0.7l2.4-2.7l-3.1 0.2l-3.2-1.9l-3.6-6.2l-2 0.9l-5.8-1.9l-8.5 3l-1.6-1.6l-3.1 7.5l-6.9-3.9l-14.3-3.4l-4.7-2.7l-6.1-9.8l2.9-7.3l6.8-5.4l-0.5-4.5l3-0.6l9.6 5.6l17.4 6.2l1.1-0.8l-1.3-3.3l3.1-1.6l3.1 2.8l1.3-2.7l8.2 1.5l7.3 4.4l10.2 1.8l3 7.2l-2.3 2.9l-1.6-1.7zM68.4 -544.7l-12.3 11.3l-4.9 1l-3.5-2.5l2.5-6.4l-1.8-5.3l0.5-3.5l1.5-2l10.3-4.4l8-6.9l2.4-3.8l3.8 0l9.7 5.3l7.9 6.8l0.7 7.2l-4.1 1.6l-10.9-1.8zM7.8 -562.8l-3.2 2l-4.9 6.8l1.5 3.7l-0.3 3.5l-7.2 12.7l-4 4.7l0.4 8.2l-6.8 6.2l-2.9 1.7l-2.8-0.2l-2.3-2l-4.8-12.5l5.3-0.9l1.4-2.2l3.6-15.4l8.6-8.6l6.8-4.3l5.8-17.5l2.1-12.1l-0.7-6.4l2.9-4.1l5.5 0l5.9 3.1l3.6 4.9l0.9 12.9l3.6 11.7l-2.9 2.7zM252.4 -544.6l-5.9-1.1l-1-3l-2.6-2.1l-6.1-0.8l-2.9-1.7l-2.4-8.1l-13.5-9.3l-10-0.1l-13.3-15.5l-4.8-2.2l-1.5-2.8l1.6-0.8l8.6 1.2l56.2 30.6l4 4l1.8 4.7l-4.4 6zM289.4 -620.9l-8.3 3.4l-1.3 2.7l0.2 4.5l2.2 5.6l-3.9 9.3l-2.8-5.9l3.5-4.2l-3.8-3.5l0.3-4.1l-2.1-6.6l-2.9-2l-2.2-4.8l-5.3-0.4l1.5-2.1l2.6-0.1l4 2.2l2.7 4.9l5.8 1l0.6-1.4l-5-7.5l-11.4-2l5.4-4.6l7.3-1.3l-2.6-5.1l1.3-0.8l6.7 4.1l10-2.2l1.9 5.9l-0.3 3.5l-2.1 1.5zM160.7 -635.7l4-6.1l-0.9-6.4l0.9-2.3l11.6-6.6l9.3 0.4l10.2-4.1l2.6 2l0.3 3l-3.3 1.3l1.7 1.9l5.8-2.1l2.8 0.6l1.2 2.9l-3.8 4.3l-7.5 3l-11.8 2.2l-12.9 4.6zM352.2 -665.4l-3.7 3.5l-1.7 18.2l-6.2 7.7l-4 2.3l-4.2 6.8l-5.1-2.8l-3.1-4.7l-1.6-0.6l-10.1 2.2l-4.5-3.2l-2.2-4.3l4.7-7.2l2.7-1.1l-5.6-3.7l-12.8 0.1l-7.9 5.5l-12.8-2l-3.9-1.9l0 0.9l-0.4-9.8l-5 1l-1.4-1.2l0-3.3l-5.7-1.2l-0.2-3.2l1.9-4.1l4.4-1.7l16.5-0.2l2.5 1.7l-1.6 5.1l1.6 2.3l2.4 1.2l5.2-0.4l2.3-0.8l-3.4-4.3l0.8-2.5l2.6-2.1l2.8 1l21.6-9l2.6 2.9l14.1-1.8l7.2 4.8l12.4 3.2l7.5 8.3l-1.5 4.7l-4.5 0.8l-3.6-2.1zM223.3 -658.8l-3.8-1.4l-1.2-2.1l-6.9 3.7l-9.4-1l3.1-4.5l5.3-3l8.7 2.6l2-0.8l0.4-4.1l4.8 3l1.1 3.4l3.2 2.6zM123.4 -667.8l-11.9 1.5l-3.9-1.5l-1.1-4.8l1.3-5.1l15.8-9.6l8.6 3.1l1.6 5.1l-2.5 5.1zM452.4 -751.2l-3.4 3.2l-3.4-2.1l-14.1 0.8l-0.9-0.4l0.5-5.6l18.1-10.6l6.1 7l0.5 4.3l-1 3.6zM2367.9 2125.7l-8.1-5.6l-5-7.7l-7.2-1.7l-4.5 1.9l-7.1-2.3l-8.6-5.3l-10-2.6l-8.4-11.9l0.4-4.2l-2.4-0.2l0.9-6.9l-2.7-0.9l-0.3-1.8l1.3-5.3l-2.1 1.2l-2.5-5.1l-1.8 3l-7.2 3l-1.8-4l-3.1 1.3l-1.9-1.4l-2.2-4.8l-1.9 1.5l-2.2-1.4l-3.1-5l-1.5 0.8l-3.9-4.8l-0.9 6l-1.5-1.7l1.2-3.4l-0.6-1.8l-4.7-0.9l-4.3-11.6l-3.7-1.4l3.7-3.9l-6.6-6l-1.7-4.5l-3.4-17.1l2.1-4.6l2-1.1l8.2 3.3l5.8-0.5l1.8 2.9l1.5-0.8l4.8 1.9l1.9-0.5l11 3.8l3.4 2.6l8.2 10.2l7 21.2l5.6 8.5l0.5 3.5l4.7 7.7l2.2 8.8l1.8 2.6l5 1.4l15-3l4.3 0.6l4.2 3.4l2.1 3.6l0.6 5.8l-3.6 8.3l4.6 4l0.8 2.5l-2.8 1.5l-3.6-1l0.3 1.3l1.6 2.6l4.7-2l1.1 2.1l2.2-5.1l1.1 0l-0.5 5.4l7.6 3.9l1.9 4.9l-9-4.3l5.5 7l4.9 2l2.1 7.8l-1.4-0.7zM1647.3 1822.7l-0.3 4.1l6.9 8.6l-4.8 6.7l-12.7-13.5l-5.7-9.7l2.3-7.4l-2.7-4.2l3.5-6.4l0.1-6.8l-5.3-7.8l6.2-1.7l-0.5-3.9l1.6-4.7l1.8-1.6l-0.8-2.4l2.9-1.5l3.7-5.2l-2.9-10.3l-3.5-3.3l-0.4-3.5l6.9 5.2l3.6 8l4.9 0.9l-3.5 5.5l-7 3.7l-3.5 8.6l2.8 5.3l-2 6.7l1.8 6.6l-1 3.8l1.9 6.7l2.2 2.5l-0.1 4.5l1.4 0.6l7.8-3l5.5 0.9l-3.6 4.6zM2105.6 1512.7l-4.1 5.7l0 4l-2.8 5.9l-1.5-2.1l-0.2-12.7l2.2-0.2l2.3-2.7l1.5-3.5l-0.7-2.5l-4.6 0.9l-2.1-5l-2.7-1.7l-5-1.1l-7.6 0.6l-4.1-3.5l2.7-4l-0.8-1.9l2 0.9l1.6 4.7l1.7 1.3l3.8-4.3l2.5-0.6l0.1 2.4l7.6-0.5l2.2 3l3.3-1.6l1.3-4.3l-0.9-2.6l2.4 0.3l1.1 16.5zM1614.8 1416.5l0.6-1.5l-1.7-4l1.4-2l4 3.9l8.2 22.5l-1.9 4.2l-0.7-2.3l-6.5-1.7l1.9-1l-3.3-3.3l-0.4-2.1l3.7-6.4l-1.9-0.9l-0.9 2.9l-5.4-1l0.8-1.6l-0.8-2.2l-1.8-0.6l-0.4-4.8zM1832.1 1342.4l3.2-0.1l2.3-2.5l-0.4 6.7l1.8 8l-13.6 1.7l-1.2-4.4l3.4-3.8l-4.2-2.3l-13.1 3.1l9.1-8.1l-0.2-3.6l-2.1-4.1l7.1 0.3l0-5l6.6-5l1.1-4.4l3.6-0.2l3.5-3l5.6 1.8l-8.3 5.3l-6.4 9.1l-0.8 6.4zM2121.4 1247.3l-3.8 3.1l-1.2 5.2l-3.4 5.2l-6.9-4.6l-3.6-5.9l-3.6-14.8l-2.6-3l-2.5-12.6l-3.8-4.9l0.8-2.9l2.9 1.9l1.5-1.9l1.8 3.1l1.2-0.6l4 4.1l0.1 6.6l2.5-0.5l-1.6 1.7l0.8 2.7l2-0.8l1.5-5.9l1.3-0.6l1.3 1l1.3 6.4l-3.7 1.6l2.5 4.2l18.9-14.7l-3.6 9l-4.7 2.9l0.3 2.8l8.2 5.1l-0.7 2.3l2.3 1.1l21.8 2zM754.8 649.1l-8-2.4l-4.2 1.5l7.2 9.9l-3.5-1l0.8-1.9l-5.3-2l2.7 5.9l-2.7-1l0 1.9l-2.5-0.2l2.8 2.3l-3 5.9l3.3 0.6l2.1-3.6l2.1 6.6l-2.1 1.3l2.3 0.4l4.9-4.4l-1 2.9l2.6 0.1l2.4 2.7l2.3 0.3l-2.8 4.5l-3.9-1.7l-1.5-2.8l-1.8 0.9l0.9 1l-4.4-1.9l-1.6 1.7l0.8 3.1l-3.6 0.2l-0.7-3.2l-3-1.8l5.5-2.7l-6.4-3.3l-1.2-5.2l-2.9-1.5l-2.1-7l4.3 5.9l-0.4-6.3l0.4-1.6l1.9 2l-0.2-1.7l-4.3-1.3l0-2.9l2.6 1.9l0.8-3.1l-4.1-1.2l-2.9-2.7l3.6-0.9l-0.9-2.9l-4.7-0.5l-0.7-1.6l0.9-0.9l-2.7 0l2.7-2.9l-3.7-2.9l1-3.2l-3.7-0.9l1.7-2.9l-1.7-2l0.9-1.9l-2-4l-2.5-1.3l0.9-2.1l-2.6-10.4l0.8-2.9l2.4 12l2.8 6.1l3.8 2.6l-1.6 2.3l5.4 8.7l3.5 2.8l-2.8 0.9l4.6 5l-1 2l4.9 3.3l2.4 6.5l2.7 0l0-2l-2.7-2.9l-1.8-4.9l4.5 4.9l3.3-2.7l0.3-1.7l-2.8-4.6l2.8 1.1l-1.7-4l-1.9 1l-1-5.9l-2.7 1.9l2-4l-2.8-0.4l-2.8 1.5l3.6-2.9l-3.6 0l2.4-1.4l-0.1-1.4l-3.2-3.1l1.6-4.3l-1.9-1.3l-1.5-4.4l1.5 0l2.2 3.1l1.6-0.1l-1.6-3.8l1.8-1.7l-5.5-4.2l1.8 0l-1.3-1.9l0.5-2.1l3.7 2l1.6-0.1l1-3.8l2.1 2.9l2.5-1l-1.5 4.4l-2.8 0.7l-0.3 1.3l0.5 2.5l4.1 1l-1.9 0.8l1.9 3.1l-3-0.5l1.1 3.4l2.7-0.9l-0.7 2.8l2.5 8l-0.6 8l1.4 1.8l0.9-2.9l1.8 4.8l0-5.9l0.9 0l0.2 2.3l3.6 4.7l-3.6 2l-1.1 4.9l4-0.8l7.8 6.7l-5.4 1.9zM603.1 415.8l-5.7 8.8l-6 1.6l-0.1 4.2l-3.7-1.6l-4.3 6.1l-3.9 1.4l0.6 2.9l5.4 3.1l1.3 2.4l-0.1 3.7l-0.9 2.8l-4.4 3.4l-5.5 11.3l-0.8-3l1.6-7.4l6.2-5.7l1-3l-2.5-1.5l0.9-2.1l-2.3-3.4l-3.3-1.4l-2.5 3.9l-0.8-3.8l-1 2.9l-1.6-1.2l0.6-1.7l6.4-2.6l0.8-6.4l2.8 4.8l4.6-5.7l0.8-10.9l2.2-0.3l6.8 4.9l2.8-0.5l0.8-3.2l-2.6-3.9l0-3.3l3.9-2.3l2.3 1.6l4.5-3.8l3 4.8zM564.1 -252.1l-1.2 3.7l-3.3 2.2l0.9-4l-6.4 2l-0.8-3.9l-3.9 4l-2.3 0.4l-1.1-2l1.8-2.9l-4.5-2.6l-0.9 3.1l5.5 8.1l0.3 3.5l-4.9 2.2l0.6-2.5l-4.1-4.5l-6 0l-1.2 2l4.5 0.5l-0.2 1.4l-10 8.2l-1.5 5.2l-11.3 0.5l-1.4-1.5l0.9-4.4l-6.2-3.3l-2.5-6.9l2-0.6l5 2l0.8 4.8l1.9-0.5l1.2-2.5l1.2 0.6l-0.6 7.8l3.6 0.5l-1-1.9l2.8-2l-1.6-1.2l0.7-4.4l-0.9-2.3l2.8 0l1.8-2.3l7.2-1.7l-5.6-2.9l0.2-2.8l8-1l4.4-2.3l-0.6-5.7l-5.6-7.8l2.4-1.5l-1.2-7.7l-3.7-4.2l-7.4-2.4l-3.5 0.6l-14.5 7.3l-5.4 4.8l0.3 2.7l-4.7-4.7l0.7-1.9l1.8 1.9l5.7-5.2l16.4-7.5l14.9 3l10.5 5.3l-2.5 1.6l1.9 2.9l-1 1l-1.7-1l0.5 7.8l4.5 4l4.9-0.9l-2.3 2.7l-4 0.1l2 2.3l9.7 4.7l-1.9-2l3.7-5l-0.9 0l0.9-1.9l2.1 1.4l4.7-1.4l6.3 0.6l-0.5 1.3l1.6 2l9.1 6.4l-2.4 1.8l-4.6-2.2l-2.2 1l-0.2 1.2l11.9 10.1l-5.3-0.2l-11.4-9.2l-2.1 0.6zM490.2 -476.2l1.6-4.1l-5.2-6.2l2.2-4.5l-4.9-1.9l3.5-12.4l-4.3-17.5l1.8-4.9l3.9-2.6l11.3 1.9l3.6-1.3l9 9.2l11.3 1l5.4-4l7.7 0l-3.1-3.7l1.6-3.2l4.6-3.4l5 0.7l0.8 1.8l3.8 0.9l3.4-1.9l3.7 3l1.7-1l5.5 3.9l-0.4-8.4l1.4-0.5l4.5 4l1.3-5.4l3.8-0.6l4 1.4l3.6 5.8l0.7 3.5l-4.7 10.6l-19.6 0.5l2.4 10.1l-8.6 8.1l-21.8 9.3l-10.3 2l-4.2 3l-3.2-1.1l-13.1 3.5l-5 4.5l-3.1 0.9zM529.9 -575.7l-2.7 7.4l-3 1.8l-3.8 0.1l-4.4-4.5l-0.6-1.9l2.4-8.3l3.1-4.4l-1.1-5.6l1.3-5.6l7.2-0.6l2.4 2.9l-2.7 7.3l1.9 4.7l-1 4.2zM647.1 -683.1l-7.2 3l0-3.3l-4.2-4.1l-1-4.6l-0.2-8.7l4.4-6.6l3.7-2.3l3.6-0.1l2.1 2.4l0.9 3.6l-0.2 6.8l-2.8 10.8zM564.2 -693.8l-4.6-3.1l-12.1-0.6l-4.2-2.4l6.3-3.9l2.9-4.4l3.9-1.1l3.2-3.3l2 0l7.3 3.2l1.5 3.1l0.9 12.7z","fleuves":[{"id":"brahmapoutre","n":"Brahmapoutre","d":"M1157.4 -115.5l0.7 4.5l2.3 4.3l5.6 6.5l1.3 3.7l-1.6 3.9l-2.9 2.7l-2.7 0.1l-4.4 4.4l-7 3.1l-4.8 4.2l-25.7 7.4l-2.3 7.4l4.8-5.9l2.4-0.9l1.7 3.4l-1.2 4.9l-4.9 2.9l-10.2 0.4l-4.2 1.1l-6.4 4.3l-3.6-0.3l-6.4 9.8l-6.6 0.5l-7.4 6l-1.2 1.4l2.2 1.9l-1.5 2.3l-14.2 9.7l2.7 1.8l-1 2.1l-2.2-0.5l-1.9 1.7l-2.2 5.7l2.6-3.3l3.7-1.7l2.4 0.8l0.4 1.5l-1 1.9l-1.8 1.8l-1.9-0.5l-4.4 3.4l-1.8 7.9l-1.8-1.9l0-3.1l-2.2 1.6l-0.7 11.3l-1.4 5.5l-4.7-0.7l-2.4 1.3l-3.9 4l-3 1.4l-0.5 4.7l-1.6 2.7l-4.3 4l-6.4 2.2l-5.7 5.4l-5.7 1.2l-8.9-0.7l-4.3 3.9l-2 4.5l-3.6 1.9l0-1.9l-0.9 1l-0.2-1.6l2.9-5.3l-2.9-0.8l-6.6 4.7l-17.9 6.9l-8.4 9.4l-14.7 4.9l-12.5 2.5l-5.2-1.5l-6.5-3.9l-16.8-2.3l-3.8 1.2l-5.6 6l-7.3-3.1l-5.1 0.4l-3.5 1.8l-8.5 7.2l-8.4 3.9l-4.3-1.3l-9 1.5l-15.8-1.1l-1.8 0.4l-1.3 3.6l-2.7 2l-18.9 0.1l-7 2.9l-4.5 8.3l-1.1 1.4l-2.6 0.8l-11.4 0.3l-14-2.9l-20.7 9.3l-1.9 4.3l-3.6-1.9l-3.9 1.7l-6.4 5.7l-6.4 3.3l-1.3 1.1l0.4 6.7l-0.4 2.3l-1.2 1l-7.9 2.3l-3.4 2.1l-6.1 0.6l-4.4 4.2l-5.9 0l-20.2 9.6l-3.6 0.8l-7.7-0.6l-10.2 4.3l-4.1 0.2l-14.1-4.4l-4-0.2l-5.8 1.3l-3.7-0.4l-11.9-5.4l-8.2-1.5l-9.7 3.8l-12.9 1.8l-10.1 5.7l-4.9 0.6l-2.5-0.6l-3.1-2.7l-8.9-1.3l-7.6-4l-13-2.1l-12.3-3.4l-3.9 2l-5.1 6.7l-9.9 2.8l-6.8 4.2l-6.8 0.9l-8.7 5.2l-29.3 9.5l-2.3 2.4l-4.3 7.5l-7.5 7.7l-4.4 10.5l-10.1 17.8l-1.8 8.7l-3.3 8.4l1.3 12.9l-1.4 12.1l-3.4 10.7l3.9 8.5l0.2 3.4l-0.7 3.2l-5.1 8l-4.2 12.8l-1.6 19.8l5.8 9.7l2 11.3l5.6 9.3l2 10.8l3.8 9.3l1 5.4l-2.5 25.7l0.8 12.6l-2.8 8.5l1.3 4.4l-0.5 10.1l-5.6 15.4l0.4 8.3l3.4 10.6l7.9 12.6l9.1 7.2l7 10.4l10.1 4.3l20.7 14.4l14.2 11.9M415.2 420.7l6.7 6.9l0.2 3.9l2.4 0.6l0.8 4.2l-0.8 4.1l1.3 0.9l6.3 0l3.1 6l3.1 0.7l1.2 2.7l4 4.5l7.3 0.6l3.3-0.7l-0.8 2l6.5 2.2l1.2 5.5l1.5 1.7l6 4.4l1.8-1.1l5 2.5l3.4 5.1l1.6 6.3l-3.6 11.4l-0.4 4l4.8 0.3l6.1-4.2l1.6 0.9l5.9 6.3l8.1 2.9l6 6.1l1.2 1.8l-2.5 0.8l0.1 2.5l2.4 3.7"},{"id":"gange","n":"Gange","d":"M-889.4 -530.4l-3.5 6.9l-0.1 3l3.6 9.9l0 3.8l4.5 5l-3.6 2l-3 5.5l-3.7 2.8l-2.3 3.2l-5.4 10.3l-3 2.3l-4 1.1l-4-0.2l-11.3-9.4l-3-0.9l-3 1.3l-11.4 11.8l-3.5 6.2l-2.7 2.4l-6.4 1.8l-2.5 1.7l-1.9 7.5l-5 6l-8.4 3.9l-3.6-0.7l-2-2.4l-3.4-0.8l-17.9-0.3l-26 10.1l-3.1-0.3l-3.3 1.2l-7.7-2.1l-7 5.7l-6.4 8.6l-2 6.8l1 3.6l-6.5-0.7l-9.7 0.7l-2.8-1.3l-2.6-5.8l-2.3-1.5l-2.7-0.2l-2.3 1l-2.8-1.8l-3.4-0.2l-4.5 6.4l-0.7 3.5l-15.3 17.5l-1.2 3.6l0.8 6.9l3.9 12.2l1 6.3l-1.2 6l-4.5 4.6l-8.5 4.7l-6.3 1l-3.1 2.3l-3.7 6.8l0.1 5.9l8 13.8l0 8.8l3.9 4.2l-1.3 2.7l5.9 10.7l-0.4 4.1l0.9 4.4l-5.4 7.4l-1 24.7l4.5 8l-1.3 3.8l0.5 4.4l-1 2.9l4.5 3.5l-0.4 4.8l7.8 12.3l-0.9 10.4l2.5 7.2l9.1 11.8l1.9 6.7l-1.8 3l1.8 2.9l-2 4.2l2.3 3.9l1.2 5.4l12.2 12.2l3.1 5.2l4.6 5.1l2.9 6.4l10.6 8.8l5.4 1.7l5.3 6.2l11.4 3l6.3 3.4l6.1 0.6l11.7 4l5.8 4.4l2.3 6.4l3.2 1.6l6.8-0.6l5.7 2.3l7.1-1.7l3.4 1.3l4.9 11.9l0.5 5.2l0.9 1.1l16.9 7.9l4.8 0.4l5.4-1.8l7.2 8.6l6.8 4.6l5.1 1.9l1.5 9.5l5.9 5.4l1.5 2.9l1.2 11l2.3 4.3l4.6 5l1.8 5l2.5 2.4l6.4 3.4l9.6 8.1l3.5 0.8l6.1-1.3l2.5 0.7l10.3 16.8l0.1 8.1l13 13.9l1.8 13.3l2.6 5.6l5.9 5l5.9 1.7l1.8 2l6.8 19.2l5.2 2.6l1.5 6l7.3 6.8l14.1 8.7l2.1 2.3l4.3 18.2l4.8 2.4l0.3 6.8l9.9 8.6l2.3 1.4l5-1l2.9 0.8l6.1 4.7l-0.2 4.8l2.5 1.5l5.2-4.1l14.2-2.7l6.5 0.8l2.9 1.5l2 2.4l2.2 6.3l7 4.1l9.1 2.4l2.2 2.3l1.3 8.1l1.4 2.1l9.2 3.3l8.4 8.5l4.5 2l1.4 1.9l-2.7 4.5l-0.8 3.4l0.8 3.2l2.3 2.4l5.4 1.5l3 2.7l6.5 0.7l2.3 4.5l3 2.2l6-0.9l4.1 0.6l3.6 8.2l3.5 2l2.7 3l5.3-0.1l4.4 2.5l2.7-0.3l5.6-3.1l5.8-1.6l2.9 0.2l1.3 1.9l-2.5 8.6l0.6 3.7l4.5 9.8l4.3 2.9l2.8 0.5l4.5-2l2.3-0.1l4.2 2.7l1.8 5.5l3.1 0.4l2.2-0.9l4-4l2.9-1l4.4 2.1l0.3 3.2l-2.7 8.8l0.7 4.2l1.9 0.9l7.5-1.5l-1.2-1.4l-5.1-2.4l5.4-7.2l3.2-0.8l2.8 1.8l2 6.9l2.8 0.2l3.1-5.6l1.4-1.3l1.9 0.2l5.8 4.2l7.3 8.9l7.1 1.7l3.6-0.5l1.9-1.7l-3.3-6.4l2.4-1.1l6.7 0.7l6.3 3.8l12.4 9.9l7.5 0.9l4.6-2.7l6.5-8.2l5.5-1.8l4.5 0.3l1.6-0.8l2.2-5.1l-0.2-2.4l-2.3-3.8l4.7-4.9l12.3-0.5l4.8-3.5l1.1-4l-0.3-4.5l-1.9-3.7l-5.3-2.4l8.2-11.1l3.6-0.8l14.9 8.7l7.5-2.9l3.5 1.1l9.7 9.2l3.2 2.4l3 0.7l1.8-1.4l-0.4-4l-5-7.1l-1.6-4.1l8.9-4.4l7.7-7.2l6.2-2l3.8-0.4l1.7 0.9l3.8 3.1l2.5 8.2l2.4 1.8l16.5-1l2.7-3.6l11.2-8.5l7.2-9.4l11.3-9l4.7-1.4l4.4 2.6l2.3 6.7l3.1 0.2l2.4-1.9l4.7-6.5l8.5-3.9l8.6 6.7l6.4 2.6l9.7-0.2l4.7 1.3l2.8-1.3l6.7-0.5l8-6.3l2.7-0.6l3.4 0.7l10.2 5.2l3.8 0.7l12.1-3.9l11.2 1l3.6 1l2.1 2.5l2.9 6.4l2.5 2.5l5.2 0.6l7.2 2.8l6.2 9.2l6.4 2.4l4.8 3.4l2.4 0.8l4.4-1.3l12.3-9.7l8.1 11l10 6.4l11.2-6.8l5.4-0.7l6.9 1.6l5.4 3.8l9.8 9.4l6.7 4.7l2.9 3l1.2 3.7l11.5 0.3l9.2 1.8l7.3-1.6l4.4 1.8l4.1 3.6l9.5-2.6l4.9-2.9l4-4.5l8-14.5l3.7-2.9l3.9-0.3l3.5 3.5l-1.6 6.1l0.1 6.2l1.5 5.8l2.7 4.5l5 4.4l5.8 2.4l6.1 0l5.6-2.8l6.9-7.2l4.4-3.2l2.8-0.2l14 10.2l6.7 1.4l4 2.1l4.1-1.1l2 0.7l4.8 4.2l3.9-0.3l3.7-2.6l2.7-3.9l1.3-4.1l4.5-7.5l2.8-3l6.2-3.1l4.1 0.9l8.1-2l4.6 0.3l4.4 3.2l3.1 8.8l4.6 2.4l3.7 5.3l10.9 3.1l5.9-0.9l3.1 0.5l2.7 1.6l1.8 3.3l-2 7.9l1.6 9.9l2.1 0.9l8.4 7.7l4.4 1.4l2.9 2.7l3.6 0.2l1.4 1.9l0.9 3l-0.4 3.2l-1.2 2.9l-5.3 6.6l0.3 4.9l4.8 6.9l-0.3 5.9l1.9 5.4l6.1 8.9l6.7 3.1l3.2 4.9l0.6 9.1l4.4 6.1l4.2 3.3l5.2 1.5l6-0.3l1.9-1.3l7.5-2l1.1 2.5l9.4 11.5l5.2 4.5l2.3 0.9l8.1-1l1.3-1.4l21.8 4.8l4.3 2.7l3 4.1l1.6 9.2l-2.4 4.8l2.7 5.3l7 4.4l2.6 0.5l10.9-4.6l3.1-3l3.8 0.7l10.1 10.3l1.2 3.5l3.2 4.7l-0.2 6l2.7 2.8M176.1 344.3l-2.4 3.4l0 8l1.7 13.2l1 2.2l11.5 10.3l3.9 4.6l-1 1.6l3.7 7l5.4 1.3l-0.8 5.4l1.6 1.6l2.2-1.4l1.1 0.3l0.8 4.9l7.3 4.4l0.7 2.4l2.8 0.3l1.8 1.5l-1.7 0.7l-1.4 2.7l3.2 2.5l1 6.2l-0.5 12.5l-3.2 10.2l-1.5 1.4l-1.5 6.4l-2 2.1l4.5 2l0 1l-3.4-0.1l-0.5 1.2l1.2 3.3l2 15.8l2.1 3.9l-0.2 5.5l-1.3 2.6l-2.6-0.7l-1.1 2.8l-5.3 6.1l-1.7 6l0.2 3.4l9.3 4l1.3-0.1l-0.6-4.1l1.5-0.3l2.8 4.9l-1.2 2l2.2 1.9l3.1-0.8l4.9-4.1l0.6 2.6l-1.1 2.6l-5 3.7l1.5 1.8l7.6 0.1l1.6 1.6l0.4 1.8l-1.7 7.9l-1.9 2.8l4.7 3.3l0.4 3.4l-1.6 6.5l-3.2 0.7l-0.2 1l0.9 9.2l2.4 1.3l3.4 6.5l6.9-0.3l1.7 0.7l1.4 2.9l-2.7 5.5l0 1.7l5.9 3.4l0.4 1.7l-3.6 6.4l3.1 0.8l0.5 1.1l-2.7 1.7l-3.2-0.2l-1.3 1.6l1 0.9l-4 5l-1.4 5.9M240.7 409l-1 3.3l2.7 2.6l1.5 4.5l3.8 2.8l2.2-1.1l2.5 1.2l2.5 4.8l0.3 4.4l-4 0l0.5 1.6l2.2 1.2l-0.8 5.2l1.9 1l3.5-1.1l0.8 3.9l3.7 0l2.8 1.3l1.7 5.5l1.8-1.9l0 6.7l-1.8 7.1l8.9 1l1 2l5 0l3.1 1.9l2.3-1.2l8.7 5.2l1.2 2.5l0 2.7l-2.2 1.6l3.6 1l-1.9 3l1.4 21.7l-1.8 3.1l-1.8-1.2l-2 0.7l0.7 5.8l-0.8 0.6l-3.9 1.5l-2.9-1l-1.3 0.9l-0.4 2.1l1.1 2.3l-3.9 1.6l0 3l2.5 2.2l4.5 9.2l4.6-0.2l0.8 8.2l4.2-1.3l3.9-4.8l1.5-0.1l0 6.7l-2.4 1.9l0.6 1.2l4.9 0l1.1 1.2l-0.1 2.3l-1.2 1.6l-2-1.2l-1.2 2.2l3.7 0.9l4.9-0.4l2.4-1.2l0.8-3.1l-3.5-2.3l0.8-1.8l2.1 0.9l3.4 3.7l-0.9 2.1l1.8 1.9l-1 10.6l0.7 3.1l-3.2 4l0.1 1.6l2.1 1.9l1.3-1.4l1.8 1l2.4 4.2l-1.8 1.4l4.4 4.7l5.9 9.4l-2.8 4.1l-2.6 6.9l0.4 3.2l1.6 0.6l2.5-0.8l0.9 1.7l-3.7 2.5l0.3 2.1l4.8 0.6l0.9 5.3l-0.5 0.5l-1.8-1.1l-1 1.1l1.9 2.8l1.1 6.4l1.2 0.6l1.3-1.2l0.9 1.1l-1.4 1.6l0.5 2.4l3.9-2.7l1.1 0.2l0.2 1.4l-2.5 5l2-1l1.6 4l5.4 2.1l1.8-0.7l7.3 6.4l-1 2l-5.3-3.9l0.6 3.5l4.7 6.3l-1.5 1.8l0.1 3.6M327.4 463.3l0.1 0.2M327.5 463.5l9.2 6.2l3.6 0.7l10.9-1.1l6.9 1l7.4 4.3l11.8 5l8.2 6.6l3.4 0.6l8.4-4.1l11.8-1.9l5.9 1.6l-0.6-0.4M327.5 463.5l2 6.1l9.6 7.6l1.4 3.3l3 0.7l5.1 5.4l1.7 9.3l6.4 4.5l5.5 7l7.6-1.1l1.4 0.7l9.5 13.6l2.2 4.8l2.1 1.3l-3.8 3.4l0.8 3.9l2.1-3.1l3.8 0.4l6.7 4.7l3.6 14.7l-3.6-2.1l-0.2 4.6l2 5.5l3.3 3.9l3.9-0.1l-5.2 6.9l7 2l-0.1 5.4l1.9 2.5l1.7 0.2l3.8-2.1l2.6 2.1l-0.5 1.2l-2.5 1.2l-3 5l-3.9-2.7l0.5 4l1.7 1.9l3.3 1l4.5 8.9l8.1 8.8l1.8 5l14.6 10.7l8.4 15.4l0.8 11.9l1.5 2.3l-1.3 8l1.3 6.9l-1.9 8.3M458.9 520.8l-2.5 9.6l5.8 10.5l-2.5 1.6l-1.5 5.6l-2.3-0.4l1.2 1.9l5.6 1.3l2.3 10.2l-0.5 1.1l-1.2 0.1l-2.9-1.7l0 5.9l0.9 0l0.3-2l1.1-0.8l1.5 0.3l1.7 1.5l0.6 4.5l8.8 1.6l1.3 1.8l-1.3 3.1M475.3 576.5l-2.7 2.8l-2.6-1.1l0.7-2.8l4.1 0.2l0.5 0.9M475.3 576.5l0.4 0.9l4.6 1.4l0.6 3.7l-1.6 3.6l6.8 1.1l3.2 1.5l1.8 2.4l-0.9 0l0.8 2.1l-4 2.3l-1.2 2.3l3.3-0.1l1.1 0.8l0.1 2.5l-1.2 2.3l5.1 4.2l1.1 3l2.7 3l0.4 2.3l-2.8 2.4l-0.2 8l1.9 7.6l1.9 2.6M237.8 611.8l4.9 0l4.1 1.7l2.6-0.1l5.4-6.6l2.6-0.7l3.9 2l3.9 0.2l1 3.7l1.3 0.8l2.9-1l9.1 0.3l2 1.2l2.2 9.3l2.2 2.2l2.1 0.9l5.2 0l3.2 2.7l-0.1 2.8l-1.8 2.3l1.7 1.6l-1.4 5.5l-1.3 1.3l-2.2-0.4l-0.1 2.6l7.2 8.3l1.6 0.8l6.5-0.1l1.6 3l1.9 7.5l-0.8 3.4l-2.9 2l5.6 2.9l3.6 11l0.6 3.3l-1.7 5.9l1.5 7.7l2.9 5.6l-1.9 1.3l1.3 3l5.7 7.7l1.9 5.2l0.2 3.5l-2.3 2.9M237.8 611.8l-1.2 7l-6.9 17.1l2.7 11.5l-1.2 12.3l-2 5.2l-3.2 3.1l-8.7 0.2l-1.8 4.6l-4.1 0.7l-2.6 4.3l-7.1 2.6l-1 1.9l1.9 8.1l-4.3 2.2l-0.8 2.4l0.3 7.6l-4.3 11.4M237.7 611.8l0.1 0M354.4 661.5l-2.6-5.1l-2.2 0.3l-0.1 3.9l1.8 3.7l-2.5 3.9l0.2 5.9l5 6.7l-2.6 1l-1.6 2.2l-0.5 2.8l1.2 2.9l-1.6 1.5l0.2 1.8l3.2 3.6l-1.5 2.7l1.2 3.5l2.7 3.1l2.9 1.4l-1.6 5.7l4.8 16l2.2 1.4l3.7 4.9l-5.5 9.5l0.9 7M354.4 661.5l0 0.3M378.4 705.4l-4.1-5.6l-1.8-18.8l-1.4-4l0.7-6l-4.2-6l-6.4-3.9l-4.3 2.3l-2-0.4l-0.5-1.5"},{"id":"meghna","n":"Meghna","d":"M531.6 610.8l-0.9-2.4l-3.1-2.4l0.5-2l-2.1-1.6l-1 1.2l-0.2 5.9M508.2 629.5l1.5 1.2l2.9 0.5l6.4 4.2M534.5 632.2l0.2-1.8l-1.5-1.2l-4.7-0.8l-2.7 2.2l-1.9 3.9M535.5 679.8l4-1.5l1.5 0.6l0.6 3.4l-1.5 5.8l-2.8 3.3M541.6 682.8l1-0.5l0.9 1l1.4 6.4l5.5 0.5l3.7 4.4l4.5 1.7l1.9 2.3"},{"id":"tista","n":"Tista","d":"M262.1 -71.2l2.7 6l3.6 2.9l2.6 3.9l1 5l-1.1 2.2l-1.6 0.9l-13.5 3.7l-2.2 5.2l-0.9 12.4l-4.2 6.2l-0.9 4.9l-2.7 0l-2.7 6.9l2.8 4.4l4.4 1.9l2 7.1l3 4.2l-2.3 3.1l-5 2.9l-2.7 4.2l-3 2.4l2 7.7l-1.2 2.4l0 1l1 0l-0.8 3.7l2.3 5.3l6.5 9.8l13.6 15.7l6.8 12.3l9.9 9.9l2.2 3.8l0.9 4.7l-0.9 4.9l2.5 6l15.2 17l6.1 9.4l15.5 16.1l3.5 1.6l1.6 2.2l5.2 9.7l3.2 8.8l1.3 8l8.2 4.4l8 8.3l3.6 5l4.7-0.1l5.5 1.7l11.5 8.6l1.4 4.6l3.1 2.5l2.8 5.2l-0.5 5.8l3.3 10.7l2.2 2.5l11.1 2.4l0.9 1.9l0.2 6.4l3.7 5.1"}],"lieux":[{"id":"dacca","n":"Dacca","p":[500.9,499.7],"cap":1},{"id":"bahadurabad","n":"Bahadurabad","p":[407.9,290.5]},{"id":"haors","n":"Haors","p":[605.3,352.3]},{"id":"khulna","n":"Khulna","p":[389.2,626.7]},{"id":"meghalaya","n":"Collines du Meghalaya","p":[631.6,237.3]}],"pays":[{"n":"Inde","p":[131.6,402.7]},{"n":"Inde","p":[789.5,115.0]},{"n":"Myanmar","p":[921.1,805.3]},{"n":"Népal","p":[39.5,28.8]},{"n":"Bhoutan","p":[500.0,21.6]}],"eaux":[{"n":"Golfe du\nBengale","p":[447.4,877.2]}],"centre":[486.8,503.3],"pluie":[10.1,19.85,43.17,120.66,235.75,376.99,492.68,392.25,298.84,186.94,29.97,5.58],"debit":[5075.2,4160.0,4928.5,8409.5,15529.2,31817.3,49111.1,45016.8,42936.5,28685.8,12248.3,7212.6]};
+  var NS = "http://www.w3.org/2000/svg", W = D.W, H = D.H, ZOOM_MAX = 6;
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".bgm__svg"), carte = q(".bgm__carte"), gEtiq = q(".bgm__etiquettes"), vueTexte = q(".bgm__vue"), annonce = q(".bgm__annonce");
+  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H } };
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function bouton(classe, texte, val, action, presse) {
+    var b = el("button", classe || "bgm__choisir");
+    b.type = "button";
+    if (classe === "bgm__choisir" || !classe) {
+      el("span", "bgm__choisir-nom", texte, b);
+      if (val) { el("span", "bgm__choisir-val", val, b); }
+    } else { b.textContent = typo(texte); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function entete(surtitre, titre, couleur) {
+    el("span", "bgm__surtitre", surtitre, vueTexte);
+    var h = el("h4", "bgm__intertitre", null, vueTexte);
+    if (couleur) { var p = el("span", "bgm__pastille", null, h); p.style.background = couleur; }
+    el("span", "", titre, h);
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "bgm__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function points(parent, liste) { var ul = el("ul", "bgm__points", null, parent); liste.forEach(function (t) { el("li", "", t, ul); }); return ul; }
+
+  /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return etat.vue.w < W - .5; }
+  function bornerVue(v) {
+    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * H / W;
+    return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vue;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    q(".bgm__recentrer").hidden = !estZoome();
+    carte.classList.toggle("est-zoomee", estZoome());
+    etiqueter();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    var w = b.width || 800, h = b.height || 800 * H / W;
+    var s = Math.min(w / v.w, h / v.h);
+    var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    appliquerVue();
+  }
+  function cadrer(x, y, w) { etat.vue = bornerVue({ x: x - w / 2, y: y - w * H / W / 2, w: w }); appliquerVue(); }
+  function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
+  q(".bgm__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".bgm__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  q(".bgm__recentrer").addEventListener("click", function () { etat.vue = { x: 0, y: 0, w: W, h: H }; appliquerVue(); });
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false, pince = null, pinceAttente = 0;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+  /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+  function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+  function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  function vueSous(p, m, w) {
+    var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+    var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+    return { x: p.x - (m.x - (b.left || 0) - ox) / s, y: p.y - (m.y - (b.top || 0) - oy) / s, w: w };
+  }
+  carte.addEventListener("touchstart", function (ev) {
+    if (ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    glisse = null; racine.classList.remove("est-glisse");
+    var m = milieu(ev.touches);
+    pince = { d: ecart(ev.touches), w: etat.vue.w, p: pointCarte(m.x, m.y), m: m };
+  }, { passive: false });
+  carte.addEventListener("touchmove", function (ev) {
+    if (!pince || ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    pince.m = milieu(ev.touches);
+    pince.w2 = Math.min(W, Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
+    if (pinceAttente) { return; }
+    var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } etat.vue = bornerVue(vueSous(pince.p, pince.m, pince.w2)); appliquerVue(); };
+    if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  function finPince(ev) {
+    if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+    pince = null; glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 350);
+  }
+  carte.addEventListener("touchend", finPince);
+  carte.addEventListener("touchcancel", finPince);
+  carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+
+  /* ----- étiquettes : chacune réserve un rectangle ; celles qui en chevauchent une autre
+     déjà posée ne sont pas affichées. Les plus importantes passent en premier. */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    var u = unite(), v = etat.vue, places = [];
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".bgm__carte > .bgm__bouton-carte, .bgm__outils, .bgm__carte > .bgm__cartouche"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function poser(x, y, texte, classe, px, opt) {
+      opt = opt || {};
+      var lignes = typo(texte).split("\n"), t = px * u, larg = 0;
+      lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+      var haut = lignes.length * t * 1.15, m = 1.5 * u, rot = opt.r || 0, boites = [], ancre = opt.ancre || "middle";
+      var cxb = ancre === "start" ? x + larg / 2 : (ancre === "end" ? x - larg / 2 : x);
+      if (rot) {
+        var a = rot * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), nbo = Math.max(1, Math.ceil(larg / haut));
+        for (var j = 0; j < nbo; j++) {
+          var off = -larg / 2 + (j + .5) * larg / nbo, cx = x + ca * off, cy = y + sa * off, dm = haut / 2 + m;
+          boites.push([cx - dm, cy - dm, cx + dm, cy + dm]);
+        }
+      } else { boites.push([cxb - larg / 2 - m, y - haut / 2 - m, cxb + larg / 2 + m, y + haut / 2 + m]); }
+      if (!opt.force && !boites.every(libre)) { return null; }
+      boites.forEach(function (bo) { places.push(bo); });
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": (opt.halo || 3) * u }, gEtiq);
+      if (rot) { n.setAttribute("transform", "rotate(" + rot + " " + x.toFixed(1) + " " + y.toFixed(1) + ")"); }
+      if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+      else {
+        lignes.forEach(function (l, j) {
+          var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+          ts.textContent = l;
+        });
+      }
+      return n;
+    }
+    function reserver(x, y, r) { places.push([x - r, y - r, x + r, y + r]); }
+    etiquettesCarte(poser, u, v, reserver);
+  }
+
+
+  var MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  var MC = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+  var PL = D.pluie, Q = D.debit, AN = PL.reduce(function (s, v) { return s + v; }, 0), QMIN = Math.min.apply(null, Q), QMOY = Q.reduce(function (s, v) { return s + v; }, 0) / 12;
+  /* Calendrier du riz : 1 = semis ou repiquage, 2 = croissance, 3 = récolte. */
+  var RIZ = {
+    boro: { n: "Boro", part: 55, cal: [1, 1, 2, 3, 3, 3, 0, 0, 0, 0, 0, 1], t: "Le riz de la saison sèche", p: ["Le boro est repiqué de décembre au début de février, puis récolté d'avril à juin. Il pousse pendant la saison sèche : il ne vit que grâce à l'irrigation.", "C'est aujourd'hui la plus grosse récolte du pays, environ 55\u00a0% du riz produit chaque année.", "Il échappe à la mousson, mais pas toujours aux crues éclair : dans les haors du nord-est, elles peuvent noyer les champs juste avant la récolte."] },
+    aus: { n: "Aus", part: 10, cal: [0, 0, 1, 1, 2, 2, 3, 3, 0, 0, 0, 0], t: "Le riz d'avant la mousson", p: ["L'aus est semé en mars et en avril, après les premières averses, puis récolté en juillet et en août. Il pousse grâce à la pluie, sans irrigation.", "Il représente environ 10\u00a0% de la récolte annuelle.", "Les crues de la mousson le menacent au moment de la récolte."] },
+    aman: { n: "Aman", part: 35, cal: [0, 0, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3], t: "Le riz de la mousson", p: ["L'aman est surtout repiqué en juillet et en août, en pleine mousson, puis récolté en novembre et en décembre. Il profite de la pluie et de l'eau des crues.", "Il représente environ 35\u00a0% de la récolte annuelle.", "C'est le riz le plus exposé aux inondations : une crue trop haute ou trop longue noie les jeunes plants."] }
+  };
+  var ORDRE_RIZ = ["boro", "aus", "aman"];
+  var SAISON = [
+    { m: [10, 11, 0, 1], n: "La saison sèche", p: "Le vent souffle de la terre vers la mer. Il ne pleut presque pas : de novembre à février tombe environ 3\u00a0% de la pluie de l'année. Les fleuves sont au plus bas." },
+    { m: [2, 3, 4], n: "Avant la mousson", p: "La chaleur monte et les premiers orages éclatent. Dans le nord, les pluies tombées sur les collines peuvent provoquer des crues éclair dès la mi-avril." },
+    { m: [5, 6, 7, 8], n: "La mousson", p: "Le vent souffle de l'océan Indien vers la terre, chargé d'humidité. De juin à septembre tombe environ 70\u00a0% de la pluie de l'année. Les fleuves débordent : dans une année ordinaire, 20 à 25\u00a0% du pays est inondé." },
+    { m: [9], n: "La fin de la mousson", p: "Les pluies diminuent et le vent faiblit avant de tourner. L'eau se retire lentement des plaines et le riz d'aman mûrit." }
+  ];
+  function saison(m) { for (var i = 0; i < SAISON.length; i++) { if (SAISON[i].m.indexOf(m) >= 0) { return SAISON[i]; } } return SAISON[0]; }
+  var CRUES = [["1988", 61], ["1998", 68], ["2004", 38], ["2007", 42], ["2017", 42], ["2020", 37]];
+  var LIEUX = {
+    dacca: { t: "Dacca", s: "Capitale", p: ["La capitale et la plus grande ville du Bangladesh est construite au cœur du delta, sur des terres basses entourées de rivières."] },
+    bahadurabad: { t: "Bahadurabad", s: "Station de mesure du Brahmapoutre", p: ["C'est ici que l'on mesure le débit du Brahmapoutre à son entrée dans le delta. La courbe orange du graphique vient de cette station.", "En moyenne, le fleuve y roule environ 4\u00a0200\u00a0m³ d'eau par seconde en février et près de 49\u00a0000\u00a0m³ par seconde en juillet : presque 12 fois plus."] },
+    haors: { t: "Les haors", s: "Cuvettes du nord-est", p: ["Les haors sont de vastes cuvettes au pied des collines du Meghalaya. En saison sèche, on y cultive le boro. Pendant la mousson, elles deviennent des lacs.", "Les pluies très fortes sur les collines provoquent des crues éclair qui peuvent noyer le boro juste avant la récolte, dès la mi-avril."] },
+    khulna: { t: "Khulna", s: "La côte", p: ["Au sud-ouest, le delta rejoint le golfe du Bengale. Pendant la mousson, les vents poussent la mer vers la terre : les marées hautes inondent les terres basses de la côte, de juin à septembre."] },
+    meghalaya: { t: "Les collines du Meghalaya", s: "En Inde, au nord du Bangladesh", p: ["Le vent de la mousson, chargé d'humidité, bute contre ces collines et y déverse des pluies énormes : elles comptent parmi les endroits les plus arrosés du monde.", "Cette eau dévale vers les haors du Bangladesh, juste au sud."] }
+  };
+  var FLEUVES = {
+    brahmapoutre: { t: "Le Brahmapoutre", p: ["Il naît sur le plateau du Tibet, traverse l'Inde puis entre au Bangladesh par le nord, où il prend le nom de Jamuna. Il rejoint le Gange au centre du pays.", "Son débit est le plus fort de juillet à septembre, quand la pluie de la mousson s'ajoute à la fonte des neiges de l'Himalaya."] },
+    gange: { t: "Le Gange", p: ["Il descend de l'Himalaya et traverse tout le nord de l'Inde avant d'entrer au Bangladesh, où on l'appelle la Padma. Une partie de ses eaux part vers Calcutta, en Inde."] },
+    meghna: { t: "La Meghna", p: ["Elle draine les cuvettes du nord-est, puis reçoit les eaux réunies du Gange et du Brahmapoutre. Elle se jette dans le golfe du Bengale par un estuaire large de plusieurs kilomètres.", "Les trois fleuves forment ensemble le delta du Bangladesh. La carte ne montre que la partie aval de la Meghna."] },
+    tista: { t: "La Tista", p: ["Elle descend de l'Himalaya, au Sikkim, puis rejoint le Brahmapoutre dans le nord du Bangladesh."] }
+  };
+  /* ----- carte */
+  q(".bgm__pays").setAttribute("d", D.autres); q(".bgm__colline").setAttribute("d", D.meghalaya);
+  q(".bgm__bgd").setAttribute("d", D.bgd); q(".bgm__div").setAttribute("d", D.div); q(".bgm__lacs").setAttribute("d", D.lacs);
+  var GF = {}, BASE = { brahmapoutre: 2.6, gange: 2.2, meghna: 3.2, tista: 1.2 };
+  D.fleuves.forEach(function (f) {
+    var g = svgEl("g", { "class": "bgm__fleuve-groupe", "data-fleuve": f.id }, q(".bgm__fleuves"));
+    svgEl("path", { "class": "bgm__fleuve", d: f.d }, g); svgEl("path", { "class": "bgm__fleuve-prise", d: f.d }, g);
+    GF[f.id] = g;
+  });
+  var gPoints = q(".bgm__points"), PTS = {};
+  D.lieux.forEach(function (l) { if (l.id === "meghalaya") { return; } PTS[l.id] = svgEl("circle", { "class": "bgm__lieu" + (l.cap ? " bgm__lieu--cap" : ""), cx: l.p[0], cy: l.p[1], r: l.cap ? 6 : 5, "data-lieu": l.id }, gPoints); });
+  var LI = {}; D.lieux.forEach(function (l) { LI[l.id] = l; });
+  /* Vents : de la mer vers la terre l'été (sud-ouest), de la terre vers la mer l'hiver (nord-est). */
+  var gVents = q(".bgm__vents");
+  function vents(m) {
+    while (gVents.firstChild) { gVents.removeChild(gVents.firstChild); }
+    var s = saison(m), dir = null;
+    if (s === SAISON[2]) { dir = [0.55, -0.83]; } else if (s === SAISON[0]) { dir = [-0.5, 0.86]; }
+    if (!dir || !etat.couches.vents) { return; }
+    var L = 120;
+    [[430, 820], [640, 790], [250, 700], [520, 600], [760, 560], [360, 470]].forEach(function (c) {
+      var x0 = c[0] - dir[0] * L / 2, y0 = c[1] - dir[1] * L / 2, x1 = c[0] + dir[0] * L / 2, y1 = c[1] + dir[1] * L / 2;
+      svgEl("path", { "class": "bgm__vent", d: "M" + x0.toFixed(1) + " " + y0.toFixed(1) + "Q" + (c[0] + dir[1] * 12).toFixed(1) + " " + (c[1] - dir[0] * 12).toFixed(1) + " " + x1.toFixed(1) + " " + y1.toFixed(1) }, gVents);
+      var nx = -dir[1], ny = dir[0], t = 13;
+      svgEl("path", { "class": "bgm__vent-tete", d: "M" + (x1 + dir[0] * 4).toFixed(1) + " " + (y1 + dir[1] * 4).toFixed(1) + "L" + (x1 - dir[0] * t + nx * 7).toFixed(1) + " " + (y1 - dir[1] * t + ny * 7).toFixed(1) + "L" + (x1 - dir[0] * t - nx * 7).toFixed(1) + " " + (y1 - dir[1] * t - ny * 7).toFixed(1) + "Z" }, gVents);
+    });
+  }
+  /* ----- graphique */
+  var G = q(".bgm__graphe"), GX0 = 52, GX1 = 590, GY0 = 22, GY1 = 140, PMAX = 500, QMAX = 50000, pasX = (GX1 - GX0) / 12;
+  function gy(v) { return GY1 - v / PMAX * (GY1 - GY0); }
+  function gq(v) { return GY1 - v / QMAX * (GY1 - GY0); }
+  var FONDS = [], COLS = [], NOMS = [];
+  for (var i = 0; i < 12; i++) {
+    var f = svgEl("rect", { "class": "bgm__mois-fond", x: (GX0 + i * pasX).toFixed(1), y: 4, width: pasX.toFixed(1), height: 256, rx: 3, "data-mois": i }, G);
+    var tt = svgEl("title", {}, f); tt.textContent = typo(MOIS[i] + " : " + nb(PL[i]) + "\u00a0mm de pluie");
+    FONDS.push(f);
+  }
+  [0, 250, 500].forEach(function (v) {
+    svgEl("line", { "class": v ? "bgm__grille" : "bgm__axe", x1: GX0, x2: GX1, y1: gy(v), y2: gy(v) }, G);
+    var t = svgEl("text", { x: GX0 - 6, y: gy(v) + 3.5, "text-anchor": "end", "font-size": 10 }, G); t.textContent = String(v);
+  });
+  [0, 25000, 50000].forEach(function (v) { var t = svgEl("text", { x: GX1 + 6, y: gq(v) + 3.5, "font-size": 10 }, G); t.textContent = v ? nb(v / 1000) + " k" : "0"; });
+  var ta = svgEl("text", { "class": "bgm__titre-axe", x: GX0 - 6, y: 12, "text-anchor": "end", "font-size": 10 }, G); ta.textContent = "mm";
+  var tb = svgEl("text", { "class": "bgm__titre-axe", x: GX1 + 6, y: 12, "font-size": 10 }, G); tb.textContent = typo("m³/s");
+  var dq = "";
+  for (i = 0; i < 12; i++) {
+    var x = GX0 + i * pasX;
+    COLS.push(svgEl("rect", { "class": "bgm__colonne", x: (x + 6).toFixed(1), y: gy(PL[i]).toFixed(1), width: (pasX - 12).toFixed(1), height: (GY1 - gy(PL[i])).toFixed(1) }, G));
+    dq += (i ? "L" : "M") + (x + pasX / 2).toFixed(1) + " " + gq(Q[i]).toFixed(1);
+    var n = svgEl("text", { "class": "bgm__nom-mois", x: (x + pasX / 2).toFixed(1), y: GY1 + 14, "text-anchor": "middle", "font-size": 11 }, G); n.textContent = MC[i]; NOMS.push(n);
+  }
+  svgEl("path", { "class": "bgm__debit", d: dq }, G);
+  for (i = 0; i < 12; i++) { svgEl("circle", { "class": "bgm__debit-pt", cx: (GX0 + i * pasX + pasX / 2).toFixed(1), cy: gq(Q[i]).toFixed(1), r: 2.6 }, G); }
+  var COUL = { boro: "var(--bgm-boro)", aus: "var(--bgm-aus)", aman: "var(--bgm-aman)" }, CLS = ["", "bgm__bande--semis", "bgm__bande--pousse", ""];
+  ORDRE_RIZ.concat(["crue"]).forEach(function (k, r) {
+    var y = 166 + r * 22, cal = k === "crue" ? [0, 0, 0, 1, 1, 3, 3, 3, 3, 0, 0, 0] : RIZ[k].cal;
+    var nom = svgEl("text", { "class": "bgm__bande-nom", x: GX0 - 6, y: y + 11, "text-anchor": "end", "font-size": 10.5, "data-riz": k }, G);
+    nom.textContent = k === "crue" ? "Crues" : RIZ[k].n;
+    cal.forEach(function (c, m) {
+      if (!c) { return; }
+      svgEl("rect", { "class": "bgm__bande " + CLS[c], x: (GX0 + m * pasX + (c === 1 && k === "crue" && m === 3 ? pasX / 2 : 1)).toFixed(1), y: y, width: (c === 1 && k === "crue" && m === 3 ? pasX / 2 - 1 : pasX - 2).toFixed(1), height: 15, rx: 2, fill: k === "crue" ? "var(--bgm-crue)" : COUL[k] }, G);
+    });
+  });
+  G.addEventListener("click", function (ev) {
+    var r = ev.target.getAttribute && ev.target.getAttribute("data-riz");
+    if (r) { choisir({ type: r === "crue" ? "crues" : "riz", id: r }); return; }
+    var m = ev.target.getAttribute && ev.target.getAttribute("data-mois");
+    if (m !== null && m !== undefined && m !== "") { mois(Number(m)); }
+  });
+  var curseur = q(".bgm__mois");
+  curseur.addEventListener("input", function () { mois(Number(curseur.value)); });
+  q(".bgm__pas--moins").addEventListener("click", function () { mois((etat.mois + 11) % 12); });
+  q(".bgm__pas--plus").addEventListener("click", function () { mois((etat.mois + 1) % 12); });
+  function mois(m) { if (m === etat.mois) { return; } etat.mois = m; rendre(); }
+  var DEPART_MOIS = 6;
+  etat.mois = DEPART_MOIS;
+  var DEPART = { vents: true };
+  function reinitExtra() { etat.mois = DEPART_MOIS; }
+  function apresCouche(c) { }
+  /* ----- fiches */
+  function dansLesChamps(m) {
+    var VERBE = { 1: "semis ou repiquage", 2: "croissance", 3: "récolte" }, l = [];
+    ORDRE_RIZ.forEach(function (k) { var c = RIZ[k].cal[m]; if (c) { l.push([k, RIZ[k].n + " : " + VERBE[c]]); } });
+    return l;
+  }
+  function ficheMois() {
+    var m = etat.mois, s = saison(m);
+    entete(s.n, MOIS[m].charAt(0).toUpperCase() + MOIS[m].slice(1));
+    chiffres(vueTexte, [["Pluie moyenne", nb(PL[m]) + "\u00a0mm"], ["Part de la pluie de l'année", Math.round(PL[m] / AN * 100) + "\u00a0%"], ["Débit du Brahmapoutre", nb(Q[m]) + "\u00a0m³/s"], ["Par rapport à février", (Q[m] / QMIN < 1.05 ? "le plus bas" : "× " + dec(Q[m] / QMIN, 1))]]);
+    el("p", "bgm__paragraphe", s.p, vueTexte);
+    var ch = dansLesChamps(m);
+    el("span", "bgm__rubrique", "Dans les rizières", vueTexte);
+    if (ch.length) {
+      var ul = el("ul", "bgm__liste", null, vueTexte);
+      ch.forEach(function (c) { el("li", "", null, ul).appendChild(bouton("bgm__choisir", c[1], RIZ[c[0]].part + " % du riz", function () { choisir({ type: "riz", id: c[0] }); })); });
+    } else { el("p", "bgm__paragraphe", "Aucun riz n'est semé ni récolté ce mois-ci.", vueTexte); }
+    var ul2 = el("ul", "bgm__liste", null, vueTexte);
+    el("li", "", null, ul2).appendChild(bouton("bgm__choisir", "Les grandes crues", "1988 à 2020", function () { choisir({ type: "crues", id: "crue" }); }));
+    el("p", "bgm__note", "Moyennes de 1991 à 2020 pour la pluie, de 1969 à 1992 pour le débit. Une année réelle peut s'en écarter beaucoup.", vueTexte);
+  }
+  function ficheRiz(id) {
+    var r = RIZ[id];
+    entete("Une saison du riz", r.n + " : " + r.t.charAt(0).toLowerCase() + r.t.slice(1));
+    r.p.forEach(function (t) { el("p", "bgm__paragraphe", t, vueTexte); });
+    var act = el("div", "bgm__actions", null, vueTexte);
+    var rec = r.cal.indexOf(3);
+    if (rec !== etat.mois) { act.appendChild(bouton("bgm__retour", "Voir le mois de la récolte", null, function () { etat.mois = rec; rendre(); })); }
+    act.appendChild(bouton("bgm__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheCrues() {
+    entete("Les inondations", "Les grandes crues");
+    el("p", "bgm__paragraphe", "Dans une année ordinaire, de juin à septembre, 20 à 25\u00a0% du pays est inondé. Lors des grandes crues, l'eau couvre bien plus du tiers du pays.", vueTexte);
+    el("span", "bgm__rubrique", "Part du pays sous l'eau", vueTexte);
+    var j = el("div", "bgm__jauge", null, vueTexte);
+    el("span", "", "Ordinaire", j); var b0 = el("span", "bgm__jauge-barre", null, j); b0.style.width = "25%"; b0.style.opacity = ".55"; el("span", "bgm__jauge-val", "20 à 25\u00a0%", j);
+    CRUES.forEach(function (c) { el("span", "", c[0], j); var b = el("span", "bgm__jauge-barre", null, j); b.style.width = c[1] + "%"; el("span", "bgm__jauge-val", "~" + c[1] + "\u00a0%", j); });
+    el("p", "bgm__paragraphe", "La crue de 1998 est aussi la plus longue de ces grandes crues.", vueTexte);
+    el("p", "bgm__note", "Les estimations varient selon les sources et les méthodes. Les parts des grandes crues viennent d'images satellites analysées par l'Université d'ingénierie et de technologie du Bangladesh (BUET).", vueTexte);
+    var act = el("div", "bgm__actions", null, vueTexte);
+    act.appendChild(bouton("bgm__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheLieu(id) {
+    var l = LIEUX[id];
+    entete(l.s, l.t);
+    l.p.forEach(function (t) { el("p", "bgm__paragraphe", t, vueTexte); });
+    var act = el("div", "bgm__actions", null, vueTexte);
+    act.appendChild(bouton("bgm__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheFleuve(id) {
+    var f = FLEUVES[id];
+    entete("Un des fleuves du delta", f.t);
+    f.p.forEach(function (t) { el("p", "bgm__paragraphe", t, vueTexte); });
+    var act = el("div", "bgm__actions", null, vueTexte);
+    act.appendChild(bouton("bgm__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  /* ----- étiquettes */
+  function etiquettesCarte(poser, u, v0, reserver) {
+    var ch = etat.choix;
+    D.lieux.forEach(function (l) { if (l.id !== "meghalaya") { reserver(l.p[0], l.p[1], 6 * u); } });
+    var ordre = D.lieux.slice().sort(function (a, b) { return (ch && ch.id === b.id ? 1 : 0) - (ch && ch.id === a.id ? 1 : 0); });
+    ordre.forEach(function (l) {
+      var choisi = ch && ch.type === "lieu" && ch.id === l.id;
+      if (l.id === "meghalaya") { poser(l.p[0], l.p[1], "Collines du\nMeghalaya", choisi ? "bgm__etiquette--choisie" : "bgm__etiquette--pays", 11); return; }
+      poser(l.p[0] + 9 * u, l.p[1], l.n, choisi ? "bgm__etiquette--choisie" : "bgm__etiquette--lieu", l.cap ? 14 : 12, { ancre: "start" }) || poser(l.p[0] - 9 * u, l.p[1], l.n, "bgm__etiquette--lieu", 12, { ancre: "end" });
+    });
+    var EF = { brahmapoutre: [[745, 315, 0], [575, 395, 82]], gange: [[420, 545, 32], [250, 450, 25]], meghna: [[600, 785, 70]], tista: [[470, 175, 60]] };
+    for (var k in EF) { if (Object.prototype.hasOwnProperty.call(EF, k)) { EF[k].some(function (a) { return !!poser(a[0], a[1], FLEUVES[k].t.replace(/^L[ea] /, ""), "bgm__etiquette--fleuve", 12, { r: a[2] }); }); } }
+    D.eaux.forEach(function (e) { poser(e.p[0], e.p[1], e.n, "bgm__etiquette--eau", 15); });
+    D.pays.forEach(function (p) { poser(p.p[0], p.p[1], p.n, "bgm__etiquette--pays", 12); });
+  }
+  function rendre() {
+    var ch = etat.choix, m = etat.mois;
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.setAttribute("data-mois", String(m));
+    var f = Q[m] / QMOY;
+    D.fleuves.forEach(function (fl) { GF[fl.id].querySelector(".bgm__fleuve").style.strokeWidth = (BASE[fl.id] * Math.sqrt(f)).toFixed(2) + "px"; GF[fl.id].classList.toggle("est-choisi", !!ch && ch.type === "fleuve" && ch.id === fl.id); });
+    for (var id in PTS) { if (Object.prototype.hasOwnProperty.call(PTS, id)) { PTS[id].classList.toggle("est-choisi", !!ch && ch.type === "lieu" && ch.id === id); } }
+    q(".bgm__colline").classList.toggle("est-choisi", !!ch && ch.type === "lieu" && ch.id === "meghalaya");
+    vents(m);
+    FONDS.forEach(function (r, k) { r.classList.toggle("est-choisi", k === m); });
+    COLS.forEach(function (r, k) { r.classList.toggle("est-choisi", k === m); });
+    NOMS.forEach(function (r, k) { r.classList.toggle("est-choisi", k === m); });
+    curseur.value = String(m);
+    curseur.setAttribute("aria-valuetext", MOIS[m]);
+    q(".bgm__mois-texte").textContent = MOIS[m].charAt(0).toUpperCase() + MOIS[m].slice(1);
+    Array.prototype.forEach.call(racine.querySelectorAll(".bgm__couche"), function (b) { b.setAttribute("aria-pressed", etat.couches[b.getAttribute("data-couche")] ? "true" : "false"); });
+    while (vueTexte.firstChild) { vueTexte.removeChild(vueTexte.firstChild); }
+    if (!ch) { ficheMois(); }
+    else if (ch.type === "riz") { ficheRiz(ch.id); }
+    else if (ch.type === "crues") { ficheCrues(); }
+    else if (ch.type === "lieu") { ficheLieu(ch.id); }
+    else if (ch.type === "fleuve") { ficheFleuve(ch.id); }
+    etiqueter();
+  }
+  function clicCarte(cible) {
+    var c = cible.closest ? cible : null; if (!c) { return; }
+    var l = c.closest("[data-lieu]"); if (l) { choisir({ type: "lieu", id: l.getAttribute("data-lieu") }); return; }
+    var f = c.closest("[data-fleuve]"); if (f) { choisir({ type: "fleuve", id: f.getAttribute("data-fleuve") }); }
+  }
+  var API = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", mois: etat.mois, couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; }, choisir: function (c) { choisir(c); }, mois: function (m) { mois(m); }, donnees: D };
+
+
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    clicCarte(ev.target);
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".bgm__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.getAttribute("data-couche");
+      etat.couches[c] = !etat.couches[c];
+      apresCouche(c);
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".bgm__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    rendre();
+    var lecture = q(".bgm__lecture"); if (lecture) { lecture.scrollTop = 0; }
+  }
+  /* Réinitialiser (bouton posé par page.js) : aucun choix, couches de départ, carte entière. */
+  function reinitialiser() {
+    etat.choix = null;
+    for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
+    reinitExtra();
+    etat.vue = { x: 0, y: 0, w: W, h: H };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    q(".bgm__recentrer").hidden = true;
+    carte.classList.remove("est-zoomee");
+    rendre();
+    var lecture = q(".bgm__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
+  racine.bgm = API;
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

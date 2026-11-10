@@ -233,8 +233,6 @@ Une éruption volcanique
 
 ![La ceinture de feu du Pacifique](../medias/04-ville-risques-naturels/ceinture-feu-pacifique.png)
 
-![La faille de San Andreas](../medias/04-ville-risques-naturels/faille-san-andreas.png)
-
 #### Situer la ville
 
 San Francisco se trouve entre l'océan Pacifique à l'ouest et la plaine
@@ -279,6 +277,8 @@ glissent l'une contre l'autre à l'horizontale, sans que l'une passe sous
 l'autre. La plaque pacifique se déplace vers le nord-ouest d'environ cinq
 centimètres par année. Quand le frottement finit par céder d'un coup, le sol
 tremble.
+
+::: composant sf-failles
 
 ::: questions
 1. Pourquoi une même ville peut-elle être exposée à la fois aux séismes et aux

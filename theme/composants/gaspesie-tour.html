@@ -1,0 +1,640 @@
+<section class="gsp" id="gaspesie-tour" data-reinitialiser aria-label="Carte interactive : le tour de la Gaspésie, ses attraits, ses aménagements et ses saisons">
+<style>
+.gsp { --gsp-mer: #CFE0EC; --gsp-terre: #F2EFE6; --gsp-autre: #E0DBCD; --gsp-parc: #A9CF8E; --gsp-reserve: #D8E6C4; --gsp-parc-bord: #4E8A3A; --gsp-route: #B4462F; --gsp-route-halo: #FFFFFF; --gsp-halo: #FBFBF8; --gsp-nature: #2F7D52; --gsp-culture: #8C4FA8; --gsp-pleinair: #2C6FA8; --gsp-ville: #2C2B28; --gsp-trav: #3C6A90; }
+html[data-sombre="on"] .gsp { --gsp-mer: #14273A; --gsp-terre: #2A333C; --gsp-autre: #20272E; --gsp-parc: #3E5F37; --gsp-reserve: #33473A; --gsp-parc-bord: #8DC07A; --gsp-route: #F08C70; --gsp-route-halo: #1A232D; --gsp-halo: #18222D; --gsp-nature: #7FD0A0; --gsp-culture: #D3A5EA; --gsp-pleinair: #8EC3EE; --gsp-ville: #ECE6DA; --gsp-trav: #8FB8DA; }
+.gsp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: gsp / inline-size; }
+.gsp .gsp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.gsp .gsp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.gsp .gsp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .gsp .gsp__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .gsp .gsp__titre { color: var(--encre); }
+html[data-sombre="on"] .gsp .gsp__consigne { color: var(--encre-pale); }
+.gsp .gsp__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.gsp .gsp__visuel, .gsp .gsp__lecture { min-width: 0; }
+.gsp .gsp__carte { position: relative; background: var(--gsp-mer); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.gsp .gsp__carte.est-zoomee { touch-action: none; }
+.gsp .gsp__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.gsp.est-glisse .gsp__svg { cursor: grabbing; }
+.gsp__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--gsp-halo); stroke-linejoin: round; pointer-events: none; }
+.gsp .gsp__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.gsp .gsp__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.gsp .gsp__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.gsp .gsp__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gsp .gsp__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.gsp .gsp__recentrer[hidden] { display: none; }
+.gsp .gsp__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.gsp:not(.est-plein-ecran) .gsp__replier { display: none; }
+.gsp .gsp__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.gsp .gsp__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gsp ul > li::before, .gsp ol > li::before { content: none; display: none; }
+.gsp ul > li::marker, .gsp ol > li::marker { content: none; }
+.gsp .gsp__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.gsp .gsp__couches > li { margin: 0; padding: 0; }
+.gsp .gsp__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.gsp .gsp__couche:hover { background: var(--matiere-voile); }
+.gsp .gsp__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gsp .gsp__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.gsp .gsp__couche--radio .gsp__couche-case { border-radius: 50%; }
+.gsp .gsp__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.gsp .gsp__couche[aria-pressed="true"] .gsp__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.gsp .gsp__couche[aria-pressed="true"] .gsp__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.gsp .gsp__couche--radio[aria-pressed="true"] .gsp__couche-case::after { left: .27rem; top: .27rem; width: .32rem; height: .32rem; border: 0; border-radius: 50%; background: #fff; transform: none; }
+html[data-sombre="on"] .gsp .gsp__couche[aria-pressed="true"] .gsp__couche-case::after { border-color: #10171F; }
+html[data-sombre="on"] .gsp .gsp__couche--radio[aria-pressed="true"] .gsp__couche-case::after { background: #10171F; }
+.gsp .gsp__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.gsp .gsp__vue { padding: 1rem 1.2rem 1rem; }
+.gsp .gsp__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.gsp .gsp__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gsp .gsp__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.gsp .gsp__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.gsp .gsp__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.gsp .gsp__chiffres > div { min-width: 0; }
+.gsp .gsp__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.gsp .gsp__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.gsp .gsp__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.gsp .gsp__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gsp .gsp__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.gsp .gsp__liste > li { margin: 0; padding: 0; }
+.gsp .gsp__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.gsp .gsp__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.gsp .gsp__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gsp .gsp__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.gsp .gsp__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.gsp .gsp__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.gsp .gsp__toutes { margin: 0 0 .9rem; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.gsp .gsp__toutes > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.gsp .gsp__toutes > summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; border-radius: 3px; }
+.gsp .gsp__grille { display: grid; grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr)); gap: .25rem .5rem; margin: .55rem 0 0; padding: 0; list-style: none; }
+.gsp .gsp__grille > li { margin: 0; padding: 0; }
+.gsp .gsp__grille button { width: 100%; text-align: left; font-family: var(--titre); font-size: .8rem; color: var(--encre); background: none; border: 0; border-radius: 3px; padding: .2rem .3rem; cursor: pointer; }
+.gsp .gsp__grille button:hover { background: var(--matiere-voile); color: var(--matiere-fonce); }
+.gsp .gsp__grille button:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.gsp .gsp__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.gsp .gsp__retour:hover { background: var(--matiere-voile); }
+.gsp .gsp__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gsp .gsp__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.gsp .gsp__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.gsp .gsp__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.gsp .gsp__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container gsp (min-width: 46rem) {
+  .gsp .gsp__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .gsp .gsp__visuel { border-right: 1px solid var(--trait); }
+  .gsp .gsp__lecture { border-top: 0; }
+}
+@container gsp (max-width: 30rem) {
+  .gsp .gsp__barre, .gsp .gsp__vue, .gsp .gsp__source { padding-left: .8rem; padding-right: .8rem; }
+  .gsp .gsp__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
+}
+.gsp.est-plein-ecran, .texte section.gsp.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.gsp.est-plein-ecran > .gsp__entete { flex: none; }
+.gsp.est-plein-ecran > .gsp__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.gsp.est-plein-ecran .gsp__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.gsp.est-plein-ecran .gsp__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.gsp.est-plein-ecran .gsp__svg, .texte .gsp.est-plein-ecran svg.gsp__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.gsp.est-plein-ecran .gsp__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.gsp.est-plein-ecran > .gsp__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.gsp.est-plein-ecran.texte-masque > .gsp__corps { grid-template-columns: minmax(0, 1fr); }
+.gsp.est-plein-ecran.texte-masque .gsp__lecture { display: none; }
+.gsp.est-plein-ecran.texte-masque .gsp__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .gsp.est-plein-ecran > .gsp__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .gsp.est-plein-ecran .gsp__visuel { border-right: 0; }
+  .gsp.est-plein-ecran .gsp__lecture { border-top: 1px solid var(--trait); }
+  .gsp.est-plein-ecran.texte-masque > .gsp__corps { grid-template-rows: minmax(0, 1fr); }
+  .gsp.est-plein-ecran > .gsp__source { display: none; }
+}
+@media print {
+  .gsp .gsp__outils, .gsp .gsp__replier, .gsp .gsp__barre { display: none; }
+  .gsp .gsp__svg { max-height: none; }
+  .gsp .gsp__corps { grid-template-columns: minmax(0, 1fr); }
+  .gsp .gsp__visuel { border-right: 0; }
+  .gsp { break-inside: avoid; }
+}
+.gsp__pen { fill: var(--gsp-terre); stroke: #9DB4C6; stroke-width: .6px; vector-effect: non-scaling-stroke; }
+.gsp__autres { fill: var(--gsp-autre); stroke: #9DB4C6; stroke-width: .5px; vector-effect: non-scaling-stroke; }
+html[data-sombre="on"] .gsp__pen, html[data-sombre="on"] .gsp__autres { stroke: #2F5878; }
+.gsp__parcs { display: none; }
+.gsp.avec-parcs .gsp__parcs { display: inline; }
+.gsp__pa { stroke: var(--gsp-parc-bord); stroke-width: .8px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.gsp__pa[data-type="parc"] { fill: var(--gsp-parc); }
+.gsp__pa[data-type="reserve"] { fill: var(--gsp-reserve); stroke-dasharray: 3 2; }
+.gsp__pa:hover { filter: brightness(.95); }
+.gsp__route { display: none; }
+.gsp.avec-route .gsp__route { display: inline; }
+.gsp__route-halo { fill: none; stroke: var(--gsp-route-halo); stroke-width: 4.5px; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.gsp__route-trait { fill: none; stroke: var(--gsp-route); stroke-width: 2.2px; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.gsp__trav { fill: none; stroke: var(--gsp-trav); stroke-width: 1.4px; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; }
+.gsp__villes { display: none; pointer-events: none; }
+.gsp.avec-villes .gsp__villes { display: inline; }
+.gsp__point-ville { fill: var(--gsp-ville); stroke: var(--gsp-halo); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.gsp__attrait { cursor: pointer; transition: opacity .25s; }
+.gsp__attrait .gsp__rond { stroke: var(--gsp-halo); stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
+.gsp__attrait[data-type="nature"] .gsp__rond { fill: var(--gsp-nature); }
+.gsp__attrait[data-type="culture"] .gsp__rond { fill: var(--gsp-culture); }
+.gsp__attrait[data-type="pleinair"] .gsp__rond { fill: var(--gsp-pleinair); }
+.gsp__attrait .gsp__num { font-family: var(--donnee); font-weight: 700; fill: #fff; pointer-events: none; }
+html[data-sombre="on"] .gsp__attrait .gsp__num { fill: #10171F; }
+.gsp__attrait.est-ferme { opacity: .28; }
+.gsp__attrait.est-choisi .gsp__rond { stroke: var(--signal); stroke-width: 3px; }
+.gsp__etiquette--ville { font-weight: 600; fill: var(--gsp-ville); }
+.gsp__etiquette--attrait { font-weight: 700; fill: var(--encre); }
+.gsp__etiquette--choisi { font-weight: 700; fill: var(--encre); }
+.gsp__etiquette--parc { font-style: italic; font-weight: 600; fill: var(--gsp-parc-bord); }
+.gsp__etiquette--eau { font-style: italic; fill: #3C6A90; }
+html[data-sombre="on"] .gsp__etiquette--eau { fill: #8FB8DA; }
+.gsp__etiquette--route { font-family: var(--donnee) !important; font-weight: 700; fill: var(--gsp-route); }
+.gsp__etiquette--hors { font-style: italic; fill: var(--encre-pale); }
+.gsp .gsp__saisons { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 .55rem; padding: 0; list-style: none; }
+.gsp .gsp__saisons > li { margin: 0; padding: 0; }
+.gsp .gsp__saison { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; }
+.gsp .gsp__saison:hover { background: var(--matiere-voile); }
+.gsp .gsp__saison:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gsp .gsp__saison[aria-pressed="true"] { background: var(--matiere-fonce); border-color: var(--matiere-fonce); color: #fff; }
+html[data-sombre="on"] .gsp .gsp__saison[aria-pressed="true"] { background: var(--matiere-voile); color: var(--encre); border-color: var(--matiere); }
+.gsp .gsp__legende { display: flex; flex-wrap: wrap; gap: .25rem .8rem; margin: .5rem 0 0; padding: 0; list-style: none; font-family: var(--donnee); font-size: .68rem; color: var(--encre-doux); }
+.gsp .gsp__legende > li { margin: 0; padding: 0; display: inline-flex; align-items: center; gap: .3rem; }
+.gsp .gsp__puce { width: .7rem; height: .7rem; border-radius: 50%; flex: none; }
+.gsp .gsp__mois { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2px; margin: 0 0 .3rem; padding: 0; list-style: none; }
+.gsp .gsp__mois > li { margin: 0; padding: .28rem 0; text-align: center; font-family: var(--donnee); font-size: .6rem; color: var(--encre-pale); background: var(--surface-2); border-radius: 3px; }
+.gsp .gsp__mois > li.est-ouvert { background: var(--matiere); color: #fff; }
+.gsp .gsp__mois > li.est-partiel { background: var(--matiere-voile); color: var(--matiere-fonce); }
+html[data-sombre="on"] .gsp .gsp__mois > li.est-ouvert { color: #10171F; }
+.gsp .gsp__compte { font-family: var(--titre); font-weight: 700; color: var(--matiere-fonce); }
+@media (prefers-reduced-motion: reduce) { .gsp__attrait { transition: none; } }
+@container gsp (min-width: 46rem) {
+  .gsp .gsp__corps { grid-template-columns: minmax(0, 1fr); }
+  .gsp .gsp__visuel { border-right: 0; }
+  .gsp .gsp__lecture { border-top: 1px solid var(--trait); }
+  .gsp .gsp__vue { padding: 1.1rem 1.6rem 1.2rem; }
+  .gsp .gsp__vue > .gsp__chiffres { grid-template-columns: repeat(4, minmax(0, 1fr)); max-width: 56rem; }
+  .gsp .gsp__vue > .gsp__paragraphe, .gsp .gsp__vue > .gsp__note, .gsp .gsp__vue > .gsp__mois { max-width: 48rem; }
+  .gsp .gsp__vue > .gsp__liste { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); max-width: 56rem; }
+}
+.gsp.est-plein-ecran .gsp__vue > .gsp__chiffres { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.gsp.est-plein-ecran .gsp__vue > .gsp__liste { display: flex; }
+.gsp.est-plein-ecran .gsp__vue { padding: 1rem 1.2rem; }
+</style>
+<div class="gsp__entete">
+<p class="gsp__titre" role="heading" aria-level="3">Le tour de la Gaspésie&nbsp;: attraits, aménagements, saisons</p>
+<p class="gsp__consigne">Choisis une saison, puis un attrait</p>
+</div>
+<div class="gsp__corps">
+<div class="gsp__visuel">
+<div class="gsp__carte">
+<svg class="gsp__svg" viewBox="0 0 1000 525" role="img" aria-labelledby="gsp-svg-titre">
+<title id="gsp-svg-titre">Carte de la péninsule gaspésienne avec la route 132, les parcs et les principaux attraits touristiques</title>
+<path class="gsp__autres" d=""/>
+<path class="gsp__pen" d=""/>
+<g class="gsp__parcs"></g>
+<g class="gsp__route"><path class="gsp__trav" d=""/><path class="gsp__route-halo" d=""/><path class="gsp__route-trait" d=""/></g>
+<g class="gsp__villes"></g>
+<g class="gsp__attraits"></g>
+<g class="gsp__etiquettes"></g>
+</svg>
+<button type="button" class="gsp__bouton-carte gsp__replier" aria-expanded="true">Masquer le texte</button>
+<div class="gsp__outils">
+<button type="button" class="gsp__bouton-carte gsp__zoom gsp__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="gsp__bouton-carte gsp__zoom gsp__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="gsp__bouton-carte gsp__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="gsp__barre">
+<p class="gsp__barre-titre">La saison</p>
+<ul class="gsp__saisons">
+<li><button type="button" class="gsp__saison" data-saison="toutes" aria-pressed="true">Toute l'année</button></li>
+<li><button type="button" class="gsp__saison" data-saison="printemps" aria-pressed="false">Printemps</button></li>
+<li><button type="button" class="gsp__saison" data-saison="ete" aria-pressed="false">Été</button></li>
+<li><button type="button" class="gsp__saison" data-saison="automne" aria-pressed="false">Automne</button></li>
+<li><button type="button" class="gsp__saison" data-saison="hiver" aria-pressed="false">Hiver</button></li>
+</ul>
+<p class="gsp__barre-titre">Les aménagements</p>
+<ul class="gsp__couches">
+<li><button type="button" class="gsp__couche" data-couche="route" aria-pressed="true"><span class="gsp__couche-case" aria-hidden="true"></span>La route 132 et le traversier</button></li>
+<li><button type="button" class="gsp__couche" data-couche="parcs" aria-pressed="true"><span class="gsp__couche-case" aria-hidden="true"></span>Les parcs et les réserves</button></li>
+<li><button type="button" class="gsp__couche" data-couche="villes" aria-pressed="true"><span class="gsp__couche-case" aria-hidden="true"></span>Les villes</button></li>
+</ul>
+<ul class="gsp__legende" aria-label="Légende">
+<li><span class="gsp__puce" style="background: var(--gsp-nature)"></span>Nature</li>
+<li><span class="gsp__puce" style="background: var(--gsp-culture)"></span>Culture et histoire</li>
+<li><span class="gsp__puce" style="background: var(--gsp-pleinair)"></span>Plein air et sorties</li>
+</ul>
+</div>
+</div>
+<div class="gsp__lecture">
+<div class="gsp__vue" tabindex="-1"></div>
+<p class="gsp__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="gsp__source">Périodes d'ouverture&nbsp;: Tourisme Gaspésie (fiches des attraits, offre hivernale 2025-2026, trucs et astuces), Site d'interprétation Micmac de Gespeg, consultés en novembre 2026; les dates changent d'une année à l'autre. Longueur de la boucle&nbsp;: Tourisme Gaspésie et Transports Québec. Côtes, route 132, parcs et réserves&nbsp;: © les contributeurs d'OpenStreetMap, licence ODbL, simplifiés. Limite provinciale&nbsp;: Natural Earth.</p>
+<script>
+(function () {
+  var racine = document.getElementById("gaspesie-tour");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":525,"pen":"M414.4 482.2l-.6-.1-1.6 2.6-5.2 1.3-1.2-2.4-4.6-2.2-2.6 1.4-2.6 6.4-4.1 .7-1 3.5-6.9 2.2-3.8-2.2-3.2 3.6-1.7 .3-5.6 3.4-3.4 .9-7.5-.2-3.2 .6-2.3 2.6-6.1-.2-5.6 1.9-5.4 3.4-3.9 4.2-1.8 4.9 2.2 10.1-.9 7.2-.9 1.5-5.1 3-1.1 .1-6.4-3.4-9.6-8.1-4.1-.6-4.9 .8-4.8 1.9-4.1 2.5-7.3 6.1-6.9 3.2-3.7 1-4.1-.1-7.3-3-2.3-.1-6.3 1.1-7.7-1.7-2.8-.1-2 1.6-4 13.6-3.4 4.2-1.3 .6-7.9-4.5-1.7-3-1.3-5.3-1.9-2.2-9.1-4.2-9.9-6.6-5.5-2.7-5.1-2-11.2-3.1-4-1.7-1.7-4.4 .7-6.8-1.2-9.2-112.2 0-.1 21.2-.5 1.9-1.1 1.1-59.8 .2 0 41.6-7.5 0 0-262.4 .7-.6 3.7-1.1 6.3 .7 6.3-4.2 8.6-9.2 29.5-19.3 4-.4-1 1.4 .7 1.8 4.9 .3 9.1-4.6 3.7-4.2 .2-2.1-1.4-.3 3.1-3.2 6.9-3.2-1.3 2.5 3.4 .3 1 .7-1 1.4 1 1.1 8.1-5.3 5.6-1.7 18.4-16.2 10.9-6.7 9.5-2.1 3.7-3.6 18.9-7.7 13.9-8.5 9.3-2.8 5.2-5.6-1.4-3 1.1 2.3 1.4-1.4-1.4-1.8 2.6 1.4 6.7-4.6 1.7 4.6 1.4-3.2-1-.4 11-1 19-9.5 6.5-5.3 18.9-3.5 3.5-3.9 26-8.4 8.1-4.6 10.3-3.2 3.9-3.5 4.7-1.4 16.3-9.8-.3 1.4 1.9 0 5.6-6.4 3.7 0 4.4-4.6 12.6-5.2-.7 2.1 2.5 0 1.4-3.2 7.9-.7 2.6-3.5 10.5-5 2.5-3.8 8.4-1.4 3.9-2.9 4 .4 5.1-4.9 5.8 1.4 5.6-.7 9.8-5.7 8.6 1.4 5.3-1 2.1-1.1 .2-1.7 2.6 1.7 5.8-3.5 4.4-5.3 6.3-2.8 54.7-15.5 48.6-7.4 12.1 0 3.9 3.2 15.6-4.9 2.6 3.5 2.5 0 1.9-.4 3-3.8 5.6-1.8 2.8 .3 2.5 1.5-.4 1.7 1.6 0 2.6-1.7-1.4-1.1 2.5 .3 9.1-3.8 2.5-.4 3.3 2.5 5.8-3.5 14.9-1.8 4 1.4 50 .4 1.6 .3-1 1.8 1.9 2.4 1.4 0-.6-.7 6.7 .4 2 2.1 7-.3 10 2.1 15.8-.7 1.7 2.1 8.6-1.1 38.6 8.1 18.6 6.7-1.2 .7 .5 .7 3.5 1.8 3-.4 4.6 5.7 2.8-.7 10.5 8.8 33 10.5 14.4 10.9 8.2 3.2 7.4 5.7 1 2.8 4.8 2.4 5.4 7.1 7.7 3.9 2.3 2.8-1.9-1.4 .3 2.4 2-.7 4.9 7.1 12.8 10.9-1.1 1 1.1 2.5-2.1 .7-.9 2.1 3.3-2.8 7.4 4.6 13.5 17.2 3 6.7-1.2 .7-1.1 5.3-2.6 5.7 0 4.2 1.9 5.6 3.7 1.4 8.6 12.4-1.5 1.4-9.4-8.5-8.2-10.2-2.5 0-11.2-7.8-3.5 .8-3.2-3.2-12.6-6.4-6.3-1.4-5.1 2.1-.8-.3 .1-1.8 5.4 0-8.2-.7-9.5-4.2-2.1 .7-11.2-6-1.6 .7 .5 3.5 7 3.6 3.4 4.9 2.6 0 5.4 4.2-3.8 3.9-13 1.4-2.5-1.4 .6 2.8-3 .4 15.8 1 4.2-2.8 .7-2.1 4 1.4 .4-1.4 4.7 .7 6.3 3.2 1.8-2.1-1.1-2.9 1.8 3.9 0 2.5 5.1 4.9-.9 6.7 1.4 4.2 9.1 5 2.1 3.8-1.7-.3 8.9 5.3 .9 2.8 2.8 .7 4.4 4.2 2.1 7.4 4 6.3 4.2 1.1 .9 2.8 6.5 3.5 2.6 6.4 1.6 1-1.4 3.2-13.3-2.8-10 2.8-3.9 12 .4 10.2 2.6 2.5 6.7 1.4 7.5 3.5 2.8 2.8-3.3 3.5 .3 5.3-2.4-.3-13 5.9-5.3 4.3-2.4-.7 2.4 1-5.2 12.4 2.8 4.2 0 2.1-3 1-2.8-1.4-6.7 2.2-6.1-1.1 1.2 .7-7.2 2.5-10.9 1.4-5.6 3.8-.3-1.4-2.1-.3-5.3 4.2-12.1 3.2-6.3 4.9-10 3.2-2.1 4.2 .3-1.8-3.8-.3-4.5 6-1 0 .4 1-1.4 5.3 1 2.8-4 .4 2.8 .3-3.3 2.5-.2 1.4 .9 .4-.9 2.1-1.6-1.1-3.7 2.1 .2 4.6-5.4 9.2 .3 5.6-2.6 2.1-1.1 2.8 1.1 .7-.4 1.5-3.8 1.7-6.2-1-6.6 4.2-4.1 0-.7 2.1-6.6-.7-10 3.9-6-2.1-2.8 3.8-.7 4.3 6.8 3.1-19.1 15.5-6.5 2.5-2.8 2.8-1.9-.7-5.3 5.6-4 1.4-4.9 6.7-7.9 5-14.9 4.9-3 4.9-.2-1.7-1.4-.4 .5-1-.7 1.4 0-1.8-2.1-.3-8.2 2.4-3.5 3.9-3.4 1.4-26.8-.7-4.9-3.9-2.8-7.4-.7 .7-1.6-3.1-9.8-8.5-2.1-.3-.2 1.4-3.5-1.4 1-2.2-1.4 2.2-12.6-3.6-6.7-4.2-21.4-8.8-18.6-2.8-3.5-5.7-5.8-4.5 1.1-1.8-6.3-5.3-1.8-1-3.6 1.7-.8-12.6-3.5 4.5-2.4 0-2-2.4-2.6 2.1-2.1-.4-3.5 3.2 1.2 .3-.7 1.5-10 9.8-8.2 14.8-10 6.3-3.5 1.3-.4-.1 1.8-.8 .3-2.1-6.5-2.1 1.1 3.9-.4-.1-3.5-5.9-7.9-1.4-6.1 2.4-7.6 .3 2.5-.3-3-1.4-6.3 1.8-.5-1.8-7.2-1.8-2.5 1.8 1.6 3.9 6 3.5 .7-2.5-2.5 10.6-3.3 1.1-1.6-1.8 1.2-2.1-3.5 .7-4.7-2.8-3.7-7.8-2.3-1.7-12.1-.4-7.9-5.3-4.3 5.2-.5-.1-2-1.2 1.9-2.1-.5-1.8-2.1 .4-1.1 2.4-3.7 2.2-10.5 11.6-.5 2.8 2.6 .7-.7 3.2-9.5 1z","autres":"M810 570.5l-6.1 0 3.8-1.4zM827.4 569.1l-.3 1.4-17.1 0 7.4-3.1zM780.7 557.2l5.8 2.1-1.6 3.5-8.6 3.5 .4 2.5-2.5-1.1-3.5 2.8-44.8 0 11.3-6.3 4.4 .7 5.4-3.2zM786.5 561.7l2.6 2.1 1.1 2.2zM807.4 560.7l6.3 3.1-8.4-1.4-1.3 1.1 .9 2.5-1.4-2.9 1.2-2.1zM505.6 499.8l-1.9-2.2 2.8 3.6-4.4-5.3 13 4.2 6.8 6.3-7.5 1.5 .9-3.6-2.3-2.4-3.7-2.9zM414 484.3l-7 1.7 5.2-1.3 1.6-2.6 .6 .1 .3-1.5zM390.5 495.2l-4.9 1.4-5.4-3.2 3.8 2.2 6.9-2.2zM377 502.2l5.3 0 11.9-6.7 2.8 3.2 10.4-1.8 16.3-7 11.4-6.3 5.1-5.7 19.3-2.5 0 1.5 .3-1.8 .9 .7-.5-1.4 4.9 .3-1.4 .4 0 1.8 3.7 1.7-.4 1.4-3.5 1.1 1.2 .3-2.4 2.5 0 4.9 2.8 6.4 12.8 6 5.6 0 .9 2.1-1.6 .7 1.6 .3-2.1 1.1 4.4-1.8-1.8-1 2.5 .3 3.5 3.9 4.2-.4-.7 1.5 4.9 1.7 6-.7 1 2.5 9 1 2.8 1.4-.9 1.1 1.2 2.1 4.9-1.4 .9 4.2 4.9 6.4 6.2-1.1 6.1 1.8 4.4-1.4 5.6 2.8 12.3 1 8.4-1.4 4.4 3.2 4.7 1.1 5.1-1.5-4.4 1.8 4.1-1.1 1.9 1.1 5.6 7.8 10.9 8.8 2.3 5.2 4.5 5.7 .4 3.8 1.4 1.8-.7 3.9 .7 1-614.8 0 0-41.6 59.8-.2 1.6-3 .1-21.2 112.2 0 1.2 9.2-.7 6.8 1.7 4.4 20.3 6.8 5.5 2.7 9.9 6.6 9.1 4.2 1.9 2.2 1.3 5.3 1.7 3 7.9 4.5 4.7-4.8 4-13.6 2-1.6 10.5 1.8 8.6-1 7.3 3 4.1 .1 10.6-4.2 11.4-8.6 4.8-1.9 4.9-.8 4.1 .6 9.6 8.1 7.5 3.3 5.1-3 .9-1.5 .9-7.2-2.2-10.1 1.8-4.9 3.9-4.2 5.4-3.4 5.6-1.9 5.9 .3 1.9-2.4 3.8-.9 7.7 .1 10.5-4.5zM976 236.3l-1.1-1 1.6-1.2zM912.1 201.1l.1-.7 .8 .3zM860.9 380l.3-1.8-.2 1.7zM852.3 384.6l-1.4 5.6 1-6.3 1 0 4.5-6zM571.9 440.2l-.3-5.5 .4 5.5 3.6-1.7zM571.2 427.6l.4 3-.1 2.3zM519.8 470.2l3.7-1.7 .4 .1zM520.5 468.4l-4.2-7 3.9 6-1.1-3.9zM494.2 462.8l3-.4-2.5 .3 .7 0 6.9-.3zM441.2 461.7l-2.4-1.4 2.5 1.3zM181.2 202.7l0-.2 .7-1.4zM191.9 198.6l1.8 1-1.1 .1zM53.4 66.1l.3-.2 0 .3zM-5.6 103.9l-2.5 3.2-1.2 4.4 0-111.5 255.8 0-1.6 5.6 .4 4.6-5.8 6.4-1.8 2.8-.3 3.5-3 2.1-.9 4.2-2.3 1.1 .2 2.1-3.7 3.9-6.1-.4 0-1.7-1.6-1.1-1.2 2.1-20.7-1.7-16 1.4-2.3-1.8-1.9 1.8-1.9 4.2 .7 .3-10.7-1.7-3 3.5-3 1.1-9.5-3.9-1.7 2.1-8.1 1.1-8.1-4.3 .2-2.8-.5 2.8 5.8 3.9-1.8-.3 .9 1-.7 1.8-6.3 8.4-3.9-.3-.3 1.4-17.6-7.8-6.3 0-4.2 3.6-2.6-2.5-.6 1 1.1 .7-2.1-.7 .5 2.2-9.8-1.5-7.2 1.1-5.1-5.3 1.2 5-2.4-.4 1.2 1.8-.2 1.7-2.8 1.4-3.8 5.3-11.6-6-.7 6.4-1.4 .7 1.2 .3-.5 5.7 1.1 .2-3.2 2.2 1.2 3.9-1.6 4.6-11.2 .3-2.8 3.6-5.8 1.7-4.4-.7-3.5 2.8-5.8-3.8-7.2 .7 .2-1.8-1.2-.4 .3 2.5-1.4-1 2.1 3.1 6 1.1 3-1.1 1.2 2.5 8.4 5.6 5.8 1.1 4.6-2.1 3.8 3.8 0 12-2.6 6.4-5.6 .3-3.5 2.8-11.1 0-6.3-1.4-4.9 1.8-17.2 15.3 0-14.1 .9-1.2 1.4-7.1 2.1-2.1 2.6-7.7-3.5 1.7zM705.8 60.6l2.2 2.4-.1 0zM854.3 570.5l4.3-6.7-2.6 0-2.5 2.9-3.5 .7 .5-5.3 2.1-.7-3.1 0 .3-2.8 2.3-3.2 1.9-5.3 2.5 .4 2.3-4.3 6.1-2.1-1.6-1.7 4.1-2.5 8.6 1.8 4-1.1 0 1.4-1.4 .4 3 .7 .5 2.1-4.7 6.3 3.3-1.7 .2 1.4 2.6-3.9 6.5 1.4 6.5-5.6 .7-2.1-.9 11.6-5.4 8.4-1.8 6-2.9 3.5zM828.4 563.1l2.5-1-1.1 1 0 1.1zM835.6 562.1l1.6 0 .7 .7zM897.2 540.3l.5-6.7 1.6-3.6zM901.2 500.1l3 14.4-.7-1-1.6 1 .4-2.1-1.4-.3-1.4 1 .5 1.8-2.3 1.4 3.5-1.1-.5 3.2 2.8 2.1 1.2-1.4-.7-4.6 1.1 6-5.8 9.2 .7-3.2-2.6-1 1.2 0-.5-1.8 1 1.1 .4-1.8-1.8-2.8 .7 2.1-5.6 3.5-1.2 2.8-3.2 1.4-4-.7 .9 1.1-2.5 4.2-3.7 2.1 .4 2.5-3.2-3.5-1.4-4.3 .2-7 10.7-14.8 1.2-4.9-.5-7.1 1.2-3.1 5.1-1.8 6.7 3.9zM973 328.2l-.2-3.8 1.2-2.5 2.5-.7 4 5.3-3.5 3.1-2.1 0z","r132":"M558.6 430.7l-19.8 24.7-1.1 4.9-9.8 4.9-7-.7-6.7-4.2-5.1-.7-7 2.8-5.8-1.7-7.7 1-6-3.5-6.1-5.6-2.3-5-6.8-3.1-4.1 3.1-11.4 2.1-20.3 11-4.4 8.1-6.5 4.5-5.4 7.1-6 1.7-9.1-1.7-6.5 1.7-4.9 2.9-9.3 9.1-6.5 1.8-4.4 4.6-4.6 1.4-14.5-2.5-15.1 6-5.3 3.5-10-7-13.5-14.1-5.8 1.4-7-6.7 .9-12.3-13.2-15.9 2.1-7.7 2.5-2.8-1.6-5.7-21.2-27.8 0-6.7-2.3-4.9-.5-4.3 1.9-13 1.9-1.4 1.4-4.6-14.9-18.6-8.9-5.7-6.5-6.7-9.3-1.7-10-6.7-3.9-9.5-6.8-1.8-.9-10.2-14-1.1-16.9-10.5-8.6-2.1-15.4-.4-36.5 7.1-8.6 7-10.2 2.5-5.2 0-13.7-6.4-7.4 3.9-10 .4-2.3-1.5-1.2-5.2-4.4-6.4-10-7-8.9-9.9 15.4-9.8 8.6 4.9 10.5-8.1 5.3-8.8 4-.4 5.3 3.2 12.8-5.3 22.8-20.4 7.9-4.6 8.8-1.7 15.1-8.9 8-1.7 2-2.8 11.2-6 9.1-1.8 11.4-12 11.8-.7 10.5-3.1 17.7-9.5 2.5-3.9 7 0 11.6-2.8 7.2-4.6 6.3-.4 3-2.8 12.4-3.5 8.1-5.6 9.5-2.9 18.2-10.5 11.8-4.6 11.4-9.5 10.7-3.9 3.5 .7 3.3-2.8 5.8-1.4 3.3-3.5 6.2-2.5 8.4-6 14.4-4.2 5.4-4.2 9.5 .3 11.9-5.6 13.9 1.4 7.7-3.5 4.6-4.6M897.2 359.9l2.6 .7 4.6-3.1 10.5-.7 7.4-3.9 13.5-1.1 1.6-2.1 .3-4.9 4.6-12 20.3-10.6-.3-2.1 2.4-4.5-.7-1.8-18.4-7.4 .2-3.9-3-6.3 1.6-2.8-5.3-4.3-2.6-3.5 .5-1.4 23-4.6 10.7 1.8 2.1-2.5-2.8-6-10-6.6-5.3-6.7-2.1-4.3 0-3.5-9.8-9.1-3.7-1.8-5.8-7-4.9-2.9-9.8-1.7-10.5 2.8-4.6-2.8 4.4-3.2 6.5-.7 10-5.6-7-7.1-14.1-2.8-1.4-2.1 1.4-2.8-5.2-2.1-5.1-6-7.4-4.3-.5-3.8 4.2 .3 20.2 8.1 8.4 1.1M746.5 69.4l.5-1.8-9.3-.3-.5 3.5-3.2-2.5-11 3.5-2.3-2.1-.5-2.4-7.4 0-1.6-3.6-4.5 0-3.4-3.5-7.3-.7-5.8 1.8-3.7-2.1-32.1 0-3.9-1.8-14.7 1.8-5.1 3.5-6.5-2.1-13 6.7-1.4-.4-2.1-3.2-3 0-5.4 1.8-4.9 3.9-2.5 0-2.6-3.5-9.5 2.1-4.9 3.1-4.4-2.8-13.1-.7-48.6 7.4-55.8 16.2-7.4 5.7M786.3 444.8l-3.3 8.8-4.4 4.2-9.5 4.6-8.2 6-2.5 3.2-5.4 2.4-4.9 6.7-41.8 15.9-19.8 2.8-11.8-2.1-3.1-10.9-5.1-2.1-9.8-8.5-11.1-1.4-30.9-14.1-21.4-4.9-4.2-5.7-.5-7-3.9-3.9M917.9 198.3l7.4 .7 13.8 8.8 7.2 2.1 1.1-2.5 2.4-.7 .7-3.5 9.7 2.1 3.8-1.7 .2-3.9 2.5-1.8-2.7-6-7-8.4-5.1-4.6-1-3.5-8.3-4.2-1.9-6.7-6-3.2-8-9.9-5.5-1.7M797.2 75.4l24.7 10.2 5.5 5.3 9.8 6 .7 2.1 2.6 0 3 7 28.1 9.9M895.3 123.6l6.8 4.9 .9 2.9 11.9 10.5 7.4 4.6-.9 2.8M746.5 69.4l12.3-1.8 12.4 2.5M871.6 115.9l11 1.7 5.3 4.3 7.4 1.7M772.8 70.4l10.9 3.6 13.5 1.4M875.8 369.8l-3.7 3.2-16.5 4.2M847.7 393.7l-1.7 4.6-4.8 2.8 0 5M814.4 431.4l-5.1 1.1-8.4-1.4-8.6 2.1M894.9 361.3l-3 2.9-11.7 2.8-4.4 2.8M841.2 406.1l-5.2 10.2-13.4 10.9M842.3 380.7l1 5.3 4.1 3.9 .3 3.8M30.2 285.3l-13.5 8.4M569.3 427.2l-10.7 3.5M16.7 293.7l-6.7 6.7M792.3 433.2l-5.3 6-.7 5.6M33.3 291.3l17.2-11.7M822.6 427.2l-2.6 3.2-5.6 1M570.7 426.1l2.8 1.1 10.5 10.9M849.8 379l-7.5 1.7M576 429.3l-4.1-2.8M855.6 377.2l-5.8 1.8M584.7 438.8l-.7-.7M897.2 359.9l-2.3 1.4","pa":[{"n":"Parc national Forillon","d":"M917.9 198.3l.2-1.4-25.5-8.8 1.4-3.9 3.4 1.4 3.3-9.2-4.9-1.7 1.6-6.7 3.8 .3-3.5-1 .2-2.8 7.9-2.5 7-4.9 2.8-4.6 5.1 0 1.2 3.9 2.3-.4 9.3 7.1 0-2.9 3.7 2.5-.7 1.8 3.5 2.4-.7 7.4 6.7 .7 2.4 2.1 11.4 15.5 2.5 6 4.2 .4-.5 .3-1.1 5.3-2.6 5.7 0 4.2 1.9 5.6 .7 .7 3.4 1.3 8.1 12.3-.4 1.9-6.8-6.2-11.8-13.5-2.5 0-4.4-3.5 .2-1.4-5.4-3.9-10-3.5-8.3-5.3-.5 1.7z","x":920.1,"y":177.4,"type":"parc"},{"n":"Parc national de l'Île-Bonaventure-et-du-Rocher-Percé","d":"M976.9 329.6l-1.6 0-2.3-1.4-.2-3.8 1.2-2.5 2.5-.7 4 5.3z","x":976.1,"y":325.9,"type":"parc"},{"n":"Réserve faunique des Chic-Chocs","d":"M597.9 211.7l-8.6 3.1-1.6 3.9-5.4 3.2-17.4-.4-3.5 3.9-16.5 6.7-38.6-39.1 17.9-3.9 47.9-2.1 2.3-5.6 10.9-10.2-2.7-19.4-1.7-4.9 .5-1.1-2.6-7-2.8-2.9-1.1-6.3 1.1-4.6-3.4-4.9-2.1-6 37.2-9.9 49-8.1 4.2 5.3 .3 3.2-2.8 2.8-.7 15.9-4.7 8.8 0 9.5 2.8 4.6-.9 3.8 2.3 2.5 .5 57.1-61.9 0zM546.5 144.7l2.6 1.8-.3 3.5-1.8 1.1-.5 8.1-10.5-1.1-4.1 5-4.5-5.3-.9-5.3 2.6-5.3 0-5.6-11.7-12.7 36.3-10.2-4.9 11.3z","x":620.6,"y":161.8,"type":"reserve"},{"n":"Parc national de la Gaspésie","d":"M392.3 186l-3.2-2.5-1.4-2.8 36-18 1.9 1.8 4.6-1.4-1.4-2.2 1.4-1 5.1-.7 4.2-3.9 12.6-2.8 6.3-6 1.4 1.8 1.4-2.1 3.7 1.7 30.2-.7 32.3 10.6 4.5 5.3 4.1-5 10.5 1.1 .5-8.1 1.8-1.1 .3-3.5-2.6-1.8 2.3-14.7 5.4-12.4 6.3-7 7.6-3.9 4.5 13.4 3.4 4.9-1.1 4.6 1.1 6.3 2.8 2.9 2.6 7-.5 1.1 4.9 23.2-11.4 11.3-2.3 5.6-47.9 2.1-26.5 5.3-5.6 4.2-6.1-4.2-2.3 .4-.9 2.4-4.2 2.1-.7 3.2-4.6 .7-4 5.6-3.3 0-1.6-2.8-3 0-2.3-3.8 2.8-1.5-7.5-7.4-11.6 5.3-5.8-7.4-37.9 1.1-1.7-5.6z","x":471.3,"y":173.3,"type":"parc"},{"n":"Réserve faunique de Matane","d":"M348.1 212.4l0-4.6 1.7-2.1 6.2-2.1 .5-1.8 3-1.8 7.9-1.7-.9-2.1 1.4-1.4 .5-2.5 1.6 .3 2.3-3.8 3.7-1.4 4.9-5.3-.4-1.4 2.3-.7 2.3 2.1-2.5 1.4 .4 2.1 2.8 1.4-.5 1.8 3.1 2.8 6.7-1.4-.9-1.4 3.2-2.1 1.7 5.6 37.9-1.1 5.8 7.4-27.7 14.1 7.2 7.1-3.7 1.7 0 18.3-1.4-1.4-9.1 5.3-6-.7 .9 3.2-1.4 1.7-3.9-.3-2.1 3.2-1.6-.7-3.8 1.7-8.3 8.1-4.9 2.1-.3 2.8-2.3 2.2-1.6 .3-6.5-6.3-7.7 3.8-6.7 .4-.3 1.4-2.1 .4 3.3 15.8-9.5 5.6-6.8 1.8-2.3-1.1-19.8 9.9-16.5 3.5-3.2-2.4-8.9 9.1-41.4-31 11.9-14.1-4.2-3.5 12.8-14.4-.9-.7 12.7-13.1-3.7-3.5 13-13 5.9-2.1-2.4-4.6 31.4-15.1 2.4 4.5 3.7-1.7 4.2 8.8 6.9-3.2 1.9 1.4z","x":312.6,"y":250.8,"type":"reserve"}],"villes":[{"n":"Matane","p":[193.0,201.8],"r":1},{"n":"Sainte-Anne-des-Monts","p":[436.0,103.5],"r":1},{"n":"Gaspé","p":[901.4,207.1],"r":1},{"n":"Percé","p":[964.2,316.3],"r":1},{"n":"Chandler","p":[856.3,377.2],"r":2},{"n":"Bonaventure","p":[666.7,484.3],"r":2},{"n":"Carleton-sur-Mer","p":[522.3,464.5],"r":1},{"n":"New Richmond","p":[580.0,442.0],"r":2},{"n":"Amqui","p":[215.8,336.0],"r":2},{"n":"Sainte-Flavie","p":[30.2,285.3],"r":1},{"n":"Murdochville","p":[666.0,162.0],"r":2},{"n":"Grande-Vallée","p":[752.3,68.3],"r":2},{"n":"Paspébiac","p":[723.5,489.9],"r":2},{"n":"Pointe-à-la-Croix","p":[390.0,494.5],"r":2},{"n":"Matapédia","p":[327.2,509.3],"r":2},{"n":"Rivière-au-Renard","p":[924.2,150.4],"r":2},{"n":"Mont-Joli","p":[40.9,294.4],"r":2},{"n":"Cap-Chat","p":[388.8,114.1],"r":2},{"n":"Baie-Comeau","p":[41.9,73.3],"r":3},{"n":"Godbout","p":[177.4,34.5],"r":3}],"pts":{"reford":[54.2,278.6],"la-martre":[509.1,75.4],"parc-gaspesie":[520.5,167.6],"forillon":[937.2,188.4],"rocher-perce":[967.7,315.6],"bonaventure":[976.0,325.8],"miguasha":[460.5,462.1],"gespeg":[885.6,193.0],"baleines":[964.7,196.9],"chic-chac":[666.0,162.0],"geoparc":[959.3,316.6],"baie-chaleurs":[521.9,452.9],"aeroport":[902.7,227.1],"e132":[607.0,45.8],"estuaire":[141.9,130.3],"golfe":[909.3,70.4],"baie":[653.5,505.4],"nb":[420.9,508.9],"cotenord":[95.3,17.6],"matane":[193.0,201.8],"baie-comeau":[41.9,73.3],"godbout":[177.4,34.5]}};
+  var W = D.W, H = D.H;
+  var NS = "http://www.w3.org/2000/svg";
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»").replace(/(\d) (%|km|m|ha|h)(?![a-zà-ÿ])/g, "$1\u00a0$2"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function bouton(classe, nom, val, action, presse) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = classe;
+    if (val !== undefined) {
+      if (val.pastille) { var pa = el("span", "gsp__pastille"); pa.style.background = val.pastille; pa.setAttribute("aria-hidden", "true"); b.appendChild(pa); }
+      el("span", "gsp__choisir-nom", nom, b);
+      if (val.texte) { el("span", "gsp__choisir-val", val.texte, b); }
+    } else { b.textContent = typo(nom); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "gsp__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function paragraphe(t, parent) { return el("p", "gsp__paragraphe", t, parent); }
+  /* ----- moteur de carte : vue (viewBox) zoomable, glisser, pincer, étiquettes sans chevauchement. */
+  function moteurCarte(o) {
+    var svg = q(".gsp__svg"), carte = q(".gsp__carte"), gEtiq = q(".gsp__etiquettes"), ZMAX = o.zoomMax || 6;
+    var m = { vue: { x: 0, y: 0, w: W, h: H }, glisseFini: false };
+    function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+    function estZoome() { return m.vue.w < W - .5; }
+    function borner(v) {
+      var w = Math.min(W, Math.max(W / ZMAX, v.w)), h = w * H / W;
+      return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+    }
+    function appliquer() {
+      var v = m.vue;
+      svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+      q(".gsp__recentrer").hidden = !estZoome();
+      carte.classList.toggle("est-zoomee", estZoome());
+      etiqueter();
+    }
+    function pointCarte(cx, cy) {
+      var b = svg.getBoundingClientRect(), v = m.vue;
+      var w = b.width || 800, h = b.height || 800 * H / W;
+      var s = Math.min(w / v.w, h / v.h);
+      var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+      return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+    }
+    function zoomerVers(f, p) {
+      var v = m.vue, w = Math.min(W, Math.max(W / ZMAX, v.w * f)), r = w / v.w;
+      if (Math.abs(r - 1) < 1e-4) { return; }
+      m.vue = borner({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+      appliquer();
+    }
+    function centre() { return { x: m.vue.x + m.vue.w / 2, y: m.vue.y + m.vue.h / 2 }; }
+    m.cadrer = function (x0, y0, x1, y1, marge) {
+      /* Rapproche la carte sur un rectangle (coordonnées de la carte). */
+      marge = marge || 0;
+      var w = Math.max(x1 - x0, (y1 - y0) * W / H) * (1 + marge);
+      m.vue = borner({ x: (x0 + x1) / 2 - w / 2, y: (y0 + y1) / 2 - w * H / W / 2, w: w });
+      appliquer();
+    };
+    q(".gsp__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centre()); });
+    q(".gsp__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centre()); });
+    q(".gsp__recentrer").addEventListener("click", function () { m.vue = { x: 0, y: 0, w: W, h: H }; appliquer(); });
+    var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+    svg.addEventListener("wheel", function (ev) {
+      if (!pleinEcran()) { return; }
+      ev.preventDefault();
+      var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+      molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+      molette.cx = ev.clientX; molette.cy = ev.clientY;
+      if (molette.attente) { return; }
+      var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+      if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+    }, { passive: false });
+    var glisse = null, pince = null, pinceAttente = 0;
+    svg.addEventListener("pointerdown", function (ev) {
+      if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+      glisse = { x: ev.clientX, y: ev.clientY, vx: m.vue.x, vy: m.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+    });
+    svg.addEventListener("pointermove", function (ev) {
+      if (!glisse) { return; }
+      var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+      if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+      if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+      m.vue = borner({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: m.vue.w });
+      appliquer();
+    });
+    function finGlisse() {
+      if (glisse && glisse.bouge) { m.glisseFini = true; window.setTimeout(function () { m.glisseFini = false; }, 0); }
+      glisse = null; racine.classList.remove("est-glisse");
+    }
+    svg.addEventListener("pointerup", finGlisse);
+    svg.addEventListener("pointercancel", finGlisse);
+    /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+    function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+    function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+    function vueSous(p, mi, w) {
+      var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+      var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+      return { x: p.x - (mi.x - (b.left || 0) - ox) / s, y: p.y - (mi.y - (b.top || 0) - oy) / s, w: w };
+    }
+    carte.addEventListener("touchstart", function (ev) {
+      if (ev.touches.length !== 2) { return; }
+      ev.preventDefault();
+      glisse = null; racine.classList.remove("est-glisse");
+      var mi = milieu(ev.touches);
+      pince = { d: ecart(ev.touches), w: m.vue.w, p: pointCarte(mi.x, mi.y), m: mi };
+    }, { passive: false });
+    carte.addEventListener("touchmove", function (ev) {
+      if (!pince || ev.touches.length !== 2) { return; }
+      ev.preventDefault();
+      pince.m = milieu(ev.touches);
+      pince.w2 = Math.min(W, Math.max(W / ZMAX, pince.w * pince.d / ecart(ev.touches)));
+      if (pinceAttente) { return; }
+      var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } m.vue = borner(vueSous(pince.p, pince.m, pince.w2)); appliquer(); };
+      if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+    }, { passive: false });
+    function finPince(ev) {
+      if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+      pince = null; m.glisseFini = true; window.setTimeout(function () { m.glisseFini = false; }, 350);
+    }
+    carte.addEventListener("touchend", finPince);
+    carte.addEventListener("touchcancel", finPince);
+    carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+    function unite() {
+      var b = svg.getBoundingClientRect(), v = m.vue;
+      if (!b.width || !b.height) { return v.w / 760; }
+      return 1 / Math.min(b.width / v.w, b.height / v.h);
+    }
+    /* Chaque étiquette réserve un rectangle; celle qui en chevauche une autre déjà posée n'est pas affichée. */
+    function etiqueter() {
+      while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+      var u = unite(), v = m.vue, places = [];
+      function libre(r) {
+        if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+        for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+        return true;
+      }
+      Array.prototype.forEach.call(racine.querySelectorAll(".gsp__carte > .gsp__bouton-carte, .gsp__outils"), function (bt) {
+        var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+        var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+        places.push([a.x, a.y, b2.x, b2.y]);
+      });
+      function reserver(r) { places.push(r); }
+      function poser(x, y, texte, classe, px, opt) {
+        opt = opt || {};
+        var lignes = typo(texte).split("\n"), t = px * u, larg = 0, ancre = opt.ancre || "middle";
+        lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+        var haut = lignes.length * t * 1.15, mg = 1.5 * u;
+        var x0 = ancre === "start" ? x : (ancre === "end" ? x - larg : x - larg / 2);
+        var boite = [x0 - mg, y - haut / 2 - mg, x0 + larg + mg, y + haut / 2 + mg];
+        if (!opt.force && !libre(boite)) { return null; }
+        places.push(boite);
+        var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": ((opt.halo || 3) * u).toFixed(2) }, gEtiq);
+        if (opt.attrs) { for (var a in opt.attrs) { if (Object.prototype.hasOwnProperty.call(opt.attrs, a)) { n.setAttribute(a, opt.attrs[a]); } } }
+        if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+        else {
+          lignes.forEach(function (l, j) {
+            var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+            ts.textContent = l;
+          });
+        }
+        return n;
+      }
+      /* Essaie plusieurs positions autour d'un point (à droite, à gauche, dessus, dessous). */
+      function poserAutour(x, y, texte, classe, px, rayon, opt) {
+        opt = opt || {};
+        var r = rayon * u, essais = opt.essais || ["d", "g", "h", "b"];
+        for (var i = 0; i < essais.length; i++) {
+          var e = essais[i], o2 = {};
+          for (var k in opt) { if (Object.prototype.hasOwnProperty.call(opt, k)) { o2[k] = opt[k]; } }
+          o2.force = false;
+          var n = null;
+          if (e === "d") { o2.ancre = "start"; n = poser(x + r, y, texte, classe, px, o2); }
+          else if (e === "g") { o2.ancre = "end"; n = poser(x - r, y, texte, classe, px, o2); }
+          else if (e === "h") { n = poser(x, y - r - px * u * .6, texte, classe, px, o2); }
+          else { n = poser(x, y + r + px * u * .6, texte, classe, px, o2); }
+          if (n) { return n; }
+        }
+        if (opt.force) {
+          var o3 = {}; for (var k2 in opt) { if (Object.prototype.hasOwnProperty.call(opt, k2)) { o3[k2] = opt[k2]; } }
+          var aDroite = x < v.x + v.w * .6;
+          o3.ancre = aDroite ? "start" : "end";
+          return poser(aDroite ? x + r : x - r, y, texte, classe, px, o3);
+        }
+        return null;
+      }
+      o.etiqueter({ poser: poser, autour: poserAutour, reserver: reserver, u: u, vue: v });
+    }
+    m.appliquer = appliquer;
+    m.etiqueter = etiqueter;
+    m.unite = unite;
+    m.pointCarte = pointCarte;
+    m.estZoome = estZoome;
+    m.remettre = function () {
+      m.vue = { x: 0, y: 0, w: W, h: H };
+      svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+      q(".gsp__recentrer").hidden = true;
+      carte.classList.remove("est-zoomee");
+    };
+    var replier = q(".gsp__replier");
+    replier.addEventListener("click", function () {
+      var masque = racine.classList.toggle("texte-masque");
+      replier.setAttribute("aria-expanded", masque ? "false" : "true");
+      replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+      window.setTimeout(etiqueter, 60);
+    });
+    var taille = "";
+    function mesurer() {
+      var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+      if (t !== taille) { taille = t; etiqueter(); }
+    }
+    if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+    return m;
+  }
+  var SAISONS = { printemps: { n: "Printemps", mois: [3, 4, 5] }, ete: { n: "Été", mois: [6, 7, 8] }, automne: { n: "Automne", mois: [9, 10, 11] }, hiver: { n: "Hiver", mois: [12, 1, 2] } };
+  var MOIS = ["J", "F", "M", "A", "M", "J", "J", "A", "S", "O", "N", "D"];
+  var MOIS_LONG = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  /* Attraits, dans l'ordre du tour, de Sainte-Flavie vers Gaspé par le nord, puis le retour par la baie des Chaleurs.
+     mois : mois d'ouverture (entiers); partiel : mois ouverts en partie seulement ou sans services. */
+  var A = [
+    { id: "reford", n: "Jardins de Reford", type: "culture", lieu: "Grand-Métis", periode: "Du début de juin au début d'octobre (du 1er juin au 6 octobre en 2024)", mois: [6, 7, 8, 9], partiel: [10], txt: "Des jardins créés par Elsie Reford sur son domaine, au bord du fleuve. On y vient pour les fleurs et le Festival international de jardins.", amenag: "Sur la route 132, à l'entrée de la boucle." },
+    { id: "la-martre", n: "Phare de La Martre", type: "culture", lieu: "La Martre", periode: "Visites tous les jours, de la fin de juin au début de septembre (du 23 juin au 7 septembre en 2025)", mois: [7, 8], partiel: [6, 9], txt: "Un phare de bois octogonal, en service depuis 1906, qui a gardé son mécanisme d'horlogerie d'origine. On peut monter jusqu'à la galerie et visiter une exposition d'objets anciens.", amenag: "Sur la route 132, comme les autres phares de la Route des phares." },
+    { id: "parc-gaspesie", n: "Parc national de la Gaspésie", type: "nature", lieu: "Près de Sainte-Anne-des-Monts", periode: "Hébergement en toutes saisons; centre de découverte ouvert de la mi-mai à la mi-octobre", mois: [5, 6, 7, 8, 9, 10, 12, 1, 2, 3], partiel: [], txt: "Les monts Chic-Chocs et McGerrigle abritent le seul troupeau de caribous des bois au sud du Saint-Laurent. En hiver, le parc entretient 12 sentiers de raquette, de 1,7 à 18\u00a0km, ainsi que des pistes de ski de fond.", amenag: "Gîte du Mont-Albert, chalets, refuges, sentiers et pistes damées." },
+    { id: "chic-chac", n: "Ski hors-piste dans les Chic-Chocs", type: "pleinair", lieu: "Murdochville et Sainte-Anne-des-Monts", periode: "L'hiver seulement", mois: [12, 1, 2, 3], partiel: [], txt: "Des entreprises guident les skieurs dans les montagnes enneigées, comme Le Chic-Chac à Murdochville et Cap Castor à Sainte-Anne-des-Monts.", amenag: "Chalets, refuges et remontées organisées par des entreprises guides." },
+    { id: "forillon", n: "Parc national Forillon", type: "nature", lieu: "Gaspé", periode: "De la fin de mai à la mi-octobre (du 30 mai au 13 octobre en 2025); en hiver, sans services", mois: [6, 7, 8, 9], partiel: [5, 10, 12, 1, 2, 3], txt: "Parcs Canada protège ici le bout de la péninsule. On peut y voir des phoques, sept espèces de baleines, des castors, des ours noirs et des orignaux. En hiver, les routes ne sont pas déneigées, mais des bénévoles entretiennent des sentiers de ski, de raquette et de vélo d'hiver.", amenag: "Centres de services, terrains de camping, sentiers et belvédères." },
+    { id: "baleines", n: "Excursions en mer de Forillon", type: "pleinair", lieu: "Quai de Cap-des-Rosiers, Forillon", periode: "Du début de juin à la fin de septembre (du 6 juin au 30 septembre en 2026)", mois: [6, 7, 8, 9], partiel: [], txt: "Les bateaux longent les falaises du cap Bon-Ami, au bout de la péninsule. Les eaux de Forillon sont fréquentées par les phoques et par plusieurs espèces de baleines.", amenag: "Quai d'embarquement de Cap-des-Rosiers." },
+    { id: "gespeg", n: "Site d'interprétation Micmac de Gespeg", type: "culture", lieu: "Gaspé", periode: "Du lundi au samedi, de la mi-juin à la mi-octobre (du 16 juin au 17 octobre en 2026)", mois: [7, 8, 9], partiel: [6, 10], txt: "La nation mi'gmaq de Gespeg y présente son mode de vie au fil des saisons : un campement reconstitué et une exposition. C'est un tourisme culturel porté par la communauté elle-même.", amenag: "Centre d'interprétation et campement." },
+    { id: "rocher-perce", n: "Rocher Percé", type: "nature", lieu: "Percé", periode: "Visible toute l'année depuis la côte", mois: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], partiel: [], txt: "Le monolithe de calcaire, long de 450\u00a0m, fait partie du parc national de l'Île-Bonaventure-et-du-Rocher-Percé. Pour le protéger, il est aujourd'hui interdit de marcher jusqu'au rocher ou d'en faire le tour.", amenag: "Belvédères, sentiers et quais de Percé." },
+    { id: "bonaventure", n: "Île Bonaventure et ses fous de Bassan", type: "nature", lieu: "Au large de Percé", periode: "De la fin de mai à la mi-octobre (du 31 mai au 12 octobre en 2026)", mois: [6, 7, 8, 9], partiel: [5, 10], txt: "On y va en bateau depuis Percé. L'île accueille l'une des plus grandes colonies de fous de Bassan au monde. Ses 15\u00a0km de sentiers mènent jusqu'à la colonie. L'accès est contrôlé pour protéger les oiseaux.", amenag: "Billetterie et bateaux au départ de Percé, sentiers sur l'île." },
+    { id: "geoparc", n: "Géoparc mondial UNESCO de Percé", type: "pleinair", lieu: "Percé", periode: "En hiver : 18\u00a0km de sentiers de raquette; les autres services sont fermés hors saison", mois: [12, 1, 2, 3], partiel: [], txt: "Sur le mont Sainte-Anne et le mont Blanc, les sentiers d'hiver offrent une vue sur le rocher Percé enneigé.", amenag: "Sentiers de raquette balisés." },
+    { id: "baie-chaleurs", n: "Plages de la baie des Chaleurs", type: "pleinair", lieu: "De Paspébiac à Carleton-sur-Mer", periode: "L'été", mois: [7, 8], partiel: [6, 9], txt: "L'eau de la baie atteint en moyenne environ 22\u00a0°C l'été, une rareté sous ces latitudes. Des municipalités ont créé un circuit des plages. Le mont Saint-Joseph, à Carleton-sur-Mer, offre un point de vue sur la baie.", amenag: "Plages aménagées, campings et belvédère du mont Saint-Joseph." },
+    { id: "miguasha", n: "Parc national de Miguasha", type: "nature", lieu: "Nouvelle", periode: "Tous les jours, de juin à la mi-octobre (du 1er juin au 13 octobre en 2025)", mois: [6, 7, 8, 9], partiel: [10], txt: "Une falaise remplie de poissons fossiles, inscrite au patrimoine mondial de l'UNESCO en 1999. On y a trouvé le seul spécimen complet d'Elpistostege watsoni, un poisson qui aide à comprendre comment les vertébrés sont sortis de l'eau.", amenag: "Musée, sentier au pied de la falaise." }
+  ];
+  var AT = {}; A.forEach(function (a, i) { a.num = i + 1; a.p = D.pts[a.id]; AT[a.id] = a; });
+  var NOTES = {
+    printemps: "Au printemps, presque tout est fermé : la plupart des attraits n'ouvrent qu'à la fin de mai ou en juin. Le tourisme gaspésien est très saisonnier.",
+    ete: "L'été est la haute saison : tous les attraits ou presque sont ouverts. La route 132 se remplit de visiteurs. De mai à septembre 2025, Tourisme Gaspésie estime la fréquentation à près de 711\u00a0000 visiteurs.",
+    automne: "La meilleure période pour voir les couleurs d'automne va de la fin de septembre à la mi-octobre, selon la température. Plusieurs attraits ferment en octobre.",
+    hiver: "L'hiver attire une autre clientèle : ski hors-piste dans les Chic-Chocs, raquette, ski de fond et environ 3\u00a0000\u00a0km de sentiers de motoneige. La plupart des attraits d'été sont fermés.",
+    toutes: ""
+  };
+  function ouvert(a, s) {
+    if (s === "toutes") { return true; }
+    return SAISONS[s].mois.some(function (m) { return a.mois.indexOf(m) >= 0 || a.partiel.indexOf(m) >= 0; });
+  }
+  var svg = q(".gsp__svg"), gPa = q(".gsp__parcs"), gAt = q(".gsp__attraits"), gVil = q(".gsp__villes");
+  var vueTexte = q(".gsp__vue"), annonce = q(".gsp__annonce");
+  q(".gsp__pen").setAttribute("d", D.pen); q(".gsp__autres").setAttribute("d", D.autres);
+  q(".gsp__route-halo").setAttribute("d", D.r132); q(".gsp__route-trait").setAttribute("d", D.r132);
+  var pm = D.pts.matane, pb = D.pts["baie-comeau"], pg = D.pts.godbout;
+  q(".gsp__trav").setAttribute("d", "M" + pm + "L" + pb + "M" + pm + "L" + pg);
+  D.pa.forEach(function (p, i) { svgEl("path", { "class": "gsp__pa", d: p.d, "data-type": p.type, "data-pa": i }, gPa); });
+  D.villes.forEach(function (v) { svgEl("circle", { "class": "gsp__point-ville", cx: v.p[0], cy: v.p[1], r: v.r === 1 ? 2.4 : 1.8 }, gVil); });
+  svgEl("circle", { "class": "gsp__point-ville", cx: D.pts.aeroport[0], cy: D.pts.aeroport[1], r: 1.8 }, gVil);
+  var G = {};
+  A.forEach(function (a) {
+    var g = svgEl("g", { "class": "gsp__attrait", "data-attrait": a.id, "data-type": a.type }, gAt);
+    svgEl("circle", { "class": "gsp__rond", cx: a.p[0], cy: a.p[1], r: 7 }, g);
+    var t = svgEl("text", { "class": "gsp__num", x: a.p[0], y: a.p[1], "text-anchor": "middle", dy: ".35em", "font-size": 8.5 }, g); t.textContent = a.num;
+    G[a.id] = g;
+  });
+  var DEPART = { saison: "toutes", route: true, parcs: true, villes: true };
+  var etat = { choix: null };
+  function remettreEtat() { for (var k in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, k)) { etat[k] = DEPART[k]; } } etat.choix = null; }
+  remettreEtat();
+  var M = moteurCarte({ zoomMax: 6, etiqueter: etiqueter });
+  /* Les ronds gardent la même taille à l'écran quand on rapproche la carte. */
+  function tailleRonds() {
+    var u = M.unite();
+    A.forEach(function (a) { var g = G[a.id]; g.firstChild.setAttribute("r", (8 * u).toFixed(2)); g.lastChild.setAttribute("font-size", (9.5 * u).toFixed(2)); });
+    Array.prototype.forEach.call(gVil.childNodes, function (c, i) { c.setAttribute("r", ((i < D.villes.length && D.villes[i].r === 1 ? 2.6 : 2) * u).toFixed(2)); });
+  }
+  function etiqueter(E) {
+    var u = E.u, zoom = W / E.vue.w, ch = etat.choix;
+    tailleRonds();
+    A.forEach(function (a) { E.reserver([a.p[0] - 8.5 * u, a.p[1] - 8.5 * u, a.p[0] + 8.5 * u, a.p[1] + 8.5 * u]); });
+    if (ch) { var a = AT[ch.id]; E.autour(a.p[0], a.p[1], a.n, "gsp__etiquette--choisi", 12.5, 11, { force: true, halo: 3.4, essais: ["d", "g", "h", "b"] }); }
+    if (zoom >= 1.8) { A.forEach(function (a2) { if (!ch || ch.id !== a2.id) { E.autour(a2.p[0], a2.p[1], a2.n, "gsp__etiquette--attrait", 10, 10, {}); } }); }
+    if (etat.villes) {
+      D.villes.forEach(function (v) {
+        if (v.r === 2 && zoom < 1.5) { return; }
+        E.autour(v.p[0], v.p[1], v.n, "gsp__etiquette--ville", v.r === 1 ? 10.5 : 9.5, 3.5, {});
+      });
+      if (zoom >= 1.5) { E.autour(D.pts.aeroport[0], D.pts.aeroport[1], "Aéroport de Gaspé", "gsp__etiquette--ville", 9, 3.5, {}); }
+    }
+    if (etat.parcs) { D.pa.forEach(function (p) { if (p.type === "parc" && p.n.indexOf("Bonaventure") < 0) { E.poser(p.x, p.y, p.n.replace("Parc national ", "parc national\n"), "gsp__etiquette--parc", 9.5, { chasse: .5 }); } else if (p.type === "reserve") { E.poser(p.x, p.y, p.n.replace("Réserve faunique ", "réserve faunique\n"), "gsp__etiquette--parc", 9, { chasse: .5 }); } }); }
+    if (etat.route) {
+      E.poser(D.pts.e132[0], D.pts.e132[1], "route 132", "gsp__etiquette--route", 10, { halo: 3 });
+      E.poser((pm[0] + pb[0]) / 2 + 14, (pm[1] + pb[1]) / 2 + 12, "traversier", "gsp__etiquette--eau", 9.5, {});
+    }
+    E.poser(D.pts.estuaire[0], D.pts.estuaire[1], "estuaire du Saint-Laurent", "gsp__etiquette--eau", 12, { chasse: .5 });
+    E.poser(D.pts.golfe[0], D.pts.golfe[1], "golfe du\nSaint-Laurent", "gsp__etiquette--eau", 12, { chasse: .5 });
+    E.poser(D.pts.baie[0], D.pts.baie[1], "baie des Chaleurs", "gsp__etiquette--eau", 11.5, { chasse: .5 });
+    E.poser(D.pts.nb[0], D.pts.nb[1], "Nouveau-Brunswick", "gsp__etiquette--hors", 10, {});
+    E.poser(D.pts.cotenord[0], D.pts.cotenord[1], "Côte-Nord", "gsp__etiquette--hors", 10, {});
+  }
+  function entete(sur, titre, couleur) {
+    vueTexte.innerHTML = "";
+    el("span", "gsp__surtitre", sur, vueTexte);
+    var h = el("p", "gsp__intertitre", null, vueTexte); h.setAttribute("role", "heading"); h.setAttribute("aria-level", "4");
+    if (couleur) { var pa = el("span", "gsp__pastille", null, h); pa.style.background = couleur; pa.style.borderRadius = "50%"; pa.setAttribute("aria-hidden", "true"); }
+    el("span", "", titre, h);
+  }
+  var TYPE = { nature: ["Nature", "var(--gsp-nature)"], culture: ["Culture et histoire", "var(--gsp-culture)"], pleinair: ["Plein air et sorties", "var(--gsp-pleinair)"] };
+  function bandeMois(a) {
+    var ul = el("ul", "gsp__mois", null, vueTexte); ul.setAttribute("aria-hidden", "true");
+    MOIS.forEach(function (m, i) { var li = el("li", "", m, ul); if (a.mois.indexOf(i + 1) >= 0) { li.className = "est-ouvert"; } else if (a.partiel.indexOf(i + 1) >= 0) { li.className = "est-partiel"; } });
+    var ouv = a.mois.map(function (m) { return MOIS_LONG[m - 1]; });
+    el("p", "gsp__note", "Mois foncés : ouvert. Mois pâles : ouvert une partie du mois ou sans services.", vueTexte);
+  }
+  function ficheAccueil() {
+    var s = etat.saison;
+    entete(s === "toutes" ? "Gaspésie" : "Gaspésie · " + SAISONS[s].n, s === "toutes" ? "La boucle de la route 132" : "Ce qui est ouvert : " + SAISONS[s].n.toLowerCase());
+    var nOuv = A.filter(function (a) { return ouvert(a, s); }).length;
+    chiffres(vueTexte, [["Boucle de la route 132", "885\u00a0km"], ["Départ", "Sainte-Flavie"], ["Attraits sur la carte", nb(A.length)], ["Ouverts en cette saison", s === "toutes" ? "selon la saison" : nOuv + " sur " + A.length]]);
+    if (s === "toutes") {
+      paragraphe("Tout, en Gaspésie, dépend d'une route : la route 132 fait le tour complet de la péninsule en longeant la côte. On peut la parcourir dans un sens ou dans l'autre, par le nord ou par la baie des Chaleurs.", vueTexte);
+      paragraphe("Choisis une saison : les attraits fermés pâlissent. Tu verras vite que le tourisme gaspésien vit surtout l'été.", vueTexte);
+    } else { paragraphe(NOTES[s], vueTexte); }
+    var nav = el("div", "gsp__actions", null, vueTexte); nav.style.marginBottom = ".9rem";
+    nav.appendChild(bouton("gsp__retour", "Faire le tour, attrait par attrait", undefined, function () { choisir({ id: A[0].id }); }));
+    el("span", "gsp__rubrique", s === "toutes" ? "Les attraits, dans l'ordre du tour" : "Les attraits ouverts", vueTexte);
+    var ul = el("ul", "gsp__liste", null, vueTexte);
+    A.forEach(function (a) {
+      if (!ouvert(a, s)) { return; }
+      el("li", "", null, ul).appendChild(bouton("gsp__choisir", a.num + ". " + a.n, { pastille: TYPE[a.type][1] }, function () { choisir({ id: a.id }); }));
+    });
+  }
+  function ficheAttrait(id) {
+    var a = AT[id];
+    entete("Étape " + a.num + " sur " + A.length + " · " + TYPE[a.type][0], a.n, TYPE[a.type][1]);
+    chiffres(vueTexte, [["Lieu", a.lieu], ["Type d'attrait", TYPE[a.type][0]]]);
+    el("span", "gsp__rubrique", "Quand y aller", vueTexte);
+    paragraphe(a.periode + ".", vueTexte);
+    bandeMois(a);
+    paragraphe(a.txt, vueTexte);
+    el("span", "gsp__rubrique", "L'aménagement", vueTexte);
+    paragraphe(a.amenag, vueTexte);
+    if (etat.saison !== "toutes" && !ouvert(a, etat.saison)) { el("p", "gsp__note", "Attention : cet attrait est fermé en cette saison (" + SAISONS[etat.saison].n.toLowerCase() + ").", vueTexte); }
+    var nav = el("div", "gsp__actions", null, vueTexte);
+    var b1 = bouton("gsp__retour", "← Étape précédente", undefined, function () { choisir({ id: A[a.num - 2].id }); });
+    var b2 = bouton("gsp__retour", "Étape suivante →", undefined, function () { choisir({ id: A[a.num].id }); });
+    if (a.num === 1) { b1.disabled = true; } if (a.num === A.length) { b2.disabled = true; }
+    nav.appendChild(b1); nav.appendChild(b2);
+    nav.appendChild(bouton("gsp__retour", "Fermer la fiche", undefined, function () { choisir(null); }));
+  }
+  function memeChoix(a, b) { return !!a && !!b && a.id === b.id; }
+  function rendre() {
+    var ch = etat.choix;
+    racine.classList.toggle("avec-route", etat.route); racine.classList.toggle("avec-parcs", etat.parcs); racine.classList.toggle("avec-villes", etat.villes);
+    racine.setAttribute("data-choix", ch ? ch.id : ""); racine.setAttribute("data-saison", etat.saison);
+    A.forEach(function (a) { G[a.id].classList.toggle("est-ferme", !ouvert(a, etat.saison)); G[a.id].classList.toggle("est-choisi", !!ch && ch.id === a.id); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".gsp__saison"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-saison") === etat.saison ? "true" : "false"); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".gsp__couche"), function (b) { b.setAttribute("aria-pressed", etat[b.getAttribute("data-couche")] ? "true" : "false"); });
+    if (!ch) { ficheAccueil(); } else { ficheAttrait(ch.id); }
+    M.etiqueter();
+  }
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    rendre();
+    var lecture = q(".gsp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    if (etat.choix) { annonce.textContent = typo(AT[etat.choix.id].n + ", étape " + AT[etat.choix.id].num); }
+  }
+  svg.addEventListener("click", function (ev) {
+    if (M.glisseFini) { return; }
+    var t = ev.target.closest ? ev.target.closest("[data-attrait]") : null;
+    if (t) { choisir({ id: t.getAttribute("data-attrait") }); }
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".gsp__saison"), function (b) {
+    b.addEventListener("click", function () { etat.saison = b.getAttribute("data-saison"); rendre(); annonce.textContent = typo("Saison : " + b.textContent); });
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".gsp__couche"), function (b) {
+    b.addEventListener("click", function () { var c = b.getAttribute("data-couche"); etat[c] = !etat[c]; rendre(); });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  function reinitialiser() {
+    remettreEtat(); M.remettre(); rendre();
+    var lecture = q(".gsp__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.gsp = { etat: function () { return { choix: etat.choix ? etat.choix.id : "", saison: etat.saison, route: etat.route, parcs: etat.parcs, villes: etat.villes, vue: svg.getAttribute("viewBox") }; }, choisir: choisir, attraits: function () { return A; }, ouvert: ouvert };
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

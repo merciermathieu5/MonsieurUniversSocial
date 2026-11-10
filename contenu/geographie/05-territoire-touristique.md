@@ -189,6 +189,8 @@ son niveau d'avant la pandémie avec environ 1,46 milliard de voyageurs, et 2025
 Source : ONU Tourisme, Baromètre du tourisme mondial, janvier 2026
 {: .source-texte }
 
+::: composant tourisme-flux
+
 ### D'où viennent les touristes
 
 Le tourisme mondial reste largement dominé par les pays riches. En Europe,
@@ -281,7 +283,11 @@ Le tourisme de masse et ses effets
 
 ## La Gaspésie
 
-![La péninsule gaspésienne](../medias/05-territoire-touristique/carte-gaspesie.jpg)
+::: composant gaspesie-tour
+
+La carte suit la route 132 autour de la péninsule. Choisis une saison : les
+attraits fermés pâlissent. Garde-la en tête pour la dernière question de cette
+section, celle sur la durée de la saison touristique.
 
 La Gaspésie est une péninsule de 30 341 kilomètres carrés, bordée par le fleuve
 Saint-Laurent au nord, le golfe du Saint-Laurent à l'est et la baie des Chaleurs
@@ -323,13 +329,14 @@ de citer longtemps les distinctions qu'elle a reçues.
 
 Le rocher Percé est un monolithe de calcaire situé à environ 750 kilomètres à
 l'est de Québec, près de la ville qui porte son nom. Il mesure 450 mètres de
-long, 90 mètres de large et 85 mètres de haut. On peut s'en approcher à marée
-basse. Il doit son nom aux arches que la mer a creusées dans la roche : il en
+long, 90 mètres de large et 85 mètres de haut. À marée basse, un cordon de
+galets le relie à la rive, mais il est maintenant interdit de s'y rendre : des
+tonnes de roches s'en détachent chaque année, en toute saison. Il doit son nom aux arches que la mer a creusées dans la roche : il en
 aurait compté plusieurs, mais une seule subsiste, large d'une trentaine de
 mètres. Une autre s'est effondrée sous l'effet de l'érosion en 1845, laissant un
 pilier détaché que l'on appelle l'Obélisque.
 
-Source : L'Encyclopédie canadienne
+Sources : L'Encyclopédie canadienne; Sépaq, parc national de l'Île-Bonaventure-et-du-Rocher-Percé
 {: .source-texte }
 
 #### L'île Bonaventure

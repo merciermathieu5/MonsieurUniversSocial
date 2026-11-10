@@ -145,6 +145,8 @@ le cycle de vie d'un vêtement produit une pollution considérable.
 Source : Joséfa Lopez et Elisa Bellanger, Le Monde
 {: .source-texte }
 
+::: composant vetement-chaine
+
 ::: video 3DdU7c66E9g
 Pourquoi s'habiller pollue la planète
 :::
@@ -236,6 +238,12 @@ contourne les chutes du Niagara entre le lac Ontario et le lac Érié et les éc
 
 Source : Corporation de gestion de la Voie maritime du Saint-Laurent
 {: .source-texte }
+
+::: composant voie-maritime-profil
+
+Suis un navire de Montréal jusqu'au lac Érié. Repère la section où il monte le
+plus, puis active la carte pour voir où se trouvent les écluses et les
+installations qui profitent de la voie.
 
 ::: video Z9iwADqEnaI
 La voie maritime du Saint-Laurent

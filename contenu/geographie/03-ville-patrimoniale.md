@@ -467,10 +467,14 @@ Un site détérioré demande davantage. Il faut ajouter ou transformer des
 parties du bâtiment existant, tout en respectant les caractéristiques du
 bâtiment d'origine. On restaure. Quand une partie a complètement disparu, on
 peut la rebâtir à partir de documents écrits ou d'images anciennes. On
-reconstitue : les portes Saint-Louis, Saint-Jean et Prescott ont toutes les
-trois été refaites de cette façon. Dans les trois cas, le but reste le même :
+reconstitue. La porte Saint-Louis a été rebâtie en 1878 et la porte Saint-Jean
+en 1939. La porte Prescott, démolie en 1871, est un cas à part : la passerelle
+construite en 1983 à son emplacement porte son nom, mais n'a rien de commun avec
+l'ancienne porte. Dans tous les cas, le but reste le même :
 la conservation. La restauration et la reconstitution ne sont pas des fins en
 elles-mêmes, ce sont des moyens de faire durer un ensemble.
+
+::: composant patrimoine-avant-apres
 
 ::: video wQdlwdapCe4
 Une maison d'exception du site patrimonial du Vieux-Québec
@@ -632,5 +636,9 @@ urbain mondial, avec des documents à analyser.
 - [Ville de Québec, la rue Saint-Jean](https://www.ville.quebec.qc.ca/citoyens/patrimoine/quartiers/vieux_quebec/interet/rue_saint_jean.aspx)
 - [Anciens Combattants Canada, plaque de la porte Prescott](https://www.veterans.gc.ca/en/node/152032)
 - [Wikipédia, porte Prescott](https://fr.wikipedia.org/wiki/Porte_Prescott)
+- [Wikipédia, portes de Québec](https://fr.wikipedia.org/wiki/Portes_de_Qu%C3%A9bec)
+- [Marc Grignon, « La “Porte Prescott” : un prétexte pour reconstruire », Continuité, n° 20, 1983](https://id.erudit.org/iderudit/18268ac)
+- [Répertoire du patrimoine culturel du Québec, maison des Jésuites-de-Sillery](https://www.patrimoine-culturel.gouv.qc.ca/rpcq/detail.do?methode=consulter&id=92887&type=bien)
+- [Wikipédia, place Royale](https://fr.wikipedia.org/wiki/Place_Royale_%28Qu%C3%A9bec%29)
 - [OpenStreetMap, données de la maquette 3D du Vieux-Québec (© les contributeurs d'OpenStreetMap, licence ODbL)](https://www.openstreetmap.org/copyright)
 - [Open-Meteo, altitude du relief de la maquette 3D (modèle Copernicus DEM GLO-90)](https://open-meteo.com/en/docs/elevation-api)

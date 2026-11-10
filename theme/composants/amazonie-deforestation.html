@@ -1,0 +1,683 @@
+<section class="amz" id="amazonie-deforestation" data-reinitialiser aria-label="Carte et graphique interactifs : la déforestation de l'Amazonie légale brésilienne, année par année, de 1988 à 2026">
+<style>
+.amz { --amz-hors: #EEF3F6; --amz-terre: #ECE7DC; --amz-terre-trait: #C9C0AE; --amz-eau: #A9CBE3; --amz-eau-nom: #2D5F8A; --amz-halo: #FBFBF8; --amz-encre-carte: #2F3A44; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: amz / inline-size; }
+html[data-sombre="on"] .amz { --amz-hors: #1B2732; --amz-terre: #36414C; --amz-terre-trait: #56626E; --amz-eau: #1C3A55; --amz-eau-nom: #9CC7EC; --amz-halo: #18222D; --amz-encre-carte: #E3DED3; }
+.amz .amz__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.amz .amz__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.amz .amz__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .amz .amz__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .amz .amz__titre { color: var(--encre); }
+html[data-sombre="on"] .amz .amz__consigne { color: var(--encre-pale); }
+.amz .amz__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.amz .amz__visuel, .amz .amz__lecture { min-width: 0; }
+.amz .amz__carte { position: relative; background: var(--amz-hors); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.amz .amz__carte.est-zoomee { touch-action: none; }
+.amz .amz__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.amz.est-glisse .amz__svg { cursor: grabbing; }
+.amz__fond { fill: var(--amz-hors); }
+.amz__terre { fill: var(--amz-terre); stroke: var(--amz-terre-trait); stroke-width: .6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.amz__eau { fill: var(--amz-eau); stroke: none; }
+.amz__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--amz-halo); stroke-linejoin: round; pointer-events: none; }
+.amz__etiquette--lieu { font-weight: 600; fill: var(--encre); }
+.amz__etiquette--choisie { font-weight: 700; fill: var(--encre); }
+.amz__etiquette--eau { font-style: italic; font-weight: 500; fill: var(--amz-eau-nom); }
+.amz__etiquette--pale { font-style: italic; fill: var(--encre-pale); }
+.amz .amz__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.amz .amz__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.amz .amz__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.amz .amz__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.amz .amz__recentrer[hidden] { display: none; }
+.amz .amz__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.amz:not(.est-plein-ecran) .amz__replier { display: none; }
+.amz .amz__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.amz .amz__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.amz .amz__barre-titre + .amz__couches, .amz .amz__barre > * + .amz__barre-titre { margin-top: 0; }
+.amz .amz__barre > .amz__bloc + .amz__bloc { margin-top: .55rem; }
+.amz ul > li::before, .amz ol > li::before { content: none; display: none; }
+.amz ul > li::marker, .amz ol > li::marker { content: none; }
+.amz .amz__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.amz .amz__couches > li { margin: 0; padding: 0; }
+.amz .amz__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.amz .amz__couche:hover { background: var(--matiere-voile); }
+.amz .amz__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.amz .amz__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.amz .amz__couche[aria-pressed="true"] .amz__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.amz .amz__couche[aria-pressed="true"] .amz__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+html[data-sombre="on"] .amz .amz__couche[aria-pressed="true"] .amz__couche-case::after { border-color: #10171F; }
+.amz .amz__segments { display: inline-flex; flex-wrap: wrap; gap: .3rem; margin: 0; padding: 0; list-style: none; }
+.amz .amz__segment { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .85rem; cursor: pointer; }
+.amz .amz__segment:hover { background: var(--matiere-voile); }
+.amz .amz__segment:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__segment[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .amz .amz__segment[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.amz .amz__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.amz .amz__vue { padding: 1rem 1.2rem 1rem; }
+.amz .amz__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.amz .amz__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.amz .amz__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.amz .amz__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.amz .amz__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.amz .amz__chiffres > div { min-width: 0; }
+.amz .amz__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.amz .amz__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.amz .amz__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.amz .amz__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.amz .amz__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.amz .amz__liste > li { margin: 0; padding: 0; }
+.amz .amz__points { margin: 0 0 .9rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+.amz .amz__points > li { margin: 0; padding: 0 0 0 1rem; position: relative; font-size: .92rem; line-height: 1.5; }
+.amz .amz__points > li::before { content: "" !important; display: block !important; position: absolute; left: .1rem; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--matiere); }
+.amz .amz__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.amz .amz__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.amz .amz__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.amz .amz__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.amz .amz__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.amz .amz__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.amz .amz__retour:hover { background: var(--matiere-voile); }
+.amz .amz__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.amz .amz__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.amz .amz__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.amz .amz__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container amz (min-width: 46rem) {
+  .amz .amz__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .amz .amz__visuel { border-right: 1px solid var(--trait); }
+  .amz .amz__lecture { border-top: 0; }
+}
+@container amz (max-width: 30rem) {
+  .amz .amz__barre, .amz .amz__vue, .amz .amz__source { padding-left: .8rem; padding-right: .8rem; }
+  .amz .amz__couche, .amz .amz__segment { font-size: .74rem; }
+}
+.amz.est-plein-ecran, .texte section.amz.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.amz.est-plein-ecran > .amz__entete { flex: none; }
+.amz.est-plein-ecran > .amz__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.amz.est-plein-ecran .amz__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.amz.est-plein-ecran .amz__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.amz.est-plein-ecran .amz__svg, .texte .amz.est-plein-ecran svg.amz__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.amz.est-plein-ecran .amz__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.amz.est-plein-ecran > .amz__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.amz.est-plein-ecran.texte-masque > .amz__corps { grid-template-columns: minmax(0, 1fr); }
+.amz.est-plein-ecran.texte-masque .amz__lecture { display: none; }
+.amz.est-plein-ecran.texte-masque .amz__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .amz.est-plein-ecran > .amz__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .amz.est-plein-ecran .amz__visuel { border-right: 0; }
+  .amz.est-plein-ecran .amz__lecture { border-top: 1px solid var(--trait); }
+  .amz.est-plein-ecran.texte-masque > .amz__corps { grid-template-rows: minmax(0, 1fr); }
+  .amz.est-plein-ecran > .amz__source { display: none; }
+  .amz.est-plein-ecran .amz__barre { padding-top: .4rem; padding-bottom: .45rem; }
+  .amz.est-plein-ecran .amz__barre-titre { display: none; }
+}
+@media print {
+  .amz .amz__outils, .amz .amz__replier, .amz .amz__barre { display: none; }
+  .amz .amz__svg { max-height: none; }
+  .amz .amz__corps { grid-template-columns: minmax(0, 1fr); }
+  .amz .amz__visuel { border-right: 0; }
+  .amz { break-inside: avoid; }
+}
+
+.amz { --amz-c1: #F3E4B8; --amz-c2: #E8B66C; --amz-c3: #D6813F; --amz-c4: #B4502B; --amz-c5: #74281B; --amz-bresil: #DCD6C8; --amz-autres: #E9E5DC; --amz-route: #5B5348; --amz-fleuve: #6FA3CC; --amz-barre: #C9A27A; --amz-barre-choisie: #74281B; --amz-part: #2E7D86; }
+html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A0602C; --amz-c4: #C2633A; --amz-c5: #EE8A62; --amz-bresil: #2E3842; --amz-autres: #26303A; --amz-route: #C9C1B3; --amz-fleuve: #3E79A8; --amz-barre: #6E5B47; --amz-barre-choisie: #EE8A62; --amz-part: #5FC0C9; }
+.amz .amz__fond { fill: var(--amz-eau); }
+.amz .amz__carte { background: var(--amz-eau); }
+.amz__autres { fill: var(--amz-autres); stroke: var(--amz-terre-trait); stroke-width: .5px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.amz__reste { fill: var(--amz-bresil); stroke: var(--amz-terre-trait); stroke-width: .5px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.amz__etat { stroke: var(--surface); stroke-width: 1.2px; vector-effect: non-scaling-stroke; stroke-linejoin: round; cursor: pointer; transition: fill .25s; }
+.amz__etat[data-c="1"] { fill: var(--amz-c1); } .amz__etat[data-c="2"] { fill: var(--amz-c2); } .amz__etat[data-c="3"] { fill: var(--amz-c3); } .amz__etat[data-c="4"] { fill: var(--amz-c4); } .amz__etat[data-c="5"] { fill: var(--amz-c5); }
+.amz__etat:hover { stroke: var(--encre); }
+.amz__etat.est-choisi { stroke: var(--signal); stroke-width: 3px; }
+.amz.avec-etat .amz__etat:not(.est-choisi) { opacity: .55; }
+.amz__fleuve { fill: none; stroke: var(--amz-fleuve); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.amz__fleuve[data-r="1"] { stroke-width: 2.6px; } .amz__fleuve[data-r="2"] { stroke-width: 1.4px; } .amz__fleuve[data-r="3"] { stroke-width: .8px; }
+.amz__routes { fill: none; stroke: var(--amz-route); stroke-width: 1.1px; stroke-dasharray: 4 2; vector-effect: non-scaling-stroke; pointer-events: none; opacity: .85; }
+.amz__ville { fill: var(--surface); stroke: var(--encre); stroke-width: 1.3px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.amz__ville--cap { fill: var(--encre); stroke: var(--surface); }
+.amz__etiquette--etat { font-weight: 700; fill: var(--encre); }
+.amz__etiquette--val { font-family: var(--donnee) !important; font-weight: 600; fill: var(--encre); }
+.amz__etiquette--pays { font-weight: 600; fill: var(--encre-pale); letter-spacing: .06em; }
+.amz__graphe { display: block; width: 100%; height: auto; margin: .1rem 0 .2rem; user-select: none; -webkit-user-select: none; }
+.amz__graphe text { font-family: var(--donnee); fill: var(--encre-pale); }
+.amz__graphe .amz__axe { stroke: var(--trait); stroke-width: 1px; }
+.amz__graphe .amz__grille { stroke: var(--trait); stroke-width: 1px; stroke-dasharray: 2 3; }
+.amz__colonne { fill: var(--amz-barre); cursor: pointer; }
+.amz__colonne:hover { fill: var(--amz-c4); }
+.amz__colonne.est-choisi { fill: var(--amz-barre-choisie); }
+.amz__colonne--estimee { fill-opacity: .55; stroke: var(--amz-barre-choisie); stroke-width: 1px; stroke-dasharray: 2 2; }
+.amz__partie { fill: var(--amz-part); pointer-events: none; }
+.amz__val-choisie { font-weight: 700; fill: var(--encre) !important; }
+.amz__jalon line { stroke: var(--encre-pale); stroke-width: 1px; stroke-dasharray: 2 2; }
+.amz__jalon circle { fill: var(--surface); stroke: var(--encre); stroke-width: 1.3px; cursor: pointer; }
+.amz__jalon text { fill: var(--encre) !important; font-weight: 700; pointer-events: none; }
+.amz__jalon.est-choisi circle { fill: var(--signal); stroke: var(--signal); }
+.amz__jalon.est-choisi text { fill: #fff !important; }
+.amz__curseur { display: flex; align-items: center; gap: .6rem; margin: 0 0 .2rem; }
+.amz__curseur input { flex: 1; min-width: 0; accent-color: var(--matiere); }
+.amz__curseur output { flex: none; min-width: 6.5rem; font-family: var(--titre); font-weight: 700; font-size: .9rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.amz__pas { width: 1.9rem; height: 1.9rem; flex: none; padding: 0; font-family: var(--titre); font-weight: 700; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 50%; cursor: pointer; }
+.amz__pas:hover { background: var(--matiere-voile); }
+.amz__pas:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz__cles { display: flex; flex-wrap: wrap; gap: .3rem .8rem; margin: .45rem 0 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .74rem; color: var(--encre-doux); }
+.amz__cles > li { display: inline-flex; align-items: center; gap: .3rem; margin: 0; padding: 0; }
+.amz__puce { width: .95rem; height: .95rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.15); }
+.amz__puce--trait { height: .25rem; border: 0; border-radius: 2px; }
+.texte .amz.est-plein-ecran svg.amz__graphe, .amz.est-plein-ecran svg.amz__graphe { max-height: 24vh; }
+@media (max-width: 40rem) { .texte .amz.est-plein-ecran svg.amz__graphe, .amz.est-plein-ecran svg.amz__graphe { max-height: 14vh; } .amz.est-plein-ecran .amz__curseur { margin-bottom: 0; } .amz.est-plein-ecran .amz__ligne-bas, .amz.est-plein-ecran .amz__cles { display: none; } }
+.amz__ligne-bas { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+</style>
+<div class="amz__entete">
+<p class="amz__titre" role="heading" aria-level="3">La déforestation de l'Amazonie, année par année</p>
+<p class="amz__consigne">Choisis une année, puis touche un État</p>
+</div>
+<div class="amz__corps">
+<div class="amz__visuel">
+<div class="amz__carte">
+<svg class="amz__svg" viewBox="0 0 1000 774" role="img" aria-labelledby="amazonie-deforestation-svg-titre">
+<title id="amazonie-deforestation-svg-titre">Carte des neuf États de l'Amazonie légale brésilienne, colorés selon la superficie de forêt coupée.</title>
+<rect class="amz__fond" x="-3000" y="-3000" width="7000" height="7000"/>
+<path class="amz__autres" d=""/>
+<path class="amz__reste" d=""/>
+<g class="amz__etats"></g>
+<g class="amz__fleuves"></g>
+<path class="amz__routes" d=""/>
+<g class="amz__villes"></g>
+<g class="amz__etiquettes"></g>
+</svg>
+<button type="button" class="amz__bouton-carte amz__replier" aria-expanded="true">Masquer le texte</button>
+<div class="amz__outils">
+<button type="button" class="amz__bouton-carte amz__zoom amz__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="amz__bouton-carte amz__zoom amz__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="amz__bouton-carte amz__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="amz__barre">
+<div class="amz__bloc">
+<p class="amz__barre-titre" id="amazonie-deforestation-graphe-titre">Kilomètres carrés déboisés chaque année dans l'Amazonie légale</p>
+<svg class="amz__graphe" viewBox="0 0 640 200" role="img" aria-labelledby="amazonie-deforestation-graphe-titre"></svg>
+<div class="amz__curseur">
+<button type="button" class="amz__pas amz__pas--moins" aria-label="Année précédente">&lsaquo;</button>
+<input type="range" class="amz__annee" min="0" max="0" step="1" value="0" aria-label="Année">
+<button type="button" class="amz__pas amz__pas--plus" aria-label="Année suivante">&rsaquo;</button>
+<output class="amz__annee-texte"></output>
+</div>
+</div>
+<div class="amz__bloc amz__ligne-bas">
+<ul class="amz__segments" aria-label="Ce que la carte compte">
+<li><button type="button" class="amz__segment" data-mode="annee" aria-pressed="true">Cette année</button></li>
+<li><button type="button" class="amz__segment" data-mode="cumul" aria-pressed="false">Total depuis 1988</button></li>
+</ul>
+<ul class="amz__couches" aria-label="Couches de la carte">
+<li><button type="button" class="amz__couche" data-couche="routes" aria-pressed="false"><span class="amz__couche-case" aria-hidden="true"></span>Les routes</button></li>
+<li><button type="button" class="amz__couche" data-couche="fleuves" aria-pressed="true"><span class="amz__couche-case" aria-hidden="true"></span>Les fleuves</button></li>
+</ul>
+</div>
+<ul class="amz__cles" aria-label="Légende"></ul>
+</div>
+</div>
+<div class="amz__lecture">
+<div class="amz__vue" tabindex="-1"></div>
+<p class="amz__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="amz__source">Déforestation&nbsp;: INPE, programme PRODES, taux annuels par État de 1988 à 2025 et estimation 2026 publiée le 16 octobre 2026 (TerraBrasilis). Usage des terres déboisées&nbsp;: INPE et Embrapa, TerraClass 2024. Routes et déforestation&nbsp;: Barber et autres, Biological Conservation, 2014. Moratoire du soja&nbsp;: Abiove; Reuters, janvier 2026. PPCDAm&nbsp;: ministère de l'Environnement du Brésil. Fond de carte, fleuves et routes&nbsp;: Natural Earth. Consulté en novembre 2026.</p>
+<script>
+/* Déforestation de l'Amazonie légale : INPE PRODES (TerraBrasilis, rates2026.json), TerraClass 2024, Barber et al. 2014, Abiove. */
+(function () {
+  var racine = document.getElementById("amazonie-deforestation");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":774,"autres":"M-176.2 1030.7l-0.1-0.3l0.3 0.1zM-182.6 1027.8l0.2 0.2l-0.5 0zM-206.4 389.5l-1.1-1.4l0.7-1.9zM-176.4 268.3l-7.3 9.7l-4.3 0l1.8-9.5l6.2-2zM-174.9 266.1l0.3-3.7l0.9-1.6l1.5 1.8zM-144.6 140.5l-2.7-1.4l3-2.8zM-122 97.6l-0.3-3.5l1.6-0.1l1.9 5.6zM-122.4 86l1-1.8l0.8-0.4l-0.1 1.4zM-230.8 52l0.7 0.4l-1.2 0.5zM-237 -52.4l-0.8-2.1l1.7 0.1zM-235.5 -56.4l-4.3-5.4l3.9-4.1l2.8 3.8l-1.3 2.8l4 3.3zM-212.6 -63.7l-3.1 1l-3.9 1.7l4.3-2.7zM-253.8 -80.6l-1.4 0.4l1.3-1.4zM-253.2 -83.7l0.8-1.2l2 1.1l-1.1 0.9zM-256.5 -85.7l1.7-1.2l1.1 1.7l-2.3 0.9zM-149.5 -85.8l-1.9 1.7l0.6-3.6zM-143.9 -92.7l1.8 4.2l-2.8 2l0.5 2l-2.1-2.7l0-5zM-151.2 -91.2l0.8 1.6l-1.2-0.9zM-255.8 -120.7l1 4.4l5.7 0.2l-0.2 1.8l-2.6-0.6l0.5 5.1l3.3 0.5l1.4 1.9l5.9-1.3l4.4 1l0-1.9l-5.1-4.2l2 0l-0.3-1.6l11 11.8l7.5 1l15.5-3.5l7.7-6.2l14.5-4l5.6-5.4l0.8 2.2l1.8-3.2l2.5 1.8l0-2.2l5.3-6.2l2.5-0.7l1 2l2-0.9l8.5 1.8l7.1-1l-2.7 1.3l-0.1 2.4l19.4 1.6l13.3 5.5l5.8 5.9l-0.1-1.8l4.5 7l5.6 3.8l0 1.9l6.2 1.5l2.5 5.6l4.1 2.4l3.7 5.2l2.2-0.2l-0.1 2l1.5 0.5l-0.8 1.9l3.5-0.2l-1.1 2.4l1.1 1.1l-2.4-0.5l-0.8 2.5l4.9 1.7l1.6-4.5l-1.4-11.7l-5.5-4.2l1.7-2.4l7.5-2.2l0.4-1.9l10.6-6.5l4.7-9.6l7.2-6.3l4.3-0.1l-1.4 1.1l1.3 0.6l6.2-2l1.4-5.4l-1.3-2.2l-2.8-0.4l2.1-2.6l3.5-14.8l-5.6 3.5l3.6-5.5l2.4-0.5l-0.2-2.3l-1.8-0.3l2.5-2.8l0.3 1.7l0.1-2.2l-1.1-2.1l2-2.1l5.8-3.6l1 1.2l0.8-0.9l-1.4-2l7-3.4l0.8-2.3l5.2-2.4l0.6-2l10.3 3.7l7.2 0.1l-6.2 0.4l0.3 4.1l-3.7-0.5l-0.1 2.8l1.1-1.6l0.7 2.2l1.4-0.1l-0.3-2.5l1.7 3.1l2-0.1l5.7-10.9l-0.6-4.9l2.6-3.3l4.8-0.4l9.6 2.8l13.2-0.8l17.7-13.4l15.3-5.7l4-7.1l-0.8-4.4l6.2-0.4l-1.5 1.9l1.6 1.4l3.2-1.8l-0.8-2.3l-2.2-0.1l3-2.7l1.8-0.2l-0.2 1.7l2.4-2.8l1.5 1.3l2.1-2l-1.8-0.9l-1.6 1.3l1.2-1.6l5.3 0.6l9.3 3.8l4.3 8.2l-6.1 5l-2.5 5.2l-18.7 5.4l0.7 6.8l2.6 5.2l7.4 6.6l-4.6-0.1l3.1 6.9l3.1 2.6l-1.7 8.6l-4 2.7l-4.6 7.5l-2.3 1.1l-5 9l4.1 5.5l1.6 3.7l-1.3-2.2l0.9 2.9l-1.8-0.1l0.7 2l2.4-1.3l2.4 2l-1.8 0.1l-0.1 1.6l0.4-1.3l5 1.3l-0.1 3.1l-2.5 1.8l2.3-0.1l-0.4 3.8l2.3 1.8l5.5 0.5l7.7-2.8l7-6.8l-1.1-6.8l1.8-5.9l-1.2-3.8l-4.4-4l-1.9-5.5l-3.1-2.2l-3.4-5.9l0.1-3.2l-2.4-2l1.3-2.1l-0.8-3.6l-1.8-2.2l4.4 0.4l1.1-4l-2.9-1.3l6.7-0.8l13.6-6.8l20.4-5l2.3-1.6l0.2-2.2l3.8 0.9l-0.6-2.1l-3.5-2l11.8 4.3l1.6-2.2l-2.3-6.1l-12.7 2.7l0.2-5.3l-3.1-2.7l3.1-8.2l6.1-2.8l2.9 1.2l2.9 4.7l2.8 12.3l4 5.4l11.3-2.3l6.7 2.7l6.4 0l12.1 8l2.6 0.2l4 8.8l-3.1 0.2l4.4 1.1l-3 1.8l1.4 5.6l5.1 5.5l8.4 1.1l27.4-5.1l21.7 0l1.9-1.3l7.3 2.4l-2.4 2.2l7.7 6.4l-1.5-0.4l0.2 1.3l6.6 2l-4.9-2.9l25.2 8.5l3.9-1.6l5.9 0.2l2-4.5l1.5 1.3l1.2-1.9l5.2 0l3-1.7l-2.8-1l2.6-0.4l0-1.4l0.8 1.6l5.4-4.5l10.4 1l6.7-1.6l-12.1-3l-6.5 2.4l-2-3.4l0.9-1.7l4 1.8l7.4-0.5l3.3-2.6l8.2 2.7l12.6-3.4l7.5 1.1l7.1-2l17.7 2.5l9.9-1.8l-3.8 2.9l-9.3 0.6l-2.6 3.3l-10.5-1.2l-8.4 1.2l-2.8 2.5l5-2.6l0.8 4.1l-5.3-0.1l1.3 1.7l-1.5 2.6l2.3-0.3l-0.4-3.9l5.7 0.3l2.9 3.3l1.6 5.3l-1 1.5l-3.9-0.1l-1.4 1.4l-2.6-1.9l-3.7 0l2.1 0.4l0.5 2.6l0.7-2.4l3.7 2.8l0.5-2.4l2.2 0.7l3.1-1.4l0-4.2l1.9 0.3l7.7 16.4l2.4-4.4l-0.4-4.3l1.1 1.2l1.4 3l-1.2 6.7l2-2.9l-1.3-6.6l5.4 1.8l-6.3-2.5l0.8-2.1l5.5 2l6.2 5.3l-0.4 4.5l2.1-3.4l1.2 5.2l0.4-3.1l-3.2-4.3l7.6 1.4l-2.5-3.7l1.1 0l6.9 5.2l-2.6-3.3l2 0.6l7.5 7.8l7.8 1.3l-0.2 1.4l5.5 3.5l0.4 2.3l-9.7 6.8l-0.8 2l4.9-4.5l-1.5 4.3l-3 2.8l-3.5 11.4l-13.4-0.7l-0.8 1.4l7 3.4l2.4-0.2l2.4 2.9l3.3-3.1l4.9-0.3l-1.6 1.2l0.2 2l3.1-5.6l9-0.9l6.9 2.3l3.4-3.3l5.6 0.4l6.3 2.4l5.2 5.8l13 7.7l-11.1-8.9l19.7 11.2l22.2 23l-0.4 10.8l-2.7 3.4l-1.4 12.8l-2.4 4.1l3.1-1.2l0.8-7l5.4-8l12.6 3l13 11.7l2.2 5.2l0.8-2l1.9-0.1l8.3 6.8l1.6 7.7l-0.8 7.8l-2.7 5l2.6-2.3l2-10.6l4.7-4.1l32.7 6.7l1.2 4.1l-0.1-5.3l-1.6-1.3l3.4-3l16.3 0.4l6.1 1.8l1.4 1.3l-0.9 1.5l1.5-2l2.4 0.9l4.7 0l-8.4-2.1l-1.1-1.2l1.3-0.9l20.7 1.4l14.7 3.9l0.9 2.4l-2.4 7.5l-3.5 5.3l3.5-2.8l3.7-10l4.3 0.5l10.1 5.1l9.2 2.2l-2-1.8l9.8 3.7l18.1 15.2l0.4 2.5l2.1-1.8l1.4 0.7l-2 6.6l3.5-4.8l7.6 7.2l1.4 6.4l-3 3.8l3.5-1.8l0.9-8.5l3.7 1.7l1.7 6.1l1.6 0.9l0.6 10.4l-3.6 2.6l-14.3 23.3l-4 3.5l-1.8 8.2l-5.3 8.5l-0.5 4.1l-10.4 10l-11.3 0l1.1-1.8l-3.5-3.2l-6 3.3l-6.8-1.9l-0.7-2l-11.9 8.3l-1.7-1.6l-9.2-1.7l-3.6-3.6l-3.7 0l0-3.9l-5.7 0l-3.1-3.1l0.6-2.1l-5.2 2.7l-0.5-1.2l-3.7 2.1l-2.2-0.7l-2.5 2.8l-10.4 1.1l-7.9-4.3l-1.4 4.2l-2.9 1.7l-1.4 2.9l2.4 0.5l5 6.2l-1.2 6.3l-16.9-2.8l-10.4 2.2l-6.6-1.5l-3-3.3l-4.2 2.4l-2.6-1l-7.8 8.7l-13.6 1.6l-1.3 4.6l-3.9-0.1l-5.5-2.6l-2.1 3.6l-4.1 1.6l1 3.4l-1.2 2.1l-5.7-0.4l-3.8 3l-4.8-3.9l-9.4-2.5l-8.7-10.2l-4.8-1.8l1.1-2.6l-3.6-0.7l0.5-13l-5.5-3.7l-2.8-10.2l0.2-5.2l0.8-6l4.8-10.1l-1.4-7.3l5.7-3.5l5.1-8l-2.2-1l-2.2-3.6l0.6-1.7l-3-2.2l1.7-5.8l-4-2.7l-11.2-2l4.1-6.4l1.6-11.6l-4.8-5.1l-2.6-0.8l-7.6 3l-9.3-0.9l2.4 1.1l2.4 7.1l-4.1 5.3l-5.7 2.5l-2.6 5.5l-6.1 1.5l-4.7-1l0.7 2.4l-6.7 1.4l-1.6 4.8l-6.6 0.3l-4.2 3.1l-4.7-0.4l-3.8 2.3l-8.8-3l-3.5 1.9l-0.7 2.8l-6.6 0.5l0.5 11.7l-4.5 3.2l-3.4-1.3l-11.4-11.6l-2.3-0.3l-2.8 3.7l-5.1-3l-6.6-0.1l-5.2 2.2l-3.5-7.4l-7-1.3l-7.2 1.1l-3.5-4.7l-2.9-0.7l-0.7 2.4l5.4 7.7l14.1 12.2l-1.3 5.6l0.7 9.6l7.2 13.2l-1.6 7.8l21.3 1.6l0.3 5l-1.2 3.8l-6.6 1.5l-5.3 4.1l-8.1 1.6l-1.8 9.8l-8.4 8.3l-1.3-0.9l0.9-3.4l-1.4-0.3l-10.3 8.4l-3.5-0.8l-5.8 4.2l-3.7 0.5l-2.1 6.5l-4 0.5l-5.5 8.1l-2.8-1.1l2.2-5.5l-2.5-3.9l-4.8 0.3l-12.5 7.8l-4.8-0.4l-3.9-1.9l-15-13.5l-6.8 1.5l0.4-11.8l-1.4-5.4l-7.1-12.3l-2.7-1.5l-5.4 2.6l-7.3 8.8l-3.5 1.4l-3.3-1.2l-5.1-7.7l-2.9 6l3.8 3.5l-38.1 0l-6.1-1.7l-10.1 2.1l0.2 20.9l2.8-1l15.2 1.7l4.4 5.5l-1.3 4.5l1.8 2.5l-5.1 1.1l-5.8-3.7l-4.6 2.6l-13.9 2l-0.5 24.2l4.4 5l10 6.7l1.2 3.9l-1.5 2.9l3.1 6.4l2.9 2.4l1.4 5.7l-18.4 100.2l-2.1 1.6l-3.2-2.6l-2.2 2.7l-3.5-3.1l-0.5-3.4l-5.9 1.3l-1.1-1.3l-1.1 1.7l-2-2.5l-1.5 1.8l-4.4 0.2l-4.4 6.6l-1.2-1.2l-3.9 1.8l-4.4-0.9l-3.2 2.7l-17.4 1.9l-11 7.8l-4.4 1.1l-0.9 2.7l-7.3 5.9l-3.3-0.1l-5.5 2.4l0.7 4.5l-2.5 6.3l-0.1 6l-8.3 13.7l3.5 10.1l-0.7 2.8l-2.7 2.8l-4.4 0.7l-12.5 9.7l-1.7 7l3.2 6.5l-6 2.2l-2.6-0.5l1.2 3l-2.4 3l9.8 7.9l0 2.5l-2.6 0.3l0.3 2.1l3.8 2.4l4 11.1l5.9 3.9l0.2 3.8l5.7 4l6.3 8.5l0.2 4.8l-7.8 8.9l12.9 0l16 4l1.5 7.4l3.3 3.7l-1 4.1l28.7-0.4l9.7-6.1l12.5-11.4l2.6-0.6l-1.3 4.3l-1.9 0l2.7 4.6l-3.1 4.7l-0.1 37.3l3.4-2.3l3.1 3.2l4.8 0.9l10.6-4.7l7.6 1.5l10.4-1l18.9 1.9l1.5 0.6l-0.5 4.1l5.1-0.9l10.3-4.3l8-10.1l10.3 1.3l4.4-6.6l7.8-4.2l0.6-1.7l4.5 0.3l3.8-2.3l13.5-11.2l17.8-4l9 0l0.6-1.7l6.6 3.4l4.2-5l1.7 0.1l3.2 5l-1.2 4.1l1.7 7.7l-5.3 8.4l0.4 5.1l1.8 2.3l-0.8 3.3l2.5 1.7l0.9 3.8l-3.1 5.9l0.3 4l1.9 1.7l0.2 4.8l3.1 1.3l1.8 3.1l-0.9 4.1l1.4 1l1.2-2.6l1.6 2l2.2 7.8l6.5 1.2l1.7 3.6l1.6-1.3l0.8 2.5l5.6 1.9l0 4.3l6.5 4l2.3-0.8l9.5 2.3l3.8-2.9l10.1 3.3l5.4 4.7l7.8-1.6l2.8 6.2l1.9 0l4.4 5l3.3-1.1l1.5 2.1l5.4 1.2l1.5 1.9l10 0.7l0.1 3.2l7.6 6.7l1.2 2.7l7.6-1.1l3.1 1.4l4.9-1.8l6.4 0.9l3.3-1.8l0.8 2.3l4 0.5l13.6 7.9l2.7 6l-2.7 4.3l0.3 5.2l5.5 11.4l0.7 14.6l-10 0.5l10.7 12.2l2.8 25.4l54.3 2.1l4.1-1.3l-0.1 5.9l-4.5 6.8l2.6 17.9l12.5 8.3l6.7 1.2l0.5 4.7l2.9 4.7l-1.1 0.7l5.7 10.9l2.8 1.1l-3.3 1.2l-6.9 21.1l1.6 0.4l0.5 3.9l-2.3 0.5l-10.8 21.6l8.5 8.1l-9.5 6l1.2 1.6l-1.2 1.5l2 0.3l0.4 3.4l3 1.8l0.3 8.4l2-0.7l1.8 1.9l-2.5 2.1l2.5 1.2l-1.7 2.4l3.1 1.5l-0.5 7.1l-2.3 3.3l1.6 1.8l-3 5.7l1.7 5.8l-2.9 12.5l4.5 2.2l5.8-1.4l1.6 2.5l7.4 1.1l5.4-0.8l10 1.6l1.5 1.8l4.5-2.5l2.1 1.6l4.5-5.6l3.3-0.5l6.2 6.4l11.3 0.5l3.2 3.3l1.2 5.7l3.2 2.3l-0.4 11.6l3.2 7.4l0.2 12.1l2.7 4.2l0.8 7.1l8.2 2l7.1-1.5l9.8-5.3l12.6 7.9l-2.9 3.2l2.3 6.7l-6.4 21.9l1.2 3.6l-5.5 8l-0.1 5.8l4.1 1.6l0.8 2l1.7-3.4l6.5 0l-0.7-1.6l3.1-1.2l0.6 3.3l0.5-1.5l2.7 0.8l1 2.5l1.8-0.8l2.3 5.2l0.2 5.6l5.5 9.6l-2 3.7l-1.6 10.9l2 6.1l-3.8 8.2l-1.7-1.2l-0.9 1.6l-1.7-0.5l-4.1 4.2l-2.7-1.3l-3.5 5.9l-2-1.1l-0.8 2l-2.3-1.5l-0.1 1.6l-3.1 0.9l-1.4-1.1l-3.3 3.2l-3.7-0.8l-2.9 3.1l-0.5 3.7l-5.4 1.3l1.6 2.4l-9.1 2l-4 5.3l-2.1 0l-1.5 2.2l-1.7-1l-5.4 3.8l3.5 3l-1 2.4l-4.7-1.8l-2 1.1l0.1 2.8l-3.5 1l-1 3.6l-7.8 5.5l-0.5 3.3l-2.9 2.3l-1.2 3.8l-6 2.9l-2.3 5.5l-13 13.6l-6.4 2l-1.9 6l-450.6-0.3l4-2.6l-1.6-5.9l1.5-4l-1.4-1.9l0.8-4l-1.3-3.4l-4.7-4l-0.9-8.1l1.1-3.1l3.1-1.4l2.9-4.1l-0.5-3.2l4.1-5.4l0.5-10.1l4.3-13.8l4.1-1.4l0.6-4.2l-2.1-10.7l5.4-5.3l-1-4.2l2.8-3.8l1.1-11.5l2.2-1.6l-1.6-1.2l1.4-10.6l-3.3-4.7l3.4-6.6l-0.4-3.4l3.5-1.7l3-4l0.2-4.8l-2-3.2l0.9-3.9l-3.3-7.8l-0.3-6.7l2.5-11.5l0.2-12.4l3.5-6.7l-3.4-3.4l-1.4 2l-2.9-0.5l1.5-3l-0.5-5.8l1.2-6l1.8-1.6l0.7 2.5l1.9 0.1l4.3-6l-0.7-3.6l2.3-9.8l1.6-19.5l1.3-0.7l0-6.7l2.9-7.1l-0.6-6.5l-3-7l1.4-2.6l-2.7-4l2.9-26.1l-0.9-9.1l-2.9-3.9l1.3-2.1l-2.8-7.5l0.7-3.9l-2.9-13.1l1.7-10.6l-3.7-4.1l-14.7-9.7l-1.2-2.3l-15-8l-0.6-9.6l-3.6-3.7l-9.4-3l-6.3-4.8l-3.7-0.8l-10.3-9.8l-10.9-2.8l-12.6-6.9l-3.9-0.6l-4-3.3l-9-1.6l-9.7-6.7l-1.4-2.4l-11.2-4.3l-2.1-3.3l-18.8-8.5l-4.5-3l1.2-1.2l-3.6-2.6l1-1.2l-4.6-2.6l-4.2-6.9l-13.6-8.7l-1.6-6.1l-4.9-3.3l0.9-1.7l-1.4-2.6l-2.1-2.1l-1.8 1.3l-0.6-1.1l-0.1-8.6l-3.2 0.3l1-3.5l2.1-0.2l1.4 1.8l2.3-10l-1.3-5.9l-8.4-10.3l-1-5.4l-9.1-11.6l0.3-4.2l-8-5.7l-0.5-2.9l-3.8-1.3l0.9-4.6l-2.1-9.2l-4.8-5.9l-9.2-5.5l1.7-4.1l-2.4-7.6l-16.4-26.4l-1.5-10.2l-4.5-5.8l-1.5-8.1l-3.6-3l1-2.6l-2-0.2l0.2 2l-1.9-2.2l1.7-1.6l-2.4-1.8l-0.7-4.5l-3.5-5.1l0.2-5.3l-5.8-5.6l1.2-1.9l-2.7-5.2l-10-8.9l-5.4-7.2l1-1.4l-4.7-6.8l-1-6.3l-12.5-17l-25.2-14.2l-10-7.3l-1.6-3.2l0-2.9l2.5-3.2l3.3 2l2.2-1.1l1.5-5.2l-2.5-6.1l-8.5-8.2l1.1-4.4l2.6 0.2l0.6-1.8l-8.8-11.1l1.6-12.3l13.5-13.7l1.9-4.3l6.3-4l2.4-3.5l4.9-0.9l2.5-5.1l-0.3 1.8l0.9-1.8l4.6 0.4l2.7-4.1l0.6 2.4l2.3-2.1l7.8-20.8l-3.6-6.2l-1-7l3.3-5l-4 3.6l-0.2 13.7l-3.2 2.1l-2.1-1l2-3.1l1.8 0.6l0.5-0.5l-3.4-0.3l2.7-5.4l-2 0.6l-5.2 8.4l-3.3 0.9l0.7 3.8l-6.8-3.7l-6-6.5l-8.5-3.4l-3-4.6l3.5 1.6l4-2.4l1.6-6.9l-4-11l2.7-3.5l0.9-4.3l-5.3-9.7l2.9-3.2l7.9-1.1l3.9-9.8l2.3 1.6l2.5 0.2l-2.9-1.2l-3.4-7.9l14.3-15.2l0.1-7.4l1.8-1.5l-1.7-3l0.2-5.4l-2.3-2.2l1.1-3.9l6.8-2l6.6-4.1l-0.4 2.7l1.8 2.5l-1.1-2.1l1.1-2.8l5.7-2.7l8.7-0.7l3.4-3.8l2.1 3.2l2-4l0.9 0.2l1-1.7l1.9 0.4l-2.3-1.3l2.3-4l-1.6-3.8l-5.1-2.5l5.6-5.9l8.8 1.2l0.8-4.2l-1.4 0.5l-0.6-4.2l-1.8 1.5l-1.2-6.7l4.1-7.9l0.5 1.7l1.1-3.7l5.7-4.9l3 3.4l0.2-3.9l1.3 4.1l2.4 1.4l1.5-0.7l-0.4-4.4l4.7-0.7l2 1.2l-0.5 1.8l2.1 0.5l2.5-0.9l0.3-1.1l-2-4.4l2.6-0.7l-1-1l2.4 0.8l-1.1-1.6l2.8-0.9l-2.4 0.2l0-1.8l2.9-0.4l-0.5-2.1l-2.8 0.4l7.8-7.9l-2-0.6l2.7-3.5l2.5-1l1.9 2.1l-1.5-2.6l1.1-3.6l2.2 1.4l-1.8-2.5l3.5-1.1l0.7-2.6l2.3-0.5l-1.7 0l1.4-1.3l-1.9 0.5l-0.5-1.3l2.4 0.3l-1.5-0.8l1.5-0.7l-0.8-1.1l3.9-3.3l-3.1-0.4l0.1 1.4l-4.1 1.4l-1.9-2.1l0.3-2l2.9-0.3l-1 0l1.7-2.9l-2.4-1.3l-2.6 5.8l-2.9-3.2l0.3-4.9l4.1-0.7l2-2.1l-3.2-0.1l-1.6-2.5l2.3-4l-0.4-9.1l2.2 1.6l-2.9-4.8l-1-17.7l-2.6-3.2l-3.2-0.1l2.2-2.9l5.1-0.7l2.8-3.8l-3.4-9.4l-4.3-5.3l0.1-3.4l2.2 1.8l1.1-2l1.1-8.6l-2.1-4.1l-1.7-0.8l-2.4 1.8l-1.7-5.3l-2.5-1.7l-0.8 1l1.3-4.1l-1.3-3.2l-15.1-14.1l-4-5.8l-4.7-11.8l1-1.4l2.6 1.3l2.3-1.8l0.4-1.8l-2.1-2.6l1.6-1.3l1.8 0.6l2.2-4.2l4.1 5.5l3.8 0l3.4 3.9l1.3-0.5l-4.6-3.7l-4.5-1.5l-2.1-7.1l-1.5-1.6l1.3 4.8l-2-1.7l-2.7 2.6l1.2-1.3l-0.6-3.8l0 3.4l-1.1-2l-0.7 1.7l-1.1-1.3l-1.8 2l-1.3-4l1.5 5l-0.8 1.9l-0.9-0.7l-3.7-7.1l1.5 0l-0.7-1.9l-3.6-1.5l0.1-3l-1.2 2.2l-4.7-5.1l-1.2 1.5l-1.2-2.3l-6.7-3.2l0.1-2.4l-0.9-0.6l1.2-0.4l0.6-1l0.8 0.5l1.6-1.1l-2.4 0.4l-2.2 1.6l0.1 2.8l-9.9-0.6l-3 1.5l0.3 2.2l-1.8-2l0.1 2.2l-4.5 0.7l-1.5 1.8l0.1 3.8l-2.5 1.9l4.1-0.3l-2.5 2.2l-9.8 6.7l-4.6 2.3l-4.8-0.5l-3.1 3.1l-0.4 4.4l4.3 3l9.5 11.4l1.9 3.7l-0.8 2.1l-3.7 1.1l-4-0.5l-1.5 0.5l1.5 0l-3.1 1.3l0.3 2.1l-2.9 2.3l-13.6 1.3l-2.2-1.6l1.2-3.4l-2.4-4.8l0.7-1.5l-3.1-3.4l0.5-2.7l-1.9-1.1l2.1-1.4l-1.1-2.8l-1.7 1.1l0.7 1.1l-3.4-0.7l-0.2-1l-0.6-0.1l1.7 3.5l-1.7 2l0-0.9l-0.9 0l1.7 1.7l-0.8 3l-6.6-2l-3.3-1.3l1.2-1.2l-2.8-0.4l-1.1-7.3l-0.7 1.3l-2.4-2.7l-0.6-1.4l1.6 0.2l-2.3-4l-1.1 2.2l-5.4-2.2l0.6-1.3l-1.5 1.3l-4.4-1.3l-1.3 2.4l0.4-1.8l-2.4-0.2l1.1-4l-1.9 1.4l-3.4-1.1l-1.6 1.5l-1-2.2l-1.3 2.6l-6-1.5l-4.8 0.9l-2.2 2.4l0 6.3l-2.9-6.3l-5.9-4.8l1.9-2.5l-2.5-6.2l-2.2 0.5l-4.6-3.8l-3.2 0.9l2.5 4l3.7 1.5l0 5.3l-9.2-2.2l-5.2-4.7l5.2-6.3l-2.1 0.2l1.9-2.1l-1.1-1.4l1.3 0.4l-1.7-1.1l0.8-1.8l-3.9-5.7l-8.8-6.1l0-150.5l18.9 0l-5.1 23l2 12.4l-1.1 10.4l1.9 5.2l-5 1l1.1-1.2l-1.1-4.5l2.4-0.9l0.7-5.7l-2.4-1.6l-0.9 1.7l1.8 4.3l-6 3.2l3.2 8.2l1.9-2.2l-2.2 6.8l0.5 4.8l-1.7-2.8l0.8-2l-1-1.1l-1.6-0.2l2.1 1.6l-0.8 2.4l-2.1-0.3l1.4 3.7l-2.4 2.4l2.2 2.2l2.1-1.5l1.6 7.5l-3.5 2l-3.3 5.3l0.8 8l4.1 7.1l2.1-0.1l1.5 2.3l0.5 2.6l-1.3-2.7l-0.5 4.4l2-1.5l3.5 8.8l8.4 11.8l3.8 4.1l1.9-0.1l7.7 10.7l5.5 1.6l6.7 6.1l2 0.1zM-303.5 -100.4l-0.7 0.4l-0.2-0.2zM-165.2 -103.3l-0.5 0.6l0-0.5zM-229.3 -113.1l-0.6 0.6l-0.1-0.5zM-244.5 -115.1l-0.7 0.7l-0.1-1.1zM-248.5 -118l-0.2-2.1l-1.5-1l4.2 2.1zM-252.1 -123.8l0.6 3.5l-2.6-2.6zM-298.3 -206l-0.6 2.2l0.2 1.6l-0.5-2.3zM-277.1 -212.3l0.7 0.2l-1 1zM-234.5 -222.6l0-2l0.8-0.9zM-223.2 -249.1l0-1.6l0.4 0.2zM-182.4 -257.3zM-58.3 641l0.8-0.4l0.5 1.1zM-66.4 627.4l1.1-0.6l-0.1 0.6zM-90.9 570.7l0.1-0.9l1.6 1.6zM-111.8 97l0.7-1.5l-1.6-1.9l4.2 3.4zM-111.7 93.3l1.2-0.5l2.8 3.9l-2.8-1.5zM-93 44.6l-5.3-0.7l-2.6 1.1l3.6-1.7l0.2-2.7l2.5 2.4l2.6 0.3zM-37.8 -152.4l0.1-1.7l1.2 0.5l-0.2 0.7zM145 -220.2l-5.8-3.5l-0.1-2.9zM386.4 -139.5l0.9 1.3l-0.3 1.3l-0.8-0.9zM383.5 -143l1.4 1.3l-0.6 0.7zM387.9 -141.8l1-1.6l0.8-0.2l-0.1 1.6zM376.3 -151.9l-4.1-3.9l0.2-2l3.9 4.3zM335.4 -165.6l-1.3-2.4l2.6 1.8zM326.8 -168.6l0.9 0.9l-1.4-0.2zM293.6 -170.8l-2.5 0.1l-3-1l3.4-1.7l3 0.7zM340 -174.2l-3.4 3.7l-5.2 0.9l-3.7-3.5l-7.5 0l1.3-3.1l4.8-0.9l1.2 1.8l4.8 1.3l1.5-3.7l3.3-2.2zM242.7 -198.2l0.6-0.2l2.6-1zM246.7 -199.4l2.8-1.3l0.9 1.3l-1.7 0.7zM263 -200.5l2.8-0.3l-0.2 1.5zM312.5 -200.9l1.4-2.3l1.7 1.9l-0.3 0.8zM243.1 -202.3l3.2 0.1l0.1 0l-1.3 0.2zM215.5 -206.1l0.9 0.2l0.3 0.1l-0.9 0zM215.4 -207.2l-0.1 0l0.1-0.1zM215.5 -207.3zM215.6 -208l-0.1 0.2l0-0.2zM215.4 -208.4l-0.2-0.1l0.1 0zM215.1 -208.6l0.1 0l-0.1 0.1zM409.7 -208.9l-2.5 2.4l-3-0.2l3.8-7.3l2.1 0.4zM198.9 -213.3l-1.9 6.1l-1.1-5l-3.9-2l0.3-2zM174.8 -209.8l-6.8-6.1l-0.2-3l3 1.5l2.1 3.8l5.9 1.9l2.6 3.6zM415.8 -221.1l-1.3-0.7l1.3-1.7zM414.9 -225.3l0.4-0.7l0.5 0.5zM512.1 -44.1l2.8 0.1l-4 2.6l0.1-1.3zM419.4 -95.8l1.2 3.9l-2-2l-6.4-1.7zM429.6 -96.8l-1.4 2.7l-7.4 0.1l1.4-1.8l3.2 1.2l0.9-2.2zM439.5 -100.3l2.4 0.8l-0.2 1.6l-6.1 0.1l4.3-4.2zM438.2 -105.7l1.3 2.8l-5.1 4.9l-10.6 1.1l0.3-3.1l2.3-2.5zM434.7 -109.7l-3.1 3.8l-5 2l6.2-6.8zM427.3 -109l6.9-3.8l-7.5 6.7zM434.2 -115.9l-0.6 2.7l-2.9 1.3l0.8-3.1zM438.2 -115.9l-3.1 2.3l-0.7 0.2l0.9-2.9l1.9-0.8zM428.6 -155.1l2.1 2.5l-1.1 6.2l-3.3 1.4l-26.6 1.3l9.7-6.2l3.9 0.2l1.4-1.3l-0.3-10.1l-6.1-3.2l1.9-1.7l22.3-2.9l-4.1 4.9zM444.5 -182.8l-8.7 4l-1.4-0.7l10.1-6zM419 -229l-0.3-0.9l0.5-0.2zM423.6 -234.2l-0.3-0.2l0.6-0.5zM420.6 -238.5l1.2 0l1.2-1.8l-1.3 2.4zM476.1 -240.9l-2.4-0.8l-0.8-2.1l-0.2-4.9l1.2-1.1l6 6zM420.8 -244.7l1.9-5.9l2.2-0.1l0.6 4.1l-1.9 3.7zM433.2 -270.9l-2.3 9.2l-3.9-3l1.9-6.2z","reste":"M546.4 1148.2l1.9-6l6.4-2l13-13.6l2.3-5.5l6-2.9l1.2-3.8l2.9-2.3l0.5-3.3l7.8-5.5l1-3.6l3.5-1l-0.1-2.8l2-1.1l4.7 1.8l1-2.4l-3.5-3l5.4-3.8l1.7 1l1.5-2.2l2.1 0l4-5.3l9.1-2l-1.6-2.4l5.4-1.3l0.5-3.7l2.9-3.1l3.7 0.8l3.3-3.2l1.4 1.1l3.1-0.9l0.1-1.6l2.3 1.5l0.8-2l2 1.1l3.5-5.9l2.7 1.3l4.1-4.2l1.7 0.5l0.9-1.6l1.7 1.2l3.8-8.2l-2-6.1l1.6-10.9l2-3.7l-5.5-9.6l-0.2-5.6l-2.3-5.2l-1.8 0.8l-1-2.5l-2.7-0.8l-0.5 1.5l-0.6-3.3l-3.1 1.2l0.7 1.6l-6.5 0l-1.7 3.4l-0.8-2l-4.1-1.6l0.1-5.8l5.5-8l-1.2-3.6l6.4-21.9l-2.3-6.7l2.9-3.2l-12.6-7.9l-9.8 5.3l-7.1 1.5l-8.2-2l-0.8-7.1l-2.7-4.2l-0.2-12.1l-3.2-7.4l0.4-11.6l-3.2-2.3l-1.2-5.7l-3.2-3.3l-11.3-0.5l-6.2-6.4l-3.3 0.5l-4.5 5.6l-2.1-1.6l-4.5 2.5l-1.5-1.8l-10-1.6l-5.4 0.8l-7.4-1.1l-1.6-2.5l-5.8 1.4l-4.5-2.2l2.9-12.5l-1.7-5.8l3-5.7l-1.6-1.8l2.3-3.3l0.5-7.1l-3.1-1.5l1.7-2.4l-2.5-1.2l2.5-2.1l-1.8-1.9l-2 0.7l-0.3-8.4l-3-1.8l-0.4-3.4l-2-0.3l1.2-1.5l-1.2-1.6l9.5-6l-8.5-8.1l10.8-21.6l2.3-0.5l-0.5-3.9l-1.6-0.4l6.9-21.1l3.2-0.5l-2.7-1.8l-5.7-10.9l1.1-0.7l-0.9-2.8l2.9 0.1l1 2.5l4.1 2.4l0.1 1.8l1.7-2.7l10.7-3.3l10.5-14.3l10.9-0.1l9.5-4.2l15.6 6.3l3.1 3.9l11.4 5.9l8.5-1l5.2-3.7l4.7-1.1l6 2.4l1.1 3.1l8.2-1.7l9.9-10.2l4.2-1.8l-2.1 12.9l-3.8 1.7l-3.3 7.4l8 2.4l21.2 0.5l-5.7-13.9l1.3-10l5.3-7.9l0.6-5.5l9.8-7l3.1-7.2l-1.9-1.4l0-2.7l4.4-2.1l0.2-2.6l6.3-3.5l3.4-4.7l11.5-3.4l3.1-5.9l-0.6-2.3l2.6-2.1l2.3-9.5l7.3-6l2.9-1.2l2.1 1.9l5-4.1l4.2-11.9l-0.9-3.9l2.3-8.9l2.5-1.2l-0.6-11.9l2.2-1.3l6.3-12l0.4-7.4l3-4l1.5-8.1l5.4-7l4.1-2.7l0.8 0.9l-4.7 11.2l0.5 4.7l18.4 8.3l9.2 2.4l8.3-16.7l4.3-2.6l-0.2 2.8l6.8 6.1l1.5 14.7l2.1-1.5l1.3-5.7l8.3 1l7-4.1l0 3.7l16 5.7l-1.8-6.1l2-2.1l4.1 6.3l14.1-6.5l10.1-1.3l5.1-4.9l12.4-3.5l2.3-9.4l-5-2.6l-0.7-9.5l8.6-6.7l-2.1-2.5l-4-0.1l-0.5-2.1l5.5-3.5l0.6-2.1l-11.4-3.4l-4.2-5.6l6.5-11.4l4.4-2.3l-2.2-4.5l14.7-9.7l2.7-4.1l-6-0.4l-0.3-4.5l3-5.7l0.8-15.1l1.3-2.3l-3.6-5.4l-1.9-13.5l6.4-8.7l1-5.6l5.1-9.1l3.4-15.4l5.5-3.7l12.6-3.7l2.9-2.6l3.8 0.9l6.3-6.9l6.5-2.4l4.4-7l2.2-1l-0.5-1.1l3.5-1.9l0-133.4l1.7 0.1l0.7-2.6l1.5 2.8l-0.1-2.1l4.3-1.3l0.7-1.7l0.1 2.7l2-0.5l-0.8-1.3l1.2-0.9l-0.6 1.1l3.9 0.5l0.2-2.9l2.7 3.7l-0.4-2.1l1.5-0.1l-1.3-1.3l1.5 0.4l-2.4-1.9l0.6-1.6l5 0l19.6 7l3.8 3.5l3-0.1l-0.6 1.7l1.7 1l6.1 0.2l0.8 2.4l5-1.1l4.5 1.2l0.1-2l-2.3-1.5l5.5 0l4.9 4.8l7.1 0.4l0.4 1.7l3.5-0.7l3.2 3.1l-2.3-3.7l1.9-0.9l5.6 1.4l-0.7-1.4l8.8 0.3l10.6-3.1l16.4 2l8.2 5.9l3.6 0.2l20.3 11.5l2.2 3.6l8.2 5.5l5.9 0.7l3.1 5.5l11.2 11.9l8.4 5.1l5.2 6.8l10 3.6l3.6 6.2l9.1 0.9l3.4 3.6l7.9 2.5l-1.1-1.5l9.6 0.7l9.1-1.8l13.3 2.3l5.1 3l5.1 8.8l5 16.2l0.4 6.4l-0.8-0.7l-1 1.7l3.5 0.5l1.9 5.1l1.3 12.1l2.6 4.8l-1.7 7l2.4-5.1l1.4 6.6l-0.3 10.9l-4 1.3l3 0.2l1 2l-0.8 1.8l-1.4-2l0.3 2.8l-1.4 0.9l1.3-0.5l-0.8 1.5l-0.1 1.3l2.7 4.2l-1.3 4.3l-2.5-1l1.5 1.7l-1.8 8.3l-6.7 18.2l-5.1 9.1l-12.5 15.5l-2.6 0.9l1-1.9l-1.7-1.9l0.1 3.1l-2 1.8l-1.5-3.6l-1.8-0.4l2.8 4.6l2-0.3l-7.2 10.3l-7.8 7l-4.1 7.1l-5.4 1.6l-10.5 7.2l-7.5 11.3l-4.4-3.3l3.5 2.8l0.5 2.5l-3.7 2.9l-2.1 4.7l-2.3-0.7l4.2-4.9l-0.9-1.7l-0.2 1.5l-1.2-1.9l0.8 2.8l-0.9-0.7l-2.2 5.1l-1.7-1.5l2.3 2.5l-3 2.5l4.2-1.9l-9.5 19.1l-17.9 24.9l-4 4.2l-5.5 2.3l-0.9-0.6l2-4.9l-1-4.1l-3.8-0.7l-2.1-4.2l-3.7 8.5l-1.8-1.3l0-4.6l-1.9 2.7l2.2 3.7l4.1 0.7l-2 4.4l-3.4 2.3l2.8 2l-4.5 3.4l-0.2 4l-2.8-1.3l-2.4 8.6l1.8-3.3l1.5 0l1.1 11l-3.6-4l-1.9 0.8l1.1-0.5l3.9 4.5l-2.6 1l3.1 5.4l-3 0.5l-0.1 2.1l1.1 1.1l-0.7-2.1l3.4-1.4l-1.1-4.4l2-1.1l0.2 3.5l-4.6 21.6l4.6 33.6l1.9 4.4l-6.1 18.8l-5 23.4l0.7 13.5l1.6 3.2l-4.4 6.1l-5.6 2.6l-6.7 10.5l-2.8 13.1l1.4 22.4l-2.7 7.3l-7.7 5.3l-2.3 5.3l-1.9 0.9l-2.4 10l-4.4-1.1l0.1 2.9l3.4-0.1l-2.8 5.8l-7.5 9.7l-5.6 2l-6.2 12.1l-0.4 4.1l-3 3.8l2.9 15l-0.9 2.1l-21.5 8.7l-9.7 8.1l-0.8 5.3l1.9 2.3l2-0.6l-3.8 2.4l-0.8 5l-16.6-1.5l-16 1.3l-3.2-1.8l1.3-0.1l-1.1-1.1l3.2-4.7l-0.1-2l-1.5-0.3l-6.2 2.7l0.9 3.1l2.5 1.7l-0.3 2.3l-12.5 3.2l-14.2 0.8l0.1-1.4l3.5-0.9l4.5 0.9l4.8-1.3l-7.9-3.8l-5.8 2.6l-0.8-1l-4.2 3.5l-2.1-1.7l-3.2 0.1l0.8-2.5l-2.7 0.5l-0.8 1.9l-7 1.5l-1.5 2.1l-0.2 3.4l2.6-0.6l-1.5 1.1l-0.2 0.6l1.7-0.4l-0.8 1.6l3-1.8l1.8 2.2l-2.7 1.8l-7.7 1l-3-1.1l-4 1.8l1.1 1.8l-1.9 1.7l-2.5-0.9l-1.7 2.8l-6.8 1.4l-0.5 6.9l-14-2.4l-9 2.8l-2.9 2.3l4-1.6l-1.8 3.8l-3.9 1.3l-0.9-0.2l1.3-1.1l-0.7-1.8l-2.8-1.7l-0.8 1.9l-1.4-0.2l2.5 3.2l-18 8l-2.5 4.8l-1.1-0.5l-4.2 4.1l-14.5 7.1l-6.2 4.5l-4.3 5l-1.6-0.2l1.2-1.1l-2.5 0.9l3.3 1.4l2-0.7l-2.1 4.6l-6.9 5.4l-1.3 2.9l-1.4-1l0.9-2.8l3.1-2l-5.1 0.4l-1.5 2.2l0.2-4.2l-1.3 2.4l-2.9-1.8l0.9 2.5l-2.2 0.4l2.7 2.3l-1.9 2.2l-5.2-1l-3.5-3l1.9 3.5l-1.4 0.2l0.6 0.9l2.9 0l-1.1 0.7l1.5 0.9l2.7-1l1.3 2.1l3.9-0.3l-2.3 1.7l-3.5 7.2l-1.2-1.6l-1.3 0.7l1.2 1.2l-6 0.4l6.6-0.1l-1.6 5.7l0.7 4.6l-4.6 1.3l-2-5l1.3 5.8l-1.3 1.8l6.1 4.3l-2.4 7.2l0.1 2.3l3.2 1.4l-1.6 2.9l1.7 4.8l-1 2.9l0.9 1.7l2-1.2l1.3 1.1l-0.5 2l-1.6-1.1l-2.5 2.1l2.2 4.5l-3.1 3l2.2 3.1l-2.2 2.3l2.6 6.9l-2.2 11.9l-4.3 8.4l-0.8-3.9l-2.3-1.6l0.4 5l3.3 1.2l-2.1 3.2l-7.7 3.5l-15.9 13.1l-8.3 10.2l-10 18zM833.8 1066.8l-3.6 7.3l0.4 2.3l-2.5 1.4l1.5-12.6l2.9-1.2zM827.5 1032.8l-3.9-3.6l5-4.6l1.9 2.2zM838 998.2l0 3.7l-1.8 0.7l-0.9-2.5zM863.8 977l-12 8l-2.4 3.1l2.1-4zM900.9 954.4l-3.5-0.5l-0.6-0.9l3.2-0.7zM935.1 953.3l-2.1-1.5l-5 0.1l4.2-6.2l2.8 1.6l-1.4 3.1l1.8 1zM970.7 928.1l-5.7-0.1l-1.1 1.6l-1.3-1.9l4.2-3.1l3.9 1.5zM980.3 258.3l0 1.5l1.9-0.2l-2.3 2.1l-0.7-2.9zM988.4 258.6l-1.5-1.4l2-0.5zM986.1 257.3l-3.5 1.1l0.9-4l2.8-1.2zM1137.6 612.4l-0.9 5.4l1.1 3.8l-2.5-2.4l0.3-3.2l-2.5-1.3l0.5-2.1zM1147.8 599.5l-6.3 4.7l-0.2-2.4l3.9-3.1l-0.4-2.9zM1267.5 428.9l0.5 3.6l-1.5-0.2zM1346.5 304.9l-2.4 0.8l2.3-1.4zM1035.1 270l-4.6-1.1l-0.1-1.8l3.3 1.7zM1036.8 269.5l-1.6-1.7l-2.7-0.9l4.8 0.9z","etats":[{"id":"RO","n":"Rondônia","d":"M286.9 518.2l5.3-8.4l-1.7-7.7l1.2-4.1l-3.2-5l-1.7-0.1l-4.2 5l-6.6-3.4l-0.6 1.7l-0.9-0.9l-6.2 1.7l-1.9-0.8l-18 4.2l-5.8-2.5l2.8-2.9l8.1-4l3.1-3.7l0.2-3.5l13.9 0.1l6.4 5.4l6.1-5.1l3.6 1.3l1-2l6.7-4.5l1.6 4.6l2.7 1.2l5.5-6.7l-0.5-3.7l4.6-3.9l5.8 1.2l3.5-2.3l2.2 0.5l1.5-1.1l8.1 0.7l-0.5-8.5l4.2-0.3l2.6-4.5l-2.1-3.7l2.8-3.6l5.1-1.3l0.2-2.6l4.9-1.3l-0.2-2.5l1.6-2.6l22.8 0.5l4.9 3.2l4.3 8l5.1 0.4l2.6 6.7l4 0.6l1.7 5.8l7 3l2.1-4.2l3.9-1.8l3.2 0.8l0.2 1.8l3.3 2.5l0.7 2.2l-2.3 5.9l0.9 4.1l-2 0.6l-0.6 2.5l1.8 2.2l2.4 7.7l-2.7 3.2l1.4 4.8l-1.9 8.3l0.5 4.2l3 5.6l-1 8.1l1.2 1.1l-1.8 2.2l0 5.7l1.6 1l33 0.2l2.3 3.4l2.6-1l9.2 2.1l2.9 7.8l-6.1 6.9l0 4.7l1 4.8l2.8 0.8l2.8 5.9l0.3 5.1l2 4.8l-2.7 6.8l-2.9 3.2l-1.4 5.1l-7.2 5.8l-3.8 11.7l-10.9 7.9l-5.5-3.6l-4-0.5l-0.8-2.3l-3.3 1.8l-6.4-0.9l-4.9 1.8l-3.1-1.4l-7.6 1.1l-1.2-2.7l-7.6-6.7l-0.1-3.2l-1.9-1l-8.1 0.3l-1.5-1.9l-5.4-1.2l-1.5-2.1l-3.3 1.1l-4.4-5l-1.9 0l-2.8-6.2l-2-0.6l-3.2 2.1l-2.6 0.1l-5.4-4.7l-5.5-2.6l-4.6-0.7l-2 0.5l-1.8 2.4l-6.4-1.8l-0.8 1l-2.3-1.5l-2.3 0.8l-6.5-4l0-4.3l-5.6-1.9l-0.8-2.5l-1.6 1.3l-1.7-3.6l-6.5-1.2l-2.2-7.8l-1.6-2l-1.2 2.6l-1.4-1l0.9-4.1l-1.6-1l-0.2-2.1l-3.1-1.3l-1.1-3.1l0.9-1.7l-1.9-1.7l0.8-1.9l-1.1-2.1l3.1-5.5l-0.9-4.2l-2.5-1.7l0.8-3.3l-1.8-2.3z","a":[368.6,532.2],"cap":"Porto Velho","c":[336.5,462.8]},{"id":"AC","n":"Acre","d":"M160.4 533.3l-10.4 1l-7.6-1.5l-10.6 4.7l-4.8-0.9l-3.1-3.2l-3.4 2.3l0.1-37.3l3.1-4.7l-2.7-4.6l1.9 0l1.3-4.3l-2.6 0.6l-12.5 11.4l-4.7 1.9l-1.7 2.5l-3.3 1.7l-28.7 0.4l1-4.1l-3.3-3.7l-1.5-7.4l-16-4l-12.9 0l7.8-8.9l0-4.3l-6.5-9l-5.7-4l-0.2-3.8l-5.9-3.9l-4-11.1l-3.8-2.4l-0.3-2.1l2.6-0.3l0-2.5l-4-2.2l-5.8-5.7l1.5-0.6l0.9-2.4l-1.2-3l2.6 0.5l6-2.2l-3-6l36.7 15.3l73.4 18.2l18.1 9.6l101.2 47.1l-13.3 11l-3.8 2.3l-4.5-0.3l-0.6 1.7l-2.4 0.3l-1.6 2.3l-3.8 1.6l-4.4 6.6l-4.5-1.5l-5.8 0.2l-8 10.1l-10.3 4.3l-5.1 0.9l0.5-4.1l-1.5-0.6l-2.5 0.7z","a":[131.4,477.3],"cap":"Rio Branco","c":[211.5,502.1]},{"id":"AM","n":"Amazonas","d":"M223.1 111.6l3.2 1.6l7.1 12.3l1.4 5.4l-0.4 11.8l6.8-1.5l15 13.5l3.9 1.9l4.8 0.4l12.5-7.8l4.8-0.3l2.5 3.1l-2.2 4.8l1.4 2.9l2.9-1.3l4-7.1l4-0.5l2.1-6.5l3.7-0.5l5.8-4.2l3.5 0.8l10.3-8.4l1.4 0.3l-0.9 3.4l1.3 0.9l8.4-8.3l1.2-8.8l1.9-2l6.8-0.6l5.3-4.1l6.6-1.5l0.8-2.8l3.1 2.5l4.5-0.6l3.8 4.7l5.8 0.4l4.8 2.7l-1.1 3.6l0.6 3.1l-2.3 4l5.5 6.6l5.4 18.5l-3.1 3.7l2 6.1l-2.8 8.8l1.4 4.9l-1.9 3.5l3.4 6.8l3.1 2.8l0.2 4.7l2.3 5l-2.7 3.5l-3.5-0.8l-0.2 2.9l9.8 8.6l5.5 3l5 7.6l3.5-0.7l5.1 2l-0.6-4.3l2.8-18l2.1-2.7l6.9-2.9l1.1-1.9l3.2-0.2l6 2.1l4 4.7l2.2 4.8l6.8-0.5l1.6-2.8l4.9-1.7l0.5-1.8l-2.5-3.2l0-2.4l5.2-13.3l5.6-8.5l37.7-0.5l0.6 18.7l3.9 3l-0.2 6.7l3.5 3.6l2.2 0.1l3.6 2.6l1.9 6.4l23.1 17.3l8.4 4l4.8 0.3l0.4 1.6l5 1.4l3 4.4l5.1 2.7l2.6 0.2l0.4 4.7l3.4 1.3l4.4-2l0.6 3.1l2.6 0.5l2.7-1.2l-2.7 2.2l0.3 2.8l-61.1 132.5l-5.5 6.6l1.4 6.8l6.6 6.3l2.6 7.4l-2.6 3l-0.2 6.1l-5 6.4l2.4 9.2l-1.1 4.6l-3.2 5.3l0.6 4.5l-2 5l-2 1.4l-98.3 0.6l-0.2-1.8l-3.2-0.8l-3.9 1.8l-1 3.4l-1.6 0.8l-6.5-3l-1.7-5.8l-4-0.6l-2.6-6.7l-5.1-0.4l-0.4-2.4l-6.1-7.7l-5.1-1.3l-20.4-0.3l-1.6 2.6l0.2 2.5l-4.9 1.3l-0.2 2.6l-5.1 1.3l-2.8 3.6l2.1 3.7l-2.6 4.5l-4.2 0.3l0.5 8.5l-8.1-0.7l-1.5 1.1l-2.2-0.5l-3.5 2.3l-5.8-1.2l-4.6 3.9l0.5 3.7l-5.2 6.5l-2.7-0.6l-1.9-5l-6.7 4.5l-1 2l-3.6-1.3l-6.1 5.1l-6.4-5.4l-13.9-0.1l-0.2 3.5l-3.1 3.7l-8.1 4l-2.8 2.9l-95.4-44.6l-18.1-9.6l-73.4-18.2l-36.7-15.3l1.5-7.5l2.4-2.4l10.1-7.3l5.5-1.3l1.6-2.2l0.7-2.8l-3.5-10.1l8.3-13.7l0.1-6l2.5-6.3l-0.7-4.5l5.5-2.4l3.3 0.1l7.3-5.9l0.9-2.7l4.4-1.1l11-7.8l3.9-1.2l3.9 0.9l4.5-0.7l1.5-1.5l3.6 0.6l3.2-2.7l1.6 1.2l1.4-1.6l1.4 1.3l1.5-1.2l1.6 0.7l0.8-1.3l1.2 1.2l4.4-6.6l4.4-0.2l1.5-1.8l2 2.5l1.1-1.7l1.1 1.3l2.7-1.6l2.2 1.1l1-0.8l0.5 3.4l3.5 3.1l2.2-2.7l3.2 2.6l2.1-1.6l18.4-100.2l-1.6-3l0.2-2.7l-2.9-2.4l-3.1-6.4l1.5-2.9l-1.2-3.9l-10-6.7l-4.4-5l0.5-24.2l8-0.6l3.5-2l2.4 0.6l4.6-2.6l3.7 2.9l1.9-0.5l0.2 1.3l5.1-1.1l-1.8-2.5l1.3-4.5l-4.4-5.5l-2.1-0.9l-2 1.2l-2-1l-7.6 0.1l-1.5-1.1l-2.8 1l-0.2-20.9l10.1-2.1l6.1 1.7l38.1 0l-3.8-3.5l2.9-6l2.6 2.4l2.5 5.3l3.3 1.2l3.5-1.4l7.3-8.8z","a":[317.3,329.0],"cap":"Manaus","c":[461.5,280.5]},{"id":"RR","n":"Roraima","d":"M454.7 10.7l1.2 1.3l1.4-0.5l1.8 3.3l3 1.8l-1.6 11.6l-4.1 6.4l11.2 2l4 2.7l-1.7 5.8l3 2.2l-0.6 1.7l2.2 3.6l2.2 1l-5.1 8l-5.7 3.5l1.4 7.3l-4.8 10.1l-0.8 11.8l2.9 10.2l5.2 3.1l-0.7 12.3l3.8 1.4l-1.1 2.6l4.8 1.8l3.6 4.8l2.5 0.9l2.6 4.5l9.2 2.4l3.2 35l-37.7 0.5l-5.6 8.5l-5.2 13.3l2.3 7.2l-5.2 1.9l-1.6 2.8l-6.8 0.5l-2.2-4.8l-4-4.7l-6-2.1l-3.2 0.2l-1.1 1.9l-6.9 2.9l-2.1 2.7l-2.8 18l0.6 4.3l-5.1-2l-3 1l-5.5-7.9l-5.5-3l-9.9-9l0.3-2.5l3.5 0.8l2.7-3.5l-2.3-5l-0.2-4.7l-3.1-2.8l-3.4-6.8l1.9-3.5l-1.4-4.9l2.8-8.8l-2-6.1l3.1-3l-5.4-19.2l-5.5-6.6l2.3-4l-0.6-3.1l1.1-3.6l-4.8-2.7l-5.8-0.4l-3.8-4.7l-5.9-0.1l-1.7-1.8l0.7-5.7l-21.9-1.9l1.6-7.8l-7.2-13.2l-0.7-9.6l1.3-5.6l-14.1-12.2l-5.4-9l0.7-1.1l2.9 0.7l3.5 4.7l7.2-1.1l6.2 0.9l4.3 7.8l5.2-2.2l6.6 0.1l5.1 3l1.4-0.4l1.4-3.3l2.3 0.3l11.4 11.6l3.4 1.3l4.5-3.2l-1.2-7.8l0.7-3.9l6.6-0.5l0.7-2.8l3.5-1.9l8.8 3l3.8-2.3l4.7 0.4l4.2-3.1l6.6-0.3l1.6-4.8l6.7-1.4l-0.7-2.4l4.7 1l6.1-1.5l2.6-5.5l5.7-2.5l4.1-5.3l-2.4-7.1l-2.4-1.1l9.3 0.9z","a":[416.7,122.6],"cap":"Boa Vista","c":[440.2,89.8]},{"id":"PA","n":"Pará","d":"M554.3 115.4l2.2 2.9l5.1 1.5l12.7-1.8l14.8 3.5l3.1-1.7l0.2-5.3l-5-6.2l-2.4-0.5l1.4-2.9l1.7 0l1.2-1.7l1-4.1l8.3 4.2l3.7-1.2l6.7 0.1l2.5-2.8l2.2 0.7l3.7-2.1l0.5 1.2l5.2-2.7l-0.6 2.1l3.1 3.1l3.4-0.3l1.3 1.3l0.6 4.8l-2.2 3.2l1 3l-1.4 1.8l2 8l12 0.3l8.2 4.8l0.9 3.5l2.6-0.6l4.5 4.4l1-0.9l2.2 0.6l0.8-1.4l2 0.4l0.4 2l3.3 0.1l0.3 3.8l3.5-0.4l0.9 2.2l-2 1.9l1.7 6l4.3 4.9l5.3 1.7l-0.5 11l2.9 4.8l0.9 6.7l3.1 7.5l3.3-0.4l6 7l-0.2 5.2l3.5 3.3l0.2 7l4.3 0.3l0.5 5.6l3.2 2.4l4.6 0.6l1.7 2.1l2.9-2.5l2.3 0.5l-0.4 5.5l-2.4 2.3l-7.8-1.7l-7.6 4.5l-7.1 2.2l-0.3 1.5l13.7-2.6l1.5 2.7l-0.9 3l1.8-0.2l2-2.2l5.9-0.9l9.2-6.2l6.7-2.3l2-2.5l3.7-0.7l3.1-3.5l5.9-3.5l0.2-2.9l2 1.1l-0.3-1.6l3.3 0.2l0.5 4.2l-4.2 2.7l4.4 3.3l0 6.6l4.5 6.3l0.8 3.5l-1.2 0.9l-1.5-0.9l0.7 2.7l-2.3 2.4l-2.9-1.5l1.1 3.4l4.5-1.5l1.4-3.4l1.6 0.3l2 3l2.6 0.7l-0.6 1.6l1.4-1.3l0.8 4.4l3.3-5.3l4.9 0.2l1.6-2.1l4.3-0.8l3.4 2l-0.8 2.4l1.1-1.3l0.4 2l-1.2 3.3l1-1.3l1.4 2l-1.1-6.7l0.4 1.6l0.7-1.6l4.3 0.3l2.7 3.3l-2-3.8l1.8-1.7l2 0.6l1.7-3.1l0.7 1.4l1.3-0.9l-1 1.5l-0.1 1l0.7 0.7l2 0.9l-0.3 2.7l-5.4 13.3l0.1 3.7l-4.2 4.3l0.4 0.9l4.4-1.6l9.5-22l8.5-11.2l3.5-1.3l-5.7 9.3l3.4-1.9l8.7-13.1l3.9 6.4l3.4 2.6l-1.7-4.8l1.7 0.4l3.3-1.8l-5.5-0.3l0.5-5.8l1.5-2l0.3 2.6l2.9 0.5l1-4.1l1.7 0.1l-0.9-2l1.8-0.5l-1.6 0l-0.6-2.2l3.3-0.8l1.6-3.8l-0.5-3.9l3.7-3.8l2.5 3.8l3-3.5l2.1 0.6l-0.2-4.1l1.2 2.4l1.5 0.2l-0.1 3.6l3.7-2l0.9-3.7l1.4 1l1.4 5l2.8 0.2l0.5 1.3l0-2.1l-1.8-1.6l-0.6 1.1l0.2-4.5l2 0l-0.5 0.7l0 1.5l0.2 0.7l0.5-1.1l0.9 1.1l-0.3-1.5l1.6 0.6l-0.7-1.5l1.7-0.5l1.2 2.7l0.4-1.8l1.5 1l-1.3 2.1l2.4-1.1l-1 2.6l1.7 1.2l2-4.3l0.7 6.5l2.8-5.5l0 2.8l1.5 1.6l-1.3 1l0.5 1.2l-0.1-1.3l1.8-0.5l0-2l1.6 0.5l-0.9-0.7l1.7-2.1l0.7 1.7l-1.1 1.3l0.2 0.9l1.1-0.9l-0.3 1.9l0.6 1.2l0.8-2.7l1.4 1.9l-1.2 2.1l1.7-2l0.3-1.8l1.8 1.3l-0.8-2l1.9 2.1l-0.7 2.2l-1.5-0.4l-2.3 2l-0.4 1.1l2.2-1.8l3.2 0.2l2.5-2.8l2.5-0.5l-1.7 1.7l0.1 4l3.6-1.2l0.2 2.2l1.1-1.8l-0.1 2.8l0.9-2.4l1.6 2l-1.1-2.1l1-3.2l2.6-0.3l-2.9 8.5l3.9-2.3l-0.2 2.1l1.4-3.4l1.2 2.4l-3.3 5l1.3 1.4l-2.4 4.5l0 6.3l-3.7 2l0.4 1.9l2.9 0.2l-0.3 5.4l-2.5 6.5l-2.1 2.3l-1.9-0.1l-0.1 9.1l-7.4 6.1l2.9 4.4l-2.4 1.3l0.2 3.4l-2 4.9l-1.1 0l-2.9 5.7l-3.8 2.3l-0.8 4.1l-1.9 1.4l-1.6 9.9l-7.5 6.2l-1.7 6l-6.9 9.5l-2.6 1.9l-4.5-0.4l-30.2 24.4l6 2l5.8-0.6l2.5 4l2.8 0.6l2.2 3.5l-5 3.3l2.3 6l-3.4 1.4l1.5 3.9l-4.5 1.9l1.5 6.5l-3.9-0.2l-3.4 2.7l-1.9 3.4l-0.1 3.5l-10.9 4.2l-6.6 4.7l0.8 10.4l-6.4 9.6l1.3 4.3l6 4l-1.2 8.2l-3.4 10l-2.4 2.2l-5.9 12.1l-6.1 3.6l-9.6 12.8l-3.1 12.3l-2.7 4.6l-199.7-11.9l-6.8-3.1l-3.4 0.5l-1.7-3.9l-6.7-1.4l-1.5-5.6l-16-10l-2.8-9.7l1.2-7.4l-4.7-5.8l-6.1-16.3l-6.1-7.5l-0.7-4.7l-7.4-7.7l-1.6-6.2l5.7-7.2l61.1-132.5l-0.3-2.8l2.7-2.2l-2.7 1.2l-2.6-0.5l-0.6-3.1l-4.4 2l-1.9-0.6l-2-1.2l0.1-4.2l-2.6-0.2l-5.1-2.7l-3-4.4l-5-1.4l-0.4-1.6l-4.8-0.3l-8.4-4l-16.2-11.4l-2.3-3.1l-2.3-0.5l-2.9-3l-1.3-5.7l-3.6-2.6l-2.2-0.1l-3.5-3.6l0.2-6.7l-4.2-4l0.4-7.7l-3.9-45l4.4 4.1l4.4-3.1l5.7 0.4l1.2-2.1l-1-3.4l4.1-1.6l2.1-3.6l1.9 1.3l2.3-0.2l1.3 1.5l3.9 0.1l1.3-4.6l2 0.5l5.3-2.3l6.3 0.2l7-8.4l3.4 0.7zM857 199.3l0.6 3.7l-1.9 0.5l-0.4-2.4l-1.5-1.9l0.9-1.1zM847.8 201.3l2 0.9l-2.4 2l-0.7-1.8zM839.9 207l1.3 1.6l-1.5 4.6l-3.4 0.3l-0.2-2.1zM835.3 215l1.3 2l-1.2 2.5l-1.4 0.4l-2.7-1.7l1.3-2.8zM831.6 196.3l-1.4 8.3l-2.4-2l1.6 3l-0.2 3.2l-4.4 4.1l1.2 0.3l-0.4 2.4l-5.7 3.8l-3.3-2l2.6 2.3l-0.8 1.3l2.2 0.5l-1.1 4.8l-3.5-3.9l-1.6-0.1l1.4 0.5l-1.4 2.1l1.5-0.9l3.4 3.4l-7.3 2.6l-2.8-4.2l-1.4-0.4l0.5 5.7l-1.6 0.3l2 0.4l-1.7 1.1l-4.2-1.5l-1.1-2.9l-0.9 1.8l1.8 3.1l-2.7 0l-1.3-1.1l-0.4-3.4l-1.1 0l0.8 2.9l-1.6 1.9l-0.1 2.5l-4.2 1.5l-1.8-6.1l-0.6 2.1l1.1 3.4l-1.5 1.8l-7.2-2l-0.9-2.9l-4 4l-2.2-1.3l-0.5-3.8l-1.3-0.8l1-1.1l-0.3-2.5l-1.1 3.6l1.6 1.5l-0.7 3.3l-1.4-2.9l0.7 3.2l-2.6 0.6l2.2 1l-3.4 0.9l-6.4-1.9l1.2-1.4l-0.7-1.5l-6.9-8l0.3-11.3l7.5 3.2l-1.8-2.1l2.5-0.4l-0.2-1.7l2.2-0.5l-1.7-0.4l-4.3 2.2l-3-0.4l-1.2-2l0.5-6.5l1.3 0.3l-1.6-2.1l1.6-6.8l1.7 2.8l4.4 1.3l-4.3-1.8l-1.3-4.6l0.8-3.9l3.7-5.4l5.5-0.9l1.4-1.9l22.9 4.4l6.2-0.6l2.3 1.1l0-2.3l5.8-1.5l7.3 1.5l2.7-1.1l0.1 2.1l14.9 1.4l1.8 1.2l0 2zM804.9 237.3l-2.6 4.4l-2.4-0.8l2.9-4.7zM787.4 183.9l3-3.3l7.8-2.7l3.4 1.1l1.4 1.9l-0.4 1.6l-3.3 2.2l-8.2 0.7zM798.7 234l1.8 1.3l-2.7 1.6l-0.5-2.3zM780.9 170.9l5.7 0l6.7-2.7l3.8 1l0 1.7l-5.2 3.1l-5.6 7l-4.4 1.3l-3-2.7l-6.4 0.6l-1.5-1.1l-1.1-5.2l8.7-0.5zM772 167.3l0-2.7l1.8-2.9l2.9-0.6l1.5 1.1l-0.4-1.3l2.1-1.2l0.8 4.5l-6.6 4.8zM779.1 170.7l-2.4 1.5l-1.7 0.5l3.4-3zM771.9 170.7l-3.3 4.5l-3.1-1.3l3.5-6.9l-0.8-4.1l2.1-2.3zM761.7 178.3l-0.4-2.5l1.2-1.1l3.8 0.8l1.4 1.1l0.3 4l-3.9 0.1zM752.5 191.3l-3.7-4.2l1-0.4l-0.9-0.7l2.8-5l5.8-1.9l3.5 2.3l0.9 2.6l-1.5 1.6zM755.1 198.6l-0.1 5.1l-8.2 3.6l1.1-4.9l6.6-3.5l-0.5 1.5zM744.7 185.1l1.4 0.2l-1.4 5.2l-7.7 4.9l4.5-7.7zM742.4 198l2.8 3.9l-4 11.8l-1.8-0.5l-3.3 5.7l-9.8 7.5l-6.1 1.6l-0.8-1.5l2.3-5.4l6.4-5.1l0.2-8.1l4.6-6.8l6-3.3l-1.1 3.9l0.9-2.4l1.7 0.4l-0.3-2.4z","a":[698.7,341.9],"cap":"Belém","c":[830.7,227.3]},{"id":"AP","n":"Amapá","d":"M629 101.4l2.3 0.3l0 3.9l3.7 0l3.6 3.6l5.2 1.9l4-0.2l1.7 1.6l1.9-2.3l3.6-0.8l1-2l5.4-3.2l0.7 2l6.8 1.9l6-3.3l3.5 3.2l-1.1 1.8l11.3 0l1.7-2.5l5.5-3.2l3.2-4.3l1.3-2.6l-0.8-1.5l5.3-8.5l1.8-8.2l4-3.5l7.7-14.4l4.9-5.2l1.7-3.7l4.9-2.8l1.4-5.3l4.8 9.8l-3.5-10.5l-0.5-3.7l1.4-2.3l4.1 2.6l6.5 9.1l0.4 13.8l1.2-7l0.7-1.3l1.1 0.8l-0.4 16.3l2.5 11l5.2 11.9l0.4 5.5l1.6 0.1l0.9 1.6l2.7 8.8l-1.9 1.2l-1.8-0.9l0.5 2.9l0.9 0.9l1.5-2.8l2.7 0.8l4.9 9.4l9.7 0l6.8 3l1.6 3.5l0.6 9.8l-3 2.1l-5.5 0.7l0.9 1.2l6.4-1.1l1 1.7l-2.9 3l-1.7-1.1l-0.9 2.9l-12.6 11.4l-5 9.4l-5.8 6.5l-6.1 1.6l-3.2 5l-7.9 1.5l2.4 1.5l-3.8 7l-3.7 5.6l-3 0.3l0.9 0.6l-1.1 0.4l1.7-0.2l-5.3 6.3l-0.6 9.2l-3.7 3.3l-4.7 0.2l-2.9 2.5l-1.5-2l-4.1-0.4l-3.8-2.5l-0.6-5.8l-4.3-0.3l-0.3-7.4l-3.4-2.9l0-5.4l-5.8-6.8l-3.3 0.4l-3.1-7.7l-0.9-6.5l-2.8-4.5l0.4-11.3l-5.3-1.7l-4.3-4.9l-1.7-6l2-1.9l-0.9-2.2l-3.5 0.4l-0.3-3.8l-3.3-0.1l-0.4-2l-2-0.4l-0.8 1.4l-2.2-0.6l-1 0.9l-4.5-4.4l-2.6 0.6l-0.9-3.5l-8.2-4.8l-12-0.3l-2-8l1.4-1.8l-1-3l2.2-3.2l-0.6-4.8zM780 150.8l-1.2-1.1l5.6-3.6l-1.2 3.1zM778.7 156.2l-5.7-0.4l1.8-2.9l3.7-1.9l3 0.8zM765.9 113l3.3-0.6l2.8 4.7l-3.4 3.4l-3.3-4.4zM764.6 111.4l2.6-1.3l1.5 1.9l-2.6 0.6z","a":[721.2,132.2],"cap":"Macapá","c":[748.4,179.5]},{"id":"TO","n":"Tocantins","d":"M918 513.8l-2.7 4.1l-7.9 4.1l-6.8 5.6l2.2 4.5l-4.4 2.3l-6.4 11.2l4.1 5.8l11.4 3.4l-0.6 2.1l-5.5 3.1l0.5 2.5l3.3-0.2l2.8 2.6l-8.5 6.3l0.6 10.1l5 2.6l-2.3 9.4l-2.2 1.2l-9.3 2l-6 5.2l-10.1 1.3l-13.3 5.2l-0.8 1.3l-4.1-6.3l-2 2.1l1.8 6.1l-16-5.7l0-3.7l-7 4.1l-8.3-1l-1.2 5.5l-2 1.7l-1.1-1.8l-0.6-12.9l-2-3.1l-4.8-3l0.2-2.8l-4.3 2.6l-8.3 16.7l-9.2-2.4l-18.4-8.3l-0.5-4.7l2.3-3.8l0-3.4l2.4-3l-0.8-1.9l-6.4 4.6l-4.3 9.8l-3.6-1.3l-0.9-4.7l-1.6-1.7l2-5.7l-2.2-12.5l1.2-4.9l-2.2-4.7l2-4.7l-3-3.1l2.6-11.6l1.6-2.6l-0.7-4.3l1.2-8.8l6.1-11.5l0.9-6.3l7.3-13l3.1-12.3l9.6-12.8l6.1-3.6l5.9-12.1l2.4-2.2l3.4-10l1.2-8.2l-6-4l-1.3-4.3l6.4-9.6l-0.8-10.4l6.6-4.7l10.4-3.8l2.5-7.3l3.4-2.7l3.9 0.2l-1.5-6.5l4.5-1.9l-1.5-3.9l3.5-2l-2.2-2.8l-0.2-2.6l3.6-1.5l1.4-2.4l-2.2-2.9l-2.8-0.6l-2.5-4l-5.8 0.6l-5.3-1.9l1.4-1.5l2.5 0.5l3.3-4.4l5.1-0.7l7.2 3.3l3.7-1.1l3.2 0.6l1.9 4.2l3.7 0.3l7.3 4.4l0.4 6.9l2.2 4.1l-0.3 7.6l1.5 5.5l-3.5 13.6l-0.5 9.2l-4.4 5.7l-1.5-0.4l-1.7 1.5l3 3.7l1.8-1.3l3.3 1.1l-0.1 2.6l-3.3 2.1l2.8 0l1.2 2.7l1.9 0.1l2 4l1.1-0.6l1.1 3.1l8.2 9.8l4.9-2.6l8.6-1.9l3.5 2.1l0.8 3.4l-2.4 7.8l1.6 2.5l-7.3 0.5l-3.5 2l-3 8.7l0.6 2.9l-5.1 4.8l-0.6 1.9l6.1 2.2l2.7 8.4l8.5 4.7l-1.9 4.6l-2 1l-0.2 2.1l5.6 3.9l0.9 4.7l3.8 5l8.4 1.3l4.5 3.5z","a":[836.5,490.2],"cap":"Palmas","c":[836.9,510.8]},{"id":"MT","n":"Mato Grosso","d":"M510.7 707.3l-53.3-1.8l-1.6-1.7l-2.2-24l-10.7-12.2l10-0.5l-0.7-14.6l-2.5-2.8l0.8-1.7l-1.8-4.9l-2-2l-0.5-3.7l2.9-5.8l-2.7-6l-8.1-4.3l10.9-7.9l3.8-11.7l7.2-5.8l1.4-5.1l2.9-3.2l2.7-6.8l-2-4.8l-0.3-5.1l-2.8-5.9l-2.8-0.8l-1-4.8l0-4.7l6.1-6.9l-2.9-7.8l-9.2-2.1l-2.6 1l-2.3-3.4l-34.3-0.5l-0.3-6.4l1.8-2.2l-1.2-1.1l1-8.1l-3-5.6l-0.5-4.2l1.9-8.3l-1.4-4.8l2.7-3.2l-2.4-7.7l-1.8-2.2l0.6-2.5l2-0.6l-0.9-4.1l2.4-6.2l-4.1-4.4l98.3-0.6l2-1.4l2-5l-0.6-4.2l3.2-5.6l1.1-4.6l-2.4-9.2l5-6.4l0.2-6.1l2.6-3l5 6.2l6.1 16.3l4.7 5.8l-1.2 7.4l2.8 9.7l16 10l1.1 5.2l7.1 1.8l2.2 4l2.9-0.6l6.8 3.1l199.7 11.9l-5 9.4l-0.5 5.3l-2.8 3.8l-0.8 4.5l-2.5 3.2l-1.2 8.8l0.7 4.3l-1.6 2.6l-2.5 10.6l2.9 4.4l-2 4.2l2.2 4.9l-1.2 4.9l2.2 12.5l-2 6l1.6 1.4l0.9 4.7l3.6 1.3l0.2 1.1l-3.5 6.3l0.6 5l-1 2.4l-5 7.4l-1.3 4.6l-2.2 1.3l0.6 11.9l-2.4 1l-1.2 3.9l-1.2 5.2l0.4 5.4l-5.6 12.8l-3.7 1.8l-1.5-2l-2.9 1.2l-7.6 6.3l-2 9.2l-2.6 2.1l0.6 2.3l-3.1 5.9l-3.1 0.2l-2 2.2l-6.4 1l-3.4 4.7l-6.3 3.5l-0.2 2.6l-4.4 2.1l0 2.7l1.9 1.4l-0.5 3.3l-2.6 3.9l-9.8 7l-0.6 5.5l-5.3 7.9l-1.3 10l6.1 13.7l-21.6-0.3l-8-2.4l-0.1-1.9l3.4-5.5l3.8-1.7l2.1-12.9l-4.2 1.8l-9.9 10.2l-8.2 1.7l-1.1-3.1l-6-2.4l-4.7 1.1l-5.2 3.7l-8.5 1l-11.4-5.9l-3.1-3.9l-4.9-1l-10.1-5.3l-4.4 0.9l-5.7 3.3l-10.9 0.1l-10.5 14.3l-10.7 3.3l-1.7 2.7l-0.1-1.8l-4.1-2.4l-1-2.5l-4.3-1l-1.5-6.1l-6.3-0.8l-7.1-5.4l-4.8-2l-3.2-18.8l4.5-6.8l0.1-5.9l-1.8-0.3z","a":[596.2,587.0],"cap":"Cuiabá","c":[587.0,682.7]},{"id":"MA","n":"Maranhão","d":"M904.9 222.6l3.7-4.5l0.6 1.2l1.7-4.7l-0.1 2.8l1.1 0l-1.6 0.4l-0.1 1.3l2 1.7l2.3-5.9l-1 6.3l1.1-0.9l-0.7 1.8l0.8-0.4l0.7-2.3l0 2.5l0.9 1.5l2.9-6.2l0.8 0.8l-1.2 3l1.4-1.6l1.1 2.3l-0.6 3l1.7-0.3l0.3-2.6l0.9 1.6l1.3-1.8l0.4 4.7l3.7-4.2l-2.1 5.7l-0.8-0.1l-0.4 0.1l-0.8 0.9l1.3-0.7l1.3 2.5l0.4-3l1.5-0.4l1.4-3.9l1.1-0.2l0.9 3.3l-3.1 2.2l1.4-0.3l-1.6 2.7l1.9 0.8l-0.8 3.9l1.3 1.3l3.3-2.3l-0.8-3.1l2.7-3.1l2.7 0.1l0.5-1.8l0.2 1.5l2.9 2.3l-1.7 1l-0.1 0.7l1.8-0.2l0.4-3l2.7-2.5l0.6 2l-2 2l0 1.7l-1.3 0l0.6 1.8l1.6-1.8l1.2 1.3l0.6-0.2l-0.3-2.2l2.1 5.1l-1.6 1.2l1.6-0.6l0.1-0.5l-0.2-0.7l2.2 0.4l-3.3 3.1l2.5-0.9l1.7 0.8l0.8-3l1.8 0.9l-2 3l2 0.3l0.8-1.1l0.1 1.5l1.4-0.7l-2.1 2l2.2-0.2l1 3.3l-4 1.4l3.9 0.2l-4.8 3.5l1.8 0.4l-3.8 2.3l0.4 0.9l-1.8-0.5l-2.4 0.9l3.5-0.4l0.5 1.1l1.1-0.9l-1.7 4.2l1.8-1.5l0 2.1l0.3 0.3l0.7-5.1l5.5-4.1l2 1.7l1.1 4.4l-1 2.2l-3.7-1.1l-1.3 0.7l-0.6 0.8l2-0.8l-0.5 3.5l-4.3 3l3.7-1.7l-2.9 5.1l-1.7 7.1l-0.3 2.5l2.3 1.8l-3.1 4.1l-2 0.6l0.7 2.9l-1.2 0.5l1.1 0.1l0.7-3.1l2.6-0.8l7.3-7.5l2.2-10.4l0.4 1.1l0-4.3l2 1.6l-0.1-3.2l8.3-2.1l0.1 0.9l-2 0l1.9 2.3l-2.9 2.6l-0.4 2.4l-2.5 0l0.4 0.9l-3.6 2.1l-1.1 1.5l0.6 0.6l0.5-1.6l0.6 1.8l1.3-2.2l1.1 0.9l1.1-1.1l-0.5 3.5l3.1-3.8l1.2 1.5l2.2-5.5l0 133.4l-1.6 0.4l-0.5 1.8l-1.4-0.3l0.5 1.1l-2.2 1l-4.4 7l-6.5 2.4l-6.3 6.9l-3.8-0.9l-6.2 4l-8.6 2l-7 5.3l-2.6 14.1l-5.1 9.1l-1 5.6l-5.1 5.9l-1.6 3.7l2.2 12.6l3.6 5.4l-1.3 2.3l-0.8 15.1l-1.3 0.7l-1.7 5l0.3 4.5l-4.5-3.5l-8.4-1.3l-3.8-5l-0.9-4.7l-5.6-3.9l0.2-2.1l2-1l1.9-4.6l-8.5-4.7l-2.7-8.4l-6.2-2.5l5.8-6.4l-0.6-2.9l3-8.7l3.5-2l7.3-0.5l-1.6-2.5l2.4-7.5l-0.7-3.5l-3.8-2.3l-8.4 1.9l-4.9 2.6l-8.2-9.8l-1.1-3.1l-1.1 0.6l-2-4l-1.9-0.1l-1.2-2.7l-2.8 0l3.3-2.1l0.1-2.6l-3.3-1.1l-1.8 1.3l-3-3.7l1.7-1.5l1.5 0.4l4.4-5.7l0.5-9.2l3.5-13.6l-1.5-5.5l0.3-7.6l-2.2-4.1l-0.4-6.9l-7.3-4.4l-3.7-0.3l-1.9-4.2l-3.2-0.6l-3.7 1.1l-7.2-3.3l-5.1 0.7l-3.6 4.6l-2.2-0.7l-2.1 1.4l30.2-24.4l4.5 0.4l2.6-1.9l6.9-9.5l1.7-6l7.5-6.2l1.6-9.9l1.9-1.4l0.8-4.1l3.8-2.3l2.9-5.7l1.1 0l2-4.9l-0.2-3.4l2.4-1.3l-2.9-4.4l7.4-6.1l0.1-9.1l1.9 0.1l2.8-3.4l2.3-10.3l-3.1-0.7l-0.4-1.9l3.7-2l0-6.3l2.4-4.5zM958.9 267.8l-1 4.2l1-1.3l-0.5 5l-3.2 3.6l0.7-8.4zM946.2 222.1l-2.7 3.4l-1.8-0.5l1.4-3.7z","a":[923.1,329.0],"cap":"São Luís","c":[965.8,261.7]}],"fleuves":[{"r":1,"d":"M643.6 251.2l0.4 1.9l5.2-0.1M649.2 253M695.1 231.7l-6.9 1.2l-4.5 3.9l-4.8 2.2l-18 3.5l-8.2 5.1l-1 2.4l-0.2 5.8l-3.8 1.6l-12.3 2.2l-3.3-1.2l-0.8-3.6l1-2.8l-1.6-2l-6.1-2.5l-5.7 4l-7.2-2l-3.7-4.5l-5.5-2.9l-5.3 2.4l-9.1 1.1l-4.5 4.8l-5.4 3.7l-5.1 7.5l-3.8 1.9l-5.1 0.5l-6.6-2.5l-6.4 1.8l-6.6-5l-3.4-0.8l-1.8 1.1l-3.5 6.8l-4.1 4l-9.7 4.1l-2.6 8.9l-1.5 1.9l-8.5-1.8l-2.8 2.3l-2.2 3.6l-5.9 0.2l-5.9-3.3l-8.1-0.8l-3-1.8l-9.6-3l-4.2 0.1l-3 1l0 2.7l-2.7 2.3l-5.9 2.4l-4.8-1.5l-8.5 1.7l-3.5-0.5l-1.8 3.3l-5.4 5.8l-8.8-0.6l-6.8 0.8l-5.3 3.7l-3.1 4.1l-6.9 3.4l-2.9-0.5l-3.5-3.1l-9.9-5l-1.4 0.6l-1 4l-5.1 1.6l-5.2 0.1l-10.7 6.1l-1.6-0.7l-1-3.5l-10.7-3.4l-5.2 1.2l-6.8-1.6l-3.6-2.7l-5.8-1.7l-7.6-4.6l-2.3-4.5l-2.5-0.6l-8.2-8.2l-5.5-3.3l-5.5-5.4l-1.5-3.4l-6.9-2.5l-1.3-3.1l-7.1 0.9l-1.6-0.5l-1.3-2.2l-4.7-2.6l-3.8 1.3l-3.7-2.3l-2.1 3.5l-2.1 1.1l-3.6-3.6l-3.7-1.2l-2 1.5l-0.2 5.8l-1.7 1.5l-5.9 0l-4.5 1.4l-3.4-2.5l-3.7-0.3l-2.1-2l-2.4-0.2l-4.5 5.5l-9.6 3l-4.5 6.8l0.1 6.7l-1.5 2.4l-8.8-0.3l-3.3-1.1l-4.4 1.9l-3.1-0.7l-8 2.4l-7.4 0.2l-8.4 2.9l-3.1 6.7l0.8 7.3l-3.4 4.9l3 3.2l-6.2 4.9l-4.8 1l-5.5-1.3l-2.7-5.6l-5.7-4.1l-1.7-4.4l-3.5-2.4l-3.7 2l-5.1-0.3l-14.6 4.1l-2.7-0.8l-1.1-2.5l-1.7-1.1l-7 0l-4.1-3.6l-2.7-0.9l-1.5-2.8l-0.4-7.9l-3-1.7l-7.1 4l-6.6 1.8l-17.4-2.3l-7.9 2.5l-6.3 6.8l2 2.2l-0.9 4l1.4 2.3l-0.5 3.4l-1.6 1.4l-4.2-1.2l0.2 3.2l-3 3l0.3 3.4l-1.4 1.3M649.2 253l1.8-7.3l4.4-2.9l5.2-0.2"},{"r":2,"d":"M682.2 756.5l-0.4-5.5l-2.9-5.1l-0.1-2.5l1-2.8l-0.3-3.1l5.2-7.4l0.6-5.5l6.7-3.9l3.1-3.1l0.5-2l2.1-1.9l1.6-5.7l4.8-3l-0.4-5.3l3.5-1.6l3.4-4.7l6.4-1l2-2.2l3.1-0.2l3.1-5.9l-0.6-2.3l1.4-0.3l1.2-1.8l2-9.2l7.6-6.2l2.9-1.3l1.5 2l3.7-1.8l1.9-2.4l2-7.4l1.7-3l0.5-2l-0.9-4.5l1.1-4.4l1.4-2.4l-0.3-1.3l2.6-0.8l-0.6-12.1l2.2-1.4l1.3-4.4l5-7.3l1.1-2.7l-0.9-4.9l3.1-3.9l0.6-2.3l-0.3-1.3l-3.4-0.9l-1.1-5.2l-1.5-1l0.8-0.6l1.2-7.2l-2-6.8l-0.3-4.6l1.3-4.4l-1.1-0.6l-1.2-3.9l2.2-4.1l-3.1-4.6l2.6-7.5l0.2-4.2l1.4-1.4l-0.9-4.7l1.7-5.6l-0.3-3.1l2.5-3.2l0.8-4.5l2.8-3.8l0.9-6.3l2.4-2.7l0.8-3.3l4.1-7l3.1-12.3l9.6-12.8l6.1-3.6l5.9-12.1l2.4-2.2l3.5-10.4l1.1-7.8l-6-4l-1.3-4.3l6.4-9.6l-0.8-10.4l6.6-4.7l10.4-3.8l1-1.8l-0.5-2.1l2-3.4l3.4-2.7l3.9 0.2l-1.5-6.5l4.5-1.9l-1.5-3.9l3.5-2l-2.2-2.8l-0.2-2.6l3.6-1.5l1.4-1.8l-2.2-3.5l-2.8-0.6l-2.5-4l-5.8 0.6l-5.3-1.9M823 353.3l-6.9-1.7M792.1 304.3l1.4 5.6l-0.4 5.3l1 5.3l4.4 10.4l0.8 6.7l4.7 9.9l4.5 5.5l7.6-1.4M792.6 266.9l-2 2.6l3.1 14.4l0.3 6.6l-2.5 11.7l0.6 2.1M709.7 235.4l-0.9 1.1l1.1 2.4l-0.2 4l1.5 7.2l3 3.9l4.3 10.5l-1.4 3.5l0.5 3.6l2.5 1.2l4.9 7.4l3.5 0.8l1.8 1.9l-1 3.5l-2.3 2.6l1 3.6l-4.3 3.8l-3.6-2l-0.8-3.7l-3.4-4.4l-3.1-1.5l-0.3 3.9l-2.8 5.1l-6.4 7.8l-4.9 3.4M698.3 305.1l0.1-0.1M671.7 549.7l5.9-6.3l0.3-2.7l-2.1-6.9l2.1-2.7l4.3-1.5l1.9-14.6l3.2-3.1l-1.9-2.8l0.6-3.9l6.7-7.7l4.1-2.1l3-5.7l9.9 2.4l1.3-0.9l1.5-6l4.8-5.7l-2-3.9l0.9-4l-1-3.8l-5.8-3.5l-1.2-1.8l0.1-2.6l-2.1-2.2l-5.9-1.4l-3.5-4.7l0.3-4.8l-5-11.9l1.4-3.1l0.5-4.8l2.7-2.9l-0.8-1.5l0.7-2.9l1.8-1.9l1.7-5.4l5.6-7l6.1-0.6l3.3-1.3l3.4-6.5l-2.9-4.6l-5.1-0.2l-6.3-7.5l-0.1-4.1l-3.2-4.5l-0.1-6.8l-4.7-8.4l-0.9-3.9l-5.1-3.2l-0.1-6.2l-1.4-2.4l-0.3-2.8l2.5-3.4l1.7-5.3l1.9-1.9l2.4-6.8l-2.5-4.6l0.6-2.1l2.5-2.3l1.5-8.3l-0.5-2.7M504.5 534.6l1.8-3.3l1.1-10.1l4-1.5l3-3.6l0.2-4.3l3-6.6l1.2-5.4l-1.9-12.4l-5.3-1.4l-4.9-3.4l-1.4-2.3l-0.8-5.5l2.6-6.8l8.2-6.7l-3.5-0.2l-1-1.3l0.7-7l4-10.2l-1.6-9.3l4.6-6.9l0-5.9l2.8-3.1l-0.5-3.4l-2.3-1.9l-3.2-5.4l-3.9-3.5l-1.1-3.8l0.9-4.3l7.5-7.1l9.1-2.3l7.6-5.4l1.9-3.9l-0.9-3.1l0.8-1.4l3-1.4l15.8-12.9l1.8-3.9l-0.3-2.9l4.8-3.8l0.4-3.3l3.7-6.2l0.4-3.3l3.7-2.3l3.7 1.7l1.7-0.4l1.1-2.1l3.4-2.7l1.4-3.6l-0.7-2.1l0.8-1.2l8.4-2.7l10.8-9l4.8-7.2l2.5-1.9l2.4-8.2l5.2-9.9l0.6-3.7l-0.6-2.5l1.6-3.6l0.2-4l1.4-2.2l1.2-7.3l6.6-2.1l5.1 1.2M823 353.3l1.4-1.5l2.5 0.5l3.3-4.4l5.1-0.7l7.2 3.3l3.7-1.1l3.2 0.6l1.1 0.9l0.8 3.3l3.2 0.1l6.5 3l2.2 3.6l-0.5 4.9l2.2 4.1l-0.3 7.6l1.6 4.2l-1.1 3.7l0.1 4.2l-2.6 7.1l-0.5 9.1l-4.4 5.7l-1.5-0.4l-1.8 1.5l3.1 3.7l1.8-1.3l2.5 0.4l1.2 1.9l-0.5 1.4l-4.2 3.3l-1.1 6.1l-8.8 4.5l-1.4 8.2l-4.8 0.8l-1.6 2.2l1.1 6.9l1.5 2.1l-1.8 3.5l0.9 7.5l-2.3 7.6l-2.8 3.7l-2.9 6.3l-1.2 9.7l1.3 2.3l-0.2 3.2l1.5 1.9l-1.7 2.2l1.5 3.3l-3.1 4.9l0.9 2.7l-2 8.1l1.5 2.7l-0.6 3l1.1 3.7l-0.9 2.6l-4.4 4.9l3.3 6.9l0 2.6l-0.9 1.5l-2.6 0.5l-0.7 3l-2.6 1.8M808.4 694.3l-2.8-5.7l-2-0.6l0.3-0.6l-2-0.1l0.4-0.9l-2.4-2.6l-0.4-1.8l-4.8-4.6l1.8-6.9l1.7-1l-0.5-1.2l3.3-0.9l3-4.2l1.4-4.2l2.9-1.3l-0.6-1l5.8-2l0-7.4l1.1-1.8l-1.3-3.6l2.2-2.6l3-2.7l1.9 0l1.9-1.5l1.1 1.6l2.8 0.8l3.3-1.6l1.9-3.2l3.9-2l-0.4-4.3l3.4 0.8l3.9-3.4l-0.3-2.8l1.3-2.3l0-1.4l-1.3-0.1l-2.6-2.5l0.1-1.2l0.3 0.7l0.8-0.5l-0.4-6.4l1.5-4.6l-0.1-3.2l-2.9-6.8l0.3-1.4l-2-2.3l-0.1-1.6l0.9-0.2l-0.9-1.5l1.3-0.6l0.9-2.1l-1.5-1.3l0.6-2.8l-1.7-2.5l-5.5-2.6l-1.8-8.3l-3.8-7.4l-0.6-5.2M130.3 114.2l2.4 0.1l4.3-1.6l2.7 0.8l5.3-1.9l2.9 0.5l2.7-2l3.6 0.4l8-3.8l8.6 1.4l2.5 1.3l7.8-0.3l3.3-4.5l3-1.6l7.2 3.7l2.5-2.1l0.3-4.4l3.8-3.9l1.3 1.1l1-2.8l3.2-1.5l1.1-2l5.3-2.2l1.9 1.2l2.1-0.2l1.6 3.9l2.4 0.5l5.6 6.5l4.4 2.6l0.5 1.9l-1.4 2.2l1.3 3.6l2 1.7l-0.6 3.6l2.1 3.1l4.3 12.7l0 2.5l1.6 2.4l-0.6 1.9l1.5 3.6l0 7.2l-2.8 2.2l-2.6-0.8l-2.2 1l-1.5-1.2l-2 0.9l-1.2 2.6l-0.3 7.4l-2.3 4.8l1.9 11.5l1.7 2.8l2 0.8l3.6 4.5l2.1 0.5l2.5-1.1l10.9 6.7l4.3 0.9l2.7 0.2l2.9-2.4l8.9-0.1l2.9-2.3l4.3 1.7l7.4-0.5l8.5 3.9l6.2 0.3l3.8 1.9l4.4-1.3l4.7 0l17.6-4.4l12.5 0.9l9.7 7l12.2 5.1l6.2 7.4l12.8 6.9l7.7 2.8l7.7 4.4l3 0.7l2.9-0.5l5.7 2.6l4.9 7.8l0.1 5l6.8 5.5l3.3 4l1.9 3.4l1.4 5.7l11.8 11.7l5.1 7.5l2.5 1.2l6.4 0.3l6.7 3.1l3.1-1.3M288.6 515.8l3.5-6l-1.6-7.7l1.2-4.1l-2.3-4.2l-2.3-1l-0.3-1.4l3.9-3.5l5.5 2.1l7 0.2l3.3-1.9l0.7-1.3l-0.2-4l2.7-0.4l4.7-5.7l2.5-1.1l2.6 1.2l2.1-0.3l3.4-5.3l5.7-1.7l0.3-3.4l4.8-3.2l0.4-3.7l7.8-3.1l4.1 1l-1-3.1l3.2-2.2l4.7-8l3.6 1.9l5.6-2.4l4.8-3.8l0.9-3.8l-1.8-1.9l-0.5-7.6l-2.6-3.2l-0.3-1.8l2.3-4.1l2.5-9.7l0.5-0.9l5.2-1.5l1.2-3.6l2.5-2.7l5.5-0.2l1.6-1.3l0.8-2.3l-1.5-2.3l3.9-5.4l1-5.7l2.3-1.4l6.8 2.1l2.8-0.5l1.2-4l4.8-3.9l0-3l2.5-0.3l-1.3-1.6l4.3 0.7l3.4-2.1l1.9 1.2l1.5-1.7l1.3-4.1l5.5-2.8l3.1 1l5-3.3l2.5-0.4l0.6-5l5-1.8l4.5-3.3l7.1-8.5l4.2 0.3l4.6-3l-0.1-4.9l3.5-7.3l3.5-3.8l4 1.4l2-2.5l4.1-1.8l2.8-8.1l7.4-4.9l0.6-2.6l-1-2.5l9.3-6.9l3.1-4"},{"r":3,"d":"M527.9 641.5l4-12.5l3.8-5.7l0.3-4.4l2.1-4l-0.3-4.3l4.3-7.5l4.7-5.8l0.1-2.8l-3.9-3.8l-2.8-10l-7.1-3.8l-1.1-3l-7.8-2.9l-0.7-5.2l-3.7-4.7l-1.8-0.8l-2.3-4.7l-3.3-3.1l0.6-6.8l-0.5-0.7l-2 0.7l-2.9-2.9l-0.4-4.9l-2.9-2.9M504.3 535M87.5 675.2l1-3.1l-0.5-2l2.2-0.6l-1.7-2.3l0.4-3.3l3.5-4l1.1-5.5l1.3-1l-2-11.8l-1.3-3l-5.2-2.8l-3.9-9.5l-4.1 0.4l-1.4-1.7l-2.1-0.6l-3.2 0.8l-3.4-2.9l-3.3-0.6l-1.8-2.5l-5.6-1.2l-6.3-4.1l-2.6-0.2l-0.7-1.1l-6.1 2.1l-4-1.2l-2.6-2.1l-3.5-4.8l-4.9-3.7l0.3-4.1l-3.7-8.9l-1.8-2l-1.2 0l-3-4l-0.1-1.8l-3.8-7.9l-1.5-2.9l-1.6-0.8l-0.1-2.8l3.9-4.6l-3.7-8.2l-1.7-0.9l-0.2-3.5l-4.1-5.7l0.1-4.5l2.1-0.3l3.4 1.5l1.2-1.1l8.9 4.3l2.5-0.8l-3-9.3l1.2-3.4l-0.9-2.6l1.1-2.1l-7.9-5.2l-1.2-3.3l-0.6-4.2l1.3-1.4l-0.7-1.3l0.8-1.2l-1.8-0.5l0.9-1l-0.4-1.6l2.6-1.2l-2.9-1.1l-0.9-3.5l0.4-1l2.3 0.9l1.3-3.1l-6.2-0.2l0-2.6l-1.1-2.1l0.9-1.2l-0.4-1.9l-1.9-1.3l-0.1-2.4l-1.8 1.2l0.1-2.2l-4.2-3.1l0.9-6.6l-1.6-1.4l-1.1 0.3l-0.2-1.3l1.3-1l-1.9-0.8l-0.7-4.9l-1.6-1.3l6.8-8.2l1.9 1.4l1-0.5l-0.3-4.8l-1.8-0.1l-1.6 2l-2.7-2l-1.4 0.9l-0.1-6.3l-3.1-1.5l0.9-2.4l-2.2 0.2l0.9-3.5l-1.7-0.7l-0.3-1.7l-3.2 0.4l0.9-1.1l2.1 0l-0.3-0.6l-2.2-2l-1.6 1.4l-1.3-1.6l-0.6 2.5l-3.2-2.8l1.2-2.2l-1.9-1.3l-1.4-3.5l2.5 0.5l-2.3-4.2l2.1-3.7l-6.6-5.6l-2.7 0.6l0.5-2.2l-2.2-0.7l2.9-3l2.9-0.8l0.4-1.6l-2-1.8l1.4-3.3l2.4-1.6l-0.8-3.4l-2.1-1.9l2.6-1.6l-0.9-1l-2.5-0.2l-1-1.9l0.2-1.2l2.2-1.4l-1-6l-1.3-1l3.2-3.3l1.1 2l0.6-3.3l1.8 0l2 1.5l2-1.3l0.3-1.8l2.1 0.3l1.3-1.7l1.8 2.5l0.2-3.5l3.7-3l0.2-1.7l2-2.1l3.2 2.8l1.2-2.1l1.7 1.5l1.4-4.5l4-1l-2.1-1.9l2.2-1.7l-1.7-0.7l1.7-1.4l-1.2-1.5l1.5 0.6l1.7-1.6l-0.6-5.7l2.8-4.7l-0.5-1.3l1.4 0.1l1.5 3.2l5.3-4l0.3-3.3l2.5 1.5l-1.5-3.5l3.2-1.2l1.1-2.6l1.6 0.6l-0.8-2.2l3.7-3.4l-1.9-0.7l1-1.9M-71 500.3l-1.2-5.9l-4.1-9l0.2-2.1l1.7-2.3l0.2-3.4l-1.3-1.7l-7.4-4.3l-2.8-3.3l-3.8-2.4l-0.7-2.8l-2.6-2.8l-0.9-4.4l-2.9-1.7l-0.9-3.8l-1.7-0.8l-0.3-3.1l-3.7-3.7l-1-3.2l0.9-6.2l-4.7-13.1l-2.2-1.7l-1-4.7l-2.1-2.4l-2.2-5.1l-0.9-4.9l0.5-2.8l-3.3-7.1l-1.8-2.7l-4.8-2.6l-4-7.3l-3.2-3l-1.8 0.3l-4.6-6l0.6-2.4l2-2.7l0-2.7l3.6-2.9l0.1-2.9l3.2-1.8l-0.2-6.2l3.1-1.3l0-3.5l-1.1-2.5l2-2.6l-0.1-4.3l4.1-1.2l0.3-3.5l4.7 0.9l12.4-7.1l5.5 0l2.8 2l-0.7 2.2l0.9 0.5l-0.3 1.1l2.9 0.4l-1 1.1l1.9 3l1.3-2.7l7.3 2.7l2.8 2.1l3.1-0.6l7 1.4l1.6-0.6l0.9 2.1l4.4 1.6l3.1-0.1l0.8-0.8l3.7 0.7l0.3 1.9l3 1.4l7-0.9l3.4 1.5l1.6-1.3l2.4 2l2.9-4.8l2.7-0.3l1.7-3.9l6.9 0.1l2.8-1.9l1.1 1.3l2.8-2l2.9 0.6l-0.6-1.1l2.6-1.5l1.3-3.3l4-0.9l2.2-2.4l3.6 4.2l6.6 3.1l0.9-0.5l-0.3-2.5l1.2-2.3l3.4-1.6l5.8 1.2l3.7 3.9l2.1-1.8l4.1-0.9l2.4-2.7l1.2-0.2M491.3 649.3l1.5-6.8l-1.4-1.8l-0.7-4.6l1.9-5.3l0.5-17.8l2.4-5l-0.2-11.3l0.7-1.8l-1-5.6l0.7-4.9l1.6-3.4l-0.7-5.5l5.5-8l1.2-5.8l-0.8-4l2.9-4.6l-0.5-4.4l0.9-1.7l-2.2-1.3l1.1-3l-1.3-5.1l0.9-2.6M504.3 535l0.2-0.4M158.5 219.3l1.1 2.7l-0.8 8l2.1 1.9l2.8 0.5l3.2 2l5.5 5.2l8.7-1.8l5.1 0.4l12.3-4.6l4.8-0.3l12 0.7l6.7 3.7l6.8 0.9l6 2.7l10.8-3.4l5.6-0.1l13.5-4.1l13.5 4.9l7.2 4l6.5-2.3l3.2 6.2l-1.4 3.9l1.5 1.2l0.2 1.8l5.6 10.3l-0.1 3.9l4.2 1.5l-1 4.2l0.3 1.2l2.5 1l1.9 4.6l-1 3.3M340.4 88.8l3.3-6.6l-2.9-3.5l0.2-3l-1-1.5l1.2-4.1l-1.2-2.9l2.8-5.3l2.9-2.5l5.7 4.2l3.8 1.2l1.2-0.5l0.6-2.2l1.9-0.3l1.5 2.1l0.3 4.1l4.6 4.3l5.2 3.2l7.3 0.8l3.7 1.2l2.2 2l7.6-0.5l3.5-3.3l4.6 0.2l1.1-1.7l2.1 0.5l1.6-1.8l6-0.2l2.7 1l1.8-1.2l4.5-0.3l3.7-2.8l15.8-0.9l3.9 2.3l0.8 7.1l1.8 2.8l0.1 2.5l-1.7 3.6l-7.5 9.7l-0.8 8.8l-6.6 6.6l-0.6 2.2l2.6 4.1l-4.7 3.6l-3.5 5.6l-2.1 11l-1.9 3.8l0.4 3.4l-1.4 4.9l-7.2 9.2l-0.8 3.3l-3.1 2.9l0.3 1.9l-1.9 7.4l0.5 2.7l-1.9 3.2l-1.5 11.3l1.6 2.8l0 4l-1.9 4.1l0.3 2.6l-0.8 2.6l1.1 11.9l-1.4 4.6M63.3 530.4l1.2 1.8l2.1 0.8l1.4-1l6.5 0l4-1.3l3.5-2.3l0-1.6l2.5-1.7l4.6-1.5l0.5-1l4.5-0.1l3.5-3.6l3.5-1.6l0.6-1.2l2.8-0.8l-0.4-2.3l3.3-1.9l0.6-5.6l1.5-2.2l-0.6-1l2.6-1l2-3.5l2.2-0.9l0.4-1.6l2-1l0.8-3.9l1.5-1.2l2.5-0.1l-0.4-1.2l2.9-4.2l-0.6-1.2l1.4-0.1l0.9-2l0.5 0.9l1-0.2l0.8-1.9l1.9-0.8l0.5-2.9l1.8 0.3l3.5-2.2l5.3-0.9l3.1 1.2l-0.1 0.8l1.8-2.1l2.8-1l3.8 1.3l1.2-2.4l3.1 0.7l2.7-3.6l2.1-0.5l1.4-1.7l2.8-0.4l-0.2-0.8l2.5-1.1l4.3-0.1l1.7-1.6l0.7 1.1l2 0.3l-0.1 1.4l1.6 0.3l1.5-1.6l0.3 1.9l2.6 0.6l0.3 1.7l1.8 1.4l-0.2 2.8l1 1l2.3-1l1.4 1.2l-0.2 0.8l2 0.3l0.6-0.9l2.3 0.9l2.3-1.6l2.2 1.3l1.6-2.1l2.2 0.2l0.8-1.5l1.4 0.6l2.9-2.9l1 0.9l5.7-3.2l2 1l0.9-1.8l2.7-0.9l1.2 0.6l2.7-2.3l-0.5-1.2l1.1-3.9l-1.5-0.1l0.7-1.4l-1.2 0.1l1.2-1.8l-1.5-0.5l3.5-2.9l-1.7-1.7l1.4-3.2l2-1.5l-0.7-0.2l2.3-1.8l-1.1-1.6l1.1-1.1l-1-0.9l1-0.4l0.6-2.5l2.2-0.3l0.2-1.8l3.1-1.2l-0.5-1.3l2.1 0.3l-0.7-1.5l1.6-0.1l-0.2-1.1l2.3-0.7l0.5 0.9l2.3-1.4l1.8 1.8l1.7-1.5l1.3 0.3l0.6-2.1l1.3 0.6l1.1-0.8l1.3 1.5l0.8-2.6l3.1-0.4l2-1.6l0.2 2.9l3.8-0.7l1.1 1.9l1.5 0.3l-0.7 1.1l3.6-0.8l-0.7 1.5l0.6 0.8l3.7-1.5l2 2l0.9-2.2l1.9 1.9l0.8-1.5l2.2 1.6l1-2.5l3.2 0.2l1.3-2.1l1.5 1.7l0.7-1.5l0.9 0.9l-0.7-2.4l2.2 0.4l-0.7-1.5l2.8-1.9l2-0.1l1.1-1.6l1.6 1.2l0.3-4.6l3.1 1.9l2.3-1l0.5-2.7l2.1 0.6l-0.4 0.9l2.2 0.2l2.2-2.7l1 0.3l3.2-2.4l-0.7-1.3l2-0.5l-1.4-1l2.7 0.4l-1.7-2.1l0.6-1.8l-2.2-2l3.5-1.5l-1.4-1l1.4-2.1l-1.2 0.2l0-1l1.4-1l2.6 0.5l0.5-2.7l4.6-2.5l0.1-7l1.4-2.4l-1.9-9.6l-2.1-0.2l-2.8-1.9l2.3-2.2l0.4-3.8l2.6-0.4l-0.7-2.7l4.8-0.4l0.7 0.6l-0.8 1.2l2.5 0.3l1.2-2.2l4 0.9l2-0.8l0.7 1.8l1.7 0.3l0.5 2.2l5.6-0.9l-0.9 2.6l2 0.4l0.2 1.1l2.9-1.1l-0.2-0.9l1.3-0.9l1.5 0l1.3 1.3l7.3-5l-0.4 2.8l3.2 1.5l0.3-2.9l-1-2.6l1.1-0.8l1.4 0.9l0.3-1l-1.8-2.9l2.4 0.4l0.5-2.1l1.3 1.2l2.4 0.1l-0.8-1.3l0.9-0.6l0-5.6l-1.4-1.3l3.7-3.1l-0.9-2.7l4.7-4l-0.9 3.3l2.3-0.9l0.2-2.9l-1-1.7l2.9 2.2l0.7-1.4l1.7-0.2l-1-2.1l3.4-0.6l0.5-1.4l2.1-0.4l4.3 1.2l3.4-5.7l2.9-1.7l-3.1-0.2l1.1-1.6l1.9-1.3l2.7 0.4l1.3-3.6l7-2.1l2.9-5.8l5-5.3l-3.3-7M500.7 653.1l-2.7 10.2l0.8 7.2l-3.3 3.6l-6-1.4l-3-2l-7.3 0.7l-5.4-0.7l-10.3-5.5l-2-5.3M461.5 659.9l-1.1-6.4l-3.3-8.4l-4.8-9.6l-1.4-2.1l-2.1-1l-2.7-6.9l-5.2-2.3l-5.8-4.2l-6.4-1.9l-1.3-2.1l-2.8 1.7l-5.8-0.8l-6 1.6l-4.2-1.3l-5.5 1.2l-1.6-2.8l-7.4-6.5l-0.5-3.4l-1.2-0.7l-8.4 0l-1.6-1.8l-4.5-0.8l-2.9-2.6l-2.3 1.4l-4.9-5l-1.9-0.3l-3.3-6.3l-1.7-0.5l-3.5 2.2l-2.2 0l-3.7-2.1l-1.7-2.6l-5.5-2.6l-6.6-0.2l-1.9 2.4l-3.2-0.2l-3.1-1.6l-0.8 1l-2.3-1.5l-2 0.8l-0.6-1l-2.6 0l-3.6-3l0.5-3.9l-6.1-2.3l-0.8-2.5l-1.6 1.3l-1.7-3.6l-6.6-1.2l0-2.8l-0.6-0.5M593.7 238l-5.2-8l-6.4 0.6l-6-4.8l-3.2 0.7l-1.6-0.7M512.5 134.3l1.9-0.8l4.5 0.9l5.7-0.9l3.3-2.8l2.4 0.4l0.5 1.1l5.1-0.7l3.6 2.2l0.2-0.8l1.4 0.8l2.5-1.8l9 8.1l-0.4 2.3l-2 2.6l8.5 8.7l2.4 4.6l-0.1 1.5l1.8 2.3l0.4 2.7l-2.6 7.1l0.4 4.2l-1.6 9.1l2.3 3.3l-0.7 7.7l1.6 5.2l-3.1 5.2l-2.1 1.4l-1.6 6.9l2.3 2.1l0.3 1.7l6 3.8l2 2.8l4.9 0.6M593.7 238l2.2 2.1l4.7 0.9l0.8 1.2M64 506l-3.4-0.8l-1.3-4.4l-3.1-0.8l-4.8-7.9l-0.7-3.5l1.3-0.9l-0.5-1.2l1.7-0.7l0.5-3.2l1.7-1.3l-1.6-3.6l1.6-2.9l-1.6-4.6l-2.2-1l-0.9-4.7l-1.3-0.8l0.7-3.2l-1.3-2.7l1.1-1.4l-1.3-1.5l1.1-3.3l3-3.7l-2.5-4.8l2.3-3.8l-0.9-2.1l0.4-2.9l4.2-2.5l-0.6-0.7l0.4-1.9l-1.5-1.9l3.7-4.8l1.8 0.7l3.5-4.9l0-1.6l1.4-0.6l0.2-2l6.1-1.3l1.7-1.3l0.8 0.8l1.6-0.6l2 0.7l3.9-1.1l3.4-2.6l3.5-0.7l5.7-3.2l4.6-0.2l0.9-1.4l5-1.7l2.5-2.9l5.6 0.3l0.8 1.6l1.4-0.7l1.1 1.1l1.5-1.1l2.3 0.7l1.2-2l2.4 1.5l2.8-2.5l3.2-0.8l1.4 1.1l0.1 1.4l2-1.4l3.2 0.2l0.2-1.2l0.8-0.1l1.8 1.2l0.6-1.3l1.4 1.6l1.8 0l2.1-2.2l2 1.2l0.7-0.5l-0.5-2.7l0.8-1.9l3.6-0.1l0.5-1.3l2.3 0l-0.2 1.6l1 0.7l4-2l0.2 1.5l2.3 1.1l2-2.2l1.6 1.9l3.9 0.3l0.6-2.3l3.3-0.5l-0.2 1.9l7.8-3.9l6.3 1.1l3.1-1l3.6 1.6l3.4-1.5l0.4-0.9l1.8 0.4l-0.9-2.9l1.6-1l-0.3-2.8l1.2-0.3l1 1.3l0.3-3.6l1.2-0.2l1.6 2l1.5-1.8l-1.1-0.1l0.1-1l4-1.5l2.1-4.6l-1.7-2.7l6.5-11.9l6.9-3.4l4.6-0.5l1.2-1.2l1-5l2.8-1.4l-0.6-1.5l6.3 0.9l3.2-2.1l1.6-6.7l1.9-1.3l0.8-2.6l5.9-8.5l-1.8-2.4l1.4-3.6l-0.1-2.5l6.6-11.5l1.1-4.5l1.8-1.5l0.8-4l-1.5-1.6l2-1.8l2.8-0.1l1.7-4.5l2.2-0.3l-0.3-1.3l1.6-2.4l-0.9-3.2l4.4-3.3l-1.4-2.1l2.1-3l1.9-0.9l0.1-3.4l1.5-1.4M632.3 479.8l0 4.2l3.5 1.2l0.9 2.5l2.8 0.6l6.2 4.5l6.9-0.5l1.8-3.7M654.4 488.6l1.3-5.8l6.9-4.5l3.6-5.2l-0.3-1.6l3.4-3l0.1-1.2l2.9-0.6l1.8-3l-5-12l1.2-8.2l4-2.5l3.5-6.9l-2.4-3.3l-3.8-9.5l-7.1-7.1l-0.7-2.6l-4.7-2.5l0.8-6.3l-4.6-9.3l-2.7-9.5l-1.2-8.1l-3.6-3.6l0-4.7l-3.7-11.4l-4.7-11l-3.9-5.4l0.3-1.2l8-5.9l5 0.6l1.2-2.8l1.9-0.1l7.9-6l3.8 0.9l3.1-2.1l2.9-0.4l5.1-9.5l3.1-2.9l8-1.1l5.3-3.6l4.4 0.5l2.9-1.2M654.4 488.6l0.1-0.4l0 0.2l-0.1 0.2M19.5 408l1-5.3l2.4-2.4l10.1-7.3l5.5-1.3l1.6-2.2l0.7-2.8l-3.5-10.1l3.1-6.4l5.2-7.3l0.1-6l2.5-6.3l-0.7-4.5l5.4-2.5l3.3 0.2l1-1.6l6.4-4.3l0.9-2.7l4.4-1.1l4.5-3.1l1.2-1.9l1.2 0.3l4.1-3.1l3.9-1.2l3.8 0.9l1.7-0.9l-0.1 0.7l2.9-0.5l1.5-1.5l2.9-0.2l0.8 0.8l3.2-2.7l1.6 1.2l1.4-1.6l1.3 1.3l1.5-1.2l1.7 0.7l0.8-1.3l1.2 1.2l4-4.7l-0.1-1.5l2-1.1l2.9 0.5l1.5-1.9l0.4 1.7l1.5 0.9l1.2-1.7l1.1 1.3l2.7-1.6l2.2 1.1l1-0.8l0.4 3.4l3.6 3.1l1.6-2.4l1.3-0.4l3 2.6l1.6-1.5l0.2-1.8M312.1 692.1l-2.4-2.6l-3.9-13.3l-1.8-1.5l-2.3-4l-0.9-2.9l0.8-1.3l-1.4-0.6l1.5-1.1l0.1-1.7l-4.2-8.7l2.1 0.3l2.6-8l-0.8-1.8l1.3-1.1l-2.8-4.5l0.3-3l-3.8-5.7l-2.1-0.1l1.2-0.9l-0.6-3.1l-4.1-3.1l0.3-2.2l-0.8-0.3l1.8-3.6l-0.9-1.6l1.6-1.5l1-6.3l1.4-2.2l-1.2-1.8l3.7-0.5l0.4-1.3l-0.8-1.1l2.8-1.6l0.3-2.7l-0.7-0.6l1.1-3l-2-7.2l-3.3-5.2l1.2-1.9l-1.3-1.5l1.6-0.9l-1.8-4.6l1 0.9l1.8-1.7l-0.2-2.2l-1.7 0.4l0.2-1.2l2.3-2.5l2.6-0.6M300.7 564.2l-3.1-6.5l-1.2 2.6l-1.4-1l0.1-3.5l0.8-0.6l-1.7-1l-0.1-2.1l-3.1-1.4l-1.1-3l0.9-1.7l-2-1.7l0.9-1.9l-1.1-2.1l1.7-1.5l0-2.4l1.4-1.6l-0.9-4.2l-2.5-1.7l0.7-3.3l-1.7-2.3l-0.5-5.1l1.3-0.6l0.5-1.8"}],"routes":"M509.4 -45.2l-0.4 0.4M520.5 -38.6l-4.3-2.6l-3.9 0.4M-33.1 -45.2l0.7 1.5l-3.1 5.7M409.5 -36.8l1.4-8.4M43.2 -45.2l2.1 5.4l-1.2 4.7l-3.2 4.1M-51.3 -34.8l4.5 5M511.8 -26.6l-1-0.4M515.6 -27.8l-3.8 1.2M510.8 -27l-3-1.6l-0.5 2.7M541 -21l-3.4-5.6l-11.3-11l-2.7-1.2l-3.1 0.2M-35.5 -38l3.3 10.6l-5.7 4.7l-0.1 1.8M-46.8 -29.8l6.7 8.4l2.1 0.5M520.5 -38.6l-0.4 4.8l-2.6 6.3l0.5 11.2l-1.3 3.3M40.9 -31l-4.3 2.6l0.4 3.7l-4.4 8.8l-6.2 2.4l-0.7 2.9M-38 -20.9l-2.5 4.2l2.5 7M552.5 -9.7l-0.8-5l-2.9-4.7l-3.8-2.5l-4 0.9M560.5 -8.2l-3.7-3M561.9 -8.2l-1.4 0M614.7 -7.8l-2.6-0.2M616.4 -7.6l-1.7-0.2M612.1 -8l-7 0.6M567.6 -6.6l-4.2-2l-1.5 0.4M618 -6.5l-1.6-1.1M605.1 -7.4l-12.3 1M621.1 -6.1l-3.1-0.4M567.6 -6.6l0.1 1.3M592.4 -5.6l-18.1-4.1l-4.3 0.1l-2.4 3M417.6 -2.5l-0.3-4.9l-1.6-3.8l1.5-2.2l1.3 0.4l-1.6-5.5l3.2-2.2l-0.2-2.2l-7.2-5.7l-1.6-6.6l-1.6-1.6M641 -0.6l-5.2-0.2l-5.7-4.6l-9-0.7M222.8 -19l2.4 2.5l0.1 5.3l-1.8 3.1l-5.6 4.5l0.4 3.5M25.7 -10.6l7.4 6.5l0.7 4.1M507.3 -25.9l-1.4 0.1l-1.2 2.4l-0.7 10.5l-1 3.6l-2.4 2.7l0.1 2.6l-2.6 3.6l-1.9 0.6M33.8 0l-0.9 2.3M651.9 2.9l-5.1-2.5l-5.8-1M654.6 3.2l-1.5-0.3M668.7 2.3l-0.8 2.1l-2.7 1.7l-5.2 0.2l-5.4-3.1M686.6 6.7l-7.7-3.2l-9-2l-1.2 0.8M-38 -9.7l-1.7 15.6l-1.2-1l-1.8 2.3M496.2 0.2l-2.5 2.2l-1.1 3.9l-3.7 1.7l0 3.1M-42.7 7.2l-2.2 5.6M696.1 14l-9.5-7.3M-44.9 12.8l1.5 2.4l2.6 1.6l4 0M700.4 17.2l-4.3-3.2M32.9 2.3l-6.2 6.4l0 3l-1.2 2l-6 4.3M702.8 18.9l-2.4-1.7M-15.8 20.6l-5.8 1.9M707.3 21.2l-0.1 1.4M707.2 22.6l-4.4-3.7M-44.9 12.8l-1.4 2.3l-1.3 7.8M-9.6 23.2l-3.5-0.7l-1.6-1.7l-0.4-0.3l-0.7 0.1M-21.6 22.5l-2.8 0.9l-5.9-2.4l-5.6-3.8M19.5 18l-5.9 4.1l-1 2.3M-47.6 22.9l0.9 2.4M-36.8 16.8l-3.4 7.8l-1.6 0.7M707.2 22.6l-1.1 2.7M-41.8 25.3l-4.9 0M-0.8 23.8l-2.8 2.4l-1.9-0.9l-0.2-1.9l-1.6 0.8l-0.4-1.3l-1.9 0.3M706.1 25.3l-1.8 0.9M-46.7 25.3l-2.1 2.7M221.6 -18.6l-7.8-1.7l-5.2 2.1l-4.8 3.6l-10.8 4.5l-13.9-0.4l-33.7 4.8l-6.2 4.9l0.1 3.3l-12.7 5.8l-3.8 5l-11.1 5.7l-3.6 4.6l-7.3 5M-0.8 23.8l6.2 5M100.8 28.6l-4.3 0M12.6 24.4l-1.7 5.2M704.3 26.2l2.2 4.3M425.4 31.7l1.9-6.1l-1.8-5.8l1.2-6.9l-4.1-8l-3.6-3.4l-1.4-4M10.9 29.6l-0.8 2.6M5.4 28.8l2.8 1l1.9 2.4M-48.8 28l-2.5 5.7M-24.4 38.5l-2.3-1.1M-26.7 37.4l-2.6 1.2l-6.2-1.1l-2.6-2.4l-3.1 0.2M96.5 28.6l-13.9 7.6l-6.4 5.3M-41.2 35.3l-1.1 2.8l-4.8 4.4l-4.2 0.6M428.7 44.3l-5.1-5.7l2.2-0.9l-2-2.3l1.6-3.7M10.1 32.2l-4.7 0.8l-3.5 1.9l-1 5.4l-4.4 3.1l-4.6 2l0.4-1.2l-2.4-0.7M488.9 11.1l5.5 9.9l-1.2 5.4l0.6 4.6l-2 3.9l1.1 4.9l-1.4 6.5M10.1 32.2l0.6 4.3l3.5 1.4l3.6 5.2l7.1 3.6M-10.1 43.5l-2.6-1.4l-2.8 4.7M-15.5 46.8l-2.7-1.2l-1.3-2.9l-4.9-4.2M75 41.4l-3.9-1.6l-3.1 0.1l-9 6l-7.9 1.9M51.1 47.8l-4.9 1.3M46.2 49.1l-6.5 0.7l-3.8-1.6l-5.5 1.6l-3.6-1.1l-1.7-2M491.5 46.3l0.2 3.7l-1.6 2.6l-4.7 0.1l-3.1 1.5M482.3 54.2l-5.1 2.2l-1.7-0.6M475.5 55.8l-0.3 2.5l-2.3 2l-1.4 5.2l-3.6 6.1M464.5 72.9l2.8-0.9M434.5 78.9l-2-10.1l-2.5-6.7l-1.9-11.8l1.1-4l-0.5-2M439.4 88.7l-4.9-9.8M464.5 72.9l-1.2 1.9l-3.8 0.5l-7 4.5l-6.3 7.2l-6.3 3.3M433.9 94.3l6-4M722.9 57.2l1.1 0.8l0.6 7.7l2 5.9l5 4.8l4.3 6.6l0.6 8.9l2.7 4l1.6 5.1M426 118.5l1.1-2.1l-0.4-4.5l4.7-5.5l2.5-12.1M425.4 121.6l0.6-3.1M425.4 121.6l-0.6 3.2l4.1 3.5l1.2 3.8l2.3 1.1l3-0.3l12.7 7.3M740.8 101l5.3 0.1l4.4-1.3l0.3 6l2.1 7.6l3.6 1.4l-2.9 3.2l-0.1 6.4l-1.9 4.1l1.3 5.1l-1.7 5.3l-2.5 1.6l-2.6 8.1l-2.4 2.4l-0.2 2.4l-5.6 4.3M737.9 157.7l7 4.1l2.7 3l-0.6 3.1M747 167.9l-0.4 4M746.6 171.9l-1.6 3.6l3.2 2.8M748.2 178.3l-0.4 1.6M871.8 219.8l0.8-0.4M848.5 221.2l0.5 0M849 221.2l6.9 0.7M841.2 221.1l3.3 0.9l4-0.8M855.9 221.9l3.6 0.9M859.5 222.8l1.3 0.2M860.8 223l11-3.2M838.6 223.1l2.6-2M830.3 227.1l3.3-3.1l5-0.9M872.6 219.4l9 9.8M881.6 229.2l2.5 2.9M859.5 222.8l3 8.7l-0.5 4.6M826.6 228l0 3.6l-5.9 6.3M820.7 237.9l0.8 6.7M448.1 140.2l0.8 4.4l-0.7 2.8l-4.1 10l-5.4 7.2l-0.3 17.4l1 2.9l0.9 22.2l1.6 8.7l13.6 30.8M862 236.1l-1.3 11.3M884.1 232.1l13.1 6.7l5.2-1.5l2.9 0.7l8.5 11.2M821.5 244.6l-1.9 16.9M631.3 259.4l-2.6 2.9M455.5 246.6l2.9 10.4l1.3 16.1M860.7 247.4l0.1 7.8l2.1 4.6l1.3 13.8M864.2 273.6l-0.1 1.1M964.7 267.4l-2.4 4.4l2 3M459.7 273.1l1.7 8.7M461.4 281.8l2.7-0.4M913.8 249.2l2.3 10.3l5.9 17.5l0 6.1M465.3 281.5l2.5 2.8l-1.1 2.4M964.3 274.8l0 7.1l-4.1 6.1M960.2 288l-2.1 2.1M466.7 286.7l-7.9 7.8M958.1 290.1l-2 5M819.6 261.5l-1.9 4.2l-3.2 22l-2.6 10.3M922 283.1l-0.7 9l4.7 5.1l3.7 1.5M929.7 298.7l3.1 1.2M864.1 274.7l-1.5 6.1l1.6 8.7l-1.6 4.6l0.3 6.3M932.8 299.9l3.1 2.3l1.7 4.3M628.7 262.3l-4.9 3.5l0.6 5.6l-8.2 22.7l-0.6 6.8l3 5.2l-3.4 7.3M712.9 282.4l-24.9 10.8l-4.7 0.3l-5.1 3.8l-12.7 1.4l-15.8 7.5l-13.8 1.5l-5 3.9l-4.9 1.7l-4.2-0.1l-3.7 1.3l-2.9-1.1M956.1 295.1l3.2 13.1l0 7.3M615.2 313.4l-5.8-0.5l-5.1 2.8M937.6 306.5l2.9 5.6l6.6 5M947.1 317.1l12.2-1.6M862.9 300.4l-2.6 18.7M712.9 282.4l6.3-0.6l6.4-2.3l5.1 1.5l21.6 16.2l10.5 5.7l4.3 4.3l4.3 2.1l12.9 10M959.3 315.5l1.3 3.9l2.6 2.1M963.2 321.5l5.2 1.8l7.3 5.4M1034.4 335.2l4.1-6.3M1032.6 335.6l1.8-0.4M975.7 328.7l13.7 7.5l5.8 1.2M995.2 337.4l4.9 1.6M860.3 319.1l1.2 1.6l1.3 7.2l-0.4 12.8M1016.1 343l7.3 0.1l9.2-7.5M1012.4 344l3.7-1M1011.5 344.1l0.9-0.1M1000.1 339l8.1 4.5l3.3 0.6M1012.4 344l0.6 1.7M1011.5 344.1l-5.6 2.6l-14.2 0.8M811.9 298l-3.7 19.8l-0.4 7.7l2.9 17.1l2.5 4.9M991.7 347.5l-9.2 3l-23.6 0.7M813.2 347.5l-1.4 2.6l-0.2 3.2M784.3 319.3l3.5 1.3l2.5 4.1l4.7 3.9l3.4 11.7l7.3 11.6l3.4 1.7M809.1 353.6l2.5-0.3M811.6 353.3l5.3 1.1M458.8 294.5l-6 7.1l-6.4 13.9l-16 11l-8.1 11.7l-3.4 3.3l-4.1 7.2l-9.9 8.8M958.9 351.2l-11.6 3.9l-9.8 1.2l-3.2 1.7M1013 345.7l5.6 13.9l0 6.4M404.9 357.5l15.3 10.1M934.3 358l-4.2-2.8l-24.4 12.8M1018.6 366l-0.2 3.6l-3.6 3.4l1.7 4.3l-0.5 3.6M905.7 368l-12.6 6.9l-12.3 3.2l-14.5 6.9M862.4 340.7l-2.1 3.4l2.3 7l0.3 6.9l3.7 6.2l0.3 4.2l-1.2 4.1l1.3 7.7l-0.7 4.8M816.9 354.4l26.7 11.2l2.8 4.2l8.1 7.7l1.1 3.2l4 2.6l2 3M977.4 390.4l6.1-0.6M861.6 386.3l0.5 5.3M866.3 385l-2.3 7.2M864 392.2l-1.9-0.6M983.5 389.8l4.5 0.1l3.4 2.8M991.4 392.7l14.1 6.1M1005.5 398.8l0.3 0M1005.8 398.8l2.8 1.4M953.3 400.3l6.1-0.4l8.6-5.5l9.4-4M862.1 391.6l-3.3 2.6l-5.3 1.4l-2.7 5.3M1008.6 400.2l4.6 3.1M1036.7 405.2l1.8-1.2M1016 380.9l3.7 2.8l4.6 1.6l2.9 2.7l2.1 4.4l2.6 1.2l2.6 3.5l0 2.9l2.2 5.2M420.2 367.6l24.2 14.5l20.9 14.2l0.2 8.9M465.5 405.2l8.4-0.4l14.4-3.9l14.9-7.4l7.2-5.7l15.7-3.3l6.5-2.4l4.2-11.1l13.3-10.6l3.9-4.9l4.3-10.3l1.9-11.7l1.7-1.1l5.8-0.2l3.6-2.2l6.5 0.4l3.5-7.8l1.6-1.2l6-3.1l3.7 1.5l4.7-0.3l7-3.8M1033.7 406.1l3-0.9M1013.2 403.3l5 2l15.5 0.8M850.8 400.9l-4.4 6.6l-7.1 4.2M912.4 414.8l23.2-13.1l9-1.9l8.7 0.5M864 392.2l0.5 2.6l-1.3 3.1l0.9 2.6l-1.2 3l2 8.6l-1.3 4.7M863.6 416.8l0.1 0.4M908.8 422.1l3.6-7.3M404.9 357.5l-9.2 8.6l-3.8 10.1l-5.4 9.2l-12.7 11.4l-9 10.9l-7.7 14.8M863.7 417.2l8.2 2.6l17.1-1.8l16.9 4.2l2.9-0.1M357.1 422.5l5.3 0.7M362.4 423.2l11.8 0.6l11.9-4.4l6.7 0l8.1-2.4l18.8-2.1l10.4 0l12.3-3l5.4 0l12.7-6.6l5-0.1M362.4 423.2l-14.2 11.8l-11.2 6.4l-2.6 3.2l-2.8 12.9l1.1 3.4l4.1 2.7M839.3 411.7l-3 2.4l-0.8 4.9l-3.4 6.3l-1.7 12.9l-0.9 26.9M829.5 465.1l-1.4 22.3M336.8 463.6l2.2 1.1l12.1-0.4l6.2 7.7l6.6 17.9M56.9 428.8l5.3 1.4l12.3 0.8l34.9 11.9l14.3 2.2l5.4-0.9l4.4 4.6l2.2 5.1l20.9 8l13 7l7.8 1.8l6.8 3.1l2.9 3.1l3.7 7.3l10.6 10.4M336.8 463.6l-4 8.8l-11.9 6.5l-6.1 0.9l-3 2.8l-0.7 2.3l-6.3 5.6l-13.2 4.4M363.9 489.9l-1.5 5l1.7 6.2M201.4 494.6l5.7 3.9l2.8 4.1l1.4-0.2M291.6 494.9l-4.9-3.1l-22.9 3.2l-12.8 0.7l-16.8 7.4M594.8 502l0.6 1.2M225.2 462.5l2.9 3.9l0.9 4.4l-2.6 5.3l-2.6 11.3l-7.6 16.2M216.2 503.6l-4.5-1M234.2 503.1l-3 1.1M231.2 504.2l-9.6 2l-3.1-0.7l-2.3-1.9M604.3 315.7l-5.6 12.6l-0.7 10.1l2.1 8.5l8.7 18.8l1.2 4.7l3.1 32.3l3.5 23.7l0.3 20.2l-1.2 12.3l9.9 28.9l-0.5 3.3l1.3 0.7l-1.2 5.2l1 2.4l-0.7 7l-1.2 3.8M231.2 504.2l-9.2 3.6l-4.7 4.8M364.1 501.1l2.8 5.5l3.6 1.3l10 7.8M217.3 512.6l-3.3 4.5M214.6 510.6l-0.6 6.5M380.5 515.7l3.1 3M624.3 510.2l-3.2 3.3l-1.7 8.6l-1.6 2M214 517.1l0.9 3l-2 2l-7.1-0.8l-4.1 1.4l-2.9 2.4l-2.7-0.6M383.6 518.7l5.9 7.4M196.1 524.5l-1.7-0.4l-2.8 2M191.6 526.1l-2.9-1.6M828.1 487.4l-0.5 4.4l-5.1 5.2l-1.8 7l-2.7 2.6l-2.4 4.5l-2.4 8l2.8 8.2M617.8 524.1l0.3 3.2l-2.3 3.9M595.4 503.2l2.1 16.1l2 6.6l3.3-2.8l2.6 1.8l1.7 4.9l2.4 0.6l2.2-1l4.1 1.8M191.6 526.1l-1.7 3.2l-5.7 5.5l-2.6 0.6M181.6 535.4l-0.4-1.2l-3.4-1.7l-5.3-0.5l-2-2.3l-6.2-1.4l-4.1 0l-6 5.5M615.8 531.2l-1.4 4.2M389.5 526.1l6 1.9l3.7 3.6l1.4 10.5M154.2 533.8l0.2 12.1M154.4 545.9l-0.2 1.1M816 527.3l0.6 9.5l-1.5 11.9M400.6 542.1l0.3 2.6l1.8 2l4.7 0.6l3.1 1.8l3.7 0M414.2 549.1l8.4 5.6l0.9 1.9M423.5 556.6l0.5 0.8M815.1 548.7l-2.6 9.1M853.3 557.6l6.7 0.4l5.8-3.5l6.8-1.5l4.9 2.5l6.4 0.2M613.2 537.7l-1.2 2.3l-1.7 11.8l-2.8 7M883.9 555.7l9.9 7.9M607.5 558.8l-2.2 5.8M-47.9 552.7l-3.4 2.3M-29.5 567l-4.5-5l-2.3 0.8l-3.5-1.8l-8.1-8.3M812.5 557.8l-2.1 4l-0.2 5.4M-26.6 569.5l-2.9-2.5M919.6 569.6l-8.2 0.3M911.4 569.9l-3.4-6.7l-2.3-2l-11.9 2.4M-26.6 569.5l0.9 1.5M938.5 571l-11.3 0.6l-7.6-2M942.4 571.9l-3.9-0.9M853.3 557.6l-12.7 5.5l-11.3 8.9M966.4 569.6l-21 2.5M945.4 572.1l-3-0.2M976.5 572.8l-5.5-2.5l-4.6-0.7M979.9 574l-3.4-1.2M1000.7 573.7l-1.1 0.6M1012.7 574.4l-5.4-4.5l-1.9-0.3l-4.7 4.1M999.6 574.3l-5.9 0.4M993.7 574.7l-13.8-0.7M829.3 572l-4.3 7.3M1012.7 574.4l16.2 8M825 579.3l-5.4 3.2l-8.5 0M810.2 567.2l-1.2 7.5l2.1 7.8M1028.9 582.4l8.1 0M1037 582.4l1.5-0.2M605.3 564.6l-0.4 9l-7.6 13.4M167.3 587.2l0.9-3.5l-1.8-13.5l0.5-5.1l-12.5-19.2M154.4 545.9l-0.6-0.9M424 557.4l2.8 1.8l5.3 8.4l4.6 1.1l4.4 7.7l1 4.1l4.9 3.5l2.4 0.4l3.1 5.4l3.1 0.6M455.6 590.4l2 0.5M-25.7 571l4.8 6.2l2.7 0.7l1.6 2.2l6.5 0.4l2.4 1.6l5.3 5.3l2.6 5.8l2.7 2.4M2.9 595.6l1.7 2.1l0.9 6.1M167.3 587.2l-6.7 1.7l-10.6 5.9l-5.3 1l-5.3-0.6l-6.2 1.7l-1.2 0.8l-0.9 7.2l-1.3 0.6M597.3 587l-2.7 4.3l-0.2 4.7l-6.8 13.4M5.5 603.8l-0.3 5.9M942.4 571.9l2.6 4.6l8.1 3.5l2.7 6.1l0.6 5.9l-2.5 10.6l0.8 2.9l-1.8 2l0.6 3.8l3 1.2l11.8 0.2M992.7 608.3l-24.4 4.4M811.1 582.5l-0.3 10.3l-4.7 13.4l2.9 7.7M71.9 615.8l5.5 0.4M457.6 590.9l1.7 6.7l5.2 5.4l1.8 14M77.4 616.2l8.2 3.2M992.7 608.3l11.4 7.5l3.8 3.8M809 613.9l3.7 2.4l0.5 3.9M48.1 621.1l3.3-4.3l5.4 1.2l0.8-1.2l4-1.7l1.9 0.3l0.4-1.5l2-0.5l6 2.4M466.3 617l1.1 4.9M5.2 609.7l6.5 3.3l4-0.9l1.4 1.4l3.7 0.8l0.6 1.9l4.2 2.2l1.9 2.4l9.3-0.5l4 2.1l4.9 0l2.4-1.3M129.8 605.5l-11.4 0.6l-3.4 2.8l0.4 4.8l-2.7 2.1l-5.1 0.1l-7.8 4.3l-8.2-1.1l-3.1 3.3M85.6 619.4l2.9 3M48.2 624.2l-0.1-3.1M93.9 631.2l-3.7-9.2l-1.7 0.4M1007.9 619.6l3.2 3.1l5.6 2.5l6.3 9.1M48.2 624.2l-1.4 3l-3.9 0.7l-2.2 2.6l-2.3 0.4l-3.8 4.7M95.8 635.7l-1.9-4.5M1027.8 636.9l-2.4-0.2l-2.4-2.4M919.6 569.6l-3.5 21.7l-13.5 40.6l-4.5 5.6M1023 634.3l-10.3 5.7M1038.5 636.7l-7.3 0.5l-3.4-0.3M813.2 620.2l-4.2 18.9l0.9 3.5M34.6 635.6l1.2 4.8l3.4 2.9M898.1 637.5l-4.3 4.9l-0.6 2.5M893.2 644.9l-0.4 0.5M587.6 609.4l-1.1 2.9l2 7.3l-2.4 11.2l0.8 6.7l-2.3 3.2l1.5 4.7l-3.7 3.4M809.9 642.6l-0.9 6.6M39.2 643.3l-3 4.3l-6.4 1.6M-51.3 629.4l5.4 0.2l3.6 3.9l-0.3 4.6l2 4.3l14.9 6.5l1.1 4.4M95.8 635.7l-0.9 3.4l2.7 3.3l-0.3 2.6l3.7 5.4l0.6 4.2M8.8 654.6l3.1-2.9l2.6 1.1l1.6-1.8l3.8 0.4l9.9-2.2M-1.8 652.5l4.1-0.7l-0.1-2.2l1.5-0.2l2.5 3.8l2.6 1.4M582.3 650.2l-2.9 4.8M1012.7 640l0.8 3.8l2.9 2.7l0.9 10.4M809 649.2l-0.6 2.1l-5.1 6.6M-24.6 653.3l6.7 5.8M579.4 655l-2.9 2.1l0 2.2M-17.9 659.1l3.7 0.3l6.2-2.1l6.2-4.8M127.7 663l-8.6-5.3l-1.9-5.7l-9.8-4.7l-5.9-8.1l-5.7-3.5M303.6 659.5l5.8 4.8M303.2 659.8l-12.8 2l-6.9 2.9l-10.2-1l-4.1-2.4l-13.6 0.9l-10.6-2.4M130.2 666.3l-2.5-3.3M576.5 659.3l-3 4l-0.6 6.1M-17.9 659.1l-1.3 2.8l0.8 7.8M803.3 657.9l-6.1 11.8M483 672l-1.5-3.9l2.2-6.4l-0.3-3.4l-2.3-3.9l-6.7-6.2l-3.4-5.6l-0.4-8.9l-3.2-11.8M797.2 669.7l-0.9 4.2M-18.4 669.7l3 8.7M-15.4 678.4l0.9 1.2M136.4 680l-0.9-5.2l-3.4-2.8l-1.9-5.7M892.8 645.4l-7.7 7.5l-5.9 10l-6.1 6l-1.1 3.1l1 6.3l-1 2.3M796.3 673.9l2.8 6.7M587.4 683.4l-0.2 0.1M872 680.6l-4.9 3.2l-10.3 0.2M587.2 683.5l-0.6 0.7M-14.5 679.6l6.3 5M501.5 685.3l-7.8-3.1l-10.7-10.2M572.9 669.4l0.8 2.5l3.5 5.3l3.5 3l2.8 5.1M586.6 684.2l-3.1 1.1M856.8 684l-3.8 1.7M853 685.7l-2.1 0.8M583.5 685.3l-3.6 1.6M799.1 680.6l4.3 8.1M1017.3 656.9l-2.2 3.2l-2.9 1.4l-2.4 5.1l0.9 2.3l-0.9 4.3l0.9 4l-1.1 5.9l-4.6 5l-3.9-1.7l-4.3 4M136.4 680l3.2 10.8M245 659.8l-4.2 5.1l-2.2 6.9l-3.5 1.8l0 4.8l-3 0.7l-0.8 2l-3.3 0.8l-4.4-2.3l-0.4 5l-1.7 1.1l-2 5.1M803.4 688.7l1.9 2.4M850.9 686.5l-2.4 1.4l-0.5 3.3M509.6 691.6l-3.2-1.5l-4.9-4.8M139.6 690.8l0.3 0.8M529.4 691.5l-2.9-0.8l-3.6 0.9M608.6 691.3l-3.2 0.4l-3.7-1l-2.6-2.7l-5.1-0.4l-7.4-3.4M805.3 691.1l0.6 0.8M513.9 690.9l-3.3 1.1l-1-0.4M522.9 691.6l-2.9 0.5l-6.1-1.2M848 691.2l-0.4 0.9M127.5 692.1l1.5 0.2l0.8-1.8l2.7-1l7.1 1.3M579.9 686.9l-4.8 0.6l-12.7 4.8l-2.7 2.5M847.6 692.1l-1.3 3.6M608.6 691.3l0.5-0.2l6 0.4l7.6 4.9M805.9 691.9l3.2 5.2M534.1 698l-3.1-5.6l-1.6-0.9M112.2 698.5l3.8-2l1.1-4.8l7.4 0.4l1 1.4l2-1.4M101.6 654.6l0.8 4.9l3.2 4.6l0.9 4.6l-1.6 1.6l2.4 3.1l0.1 4.6l2.8 1.9l-1.6 8.5l0.8 4.8l2.8 5.3M139.9 691.6l12.6 7.9M219.5 690.8l-0.4 4.9l-3.7 3.1l-1.6 3M-8.2 684.6l5 1.5l4.2 4.4l2.9 0.6l0.8 1.2l2.9 0l4.8 2.8l0.2 1.4l8.9 6.1l4.1 0.3M846.3 695.7l0.4 4l2.5 4.4M152.5 699.5l3.3 4.3l3.2-0.1l1.2 1.9l3.1 0.2M213.8 701.8l-2.9 4.2M559.7 694.8l-6.4 0.4l-3.2 2.1l-4.7 5.9l-1.2 3.8l-7.5-2.5l0.5-4.1l-3.1-2.4M809.1 697.1l7.3 10.3M847.6 692.1l-6 1.1l-2.5 4.7l-2.2 1.7l-13 2.5l-7.5 5.3M816.4 707.4l-1.2 1.4M91.6 709.7l7.2 0.1l6.9-2.6l3.6-3.2l1.3-4.4l1.6-1.1M25.6 702.9l8.1 2.7l6.7 4.5M622.7 696.4l5.4 6l0.3 3.3l2.8 5.6l2.4 0.7M210.9 706l-4.9 0.6l-1.9 1.5l-0.8 2.8l-3.2 1.7M199.4 712.1l0.7 0.5M163.3 705.8l5.7 7.1M84.7 715.1l3.3-3l3-1.1l0.6-1.3M68.7 711.4l5-3.7l0.8 3.1l10.2 4.3M996.8 690.4l-0.9 2.7l-10.7 13.3l-1.5 4.4l0.3 4.5M169 712.9l2.7 2.6l5.9 0.8l2.1-2.1l2-0.4l3.2 0l2.2 1.5l12.3-3.2M40.4 710.1l8.5 3.1l3.3 2.3l2.4 0.2l0.9 1.2l3.2 0.4l10-5.9M815.2 708.8l-9.7 9.1M805.5 717.9l-0.1 0.2M84.7 715.1l-2.5 3.1M984 715.3l-0.7 2.2l-4.3 2.3M849.2 704.1l1.7 1.6l2.4 10.1l5.6 5.3M633.6 712l2.2 3.7l3.4 1.8l4.8 0.6l2.5 3.7l10.1 2.4l4.5-0.5l7.6 3M979 719.8l-11.3 5.9l-3.1 3.3M91.6 709.7l14.1 7l2.5-0.9l1.2 1.2l0.3 3.2l3.3 2l2.5 7.4M633.6 712l-2.4 4.7l1.3 4.6l-3.6 8.1l0.2 2.5M805.4 718.1l-12.4 8l-2.7 0.4l-4.1 4.6l-5.2 3.1M110.9 735.6l4.6-6M805.7 718.9l-0.3 6.2l2 10.5M858.9 721.1l2.4 2.3l4.5 1.2l1.1 1.9l4.7 3.1l5.2 1.8l5.5 4.5M200.1 712.6l-0.3 8.9l7.6 11.7l0.8 2.8M668.7 726.7l2.5 5.6l4.3 4.3M675.5 736.6l1.8 0.9M82.2 718.2l-1.1 4.5l0.6 2.7l6.2 6.6l5.6 0.4l3.5 2.4l7.7 2.8l1.8-2.6l4.4 0.6M677.3 737.5l2.1 1.9M964.6 729l-3.6 5.2l-2.8 1.7l-3 0.7l-5.8-2.4l-4.1 5.4M309.4 664.3l5.4-2.4l4.1-0.4l5.6 6.4l3.6 0l8.8 4.5l4.8 6l2.1 1.2l2.2 4l6.5 5.5l2 3.3l6.1 2l8.7 15.3l5.3 3.2l1.8-0.4l4.9 3.6l-3.5 8.6l1.2 4.4l-0.7 1.7l-9 5.9l-12.8 3.5M264.7 741.5l-5 0M629.1 731.9l-0.2 9.9M628.9 741.8l0 0.2M945.3 739.6l-5.1 2.6M208.2 736l7 4.6l6.3 2.3M781 734.2l-8 4.2l-4.2 5.5M110.9 735.6l-0.3 3.9l-2.6 3.3l0.4 1.3M267.8 745.1l-3.1-3.6M356.5 740.2l2.9 5.1M807.3 737l-0.3 8.7M259.7 741.5l-2.2 5M108.4 744.1l1.1 3.6M359.4 745.3l0.8 3.6M359.4 745.3l-0.9 2.4l1.7 1.2M221.5 742.9l8.7 6.3M236.1 749.9l-5.9-0.7M248.5 749.3l-3.5 1.8l-1.8-1.6l-2.7-0.4l-4.4 0.8M257.5 746.5l-2.5 1l-0.8 2.9l-2.2 0.8l-0.6-0.7l-1.2-0.2l-1.2-1l-0.5 0M882.3 735.9l1.6 0.5l2.8 6l5.3 2.7l4.2 5.6l2.8 1.4M807 745.7l1.6 6.6M899 752.1l6.1 0.8M267.8 745.1l7.1 0.6l3.3-2.4l8.2 0.4l10.3 6.3l3.5 3.5l4.3-1.1l2.1 1.3M397.1 749.1l-26.1 2.4l-5.3 2.2M768.8 743.9l-1.6 1.7l-9.2 2.8l-5.9 6.4M365.7 753.7l-5.6 1.2M360.2 748.9l-0.1 6M438.3 756.1l-16.8-4.9l-11.2-4.7l-3.6 1.8l-9.6 0.8M356.9 756.8l3.2-1.9M679.4 739.4l4.9 2.1l13.5 2.9l2.1 2.7l7.7 3.4l2.9 0.3l13.3 7M723.8 757.8l3.6 0M752.1 754.8l-9.7 3.3l-15-0.3M306.6 753.7l3.5 2.4l3.2 0.2l0.5 1.8l3.6 0.3M230.2 749.2l3.7 9.8M940.2 742.2l-5.2 2.9l-6.9 9.6l-3.3 2.1l-1.3 2.4M905.1 752.9l3.2 5.5l15.2 0.8M109.5 747.7l4.1 1.2l11.8 6.7l7.3 6.1M808.6 752.3l-3.1 11M132.7 761.7l-0.6 2M805.5 763.3l-0.1 1.5M317.4 758.4l3.1 5.4l3.5 1.6l1.7-0.5M233.9 759l3.2 3.2l-0.9 4.2M858.9 721.1l-4.1 8.4l-0.5 4.9l-2.8 3.6l0.2 4.9l2.9 9.1l-6.5 14.8M848.1 766.8l-0.1 0.4M805.4 764.8l0.1 2.8M325.7 764.9l3.5-0.5l2.2-2.7l1.4-0.3l2.5 4.4l5.2 1.8l2.4-1.5l4.6 0.9l3-1.6l4-7l2.4-1.6M132.1 763.7l-1.3 6.7l1.1 3.1M805.5 767.6l2.2 6.7M131.9 773.5l-1.2 3M130.7 776.5l0.4 0.2M628.9 742l1.2 5.3l-0.4 5.4l2.9 6.9l-0.5 4.4l1.2 4.6l-2.9 8.7M848 767.2l-4.9 10.5M843.1 777.7l-2.3 4.4M923.5 759.2l3.7 5l8.6 3.9l6.8 14.5l3.2 2.9M840.8 782.1l-3 7.5M236.2 766.4l1 0.8l2 11l5.3 11.7M131.1 776.7l1.6 1.9l1.4 6.5l6 4.9M837.8 789.6l0 1M356.9 756.8l2.5 8.4l-0.3 11.1l-2.5 8.8l-3.4 3.1l-0.9 3.2M531.2 792.8l1.9-0.6l1.8 0.9M630.4 777.3l-3.2 8.6l0.4 7.5M438.3 756.1l4.9 1.6l5-1.2l1.7 2.9l4.7 1.4l6.8 6.8l6.9 4.5l11.3 5.4l5.9 0.6l5.2 3l11.2 3.2l2.2 2.7l3.7 0.6l9.8 5.4l7 1.2l6.6-1.4M534.9 793.1l1.9 0.8l1.7 2.9M945.8 785.5l6.3 4.1l2.7 8.2M954.8 797.8l3.7 1.5M840.2 791l7 5.7l8.7 3.8M319.2 801.7l-1.5-2.7l-6.4-0.8l-2.4-1.8l-5 2.3l-7.4 0.3l-3.1-4.4M855.9 800.5l6.1 1.5M958.5 799.3l2.8 3.2M323.7 803.9l-4.5-2.2M862 802l5.9 3.6M352.3 791.4l-0.3 2.4l-2.5 2.8l0.1 5.1l-1.6 5.6M1038.5 794.3l-4.3 13.2M961.3 802.5l2.1 4.4l1.8 1.5M965.2 808.4l1.4 0M244.5 789.9l4.4-0.8l4.2 6.4l4 2.1l5.9 0.3l6 7.3l2.3 0.3l4.5 3.4M283.9 811.2l-4.6-2.3l-2 2.4M275.8 808.9l1.5 2.4M867.9 805.6l6.6 5.2l3.4-0.3l1.8 1.2M894.9 812.3l-14.9-0.6M293.4 794.6l-0.8 4.2l3.7 4.3l-1.8 6.4l-4.4 2.9l-6.2-1.2M277.3 811.3l0.4 1.4M966.6 808.4l3.3 0l3.4 4.7M140.1 790l-0.2 4.2l-3.5 2.2l-0.8 2.4l5.4 1.5l3.4 2.6l-2.2 5.2l0.3 5.3M142.5 813.4l0.5 1M627.6 793.4l2.9 6.3l3.1 2.3l9.3 12.8M538.5 796.8l-2.1 4.7l4.1 5l6.3 4.4l10.9 4.3M908.1 815.7l-8.7-3.6l-4.5 0.2M911.2 816.5l-3.1-0.8M973.3 813.1l2.1 3.5M837.8 790.6l0.3 2.9l7.2 17.6l-0.1 5l2.1 1.6M348 807.3l-0.9 10.8M347.1 818.1l-2.6-1.9M847.3 817.7l1.1 0.4M920.4 818.5l-9.2-2M929.7 818l-9.3 0.5M934.4 818.9l-4.7-0.9M977.8 820.9l5.5-2.3l7.3 0M944.6 821l-10.2-2.1M990.6 818.6l10.1 2.4M953.5 821.2l-4 0l-1.9-0.2l-3 0M977.8 820.9l-2.5 0.4M975.4 816.6l-0.1 4.7M277.7 812.7l1.2 8.2l4.9 0.5M975.3 821.3l-1.9 0.8M966.6 808.4l6.8 13.7M344.5 816.2l0 3.2l-2.7 3.1l-2.5-1.7l-0.7-2.4l-2.3 1.6l-3.6-0.4l-0.7-5l-3.4-3.9l-1.5-4l-3.4-2.8M962.3 823.3l-4.3-0.7l-2.9-1.3l-1-0.1l-0.6 0M848.4 818.1l4.3 5.6M973.4 822.1l0.7 2M143 814.4l5.3 10.2M974.1 824.1l-7 0.8M967.1 824.9l-2.7-1.2l-1.7-0.4l-0.4 0M975.3 821.3l0.4 3.6M975.7 824.9l-1.6-0.8M852.7 823.7l1.1 1.7M1034.2 807.5l-0.5 2l1.2 4.1l-1.6 6.4l0.8 3.8l-1.1 1.8M1001.5 821.2l8.9 4.5M283.8 821.4l3.5 1.2l2.7 3.1M557.7 815.2l4.3 4.9l1.9 5.6M975.7 824.9l-0.3 0.8M148.3 824.6l0.6 1.1M967.1 824.9l-0.8 0.8M1033 825.6l0 0.1M348.2 825.7l-1.1-7.6M642.9 814.8l-1.9 10.9M853.8 825.4l0 0.3","villes":[{"n":"Santarém","p":[631.4,259.1]},{"n":"Altamira","p":[711.2,283.8]},{"n":"Marabá","p":[810.4,353.2]},{"n":"Brasília","p":[848.8,689.6]}],"eaux":[{"n":"Océan\nAtlantique","p":[926.3,96.8]},{"n":"Amazone","p":[548.1,262.9]}],"pays":[{"n":"Pérou","p":[44.9,551.5]},{"n":"Bolivie","p":[307.7,716.0]},{"n":"Colombie","p":[70.5,109.7]},{"n":"Venezuela","p":[282.1,32.3]},{"n":"Guyana","p":[496.8,22.6]}],"annees":[1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026],"serie":[[2340,620,1510,290,6990,60,1650,5140,2450],[1430,540,1180,630,5750,130,730,5960,1420],[1670,550,520,150,4890,250,580,4020,1100],[1110,380,980,420,3780,410,440,2840,670],[2265,400,799,281,3787,36,409,4674,1135],[2595,482,370,240,4284,0,333,6220,372],[2595,482,370,240,4284,0,333,6220,372],[4730,1208,2114,220,7845,9,797,10391,1745],[2432,433,1023,214,6135,0,320,6543,1061],[1986,358,589,184,4139,18,273,5271,409],[2041,536,670,223,5829,30,576,6466,1012],[2358,441,720,220,5111,0,216,6963,1230],[2465,547,612,253,6671,0,244,6369,1065],[2673,419,634,345,5237,7,189,7703,958],[3099,883,885,84,7510,0,212,7892,1085],[3597,1078,1558,439,7145,25,156,10405,993],[3858,728,1232,311,8870,46,158,11814,755],[3244,592,775,133,5899,33,271,7145,922],[2049,398,788,231,5659,30,124,4333,674],[1611,184,610,309,5526,39,63,2678,631],[1136,254,604,574,5607,100,107,3258,1271],[482,167,405,121,4281,70,61,1049,828],[435,259,595,256,3770,53,49,871,712],[865,280,502,141,3008,66,40,1120,396],[773,305,523,124,1741,27,52,757,269],[932,221,583,170,2346,23,74,1139,403],[684,309,500,219,1887,31,50,1075,257],[1030,264,712,156,2153,25,57,1601,209],[1376,372,1129,202,2992,17,58,1489,258],[1243,257,1001,132,2433,24,31,1561,265],[1316,444,1045,195,2744,24,25,1490,253],[1257,682,1434,590,4172,32,23,1702,237],[1273,706,1512,297,4899,24,25,1779,336],[1673,889,2306,315,5238,17,37,2213,350],[1480,840,2594,279,4162,14,27,1927,271],[867,601,1610,284,3299,17,32,2048,306],[360,449,1223,468,2395,27,32,1257,307],[229,324,979,285,2064,17,30,1593,210],[149,252,525,286,1130,8,8,849,128]],"ordre":["RO","AC","AM","RR","PA","AP","TO","MT","MA"]};
+  var NS = "http://www.w3.org/2000/svg", W = D.W, H = D.H, ZOOM_MAX = 6;
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".amz__svg"), carte = q(".amz__carte"), gEtiq = q(".amz__etiquettes"), vueTexte = q(".amz__vue"), annonce = q(".amz__annonce");
+  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H } };
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function bouton(classe, texte, val, action, presse) {
+    var b = el("button", classe || "amz__choisir");
+    b.type = "button";
+    if (classe === "amz__choisir" || !classe) {
+      el("span", "amz__choisir-nom", texte, b);
+      if (val) { el("span", "amz__choisir-val", val, b); }
+    } else { b.textContent = typo(texte); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function entete(surtitre, titre, couleur) {
+    el("span", "amz__surtitre", surtitre, vueTexte);
+    var h = el("h4", "amz__intertitre", null, vueTexte);
+    if (couleur) { var p = el("span", "amz__pastille", null, h); p.style.background = couleur; }
+    el("span", "", titre, h);
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "amz__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function points(parent, liste) { var ul = el("ul", "amz__points", null, parent); liste.forEach(function (t) { el("li", "", t, ul); }); return ul; }
+
+  /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return etat.vue.w < W - .5; }
+  function bornerVue(v) {
+    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * H / W;
+    return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vue;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    q(".amz__recentrer").hidden = !estZoome();
+    carte.classList.toggle("est-zoomee", estZoome());
+    etiqueter();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    var w = b.width || 800, h = b.height || 800 * H / W;
+    var s = Math.min(w / v.w, h / v.h);
+    var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    appliquerVue();
+  }
+  function cadrer(x, y, w) { etat.vue = bornerVue({ x: x - w / 2, y: y - w * H / W / 2, w: w }); appliquerVue(); }
+  function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
+  q(".amz__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".amz__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  q(".amz__recentrer").addEventListener("click", function () { etat.vue = { x: 0, y: 0, w: W, h: H }; appliquerVue(); });
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false, pince = null, pinceAttente = 0;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+  /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+  function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+  function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  function vueSous(p, m, w) {
+    var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+    var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+    return { x: p.x - (m.x - (b.left || 0) - ox) / s, y: p.y - (m.y - (b.top || 0) - oy) / s, w: w };
+  }
+  carte.addEventListener("touchstart", function (ev) {
+    if (ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    glisse = null; racine.classList.remove("est-glisse");
+    var m = milieu(ev.touches);
+    pince = { d: ecart(ev.touches), w: etat.vue.w, p: pointCarte(m.x, m.y), m: m };
+  }, { passive: false });
+  carte.addEventListener("touchmove", function (ev) {
+    if (!pince || ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    pince.m = milieu(ev.touches);
+    pince.w2 = Math.min(W, Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
+    if (pinceAttente) { return; }
+    var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } etat.vue = bornerVue(vueSous(pince.p, pince.m, pince.w2)); appliquerVue(); };
+    if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  function finPince(ev) {
+    if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+    pince = null; glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 350);
+  }
+  carte.addEventListener("touchend", finPince);
+  carte.addEventListener("touchcancel", finPince);
+  carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+
+  /* ----- étiquettes : chacune réserve un rectangle ; celles qui en chevauchent une autre
+     déjà posée ne sont pas affichées. Les plus importantes passent en premier. */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    var u = unite(), v = etat.vue, places = [];
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".amz__carte > .amz__bouton-carte, .amz__outils, .amz__carte > .amz__cartouche"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function poser(x, y, texte, classe, px, opt) {
+      opt = opt || {};
+      var lignes = typo(texte).split("\n"), t = px * u, larg = 0;
+      lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+      var haut = lignes.length * t * 1.15, m = 1.5 * u, rot = opt.r || 0, boites = [], ancre = opt.ancre || "middle";
+      var cxb = ancre === "start" ? x + larg / 2 : (ancre === "end" ? x - larg / 2 : x);
+      if (rot) {
+        var a = rot * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), nbo = Math.max(1, Math.ceil(larg / haut));
+        for (var j = 0; j < nbo; j++) {
+          var off = -larg / 2 + (j + .5) * larg / nbo, cx = x + ca * off, cy = y + sa * off, dm = haut / 2 + m;
+          boites.push([cx - dm, cy - dm, cx + dm, cy + dm]);
+        }
+      } else { boites.push([cxb - larg / 2 - m, y - haut / 2 - m, cxb + larg / 2 + m, y + haut / 2 + m]); }
+      if (!opt.force && !boites.every(libre)) { return null; }
+      boites.forEach(function (bo) { places.push(bo); });
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": (opt.halo || 3) * u }, gEtiq);
+      if (rot) { n.setAttribute("transform", "rotate(" + rot + " " + x.toFixed(1) + " " + y.toFixed(1) + ")"); }
+      if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+      else {
+        lignes.forEach(function (l, j) {
+          var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+          ts.textContent = l;
+        });
+      }
+      return n;
+    }
+    function reserver(x, y, r) { places.push([x - r, y - r, x + r, y + r]); }
+    etiquettesCarte(poser, u, v, reserver);
+  }
+
+
+  var ORDRE = D.ordre, AN = D.annees, N = AN.length, DERNIERE = AN[N - 1];
+  var SEUILS = { annee: [250, 1000, 2500, 5000], cumul: [5000, 20000, 50000, 100000] };
+  var CLES = { annee: ["moins de 250", "250 à 1\u00a0000", "1\u00a0000 à 2\u00a0500", "2\u00a0500 à 5\u00a0000", "5\u00a0000 ou plus"], cumul: ["moins de 5\u00a0000", "5\u00a0000 à 20\u00a0000", "20\u00a0000 à 50\u00a0000", "50\u00a0000 à 100\u00a0000", "100\u00a0000 ou plus"] };
+  var CAUSES = {
+    elevage: { t: "L'élevage du bétail", p: ["La plupart des forêts coupées deviennent des pâturages. Sur les terres déboisées de l'Amazonie brésilienne, les prés pour le bétail occupent environ les deux tiers de la surface : 66\u00a0% en 2024.", "On abat les arbres, on brûle ce qui reste, puis on sème de l'herbe pour le bétail."], n: "Chiffre : TerraClass 2024, de l'INPE et de l'Embrapa, l'institut brésilien de recherche agricole." },
+    soja: { t: "Le soja et les grandes cultures", p: ["Les cultures occupent environ 12\u00a0% des terres déboisées en 2024. Le Mato Grosso est le plus grand producteur de soja du Brésil.", "En juillet 2006, les grandes entreprises qui achètent et exportent le soja signent un moratoire : elles s'engagent à ne pas acheter le soja cultivé sur des terres de l'Amazonie déboisées après une date limite, aujourd'hui fixée au 22 juillet 2008.", "En janvier 2026, leur association (l'Abiove) et plusieurs grandes entreprises annoncent quitter le moratoire. Une nouvelle loi du Mato Grosso retire en effet des avantages fiscaux aux entreprises qui y participent."], n: "Sources : TerraClass 2024; Abiove; Reuters, 5 janvier 2026." },
+    routes: { t: "Les routes", p: ["La forêt recule d'abord le long des routes. Selon une étude publiée en 2014, près de 95\u00a0% de la déforestation se trouve à moins de 5,5 km d'une route ou à moins de 1 km d'une rivière.", "Une route ouvre l'accès à la forêt : bûcherons, éleveurs et colons la suivent. Au Rondônia, les chemins tracés de part et d'autre de la route BR-364 dessinent des « arêtes de poisson » visibles du ciel.", "Active la couche des routes, puis compare son tracé avec les États les plus déboisés."], n: "Source : Barber et autres, Biological Conservation, 2014." }
+  };
+  var JALONS = [
+    { a: 2004, t: "Un plan d'action contre la déforestation", p: ["En 2004, l'État fédéral lance le Plan d'action pour la prévention et le contrôle de la déforestation en Amazonie légale (PPCDAm). La même année, l'INPE met en service le DETER, qui repère les coupes par satellite presque en temps réel. Les agents de l'IBAMA, l'organisme de contrôle environnemental, reçoivent ces alertes pour intervenir rapidement.", "De 2003-2004 à 2011-2012, la déforestation annuelle passe de 27\u00a0772 à 4\u00a0571\u00a0km², une baisse d'environ 84\u00a0%."] },
+    { a: 2006, t: "Le moratoire du soja", p: ["En juillet 2006, les grandes entreprises qui achètent et exportent le soja s'engagent à ne pas acheter le soja cultivé sur des terres de l'Amazonie déboisées. La date limite est aujourd'hui fixée au 22 juillet 2008."] },
+    { a: 2012, t: "Le plus bas de l'époque", p: ["Avec 4\u00a0571\u00a0km², l'année 2011-2012 est la plus basse depuis le début des mesures, un record qui tiendra jusqu'en 2026.", "La même année, le Brésil adopte un nouveau Code forestier. En Amazonie, le propriétaire d'une terre en forêt doit en conserver 80\u00a0%."] },
+    { a: 2019, t: "La courbe remonte", p: ["Le gouvernement de Jair Bolsonaro (2019-2022) réduit les budgets et les contrôles des agences environnementales. La Norvège et l'Allemagne suspendent leurs versements au Fonds Amazonie.", "La déforestation remonte d'année en année jusqu'à 13\u00a0038\u00a0km² en 2020-2021, son niveau le plus haut depuis 2005-2006."] },
+    { a: 2023, t: "Le plan relancé", p: ["Le gouvernement de Luiz Inácio Lula da Silva relance le PPCDAm. Sa cinquième phase (2023-2027) vise la fin de la déforestation illégale. Le Fonds Amazonie reprend ses activités.", "De 2022-2023 à 2025-2026, la déforestation baisse chaque année."] },
+    { a: 2026, t: "Le plus bas depuis 1988", p: ["Le 16 octobre 2026, l'INPE estime la déforestation d'août 2025 à juillet 2026 à 3\u00a0335\u00a0km². C'est le plus bas total depuis le début des mesures, en 1988.", "Le chiffre définitif sera publié en 2027. L'estimation est d'ordinaire assez proche : en 2025, elle était de 5\u00a0796\u00a0km² pour un chiffre définitif de 5\u00a0731\u00a0km²."] }
+  ];
+  var ART = { RO: ["le ", "du "], AC: ["l'", "de l'"], AM: ["l'", "de l'"], RR: ["le ", "du "], PA: ["le ", "du "], AP: ["l'", "de l'"], TO: ["le ", "du "], MT: ["le ", "du "], MA: ["le ", "du "] };
+  var JAL = {}; JALONS.forEach(function (j) { JAL[j.a] = j; });
+  var ETAT = {}; D.etats.forEach(function (e, i) { e.i = i; ETAT[e.id] = e; });
+  function idx(a) { return AN.indexOf(a); }
+  function val(a, e) { return D.serie[idx(a)][ETAT[e].i]; }
+  function total(a) { return D.serie[idx(a)].reduce(function (s, v) { return s + v; }, 0); }
+  function cumul(a, e) { var s = 0; for (var i = 0; i <= idx(a); i++) { s += D.serie[i][ETAT[e].i]; } return s; }
+  function periode(a) { return (a - 1) + "-" + a; }
+  function classe(v, mode) { var s = SEUILS[mode], c = 1; while (c <= 4 && v >= s[c - 1]) { c++; } return c; }
+  function pct(x) { return Math.round(x) + "\u00a0%"; }
+  /* ----- carte */
+  var gEtats = q(".amz__etats"), PE = {};
+  q(".amz__autres").setAttribute("d", D.autres); q(".amz__reste").setAttribute("d", D.reste); q(".amz__routes").setAttribute("d", D.routes);
+  D.etats.forEach(function (e) { PE[e.id] = svgEl("path", { "class": "amz__etat", d: e.d, "data-etat": e.id }, gEtats); });
+  D.fleuves.forEach(function (f) { svgEl("path", { "class": "amz__fleuve", d: f.d, "data-r": f.r }, q(".amz__fleuves")); });
+  var gVilles = q(".amz__villes");
+  D.etats.forEach(function (e) { svgEl("circle", { "class": "amz__ville amz__ville--cap", cx: e.c[0], cy: e.c[1], r: 2.6 }, gVilles); });
+  D.villes.forEach(function (v) { svgEl("circle", { "class": "amz__ville", cx: v.p[0], cy: v.p[1], r: 2.3 }, gVilles); });
+  /* ----- graphique */
+  var G = q(".amz__graphe"), GX0 = 46, GX1 = 632, GY0 = 30, GY1 = 168, VMAX = 30000, pasX = (GX1 - GX0) / N, COL = [], PART = [];
+  function gy(v) { return GY1 - v / VMAX * (GY1 - GY0); }
+  [0, 10000, 20000, 30000].forEach(function (v) {
+    svgEl("line", { "class": v ? "amz__grille" : "amz__axe", x1: GX0 - 4, x2: GX1, y1: gy(v), y2: gy(v) }, G);
+    var t = svgEl("text", { x: GX0 - 7, y: gy(v) + 3.5, "text-anchor": "end", "font-size": 10 }, G); t.textContent = nb(v);
+  });
+  var gJal = svgEl("g", {}, G);
+  AN.forEach(function (a, i) {
+    var x = GX0 + i * pasX + 1.5, w = pasX - 3, v = total(a);
+    var r = svgEl("rect", { "class": "amz__colonne" + (a === DERNIERE ? " amz__colonne--estimee" : ""), x: x.toFixed(1), y: gy(v).toFixed(1), width: w.toFixed(1), height: (GY1 - gy(v)).toFixed(1), "data-annee": a }, G);
+    var ti = svgEl("title", {}, r); ti.textContent = typo(periode(a) + " : " + nb(v) + "\u00a0km²" + (a === DERNIERE ? " (estimation)" : ""));
+    COL.push(r);
+    PART.push(svgEl("rect", { "class": "amz__partie", x: x.toFixed(1), width: w.toFixed(1), y: GY1, height: 0 }, G));
+    if (a % 5 === 0 || a === 1988) { var t = svgEl("text", { x: (x + w / 2).toFixed(1), y: GY1 + 14, "text-anchor": "middle", "font-size": 10 }, G); t.textContent = String(a); }
+  });
+  var valChoisie = svgEl("text", { "class": "amz__val-choisie", "text-anchor": "middle", "font-size": 11 }, G);
+  var GJ = {};
+  JALONS.forEach(function (j, k) {
+    var x = GX0 + idx(j.a) * pasX + pasX / 2, g = svgEl("g", { "class": "amz__jalon", "data-jalon": j.a }, gJal);
+    svgEl("line", { x1: x, x2: x, y1: 20, y2: GY1 }, g);
+    svgEl("circle", { cx: x, cy: 12, r: 8.5 }, g);
+    var t = svgEl("text", { x: x, y: 15.6, "text-anchor": "middle", "font-size": 10 }, g); t.textContent = String(k + 1);
+    var ti = svgEl("title", {}, g); ti.textContent = typo(j.a + " : " + j.t);
+    GJ[j.a] = g;
+  });
+  G.addEventListener("click", function (ev) {
+    var j = ev.target.closest ? ev.target.closest("[data-jalon]") : null;
+    if (j) { var a = Number(j.getAttribute("data-jalon")); if (!(etat.choix && etat.choix.type === "jalon" && etat.choix.id === String(a))) { etat.annee = a; } choisir({ type: "jalon", id: String(a) }); return; }
+    var c = ev.target.getAttribute && ev.target.getAttribute("data-annee");
+    if (c) { annee(Number(c)); }
+  });
+  var curseur = q(".amz__annee"); curseur.max = String(N - 1);
+  curseur.addEventListener("input", function () { annee(AN[Number(curseur.value)]); });
+  q(".amz__pas--moins").addEventListener("click", function () { annee(AN[Math.max(0, idx(etat.annee) - 1)]); });
+  q(".amz__pas--plus").addEventListener("click", function () { annee(AN[Math.min(N - 1, idx(etat.annee) + 1)]); });
+  function annee(a) {
+    if (a === etat.annee) { return; }
+    etat.annee = a;
+    if (etat.choix && etat.choix.type === "jalon" && etat.choix.id !== String(a)) { etat.choix = null; }
+    rendre();
+  }
+  Array.prototype.forEach.call(racine.querySelectorAll(".amz__segment"), function (b) { b.addEventListener("click", function () { etat.mode = b.getAttribute("data-mode"); rendre(); }); });
+  etat.annee = DERNIERE; etat.mode = "annee";
+  var DEPART = { routes: false, fleuves: true };
+  function reinitExtra() { etat.annee = DERNIERE; etat.mode = "annee"; }
+  function apresCouche(c) { }
+  /* ----- fiches */
+  function rang(a) {
+    var v = total(a), plusBas = 0, plusHaut = 0;
+    AN.forEach(function (b) { if (total(b) < v) { plusBas++; } if (total(b) > v) { plusHaut++; } });
+    if (plusBas === 0) { return "le plus bas depuis 1988"; }
+    if (plusHaut === 0) { return "le plus haut depuis 1988"; }
+    if (plusBas < plusHaut) { return (plusBas + 1) + "e plus bas sur " + N; }
+    return (plusHaut + 1) + "e plus haut sur " + N;
+  }
+  function notesAnnee(a) {
+    var n = [];
+    if (a === DERNIERE) { n.push("Estimation de l'INPE publiée le 16 octobre 2026. Le chiffre définitif sera connu en 2027."); }
+    if (a === 2025) { n.push("Ce chiffre est définitif. L'estimation publiée en octobre 2025, celle que cite la fiche, était de 5\u00a0796\u00a0km²."); }
+    if (a === 1988) { n.push("1988 est la première année mesurée par le programme PRODES."); }
+    if (a === 1993 || a === 1994) { n.push("Les années 1993 et 1994 n'ont pas été mesurées séparément : le PRODES donne la même valeur moyenne pour les deux."); }
+    return n;
+  }
+  function ficheAnnee() {
+    var a = etat.annee, v = total(a), i = idx(a);
+    entete("D'août " + (a - 1) + " à juillet " + a, nb(v) + "\u00a0km² déboisés");
+    var paires = [];
+    if (i > 0) { var p = total(AN[i - 1]), d = (v - p) / p * 100; paires.push(["Par rapport à " + periode(AN[i - 1]), (d > 0 ? "+" : "") + dec(d, 1) + "\u00a0%"]); }
+    paires.push(["Rang depuis 1988", rang(a)]);
+    chiffres(vueTexte, paires);
+    notesAnnee(a).forEach(function (t) { el("p", "amz__note", t, vueTexte); });
+    if (JAL[a]) { var ul0 = el("ul", "amz__liste", null, vueTexte); el("li", "", null, ul0).appendChild(bouton("amz__choisir", JAL[a].t, String(a), function () { choisir({ type: "jalon", id: String(a) }); })); }
+    el("span", "amz__rubrique", "Par État" + (etat.mode === "cumul" ? ", total de 1988 à " + a : ""), vueTexte);
+    var ul = el("ul", "amz__liste", null, vueTexte), base = etat.mode === "cumul" ? ORDRE.reduce(function (s, e) { return s + cumul(a, e); }, 0) : v;
+    ORDRE.slice().sort(function (x, y) { return (etat.mode === "cumul" ? cumul(a, y) - cumul(a, x) : val(a, y) - val(a, x)); }).forEach(function (e) {
+      var w = etat.mode === "cumul" ? cumul(a, e) : val(a, e);
+      el("li", "", null, ul).appendChild(bouton("amz__choisir", ETAT[e].n, nb(w) + "\u00a0km² · " + pct(w / base * 100), function () { choisir({ type: "etat", id: e }); }));
+    });
+    el("span", "amz__rubrique", "Pourquoi la forêt recule", vueTexte);
+    var uc = el("ul", "amz__liste", null, vueTexte);
+    ["elevage", "soja", "routes"].forEach(function (c) { el("li", "", null, uc).appendChild(bouton("amz__choisir", CAUSES[c].t, null, function () { choisir({ type: "cause", id: c }); })); });
+    el("p", "amz__note", "Le PRODES compte la forêt coupée à blanc, d'août à juillet. Il ne compte pas la forêt abîmée par les feux ou par la coupe sélective.", vueTexte);
+  }
+  function ficheEtat(id) {
+    var e = ETAT[id], a = etat.annee, v = val(a, id), t = total(a);
+    entete("État de l'Amazonie légale", e.n);
+    var pic = AN[0]; AN.forEach(function (b) { if (val(b, id) > val(pic, id)) { pic = b; } });
+    chiffres(vueTexte, [["En " + periode(a), nb(v) + "\u00a0km²"], ["Part de l'Amazonie légale", pct(v / t * 100)], ["Année record", periode(pic) + " · " + nb(val(pic, id)) + "\u00a0km²"], ["Total de 1988 à " + a, nb(cumul(a, id)) + "\u00a0km²"]]);
+    var rangE = ORDRE.slice().sort(function (x, y) { return val(a, y) - val(a, x); }).indexOf(id) + 1;
+    el("p", "amz__paragraphe", "En " + periode(a) + ", " + ART[id][0] + e.n + " arrive " + (rangE === 1 ? "au premier rang" : "au " + rangE + "e rang") + " des neuf États pour la forêt coupée. Sa capitale est " + e.cap + ".", vueTexte);
+    if (id === "MA") { el("p", "amz__note", "Seul l'ouest du Maranhão, à l'ouest du 44e méridien, fait partie de l'Amazonie légale. La partie est apparaît en gris.", vueTexte); }
+    notesAnnee(a).forEach(function (t2) { el("p", "amz__note", t2, vueTexte); });
+    var act = el("div", "amz__actions", null, vueTexte);
+    if (pic !== a) { act.appendChild(bouton("amz__retour", "Voir son année record", null, function () { etat.annee = pic; rendre(); })); }
+    act.appendChild(bouton("amz__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheCause(id) {
+    var c = CAUSES[id];
+    entete("Une cause de la déforestation", c.t);
+    c.p.forEach(function (t) { el("p", "amz__paragraphe", t, vueTexte); });
+    el("p", "amz__note", c.n, vueTexte);
+    var act = el("div", "amz__actions", null, vueTexte);
+    act.appendChild(bouton("amz__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheJalon(id) {
+    var j = JAL[Number(id)], k = JALONS.indexOf(j);
+    entete("Repère " + (k + 1) + " · " + periode(j.a), j.t);
+    chiffres(vueTexte, [["Déboisé en " + periode(j.a), nb(total(j.a)) + "\u00a0km²"], ["Rang depuis 1988", rang(j.a)]]);
+    j.p.forEach(function (t) { el("p", "amz__paragraphe", t, vueTexte); });
+    var act = el("div", "amz__actions", null, vueTexte);
+    if (k > 0) { act.appendChild(bouton("amz__retour", "Repère précédent", null, function () { etat.annee = JALONS[k - 1].a; choisir({ type: "jalon", id: String(JALONS[k - 1].a) }); })); }
+    if (k < JALONS.length - 1) { act.appendChild(bouton("amz__retour", "Repère suivant", null, function () { etat.annee = JALONS[k + 1].a; choisir({ type: "jalon", id: String(JALONS[k + 1].a) }); })); }
+    act.appendChild(bouton("amz__retour", "Fermer", null, function () { choisir(null); }));
+  }
+  /* ----- étiquettes : nom de l'État et valeur, villes, pays */
+  function etiquettesCarte(poser, u, v0, reserver) {
+    var a = etat.annee, ch = etat.choix, ord = ORDRE.slice().sort(function (x, y) { return val(a, y) - val(a, x); });
+    if (ch && ch.type === "etat") { ord.splice(ord.indexOf(ch.id), 1); ord.unshift(ch.id); }
+    D.etats.forEach(function (e) { reserver(e.c[0], e.c[1], 4 * u); });
+    D.villes.forEach(function (v) { reserver(v.p[0], v.p[1], 4 * u); });
+    ord.forEach(function (id) {
+      var e = ETAT[id], w = etat.mode === "cumul" ? cumul(a, id) : val(a, id), choisi = ch && ch.type === "etat" && ch.id === id;
+      if (poser(e.a[0], e.a[1] - 7 * u, e.n, choisi ? "amz__etiquette--choisie" : "amz__etiquette--etat", choisi ? 15 : 12.5, { halo: 3.5 })) { poser(e.a[0], e.a[1] + 10 * u, nb(w) + "\u00a0km²", "amz__etiquette--val", 11, { halo: 3.5, chasse: .62 }); }
+    });
+    D.etats.forEach(function (e) { poser(e.c[0] + 5 * u, e.c[1], e.cap, "amz__etiquette--pale", 10, { ancre: "start" }); });
+    D.villes.forEach(function (v) { poser(v.p[0] + 5 * u, v.p[1], v.n, "amz__etiquette--pale", 10, { ancre: "start" }); });
+    D.eaux.forEach(function (e) { poser(e.p[0], e.p[1], e.n, "amz__etiquette--eau", 12); });
+    D.pays.forEach(function (p) { poser(p.p[0], p.p[1], p.n, "amz__etiquette--pays", 10.5); });
+  }
+  function rendre() {
+    var ch = etat.choix, a = etat.annee, i = idx(a);
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.setAttribute("data-annee", String(a)); racine.setAttribute("data-mode", etat.mode);
+    racine.classList.toggle("avec-etat", !!ch && ch.type === "etat");
+    ORDRE.forEach(function (e) {
+      var w = etat.mode === "cumul" ? cumul(a, e) : val(a, e);
+      PE[e].setAttribute("data-c", String(classe(w, etat.mode)));
+      PE[e].classList.toggle("est-choisi", !!ch && ch.type === "etat" && ch.id === e);
+    });
+    q(".amz__routes").style.display = etat.couches.routes ? "" : "none";
+    q(".amz__fleuves").style.display = etat.couches.fleuves ? "" : "none";
+    COL.forEach(function (r, k) { r.classList.toggle("est-choisi", k === i); });
+    var se = ch && ch.type === "etat" ? ETAT[ch.id].i : -1;
+    PART.forEach(function (r, k) { var v = se < 0 ? 0 : D.serie[k][se]; r.setAttribute("y", gy(v).toFixed(1)); r.setAttribute("height", (GY1 - gy(v)).toFixed(1)); });
+    var vx = GX0 + i * pasX + pasX / 2, vv = se < 0 ? total(a) : D.serie[i][se];
+    valChoisie.setAttribute("x", Math.max(GX0 + 20, Math.min(GX1 - 20, vx)).toFixed(1)); valChoisie.setAttribute("y", (gy(se < 0 ? total(a) : Math.max(vv, total(a))) - 5).toFixed(1));
+    valChoisie.textContent = typo(nb(se < 0 ? total(a) : vv));
+    JALONS.forEach(function (j) { GJ[j.a].classList.toggle("est-choisi", !!ch && ch.type === "jalon" && ch.id === String(j.a)); });
+    curseur.value = String(i);
+    curseur.setAttribute("aria-valuetext", typo("D'août " + (a - 1) + " à juillet " + a + " : " + nb(total(a)) + "\u00a0km²"));
+    q(".amz__annee-texte").textContent = periode(a) + (a === DERNIERE ? " *" : "");
+    Array.prototype.forEach.call(racine.querySelectorAll(".amz__segment"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-mode") === etat.mode ? "true" : "false"); });
+    Array.prototype.forEach.call(racine.querySelectorAll(".amz__couche"), function (b) { b.setAttribute("aria-pressed", etat.couches[b.getAttribute("data-couche")] ? "true" : "false"); });
+    var cles = q(".amz__cles"); while (cles.firstChild) { cles.removeChild(cles.firstChild); }
+    CLES[etat.mode].forEach(function (t, k) { var li = el("li", "", null, cles); var s = el("span", "amz__puce", null, li); s.style.background = "var(--amz-c" + (k + 1) + ")"; li.appendChild(document.createTextNode(typo(t + (k === 4 ? "\u00a0km²" : "")))); });
+    if (etat.couches.routes) { var li2 = el("li", "", null, cles); var s2 = el("span", "amz__puce amz__puce--trait", null, li2); s2.style.background = "var(--amz-route)"; li2.appendChild(document.createTextNode("Route principale")); }
+    if (ch && ch.type === "etat") { var li3 = el("li", "", null, cles); var s3 = el("span", "amz__puce", null, li3); s3.style.background = "var(--amz-part)"; li3.appendChild(document.createTextNode(typo("Part " + ART[ch.id][1] + ETAT[ch.id].n + " dans le graphique"))); }
+    if (a === DERNIERE) { el("li", "", "* Estimation", cles); }
+    while (vueTexte.firstChild) { vueTexte.removeChild(vueTexte.firstChild); }
+    if (!ch) { ficheAnnee(); }
+    else if (ch.type === "etat") { ficheEtat(ch.id); }
+    else if (ch.type === "cause") { ficheCause(ch.id); }
+    else if (ch.type === "jalon") { ficheJalon(ch.id); }
+    etiqueter();
+  }
+  function clicCarte(cible) {
+    var e = cible.closest ? cible.closest("[data-etat]") : null;
+    if (e) { choisir({ type: "etat", id: e.getAttribute("data-etat") }); }
+  }
+  var API = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", annee: etat.annee, mode: etat.mode, couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; }, choisir: function (c) { choisir(c); }, annee: function (a) { annee(a); }, mode: function (m) { etat.mode = m; rendre(); }, donnees: D };
+
+
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    clicCarte(ev.target);
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".amz__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.getAttribute("data-couche");
+      etat.couches[c] = !etat.couches[c];
+      apresCouche(c);
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".amz__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    rendre();
+    var lecture = q(".amz__lecture"); if (lecture) { lecture.scrollTop = 0; }
+  }
+  /* Réinitialiser (bouton posé par page.js) : aucun choix, couches de départ, carte entière. */
+  function reinitialiser() {
+    etat.choix = null;
+    for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
+    reinitExtra();
+    etat.vue = { x: 0, y: 0, w: W, h: H };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    q(".amz__recentrer").hidden = true;
+    carte.classList.remove("est-zoomee");
+    rendre();
+    var lecture = q(".amz__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
+  racine.amz = API;
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>

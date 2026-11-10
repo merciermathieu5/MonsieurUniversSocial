@@ -1,0 +1,532 @@
+<section class="gal" id="galapagos-iles" data-reinitialiser aria-label="Carte interactive : les îles Galápagos, île par île, avec leurs espèces, leurs sites de visite et la réserve marine">
+<style>
+.gal { --gal-hors: #EEF3F6; --gal-terre: #ECE7DC; --gal-terre-trait: #C9C0AE; --gal-eau: #A9CBE3; --gal-eau-nom: #2D5F8A; --gal-halo: #FBFBF8; --gal-encre-carte: #2F3A44; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: gal / inline-size; }
+html[data-sombre="on"] .gal { --gal-hors: #1B2732; --gal-terre: #36414C; --gal-terre-trait: #56626E; --gal-eau: #1C3A55; --gal-eau-nom: #9CC7EC; --gal-halo: #18222D; --gal-encre-carte: #E3DED3; }
+.gal .gal__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.gal .gal__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.gal .gal__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .gal .gal__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .gal .gal__titre { color: var(--encre); }
+html[data-sombre="on"] .gal .gal__consigne { color: var(--encre-pale); }
+.gal .gal__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.gal .gal__visuel, .gal .gal__lecture { min-width: 0; }
+.gal .gal__carte { position: relative; background: var(--gal-hors); border-bottom: 1px solid var(--trait); touch-action: pan-y; }
+.gal .gal__carte.est-zoomee { touch-action: none; }
+.gal .gal__svg { display: block; width: 100%; height: auto; max-height: 78vh; user-select: none; -webkit-user-select: none; }
+.gal.est-glisse .gal__svg { cursor: grabbing; }
+.gal__fond { fill: var(--gal-hors); }
+.gal__terre { fill: var(--gal-terre); stroke: var(--gal-terre-trait); stroke-width: .6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.gal__eau { fill: var(--gal-eau); stroke: none; }
+.gal__etiquettes text { font-family: var(--titre); paint-order: stroke; stroke: var(--gal-halo); stroke-linejoin: round; pointer-events: none; }
+.gal__etiquette--lieu { font-weight: 600; fill: var(--encre); }
+.gal__etiquette--choisie { font-weight: 700; fill: var(--encre); }
+.gal__etiquette--eau { font-style: italic; font-weight: 500; fill: var(--gal-eau-nom); }
+.gal__etiquette--pale { font-style: italic; fill: var(--encre-pale); }
+.gal .gal__outils { position: absolute; right: .55rem; bottom: .55rem; z-index: 2; display: flex; flex-direction: column; gap: .3rem; }
+.gal .gal__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
+.gal .gal__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.gal .gal__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gal .gal__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
+.gal .gal__recentrer[hidden] { display: none; }
+.gal .gal__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
+.gal:not(.est-plein-ecran) .gal__replier { display: none; }
+.gal .gal__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.gal .gal__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gal .gal__barre-titre + .gal__couches, .gal .gal__barre > * + .gal__barre-titre { margin-top: 0; }
+.gal .gal__barre > .gal__bloc + .gal__bloc { margin-top: .55rem; }
+.gal ul > li::before, .gal ol > li::before { content: none; display: none; }
+.gal ul > li::marker, .gal ol > li::marker { content: none; }
+.gal .gal__couches { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0; padding: 0; list-style: none; }
+.gal .gal__couches > li { margin: 0; padding: 0; }
+.gal .gal__couche { display: inline-flex; align-items: center; gap: .45rem; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .8rem .3rem .45rem; cursor: pointer; }
+.gal .gal__couche:hover { background: var(--matiere-voile); }
+.gal .gal__couche:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gal .gal__couche-case { width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); position: relative; }
+.gal .gal__couche[aria-pressed="true"] { color: var(--matiere-fonce); border-color: var(--matiere); }
+.gal .gal__couche[aria-pressed="true"] .gal__couche-case { background: var(--matiere); border-color: var(--matiere); }
+.gal .gal__couche[aria-pressed="true"] .gal__couche-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+html[data-sombre="on"] .gal .gal__couche[aria-pressed="true"] .gal__couche-case::after { border-color: #10171F; }
+.gal .gal__segments { display: inline-flex; flex-wrap: wrap; gap: .3rem; margin: 0; padding: 0; list-style: none; }
+.gal .gal__segment { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .85rem; cursor: pointer; }
+.gal .gal__segment:hover { background: var(--matiere-voile); }
+.gal .gal__segment:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gal .gal__segment[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .gal .gal__segment[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.gal .gal__lecture { border-top: 1px solid var(--trait); background: var(--surface); display: flex; flex-direction: column; }
+.gal .gal__vue { padding: 1rem 1.2rem 1rem; }
+.gal .gal__vue:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.gal .gal__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gal .gal__intertitre { margin: 0 0 .7rem; font-family: var(--titre); font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); display: flex; align-items: center; gap: .5rem; }
+.gal .gal__pastille { width: .85rem; height: .85rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.18); }
+.gal .gal__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.gal .gal__chiffres > div { min-width: 0; }
+.gal .gal__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.gal .gal__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.gal .gal__paragraphe { margin: 0 0 .85rem; font-size: .95rem; line-height: 1.6; }
+.gal .gal__rubrique { display: block; margin: .2rem 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.gal .gal__liste { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .9rem; padding: 0; list-style: none; }
+.gal .gal__liste > li { margin: 0; padding: 0; }
+.gal .gal__points { margin: 0 0 .9rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .35rem; }
+.gal .gal__points > li { margin: 0; padding: 0 0 0 1rem; position: relative; font-size: .92rem; line-height: 1.5; }
+.gal .gal__points > li::before { content: "" !important; display: block !important; position: absolute; left: .1rem; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--matiere); }
+.gal .gal__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
+.gal .gal__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.gal .gal__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gal .gal__choisir[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.gal .gal__choisir-nom { flex: 1; min-width: 0; font-weight: 600; }
+.gal .gal__choisir-val { flex: none; font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); font-variant-numeric: tabular-nums; }
+.gal .gal__retour { font-family: var(--titre); font-weight: 600; font-size: .82rem; color: var(--matiere-fonce); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .9rem; cursor: pointer; }
+.gal .gal__retour:hover { background: var(--matiere-voile); }
+.gal .gal__retour:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.gal .gal__actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.gal .gal__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.gal .gal__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.gal .gal__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container gal (min-width: 46rem) {
+  .gal .gal__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
+  .gal .gal__visuel { border-right: 1px solid var(--trait); }
+  .gal .gal__lecture { border-top: 0; }
+}
+@container gal (max-width: 30rem) {
+  .gal .gal__barre, .gal .gal__vue, .gal .gal__source { padding-left: .8rem; padding-right: .8rem; }
+  .gal .gal__couche, .gal .gal__segment { font-size: .74rem; }
+}
+.gal.est-plein-ecran, .texte section.gal.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
+.gal.est-plein-ecran > .gal__entete { flex: none; }
+.gal.est-plein-ecran > .gal__corps { flex: 1 1 auto; min-height: 0; grid-template-columns: minmax(0, 1fr) clamp(18rem, 27vw, 26rem); grid-template-rows: minmax(0, 1fr); }
+.gal.est-plein-ecran .gal__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
+.gal.est-plein-ecran .gal__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
+.gal.est-plein-ecran .gal__svg, .texte .gal.est-plein-ecran svg.gal__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+.gal.est-plein-ecran .gal__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
+.gal.est-plein-ecran > .gal__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
+.gal.est-plein-ecran.texte-masque > .gal__corps { grid-template-columns: minmax(0, 1fr); }
+.gal.est-plein-ecran.texte-masque .gal__lecture { display: none; }
+.gal.est-plein-ecran.texte-masque .gal__visuel { border-right: 0; }
+@media (max-width: 40rem) {
+  .gal.est-plein-ecran > .gal__corps { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .gal.est-plein-ecran .gal__visuel { border-right: 0; }
+  .gal.est-plein-ecran .gal__lecture { border-top: 1px solid var(--trait); }
+  .gal.est-plein-ecran.texte-masque > .gal__corps { grid-template-rows: minmax(0, 1fr); }
+  .gal.est-plein-ecran > .gal__source { display: none; }
+  .gal.est-plein-ecran .gal__barre { padding-top: .4rem; padding-bottom: .45rem; }
+  .gal.est-plein-ecran .gal__barre-titre { display: none; }
+}
+@media print {
+  .gal .gal__outils, .gal .gal__replier, .gal .gal__barre { display: none; }
+  .gal .gal__svg { max-height: none; }
+  .gal .gal__corps { grid-template-columns: minmax(0, 1fr); }
+  .gal .gal__visuel { border-right: 0; }
+  .gal { break-inside: avoid; }
+}
+
+.gal { --gal-ile: #D9CDB3; --gal-ile-hab: #C7A66B; --gal-reserve: #2E7D86; --gal-equateur: #8A6D3B; }
+html[data-sombre="on"] .gal { --gal-ile: #4A4A42; --gal-ile-hab: #8C7445; --gal-reserve: #5FC0C9; --gal-equateur: #C9A86A; }
+.gal .gal__fond { fill: var(--gal-eau); }
+.gal .gal__carte { background: var(--gal-eau); }
+.gal__reserve { fill: var(--gal-reserve); fill-opacity: .1; stroke: var(--gal-reserve); stroke-width: 2px; stroke-dasharray: 7 4; vector-effect: non-scaling-stroke; cursor: pointer; }
+.gal__reserve.est-choisi { fill-opacity: .2; stroke-width: 3px; }
+.gal__equateur { stroke: var(--gal-equateur); stroke-width: 1px; stroke-dasharray: 2 4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.gal__terre { pointer-events: none; }
+.gal__ile { fill: var(--gal-ile); stroke: var(--encre-doux); stroke-width: .9px; vector-effect: non-scaling-stroke; cursor: pointer; }
+.gal__ile.est-habitee { fill: var(--gal-ile-hab); }
+.gal__ile:hover { stroke: var(--encre); stroke-width: 1.6px; }
+.gal__ile.est-choisi { stroke: var(--signal); stroke-width: 3px; }
+.gal.avec-ile .gal__ile:not(.est-choisi) { opacity: .6; }
+.gal__ville { fill: var(--encre); stroke: var(--surface); stroke-width: 1.3px; vector-effect: non-scaling-stroke; pointer-events: none; }
+.gal__etiquette--ile { font-weight: 700; fill: var(--encre); }
+.gal__cles { display: flex; flex-wrap: wrap; gap: .3rem .9rem; margin: .45rem 0 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .76rem; color: var(--encre-doux); }
+.gal__cles > li { display: inline-flex; align-items: center; gap: .35rem; margin: 0; padding: 0; }
+.gal__puce { width: 1rem; height: 1rem; flex: none; border-radius: 3px; border: 1px solid rgba(0,0,0,.2); }
+</style>
+<div class="gal__entete">
+<p class="gal__titre" role="heading" aria-level="3">Les Galápagos, île par île</p>
+<p class="gal__consigne">Touche une île ou la réserve marine</p>
+</div>
+<div class="gal__corps">
+<div class="gal__visuel">
+<div class="gal__carte">
+<svg class="gal__svg" viewBox="0 0 1000 809" role="img" aria-labelledby="galapagos-iles-svg-titre">
+<title id="galapagos-iles-svg-titre">Carte de l'archipel des Galápagos : les îles principales, les villages et la limite approchée de la réserve marine.</title>
+<rect class="gal__fond" x="-3000" y="-3000" width="7000" height="7000"/>
+<path class="gal__reserve" d="" data-zone="reserve"/>
+<line class="gal__equateur" x1="-3000" x2="4000" y1="0" y2="0"/>
+<g class="gal__iles"></g>
+<g class="gal__villes"></g>
+<g class="gal__etiquettes"></g>
+</svg>
+<button type="button" class="gal__bouton-carte gal__replier" aria-expanded="true">Masquer le texte</button>
+<div class="gal__outils">
+<button type="button" class="gal__bouton-carte gal__zoom gal__zoom-plus" aria-label="Rapprocher la carte">+</button>
+<button type="button" class="gal__bouton-carte gal__zoom gal__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
+<button type="button" class="gal__bouton-carte gal__recentrer" hidden>Recentrer</button>
+</div>
+</div>
+<div class="gal__barre">
+<div class="gal__bloc">
+<p class="gal__barre-titre" id="galapagos-iles-theme-titre">Ce que la carte montre</p>
+<ul class="gal__segments" aria-labelledby="galapagos-iles-theme-titre">
+<li><button type="button" class="gal__segment" data-theme="especes" aria-pressed="true">Les espèces</button></li>
+<li><button type="button" class="gal__segment" data-theme="visites" aria-pressed="false">Les visites</button></li>
+<li><button type="button" class="gal__segment" data-theme="regles" aria-pressed="false">Les règles</button></li>
+</ul>
+</div>
+<ul class="gal__cles" aria-label="Légende">
+<li><span class="gal__puce" style="background:var(--gal-ile-hab)"></span>Île habitée</li>
+<li><span class="gal__puce" style="background:var(--gal-ile)"></span>Île inhabitée (parc national)</li>
+<li><span class="gal__puce" style="background:transparent;border:2px dashed var(--gal-reserve)"></span>Réserve marine (tracé approché)</li>
+</ul>
+</div>
+</div>
+<div class="gal__lecture">
+<div class="gal__vue" tabindex="-1"></div>
+<p class="gal__annonce" aria-live="polite"></p>
+</div>
+</div>
+<p class="gal__source">Parc et patrimoine mondial&nbsp;: UNESCO, site 1 (inscription 1978, extension 2001, liste en péril 2007-2010; superficie de la réserve marine, 133&nbsp;000&nbsp;km²); Direction du parc national Galápagos (97&nbsp;% des terres, 1959). Réserve Hermandad&nbsp;: Fondation Charles-Darwin, janvier 2022. Îles&nbsp;: Galapagos Conservation Trust (Fernandina, Pinta, Genovesa, Marchena, Española, Floreana, liste des îles habitées); Galápagos Conservancy (Isabela, Santa Cruz, San Cristóbal, Santiago, Projet Isabela); Fondation Charles-Darwin (tortues de Floreana, 2026). Droit d'entrée&nbsp;: Travel Market Report, 2024. Superficies des îles calculées sur Natural Earth, arrondies. Consulté en novembre 2026.</p>
+<script>
+/* Galápagos : UNESCO, Fondation Charles-Darwin, Natural Earth. */
+(function () {
+  var racine = document.getElementById("galapagos-iles");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {"W":1000,"H":809,"terre":"M443.7 515.9l-1.5 1.7l-9.6 4.4l-9.2 28.8l1.1 7.2l-0.6 5.4l-6.3-2l-3.5 4.9l-7.5 8.5l-3.3 4.7l-5-2.3l-4.8-0.5l-9.3 0.8l-5.7 1.5l-9.4 7l-33.7 11.1l-6.6-1.5l-4.5 1.3l-26.4-3.7l-33.1 0.5l-6.2-2l-4.4-4.2l-1.3-3.1l-0.5-3.1l0-6.9l-1.2-3.4l-2.7-0.8l-3.4 0l-3.2-0.9l-7.3-11.6l2.7-13.4l8-12.6l8.9-8.6l34.3-22.3l1.5-2.4l0-1.9l1-1.4l4.6-0.5l7.5-3.1l10.2-2.7l3.5 0l3.2 0.8l4.6 3.4l5.1 1.7l3.2 0.2l3-1.1l4.4-6.2l1.6-0.9l0.1-3.1l2.6-6.1l4.1-4.5l4.4 1.7l3.5-4.9l0.2-4.4l-2.2-3.8l-3.7-3.2l-3.9-1.8l-8.7-2.6l-3.4-1.6l-7-6.4l-7-9.3l-5.6-10.6l-2.7-9.8l0.4-8.5l-0.8-3l-3.6-2.8l-2.4-0.7l-3.8-0.4l-1.9-0.9l-3.8-6l-17.9-9.5l-6.7-7.5l0.3-9.3l-5.8-3.5l-3.8-6.4l0.6-6.1l7-2.1l-5.3-7.6l-2.1-4.3l-0.8-5.1l-0.3-12.7l-4.1-17.4l-6.5-4.8l-9.1-0.3l-10.1 3.9l-10.2 6.9l-5.2 1.2l-5.8-3.1l-6-8l-0.9-2l0.6-2.6l1.7-1.3l22.1-11.9l5.6-5.8l2.1-11.8l7.3 2.3l5.8-1.6l5.6-2.9l9.6-2.6l3.7-5.1l2.3-2.1l3.5-1.1l5.5 0.2l3.1-1.1l4.7 4.2l2.2 6.8l1.1 6.3l1.1 2.7l3.9 2.9l3.5 12.6l2.5 2.8l1.9 1.3l4.1 5.5l2.1 1.3l6.3 0.2l2.9 0.6l2 1.2l2.1 5.1l0.4 7.3l-0.7 13.7l5.5 32.8l3.2 5.1l13.4 12.5l0.2 5.1l0.9 3.3l2.1 1.4l2.1 0.5l30.9 19.8l2.2 3.2l0.6 2.8l5.6 6.4l1.3 0.8l4.7 1.2l0.1 1.7l-2 4.1l2.7 11.2l1.2 12.2l-1.7 5.5l-8 6.8l-2.3 4.7l6.5-4.3l1.9 2.5l0.3 5.5l1.3 4.5l12.4 2.3l6.1 3.2l-0.4 6.6l4.1 0.5l3.4 1.6l2.7 2.6l2 3.5l-2 4l3.9 1.6l10.3 10.4l2.8 1.5l1.8 0l1 1zM230.3 437.4l-6.2-4.1l-5.5-1.4l-8.8-3.6l-5.8 0l-1.5-1l0.2-1.9l-0.7-1.3l-5.1-5.3l-3.9-6l-2.4-6.6l-2-13.5l-3.7-11.1l0.8-3.7l25.8 0.7l10.9-5.6l13.7-3.1l6.8-2.5l2 0.4l3.4 2.1l10.3 10.4l6.2 4.4l0.8 6.2l-1.2 11.1l0 25.3l-2.9 1.7l-20.3 8.1l-5.1 1.1l-3 0.2zM498.6 402.9l-6.7-0.9l-12.6-3.8l-20.5 0l-5.7-1.8l-5.2-3.2l-5.5-1.8l-6.6 2.6l-4.1-5l-1.9-7.5l-3-6.3l-7.4-1.3l12.5-17.2l0.7-4l-1.7-5.2l2.4-5.1l4.8-3.8l5.6-1l2.1 1.5l0.9-0.1l1.2-1.4l5.8 4.1l20 6.8l7.2 1.1l9.5 3.7l15.4 17.2l8.3 5.4l-2 0.7l-1.8 1.3l4 2.3l-2 5.3l-6.2 9.5l-2.2 6.1zM439.6 126l2.1-6.2l-2-12.6l2.1-5.3l12 6.7l3.7 13.3l-4.7 9.4zM140.4 -109.1l-0.8-1.8l0-1.7l1.8-1.1l1.4 0.5l1 2.3l-0.5 1.4l-1.5 1.2zM141 -115.1l-0.4-0.9l1.3-0.1zM86.3 -191.1l-1.5-2.6l1.6-1.7l1.9 1.3l0 2.6zM771.7 705.2l-23.7-10.9l6-6l4.6 0.9l13.8-0.2l3.7-0.7l7.8 2.5l5.9 6.3l0.4 6.4l-8.8 2.9zM568.5 670.2l-2.6 4.1l-5.2 1.7l-0.3 1.3l0.5 3.6l-0.2 1.3l-1.7 1.9l-9.6 5.9l-1.9 0.4l-10.8-1.5l-4.2-3.1l-4-3.9l-6.2-3.7l2.8-3l2.5-3.9l1.9-4.2l1.9-8.9l2.9-4.6l3.4-1.6l2.7 4.2l5.9-1.6l8 1.6l7.1 3.4l3.7 4.3l2.8 2.3l0.8 2zM895.6 505.6l-5.4 12l-8.5 10.6l-8.7 6.9l-10.4 3.1l-1.6 1.8l-0.6 2.8l-3.4 8.6l-6 8.9l-4 4.2l-4.3 3l-4.6 1.4l-4.4 0.5l-10.1-0.1l-3 0.9l-6.1 4.3l-4.1 1l-2.8-0.9l-9.2-5.3l-10.5-1.6l-2.6-1.3l-0.4-2.7l1.8-3.1l6.1-6.7l11.7-5.6l3.9-3.1l3.1-10.1l3.1-0.3l12.2-3l3.4-3.3l4.5-9.4l2.6-3.4l7.8-7.4l1.6-2.5l2.3-1.8l10.7-3.9l3.1-3.1l4.5-0.3l9.1-2.3l3.6 1.4l3.6 2.3l3.9-0.1l7.4-3.4zM620.7 482.5l0.4 3.3l-3.2 7.3l0.1 1.5l-4.9 2l-3.6 4.5l-3.1 5.5l-3.6 4.3l-2.7 1.9l-1.5 0.5l-14.4-0.4l-1.4 1l-1.6 5.8l-3.9 2.9l-5.2 0.9l-5.4-0.4l-10-3.5l-6.4-1.2l-7.1-5.5l-6.2-9.2l-2.6-2.9l-4.3 0.5l-5.5-1.3l-5.1-2.4l-3.2-3l-0.5-3.7l0.5-14.4l1.7-7.6l3.3-7.1l4.3-6.3l4.6-4.9l2.8-1.9l8-3.4l3.4-0.9l3.2 0.1l8.9 1.9l2.8-0.8l5.2-3l27.9-3.2l6.4-3.2l3.4 1.6l2.9 2.6l0.6 2.8l0 6.2l2.2 1.2l12.1 1.8l3.4 3.1l-0.7 6.9l-3.8 12.3l0.2 3.5zM517 196l4.6-4.9l6.5-3.2l6.3-1.3l6.6 2.2l7.1 3.4l5.7 4.6l2.7 5.9l-2 4.3l-5.1 4.7l-6.6 3.8l-6.2 1.2l-3.6-1.1l-3.8-4l-6.7-1.9l-2.8-2.4l-3.4-4.6zM692.7 204.7l0.2-3.2l-2.3-0.8l-3 1.2l0 2.2l-2.6-1.1l-1.1-4.1l1.3-3.2l5.4-2.6l2.6 0.5l1.9 4.1l-0.4 4.9z","reserve":"M843 892.7l-18.3 5.1l-18.7 3.3l-28.5 1.5l-243.4-16.3l-25.9-3.2l-18.3-3.6l-17.9-5.3l-278.1-97.2l-17.2-6.9l-24.3-13.3l-22.3-16.6l-18.9-18.1l-13.9-16.5l-6.2-8.8l-27-41.8l-8.4-16.5l-6.8-17.2l-46.8-160.3l-8.4-35l-103.7-595.6l-1.4-29l2.9-28.8l4.2-18.9l9.8-27.3l13.7-25.5l17.3-23.2l15-15.7l22.4-18.3l24.9-14.8l26.8-10.9l28.1-6.9l19.1-2.3l29 0.1l28.6 4.4l27.6 8.5l17.6 7.9l16.8 9.6l606.7 389l16.4 11.7l15 13.4l13.7 14.8l12 16.1l201.8 301l9.7 16.1l11.6 25.7l7.7 27.1l3.8 27.9l1 30.2l-3 28.5l-4.4 18.6l-6.1 18.1l-9.1 20.9l-106.1 198.1l-10.3 17l-11.9 15.8l-6.6 7.4l-14.2 13.9l-15.5 12.3l-16.6 10.8l-8.7 4.7l-18.1 8.1z","iles":[{"id":"isabela","n":"Isabela","d":"M443.7 515.9l-1.5 1.7l-9.6 4.4l-9.2 28.8l1.1 7.2l-0.6 5.4l-6.3-2l-3.5 4.9l-7.5 8.5l-3.3 4.7l-5-2.3l-4.8-0.5l-9.3 0.8l-5.7 1.5l-9.4 7l-33.7 11.1l-6.6-1.5l-4.5 1.3l-26.4-3.7l-33.1 0.5l-6.2-2l-4.4-4.2l-1.3-3.1l-0.5-3.1l0-6.9l-1.2-3.4l-2.7-0.8l-3.4 0l-3.2-0.9l-7.3-11.6l2.7-13.4l8-12.6l8.9-8.6l34.3-22.3l1.5-2.4l0-1.9l1-1.4l4.6-0.5l7.5-3.1l10.2-2.7l3.5 0l3.2 0.8l4.6 3.4l5.1 1.7l3.2 0.2l3-1.1l4.4-6.2l1.6-0.9l0.1-3.1l2.6-6.1l4.1-4.5l4.4 1.7l3.5-4.9l0.2-4.4l-2.2-3.8l-3.7-3.2l-3.9-1.8l-8.7-2.6l-3.4-1.6l-7-6.4l-7-9.3l-5.6-10.6l-2.7-9.8l0.4-8.5l-0.8-3l-3.6-2.8l-2.4-0.7l-3.8-0.4l-1.9-0.9l-3.8-6l-17.9-9.5l-6.7-7.5l0.3-9.3l-5.8-3.5l-3.8-6.4l0.6-6.1l7-2.1l-5.3-7.6l-2.1-4.3l-0.8-5.1l-0.3-12.7l-4.1-17.4l-6.5-4.8l-9.1-0.3l-10.1 3.9l-10.2 6.9l-5.2 1.2l-5.8-3.1l-6-8l-0.9-2l0.6-2.6l1.7-1.3l22.1-11.9l5.6-5.8l2.1-11.8l7.3 2.3l5.8-1.6l5.6-2.9l9.6-2.6l3.7-5.1l2.3-2.1l3.5-1.1l5.5 0.2l3.1-1.1l4.7 4.2l2.2 6.8l1.1 6.3l1.1 2.7l3.9 2.9l3.5 12.6l2.5 2.8l1.9 1.3l4.1 5.5l2.1 1.3l6.3 0.2l2.9 0.6l2 1.2l2.1 5.1l0.4 7.3l-0.7 13.7l5.5 32.8l3.2 5.1l13.4 12.5l0.2 5.1l0.9 3.3l2.1 1.4l2.1 0.5l30.9 19.8l2.2 3.2l0.6 2.8l5.6 6.4l1.3 0.8l4.7 1.2l0.1 1.7l-2 4.1l2.7 11.2l1.2 12.2l-1.7 5.5l-8 6.8l-2.3 4.7l6.5-4.3l1.9 2.5l0.3 5.5l1.3 4.5l12.4 2.3l6.1 3.2l-0.4 6.6l4.1 0.5l3.4 1.6l2.7 2.6l2 3.5l-2 4l3.9 1.6l10.3 10.4l2.8 1.5l1.8 0l1 1z","a":4625,"p":[354.3,422.5]},{"id":"fernandina","n":"Fernandina","d":"M230.3 437.4l-6.2-4.1l-5.5-1.4l-8.8-3.6l-5.8 0l-1.5-1l0.2-1.9l-0.7-1.3l-5.1-5.3l-3.9-6l-2.4-6.6l-2-13.5l-3.7-11.1l0.8-3.7l25.8 0.7l10.9-5.6l13.7-3.1l6.8-2.5l2 0.4l3.4 2.1l10.3 10.4l6.2 4.4l0.8 6.2l-1.2 11.1l0 25.3l-2.9 1.7l-20.3 8.1l-5.1 1.1l-3 0.2z","a":595,"p":[227.3,404.1]},{"id":"santa-cruz","n":"Santa Cruz","d":"M620.7 482.5l0.4 3.3l-3.2 7.3l0.1 1.5l-4.9 2l-3.6 4.5l-3.1 5.5l-3.6 4.3l-2.7 1.9l-1.5 0.5l-14.4-0.4l-1.4 1l-1.6 5.8l-3.9 2.9l-5.2 0.9l-5.4-0.4l-10-3.5l-6.4-1.2l-7.1-5.5l-6.2-9.2l-2.6-2.9l-4.3 0.5l-5.5-1.3l-5.1-2.4l-3.2-3l-0.5-3.7l0.5-14.4l1.7-7.6l3.3-7.1l4.3-6.3l4.6-4.9l2.8-1.9l8-3.4l3.4-0.9l3.2 0.1l8.9 1.9l2.8-0.8l5.2-3l27.9-3.2l6.4-3.2l3.4 1.6l2.9 2.6l0.6 2.8l0 6.2l2.2 1.2l12.1 1.8l3.4 3.1l-0.7 6.9l-3.8 12.3l0.2 3.5z","a":957,"p":[568.0,480.3]},{"id":"san-cristobal","n":"San Cristóbal","d":"M895.6 505.6l-5.4 12l-8.5 10.6l-8.7 6.9l-10.4 3.1l-1.6 1.8l-0.6 2.8l-3.4 8.6l-6 8.9l-4 4.2l-4.3 3l-4.6 1.4l-4.4 0.5l-10.1-0.1l-3 0.9l-6.1 4.3l-4.1 1l-2.8-0.9l-9.2-5.3l-10.5-1.6l-2.6-1.3l-0.4-2.7l1.8-3.1l6.1-6.7l11.7-5.6l3.9-3.1l3.1-10.1l3.1-0.3l12.2-3l3.4-3.3l4.5-9.4l2.6-3.4l7.8-7.4l1.6-2.5l2.3-1.8l10.7-3.9l3.1-3.1l4.5-0.3l9.1-2.3l3.6 1.4l3.6 2.3l3.9-0.1l7.4-3.4z","a":562,"p":[843.1,535.0]},{"id":"santiago","n":"Santiago","d":"M498.6 402.9l-6.7-0.9l-12.6-3.8l-20.5 0l-5.7-1.8l-5.2-3.2l-5.5-1.8l-6.6 2.6l-4.1-5l-1.9-7.5l-3-6.3l-7.4-1.3l12.5-17.2l0.7-4l-1.7-5.2l2.4-5.1l4.8-3.8l5.6-1l2.1 1.5l0.9-0.1l1.2-1.4l5.8 4.1l20 6.8l7.2 1.1l9.5 3.7l15.4 17.2l8.3 5.4l-2 0.7l-1.8 1.3l4 2.3l-2 5.3l-6.2 9.5l-2.2 6.1z","a":559,"p":[463.2,363.6]},{"id":"floreana","n":"Floreana","d":"M568.5 670.2l-2.6 4.1l-5.2 1.7l-0.3 1.3l0.5 3.6l-0.2 1.3l-1.7 1.9l-9.6 5.9l-1.9 0.4l-10.8-1.5l-4.2-3.1l-4-3.9l-6.2-3.7l2.8-3l2.5-3.9l1.9-4.2l1.9-8.9l2.9-4.6l3.4-1.6l2.7 4.2l5.9-1.6l8 1.6l7.1 3.4l3.7 4.3l2.8 2.3l0.8 2z","a":160,"p":[548.0,670.8]},{"id":"espanola","n":"Española","d":"M771.7 705.2l-23.7-10.9l6-6l4.6 0.9l13.8-0.2l3.7-0.7l7.8 2.5l5.9 6.3l0.4 6.4l-8.8 2.9z","a":72,"p":[775.5,700.3]},{"id":"pinta","n":"Pinta","d":"M439.6 126l2.1-6.2l-2-12.6l2.1-5.3l12 6.7l3.7 13.3l-4.7 9.4z","a":50,"p":[448.1,114.2]},{"id":"marchena","n":"Marchena","d":"M517 196l4.6-4.9l6.5-3.2l6.3-1.3l6.6 2.2l7.1 3.4l5.7 4.6l2.7 5.9l-2 4.3l-5.1 4.7l-6.6 3.8l-6.2 1.2l-3.6-1.1l-3.8-4l-6.7-1.9l-2.8-2.4l-3.4-4.6z","a":118,"p":[535.9,199.7]},{"id":"genovesa","n":"Genovesa","d":"M692.7 204.7l0.2-3.2l-2.3-0.8l-3 1.2l0 2.2l-2.6-1.1l-1.1-4.1l1.3-3.2l5.4-2.6l2.6 0.5l1.9 4.1l-0.4 4.9z","a":12,"p":[689.6,198.3]}],"villes":[{"n":"Puerto Ayora","p":[584.4,513.2]},{"n":"Puerto Baquerizo Moreno","p":[794.1,558.8]},{"n":"Puerto Villamil","p":[394.1,575.0]}],"equateur":[294.1],"baltra":[595.3,426.5]};
+  var NS = "http://www.w3.org/2000/svg", W = D.W, H = D.H, ZOOM_MAX = 8;
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/ :/g, "\u00a0:").replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»"); }
+  function nb(n) { return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u00a0"); }
+  function dec(x, n) { var p = x.toFixed(n).split("."); return nb(Number(p[0])) + (p[1] ? "," + p[1] : ""); }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  var svg = q(".gal__svg"), carte = q(".gal__carte"), gEtiq = q(".gal__etiquettes"), vueTexte = q(".gal__vue"), annonce = q(".gal__annonce");
+  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H } };
+  function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
+  function bouton(classe, texte, val, action, presse) {
+    var b = el("button", classe || "gal__choisir");
+    b.type = "button";
+    if (classe === "gal__choisir" || !classe) {
+      el("span", "gal__choisir-nom", texte, b);
+      if (val) { el("span", "gal__choisir-val", val, b); }
+    } else { b.textContent = typo(texte); }
+    if (presse !== undefined) { b.setAttribute("aria-pressed", presse ? "true" : "false"); }
+    b.addEventListener("click", action);
+    return b;
+  }
+  function entete(surtitre, titre, couleur) {
+    el("span", "gal__surtitre", surtitre, vueTexte);
+    var h = el("h4", "gal__intertitre", null, vueTexte);
+    if (couleur) { var p = el("span", "gal__pastille", null, h); p.style.background = couleur; }
+    el("span", "", titre, h);
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "gal__chiffres", null, parent);
+    paires.forEach(function (p) { var d = el("div", "", null, dl); el("dt", "", p[0], d); el("dd", "", p[1], d); });
+    return dl;
+  }
+  function points(parent, liste) { var ul = el("ul", "gal__points", null, parent); liste.forEach(function (t) { el("li", "", t, ul); }); return ul; }
+
+  /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function estZoome() { return etat.vue.w < W - .5; }
+  function bornerVue(v) {
+    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * H / W;
+    return { x: Math.max(0, Math.min(W - w, v.x)), y: Math.max(0, Math.min(H - h, v.y)), w: w, h: h };
+  }
+  function appliquerVue() {
+    var v = etat.vue;
+    svg.setAttribute("viewBox", v.x.toFixed(2) + " " + v.y.toFixed(2) + " " + v.w.toFixed(2) + " " + v.h.toFixed(2));
+    q(".gal__recentrer").hidden = !estZoome();
+    carte.classList.toggle("est-zoomee", estZoome());
+    etiqueter();
+  }
+  function pointCarte(cx, cy) {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    var w = b.width || 800, h = b.height || 800 * H / W;
+    var s = Math.min(w / v.w, h / v.h);
+    var ox = (w - v.w * s) / 2, oy = (h - v.h * s) / 2;
+    return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
+  }
+  function zoomerVers(f, p) {
+    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    if (Math.abs(r - 1) < 1e-4) { return; }
+    etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
+    appliquerVue();
+  }
+  function cadrer(x, y, w) { etat.vue = bornerVue({ x: x - w / 2, y: y - w * H / W / 2, w: w }); appliquerVue(); }
+  function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
+  q(".gal__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
+  q(".gal__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
+  q(".gal__recentrer").addEventListener("click", function () { etat.vue = { x: 0, y: 0, w: W, h: H }; appliquerVue(); });
+  var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
+  svg.addEventListener("wheel", function (ev) {
+    if (!pleinEcran()) { return; }
+    ev.preventDefault();
+    var pas = ev.deltaMode === 1 ? .05 : (ev.deltaMode === 2 ? .5 : .0018);
+    molette.f *= Math.exp(Math.max(-.5, Math.min(.5, ev.deltaY * pas)));
+    molette.cx = ev.clientX; molette.cy = ev.clientY;
+    if (molette.attente) { return; }
+    var faire = function () { molette.attente = 0; var f = molette.f; molette.f = 1; zoomerVers(f, pointCarte(molette.cx, molette.cy)); };
+    if (typeof window.requestAnimationFrame === "function") { molette.attente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  var glisse = null, glisseFini = false, pince = null, pinceAttente = 0;
+  svg.addEventListener("pointerdown", function (ev) {
+    if (pince || !estZoome() || (ev.button !== undefined && ev.button !== 0)) { return; }
+    glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
+  });
+  svg.addEventListener("pointermove", function (ev) {
+    if (!glisse) { return; }
+    var dx = ev.clientX - glisse.x, dy = ev.clientY - glisse.y;
+    if (!glisse.bouge && Math.abs(dx) + Math.abs(dy) < 5) { return; }
+    if (!glisse.bouge) { glisse.bouge = true; racine.classList.add("est-glisse"); try { svg.setPointerCapture(glisse.id); } catch (err) { /* sans capture */ } }
+    etat.vue = bornerVue({ x: glisse.vx - dx / glisse.s, y: glisse.vy - dy / glisse.s, w: etat.vue.w });
+    appliquerVue();
+  });
+  function finGlisse() {
+    if (glisse && glisse.bouge) { glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 0); }
+    glisse = null; racine.classList.remove("est-glisse");
+  }
+  svg.addEventListener("pointerup", finGlisse);
+  svg.addEventListener("pointercancel", finGlisse);
+  /* Zoom à deux doigts : le point de la carte pincé au départ reste sous les doigts. */
+  function ecart(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.max(1, Math.sqrt(dx * dx + dy * dy)); }
+  function milieu(t) { return { x: (t[0].clientX + t[1].clientX) / 2, y: (t[0].clientY + t[1].clientY) / 2 }; }
+  function vueSous(p, m, w) {
+    var b = svg.getBoundingClientRect(), bw = b.width || 800, bh = b.height || 800 * H / W, h = w * H / W;
+    var s = Math.min(bw / w, bh / h), ox = (bw - w * s) / 2, oy = (bh - h * s) / 2;
+    return { x: p.x - (m.x - (b.left || 0) - ox) / s, y: p.y - (m.y - (b.top || 0) - oy) / s, w: w };
+  }
+  carte.addEventListener("touchstart", function (ev) {
+    if (ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    glisse = null; racine.classList.remove("est-glisse");
+    var m = milieu(ev.touches);
+    pince = { d: ecart(ev.touches), w: etat.vue.w, p: pointCarte(m.x, m.y), m: m };
+  }, { passive: false });
+  carte.addEventListener("touchmove", function (ev) {
+    if (!pince || ev.touches.length !== 2) { return; }
+    ev.preventDefault();
+    pince.m = milieu(ev.touches);
+    pince.w2 = Math.min(W, Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
+    if (pinceAttente) { return; }
+    var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } etat.vue = bornerVue(vueSous(pince.p, pince.m, pince.w2)); appliquerVue(); };
+    if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
+  }, { passive: false });
+  function finPince(ev) {
+    if (!pince || (ev.touches && ev.touches.length >= 2)) { return; }
+    pince = null; glisseFini = true; window.setTimeout(function () { glisseFini = false; }, 350);
+  }
+  carte.addEventListener("touchend", finPince);
+  carte.addEventListener("touchcancel", finPince);
+  carte.addEventListener("gesturestart", function (ev) { ev.preventDefault(); });
+
+  /* ----- étiquettes : chacune réserve un rectangle ; celles qui en chevauchent une autre
+     déjà posée ne sont pas affichées. Les plus importantes passent en premier. */
+  function unite() {
+    var b = svg.getBoundingClientRect(), v = etat.vue;
+    if (!b.width || !b.height) { return v.w / 760; }
+    return 1 / Math.min(b.width / v.w, b.height / v.h);
+  }
+  function etiqueter() {
+    while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
+    var u = unite(), v = etat.vue, places = [];
+    function libre(r) {
+      if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
+      for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
+      return true;
+    }
+    Array.prototype.forEach.call(racine.querySelectorAll(".gal__carte > .gal__bouton-carte, .gal__outils, .gal__carte > .gal__cartouche"), function (bt) {
+      var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
+      var a = pointCarte(r.left - 4, r.top - 4), b2 = pointCarte(r.right + 4, r.bottom + 4);
+      places.push([a.x, a.y, b2.x, b2.y]);
+    });
+    function poser(x, y, texte, classe, px, opt) {
+      opt = opt || {};
+      var lignes = typo(texte).split("\n"), t = px * u, larg = 0;
+      lignes.forEach(function (l) { larg = Math.max(larg, l.length * t * (opt.chasse || .56)); });
+      var haut = lignes.length * t * 1.15, m = 1.5 * u, rot = opt.r || 0, boites = [], ancre = opt.ancre || "middle";
+      var cxb = ancre === "start" ? x + larg / 2 : (ancre === "end" ? x - larg / 2 : x);
+      if (rot) {
+        var a = rot * Math.PI / 180, ca = Math.cos(a), sa = Math.sin(a), nbo = Math.max(1, Math.ceil(larg / haut));
+        for (var j = 0; j < nbo; j++) {
+          var off = -larg / 2 + (j + .5) * larg / nbo, cx = x + ca * off, cy = y + sa * off, dm = haut / 2 + m;
+          boites.push([cx - dm, cy - dm, cx + dm, cy + dm]);
+        }
+      } else { boites.push([cxb - larg / 2 - m, y - haut / 2 - m, cxb + larg / 2 + m, y + haut / 2 + m]); }
+      if (!opt.force && !boites.every(libre)) { return null; }
+      boites.forEach(function (bo) { places.push(bo); });
+      var n = svgEl("text", { x: x.toFixed(1), y: y.toFixed(1), "class": classe, "text-anchor": ancre, "font-size": t.toFixed(2), "stroke-width": (opt.halo || 3) * u }, gEtiq);
+      if (rot) { n.setAttribute("transform", "rotate(" + rot + " " + x.toFixed(1) + " " + y.toFixed(1) + ")"); }
+      if (lignes.length === 1) { n.setAttribute("dy", ".35em"); n.textContent = lignes[0]; }
+      else {
+        lignes.forEach(function (l, j) {
+          var ts = svgEl("tspan", { x: x.toFixed(1), dy: j === 0 ? (.35 - (lignes.length - 1) * .575).toFixed(3) + "em" : "1.15em" }, n);
+          ts.textContent = l;
+        });
+      }
+      return n;
+    }
+    function reserver(x, y, r) { places.push([x - r, y - r, x + r, y + r]); }
+    etiquettesCarte(poser, u, v, reserver);
+  }
+
+
+  /* Faits par île. hab : île habitée ; es : espèces ; vi : sites de visite. */
+  var F = {
+    "isabela": { hab: "Puerto Villamil", pop: "~1\u00a0800", es: ["La plus grande île : plus grande que toutes les autres réunies. Six volcans l'ont formée, dont cinq encore actifs.", "Chaque volcan a sa propre espèce de tortue géante. Le volcan Wolf, à 1\u00a0707 m, est le point le plus haut de l'archipel.", "Des manchots des Galápagos et des cormorans incapables de voler vivent sur ses côtes ouest."], vi: ["Tagus Cove, ancien mouillage des pirates et des baleiniers, que Darwin a visité en 1835.", "Les baies Urbina et Elizabeth, où l'on peut voir les cormorans incapables de voler.", "Puerto Villamil, le village de l'île, sur la côte sud."] },
+    "fernandina": { es: ["La plus jeune île de l'archipel. Son volcan est entré en éruption plus d'une douzaine de fois depuis la création du parc, la dernière en 2020.", "Avec Genovesa, c'est l'une des deux grandes îles jamais touchées par les mammifères introduits, comme les rats.", "Ses iguanes marins sont les plus grands de l'archipel. Les cormorans incapables de voler y vivent aussi."], vi: ["Un seul site de visite : Punta Espinosa, une étroite pointe de terre au nord-est de l'île."] },
+    "santa-cruz": { hab: "Puerto Ayora", es: ["Dans ses hautes terres, des tortues géantes vivent en liberté, dans les pâturages et dans une réserve.", "Depuis 1965, un centre d'élevage du parc et de la Fondation Charles-Darwin y fait naître de jeunes tortues : plus de 4\u00a0000 avaient été rendues à leur île d'origine en 2008."], vi: ["Puerto Ayora, la plus grande ville de l'archipel.", "La station de recherche Charles-Darwin, à dix minutes de marche de la ville. La baie Tortuga, à une heure de sentier.", "L'aéroport principal est sur la petite île voisine de Baltra."] },
+    "san-cristobal": { hab: "Puerto Baquerizo Moreno", pop: "~5\u00a0400", es: ["C'est l'île où Darwin a débarqué pour la première fois, en 1835.", "Une colonie d'otaries vit sur une plage à dix minutes de l'aéroport."], vi: ["Puerto Baquerizo Moreno, chef-lieu de la province des Galápagos, avec un aéroport relié au continent.", "Le centre d'interprétation du parc, la colline des Frégates, l'îlot Lobos et la lagune El Junco."] },
+    "santiago": { es: ["Les porcs introduits en ont été éliminés en 2000, les chèvres et les ânes en 2006.", "Le rat de riz de Santiago, qu'on croyait disparu, a été retrouvé en 1997. Les iguanes terrestres, eux, ont disparu de l'île."], vi: ["La baie James : la plage Espumilla, où pondent les tortues de mer. Puerto Egas, avec ses grottes à otaries.", "La baie Sullivan, une coulée de lave de la seconde moitié du 19e siècle."] },
+    "floreana": { hab: "Puerto Velasco Ibarra", pop: "~160", es: ["Les espèces introduites y ont fait disparaître plusieurs espèces, dont la tortue géante de l'île.", "En février 2026, 158 tortues géantes y sont relâchées : une première depuis plus de 180 ans. D'autres espèces disparues de l'île doivent suivre."], vi: ["La baie de la Poste, où des baleiniers ont installé en 1793 un tonneau servant de boîte aux lettres."] },
+    "espanola": { es: ["Un ancien volcan éteint, très érodé.", "Les albatros des Galápagos y nichent par milliers sur la côte sud, d'avril à décembre.", "Pendant la saison des amours, ses iguanes marins mâles deviennent rouges et verts : on les surnomme « iguanes de Noël »."], vi: ["Le sentier de Punta Suárez, l'un des plus fréquentés, où jouent les jeunes otaries."] },
+    "pinta": { es: ["La plus au nord des grandes îles. George le solitaire, dernière tortue de son espèce, en a été retiré en 1971. Il est mort en 2012.", "Des pêcheurs y ont introduit des chèvres en 1959. Elles ont ravagé la végétation avant d'être éliminées.", "Des tortues hybrides ayant des ancêtres de Pinta ont été trouvées sur le volcan Wolf, à Isabela."], vi: ["Aucun site de visite : l'île est fermée aux touristes."] },
+    "marchena": { es: ["Une caldeira de 343\u00a0m. Une éruption en 1991 a été la première observée depuis au moins un siècle.", "Le lézard des laves de Marchena ne vit que sur cette île."], vi: ["Fermée aux touristes. Les plongeurs fréquentent Punta Espejo, riche en requins-marteaux."] },
+    "genovesa": { es: ["Un volcan effondré d'environ deux millions d'années, dont la caldeira est ouverte sur la mer.", "La plus forte concentration de fous à pieds rouges de l'archipel. Ils nichent dans les arbres. Les frégates y sont nombreuses.", "Comme Fernandina, elle n'a jamais été touchée par les mammifères introduits."], vi: ["La baie Darwin, où mouillent les bateaux. Les marches du prince Philip, qui montent vers une grande colonie d'oiseaux marins."] }
+  };
+  var REGLES = [
+    ["1959", "Le parc national est créé sur 97\u00a0% des terres. Seuls les villages et les terres agricoles en sont exclus."],
+    ["1978", "Les Galápagos sont le premier site inscrit sur la Liste du patrimoine mondial de l'UNESCO."],
+    ["1998", "La réserve marine, créée en 1986 sur 70\u00a0000\u00a0km², est portée à 133\u00a0000\u00a0km², jusqu'à 40 milles marins (74\u00a0km) autour des îles."],
+    ["2001", "La réserve marine est ajoutée au site du patrimoine mondial."],
+    ["2007", "L'UNESCO inscrit les Galápagos sur la Liste du patrimoine mondial en péril. Elles en sont retirées en 2010."],
+    ["2022", "La réserve Hermandad ajoute 60\u00a0000\u00a0km² de mer protégée, jusqu'aux eaux du Costa Rica, pour protéger les espèces migratrices."],
+    ["2024", "Le droit d'entrée au parc passe de 100 à 200 dollars américains pour un adulte étranger, la première hausse depuis 1998."]
+  ];
+  var ILE = {}, PI = {};
+  D.iles.forEach(function (i) { ILE[i.id] = i; PI[i.id] = svgEl("path", { "class": "gal__ile" + (F[i.id] && F[i.id].hab ? " est-habitee" : ""), d: i.d, "data-ile": i.id }, q(".gal__iles")); });
+  q(".gal__reserve").setAttribute("d", D.reserve);
+  q(".gal__equateur").setAttribute("y1", D.equateur[0]); q(".gal__equateur").setAttribute("y2", D.equateur[0]);
+  D.villes.forEach(function (v) { svgEl("circle", { "class": "gal__ville", cx: v.p[0], cy: v.p[1], r: 3.5 }, q(".gal__villes")); });
+  Array.prototype.forEach.call(racine.querySelectorAll(".gal__segment"), function (b) { b.addEventListener("click", function () { etat.theme = b.getAttribute("data-theme"); rendre(); }); });
+  etat.theme = "especes";
+  var DEPART = {};
+  function reinitExtra() { etat.theme = "especes"; }
+  function apresCouche() { }
+  function arrondi(a) { return a >= 1000 ? Math.round(a / 100) * 100 : (a >= 100 ? Math.round(a / 10) * 10 : a); }
+  var TRI = D.iles.slice().sort(function (a, b) { return b.a - a.a; });
+  function ficheAccueil() {
+    if (etat.theme === "regles") {
+      entete("Protéger un archipel", "Les règles, de 1959 à aujourd'hui");
+      var ul = el("ul", "gal__points", null, vueTexte);
+      REGLES.forEach(function (r) { var li = el("li", "", null, ul); el("strong", "", r[0] + " : ", li); li.appendChild(document.createTextNode(typo(r[1]))); });
+      el("p", "gal__note", "Touche la ligne pointillée sur la carte pour voir la réserve marine.", vueTexte);
+      return;
+    }
+    entete("L'archipel des Galápagos", etat.theme === "visites" ? "Où les visiteurs peuvent aller" : "Une île, des espèces");
+    el("p", "gal__paragraphe", etat.theme === "visites" ? "Quatre îles seulement sont habitées : Floreana, Isabela, San Cristóbal et Santa Cruz. Ailleurs, on ne débarque qu'aux sites de visite autorisés. Choisis une île." : "Chaque île a son histoire et ses espèces. Choisis une île, sur la carte ou dans la liste.", vueTexte);
+    var ul2 = el("ul", "gal__liste", null, vueTexte);
+    TRI.forEach(function (i) { el("li", "", null, ul2).appendChild(bouton("gal__choisir", i.n, "~" + nb(arrondi(i.a)) + "\u00a0km²", function () { choisir({ type: "ile", id: i.id }); })); });
+  }
+  function ficheIle(id) {
+    var i = ILE[id], f = F[id];
+    entete(f.hab ? "Île habitée" : "Île inhabitée", i.n);
+    var pr = [["Superficie", "~" + nb(arrondi(i.a)) + "\u00a0km²"], ["Village", f.hab || "aucun"]]; if (f.pop) { pr.push(["Habitants", f.pop]); } chiffres(vueTexte, pr);
+    var liste = etat.theme === "visites" ? f.vi : f.es;
+    el("span", "gal__rubrique", etat.theme === "visites" ? "Visiter" : "Les espèces", vueTexte);
+    points(vueTexte, liste);
+    var act = el("div", "gal__actions", null, vueTexte);
+    act.appendChild(bouton("gal__retour", etat.theme === "visites" ? "Voir ses espèces" : "Voir ses sites de visite", null, function () { etat.theme = etat.theme === "visites" ? "especes" : "visites"; rendre(); }));
+    act.appendChild(bouton("gal__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function ficheReserve() {
+    entete("La mer protégée", "La réserve marine");
+    chiffres(vueTexte, [["Créée en", "1986"], ["Superficie depuis 1998", "133\u00a0000\u00a0km²"], ["Réserve Hermandad (2022)", "+60\u00a0000\u00a0km²"], ["Limite", "40 milles marins"]]);
+    el("p", "gal__paragraphe", "La réserve marine entoure tout l'archipel. Créée en 1986 sur 70\u00a0000\u00a0km², elle est portée en 1998 à 133\u00a0000\u00a0km², jusqu'à 40 milles marins des îles. En 2001, elle est ajoutée au site du patrimoine mondial.", vueTexte);
+    el("p", "gal__paragraphe", "Le 14 janvier 2022, l'Équateur crée la réserve Hermandad, qui prolonge la protection jusqu'aux eaux du Costa Rica. Elle protège les espèces migratrices qui passent d'une zone à l'autre.", vueTexte);
+    el("p", "gal__note", "Superficie de l'UNESCO. La Fondation Charles-Darwin donne 138\u00a0000\u00a0km² en 2022, selon un autre calcul. La carte trace la limite de façon approchée, à 74 km des îles. La réserve Hermandad n'y est pas dessinée.", vueTexte);
+    var act = el("div", "gal__actions", null, vueTexte);
+    act.appendChild(bouton("gal__retour", "Fermer la fiche", null, function () { choisir(null); }));
+  }
+  function etiquettesCarte(poser, u, v0, reserver) {
+    var ch = etat.choix;
+    D.villes.forEach(function (v) { reserver(v.p[0], v.p[1], 5 * u); });
+    TRI.forEach(function (i) { var c = ch && ch.type === "ile" && ch.id === i.id; poser(i.p[0], i.p[1], i.n, c ? "gal__etiquette--choisie" : "gal__etiquette--ile", c ? 15 : (i.a > 400 ? 13 : 11)); });
+    D.villes.forEach(function (v) { poser(v.p[0] + 6 * u, v.p[1] + 9 * u, v.n, "gal__etiquette--pale", 10, { ancre: "start" }) || poser(v.p[0] - 6 * u, v.p[1] + 9 * u, v.n, "gal__etiquette--pale", 10, { ancre: "end" }); });
+    poser(60 * u + v0.x, D.equateur[0] - 8 * u, "Équateur", "gal__etiquette--pale", 10, { ancre: "start" });
+    poser(820, 720, "Océan\nPacifique", "gal__etiquette--eau", 15);
+  }
+  function rendre() {
+    var ch = etat.choix;
+    racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
+    racine.setAttribute("data-theme", etat.theme);
+    racine.classList.toggle("avec-ile", !!ch && ch.type === "ile");
+    for (var k in PI) { if (Object.prototype.hasOwnProperty.call(PI, k)) { PI[k].classList.toggle("est-choisi", !!ch && ch.type === "ile" && ch.id === k); } }
+    q(".gal__reserve").classList.toggle("est-choisi", !!ch && ch.type === "reserve");
+    Array.prototype.forEach.call(racine.querySelectorAll(".gal__segment"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-theme") === etat.theme ? "true" : "false"); });
+    while (vueTexte.firstChild) { vueTexte.removeChild(vueTexte.firstChild); }
+    if (!ch) { ficheAccueil(); } else if (ch.type === "ile") { ficheIle(ch.id); } else { ficheReserve(); }
+    etiqueter();
+  }
+  function clicCarte(cible) {
+    var c = cible.closest ? cible : null; if (!c) { return; }
+    var i = c.closest("[data-ile]"); if (i) { choisir({ type: "ile", id: i.getAttribute("data-ile") }); return; }
+    if (c.closest("[data-zone]")) { choisir({ type: "reserve", id: "reserve" }); }
+  }
+  var API = { etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", theme: etat.theme, vue: svg.getAttribute("viewBox") }; }, choisir: function (c) { choisir(c); }, theme: function (t) { etat.theme = t; rendre(); }, donnees: D };
+
+
+  svg.addEventListener("click", function (ev) {
+    if (glisseFini) { return; }
+    clicCarte(ev.target);
+  });
+  Array.prototype.forEach.call(racine.querySelectorAll(".gal__couche"), function (b) {
+    b.addEventListener("click", function () {
+      var c = b.getAttribute("data-couche");
+      etat.couches[c] = !etat.couches[c];
+      apresCouche(c);
+      rendre();
+    });
+  });
+  racine.addEventListener("keydown", function (ev) {
+    if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
+    if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
+  });
+  var replier = q(".gal__replier");
+  replier.addEventListener("click", function () {
+    var masque = racine.classList.toggle("texte-masque");
+    replier.setAttribute("aria-expanded", masque ? "false" : "true");
+    replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
+    window.setTimeout(etiqueter, 60);
+  });
+  function choisir(c) {
+    etat.choix = c && !memeChoix(c, etat.choix) ? c : null;
+    rendre();
+    var lecture = q(".gal__lecture"); if (lecture) { lecture.scrollTop = 0; }
+  }
+  /* Réinitialiser (bouton posé par page.js) : aucun choix, couches de départ, carte entière. */
+  function reinitialiser() {
+    etat.choix = null;
+    for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
+    reinitExtra();
+    etat.vue = { x: 0, y: 0, w: W, h: H };
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    q(".gal__recentrer").hidden = true;
+    carte.classList.remove("est-zoomee");
+    rendre();
+    var lecture = q(".gal__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
+  racine.gal = API;
+  var taille = "";
+  function mesurer() {
+    var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
+    if (t !== taille) { taille = t; etiqueter(); }
+  }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
