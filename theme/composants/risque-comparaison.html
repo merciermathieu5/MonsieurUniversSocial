@@ -1,168 +1,199 @@
-<section class="rqc" id="risque-comparaison" aria-label="Comparaison de San Francisco et de Manille devant le risque naturel">
+<section class="rqc" id="risque-comparaison" data-reinitialiser aria-label="Comparaison de San Francisco et de Manille devant le risque naturel">
 <style>
-.rqc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.rqc { --rqc-a: #2D5A97; --rqc-a-voile: #E3EBF5; --rqc-a-encre: #1F4170; --rqc-b: #B5561F; --rqc-b-voile: #F8E6D9; --rqc-b-encre: #7C3A12; --rqc-signal: #D2952E; --rqc-signal-voile: #FFF6DF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.rqc [hidden] { display: none !important; }
 .rqc .rqc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .rqc .rqc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .rqc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
-.rqc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
-.rqc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
-.rqc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
-.rqc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
-.rqc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
-.rqc__panneau.est-visible { display: block; }
-.rqc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-.rqc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
-.rqc__cote--manille { border-left-color: var(--encre-pale); }
-.rqc__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
-.rqc__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
-.rqc__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
-.rqc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
-.rqc__ecart strong { color: var(--matiere-fonce); }
+.rqc__corps { max-width: 62rem; margin: 0 auto; padding: 1rem 1.2rem 1.3rem; }
+.rqc__barre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin: 0 0 .9rem; }
+.rqc .rqc__legende { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.rqc .rqc__legende > li { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; }
+.rqc .rqc__legende > li::marker { content: none; }
+.rqc .rqc__legende > li::before { content: none; }
+.rqc__cle { width: 1.05rem; height: 1.05rem; border-radius: 4px; background: var(--rqc-a); flex: none; }
+.rqc__legende > li + li > .rqc__cle { background: var(--rqc-b); }
+.rqc__outil { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .82rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; }
+.rqc__outil:hover { color: var(--encre); background: var(--matiere-voile); }
+.rqc__outil:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.rqc__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); grid-auto-flow: row dense; gap: .85rem; }
+.rqc__tuile { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--trait); border-radius: 10px; overflow: hidden; transition: box-shadow .15s, border-color .15s; }
+.rqc__tuile.est-active { border-color: var(--rqc-signal); box-shadow: 0 0 0 3px var(--rqc-signal); }
+.rqc__tuile-tete { display: flex; align-items: center; gap: .55rem; width: 100%; margin: 0; padding: .7rem .85rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; text-align: left; color: var(--matiere-fonce); background: none; border: 0; cursor: pointer; }
+.rqc__tuile-tete:hover { background: var(--matiere-voile); }
+.rqc__tuile-tete:focus-visible { outline: 3px solid var(--matiere); outline-offset: -3px; }
+.rqc__icone { width: 1.5rem; height: 1.5rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.rqc__chevron { width: 1rem; height: 1rem; margin-left: auto; flex: none; fill: none; stroke: var(--encre-pale); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.rqc__tuile-tete[aria-expanded="true"] .rqc__chevron { transform: rotate(180deg); }
+.rqc__moities { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); flex: 1 1 auto; }
+.rqc__moitie { display: flex; flex-direction: column; justify-content: center; gap: .12rem; margin: 0; padding: .6rem .85rem .7rem; min-height: 4.2rem; box-sizing: border-box; font-family: var(--titre); text-align: left; color: #fff; background-color: var(--rqc-a); border: 0; cursor: pointer; overflow-wrap: break-word; hyphens: auto; transition: filter .15s; }
+.rqc__moitie--b { background-color: var(--rqc-b); }
+.rqc__moitie:hover { filter: brightness(1.1); }
+.rqc__moitie:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+.rqc__moitie-nom { font-weight: 600; font-size: .76rem; line-height: 1.2; }
+.rqc__moitie-valeur { font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+.rqc__oeil { display: none; width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Côté pas encore affiché : son nom, sur un fond hachuré. */
+.rqc__moitie[aria-expanded="false"] { align-items: center; text-align: center; gap: .25rem; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.14) 0 .5rem, transparent .5rem 1rem); }
+.rqc__moitie[aria-expanded="false"] .rqc__moitie-nom { font-weight: 700; font-size: .95rem; }
+.rqc__moitie[aria-expanded="false"] .rqc__oeil { display: block; }
+.rqc__sr, .rqc__annonce { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.rqc__detail { grid-column: 1 / -1; display: flex; flex-direction: column; border: 3px solid var(--rqc-signal); border-radius: 10px; overflow: hidden; animation: rqc-ouvre .22s ease-out; }
+@keyframes rqc-ouvre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.rqc__cotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); flex: 1 1 auto; }
+.rqc__cote { display: flex; flex-direction: column; min-height: 5.4rem; padding: .9rem 1.05rem 1rem; box-sizing: border-box; background: var(--rqc-a-voile); }
+.rqc__cote--b { background: var(--rqc-b-voile); }
+.rqc__voile { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem; width: 100%; margin: 0; padding: .7rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; color: var(--rqc-a-encre); background: none; border: 2px dashed currentColor; border-radius: 8px; cursor: pointer; }
+.rqc__cote--b .rqc__voile { color: var(--rqc-b-encre); }
+.rqc__voile > small { font-weight: 500; font-size: .78rem; }
+.rqc__voile:hover { background: rgba(255,255,255,.55); }
+.rqc__voile:focus-visible { outline: 3px solid var(--matiere); outline-offset: 2px; }
+.rqc__texte:focus { outline: none; }
+.rqc__lieu { display: block; font-family: var(--titre); font-weight: 700; font-size: .86rem; line-height: 1.3; color: var(--rqc-a-encre); }
+.rqc__cote--b .rqc__lieu { color: var(--rqc-b-encre); }
+.rqc .rqc__cote p { margin: .3rem 0 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.rqc__ecart { display: flex; flex-direction: column; padding: .85rem 1.05rem; background: var(--rqc-signal-voile); }
+.rqc__ecart .rqc__voile { flex-direction: row; flex-wrap: wrap; gap: .3rem .7rem; color: var(--encre); border-color: var(--rqc-signal); }
+.rqc .rqc__ecart-texte { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem .85rem; margin: 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.rqc__ecart-texte > strong { flex: none; padding: .22rem .65rem; border-radius: 100px; background: var(--rqc-signal); color: #1A2530; font-family: var(--titre); font-weight: 700; font-size: .78rem; line-height: 1.4; }
+.rqc__ecart-texte > span { flex: 1 1 16rem; }
+.rqc .rqc__attente { display: none; grid-column: 1 / -1; align-items: center; justify-content: center; margin: 0; padding: 1rem; border: 2px dashed var(--trait); border-radius: 10px; font-family: var(--titre); font-weight: 600; font-size: 1.15rem; color: var(--encre-pale); text-align: center; }
+/* Plein écran : la mosaïque en haut, le critère choisi en grand en bas, sur tout l'écran. */
+.rqc.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; overflow: auto; }
+.rqc.est-plein-ecran .rqc__corps { width: 100%; max-width: none; box-sizing: border-box; }
+@media (min-width: 60rem) and (min-height: 34rem) {
+  .rqc.est-plein-ecran .rqc__corps { flex: 1 1 auto; display: flex; flex-direction: column; margin: 0; padding: 1rem 1.5rem 1.4rem; }
+  .rqc.est-plein-ecran .rqc__grille { flex: 1 1 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1.3fr); gap: 1rem; }
+  .rqc.est-plein-ecran .rqc__detail, .rqc.est-plein-ecran .rqc__attente { order: 1; }
+  .rqc.est-plein-ecran .rqc__attente { display: flex; }
+  .rqc.est-plein-ecran .rqc__legende { font-size: 1.15rem; }
+  .rqc.est-plein-ecran .rqc__outil { font-size: .95rem; }
+  .rqc.est-plein-ecran .rqc__tuile-tete { padding: .8rem 1.05rem; font-size: 1.2rem; }
+  .rqc.est-plein-ecran .rqc__icone { width: 1.8rem; height: 1.8rem; }
+  .rqc.est-plein-ecran .rqc__moitie { padding: .8rem 1.1rem; gap: .25rem; }
+  .rqc.est-plein-ecran .rqc__moitie-nom { font-size: .92rem; }
+  .rqc.est-plein-ecran .rqc__moitie-valeur { font-size: clamp(1.4rem, 2.3vw, 2.4rem); line-height: 1.15; }
+  .rqc.est-plein-ecran .rqc__moitie-valeur--long { font-size: clamp(1.2rem, 1.65vw, 1.75rem); }
+  .rqc.est-plein-ecran .rqc__moitie[aria-expanded="false"] .rqc__moitie-nom { font-size: 1.3rem; }
+  .rqc.est-plein-ecran .rqc__oeil { width: 1.7rem; height: 1.7rem; }
+  .rqc.est-plein-ecran .rqc__cote { padding: 1.1rem 1.4rem 1.2rem; justify-content: center; }
+  .rqc.est-plein-ecran .rqc__lieu { font-size: 1.08rem; }
+  .rqc.est-plein-ecran .rqc__cote p, .rqc.est-plein-ecran .rqc__ecart-texte { font-size: clamp(1.15rem, 1.7vw, 1.7rem); line-height: 1.5; }
+  .rqc.est-plein-ecran .rqc__ecart { padding: 1rem 1.4rem; }
+  .rqc.est-plein-ecran .rqc__ecart-texte > strong { font-size: .95rem; }
+  .rqc.est-plein-ecran .rqc__voile { font-size: 1.25rem; }
+  .rqc.est-plein-ecran .rqc__voile > small { font-size: .95rem; }
+}
+html[data-sombre="on"] .rqc { --rqc-a-voile: #1B2B41; --rqc-a-encre: #A9C6EE; --rqc-b-voile: #3A2415; --rqc-b-encre: #F0B48C; --rqc-signal-voile: #372C12; }
 html[data-sombre="on"] .rqc .rqc__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .rqc .rqc__titre { color: var(--encre); }
 html[data-sombre="on"] .rqc__consigne { color: var(--encre-pale); }
-html[data-sombre="on"] .rqc__onglet.est-actif { color: var(--encre); }
-html[data-sombre="on"] .rqc__chiffre { color: var(--encre); }
-html[data-sombre="on"] .rqc__ecart strong { color: var(--encre); }
-@media (max-width: 40rem) { .rqc__panneau { padding: 1.1rem 1rem 1rem; } .rqc__onglets { padding: .7rem .8rem; } .rqc__chiffre { font-size: 1.25rem; } }
-@media print { .rqc__panneau { display: block; page-break-inside: avoid; } .rqc__onglets { display: none; } }
+html[data-sombre="on"] .rqc__tuile-tete { color: var(--encre); }
+html[data-sombre="on"] .rqc__voile:hover { background: rgba(255,255,255,.07); }
+@media (max-width: 40rem) { .rqc__corps { padding: .85rem .8rem 1rem; } }
+@media (prefers-reduced-motion: reduce) { .rqc__tuile, .rqc__chevron, .rqc__moitie { transition: none; } .rqc__detail { animation: none; } }
+@media print {
+  .rqc .rqc__detail[hidden], .rqc .rqc__texte[hidden], .rqc .rqc__moitie-valeur[hidden] { display: block !important; }
+  .rqc .rqc__voile, .rqc .rqc__outil, .rqc .rqc__oeil, .rqc__chevron { display: none !important; }
+  .rqc__tuile, .rqc__detail { break-inside: avoid; }
+}
 </style>
-
 <div class="rqc__entete">
   <p class="rqc__titre" role="heading" aria-level="3">Le même aléa, deux catastrophes</p>
-  <p class="rqc__consigne">Choisis un critère</p>
+  <p class="rqc__consigne">Touche un côté pour l'afficher</p>
 </div>
-
-<div class="rqc__onglets" role="tablist" aria-label="Critères comparés"></div>
-<div class="rqc__contenu"></div>
-
+<div class="rqc__corps">
+<div class="rqc__barre"><ul class="rqc__legende" aria-label="Les deux côtés comparés"><li><span class="rqc__cle" aria-hidden="true"></span>San Francisco</li><li><span class="rqc__cle" aria-hidden="true"></span>Manille</li></ul><button type="button" class="rqc__outil">Tout afficher</button></div>
+<div class="rqc__grille">
+<div class="rqc__tuile" data-critere="alea"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-alea"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 13h4l2-6 4 12 3-9 2 3h5"/></svg><span class="rqc__tuile-nom">L&#x27;aléa dominant</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-alea-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">Les séismes</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-alea-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">Les typhons</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-alea" data-critere="alea" role="region" aria-label="L&#x27;aléa dominant"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-alea-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>La faille de San Andreas traverse la ville. Le littoral est aussi exposé aux tsunamis d&#x27;origine lointaine.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-alea-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>Manille reçoit typhons et inondations chaque année, en plus des séismes et des volcans de la ceinture de feu.</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>À San Francisco l&#x27;aléa est rare et brutal. À Manille il revient chaque année, ce qui change complètement la façon de s&#x27;y préparer.</span></p></div></div>
+<div class="rqc__tuile" data-critere="population"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-population"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/></svg><span class="rqc__tuile-nom">La population exposée</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-population-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">842 000</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-population-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">20 millions</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-population" data-critere="population" role="region" aria-label="La population exposée"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-population-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>Habitants de la ville de San Francisco. La région de la baie en compte environ 7,7 millions.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-population-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>Habitants du Grand Manille, soit environ 14 % de la population des Philippines sur un seul territoire urbain.</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Un même événement menace beaucoup plus de monde à Manille, simplement parce qu&#x27;il y a plus de monde.</span></p></div></div>
+<div class="rqc__tuile" data-critere="densite"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-densite"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span class="rqc__tuile-nom">La densité</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-densite-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">7 200 hab./km²</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-densite-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">40 000 hab./km²</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-densite" data-critere="densite" role="region" aria-label="La densité"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-densite-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>Deuxième grande ville la plus dense des États-Unis, derrière New York.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-densite-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>L&#x27;une des villes les plus denses du monde. Montréal, à titre de comparaison, tourne autour de 4 000 hab./km².</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Plus la densité est forte, plus l&#x27;évacuation est lente et plus l&#x27;incendie ou l&#x27;inondation se propagent vite.</span></p></div></div>
+<div class="rqc__tuile" data-critere="construction"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-construction"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 21V10l8-6 8 6v11z"/><path d="M10 21v-6h4v6"/></svg><span class="rqc__tuile-nom">Les normes de construction</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-construction-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">Obligatoires</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-construction-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur rqc__moitie-valeur--long">Souvent absentes</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-construction" data-critere="construction" role="region" aria-label="Les normes de construction"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-construction-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>Les nouvelles constructions doivent respecter des normes parasismiques et la ville évite de bâtir sur les sols les plus fragiles.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-construction-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>Une partie de la population habite des quartiers bâtis sans norme, parfois des maisons sur pilotis le long du littoral.</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>C&#x27;est ici que le niveau de développement se voit le mieux : construire solide coûte cher et tout le monde n&#x27;en a pas les moyens.</span></p></div></div>
+<div class="rqc__tuile" data-critere="alerte"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-alerte"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 17v-6a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21.5h4"/></svg><span class="rqc__tuile-nom">L&#x27;alerte</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-alerte-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur rqc__moitie-valeur--long">Quelques secondes</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-alerte-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur rqc__moitie-valeur--long">Toutes les six heures</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-alerte" data-critere="alerte" role="region" aria-label="L&#x27;alerte"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-alerte-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>ShakeAlert détecte la première onde d&#x27;un séisme déjà commencé et prévient avant l&#x27;arrivée de la seconde, plus destructrice.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-alerte-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>L&#x27;agence gouvernementale PAGASA suit les typhons par radar et émet des bulletins réguliers pendant une catastrophe.</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Un typhon se voit venir plusieurs jours à l&#x27;avance, un séisme jamais. Le type d&#x27;aléa commande le type d&#x27;alerte.</span></p></div></div>
+<div class="rqc__tuile" data-critere="bilan"><button type="button" class="rqc__tuile-tete" aria-expanded="false" aria-controls="rqc-detail-bilan"><svg class="rqc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/></svg><span class="rqc__tuile-nom">Un bilan réel</span><svg class="rqc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="rqc__moities"><button type="button" class="rqc__moitie rqc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="rqc-detail-bilan-a"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">San Francisco</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur">63 morts</span></button><button type="button" class="rqc__moitie rqc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="rqc-detail-bilan-b"><svg class="rqc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="rqc__moitie-nom">Manille</span><span class="rqc__sr"> : </span><span class="rqc__moitie-valeur rqc__moitie-valeur--long">1,95 million de sinistrés</span></button></div></div>
+<div class="rqc__detail" id="rqc-detail-bilan" data-critere="bilan" role="region" aria-label="Un bilan réel"><div class="rqc__cotes"><div class="rqc__cote rqc__cote--a" id="rqc-detail-bilan-a" data-zone="a"><button type="button" class="rqc__voile" hidden>San Francisco<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">San Francisco</span><p>Séisme de 1989 : 63 morts, 3 757 blessés et de 5,6 à 6 milliards de dollars de dégâts.</p></div></div><div class="rqc__cote rqc__cote--b" id="rqc-detail-bilan-b" data-zone="b"><button type="button" class="rqc__voile" hidden>Manille<small>Touche pour afficher</small></button><div class="rqc__texte" tabindex="-1"><span class="rqc__lieu">Manille</span><p>Inondations de 2012 : 80 % de la capitale sous les eaux, près de deux millions de personnes touchées et 300 000 évacuées.</p></div></div></div><div class="rqc__ecart" data-zone="e"><button type="button" class="rqc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="rqc__texte rqc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Dans un pays développé, la catastrophe se compte surtout en dollars. Ailleurs, elle se compte surtout en personnes.</span></p></div></div>
+<p class="rqc__attente" hidden>Touche un côté pour l'afficher, un critère à la fois.</p>
+</div>
+<p class="rqc__annonce" aria-live="polite"></p>
+</div>
 <script>
 (function () {
   var racine = document.getElementById("risque-comparaison");
-  if (!racine) { return; }
-  var criteres = [
-    {
-      cle: "alea",
-      nom: "L'al\u00e9a dominant",
-      sfChiffre: "Les s\u00e9ismes",
-      sfDetail: "La faille de San Andreas traverse la ville. Le littoral est aussi expos\u00e9 aux tsunamis d'origine lointaine.",
-      mnChiffre: "Les typhons",
-      mnDetail: "Manille re\u00e7oit typhons et inondations chaque ann\u00e9e, en plus des s\u00e9ismes et des volcans de la ceinture de feu.",
-      ecart: "\u00c0 San Francisco l'al\u00e9a est rare et brutal. \u00c0 Manille il revient chaque ann\u00e9e, ce qui change compl\u00e8tement la fa\u00e7on de s'y pr\u00e9parer."
-    },
-    {
-      cle: "population",
-      nom: "La population expos\u00e9e",
-      sfChiffre: "842 000",
-      sfDetail: "Habitants de la ville de San Francisco. La r\u00e9gion de la baie en compte environ 7,7 millions.",
-      mnChiffre: "20 millions",
-      mnDetail: "Habitants du Grand Manille, soit environ 14 % de la population des Philippines sur un seul territoire urbain.",
-      ecart: "Un m\u00eame \u00e9v\u00e9nement menace beaucoup plus de monde \u00e0 Manille, simplement parce qu'il y a plus de monde."
-    },
-    {
-      cle: "densite",
-      nom: "La densit\u00e9",
-      sfChiffre: "7 200 hab./km\u00b2",
-      sfDetail: "Deuxi\u00e8me grande ville la plus dense des \u00c9tats-Unis, derri\u00e8re New York.",
-      mnChiffre: "40 000 hab./km\u00b2",
-      mnDetail: "L'une des villes les plus denses du monde. Montr\u00e9al, \u00e0 titre de comparaison, tourne autour de 4 000 hab./km\u00b2.",
-      ecart: "Plus la densit\u00e9 est forte, plus l'\u00e9vacuation est lente et plus l'incendie ou l'inondation se propagent vite."
-    },
-    {
-      cle: "construction",
-      nom: "Les normes de construction",
-      sfChiffre: "Obligatoires",
-      sfDetail: "Les nouvelles constructions doivent respecter des normes parasismiques, et la ville \u00e9vite de b\u00e2tir sur les sols les plus fragiles.",
-      mnChiffre: "Souvent absentes",
-      mnDetail: "Une partie de la population habite des quartiers b\u00e2tis sans norme, parfois des maisons sur pilotis le long du littoral.",
-      ecart: "C'est ici que le niveau de d\u00e9veloppement se voit le mieux : construire solide co\u00fbte cher, et tout le monde n'en a pas les moyens."
-    },
-    {
-      cle: "alerte",
-      nom: "L'alerte",
-      sfChiffre: "Quelques secondes",
-      sfDetail: "ShakeAlert d\u00e9tecte la premi\u00e8re onde d'un s\u00e9isme d\u00e9j\u00e0 commenc\u00e9 et pr\u00e9vient avant l'arriv\u00e9e de la seconde, plus destructrice.",
-      mnChiffre: "Toutes les six heures",
-      mnDetail: "L'agence gouvernementale PAGASA suit les typhons par radar et \u00e9met des bulletins r\u00e9guliers pendant une catastrophe.",
-      ecart: "Un typhon se voit venir plusieurs jours \u00e0 l'avance, un s\u00e9isme jamais. Le type d'al\u00e9a commande le type d'alerte."
-    },
-    {
-      cle: "bilan",
-      nom: "Un bilan r\u00e9el",
-      sfChiffre: "63 morts",
-      sfDetail: "S\u00e9isme de 1989 : 63 morts, 3 757 bless\u00e9s et de 5,6 \u00e0 6 milliards de dollars de d\u00e9g\u00e2ts.",
-      mnChiffre: "1,95 million de sinistr\u00e9s",
-      mnDetail: "Inondations de 2012 : 80 % de la capitale sous les eaux, pr\u00e8s de deux millions de personnes touch\u00e9es et 300 000 \u00e9vacu\u00e9es.",
-      ecart: "Dans un pays d\u00e9velopp\u00e9, la catastrophe se compte surtout en dollars. Ailleurs, elle se compte surtout en personnes."
-    }
-  ];
-
-  var onglets = racine.querySelector(".rqc__onglets");
-  var contenu = racine.querySelector(".rqc__contenu");
-
-  function cote(lieu, chiffre, detail, modificateur) {
-    var boite = document.createElement("div");
-    boite.className = "rqc__cote" + (modificateur ? " rqc__cote--" + modificateur : "");
-    var etiquette = document.createElement("span");
-    etiquette.className = "rqc__lieu";
-    etiquette.textContent = lieu;
-    var nombre = document.createElement("span");
-    nombre.className = "rqc__chiffre";
-    nombre.textContent = chiffre;
-    var texte = document.createElement("p");
-    texte.className = "rqc__detail";
-    texte.textContent = detail;
-    boite.appendChild(etiquette);
-    boite.appendChild(nombre);
-    boite.appendChild(texte);
-    return boite;
-  }
-
-  criteres.forEach(function (critere, index) {
-    var onglet = document.createElement("button");
-    onglet.type = "button";
-    onglet.className = "rqc__onglet" + (index === 0 ? " est-actif" : "");
-    onglet.textContent = critere.nom;
-    onglet.setAttribute("role", "tab");
-    onglet.setAttribute("aria-controls", "rqc-panneau-" + critere.cle);
-    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
-    onglets.appendChild(onglet);
-
-    var panneau = document.createElement("div");
-    panneau.className = "rqc__panneau" + (index === 0 ? " est-visible" : "");
-    panneau.id = "rqc-panneau-" + critere.cle;
-    panneau.setAttribute("role", "tabpanel");
-    panneau.setAttribute("aria-label", critere.nom);
-
-    var colonnes = document.createElement("div");
-    colonnes.className = "rqc__colonnes";
-    colonnes.appendChild(cote("San Francisco", critere.sfChiffre, critere.sfDetail, ""));
-    colonnes.appendChild(cote("Manille", critere.mnChiffre, critere.mnDetail, "manille"));
-    panneau.appendChild(colonnes);
-
-    var ecart = document.createElement("p");
-    ecart.className = "rqc__ecart";
-    var mot = document.createElement("strong");
-    mot.textContent = "Ce qui change. ";
-    ecart.appendChild(mot);
-    ecart.appendChild(document.createTextNode(critere.ecart));
-    panneau.appendChild(ecart);
-
-    contenu.appendChild(panneau);
-
-    onglet.addEventListener("click", function () {
-      Array.prototype.forEach.call(onglets.children, function (autre) {
-        autre.classList.remove("est-actif");
-        autre.setAttribute("aria-selected", "false");
-      });
-      Array.prototype.forEach.call(contenu.children, function (autre) {
-        autre.classList.remove("est-visible");
-      });
-      onglet.classList.add("est-actif");
-      onglet.setAttribute("aria-selected", "true");
-      panneau.classList.add("est-visible");
-    });
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  function tous(s, r) { return Array.prototype.slice.call((r || racine).querySelectorAll(s)); }
+  var annonce = racine.querySelector(".rqc__annonce"), attente = racine.querySelector(".rqc__attente"), btTout = racine.querySelector(".rqc__outil");
+  // Pour chaque critère : ce qui est affiché (côté a, côté b, écart e). Un seul critère ouvert à la fois.
+  var vus = {}, ouvert = null;
+  var fiches = tous(".rqc__tuile").map(function (t) {
+    var cle = t.getAttribute("data-critere");
+    vus[cle] = { a: false, b: false, e: false };
+    return { cle: cle, tuile: t, tete: t.querySelector(".rqc__tuile-tete"), detail: document.getElementById("rqc-detail-" + cle) };
   });
+  function zone(f, c) { return f.detail.querySelector('[data-zone="' + c + '"]'); }
+  function fiche(cle) { return fiches.filter(function (f) { return f.cle === cle; })[0]; }
+  function rendre() {
+    var complet = true;
+    fiches.forEach(function (f) {
+      var v = vus[f.cle], actif = f.cle === ouvert;
+      f.tuile.classList.toggle("est-active", actif);
+      f.tete.setAttribute("aria-expanded", actif ? "true" : "false");
+      f.detail.hidden = !actif;
+      ["a", "b"].forEach(function (c) {
+        var m = f.tuile.querySelector('.rqc__moitie[data-cote="' + c + '"]');
+        m.setAttribute("aria-expanded", v[c] ? "true" : "false");
+        m.querySelector(".rqc__moitie-valeur").hidden = !v[c];
+      });
+      ["a", "b", "e"].forEach(function (c) {
+        var z = zone(f, c);
+        z.querySelector(".rqc__voile").hidden = v[c];
+        z.querySelector(".rqc__texte").hidden = !v[c];
+        if (!v[c]) { complet = false; }
+      });
+    });
+    attente.hidden = ouvert !== null;
+    btTout.textContent = complet ? "Tout masquer" : "Tout afficher";
+  }
+  function montrer(cle, c) {
+    vus[cle][c] = true; ouvert = cle;
+    rendre();
+    var f = fiche(cle), m = c === "e" ? null : f.tuile.querySelector('.rqc__moitie[data-cote="' + c + '"]');
+    annonce.textContent = (m ? m.textContent + ". " : "") + zone(f, c).querySelector(".rqc__texte").textContent;
+  }
+  racine.addEventListener("click", function (e) {
+    var cible = e.target, el;
+    if ((el = cible.closest(".rqc__moitie"))) { montrer(el.closest(".rqc__tuile").getAttribute("data-critere"), el.getAttribute("data-cote")); return; }
+    if ((el = cible.closest(".rqc__voile"))) {
+      var z = el.closest("[data-zone]"), cle = el.closest(".rqc__detail").getAttribute("data-critere");
+      montrer(cle, z.getAttribute("data-zone"));
+      z.querySelector(".rqc__texte").focus();
+      return;
+    }
+    if ((el = cible.closest(".rqc__tuile-tete"))) {
+      var c = el.closest(".rqc__tuile").getAttribute("data-critere");
+      ouvert = ouvert === c ? null : c; rendre(); return;
+    }
+    if (cible.closest(".rqc__outil")) {
+      var masquer = btTout.textContent === "Tout masquer";
+      fiches.forEach(function (f) { vus[f.cle] = { a: !masquer, b: !masquer, e: !masquer }; });
+      rendre();
+      annonce.textContent = masquer ? "Tout est masqué" : "Tout est affiché";
+    }
+  });
+  racine.addEventListener("keydown", function (e) {
+    if ((e.key === "Escape" || e.key === "Esc") && ouvert !== null) { var f = fiche(ouvert); ouvert = null; rendre(); f.tete.focus(); }
+  });
+  racine.addEventListener("reinitialiser", function () {
+    fiches.forEach(function (f) { vus[f.cle] = { a: false, b: false, e: false }; });
+    ouvert = null; rendre();
+  });
+  racine.comparateur = { etat: function () { return { ouvert: ouvert, vus: JSON.parse(JSON.stringify(vus)) }; } };
+  rendre();
 })();
 </script>
 </section>

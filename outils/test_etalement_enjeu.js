@@ -98,6 +98,8 @@ clic(note("terres", 2)); clic(note("logement", 2)); clic(note("auto", 2)); clic(
 verifier("une évaluation complète est indiquée et la pastille se remplit", /Évaluation complète/.test(un(".enj__etat-eval").textContent) && un('.enj__etape[data-fenetre="2"]').classList.contains("est-complete"));
 clic(note("faisable", 1));
 verifier("cliquer de nouveau sur une réponse l'efface", api.etat().notes.cmm.faisable === undefined && /3 critères évalués sur 4/.test(un(".enj__etat-eval").textContent));
+verifier("le groupe a son bandeau à sa couleur : nom, présentation et proposition", /^#[0-9A-Fa-f]{6}$/.test(un(".enj__groupe").style.getPropertyValue("--enj-c")) && !!un(".enj__bandeau .enj__fenetre-titre").textContent.trim() && !!un(".enj__bandeau .enj__texte").textContent.trim() && un(".enj__bandeau .enj__proposition p").textContent.trim().length > 20);
+verifier("la jauge de l'évaluation suit les réponses (3 sur 4)", un(".enj__etat-eval .enj__jauge > i").style.width === "75%" && tous(".enj__eval .enj__echelle").every((e) => tous(".enj__note", e).length === 3));
 clic(note("faisable", 1));
 precedent();
 verifier("Précédent ramène au groupe 1, ses réponses sont conservées", api.etat().fenetre === 1 && note("terres", 2).getAttribute("aria-pressed") === "true" && note("logement", 0).getAttribute("aria-pressed") === "true");

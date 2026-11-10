@@ -1,168 +1,199 @@
-<section class="glc" id="grands-lacs-comparaison" aria-label="Comparaison du territoire industriel des Grands Lacs entre les années 1970 et aujourd'hui">
+<section class="glc" id="grands-lacs-comparaison" data-reinitialiser aria-label="Comparaison du territoire industriel des Grands Lacs entre les années 1970 et aujourd&#x27;hui">
 <style>
-.glc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.glc { --glc-a: #2D5A97; --glc-a-voile: #E3EBF5; --glc-a-encre: #1F4170; --glc-b: #B5561F; --glc-b-voile: #F8E6D9; --glc-b-encre: #7C3A12; --glc-signal: #D2952E; --glc-signal-voile: #FFF6DF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.glc [hidden] { display: none !important; }
 .glc .glc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .glc .glc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .glc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
-.glc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
-.glc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
-.glc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
-.glc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
-.glc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
-.glc__panneau.est-visible { display: block; }
-.glc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-.glc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
-.glc__cote--auj { border-left-color: var(--encre-pale); }
-.glc__quand { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
-.glc__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
-.glc__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
-.glc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
-.glc__ecart strong { color: var(--matiere-fonce); }
+.glc__corps { max-width: 62rem; margin: 0 auto; padding: 1rem 1.2rem 1.3rem; }
+.glc__barre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin: 0 0 .9rem; }
+.glc .glc__legende { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.glc .glc__legende > li { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; }
+.glc .glc__legende > li::marker { content: none; }
+.glc .glc__legende > li::before { content: none; }
+.glc__cle { width: 1.05rem; height: 1.05rem; border-radius: 4px; background: var(--glc-a); flex: none; }
+.glc__legende > li + li > .glc__cle { background: var(--glc-b); }
+.glc__outil { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .82rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; }
+.glc__outil:hover { color: var(--encre); background: var(--matiere-voile); }
+.glc__outil:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.glc__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); grid-auto-flow: row dense; gap: .85rem; }
+.glc__tuile { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--trait); border-radius: 10px; overflow: hidden; transition: box-shadow .15s, border-color .15s; }
+.glc__tuile.est-active { border-color: var(--glc-signal); box-shadow: 0 0 0 3px var(--glc-signal); }
+.glc__tuile-tete { display: flex; align-items: center; gap: .55rem; width: 100%; margin: 0; padding: .7rem .85rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; text-align: left; color: var(--matiere-fonce); background: none; border: 0; cursor: pointer; }
+.glc__tuile-tete:hover { background: var(--matiere-voile); }
+.glc__tuile-tete:focus-visible { outline: 3px solid var(--matiere); outline-offset: -3px; }
+.glc__icone { width: 1.5rem; height: 1.5rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.glc__chevron { width: 1rem; height: 1rem; margin-left: auto; flex: none; fill: none; stroke: var(--encre-pale); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.glc__tuile-tete[aria-expanded="true"] .glc__chevron { transform: rotate(180deg); }
+.glc__moities { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); flex: 1 1 auto; }
+.glc__moitie { display: flex; flex-direction: column; justify-content: center; gap: .12rem; margin: 0; padding: .6rem .85rem .7rem; min-height: 4.2rem; box-sizing: border-box; font-family: var(--titre); text-align: left; color: #fff; background-color: var(--glc-a); border: 0; cursor: pointer; overflow-wrap: break-word; hyphens: auto; transition: filter .15s; }
+.glc__moitie--b { background-color: var(--glc-b); }
+.glc__moitie:hover { filter: brightness(1.1); }
+.glc__moitie:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+.glc__moitie-nom { font-weight: 600; font-size: .76rem; line-height: 1.2; }
+.glc__moitie-valeur { font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+.glc__oeil { display: none; width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Côté pas encore affiché : son nom, sur un fond hachuré. */
+.glc__moitie[aria-expanded="false"] { align-items: center; text-align: center; gap: .25rem; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.14) 0 .5rem, transparent .5rem 1rem); }
+.glc__moitie[aria-expanded="false"] .glc__moitie-nom { font-weight: 700; font-size: .95rem; }
+.glc__moitie[aria-expanded="false"] .glc__oeil { display: block; }
+.glc__sr, .glc__annonce { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.glc__detail { grid-column: 1 / -1; display: flex; flex-direction: column; border: 3px solid var(--glc-signal); border-radius: 10px; overflow: hidden; animation: glc-ouvre .22s ease-out; }
+@keyframes glc-ouvre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.glc__cotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); flex: 1 1 auto; }
+.glc__cote { display: flex; flex-direction: column; min-height: 5.4rem; padding: .9rem 1.05rem 1rem; box-sizing: border-box; background: var(--glc-a-voile); }
+.glc__cote--b { background: var(--glc-b-voile); }
+.glc__voile { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem; width: 100%; margin: 0; padding: .7rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; color: var(--glc-a-encre); background: none; border: 2px dashed currentColor; border-radius: 8px; cursor: pointer; }
+.glc__cote--b .glc__voile { color: var(--glc-b-encre); }
+.glc__voile > small { font-weight: 500; font-size: .78rem; }
+.glc__voile:hover { background: rgba(255,255,255,.55); }
+.glc__voile:focus-visible { outline: 3px solid var(--matiere); outline-offset: 2px; }
+.glc__texte:focus { outline: none; }
+.glc__lieu { display: block; font-family: var(--titre); font-weight: 700; font-size: .86rem; line-height: 1.3; color: var(--glc-a-encre); }
+.glc__cote--b .glc__lieu { color: var(--glc-b-encre); }
+.glc .glc__cote p { margin: .3rem 0 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.glc__ecart { display: flex; flex-direction: column; padding: .85rem 1.05rem; background: var(--glc-signal-voile); }
+.glc__ecart .glc__voile { flex-direction: row; flex-wrap: wrap; gap: .3rem .7rem; color: var(--encre); border-color: var(--glc-signal); }
+.glc .glc__ecart-texte { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem .85rem; margin: 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.glc__ecart-texte > strong { flex: none; padding: .22rem .65rem; border-radius: 100px; background: var(--glc-signal); color: #1A2530; font-family: var(--titre); font-weight: 700; font-size: .78rem; line-height: 1.4; }
+.glc__ecart-texte > span { flex: 1 1 16rem; }
+.glc .glc__attente { display: none; grid-column: 1 / -1; align-items: center; justify-content: center; margin: 0; padding: 1rem; border: 2px dashed var(--trait); border-radius: 10px; font-family: var(--titre); font-weight: 600; font-size: 1.15rem; color: var(--encre-pale); text-align: center; }
+/* Plein écran : la mosaïque en haut, le critère choisi en grand en bas, sur tout l'écran. */
+.glc.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; overflow: auto; }
+.glc.est-plein-ecran .glc__corps { width: 100%; max-width: none; box-sizing: border-box; }
+@media (min-width: 60rem) and (min-height: 34rem) {
+  .glc.est-plein-ecran .glc__corps { flex: 1 1 auto; display: flex; flex-direction: column; margin: 0; padding: 1rem 1.5rem 1.4rem; }
+  .glc.est-plein-ecran .glc__grille { flex: 1 1 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1.3fr); gap: 1rem; }
+  .glc.est-plein-ecran .glc__detail, .glc.est-plein-ecran .glc__attente { order: 1; }
+  .glc.est-plein-ecran .glc__attente { display: flex; }
+  .glc.est-plein-ecran .glc__legende { font-size: 1.15rem; }
+  .glc.est-plein-ecran .glc__outil { font-size: .95rem; }
+  .glc.est-plein-ecran .glc__tuile-tete { padding: .8rem 1.05rem; font-size: 1.2rem; }
+  .glc.est-plein-ecran .glc__icone { width: 1.8rem; height: 1.8rem; }
+  .glc.est-plein-ecran .glc__moitie { padding: .8rem 1.1rem; gap: .25rem; }
+  .glc.est-plein-ecran .glc__moitie-nom { font-size: .92rem; }
+  .glc.est-plein-ecran .glc__moitie-valeur { font-size: clamp(1.4rem, 2.3vw, 2.4rem); line-height: 1.15; }
+  .glc.est-plein-ecran .glc__moitie-valeur--long { font-size: clamp(1.2rem, 1.65vw, 1.75rem); }
+  .glc.est-plein-ecran .glc__moitie[aria-expanded="false"] .glc__moitie-nom { font-size: 1.3rem; }
+  .glc.est-plein-ecran .glc__oeil { width: 1.7rem; height: 1.7rem; }
+  .glc.est-plein-ecran .glc__cote { padding: 1.1rem 1.4rem 1.2rem; justify-content: center; }
+  .glc.est-plein-ecran .glc__lieu { font-size: 1.08rem; }
+  .glc.est-plein-ecran .glc__cote p, .glc.est-plein-ecran .glc__ecart-texte { font-size: clamp(1.15rem, 1.7vw, 1.7rem); line-height: 1.5; }
+  .glc.est-plein-ecran .glc__ecart { padding: 1rem 1.4rem; }
+  .glc.est-plein-ecran .glc__ecart-texte > strong { font-size: .95rem; }
+  .glc.est-plein-ecran .glc__voile { font-size: 1.25rem; }
+  .glc.est-plein-ecran .glc__voile > small { font-size: .95rem; }
+}
+html[data-sombre="on"] .glc { --glc-a-voile: #1B2B41; --glc-a-encre: #A9C6EE; --glc-b-voile: #3A2415; --glc-b-encre: #F0B48C; --glc-signal-voile: #372C12; }
 html[data-sombre="on"] .glc .glc__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .glc .glc__titre { color: var(--encre); }
 html[data-sombre="on"] .glc__consigne { color: var(--encre-pale); }
-html[data-sombre="on"] .glc__onglet.est-actif { color: var(--encre); }
-html[data-sombre="on"] .glc__chiffre { color: var(--encre); }
-html[data-sombre="on"] .glc__ecart strong { color: var(--encre); }
-@media (max-width: 40rem) { .glc__panneau { padding: 1.1rem 1rem 1rem; } .glc__onglets { padding: .7rem .8rem; } .glc__chiffre { font-size: 1.25rem; } }
-@media print { .glc__panneau { display: block; page-break-inside: avoid; } .glc__onglets { display: none; } }
+html[data-sombre="on"] .glc__tuile-tete { color: var(--encre); }
+html[data-sombre="on"] .glc__voile:hover { background: rgba(255,255,255,.07); }
+@media (max-width: 40rem) { .glc__corps { padding: .85rem .8rem 1rem; } }
+@media (prefers-reduced-motion: reduce) { .glc__tuile, .glc__chevron, .glc__moitie { transition: none; } .glc__detail { animation: none; } }
+@media print {
+  .glc .glc__detail[hidden], .glc .glc__texte[hidden], .glc .glc__moitie-valeur[hidden] { display: block !important; }
+  .glc .glc__voile, .glc .glc__outil, .glc .glc__oeil, .glc__chevron { display: none !important; }
+  .glc__tuile, .glc__detail { break-inside: avoid; }
+}
 </style>
-
 <div class="glc__entete">
   <p class="glc__titre" role="heading" aria-level="3">Les Grands Lacs, avant et maintenant</p>
-  <p class="glc__consigne">Choisis un critère</p>
+  <p class="glc__consigne">Touche un côté pour l'afficher</p>
 </div>
-
-<div class="glc__onglets" role="tablist" aria-label="Critères comparés"></div>
-<div class="glc__contenu"></div>
-
+<div class="glc__corps">
+<div class="glc__barre"><ul class="glc__legende" aria-label="Les deux côtés comparés"><li><span class="glc__cle" aria-hidden="true"></span>L&#x27;âge d&#x27;or industriel</li><li><span class="glc__cle" aria-hidden="true"></span>Aujourd&#x27;hui</li></ul><button type="button" class="glc__outil">Tout afficher</button></div>
+<div class="glc__grille">
+<div class="glc__tuile" data-critere="ville"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-ville"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 21V9l6-3v15M9 21V4l7 3v14M16 21v-9l5 2v7M2 21h20"/></svg><span class="glc__tuile-nom">La ville de Détroit</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-ville-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">1,85 million</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-ville-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">640 000</span></button></div></div>
+<div class="glc__detail" id="glc-detail-ville" data-critere="ville" role="region" aria-label="La ville de Détroit"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-ville-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>C&#x27;est la population de la ville de Détroit à son sommet, en 1950. Elle est alors la quatrième ville des États-Unis, portée par l&#x27;automobile.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-ville-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>La ville a perdu près des deux tiers de sa population. Elle s&#x27;est placée sous la protection de la loi sur les faillites en 2013, avec une dette de 18,5 milliards de dollars.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Attention au piège. L&#x27;aire métropolitaine de Détroit, elle, n&#x27;a jamais été aussi peuplée : 6,3 millions d&#x27;habitants en 2020. Ce n&#x27;est pas la région qui s&#x27;est vidée, c&#x27;est le centre qui s&#x27;est vidé vers ses banlieues.</span></p></div></div>
+<div class="glc__tuile" data-critere="emplois"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-emplois"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c3 .2 5 2.5 5 5.8"/></svg><span class="glc__tuile-nom">Les emplois d&#x27;usine</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-emplois-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">300 000</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-emplois-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">Environ 25 000</span></button></div></div>
+<div class="glc__detail" id="glc-detail-emplois" data-critere="emplois" role="region" aria-label="Les emplois d&#x27;usine"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-emplois-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>Emplois manufacturiers dans la seule ville de Détroit en 1960. La moitié des emplois automobiles américains se trouvaient alors dans la ceinture manufacturière.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-emplois-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>Douze fois moins. Les usines ne sont pas toutes disparues, mais elles emploient beaucoup moins de monde pour produire autant, grâce à l&#x27;automatisation.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Une usine qui reste ouverte ne garantit plus les emplois d&#x27;avant. Produire davantage avec moins de personnes est le changement le plus profond du siècle.</span></p></div></div>
+<div class="glc__tuile" data-critere="acteurs"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-acteurs"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 16v-3l2-5h14l2 5v3zM3 13h18"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/></svg><span class="glc__tuile-nom">Qui domine l&#x27;automobile</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-acteurs-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">Les Big Three</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-acteurs-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur glc__moitie-valeur--long">Un marché partagé</span></button></div></div>
+<div class="glc__detail" id="glc-detail-acteurs" data-critere="acteurs" role="region" aria-label="Qui domine l&#x27;automobile"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-acteurs-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>General Motors, Ford et Chrysler se partageaient le marché américain. Quatre-vingts pour cent de leurs usines se trouvaient au Michigan, en Ohio et en Indiana.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-acteurs-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>Les constructeurs japonais, coréens et allemands produisent aussi aux États-Unis, surtout dans le sud-est, où les salaires sont plus bas et la syndicalisation plus faible.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>La première délocalisation n&#x27;a pas traversé l&#x27;océan : elle est descendue vers le sud des États-Unis, à quelques heures de route.</span></p></div></div>
+<div class="glc__tuile" data-critere="attire"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-attire"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 4v8a6 6 0 0 0 12 0V4h-4v8a2 2 0 0 1-4 0V4z"/><path d="M6 8h4M14 8h4"/></svg><span class="glc__tuile-nom">Ce qui attire les usines</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-attire-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur glc__moitie-valeur--long">Le fer et le charbon</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-attire-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur glc__moitie-valeur--long">L&#x27;électricité et les batteries</span></button></div></div>
+<div class="glc__detail" id="glc-detail-attire" data-critere="attire" role="region" aria-label="Ce qui attire les usines"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-attire-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>Les mines du lac Supérieur, le charbon de l&#x27;Appalache et la navigation sur les lacs rendaient l&#x27;acier bon marché sur place.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-attire-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>La filière du véhicule électrique cherche de l&#x27;électricité abondante, des minéraux critiques et des usines de batteries. Les centres de données aussi.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Les six facteurs de localisation n&#x27;ont pas changé, mais ce qu&#x27;ils désignent a changé. La matière première d&#x27;hier était le minerai, celle d&#x27;aujourd&#x27;hui est le lithium.</span></p></div></div>
+<div class="glc__tuile" data-critere="menace"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-menace"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4 2.5 20h19z"/><path d="M12 10v5M12 17.6v.2"/></svg><span class="glc__tuile-nom">Ce qui les menace</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-menace-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">La concurrence</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-menace-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">Les frontières</span></button></div></div>
+<div class="glc__detail" id="glc-detail-menace" data-critere="menace" role="region" aria-label="Ce qui les menace"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-menace-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>À partir des années 1970, les voitures japonaises, plus petites et moins gourmandes, prennent des parts de marché. Les coûts de production américains sont trop élevés.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-menace-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>Depuis 2025, des tarifs douaniers de 25 % sur les véhicules et de 50 % sur l&#x27;acier et l&#x27;aluminium redécoupent un marché qui était devenu continental.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>C&#x27;est un renversement complet. Pendant cinquante ans, l&#x27;enjeu était d&#x27;ouvrir les frontières pour produire moins cher. Aujourd&#x27;hui, ce sont les frontières qui décident.</span></p></div></div>
+<div class="glc__tuile" data-critere="lacs"><button type="button" class="glc__tuile-tete" aria-expanded="false" aria-controls="glc-detail-lacs"><svg class="glc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 9c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg><span class="glc__tuile-nom">L&#x27;état des lacs</span><svg class="glc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="glc__moities"><button type="button" class="glc__moitie glc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="glc-detail-lacs-a"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">L&#x27;âge d&#x27;or industriel</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur">Le lac mort</span></button><button type="button" class="glc__moitie glc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="glc-detail-lacs-b"><svg class="glc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="glc__moitie-nom">Aujourd&#x27;hui</span><span class="glc__sr"> : </span><span class="glc__moitie-valeur glc__moitie-valeur--long">Des algues et du plastique</span></button></div></div>
+<div class="glc__detail" id="glc-detail-lacs" data-critere="lacs" role="region" aria-label="L&#x27;état des lacs"><div class="glc__cotes"><div class="glc__cote glc__cote--a" id="glc-detail-lacs-a" data-zone="a"><button type="button" class="glc__voile" hidden>L&#x27;âge d&#x27;or industriel<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">L&#x27;âge d&#x27;or industriel</span><p>Dans les années 1960 et 1970, le lac Érié est si pollué qu&#x27;on le dit mort. Une rivière qui s&#x27;y jette, la Cuyahoga, prend feu à plusieurs reprises.</p></div></div><div class="glc__cote glc__cote--b" id="glc-detail-lacs-b" data-zone="b"><button type="button" class="glc__voile" hidden>Aujourd&#x27;hui<small>Touche pour afficher</small></button><div class="glc__texte" tabindex="-1"><span class="glc__lieu">Aujourd&#x27;hui</span><p>Les rejets industriels ont beaucoup diminué, mais les engrais agricoles nourrissent des algues toxiques et les microplastiques s&#x27;accumulent dans les cinq lacs.</p></div></div></div><div class="glc__ecart" data-zone="e"><button type="button" class="glc__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="glc__texte glc__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>La pollution n&#x27;a pas disparu, elle a changé de source. On voyait autrefois d&#x27;où elle venait, aujourd&#x27;hui elle arrive de partout à la fois.</span></p></div></div>
+<p class="glc__attente" hidden>Touche un côté pour l'afficher, un critère à la fois.</p>
+</div>
+<p class="glc__annonce" aria-live="polite"></p>
+</div>
 <script>
 (function () {
   var racine = document.getElementById("grands-lacs-comparaison");
-  if (!racine) { return; }
-  var criteres = [
-    {
-      cle: "ville",
-      nom: "La ville de Détroit",
-      avChiffre: "1,85 million",
-      avDetail: "C'est la population de la ville de D\u00e9troit \u00e0 son sommet, en 1950. Elle est alors la quatri\u00e8me ville des \u00c9tats-Unis, portée par l'automobile.",
-      aujChiffre: "640 000",
-      aujDetail: "La ville a perdu pr\u00e8s des deux tiers de sa population. Elle s'est plac\u00e9e sous la protection de la loi sur les faillites en 2013, avec une dette de 18,5 milliards de dollars.",
-      ecart: "Attention au pi\u00e8ge. L'aire m\u00e9tropolitaine de D\u00e9troit, elle, n'a jamais \u00e9t\u00e9 aussi peupl\u00e9e : 6,3 millions d'habitants en 2020. Ce n'est pas la r\u00e9gion qui s'est vid\u00e9e, c'est le centre qui s'est vid\u00e9 vers ses banlieues."
-    },
-    {
-      cle: "emplois",
-      nom: "Les emplois d'usine",
-      avChiffre: "300 000",
-      avDetail: "Emplois manufacturiers dans la seule ville de D\u00e9troit en 1960. La moiti\u00e9 des emplois automobiles am\u00e9ricains se trouvaient alors dans la ceinture manufacturi\u00e8re.",
-      aujChiffre: "Environ 25 000",
-      aujDetail: "Douze fois moins. Les usines ne sont pas toutes disparues, mais elles emploient beaucoup moins de monde pour produire autant, gr\u00e2ce \u00e0 l'automatisation.",
-      ecart: "Une usine qui reste ouverte ne garantit plus les emplois d'avant. Produire davantage avec moins de personnes est le changement le plus profond du si\u00e8cle."
-    },
-    {
-      cle: "acteurs",
-      nom: "Qui domine l'automobile",
-      avChiffre: "Les Big Three",
-      avDetail: "General Motors, Ford et Chrysler se partageaient le march\u00e9 am\u00e9ricain. Quatre-vingts pour cent de leurs usines se trouvaient au Michigan, en Ohio et en Indiana.",
-      aujChiffre: "Un march\u00e9 partag\u00e9",
-      aujDetail: "Les constructeurs japonais, cor\u00e9ens et allemands produisent aussi aux \u00c9tats-Unis, surtout dans le sud-est, o\u00f9 les salaires sont plus bas et la syndicalisation plus faible.",
-      ecart: "La premi\u00e8re d\u00e9localisation n'a pas travers\u00e9 l'oc\u00e9an : elle est descendue vers le sud des \u00c9tats-Unis, \u00e0 quelques heures de route."
-    },
-    {
-      cle: "attire",
-      nom: "Ce qui attire les usines",
-      avChiffre: "Le fer et le charbon",
-      avDetail: "Les mines du lac Sup\u00e9rieur, le charbon de l'Appalache et la navigation sur les lacs rendaient l'acier bon march\u00e9 sur place.",
-      aujChiffre: "L'électricité et les batteries",
-      aujDetail: "La fili\u00e8re du v\u00e9hicule \u00e9lectrique cherche de l'\u00e9lectricit\u00e9 abondante, des min\u00e9raux critiques et des usines de batteries. Les centres de donn\u00e9es aussi.",
-      ecart: "Les six facteurs de localisation n'ont pas chang\u00e9, mais ce qu'ils d\u00e9signent a chang\u00e9. La mati\u00e8re premi\u00e8re d'hier \u00e9tait le minerai, celle d'aujourd'hui est le lithium."
-    },
-    {
-      cle: "menace",
-      nom: "Ce qui les menace",
-      avChiffre: "La concurrence",
-      avDetail: "\u00c0 partir des ann\u00e9es 1970, les voitures japonaises, plus petites et moins gourmandes, prennent des parts de march\u00e9. Les co\u00fbts de production am\u00e9ricains sont trop \u00e9lev\u00e9s.",
-      aujChiffre: "Les frontières",
-      aujDetail: "Depuis 2025, des tarifs douaniers de 25 % sur les v\u00e9hicules et de 50 % sur l'acier et l'aluminium red\u00e9coupent un march\u00e9 qui \u00e9tait devenu continental.",
-      ecart: "C'est un renversement complet. Pendant cinquante ans, l'enjeu \u00e9tait d'ouvrir les fronti\u00e8res pour produire moins cher. Aujourd'hui, ce sont les fronti\u00e8res qui d\u00e9cident."
-    },
-    {
-      cle: "lacs",
-      nom: "L'état des lacs",
-      avChiffre: "Le lac mort",
-      avDetail: "Dans les ann\u00e9es 1960 et 1970, le lac \u00c9ri\u00e9 est si pollu\u00e9 qu'on le dit mort. Une rivi\u00e8re qui s'y jette, la Cuyahoga, prend feu \u00e0 plusieurs reprises.",
-      aujChiffre: "Des algues et du plastique",
-      aujDetail: "Les rejets industriels ont beaucoup diminu\u00e9, mais les engrais agricoles nourrissent des algues toxiques, et les microplastiques s'accumulent dans les cinq lacs.",
-      ecart: "La pollution n'a pas disparu, elle a chang\u00e9 de source. On voyait autrefois d'o\u00f9 elle venait, aujourd'hui elle arrive de partout \u00e0 la fois."
-    }
-  ];
-
-  var onglets = racine.querySelector(".glc__onglets");
-  var contenu = racine.querySelector(".glc__contenu");
-
-  function cote(quand, chiffre, detail, modificateur) {
-    var boite = document.createElement("div");
-    boite.className = "glc__cote" + (modificateur ? " glc__cote--" + modificateur : "");
-    var etiquette = document.createElement("span");
-    etiquette.className = "glc__quand";
-    etiquette.textContent = quand;
-    var nombre = document.createElement("span");
-    nombre.className = "glc__chiffre";
-    nombre.textContent = chiffre;
-    var texte = document.createElement("p");
-    texte.className = "glc__detail";
-    texte.textContent = detail;
-    boite.appendChild(etiquette);
-    boite.appendChild(nombre);
-    boite.appendChild(texte);
-    return boite;
-  }
-
-  criteres.forEach(function (critere, index) {
-    var onglet = document.createElement("button");
-    onglet.type = "button";
-    onglet.className = "glc__onglet" + (index === 0 ? " est-actif" : "");
-    onglet.textContent = critere.nom;
-    onglet.setAttribute("role", "tab");
-    onglet.setAttribute("aria-controls", "glc-panneau-" + critere.cle);
-    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
-    onglets.appendChild(onglet);
-
-    var panneau = document.createElement("div");
-    panneau.className = "glc__panneau" + (index === 0 ? " est-visible" : "");
-    panneau.id = "glc-panneau-" + critere.cle;
-    panneau.setAttribute("role", "tabpanel");
-    panneau.setAttribute("aria-label", critere.nom);
-
-    var colonnes = document.createElement("div");
-    colonnes.className = "glc__colonnes";
-    colonnes.appendChild(cote("L'âge d'or industriel", critere.avChiffre, critere.avDetail, ""));
-    colonnes.appendChild(cote("Aujourd'hui", critere.aujChiffre, critere.aujDetail, "auj"));
-    panneau.appendChild(colonnes);
-
-    var ecart = document.createElement("p");
-    ecart.className = "glc__ecart";
-    var mot = document.createElement("strong");
-    mot.textContent = "Ce qui change. ";
-    ecart.appendChild(mot);
-    ecart.appendChild(document.createTextNode(critere.ecart));
-    panneau.appendChild(ecart);
-
-    contenu.appendChild(panneau);
-
-    onglet.addEventListener("click", function () {
-      Array.prototype.forEach.call(onglets.children, function (autre) {
-        autre.classList.remove("est-actif");
-        autre.setAttribute("aria-selected", "false");
-      });
-      Array.prototype.forEach.call(contenu.children, function (autre) {
-        autre.classList.remove("est-visible");
-      });
-      onglet.classList.add("est-actif");
-      onglet.setAttribute("aria-selected", "true");
-      panneau.classList.add("est-visible");
-    });
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  function tous(s, r) { return Array.prototype.slice.call((r || racine).querySelectorAll(s)); }
+  var annonce = racine.querySelector(".glc__annonce"), attente = racine.querySelector(".glc__attente"), btTout = racine.querySelector(".glc__outil");
+  // Pour chaque critère : ce qui est affiché (côté a, côté b, écart e). Un seul critère ouvert à la fois.
+  var vus = {}, ouvert = null;
+  var fiches = tous(".glc__tuile").map(function (t) {
+    var cle = t.getAttribute("data-critere");
+    vus[cle] = { a: false, b: false, e: false };
+    return { cle: cle, tuile: t, tete: t.querySelector(".glc__tuile-tete"), detail: document.getElementById("glc-detail-" + cle) };
   });
+  function zone(f, c) { return f.detail.querySelector('[data-zone="' + c + '"]'); }
+  function fiche(cle) { return fiches.filter(function (f) { return f.cle === cle; })[0]; }
+  function rendre() {
+    var complet = true;
+    fiches.forEach(function (f) {
+      var v = vus[f.cle], actif = f.cle === ouvert;
+      f.tuile.classList.toggle("est-active", actif);
+      f.tete.setAttribute("aria-expanded", actif ? "true" : "false");
+      f.detail.hidden = !actif;
+      ["a", "b"].forEach(function (c) {
+        var m = f.tuile.querySelector('.glc__moitie[data-cote="' + c + '"]');
+        m.setAttribute("aria-expanded", v[c] ? "true" : "false");
+        m.querySelector(".glc__moitie-valeur").hidden = !v[c];
+      });
+      ["a", "b", "e"].forEach(function (c) {
+        var z = zone(f, c);
+        z.querySelector(".glc__voile").hidden = v[c];
+        z.querySelector(".glc__texte").hidden = !v[c];
+        if (!v[c]) { complet = false; }
+      });
+    });
+    attente.hidden = ouvert !== null;
+    btTout.textContent = complet ? "Tout masquer" : "Tout afficher";
+  }
+  function montrer(cle, c) {
+    vus[cle][c] = true; ouvert = cle;
+    rendre();
+    var f = fiche(cle), m = c === "e" ? null : f.tuile.querySelector('.glc__moitie[data-cote="' + c + '"]');
+    annonce.textContent = (m ? m.textContent + ". " : "") + zone(f, c).querySelector(".glc__texte").textContent;
+  }
+  racine.addEventListener("click", function (e) {
+    var cible = e.target, el;
+    if ((el = cible.closest(".glc__moitie"))) { montrer(el.closest(".glc__tuile").getAttribute("data-critere"), el.getAttribute("data-cote")); return; }
+    if ((el = cible.closest(".glc__voile"))) {
+      var z = el.closest("[data-zone]"), cle = el.closest(".glc__detail").getAttribute("data-critere");
+      montrer(cle, z.getAttribute("data-zone"));
+      z.querySelector(".glc__texte").focus();
+      return;
+    }
+    if ((el = cible.closest(".glc__tuile-tete"))) {
+      var c = el.closest(".glc__tuile").getAttribute("data-critere");
+      ouvert = ouvert === c ? null : c; rendre(); return;
+    }
+    if (cible.closest(".glc__outil")) {
+      var masquer = btTout.textContent === "Tout masquer";
+      fiches.forEach(function (f) { vus[f.cle] = { a: !masquer, b: !masquer, e: !masquer }; });
+      rendre();
+      annonce.textContent = masquer ? "Tout est masqué" : "Tout est affiché";
+    }
+  });
+  racine.addEventListener("keydown", function (e) {
+    if ((e.key === "Escape" || e.key === "Esc") && ouvert !== null) { var f = fiche(ouvert); ouvert = null; rendre(); f.tete.focus(); }
+  });
+  racine.addEventListener("reinitialiser", function () {
+    fiches.forEach(function (f) { vus[f.cle] = { a: false, b: false, e: false }; });
+    ouvert = null; rendre();
+  });
+  racine.comparateur = { etat: function () { return { ouvert: ouvert, vus: JSON.parse(JSON.stringify(vus)) }; } };
+  rendre();
 })();
 </script>
 </section>
