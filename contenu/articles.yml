@@ -20,6 +20,88 @@
 
 articles:
 
+  # ---------------- À JUGER ----------------
+  - adresse: "https://www.journaldemontreal.com/2026/11/10/le-quebec-veut-se-tourner-plus-vers-le-solaire"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-11-10"
+    titre: "Le Québec veut se tourner plus vers le solaire et moins sur les éoliennes"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/11/10/un-petit-tremblement-de-terre-ressenti-a-mont-tremblant"
+    fiche: "04"
+    media: "Journal de Montréal"
+    date: "2026-11-10"
+    titre: "Un petit tremblement de terre ressenti à Mont-Tremblant"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/videos/1-10805372/declin-esturgeon-au-coeur-une-poursuite-une-premiere-nation-contre-ottawa"
+    fiche: "12"
+    media: "Radio-Canada"
+    date: "2026-11-09"
+    titre: "Le déclin de l’esturgeon au cœur d’une poursuite d’une Première Nation contre Ottawa"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/article/info/2299030/energie-eolienne-portes-ouvertes-modernisation"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-09"
+    titre: "Innergex à la rencontre des Gaspésiens pour l’avenir des parcs éoliens"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/videos/1-10805121/centres-donnees-quel-effet-sur-prix-electricite"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-09"
+    titre: "Centres de données : quel effet sur le prix de l’électricité?"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/article/info/2299447/barrage-lac-adem-saint-mathieu-du-parc"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-09"
+    titre: "Saint-Mathieu-du-Parc s’engage à réparer le barrage"
+    garder: ""
+    note: ""
+
+  - adresse: "https://www.journaldemontreal.com/2026/11/09/risque-de-defaillance--les-thermostats-hilo-de-21-000-clients-seront-remplaces-par-hydro-quebec"
+    fiche: "07"
+    media: "Journal de Montréal"
+    date: "2026-11-09"
+    titre: "Risque de défaillance: les thermostats Hilo de 21 000 clients seront remplacés par Hydro-Québec"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/article/info/2299162/manifestation-ia-centre-donnees-point-tupper"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-08"
+    titre: "Les Néo-Écossais manifestent contre l’IA et les centres de données"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/article/info/2298964/ordre-evacuation-zeballos-risque-glissement-terrain"
+    fiche: "04"
+    media: "Radio-Canada"
+    date: "2026-11-07"
+    titre: "Un glissement de terrain provoque des évacuations sur l’île de Vancouver"
+    garder: ""
+    note: ""
+
+  - adresse: "https://ici.radio-canada.ca/article/info/2298924/churchill-falls-nouvelle-ligne-cout-augmente"
+    fiche: "07"
+    media: "Radio-Canada"
+    date: "2026-11-06"
+    titre: "Churchill Falls : la nouvelle ligne vers l’ouest du Labrador coûte désormais 3 G$"
+    garder: ""
+    note: ""
+
+
   # ---------------- PUBLIÉS (O) ----------------
   - adresse: "https://ici.radio-canada.ca/nouvelle/2299319/protection-terres-agricoles-gouvernement-expansion"
     fiche: "10"
