@@ -2390,160 +2390,202 @@ produit des effets.</p>
 </ol>
 </aside>
 <h2 id="le-tourisme-une-industrie-mondiale">Le tourisme, une industrie mondiale</h2>
-<section class="tcp" id="tourisme-comparaison" aria-label="Comparaison de la Gaspésie et de l'Île-de-France comme territoires touristiques">
+<section class="tcp" id="tourisme-comparaison" data-reinitialiser aria-label="Comparaison de la Gaspésie et de l&#x27;Île-de-France comme territoires touristiques">
 <style>
-.tcp { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.tcp { --tcp-a: #2D5A97; --tcp-a-voile: #E3EBF5; --tcp-a-encre: #1F4170; --tcp-b: #B5561F; --tcp-b-voile: #F8E6D9; --tcp-b-encre: #7C3A12; --tcp-signal: #D2952E; --tcp-signal-voile: #FFF6DF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.tcp [hidden] { display: none !important; }
 .tcp .tcp__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .tcp .tcp__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .tcp__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
-.tcp__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
-.tcp__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
-.tcp__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
-.tcp__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
-.tcp__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
-.tcp__panneau.est-visible { display: block; }
-.tcp__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-.tcp__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
-.tcp__cote--idf { border-left-color: var(--encre-pale); }
-.tcp__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .35rem; }
-.tcp__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -.02em; color: var(--matiere-fonce); margin-bottom: .4rem; }
-.tcp__detail { display: block; margin: 0; font-size: .95rem; line-height: 1.6; }
-.tcp__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
-.tcp__ecart strong { color: var(--matiere-fonce); }
+.tcp__corps { max-width: 62rem; margin: 0 auto; padding: 1rem 1.2rem 1.3rem; }
+.tcp__barre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin: 0 0 .9rem; }
+.tcp .tcp__legende { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.tcp .tcp__legende > li { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; }
+.tcp .tcp__legende > li::marker { content: none; }
+.tcp .tcp__legende > li::before { content: none; }
+.tcp__cle { width: 1.05rem; height: 1.05rem; border-radius: 4px; background: var(--tcp-a); flex: none; }
+.tcp__legende > li + li > .tcp__cle { background: var(--tcp-b); }
+.tcp__outil { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .82rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; }
+.tcp__outil:hover { color: var(--encre); background: var(--matiere-voile); }
+.tcp__outil:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.tcp__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); grid-auto-flow: row dense; gap: .85rem; }
+.tcp__tuile { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--trait); border-radius: 10px; overflow: hidden; transition: box-shadow .15s, border-color .15s; }
+.tcp__tuile.est-active { border-color: var(--tcp-signal); box-shadow: 0 0 0 3px var(--tcp-signal); }
+.tcp__tuile-tete { display: flex; align-items: center; gap: .55rem; width: 100%; margin: 0; padding: .7rem .85rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; text-align: left; color: var(--matiere-fonce); background: none; border: 0; cursor: pointer; }
+.tcp__tuile-tete:hover { background: var(--matiere-voile); }
+.tcp__tuile-tete:focus-visible { outline: 3px solid var(--matiere); outline-offset: -3px; }
+.tcp__icone { width: 1.5rem; height: 1.5rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tcp__chevron { width: 1rem; height: 1rem; margin-left: auto; flex: none; fill: none; stroke: var(--encre-pale); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.tcp__tuile-tete[aria-expanded="true"] .tcp__chevron { transform: rotate(180deg); }
+.tcp__moities { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); flex: 1 1 auto; }
+.tcp__moitie { display: flex; flex-direction: column; justify-content: center; gap: .12rem; margin: 0; padding: .6rem .85rem .7rem; min-height: 4.2rem; box-sizing: border-box; font-family: var(--titre); text-align: left; color: #fff; background-color: var(--tcp-a); border: 0; cursor: pointer; overflow-wrap: break-word; hyphens: auto; transition: filter .15s; }
+.tcp__moitie--b { background-color: var(--tcp-b); }
+.tcp__moitie:hover { filter: brightness(1.1); }
+.tcp__moitie:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+.tcp__moitie-nom { font-weight: 600; font-size: .76rem; line-height: 1.2; }
+.tcp__moitie-valeur { font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+.tcp__oeil { display: none; width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Côté pas encore affiché : son nom, sur un fond hachuré. */
+.tcp__moitie[aria-expanded="false"] { align-items: center; text-align: center; gap: .25rem; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.14) 0 .5rem, transparent .5rem 1rem); }
+.tcp__moitie[aria-expanded="false"] .tcp__moitie-nom { font-weight: 700; font-size: .95rem; }
+.tcp__moitie[aria-expanded="false"] .tcp__oeil { display: block; }
+.tcp__sr, .tcp__annonce { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.tcp__detail { grid-column: 1 / -1; display: flex; flex-direction: column; border: 3px solid var(--tcp-signal); border-radius: 10px; overflow: hidden; animation: tcp-ouvre .22s ease-out; }
+@keyframes tcp-ouvre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.tcp__cotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); flex: 1 1 auto; }
+.tcp__cote { display: flex; flex-direction: column; min-height: 5.4rem; padding: .9rem 1.05rem 1rem; box-sizing: border-box; background: var(--tcp-a-voile); }
+.tcp__cote--b { background: var(--tcp-b-voile); }
+.tcp__voile { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem; width: 100%; margin: 0; padding: .7rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; color: var(--tcp-a-encre); background: none; border: 2px dashed currentColor; border-radius: 8px; cursor: pointer; }
+.tcp__cote--b .tcp__voile { color: var(--tcp-b-encre); }
+.tcp__voile > small { font-weight: 500; font-size: .78rem; }
+.tcp__voile:hover { background: rgba(255,255,255,.55); }
+.tcp__voile:focus-visible { outline: 3px solid var(--matiere); outline-offset: 2px; }
+.tcp__texte:focus { outline: none; }
+.tcp__lieu { display: block; font-family: var(--titre); font-weight: 700; font-size: .86rem; line-height: 1.3; color: var(--tcp-a-encre); }
+.tcp__cote--b .tcp__lieu { color: var(--tcp-b-encre); }
+.tcp .tcp__cote p { margin: .3rem 0 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.tcp__ecart { display: flex; flex-direction: column; padding: .85rem 1.05rem; background: var(--tcp-signal-voile); }
+.tcp__ecart .tcp__voile { flex-direction: row; flex-wrap: wrap; gap: .3rem .7rem; color: var(--encre); border-color: var(--tcp-signal); }
+.tcp .tcp__ecart-texte { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem .85rem; margin: 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.tcp__ecart-texte > strong { flex: none; padding: .22rem .65rem; border-radius: 100px; background: var(--tcp-signal); color: #1A2530; font-family: var(--titre); font-weight: 700; font-size: .78rem; line-height: 1.4; }
+.tcp__ecart-texte > span { flex: 1 1 16rem; }
+.tcp .tcp__attente { display: none; grid-column: 1 / -1; align-items: center; justify-content: center; margin: 0; padding: 1rem; border: 2px dashed var(--trait); border-radius: 10px; font-family: var(--titre); font-weight: 600; font-size: 1.15rem; color: var(--encre-pale); text-align: center; }
+/* Plein écran : la mosaïque en haut, le critère choisi en grand en bas, sur tout l'écran. */
+.tcp.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; overflow: auto; }
+.tcp.est-plein-ecran .tcp__corps { width: 100%; max-width: none; box-sizing: border-box; }
+@media (min-width: 60rem) and (min-height: 34rem) {
+  .tcp.est-plein-ecran .tcp__corps { flex: 1 1 auto; display: flex; flex-direction: column; margin: 0; padding: 1rem 1.5rem 1.4rem; }
+  .tcp.est-plein-ecran .tcp__grille { flex: 1 1 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1.3fr); gap: 1rem; }
+  .tcp.est-plein-ecran .tcp__detail, .tcp.est-plein-ecran .tcp__attente { order: 1; }
+  .tcp.est-plein-ecran .tcp__attente { display: flex; }
+  .tcp.est-plein-ecran .tcp__legende { font-size: 1.15rem; }
+  .tcp.est-plein-ecran .tcp__outil { font-size: .95rem; }
+  .tcp.est-plein-ecran .tcp__tuile-tete { padding: .8rem 1.05rem; font-size: 1.2rem; }
+  .tcp.est-plein-ecran .tcp__icone { width: 1.8rem; height: 1.8rem; }
+  .tcp.est-plein-ecran .tcp__moitie { padding: .8rem 1.1rem; gap: .25rem; }
+  .tcp.est-plein-ecran .tcp__moitie-nom { font-size: .92rem; }
+  .tcp.est-plein-ecran .tcp__moitie-valeur { font-size: clamp(1.4rem, 2.3vw, 2.4rem); line-height: 1.15; }
+  .tcp.est-plein-ecran .tcp__moitie-valeur--long { font-size: clamp(1.2rem, 1.65vw, 1.75rem); }
+  .tcp.est-plein-ecran .tcp__moitie[aria-expanded="false"] .tcp__moitie-nom { font-size: 1.3rem; }
+  .tcp.est-plein-ecran .tcp__oeil { width: 1.7rem; height: 1.7rem; }
+  .tcp.est-plein-ecran .tcp__cote { padding: 1.1rem 1.4rem 1.2rem; justify-content: center; }
+  .tcp.est-plein-ecran .tcp__lieu { font-size: 1.08rem; }
+  .tcp.est-plein-ecran .tcp__cote p, .tcp.est-plein-ecran .tcp__ecart-texte { font-size: clamp(1.15rem, 1.7vw, 1.7rem); line-height: 1.5; }
+  .tcp.est-plein-ecran .tcp__ecart { padding: 1rem 1.4rem; }
+  .tcp.est-plein-ecran .tcp__ecart-texte > strong { font-size: .95rem; }
+  .tcp.est-plein-ecran .tcp__voile { font-size: 1.25rem; }
+  .tcp.est-plein-ecran .tcp__voile > small { font-size: .95rem; }
+}
+html[data-sombre="on"] .tcp { --tcp-a-voile: #1B2B41; --tcp-a-encre: #A9C6EE; --tcp-b-voile: #3A2415; --tcp-b-encre: #F0B48C; --tcp-signal-voile: #372C12; }
 html[data-sombre="on"] .tcp .tcp__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .tcp .tcp__titre { color: var(--encre); }
 html[data-sombre="on"] .tcp__consigne { color: var(--encre-pale); }
-html[data-sombre="on"] .tcp__onglet.est-actif { color: var(--encre); }
-html[data-sombre="on"] .tcp__chiffre { color: var(--encre); }
-html[data-sombre="on"] .tcp__ecart strong { color: var(--encre); }
-@media (max-width: 40rem) { .tcp__panneau { padding: 1.1rem 1rem 1rem; } .tcp__onglets { padding: .7rem .8rem; } .tcp__chiffre { font-size: 1.25rem; } }
-@media print { .tcp__panneau { display: block; page-break-inside: avoid; } .tcp__onglets { display: none; } }
+html[data-sombre="on"] .tcp__tuile-tete { color: var(--encre); }
+html[data-sombre="on"] .tcp__voile:hover { background: rgba(255,255,255,.07); }
+@media (max-width: 40rem) { .tcp__corps { padding: .85rem .8rem 1rem; } }
+@media (prefers-reduced-motion: reduce) { .tcp__tuile, .tcp__chevron, .tcp__moitie { transition: none; } .tcp__detail { animation: none; } }
+@media print {
+  .tcp .tcp__detail[hidden], .tcp .tcp__texte[hidden], .tcp .tcp__moitie-valeur[hidden] { display: block !important; }
+  .tcp .tcp__voile, .tcp .tcp__outil, .tcp .tcp__oeil, .tcp__chevron { display: none !important; }
+  .tcp__tuile, .tcp__detail { break-inside: avoid; }
+}
 </style>
 <div class="tcp__entete">
   <p class="tcp__titre" role="heading" aria-level="3">Deux territoires touristiques, six critères</p>
-  <p class="tcp__consigne">Choisis un critère</p>
+  <p class="tcp__consigne">Touche un côté pour l'afficher</p>
 </div>
-<div class="tcp__onglets" role="tablist" aria-label="Critères comparés"></div>
-<div class="tcp__contenu"></div>
+<div class="tcp__corps">
+<div class="tcp__barre"><ul class="tcp__legende" aria-label="Les deux côtés comparés"><li><span class="tcp__cle" aria-hidden="true"></span>La Gaspésie</li><li><span class="tcp__cle" aria-hidden="true"></span>L&#x27;Île-de-France</li></ul><button type="button" class="tcp__outil">Tout afficher</button></div>
+<div class="tcp__grille">
+<div class="tcp__tuile" data-critere="attrait"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-attrait"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 20 9 7l4 7 2.5-4L22 20z"/></svg><span class="tcp__tuile-nom">Le type d&#x27;attrait</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-attrait-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">La nature</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-attrait-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur tcp__moitie-valeur--long">Le patrimoine bâti</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-attrait" data-critere="attrait" role="region" aria-label="Le type d&#x27;attrait"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-attrait-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>Un littoral, des montagnes et une faune sauvage. Le rocher Percé et l&#x27;île Bonaventure en sont les emblèmes et trois parcs nationaux structurent l&#x27;offre.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-attrait-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Des monuments et des musées hérités de siècles de pouvoir politique et religieux : la tour Eiffel, Notre-Dame, Versailles, le Louvre.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Un attrait naturel se dégrade quand on le piétine et ne se reconstruit pas. Un monument s&#x27;use aussi, mais il se restaure.</span></p></div></div>
+<div class="tcp__tuile" data-critere="volume"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-volume"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c3 .2 5 2.5 5 5.8"/></svg><span class="tcp__tuile-nom">Le volume de visiteurs</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-volume-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">945 100</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-volume-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">49,1 millions</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-volume" data-critere="volume" role="region" aria-label="Le volume de visiteurs"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-volume-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>Visiteurs reçus d&#x27;avril 2025 à mars 2026, en hausse de 5 %, pour une population résidente de moins de 80 000 personnes.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-volume-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Visiteurs reçus en 2025, dont plus de 23 millions venus de l&#x27;étranger, pour une population résidente d&#x27;environ 12 millions.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>En Gaspésie il arrive plus de douze visiteurs par habitant, en Île-de-France environ quatre. Le rapport au territoire n&#x27;est pas le même.</span></p></div></div>
+<div class="tcp__tuile" data-critere="saisonnalite"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-saisonnalite"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg><span class="tcp__tuile-nom">La saisonnalité</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-saisonnalite-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">Trois mois</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-saisonnalite-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">Toute l&#x27;année</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-saisonnalite" data-critere="saisonnalite" role="region" aria-label="La saisonnalité"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-saisonnalite-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>Le taux d&#x27;occupation des hébergements passe de 59 % en juin à 79 % en juillet, puis retombe. Beaucoup d&#x27;emplois n&#x27;existent que de juin à septembre.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-saisonnalite-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Le tourisme d&#x27;affaires, les congrès et les salons remplissent les hôtels hors saison. La fréquentation varie sans jamais s&#x27;interrompre.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Une saison courte oblige à gagner en trois mois ce qu&#x27;il faut pour vivre douze mois. C&#x27;est la fragilité principale de la Gaspésie.</span></p></div></div>
+<div class="tcp__tuile" data-critere="amenagements"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-amenagements"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 3 4 21M16 3l4 18M12 4v3M12 11v3M12 18v3"/></svg><span class="tcp__tuile-nom">Les aménagements</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-amenagements-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">Une route</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-amenagements-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">Un réseau</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-amenagements" data-critere="amenagements" role="region" aria-label="Les aménagements"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-amenagements-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>La boucle de la route 132 fait environ 885 kilomètres et dessert presque tout. S&#x27;y ajoutent l&#x27;aéroport de Gaspé, les traversiers et les parcs nationaux.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-amenagements-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Plus de 380 lignes de métro, de RER, de tramway et d&#x27;autobus, deux aéroports internationaux, le TGV et environ 2 455 hôtels.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Quand tout passe par une seule route, un bouchon à Percé bloque la région. Un réseau maillé absorbe la foule beaucoup mieux.</span></p></div></div>
+<div class="tcp__tuile" data-critere="retombees"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-retombees"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5"/></svg><span class="tcp__tuile-nom">Les retombées</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-retombees-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">613,5 M$</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-retombees-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur tcp__moitie-valeur--long">24 milliards d&#x27;euros</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-retombees" data-critere="retombees" role="region" aria-label="Les retombées"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-retombees-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>Retombées économiques de 2025-2026, en hausse de 9 % sur un an et de 42 % depuis 2021. Le tourisme a remplacé la pêche et les mines.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-retombees-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Consommation touristique de 2025, un record. Les visiteurs étrangers en fournissent près de 16 milliards, les Français 8 milliards.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Les deux montants disent la même chose à des échelles différentes : le tourisme est devenu un pilier de l&#x27;économie locale.</span></p></div></div>
+<div class="tcp__tuile" data-critere="enjeu"><button type="button" class="tcp__tuile-tete" aria-expanded="false" aria-controls="tcp-detail-enjeu"><svg class="tcp__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v16M7 20h10M5 8h14"/><path d="M5 8l-2.5 6a2.7 2.7 0 0 0 5 0zM19 8l-2.5 6a2.7 2.7 0 0 0 5 0z"/></svg><span class="tcp__tuile-nom">L&#x27;enjeu principal</span><svg class="tcp__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="tcp__moities"><button type="button" class="tcp__moitie tcp__moitie--a" data-cote="a" aria-expanded="true" aria-controls="tcp-detail-enjeu-a"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">La Gaspésie</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">La dépendance</span></button><button type="button" class="tcp__moitie tcp__moitie--b" data-cote="b" aria-expanded="true" aria-controls="tcp-detail-enjeu-b"><svg class="tcp__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="tcp__moitie-nom">L&#x27;Île-de-France</span><span class="tcp__sr"> : </span><span class="tcp__moitie-valeur">Le surtourisme</span></button></div></div>
+<div class="tcp__detail" id="tcp-detail-enjeu" data-critere="enjeu" role="region" aria-label="L&#x27;enjeu principal"><div class="tcp__cotes"><div class="tcp__cote tcp__cote--a" id="tcp-detail-enjeu-a" data-zone="a"><button type="button" class="tcp__voile" hidden>La Gaspésie<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">La Gaspésie</span><p>Une économie qui repose sur une seule industrie et sur trois mois d&#x27;été. Un imprévu et les revenus de l&#x27;année s&#x27;effondrent.</p></div></div><div class="tcp__cote tcp__cote--b" id="tcp-detail-enjeu-b" data-zone="b"><button type="button" class="tcp__voile" hidden>L&#x27;Île-de-France<small>Touche pour afficher</small></button><div class="tcp__texte" tabindex="-1"><span class="tcp__lieu">L&#x27;Île-de-France</span><p>Une pression constante sur les sites les plus célèbres et sur le logement, que la location de courte durée retire du marché résidentiel.</p></div></div></div><div class="tcp__ecart" data-zone="e"><button type="button" class="tcp__voile" hidden>Ce qui change<small>Touche pour afficher</small></button><p class="tcp__texte tcp__ecart-texte" tabindex="-1"><strong>Ce qui change</strong><span>Les deux régions se plaignent du logement, mais pas pour la même raison : trop peu de visiteurs l&#x27;hiver ici, trop toute l&#x27;année là-bas.</span></p></div></div>
+<p class="tcp__attente" hidden>Touche un côté pour l'afficher, un critère à la fois.</p>
+</div>
+<p class="tcp__annonce" aria-live="polite"></p>
+</div>
 <script>
 (function () {
   var racine = document.getElementById("tourisme-comparaison");
-  if (!racine) { return; }
-  var criteres = [
-    {
-      cle: "attrait",
-      nom: "Le type d'attrait",
-      gaChiffre: "La nature",
-      gaDetail: "Un littoral, des montagnes et une faune sauvage. Le rocher Perc\u00e9 et l'\u00eele Bonaventure en sont les embl\u00e8mes, et trois parcs nationaux structurent l'offre.",
-      idChiffre: "Le patrimoine b\u00e2ti",
-      idDetail: "Des monuments et des mus\u00e9es h\u00e9rit\u00e9s de si\u00e8cles de pouvoir politique et religieux : la tour Eiffel, Notre-Dame, Versailles, le Louvre.",
-      ecart: "Un attrait naturel se d\u00e9grade quand on le pi\u00e9tine et ne se reconstruit pas. Un monument s'use aussi, mais il se restaure."
-    },
-    {
-      cle: "volume",
-      nom: "Le volume de visiteurs",
-      gaChiffre: "945 100",
-      gaDetail: "Visiteurs re\u00e7us d'avril 2025 \u00e0 mars 2026, en hausse de 5 %, pour une population r\u00e9sidente de moins de 80 000 personnes.",
-      idChiffre: "49,1 millions",
-      idDetail: "Visiteurs re\u00e7us en 2025, dont plus de 23 millions venus de l'\u00e9tranger, pour une population r\u00e9sidente d'environ 12 millions.",
-      ecart: "En Gasp\u00e9sie il arrive plus de douze visiteurs par habitant, en \u00cele-de-France environ quatre. Le rapport au territoire n'est pas le m\u00eame."
-    },
-    {
-      cle: "saisonnalite",
-      nom: "La saisonnalit\u00e9",
-      gaChiffre: "Trois mois",
-      gaDetail: "Le taux d'occupation des h\u00e9bergements passe de 59 % en juin \u00e0 79 % en juillet, puis retombe. Beaucoup d'emplois n'existent que de juin \u00e0 septembre.",
-      idChiffre: "Toute l'ann\u00e9e",
-      idDetail: "Le tourisme d'affaires, les congr\u00e8s et les salons remplissent les h\u00f4tels hors saison. La fr\u00e9quentation varie sans jamais s'interrompre.",
-      ecart: "Une saison courte oblige \u00e0 gagner en trois mois ce qu'il faut pour vivre douze mois. C'est la fragilit\u00e9 principale de la Gasp\u00e9sie."
-    },
-    {
-      cle: "amenagements",
-      nom: "Les am\u00e9nagements",
-      gaChiffre: "Une route",
-      gaDetail: "La boucle de la route 132 fait environ 885 kilom\u00e8tres et dessert presque tout. S'y ajoutent l'a\u00e9roport de Gasp\u00e9, les traversiers et les parcs nationaux.",
-      idChiffre: "Un r\u00e9seau",
-      idDetail: "Plus de 380 lignes de m\u00e9tro, de RER, de tramway et d'autobus, deux a\u00e9roports internationaux, le TGV et environ 2 455 h\u00f4tels.",
-      ecart: "Quand tout passe par une seule route, un bouchon \u00e0 Perc\u00e9 bloque la r\u00e9gion. Un r\u00e9seau maill\u00e9 absorbe la foule beaucoup mieux."
-    },
-    {
-      cle: "retombees",
-      nom: "Les retomb\u00e9es",
-      gaChiffre: "613,5 M$",
-      gaDetail: "Retomb\u00e9es \u00e9conomiques de 2025-2026, en hausse de 9 % sur un an et de 42 % depuis 2021. Le tourisme a remplac\u00e9 la p\u00eache et les mines.",
-      idChiffre: "24 milliards d'euros",
-      idDetail: "Consommation touristique de 2025, un record. Les visiteurs \u00e9trangers en fournissent pr\u00e8s de 16 milliards, les Fran\u00e7ais 8 milliards.",
-      ecart: "Les deux montants disent la m\u00eame chose \u00e0 des \u00e9chelles diff\u00e9rentes : le tourisme est devenu un pilier de l'\u00e9conomie locale."
-    },
-    {
-      cle: "enjeu",
-      nom: "L'enjeu principal",
-      gaChiffre: "La d\u00e9pendance",
-      gaDetail: "Une \u00e9conomie qui repose sur une seule industrie et sur trois mois d'\u00e9t\u00e9. Un impr\u00e9vu, et les revenus de l'ann\u00e9e s'effondrent.",
-      idChiffre: "Le surtourisme",
-      idDetail: "Une pression constante sur les sites les plus c\u00e9l\u00e8bres et sur le logement, que la location de courte dur\u00e9e retire du march\u00e9 r\u00e9sidentiel.",
-      ecart: "Les deux r\u00e9gions se plaignent du logement, mais pas pour la m\u00eame raison : trop peu de visiteurs l'hiver ici, trop toute l'ann\u00e9e l\u00e0-bas."
-    }
-  ];
-  var onglets = racine.querySelector(".tcp__onglets");
-  var contenu = racine.querySelector(".tcp__contenu");
-  function cote(lieu, chiffre, detail, modificateur) {
-    var boite = document.createElement("div");
-    boite.className = "tcp__cote" + (modificateur ? " tcp__cote--" + modificateur : "");
-    var etiquette = document.createElement("span");
-    etiquette.className = "tcp__lieu";
-    etiquette.textContent = lieu;
-    var nombre = document.createElement("span");
-    nombre.className = "tcp__chiffre";
-    nombre.textContent = chiffre;
-    var texte = document.createElement("p");
-    texte.className = "tcp__detail";
-    texte.textContent = detail;
-    boite.appendChild(etiquette);
-    boite.appendChild(nombre);
-    boite.appendChild(texte);
-    return boite;
-  }
-  criteres.forEach(function (critere, index) {
-    var onglet = document.createElement("button");
-    onglet.type = "button";
-    onglet.className = "tcp__onglet" + (index === 0 ? " est-actif" : "");
-    onglet.textContent = critere.nom;
-    onglet.setAttribute("role", "tab");
-    onglet.setAttribute("aria-controls", "tcp-panneau-" + critere.cle);
-    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
-    onglets.appendChild(onglet);
-    var panneau = document.createElement("div");
-    panneau.className = "tcp__panneau" + (index === 0 ? " est-visible" : "");
-    panneau.id = "tcp-panneau-" + critere.cle;
-    panneau.setAttribute("role", "tabpanel");
-    panneau.setAttribute("aria-label", critere.nom);
-    var colonnes = document.createElement("div");
-    colonnes.className = "tcp__colonnes";
-    colonnes.appendChild(cote("La Gaspésie", critere.gaChiffre, critere.gaDetail, ""));
-    colonnes.appendChild(cote("L'Île-de-France", critere.idChiffre, critere.idDetail, "idf"));
-    panneau.appendChild(colonnes);
-    var ecart = document.createElement("p");
-    ecart.className = "tcp__ecart";
-    var mot = document.createElement("strong");
-    mot.textContent = "Ce qui change. ";
-    ecart.appendChild(mot);
-    ecart.appendChild(document.createTextNode(critere.ecart));
-    panneau.appendChild(ecart);
-    contenu.appendChild(panneau);
-    onglet.addEventListener("click", function () {
-      Array.prototype.forEach.call(onglets.children, function (autre) {
-        autre.classList.remove("est-actif");
-        autre.setAttribute("aria-selected", "false");
-      });
-      Array.prototype.forEach.call(contenu.children, function (autre) {
-        autre.classList.remove("est-visible");
-      });
-      onglet.classList.add("est-actif");
-      onglet.setAttribute("aria-selected", "true");
-      panneau.classList.add("est-visible");
-    });
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  function tous(s, r) { return Array.prototype.slice.call((r || racine).querySelectorAll(s)); }
+  var annonce = racine.querySelector(".tcp__annonce"), attente = racine.querySelector(".tcp__attente"), btTout = racine.querySelector(".tcp__outil");
+  // Pour chaque critère : ce qui est affiché (côté a, côté b, écart e). Un seul critère ouvert à la fois.
+  var vus = {}, ouvert = null;
+  var fiches = tous(".tcp__tuile").map(function (t) {
+    var cle = t.getAttribute("data-critere");
+    vus[cle] = { a: false, b: false, e: false };
+    return { cle: cle, tuile: t, tete: t.querySelector(".tcp__tuile-tete"), detail: document.getElementById("tcp-detail-" + cle) };
   });
+  function zone(f, c) { return f.detail.querySelector('[data-zone="' + c + '"]'); }
+  function fiche(cle) { return fiches.filter(function (f) { return f.cle === cle; })[0]; }
+  function rendre() {
+    var complet = true;
+    fiches.forEach(function (f) {
+      var v = vus[f.cle], actif = f.cle === ouvert;
+      f.tuile.classList.toggle("est-active", actif);
+      f.tete.setAttribute("aria-expanded", actif ? "true" : "false");
+      f.detail.hidden = !actif;
+      ["a", "b"].forEach(function (c) {
+        var m = f.tuile.querySelector('.tcp__moitie[data-cote="' + c + '"]');
+        m.setAttribute("aria-expanded", v[c] ? "true" : "false");
+        m.querySelector(".tcp__moitie-valeur").hidden = !v[c];
+      });
+      ["a", "b", "e"].forEach(function (c) {
+        var z = zone(f, c);
+        z.querySelector(".tcp__voile").hidden = v[c];
+        z.querySelector(".tcp__texte").hidden = !v[c];
+        if (!v[c]) { complet = false; }
+      });
+    });
+    attente.hidden = ouvert !== null;
+    btTout.textContent = complet ? "Tout masquer" : "Tout afficher";
+  }
+  function montrer(cle, c) {
+    vus[cle][c] = true; ouvert = cle;
+    rendre();
+    var f = fiche(cle), m = c === "e" ? null : f.tuile.querySelector('.tcp__moitie[data-cote="' + c + '"]');
+    annonce.textContent = (m ? m.textContent + ". " : "") + zone(f, c).querySelector(".tcp__texte").textContent;
+  }
+  racine.addEventListener("click", function (e) {
+    var cible = e.target, el;
+    if ((el = cible.closest(".tcp__moitie"))) { montrer(el.closest(".tcp__tuile").getAttribute("data-critere"), el.getAttribute("data-cote")); return; }
+    if ((el = cible.closest(".tcp__voile"))) {
+      var z = el.closest("[data-zone]"), cle = el.closest(".tcp__detail").getAttribute("data-critere");
+      montrer(cle, z.getAttribute("data-zone"));
+      z.querySelector(".tcp__texte").focus();
+      return;
+    }
+    if ((el = cible.closest(".tcp__tuile-tete"))) {
+      var c = el.closest(".tcp__tuile").getAttribute("data-critere");
+      ouvert = ouvert === c ? null : c; rendre(); return;
+    }
+    if (cible.closest(".tcp__outil")) {
+      var masquer = btTout.textContent === "Tout masquer";
+      fiches.forEach(function (f) { vus[f.cle] = { a: !masquer, b: !masquer, e: !masquer }; });
+      rendre();
+      annonce.textContent = masquer ? "Tout est masqué" : "Tout est affiché";
+    }
+  });
+  racine.addEventListener("keydown", function (e) {
+    if ((e.key === "Escape" || e.key === "Esc") && ouvert !== null) { var f = fiche(ouvert); ouvert = null; rendre(); f.tete.focus(); }
+  });
+  racine.addEventListener("reinitialiser", function () {
+    fiches.forEach(function (f) { vus[f.cle] = { a: false, b: false, e: false }; });
+    ouvert = null; rendre();
+  });
+  racine.comparateur = { etat: function () { return { ouvert: ouvert, vus: JSON.parse(JSON.stringify(vus)) }; } };
+  rendre();
 })();
 </script>
 </section>

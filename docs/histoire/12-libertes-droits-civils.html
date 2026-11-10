@@ -628,140 +628,202 @@ revient sur son parcours.</p>
 <p>Maintenant que les deux régimes sont connus, tu peux les mettre côte à côte.
 Chaque onglet compare un aspect, des lois elles-mêmes jusqu'à la manière dont
 chacun a pris fin.</p>
-<section class="sgc" id="segregation-comparee" aria-label="Comparaison des lois Jim Crow et de l'apartheid">
+<section class="sgc" id="segregation-comparee" data-reinitialiser aria-label="Comparaison des lois Jim Crow et de l&#x27;apartheid">
 <style>
-.sgc { margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.sgc { --sgc-a: #2D5A97; --sgc-a-voile: #E3EBF5; --sgc-a-encre: #1F4170; --sgc-b: #B5561F; --sgc-b-voile: #F8E6D9; --sgc-b-encre: #7C3A12; --sgc-signal: #D2952E; --sgc-signal-voile: #FFF6DF; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+.sgc [hidden] { display: none !important; }
 .sgc .sgc__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .sgc .sgc__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .sgc__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
-.sgc__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .8rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2); }
-.sgc__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .95rem; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
-.sgc__onglet:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
-.sgc__onglet.est-actif { color: #fff; background: var(--matiere); border-color: var(--matiere); }
-.sgc__panneau { display: none; padding: 1.3rem 1.4rem 1.4rem; }
-.sgc__panneau.est-visible { display: block; }
-.sgc__colonnes { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1rem; }
-.sgc__cote { background: var(--surface-2); border-left: 3px solid var(--matiere); border-radius: 0 var(--rayon) var(--rayon) 0; padding: .95rem 1.15rem; }
-.sgc__lieu { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .45rem; }
-.sgc__cote p { margin: 0; font-size: .95rem; line-height: 1.6; }
-.sgc__ecart { margin: 1.1rem 0 0; padding: .85rem 1.1rem; background: var(--matiere-voile); border-radius: var(--rayon); font-size: .93rem; line-height: 1.6; }
-.sgc__ecart strong { color: var(--matiere-fonce); }
+.sgc__corps { max-width: 62rem; margin: 0 auto; padding: 1rem 1.2rem 1.3rem; }
+.sgc__barre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; margin: 0 0 .9rem; }
+.sgc .sgc__legende { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.sgc .sgc__legende > li { display: flex; align-items: center; gap: .5rem; margin: 0; padding: 0; }
+.sgc .sgc__legende > li::marker { content: none; }
+.sgc .sgc__legende > li::before { content: none; }
+.sgc__cle { width: 1.05rem; height: 1.05rem; border-radius: 4px; background: var(--sgc-a); flex: none; }
+.sgc__legende > li + li > .sgc__cle { background: var(--sgc-b); }
+.sgc__outil { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .82rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; }
+.sgc__outil:hover { color: var(--encre); background: var(--matiere-voile); }
+.sgc__outil:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.sgc__grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr)); grid-auto-flow: row dense; gap: .85rem; }
+.sgc__tuile { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--trait); border-radius: 10px; overflow: hidden; transition: box-shadow .15s, border-color .15s; }
+.sgc__tuile.est-active { border-color: var(--sgc-signal); box-shadow: 0 0 0 3px var(--sgc-signal); }
+.sgc__tuile-tete { display: flex; align-items: center; gap: .55rem; width: 100%; margin: 0; padding: .7rem .85rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; text-align: left; color: var(--matiere-fonce); background: none; border: 0; cursor: pointer; }
+.sgc__tuile-tete:hover { background: var(--matiere-voile); }
+.sgc__tuile-tete:focus-visible { outline: 3px solid var(--matiere); outline-offset: -3px; }
+.sgc__icone { width: 1.5rem; height: 1.5rem; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.sgc__chevron { width: 1rem; height: 1rem; margin-left: auto; flex: none; fill: none; stroke: var(--encre-pale); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+.sgc__tuile-tete[aria-expanded="true"] .sgc__chevron { transform: rotate(180deg); }
+.sgc__moities { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); flex: 1 1 auto; }
+.sgc__moitie { display: flex; flex-direction: column; justify-content: center; gap: .12rem; margin: 0; padding: .6rem .85rem .7rem; min-height: 4.2rem; box-sizing: border-box; font-family: var(--titre); text-align: left; color: #fff; background-color: var(--sgc-a); border: 0; cursor: pointer; overflow-wrap: break-word; hyphens: auto; transition: filter .15s; }
+.sgc__moitie--b { background-color: var(--sgc-b); }
+.sgc__moitie:hover { filter: brightness(1.1); }
+.sgc__moitie:focus-visible { outline: 3px solid #fff; outline-offset: -6px; }
+.sgc__moitie-nom { font-weight: 600; font-size: .76rem; line-height: 1.2; }
+.sgc__moitie-valeur { font-weight: 700; font-size: 1.05rem; line-height: 1.2; }
+.sgc__oeil { display: none; width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* Côté pas encore affiché : son nom, sur un fond hachuré. */
+.sgc__moitie[aria-expanded="false"] { align-items: center; text-align: center; gap: .25rem; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,.14) 0 .5rem, transparent .5rem 1rem); }
+.sgc__moitie[aria-expanded="false"] .sgc__moitie-nom { font-weight: 700; font-size: .95rem; }
+.sgc__moitie[aria-expanded="false"] .sgc__oeil { display: block; }
+.sgc__sr, .sgc__annonce { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sgc__detail { grid-column: 1 / -1; display: flex; flex-direction: column; border: 3px solid var(--sgc-signal); border-radius: 10px; overflow: hidden; animation: sgc-ouvre .22s ease-out; }
+@keyframes sgc-ouvre { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.sgc__cotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); flex: 1 1 auto; }
+.sgc__cote { display: flex; flex-direction: column; min-height: 5.4rem; padding: .9rem 1.05rem 1rem; box-sizing: border-box; background: var(--sgc-a-voile); }
+.sgc__cote--b { background: var(--sgc-b-voile); }
+.sgc__voile { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem; width: 100%; margin: 0; padding: .7rem; box-sizing: border-box; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.25; color: var(--sgc-a-encre); background: none; border: 2px dashed currentColor; border-radius: 8px; cursor: pointer; }
+.sgc__cote--b .sgc__voile { color: var(--sgc-b-encre); }
+.sgc__voile > small { font-weight: 500; font-size: .78rem; }
+.sgc__voile:hover { background: rgba(255,255,255,.55); }
+.sgc__voile:focus-visible { outline: 3px solid var(--matiere); outline-offset: 2px; }
+.sgc__texte:focus { outline: none; }
+.sgc__lieu { display: block; font-family: var(--titre); font-weight: 700; font-size: .86rem; line-height: 1.3; color: var(--sgc-a-encre); }
+.sgc__cote--b .sgc__lieu { color: var(--sgc-b-encre); }
+.sgc .sgc__cote p { margin: .3rem 0 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.sgc__ecart { display: flex; flex-direction: column; padding: .85rem 1.05rem; background: var(--sgc-signal-voile); }
+.sgc__ecart .sgc__voile { flex-direction: row; flex-wrap: wrap; gap: .3rem .7rem; color: var(--encre); border-color: var(--sgc-signal); }
+.sgc .sgc__ecart-texte { display: flex; flex-wrap: wrap; align-items: flex-start; gap: .5rem .85rem; margin: 0; font-size: .97rem; line-height: 1.55; color: var(--encre); }
+.sgc__ecart-texte > strong { flex: none; padding: .22rem .65rem; border-radius: 100px; background: var(--sgc-signal); color: #1A2530; font-family: var(--titre); font-weight: 700; font-size: .78rem; line-height: 1.4; }
+.sgc__ecart-texte > span { flex: 1 1 16rem; }
+.sgc .sgc__attente { display: none; grid-column: 1 / -1; align-items: center; justify-content: center; margin: 0; padding: 1rem; border: 2px dashed var(--trait); border-radius: 10px; font-family: var(--titre); font-weight: 600; font-size: 1.15rem; color: var(--encre-pale); text-align: center; }
+/* Plein écran : la mosaïque en haut, le critère choisi en grand en bas, sur tout l'écran. */
+.sgc.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; overflow: auto; }
+.sgc.est-plein-ecran .sgc__corps { width: 100%; max-width: none; box-sizing: border-box; }
+@media (min-width: 60rem) and (min-height: 34rem) {
+  .sgc.est-plein-ecran .sgc__corps { flex: 1 1 auto; display: flex; flex-direction: column; margin: 0; padding: 1rem 1.5rem 1.4rem; }
+  .sgc.est-plein-ecran .sgc__grille { flex: 1 1 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(min-content, 1fr) minmax(min-content, 1fr) minmax(min-content, 1.3fr); gap: 1rem; }
+  .sgc.est-plein-ecran .sgc__detail, .sgc.est-plein-ecran .sgc__attente { order: 1; }
+  .sgc.est-plein-ecran .sgc__attente { display: flex; }
+  .sgc.est-plein-ecran .sgc__legende { font-size: 1.15rem; }
+  .sgc.est-plein-ecran .sgc__outil { font-size: .95rem; }
+  .sgc.est-plein-ecran .sgc__tuile-tete { padding: .8rem 1.05rem; font-size: 1.2rem; }
+  .sgc.est-plein-ecran .sgc__icone { width: 1.8rem; height: 1.8rem; }
+  .sgc.est-plein-ecran .sgc__moitie { padding: .8rem 1.1rem; gap: .25rem; }
+  .sgc.est-plein-ecran .sgc__moitie-nom { font-size: .92rem; }
+  .sgc.est-plein-ecran .sgc__moitie-valeur { font-size: clamp(1.4rem, 2.3vw, 2.4rem); line-height: 1.15; }
+  .sgc.est-plein-ecran .sgc__moitie-valeur--long { font-size: clamp(1.2rem, 1.65vw, 1.75rem); }
+  .sgc.est-plein-ecran .sgc__moitie[aria-expanded="false"] .sgc__moitie-nom { font-size: 1.3rem; }
+  .sgc.est-plein-ecran .sgc__oeil { width: 1.7rem; height: 1.7rem; }
+  .sgc.est-plein-ecran .sgc__cote { padding: 1.1rem 1.4rem 1.2rem; justify-content: center; }
+  .sgc.est-plein-ecran .sgc__lieu { font-size: 1.08rem; }
+  .sgc.est-plein-ecran .sgc__cote p, .sgc.est-plein-ecran .sgc__ecart-texte { font-size: clamp(1.15rem, 1.7vw, 1.7rem); line-height: 1.5; }
+  .sgc.est-plein-ecran .sgc__ecart { padding: 1rem 1.4rem; }
+  .sgc.est-plein-ecran .sgc__ecart-texte > strong { font-size: .95rem; }
+  .sgc.est-plein-ecran .sgc__voile { font-size: 1.25rem; }
+  .sgc.est-plein-ecran .sgc__voile > small { font-size: .95rem; }
+}
+html[data-sombre="on"] .sgc { --sgc-a-voile: #1B2B41; --sgc-a-encre: #A9C6EE; --sgc-b-voile: #3A2415; --sgc-b-encre: #F0B48C; --sgc-signal-voile: #372C12; }
 html[data-sombre="on"] .sgc .sgc__entete { background: var(--matiere-voile); }
 html[data-sombre="on"] .sgc .sgc__titre { color: var(--encre); }
 html[data-sombre="on"] .sgc__consigne { color: var(--encre-pale); }
-html[data-sombre="on"] .sgc__onglet.est-actif { color: var(--encre); }
-html[data-sombre="on"] .sgc__ecart strong { color: var(--encre); }
-@media (max-width: 40rem) { .sgc__panneau { padding: 1.1rem 1rem 1rem; } .sgc__onglets { padding: .7rem .8rem; } }
-@media print { .sgc__panneau { display: block; page-break-inside: avoid; } .sgc__onglets { display: none; } }
+html[data-sombre="on"] .sgc__tuile-tete { color: var(--encre); }
+html[data-sombre="on"] .sgc__voile:hover { background: rgba(255,255,255,.07); }
+@media (max-width: 40rem) { .sgc__corps { padding: .85rem .8rem 1rem; } }
+@media (prefers-reduced-motion: reduce) { .sgc__tuile, .sgc__chevron, .sgc__moitie { transition: none; } .sgc__detail { animation: none; } }
+@media print {
+  .sgc .sgc__detail[hidden], .sgc .sgc__texte[hidden], .sgc .sgc__moitie-valeur[hidden] { display: block !important; }
+  .sgc .sgc__voile, .sgc .sgc__outil, .sgc .sgc__oeil, .sgc__chevron { display: none !important; }
+  .sgc__tuile, .sgc__detail { break-inside: avoid; }
+}
 </style>
 <div class="sgc__entete">
   <p class="sgc__titre" role="heading" aria-level="3">Deux régimes, les mêmes mécanismes</p>
-  <p class="sgc__consigne">Choisis un aspect</p>
+  <p class="sgc__consigne">Touche un côté pour l'afficher</p>
 </div>
-<div class="sgc__onglets" role="tablist" aria-label="Aspects comparés"></div>
-<div class="sgc__contenu"></div>
+<div class="sgc__corps">
+<div class="sgc__barre"><ul class="sgc__legende" aria-label="Les deux côtés comparés"><li><span class="sgc__cle" aria-hidden="true"></span>Les lois Jim Crow</li><li><span class="sgc__cle" aria-hidden="true"></span>L&#x27;apartheid</li></ul><button type="button" class="sgc__outil">Tout afficher</button></div>
+<div class="sgc__grille">
+<div class="sgc__tuile" data-critere="territoire"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-territoire"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 21s-6-5.6-6-10a6 6 0 0 1 12 0c0 4.4-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg><span class="sgc__tuile-nom">Le territoire et la période</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-territoire-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Le Sud, à partir de 1877</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-territoire-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Tout le pays, à partir de 1948</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-territoire" data-critere="territoire" role="region" aria-label="Le territoire et la période"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-territoire-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>Les lois relèvent de chaque État, pas du gouvernement fédéral. Elles s&#x27;installent dans le Sud à partir de 1877, à la fin de la Reconstruction, en Alabama, au Mississippi, en Arkansas et ailleurs. Elles sont démantelées entre 1954 et 1968.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-territoire-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>Le régime relève du gouvernement central et s&#x27;applique à tout le pays. Il commence avec la victoire du Parti national aux élections de 1948. Il est démantelé en 1990 et 1991. Les premières élections ouvertes à tous ont lieu en 1994.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Aux États-Unis, la ségrégation est régionale et vient des États. En Afrique du Sud, elle est nationale et vient du gouvernement.</span></p></div></div>
+<div class="sgc__tuile" data-critere="personnes"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-personnes"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c3 .2 5 2.5 5 5.8"/></svg><span class="sgc__tuile-nom">Les personnes visées</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-personnes-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur">Une minorité</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-personnes-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur">La majorité</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-personnes" data-critere="personnes" role="region" aria-label="Les personnes visées"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-personnes-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>Les Afro-Américains forment environ un habitant sur dix du pays vers 1950, mais près de la moitié de la population dans certains comtés du Sud. Le classement repose sur la règle dite d&#x27;une seule goutte de sang : une ascendance africaine connue suffit.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-personnes-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>La loi sur l&#x27;enregistrement de la population, en 1950, classe chaque personne dans un groupe : Blancs, Noirs, Métis, puis Indiens. Les Blancs représentent alors environ un habitant sur cinq. Le régime fait donc gouverner la majorité par une minorité.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Aux États-Unis, une majorité impose des lois à une minorité. En Afrique du Sud, c&#x27;est l&#x27;inverse.</span></p></div></div>
+<div class="sgc__tuile" data-critere="lois"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-lois"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h4"/></svg><span class="sgc__tuile-nom">Les lois principales</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-lois-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Un arrêt et des lois d&#x27;États</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-lois-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Quatre lois en quatre ans</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-lois" data-critere="lois" role="region" aria-label="Les lois principales"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-lois-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>L&#x27;arrêt Plessy contre Ferguson, en 1896, autorise des installations séparées à condition qu&#x27;elles soient dites égales. Chaque État vote ensuite ses propres textes : mariages mixtes interdits, écoles séparées, wagons, salles d&#x27;attente et fontaines réservés.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-lois-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>Quatre lois structurent le régime : l&#x27;interdiction des mariages mixtes en 1949, l&#x27;enregistrement de la population et l&#x27;attribution des quartiers par groupe en 1950, puis l&#x27;obligation du laissez-passer intérieur en 1952.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Aux États-Unis, la ségrégation s&#x27;appuie sur une décision de justice et des lois d&#x27;États. En Afrique du Sud, sur un bloc de lois votées en quatre ans.</span></p></div></div>
+<div class="sgc__tuile" data-critere="vote"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-vote"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h16v9H4z"/><path d="M9 12V4h6v8M10.2 8l1.4 1.4L14 7"/></svg><span class="sgc__tuile-nom">Le contrôle du droit de vote</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-vote-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">L&#x27;inscription empêchée</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-vote-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">La citoyenneté retirée</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-vote" data-critere="vote" role="region" aria-label="Le contrôle du droit de vote"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-vote-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>Le droit de vote n&#x27;est pas retiré par la Constitution, il est rendu inaccessible : taxe électorale, test d&#x27;alphabétisation, clause du grand-père. À Selma, en 1965, 2 pour cent des électeurs noirs de la ville sont inscrits sur les listes.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-vote-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>Les électeurs noirs sont retirés des listes communes. En 1970, la loi sur la citoyenneté des bantoustans leur retire la nationalité sud-africaine et les rattache d&#x27;office à un territoire séparé, où ils sont censés voter.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Aux États-Unis, on empêche de s&#x27;inscrire. En Afrique du Sud, on retire la citoyenneté elle-même.</span></p></div></div>
+<div class="sgc__tuile" data-critere="lutte"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-lutte"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10v4h3l8 4V6l-8 4z"/><path d="M18 9.5c1 .8 1 4.2 0 5M7 14l1 6h2.5l-1-5"/></svg><span class="sgc__tuile-nom">Les formes de lutte</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-lutte-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Non-violence et tribunaux</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-lutte-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">De la non-violence à la lutte armée</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-lutte" data-critere="lutte" role="region" aria-label="Les formes de lutte"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-lutte-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>Le boycottage des autobus de Montgomery dure 381 jours. Viennent ensuite les sit-in aux comptoirs, les Freedom Rides, la marche sur Washington de 1963 et les marches de Selma. La stratégie combine action non violente et recours devant les tribunaux.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-lutte-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>La campagne de défi de 1952, la protestation contre les laissez-passer à Sharpeville en 1960 et le soulèvement de Soweto en 1976. Après Sharpeville, le Congrès national africain se dote d&#x27;une branche armée. À l&#x27;étranger, boycottages et sanctions.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Les deux mouvements commencent par la non-violence. En Afrique du Sud, la répression de 1960 conduit une partie du mouvement à la lutte armée.</span></p></div></div>
+<div class="sgc__tuile" data-critere="sortie"><button type="button" class="sgc__tuile-tete" aria-expanded="false" aria-controls="sgc-detail-sortie"><svg class="sgc__icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 4H5v16h5M14 8l4 4-4 4M9 12h9"/></svg><span class="sgc__tuile-nom">La sortie du régime</span><svg class="sgc__chevron" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l7 7 7-7"/></svg></button><div class="sgc__moities"><button type="button" class="sgc__moitie sgc__moitie--a" data-cote="a" aria-expanded="true" aria-controls="sgc-detail-sortie-a"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">Les lois Jim Crow</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur sgc__moitie-valeur--long">Les tribunaux et le Congrès</span></button><button type="button" class="sgc__moitie sgc__moitie--b" data-cote="b" aria-expanded="true" aria-controls="sgc-detail-sortie-b"><svg class="sgc__oeil" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.8"/></svg><span class="sgc__moitie-nom">L&#x27;apartheid</span><span class="sgc__sr"> : </span><span class="sgc__moitie-valeur">Une négociation</span></button></div></div>
+<div class="sgc__detail" id="sgc-detail-sortie" data-critere="sortie" role="region" aria-label="La sortie du régime"><div class="sgc__cotes"><div class="sgc__cote sgc__cote--a" id="sgc-detail-sortie-a" data-zone="a"><button type="button" class="sgc__voile" hidden>Les lois Jim Crow<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">Les lois Jim Crow</span><p>L&#x27;arrêt Brown contre Board of Education, en 1954, déclare la ségrégation scolaire contraire à la Constitution. Le Congrès vote ensuite le Civil Rights Act en 1964, le Voting Rights Act en 1965, puis la loi sur le logement en 1968.</p></div></div><div class="sgc__cote sgc__cote--b" id="sgc-detail-sortie-b" data-zone="b"><button type="button" class="sgc__voile" hidden>L&#x27;apartheid<small>Touche pour afficher</small></button><div class="sgc__texte" tabindex="-1"><span class="sgc__lieu">L&#x27;apartheid</span><p>En février 1990, le président de Klerk légalise le Congrès national africain et libère Nelson Mandela. Les lois de l&#x27;apartheid sont abrogées en 1991. Une commission vérité et réconciliation est mise sur pied en 1995.</p></div></div></div><div class="sgc__ecart" data-zone="e"><button type="button" class="sgc__voile" hidden>Ce qui diffère<small>Touche pour afficher</small></button><p class="sgc__texte sgc__ecart-texte" tabindex="-1"><strong>Ce qui diffère</strong><span>Aux États-Unis, la sortie passe par les tribunaux et le Congrès. En Afrique du Sud, par une négociation entre deux adversaires.</span></p></div></div>
+<p class="sgc__attente" hidden>Touche un côté pour l'afficher, un critère à la fois.</p>
+</div>
+<p class="sgc__annonce" aria-live="polite"></p>
+</div>
 <script>
 (function () {
   var racine = document.getElementById("segregation-comparee");
-  if (!racine) { return; }
-  var aspects = [
-    {
-      cle: "territoire",
-      nom: "Le territoire et la période",
-      us: "Les lois relèvent de chaque État, pas du gouvernement fédéral. Elles s'installent dans le Sud à partir de 1877, à la fin de la Reconstruction, en Alabama, au Mississippi, en Arkansas et ailleurs. Elles sont démantelées entre 1954 et 1968.",
-      sa: "Le régime relève du gouvernement central et s'applique à tout le pays. Il commence avec la victoire du Parti national aux élections de 1948. Il est démantelé en 1990 et 1991, et les premières élections ouvertes à tous ont lieu en 1994.",
-      ecart: "Aux États-Unis, la ségrégation est régionale et vient des États. En Afrique du Sud, elle est nationale et vient du gouvernement."
-    },
-    {
-      cle: "personnes",
-      nom: "Les personnes visées",
-      us: "Les Afro-Américains forment environ un habitant sur dix du pays vers 1950, mais près de la moitié de la population dans certains comtés du Sud. Le classement repose sur la règle dite d'une seule goutte de sang : une ascendance africaine connue suffit.",
-      sa: "La loi sur l'enregistrement de la population, en 1950, classe chaque personne dans un groupe : Blancs, Noirs, Métis, puis Indiens. Les Blancs représentent alors environ un habitant sur cinq. Le régime fait donc gouverner la majorité par une minorité.",
-      ecart: "Aux États-Unis, une majorité impose des lois à une minorité. En Afrique du Sud, c'est l'inverse."
-    },
-    {
-      cle: "lois",
-      nom: "Les lois principales",
-      us: "L'arrêt Plessy contre Ferguson, en 1896, autorise des installations séparées à condition qu'elles soient dites égales. Chaque État vote ensuite ses propres textes : mariages mixtes interdits, écoles séparées, wagons, salles d'attente et fontaines réservés.",
-      sa: "Quatre lois structurent le régime : l'interdiction des mariages mixtes en 1949, l'enregistrement de la population et l'attribution des quartiers par groupe en 1950, puis l'obligation du laissez-passer intérieur en 1952.",
-      ecart: "Aux États-Unis, la ségrégation s'appuie sur une décision de justice et des lois d'États. En Afrique du Sud, sur un bloc de lois votées en quatre ans."
-    },
-    {
-      cle: "vote",
-      nom: "Le contrôle du droit de vote",
-      us: "Le droit de vote n'est pas retiré par la Constitution, il est rendu inaccessible : taxe électorale, test d'alphabétisation, clause du grand-père. À Selma, en 1965, 2 pour cent des électeurs noirs de la ville sont inscrits sur les listes.",
-      sa: "Les électeurs noirs sont retirés des listes communes. En 1970, la loi sur la citoyenneté des bantoustans leur retire la nationalité sud-africaine et les rattache d'office à un territoire séparé, où ils sont censés voter.",
-      ecart: "Aux États-Unis, on empêche de s'inscrire. En Afrique du Sud, on retire la citoyenneté elle-même."
-    },
-    {
-      cle: "lutte",
-      nom: "Les formes de lutte",
-      us: "Le boycottage des autobus de Montgomery dure 381 jours. Viennent ensuite les sit-in aux comptoirs, les Freedom Rides, la marche sur Washington de 1963 et les marches de Selma. La stratégie combine action non violente et recours devant les tribunaux.",
-      sa: "La campagne de défi de 1952, la protestation contre les laissez-passer à Sharpeville en 1960 et le soulèvement de Soweto en 1976. Après Sharpeville, le Congrès national africain se dote d'une branche armée. À l'étranger, boycottages et sanctions.",
-      ecart: "Les deux mouvements commencent par la non-violence. En Afrique du Sud, la répression de 1960 conduit une partie du mouvement à la lutte armée."
-    },
-    {
-      cle: "sortie",
-      nom: "La sortie du régime",
-      us: "L'arrêt Brown contre Board of Education, en 1954, déclare la ségrégation scolaire contraire à la Constitution. Le Congrès vote ensuite le Civil Rights Act en 1964, le Voting Rights Act en 1965, puis la loi sur le logement en 1968.",
-      sa: "En février 1990, le président de Klerk légalise le Congrès national africain et libère Nelson Mandela. Les lois de l'apartheid sont abrogées en 1991. Une commission vérité et réconciliation est mise sur pied en 1995.",
-      ecart: "Aux États-Unis, la sortie passe par les tribunaux et le Congrès. En Afrique du Sud, par une négociation entre deux adversaires."
-    }
-  ];
-  var onglets = racine.querySelector(".sgc__onglets");
-  var contenu = racine.querySelector(".sgc__contenu");
-  function bloc(lieu, texte) {
-    var cote = document.createElement("div");
-    cote.className = "sgc__cote";
-    var etiquette = document.createElement("span");
-    etiquette.className = "sgc__lieu";
-    etiquette.textContent = lieu;
-    var p = document.createElement("p");
-    p.textContent = texte;
-    cote.appendChild(etiquette);
-    cote.appendChild(p);
-    return cote;
-  }
-  aspects.forEach(function (aspect, index) {
-    var onglet = document.createElement("button");
-    onglet.type = "button";
-    onglet.className = "sgc__onglet" + (index === 0 ? " est-actif" : "");
-    onglet.textContent = aspect.nom;
-    onglet.setAttribute("role", "tab");
-    onglet.setAttribute("aria-controls", "sgc-panneau-" + aspect.cle);
-    onglet.setAttribute("aria-selected", index === 0 ? "true" : "false");
-    onglets.appendChild(onglet);
-    var panneau = document.createElement("div");
-    panneau.className = "sgc__panneau" + (index === 0 ? " est-visible" : "");
-    panneau.id = "sgc-panneau-" + aspect.cle;
-    panneau.setAttribute("role", "tabpanel");
-    panneau.setAttribute("aria-label", aspect.nom);
-    var colonnes = document.createElement("div");
-    colonnes.className = "sgc__colonnes";
-    colonnes.appendChild(bloc("Les lois Jim Crow", aspect.us));
-    colonnes.appendChild(bloc("L'apartheid", aspect.sa));
-    panneau.appendChild(colonnes);
-    var ecart = document.createElement("p");
-    ecart.className = "sgc__ecart";
-    var mot = document.createElement("strong");
-    mot.textContent = "Ce qui diffère. ";
-    ecart.appendChild(mot);
-    ecart.appendChild(document.createTextNode(aspect.ecart));
-    panneau.appendChild(ecart);
-    contenu.appendChild(panneau);
-    onglet.addEventListener("click", function () {
-      Array.prototype.forEach.call(onglets.children, function (autre) {
-        autre.classList.remove("est-actif");
-        autre.setAttribute("aria-selected", "false");
-      });
-      Array.prototype.forEach.call(contenu.children, function (autre) {
-        autre.classList.remove("est-visible");
-      });
-      onglet.classList.add("est-actif");
-      onglet.setAttribute("aria-selected", "true");
-      panneau.classList.add("est-visible");
-    });
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  function tous(s, r) { return Array.prototype.slice.call((r || racine).querySelectorAll(s)); }
+  var annonce = racine.querySelector(".sgc__annonce"), attente = racine.querySelector(".sgc__attente"), btTout = racine.querySelector(".sgc__outil");
+  // Pour chaque critère : ce qui est affiché (côté a, côté b, écart e). Un seul critère ouvert à la fois.
+  var vus = {}, ouvert = null;
+  var fiches = tous(".sgc__tuile").map(function (t) {
+    var cle = t.getAttribute("data-critere");
+    vus[cle] = { a: false, b: false, e: false };
+    return { cle: cle, tuile: t, tete: t.querySelector(".sgc__tuile-tete"), detail: document.getElementById("sgc-detail-" + cle) };
   });
+  function zone(f, c) { return f.detail.querySelector('[data-zone="' + c + '"]'); }
+  function fiche(cle) { return fiches.filter(function (f) { return f.cle === cle; })[0]; }
+  function rendre() {
+    var complet = true;
+    fiches.forEach(function (f) {
+      var v = vus[f.cle], actif = f.cle === ouvert;
+      f.tuile.classList.toggle("est-active", actif);
+      f.tete.setAttribute("aria-expanded", actif ? "true" : "false");
+      f.detail.hidden = !actif;
+      ["a", "b"].forEach(function (c) {
+        var m = f.tuile.querySelector('.sgc__moitie[data-cote="' + c + '"]');
+        m.setAttribute("aria-expanded", v[c] ? "true" : "false");
+        m.querySelector(".sgc__moitie-valeur").hidden = !v[c];
+      });
+      ["a", "b", "e"].forEach(function (c) {
+        var z = zone(f, c);
+        z.querySelector(".sgc__voile").hidden = v[c];
+        z.querySelector(".sgc__texte").hidden = !v[c];
+        if (!v[c]) { complet = false; }
+      });
+    });
+    attente.hidden = ouvert !== null;
+    btTout.textContent = complet ? "Tout masquer" : "Tout afficher";
+  }
+  function montrer(cle, c) {
+    vus[cle][c] = true; ouvert = cle;
+    rendre();
+    var f = fiche(cle), m = c === "e" ? null : f.tuile.querySelector('.sgc__moitie[data-cote="' + c + '"]');
+    annonce.textContent = (m ? m.textContent + ". " : "") + zone(f, c).querySelector(".sgc__texte").textContent;
+  }
+  racine.addEventListener("click", function (e) {
+    var cible = e.target, el;
+    if ((el = cible.closest(".sgc__moitie"))) { montrer(el.closest(".sgc__tuile").getAttribute("data-critere"), el.getAttribute("data-cote")); return; }
+    if ((el = cible.closest(".sgc__voile"))) {
+      var z = el.closest("[data-zone]"), cle = el.closest(".sgc__detail").getAttribute("data-critere");
+      montrer(cle, z.getAttribute("data-zone"));
+      z.querySelector(".sgc__texte").focus();
+      return;
+    }
+    if ((el = cible.closest(".sgc__tuile-tete"))) {
+      var c = el.closest(".sgc__tuile").getAttribute("data-critere");
+      ouvert = ouvert === c ? null : c; rendre(); return;
+    }
+    if (cible.closest(".sgc__outil")) {
+      var masquer = btTout.textContent === "Tout masquer";
+      fiches.forEach(function (f) { vus[f.cle] = { a: !masquer, b: !masquer, e: !masquer }; });
+      rendre();
+      annonce.textContent = masquer ? "Tout est masqué" : "Tout est affiché";
+    }
+  });
+  racine.addEventListener("keydown", function (e) {
+    if ((e.key === "Escape" || e.key === "Esc") && ouvert !== null) { var f = fiche(ouvert); ouvert = null; rendre(); f.tete.focus(); }
+  });
+  racine.addEventListener("reinitialiser", function () {
+    fiches.forEach(function (f) { vus[f.cle] = { a: false, b: false, e: false }; });
+    ouvert = null; rendre();
+  });
+  racine.comparateur = { etat: function () { return { ouvert: ouvert, vus: JSON.parse(JSON.stringify(vus)) }; } };
+  rendre();
 })();
 </script>
 </section>

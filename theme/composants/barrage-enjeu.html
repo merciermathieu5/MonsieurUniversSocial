@@ -26,15 +26,28 @@
 .enj .enj__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
 .enj__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
 /* parcours : une pastille par fenêtre */
-.enj__parcours { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; padding: .7rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
-.enj__parcours-nom { flex-basis: 100%; margin: 0 0 .1rem; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
-.enj__etape { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1.2; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .32rem .7rem .32rem .38rem; cursor: pointer; transition: background .15s, border-color .15s, color .15s; }
-.enj__etape:hover { color: var(--encre); background: var(--matiere-voile); }
-.enj__etape[aria-current="step"] { color: var(--encre); border-color: var(--enj-c); box-shadow: inset 0 0 0 1px var(--enj-c); }
-.enj__etape--bout { padding-left: .7rem; }
-.enj__num { display: inline-flex; align-items: center; justify-content: center; width: 1.25rem; height: 1.25rem; border-radius: 50%; font-family: var(--titre); font-weight: 700; font-size: .68rem; color: var(--enj-c); background: var(--surface); border: 2px solid var(--enj-c); box-sizing: border-box; flex: none; }
-.enj__etape.est-complete .enj__num { color: #fff; background: var(--enj-c); }
-.enj__etape.est-partielle .enj__num { background: linear-gradient(to top, color-mix(in srgb, var(--enj-c) 35%, transparent) 50%, var(--surface) 50%); }
+.enj__etape, .enj__groupe { --enj-fonce: color-mix(in srgb, var(--enj-c) 72%, #000); }
+.enj__parcours { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .6rem; padding: .75rem 1.2rem; background: var(--surface-2); border-bottom: 1px solid var(--trait); }
+.enj__parcours-nom { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.enj__etapes { display: flex; align-items: center; flex: 1 1 19rem; min-width: 0; }
+.enj__etape { position: relative; display: inline-flex; align-items: center; flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; font-family: var(--titre); font-weight: 600; font-size: .8rem; line-height: 1.2; color: var(--encre-doux); background: none; border: 0; cursor: pointer; }
+.enj__etape::before { content: ""; flex: 1 1 .6rem; min-width: .3rem; height: 3px; margin: 0 .3rem; border-radius: 2px; background: var(--trait); }
+.enj__etape:first-child { flex: 0 0 auto; }
+.enj__etape:first-child::before { content: none; }
+.enj__etape:focus-visible { outline: none; }
+.enj__etape:focus-visible > .enj__num, .enj__etape--bout:focus-visible > .enj__etape-nom { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.enj__etape--bout > .enj__etape-nom { flex: none; padding: .38rem .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; transition: background .15s, color .15s, border-color .15s; }
+.enj__etape--bout:hover > .enj__etape-nom { color: var(--encre); background: var(--matiere-voile); }
+.enj__etape--bout[aria-current="step"] > .enj__etape-nom { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+.enj__etape:not(.enj__etape--bout) > .enj__etape-nom { position: absolute; z-index: 5; top: calc(100% + .4rem); right: 0; padding: .28rem .6rem; color: #fff; background: var(--enj-fonce); border-radius: 6px; font-size: .76rem; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .12s; }
+.enj__etape:not(.enj__etape--bout):hover > .enj__etape-nom, .enj__etape:not(.enj__etape--bout):focus-visible > .enj__etape-nom { opacity: 1; }
+.enj__num { display: inline-flex; align-items: center; justify-content: center; width: 2.1rem; height: 2.1rem; border-radius: 50%; font-family: var(--titre); font-weight: 700; font-size: .86rem; color: var(--encre); background: var(--surface); border: 3px solid var(--enj-c); box-sizing: border-box; flex: none; transition: width .15s, height .15s, background .15s, transform .15s; }
+.enj__etape:hover > .enj__num { transform: scale(1.08); }
+.enj__etape.est-partielle .enj__num { background: linear-gradient(to top, color-mix(in srgb, var(--enj-c) 40%, var(--surface)) 50%, var(--surface) 50%); }
+.enj__etape[aria-current="step"] .enj__num { width: 2.7rem; height: 2.7rem; font-size: 1.08rem; color: #fff; background: var(--enj-fonce); border-color: var(--enj-fonce); box-shadow: 0 0 0 4px color-mix(in srgb, var(--enj-c) 30%, transparent); }
+.enj__etape.est-complete .enj__num { font-size: 0; color: #fff; background: var(--enj-fonce); border-color: var(--enj-fonce); }
+.enj__etape.est-complete .enj__num::after { content: ""; width: 1.05rem; height: 1.05rem; background: #fff; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / contain no-repeat; }
+.enj__etape.est-complete[aria-current="step"] .enj__num::after { width: 1.3rem; height: 1.3rem; }
 /* fenêtre */
 .enj__scene { position: relative; }
 .enj__fenetre { padding: 1.3rem 1.4rem 1.4rem; }
@@ -59,6 +72,15 @@
 .enj__source { margin: .9rem 0 0; font-family: var(--donnee); font-size: .66rem; line-height: 1.5; color: var(--encre-pale); }
 /* fenêtre d'un groupe */
 .enj__groupe-grille { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+.enj__bandeau { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 1rem; margin: -1.3rem -1.4rem 1.3rem; padding: 1.25rem 1.4rem 1.35rem; color: #fff; background: var(--enj-fonce); }
+.enj__bandeau .enj__surtitre { margin: 0 0 .3rem; color: rgba(255,255,255,.88); }
+.enj__bandeau .enj__fenetre-titre { margin: 0 0 .4rem; font-weight: 800; font-size: 1.65rem; line-height: 1.15; letter-spacing: -.01em; color: #fff; }
+.enj__bandeau .enj__fenetre-titre:focus-visible { outline-color: #fff; }
+.enj__bandeau .enj__texte { margin: 0; font-size: 1rem; line-height: 1.5; color: #fff; }
+.enj__bandeau .enj__proposition { margin: 0; padding: .95rem 1.15rem 1.05rem; border: 0; border-radius: 10px; background: var(--surface); }
+.enj__bandeau .enj__proposition-nom { margin-bottom: .25rem; font-family: var(--titre); font-weight: 700; font-size: .82rem; letter-spacing: 0; text-transform: none; color: var(--enj-fonce); }
+.enj__bandeau .enj__proposition p { font-weight: 700; font-size: 1.14rem; line-height: 1.38; }
+.enj__presentation > .enj__bloc:first-child { margin-top: 0; }
 .enj__proposition { margin: 0 0 1rem; padding: .9rem 1.1rem; border-left: 5px solid var(--enj-c); background: var(--surface-2); border-radius: 0 var(--rayon) var(--rayon) 0; }
 .enj__proposition-nom { display: block; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); margin-bottom: .3rem; }
 .enj__proposition p { margin: 0; font-family: var(--titre); font-weight: 600; font-size: 1.05rem; line-height: 1.5; color: var(--encre); }
@@ -69,13 +91,22 @@
 .enj__eval { padding: 1rem 1.1rem 1.1rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); align-self: start; }
 .enj__section-nom { margin: 0 0 .35rem; font-family: var(--titre); font-weight: 700; font-size: 1rem; color: var(--encre); }
 .enj__aide { margin: 0 0 .5rem; font-size: .86rem; line-height: 1.5; color: var(--encre-pale); }
-.enj__etat-eval { display: inline-block; margin: 0 0 .6rem; font-family: var(--donnee); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); }
+.enj__eval-tete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem 1rem; margin: 0 0 .55rem; }
+.enj__eval-tete > .enj__section-nom { margin: 0; font-weight: 800; font-size: 1.08rem; }
+.enj__etat-eval { display: inline-flex; align-items: center; gap: .5rem; margin: 0; font-family: var(--titre); font-weight: 700; font-size: .8rem; color: var(--encre-doux); }
+.enj__jauge { display: block; width: 5.5rem; height: .6rem; border-radius: 100px; background: color-mix(in srgb, var(--enj-c) 24%, var(--surface)); overflow: hidden; flex: none; }
+.enj__jauge > i { display: block; height: 100%; border-radius: 100px; background: var(--enj-fonce); transition: width .2s; }
 .enj__etat-eval.est-complete { color: #2F7D4F; font-weight: 700; }
 .enj__critere { display: grid; grid-template-columns: minmax(0, 1fr); gap: .4rem; padding: .7rem 0; border-top: 1px solid var(--trait); }
 .enj__critere-nom { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .92rem; color: var(--encre); }
 .enj__critere-aide { margin: .1rem 0 0; font-size: .82rem; line-height: 1.45; color: var(--encre-pale); }
-.enj__echelle { display: flex; flex-wrap: wrap; gap: .35rem; }
-.enj__note { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .85rem; cursor: pointer; }
+.enj__echelle { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: .4rem; }
+.enj__note { display: inline-flex; align-items: center; justify-content: center; gap: .45rem; min-height: 2.6rem; font-family: var(--titre); font-weight: 700; font-size: .86rem; line-height: 1.2; color: var(--encre); background: var(--surface); border: 1px solid var(--encre-pale); border-radius: 6px; padding: .45rem .5rem; cursor: pointer; transition: background .12s, color .12s, border-color .12s; }
+.enj__note::before { content: ""; width: .62rem; height: .62rem; border-radius: 50%; background: #B5473A; flex: none; }
+.enj__note[data-valeur="1"]::before { background: #E8B64A; }
+.enj__note[data-valeur="2"]::before { background: #2F7D4F; }
+.enj__note[aria-pressed="true"]::before { content: none; }
+.enj__note:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
 .enj__note:hover { background: var(--matiere-voile); color: var(--encre); }
 .enj__note[aria-pressed="true"][data-valeur="2"] { color: #fff; background: #2F7D4F; border-color: #2F7D4F; }
 .enj__note[aria-pressed="true"][data-valeur="1"] { color: #1F2328; background: #E8B64A; border-color: #E8B64A; }
@@ -135,6 +166,7 @@
 .enj__replier { display: none; }
 .enj__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 @media (min-width: 52rem) {
+  .enj__bandeau { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.6rem; }
   .enj__docs { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
   .enj__groupe-grille { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1.6rem; }
 }
@@ -150,13 +182,21 @@ html[data-sombre="on"] .enj__outil[aria-pressed="true"] { color: var(--surface);
 html[data-sombre="on"] .enj__principal, html[data-sombre="on"] .enj__nav-bouton--suivant { color: var(--surface); background: var(--encre); border-color: var(--encre); }
 html[data-sombre="on"] .enj__principal:hover, html[data-sombre="on"] .enj__nav-bouton--suivant:hover { background: var(--encre-doux); }
 html[data-sombre="on"] .enj__etat-eval.est-complete { color: #7FC79A; }
+html[data-sombre="on"] .enj__bandeau .enj__proposition-nom { color: color-mix(in srgb, var(--enj-c) 55%, #fff); }
+html[data-sombre="on"] .enj__etape--bout[aria-current="step"] > .enj__etape-nom { color: var(--surface); background: var(--encre); border-color: var(--encre); }
 @media (max-width: 40rem) {
   .enj__fenetre { padding: 1.1rem 1rem 1.2rem; }
-  .enj__parcours { padding: .6rem .8rem; }
-  .enj__etape-nom { display: none; }
-  .enj__etape { padding: .3rem; }
-  .enj__etape--bout { padding: .3rem .6rem; }
-  .enj__etape--bout .enj__etape-nom { display: inline; }
+  .enj__parcours { padding: .6rem .7rem; }
+  .enj__etape:not(.enj__etape--bout) > .enj__etape-nom { display: none; }
+  .enj__etapes { flex-basis: 100%; padding: .25rem .1rem; overflow-x: auto; }
+  .enj__etape::before { margin: 0 .1rem; min-width: .2rem; }
+  .enj__etape:not(.enj__etape--bout) { flex-shrink: 0; }
+  .enj__etape--bout > .enj__etape-nom { padding: .34rem .55rem; font-size: .74rem; }
+  .enj__num { width: 1.6rem; height: 1.6rem; border-width: 2px; font-size: .74rem; }
+  .enj__etape[aria-current="step"] .enj__num { width: 2rem; height: 2rem; font-size: .9rem; box-shadow: 0 0 0 3px color-mix(in srgb, var(--enj-c) 30%, transparent); }
+  .enj__etape.est-complete .enj__num::after { width: .85rem; height: .85rem; }
+  .enj__bandeau { margin: -1.1rem -1rem 1.1rem; padding: 1.05rem 1rem 1.15rem; }
+  .enj__bandeau .enj__fenetre-titre { font-size: 1.38rem; }
   .enj__nav { padding: .65rem .8rem; }
   .enj__nav-bouton { min-width: 0; padding: .55rem .85rem; }
   .enj__position { padding: 1rem .9rem; }
@@ -502,6 +542,7 @@ html[data-sombre="on"] .enj__etat-eval.est-complete { color: #7FC79A; }
 
     function nbNotes(cle) { var n = etat.notes[cle], k = 0; if (n) { CRITERES.forEach(function (c) { if (n[c.cle] != null) { k++; } }); } return k; }
     function total(cle) { var n = etat.notes[cle], t = 0; if (n) { CRITERES.forEach(function (c) { if (n[c.cle] != null) { t += n[c.cle]; } }); } return t; }
+    function part(cle) { return CRITERES.length ? Math.round(nbNotes(cle) / CRITERES.length * 100) : 0; }
     function complets() { return GROUPES.filter(function (g) { return nbNotes(g.cle) === CRITERES.length; }); }
     function liste(items, couleur) {
       return '<ul class="enj__liste" style="--enj-c:' + echapper(couleur) + '">' + (items || []).map(function (t) { return '<li><span class="enj__puce" aria-hidden="true"></span>' + echapper(t) + "</li>"; }).join("") + "</ul>";
@@ -528,18 +569,19 @@ html[data-sombre="on"] .enj__etat-eval.est-complete { color: #7FC79A; }
     }
     function fenetreGroupe(i) {
       var g = GROUPES[i - 1], n = etat.notes[g.cle] || {};
-      return '<div style="--enj-c:' + echapper(g.couleur) + '">' +
-        '<p class="enj__surtitre"><span class="enj__pastille" aria-hidden="true"></span>' + echapper(T.groupe + " " + i + " " + T.sur + " " + GROUPES.length) + "</p>" +
-        '<p class="enj__fenetre-titre" tabindex="-1">' + echapper(g.nom) + "</p>" +
-        '<div class="enj__groupe-grille"><div class="enj__presentation">' +
+      return '<div class="enj__groupe" style="--enj-c:' + echapper(g.couleur) + '">' +
+        '<div class="enj__bandeau"><div class="enj__bandeau-qui">' +
+          '<p class="enj__surtitre">' + echapper(T.groupe + " " + i + " " + T.sur + " " + GROUPES.length) + "</p>" +
+          '<p class="enj__fenetre-titre" tabindex="-1">' + echapper(g.nom) + "</p>" +
           '<p class="enj__texte">' + echapper(g.qui) + "</p>" +
-          '<div class="enj__proposition"><span class="enj__proposition-nom">' + echapper(T.proposition) + "</span><p>" + echapper(g.proposition) + "</p></div>" +
+        '</div><div class="enj__proposition"><span class="enj__proposition-nom">' + echapper(T.proposition) + "</span><p>" + echapper(g.proposition) + "</p></div></div>" +
+        '<div class="enj__groupe-grille"><div class="enj__presentation">' +
           '<div class="enj__bloc enj__repliable"><p class="enj__bloc-nom">' + echapper(T.interets) + "</p>" + liste(g.interets, g.couleur) + "</div>" +
           '<div class="enj__bloc enj__repliable"><p class="enj__bloc-nom">' + echapper(T.arguments) + "</p>" + liste(g.arguments, g.couleur) + "</div>" +
           (g.source ? '<p class="enj__source">' + echapper(g.source) + "</p>" : "") +
         '</div><div class="enj__eval">' +
-          '<p class="enj__section-nom">' + echapper(T.evaluer) + "</p>" +
-          '<p class="enj__etat-eval' + (nbNotes(g.cle) === CRITERES.length ? " est-complete" : "") + '">' + echapper(etatEval(g)) + "</p>" +
+          '<div class="enj__eval-tete"><p class="enj__section-nom">' + echapper(T.evaluer) + "</p>" +
+          '<p class="enj__etat-eval' + (nbNotes(g.cle) === CRITERES.length ? " est-complete" : "") + '"><span class="enj__jauge" aria-hidden="true"><i style="width:' + part(g.cle) + '%"></i></span><span class="enj__etat-texte">' + echapper(etatEval(g)) + "</span></p></div>" +
           '<p class="enj__aide">' + echapper(T.evaluerAide || "") + "</p>" +
           CRITERES.map(function (c) {
             return '<div class="enj__critere"><div><p class="enj__critere-nom">' + echapper(c.nom) + '</p><p class="enj__critere-aide">' + echapper(c.aide) + '</p></div><span class="enj__echelle" role="group" aria-label="' + echapper(c.nom) + '">' +
@@ -696,7 +738,11 @@ html[data-sombre="on"] .enj__etat-eval.est-complete { color: #7FC79A; }
       rendreEtapes();
       chaque(fenetre.querySelectorAll('.enj__note[data-critere="' + critere + '"]'), function (b) { b.setAttribute("aria-pressed", n[critere] === Number(b.getAttribute("data-valeur")) ? "true" : "false"); });
       var e = fenetre.querySelector(".enj__etat-eval");
-      if (e) { e.textContent = etatEval(GROUPES[f - 1]); e.classList.toggle("est-complete", nbNotes(cle) === CRITERES.length); }
+      if (e) {
+        e.classList.toggle("est-complete", nbNotes(cle) === CRITERES.length);
+        e.querySelector(".enj__etat-texte").textContent = etatEval(GROUPES[f - 1]);
+        e.querySelector(".enj__jauge > i").style.width = part(cle) + "%";
+      }
     }
     function reinitialiser() {
       etat = etatDepart();
