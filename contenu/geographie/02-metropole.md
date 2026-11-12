@@ -54,6 +54,18 @@ territoire ne change pas, c'est l'instrument de mesure qui change.
 
 ## Concepts à l'étude
 
+Pour comprendre une métropole, il ne suffit pas de connaître ces onze concepts
+un par un. Il faut surtout voir comment ils s'influencent : l'urbanisation amène
+la population vers les villes et la concentration des emplois, des services et
+des pouvoirs fait d'une grande ville une métropole, qui attire à son tour des
+gens venus de nombreux pays, d'où sa multiethnicité. Sa croissance augmente la
+densité et pousse la ville à déborder vers ses banlieues : c'est l'étalement
+urbain. L'aménagement cherche alors à organiser ce territoire sans creuser les
+déséquilibres entre ses quartiers. Là où la croissance va plus vite que
+l'aménagement, comme dans de nombreuses métropoles du monde, les plus pauvres
+s'entassent dans des bidonvilles.
+
+::: concepts Onze concepts à découvrir
 - **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire, en y installant des logements, des routes, des parcs et des
   services.
@@ -88,6 +100,7 @@ territoire ne change pas, c'est l'instrument de mesure qui change.
 - **Urbanisation** : le phénomène par lequel une population se concentre de plus en
   plus dans les villes. Il entraîne le développement de la ville ainsi que des
   services et des activités qui s'y trouvent.
+:::
 
 ::: questions
 1. Quelle différence fais-tu entre une ville et une métropole?
