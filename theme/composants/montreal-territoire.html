@@ -140,13 +140,19 @@ html[data-sombre="on"] .mtt .mtt__mode[aria-pressed="true"] { color: #10171F; }
 .mtt__repere { cursor: pointer; }
 .mtt__repere circle { stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
 .mtt__etiquettes .mtt__repere text { font-family: var(--titre); font-weight: 700; stroke: none; pointer-events: none; }
-.mtt__repere--eau circle { fill: var(--mtt-repere-eau); stroke: var(--surface); }
-.mtt__repere--eau text { fill: var(--mtt-sur-etat); }
+/* Repère vide = pas encore de réponse ; repère plein = réponse choisie. */
+.mtt__repere--eau circle { fill: var(--surface); stroke: var(--mtt-repere-eau); }
+.mtt__repere--eau text { fill: var(--mtt-repere-eau); }
 .mtt__repere--secteur circle { fill: var(--surface); stroke: var(--encre); }
 .mtt__repere--secteur text { fill: var(--encre); }
 .mtt__repere.est-juste circle { fill: var(--mtt-juste); stroke: var(--surface); }
 .mtt__repere.est-faux circle { fill: var(--mtt-faux); stroke: var(--surface); }
 .mtt__repere.est-juste text, .mtt__repere.est-faux text { fill: var(--mtt-sur-etat); }
+.mtt__repere.est-repondu circle { stroke: var(--encre); }
+.mtt__repere--eau.est-repondu circle { fill: var(--mtt-repere-eau); stroke: var(--mtt-repere-eau); }
+.mtt__repere--eau.est-repondu text { fill: var(--mtt-sur-etat); }
+.mtt__repere--secteur.est-repondu circle { fill: var(--encre); }
+.mtt__repere--secteur.est-repondu text { fill: var(--surface); }
 .mtt__repere.est-actif circle { stroke: var(--signal); stroke-width: 3.2px; }
 .mtt .mtt__questions { display: flex; flex-direction: column; gap: .15rem; margin: 0 0 .8rem; padding: 0; list-style: none; }
 .mtt .mtt__questions > li { margin: 0; padding: .2rem .3rem; display: grid; grid-template-columns: auto minmax(0, 1fr) 1.1rem; align-items: center; gap: .1rem .5rem; border: 1px solid transparent; border-radius: var(--rayon); }
@@ -169,6 +175,36 @@ html[data-sombre="on"] .mtt .mtt__mode[aria-pressed="true"] { color: #10171F; }
 .mtt .mtt__questions > li.est-juste .mtt__verdict { color: var(--mtt-juste); }
 .mtt .mtt__questions > li.est-faux .mtt__verdict { color: var(--mtt-faux); }
 .mtt .mtt__vue .mtt__actions + .mtt__note { margin-top: .9rem; }
+.mtt .mtt__repondre { padding: .65rem 1.2rem .75rem; border-bottom: 1px solid var(--trait); background: var(--surface); }
+.mtt .mtt__repondre[hidden] { display: none; }
+.mtt .mtt__repondre-tete { display: flex; align-items: center; gap: .5rem; margin: 0 0 .55rem; }
+.mtt .mtt__repondre-titre { flex: 1 1 auto; min-width: 0; margin: 0; display: flex; align-items: center; gap: .55rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; line-height: 1.3; color: var(--encre); }
+.mtt .mtt__repondre-titre > .mtt__marque-pastille { flex: none; }
+.mtt .mtt__repondre-texte { display: flex; flex-direction: column; min-width: 0; }
+.mtt .mtt__repondre-verdict { font-family: var(--donnee); font-weight: 400; font-size: .74rem; letter-spacing: .03em; margin-top: .1rem; }
+.mtt .mtt__repondre-verdict.est-juste { color: var(--mtt-juste); }
+.mtt .mtt__repondre-verdict.est-faux { color: var(--mtt-faux); }
+.mtt .mtt__repondre-nav { flex: none; width: 2rem; height: 2rem; padding: 0; border-radius: 50%; border: 1px solid var(--trait); background: var(--surface); color: var(--encre-doux); font-family: var(--titre); font-size: 1.15rem; line-height: 1; cursor: pointer; }
+.mtt .mtt__repondre-nav:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mtt .mtt__repondre-nav:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__repondre-choix { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.mtt .mtt__repondre-choix > li { margin: 0; padding: 0; }
+.mtt .mtt__repondre-bouton { font-family: var(--titre); font-weight: 600; font-size: .84rem; line-height: 1.2; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem .85rem; cursor: pointer; }
+/* Au doigt, le survol resterait collé au bouton qui arrive sous le doigt : seulement à la souris. */
+@media (hover: hover) { .mtt .mtt__repondre-bouton:hover { background: var(--matiere-voile); border-color: var(--matiere); } }
+.mtt .mtt__repondre-bouton:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__repondre-bouton[aria-pressed="true"] { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+html[data-sombre="on"] .mtt .mtt__repondre-bouton[aria-pressed="true"] { color: #10171F; }
+.mtt .mtt__repondre-etat { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem .9rem; margin: .6rem 0 0; font-family: var(--donnee); font-size: .74rem; letter-spacing: .03em; color: var(--encre-pale); }
+.mtt .mtt__repondre-etat:empty { display: none; }
+.mtt .mtt__repondre-resultat { font-family: var(--titre); font-weight: 700; font-size: .9rem; letter-spacing: 0; color: var(--matiere-fonce); }
+.mtt.est-plein-ecran .mtt__repondre { flex: none; }
+.mtt__etiquette--reponse { font-weight: 700; fill: var(--encre); }
+.mtt__etiquette--reponse.est-juste { fill: var(--mtt-juste); }
+.mtt__etiquette--reponse.est-faux { fill: var(--mtt-faux); text-decoration: line-through; }
+.mtt__etiquette--reponse.est-corrige { fill: var(--mtt-juste); font-style: italic; }
+.mtt .mtt__progres { margin: 0 0 .6rem; font-family: var(--donnee); font-size: .74rem; letter-spacing: .04em; color: var(--encre-pale); }
+.mtt .mtt__toutes .mtt__questions { margin-top: .55rem; }
 .mtt .mtt__resultat { margin: .1rem 0 .8rem; font-family: var(--titre); font-weight: 700; font-size: .98rem; color: var(--matiere-fonce); }
 .mtt .mtt__resultat:empty { display: none; }
 .mtt .mtt__retour--principal { color: #fff; background: var(--matiere); border-color: var(--matiere); }
@@ -182,7 +218,7 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
   .mtt .mtt__lecture { border-top: 0; }
 }
 @container mtt (max-width: 30rem) {
-  .mtt .mtt__barre, .mtt .mtt__vue, .mtt .mtt__source { padding-left: .8rem; padding-right: .8rem; }
+  .mtt .mtt__barre, .mtt .mtt__repondre, .mtt .mtt__vue, .mtt .mtt__source { padding-left: .8rem; padding-right: .8rem; }
   .mtt .mtt__couche { font-size: .74rem; padding: .26rem .65rem .26rem .4rem; }
 }
 .mtt.est-plein-ecran, .texte section.mtt.est-plein-ecran { display: flex; flex-direction: column; height: 100vh; height: 100dvh; overflow: hidden; }
@@ -207,7 +243,7 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
   .mtt__ville { transition: none; }
 }
 @media print {
-  .mtt .mtt__outils, .mtt .mtt__replier, .mtt .mtt__barre { display: none; }
+  .mtt .mtt__outils, .mtt .mtt__replier, .mtt .mtt__barre, .mtt .mtt__repondre { display: none; }
   .mtt .mtt__svg { max-height: none; }
   .mtt .mtt__corps { grid-template-columns: minmax(0, 1fr); }
   .mtt .mtt__visuel { border-right: 0; }
@@ -238,6 +274,15 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
 <button type="button" class="mtt__bouton-carte mtt__zoom mtt__zoom-moins" aria-label="Éloigner la carte">&minus;</button>
 <button type="button" class="mtt__bouton-carte mtt__recentrer" hidden>Recentrer</button>
 </div>
+</div>
+<div class="mtt__repondre" role="group" aria-label="Répondre" hidden>
+<div class="mtt__repondre-tete">
+<button type="button" class="mtt__repondre-nav" data-pas="-1" aria-label="Repère précédent">&lsaquo;</button>
+<p class="mtt__repondre-titre" aria-live="polite"></p>
+<button type="button" class="mtt__repondre-nav" data-pas="1" aria-label="Repère suivant">&rsaquo;</button>
+</div>
+<ul class="mtt__repondre-choix"></ul>
+<p class="mtt__repondre-etat"></p>
 </div>
 <div class="mtt__barre">
 <div class="mtt__modes" role="group" aria-label="Mode de la carte">
@@ -515,11 +560,25 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
           svgEl("circle", { cx: p[0], cy: p[1], r: (rq * u).toFixed(2) }, g);
           var t = svgEl("text", { x: p[0], y: p[1], dy: ".36em", "text-anchor": "middle", "font-size": (rq * 1.12 * u).toFixed(2) }, g);
           t.textContent = qq.marque;
-          var ti = svgEl("title", {}, g); ti.textContent = (qq.sorte === "eau" ? "Cours d'eau " : "Secteur ") + qq.marque;
+          var ti = svgEl("title", {}, g); ti.textContent = typo(nomRepere(qq));
           places.push([p[0] - rq * u, p[1] - rq * u, p[0] + rq * u, p[1] + rq * u]);
         });
       });
       majReperes();
+      /* La réponse choisie s'écrit à côté du repère : à droite, sinon à gauche, en dessous ou au-dessus. */
+      QUESTIONS.forEach(function (qq) {
+        var choisi = etat.reponses[qq.cle], v = etat.verdicts[qq.cle], corrige = v === "faux" && etat.voir;
+        if ((!choisi && !corrige) || !nomsSurCarte(u)) { return; }
+        var texte = corrige ? "\u2192 " + qq.bonne : choisi;
+        var classe = "mtt__etiquette--reponse" + (v === "juste" ? " est-juste" : corrige ? " est-corrige" : v === "faux" ? " est-faux" : "");
+        qq.pos.forEach(function (p, i) {
+          var px = 10.5, larg = typo(texte).length * px * u * .55, d = rq * u + 4 * u, h = px * u * .62;
+          var essais = [[p[0] + d + larg / 2, p[1]], [p[0] - d - larg / 2, p[1]], [p[0], p[1] + d + h], [p[0], p[1] - d - h]];
+          for (var j = 0; j < essais.length; j++) {
+            if (poser(essais[j][0], essais[j][1], texte, classe, px, { chasse: .55, halo: 3, force: i === 0 && j === essais.length - 1 })) { break; }
+          }
+        });
+      });
       D.hors.forEach(function (h) { poser(h.x, h.y, h.n, "mtt__etiquette--hors", 9.5, {}); });
       return;
     }
@@ -712,8 +771,23 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
     act.appendChild(bouton("mtt__retour", "Voir le secteur : " + s.nom, undefined, function () { choisir({ type: "secteur", id: v.s }); }));
   }
 
-  /* ----- test */
+  /* ----- test : on répond sur la carte. On touche un repère, on choisit son nom dans la barre
+     sous la carte, et le nom s'écrit sur la carte. Le repère suivant sans réponse est choisi tout seul.
+     Une liste repliée dans le panneau permet aussi de répondre au clavier ou avec un lecteur d'écran. */
+  var repBarre = q(".mtt__repondre"), repTitre = q(".mtt__repondre-titre"), repChoix = q(".mtt__repondre-choix"), repEtat = q(".mtt__repondre-etat");
+  var LIGNE_Q = {}, resultatQ = null, boutonVoir = null, progresQ = null;
   function rayonRepere(u) { return u > 2 ? 9.5 : 11.5; }
+  /* Sur une petite carte (téléphone), les noms se chevaucheraient : un repère répondu change
+     plutôt d'apparence, et les noms s'écrivent dès qu'on rapproche la carte. */
+  function nomsSurCarte(u) { return u <= 2.2; }
+  function nomRepere(qq) { return (qq.sorte === "eau" ? "Cours d'eau " : "Secteur ") + qq.marque; }
+  function nbReponses() { return QUESTIONS.filter(function (qq) { return !!etat.reponses[qq.cle]; }).length; }
+  function aFaire(qq) { return !etat.reponses[qq.cle] || etat.verdicts[qq.cle] === "faux"; }
+  function prochain(cle) {
+    var i = QUESTIONS.indexOf(QUESTION[cle]);
+    for (var k = 1; k <= QUESTIONS.length; k++) { var qq = QUESTIONS[(i + k) % QUESTIONS.length]; if (aFaire(qq)) { return qq.cle; } }
+    return null;
+  }
   function majReperes() {
     var u = unite(), rq = rayonRepere(u);
     Array.prototype.forEach.call(gEtiq.querySelectorAll(".mtt__repere"), function (g) {
@@ -721,109 +795,171 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
       g.classList.toggle("est-juste", v === "juste");
       g.classList.toggle("est-faux", v === "faux");
       g.classList.toggle("est-actif", actif);
+      g.classList.toggle("est-repondu", !v && !!etat.reponses[cle]);
       g.querySelector("circle").setAttribute("r", ((actif ? rq + 2.5 : rq) * u).toFixed(2));
     });
+    for (var c in LIGNE_Q) { if (Object.prototype.hasOwnProperty.call(LIGNE_Q, c)) { LIGNE_Q[c].li.classList.toggle("est-actif", etat.actif === c); } }
   }
-  var LIGNE_Q = {}, resultatQ = null, boutonVoir = null;
-  function majQuestion(qq) {
-    var l = LIGNE_Q[qq.cle];
-    if (!l) { return; }
-    var v = etat.verdicts[qq.cle], txt = "";
-    l.li.classList.toggle("est-juste", v === "juste");
-    l.li.classList.toggle("est-faux", v === "faux");
-    if (v === "faux") { l.sel.setAttribute("aria-invalid", "true"); } else { l.sel.removeAttribute("aria-invalid"); }
-    if (v === "juste") { txt = "Bonne réponse"; }
-    else if (v === "faux") { txt = etat.voir ? "La bonne réponse\u00a0: " + qq.bonne : etat.reponses[qq.cle] ? "À revoir" : "Sans réponse"; }
-    l.verdict.textContent = typo(txt);
-    /* Une bonne réponse n'a qu'une coche ; le mot reste lu par les lecteurs d'écran. */
-    l.verdict.className = v === "juste" ? "mtt__verdict mtt__invisible" : "mtt__verdict";
-    l.coche.textContent = v === "juste" ? "\u2713" : v === "faux" ? "\u2717" : "";
+  function texteVerdict(qq) {
+    var v = etat.verdicts[qq.cle];
+    if (v === "juste") { return "Bonne réponse"; }
+    if (v === "faux") { return etat.voir ? "La bonne réponse : " + qq.bonne : etat.reponses[qq.cle] ? "À revoir" : "Sans réponse"; }
+    return "";
   }
   function texteResultat() {
     if (etat.score === null) { return ""; }
     var n = etat.score, total = QUESTIONS.length;
     if (n === total) { return "Bravo! Tes " + total + " réponses sont bonnes."; }
-    return "Tu as " + n + (n > 1 ? " bonnes réponses" : " bonne réponse") + " sur " + total + ". Observe la carte et corrige celles qui sont en rouge.";
+    return "Tu as " + n + (n > 1 ? " bonnes réponses" : " bonne réponse") + " sur " + total + ". Touche les repères en rouge pour corriger tes réponses.";
   }
-  function majResultat() {
+  function texteProgres() { var n = nbReponses(); return n + (n > 1 ? " réponses choisies" : " réponse choisie") + " sur " + QUESTIONS.length; }
+  /* La barre sous la carte : le repère choisi, ses noms possibles, puis où en est l'élève. */
+  function majBarre() {
+    repTitre.innerHTML = ""; repChoix.innerHTML = ""; repEtat.innerHTML = "";
+    var qq = QUESTION[etat.actif];
+    if (!qq) { el("span", "", "Touche une lettre ou un chiffre sur la carte", repTitre); }
+    else {
+      el("span", "mtt__marque-pastille mtt__marque-pastille--" + qq.sorte, qq.marque, repTitre).setAttribute("aria-hidden", "true");
+      var txt = el("span", "mtt__repondre-texte", null, repTitre);
+      el("span", "", nomRepere(qq) + " : choisis son nom", txt);
+      var v = etat.verdicts[qq.cle];
+      if (v) { el("span", "mtt__repondre-verdict est-" + v, (v === "juste" ? "✓ " : "✗ ") + texteVerdict(qq), txt); }
+      CHOIX_Q[qq.sorte].forEach(function (nom) {
+        el("li", "", null, repChoix).appendChild(bouton("mtt__repondre-bouton", nom, undefined, function () {
+          repondre(qq.cle, etat.reponses[qq.cle] === nom ? "" : nom, true);
+          var b0 = repChoix.querySelector("[aria-pressed='true']") || repChoix.querySelector("button");
+          if (b0) { try { b0.focus({ preventScroll: true }); } catch (err) { b0.focus(); } }
+        }, etat.reponses[qq.cle] === nom));
+      });
+    }
+    if (etat.score !== null) { el("span", "mtt__repondre-resultat", texteResultat(), repEtat); }
+    else { el("span", "", texteProgres(), repEtat); }
+    if (nbReponses() && !nomsSurCarte(unite())) { el("span", "", "Rapproche la carte (+) pour lire tes réponses sur la carte.", repEtat); }
+    if (etat.score === null && nbReponses() === QUESTIONS.length) {
+      repEtat.appendChild(bouton("mtt__retour mtt__retour--principal mtt__verifier-carte", "Vérifier mes réponses", undefined, verifierQuiz));
+    }
+  }
+  function majQuestion(qq) {
+    var l = LIGNE_Q[qq.cle];
+    if (!l) { return; }
+    var v = etat.verdicts[qq.cle];
+    l.li.classList.toggle("est-juste", v === "juste");
+    l.li.classList.toggle("est-faux", v === "faux");
+    if (l.sel.value !== (etat.reponses[qq.cle] || "")) { l.sel.value = etat.reponses[qq.cle] || ""; }
+    if (v === "faux") { l.sel.setAttribute("aria-invalid", "true"); } else { l.sel.removeAttribute("aria-invalid"); }
+    l.verdict.textContent = typo(texteVerdict(qq));
+    /* Une bonne réponse n'a qu'une coche ; le mot reste lu par les lecteurs d'écran. */
+    l.verdict.className = v === "juste" ? "mtt__verdict mtt__invisible" : "mtt__verdict";
+    l.coche.textContent = v === "juste" ? "✓" : v === "faux" ? "✗" : "";
+  }
+  function majPanneau() {
+    if (progresQ) { progresQ.textContent = typo(texteProgres()); }
     if (resultatQ) { resultatQ.textContent = typo(texteResultat()); }
     if (boutonVoir) { boutonVoir.hidden = etat.score === null || etat.score === QUESTIONS.length || etat.voir; }
+    QUESTIONS.forEach(majQuestion);
+  }
+  /* Tout ce qui dépend des réponses : la barre, le panneau et la carte. */
+  function majTout() { majBarre(); majPanneau(); etiqueter(); allerVers(etat.actif); }
+  function allerVers(cle) {
+    var qq = QUESTION[cle];
+    if (!qq || !estZoome()) { return; }
+    var v = etat.vue, p = qq.pos[0];
+    if (p[0] > v.x && p[0] < v.x + v.w && p[1] > v.y && p[1] < v.y + v.h) { return; }
+    etat.vue = bornerVue({ x: p[0] - v.w / 2, y: p[1] - v.h / 2, w: v.w });
+    appliquerVue();
+  }
+  function selectionner(cle) {
+    if (!QUESTION[cle]) { return; }
+    etat.actif = cle;
+    majBarre(); majReperes(); allerVers(cle);
+  }
+  function repondre(cle, nom, avancer) {
+    etat.reponses[cle] = nom;
+    delete etat.verdicts[cle];
+    etat.score = null; etat.voir = false;
+    if (avancer && nom) { var suivant = prochain(cle); if (suivant) { etat.actif = suivant; } }
+    majTout();
   }
   function ficheQuiz() {
     entete("Teste tes connaissances", "Les cours d'eau et les secteurs");
-    el("p", "mtt__paragraphe", "Sur la carte, chaque lettre désigne un cours d'eau et chaque chiffre, un secteur de la région métropolitaine. Choisis le bon nom pour chacun, puis vérifie tes réponses.", vueTexte);
-    el("p", "mtt__note", "Une lettre ou un chiffre qui revient deux fois désigne le même cours d'eau ou le même secteur, en deux morceaux. Touche une lettre ou un chiffre sur la carte pour aller à sa question.", vueTexte);
+    el("p", "mtt__paragraphe", "Touche une lettre ou un chiffre sur la carte, puis choisis son nom juste sous la carte. Chaque lettre désigne un cours d'eau et chaque chiffre, un secteur de la région métropolitaine.", vueTexte);
+    el("p", "mtt__note", "Une lettre ou un chiffre qui revient deux fois désigne le même cours d'eau ou le même secteur, en deux morceaux.", vueTexte);
+    progresQ = el("p", "mtt__progres", null, vueTexte);
+    resultatQ = el("p", "mtt__resultat", null, vueTexte);
+    var act = el("div", "mtt__actions", null, vueTexte);
+    act.style.marginBottom = ".9rem";
+    act.appendChild(bouton("mtt__retour mtt__retour--principal mtt__verifier", "Vérifier mes réponses", undefined, verifierQuiz));
+    boutonVoir = bouton("mtt__retour mtt__voir", "Voir les bonnes réponses", undefined, function () {
+      etat.voir = true; majTout();
+      annonce.textContent = "Les bonnes réponses sont écrites sur la carte, à côté des repères en rouge.";
+    });
+    act.appendChild(boutonVoir);
+    act.appendChild(bouton("mtt__retour mtt__recommencer", "Recommencer", undefined, recommencer));
+    act.appendChild(bouton("mtt__retour mtt__explorer", "Revenir à l'exploration", undefined, function () { changerMode(false); }));
+    /* Pour le clavier et les lecteurs d'écran : les mêmes questions, en listes de choix. */
+    var det = el("details", "mtt__toutes mtt__liste-test", null, vueTexte);
+    el("summary", "", "Répondre avec une liste", det);
     LIGNE_Q = {};
     [["eau", "Les cours d'eau (lettres)"], ["secteur", "Les cinq secteurs (chiffres)"]].forEach(function (gr) {
-      el("span", "mtt__rubrique", gr[1], vueTexte);
-      var ul = el("ul", "mtt__questions", null, vueTexte);
+      el("span", "mtt__rubrique", gr[1], det).style.marginTop = ".7rem";
+      var ul = el("ul", "mtt__questions", null, det);
       QUESTIONS.filter(function (qq) { return qq.sorte === gr[0]; }).forEach(function (qq) {
         var li = el("li", "", null, ul), id = "mtt-q-" + qq.sorte + "-" + qq.marque;
         li.setAttribute("data-repere", qq.cle);
         var lab = el("label", "mtt__marque", null, li);
         lab.setAttribute("for", id);
         el("span", "mtt__marque-pastille mtt__marque-pastille--" + qq.sorte, qq.marque, lab).setAttribute("aria-hidden", "true");
-        el("span", "mtt__invisible", (qq.sorte === "eau" ? "Cours d'eau " : "Secteur ") + qq.marque, lab);
+        el("span", "mtt__invisible", nomRepere(qq), lab);
         var sel = el("select", "mtt__select", null, li);
         sel.id = id;
         el("option", "", "Choisis un nom", sel).value = "";
         CHOIX_Q[qq.sorte].forEach(function (nom) { el("option", "", nom, sel).value = nom; });
-        sel.value = etat.reponses[qq.cle] || "";
         var coche = el("span", "mtt__coche", null, li);
         coche.setAttribute("aria-hidden", "true");
         var verdict = el("span", "mtt__verdict", null, li);
         verdict.id = id + "-verdict";
         sel.setAttribute("aria-describedby", verdict.id);
-        sel.addEventListener("change", function () {
-          etat.reponses[qq.cle] = sel.value;
-          if (etat.score !== null) { etat.verdicts = {}; etat.score = null; etat.voir = false; QUESTIONS.forEach(majQuestion); majResultat(); }
-          majReperes();
-        });
-        sel.addEventListener("focus", function () { etat.actif = qq.cle; li.classList.add("est-actif"); majReperes(); });
-        sel.addEventListener("blur", function () { if (etat.actif === qq.cle) { etat.actif = null; } li.classList.remove("est-actif"); majReperes(); });
+        sel.addEventListener("change", function () { repondre(qq.cle, sel.value, false); });
+        sel.addEventListener("focus", function () { selectionner(qq.cle); });
         LIGNE_Q[qq.cle] = { li: li, sel: sel, verdict: verdict, coche: coche };
-        majQuestion(qq);
       });
     });
-    resultatQ = el("p", "mtt__resultat", null, vueTexte);
-    var act = el("div", "mtt__actions", null, vueTexte);
-    act.appendChild(bouton("mtt__retour mtt__retour--principal mtt__verifier", "Vérifier mes réponses", undefined, verifierQuiz));
-    boutonVoir = bouton("mtt__retour mtt__voir", "Voir les bonnes réponses", undefined, function () {
-      etat.voir = true; QUESTIONS.forEach(majQuestion); majResultat();
-      annonce.textContent = "Les bonnes réponses sont affichées sous les réponses à revoir.";
-    });
-    act.appendChild(boutonVoir);
-    act.appendChild(bouton("mtt__retour mtt__recommencer", "Recommencer", undefined, recommencer));
-    act.appendChild(bouton("mtt__retour mtt__explorer", "Revenir à l'exploration", undefined, function () { changerMode(false); }));
-    majResultat();
+    majPanneau(); majReperes();
   }
   function verifierQuiz() {
-    var n = 0;
+    var n = 0, premierFaux = null;
     QUESTIONS.forEach(function (qq) {
       var juste = etat.reponses[qq.cle] === qq.bonne;
       etat.verdicts[qq.cle] = juste ? "juste" : "faux";
-      if (juste) { n++; }
+      if (juste) { n++; } else if (!premierFaux) { premierFaux = qq.cle; }
     });
     etat.score = n; etat.voir = false;
-    QUESTIONS.forEach(majQuestion); majResultat(); majReperes();
+    if (premierFaux) { etat.actif = premierFaux; }
+    majTout();
     annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = typo(texteResultat()); }, 30);
   }
   function recommencer() {
-    etat.reponses = {}; etat.verdicts = {}; etat.voir = false; etat.score = null; etat.actif = null;
+    etat.reponses = {}; etat.verdicts = {}; etat.voir = false; etat.score = null; etat.actif = QUESTIONS[0].cle;
     rendre();
-    var premier = vueTexte.querySelector(".mtt__select");
-    if (premier) { premier.focus(); }
-    annonce.textContent = "Nouvel essai\u00a0: toutes les réponses sont effacées.";
+    var b0 = repChoix.querySelector("button"); if (b0) { b0.focus(); }
+    annonce.textContent = "Nouvel essai : toutes les réponses sont effacées.";
   }
   function changerMode(quiz) {
     if (quiz === etat.quiz) { return; }
-    etat.quiz = quiz; etat.actif = null;
-    if (quiz) { etat.choix = null; }
+    etat.quiz = quiz;
+    if (quiz) { etat.choix = null; if (!etat.actif) { etat.actif = QUESTIONS[0].cle; } }
     rendre();
     var lecture = q(".mtt__lecture"); if (lecture) { lecture.scrollTop = 0; }
-    try { vueTexte.focus({ preventScroll: true }); } catch (err) { vueTexte.focus(); }
-    annonce.textContent = quiz ? "Mode test\u00a0: associe chaque lettre à un cours d'eau et chaque chiffre à un secteur." : "Mode exploration";
+    if (quiz) { var b0 = repChoix.querySelector("button"); if (b0) { try { b0.focus({ preventScroll: true }); } catch (err) { b0.focus(); } } }
+    else { try { vueTexte.focus({ preventScroll: true }); } catch (err) { vueTexte.focus(); } }
+    annonce.textContent = quiz ? "Mode test : touche une lettre ou un chiffre sur la carte, puis choisis son nom sous la carte." : "Mode exploration";
   }
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtt__repondre-nav"), function (b) {
+    b.addEventListener("click", function () {
+      var i = Math.max(0, QUESTIONS.indexOf(QUESTION[etat.actif])), pas = Number(b.getAttribute("data-pas"));
+      selectionner(QUESTIONS[(i + pas + QUESTIONS.length) % QUESTIONS.length].cle);
+    });
+  });
 
   /* ----- choix */
   function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
@@ -848,7 +984,9 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
     Array.prototype.forEach.call(racine.querySelectorAll(".mtt__mode"), function (b) {
       b.setAttribute("aria-pressed", (b.getAttribute("data-mode") === "test") === quiz ? "true" : "false");
     });
-    q(".mtt__consigne").textContent = typo(quiz ? "Associe chaque lettre et chaque chiffre" : "Touche un secteur ou une ville");
+    q(".mtt__consigne").textContent = typo(quiz ? "Touche une lettre ou un chiffre" : "Touche un secteur ou une ville");
+    repBarre.hidden = !quiz;
+    if (quiz) { majBarre(); }
     Array.prototype.forEach.call(racine.querySelectorAll(".mtt__couche"), function (b) {
       b.setAttribute("aria-pressed", etat.couches[b.getAttribute("data-couche")] ? "true" : "false");
     });
@@ -865,8 +1003,8 @@ html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt
     if (glisseFini) { return; }
     var cible = ev.target;
     if (etat.quiz) {
-      var rp = cible.closest ? cible.closest(".mtt__repere") : null, ligne = rp ? LIGNE_Q[rp.getAttribute("data-repere")] : null;
-      if (ligne) { ligne.sel.focus(); }
+      var rp = cible.closest ? cible.closest(".mtt__repere") : null;
+      if (rp) { selectionner(rp.getAttribute("data-repere")); }
       return;
     }
     var sect = cible.closest ? cible.closest("[data-secteur]") : null;
