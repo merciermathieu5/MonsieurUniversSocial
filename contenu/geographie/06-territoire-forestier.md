@@ -37,6 +37,17 @@ d'eau, dont l'Amazone.
 
 ## Concepts à l'étude
 
+Pour comprendre un territoire forestier, il ne suffit pas de connaître ces neuf
+concepts un par un. Il faut surtout voir comment ils s'influencent : la forêt est
+une ressource que l'exploitation forestière transforme en produits destinés à la
+commercialisation. Avec la mondialisation, ces produits se vendent partout dans le
+monde, souvent par l'entremise de multinationales. Quand on coupe plus vite que la
+forêt ne repousse, ou qu'on la défriche pour l'agriculture, c'est la
+déforestation. L'aménagement et la sylviculture cherchent alors à organiser
+l'exploitation pour que la forêt reste en santé, tout en laissant une place au
+récréotourisme.
+
+::: concepts Neuf concepts à découvrir
 - **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire. En forêt, ce sont les chemins, les camps, les scieries, les
   sentiers et les aires protégées.
@@ -62,6 +73,7 @@ d'eau, dont l'Amazone.
 - **Sylviculture** : un mode de gestion de la forêt qui vise un développement
   durable à long terme, grâce auquel la forêt reste en santé. Il s'agit surtout
   d'entretenir les forêts et de pratiquer une coupe plus sélective.
+:::
 
 ::: note
 Une définition technique aide à comprendre les chiffres qui suivent. Pour être
