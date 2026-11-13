@@ -169,8 +169,6 @@ l'ouest du Canada et les États-Unis.
 
 ## La population de la métropole
 
-![La population de la ville de Montréal](../medias/02-metropole/population-montreal.png)
-
 ![La population de la région métropolitaine](../medias/02-metropole/population-rmm.png)
 
 La métropole montréalaise demeure le principal pôle de population au Québec. Sa
@@ -178,6 +176,8 @@ région métropolitaine concentre environ la moitié des habitants de la provinc
 Après un ralentissement marqué pendant la pandémie, la croissance a rebondi
 entre 2022 et 2024, portée par l'immigration et par les résidents non
 permanents.
+
+::: composant population-montreal
 
 ### La densité de population
 
@@ -222,8 +222,8 @@ recensement de 2021 donne la mesure de ce plurilinguisme. À Montréal, 69,8 %
 de la population peut soutenir une conversation dans deux langues ou plus, et
 23,7 % en parle au moins trois. Le taux de bilinguisme français-anglais y
 atteint 56,4 %, contre 7,4 % à Toronto et 6,5 % à Vancouver. Les trois
-principaux lieux de naissance des immigrants vivant à Montréal en 2021 sont
-Haïti, l'Algérie et la France. La métropole attire les personnes immigrantes
+principaux lieux de naissance des immigrants vivant dans la ville de Montréal
+en 2021 sont Haïti, l'Algérie et la France. La métropole attire les personnes immigrantes
 pour deux raisons principales :
 
 - on y trouve une concentration d'emplois et de services;
