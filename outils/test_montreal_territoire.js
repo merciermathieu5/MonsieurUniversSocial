@@ -3,6 +3,7 @@
  *     node outils/test_montreal_territoire.js [composant.html]
  * On vérifie les 82 municipalités et les cinq secteurs, le choix d'un secteur ou d'une ville,
  * les 19 arrondissements, les ponts de l'île, la désélection (second clic, Échap), les couches,
+ * le mode « Teste tes connaissances » (lettres des cours d'eau, chiffres des secteurs),
  * le zoom à deux doigts, Réinitialiser (page.js) et la typographie.
  */
 const fs = require("fs");
@@ -97,10 +98,65 @@ verifier("masquer les cours d'eau retire leurs noms", tous(".mtt__etiquette--eau
 clic(un(".mtt__zoom-plus"));
 verifier("le bouton + rapproche la carte", un(".mtt__svg").getAttribute("viewBox") !== "0 0 1000 892" && !un(".mtt__recentrer").hidden);
 
+console.log("MODE TEST");
+const Q = racine.mtt.questions();
+const repondre = (cle, val) => { const sel = un(`.mtt__questions li[data-repere="${cle}"] select`); sel.value = val; sel.dispatchEvent(new window.Event("change", { bubbles: true })); };
+const toutRepondre = (sauf) => Q.forEach((qq) => repondre(qq.cle, sauf && sauf[qq.cle] !== undefined ? sauf[qq.cle] : qq.bonne));
+const resultat = () => (un(".mtt__resultat") || { textContent: "" }).textContent;
+verifier("12 questions : 7 cours d'eau (A à G) et 5 secteurs (1 à 5)", Q.length === 12 && Q.filter((x) => x.sorte === "eau").map((x) => x.marque).join("") === "ABCDEFG" && Q.filter((x) => x.sorte === "secteur").map((x) => x.marque).join("") === "12345");
+const parCle = Object.fromEntries(Q.map((x) => [x.bonne, x]));
+verifier("le fleuve, la rivière des Mille Îles et la couronne sud ont deux repères (même lettre ou chiffre)", parCle["Fleuve Saint-Laurent"].reperes === 2 && parCle["Rivière des Mille Îles"].reperes === 2 && parCle["Couronne sud"].reperes === 2 && Q.every((x) => x.reperes >= 1));
+const boutonTest = un('.mtt__mode[data-mode="test"]'), boutonExplorer = un('.mtt__mode[data-mode="explorer"]');
+verifier("deux modes au départ : Explorer est enfoncé", boutonExplorer.getAttribute("aria-pressed") === "true" && boutonTest.getAttribute("aria-pressed") === "false");
+clic(boutonTest);
+verifier("le bouton Teste tes connaissances ouvre le test", racine.classList.contains("est-quiz") && boutonTest.getAttribute("aria-pressed") === "true" && titre() === "Les cours d'eau et les secteurs" && /lettre et chaque chiffre/.test(un(".mtt__consigne").textContent));
+verifier("12 listes de choix, une par lettre ou chiffre", tous(".mtt__questions select").length === 12);
+verifier("15 repères sur la carte (9 lettres, 6 chiffres)", tous(".mtt__repere").length === 15 && tous(".mtt__repere--eau").length === 9 && tous(".mtt__repere--secteur").length === 6, tous(".mtt__repere").length);
+verifier("aucun nom sur la carte en mode test (ni secteur, ni ville, ni cours d'eau)", tous(".mtt__etiquette--secteur, .mtt__etiquette--ville, .mtt__etiquette--eau, .mtt__etiquette--arr, .mtt__etiquette--pont").length === 0);
+verifier("carte sans couleurs de secteurs, avec l'eau, même si la couche de l'eau était masquée", !racine.classList.contains("avec-secteurs") && !racine.classList.contains("avec-villes") && racine.classList.contains("avec-eau"));
+const optEau = tous('.mtt__questions li[data-repere="eau:A"] option').map((o) => o.value).filter(Boolean);
+const optSect = tous('.mtt__questions li[data-repere="secteur:1"] option').map((o) => o.value).filter(Boolean);
+verifier("choix des cours d'eau : 7 noms en ordre alphabétique", optEau.length === 7 && optEau.join("|") === optEau.slice().sort((a, b) => a.localeCompare(b, "fr")).join("|"));
+verifier("choix des secteurs : 5 noms en ordre alphabétique", optSect.length === 5 && optSect.join("|") === optSect.slice().sort((a, b) => a.localeCompare(b, "fr")).join("|"));
+verifier("l'ordre des lettres ne suit pas l'ordre alphabétique des choix", Q.filter((x) => x.sorte === "eau").map((x) => optEau.indexOf(x.bonne)).join() !== "0,1,2,3,4,5,6");
+verifier("chaque liste a une étiquette lisible (Cours d'eau A, Secteur 1...)", tous(".mtt__questions select").every((sel) => { const l = un(`label[for="${sel.id}"]`); return l && /^(Cours d'eau [A-G]|Secteur [1-5])$/.test(l.textContent.replace(/^[A-G1-5]/, "")); }));
+const repA = un('.mtt__repere[data-repere="eau:A"] circle');
+clic(repA);
+const selA = un('.mtt__questions li[data-repere="eau:A"] select');
+verifier("toucher la lettre A sur la carte mène à sa question", window.document.activeElement === selA && un('.mtt__questions li[data-repere="eau:A"]').classList.contains("est-actif") && un('.mtt__repere[data-repere="eau:A"]').classList.contains("est-actif"));
+selA.dispatchEvent(new window.FocusEvent("blur"));
+toutRepondre({ "eau:C": "Rivière des Mille Îles", "secteur:5": "" });
+clic(un(".mtt__verifier"));
+verifier("Vérifier : 10 bonnes réponses sur 12", /Tu as 10 bonnes réponses sur 12/.test(resultat()), resultat());
+verifier("les réponses justes et à revoir sont marquées (liste et carte)", tous(".mtt__questions li.est-juste").length === 10 && tous(".mtt__questions li.est-faux").length === 2 && tous(".mtt__repere.est-faux").length === 3 && tous(".mtt__repere.est-juste").length === 12);
+verifier("coche ✓ pour une bonne réponse, ✗ pour une réponse à revoir", un('li[data-repere="eau:A"] .mtt__coche').textContent === "\u2713" && un('li[data-repere="eau:C"] .mtt__coche').textContent === "\u2717");
+verifier("une réponse fausse dit À revoir, une réponse vide dit Sans réponse", /À revoir/.test(un('li[data-repere="eau:C"] .mtt__verdict').textContent) && /Sans réponse/.test(un('li[data-repere="secteur:5"] .mtt__verdict').textContent));
+verifier("la mauvaise réponse est signalée sans la couleur seule (aria-invalid et texte)", un('li[data-repere="eau:C"] select').getAttribute("aria-invalid") === "true");
+verifier("le bouton Voir les bonnes réponses apparaît", !un(".mtt__voir").hidden);
+clic(un(".mtt__voir"));
+verifier("Voir les bonnes réponses donne la réponse attendue", /La bonne réponse : Rivière des Prairies/.test(un('li[data-repere="eau:C"] .mtt__verdict').textContent) && /Couronne sud/.test(un('li[data-repere="secteur:5"] .mtt__verdict').textContent) && un(".mtt__voir").hidden);
+const testEcrit = un(".mtt__lecture").textContent;
+repondre("eau:C", "Rivière des Prairies");
+verifier("changer une réponse efface la correction précédente", tous(".mtt__questions li.est-juste, .mtt__questions li.est-faux").length === 0 && resultat() === "" && tous(".mtt__repere.est-juste").length === 0);
+repondre("secteur:5", "Couronne sud");
+clic(un(".mtt__verifier"));
+verifier("tout juste : Bravo et 12 réponses justes", /Bravo/.test(resultat()) && tous(".mtt__questions li.est-juste").length === 12 && un(".mtt__voir").hidden);
+clic(un(".mtt__explorer"));
+verifier("Revenir à l'exploration : accueil, couleurs et couches d'avant", !racine.classList.contains("est-quiz") && /82 municipalités/.test(titre()) && racine.classList.contains("avec-secteurs") && !racine.classList.contains("avec-villes") && !racine.classList.contains("avec-eau") && tous(".mtt__repere").length === 0);
+clic(un(".mtt__vers-test"));
+verifier("le bouton de l'accueil ouvre aussi le test, avec les réponses gardées", racine.classList.contains("est-quiz") && un('li[data-repere="eau:E"] select').value === "Fleuve Saint-Laurent");
+clic(un(".mtt__recommencer"));
+verifier("Recommencer efface toutes les réponses", tous(".mtt__questions select").every((sel) => sel.value === "") && resultat() === "" && tous(".mtt__questions li.est-juste").length === 0);
+clic(boutonTest);
+verifier("un second clic sur Teste tes connaissances ne change rien", racine.classList.contains("est-quiz"));
+repondre("eau:A", "Lac des Deux Montagnes");
+clic(ville("terrebonne"));
+verifier("en mode test, toucher une ville n'ouvre pas de fiche", choix() === "" && racine.classList.contains("est-quiz") && titre() === "Les cours d'eau et les secteurs");
+
 console.log("RÉINITIALISATION");
 clic(un(".mtt__replier"));
 clic(un(".mtt__entete .reinitialiser"));
-verifier("Réinitialiser ramène l'état exact du départ", etatDepart() === depart, etatDepart());
+verifier("Réinitialiser ramène l'état exact du départ, hors du mode test", etatDepart() === depart && !racine.classList.contains("est-quiz"), etatDepart());
 verifier("Réinitialiser garde le texte masqué", racine.classList.contains("texte-masque"));
 const carte = un(".mtt__carte");
 const doigt = (x, y, id) => ({ clientX: x, clientY: y, identifier: id, target: carte });
@@ -124,6 +180,7 @@ parcourir();
 ["montreal", "l-ile-dorval", "terrebonne", "westmount"].forEach((k) => { racine.mtt.choisir({ type: "ville", id: k }); parcourir(); racine.mtt.choisir(null); });
 racine.mtt.arr().forEach((a) => { racine.mtt.choisir({ type: "arr", id: a.id }); parcourir(); racine.mtt.choisir(null); });
 racine.mtt.ponts().forEach((p) => { racine.mtt.choisir({ type: "pont", id: p.id }); parcourir(); racine.mtt.choisir(null); });
+textes.push(testEcrit);
 const copie = racine.cloneNode(true); copie.querySelectorAll("style, script, svg").forEach((n) => n.remove());
 const t = copie.textContent + textes.join(" ");
 verifier("aucun tiret cadratin ou demi-cadratin", !/[–—]/.test(t));

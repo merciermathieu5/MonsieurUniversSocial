@@ -122,6 +122,60 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
 .mtt .mtt__note { margin: 0 0 .85rem; font-size: .86rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
 .mtt .mtt__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .mtt .mtt__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+/* Mode test : une lettre par cours d'eau, un chiffre par secteur, à associer au bon nom. */
+.mtt { --mtt-juste: #2E6B45; --mtt-faux: #9E3A2E; --mtt-sur-etat: #FFFFFF; --mtt-repere-eau: #2D5F8A; }
+html[data-sombre="on"] .mtt { --mtt-juste: #7CC495; --mtt-faux: #F0907F; --mtt-sur-etat: #10171F; --mtt-repere-eau: #9CC7EC; }
+.mtt .mtt__modes { display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 .6rem; }
+.mtt .mtt__mode { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .85rem; cursor: pointer; }
+.mtt .mtt__mode:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
+.mtt .mtt__mode:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtt .mtt__mode--test { border-style: dashed; border-color: var(--matiere); color: var(--matiere-fonce); }
+.mtt .mtt__mode[aria-pressed="true"] { color: #fff; background: var(--matiere); border: 1px solid var(--matiere); }
+html[data-sombre="on"] .mtt .mtt__mode[aria-pressed="true"] { color: #10171F; }
+.mtt.est-quiz .mtt__couches, .mtt.est-quiz .mtt__barre-titre { display: none; }
+.mtt.est-quiz .mtt__modes { margin-bottom: 0; }
+.mtt.est-quiz .mtt__bords { opacity: .9; }
+.mtt.est-quiz .mtt__ville { cursor: default; }
+.mtt.est-quiz .mtt__ville:hover { filter: none; }
+.mtt__repere { cursor: pointer; }
+.mtt__repere circle { stroke-width: 1.6px; vector-effect: non-scaling-stroke; }
+.mtt__etiquettes .mtt__repere text { font-family: var(--titre); font-weight: 700; stroke: none; pointer-events: none; }
+.mtt__repere--eau circle { fill: var(--mtt-repere-eau); stroke: var(--surface); }
+.mtt__repere--eau text { fill: var(--mtt-sur-etat); }
+.mtt__repere--secteur circle { fill: var(--surface); stroke: var(--encre); }
+.mtt__repere--secteur text { fill: var(--encre); }
+.mtt__repere.est-juste circle { fill: var(--mtt-juste); stroke: var(--surface); }
+.mtt__repere.est-faux circle { fill: var(--mtt-faux); stroke: var(--surface); }
+.mtt__repere.est-juste text, .mtt__repere.est-faux text { fill: var(--mtt-sur-etat); }
+.mtt__repere.est-actif circle { stroke: var(--signal); stroke-width: 3.2px; }
+.mtt .mtt__questions { display: flex; flex-direction: column; gap: .15rem; margin: 0 0 .8rem; padding: 0; list-style: none; }
+.mtt .mtt__questions > li { margin: 0; padding: .2rem .3rem; display: grid; grid-template-columns: auto minmax(0, 1fr) 1.1rem; align-items: center; gap: .1rem .5rem; border: 1px solid transparent; border-radius: var(--rayon); }
+.mtt .mtt__coche { font-family: var(--titre); font-weight: 700; font-size: 1rem; text-align: center; }
+.mtt .mtt__questions > li.est-juste .mtt__coche { color: var(--mtt-juste); }
+.mtt .mtt__questions > li.est-faux .mtt__coche { color: var(--mtt-faux); }
+.mtt .mtt__questions > li.est-actif { border-color: var(--signal); }
+.mtt .mtt__marque { display: inline-flex; }
+.mtt .mtt__marque-pastille { width: 1.75rem; height: 1.75rem; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--titre); font-weight: 700; font-size: .92rem; box-sizing: border-box; }
+.mtt .mtt__marque-pastille--eau { background: var(--mtt-repere-eau); color: var(--mtt-sur-etat); }
+.mtt .mtt__marque-pastille--secteur { background: var(--surface); color: var(--encre); border: 1.5px solid var(--encre); }
+.mtt .mtt__questions > li.est-juste .mtt__marque-pastille { background: var(--mtt-juste); border-color: var(--mtt-juste); color: var(--mtt-sur-etat); }
+.mtt .mtt__questions > li.est-faux .mtt__marque-pastille { background: var(--mtt-faux); border-color: var(--mtt-faux); color: var(--mtt-sur-etat); }
+.mtt .mtt__select { width: 100%; min-width: 0; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .32rem .45rem; }
+.mtt .mtt__select:focus-visible { outline: 2px solid var(--matiere); outline-offset: 1px; }
+.mtt .mtt__questions > li.est-juste .mtt__select { border-color: var(--mtt-juste); }
+.mtt .mtt__questions > li.est-faux .mtt__select { border-color: var(--mtt-faux); }
+.mtt .mtt__verdict { grid-column: 2 / span 2; font-family: var(--donnee); font-size: .72rem; letter-spacing: .03em; }
+.mtt .mtt__verdict:empty { display: none; }
+.mtt .mtt__questions > li.est-juste .mtt__verdict { color: var(--mtt-juste); }
+.mtt .mtt__questions > li.est-faux .mtt__verdict { color: var(--mtt-faux); }
+.mtt .mtt__vue .mtt__actions + .mtt__note { margin-top: .9rem; }
+.mtt .mtt__resultat { margin: .1rem 0 .8rem; font-family: var(--titre); font-weight: 700; font-size: .98rem; color: var(--matiere-fonce); }
+.mtt .mtt__resultat:empty { display: none; }
+.mtt .mtt__retour--principal { color: #fff; background: var(--matiere); border-color: var(--matiere); }
+.mtt .mtt__retour--principal:hover { color: #fff; background: var(--matiere-fonce); }
+html[data-sombre="on"] .mtt .mtt__retour--principal, html[data-sombre="on"] .mtt .mtt__retour--principal:hover { color: #10171F; }
+.mtt .mtt__retour[hidden] { display: none; }
+.mtt .mtt__invisible { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 @container mtt (min-width: 46rem) {
   .mtt .mtt__corps { grid-template-columns: minmax(0, 2fr) minmax(17rem, 1fr); }
   .mtt .mtt__visuel { border-right: 1px solid var(--trait); }
@@ -186,6 +240,10 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
 </div>
 </div>
 <div class="mtt__barre">
+<div class="mtt__modes" role="group" aria-label="Mode de la carte">
+<button type="button" class="mtt__mode" data-mode="explorer" aria-pressed="true">Explorer la carte</button>
+<button type="button" class="mtt__mode mtt__mode--test" data-mode="test" aria-pressed="false">Teste tes connaissances</button>
+</div>
 <p class="mtt__barre-titre" id="mtt-couches-titre">Ce que la carte montre</p>
 <ul class="mtt__couches" aria-labelledby="mtt-couches-titre">
 <li><button type="button" class="mtt__couche" data-couche="secteurs" aria-pressed="true"><span class="mtt__couche-case" aria-hidden="true"></span>Les cinq secteurs</button></li>
@@ -248,7 +306,23 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
   D.eau.forEach(function (e) { svgEl("path", { "class": "mtt__eau-forme", d: e.d }, gEau); });
   bords.setAttribute("d", D.bords);
   var DEPART = { secteurs: true, villes: true, arrondissements: true, eau: true, ponts: false };
-  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H } };
+  var etat = { choix: null, couches: {}, vue: { x: 0, y: 0, w: W, h: H }, quiz: false, reponses: {}, verdicts: {}, voir: false, score: null, actif: null };
+
+  /* ----- test : une lettre par cours d'eau, un chiffre par secteur. Les lettres et les chiffres suivent
+     la carte (d'ouest en est, du nord au sud) et non l'ordre alphabétique des choix. Un cours d'eau
+     ou un secteur en deux morceaux porte la même lettre ou le même chiffre à chaque endroit.
+     Chaque repère est posé sur l'eau ou à l'intérieur du secteur (positions vérifiées sur les tracés). */
+  var QUIZ_EAU = [["A", "Lac des Deux Montagnes", [[232, 602]]], ["B", "Rivière des Mille Îles", [[388, 440], [508, 355]]], ["C", "Rivière des Prairies", [[488, 503]]], ["D", "Lac Saint-Louis", [[398, 702]]], ["E", "Fleuve Saint-Laurent", [[624, 482], [738, 248]]], ["F", "Bassin de La Prairie", [[600, 628]]], ["G", "Rivière Richelieu", [[858, 294]]]];
+  var QUIZ_SECTEUR = [["1", "nord", [[318, 318]]], ["2", "laval", [[478, 432]]], ["3", "montreal", [[452, 598]]], ["4", "longueuil", [[722, 585]]], ["5", "sud", [[842, 438], [218, 738]]]];
+  var QUESTIONS = [], QUESTION = {};
+  function alpha(a, b) { return a.localeCompare(b, "fr"); }
+  QUIZ_EAU.forEach(function (p) { QUESTIONS.push({ cle: "eau:" + p[0], sorte: "eau", marque: p[0], bonne: p[1], pos: p[2] }); });
+  QUIZ_SECTEUR.forEach(function (p) { QUESTIONS.push({ cle: "secteur:" + p[0], sorte: "secteur", marque: p[0], bonne: D.secteurs[p[1]].nom, pos: p[2] }); });
+  QUESTIONS.forEach(function (qq) { QUESTION[qq.cle] = qq; });
+  var CHOIX_Q = {
+    eau: QUIZ_EAU.map(function (p) { return p[1]; }).sort(alpha),
+    secteur: D.ordre.map(function (k) { return D.secteurs[k].nom; }).sort(alpha)
+  };
   for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
 
   /* ----- zoom : la vue est une fenêtre (viewBox) sur la carte entière. */
@@ -433,6 +507,22 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
         if (poser(essais[j][0], essais[j][1], p.n, "mtt__etiquette--pont", px, { chasse: .55, halo: 2.8, force: force && j === essais.length - 1 })) { return; }
       }
     };
+    if (etat.quiz) {
+      var rq = rayonRepere(u);
+      QUESTIONS.forEach(function (qq) {
+        qq.pos.forEach(function (p) {
+          var g = svgEl("g", { "class": "mtt__repere mtt__repere--" + qq.sorte, "data-repere": qq.cle }, gEtiq);
+          svgEl("circle", { cx: p[0], cy: p[1], r: (rq * u).toFixed(2) }, g);
+          var t = svgEl("text", { x: p[0], y: p[1], dy: ".36em", "text-anchor": "middle", "font-size": (rq * 1.12 * u).toFixed(2) }, g);
+          t.textContent = qq.marque;
+          var ti = svgEl("title", {}, g); ti.textContent = (qq.sorte === "eau" ? "Cours d'eau " : "Secteur ") + qq.marque;
+          places.push([p[0] - rq * u, p[1] - rq * u, p[0] + rq * u, p[1] + rq * u]);
+        });
+      });
+      majReperes();
+      D.hors.forEach(function (h) { poser(h.x, h.y, h.n, "mtt__etiquette--hors", 9.5, {}); });
+      return;
+    }
     var ch = etat.choix, villeChoisie = ch && ch.type === "ville" ? VILLE[ch.id] : null;
     var secteurChoisi = secteurDe(ch);
     if (villeChoisie) { poser(villeChoisie.x, villeChoisie.y, villeChoisie.n, "mtt__etiquette--ville mtt__etiquette--choisie", 13.5, { force: true, halo: 3.6 }); }
@@ -526,6 +616,9 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
       li.appendChild(bouton("mtt__choisir", s.nom, { secteur: k, texte: nb(s.pop) + " hab." }, function () { choisir({ type: "secteur", id: k }); }, false));
     });
     listePonts();
+    var actQ = el("div", "mtt__actions", null, vueTexte);
+    actQ.style.marginBottom = ".9rem";
+    actQ.appendChild(bouton("mtt__retour mtt__vers-test", "Teste tes connaissances", undefined, function () { changerMode(true); }));
     el("p", "mtt__note", "Touche une ville sur la carte pour lire sa fiche. Les couleurs montrent les secteurs. Pour rapprocher la carte, pince-la avec deux doigts ou utilise les boutons + et −.", vueTexte);
   }
   function listePonts() {
@@ -619,6 +712,119 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
     act.appendChild(bouton("mtt__retour", "Voir le secteur : " + s.nom, undefined, function () { choisir({ type: "secteur", id: v.s }); }));
   }
 
+  /* ----- test */
+  function rayonRepere(u) { return u > 2 ? 9.5 : 11.5; }
+  function majReperes() {
+    var u = unite(), rq = rayonRepere(u);
+    Array.prototype.forEach.call(gEtiq.querySelectorAll(".mtt__repere"), function (g) {
+      var cle = g.getAttribute("data-repere"), v = etat.verdicts[cle], actif = etat.actif === cle;
+      g.classList.toggle("est-juste", v === "juste");
+      g.classList.toggle("est-faux", v === "faux");
+      g.classList.toggle("est-actif", actif);
+      g.querySelector("circle").setAttribute("r", ((actif ? rq + 2.5 : rq) * u).toFixed(2));
+    });
+  }
+  var LIGNE_Q = {}, resultatQ = null, boutonVoir = null;
+  function majQuestion(qq) {
+    var l = LIGNE_Q[qq.cle];
+    if (!l) { return; }
+    var v = etat.verdicts[qq.cle], txt = "";
+    l.li.classList.toggle("est-juste", v === "juste");
+    l.li.classList.toggle("est-faux", v === "faux");
+    if (v === "faux") { l.sel.setAttribute("aria-invalid", "true"); } else { l.sel.removeAttribute("aria-invalid"); }
+    if (v === "juste") { txt = "Bonne réponse"; }
+    else if (v === "faux") { txt = etat.voir ? "La bonne réponse\u00a0: " + qq.bonne : etat.reponses[qq.cle] ? "À revoir" : "Sans réponse"; }
+    l.verdict.textContent = typo(txt);
+    /* Une bonne réponse n'a qu'une coche ; le mot reste lu par les lecteurs d'écran. */
+    l.verdict.className = v === "juste" ? "mtt__verdict mtt__invisible" : "mtt__verdict";
+    l.coche.textContent = v === "juste" ? "\u2713" : v === "faux" ? "\u2717" : "";
+  }
+  function texteResultat() {
+    if (etat.score === null) { return ""; }
+    var n = etat.score, total = QUESTIONS.length;
+    if (n === total) { return "Bravo! Tes " + total + " réponses sont bonnes."; }
+    return "Tu as " + n + (n > 1 ? " bonnes réponses" : " bonne réponse") + " sur " + total + ". Observe la carte et corrige celles qui sont en rouge.";
+  }
+  function majResultat() {
+    if (resultatQ) { resultatQ.textContent = typo(texteResultat()); }
+    if (boutonVoir) { boutonVoir.hidden = etat.score === null || etat.score === QUESTIONS.length || etat.voir; }
+  }
+  function ficheQuiz() {
+    entete("Teste tes connaissances", "Les cours d'eau et les secteurs");
+    el("p", "mtt__paragraphe", "Sur la carte, chaque lettre désigne un cours d'eau et chaque chiffre, un secteur de la région métropolitaine. Choisis le bon nom pour chacun, puis vérifie tes réponses.", vueTexte);
+    el("p", "mtt__note", "Une lettre ou un chiffre qui revient deux fois désigne le même cours d'eau ou le même secteur, en deux morceaux. Touche une lettre ou un chiffre sur la carte pour aller à sa question.", vueTexte);
+    LIGNE_Q = {};
+    [["eau", "Les cours d'eau (lettres)"], ["secteur", "Les cinq secteurs (chiffres)"]].forEach(function (gr) {
+      el("span", "mtt__rubrique", gr[1], vueTexte);
+      var ul = el("ul", "mtt__questions", null, vueTexte);
+      QUESTIONS.filter(function (qq) { return qq.sorte === gr[0]; }).forEach(function (qq) {
+        var li = el("li", "", null, ul), id = "mtt-q-" + qq.sorte + "-" + qq.marque;
+        li.setAttribute("data-repere", qq.cle);
+        var lab = el("label", "mtt__marque", null, li);
+        lab.setAttribute("for", id);
+        el("span", "mtt__marque-pastille mtt__marque-pastille--" + qq.sorte, qq.marque, lab).setAttribute("aria-hidden", "true");
+        el("span", "mtt__invisible", (qq.sorte === "eau" ? "Cours d'eau " : "Secteur ") + qq.marque, lab);
+        var sel = el("select", "mtt__select", null, li);
+        sel.id = id;
+        el("option", "", "Choisis un nom", sel).value = "";
+        CHOIX_Q[qq.sorte].forEach(function (nom) { el("option", "", nom, sel).value = nom; });
+        sel.value = etat.reponses[qq.cle] || "";
+        var coche = el("span", "mtt__coche", null, li);
+        coche.setAttribute("aria-hidden", "true");
+        var verdict = el("span", "mtt__verdict", null, li);
+        verdict.id = id + "-verdict";
+        sel.setAttribute("aria-describedby", verdict.id);
+        sel.addEventListener("change", function () {
+          etat.reponses[qq.cle] = sel.value;
+          if (etat.score !== null) { etat.verdicts = {}; etat.score = null; etat.voir = false; QUESTIONS.forEach(majQuestion); majResultat(); }
+          majReperes();
+        });
+        sel.addEventListener("focus", function () { etat.actif = qq.cle; li.classList.add("est-actif"); majReperes(); });
+        sel.addEventListener("blur", function () { if (etat.actif === qq.cle) { etat.actif = null; } li.classList.remove("est-actif"); majReperes(); });
+        LIGNE_Q[qq.cle] = { li: li, sel: sel, verdict: verdict, coche: coche };
+        majQuestion(qq);
+      });
+    });
+    resultatQ = el("p", "mtt__resultat", null, vueTexte);
+    var act = el("div", "mtt__actions", null, vueTexte);
+    act.appendChild(bouton("mtt__retour mtt__retour--principal mtt__verifier", "Vérifier mes réponses", undefined, verifierQuiz));
+    boutonVoir = bouton("mtt__retour mtt__voir", "Voir les bonnes réponses", undefined, function () {
+      etat.voir = true; QUESTIONS.forEach(majQuestion); majResultat();
+      annonce.textContent = "Les bonnes réponses sont affichées sous les réponses à revoir.";
+    });
+    act.appendChild(boutonVoir);
+    act.appendChild(bouton("mtt__retour mtt__recommencer", "Recommencer", undefined, recommencer));
+    act.appendChild(bouton("mtt__retour mtt__explorer", "Revenir à l'exploration", undefined, function () { changerMode(false); }));
+    majResultat();
+  }
+  function verifierQuiz() {
+    var n = 0;
+    QUESTIONS.forEach(function (qq) {
+      var juste = etat.reponses[qq.cle] === qq.bonne;
+      etat.verdicts[qq.cle] = juste ? "juste" : "faux";
+      if (juste) { n++; }
+    });
+    etat.score = n; etat.voir = false;
+    QUESTIONS.forEach(majQuestion); majResultat(); majReperes();
+    annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = typo(texteResultat()); }, 30);
+  }
+  function recommencer() {
+    etat.reponses = {}; etat.verdicts = {}; etat.voir = false; etat.score = null; etat.actif = null;
+    rendre();
+    var premier = vueTexte.querySelector(".mtt__select");
+    if (premier) { premier.focus(); }
+    annonce.textContent = "Nouvel essai\u00a0: toutes les réponses sont effacées.";
+  }
+  function changerMode(quiz) {
+    if (quiz === etat.quiz) { return; }
+    etat.quiz = quiz; etat.actif = null;
+    if (quiz) { etat.choix = null; }
+    rendre();
+    var lecture = q(".mtt__lecture"); if (lecture) { lecture.scrollTop = 0; }
+    try { vueTexte.focus({ preventScroll: true }); } catch (err) { vueTexte.focus(); }
+    annonce.textContent = quiz ? "Mode test\u00a0: associe chaque lettre à un cours d'eau et chaque chiffre à un secteur." : "Mode exploration";
+  }
+
   /* ----- choix */
   function memeChoix(a, b) { return !!a && !!b && a.type === b.type && a.id === b.id; }
   function rendre() {
@@ -632,14 +838,21 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
     else if (ch && ch.type === "secteur") { contourChoix.setAttribute("d", D.secteurs[ch.id].contour); contourChoix.setAttribute("class", "mtt__choix"); }
     else { contourChoix.setAttribute("d", ""); contourChoix.setAttribute("class", "mtt__choix"); }
     racine.setAttribute("data-choix", ch ? ch.type + ":" + ch.id : "");
-    racine.classList.toggle("avec-secteurs", etat.couches.secteurs);
-    racine.classList.toggle("avec-villes", etat.couches.villes);
-    racine.classList.toggle("avec-eau", etat.couches.eau);
-    racine.classList.toggle("avec-arrondissements", etat.couches.arrondissements);
+    /* En mode test, la carte n'a ni couleurs ni noms : seulement les limites des secteurs et l'eau. */
+    var quiz = etat.quiz;
+    racine.classList.toggle("est-quiz", quiz);
+    racine.classList.toggle("avec-secteurs", !quiz && etat.couches.secteurs);
+    racine.classList.toggle("avec-villes", !quiz && etat.couches.villes);
+    racine.classList.toggle("avec-eau", quiz || etat.couches.eau);
+    racine.classList.toggle("avec-arrondissements", !quiz && etat.couches.arrondissements);
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtt__mode"), function (b) {
+      b.setAttribute("aria-pressed", (b.getAttribute("data-mode") === "test") === quiz ? "true" : "false");
+    });
+    q(".mtt__consigne").textContent = typo(quiz ? "Associe chaque lettre et chaque chiffre" : "Touche un secteur ou une ville");
     Array.prototype.forEach.call(racine.querySelectorAll(".mtt__couche"), function (b) {
       b.setAttribute("aria-pressed", etat.couches[b.getAttribute("data-couche")] ? "true" : "false");
     });
-    if (!ch) { ficheAccueil(); } else if (ch.type === "secteur") { ficheSecteur(ch.id); } else if (ch.type === "arr") { ficheArrondissement(ch.id); } else if (ch.type === "pont") { fichePont(ch.id); } else { ficheVille(ch.id); }
+    if (quiz) { ficheQuiz(); } else if (!ch) { ficheAccueil(); } else if (ch.type === "secteur") { ficheSecteur(ch.id); } else if (ch.type === "arr") { ficheArrondissement(ch.id); } else if (ch.type === "pont") { fichePont(ch.id); } else { ficheVille(ch.id); }
     etiqueter();
   }
   function choisir(c, focaliser) {
@@ -651,6 +864,11 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
   svg.addEventListener("click", function (ev) {
     if (glisseFini) { return; }
     var cible = ev.target;
+    if (etat.quiz) {
+      var rp = cible.closest ? cible.closest(".mtt__repere") : null, ligne = rp ? LIGNE_Q[rp.getAttribute("data-repere")] : null;
+      if (ligne) { ligne.sel.focus(); }
+      return;
+    }
     var sect = cible.closest ? cible.closest("[data-secteur]") : null;
     if (sect && sect.tagName.toLowerCase() === "text") { choisir({ type: "secteur", id: sect.getAttribute("data-secteur") }); return; }
     var pt = cible.closest ? cible.closest(".mtt__pont-groupe") : null;
@@ -673,6 +891,9 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
       rendre();
     });
   });
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtt__mode"), function (b) {
+    b.addEventListener("click", function () { changerMode(b.getAttribute("data-mode") === "test"); });
+  });
   racine.addEventListener("keydown", function (ev) {
     if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); }
     if (ev.key === "Escape" && etat.choix) { ev.stopPropagation(); choisir(null); }
@@ -687,6 +908,7 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
   /* Réinitialiser (bouton posé par page.js) : aucun choix, couches de départ, carte entière. */
   function reinitialiser() {
     etat.choix = null;
+    etat.quiz = false; etat.reponses = {}; etat.verdicts = {}; etat.voir = false; etat.score = null; etat.actif = null;
     for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
     etat.vue = { x: 0, y: 0, w: W, h: H };
     svg.setAttribute("viewBox", "0 0 " + W + " " + H);
@@ -698,7 +920,7 @@ html[data-sombre="on"] .mtt .mtt__couche[aria-pressed="true"] .mtt__couche-case:
     annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
   }
   racine.addEventListener("reinitialiser", reinitialiser);
-  racine.mtt = { arr: function () { return D.arr; }, ponts: function () { return D.ponts; }, etat: function () { return { choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; }, choisir: choisir };
+  racine.mtt = { questions: function () { return QUESTIONS.map(function (qq) { return { cle: qq.cle, sorte: qq.sorte, marque: qq.marque, bonne: qq.bonne, reperes: qq.pos.length }; }); }, arr: function () { return D.arr; }, ponts: function () { return D.ponts; }, etat: function () { return { quiz: etat.quiz, choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; }, choisir: choisir };
   var taille = "";
   function mesurer() {
     var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
