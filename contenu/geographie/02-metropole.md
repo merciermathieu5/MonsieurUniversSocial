@@ -169,8 +169,6 @@ l'ouest du Canada et les États-Unis.
 
 ## La population de la métropole
 
-![La population de la ville de Montréal](../medias/02-metropole/population-montreal.png)
-
 ![La population de la région métropolitaine](../medias/02-metropole/population-rmm.png)
 
 La métropole montréalaise demeure le principal pôle de population au Québec. Sa
@@ -178,6 +176,8 @@ région métropolitaine concentre environ la moitié des habitants de la provinc
 Après un ralentissement marqué pendant la pandémie, la croissance a rebondi
 entre 2022 et 2024, portée par l'immigration et par les résidents non
 permanents.
+
+::: composant population-montreal
 
 ### La densité de population
 

@@ -1,0 +1,606 @@
+<section class="mpo" id="population-montreal" data-reinitialiser aria-label="Graphiques interactifs&nbsp;: la population de Montréal depuis 1961 et sa diversité">
+<style>
+.mpo { --mpo-s1: #2a78d6; --mpo-s2: #eb6834; --mpo-s3: #1baf7a; --mpo-s4: #eda100; --mpo-s1-pale: #86b6ef; --mpo-sur-fonce: #ffffff; --mpo-sur-clair: #0b0b0b; --mpo-coupure: rgba(26, 37, 48, .06); --mpo-ombre: 0 2px 8px rgba(20, 30, 40, .14); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; clear: both; container: mpo / inline-size; }
+html[data-sombre="on"] .mpo { --mpo-s1: #3987e5; --mpo-s2: #d95926; --mpo-s3: #199e70; --mpo-s4: #c98500; --mpo-s1-pale: #184f95; --mpo-coupure: rgba(255, 255, 255, .06); --mpo-ombre: 0 2px 10px rgba(0, 0, 0, .45); }
+.mpo .mpo__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.mpo .mpo__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.mpo .mpo__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .mpo .mpo__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .mpo .mpo__titre { color: var(--encre); }
+html[data-sombre="on"] .mpo .mpo__consigne { color: var(--encre-pale); }
+.mpo ul > li::before, .mpo ol > li::before { content: none; display: none; }
+.mpo ul > li::marker, .mpo ol > li::marker { content: none; }
+.mpo ul, .mpo ol { list-style: none; margin: 0; padding: 0; }
+.mpo li { margin: 0; padding: 0; }
+.mpo .mpo__barre { padding: .6rem 1.2rem .7rem; border-bottom: 1px solid var(--trait); }
+.mpo .mpo__barre-titre { margin: 0 0 .35rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mpo .mpo__segments, .mpo .mpo__annees { display: flex; flex-wrap: wrap; gap: .3rem; }
+.mpo .mpo__segment { font-family: var(--titre); font-weight: 600; font-size: .8rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .3rem .85rem; cursor: pointer; }
+.mpo .mpo__segment:hover { background: var(--matiere-voile); }
+.mpo .mpo__segment[aria-pressed="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .mpo .mpo__segment[aria-pressed="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.mpo .mpo__annee { font-family: var(--donnee); font-weight: 600; font-size: .74rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .28rem .5rem; cursor: pointer; font-variant-numeric: tabular-nums; }
+.mpo .mpo__annee:hover { background: var(--matiere-voile); }
+.mpo .mpo__annee[aria-pressed="true"] { color: var(--encre); border-color: var(--signal); box-shadow: inset 0 -3px 0 var(--signal); }
+.mpo button:focus-visible, .mpo summary:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mpo .mpo__corps { display: grid; grid-template-columns: minmax(0, 1fr); }
+.mpo .mpo__visuel, .mpo .mpo__lecture { min-width: 0; }
+.mpo .mpo__visuel { padding: .8rem 1.2rem .9rem; }
+.mpo .mpo__lecture { padding: 1rem 1.2rem 1rem; border-top: 1px solid var(--trait); }
+.mpo .mpo__lecture:focus-visible { outline: 2px solid var(--matiere); outline-offset: -3px; }
+.mpo .mpo__bloc + .mpo__bloc { margin-top: 1rem; }
+.mpo .mpo__bloc-titre { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--encre); }
+.mpo .mpo__graphe { position: relative; margin: .55rem 0 .2rem; }
+.mpo .mpo__svg { display: block; overflow: visible; user-select: none; -webkit-user-select: none; }
+.mpo__svg text { font-family: var(--donnee); font-size: 11px; fill: var(--encre-pale); }
+.mpo__svg .mpo__grille { stroke: var(--trait); stroke-width: 1px; shape-rendering: crispEdges; }
+.mpo__svg .mpo__axe { stroke: var(--encre-pale); stroke-width: 1px; shape-rendering: crispEdges; }
+.mpo__svg .mpo__coupure { fill: var(--mpo-coupure); }
+.mpo__svg .mpo__coupure-texte { font-family: var(--titre); font-size: 10.5px; fill: var(--encre-doux); }
+.mpo__svg .mpo__ligne { fill: none; stroke-width: 2px; stroke-linejoin: round; stroke-linecap: round; }
+.mpo__svg .mpo__ligne--ile { stroke: var(--mpo-s1); }
+.mpo__svg .mpo__ligne--ville { stroke: var(--mpo-s2); }
+.mpo__svg .mpo__point { stroke: var(--surface); stroke-width: 2px; }
+.mpo__svg .mpo__point--ile { fill: var(--mpo-s1); }
+.mpo__svg .mpo__point--ville { fill: var(--mpo-s2); }
+.mpo__svg .mpo__fin { font-family: var(--titre); font-size: 11.5px; font-weight: 600; fill: var(--encre); }
+.mpo__svg .mpo__repere { stroke: var(--signal); stroke-width: 2px; }
+.mpo__svg .mpo__survol { stroke: var(--encre-pale); stroke-width: 1px; }
+.mpo__svg .mpo__colonne { fill: var(--mpo-s1-pale); }
+.mpo__svg .mpo__colonne.est-choisie { fill: var(--mpo-s1); }
+.mpo__svg .mpo__colonne.est-survolee { fill: var(--mpo-s1); opacity: .8; }
+.mpo__svg .mpo__valeur { font-family: var(--titre); font-size: 11.5px; font-weight: 600; fill: var(--encre-doux); }
+.mpo__svg .mpo__valeur.est-choisie { fill: var(--encre); font-weight: 700; }
+.mpo__svg .mpo__etiquette-x.est-choisie { fill: var(--encre); font-weight: 700; }
+.mpo__svg .mpo__cible { fill: transparent; cursor: pointer; }
+.mpo .mpo__bulle { position: absolute; z-index: 3; min-width: 9rem; max-width: 15rem; padding: .45rem .6rem; background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); box-shadow: var(--mpo-ombre); pointer-events: none; font-family: var(--titre); font-size: .78rem; line-height: 1.35; color: var(--encre-doux); }
+.mpo .mpo__bulle[hidden] { display: none; }
+.mpo .mpo__bulle-titre { display: block; margin: 0 0 .2rem; font-family: var(--donnee); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; color: var(--encre-pale); }
+.mpo .mpo__bulle-ligne { display: flex; align-items: center; gap: .4rem; }
+.mpo .mpo__bulle-ligne strong { color: var(--encre); font-weight: 700; font-variant-numeric: tabular-nums; }
+.mpo .mpo__trait { display: inline-block; width: .9rem; height: 2px; border-radius: 2px; flex: none; }
+.mpo .mpo__trait--ile { background: var(--mpo-s1); }
+.mpo .mpo__trait--ville { background: var(--mpo-s2); }
+.mpo .mpo__cles { display: flex; flex-wrap: wrap; gap: .35rem .5rem; margin: .5rem 0 0; }
+.mpo .mpo__cle { display: inline-flex; align-items: center; gap: .4rem; font-family: var(--titre); font-size: .78rem; color: var(--encre-doux); }
+.mpo .mpo__serie { display: inline-flex; align-items: center; gap: .45rem; text-align: left; font-family: var(--titre); font-weight: 600; font-size: .78rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .28rem .75rem .28rem .45rem; cursor: pointer; }
+.mpo .mpo__serie:hover { background: var(--matiere-voile); }
+.mpo .mpo__serie[aria-pressed="false"] { color: var(--encre-pale); }
+.mpo .mpo__serie-case { position: relative; width: 1rem; height: 1rem; flex: none; border-radius: 4px; border: 1.5px solid var(--encre-pale); background: var(--surface); }
+.mpo .mpo__serie[aria-pressed="true"] .mpo__serie-case { background: var(--encre-doux); border-color: var(--encre-doux); }
+.mpo .mpo__serie[aria-pressed="true"] .mpo__serie-case::after { content: ""; position: absolute; left: .28rem; top: .08rem; width: .28rem; height: .55rem; border: solid var(--surface); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.mpo .mpo__pastille { width: .8rem; height: .8rem; flex: none; border-radius: 2px; }
+.mpo .mpo__pastille--fr { background: var(--mpo-s1); }
+.mpo .mpo__pastille--an { background: var(--mpo-s2); }
+.mpo .mpo__pastille--autre { background: var(--mpo-s3); }
+.mpo .mpo__pastille--plus { background: var(--mpo-s4); }
+.mpo .mpo__rangs { display: flex; flex-direction: column; gap: .32rem; }
+.mpo .mpo__rang { display: grid; grid-template-columns: minmax(6.5rem, 10rem) minmax(0, 1fr); align-items: center; gap: .6rem; font-family: var(--titre); font-size: .82rem; color: var(--encre); }
+.mpo .mpo__rang-nom { display: block; min-width: 0; overflow-wrap: anywhere; line-height: 1.2; }
+.mpo .mpo__rang-piste { display: flex; align-items: center; gap: .4rem; min-width: 0; }
+.mpo .mpo__rang-barre { display: block; height: 14px; min-width: 2px; flex: none; background: var(--mpo-s1); border-radius: 0 4px 4px 0; }
+.mpo .mpo__rang-val { display: block; flex: none; font-weight: 600; font-size: .78rem; color: var(--encre-doux); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.mpo .mpo__rang:hover .mpo__rang-barre { opacity: .8; }
+.mpo .mpo__piles { display: flex; flex-direction: column; gap: .35rem; }
+.mpo .mpo__pile { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); align-items: center; gap: .5rem; width: 100%; padding: .2rem .3rem; text-align: left; font: inherit; color: inherit; background: none; border: 1px solid transparent; border-radius: var(--rayon); cursor: pointer; }
+.mpo .mpo__pile:hover { background: var(--matiere-voile); }
+.mpo .mpo__pile[aria-pressed="true"] { border-color: var(--signal); box-shadow: inset 3px 0 0 var(--signal); }
+.mpo .mpo__pile-annee { display: block; font-family: var(--donnee); font-weight: 600; font-size: .78rem; color: var(--encre-doux); font-variant-numeric: tabular-nums; }
+.mpo .mpo__pile[aria-pressed="true"] .mpo__pile-annee { color: var(--encre); font-weight: 700; }
+.mpo .mpo__pile-barre { display: flex; gap: 2px; height: 26px; border-radius: 4px; overflow: hidden; background: var(--surface); }
+.mpo .mpo__part { display: flex; align-items: center; justify-content: center; min-width: 0; font-family: var(--titre); font-size: .72rem; font-weight: 600; color: var(--mpo-sur-fonce); white-space: nowrap; }
+.mpo .mpo__part--fr { background: var(--mpo-s1); }
+.mpo .mpo__part--an { background: var(--mpo-s2); color: var(--mpo-sur-clair); }
+.mpo .mpo__part--autre { background: var(--mpo-s3); color: var(--mpo-sur-clair); }
+.mpo .mpo__part--plus { background: var(--mpo-s4); color: var(--mpo-sur-clair); }
+.mpo .mpo__part-texte { display: block; padding: 0 .2rem; }
+.mpo .mpo__part-texte[hidden] { display: none; }
+.mpo .mpo__surtitre { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.mpo .mpo__intertitre { margin: 0 0 .6rem; font-family: var(--titre); font-weight: 700; font-size: 1.12rem; line-height: 1.25; letter-spacing: -.01em; color: var(--matiere-fonce); }
+.mpo .mpo__paragraphe { margin: 0 0 .8rem; font-size: .95rem; line-height: 1.55; }
+.mpo .mpo__chiffres { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem .9rem; margin: 0 0 .9rem; padding: .7rem .8rem; background: var(--surface-2); border-radius: var(--rayon); }
+.mpo .mpo__chiffres > div { min-width: 0; }
+.mpo .mpo__chiffres dt { margin: 0; font-family: var(--donnee); font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: var(--encre-pale); }
+.mpo .mpo__chiffres dd { margin: .1rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .98rem; color: var(--encre); }
+.mpo .mpo__chiffres dd.est-vide { font-weight: 400; font-size: .86rem; color: var(--encre-doux); }
+.mpo .mpo__retenir { margin: 0 0 .9rem; padding: .7rem .85rem; border-left: 3px solid var(--matiere); background: var(--matiere-voile); border-radius: 0 var(--rayon) var(--rayon) 0; }
+.mpo .mpo__rubrique { display: block; margin: 0 0 .3rem; font-family: var(--donnee); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-doux); }
+.mpo .mpo__retenir .mpo__paragraphe { margin: 0; font-size: .92rem; }
+.mpo .mpo__retenir .mpo__paragraphe + .mpo__paragraphe { margin-top: .45rem; }
+.mpo .mpo__note { margin: 0 0 .7rem; font-size: .84rem; line-height: 1.5; color: var(--encre-doux); border-left: 3px solid var(--trait); padding-left: .7rem; }
+.mpo .mpo__tableau { margin: .2rem 0 0; border-top: 1px solid var(--trait); padding-top: .55rem; }
+.mpo .mpo__tableau > summary { cursor: pointer; font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--matiere-fonce); }
+.mpo .mpo__defile { overflow-x: auto; }
+.mpo table.mpo__table { width: 100%; margin: .55rem 0 0; font-size: .82rem; font-variant-numeric: tabular-nums; }
+.mpo table.mpo__table th, .mpo table.mpo__table td { padding: .35rem .5rem; white-space: nowrap; }
+.mpo table.mpo__table td.mpo__nombre, .mpo table.mpo__table th.mpo__nombre { text-align: right; }
+.mpo .mpo__annonce { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.mpo .mpo__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container mpo (min-width: 46rem) {
+  .mpo .mpo__corps { grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 1fr); }
+  .mpo .mpo__visuel { border-right: 1px solid var(--trait); }
+  .mpo .mpo__lecture { border-top: 0; }
+}
+@container mpo (max-width: 30rem) {
+  .mpo .mpo__barre, .mpo .mpo__visuel, .mpo .mpo__lecture, .mpo .mpo__source { padding-left: .8rem; padding-right: .8rem; }
+  .mpo .mpo__segment { font-size: .74rem; padding: .28rem .7rem; }
+  .mpo .mpo__rang { grid-template-columns: minmax(5.5rem, 7.5rem) minmax(0, 1fr); font-size: .78rem; }
+}
+.mpo.est-plein-ecran .mpo__corps { min-height: 0; }
+@media print {
+  .mpo .mpo__barre, .mpo .mpo__annees, .mpo .mpo__bulle { display: none; }
+  .mpo .mpo__corps { grid-template-columns: minmax(0, 1fr); }
+  .mpo .mpo__visuel { border-right: 0; }
+  .mpo { break-inside: avoid; }
+}
+</style>
+<div class="mpo__entete">
+<p class="mpo__titre" role="heading" aria-level="3">Montréal depuis 1961&nbsp;: sa population et sa diversité</p>
+<p class="mpo__consigne">Choisis un thème, puis une année</p>
+</div>
+<div class="mpo__barre">
+<p class="mpo__barre-titre" id="population-montreal-themes">Thème</p>
+<ul class="mpo__segments" aria-labelledby="population-montreal-themes">
+<li><button type="button" class="mpo__segment" data-vue="population" aria-pressed="true">Population</button></li>
+<li><button type="button" class="mpo__segment" data-vue="immigrants" aria-pressed="false">Immigrants</button></li>
+<li><button type="button" class="mpo__segment" data-vue="naissance" aria-pressed="false">Pays de naissance</button></li>
+<li><button type="button" class="mpo__segment" data-vue="langues" aria-pressed="false">Langues</button></li>
+<li><button type="button" class="mpo__segment" data-vue="minorites" aria-pressed="false">Minorités visibles</button></li>
+</ul>
+</div>
+<div class="mpo__corps">
+<div class="mpo__visuel"></div>
+<div class="mpo__lecture" tabindex="-1"></div>
+</div>
+<p class="mpo__annonce" aria-live="polite"></p>
+<p class="mpo__source"></p>
+<script>
+/* Données : Statistique Canada, recensements de 1961 à 2021 et Enquête nationale auprès des ménages de 2011,
+   telles que publiées par Statistique Canada, la Ville de Montréal (Montréal en statistiques), la Communauté
+   métropolitaine de Montréal, l'Office québécois de la langue française et le ministère de l'Immigration,
+   de la Francisation et de l'Intégration. Chaque vue nomme ses sources sous les graphiques. */
+(function () {
+  var racine = document.getElementById("population-montreal");
+  if (!racine || racine.getAttribute("data-pret") === "1") { return; }
+  racine.setAttribute("data-pret", "1");
+  var D = {
+    pop: { annees: [1961, 1966, 1971, 1976, 1981, 1986, 1991, 1996, 2001, 2006, 2011, 2016, 2021],
+      ile: [null, null, 1959143, 1869641, 1760122, 1752582, 1775871, 1775846, 1812723, 1854442, 1886481, 1942044, 2004265],
+      ville: [1191062, 1222253, 1214352, 1080545, 1018609, 1015420, 1017666, 1016376, 1039534, 1620693, 1649519, 1704694, 1762949] },
+    imm: { annees: [1981, 1986, 1991, 1996, 2001, 2006, 2011, 2016, 2021],
+      nb: [369585, 373820, 411865, 462910, 492230, 558250, 612930, 644680, 652725],
+      pc: [21.0, 21.3, 23.2, 26.1, 27.2, 30.1, 32.5, 34.0, 33.3] },
+    pays: {
+      "2001": [["Italie", 56665, 11.5], ["Haïti", 36225, 7.4], ["France", 23745, 4.8], ["Liban", 19700, 4.0], ["Viet Nam", 18440, 3.8], ["Chine", 17175, 3.5], ["Maroc", 16020, 3.3], ["Grèce", 14250, 2.9], ["Portugal", 13340, 2.7], ["Algérie", 13085, 2.7]],
+      "2006": [["Italie", 51985, 9.3], ["Haïti", 40225, 7.2], ["Chine", 27715, 4.9], ["France", 26680, 4.8], ["Maroc", 24405, 4.4], ["Algérie", 22035, 3.9], ["Liban", 21550, 3.8], ["Viet Nam", 18100, 3.2], ["Roumanie", 17625, 3.1], ["Philippines", 14160, 2.5]],
+      "2011": [["Italie", 45295, 7.4], ["Haïti", 45255, 7.4], ["Algérie", 33870, 5.5], ["Maroc", 32540, 5.3], ["France", 30545, 5.0], ["Chine", 28140, 4.6], ["Liban", 21435, 3.5], ["Viet Nam", 19715, 3.2], ["Philippines", 19450, 3.2], ["Roumanie", 13720, 2.2]],
+      "2016": [["Haïti", 50155, 7.8], ["Algérie", 40135, 6.2], ["Italie", 39105, 6.1], ["France", 38170, 5.9], ["Maroc", 37365, 5.8], ["Chine", 30710, 4.8], ["Philippines", 20535, 3.2], ["Liban", 20020, 3.1], ["Viet Nam", 17850, 2.8], ["Roumanie", 14250, 2.2]],
+      "2021": [["Asie", 202715, 31.1], ["Europe", 158795, 24.3], ["Afrique", 152205, 23.3], ["Caraïbes et Bermudes", 67775, 10.4], ["Amérique du Sud", 34455, 5.3], ["Amérique centrale", 23005, 3.5], ["Amérique du Nord (sans le Canada)", 12570, 1.9], ["Océanie", 1050, 0.2]] },
+    lang: { annees: [1996, 2001, 2006, 2011, 2016, 2021],
+      fr: [52.1, 52.0, 48.7, 46.7, 46.1, 43.8], an: [18.0, 16.9, 16.8, 16.7, 16.1, 16.2],
+      autre: [26.9, 28.2, 31.8, 32.5, 33.2, 32.9], plus: [3.0, 2.9, 2.7, 4.1, 4.6, 7.1] },
+    maison: [["Arabe", 50575], ["Espagnol", 50085], ["Langues chinoises", 41560], ["Italien", 27910], ["Vietnamien", 14805], ["Langues créoles", 14360], ["Russe", 13830], ["Roumain", 12605], ["Persan (farsi)", 12150], ["Grec", 10425]],
+    vm: { annees: [2011, 2016, 2021], nb: [559080, 623895, 737510], pc: [30.3, 32.9, 37.6] },
+    groupes: [["Noir", 180580, 9.5], ["Arabe", 129940, 6.9], ["Latino-Américain", 71375, 3.8], ["Sud-Asiatique", 65665, 3.5], ["Chinois", 63465, 3.3], ["Asiatique du Sud-Est", 37325, 2.0], ["Philippin", 28680, 1.5], ["Asiatique occidental", 18930, 1.0]]
+  };
+  var NS = "http://www.w3.org/2000/svg", NBSP = " ";
+  function q(s) { return racine.querySelector(s); }
+  function typo(t) { return String(t).replace(/(\d) (?=\d{3}\b)/g, "$1" + NBSP).replace(/ :/g, NBSP + ":").replace(/« /g, "«" + NBSP).replace(/ »/g, NBSP + "»").replace(/ %/g, NBSP + "%"); }
+  function nb(n) { return String(Math.round(Math.abs(n))).replace(/\B(?=(\d{3})+(?!\d))/g, NBSP); }
+  function pc(x) { return x.toFixed(1).replace(".", ",") + NBSP + "%"; }
+  function signe(n) { return (n < 0 ? "−" : "+") + nb(n); }
+  function el(nom, classe, texte, parent) {
+    var n = document.createElement(nom);
+    if (classe) { n.className = classe; }
+    if (texte !== undefined && texte !== null) { n.textContent = typo(texte); }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function svgEl(nom, attrs, parent) {
+    var n = document.createElementNS(NS, nom);
+    for (var a in attrs) { if (Object.prototype.hasOwnProperty.call(attrs, a)) { n.setAttribute(a, attrs[a]); } }
+    if (parent) { parent.appendChild(n); }
+    return n;
+  }
+  function texteSvg(parent, x, y, t, attrs) {
+    var n = svgEl("text", attrs || {}, parent);
+    n.setAttribute("x", x); n.setAttribute("y", y); n.textContent = typo(t);
+    return n;
+  }
+  function mesure(n) { var w = n && n.getBoundingClientRect ? n.getBoundingClientRect().width : 0; return w > 0 ? w : 0; }
+  function largeur(n) { return mesure(n) || 600; }
+  function intertitre(t) { var p = el("p", "mpo__intertitre", t, lecture); p.setAttribute("role", "heading"); p.setAttribute("aria-level", "4"); return p; }
+  var visuel = q(".mpo__visuel"), lecture = q(".mpo__lecture"), source = q(".mpo__source"), annonce = q(".mpo__annonce");
+  var DEPART = { vue: "population", series: { ile: true, ville: true }, annee: { population: 2021, immigrants: 2021, naissance: 2016, langues: 2021, minorites: 2021 } };
+  function copie(o) { return JSON.parse(JSON.stringify(o)); }
+  var etat = copie(DEPART);
+  var dessin = null;
+  function annoncer(t) { annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = typo(t); }, 30); }
+
+  /* ----- pièces communes : rangée d'années, bulle, chiffres, encadré, tableau */
+  function rangeeAnnees(parent, annees, choisie, etiquette) {
+    var bloc = el("div", "mpo__bloc", null, parent);
+    var id = "population-montreal-annees-" + etat.vue;
+    var t = el("p", "mpo__barre-titre", etiquette || "Année du recensement", bloc); t.id = id;
+    var ul = el("ul", "mpo__annees", null, bloc); ul.setAttribute("aria-labelledby", id);
+    annees.forEach(function (a) {
+      var li = el("li", null, null, ul);
+      var b = el("button", "mpo__annee", String(a), li);
+      b.type = "button"; b.setAttribute("data-annee", a); b.setAttribute("aria-pressed", a === choisie ? "true" : "false");
+    });
+    return bloc;
+  }
+  function bulle(boite) { var b = el("div", "mpo__bulle", null, boite); b.hidden = true; b.setAttribute("aria-hidden", "true"); return b; }
+  function placerBulle(b, boite, x, y) {
+    b.hidden = false;
+    var W = largeur(boite), bw = b.offsetWidth || 150;
+    var gauche = x + 14; if (gauche + bw > W) { gauche = x - bw - 14; } if (gauche < 0) { gauche = 0; }
+    b.style.left = Math.round(gauche) + "px"; b.style.top = Math.max(0, Math.round(y)) + "px";
+  }
+  function remplirBulle(b, titre, lignes) {
+    b.textContent = "";
+    el("span", "mpo__bulle-titre", titre, b);
+    lignes.forEach(function (l) {
+      var d = el("span", "mpo__bulle-ligne", null, b);
+      if (l.trait) { el("span", "mpo__trait mpo__trait--" + l.trait, null, d); }
+      el("strong", null, l.valeur, d);
+      if (l.nom) { el("span", null, l.nom, d); }
+    });
+  }
+  function chiffres(parent, paires) {
+    var dl = el("dl", "mpo__chiffres", null, parent);
+    paires.forEach(function (p) {
+      var d = el("div", null, null, dl); el("dt", null, p[0], d);
+      var dd = el("dd", p[2] ? "est-vide" : null, p[1], d);
+      return dd;
+    });
+    return dl;
+  }
+  function retenir(parent, textes) {
+    var b = el("div", "mpo__retenir", null, parent);
+    el("span", "mpo__rubrique", "Ce qu'il faut retenir", b);
+    textes.forEach(function (t) { el("p", "mpo__paragraphe", t, b); });
+    return b;
+  }
+  function tableau(parent, legende, entetes, lignes, colEntete) {
+    colEntete = colEntete || 0;
+    var d = el("details", "mpo__tableau", null, parent);
+    el("summary", null, "Voir les chiffres", d);
+    var boite = el("div", "mpo__defile", null, d);
+    var t = el("table", "mpo__table", null, boite);
+    el("caption", "mpo__annonce", legende, t);
+    var tr = el("tr", null, null, el("thead", null, null, t));
+    entetes.forEach(function (h, i) { var th = el("th", i > colEntete ? "mpo__nombre" : null, h, tr); th.scope = "col"; });
+    var tb = el("tbody", null, null, t);
+    lignes.forEach(function (l) {
+      var r = el("tr", null, null, tb);
+      l.forEach(function (c, i) { if (i === colEntete) { var th = el("th", null, c, r); th.scope = "row"; } else { el("td", i > colEntete ? "mpo__nombre" : null, c, r); } });
+    });
+    return d;
+  }
+  function rangs(parent, lignes, max, format, titreBulle) {
+    var ol = el("ol", "mpo__rangs", null, parent);
+    lignes.forEach(function (l, i) {
+      var li = el("li", "mpo__rang", null, ol);
+      li.setAttribute("data-rang", i + 1);
+      el("span", "mpo__rang-nom", l[0], li);
+      var piste = el("span", "mpo__rang-piste", null, li);
+      var barre = el("span", "mpo__rang-barre", null, piste);
+      barre.style.width = "calc((100% - 4.2rem) * " + (l[2] !== undefined ? l[2] : l[1]) / max + ")";
+      el("span", "mpo__rang-val", format(l), piste);
+      if (titreBulle) { li.title = typo(titreBulle(l)); }
+    });
+    return ol;
+  }
+
+  /* ----- vue 1 : la population de l'île et de la ville */
+  function vuePopulation() {
+    var P = D.pop, a = etat.annee.population, i = P.annees.indexOf(a);
+    rangeeAnnees(visuel, P.annees, a);
+    var bloc = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Nombre d'habitants, aux recensements de 1961 à 2021", bloc);
+    var boite = el("div", "mpo__graphe", null, bloc);
+    var ul = el("ul", "mpo__cles", null, bloc);
+    [["ile", "Île de Montréal"], ["ville", "Ville de Montréal (limites de l'époque)"]].forEach(function (s) {
+      var b = el("button", "mpo__serie", null, el("li", null, null, ul));
+      b.type = "button"; b.setAttribute("data-serie", s[0]); b.setAttribute("aria-pressed", etat.series[s[0]] ? "true" : "false");
+      el("span", "mpo__serie-case", null, b).setAttribute("aria-hidden", "true");
+      el("span", "mpo__trait mpo__trait--" + s[0], null, b).setAttribute("aria-hidden", "true");
+      el("span", null, s[1], b);
+    });
+    dessin = function () { grapheLignes(boite); };
+    dessin();
+    el("span", "mpo__surtitre", "Île de Montréal et ville de Montréal", lecture);
+    intertitre("Recensement de " + a);
+    el("p", "mpo__paragraphe", "On suit surtout l'île de Montréal, parce que ses limites n'ont pas changé. Les limites de la ville de Montréal, elles, ont changé plusieurs fois.", lecture);
+    var paires = [];
+    var vi = P.ile[i], vv = P.ville[i];
+    paires.push(["Habitants de l'île", vi === null ? "Chiffre non affiché avant 1971" : nb(vi), vi === null]);
+    paires.push(["Habitants de la ville", nb(vv)]);
+    if (i > 0 && vi !== null && P.ile[i - 1] !== null) { paires.push(["Île : depuis " + P.annees[i - 1], signe(vi - P.ile[i - 1])]); }
+    if (i > 0) { paires.push(["Ville : depuis " + P.annees[i - 1], a === 2006 ? "Limites changées" : signe(vv - P.ville[i - 1]), a === 2006]); }
+    chiffres(lecture, paires);
+    var NOTES = {
+      1961: "Pour l'île, les chiffres affichés commencent en 1971.",
+      1966: "Pour l'île, les chiffres affichés commencent en 1971.",
+      1971: "Après 1971, l'île perd des habitants pendant 15 ans.",
+      1986: "C'est le point le plus bas pour l'île : 206 561 habitants de moins qu'en 1971.",
+      2006: "La ville semble gagner 581 159 habitants d'un coup. En fait, ses limites ont changé : en 2002, les municipalités de l'île ont été fusionnées avec Montréal, puis 15 d'entre elles sont redevenues des villes le 1er janvier 2006.",
+      2021: "L'île dépasse 2 millions d'habitants."
+    };
+    if (NOTES[a]) { el("p", "mpo__note", NOTES[a], lecture); }
+    retenir(lecture, ["De 1971 à 1986, l'île de Montréal a perdu plus de 200 000 habitants, pendant que la région autour d'elle continuait de grandir. En 1961, l'île regroupait 78 % des habitants du Grand Montréal. En 2021, elle n'en regroupe plus que 50 % : c'est la trace de l'étalement urbain.",
+      "Depuis 1986, la population de l'île augmente de nouveau."]);
+    tableau(lecture, "Population de l'île et de la ville de Montréal, 1961 à 2021", ["Année", "Île de Montréal", "Ville de Montréal"],
+      P.annees.map(function (an, k) { return [String(an), P.ile[k] === null ? "n. d." : nb(P.ile[k]), nb(P.ville[k])]; }));
+    el("p", "mpo__note", "n. d. : chiffre non disponible dans les sources retenues. Ville : limites de chaque recensement.", lecture.lastChild);
+    source.textContent = typo("Sources : ville de Montréal, 1961 à 2016 : Statistique Canada, « Montréal, 375 ans : Célébrons notre histoire » (2017). Île de Montréal, 1971 à 1981 : compilation de l'Office de planification et de développement du Québec d'après les recensements, dans M. Fauteux, Cahiers de géographie du Québec (1983); 1986 à 2006 : Communauté métropolitaine de Montréal, Perspective Grand Montréal (2007), d'après Statistique Canada. Île et ville, 2011 à 2021 : Ville de Montréal, Montréal en statistiques (2017 et 2022), d'après Statistique Canada. Part de l'île dans le Grand Montréal : Communauté métropolitaine de Montréal, Cahiers métropolitains numéro 10 (2022). Limites de 2006 : Archives de la Ville de Montréal.");
+  }
+  function grapheLignes(boite) {
+    boite.textContent = "";
+    var P = D.pop, n = P.annees.length, sel = P.annees.indexOf(etat.annee.population);
+    var W = Math.max(280, Math.round(largeur(boite))), large = W >= 520, H = large ? 290 : 250;
+    var m = { g: 64, d: large ? 112 : 10, h: 14, b: 26 }, x0 = m.g, x1 = W - m.d, y0 = m.h, y1 = H - m.b, YMAX = 2200000;
+    var pas = (x1 - x0) / n;
+    function X(k) { return x0 + pas * (k + .5); }
+    function Y(v) { return y1 - (y1 - y0) * v / YMAX; }
+    var svg = svgEl("svg", { "class": "mpo__svg", viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img", "aria-label": typo("Courbes du nombre d'habitants : île de Montréal de 1971 à 2021 et ville de Montréal de 1961 à 2021") }, boite);
+    [0, 500000, 1000000, 1500000, 2000000].forEach(function (v) {
+      svgEl("line", { "class": v ? "mpo__grille" : "mpo__axe", x1: x0, x2: x1, y1: Y(v), y2: Y(v) }, svg);
+      texteSvg(svg, x0 - 6, Y(v) + 4, v ? nb(v) : "0", { "text-anchor": "end" });
+    });
+    var saut = pas < 40 ? 2 : 1;
+    P.annees.forEach(function (an, k) {
+      if (k % saut === 0 || k === sel) {
+        var t = texteSvg(svg, X(k), y1 + 17, String(an), { "text-anchor": "middle", "class": "mpo__etiquette-x" + (k === sel ? " est-choisie" : "") });
+        if (saut === 2 && k !== sel && Math.abs(k - sel) === 1) { t.parentNode.removeChild(t); }
+      }
+    });
+    if (etat.series.ville) {
+      svgEl("rect", { "class": "mpo__coupure", x: X(8), y: y0, width: X(9) - X(8), height: y1 - y0 }, svg);
+      texteSvg(svg, (X(8) + X(9)) / 2, y0 + 12, "Fusions", { "text-anchor": "middle", "class": "mpo__coupure-texte" });
+    }
+    if (sel >= 0) { svgEl("line", { "class": "mpo__repere", x1: X(sel), x2: X(sel), y1: y0, y2: y1 }, svg); }
+    var survol = svgEl("line", { "class": "mpo__survol", x1: 0, x2: 0, y1: y0, y2: y1, visibility: "hidden" }, svg);
+    function trace(valeurs, debut, fin) {
+      var d = "";
+      for (var k = debut; k <= fin; k++) { if (valeurs[k] !== null) { d += (d ? "L" : "M") + X(k).toFixed(1) + " " + Y(valeurs[k]).toFixed(1); } }
+      return d;
+    }
+    var fins = [];
+    [["ville", P.ville, [[0, 8], [9, n - 1]]], ["ile", P.ile, [[2, n - 1]]]].forEach(function (s) {
+      if (!etat.series[s[0]]) { return; }
+      s[2].forEach(function (seg) { svgEl("path", { "class": "mpo__ligne mpo__ligne--" + s[0], d: trace(s[1], seg[0], seg[1]) }, svg); });
+      s[1].forEach(function (v, k) { if (v !== null) { svgEl("circle", { "class": "mpo__point mpo__point--" + s[0], cx: X(k), cy: Y(v), r: k === sel ? 5.5 : 4 }, svg); } });
+      fins.push({ s: s[0], y: Y(s[1][n - 1]) });
+    });
+    if (large) {
+      fins.sort(function (p, r) { return p.y - r.y; });
+      for (var f = 1; f < fins.length; f++) { if (fins[f].y - fins[f - 1].y < 14) { fins[f].y = fins[f - 1].y + 14; } }
+      fins.forEach(function (p) { texteSvg(svg, X(n - 1) + 10, p.y + 4, p.s === "ile" ? "Île de Montréal" : "Ville de Montréal", { "class": "mpo__fin" }); });
+    }
+    var b = bulle(boite);
+    function montrer(k) {
+      survol.setAttribute("x1", X(k)); survol.setAttribute("x2", X(k)); survol.setAttribute("visibility", "visible");
+      var lignes = [];
+      if (etat.series.ile) { lignes.push({ trait: "ile", valeur: P.ile[k] === null ? "n. d." : nb(P.ile[k]), nom: "île" }); }
+      if (etat.series.ville) { lignes.push({ trait: "ville", valeur: nb(P.ville[k]), nom: "ville" }); }
+      remplirBulle(b, "Recensement de " + P.annees[k], lignes);
+      placerBulle(b, boite, X(k), y0 + 4);
+    }
+    P.annees.forEach(function (an, k) {
+      var c = svgEl("rect", { "class": "mpo__cible", x: X(k) - pas / 2, y: 0, width: pas, height: H, "data-annee": an }, svg);
+      c.addEventListener("pointerenter", function () { montrer(k); });
+      c.addEventListener("click", function () { choisirAnnee(an); });
+    });
+    svg.addEventListener("pointerleave", function () { b.hidden = true; survol.setAttribute("visibility", "hidden"); });
+  }
+
+  /* ----- colonnes : part des immigrants, part des minorités visibles */
+  function grapheColonnes(boite, annees, pcs, nbs, choisie, quoi) {
+    boite.textContent = "";
+    var n = annees.length, sel = annees.indexOf(choisie);
+    var W = Math.max(260, Math.round(largeur(boite))), H = 230;
+    var m = { g: 40, d: 8, h: 22, b: 26 }, x0 = m.g, x1 = W - m.d, y0 = m.h, y1 = H - m.b, YMAX = 40;
+    var pas = (x1 - x0) / n, lc = Math.min(24, pas * .6);
+    function X(k) { return x0 + pas * (k + .5); }
+    function Y(v) { return y1 - (y1 - y0) * v / YMAX; }
+    var svg = svgEl("svg", { "class": "mpo__svg", viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img", "aria-label": typo("Colonnes : part " + quoi + " dans la population de l'île, de " + annees[0] + " à " + annees[n - 1]) }, boite);
+    [0, 10, 20, 30, 40].forEach(function (v) {
+      svgEl("line", { "class": v ? "mpo__grille" : "mpo__axe", x1: x0, x2: x1, y1: Y(v), y2: Y(v) }, svg);
+      texteSvg(svg, x0 - 6, Y(v) + 4, v + " %", { "text-anchor": "end" });
+    });
+    var COL = [];
+    annees.forEach(function (an, k) {
+      var x = X(k) - lc / 2, y = Y(pcs[k]), r = Math.min(4, lc / 2);
+      COL.push(svgEl("path", { "class": "mpo__colonne" + (k === sel ? " est-choisie" : ""), d: "M" + x + " " + y1 + "V" + (y + r) + "Q" + x + " " + y + " " + (x + r) + " " + y + "H" + (x + lc - r) + "Q" + (x + lc) + " " + y + " " + (x + lc) + " " + (y + r) + "V" + y1 + "Z" }, svg));
+      if (n <= 4 || k === sel || ((k === 0 || k === n - 1) && (pas >= 52 || Math.abs(k - sel) > 1))) {
+        texteSvg(svg, X(k), y - 6, pc(pcs[k]), { "text-anchor": "middle", "class": "mpo__valeur" + (k === sel ? " est-choisie" : "") });
+      }
+      if (pas >= 38 || k === sel || (k % 2 === 0 && Math.abs(k - sel) > 1)) {
+        texteSvg(svg, X(k), y1 + 17, String(an), { "text-anchor": "middle", "class": "mpo__etiquette-x" + (k === sel ? " est-choisie" : "") });
+      }
+    });
+    var b = bulle(boite);
+    annees.forEach(function (an, k) {
+      var c = svgEl("rect", { "class": "mpo__cible", x: X(k) - pas / 2, y: 0, width: pas, height: H, "data-annee": an }, svg);
+      c.addEventListener("pointerenter", function () {
+        COL.forEach(function (p, j) { p.classList.toggle("est-survolee", j === k && j !== sel); });
+        remplirBulle(b, "Recensement de " + an + (an === 2011 ? " (ENM)" : ""), [{ valeur: pc(pcs[k]) }, { valeur: nb(nbs[k]), nom: "personnes" }]);
+        placerBulle(b, boite, X(k), Math.max(0, Y(pcs[k]) - 70));
+      });
+      c.addEventListener("click", function () { choisirAnnee(an); });
+    });
+    svg.addEventListener("pointerleave", function () { b.hidden = true; COL.forEach(function (p) { p.classList.remove("est-survolee"); }); });
+  }
+
+  /* ----- vue 2 : la part des immigrants */
+  function vueImmigrants() {
+    var I = D.imm, a = etat.annee.immigrants, i = I.annees.indexOf(a);
+    rangeeAnnees(visuel, I.annees, a);
+    var bloc = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Part des personnes immigrantes dans la population de l'île", bloc);
+    var boite = el("div", "mpo__graphe", null, bloc);
+    dessin = function () { grapheColonnes(boite, I.annees, I.pc, I.nb, a, "des personnes immigrantes"); };
+    dessin();
+    el("span", "mpo__surtitre", "Île de Montréal", lecture);
+    intertitre("Les immigrants en " + a);
+    el("p", "mpo__paragraphe", "Une personne immigrante a reçu des autorités le droit de vivre au Canada de façon permanente. Celles qui sont devenues citoyennes canadiennes sont comptées aussi.", lecture);
+    chiffres(lecture, [["Personnes immigrantes", nb(I.nb[i])], ["Part de la population", pc(I.pc[i])]]);
+    if (a === 2011) { el("p", "mpo__note", "En 2011, ces chiffres viennent de l'Enquête nationale auprès des ménages, à laquelle on répondait de façon volontaire. Compare avec prudence.", lecture); }
+    if (a === 2021) { el("p", "mpo__note", "En 2021, l'île compte aussi 138 240 résidents non permanents : des personnes venues d'un autre pays avec un permis de travail ou d'études, ou qui demandent l'asile. Elles ne sont pas comptées parmi les immigrants.", lecture); }
+    retenir(lecture, ["En 1981, environ une personne sur cinq habitant l'île était immigrante (21,0 %). En 2021, c'est une personne sur trois (33,3 %)."]);
+    tableau(lecture, "Personnes immigrantes sur l'île de Montréal, 1981 à 2021", ["Année", "Personnes", "Part"],
+      I.annees.map(function (an, k) { return [an === 2011 ? "2011 (ENM)" : String(an), nb(I.nb[k]), pc(I.pc[k])]; }));
+    source.textContent = typo("Sources : Statistique Canada, recensements de 1981 à 2016 et Enquête nationale auprès des ménages (ENM) de 2011, par Montréal en statistiques (Ville de Montréal), Coup d'oeil sur la population immigrante (2020); recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Population des ménages privés. Définitions : Statistique Canada.");
+  }
+
+  /* ----- vue 3 : les pays de naissance */
+  function vueNaissance() {
+    var a = etat.annee.naissance, liste = D.pays[String(a)], continents = a === 2021;
+    rangeeAnnees(visuel, [2001, 2006, 2011, 2016, 2021], a);
+    var bloc = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", continents ? "Continent de naissance des personnes immigrantes de l'île, 2021" : "Les dix principaux pays de naissance des personnes immigrantes de l'île, " + a, bloc);
+    var max = liste[0][2];
+    rangs(bloc, liste, max, function (l) { return pc(l[2]); }, function (l) { return l[0] + " : " + nb(l[1]) + " personnes"; });
+    dessin = null;
+    el("span", "mpo__surtitre", "Île de Montréal", lecture);
+    intertitre(continents ? "Les continents de naissance en 2021" : "Les pays de naissance en " + a);
+    el("p", "mpo__paragraphe", continents ? "Pour 2021, les chiffres publiés regroupent les lieux de naissance par continent. Chaque barre donne la part des personnes immigrantes nées sur ce continent." : "Chaque barre donne la part des personnes immigrantes de l'île nées dans ce pays.", lecture);
+    chiffres(lecture, [[continents ? "Premier continent" : "Premier pays", liste[0][0]], ["Personnes", nb(liste[0][1])]]);
+    if (continents) { retenir(lecture, ["En 2021, l'Asie est le premier continent de naissance des immigrants de l'île (31,1 %), devant l'Europe (24,3 %) et l'Afrique (23,3 %)."]); }
+    else { retenir(lecture, ["Pendant plusieurs décennies, l'Italie a été le premier pays de naissance des immigrants de Montréal. En 2016, Haïti passe au premier rang et l'Algérie au deuxième.", "L'Algérie, le Maroc et la Chine prennent beaucoup plus de place en 2016 qu'en 2001."]); }
+    tableau(lecture, continents ? "Continent de naissance, 2021" : "Pays de naissance, " + a, ["Rang", continents ? "Continent" : "Pays", "Personnes", "Part"],
+      liste.map(function (l, k) { return [String(k + 1), l[0], nb(l[1]), pc(l[2])]; }), 1);
+    source.textContent = typo(continents ? "Source : Statistique Canada, recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration, Annexes statistiques, Montréal (2024). Population des ménages privés." : "Sources : Statistique Canada, recensements de 2001, 2006 et 2016 et Enquête nationale auprès des ménages de 2011, par Montréal en statistiques (Ville de Montréal) : Portrait de la population immigrante dans l'agglomération de Montréal (2017) et Coup d'oeil sur la population immigrante (2020).");
+  }
+
+  /* ----- vue 4 : les langues */
+  var CAT = [["fr", "Français"], ["an", "Anglais"], ["autre", "Autre langue"], ["plus", "Plusieurs langues"]];
+  function vueLangues() {
+    var L = D.lang, a = etat.annee.langues, i = L.annees.indexOf(a);
+    rangeeAnnees(visuel, L.annees, a);
+    var bloc = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Langue maternelle des habitants de l'île", bloc);
+    var cles = el("ul", "mpo__cles", null, bloc);
+    CAT.forEach(function (c) { var li = el("li", "mpo__cle", null, cles); el("span", "mpo__pastille mpo__pastille--" + c[0], null, li).setAttribute("aria-hidden", "true"); el("span", null, c[1], li); });
+    var ol = el("ol", "mpo__piles", null, bloc);
+    ol.style.marginTop = ".55rem";
+    var PARTS = [];
+    L.annees.forEach(function (an, k) {
+      var li = el("li", null, null, ol);
+      var b = el("button", "mpo__pile", null, li);
+      b.type = "button"; b.setAttribute("data-annee", an); b.setAttribute("aria-pressed", an === a ? "true" : "false");
+      b.setAttribute("aria-label", typo(an + (an === 2021 ? " (autre compilation)" : "") + " : " + CAT.map(function (c) { return c[1].toLowerCase() + " " + pc(L[c[0]][k]); }).join(", ")));
+      el("span", "mpo__pile-annee", an === 2021 ? "2021*" : String(an), b);
+      var barre = el("span", "mpo__pile-barre", null, b);
+      barre.setAttribute("aria-hidden", "true");
+      CAT.forEach(function (c) {
+        var v = L[c[0]][k], s = el("span", "mpo__part mpo__part--" + c[0], null, barre);
+        s.style.flex = v + " 1 0";
+        s.title = typo(an + " : " + c[1].toLowerCase() + " " + pc(v));
+        var t = el("span", "mpo__part-texte", pc(v).replace(NBSP + "%", "%"), s);
+        PARTS.push({ s: s, t: t, v: v });
+      });
+    });
+    dessin = function () {
+      var w = PARTS.length ? mesure(PARTS[0].s.parentNode) : 0;
+      PARTS.forEach(function (p) { p.t.hidden = w ? p.v * w / 100 < 42 : p.v < 12; });
+    };
+    dessin();
+    var titreMaison = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Langues autres que le français et l'anglais les plus parlées à la maison, 2016 (nombre de personnes)", titreMaison);
+    rangs(titreMaison, D.maison.slice(0, 6), D.maison[0][1], function (l) { return nb(l[1]); });
+    el("span", "mpo__surtitre", "Île de Montréal", lecture);
+    intertitre("La langue maternelle en " + a);
+    el("p", "mpo__paragraphe", "La langue maternelle est la première langue apprise dans l'enfance et encore comprise. « Autre langue » veut dire ni le français ni l'anglais.", lecture);
+    chiffres(lecture, CAT.map(function (c) { return [c[1], pc(L[c[0]][i])]; }));
+    if (a === 2021) { el("p", "mpo__note", "* Les chiffres de 2021 viennent d'une autre compilation des données de Statistique Canada que ceux de 1996 à 2016. L'écart entre 2016 et 2021 peut donc venir en partie de la méthode.", lecture); }
+    retenir(lecture, ["Sur l'île, la part des personnes de langue maternelle française a baissé : 52,1 % en 1996, 43,8 % en 2021.", "La part des personnes dont la langue maternelle n'est ni le français ni l'anglais est passée de 26,9 % à 32,9 % : c'est environ une personne sur trois."]);
+    tableau(lecture, "Langue maternelle sur l'île de Montréal, 1996 à 2021, en pourcentage", ["Année"].concat(CAT.map(function (c) { return c[1]; })),
+      L.annees.map(function (an, k) { return [an === 2021 ? "2021*" : String(an)].concat(CAT.map(function (c) { return pc(L[c[0]][k]); })); }));
+    source.textContent = typo("Sources : langue maternelle, 1996 à 2016 : Office québécois de la langue française, Indicateurs de suivi de la situation linguistique, rapport 1 (2019), d'après Statistique Canada; « Plusieurs langues » y réunit les réponses multiples avec ou sans le français. 2021 : Statistique Canada, recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Langues parlées à la maison en 2016 : Statistique Canada, par Montréal en statistiques (2017). Définition : Statistique Canada.");
+  }
+
+  /* ----- vue 5 : les minorités visibles */
+  function vueMinorites() {
+    var V = D.vm, a = etat.annee.minorites, i = V.annees.indexOf(a);
+    rangeeAnnees(visuel, V.annees, a);
+    var bloc = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Part des personnes qui font partie d'une minorité visible, île de Montréal", bloc);
+    var boite = el("div", "mpo__graphe", null, bloc);
+    dessin = function () { grapheColonnes(boite, V.annees, V.pc, V.nb, a, "des minorités visibles"); };
+    dessin();
+    var bloc2 = el("div", "mpo__bloc", null, visuel);
+    el("p", "mpo__bloc-titre", "Les groupes les plus nombreux en 2016 (part de la population de l'île)", bloc2);
+    rangs(bloc2, D.groupes, D.groupes[0][2], function (l) { return pc(l[2]); }, function (l) { return l[0] + " : " + nb(l[1]) + " personnes"; });
+    el("span", "mpo__surtitre", "Île de Montréal", lecture);
+    intertitre("Les minorités visibles en " + a);
+    el("p", "mpo__paragraphe", "Statistique Canada utilise l'expression « minorité visible » tirée d'une loi fédérale : elle désigne les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. C'est la personne recensée qui déclare son groupe.", lecture);
+    chiffres(lecture, [["Personnes", nb(V.nb[i])], ["Part de la population", pc(V.pc[i])]]);
+    if (a === 2011) { el("p", "mpo__note", "En 2011, ces chiffres viennent de l'Enquête nationale auprès des ménages, à laquelle on répondait de façon volontaire. Compare avec prudence.", lecture); }
+    retenir(lecture, ["En 2021, plus d'une personne sur trois sur l'île (37,6 %) fait partie d'une minorité visible, contre 30,3 % en 2011.", "En 2016, les deux groupes les plus nombreux sont les groupes « Noir » et « Arabe »."]);
+    tableau(lecture, "Minorités visibles sur l'île de Montréal", ["Année", "Personnes", "Part"],
+      V.annees.map(function (an, k) { return [an === 2011 ? "2011 (ENM)" : String(an), nb(V.nb[k]), pc(V.pc[k])]; }).concat(D.groupes.map(function (g) { return ["2016 : " + g[0], nb(g[1]), pc(g[2])]; })));
+    source.textContent = typo("Sources : Statistique Canada, Enquête nationale auprès des ménages (ENM) de 2011 et recensement de 2016, par Montréal en statistiques (Ville de Montréal, 2017); recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Population des ménages privés. Définition : Loi sur l'équité en matière d'emploi, citée par Statistique Canada.");
+  }
+
+  var VUES = { population: vuePopulation, immigrants: vueImmigrants, naissance: vueNaissance, langues: vueLangues, minorites: vueMinorites };
+  var NOMS = { population: "Population", immigrants: "Immigrants", naissance: "Pays de naissance", langues: "Langues", minorites: "Minorités visibles" };
+  var largeurVue = 0;
+  function rendre() {
+    visuel.textContent = ""; lecture.textContent = ""; dessin = null;
+    racine.setAttribute("data-vue", etat.vue);
+    Array.prototype.forEach.call(racine.querySelectorAll(".mpo__segment"), function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-vue") === etat.vue ? "true" : "false"); });
+    VUES[etat.vue]();
+    racine.setAttribute("data-annee", etat.annee[etat.vue]);
+    largeurVue = Math.round(largeur(visuel));
+  }
+  function choisirVue(v) {
+    if (!VUES[v]) { return; }
+    etat.vue = v; rendre(); annoncer("Thème : " + NOMS[v]);
+  }
+  function choisirAnnee(a, focaliser) {
+    a = Number(a);
+    etat.annee[etat.vue] = a; rendre();
+    if (focaliser) { var b = racine.querySelector('.mpo__annee[data-annee="' + a + '"]'); if (b) { b.focus(); } }
+    annoncer("Année " + a);
+  }
+  Array.prototype.forEach.call(racine.querySelectorAll(".mpo__segment"), function (b) {
+    b.addEventListener("click", function () { choisirVue(b.getAttribute("data-vue")); });
+  });
+  visuel.addEventListener("click", function (ev) {
+    var c = ev.target.closest ? ev.target.closest("button") : null;
+    if (!c || !visuel.contains(c)) { return; }
+    if (c.hasAttribute("data-annee")) { choisirAnnee(c.getAttribute("data-annee"), c.classList.contains("mpo__annee")); return; }
+    if (c.hasAttribute("data-serie")) {
+      var s = c.getAttribute("data-serie"), autre = s === "ile" ? "ville" : "ile";
+      etat.series[s] = !etat.series[s];
+      if (!etat.series[s] && !etat.series[autre]) { etat.series[autre] = true; }
+      rendre();
+      var r = racine.querySelector('.mpo__serie[data-serie="' + s + '"]'); if (r) { r.focus(); }
+    }
+  });
+  visuel.addEventListener("keydown", function (ev) {
+    var c = ev.target;
+    if (!c.classList || !c.classList.contains("mpo__annee") || (ev.key !== "ArrowLeft" && ev.key !== "ArrowRight")) { return; }
+    ev.preventDefault();
+    var bs = Array.prototype.slice.call(visuel.querySelectorAll(".mpo__annee")), k = bs.indexOf(c) + (ev.key === "ArrowRight" ? 1 : -1);
+    if (k >= 0 && k < bs.length) { choisirAnnee(bs[k].getAttribute("data-annee"), true); }
+  });
+  racine.addEventListener("keydown", function (ev) { if (ev.key === " " || ev.key === "Enter") { ev.stopPropagation(); } });
+  /* Réinitialiser (bouton posé par page.js) : thème Population, années et courbes de départ. */
+  function reinitialiser() {
+    etat = copie(DEPART); rendre();
+    lecture.scrollTop = 0;
+    annoncer("Graphiques réinitialisés");
+  }
+  racine.addEventListener("reinitialiser", reinitialiser);
+  racine.mpo = { donnees: D, etat: function () { return { vue: etat.vue, annee: etat.annee[etat.vue], series: JSON.stringify(etat.series), annees: JSON.stringify(etat.annee) }; }, choisirVue: choisirVue, choisirAnnee: choisirAnnee };
+  function mesurer() { var w = Math.round(largeur(visuel)); if (w !== largeurVue) { largeurVue = w; if (dessin) { dessin(); } } }
+  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
+  rendre();
+  racine.classList.add("est-pret");
+})();
+</script>
+</section>
