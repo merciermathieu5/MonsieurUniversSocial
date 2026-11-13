@@ -101,10 +101,11 @@ clic(un('.mpo__pile[data-annee="1996"]'));
 verifier("un clic sur la barre de 1996 la choisit (français 52,1 %)", etat().annee === 1996 && lect().includes("52,1" + NB + "%") && un('.mpo__pile[aria-pressed="true"]').getAttribute("data-annee") === "1996");
 verifier("langues parlées à la maison en 2016 : l'arabe en tête", tous(".mpo__visuel .mpo__rang")[0].textContent.includes("Arabe"));
 
-console.log("MINORITÉS VISIBLES");
+console.log("DIVERSITÉ DES ORIGINES");
 theme("minorites");
 verifier("trois colonnes, 2021 : 37,6 %", tous(".mpo__colonne").length === 3 && lect().includes("37,6" + NB + "%"));
-verifier("définition de Statistique Canada affichée", lect().includes("Autochtones"));
+verifier("expression « groupes racisés » définie, ancienne expression nommée", lect().includes("groupes racisés") && lect().includes("autochtones") && lect().includes("minorités visibles"));
+verifier("le bouton du thème s'appelle Diversité des origines", un('.mpo__segment[data-vue="minorites"]').textContent === "Diversité des origines");
 verifier("huit groupes de 2016", tous(".mpo__rang").length === 8);
 
 console.log("CLAVIER ET RÉINITIALISATION");

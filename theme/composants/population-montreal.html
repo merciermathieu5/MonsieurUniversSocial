@@ -145,7 +145,7 @@ html[data-sombre="on"] .mpo .mpo__segment[aria-pressed="true"] { color: #10171F;
 <li><button type="button" class="mpo__segment" data-vue="immigrants" aria-pressed="false">Immigrants</button></li>
 <li><button type="button" class="mpo__segment" data-vue="naissance" aria-pressed="false">Pays de naissance</button></li>
 <li><button type="button" class="mpo__segment" data-vue="langues" aria-pressed="false">Langues</button></li>
-<li><button type="button" class="mpo__segment" data-vue="minorites" aria-pressed="false">Minorités visibles</button></li>
+<li><button type="button" class="mpo__segment" data-vue="minorites" aria-pressed="false">Diversité des origines</button></li>
 </ul>
 </div>
 <div class="mpo__corps">
@@ -396,7 +396,7 @@ html[data-sombre="on"] .mpo .mpo__segment[aria-pressed="true"] { color: #10171F;
     svg.addEventListener("pointerleave", function () { b.hidden = true; survol.setAttribute("visibility", "hidden"); });
   }
 
-  /* ----- colonnes : part des immigrants, part des minorités visibles */
+  /* ----- colonnes : part des immigrants, part des personnes de groupes racisés */
   function grapheColonnes(boite, annees, pcs, nbs, choisie, quoi) {
     boite.textContent = "";
     var n = annees.length, sel = annees.indexOf(choisie);
@@ -468,11 +468,11 @@ html[data-sombre="on"] .mpo .mpo__segment[aria-pressed="true"] { color: #10171F;
     intertitre(continents ? "Les continents de naissance en 2021" : "Les pays de naissance en " + a);
     el("p", "mpo__paragraphe", continents ? "Pour 2021, les chiffres publiés regroupent les lieux de naissance par continent. Chaque barre donne la part des personnes immigrantes nées sur ce continent." : "Chaque barre donne la part des personnes immigrantes de l'île nées dans ce pays.", lecture);
     chiffres(lecture, [[continents ? "Premier continent" : "Premier pays", liste[0][0]], ["Personnes", nb(liste[0][1])]]);
-    if (continents) { retenir(lecture, ["En 2021, l'Asie est le premier continent de naissance des immigrants de l'île (31,1 %), devant l'Europe (24,3 %) et l'Afrique (23,3 %)."]); }
+    if (continents) { retenir(lecture, ["En 2021, l'Asie est le premier continent de naissance des immigrants de l'île (31,1 %), devant l'Europe (24,3 %) et l'Afrique (23,3 %).", "Pour la ville de Montréal, Statistique Canada publie aussi les pays : en 2021, les trois premiers pays de naissance des immigrants sont Haïti (8,3 %), l'Algérie (7,6 %) et la France (6,8 %)."]); }
     else { retenir(lecture, ["En 2001, en 2006 et en 2011, l'Italie était le premier pays de naissance des immigrants de l'île. En 2016, Haïti passe au premier rang et l'Algérie au deuxième.", "L'Algérie, le Maroc et la Chine prennent beaucoup plus de place en 2016 qu'en 2001."]); }
     tableau(lecture, continents ? "Continent de naissance, 2021" : "Pays de naissance, " + a, ["Rang", continents ? "Continent" : "Pays", "Personnes", "Part"],
       liste.map(function (l, k) { return [String(k + 1), l[0], nb(l[1]), pc(l[2])]; }), 1);
-    source.textContent = typo(continents ? "Source : Statistique Canada, recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration, Annexes statistiques, Montréal (2024). Population des ménages privés." : "Sources : Statistique Canada, recensements de 2001, 2006 et 2016 et Enquête nationale auprès des ménages de 2011, par Montréal en statistiques (Ville de Montréal) : Portrait de la population immigrante dans l'agglomération de Montréal (2017) et Coup d'oeil sur la population immigrante (2020).");
+    source.textContent = typo(continents ? "Sources : Statistique Canada, recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration, Annexes statistiques, Montréal (2024), population des ménages privés; pays de la ville de Montréal : Statistique Canada, Série « Perspective géographique », Recensement de 2021, Montréal (Ville)." : "Sources : Statistique Canada, recensements de 2001, 2006 et 2016 et Enquête nationale auprès des ménages de 2011, par Montréal en statistiques (Ville de Montréal) : Portrait de la population immigrante dans l'agglomération de Montréal (2017) et Coup d'oeil sur la population immigrante (2020).");
   }
 
   /* ----- vue 4 : les langues */
@@ -522,31 +522,31 @@ html[data-sombre="on"] .mpo .mpo__segment[aria-pressed="true"] { color: #10171F;
     source.textContent = typo("Sources : langue maternelle, 1996 à 2016 : Office québécois de la langue française, Indicateurs de suivi de la situation linguistique, rapport 1 (2019), d'après Statistique Canada; « Plusieurs langues » y réunit les réponses multiples avec ou sans le français. 2021 : Statistique Canada, recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Langues parlées à la maison en 2016 : Statistique Canada, par Montréal en statistiques (2017). Définition : Statistique Canada.");
   }
 
-  /* ----- vue 5 : les minorités visibles */
+  /* ----- vue 5 : la diversité des origines (groupes racisés, mesurés par la variable « minorité visible » du recensement) */
   function vueMinorites() {
     var V = D.vm, a = etat.annee.minorites, i = V.annees.indexOf(a);
     rangeeAnnees(visuel, V.annees, a);
     var bloc = el("div", "mpo__bloc", null, visuel);
-    el("p", "mpo__bloc-titre", "Part des personnes qui font partie d'une minorité visible, île de Montréal", bloc);
+    el("p", "mpo__bloc-titre", "Part des personnes qui font partie d'un groupe racisé, île de Montréal", bloc);
     var boite = el("div", "mpo__graphe", null, bloc);
-    dessin = function () { grapheColonnes(boite, V.annees, V.pc, V.nb, a, "des minorités visibles"); };
+    dessin = function () { grapheColonnes(boite, V.annees, V.pc, V.nb, a, "des personnes de groupes racisés"); };
     dessin();
     var bloc2 = el("div", "mpo__bloc", null, visuel);
     el("p", "mpo__bloc-titre", "Les groupes les plus nombreux en 2016 (part de la population de l'île)", bloc2);
     rangs(bloc2, D.groupes, D.groupes[0][2], function (l) { return pc(l[2]); }, function (l) { return l[0] + " : " + nb(l[1]) + " personnes"; });
     el("span", "mpo__surtitre", "Île de Montréal", lecture);
-    intertitre("Les minorités visibles en " + a);
-    el("p", "mpo__paragraphe", "Statistique Canada utilise l'expression « minorité visible » tirée d'une loi fédérale : elle désigne les personnes, autres que les Autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. C'est la personne recensée qui déclare son groupe.", lecture);
+    intertitre("La diversité des origines en " + a);
+    el("p", "mpo__paragraphe", "Statistique Canada parle de « groupes racisés » pour désigner les personnes qui ne sont ni blanches ni autochtones, par exemple les personnes noires, arabes, latino-américaines ou asiatiques. C'est la personne recensée qui déclare son groupe. Avant, on disait « minorités visibles », une expression tirée d'une loi fédérale.", lecture);
     chiffres(lecture, [["Personnes", nb(V.nb[i])], ["Part de la population", pc(V.pc[i])]]);
     if (a === 2011) { el("p", "mpo__note", "En 2011, ces chiffres viennent de l'Enquête nationale auprès des ménages, à laquelle on répondait de façon volontaire. Compare avec prudence.", lecture); }
-    retenir(lecture, ["En 2021, plus d'une personne sur trois sur l'île (37,6 %) fait partie d'une minorité visible, contre 30,3 % en 2011.", "En 2016, les deux groupes les plus nombreux sont les groupes « Noir » et « Arabe »."]);
-    tableau(lecture, "Minorités visibles sur l'île de Montréal", ["Année", "Personnes", "Part"],
+    retenir(lecture, ["En 2021, plus d'une personne sur trois sur l'île (37,6 %) fait partie d'un groupe racisé, contre 30,3 % en 2011.", "En 2016, les deux groupes les plus nombreux sont les groupes « Noir » et « Arabe »."]);
+    tableau(lecture, "Groupes racisés sur l'île de Montréal", ["Année", "Personnes", "Part"],
       V.annees.map(function (an, k) { return [an === 2011 ? "2011 (ENM)" : String(an), nb(V.nb[k]), pc(V.pc[k])]; }).concat(D.groupes.map(function (g) { return ["2016 : " + g[0], nb(g[1]), pc(g[2])]; })));
-    source.textContent = typo("Sources : Statistique Canada, Enquête nationale auprès des ménages (ENM) de 2011 et recensement de 2016, par Montréal en statistiques (Ville de Montréal, 2017); recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Population des ménages privés. Définition : Loi sur l'équité en matière d'emploi, citée par Statistique Canada.");
+    source.textContent = typo("Sources : Statistique Canada, Enquête nationale auprès des ménages (ENM) de 2011 et recensement de 2016, par Montréal en statistiques (Ville de Montréal, 2017); recensement de 2021, par le ministère de l'Immigration, de la Francisation et de l'Intégration (2024). Population des ménages privés. Définition : Statistique Canada, qui mesure les groupes racisés avec la variable « minorité visible » du recensement (Loi sur l'équité en matière d'emploi) et emploie l'expression « groupe racisé » dans ses analyses du recensement de 2021.");
   }
 
   var VUES = { population: vuePopulation, immigrants: vueImmigrants, naissance: vueNaissance, langues: vueLangues, minorites: vueMinorites };
-  var NOMS = { population: "Population", immigrants: "Immigrants", naissance: "Pays de naissance", langues: "Langues", minorites: "Minorités visibles" };
+  var NOMS = { population: "Population", immigrants: "Immigrants", naissance: "Pays de naissance", langues: "Langues", minorites: "Diversité des origines" };
   var largeurVue = 0;
   function rendre() {
     visuel.textContent = ""; lecture.textContent = ""; dessin = null;
