@@ -93,7 +93,7 @@ verifier("Tordesillas en vedette", lieu("tordesillas").classList.contains("est-v
 
 console.log("NAVIGATION");
 clic(boutonTexte("Étape précédente"));
-verifier("retour à l'étape 2", $("recit").textContent.includes("Étape 2 sur 11"));
+verifier("retour à l'étape 2", $("recit").textContent.includes("Étape 2 sur 12"));
 annee(1560);
 verifier("le curseur passe en exploration libre", $("recit").textContent.includes("Exploration libre"));
 verifier("année affichée 1560", $("annee").textContent === "1560");
@@ -208,13 +208,94 @@ verifier("légende des langues", $("legende").textContent.includes("Portugais"))
 clic(racine.querySelector('.tds__mode[data-mode="royaumes"]'));
 verifier("retour aux royaumes", racine.getAttribute("data-mode") === "royaumes" && couleur("belem") === "portugal");
 
+console.log("LES POSSESSIONS VERS 1700");
+{
+  const modes = Array.from(racine.querySelectorAll(".tds__mode")).map((b) => b.getAttribute("data-mode")).join(",");
+  verifier("quatre boutons, les possessions juste avant les langues", modes === "royaumes,traite,possessions,langues", modes);
+  annee(1620);
+  clic(racine.querySelector('.tds__mode[data-mode="possessions"]'));
+  verifier("le bouton mène à l'étape « vers 1700 » du récit",
+    racine.getAttribute("data-mode") === "possessions" && $("annee").textContent === "Vers 1700" && $("curseur").value === "1700"
+    && $("recit").textContent.includes("Les possessions vers 1700") && $("recit").textContent.includes("Étape 10 sur 12"), $("annee").textContent);
+  verifier("le bouton est enfoncé", racine.querySelector('.tds__mode[data-mode="possessions"]').getAttribute("aria-pressed") === "true");
+  verifier("la ligne de 1494 reste tracée, toujours en vigueur", !!$("traits").querySelector(".tds__ligne:not(.tds__ligne--1493):not(.tds__ligne--abolie)"));
+  verifier("pas de noms de zones du traité par-dessus les possessions", !$("traits").querySelector(".tds__zone-nom"));
+  verifier("pas de trajet de voyage", $("voyages").childNodes.length === 0);
+  const zonesDe = (p) => Array.from(racine.querySelectorAll(`.tds__possession[data-possession="${p}"]`));
+  const zone = (z) => racine.querySelector(`.tds__possession[data-zone="${z}"]`);
+  verifier("des zones pour chaque couleur de la légende", ["espagne", "portugal", "france", "angleterre", "autres", "autochtones"].every((p) => zonesDe(p).length > 0));
+  verifier("les onze zones de la fiche, chacune de la bonne couleur",
+    [["rupert", "angleterre"], ["nouvelle-france", "france"], ["colonies-anglaises", "angleterre"], ["floride", "espagne"],
+      ["nouvelle-espagne", "espagne"], ["ile-cuba", "espagne"], ["saint-domingue-ouest", "france"], ["saint-domingue-est", "espagne"],
+      ["perou", "espagne"], ["bresil", "portugal"], ["guyane", "france"]].every(([z, p]) => zone(z) && zone(z).getAttribute("data-possession") === p));
+  verifier("les quatre métropoles ont la couleur de leurs possessions",
+    ["espagne", "portugal", "france", "angleterre"].every((p) => zone("metropole-" + p).getAttribute("data-possession") === p));
+  verifier("chaque zone porte son nom", zonesDe("france").every((z) => z.querySelector("title") && z.querySelector("title").textContent.length > 2));
+  verifier("tracés valides", !/NaN|Infinity|undefined/.test($("possessions").innerHTML));
+  verifier("le voile de l'Ancien Monde suit la côte", $("possessions").querySelector(".tds__voile").getAttribute("clip-path") === "url(#tds-clip-terre)"
+    && !!document.getElementById("tds-terre") && !!document.querySelector("#tds-clip-terre use"));
+  verifier("Québec aux couleurs de la France", couleur("quebec") === "france", couleur("quebec"));
+  verifier("Jamestown aux couleurs de l'Angleterre", couleur("jamestown") === "angleterre", couleur("jamestown"));
+  verifier("Colonia portugaise en 1700", couleur("colonia") === "portugal", couleur("colonia"));
+  verifier("Le Cap néerlandais, en gris", couleur("le-cap") === "neutre", couleur("le-cap"));
+  verifier("Mombasa aux mains d'Oman depuis 1698", lieu("mombasa").classList.contains("est-vide"));
+  verifier("étiquettes des lieux de l'étape", lieu("quebec").classList.contains("est-vedette") && lieu("colonia").classList.contains("est-vedette"));
+  const cles = Array.from($("legende").querySelectorAll(".tds__cle--bouton")).map((b) => b.textContent.trim());
+  verifier("la légende reprend celle de la fiche, dans le même ordre",
+    cles.join("|") === "Possessions espagnoles|Possessions portugaises|Possessions françaises|Possessions anglaises|Territoires autochtones|Autres possessions européennes", cles.join("|"));
+  verifier("la légende explique aussi les points et la ligne", $("legende").textContent.includes("Comptoir ou fort") && $("legende").textContent.includes("Ligne de 1494"));
+
+  clic(zone("nouvelle-france"));
+  verifier("un clic sur une zone ouvre sa description", ongletActif() === "lieu" && $("fiche").textContent.includes("Les possessions françaises")
+    && $("fiche").textContent.includes("15 000 colons"), $("fiche").textContent.slice(0, 80));
+  verifier("l'onglet porte un nom court, le titre donne le nom complet", onglet("lieu").textContent === "France" && onglet("lieu").title === "Possessions françaises", onglet("lieu").textContent);
+  verifier("toutes les zones françaises sont mises en évidence, métropole comprise",
+    zonesDe("france").every((z) => z.classList.contains("est-choisi")) && zone("metropole-france").classList.contains("est-choisi")
+    && !zone("perou").classList.contains("est-choisi") && racine.getAttribute("data-choix") === "france");
+  verifier("et passent au premier plan", $("possessions").lastElementChild.getAttribute("data-possession") === "france");
+  verifier("la clé de la légende est enfoncée", $("legende").querySelector('[data-possession="france"]').getAttribute("aria-pressed") === "true");
+  clic(zone("guyane"));
+  verifier("un second clic sur la même couleur referme la description", !racine.hasAttribute("data-choix") && ongletActif() === "recit"
+    && $("legende").querySelector('[aria-pressed="true"]') === null);
+  clic($("legende").querySelector('[data-possession="autochtones"]'));
+  verifier("la légende ouvre aussi une description", $("fiche").textContent.includes("Grande Paix de Montréal") && racine.getAttribute("data-choix") === "autochtones");
+  clic($("legende").querySelector('[data-possession="autres"]'));
+  verifier("les autres possessions européennes ont leur description", $("fiche").textContent.includes("Suriname") && racine.getAttribute("data-choix") === "autres");
+  choisir("quebec");
+  verifier("choisir un lieu referme la possession", !racine.hasAttribute("data-choix") && $("fiche").textContent.includes("Québec") && onglet("lieu").textContent === "Québec");
+  clic(zone("metropole-espagne"));
+  verifier("la métropole ouvre la description de ses possessions", $("fiche").textContent.includes("Les possessions espagnoles") && !lieu("quebec").classList.contains("est-choisi"));
+  racine.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+  verifier("Échap referme la possession", !racine.hasAttribute("data-choix") && ongletActif() === "recit");
+  clic(zone("bresil"));
+  clic(racine.querySelector('.tds__mode[data-mode="traite"]'));
+  verifier("changer de mode referme la possession", !racine.hasAttribute("data-choix") && ongletActif() === "recit" && onglet("lieu").textContent === "Le lieu");
+  verifier("le respect du traité garde l'année 1700", $("annee").textContent === "Vers 1700" && couleur("colonia") === "hors");
+  clic(racine.querySelector('.tds__mode[data-mode="possessions"]'));
+  clic(zone("bresil"));
+  annee(1710);
+  verifier("le curseur ramène les puissances et referme la possession", racine.getAttribute("data-mode") === "royaumes" && !racine.hasAttribute("data-choix"));
+  clic(boutonTexte("Étape précédente"));
+  verifier("le récit passe par les possessions vers 1700", racine.getAttribute("data-mode") === "possessions" && $("annee").textContent === "Vers 1700");
+  clic(boutonTexte("Étape précédente"));
+  verifier("l'étape d'avant rend les puissances", racine.getAttribute("data-mode") === "royaumes" && $("annee").textContent === "1680");
+  clic(boutonTexte("Étape suivante"));
+  clic(boutonTexte("Étape suivante"));
+  verifier("et l'étape d'après aussi", racine.getAttribute("data-mode") === "royaumes" && $("annee").textContent === "1750");
+  clic(racine.querySelector('.tds__mode[data-mode="possessions"]'));
+  clic(zone("rupert"));
+  clic(racine.querySelector(".tds__entete .reinitialiser"));
+  verifier("Réinitialiser referme aussi la possession", !racine.hasAttribute("data-choix") && racine.getAttribute("data-mode") === "royaumes"
+    && $("annee").textContent === "1488" && ongletActif() === "recit");
+}
+
 console.log("FIN DU RÉCIT");
 for (let i = 0; i < 12; i++) { const b = boutonTexte("Étape suivante"); if (b) clic(b); }
 verifier("dernière étape : Aujourd'hui", $("annee").textContent === "Aujourd'hui");
 verifier("les langues s'affichent", racine.getAttribute("data-mode") === "langues");
 verifier("bouton pour recommencer", !!boutonTexte("Recommencer le récit"));
 clic(boutonTexte("Étape précédente"));
-verifier("l'étape 10 rend les couleurs des royaumes", racine.getAttribute("data-mode") === "royaumes");
+verifier("l'étape 11 rend les couleurs des royaumes", racine.getAttribute("data-mode") === "royaumes");
 verifier("1750 : ligne abandonnée", !!$("traits").querySelector(".tds__ligne--abolie"));
 clic(boutonTexte("Étape suivante"));
 clic(boutonTexte("Recommencer le récit"));
@@ -223,7 +304,7 @@ verifier("retour à l'étape 1", $("annee").textContent === "1488");
 console.log("ONGLETS DE LECTURE");
 clic(boutonTexte("Étape suivante"));
 verifier("le récit est l'onglet ouvert", ongletActif() === "recit" && !$("recit").hidden && $("fiche").hidden);
-verifier("la navigation du récit est sous les onglets", $("pilote").textContent.includes("Étape 2 / 11"));
+verifier("la navigation du récit est sous les onglets", $("pilote").textContent.includes("Étape 2 / 12"));
 choisir("arguin");
 verifier("choisir un lieu ouvre l'onglet du lieu", ongletActif() === "lieu" && $("recit").hidden && !$("fiche").hidden);
 verifier("l'onglet porte le nom du lieu", onglet("lieu").textContent === "Arguin", onglet("lieu").textContent);
@@ -347,7 +428,7 @@ console.log("DÉSÉLECTION ET RÉINITIALISATION");
   verifier("état de départ quitté (zoom, mode, lieu, année)", vb()[2] < 1000 && racine.getAttribute("data-mode") === "traite" && $("annee").textContent === "1650");
   clic(reinit);
   verifier("Réinitialiser : étape 1, aucun lieu, puissances, récit ouvert",
-    $("annee").textContent === "1488" && !racine.querySelector(".tds__lieu.est-choisi") && racine.getAttribute("data-mode") === "royaumes" && ongletActif() === "recit" && $("pilote").textContent.includes("Étape 1 / 11"));
+    $("annee").textContent === "1488" && !racine.querySelector(".tds__lieu.est-choisi") && racine.getAttribute("data-mode") === "royaumes" && ongletActif() === "recit" && $("pilote").textContent.includes("Étape 1 / 12"));
   verifier("Réinitialiser : carte entière, liste refermée, plein écran gardé",
     vb().join(" ") === "0 0 1000 702" && !racine.querySelector(".tds__liste").open && racine.classList.contains("est-plein-ecran"), vb().join(" "));
   clic(pleinTds);
