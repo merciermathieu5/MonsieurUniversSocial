@@ -3463,7 +3463,9 @@ qu'avant. `test_page.js` et `test_carrousel.js` passent à 0 échec. Deux
 nouveaux tests dans un DOM simulé : `test_foret_amazonienne.js` (37
 vérifications) et `test_nations_amazonie.js` (31 vérifications), tous
 conformes. La livraison passe par une demande de fusion (PR) plutôt que par
-un zip : `docs/` n'y est pas, le robot le reconstruit à la fusion. Les deux composants ont aussi été regardés dans Chrome, en thème
+un zip. De `docs/`, elle ne contient que la page construite de la fiche 06,
+pour que l'aperçu de Cloudflare montre les cartes; le robot reconstruit le
+reste à la fusion. Les deux composants ont aussi été regardés dans Chrome, en thème
 clair et en thème sombre, à 1200 et à 390 pixels de large. Poids :
 `foret-amazonienne.html` 213 Ko, `nations-amazonie.html` 232 Ko.
 
