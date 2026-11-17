@@ -178,25 +178,35 @@ différents acteurs.
 
 ## La forêt amazonienne
 
-![Le biome amazonien et le bassin de l'Amazone](../medias/06-territoire-forestier/carte-amazonie.png)
+L'Amazonie est la plus vaste forêt tropicale de la planète. Elle s'étend de la
+cordillère des Andes, à l'ouest, jusqu'à l'océan Atlantique, à l'est, et se
+répartit sur neuf pays : le Brésil, la Bolivie, le Pérou, l'Équateur, la
+Colombie, le Venezuela, le Guyana, le Surinam et la Guyane française.
+
+::: cartes
+**5,5 à 6,7 millions de km²** selon qu'on mesure la forêt dense seulement ou
+tout le biome, avec ses forêts inondées, ses pentes andines et ses mangroves.
+
+**9 pays** se partagent la forêt, mais très inégalement.
+
+**60 % au Brésil** et 13 % au Pérou. La Colombie, le Venezuela et la Bolivie
+en possèdent chacun de 5 à 7 %.
+:::
+
+### Le climat et le type de forêt
 
 ![L'Amazone et la forêt vus du ciel](../medias/06-territoire-forestier/amazonie-vue-aerienne.jpg)
 
-L'Amazonie est la plus vaste forêt tropicale de la planète. Sa superficie
-varie de 5,5 à 6,7 millions de kilomètres carrés, selon qu'on mesure la forêt
-dense seulement ou tout le biome, avec ses forêts inondées, ses pentes andines
-et ses mangroves. Le bassin de l'Amazone, c'est-à-dire tout le territoire dont
-les eaux s'écoulent vers le fleuve, couvre environ 7 millions de kilomètres
-carrés, près de 40 % de la superficie de l'Amérique du Sud. La forêt se
-répartit sur neuf pays : le Brésil, la Bolivie, le Pérou, l'Équateur, la
-Colombie, le Venezuela, le Guyana, le Surinam et la Guyane française. Environ
-60 % de la forêt se trouve au Brésil et 13 % au Pérou. La Colombie, le
-Venezuela et la Bolivie en possèdent chacun de 5 à 7 %. La forêt s'étend de la
-cordillère des Andes, à l'ouest, jusqu'à l'océan Atlantique, à l'est.
+La forêt amazonienne est une forêt tropicale humide, sous un climat
+équatorial. Ce climat ne connaît pas d'hiver : la température reste élevée
+toute l'année et la moyenne avoisine les 27 degrés Celsius. Les pluies sont
+abondantes. À Manaus, au cœur de la forêt, la saison des pluies s'étend de
+décembre à mai. De juillet à octobre vient une saison relativement sèche, qui
+reste chaude et humide.
 
 ### Le fleuve Amazone
 
-![La rencontre des eaux du Rio Negro et du Solimões, près de Manaus](../medias/06-territoire-forestier/rencontre-des-eaux.jpg)
+![Le biome amazonien et le bassin de l'Amazone](../medias/06-territoire-forestier/carte-amazonie.png)
 
 L'Amazone prend sa source au Pérou, dans la cordillère des Andes, et se jette
 dans l'Atlantique au nord du Brésil, à hauteur de l'équateur. Sur son parcours
@@ -205,39 +215,45 @@ Il se dispute le titre de plus long fleuve du monde avec le Nil. L'Amazone
 multiplie les records. Avec un débit moyen de 209 000 mètres cubes par
 seconde, c'est le fleuve au débit le plus élevé de la planète. Il collecte les
 eaux de plus de 1 000 affluents et représente à lui seul environ 20 % de l'eau
-douce que les fleuves déversent dans les océans. Son bassin est le plus vaste
-du monde.
+douce que les fleuves déversent dans les océans.
 
-### Le climat et le type de forêt
+Son bassin, c'est-à-dire tout le territoire dont les eaux s'écoulent vers le
+fleuve, est le plus vaste du monde. Il couvre environ 7 millions de kilomètres
+carrés, près de 40 % de la superficie de l'Amérique du Sud. Il déborde donc
+largement de la forêt elle-même.
 
-La forêt amazonienne est une forêt tropicale humide, sous un climat
-équatorial. Au plus près de l'équateur, ce climat ne connaît qu'une seule
-saison, de fortes précipitations et une température élevée à peu près
-constante toute l'année. Il y pleut près de neuf mois par année et la
-température moyenne avoisine les 27 degrés Celsius. On estime que l'ensemble
-des forêts tropicales de la planète abritent au moins 92 % des espèces
-vivantes, animales et végétales. Plus des deux tiers de ces forêts se trouvent
-dans quatre pays : le Brésil, la Bolivie, la République démocratique du Congo
-et l'Indonésie.
+### Les forêts inondées
+
+![La rencontre des eaux du Rio Negro et du Solimões, près de Manaus](../medias/06-territoire-forestier/rencontre-des-eaux.jpg)
+
+La plus grande partie de l'Amazonie est une forêt de terre ferme, que les
+crues n'atteignent jamais. Le long des cours d'eau, la forêt est inondée une
+partie de l'année. Selon la couleur de la rivière qui la submerge, on parle de
+várzea ou d'igapó. Les rivières aux eaux blanches, comme le Solimões, chargées
+de sédiments et de nutriments, forment la várzea. Les rivières aux eaux noires
+ou claires, comme le Rio Negro, pauvres en nutriments, forment l'igapó. Dans
+ces forêts, les arbres se sont adaptés à des crues qui peuvent durer jusqu'à
+neuf ou dix mois par année.
 
 ### Les mangroves amazoniennes
 
 ![Les fleurs du palétuvier rouge, l'arbre des mangroves](../medias/06-territoire-forestier/mangrove-paletuvier.jpg)
 
-La mangrove est un écosystème de marais qui se forme à l'embouchure de
-certains fleuves, comme celle de l'Amazone. Ses arbres les plus
-caractéristiques sont les palétuviers, dont les racines aériennes retiennent
-le sol. La mangrove rend plusieurs services. Elle nourrit les populations
-côtières, elle stocke du carbone et elle réduit les risques de catastrophes
-liées aux changements climatiques. Ses racines luttent contre l'érosion des
-berges. Ces milieux comptent parmi les écosystèmes les plus productifs de la
-planète.
+À l'embouchure de l'Amazone se forme la mangrove, un écosystème de marais
+inondé par les marées. Ses arbres les plus caractéristiques sont les
+palétuviers, dont les racines aériennes retiennent le sol. La mangrove rend
+plusieurs services. Elle nourrit les populations côtières, elle stocke du
+carbone et elle réduit les risques de catastrophes liées aux changements
+climatiques. Ses racines luttent contre l'érosion des berges. Ces milieux
+comptent parmi les écosystèmes les plus productifs de la planète.
 
 ### Une biodiversité exceptionnelle
 
 ![Le dauphin rose de l'Amazone, ou boto](../medias/06-territoire-forestier/dauphin-rose.jpg)
 
-L'Amazonie héberge une biodiversité phénoménale.
+Les forêts abritent la majorité des espèces terrestres de la planète, et les
+forêts tropicales à elles seules renferment environ 60 % de toutes les plantes
+vasculaires. Dans ce lot, l'Amazonie héberge une biodiversité phénoménale.
 
 - Environ 40 000 espèces de plantes
 - Environ 3 000 espèces de poissons d'eau douce
@@ -642,3 +658,6 @@ pourcentage gagné ou perdu.
 - [Alloprof, le territoire forestier](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/territoire-forestier-g1081)
 - [Organisation des Nations unies pour l'alimentation et l'agriculture](https://www.fao.org/forestry/fr/)
 - [GreenFacts, les bienfaits économiques et sociaux des forêts](https://www.greenfacts.org/fr/forets/l-2/8-bienfaits-economiques-sociaux.htm)
+- [FAO, les forêts et la biodiversité](https://www.fao.org/3/cb5879fr/cb5879fr.pdf)
+- [Climats et voyages, le climat de Manaus (normales 1991-2020)](https://www.climatsetvoyages.com/climat/bresil/manaus)
+- [Wittmann et collab. (2022), les forêts inondées d'Amazonie, várzea et igapó](https://www.mdpi.com/2073-4441/14/21/3360)
