@@ -1087,6 +1087,11 @@ details.credit > span { display: block; max-width: 34rem; }
 /* ------------------------------------------------------------ visionneuse */
 
 .illustration img { cursor: zoom-in; }
+/* Les puces des listes sont posées sur des li en position: relative. Ces li
+   s'étendent sous une image flottante voisine et passent par-dessus elle :
+   le survol et le clic tombaient sur la liste plutôt que sur l'image, qui ne
+   s'ouvrait alors que par endroits. La figure passe devant. */
+.texte .illustration { position: relative; z-index: 1; }
 
 .visionneuse {
   position: fixed; inset: 0; z-index: 90;
