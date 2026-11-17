@@ -182,13 +182,16 @@ différents acteurs.
 
 ![L'Amazone et la forêt vus du ciel](../medias/06-territoire-forestier/amazonie-vue-aerienne.jpg)
 
-Avec une superficie d'environ 5,5 millions de kilomètres carrés, l'Amazonie
-est la plus vaste forêt tropicale de la planète. Le bassin amazonien, plus
-large encore avec ses 7,4 millions de kilomètres carrés, occupe près de 40 %
-de la superficie de l'Amérique du Sud et se répartit sur neuf pays : le
-Brésil, la Bolivie, le Pérou, l'Équateur, la Colombie, le Venezuela, le
-Guyana, le Surinam et la Guyane française. Environ 60 % de la forêt se trouve
-au Brésil, 13 % au Pérou et 10 % en Colombie. La forêt s'étend de la
+L'Amazonie est la plus vaste forêt tropicale de la planète. Sa superficie
+varie de 5,5 à 6,7 millions de kilomètres carrés, selon qu'on mesure la forêt
+dense seulement ou tout le biome, avec ses forêts inondées, ses pentes andines
+et ses mangroves. Le bassin de l'Amazone, c'est-à-dire tout le territoire dont
+les eaux s'écoulent vers le fleuve, couvre environ 7 millions de kilomètres
+carrés, près de 40 % de la superficie de l'Amérique du Sud. La forêt se
+répartit sur neuf pays : le Brésil, la Bolivie, le Pérou, l'Équateur, la
+Colombie, le Venezuela, le Guyana, le Surinam et la Guyane française. Environ
+60 % de la forêt se trouve au Brésil et 13 % au Pérou. La Colombie, le
+Venezuela et la Bolivie en possèdent chacun de 5 à 7 %. La forêt s'étend de la
 cordillère des Andes, à l'ouest, jusqu'à l'océan Atlantique, à l'est.
 
 ### Le fleuve Amazone
@@ -245,6 +248,13 @@ C'est l'un des derniers refuges du jaguar, de l'aigle harpie, de la loutre
 géante, du caïman noir et des dauphins roses, parmi bien d'autres espèces
 menacées d'extinction.
 
+### Explorer la forêt amazonienne
+
+La carte interactive qui suit réunit quatre volets : le territoire de la
+forêt, les pays qui se la partagent, ses cours d'eau et sa biodiversité.
+
+::: composant foret-amazonienne
+
 ::: questions
 1. Le bassin amazonien est plus vaste que la forêt amazonienne. Explique la
    différence entre les deux.
@@ -271,10 +281,12 @@ Brésil, après São Paulo et Rio de Janeiro.
 ### Les peuples autochtones
 
 Près de trois millions d'Autochtones forment quelque 420 peuples en Amazonie.
-Une soixantaine d'entre eux vivent dans un isolement complet. On y parle 86
-langues et de nombreux dialectes. Le peuple le plus nombreux est celui des
-Tikuna, fort d'environ 40 000 membres, qui vit au Brésil, au Pérou et en
-Colombie. Plus du tiers de la forêt amazonienne est reconnu officiellement
+Certains vivent dans un isolement complet : au Brésil seulement, la FUNAI,
+l'organisme fédéral responsable des peuples autochtones, recense 114 indices
+de peuples isolés, dont 28 sont confirmés. On y parle 86 langues et de
+nombreux dialectes. Au Brésil, le peuple le plus nombreux est celui des
+Tikuna, qui vit aussi au Pérou et en Colombie : le recensement brésilien de
+2022 en compte 74 061. Plus du tiers de la forêt amazonienne est reconnu officiellement
 comme territoire autochtone. Ce n'est pas un détail juridique : les taux de
 déforestation y sont nettement plus bas qu'ailleurs, ce qui fait des peuples
 autochtones des acteurs centraux de la protection de la forêt et non de
@@ -293,6 +305,8 @@ la parcelle une fois le sol épuisé. Le manioc, devenu une denrée de base, sem
 avoir été domestiqué sur place, alors que le maïs est venu de l'ouest des Andes.
 :::
 
+::: composant nations-amazonie
+
 ::: questions
 1. Les deux tiers des habitants de l'Amazonie vivent en ville. En quoi cela
    change-t-il l'idée que l'on se fait de cette région?
@@ -306,10 +320,11 @@ avoir été domestiqué sur place, alors que le maïs est venu de l'ouest des An
 Reconnaître un territoire autochtone sur une carte ne suffit pas à le protéger.
 La terre indigène Uru-Eu-Wau-Wau, dans l'État de Rondônia, le montre mieux que
 n'importe quel chiffre. Homologuée en 1991, elle couvre environ 19 000
-kilomètres carrés, près des deux tiers de la superficie de la Gaspésie. Trois
-peuples y vivent en contact avec le reste du pays, les Uru-Eu-Wau-Wau, les
-Amondawa et les Oro Win, et la FUNAI y a confirmé la présence d'au moins trois
-groupes en isolement volontaire, c'est-à-dire qui n'ont jamais établi de contact.
+kilomètres carrés, près des deux tiers de la superficie de la péninsule
+gaspésienne. Quatre peuples y vivent en contact avec le reste du pays, les
+Uru-Eu-Wau-Wau, qui se nomment eux-mêmes Jupaú, les Amondawa, les Cabixi et
+les Oro Win. La FUNAI y a aussi confirmé la présence d'au moins trois groupes
+en isolement volontaire, c'est-à-dire qui n'ont jamais établi de contact.
 
 ### Un peuple qui a failli disparaître
 
@@ -317,10 +332,11 @@ Le premier contact avec les Uru-Eu-Wau-Wau remonte à 1981. Dans les années qui
 ont suivi, leur population est passée d'environ 250 personnes à 80, décimée par
 les maladies et par les affrontements avec les colons venus s'installer pendant
 la dictature militaire, qui a gouverné le Brésil de 1964 à 1985. L'Institut
-socio-environnemental en dénombre aujourd'hui environ 85, et le territoire
-entier compte à peine 183 habitants. Ce sont donc 183 personnes qui veillent sur
-un territoire grand comme les deux tiers de la Gaspésie, entouré de fermes et de
-pâturages.
+socio-environnemental en dénombrait 127 en 2020. Selon le gouvernement
+brésilien, environ 500 Autochtones des quatre peuples vivent aujourd'hui dans
+le territoire. Ce sont donc quelques centaines de personnes qui veillent sur
+un territoire grand comme les deux tiers de la péninsule gaspésienne, entouré
+de fermes et de pâturages.
 
 ### Des envahisseurs et des drones
 
@@ -350,8 +366,8 @@ jury au festival de Sundance, en 2022.
 ::: questions
 1. Le territoire des Uru-Eu-Wau-Wau est reconnu par la loi depuis 1991. Explique
    pourquoi cette reconnaissance ne suffit pas à le protéger.
-2. En quoi le drone change-t-il le rapport de force entre 183 habitants et un
-   millier d'occupants illégaux?
+2. En quoi le drone change-t-il le rapport de force entre quelques centaines
+   d'habitants et un millier d'occupants illégaux?
 :::
 
 ## Exploiter la forêt amazonienne

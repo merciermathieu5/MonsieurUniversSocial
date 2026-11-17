@@ -3340,6 +3340,135 @@ Les deux suites Node passent à 0 échec.
 
 ## Fiche : Le territoire forestier
 
+### Deux cartes interactives pour l'Amazonie (livraison 153)
+
+Deux composants s'ajoutent à la fiche. Le texte est retouché à six endroits pour
+s'accorder avec eux : le détail est plus bas.
+
+**`foret-amazonienne`**, placé à la fin de « La forêt amazonienne », sous un
+nouvel intertitre « Explorer la forêt amazonienne », avant les questions. Quatre
+volets sur la même carte :
+
+- **Le territoire.** Le biome amazonien, quatre repères numérotés pour ses
+  limites (Andes, plateau des Guyanes, plateau central du Brésil, Atlantique) et
+  une couche « Le Québec à la même échelle », dessinée dans une projection qui
+  conserve les superficies.
+- **Les pays.** Chaque pays est coloré selon sa part de la forêt ou selon la
+  part de son territoire que la forêt couvre. Une fiche par pays.
+- **Les cours d'eau.** L'Amazone et onze affluents cliquables, colorés selon
+  les trois types d'eau (blanches, noires, claires) quand le type est documenté.
+- **La biodiversité.** Une coupe de la forêt à l'échelle des hauteurs, du sol
+  aux émergents, avec la rivière et la forêt inondée, cinq étages et neuf
+  espèces. Cette coupe a été redessinée au complet après ton commentaire sur la
+  première version.
+
+**`nations-amazonie`**, placé dans « Les peuples autochtones », après le
+« Savais-tu », avant les questions. Deux volets :
+
+- **Dix peuples.** Tikuna, Yanomami, Kayapó, Munduruku, Paiter Suruí,
+  Uru-Eu-Wau-Wau, Asháninka, Waorani, Murui-Muina et Wayãpi, colorés par famille
+  de langues, sur le fond des terres indigènes du Brésil (FUNAI, 2025).
+- **Dossier : les Uru-Eu-Wau-Wau.** La carte se rapproche du Rondônia : limites
+  officielles du territoire, parc national de Pacaás Novos, routes, villes et
+  terres voisines. Quatre onglets : territoire, peuples, chronologie, gardiens.
+
+### Le texte de la fiche est aligné sur les chiffres vérifiés
+
+La forêt dessinée est le biome amazonien des écorégions RESOLVE 2017, avec les
+forêts des pentes andines et les mangroves : 6,6 millions de km². Les parts par
+pays sont calculées sur ce tracé. Pour que la fiche et les cartes disent la même
+chose, j'ai retouché six passages du texte. Chacun est à relire.
+
+**1. Superficie de la forêt.** « Environ 5,5 millions de km² » devient « de 5,5
+à 6,7 millions de km², selon qu'on mesure la forêt dense seulement ou tout le
+biome ». La carte donne 6,6; Britannica, 6; le WWF, 6,7.
+
+**2. Superficie du bassin.** « 7,4 millions de km² » devient « environ 7
+millions ». Britannica donne 7 millions de km² pour le bassin. Je n'ai trouvé
+aucune source pour 7,4.
+
+**3. Part de la Colombie.** « 10 % en Colombie » devient « La Colombie, le
+Venezuela et la Bolivie en possèdent chacun de 5 à 7 % ». La carte donne 6,9 %
+pour la Colombie. Le réseau RAISG, avec une autre délimitation, lui attribue
+6 % de l'Amazonie. Le Brésil (60 %) et le Pérou (13 %) restent tels quels.
+
+**4. Les Tikuna.** « Environ 40 000 membres » devient 74 061, le chiffre du
+recensement brésilien de 2022, pour le Brésil seulement. La phrase précise
+maintenant que c'est le peuple le plus nombreux du Brésil, pas de toute
+l'Amazonie, ce que je ne peux pas affirmer.
+
+**5. Les peuples isolés.** « Une soixantaine » devient le chiffre de la FUNAI
+pour le Brésil : 114 indices, dont 28 confirmés.
+
+**6. Les Uru-Eu-Wau-Wau.** Trois changements, d'après les communiqués du
+gouvernement brésilien de septembre 2025 et la fiche de l'ISA :
+
+- quatre peuples au lieu de trois : Uru-Eu-Wau-Wau (Jupaú), Amondawa, Cabixi et
+  Oro Win;
+- 127 Jupaú en 2020 (Sesai, cité par l'ISA) au lieu d'environ 85; environ 500
+  Autochtones dans le territoire au lieu de 183. La phrase « Ce sont donc 183
+  personnes » et la deuxième question parlent maintenant de « quelques
+  centaines »;
+- « la Gaspésie » devient « la péninsule gaspésienne ». Le territoire fait
+  18 671 km² et la péninsule 30 341 km² : 62 %, donc « près des deux tiers »
+  tient. Il ne tiendrait pas avec la région administrative, qui fait 20 272 km²
+  en terre ferme.
+
+### La chronologie est revérifiée
+
+Les deux lignes récentes de la chronologie du dossier sont confirmées et
+précisées :
+
+- **27 janvier 2024.** Opération Tapunhas : la Police fédérale et la FUNAI,
+  avec la Force nationale, retirent environ 50 envahisseurs de la bordure nord
+  du territoire, à Governador Jorge Teixeira.
+- **8 septembre 2025.** Le gouvernement fédéral lance une opération de retrait
+  des occupants illégaux, sur décision du Tribunal suprême fédéral.
+
+### Ce qui reste à ton jugement
+
+**1. La mort d'Ari Uru-Eu-Wau-Wau** (18 avril 2020). La chronologie dit
+seulement qu'il « est tué », sans parler du mobile, qui est contesté.
+
+**2. Iquitos.** Je la décris comme « souvent présentée comme la plus grande
+ville du monde qu'aucune route ne relie au reste du pays ». La formule est
+prudente à dessein.
+
+**3. Les positions des peuples** sont approximatives. Les territoires ne sont
+dessinés que pour le Brésil : pour les Waorani et les Murui-Muina, il n'y a donc
+qu'un point. Les deux mentions figurent dans le composant.
+
+**4. Deux chiffres de la fiche que je n'ai ni vérifiés ni touchés** : les
+« 86 langues » parlées en Amazonie et la chute de la population des
+Uru-Eu-Wau-Wau « de 250 à 80 » après le contact.
+
+### Les sources de données
+
+Terres indigènes : FUNAI, version de juin 2025, par le dépôt geobr de l'IPEA.
+Parc de Pacaás Novos : Cadastre national des unités de conservation, mars 2025,
+par geobr. Chefs-lieux du Rondônia : IBGE, 2022. Forêt : écorégions RESOLVE
+2017 (CC BY 4.0). Pays, cours d'eau, routes : Natural Earth. Les routes de
+Natural Earth n'ont pas de nom : seule la BR-364 est nommée, dans le texte.
+
+Les types d'eau ne sont coloriés que pour les cours d'eau où j'ai une source
+(classification de Sioli). Le Tocantins, le Jari et le Trombetas restent en
+bleu neutre, les sources se contredisant.
+
+### Le compte
+
+Ligne de base du vérificateur : 24 problèmes. Après : 24, aucun ne touche la
+fiche 06 ni les deux composants. `liens.py`, `figures.py` (6 figures à
+remonter) et `paragraphes.py` (1 fusion possible) donnent les mêmes résultats
+qu'avant. `test_page.js` et `test_carrousel.js` passent à 0 échec. Deux
+nouveaux tests dans un DOM simulé : `test_foret_amazonienne.js` (37
+vérifications) et `test_nations_amazonie.js` (31 vérifications), tous
+conformes. La livraison passe par une demande de fusion (PR) plutôt que par
+un zip. De `docs/`, elle ne contient que la page construite de la fiche 06,
+pour que l'aperçu de Cloudflare montre les cartes; le robot reconstruit le
+reste à la fusion. Les deux composants ont aussi été regardés dans Chrome, en thème
+clair et en thème sombre, à 1200 et à 390 pixels de large. Poids :
+`foret-amazonienne.html` 213 Ko, `nations-amazonie.html` 232 Ko.
+
 ### Cinquième fiche de géographie (livraison 108)
 
 `contenu/geographie/06-territoire-forestier.md` passe du gabarit à `brouillon`.
