@@ -1,7 +1,7 @@
 /*
  * Test de l'onglet « Mon trajet en métro » de la carte du transport (fiche de géographie 02) dans un DOM simulé.
  *     node outils/test_montreal_trajet.js [composant.html]
- * On vérifie les onglets, le plan schématique (4 lignes, 68 stations, 4 correspondances), le choix du départ
+ * On vérifie les onglets, le plan schématique (4 lignes, 68 stations, 4 correspondances, trains de banlieue), le choix du départ
  * (liste et clic sur le plan), la direction et le nombre de stations, l'arrêt aux correspondances,
  * le changement de ligne, le journal, le défi et Réinitialiser.
  */
@@ -44,6 +44,8 @@ verifier("4 lignes du métro", tous(".mtrj__ligne").length === 4);
 verifier("68 stations", tous(".mtrj__station").length === 68, tous(".mtrj__station").length);
 verifier("4 stations de correspondance", tous(".mtrj__station--corresp").map((g) => g.getAttribute("data-station")).sort().join() === "berri-uqam,jean-talon,lionel-groulx,snowdon");
 verifier("68 noms de station affichés", tous(".mtrj__nom").length === 68);
+verifier("5 lignes de trains de banlieue, chacune avec sa direction", tous(".mtrj__banlieue").length === 5 && tous(".mtrj__banlieue-nom--fort").map((n) => n.textContent).join("|") === "Direction Blainville-Saint-Jérôme|Direction Deux-Montagnes|Direction Dorion-Rigaud|Direction Delson-Candiac|Direction Mont-Saint-Hilaire");
+verifier("5 stations intermodales", tous(".mtrj__gares .mtrj__intermodale").map((n) => n.getAttribute("data-station")).sort().join() === "bonaventure,de-la-concorde,lucien-l-allier,parc,vendome");
 
 console.log("DÉPART");
 verifier("au départ : choisir une station (liste de 68 stations)", etat().phase === "depart" && tous(".mtrj__liste option").length === 69);
