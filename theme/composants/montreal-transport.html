@@ -237,6 +237,12 @@ html[data-sombre="on"] .mtr .mtr__onglet[aria-selected="true"] { color: #10171F;
 .mtr .mtrj__train-onde { fill: none; stroke: #fff; stroke-width: 2; opacity: 0; animation: mtrj-onde 1.8s ease-out infinite; }
 @keyframes mtrj-onde { 0% { r: 12px; opacity: .8; } 100% { r: 30px; opacity: 0; } }
 .mtr .mtrj__fleche { fill: #fff; stroke: var(--mtrj-nuit); stroke-width: 1.5; stroke-linejoin: round; }
+.mtr .mtrj { --mtrj-train: #C48FA6; }
+.mtr .mtrj__banlieue-trace { fill: none; stroke: var(--mtrj-train); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+.mtr .mtrj__train-pointe { fill: var(--mtrj-train); stroke: var(--mtrj-train); stroke-width: 2.5; stroke-linejoin: round; }
+.mtr .mtrj__banlieue-nom { font-family: var(--titre); font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; fill: #E9C9D6; paint-order: stroke; stroke: var(--mtrj-nuit); stroke-width: 3px; stroke-linejoin: round; }
+.mtr .mtrj__banlieue-nom--fort { font-size: 10.5px; font-weight: 800; letter-spacing: 0; text-transform: none; fill: #fff; }
+.mtr .mtrj__intermodale { fill: var(--mtrj-train); stroke: var(--mtrj-nuit); stroke-width: 1.5; }
 /* ----- commandes */
 .mtr .mtrj__commandes { padding: .95rem 1.2rem 1.05rem; border-bottom: 1px solid var(--trait); min-width: 0; min-height: 11.5rem; font-family: var(--titre); }
 .mtr .mtrj__titre { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
@@ -385,10 +391,12 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
 <div class="mtrj__commandes" aria-live="polite"></div>
 <div class="mtrj__carte">
 <svg class="mtrj__svg" role="img" aria-labelledby="mtrj-svg-titre">
-<title id="mtrj-svg-titre">Plan schématique du métro de Montréal&nbsp;: ligne verte, ligne orange, ligne jaune et ligne bleue, avec leurs 68 stations.</title>
+<title id="mtrj-svg-titre">Plan schématique du métro de Montréal&nbsp;: ligne verte, ligne orange, ligne jaune et ligne bleue, avec leurs 68 stations. Les lignes de trains de banlieue qui s'y raccordent sont aussi tracées.</title>
 <rect class="mtrj__fond" x="-500" y="-500" width="2400" height="2400"/>
 <g class="mtrj__eau"></g>
+<g class="mtrj__trains"></g>
 <g class="mtrj__halos"></g>
+<g class="mtrj__gares"></g>
 <g class="mtrj__lignes"></g>
 <g class="mtrj__stations"></g>
 <g class="mtrj__noms"></g>
@@ -401,7 +409,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
 <p class="mtrj__titre">Ton trajet</p>
 <div class="mtrj__journal-corps"></div>
 </div>
-<p class="mtrj__source">Plan schématique dessiné d'après la carte du réseau du métro de la Société de transport de Montréal (STM)&nbsp;: 4 lignes, 68 stations et 4 stations de correspondance (Berri-UQAM, Lionel-Groulx, Snowdon et Jean-Talon). Les distances sur ce plan ne sont pas à l'échelle.</p>
+<p class="mtrj__source">Plan schématique dessiné d'après la carte du réseau du métro de la Société de transport de Montréal (STM)&nbsp;: 4 lignes, 68 stations et 4 stations de correspondance (Berri-UQAM, Lionel-Groulx, Snowdon et Jean-Talon). Les distances sur ce plan ne sont pas à l'échelle. Les trains de banlieue et les stations intermodales sont tracés comme sur la fiche d'exercice, avec les noms de l'époque&nbsp;: la ligne Dorion-Rigaud s'appelle aujourd'hui Vaudreuil-Hudson, Delson-Candiac s'appelle Candiac, Blainville-Saint-Jérôme s'appelle Saint-Jérôme et la ligne de Deux-Montagnes a été remplacée par le REM.</p>
 </div>
 <script>
 /* Tracés et stations : © contributeurs d'OpenStreetMap, licence ODbL (https://www.openstreetmap.org/copyright). */
@@ -1035,9 +1043,11 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     var NUMERO = { verte: "1", orange: "2", jaune: "4", bleue: "5" };
     /* Plan à angles de 45 degrés, dans l'esprit du plan de la STM. Pour chaque station : x, y et côté du nom
        (d droite, g gauche, h dessus, b dessous, ne, se, sw, nw en diagonale, hd dessus à droite). */
-    var POS = {"berri-uqam":[500,470,"g"],"sherbrooke":[476,446,"ne"],"mont-royal":[452,422,"ne"],"laurier":[428,398,"ne"],"rosemont":[404,374,"ne"],"beaubien":[380,350,"ne"],"jean-talon":[356,326,"g"],"jarry":[332,302,"g2"],"cremazie":[308,278,"g2"],"sauve":[284,254,"g2"],"henri-bourassa":[260,230,"g2"],"cartier":[236,206,"g2"],"de-la-concorde":[184,182,"h"],"montmorency":[124,182,"g"],"champ-de-mars":[476,554,"se"],"place-d-armes":[452,578,"se"],"square-victoria-oaci":[428,602,"se"],"bonaventure":[404,626,"se"],"lucien-l-allier":[380,650,"se"],"georges-vanier":[356,674,"se"],"lionel-groulx":[332,698,"sw"],"saint-laurent":[476,494,"g2"],"place-des-arts":[452,518,"g2"],"mcgill":[428,542,"g2"],"peel":[404,566,"g2"],"guy-concordia":[380,590,"g2"],"atwater":[356,614,"g2"],"place-saint-henri":[302,668,"sw"],"vendome":[272,638,"sw"],"villa-maria":[242,608,"sw"],"snowdon":[212,578,"sw"],"cote-sainte-catherine":[188,554,"sw"],"plamondon":[164,530,"sw"],"namur":[140,506,"sw"],"de-la-savane":[116,482,"sw"],"du-college":[92,458,"sw"],"cote-vertu":[68,434,"h"],"charlevoix":[356,722,"ne"],"lasalle":[380,746,"ne"],"de-l-eglise":[370,784,"se"],"verdun":[346,808,"se"],"jolicoeur":[322,832,"se"],"monk":[298,856,"se"],"angrignon":[274,880,"g"],"beaudry":[552,470,"h"],"papineau":[610,470,"h"],"frontenac":[660,448,"se"],"prefontaine":[682,426,"se"],"joliette":[704,404,"se"],"pie-ix":[726,382,"se"],"viau":[748,360,"se"],"assomption":[770,338,"se"],"cadillac":[792,316,"se"],"langelier":[814,294,"se"],"radisson":[836,272,"se"],"honore-beaugrand":[858,250,"h"],"jean-drapeau":[592,562,"hd"],"longueuil-universite-de-sherbrooke":[686,562,"d"],"cote-des-neiges":[240,550,"se"],"universite-de-montreal":[268,522,"nw"],"edouard-montpetit":[296,494,"nw"],"outremont":[324,466,"d"],"acadie":[324,436,"d"],"parc":[324,406,"d"],"de-castelnau":[332,350,"g2"],"fabre":[382,300,"se"],"d-iberville":[408,274,"se"],"saint-michel":[434,248,"d"]};
+    var POS = {"berri-uqam":[500,470,"g"],"sherbrooke":[476,446,"ne"],"mont-royal":[452,422,"ne"],"laurier":[428,398,"ne"],"rosemont":[404,374,"ne"],"beaubien":[380,350,"ne"],"jean-talon":[356,326,"d"],"jarry":[332,302,"g2"],"cremazie":[308,278,"ne"],"sauve":[284,254,"ne"],"henri-bourassa":[260,230,"ne"],"cartier":[236,206,"ne"],"de-la-concorde":[184,182,"hg"],"montmorency":[124,182,"g"],"champ-de-mars":[476,554,"se"],"place-d-armes":[452,578,"se"],"square-victoria-oaci":[428,602,"se"],"bonaventure":[404,626,"se2"],"lucien-l-allier":[380,650,"se"],"georges-vanier":[356,674,"se"],"lionel-groulx":[332,698,"sw"],"saint-laurent":[476,494,"g2"],"place-des-arts":[452,518,"g2"],"mcgill":[428,542,"g2"],"peel":[404,566,"g2"],"guy-concordia":[380,590,"g2"],"atwater":[356,614,"g2"],"place-saint-henri":[302,668,"sw"],"vendome":[272,638,"sw2"],"villa-maria":[242,608,"sw"],"snowdon":[212,578,"sw"],"cote-sainte-catherine":[188,554,"g2"],"plamondon":[164,530,"g2"],"namur":[140,506,"g2"],"de-la-savane":[116,482,"g2"],"du-college":[92,458,"g2"],"cote-vertu":[68,434,"h"],"charlevoix":[356,722,"ne"],"lasalle":[380,746,"ne"],"de-l-eglise":[370,784,"se"],"verdun":[346,808,"se"],"jolicoeur":[322,832,"se"],"monk":[298,856,"se"],"angrignon":[274,880,"g"],"beaudry":[552,470,"h"],"papineau":[610,470,"h"],"frontenac":[660,448,"se"],"prefontaine":[682,426,"se"],"joliette":[704,404,"se"],"pie-ix":[726,382,"se"],"viau":[748,360,"se"],"assomption":[770,338,"se"],"cadillac":[792,316,"se"],"langelier":[814,294,"se"],"radisson":[836,272,"se"],"honore-beaugrand":[858,250,"h"],"jean-drapeau":[592,562,"hd"],"longueuil-universite-de-sherbrooke":[686,562,"d"],"cote-des-neiges":[240,550,"se"],"universite-de-montreal":[268,522,"nw"],"edouard-montpetit":[296,494,"nw"],"outremont":[324,466,"d"],"acadie":[324,436,"d"],"parc":[324,406,"d"],"de-castelnau":[332,350,"hg"],"fabre":[382,300,"se"],"d-iberville":[408,274,"se"],"saint-michel":[434,248,"d"]};
     var COUDES = {"cartier|de-la-concorde":[[212,182]],"parc|de-castelnau":[[324,358]],"lasalle|de-l-eglise":[[394,760]],"atwater|lionel-groulx":[[332,638]],"berri-uqam|champ-de-mars":[[500,530]],"papineau|frontenac":[[638,470]]};
-    var DEUX = {"longueuil-universite-de-sherbrooke":["Longueuil-","Université-de-Sherbrooke"],"universite-de-montreal":["Université-","de-Montréal"],"edouard-montpetit":["Édouard-","Montpetit"]};
+    /* Trains de banlieue, tracés comme sur la fiche d'exercice : ils situent les gares, on n'y voyage pas ici. */
+    var TRAINS = {"sj":[[184,122],[184,182],[184,266],[324,406],[266,406],[154,518],[20,518],[20,638]],"dm":[[-4,380],[210,380],[336,506],[336,554],[412,554],[412,626],[404,626]],"dr":[[-4,638],[272,638],[368,638],[380,650]],"dc":[[60,638],[60,876]],"msh":[[404,626],[425,647],[668,647]]};
+    var DEUX = {"longueuil-universite-de-sherbrooke":["Longueuil-","Université-de-Sherbrooke"],"universite-de-montreal":["Université-","de-Montréal"],"edouard-montpetit":["Édouard-","Montpetit"],"cote-des-neiges":["Côte-des-","Neiges"],"de-castelnau":["De","Castelnau"]};
     var ST = {}, LISTE = {}, CORRESP = {}, TERMINUS = {};
     LIG.forEach(function (k) {
       LISTE[k] = D.lignes[k].st.slice();
@@ -1091,7 +1101,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       var lignes = DEUX[id] || [s.n];
       var cw = term ? 7.5 : fort ? 7.7 : 6.6, w = Math.max.apply(null, lignes.map(function (l) { return l.length; })) * cw + (term ? 14 : 0);
       var h = (term ? 18 : 12) * lignes.length + (term && lignes.length > 1 ? -4 : 0), e = fort ? 5 : term ? 3 : 0;
-      var P = { d: [13 + e, 0, 0], g: [-13 - e, 0, 1], g2: [-18 - e, 0, 1], h: [0, -14 - e - h / 2 + 4, .5], b: [0, 16 + e + h / 2 - 4, .5], hd: [6, -20, 0], ne: [10 + e, -9 - e / 2, 0], se: [10 + e, 9 + e / 2 + (lignes.length - 1) * 6, 0], nw: [-10 - e, -9 - e / 2 - (lignes.length - 1) * 6, 1], sw: [-10 - e, 9 + e / 2, 1] }[s.cote];
+      var P = { d: [13 + e, 0, 0], g: [-13 - e, 0, 1], g2: [-18 - e, 0, 1], h: [0, -14 - e - h / 2 + 4, .5], b: [0, 16 + e + h / 2 - 4, .5], hd: [6, -20, 0], hg: [-8, -20, 1], sw2: [-12, 16, 1], se2: [21, 11, 0], ne: [10 + e, -9 - e / 2, 0], se: [10 + e, 9 + e / 2 + (lignes.length - 1) * 6, 0], nw: [-10 - e, -9 - e / 2 - (lignes.length - 1) * 6, 1], sw: [-10 - e, 9 + e / 2, 1] }[s.cote];
       var cx = s.p[0] + P[0], cy = s.p[1] + P[1];
       return { x: cx - w * P[2], y: cy - h / 2, w: w, h: h, cx: cx, cy: cy, anc: P[2], lignes: lignes, term: term };
     }
@@ -1105,6 +1115,24 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       var t = svgEl("text", { "class": "mtrj__fleuve-nom", "text-anchor": "middle", transform: "translate(" + n[1] + " " + n[2] + ") rotate(" + n[3] + ")" }, eau); t.textContent = n[0];
     });
 
+    var gTrains = q(".mtrj__trains"), INTERMODALE = { "de-la-concorde": 1, "parc": 1, "vendome": 1, "lucien-l-allier": 1, "bonaventure": 1 };
+    function pointe(p, a, parent) {
+      /* Pointe de flèche au bout p d'un tracé qui arrive du point a. */
+      var t = Math.atan2(p[1] - a[1], p[0] - a[0]), f = function (r, da) { return (p[0] + Math.cos(t + da) * r).toFixed(1) + " " + (p[1] + Math.sin(t + da) * r).toFixed(1); };
+      svgEl("path", { "class": "mtrj__train-pointe", d: "M" + f(9, 0) + "L" + f(7, 2.2) + "L" + f(7, -2.2) + "Z" }, parent);
+    }
+    [["sj", "Blainville-Saint-Jérôme", 198, 124, 0], ["dm", "Deux-Montagnes", 8, 354, 0], ["dr", "Dorion-Rigaud", 30, 613, 0], ["dc", "Delson-Candiac", 74, 838, 1], ["msh", "Mont-Saint-Hilaire", 528, 664, 1]].forEach(function (t) {
+      var pts = TRAINS[t[0]], g = svgEl("g", { "class": "mtrj__banlieue", "data-train": t[0] }, gTrains);
+      svgEl("path", { "class": "mtrj__banlieue-trace", d: chemin(pts) }, g);
+      if (t[4]) { pointe(pts[pts.length - 1], pts[pts.length - 2], g); } else { pointe(pts[0], pts[1], g); }
+      var a = svgEl("text", { "class": "mtrj__banlieue-nom", x: t[2], y: t[3] }, g); a.textContent = "Trains de banlieue";
+      var b = svgEl("text", { "class": "mtrj__banlieue-nom mtrj__banlieue-nom--fort", x: t[2], y: t[3] + 12.5 }, g); b.textContent = "Direction " + t[1];
+      var ti = svgEl("title", {}, g); ti.textContent = "Trains de banlieue, direction " + t[1];
+    });
+    Object.keys(INTERMODALE).forEach(function (id) {
+      var p = [POS[id][0], POS[id][1]];
+      svgEl("rect", { "class": "mtrj__intermodale", "data-station": id, x: p[0] - 10.5, y: p[1] - 10.5, width: 21, height: 21, rx: 4 }, q(".mtrj__gares"));
+    });
     LIG.forEach(function (k) {
       var g = svgEl("g", { "class": "mtrj__ligne", "data-ligne": k, style: "--c:" + couleur(k) }, q(".mtrj__lignes"));
       svgEl("path", { "class": "mtrj__trace", d: chemin(points(k, 0, LISTE[k].length - 1)) }, g);
@@ -1114,7 +1142,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     IDS.forEach(function (id) {
       var s = ST[id], corresp = !!CORRESP[id], term = TERMINUS[id];
       var g = svgEl("g", { "class": "mtrj__station " + (corresp ? "mtrj__station--corresp" : term ? "mtrj__station--terminus" : "mtrj__station--simple"), "data-station": id, transform: "translate(" + s.p[0] + " " + s.p[1] + ")" }, q(".mtrj__stations"));
-      svgEl("circle", { "class": "mtrj__point", r: corresp ? 8.5 : term ? 4.6 : 3.1 }, g);
+      svgEl("circle", { "class": "mtrj__point", r: corresp ? 8.5 : term ? 4.6 : INTERMODALE[id] ? 4.4 : 3.1 }, g);
       svgEl("circle", { "class": "mtrj__prise", r: 12 }, g);
       var ti = svgEl("title", {}, g); ti.textContent = s.n;
       STATION_G[id] = g;
@@ -1127,11 +1155,11 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       else { txt.textContent = s.n; }
       NOM_G[id] = txt;
     });
-    svgT.setAttribute("viewBox", "0 138 940 772");
+    svgT.setAttribute("viewBox", "-22 102 962 808");
     /* Légende, dans le coin libre du plan. */
     (function legende() {
-      var g = svgEl("g", { "class": "mtrj__legende", transform: "translate(684 716)" }, q(".mtrj__noms"));
-      svgEl("rect", { "class": "mtrj__legende-fond", x: 0, y: 0, width: 236, height: 174, rx: 10 }, g);
+      var g = svgEl("g", { "class": "mtrj__legende", transform: "translate(690 676)" }, q(".mtrj__noms"));
+      svgEl("rect", { "class": "mtrj__legende-fond", x: 0, y: 0, width: 236, height: 222, rx: 10 }, g);
       LIG.forEach(function (k, i) {
         var y = 24 + i * 22;
         svgEl("circle", { cx: 24, cy: y, r: 9, fill: couleur(k) }, g);
@@ -1140,9 +1168,14 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       });
       svgEl("circle", { "class": "mtrj__legende-corresp", cx: 24, cy: 118, r: 7.5 }, g);
       var a = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 122 }, g); a.textContent = "Station de correspondance";
-      svgEl("path", { "class": "mtrj__halo", d: "M16 148H30" }, g);
-      svgEl("path", { d: "M16 148H30", stroke: couleur("orange"), "stroke-width": 9, "stroke-linecap": "round" }, g);
-      var b = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 152 }, g); b.textContent = "Trajet parcouru";
+      svgEl("rect", { "class": "mtrj__intermodale", x: 14.5, y: 136.5, width: 19, height: 19, rx: 4 }, g);
+      svgEl("circle", { cx: 24, cy: 146, r: 4, fill: "#fff" }, g);
+      var c1 = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 150 }, g); c1.textContent = "Station intermodale";
+      svgEl("path", { "class": "mtrj__banlieue-trace", d: "M10 172H38" }, g);
+      var c2 = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 176 }, g); c2.textContent = "Train de banlieue";
+      svgEl("path", { "class": "mtrj__halo", d: "M16 200H30" }, g);
+      svgEl("path", { d: "M16 200H30", stroke: couleur("orange"), "stroke-width": 9, "stroke-linecap": "round" }, g);
+      var b = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 204 }, g); b.textContent = "Trajet parcouru";
     })();
 
     /* Graphe du réseau, pour le trajet le plus court d'un défi. */
