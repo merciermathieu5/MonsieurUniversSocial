@@ -181,8 +181,11 @@ et la terre de la fabrique, réservée à l'église.
 
 **Le canton**, d'origine britannique, divise le territoire en lots ou en
 concessions. Les terres sont carrées, d'environ 16 kilomètres de côté et la
-présence d'un cours d'eau n'est pas obligatoire. Le canton comprend lui aussi une
-terre de la fabrique.
+présence d'un cours d'eau n'est pas obligatoire. Le canton ne comprend pas de
+terre de la fabrique : il réserve plutôt un septième des lots au clergé
+protestant (les réserves du clergé) et un autre septième à la Couronne. Les
+cantons apparaissent après l'Acte constitutionnel de 1791; le premier, Dunham,
+est proclamé en 1796.
 
 Source : Alloprof
 {: .source-texte }
@@ -439,7 +442,8 @@ occupe 20 % de la superficie de l'État, elle est plate et à basse altitude, et
 elle regroupe environ les trois quarts des terres cultivées. On y produit plus de
 250 produits différents. La **vallée de Sacramento**, au nord, donne des pêches,
 des poires, du raisin et des prunes. Les **vallées de Sonoma et de Napa**, au
-nord de la baie de San Francisco, produisent 90 % du vin californien. La **vallée
+nord de la baie de San Francisco, sont les régions viticoles les plus réputées
+de la Californie. La **vallée
 de San Joaquin**, au sud, était surtout marécageuse avant d'être asséchée par des
 canaux; on y produit des amandes, des agrumes et du raisin.
 
@@ -483,8 +487,8 @@ Source : Service national du RÉCIT en univers social
 
 La production de vin remonte au 18e siècle, quand des missionnaires
 catholiques plantent des vignes pour la messe. Les vignobles se multiplient
-surtout dans les années 1960 et 1970. Aujourd'hui, la Californie produit 90 %
-du vin des États-Unis et l'exporte dans 125 pays. Mais cette agriculture
+surtout dans les années 1960 et 1970. Aujourd'hui, la Californie produit environ
+80 % du vin des États-Unis et l'exporte dans 125 pays. Mais cette agriculture
 repose sur un équilibre fragile. La Californie souffre d'une pénurie chronique
 de main-d'oeuvre agricole. Selon la fédération des bureaux agricoles de
 l'État, environ 70 % des quelque 400 000 employés présents dans les champs en

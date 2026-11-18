@@ -207,7 +207,7 @@ Source : UNESCO
 
 Une espèce **endémique** est une espèce qu'on ne trouve qu'à un seul endroit.
 Les Galápagos en comptent un nombre remarquable pour un archipel aussi jeune :
-tortues géantes, iguanes marins, le pingouin le plus septentrional du monde, des
+tortues géantes, iguanes marins, le manchot le plus septentrional du monde, des
 cormorans devenus incapables de voler, les pinsons de Darwin et les moqueurs des
 Galápagos.
 

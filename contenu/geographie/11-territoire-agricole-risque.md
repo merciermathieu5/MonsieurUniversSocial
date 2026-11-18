@@ -323,8 +323,8 @@ développement explique que lors d'événements météorologiques extrêmes, une
 telle ceinture verte peut faire la différence entre la vie et la mort.
 
 ::: savais-tu
-Une comparaison résume tout. Le tsunami de 1960 n'a fait aucune victime au
-Bangladesh. Celui de 1991 en a fait plusieurs milliers. Entre ces deux dates,
+Une comparaison résume tout. Le cyclone de 1960 n'a fait aucune victime au
+Bangladesh. Celui de 1991 en a fait environ 138 000. Entre ces deux dates,
 190 000 hectares de mangroves avaient été rasés.
 :::
 
