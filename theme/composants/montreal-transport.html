@@ -183,12 +183,139 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
   .mtr .mtr__visuel { border-right: 0; }
   .mtr { break-inside: avoid; }
 }
+/* ----- onglets : le réseau en mouvement / mon trajet en métro */
+.mtr .mtr__onglets { display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem 1.2rem; border-bottom: 1px solid var(--trait); background: var(--surface-2, var(--surface)); }
+.mtr .mtr__onglet { font-family: var(--titre); font-weight: 600; font-size: .84rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .42rem .95rem; cursor: pointer; }
+.mtr .mtr__onglet:hover { background: var(--matiere-voile); }
+.mtr .mtr__onglet:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtr__onglet[aria-selected="true"] { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); }
+html[data-sombre="on"] .mtr .mtr__onglet[aria-selected="true"] { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.mtr[data-onglet="trajet"] > .mtr__corps, .mtr[data-onglet="trajet"] > .mtr__source { display: none !important; }
+.mtr:not([data-onglet="trajet"]) > .mtrj { display: none !important; }
+/* ----- mon trajet en métro : le plan, sombre comme celui des stations */
+.mtr .mtrj { display: grid; grid-template-columns: minmax(0, 1fr); --mtrj-nuit: #0E1216; --mtrj-eau: #142A40; --mtrj-eau-nom: #9CC3E6; --mtrj-nom: #F2F5F8; --mtrj-signal: #FF5A47; }
+.mtr .mtrj__carte { position: relative; min-width: 0; background: var(--mtrj-nuit); --mtr-verte: #00A651; --mtr-orange: #F08123; --mtr-jaune: #FFD600; --mtr-bleue: #0A8FD6; }
+.mtr .mtrj__svg, .texte .mtr svg.mtrj__svg { display: block; width: 100%; height: auto; max-height: none; margin: 0; }
+.mtr .mtrj__fond { fill: var(--mtrj-nuit); }
+.mtr .mtrj__fleuve { fill: none; stroke: var(--mtrj-eau); stroke-linecap: round; stroke-linejoin: round; }
+.mtr .mtrj__ile { fill: var(--mtrj-nuit); }
+.mtr .mtrj__fleuve-nom { font-family: var(--donnee); font-size: 11px; font-style: italic; letter-spacing: .18em; fill: var(--mtrj-eau-nom); }
+.mtr .mtrj__halo { fill: none; stroke: #fff; stroke-width: 20; stroke-linecap: round; stroke-linejoin: round; }
+.mtr .mtrj__ligne { transition: opacity .25s; }
+.mtr .mtrj__ligne.est-estompe { opacity: .4; }
+.mtr .mtrj__trace { fill: none; stroke: var(--c); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+.mtr .mtrj__point { fill: #fff; transition: r .15s; }
+.mtr .mtrj__station--corresp .mtrj__point { stroke: var(--mtrj-nuit); stroke-width: 3; }
+.mtr .mtrj__station--terminus .mtrj__point { stroke: var(--mtrj-nuit); stroke-width: 1.6; }
+.mtr .mtrj__prise { fill: transparent; stroke: none; }
+.mtr .mtrj__station.est-cliquable { cursor: pointer; }
+.mtr .mtrj__station.est-cliquable:hover .mtrj__prise { fill: rgba(255,255,255,.28); }
+.mtr .mtrj__station.est-ici .mtrj__point { opacity: 0; }
+.mtr .mtrj__nom { font-family: var(--titre); font-size: 11.5px; font-weight: 600; fill: var(--mtrj-nom); paint-order: stroke; stroke: var(--mtrj-nuit); stroke-width: 3px; stroke-linejoin: round; pointer-events: none; transition: fill .2s, opacity .2s; }
+.mtr .mtrj__nom--fort { font-weight: 800; font-size: 13px; fill: #fff; }
+.mtr .mtrj__nom--terminus { font-weight: 800; font-size: 12.5px; fill: #fff; stroke: none; }
+.mtr .mtrj__nom--orange, .mtr .mtrj__nom--verte { fill: #0E1216; }
+.mtr .mtrj__nom--jaune { fill: #0E1216; }
+.mtr .mtrj__cartouche { fill: var(--c); }
+.mtr .mtrj.a-trajet .mtrj__nom:not(.est-parcourue):not(.mtrj__nom--terminus):not(.mtrj__nom--fort) { opacity: .8; }
+.mtr .mtrj__nom.est-parcourue:not(.mtrj__nom--terminus) { fill: #fff; }
+.mtr .mtrj__legende-fond { fill: #1A2027; stroke: rgba(255,255,255,.16); }
+.mtr .mtrj__legende-texte { font-family: var(--titre); font-size: 12px; font-weight: 600; fill: #fff; }
+.mtr .mtrj__legende-num { font-family: var(--titre); font-size: 11px; font-weight: 800; fill: #0E1216; stroke: none; }
+.mtr .mtrj__legende-num.mtrj__nom--jaune { fill: #12161B; }
+.mtr .mtrj__legende-corresp { fill: #fff; stroke: var(--mtrj-nuit); stroke-width: 2.5; }
+.mtr .mtrj__legende .mtrj__halo { stroke-width: 15; }
+.mtr .mtrj__repere circle { fill: none; stroke: #fff; stroke-width: 2.5; stroke-dasharray: 4 3; }
+.mtr .mtrj__repere rect { fill: #fff; }
+.mtr .mtrj__repere text { font-family: var(--titre); font-size: 10px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; fill: #12161B; }
+.mtr .mtrj__repere--but circle { stroke: var(--mtrj-signal); stroke-dasharray: none; stroke-width: 3.5; }
+.mtr .mtrj__repere--but rect { fill: var(--mtrj-signal); }
+.mtr .mtrj__repere--but text { fill: #fff; }
+.mtr .mtrj__train { transition: transform .5s cubic-bezier(.45,.05,.3,1); }
+.mtr .mtrj__train-corps { fill: #fff; stroke: var(--c, #fff); stroke-width: 4.5; }
+.mtr .mtrj__train-icone { fill: #12161B; }
+.mtr .mtrj__train-onde { fill: none; stroke: #fff; stroke-width: 2; opacity: 0; animation: mtrj-onde 1.8s ease-out infinite; }
+@keyframes mtrj-onde { 0% { r: 12px; opacity: .8; } 100% { r: 30px; opacity: 0; } }
+.mtr .mtrj__fleche { fill: #fff; stroke: var(--mtrj-nuit); stroke-width: 1.5; stroke-linejoin: round; }
+/* ----- commandes */
+.mtr .mtrj__commandes { padding: .95rem 1.2rem 1.05rem; border-bottom: 1px solid var(--trait); min-width: 0; min-height: 11.5rem; font-family: var(--titre); }
+.mtr .mtrj__titre { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.mtr .mtrj__commandes p { margin: 0 0 .6rem; font-family: var(--titre); font-size: .88rem; line-height: 1.45; color: var(--encre-doux); }
+.mtr .mtrj__commandes p.mtrj__titre { font-size: .95rem; color: var(--encre); }
+.mtr .mtrj__commandes p.mtrj__ici { color: var(--encre); font-weight: 600; }
+.mtr .mtrj__liste { font-family: var(--titre); font-size: .9rem; padding: .5rem .7rem; border: 1px solid var(--trait); border-radius: 8px; background: var(--surface); color: var(--encre); max-width: 100%; margin: 0 0 .75rem; }
+.mtr .mtrj__dirs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .85rem; }
+.mtr .mtrj__dir { display: flex; align-items: center; gap: .6rem; text-align: left; font-family: var(--titre); color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 12px; padding: .45rem .9rem .45rem .5rem; cursor: pointer; transition: border-color .15s, background .15s, box-shadow .15s; }
+.mtr .mtrj__dir:hover { background: var(--matiere-voile); border-color: var(--c); }
+.mtr .mtrj__dir[aria-pressed="true"] { border-color: var(--c); box-shadow: 0 0 0 2px var(--c); background: var(--matiere-voile); }
+.mtr .mtrj__dir-texte { display: block; line-height: 1.2; }
+.mtr .mtrj__dir-ligne { display: block; font-size: .7rem; color: var(--encre-pale); }
+.mtr .mtrj__dir b { display: block; font-size: .92rem; font-weight: 700; }
+.mtr .mtrj__pastille { flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--c); color: #0E1216; font-family: var(--titre); font-weight: 800; font-size: .95rem; }
+.mtr .mtrj__pastille--jaune { color: #12161B; }
+.mtr .mtrj__nombre { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin: 0 0 .9rem; }
+.mtr .mtrj__pas { font-family: var(--titre); font-weight: 700; font-size: 1.25rem; line-height: 1; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--trait); background: var(--surface); color: var(--encre); cursor: pointer; }
+.mtr .mtrj__pas:hover:not(:disabled) { background: var(--matiere-voile); border-color: var(--matiere); }
+.mtr .mtrj__pas:disabled { opacity: .35; cursor: default; }
+.mtr .mtrj__valeur { font-family: var(--titre); font-weight: 800; font-size: 1.7rem; min-width: 2.6rem; text-align: center; color: var(--encre); font-variant-numeric: tabular-nums; }
+.mtr .mtrj__max { font-family: var(--donnee); font-size: .72rem; color: var(--encre-pale); }
+.mtr .mtrj__actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+.mtr .mtrj__bouton { font-family: var(--titre); font-weight: 600; font-size: .86rem; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .5rem 1.05rem; cursor: pointer; }
+.mtr .mtrj__bouton:hover { background: var(--matiere-voile); }
+.mtr .mtrj__bouton--fort { color: #fff; background: var(--matiere-fonce); border-color: var(--matiere-fonce); padding-left: 1.3rem; padding-right: 1.3rem; }
+.mtr .mtrj__bouton--fort:hover { background: var(--matiere); }
+html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+.mtr .mtrj__bouton:focus-visible, .mtr .mtrj__dir:focus-visible, .mtr .mtrj__pas:focus-visible, .mtr .mtrj__liste:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.mtr .mtrj__encadre { border-left: 4px solid var(--matiere); background: var(--matiere-voile); border-radius: 0 10px 10px 0; padding: .6rem .85rem; margin: 0 0 .8rem; }
+.mtr .mtrj__commandes .mtrj__encadre p { margin: 0; color: var(--encre); font-weight: 600; }
+.mtr .mtrj__commandes .mtrj__encadre p + p { margin-top: .25rem; font-weight: 400; }
+.mtr .mtrj__encadre--arret { border-left-color: var(--mtrj-signal); }
+/* ----- journal */
+.mtr .mtrj__journal { padding: .9rem 1.2rem 1rem; border-top: 1px solid var(--trait); min-width: 0; font-family: var(--titre); }
+.mtr .mtrj__journal ol { margin: 0 0 .6rem; padding-left: 1.4rem; }
+.mtr .mtrj__journal li { margin: 0 0 .5rem; font-family: var(--titre); font-size: .86rem; line-height: 1.45; color: var(--encre); }
+.mtr .mtrj__journal li.mtrj__corresp { list-style: none; margin-left: -1.4rem; padding: .3rem .7rem; border-radius: 8px; background: var(--matiere-voile); font-size: .78rem; font-weight: 600; color: var(--encre-doux); }
+.mtr .mtrj__stations { display: block; font-size: .78rem; color: var(--encre-pale); }
+.mtr .mtrj__journal p.mtrj__total { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .9rem; color: var(--encre); }
+.mtr .mtrj__journal p.mtrj__vide { margin: 0; font-family: var(--titre); font-size: .86rem; color: var(--encre-pale); }
+.mtr .mtrj__source { margin: 0; padding: .6rem 1.2rem .85rem; border-top: 1px solid var(--trait); font-family: var(--donnee); font-size: .7rem; line-height: 1.5; letter-spacing: .02em; color: var(--encre-pale); }
+@container mtr (min-width: 62rem) {
+  .mtr .mtrj { grid-template-columns: minmax(0, 1.7fr) minmax(19rem, 1fr); grid-template-areas: "carte commandes" "carte journal" "source source"; grid-template-rows: auto 1fr auto; }
+  .mtr .mtrj__carte { grid-area: carte; }
+  .mtr .mtrj__commandes { grid-area: commandes; min-height: 15rem; }
+  .mtr .mtrj__journal { grid-area: journal; border-top: 0; }
+  .mtr .mtrj__source { grid-area: source; }
+}
+@container mtr (max-width: 30rem) {
+  .mtr .mtr__onglets, .mtr .mtrj__commandes, .mtr .mtrj__journal, .mtr .mtrj__source { padding-left: .8rem; padding-right: .8rem; }
+}
+.mtr.est-plein-ecran > .mtr__onglets { flex: none; }
+.mtr.est-plein-ecran > .mtrj { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+@media (min-width: 62rem) {
+  .mtr.est-plein-ecran > .mtrj { grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); grid-template-areas: "carte commandes" "carte journal" "carte source"; grid-template-rows: auto 1fr auto; overflow: hidden; }
+  .mtr.est-plein-ecran .mtrj__carte { grid-area: carte; min-height: 0; display: flex; }
+  .mtr.est-plein-ecran .mtrj__svg, .texte .mtr.est-plein-ecran svg.mtrj__svg { width: 100%; height: 100%; }
+  .mtr.est-plein-ecran .mtrj__commandes { grid-area: commandes; }
+  .mtr.est-plein-ecran .mtrj__journal { grid-area: journal; border-top: 0; overflow-y: auto; min-height: 0; }
+  .mtr.est-plein-ecran .mtrj__source { grid-area: source; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mtr .mtrj__train, .mtr .mtrj__ligne { transition: none; }
+  .mtr .mtrj__train-onde { animation: none; }
+}
+@media print {
+  .mtr .mtr__onglets, .mtr .mtrj__commandes { display: none; }
+}
 </style>
 <div class="mtr__entete">
 <p class="mtr__titre" role="heading" aria-level="3">Le transport collectif par étages&nbsp;: sous terre, au sol et entre les deux</p>
 <p class="mtr__consigne">Choisis un étage, une ligne ou une station</p>
 </div>
-<div class="mtr__corps">
+<div class="mtr__onglets" role="tablist" aria-label="Volets de la carte">
+<button type="button" class="mtr__onglet" role="tab" id="mtr-onglet-reseau" data-onglet="reseau" aria-selected="true" aria-controls="mtr-panneau-reseau">Le réseau en mouvement</button>
+<button type="button" class="mtr__onglet" role="tab" id="mtr-onglet-trajet" data-onglet="trajet" aria-selected="false" aria-controls="mtr-panneau-trajet" tabindex="-1">Mon trajet en métro</button>
+</div>
+<div class="mtr__corps" id="mtr-panneau-reseau" role="tabpanel" aria-labelledby="mtr-onglet-reseau">
 <div class="mtr__visuel">
 <div class="mtr__etages" role="group" aria-labelledby="mtr-etages-titre">
 <p class="mtr__etages-titre" id="mtr-etages-titre">Étages</p>
@@ -254,6 +381,28 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
 </div>
 </div>
 <p class="mtr__source">Tracés et stations&nbsp;: © les contributeurs d'OpenStreetMap, sous licence ODbL (openstreetmap.org/copyright), simplifiés; les étages du REM sont tirés des tunnels et des ponts indiqués dans OpenStreetMap. Faits sur les lignes&nbsp;: Wikipédia (métro de Montréal, REM, trains d'exo), gouvernement du Québec (ARTM) et Noovo (SRB Pie-IX), consultés en octobre 2026. Animation&nbsp;: départs des trains selon les horaires d'exo; intervalles moyens par période pour le métro (STM), le REM (rem.info) et le SRB (STM); les véhicules roulent à vitesse constante entre les stations.</p>
+<div class="mtrj" id="mtr-panneau-trajet" role="tabpanel" aria-labelledby="mtr-onglet-trajet">
+<div class="mtrj__commandes" aria-live="polite"></div>
+<div class="mtrj__carte">
+<svg class="mtrj__svg" role="img" aria-labelledby="mtrj-svg-titre">
+<title id="mtrj-svg-titre">Plan schématique du métro de Montréal&nbsp;: ligne verte, ligne orange, ligne jaune et ligne bleue, avec leurs 68 stations.</title>
+<rect class="mtrj__fond" x="-500" y="-500" width="2400" height="2400"/>
+<g class="mtrj__eau"></g>
+<g class="mtrj__halos"></g>
+<g class="mtrj__lignes"></g>
+<g class="mtrj__stations"></g>
+<g class="mtrj__noms"></g>
+<g class="mtrj__reperes"></g>
+<path class="mtrj__fleche" d=""/>
+<g class="mtrj__train" style="display:none"><circle class="mtrj__train-onde" r="12"/><circle class="mtrj__train-corps" r="12"/><path class="mtrj__train-icone" d="M-5.2-6h10.4a1.6 1.6 0 0 1 1.6 1.6v7.6a1.6 1.6 0 0 1-1.6 1.6h-10.4a1.6 1.6 0 0 1-1.6-1.6v-7.6a1.6 1.6 0 0 1 1.6-1.6zM-4.6-4v4h9.2v-4zM-4.2 1.6a1 1 0 1 0 .01 0zM4.2 1.6a1 1 0 1 0 .01 0zM-4.6 6.2l-1.2 1.6h2l.8-1.6zM4.6 6.2l1.2 1.6h-2l-.8-1.6z" fill-rule="evenodd"/></g>
+</svg>
+</div>
+<div class="mtrj__journal">
+<p class="mtrj__titre">Ton trajet</p>
+<div class="mtrj__journal-corps"></div>
+</div>
+<p class="mtrj__source">Plan schématique dessiné d'après la carte du réseau du métro de la Société de transport de Montréal (STM)&nbsp;: 4 lignes, 68 stations et 4 stations de correspondance (Berri-UQAM, Lionel-Groulx, Snowdon et Jean-Talon). Les distances sur ce plan ne sont pas à l'échelle.</p>
+</div>
 <script>
 /* Tracés et stations : © contributeurs d'OpenStreetMap, licence ODbL (https://www.openstreetmap.org/copyright). */
 (function () {
@@ -843,6 +992,479 @@ html[data-sombre="on"] .mtr .mtr__jouer { color: #10171F; background: var(--mati
   etat.vb = bornerVue({ x: F.x, y: F.y, w: F.w });
   if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
   rendre();
+  /* ----- onglets : le réseau en mouvement ou mon trajet en métro */
+  var consigne = q(".mtr__consigne"), titreCarte = q(".mtr__titre");
+  var TEXTES_ONGLET = {
+    reseau: [titreCarte.innerHTML, consigne.textContent],
+    trajet: ["Mon trajet dans le métro de Montréal", "Choisis un départ, une direction et un nombre de stations"]
+  };
+  function ouvrirOnglet(nom, focus) {
+    if (!TEXTES_ONGLET[nom]) { return; }
+    racine.setAttribute("data-onglet", nom);
+    Array.prototype.forEach.call(racine.querySelectorAll(".mtr__onglet"), function (b) {
+      var actif = b.getAttribute("data-onglet") === nom;
+      b.setAttribute("aria-selected", actif ? "true" : "false");
+      b.setAttribute("tabindex", actif ? "0" : "-1");
+      if (actif && focus) { b.focus(); }
+    });
+    titreCarte.innerHTML = TEXTES_ONGLET[nom][0];
+    consigne.textContent = typo(TEXTES_ONGLET[nom][1]);
+    if (nom === "trajet" && anim && anim.etat().joue) { q(".mtr__jouer").click(); }
+    if (nom === "reseau") { taille = ""; window.setTimeout(mesurer, 30); }
+  }
+  Array.prototype.forEach.call(racine.querySelectorAll(".mtr__onglet"), function (b) {
+    b.addEventListener("click", function () { ouvrirOnglet(b.getAttribute("data-onglet")); });
+    b.addEventListener("keydown", function (ev) {
+      if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft") { return; }
+      ev.preventDefault();
+      ouvrirOnglet(b.getAttribute("data-onglet") === "reseau" ? "trajet" : "reseau", true);
+    });
+  });
+  racine.setAttribute("data-onglet", "reseau");
+
+  /* ----- mon trajet en métro
+     Plan schématique d'après la carte du réseau de la STM. L'élève choisit une station de départ,
+     une ligne et une direction (le terminus), puis un nombre de stations. Le train avance station
+     par station; à chaque station de correspondance, il peut rester dans le train ou descendre
+     pour changer de ligne. */
+  var trajet = (function () {
+    var P = q(".mtrj");
+    if (!P) { return null; }
+    var LIG = ["verte", "orange", "jaune", "bleue"];
+    var NOM_LIGNE = { verte: "ligne verte", orange: "ligne orange", jaune: "ligne jaune", bleue: "ligne bleue" };
+    var NUMERO = { verte: "1", orange: "2", jaune: "4", bleue: "5" };
+    /* Plan à angles de 45 degrés, dans l'esprit du plan de la STM. Pour chaque station : x, y et côté du nom
+       (d droite, g gauche, h dessus, b dessous, ne, se, sw, nw en diagonale, hd dessus à droite). */
+    var POS = {"berri-uqam":[500,470,"g"],"sherbrooke":[476,446,"ne"],"mont-royal":[452,422,"ne"],"laurier":[428,398,"ne"],"rosemont":[404,374,"ne"],"beaubien":[380,350,"ne"],"jean-talon":[356,326,"g"],"jarry":[332,302,"g2"],"cremazie":[308,278,"g2"],"sauve":[284,254,"g2"],"henri-bourassa":[260,230,"g2"],"cartier":[236,206,"g2"],"de-la-concorde":[184,182,"h"],"montmorency":[124,182,"g"],"champ-de-mars":[476,554,"se"],"place-d-armes":[452,578,"se"],"square-victoria-oaci":[428,602,"se"],"bonaventure":[404,626,"se"],"lucien-l-allier":[380,650,"se"],"georges-vanier":[356,674,"se"],"lionel-groulx":[332,698,"sw"],"saint-laurent":[476,494,"g2"],"place-des-arts":[452,518,"g2"],"mcgill":[428,542,"g2"],"peel":[404,566,"g2"],"guy-concordia":[380,590,"g2"],"atwater":[356,614,"g2"],"place-saint-henri":[302,668,"sw"],"vendome":[272,638,"sw"],"villa-maria":[242,608,"sw"],"snowdon":[212,578,"sw"],"cote-sainte-catherine":[188,554,"sw"],"plamondon":[164,530,"sw"],"namur":[140,506,"sw"],"de-la-savane":[116,482,"sw"],"du-college":[92,458,"sw"],"cote-vertu":[68,434,"h"],"charlevoix":[356,722,"ne"],"lasalle":[380,746,"ne"],"de-l-eglise":[370,784,"se"],"verdun":[346,808,"se"],"jolicoeur":[322,832,"se"],"monk":[298,856,"se"],"angrignon":[274,880,"g"],"beaudry":[552,470,"h"],"papineau":[610,470,"h"],"frontenac":[660,448,"se"],"prefontaine":[682,426,"se"],"joliette":[704,404,"se"],"pie-ix":[726,382,"se"],"viau":[748,360,"se"],"assomption":[770,338,"se"],"cadillac":[792,316,"se"],"langelier":[814,294,"se"],"radisson":[836,272,"se"],"honore-beaugrand":[858,250,"h"],"jean-drapeau":[592,562,"hd"],"longueuil-universite-de-sherbrooke":[686,562,"d"],"cote-des-neiges":[240,550,"se"],"universite-de-montreal":[268,522,"nw"],"edouard-montpetit":[296,494,"nw"],"outremont":[324,466,"d"],"acadie":[324,436,"d"],"parc":[324,406,"d"],"de-castelnau":[332,350,"g2"],"fabre":[382,300,"se"],"d-iberville":[408,274,"se"],"saint-michel":[434,248,"d"]};
+    var COUDES = {"cartier|de-la-concorde":[[212,182]],"parc|de-castelnau":[[324,358]],"lasalle|de-l-eglise":[[394,760]],"atwater|lionel-groulx":[[332,638]],"berri-uqam|champ-de-mars":[[500,530]],"papineau|frontenac":[[638,470]]};
+    var DEUX = {"longueuil-universite-de-sherbrooke":["Longueuil-","Université-de-Sherbrooke"],"universite-de-montreal":["Université-","de-Montréal"],"edouard-montpetit":["Édouard-","Montpetit"]};
+    var ST = {}, LISTE = {}, CORRESP = {}, TERMINUS = {};
+    LIG.forEach(function (k) {
+      LISTE[k] = D.lignes[k].st.slice();
+      LISTE[k].forEach(function (id) {
+        if (!ST[id]) { ST[id] = { id: id, n: D.stations[id].n, l: [], p: [POS[id][0], POS[id][1]], cote: POS[id][2] }; }
+        ST[id].l.push(k);
+      });
+    });
+    var IDS = Object.keys(ST);
+    IDS.forEach(function (id) { if (ST[id].l.length > 1) { CORRESP[id] = true; } });
+    LIG.forEach(function (k) { [LISTE[k][0], LISTE[k][LISTE[k].length - 1]].forEach(function (id) { if (!CORRESP[id]) { TERMINUS[id] = k; } }); });
+    var svgT = q(".mtrj__svg"), gHalos = q(".mtrj__halos"), gReperes = q(".mtrj__reperes"), train = q(".mtrj__train"), fleche = q(".mtrj__fleche");
+    var commandes = q(".mtrj__commandes"), journal = q(".mtrj__journal-corps");
+    var LIGNE_G = {}, STATION_G = {}, NOM_G = {}, BOITE = {};
+
+    function nom(id) { return ST[id].n; }
+    function couleur(k) { return "var(--mtr-" + k + ")"; }
+    function coudes(a, b) {
+      var c = COUDES[a + "|" + b]; if (c) { return c; }
+      c = COUDES[b + "|" + a]; return c ? c.slice().reverse() : [];
+    }
+    /* Points du plan entre deux stations d'une même ligne (indices i et j), coudes compris. */
+    function points(k, i, j) {
+      var L = LISTE[k], pas = j >= i ? 1 : -1, pts = [ST[L[i]].p];
+      for (var x = i; x !== j; x += pas) {
+        coudes(L[x], L[x + pas]).forEach(function (c) { pts.push(c); });
+        pts.push(ST[L[x + pas]].p);
+      }
+      return pts;
+    }
+    /* Tracé aux angles arrondis. */
+    function chemin(pts) {
+      var d = "M" + pts[0][0] + " " + pts[0][1], R = 16;
+      for (var i = 1; i < pts.length; i++) {
+        var p = pts[i], a = pts[i - 1], b = pts[i + 1];
+        if (b) {
+          var ux = p[0] - a[0], uy = p[1] - a[1], vx = b[0] - p[0], vy = b[1] - p[1], lu = Math.sqrt(ux * ux + uy * uy), lv = Math.sqrt(vx * vx + vy * vy);
+          if (lu && lv && Math.abs(ux * vy - uy * vx) > .01 * lu * lv) {
+            var r = Math.min(R, lu / 2, lv / 2);
+            d += "L" + (p[0] - ux / lu * r).toFixed(1) + " " + (p[1] - uy / lu * r).toFixed(1) + "Q" + p[0] + " " + p[1] + " " + (p[0] + vx / lv * r).toFixed(1) + " " + (p[1] + vy / lv * r).toFixed(1);
+            continue;
+          }
+        }
+        d += "L" + p[0] + " " + p[1];
+      }
+      return d;
+    }
+    /* Boîte du nom d'une station : même calcul que l'outil qui a vérifié qu'aucun nom n'en touche un autre. */
+    function boite(id) {
+      var s = ST[id], fort = !!CORRESP[id], term = !!TERMINUS[id];
+      var lignes = DEUX[id] || [s.n];
+      var cw = term ? 7.5 : fort ? 7.7 : 6.6, w = Math.max.apply(null, lignes.map(function (l) { return l.length; })) * cw + (term ? 14 : 0);
+      var h = (term ? 18 : 12) * lignes.length + (term && lignes.length > 1 ? -4 : 0), e = fort ? 5 : term ? 3 : 0;
+      var P = { d: [13 + e, 0, 0], g: [-13 - e, 0, 1], g2: [-18 - e, 0, 1], h: [0, -14 - e - h / 2 + 4, .5], b: [0, 16 + e + h / 2 - 4, .5], hd: [6, -20, 0], ne: [10 + e, -9 - e / 2, 0], se: [10 + e, 9 + e / 2 + (lignes.length - 1) * 6, 0], nw: [-10 - e, -9 - e / 2 - (lignes.length - 1) * 6, 1], sw: [-10 - e, 9 + e / 2, 1] }[s.cote];
+      var cx = s.p[0] + P[0], cy = s.p[1] + P[1];
+      return { x: cx - w * P[2], y: cy - h / 2, w: w, h: h, cx: cx, cy: cy, anc: P[2], lignes: lignes, term: term };
+    }
+
+    /* Le fleuve, la rivière des Prairies et l'île Sainte-Hélène, pour situer l'île de Montréal. */
+    var eau = q(".mtrj__eau");
+    svgEl("path", { "class": "mtrj__fleuve", d: "M1010 134C850 290 700 450 592 562S470 790 455 940", "stroke-width": 58 }, eau);
+    svgEl("path", { "class": "mtrj__fleuve", d: "M-30 322C120 300 190 248 248 218S430 150 600 112", "stroke-width": 26 }, eau);
+    svgEl("ellipse", { "class": "mtrj__ile", cx: 592, cy: 562, rx: 30, ry: 11, transform: "rotate(-46 592 562)" }, eau);
+    [["fleuve Saint-Laurent", 497, 800, -70], ["rivière des Prairies", 96, 302, -9]].forEach(function (n) {
+      var t = svgEl("text", { "class": "mtrj__fleuve-nom", "text-anchor": "middle", transform: "translate(" + n[1] + " " + n[2] + ") rotate(" + n[3] + ")" }, eau); t.textContent = n[0];
+    });
+
+    LIG.forEach(function (k) {
+      var g = svgEl("g", { "class": "mtrj__ligne", "data-ligne": k, style: "--c:" + couleur(k) }, q(".mtrj__lignes"));
+      svgEl("path", { "class": "mtrj__trace", d: chemin(points(k, 0, LISTE[k].length - 1)) }, g);
+      var t = svgEl("title", {}, g); t.textContent = NOM_LIGNE[k].charAt(0).toUpperCase() + NOM_LIGNE[k].slice(1);
+      LIGNE_G[k] = g;
+    });
+    IDS.forEach(function (id) {
+      var s = ST[id], corresp = !!CORRESP[id], term = TERMINUS[id];
+      var g = svgEl("g", { "class": "mtrj__station " + (corresp ? "mtrj__station--corresp" : term ? "mtrj__station--terminus" : "mtrj__station--simple"), "data-station": id, transform: "translate(" + s.p[0] + " " + s.p[1] + ")" }, q(".mtrj__stations"));
+      svgEl("circle", { "class": "mtrj__point", r: corresp ? 8.5 : term ? 4.6 : 3.1 }, g);
+      svgEl("circle", { "class": "mtrj__prise", r: 12 }, g);
+      var ti = svgEl("title", {}, g); ti.textContent = s.n;
+      STATION_G[id] = g;
+      var b = boite(id), gn = svgEl("g", { "class": "mtrj__etiquette" + (term ? " mtrj__etiquette--terminus" : ""), "data-station": id }, q(".mtrj__noms"));
+      BOITE[id] = b;
+      if (term) { gn.setAttribute("style", "--c:" + couleur(term)); svgEl("rect", { "class": "mtrj__cartouche mtrj__cartouche--" + term, x: b.x.toFixed(1), y: b.y.toFixed(1), width: b.w.toFixed(1), height: b.h.toFixed(1), rx: 4 }, gn); }
+      var tx = term ? b.x + b.w / 2 : b.cx, haut = term ? 14 : 12.5;
+      var txt = svgEl("text", { "class": "mtrj__nom" + (corresp ? " mtrj__nom--fort" : "") + (term ? " mtrj__nom--terminus mtrj__nom--" + term : ""), x: tx.toFixed(1), y: (b.cy - (b.lignes.length - 1) * haut / 2 + 4).toFixed(1), "text-anchor": term ? "middle" : ["start", "middle", "end"][b.anc * 2] }, gn);
+      if (b.lignes.length > 1) { b.lignes.forEach(function (l, i) { var ts = svgEl("tspan", { x: tx.toFixed(1), dy: i ? haut : 0 }, txt); ts.textContent = l; }); }
+      else { txt.textContent = s.n; }
+      NOM_G[id] = txt;
+    });
+    svgT.setAttribute("viewBox", "0 138 940 772");
+    /* Légende, dans le coin libre du plan. */
+    (function legende() {
+      var g = svgEl("g", { "class": "mtrj__legende", transform: "translate(684 716)" }, q(".mtrj__noms"));
+      svgEl("rect", { "class": "mtrj__legende-fond", x: 0, y: 0, width: 236, height: 174, rx: 10 }, g);
+      LIG.forEach(function (k, i) {
+        var y = 24 + i * 22;
+        svgEl("circle", { cx: 24, cy: y, r: 9, fill: couleur(k) }, g);
+        var n = svgEl("text", { "class": "mtrj__legende-num mtrj__nom--" + k, x: 24, y: y + 4, "text-anchor": "middle" }, g); n.textContent = NUMERO[k];
+        var t = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: y + 4 }, g); t.textContent = NOM_LIGNE[k].charAt(0).toUpperCase() + NOM_LIGNE[k].slice(1);
+      });
+      svgEl("circle", { "class": "mtrj__legende-corresp", cx: 24, cy: 118, r: 7.5 }, g);
+      var a = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 122 }, g); a.textContent = "Station de correspondance";
+      svgEl("path", { "class": "mtrj__halo", d: "M16 148H30" }, g);
+      svgEl("path", { d: "M16 148H30", stroke: couleur("orange"), "stroke-width": 9, "stroke-linecap": "round" }, g);
+      var b = svgEl("text", { "class": "mtrj__legende-texte", x: 42, y: 152 }, g); b.textContent = "Trajet parcouru";
+    })();
+
+    /* Graphe du réseau, pour le trajet le plus court d'un défi. */
+    function voisins(id) {
+      var v = [];
+      ST[id].l.forEach(function (k) { var i = LISTE[k].indexOf(id); if (i > 0) { v.push(LISTE[k][i - 1]); } if (i < LISTE[k].length - 1) { v.push(LISTE[k][i + 1]); } });
+      return v;
+    }
+    function distance(a, b) {
+      var vu = {}, file = [[a, 0]]; vu[a] = true;
+      while (file.length) {
+        var c = file.shift();
+        if (c[0] === b) { return c[1]; }
+        voisins(c[0]).forEach(function (v) { if (!vu[v]) { vu[v] = true; file.push([v, c[1] + 1]); } });
+      }
+      return -1;
+    }
+    function maxStations(k, id, s) { var i = LISTE[k].indexOf(id); return s > 0 ? LISTE[k].length - 1 - i : i; }
+    function terminus(k, s) { var L = LISTE[k]; return s > 0 ? L[L.length - 1] : L[0]; }
+    function options(id) {
+      var o = [];
+      ST[id].l.forEach(function (k) { [1, -1].forEach(function (s) { if (maxStations(k, id, s) > 0) { o.push({ l: k, s: s }); } }); });
+      return o;
+    }
+    function autresLignes(id, k) { return ST[id].l.filter(function (x) { return x !== k; }); }
+    function listeLignes(ks) {
+      var n = ks.map(function (k) { return "la " + NOM_LIGNE[k]; });
+      return n.length > 1 ? n.slice(0, -1).join(", ") + " et " + n[n.length - 1] : n[0];
+    }
+    function pluriel(n, mot) { return n + " " + mot + (n > 1 ? "s" : ""); }
+
+    var REDUIT = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var E;
+    function etatVide() { return { phase: "depart", pos: null, depart: null, choix: null, n: 1, reste: 0, etapes: [], defi: null, message: "" }; }
+    E = etatVide();
+    var api = { delai: REDUIT ? 0 : 650 }, minuterie = 0;
+
+    /* ----- actions */
+    function choisirDepart(id) {
+      if (!ST[id] || (E.phase !== "depart" && !(E.phase === "choix" && !E.etapes.length && !E.defi))) { return; }
+      E.pos = id; E.depart = id; E.phase = "choix"; E.choix = null; E.n = 1; E.message = "";
+      rendre();
+    }
+    function choisirDirection(k, s) {
+      if (E.phase !== "choix" || maxStations(k, E.pos, s) < 1) { return; }
+      E.choix = { l: k, s: s };
+      E.n = Math.max(1, Math.min(E.n, maxStations(k, E.pos, s)));
+      rendre();
+    }
+    function regler(n) {
+      if (!E.choix) { return; }
+      E.n = Math.max(1, Math.min(n, maxStations(E.choix.l, E.pos, E.choix.s)));
+      rendre();
+    }
+    function partir() {
+      if (E.phase !== "choix" || !E.choix) { return; }
+      E.etapes.push({ l: E.choix.l, s: E.choix.s, ids: [E.pos], prevu: E.n, interrompu: false });
+      E.reste = E.n; E.phase = "route"; E.message = "";
+      rendre();
+      planifier();
+    }
+    function planifier() {
+      window.clearTimeout(minuterie);
+      if (api.delai <= 0) { avancer(); } else { minuterie = window.setTimeout(avancer, api.delai); }
+    }
+    function avancer() {
+      if (E.phase !== "route") { return; }
+      var et = E.etapes[E.etapes.length - 1], L = LISTE[et.l], i = L.indexOf(E.pos) + et.s;
+      E.pos = L[i]; et.ids.push(E.pos); E.reste -= 1;
+      if (E.reste <= 0) { arriver(); return; }
+      if (ST[E.pos].l.length > 1) {
+        E.phase = "pause";
+        rendre();
+        annoncer("Tu arrives à " + nom(E.pos) + ", une station de correspondance.");
+        return;
+      }
+      rendre();
+      planifier();
+    }
+    function rester() { if (E.phase !== "pause") { return; } E.phase = "route"; rendre(); planifier(); }
+    function descendre() {
+      if (E.phase !== "pause") { return; }
+      var et = E.etapes[E.etapes.length - 1];
+      et.interrompu = true;
+      E.phase = "choix"; E.choix = null; E.n = 1;
+      E.message = "Tu descends à " + nom(E.pos) + " après " + pluriel(et.ids.length - 1, "station") + ". Choisis ta nouvelle ligne et ta direction.";
+      rendre();
+    }
+    function arriver() {
+      E.choix = null; E.n = 1;
+      if (E.defi && E.pos === E.defi.but) {
+        E.phase = "fin"; E.defi.reussi = true;
+        rendre(); annoncer("Bravo! Tu es à " + nom(E.pos) + ", ta destination.");
+        return;
+      }
+      E.phase = "choix";
+      E.message = "Tu es à la station " + nom(E.pos) + ".";
+      if (ST[E.pos].l.length > 1) { E.message += " Tu peux y changer de ligne."; }
+      var k = E.etapes[E.etapes.length - 1].l;
+      if (maxStations(k, E.pos, 1) === 0 || maxStations(k, E.pos, -1) === 0) { E.message += " C'est le terminus de la " + NOM_LIGNE[k] + "."; }
+      rendre(); annoncer(E.message);
+    }
+    function terminer() { if (E.phase !== "choix" || !E.etapes.length) { return; } E.phase = "fin"; rendre(); }
+    function recommencer() { window.clearTimeout(minuterie); E = etatVide(); rendre(); }
+    function defi(a, b) {
+      window.clearTimeout(minuterie);
+      if (!a || !b) {
+        do { a = IDS[Math.floor(Math.random() * IDS.length)]; b = IDS[Math.floor(Math.random() * IDS.length)]; } while (a === b || distance(a, b) < 5);
+      }
+      E = etatVide();
+      E.pos = a; E.depart = a; E.phase = "choix";
+      E.defi = { but: b, min: distance(a, b), reussi: false };
+      rendre(); annoncer("Défi : rends-toi de " + nom(a) + " à " + nom(b) + ".");
+    }
+
+    /* ----- bilan */
+    function bilan() {
+      var n = 0, c = 0;
+      E.etapes.forEach(function (et, i) { n += et.ids.length - 1; if (i && et.l !== E.etapes[i - 1].l) { c += 1; } });
+      return { stations: n, corresp: c };
+    }
+
+    /* ----- affichage */
+    function annoncer(t) { annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = typo(t); }, 30); }
+    function bouton(texte, classe, action, parent) {
+      var b = el("button", "mtrj__bouton" + (classe ? " " + classe : ""), texte, parent);
+      b.type = "button"; b.addEventListener("click", action);
+      return b;
+    }
+    function para(texte, classe, parent) { return el("p", classe || "", texte, parent); }
+    function rendreCommandes() {
+      commandes.innerHTML = "";
+      var c = commandes;
+      if (E.defi && E.phase !== "fin") {
+        var bd = el("div", "mtrj__encadre", null, c);
+        para("Défi : rends-toi de " + nom(E.depart) + " à " + nom(E.defi.but) + ".", "", bd);
+      }
+      if (E.phase === "depart") {
+        el("p", "mtrj__titre", "1. Choisis ta station de départ", c);
+        para("Clique sur une station du plan ou choisis-la dans la liste.", "", c);
+        var sel = el("select", "mtrj__liste", null, c);
+        sel.setAttribute("aria-label", "Station de départ");
+        var o0 = el("option", "", "Choisir une station", sel); o0.value = "";
+        IDS.slice().sort(function (a, b) { return nom(a).localeCompare(nom(b), "fr"); }).forEach(function (id) { var o = el("option", "", nom(id), sel); o.value = id; });
+        sel.addEventListener("change", function () { if (sel.value) { choisirDepart(sel.value); } });
+        para("Tu peux aussi relever un défi : une station de départ et une destination sont tirées au hasard.", "", c);
+        var ac = el("div", "mtrj__actions", null, c);
+        bouton("Relever un défi", "", function () { defi(); }, ac);
+        return;
+      }
+      if (E.phase === "choix") {
+        if (E.message) { var bm = el("div", "mtrj__encadre", null, c); para(E.message, "", bm); }
+        var ici = para("Tu es à la station " + nom(E.pos) + ".", "mtrj__ici", c);
+        if (ST[E.pos].l.length > 1) { ici.textContent = typo("Tu es à la station " + nom(E.pos) + ", où se croisent " + listeLignes(ST[E.pos].l) + "."); }
+        if (E.message) { ici.style.display = "none"; }
+        el("p", "mtrj__titre", (E.etapes.length ? "Ta ligne et ta direction" : "2. Choisis ta ligne et ta direction"), c);
+        var dirs = el("div", "mtrj__dirs", null, c);
+        dirs.setAttribute("role", "group"); dirs.setAttribute("aria-label", "Ligne et direction");
+        options(E.pos).forEach(function (o) {
+          var b = el("button", "mtrj__dir", null, dirs);
+          b.type = "button"; b.style.setProperty("--c", couleur(o.l));
+          b.setAttribute("data-ligne", o.l); b.setAttribute("data-sens", String(o.s));
+          b.setAttribute("aria-pressed", E.choix && E.choix.l === o.l && E.choix.s === o.s ? "true" : "false");
+          el("span", "mtrj__pastille mtrj__pastille--" + o.l, NUMERO[o.l], b);
+          var t = el("span", "mtrj__dir-texte", null, b);
+          el("span", "mtrj__dir-ligne", NOM_LIGNE[o.l].charAt(0).toUpperCase() + NOM_LIGNE[o.l].slice(1) + ", direction", t);
+          el("b", "", nom(terminus(o.l, o.s)), t);
+          b.addEventListener("click", function () { choisirDirection(o.l, o.s); });
+        });
+        if (E.choix) {
+          var mx = maxStations(E.choix.l, E.pos, E.choix.s);
+          el("p", "mtrj__titre", (E.etapes.length ? "Nombre de stations" : "3. De combien de stations te déplaces-tu?"), c);
+          var nb = el("div", "mtrj__nombre", null, c);
+          var moins = el("button", "mtrj__pas mtrj__moins", "−", nb); moins.type = "button"; moins.setAttribute("aria-label", "Une station de moins"); moins.disabled = E.n <= 1;
+          var val = el("output", "mtrj__valeur", String(E.n), nb); val.setAttribute("aria-label", "Nombre de stations");
+          var plus = el("button", "mtrj__pas mtrj__plus", "+", nb); plus.type = "button"; plus.setAttribute("aria-label", "Une station de plus"); plus.disabled = E.n >= mx;
+          el("span", "mtrj__max", (mx === 1 ? "1 station" : "de 1 à " + mx + " stations") + " avant le terminus", nb);
+          moins.addEventListener("click", function () { regler(E.n - 1); focusSur(".mtrj__moins"); });
+          plus.addEventListener("click", function () { regler(E.n + 1); focusSur(".mtrj__plus"); });
+        }
+        var ac2 = el("div", "mtrj__actions", null, c);
+        if (E.choix) { bouton("Partir", "mtrj__bouton--fort mtrj__partir", partir, ac2); }
+        if (!E.etapes.length && !E.defi) { bouton("Changer de station de départ", "mtrj__changer", function () { E.phase = "depart"; E.pos = null; E.depart = null; E.choix = null; rendre(); }, ac2); }
+        if (E.etapes.length && !E.defi) { bouton("Terminer le trajet", "mtrj__terminer", terminer, ac2); }
+        if (E.defi) { bouton("Abandonner le défi", "mtrj__abandon", recommencer, ac2); }
+        return;
+      }
+      var et = E.etapes[E.etapes.length - 1];
+      if (E.phase === "route") {
+        el("p", "mtrj__titre", "En route", c);
+        para("Tu roules sur la " + NOM_LIGNE[et.l] + ", direction " + nom(terminus(et.l, et.s)) + ".", "mtrj__ici", c);
+        para("Station " + (et.ids.length - 1) + " sur " + et.prevu + (et.ids.length > 1 ? " : " + nom(E.pos) : "") + ".", "", c);
+        return;
+      }
+      if (E.phase === "pause") {
+        var bp = el("div", "mtrj__encadre mtrj__encadre--arret", null, c);
+        para("Tu arrives à " + nom(E.pos) + ". C'est une station de correspondance avec " + listeLignes(autresLignes(E.pos, et.l)) + ".", "", bp);
+        para("Tu as parcouru " + pluriel(et.ids.length - 1, "station") + ". Il t'en reste " + E.reste + " sur la " + NOM_LIGNE[et.l] + ".", "", bp);
+        el("p", "mtrj__titre", "Que fais-tu?", c);
+        var ap = el("div", "mtrj__actions", null, c);
+        bouton("Rester dans le train (encore " + pluriel(E.reste, "station") + ")", "mtrj__bouton--fort mtrj__rester", rester, ap);
+        bouton("Descendre pour changer de ligne", "mtrj__descendre", descendre, ap);
+        return;
+      }
+      /* fin */
+      var b = bilan();
+      if (E.defi && E.defi.reussi) {
+        var bf = el("div", "mtrj__encadre", null, c);
+        para("Bravo! Tu es à " + nom(E.pos) + ", ta destination.", "", bf);
+        para("Ton trajet compte " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ". Le trajet le plus court compte " + pluriel(E.defi.min, "station") + ".", "", bf);
+        if (b.stations === E.defi.min) { para("Tu as trouvé le trajet le plus court!", "", bf); }
+      } else {
+        el("p", "mtrj__titre", "Trajet terminé", c);
+        para("De " + nom(E.depart) + " à " + nom(E.pos) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
+      }
+      var af = el("div", "mtrj__actions", null, c);
+      bouton("Nouveau trajet", "mtrj__bouton--fort mtrj__nouveau", recommencer, af);
+      bouton("Relever un défi", "mtrj__defi", function () { defi(); }, af);
+    }
+    function focusSur(s) { var n = commandes.querySelector(s); if (n && !n.disabled) { n.focus(); } }
+    function rendreJournal() {
+      journal.innerHTML = "";
+      if (!E.etapes.length) {
+        para(E.depart ? "Départ : " + nom(E.depart) + ". Ton trajet s'écrira ici, étape par étape." : "Ton trajet s'écrira ici, étape par étape.", "mtrj__vide", journal);
+        return;
+      }
+      var ol = el("ol", "", null, journal);
+      E.etapes.forEach(function (et, i) {
+        if (i && et.l !== E.etapes[i - 1].l) {
+          el("li", "mtrj__corresp", "Correspondance à " + nom(et.ids[0]) + " : de la " + NOM_LIGNE[E.etapes[i - 1].l] + " à la " + NOM_LIGNE[et.l], ol);
+        }
+        var n = et.ids.length - 1, enCours = i === E.etapes.length - 1 && (E.phase === "route" || E.phase === "pause");
+        var li = el("li", "mtrj__etape", null, ol);
+        var t = NOM_LIGNE[et.l].charAt(0).toUpperCase() + NOM_LIGNE[et.l].slice(1) + ", direction " + nom(terminus(et.l, et.s)) + " : ";
+        if (enCours) { t += n + " station" + (n > 1 ? "s" : "") + " sur " + et.prevu + " pour l'instant, depuis " + nom(et.ids[0]) + "."; }
+        else if (et.interrompu) { t += pluriel(n, "station") + " sur les " + et.prevu + " prévues, de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + ". Tu descends pour changer de ligne."; }
+        else { t += pluriel(n, "station") + ", de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + "."; }
+        li.appendChild(document.createTextNode(typo(t)));
+        if (n) { el("span", "mtrj__stations", "Stations : " + et.ids.slice(1).map(nom).join(", "), li); }
+      });
+      var b = bilan();
+      el("p", "mtrj__total", "Total : " + pluriel(b.stations, "station") + ", " + pluriel(b.corresp, "correspondance"), journal);
+    }
+    /* Départ et destination : un anneau et un cartouche, posé du côté opposé au nom de la station. */
+    function repere(id, classe, texte) {
+      var p = ST[id].p, b = BOITE[id], g = svgEl("g", { "class": "mtrj__repere " + classe }, gReperes);
+      svgEl("circle", { cx: p[0], cy: p[1], r: CORRESP[id] ? 14 : 10.5 }, g);
+      var w = texte.length * 6.6 + 14, dx = p[0] - (b.x + b.w / 2), dy = p[1] - (b.y + b.h / 2), cx, cy;
+      /* Parmi huit positions autour de la station, la première qui ne couvre ni un nom ni une autre station. */
+      var cands = [[dx > 0 ? 1 : -1, 0], [dx > 0 ? 1 : -1, dy > 0 ? 1 : -1], [0, dy > 0 ? 1 : -1], [dx > 0 ? 1 : -1, dy > 0 ? -1 : 1], [dx > 0 ? -1 : 1, dy > 0 ? 1 : -1], [0, dy > 0 ? -1 : 1], [dx > 0 ? -1 : 1, 0], [dx > 0 ? -1 : 1, dy > 0 ? -1 : 1]];
+      function libre(x, y) {
+        var x0 = x - w / 2 - 3, x1 = x + w / 2 + 3, y0 = y - 12, y1 = y + 12;
+        return !IDS.some(function (o) {
+          var bo = BOITE[o], po = ST[o].p;
+          return (bo.x < x1 && bo.x + bo.w > x0 && bo.y < y1 && bo.y + bo.h > y0) || (o !== id && po[0] > x0 - 7 && po[0] < x1 + 7 && po[1] > y0 - 7 && po[1] < y1 + 7);
+        });
+      }
+      cands.some(function (c) {
+        cx = p[0] + c[0] * (c[1] ? 14 + w / 2 : 19 + w / 2); cy = p[1] + c[1] * (c[0] ? 20 : 27);
+        return libre(cx, cy);
+      });
+      svgEl("rect", { x: (cx - w / 2).toFixed(1), y: (cy - 9).toFixed(1), width: w.toFixed(1), height: 18, rx: 9 }, g);
+      var t = svgEl("text", { x: cx.toFixed(1), y: (cy + 3.6).toFixed(1), "text-anchor": "middle" }, g); t.textContent = texte;
+    }
+    function rendreCarte() {
+      gHalos.innerHTML = ""; gReperes.innerHTML = "";
+      var parcourues = {}, parcours = [];
+      E.etapes.forEach(function (et) {
+        if (et.ids.length < 2) { return; }
+        var L = LISTE[et.l];
+        var dp = chemin(points(et.l, L.indexOf(et.ids[0]), L.indexOf(et.ids[et.ids.length - 1])));
+        svgEl("path", { "class": "mtrj__halo", d: dp }, gHalos);
+        parcours.push([dp, et.l]);
+        et.ids.slice(1).forEach(function (id) { parcourues[id] = true; });
+      });
+      parcours.forEach(function (pc) { svgEl("path", { "class": "mtrj__trace mtrj__parcours", d: pc[0], style: "--c:" + couleur(pc[1]) }, gHalos); });
+      var actif = E.choix ? E.choix.l : (E.phase === "route" || E.phase === "pause") ? E.etapes[E.etapes.length - 1].l : null;
+      LIG.forEach(function (k) { LIGNE_G[k].classList.toggle("est-estompe", !!actif && actif !== k); });
+      P.classList.toggle("a-trajet", !!E.pos);
+      var cliquable = E.phase === "depart" || (E.phase === "choix" && !E.etapes.length && !E.defi);
+      IDS.forEach(function (id) {
+        STATION_G[id].classList.toggle("est-cliquable", cliquable);
+        STATION_G[id].classList.toggle("est-parcourue", !!parcourues[id] && id !== E.pos);
+        NOM_G[id].classList.toggle("est-parcourue", !!parcourues[id] || id === E.pos || id === E.depart || (!!E.defi && id === E.defi.but));
+        STATION_G[id].classList.toggle("est-ici", id === E.pos);
+      });
+      if (E.depart) { repere(E.depart, "mtrj__repere--depart", "Départ"); }
+      if (E.defi) { repere(E.defi.but, "mtrj__repere--but", "Destination"); }
+      if (E.pos) {
+        var p = ST[E.pos].p, k = actif || (E.etapes.length ? E.etapes[E.etapes.length - 1].l : ST[E.pos].l[0]);
+        train.style.display = "";
+        train.setAttribute("transform", "translate(" + p[0] + " " + p[1] + ")");
+        train.style.setProperty("--c", couleur(k));
+        train.style.transform = "translate(" + p[0] + "px, " + p[1] + "px)";
+      } else { train.style.display = "none"; }
+      /* Flèche de direction : de la station actuelle vers la suivante dans la direction choisie. */
+      var dir = E.choix || ((E.phase === "route" || E.phase === "pause") ? E.etapes[E.etapes.length - 1] : null);
+      if (E.pos && dir) {
+        var L = LISTE[dir.l], i = L.indexOf(E.pos), pts = points(dir.l, i, i + dir.s), a = pts[0], b = pts[1];
+        var ang = Math.atan2(b[1] - a[1], b[0] - a[0]), cx = a[0] + Math.cos(ang) * 27, cy = a[1] + Math.sin(ang) * 27;
+        var pt = function (r, t) { return (cx + Math.cos(ang + t) * r).toFixed(1) + " " + (cy + Math.sin(ang + t) * r).toFixed(1); };
+        fleche.setAttribute("d", "M" + pt(9, 0) + "L" + pt(7.5, 2.35) + "L" + pt(2.5, 3.14159) + "L" + pt(7.5, -2.35) + "Z");
+      } else { fleche.setAttribute("d", ""); }
+    }
+    function rendre() {
+      racine.setAttribute("data-trajet", E.phase);
+      rendreCommandes(); rendreJournal(); rendreCarte();
+    }
+    q(".mtrj__stations").addEventListener("click", function (ev) {
+      var g = ev.target.closest ? ev.target.closest(".mtrj__station") : null;
+      if (g) { choisirDepart(g.getAttribute("data-station")); }
+    });
+    rendre();
+    api.etat = function () { return { phase: E.phase, pos: E.pos, depart: E.depart, choix: E.choix ? E.choix.l + (E.choix.s > 0 ? "+" : "-") : "", n: E.n, reste: E.reste, etapes: E.etapes.length, bilan: bilan(), defi: E.defi ? { but: E.defi.but, min: E.defi.min, reussi: E.defi.reussi } : null }; };
+    api.choisirDepart = choisirDepart; api.choisirDirection = choisirDirection; api.regler = regler; api.partir = partir;
+    api.rester = rester; api.descendre = descendre; api.terminer = terminer; api.recommencer = recommencer; api.defi = defi;
+    api.distance = distance; api.stations = function () { return IDS.slice(); };
+    return api;
+  })();
+  racine.addEventListener("reinitialiser", function () { if (trajet) { trajet.recommencer(); } });
+  racine.mtr.onglet = ouvrirOnglet;
+  racine.mtr.trajet = trajet;
   racine.classList.add("est-pret");
 })();
 </script>
