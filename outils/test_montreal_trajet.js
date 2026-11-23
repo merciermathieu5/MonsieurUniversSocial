@@ -3,7 +3,7 @@
  *     node outils/test_montreal_trajet.js [composant.html]
  * On vérifie les onglets, le plan schématique (4 lignes, 68 stations, 4 correspondances, trains de banlieue), le choix du départ
  * (liste et clic sur le plan), la direction et le nombre de stations, l'arrêt aux correspondances,
- * le changement de ligne, le journal, le défi et Réinitialiser.
+ * le changement de ligne, les trajets en train de banlieue, le journal, le défi et Réinitialiser.
  */
 const fs = require("fs");
 const path = require("path");
@@ -28,6 +28,7 @@ T.delai = 0;
 const etat = () => T.etat();
 const cmd = () => un(".mtrj__commandes").textContent;
 const bouton = (s) => un(".mtrj__commandes " + s);
+const filer = () => { while (etat().phase === "pause") T.rester(); };
 const dir = (l, s) => un(`.mtrj__dir[data-ligne="${l}"][data-sens="${s}"]`);
 
 console.log("ONGLETS");
@@ -52,7 +53,7 @@ verifier("au départ : choisir une station (liste de 68 stations)", etat().phase
 const liste = un(".mtrj__liste");
 liste.value = "vendome"; liste.dispatchEvent(new window.Event("change", { bubbles: true }));
 verifier("la liste fixe le départ à Vendôme", etat().pos === "vendome" && etat().phase === "choix");
-verifier("Vendôme : deux directions sur la ligne orange", tous(".mtrj__dir").length === 2 && !!dir("orange", "1") && !!dir("orange", "-1"));
+verifier("Vendôme : deux directions sur la ligne orange et quatre choix de train", tous(".mtrj__dir").length === 6 && !!dir("orange", "1") && !!dir("orange", "-1") && tous(".mtrj__dir--train").length === 4);
 clic(bouton(".mtrj__changer"));
 clic(un('.mtrj__station[data-station="berri-uqam"]'));
 verifier("un clic sur le plan fixe le départ à Berri-UQAM", etat().pos === "berri-uqam");
@@ -71,6 +72,8 @@ clic(bouton(".mtrj__partir"));
 verifier("arrêt à Lionel-Groulx, station de correspondance", etat().phase === "pause" && etat().pos === "lionel-groulx" && etat().reste === 3 && /ligne verte/.test(cmd()));
 verifier("le plan n'accepte plus de nouveau départ", (clic(un('.mtrj__station[data-station="snowdon"]')), etat().depart === "vendome"));
 clic(bouton(".mtrj__rester"));
+verifier("nouvel arrêt à Lucien-L'Allier, station intermodale", etat().phase === "pause" && etat().pos === "lucien-l-allier" && /station intermodale/.test(cmd()));
+clic(bouton(".mtrj__rester"));
 verifier("rester dans le train : arrivée à Bonaventure après 5 stations", etat().phase === "choix" && etat().pos === "bonaventure" && etat().bilan.stations === 5);
 verifier("le journal décrit l'étape", /Ligne orange, direction Montmorency\s:\s5 stations, de Vendôme à Bonaventure/.test(un(".mtrj__journal").textContent));
 
@@ -88,15 +91,41 @@ verifier("Terminer le trajet affiche le bilan", etat().phase === "fin" && /De Ve
 
 console.log("DÉFI");
 T.defi("angrignon", "saint-michel");
-verifier("défi d'Angrignon à Saint-Michel : trajet le plus court de 22 stations", etat().defi.min === 22 && /Défi/.test(cmd()) && !!un(".mtrj__repere--but"));
+verifier("défi d'Angrignon à Saint-Michel : trajet le plus court de 15 stations, par le train de Vendôme à Parc", etat().defi.min === 15 && /Défi/.test(cmd()) && !!un(".mtrj__repere--but"));
 T.choisirDirection("verte", 1); T.regler(7); T.partir();
 verifier("arrivée à Lionel-Groulx après 7 stations", etat().phase === "choix" && etat().pos === "lionel-groulx");
- T.choisirDirection("orange", -1); T.regler(4); T.partir();
+ T.choisirDirection("orange", -1); T.regler(4); T.partir(); filer();
 verifier("Snowdon atteint", etat().pos === "snowdon");
 T.choisirDirection("bleue", 1); T.regler(11); T.partir();
-verifier("passage à Jean-Talon", etat().phase === "pause"); T.rester();
-verifier("défi réussi par le plus court chemin", etat().phase === "fin" && etat().defi.reussi && etat().bilan.stations === 22, JSON.stringify(etat()));
-verifier("le bilan compare au trajet le plus court", /plus court compte 22 stations/.test(cmd()));
+verifier("arrêt à Parc, station intermodale", etat().phase === "pause" && etat().pos === "parc"); T.rester();
+verifier("passage à Jean-Talon", etat().phase === "pause" && etat().pos === "jean-talon"); T.rester();
+verifier("défi réussi sans le train, en 22 stations", etat().phase === "fin" && etat().defi.reussi && etat().bilan.stations === 22, JSON.stringify(etat()));
+verifier("le bilan compare au trajet le plus court", /plus court compte 15 stations/.test(cmd()));
+
+console.log("TRAINS DE BANLIEUE");
+T.recommencer(); T.choisirDepart("de-la-concorde");
+verifier("De la Concorde : le train de Blainville-Saint-Jérôme dans les deux sens", !!dir("sj", "1") && !!dir("sj", "-1") && dir("sj", "-1").getAttribute("data-sortie") === "1");
+clic(dir("sj", "1"));
+for (let i = 0; i < 9; i++) clic(bouton(".mtrj__plus"));
+verifier("trois arrêts au plus jusqu'à Lucien-L'Allier", etat().n === 3);
+T.regler(1); clic(bouton(".mtrj__partir"));
+verifier("un arrêt en train : De la Concorde à Parc", etat().pos === "parc" && etat().phase === "choix" && etat().bilan.stations === 1);
+verifier("le journal nomme le train", /Train de Blainville-Saint-Jérôme, direction Lucien-L'Allier\s:\s1 station, de De la Concorde à Parc/.test(un(".mtrj__journal").textContent), un(".mtrj__journal").textContent);
+T.choisirDirection("sj", 1); T.regler(2); T.partir();
+verifier("le train s'arrête à Vendôme, où passe la ligne orange", etat().phase === "pause" && etat().pos === "vendome" && /ligne orange/.test(cmd()));
+T.descendre(); T.choisirDirection("orange", 1); T.regler(1); T.partir();
+verifier("correspondance du train au métro notée au journal", etat().pos === "place-saint-henri" && etat().bilan.corresp === 1 && /du train de Blainville-Saint-Jérôme à la ligne orange/.test(un(".mtrj__journal").textContent));
+T.recommencer(); T.choisirDepart("vendome");
+verifier("vers Lucien-L'Allier, les trois trains forment un seul choix", T.options().filter((o) => o.s > 0 && o.l !== "orange").length === 1 && /Train de banlieue, direction/.test(dir("sj", "1").textContent));
+T.recommencer(); T.choisirDepart("bonaventure");
+verifier("Bonaventure : deux trains qui sortent du plan", tous('.mtrj__dir[data-sortie="1"]').length === 2);
+clic(dir("dm", "-1"));
+verifier("sortie du plan : pas de nombre de stations à choisir", !bouton(".mtrj__plus") && /quitte le plan/.test(cmd()));
+clic(bouton(".mtrj__partir"));
+verifier("le trajet se termine hors du plan", etat().phase === "fin" && etat().sorti && etat().bilan.stations === 0 && /à bord du train de Deux-Montagnes/.test(cmd()));
+T.defi("vendome", "atwater"); T.choisirDirection("dr", -1); T.partir();
+verifier("sortir du plan pendant un défi : défi non réussi", etat().phase === "fin" && !etat().defi.reussi && /Défi non réussi/.test(cmd()));
+verifier("le trajet le plus court tient compte des trains", T.distance("de-la-concorde", "lucien-l-allier") === 3);
 
 console.log("RÉINITIALISATION ET TYPOGRAPHIE");
 racine.dispatchEvent(new window.CustomEvent("reinitialiser"));
