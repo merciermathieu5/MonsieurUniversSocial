@@ -38,6 +38,17 @@ deux territoires québécois, la Jamésie au Nord-du-Québec et la Côte-Nord.
 
 ## Concepts à l'étude
 
+Pour comprendre un territoire énergétique, il ne suffit pas de connaître ces dix
+concepts un par un. Il faut surtout voir comment ils s'influencent : l'eau est
+une ressource et une source d'énergie renouvelable, que l'aménagement de barrages
+et de centrales transforme en électricité. Sa commercialisation dépasse les
+frontières du Québec et, avec la mondialisation, des multinationales viennent
+s'installer près des centrales pour profiter de tarifs bas. Produire sa propre
+électricité donne au Québec une autonomie que n'ont pas les territoires en
+dépendance énergétique. Enfin, remplacer les énergies fossiles par une énergie
+propre limite l'effet de serre et freine le réchauffement de la planète.
+
+::: concepts Dix concepts à découvrir
 - **Aménagement** : l'ensemble des interventions par lesquelles on organise un
   territoire. Ici, ce sont les barrages, les réservoirs, les centrales, les
   lignes à haute tension et les routes qui y mènent.
@@ -63,7 +74,9 @@ deux territoires québécois, la Jamésie au Nord-du-Québec et la Côte-Nord.
 - **Ressource** : ce qu'un territoire possède et que l'on peut mettre en valeur.
   Ici, c'est l'eau, ou plus exactement la force de l'eau qui descend.
 - **Source d'énergie** : ce à partir de quoi on produit de l'énergie. On les
-  classe en sources renouvelables, comme l'eau, le vent et le soleil et en sources non renouvelables, comme le pétrole, le gaz et le charbon.
+  classe en sources renouvelables, comme l'eau, le vent et le soleil et en
+  sources non renouvelables, comme le pétrole, le gaz et le charbon.
+:::
 
 ::: questions
 1. Le Québec est autonome pour son électricité et dépendant pour son pétrole.
