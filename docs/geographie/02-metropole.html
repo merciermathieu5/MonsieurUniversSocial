@@ -2371,12 +2371,14 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
 .mtr.est-plein-ecran > .mtr__onglets { flex: none; }
 .mtr.est-plein-ecran > .mtrj { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 @media (min-width: 62rem) {
-  .mtr.est-plein-ecran > .mtrj { grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); grid-template-areas: "carte commandes" "carte journal" "carte source"; grid-template-rows: auto 1fr auto; overflow: hidden; }
-  .mtr.est-plein-ecran .mtrj__carte { grid-area: carte; min-height: 0; display: flex; }
+  /* Plein écran large : le plan reste en place à gauche et la colonne de droite défile d'un bloc, sans rien superposer. */
+  .mtr.est-plein-ecran > .mtrj { grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); grid-template-areas: "carte commandes" "carte journal" "carte source"; grid-template-rows: auto auto 1fr; align-content: start; }
+  .mtr.est-plein-ecran .mtrj__carte { grid-area: carte; position: sticky; top: 0; align-self: start; height: var(--mtrj-h, 80vh); display: flex; }
   .mtr.est-plein-ecran .mtrj__svg, .texte .mtr.est-plein-ecran svg.mtrj__svg { width: 100%; height: 100%; }
-  .mtr.est-plein-ecran .mtrj__commandes { grid-area: commandes; }
-  .mtr.est-plein-ecran .mtrj__journal { grid-area: journal; border-top: 0; overflow-y: auto; min-height: 0; }
-  .mtr.est-plein-ecran .mtrj__source { grid-area: source; }
+  .mtr.est-plein-ecran .mtrj__commandes { grid-area: commandes; min-height: auto; }
+  .mtr.est-plein-ecran .mtrj__journal, .mtr.est-plein-ecran .mtrj__source { min-height: auto; }
+  .mtr.est-plein-ecran .mtrj__journal { grid-area: journal; }
+  .mtr.est-plein-ecran .mtrj__source { grid-area: source; align-self: end; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mtr .mtrj__train, .mtr .mtrj__ligne { transition: none; }
@@ -3626,6 +3628,10 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       if (g) { choisirDepart(g.getAttribute("data-station")); }
     });
     rendre();
+    /* En plein écran, le plan prend la hauteur visible du volet et reste en place pendant que la colonne défile. */
+    function mesurerVolet() { if (P.clientHeight) { P.style.setProperty("--mtrj-h", P.clientHeight + "px"); } }
+    if (window.ResizeObserver) { new window.ResizeObserver(mesurerVolet).observe(P); }
+    window.addEventListener("resize", mesurerVolet);
     api.etat = function () { return { phase: E.phase, pos: E.pos, depart: E.depart, choix: E.choix ? E.choix.l + (E.choix.s > 0 ? "+" : "-") : "", n: E.n, reste: E.reste, etapes: E.etapes.length, sorti: E.sorti, bilan: bilan(), defi: E.defi ? { but: E.defi.but, min: E.defi.min, reussi: E.defi.reussi } : null }; };
     api.choisirDepart = choisirDepart; api.choisirDirection = choisirDirection; api.regler = regler; api.partir = partir;
     api.rester = rester; api.descendre = descendre; api.terminer = terminer; api.recommencer = recommencer; api.defi = defi;
