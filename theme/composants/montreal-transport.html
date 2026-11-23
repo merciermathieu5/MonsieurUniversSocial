@@ -244,6 +244,8 @@ html[data-sombre="on"] .mtr .mtr__onglet[aria-selected="true"] { color: #10171F;
 .mtr .mtrj__banlieue-nom--fort { font-size: 10.5px; font-weight: 800; letter-spacing: 0; text-transform: none; fill: #fff; }
 .mtr .mtrj__intermodale { fill: var(--mtrj-train); stroke: var(--mtrj-nuit); stroke-width: 1.5; }
 .mtr .mtrj__banlieue { transition: opacity .25s; }
+.mtr .mtrj__station--entree .mtrj__point { fill: var(--mtrj-train); stroke: #fff; stroke-width: 2; opacity: 0; }
+.mtr .mtrj__station--entree.est-cliquable .mtrj__point { opacity: 1; }
 .mtr .mtrj__banlieue.est-estompe { opacity: .4; }
 .mtr .mtrj__halo--train { stroke-width: 13; }
 .mtr .mtrj__parcours--train { stroke-width: 6; }
@@ -1076,7 +1078,10 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       LISTE[k] = ["x-" + k].concat(ARRETS[k]);
       ARRETS[k].forEach(function (id) { ST[id].l.push(k); });
     });
+    var HORS = TR.map(function (k) { return "x-" + k; });
     function estTrain(k) { return !!TRACE[k]; }
+    /* Nom d'un lieu dans une phrase : une station, ou l'entrée du plan pour qui arrive en train. */
+    function lieu(id) { return ST[id].hors ? "l'entrée du plan (train de " + ST[id].n + ")" : ST[id].n; }
     function titre(k, groupe) { return groupe ? "Train de banlieue" : estTrain(k) ? "Train de " + NOM_TRAIN[k] : NOM_LIGNE[k].charAt(0).toUpperCase() + NOM_LIGNE[k].slice(1); }
     function la(k, groupe) { return groupe ? "le train de banlieue" : estTrain(k) ? "le train de " + NOM_TRAIN[k] : "la " + NOM_LIGNE[k]; }
     function de(k, groupe) { return groupe ? "du train de banlieue" : estTrain(k) ? "du train de " + NOM_TRAIN[k] : "de la " + NOM_LIGNE[k]; }
@@ -1184,6 +1189,14 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       if (b.lignes.length > 1) { b.lignes.forEach(function (l, i) { var ts = svgEl("tspan", { x: tx.toFixed(1), dy: i ? haut : 0 }, txt); ts.textContent = l; }); }
       else { txt.textContent = s.n; }
       NOM_G[id] = txt;
+    });
+    HORS.forEach(function (id) {
+      var p = ST[id].p, g = svgEl("g", { "class": "mtrj__station mtrj__station--entree", "data-station": id, transform: "translate(" + p[0] + " " + p[1] + ")" }, q(".mtrj__stations"));
+      svgEl("circle", { "class": "mtrj__point", r: 5 }, g);
+      svgEl("circle", { "class": "mtrj__prise", r: 13 }, g);
+      var ti = svgEl("title", {}, g); ti.textContent = "Arriver par le train de " + ST[id].n;
+      STATION_G[id] = g;
+      BOITE[id] = { x: p[0] - 1, y: p[1] - 1, w: 2, h: 2 };
     });
     svgT.setAttribute("viewBox", "-22 102 962 808");
     /* Légende, dans le coin libre du plan. */
@@ -1368,11 +1381,14 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       }
       if (E.phase === "depart") {
         el("p", "mtrj__titre", "1. Choisis ta station de départ", c);
-        para("Clique sur une station du plan ou choisis-la dans la liste.", "", c);
+        para("Clique sur une station du plan ou choisis-la dans la liste. Tu peux aussi arriver en train de banlieue : clique sur le bout d'une flèche.", "", c);
         var sel = el("select", "mtrj__liste", null, c);
         sel.setAttribute("aria-label", "Station de départ");
         var o0 = el("option", "", "Choisir une station", sel); o0.value = "";
-        IDS.slice().sort(function (a, b) { return nom(a).localeCompare(nom(b), "fr"); }).forEach(function (id) { var o = el("option", "", nom(id), sel); o.value = id; });
+        var gm = el("optgroup", "", null, sel); gm.label = "Stations de métro";
+        IDS.slice().sort(function (a, b) { return nom(a).localeCompare(nom(b), "fr"); }).forEach(function (id) { var o = el("option", "", nom(id), gm); o.value = id; });
+        var gt = el("optgroup", "", null, sel); gt.label = "Arriver en train de banlieue";
+        HORS.forEach(function (id) { var o = el("option", "", "Train de " + nom(id), gt); o.value = id; });
         sel.addEventListener("change", function () { if (sel.value) { choisirDepart(sel.value); } });
         para("Tu peux aussi relever un défi : une station de départ et une destination sont tirées au hasard.", "", c);
         var ac = el("div", "mtrj__actions", null, c);
@@ -1382,7 +1398,8 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       if (E.phase === "choix") {
         if (E.message) { var bm = el("div", "mtrj__encadre", null, c); para(E.message, "", bm); }
         var ici = para("Tu es à la station " + nom(E.pos) + ".", "mtrj__ici", c);
-        if (ST[E.pos].l.length > 1) { ici.textContent = typo("Tu es à la station " + nom(E.pos) + ", où se croisent " + listeLignes(ST[E.pos].l) + "."); }
+        if (ST[E.pos].hors) { ici.textContent = typo("Tu arrives de l'extérieur du plan, à bord du train de " + nom(E.pos) + "."); }
+        else if (ST[E.pos].l.length > 1) { ici.textContent = typo("Tu es à la station " + nom(E.pos) + ", où se croisent " + listeLignes(ST[E.pos].l) + "."); }
         if (E.message) { ici.style.display = "none"; }
         el("p", "mtrj__titre", (E.etapes.length ? "Ta ligne et ta direction" : "2. Choisis ta ligne et ta direction"), c);
         var dirs = el("div", "mtrj__dirs", null, c);
@@ -1448,7 +1465,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
         var bs = el("div", "mtrj__encadre mtrj__encadre--arret", null, c);
         para("Tu quittes le plan à bord du train de " + nom(E.pos) + ".", "", bs);
         if (E.defi) { para("Défi non réussi : tu n'es pas passé par " + nom(E.defi.but) + ".", "", bs); }
-        para("Sur le plan, de " + nom(E.depart) + " à " + nom(et.ids[0]) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
+        para("Sur le plan, de " + lieu(E.depart) + " à " + lieu(et.ids[0]) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
       } else if (E.defi && E.defi.reussi) {
         var bf = el("div", "mtrj__encadre", null, c);
         para("Bravo! Tu es à " + nom(E.pos) + ", ta destination.", "", bf);
@@ -1456,7 +1473,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
         if (b.stations === E.defi.min) { para("Tu as trouvé le trajet le plus court!", "", bf); }
       } else {
         el("p", "mtrj__titre", "Trajet terminé", c);
-        para("De " + nom(E.depart) + " à " + nom(E.pos) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
+        para("De " + lieu(E.depart) + " à " + nom(E.pos) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
       }
       var af = el("div", "mtrj__actions", null, c);
       bouton("Nouveau trajet", "mtrj__bouton--fort mtrj__nouveau", recommencer, af);
@@ -1466,7 +1483,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     function rendreJournal() {
       journal.innerHTML = "";
       if (!E.etapes.length) {
-        para(E.depart ? "Départ : " + nom(E.depart) + ". Ton trajet s'écrira ici, étape par étape." : "Ton trajet s'écrira ici, étape par étape.", "mtrj__vide", journal);
+        para(E.depart ? "Départ : " + lieu(E.depart) + ". Ton trajet s'écrira ici, étape par étape." : "Ton trajet s'écrira ici, étape par étape.", "mtrj__vide", journal);
         return;
       }
       var ol = el("ol", "", null, journal);
@@ -1477,10 +1494,10 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
         var n = et.ids.length - 1, enCours = i === E.etapes.length - 1 && (E.phase === "route" || E.phase === "pause");
         var li = el("li", "mtrj__etape", null, ol);
         var t = titre(et.l, et.groupe) + ", direction " + nom(terminus(et.l, et.s)) + " : ";
-        if (et.sortie) { n = 0; t += "tu quittes le plan à partir de " + nom(et.ids[0]) + "."; }
-        else if (enCours) { t += n + " station" + (n > 1 ? "s" : "") + " sur " + et.prevu + " pour l'instant, depuis " + nom(et.ids[0]) + "."; }
-        else if (et.interrompu) { t += pluriel(n, "station") + " sur les " + et.prevu + " prévues, de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + ". Tu descends pour changer de ligne."; }
-        else { t += pluriel(n, "station") + ", de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + "."; }
+        if (et.sortie) { n = 0; t += "tu quittes le plan à partir de " + lieu(et.ids[0]) + "."; }
+        else if (enCours) { t += n + " station" + (n > 1 ? "s" : "") + " sur " + et.prevu + " pour l'instant, depuis " + lieu(et.ids[0]) + "."; }
+        else if (et.interrompu) { t += pluriel(n, "station") + " sur les " + et.prevu + " prévues, de " + lieu(et.ids[0]) + " à " + nom(et.ids[n]) + ". Tu descends pour changer de ligne."; }
+        else { t += pluriel(n, "station") + ", de " + lieu(et.ids[0]) + " à " + nom(et.ids[n]) + "."; }
         li.appendChild(document.createTextNode(typo(t)));
         if (n) { el("span", "mtrj__stations", "Stations : " + et.ids.slice(1).map(nom).join(", "), li); }
       });
@@ -1524,6 +1541,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       LIG.concat(TR).forEach(function (k) { LIGNE_G[k].classList.toggle("est-estompe", !!actif && actif !== k); });
       P.classList.toggle("a-trajet", !!E.pos);
       var cliquable = E.phase === "depart" || (E.phase === "choix" && !E.etapes.length && !E.defi);
+      HORS.forEach(function (id) { STATION_G[id].classList.toggle("est-cliquable", cliquable); STATION_G[id].classList.toggle("est-ici", id === E.pos); });
       IDS.forEach(function (id) {
         STATION_G[id].classList.toggle("est-cliquable", cliquable);
         STATION_G[id].classList.toggle("est-parcourue", !!parcourues[id] && id !== E.pos);
