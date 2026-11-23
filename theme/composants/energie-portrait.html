@@ -1,0 +1,158 @@
+<section class="epq" id="energie-portrait" data-reinitialiser aria-label="Portrait énergétique du Québec : production d'électricité, énergie consommée et secteurs qui la consomment">
+<style>
+.epq { --epq-eau: #2D6A9F; --epq-vent: #5FA3C9; --epq-bio: #6E9A54; --epq-autre: #A8B3BC; --epq-petrole: #6B4E3D; --epq-gaz: #A97C5B; --epq-fossile-autre: #C9AE97; --epq-secteur: var(--matiere); --epq-choix: var(--signal); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+html[data-sombre="on"] .epq { --epq-eau: #5B9BD5; --epq-vent: #8EC3E0; --epq-bio: #8DBA73; --epq-autre: #6F7D89; --epq-petrole: #A07A63; --epq-gaz: #C79C79; --epq-fossile-autre: #E0C7B1; }
+.epq [hidden] { display: none !important; }
+.epq .epq__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.epq .epq__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.epq .epq__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .epq .epq__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .epq .epq__titre { color: var(--encre); }
+html[data-sombre="on"] .epq .epq__consigne { color: var(--encre-pale); }
+.epq__corps { padding: 1rem 1.2rem 1.2rem; }
+.epq .epq__tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: .7rem; margin: 0 0 1.3rem; padding: 0; list-style: none; }
+.epq .epq__tuiles > li { margin: 0; padding: .75rem .85rem; background: var(--matiere-voile); border-radius: 8px; }
+.epq .epq__tuiles > li::before, .epq .epq__tuiles > li::marker { content: none; }
+.epq__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.55rem; line-height: 1.1; color: var(--encre); font-variant-numeric: tabular-nums; }
+.epq__chiffre small { font-size: .9rem; font-weight: 600; }
+.epq__libelle { display: block; margin-top: .3rem; font-family: var(--titre); font-size: .8rem; line-height: 1.3; color: var(--encre-doux); }
+.epq__annee { font-family: var(--donnee); font-size: .68rem; color: var(--encre-pale); }
+.epq__bloc { margin: 0 0 1.4rem; }
+.epq__bloc:last-of-type { margin-bottom: .6rem; }
+.epq .epq__question { margin: 0 0 .15rem; font-family: var(--titre); font-weight: 700; font-size: .98rem; color: var(--encre); }
+.epq__sous { margin: 0 0 .55rem; font-family: var(--titre); font-size: .8rem; color: var(--encre-pale); }
+.epq__groupes { display: flex; gap: 2px; margin: 0 0 .25rem; font-family: var(--titre); font-weight: 700; font-size: .78rem; }
+.epq__groupe { flex-basis: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; padding: 0 .3rem .2rem; border-bottom: 2px solid var(--encre-pale); color: var(--encre-doux); white-space: nowrap; }
+.epq__barre { display: flex; gap: 2px; height: 2.6rem; }
+.epq__seg { position: relative; flex-shrink: 1; flex-basis: 0; min-width: 6px; margin: 0; padding: 0 .4rem; border: 0; border-radius: 0; font-family: var(--titre); font-weight: 700; font-size: .82rem; color: #fff; text-align: left; overflow: hidden; white-space: nowrap; cursor: pointer; background: var(--c); transition: filter .15s, box-shadow .15s; }
+.epq__seg:first-child { border-radius: 6px 0 0 6px; }
+.epq__seg:last-child { border-radius: 0 6px 6px 0; }
+.epq__seg:hover { filter: brightness(1.08); }
+.epq__seg:focus-visible { outline: 3px solid var(--epq-choix); outline-offset: 2px; }
+.epq__seg[aria-pressed="true"], .epq__secteur[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--epq-choix); }
+.epq__seg-texte { position: relative; }
+.epq .epq__cles { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .5rem 0 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .8rem; color: var(--encre-doux); }
+.epq .epq__cles > li { display: flex; align-items: center; gap: .35rem; margin: 0; padding: 0; }
+.epq .epq__cles > li::before, .epq .epq__cles > li::marker { content: none; }
+.epq__cle { width: .8rem; height: .8rem; border-radius: 3px; background: var(--c); flex: none; }
+.epq__cles strong { color: var(--encre); font-variant-numeric: tabular-nums; }
+.epq__secteurs { display: grid; gap: .4rem; }
+.epq__secteur { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); align-items: center; gap: .6rem; width: 100%; margin: 0; padding: .15rem .2rem; border: 0; border-radius: 6px; background: none; font-family: var(--titre); font-size: .85rem; color: var(--encre); text-align: left; cursor: pointer; }
+.epq__secteur:hover { background: var(--matiere-voile); }
+.epq__secteur:focus-visible { outline: 3px solid var(--epq-choix); outline-offset: 1px; }
+.epq__piste { display: flex; align-items: center; gap: .45rem; }
+.epq__trait { display: block; flex-shrink: 1; max-width: calc(100% - 3.4rem); height: 1.1rem; border-radius: 0 4px 4px 0; background: var(--epq-secteur); }
+.epq__pct { flex: none; white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; }
+.epq__detail { min-height: 2.6rem; margin: .7rem 0 0; padding: .6rem .8rem; border-left: 4px solid var(--epq-choix); border-radius: 0; background: var(--surface-2, var(--matiere-voile)); font-family: var(--corps); font-size: .98rem; line-height: 1.45; color: var(--encre); }
+.epq__detail strong { font-family: var(--titre); }
+.epq__detail.est-vide { color: var(--encre-pale); font-style: italic; border-left-color: var(--trait); }
+.epq .epq__source { margin: .4rem 0 0; font-family: var(--donnee); font-size: .68rem; line-height: 1.4; color: var(--encre-pale); }
+@media (max-width: 40rem) {
+  .epq__corps { padding: .9rem .8rem 1rem; }
+  .epq__secteur { grid-template-columns: 7.5rem minmax(0, 1fr); font-size: .8rem; }
+  .epq__seg { font-size: .72rem; padding: 0 .25rem; }
+  .epq__groupes { font-size: .7rem; }
+  .epq__seg-texte--court { display: none; }
+}
+@media print { .epq__seg, .epq__trait, .epq__cle { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+.epq.est-plein-ecran > .epq__entete { flex: none; }
+</style>
+<div class="epq__entete">
+<p class="epq__titre" role="heading" aria-level="3">Le portrait énergétique du Québec</p>
+<p class="epq__consigne">Touche une barre pour l'expliquer</p>
+</div>
+<div class="epq__corps">
+<ul class="epq__tuiles">
+<li><span class="epq__chiffre">195,5 <small>TWh</small></span><span class="epq__libelle">d'électricité produite en un an</span><span class="epq__annee">2023</span></li>
+<li><span class="epq__chiffre">94 <small>%</small></span><span class="epq__libelle">de cette électricité vient de la force de l'eau</span><span class="epq__annee">2023</span></li>
+<li><span class="epq__chiffre">22,9 <small>MWh</small></span><span class="epq__libelle">d'électricité par habitant, 57 % de plus que la moyenne canadienne</span><span class="epq__annee">2020</span></li>
+<li><span class="epq__chiffre">52 <small>%</small></span><span class="epq__libelle">de toute l'énergie consommée vient encore des énergies fossiles</span><span class="epq__annee">2022</span></li>
+</ul>
+<div class="epq__bloc" data-bloc="production">
+<p class="epq__question">D'où vient l'électricité produite au Québec?</p>
+<p class="epq__sous">Production d'électricité selon la source, 2023</p>
+<div class="epq__barre" role="group" aria-label="Production d'électricité selon la source">
+<button type="button" class="epq__seg" data-cle="eau" style="--c: var(--epq-eau); flex-grow: 94;" data-pct="94" aria-pressed="false"><span class="epq__seg-texte">Eau 94 %</span></button>
+<button type="button" class="epq__seg" data-cle="vent" style="--c: var(--epq-vent); flex-grow: 5;" data-pct="5" aria-pressed="false" aria-label="Vent 5 %"></button>
+<button type="button" class="epq__seg" data-cle="biomasse" style="--c: var(--epq-bio); flex-grow: .7;" data-pct=".7" aria-pressed="false" aria-label="Biomasse 0,7 %"></button>
+<button type="button" class="epq__seg" data-cle="autres-elec" style="--c: var(--epq-autre); flex-grow: .3;" data-pct=".3" aria-pressed="false" aria-label="Autres sources 0,3 %"></button>
+</div>
+<ul class="epq__cles" aria-hidden="true">
+<li><span class="epq__cle" style="--c: var(--epq-eau);"></span>Hydroélectricité <strong>94 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-vent);"></span>Éolien <strong>5 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-bio);"></span>Biomasse <strong>0,7 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-autre);"></span>Autres <strong>0,3 %</strong></li>
+</ul>
+</div>
+<div class="epq__bloc" data-bloc="consommation">
+<p class="epq__question">L'électricité, est-ce toute notre énergie?</p>
+<p class="epq__sous">Toute l'énergie consommée au Québec, environ 496 TWh, selon sa forme, 2022</p>
+<div class="epq__groupes" aria-hidden="true"><span class="epq__groupe" style="flex-grow: 48;" data-pct="48">Renouvelable 48 %</span><span class="epq__groupe" style="flex-grow: 52;" data-pct="52">Fossile 52 %</span></div>
+<div class="epq__barre" role="group" aria-label="Énergie consommée selon sa forme">
+<button type="button" class="epq__seg" data-cle="electricite" style="--c: var(--epq-eau); flex-grow: 41;" data-pct="41" aria-pressed="false"><span class="epq__seg-texte">Électricité 41 %</span></button>
+<button type="button" class="epq__seg" data-cle="bioenergies" style="--c: var(--epq-bio); flex-grow: 7;" data-pct="7" aria-pressed="false" aria-label="Bioénergies 7 %"></button>
+<button type="button" class="epq__seg" data-cle="petrole" style="--c: var(--epq-petrole); flex-grow: 37;" data-pct="37" aria-pressed="false"><span class="epq__seg-texte">Pétrole 37 %</span></button>
+<button type="button" class="epq__seg" data-cle="gaz" style="--c: var(--epq-gaz); flex-grow: 14;" data-pct="14" aria-pressed="false"><span class="epq__seg-texte epq__seg-texte--court">Gaz 14 %</span></button>
+<button type="button" class="epq__seg" data-cle="autres-fossiles" style="--c: var(--epq-fossile-autre); flex-grow: 1;" data-pct="1" aria-pressed="false" aria-label="Autres énergies fossiles, environ 1 %"></button>
+</div>
+<ul class="epq__cles" aria-hidden="true">
+<li><span class="epq__cle" style="--c: var(--epq-eau);"></span>Électricité <strong>41 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-bio);"></span>Bioénergies <strong>7 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-petrole);"></span>Produits pétroliers <strong>37 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-gaz);"></span>Gaz naturel <strong>14 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-fossile-autre);"></span>Autres fossiles <strong>1 %</strong></li>
+</ul>
+</div>
+<div class="epq__bloc" data-bloc="secteurs">
+<p class="epq__question">Qui consomme toute cette énergie?</p>
+<p class="epq__sous">Part de l'énergie consommée selon le secteur, 2022</p>
+<div class="epq__secteurs" role="group" aria-label="Énergie consommée selon le secteur">
+<button type="button" class="epq__secteur" data-cle="industrie" aria-pressed="false"><span>L'industrie</span><span class="epq__piste"><span class="epq__trait" style="width: 74%;"></span><span class="epq__pct">37 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="transports" aria-pressed="false"><span>Les transports</span><span class="epq__piste"><span class="epq__trait" style="width: 62%;"></span><span class="epq__pct">31 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="residentiel" aria-pressed="false"><span>Les résidences</span><span class="epq__piste"><span class="epq__trait" style="width: 38%;"></span><span class="epq__pct">19 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="commercial" aria-pressed="false"><span>Les commerces et les institutions</span><span class="epq__piste"><span class="epq__trait" style="width: 28%;"></span><span class="epq__pct">14 %</span></span></button>
+</div>
+</div>
+<p class="epq__detail est-vide" aria-live="polite">Touche une barre pour voir ce qu'elle représente.</p>
+<p class="epq__source">Sources : Régie de l'énergie du Canada (production 2023, consommation par habitant 2020) et gouvernement du Québec, Portrait énergétique du Québec et Vision Énergie (données de 2022). Les pourcentages sont arrondis. La part des autres énergies fossiles est obtenue par différence.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("energie-portrait");
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  racine.classList.add("est-pret");
+  var TEXTES = {
+    "eau": "<strong>Hydroélectricité, 94 %.</strong> Plus de soixante grandes centrales transforment la force de l'eau qui descend en électricité. C'est la ressource qui fait du Québec un territoire énergétique.",
+    "vent": "<strong>Éolien, 5 %.</strong> Le Québec comptait près de 4 000 mégawatts d'éoliennes en 2023. C'est la deuxième source d'électricité, loin derrière l'eau.",
+    "biomasse": "<strong>Biomasse, 0,7 %.</strong> Des centrales brûlent des résidus de bois ou de matières organiques pour produire de l'électricité.",
+    "autres-elec": "<strong>Autres sources, 0,3 %.</strong> Il s'agit surtout de centrales thermiques, comme celles qui alimentent des villages isolés du Nord. Au total, plus de 99 % de l'électricité québécoise vient de sources renouvelables.",
+    "electricite": "<strong>Électricité, 41 %.</strong> Même si elle est presque entièrement renouvelable, l'électricité fournit moins de la moitié de toute l'énergie que le Québec consomme.",
+    "bioenergies": "<strong>Bioénergies, 7 %.</strong> Le bois de chauffage, les granules et l'éthanol mélangé à l'essence. C'est l'autre partie renouvelable de notre énergie.",
+    "petrole": "<strong>Produits pétroliers, 37 %.</strong> Surtout de l'essence et du diesel pour les transports. Le Québec n'en produit pas : le pétrole brut vient entièrement du reste du Canada et des États-Unis. C'est sa dépendance énergétique.",
+    "gaz": "<strong>Gaz naturel, 14 %.</strong> Il sert surtout à chauffer des bâtiments et à alimenter des usines. Lui aussi est importé.",
+    "autres-fossiles": "<strong>Autres énergies fossiles, environ 1 %.</strong> Du propane et un peu de charbon, utilisés surtout par certaines industries.",
+    "industrie": "<strong>L'industrie, 37 %.</strong> Les alumineries, les papetières et les usines chimiques consomment énormément d'énergie. Plusieurs se sont installées au Québec pour profiter d'une électricité abondante et peu coûteuse.",
+    "transports": "<strong>Les transports, 31 %.</strong> Presque toute cette énergie vient du pétrole. C'est pourquoi l'électrification des transports est au coeur de la transition énergétique.",
+    "residentiel": "<strong>Les résidences, 19 %.</strong> Le chauffage en prend la plus grande part. La plupart des ménages québécois chauffent à l'électricité.",
+    "commercial": "<strong>Les commerces et les institutions, 14 %.</strong> Les magasins, les bureaux, les écoles et les hôpitaux, qu'il faut chauffer, éclairer et climatiser."
+  };
+  var boutons = Array.prototype.slice.call(racine.querySelectorAll(".epq__seg, .epq__secteur"));
+  var detail = racine.querySelector(".epq__detail");
+  var VIDE = detail.textContent;
+  function choisir(bouton) {
+    var deja = bouton && bouton.getAttribute("aria-pressed") === "true";
+    boutons.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    if (!bouton || deja) { detail.textContent = VIDE; detail.classList.add("est-vide"); return; }
+    bouton.setAttribute("aria-pressed", "true");
+    detail.innerHTML = TEXTES[bouton.getAttribute("data-cle")] || "";
+    detail.classList.remove("est-vide");
+  }
+  boutons.forEach(function (b) {
+    if (!b.title) { b.title = b.getAttribute("aria-label") || b.textContent.replace(/\s+/g, " ").trim(); }
+    b.addEventListener("click", function () { choisir(b); });
+  });
+  racine.addEventListener("reinitialiser", function () { choisir(null); });
+})();
+</script>
+</section>
