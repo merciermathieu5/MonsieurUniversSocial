@@ -2,7 +2,7 @@
  * Test de l'onglet « Mon trajet en métro » de la carte du transport (fiche de géographie 02) dans un DOM simulé.
  *     node outils/test_montreal_trajet.js [composant.html]
  * On vérifie les onglets, le plan schématique (4 lignes, 68 stations, 4 correspondances, trains de banlieue), le choix du départ
- * (liste et clic sur le plan), la direction et le nombre de stations, l'arrêt aux correspondances,
+ * (liste et clic sur le plan, y compris à bord d'un train qui entre sur le plan), la direction et le nombre de stations, l'arrêt aux correspondances,
  * le changement de ligne, les trajets en train de banlieue, le journal, le défi et Réinitialiser.
  */
 const fs = require("fs");
@@ -42,14 +42,15 @@ clic(onglets[1]);
 
 console.log("PLAN SCHÉMATIQUE");
 verifier("4 lignes du métro", tous(".mtrj__ligne").length === 4);
-verifier("68 stations", tous(".mtrj__station").length === 68, tous(".mtrj__station").length);
+verifier("68 stations", tous(".mtrj__station:not(.mtrj__station--entree)").length === 68, tous(".mtrj__station").length);
+verifier("5 entrées en train, au bout des flèches", tous(".mtrj__station--entree").length === 5);
 verifier("4 stations de correspondance", tous(".mtrj__station--corresp").map((g) => g.getAttribute("data-station")).sort().join() === "berri-uqam,jean-talon,lionel-groulx,snowdon");
 verifier("68 noms de station affichés", tous(".mtrj__nom").length === 68);
 verifier("5 lignes de trains de banlieue, chacune avec sa direction", tous(".mtrj__banlieue").length === 5 && tous(".mtrj__banlieue-nom--fort").map((n) => n.textContent).join("|") === "Direction Blainville-Saint-Jérôme|Direction Deux-Montagnes|Direction Dorion-Rigaud|Direction Delson-Candiac|Direction Mont-Saint-Hilaire");
 verifier("5 stations intermodales", tous(".mtrj__gares .mtrj__intermodale").map((n) => n.getAttribute("data-station")).sort().join() === "bonaventure,de-la-concorde,lucien-l-allier,parc,vendome");
 
 console.log("DÉPART");
-verifier("au départ : choisir une station (liste de 68 stations)", etat().phase === "depart" && tous(".mtrj__liste option").length === 69);
+verifier("au départ : choisir une station (liste de 68 stations et de 5 trains)", etat().phase === "depart" && tous(".mtrj__liste option").length === 74 && tous(".mtrj__liste optgroup").length === 2);
 const liste = un(".mtrj__liste");
 liste.value = "vendome"; liste.dispatchEvent(new window.Event("change", { bubbles: true }));
 verifier("la liste fixe le départ à Vendôme", etat().pos === "vendome" && etat().phase === "choix");
@@ -125,6 +126,25 @@ clic(bouton(".mtrj__partir"));
 verifier("le trajet se termine hors du plan", etat().phase === "fin" && etat().sorti && etat().bilan.stations === 0 && /à bord du train de Deux-Montagnes/.test(cmd()));
 T.defi("vendome", "atwater"); T.choisirDirection("dr", -1); T.partir();
 verifier("sortir du plan pendant un défi : défi non réussi", etat().phase === "fin" && !etat().defi.reussi && /Défi non réussi/.test(cmd()));
+console.log("PARTIR D'UN TRAIN DE BANLIEUE");
+T.recommencer();
+clic(un('.mtrj__station--entree[data-station="x-dm"]'));
+verifier("un clic au bout de la flèche : départ dans le train de Deux-Montagnes", etat().depart === "x-dm" && etat().phase === "choix" && /arrives de l'extérieur du plan/.test(cmd()));
+verifier("une seule direction : Bonaventure", tous(".mtrj__dir").length === 1 && /Bonaventure/.test(dir("dm", "1").textContent));
+clic(dir("dm", "1")); clic(bouton(".mtrj__partir"));
+verifier("arrivée à Bonaventure après 1 station", etat().pos === "bonaventure" && etat().bilan.stations === 1 && /de l'entrée du plan \(train de Deux-Montagnes\) à Bonaventure/.test(un(".mtrj__journal").textContent), un(".mtrj__journal").textContent);
+T.choisirDirection("orange", 1); T.regler(2); T.partir();
+verifier("puis le métro : 1 correspondance", etat().pos === "place-d-armes" && etat().bilan.corresp === 1);
+T.recommencer();
+const l2 = un(".mtrj__liste"); l2.value = "x-sj"; l2.dispatchEvent(new window.Event("change", { bubbles: true }));
+verifier("la liste offre aussi le départ en train", etat().depart === "x-sj" && !!un(".mtrj__repere--depart"));
+T.choisirDirection("sj", 1);
+for (let i = 0; i < 9; i++) clic(bouton(".mtrj__plus"));
+verifier("quatre arrêts au plus, de De la Concorde à Lucien-L'Allier", etat().n === 4);
+T.partir(); filer();
+verifier("le train entre par le nord et finit à Lucien-L'Allier", etat().pos === "lucien-l-allier" && etat().bilan.stations === 4);
+clic(bouton(".mtrj__terminer"));
+verifier("bilan depuis l'entrée du plan", /De l'entrée du plan \(train de Blainville-Saint-Jérôme\) à Lucien-L'Allier/.test(cmd()), cmd());
 verifier("le trajet le plus court tient compte des trains", T.distance("de-la-concorde", "lucien-l-allier") === 3);
 
 console.log("RÉINITIALISATION ET TYPOGRAPHIE");
