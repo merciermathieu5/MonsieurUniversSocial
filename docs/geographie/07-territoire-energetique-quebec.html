@@ -238,37 +238,176 @@ propre limite l'effet de serre et freine le réchauffement de la planète.</p>
 </ol>
 </aside>
 <h2 id="les-besoins-energetiques-du-quebec">Les besoins énergétiques du Québec</h2>
-<p>Le Québec produit environ 213 térawattheures d'électricité par année, soit à peu
-près le tiers de toute la production canadienne. C'est la province qui en produit
-le plus. L'hydroélectricité en fournit environ 94 %, l'éolien 5 %, et le reste
-vient de centrales thermiques et de quelques installations solaires.</p>
-<p class="source-texte">Source : Régie de l'énergie du Canada, données de 2021, et État de l'énergie au
-Québec</p>
-<h3 id="lelectricite-nest-pas-toute-lenergie">L'électricité n'est pas toute l'énergie</h3>
-<p>C'est ici qu'il faut être attentif. Le Québec produit une électricité presque
-entièrement propre, mais l'électricité ne représente qu'une partie de
-l'énergie qu'il consomme. En 2022, la consommation totale d'énergie du Québec
-atteignait 496 térawattheures, et les énergies fossiles en comblaient encore
-52 %, essentiellement du pétrole importé. Autrement dit, le Québec est
-autonome pour son électricité et complètement dépendant pour ses carburants.
-C'est cette moitié fossile que la transition énergétique cherche à remplacer.</p>
-<p class="source-texte">Source : Gouvernement du Québec, portrait énergétique, données de 2022</p>
-<h3 id="qui-consomme-quoi">Qui consomme quoi</h3>
-<figure class="illustration illustration--flottant"><img loading="lazy" decoding="async" alt="Deux véhicules électriques en recharge en ville" src="../medias/07-territoire-energetique-quebec/voitures-electriques.jpg" /><figcaption><span class="figure-legende">Deux véhicules électriques en recharge en ville</span><details class="credit"><summary>Source</summary><span>Frimufilms, Two charging electric cars at charge station in the city, repris dans le dossier du RECIT, <a href="https://documents.recitus.qc.ca/1er-cyle/document/document-2-les-grands-centres-energivores" rel="noopener" target="_blank">Service national du RECIT, univers social</a>. Licence&nbsp;: Creative Commons.</span></details></figcaption></figure>
-<p>La consommation finale d'énergie du Québec se répartit entre quatre grands
-secteurs.</p>
-<ul>
-<li>L'industrie, 37 %</li>
-<li>Les transports, 31 %</li>
-<li>Le résidentiel, 19 %</li>
-<li>Le commercial et l'institutionnel, 14 %</li>
+<p>Le Québec est l'un des plus grands producteurs d'hydroélectricité au monde.
+Pourtant, quand on regarde toute l'énergie qu'il consomme, le portrait change.
+Explore le tableau en touchant chaque barre avant de répondre aux questions.</p>
+<section class="epq" id="energie-portrait" data-reinitialiser aria-label="Portrait énergétique du Québec : production d'électricité, énergie consommée et secteurs qui la consomment">
+<style>
+.epq { --epq-eau: #2D6A9F; --epq-vent: #5FA3C9; --epq-bio: #6E9A54; --epq-autre: #A8B3BC; --epq-petrole: #6B4E3D; --epq-gaz: #A97C5B; --epq-fossile-autre: #C9AE97; --epq-secteur: var(--matiere); --epq-choix: var(--signal); margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; }
+html[data-sombre="on"] .epq { --epq-eau: #5B9BD5; --epq-vent: #8EC3E0; --epq-bio: #8DBA73; --epq-autre: #6F7D89; --epq-petrole: #A07A63; --epq-gaz: #C79C79; --epq-fossile-autre: #E0C7B1; }
+.epq [hidden] { display: none !important; }
+.epq .epq__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.epq .epq__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.epq .epq__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .epq .epq__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .epq .epq__titre { color: var(--encre); }
+html[data-sombre="on"] .epq .epq__consigne { color: var(--encre-pale); }
+.epq__corps { padding: 1rem 1.2rem 1.2rem; }
+.epq .epq__tuiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); gap: .7rem; margin: 0 0 1.3rem; padding: 0; list-style: none; }
+.epq .epq__tuiles > li { margin: 0; padding: .75rem .85rem; background: var(--matiere-voile); border-radius: 8px; }
+.epq .epq__tuiles > li::before, .epq .epq__tuiles > li::marker { content: none; }
+.epq__chiffre { display: block; font-family: var(--titre); font-weight: 700; font-size: 1.55rem; line-height: 1.1; color: var(--encre); font-variant-numeric: tabular-nums; }
+.epq__chiffre small { font-size: .9rem; font-weight: 600; }
+.epq__libelle { display: block; margin-top: .3rem; font-family: var(--titre); font-size: .8rem; line-height: 1.3; color: var(--encre-doux); }
+.epq__annee { font-family: var(--donnee); font-size: .68rem; color: var(--encre-pale); }
+.epq__bloc { margin: 0 0 1.4rem; }
+.epq__bloc:last-of-type { margin-bottom: .6rem; }
+.epq .epq__question { margin: 0 0 .15rem; font-family: var(--titre); font-weight: 700; font-size: .98rem; color: var(--encre); }
+.epq__sous { margin: 0 0 .55rem; font-family: var(--titre); font-size: .8rem; color: var(--encre-pale); }
+.epq__groupes { display: flex; gap: 2px; margin: 0 0 .25rem; font-family: var(--titre); font-weight: 700; font-size: .78rem; }
+.epq__groupe { flex-basis: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; box-sizing: border-box; padding: 0 .3rem .2rem; border-bottom: 2px solid var(--encre-pale); color: var(--encre-doux); white-space: nowrap; }
+.epq__barre { display: flex; gap: 2px; height: 2.6rem; }
+.epq__seg { position: relative; flex-shrink: 1; flex-basis: 0; min-width: 6px; margin: 0; padding: 0 .4rem; border: 0; border-radius: 0; font-family: var(--titre); font-weight: 700; font-size: .82rem; color: #fff; text-align: left; overflow: hidden; white-space: nowrap; cursor: pointer; background: var(--c); transition: filter .15s, box-shadow .15s; }
+.epq__seg:first-child { border-radius: 6px 0 0 6px; }
+.epq__seg:last-child { border-radius: 0 6px 6px 0; }
+.epq__seg:hover { filter: brightness(1.08); }
+.epq__seg:focus-visible { outline: 3px solid var(--epq-choix); outline-offset: 2px; }
+.epq__seg[aria-pressed="true"], .epq__secteur[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--epq-choix); }
+.epq__seg-texte { position: relative; }
+.epq .epq__cles { display: flex; flex-wrap: wrap; gap: .3rem 1rem; margin: .5rem 0 0; padding: 0; list-style: none; font-family: var(--titre); font-size: .8rem; color: var(--encre-doux); }
+.epq .epq__cles > li { display: flex; align-items: center; gap: .35rem; margin: 0; padding: 0; }
+.epq .epq__cles > li::before, .epq .epq__cles > li::marker { content: none; }
+.epq__cle { width: .8rem; height: .8rem; border-radius: 3px; background: var(--c); flex: none; }
+.epq__cles strong { color: var(--encre); font-variant-numeric: tabular-nums; }
+.epq__secteurs { display: grid; gap: .4rem; }
+.epq__secteur { display: grid; grid-template-columns: 11.5rem minmax(0, 1fr); align-items: center; gap: .6rem; width: 100%; margin: 0; padding: .15rem .2rem; border: 0; border-radius: 6px; background: none; font-family: var(--titre); font-size: .85rem; color: var(--encre); text-align: left; cursor: pointer; }
+.epq__secteur:hover { background: var(--matiere-voile); }
+.epq__secteur:focus-visible { outline: 3px solid var(--epq-choix); outline-offset: 1px; }
+.epq__piste { display: flex; align-items: center; gap: .45rem; }
+.epq__trait { display: block; flex-shrink: 1; max-width: calc(100% - 3.4rem); height: 1.1rem; border-radius: 0 4px 4px 0; background: var(--epq-secteur); }
+.epq__pct { flex: none; white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; }
+.epq__detail { min-height: 2.6rem; margin: .7rem 0 0; padding: .6rem .8rem; border-left: 4px solid var(--epq-choix); border-radius: 0; background: var(--surface-2, var(--matiere-voile)); font-family: var(--corps); font-size: .98rem; line-height: 1.45; color: var(--encre); }
+.epq__detail strong { font-family: var(--titre); }
+.epq__detail.est-vide { color: var(--encre-pale); font-style: italic; border-left-color: var(--trait); }
+.epq .epq__source { margin: .4rem 0 0; font-family: var(--donnee); font-size: .68rem; line-height: 1.4; color: var(--encre-pale); }
+@media (max-width: 40rem) {
+  .epq__corps { padding: .9rem .8rem 1rem; }
+  .epq__secteur { grid-template-columns: 7.5rem minmax(0, 1fr); font-size: .8rem; }
+  .epq__seg { font-size: .72rem; padding: 0 .25rem; }
+  .epq__groupes { font-size: .7rem; }
+  .epq__seg-texte--court { display: none; }
+}
+@media print { .epq__seg, .epq__trait, .epq__cle { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+.epq.est-plein-ecran > .epq__entete { flex: none; }
+</style>
+<div class="epq__entete">
+<p class="epq__titre" role="heading" aria-level="3">Le portrait énergétique du Québec</p>
+<p class="epq__consigne">Touche une barre pour l'expliquer</p>
+</div>
+<div class="epq__corps">
+<ul class="epq__tuiles">
+<li><span class="epq__chiffre">195,5 <small>TWh</small></span><span class="epq__libelle">d'électricité produite en un an</span><span class="epq__annee">2023</span></li>
+<li><span class="epq__chiffre">94 <small>%</small></span><span class="epq__libelle">de cette électricité vient de la force de l'eau</span><span class="epq__annee">2023</span></li>
+<li><span class="epq__chiffre">22,9 <small>MWh</small></span><span class="epq__libelle">d'électricité par habitant, 57 % de plus que la moyenne canadienne</span><span class="epq__annee">2020</span></li>
+<li><span class="epq__chiffre">52 <small>%</small></span><span class="epq__libelle">de toute l'énergie consommée vient encore des énergies fossiles</span><span class="epq__annee">2022</span></li>
 </ul>
-<p class="source-texte">Source : Gouvernement du Québec, portrait énergétique, données de 2022</p>
-<p>Le Québec détient un autre record : c'est la province où l'on consomme le plus
-d'électricité par habitant au Canada, avec 22,9 mégawattheures par personne, soit
-57 % de plus que la moyenne canadienne. Deux raisons l'expliquent. Des industries
-très énergivores sont venues s'installer ici pour profiter de tarifs bas, et la
-plupart des ménages québécois chauffent à l'électricité.</p>
+<div class="epq__bloc" data-bloc="production">
+<p class="epq__question">D'où vient l'électricité produite au Québec?</p>
+<p class="epq__sous">Production d'électricité selon la source, 2023</p>
+<div class="epq__barre" role="group" aria-label="Production d'électricité selon la source">
+<button type="button" class="epq__seg" data-cle="eau" style="--c: var(--epq-eau); flex-grow: 94;" data-pct="94" aria-pressed="false"><span class="epq__seg-texte">Eau 94 %</span></button>
+<button type="button" class="epq__seg" data-cle="vent" style="--c: var(--epq-vent); flex-grow: 5;" data-pct="5" aria-pressed="false" aria-label="Vent 5 %"></button>
+<button type="button" class="epq__seg" data-cle="biomasse" style="--c: var(--epq-bio); flex-grow: .7;" data-pct=".7" aria-pressed="false" aria-label="Biomasse 0,7 %"></button>
+<button type="button" class="epq__seg" data-cle="autres-elec" style="--c: var(--epq-autre); flex-grow: .3;" data-pct=".3" aria-pressed="false" aria-label="Autres sources 0,3 %"></button>
+</div>
+<ul class="epq__cles" aria-hidden="true">
+<li><span class="epq__cle" style="--c: var(--epq-eau);"></span>Hydroélectricité <strong>94 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-vent);"></span>Éolien <strong>5 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-bio);"></span>Biomasse <strong>0,7 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-autre);"></span>Autres <strong>0,3 %</strong></li>
+</ul>
+</div>
+<div class="epq__bloc" data-bloc="consommation">
+<p class="epq__question">L'électricité, est-ce toute notre énergie?</p>
+<p class="epq__sous">Toute l'énergie consommée au Québec, environ 496 TWh, selon sa forme, 2022</p>
+<div class="epq__groupes" aria-hidden="true"><span class="epq__groupe" style="flex-grow: 48;" data-pct="48">Renouvelable 48 %</span><span class="epq__groupe" style="flex-grow: 52;" data-pct="52">Fossile 52 %</span></div>
+<div class="epq__barre" role="group" aria-label="Énergie consommée selon sa forme">
+<button type="button" class="epq__seg" data-cle="electricite" style="--c: var(--epq-eau); flex-grow: 41;" data-pct="41" aria-pressed="false"><span class="epq__seg-texte">Électricité 41 %</span></button>
+<button type="button" class="epq__seg" data-cle="bioenergies" style="--c: var(--epq-bio); flex-grow: 7;" data-pct="7" aria-pressed="false" aria-label="Bioénergies 7 %"></button>
+<button type="button" class="epq__seg" data-cle="petrole" style="--c: var(--epq-petrole); flex-grow: 37;" data-pct="37" aria-pressed="false"><span class="epq__seg-texte">Pétrole 37 %</span></button>
+<button type="button" class="epq__seg" data-cle="gaz" style="--c: var(--epq-gaz); flex-grow: 14;" data-pct="14" aria-pressed="false"><span class="epq__seg-texte epq__seg-texte--court">Gaz 14 %</span></button>
+<button type="button" class="epq__seg" data-cle="autres-fossiles" style="--c: var(--epq-fossile-autre); flex-grow: 1;" data-pct="1" aria-pressed="false" aria-label="Autres énergies fossiles, environ 1 %"></button>
+</div>
+<ul class="epq__cles" aria-hidden="true">
+<li><span class="epq__cle" style="--c: var(--epq-eau);"></span>Électricité <strong>41 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-bio);"></span>Bioénergies <strong>7 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-petrole);"></span>Produits pétroliers <strong>37 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-gaz);"></span>Gaz naturel <strong>14 %</strong></li>
+<li><span class="epq__cle" style="--c: var(--epq-fossile-autre);"></span>Autres fossiles <strong>1 %</strong></li>
+</ul>
+</div>
+<div class="epq__bloc" data-bloc="secteurs">
+<p class="epq__question">Qui consomme toute cette énergie?</p>
+<p class="epq__sous">Part de l'énergie consommée selon le secteur, 2022</p>
+<div class="epq__secteurs" role="group" aria-label="Énergie consommée selon le secteur">
+<button type="button" class="epq__secteur" data-cle="industrie" aria-pressed="false"><span>L'industrie</span><span class="epq__piste"><span class="epq__trait" style="width: 74%;"></span><span class="epq__pct">37 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="transports" aria-pressed="false"><span>Les transports</span><span class="epq__piste"><span class="epq__trait" style="width: 62%;"></span><span class="epq__pct">31 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="residentiel" aria-pressed="false"><span>Les résidences</span><span class="epq__piste"><span class="epq__trait" style="width: 38%;"></span><span class="epq__pct">19 %</span></span></button>
+<button type="button" class="epq__secteur" data-cle="commercial" aria-pressed="false"><span>Les commerces et les institutions</span><span class="epq__piste"><span class="epq__trait" style="width: 28%;"></span><span class="epq__pct">14 %</span></span></button>
+</div>
+</div>
+<p class="epq__detail est-vide" aria-live="polite">Touche une barre pour voir ce qu'elle représente.</p>
+<p class="epq__source">Sources : Régie de l'énergie du Canada (production 2023, consommation par habitant 2020) et gouvernement du Québec, Portrait énergétique du Québec et Vision Énergie (données de 2022). Les pourcentages sont arrondis. La part des autres énergies fossiles est obtenue par différence.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("energie-portrait");
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  racine.classList.add("est-pret");
+  var TEXTES = {
+    "eau": "<strong>Hydroélectricité, 94 %.</strong> Plus de soixante grandes centrales transforment la force de l'eau qui descend en électricité. C'est la ressource qui fait du Québec un territoire énergétique.",
+    "vent": "<strong>Éolien, 5 %.</strong> Le Québec comptait près de 4 000 mégawatts d'éoliennes en 2023. C'est la deuxième source d'électricité, loin derrière l'eau.",
+    "biomasse": "<strong>Biomasse, 0,7 %.</strong> Des centrales brûlent des résidus de bois ou de matières organiques pour produire de l'électricité.",
+    "autres-elec": "<strong>Autres sources, 0,3 %.</strong> Il s'agit surtout de centrales thermiques, comme celles qui alimentent des villages isolés du Nord. Au total, plus de 99 % de l'électricité québécoise vient de sources renouvelables.",
+    "electricite": "<strong>Électricité, 41 %.</strong> Même si elle est presque entièrement renouvelable, l'électricité fournit moins de la moitié de toute l'énergie que le Québec consomme.",
+    "bioenergies": "<strong>Bioénergies, 7 %.</strong> Le bois de chauffage, les granules et l'éthanol mélangé à l'essence. C'est l'autre partie renouvelable de notre énergie.",
+    "petrole": "<strong>Produits pétroliers, 37 %.</strong> Surtout de l'essence et du diesel pour les transports. Le Québec n'en produit pas : le pétrole brut vient entièrement du reste du Canada et des États-Unis. C'est sa dépendance énergétique.",
+    "gaz": "<strong>Gaz naturel, 14 %.</strong> Il sert surtout à chauffer des bâtiments et à alimenter des usines. Lui aussi est importé.",
+    "autres-fossiles": "<strong>Autres énergies fossiles, environ 1 %.</strong> Du propane et un peu de charbon, utilisés surtout par certaines industries.",
+    "industrie": "<strong>L'industrie, 37 %.</strong> Les alumineries, les papetières et les usines chimiques consomment énormément d'énergie. Plusieurs se sont installées au Québec pour profiter d'une électricité abondante et peu coûteuse.",
+    "transports": "<strong>Les transports, 31 %.</strong> Presque toute cette énergie vient du pétrole. C'est pourquoi l'électrification des transports est au coeur de la transition énergétique.",
+    "residentiel": "<strong>Les résidences, 19 %.</strong> Le chauffage en prend la plus grande part. La plupart des ménages québécois chauffent à l'électricité.",
+    "commercial": "<strong>Les commerces et les institutions, 14 %.</strong> Les magasins, les bureaux, les écoles et les hôpitaux, qu'il faut chauffer, éclairer et climatiser."
+  };
+  var boutons = Array.prototype.slice.call(racine.querySelectorAll(".epq__seg, .epq__secteur"));
+  var detail = racine.querySelector(".epq__detail");
+  var VIDE = detail.textContent;
+  function choisir(bouton) {
+    var deja = bouton && bouton.getAttribute("aria-pressed") === "true";
+    boutons.forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    if (!bouton || deja) { detail.textContent = VIDE; detail.classList.add("est-vide"); return; }
+    bouton.setAttribute("aria-pressed", "true");
+    detail.innerHTML = TEXTES[bouton.getAttribute("data-cle")] || "";
+    detail.classList.remove("est-vide");
+  }
+  boutons.forEach(function (b) {
+    if (!b.title) { b.title = b.getAttribute("aria-label") || b.textContent.replace(/\s+/g, " ").trim(); }
+    b.addEventListener("click", function () { choisir(b); });
+  });
+  racine.addEventListener("reinitialiser", function () { choisir(null); });
+})();
+</script>
+</section>
+
+<p>Deux constats ressortent. D'abord, le Québec est autonome pour son électricité,
+presque entièrement renouvelable, mais il reste en dépendance énergétique pour
+le pétrole, qu'il doit importer pour faire rouler ses véhicules. C'est cette
+moitié fossile que la transition énergétique cherche à remplacer. Ensuite, il
+consomme beaucoup d'électricité par habitant : des industries énergivores sont
+venues s'y installer pour profiter de tarifs bas, et la plupart des ménages
+chauffent à l'électricité.</p>
+<figure class="illustration illustration--flottant"><img loading="lazy" decoding="async" alt="Deux véhicules électriques en recharge en ville" src="../medias/07-territoire-energetique-quebec/voitures-electriques.jpg" /><figcaption><span class="figure-legende">Deux véhicules électriques en recharge en ville</span><details class="credit"><summary>Source</summary><span>Frimufilms, Two charging electric cars at charge station in the city, repris dans le dossier du RECIT, <a href="https://documents.recitus.qc.ca/1er-cyle/document/document-2-les-grands-centres-energivores" rel="noopener" target="_blank">Service national du RECIT, univers social</a>. Licence&nbsp;: Creative Commons.</span></details></figcaption></figure>
 <aside class="encadre encadre--savais-tu">
 <p class="encadre__titre">Savais-tu que</p>
 <p>La demande d'électricité augmente pour des raisons qui n'existaient pas il y a
@@ -284,20 +423,203 @@ Montréal et un à Québec.</p>
 de Radio-Canada permet de voir où se trouvent les bornes et si leur nombre suit
 la croissance du parc de véhicules électriques.</p>
 </aside>
-<h3 id="manquerons-nous-delectricite">Manquerons-nous d'électricité</h3>
-<p>En novembre 2023, Hydro-Québec a rendu public son Plan d'action 2035. La
-société d'État y estime qu'il lui faudra 60 térawattheures de plus d'ici 2035,
-soit entre 8 000 et 9 000 mégawatts de puissance additionnelle, et de 150 à
-200 térawattheures de plus d'ici 2050, ce qui reviendrait à doubler la
-production actuelle. Pour donner une idée de ce que représentent ces 60
-térawattheures, Hydro-Québec les compare elle-même à trois de ses plus grands
-ouvrages réunis : l'aménagement Robert-Bourassa, Manic-5 et le complexe de la
-Romaine. Ce sont précisément les deux territoires étudiés dans cette fiche.</p>
-<p>Le plan prévoit des investissements de 155 à 185 milliards de dollars, le triplement
-de la production éolienne pour atteindre 10 000 mégawatts, de nouvelles centrales
-hydroélectriques, plus de 5 000 kilomètres de lignes de transport et une centrale
-à réserve pompée, une technologie qui n'existe pas encore au Québec.</p>
-<p class="source-texte">Source : Hydro-Québec, Plan d'action 2035, novembre 2023</p>
+<h3 id="manquerons-nous-delectricite">Manquerons-nous d'électricité?</h3>
+<p>En novembre 2023, Hydro-Québec a publié son Plan d'action 2035. Elle y prévoit
+qu'il faudra 60 térawattheures de plus d'ici 2035, l'équivalent de trois de ses
+plus grands ouvrages réunis : l'aménagement Robert-Bourassa, Manic-5 et le
+complexe de la Romaine. D'ici 2050, la production pourrait même devoir doubler.
+Le plan prévoit de 155 à 185 milliards de dollars d'investissements et plus de
+5 000 kilomètres de nouvelles lignes de transport.</p>
+<p>Comment trouver toute cette électricité? Prends la place d'Hydro-Québec et bâtis
+ton propre plan.</p>
+<section class="s35" id="simulateur-2035" data-reinitialiser aria-label="Simulateur : combler les besoins en électricité du Québec d'ici 2035">
+<style>
+.s35 { --s35-econ: #6E9A54; --s35-vent: #5FA3C9; --s35-eau: #2D6A9F; --s35-soleil: #D2952E; --s35-gaz: #8A6A57; --s35-cible: rgba(46, 125, 79, .16); --s35-ok: #2E7D4F; --s35-alerte: #B5561F; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; overflow: clip; }
+html[data-sombre="on"] .s35 { --s35-econ: #8DBA73; --s35-vent: #8EC3E0; --s35-eau: #5B9BD5; --s35-soleil: #E5AC44; --s35-gaz: #B9957F; --s35-cible: rgba(127, 203, 156, .18); --s35-ok: #7FCB9C; --s35-alerte: #F0B48C; }
+.s35 [hidden] { display: none !important; }
+.s35 .s35__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.s35 .s35__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.s35 .s35__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .s35 .s35__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .s35 .s35__titre { color: var(--encre); }
+html[data-sombre="on"] .s35 .s35__consigne { color: var(--encre-pale); }
+.s35__corps { padding: 1rem 1.2rem 1.2rem; }
+.s35 .s35__mandat { margin: 0 0 .9rem; font-family: var(--corps); font-size: 1rem; line-height: 1.5; color: var(--encre); }
+.s35__tableau { position: sticky; top: var(--s35-haut, 0px); z-index: 2; margin: 0 -1.2rem 1rem; padding: .7rem 1.2rem .8rem; background: var(--surface); border-bottom: 1px solid var(--trait); }
+.s35__total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 1rem; margin: 0 0 .45rem; font-family: var(--titre); }
+.s35__total-valeur { font-weight: 700; font-size: 1.45rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.s35__total-cible { font-size: .82rem; color: var(--encre-doux); }
+.s35__jauge { position: relative; height: 1.9rem; border-radius: 6px; background: var(--fond-creux, var(--trait)); overflow: hidden; }
+.s35__zone { position: absolute; z-index: 1; top: 0; bottom: 0; pointer-events: none; background: var(--s35-cible); border-left: 2px dashed var(--s35-ok); border-right: 2px dashed var(--s35-ok); box-sizing: border-box; }
+.s35__pile { position: absolute; top: 0; bottom: 0; left: 0; right: 0; display: flex; gap: 2px; }
+.s35__morceau { flex: none; }
+.s35__morceau { display: block; height: 100%; background: var(--c); transition: width .2s; }
+.s35__reperes { position: relative; height: 1rem; margin-top: .15rem; font-family: var(--donnee); font-size: .66rem; color: var(--encre-pale); }
+.s35__reperes span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.s35__reperes span:first-child { transform: none; }
+.s35__reperes span:last-child { transform: translateX(-100%); }
+.s35 .s35__verdict { margin: .35rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .88rem; line-height: 1.35; color: var(--s35-alerte); }
+.s35 .s35__verdict.est-atteint { color: var(--s35-ok); }
+.s35__plan { margin-top: .55rem; }
+.s35__plan-legende { margin: 0 0 .2rem; font-family: var(--titre); font-size: .78rem; font-weight: 700; color: var(--encre-doux); }
+.s35__plan .s35__jauge { height: 1.1rem; }
+.s35__moyens { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: .75rem; }
+.s35__moyen { display: flex; flex-direction: column; gap: .4rem; margin: 0; padding: .75rem .85rem .8rem; border: 1px solid var(--trait); border-left: 6px solid var(--c); border-radius: 0 8px 8px 0; background: var(--surface); }
+.s35__moyen-tete { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.s35 .s35__nom { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.s35__valeur { flex: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.s35 .s35__quoi { margin: 0; font-family: var(--corps); font-size: .92rem; line-height: 1.4; color: var(--encre-doux); }
+.s35__moyen input[type="range"] { width: 100%; margin: .1rem 0; accent-color: var(--c); }
+.s35 .s35__compte { margin: 0; font-family: var(--titre); font-size: .78rem; color: var(--encre-pale); }
+.s35 .s35__territoire { margin: .1rem 0 0; padding: .45rem .6rem; border-radius: 6px; background: var(--matiere-voile); font-family: var(--corps); font-size: .9rem; line-height: 1.4; color: var(--encre-pale); transition: color .2s; }
+.s35 .s35__territoire strong { font-family: var(--titre); font-size: .78rem; letter-spacing: .02em; }
+.s35__moyen.est-actif .s35__territoire { color: var(--encre); }
+.s35__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; }
+.s35__bouton { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .85rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem 1rem; cursor: pointer; }
+.s35__bouton:hover { background: var(--matiere-voile); }
+.s35__bouton:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.s35 .s35__bilan { margin: .8rem 0 0; padding: .65rem .85rem; border-left: 4px solid var(--matiere); border-radius: 0; background: var(--matiere-voile); font-family: var(--corps); font-size: .98rem; line-height: 1.45; color: var(--encre); }
+.s35 .s35__source { margin: .8rem 0 0; font-family: var(--donnee); font-size: .68rem; line-height: 1.4; color: var(--encre-pale); }
+.s35__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 40rem) { .s35__corps { padding: .9rem .8rem 1rem; } .s35__tableau { margin: 0 -.8rem 1rem; padding: .6rem .8rem .7rem; } .s35__total-valeur { font-size: 1.2rem; } }
+.s35.est-plein-ecran > .s35__entete { flex: none; }
+</style>
+<div class="s35__entete">
+<p class="s35__titre" role="heading" aria-level="3">Simulateur : trouver la puissance qui manquera en 2035</p>
+<p class="s35__consigne">Ajuste chaque moyen</p>
+</div>
+<div class="s35__corps">
+<p class="s35__mandat">Hydro-Québec estime qu'il faudra entre <strong>8 000 et 9 000 mégawatts</strong> de puissance de plus en 2035 pour passer les grands froids d'hiver, quand tout le monde chauffe en même temps. Combine les cinq moyens ci-dessous pour atteindre la cible, puis regarde ce que ton plan demande au territoire.</p>
+<div class="s35__tableau">
+<p class="s35__total"><span class="s35__total-valeur"><output class="s35__somme">0</output> MW</span><span class="s35__total-cible">Cible : de 8 000 à 9 000 MW</span></p>
+<div class="s35__jauge" aria-hidden="true"><span class="s35__zone"></span><span class="s35__pile s35__pile--eleve"></span></div>
+<div class="s35__reperes" aria-hidden="true"></div>
+<p class="s35__verdict" aria-live="polite"></p>
+<div class="s35__plan" hidden>
+<p class="s35__plan-legende">Le plan d'Hydro-Québec : environ 8 550 MW</p>
+<div class="s35__jauge" aria-hidden="true"><span class="s35__zone"></span><span class="s35__pile s35__pile--plan"></span></div>
+</div>
+</div>
+<div class="s35__moyens"></div>
+<div class="s35__actions">
+<button type="button" class="s35__bouton s35__comparer" aria-expanded="false">Comparer avec le plan d'Hydro-Québec</button>
+</div>
+<p class="s35__bilan" hidden></p>
+<p class="s35__source">Source : Hydro-Québec, Plan d'action 2035, novembre 2023. Le plan donne une fourchette pour chaque moyen; la comparaison utilise le milieu de chaque fourchette. Les mégawatts sont ceux qu'Hydro-Québec compte pour répondre à la pointe d'hiver.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("simulateur-2035");
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  racine.classList.add("est-pret");
+  var CIBLE_MIN = 8000, CIBLE_MAX = 9000, ECHELLE = 12000;
+  // Facteur de l'éolien : le plan compte de 1 500 à 1 700 MW pour plus de 10 000 MW installés, soit environ 16 %.
+  var FACTEUR_VENT = 0.16;
+  var MOYENS = [
+    { cle: "econ", nom: "Économies d'énergie", couleur: "var(--s35-econ)", max: 3000, pas: 100, plan: 1700,
+      quoi: "Consommer moins : mieux isoler les bâtiments, installer des thermostats intelligents, déplacer une partie de la consommation hors des heures de pointe.",
+      territoire: "Aucune construction. Le défi est de convaincre des millions de clients de changer leurs habitudes." },
+    { cle: "vent", nom: "Énergie éolienne", couleur: "var(--s35-vent)", max: 15000, pas: 500, plan: 10000, installe: true,
+      quoi: "Ajouter des parcs d'éoliennes. Attention : le vent ne souffle pas toujours pendant les grands froids, alors Hydro-Québec ne compte qu'environ 16 % de leur puissance installée.",
+      territoire: "Des centaines d'éoliennes sur des terres agricoles, forestières ou autochtones. Il faut l'accord des municipalités et des communautés touchées." },
+    { cle: "eau", nom: "Hydroélectricité", couleur: "var(--s35-eau)", max: 6000, pas: 200, plan: 4000,
+      quoi: "Ajouter de la puissance aux centrales existantes ou bâtir une nouvelle centrale sur une rivière.",
+      territoire: "Une nouvelle centrale inonde des terres, transforme une rivière et touche des communautés autochtones, comme à la Baie-James ou sur la Romaine. Un tel chantier prend plus de dix ans." },
+    { cle: "soleil", nom: "Solaire, stockage et autres moyens", couleur: "var(--s35-soleil)", max: 2000, pas: 100, plan: 750,
+      quoi: "Des panneaux solaires et des batteries qui gardent l'électricité en réserve pour les heures de pointe.",
+      territoire: "Des installations plus petites, souvent sur des toits ou près des villes. Ces technologies sont encore très peu utilisées au Québec." },
+    { cle: "gaz", nom: "Centrale thermique au gaz naturel renouvelable", couleur: "var(--s35-gaz)", max: 600, pas: 100, plan: 500,
+      quoi: "Convertir une centrale thermique existante pour qu'elle brûle du gaz naturel renouvelable, seulement pendant les pointes. Le plan n'en prévoit pas plus de 600 MW.",
+      territoire: "Aucune nouvelle construction, mais une centrale qui brûle un combustible et rejette des gaz, même s'ils sont d'origine renouvelable." }
+  ];
+  function fmt(n) { return Math.round(n).toLocaleString("fr-CA").replace(/[  ,]/g, " "); }
+  function compte(m, v) { return m.installe ? Math.round(v * FACTEUR_VENT) : v; }
+  var zoneMoyens = racine.querySelector(".s35__moyens");
+  var pile = racine.querySelector(".s35__pile--eleve"), pilePlan = racine.querySelector(".s35__pile--plan");
+  var somme = racine.querySelector(".s35__somme"), verdict = racine.querySelector(".s35__verdict");
+  var bilan = racine.querySelector(".s35__bilan"), plan = racine.querySelector(".s35__plan"), comparer = racine.querySelector(".s35__comparer");
+  Array.prototype.forEach.call(racine.querySelectorAll(".s35__zone"), function (z) {
+    z.style.left = (CIBLE_MIN / ECHELLE * 100) + "%"; z.style.width = ((CIBLE_MAX - CIBLE_MIN) / ECHELLE * 100) + "%";
+  });
+  racine.querySelector(".s35__reperes").innerHTML = [0, 4000, 8000, 12000].map(function (v) {
+    return '<span style="left:' + (v / ECHELLE * 100) + '%">' + fmt(v) + (v === 12000 ? " MW" : "") + "</span>";
+  }).join("");
+  MOYENS.forEach(function (m) {
+    var art = document.createElement("div");
+    art.className = "s35__moyen"; art.setAttribute("data-moyen", m.cle); art.style.setProperty("--c", m.couleur);
+    var id = "s35-" + m.cle;
+    art.innerHTML = '<div class="s35__moyen-tete"><label class="s35__nom" for="' + id + '">' + m.nom + '</label><output class="s35__valeur" for="' + id + '"></output></div>' +
+      '<p class="s35__quoi">' + m.quoi + '</p>' +
+      '<input type="range" id="' + id + '" min="0" max="' + m.max + '" step="' + m.pas + '" value="0">' +
+      (m.installe ? '<p class="s35__compte"></p>' : "") +
+      '<p class="s35__territoire"><strong>SUR LE TERRITOIRE</strong><br>' + m.territoire + "</p>";
+    zoneMoyens.appendChild(art);
+    m.carte = art; m.curseur = art.querySelector("input"); m.sortie = art.querySelector(".s35__valeur"); m.ligneCompte = art.querySelector(".s35__compte");
+    m.morceau = document.createElement("span"); m.morceau.className = "s35__morceau"; m.morceau.style.setProperty("--c", m.couleur); pile.appendChild(m.morceau);
+    var mp = document.createElement("span"); mp.className = "s35__morceau"; mp.style.setProperty("--c", m.couleur);
+    mp.style.width = (compte(m, m.plan) / ECHELLE * 100) + "%"; pilePlan.appendChild(mp);
+    m.curseur.addEventListener("input", maj);
+    m.curseur.addEventListener("change", maj);
+  });
+  function maj() {
+    var total = 0;
+    MOYENS.forEach(function (m) {
+      var v = Number(m.curseur.value), c = compte(m, v);
+      total += c;
+      m.sortie.textContent = fmt(m.installe ? c : v) + " MW";
+      m.curseur.setAttribute("aria-valuetext", m.installe ? fmt(v) + " MW installés, " + fmt(c) + " MW comptés" : fmt(v) + " MW");
+      if (m.ligneCompte) { m.ligneCompte.textContent = fmt(v) + " MW installés, dont " + fmt(c) + " MW comptés pour la pointe"; }
+      m.morceau.style.width = (Math.min(c, ECHELLE) / ECHELLE * 100) + "%";
+      m.carte.classList.toggle("est-actif", v > 0);
+    });
+    somme.textContent = fmt(total);
+    var atteint = total >= CIBLE_MIN && total <= CIBLE_MAX;
+    verdict.classList.toggle("est-atteint", atteint);
+    if (total === 0) { verdict.textContent = "Ton plan est vide. Commence par le moyen qui te semble le plus acceptable."; }
+    else if (total < CIBLE_MIN) { verdict.textContent = "Il manque " + fmt(CIBLE_MIN - total) + " MW. Lors d'un grand froid, le réseau risquerait de ne pas suffire."; }
+    else if (atteint) { verdict.textContent = "Ton plan atteint la cible. Relis maintenant ce qu'il demande au territoire."; }
+    else { verdict.textContent = "Ton plan dépasse la cible de " + fmt(total - CIBLE_MAX) + " MW. Chaque mégawatt de trop coûte cher à bâtir et touche le territoire pour rien."; }
+    racine.setAttribute("data-total", String(total));
+    if (!bilan.hidden) { ecrireBilan(total); }
+  }
+  function ecrireBilan(total) {
+    var actifs = MOYENS.filter(function (m) { return Number(m.curseur.value) > 0; });
+    var premier = actifs.slice().sort(function (a, b) { return compte(b, Number(b.curseur.value)) - compte(a, Number(a.curseur.value)); })[0];
+    var txt = "Le plan d'Hydro-Québec mise d'abord sur l'hydroélectricité, environ 4 000 MW, puis sur les économies d'énergie. Il triple aussi la puissance éolienne en ajoutant plus de 10 000 MW d'éoliennes, qui ne comptent que pour environ 1 600 MW en pointe.";
+    if (premier) { txt += " Ton plan, lui, repose surtout sur : " + premier.nom.toLowerCase() + ", avec " + fmt(compte(premier, Number(premier.curseur.value))) + " MW sur " + fmt(total) + "."; }
+    bilan.textContent = txt;
+  }
+  comparer.addEventListener("click", function () {
+    var ouvrir = plan.hidden;
+    plan.hidden = !ouvrir; bilan.hidden = !ouvrir;
+    comparer.setAttribute("aria-expanded", ouvrir ? "true" : "false");
+    comparer.textContent = ouvrir ? "Masquer le plan d'Hydro-Québec" : "Comparer avec le plan d'Hydro-Québec";
+    if (ouvrir) { ecrireBilan(Number(racine.getAttribute("data-total"))); }
+  });
+  // Le tableau du total reste visible pendant qu'on règle les curseurs, sous le bandeau du site
+  // ou, en plein écran, sous l'entête de l'interface.
+  var entete = racine.querySelector(".s35__entete");
+  function caler() {
+    var haut = 0;
+    if (racine.classList.contains("est-plein-ecran")) { haut = entete.offsetHeight; }
+    else { var bandeau = document.querySelector(".bandeau"); if (bandeau && getComputedStyle(bandeau).position === "sticky") { haut = bandeau.offsetHeight; } }
+    racine.style.setProperty("--s35-haut", haut + "px");
+  }
+  window.addEventListener("resize", caler);
+  if (window.MutationObserver) { new MutationObserver(caler).observe(racine, { attributes: true, attributeFilter: ["class"] }); }
+  caler();
+  racine.addEventListener("reinitialiser", function () {
+    MOYENS.forEach(function (m) { m.curseur.value = "0"; });
+    plan.hidden = true; bilan.hidden = true;
+    comparer.setAttribute("aria-expanded", "false"); comparer.textContent = "Comparer avec le plan d'Hydro-Québec";
+    maj();
+  });
+  maj();
+})();
+</script>
+</section>
+
 <aside class="encadre encadre--note">
 <p class="encadre__titre">À retenir</p>
 <p>Ce plan est débattu. Des organisations environnementales ont réclamé un moratoire
@@ -330,10 +652,15 @@ pose la question directement aux invités de Radio-Canada.</p>
 <aside class="encadre encadre--questions">
 <p class="encadre__titre">Questions</p>
 <ol>
-<li>Le Québec produit une électricité propre à 94 %, mais la moitié de son énergie
-   reste fossile. Explique ce que cela signifie pour la transition énergétique.</li>
+<li>Le Québec produit une électricité presque entièrement renouvelable, mais la
+   moitié de son énergie reste fossile. Explique ce que cela signifie pour la
+   transition énergétique.</li>
 <li>Nomme deux causes de la hausse prévue de la demande d'électricité, puis dis
    laquelle te semble la plus difficile à réduire.</li>
+<li>Dans le simulateur, il faut installer beaucoup plus d'éoliennes que ce
+   qu'elles comptent pour la pointe d'hiver. Explique pourquoi.</li>
+<li>Compare ton plan avec celui d'Hydro-Québec. Nomme le moyen sur lequel tu as
+   le plus misé et ce qu'il demande au territoire.</li>
 </ol>
 </aside>
 <h2 id="lhistoire-de-lhydroelectricite-quebecoise">L'histoire de l'hydroélectricité québécoise</h2>
@@ -2611,6 +2938,9 @@ du RÉCIT en univers social.</p>
 <li><a href="https://www.recitus.qc.ca/ressources/secondaire/publication/territoire-energetique-minecraft">Territoire énergétique, projet Minecraft du RÉCIT</a></li>
 <li><a href="https://www.hydroquebec.com/a-propos/publications-rapports/plan-action-2035.html">Hydro-Québec, Plan d'action 2035</a></li>
 <li><a href="https://www.cer-rec.gc.ca/fr/donnees-analyse/marches-energetiques/profils-energetiques-provinces-territoires/profils-energetiques-provinces-territoires-quebec.html">Régie de l'énergie du Canada, profil énergétique du Québec</a></li>
+<li><a href="https://www.cer-rec.gc.ca/fr/donnees-analyse/produits-base-energetiques/electricite/rapport/electricite-renouvelable-canada/provinces/electricite-renouvelable-canada-quebec.html">Régie de l'énergie du Canada, l'électricité renouvelable au Québec</a></li>
+<li><a href="https://www.quebec.ca/gouvernement/ministeres-organismes/economie/publications/portrait-energetique-du-quebec">Gouvernement du Québec, Portrait énergétique du Québec</a></li>
+<li><a href="https://news.hydroquebec.com/media/filer_private/2023/11/02/2023g648f_feuillet_media_-_plan_d_action_v6-fr.pdf">Hydro-Québec, Plan d'action 2035, feuillet des faits saillants (novembre 2023)</a></li>
 <li><a href="https://www.thecanadianencyclopedia.ca/fr/article/convention-de-la-baie-james-et-du-nord-quebecois">Encyclopédie canadienne, Convention de la Baie-James et du Nord québécois</a></li>
 <li><a href="https://www.alloprof.qc.ca/fr/eleves/bv/geographie/es-territoires-energetiques-de-la-jamesie-et-de-la-cote-nord-g1041">Alloprof, les territoires énergétiques de la Jamésie et de la Côte-Nord</a></li>
 <li><a href="https://fondationrivieres.org/en/?p=55969">Fondation Rivières, la rivière du Petit Mécatina</a></li>
