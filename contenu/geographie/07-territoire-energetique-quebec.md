@@ -101,8 +101,6 @@ consomme beaucoup d'électricité par habitant : des industries énergivores son
 venues s'y installer pour profiter de tarifs bas, et la plupart des ménages
 chauffent à l'électricité.
 
-![Deux véhicules électriques en recharge en ville](../medias/07-territoire-energetique-quebec/voitures-electriques.jpg)
-
 ::: savais-tu
 La demande d'électricité augmente pour des raisons qui n'existaient pas il y a
 vingt ans. L'électrification des transports en est une, mais les centres de
@@ -121,6 +119,8 @@ la croissance du parc de véhicules électriques.
 :::
 
 ### Manquerons-nous d'électricité?
+
+![Deux véhicules électriques en recharge en ville](../medias/07-territoire-energetique-quebec/voitures-electriques.jpg)
 
 En novembre 2023, Hydro-Québec a publié son Plan d'action 2035. Elle y prévoit
 qu'il faudra 60 térawattheures de plus d'ici 2035, l'équivalent de trois de ses
