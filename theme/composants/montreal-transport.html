@@ -243,6 +243,10 @@ html[data-sombre="on"] .mtr .mtr__onglet[aria-selected="true"] { color: #10171F;
 .mtr .mtrj__banlieue-nom { font-family: var(--titre); font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; fill: #E9C9D6; paint-order: stroke; stroke: var(--mtrj-nuit); stroke-width: 3px; stroke-linejoin: round; }
 .mtr .mtrj__banlieue-nom--fort { font-size: 10.5px; font-weight: 800; letter-spacing: 0; text-transform: none; fill: #fff; }
 .mtr .mtrj__intermodale { fill: var(--mtrj-train); stroke: var(--mtrj-nuit); stroke-width: 1.5; }
+.mtr .mtrj__banlieue { transition: opacity .25s; }
+.mtr .mtrj__banlieue.est-estompe { opacity: .4; }
+.mtr .mtrj__halo--train { stroke-width: 13; }
+.mtr .mtrj__parcours--train { stroke-width: 6; }
 /* ----- commandes */
 .mtr .mtrj__commandes { padding: .95rem 1.2rem 1.05rem; border-bottom: 1px solid var(--trait); min-width: 0; min-height: 11.5rem; font-family: var(--titre); }
 .mtr .mtrj__titre { margin: 0 0 .45rem; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
@@ -259,6 +263,8 @@ html[data-sombre="on"] .mtr .mtr__onglet[aria-selected="true"] { color: #10171F;
 .mtr .mtrj__dir b { display: block; font-size: .92rem; font-weight: 700; }
 .mtr .mtrj__pastille { flex: none; display: grid; place-items: center; width: 1.9rem; height: 1.9rem; border-radius: 50%; background: var(--c); color: #0E1216; font-family: var(--titre); font-weight: 800; font-size: .95rem; }
 .mtr .mtrj__pastille--jaune { color: #12161B; }
+.mtr .mtrj__pastille--train { border-radius: 7px; }
+.mtr .mtrj__commandes p.mtrj__sortie { color: var(--encre); }
 .mtr .mtrj__nombre { display: flex; align-items: center; gap: .55rem; flex-wrap: wrap; margin: 0 0 .9rem; }
 .mtr .mtrj__pas { font-family: var(--titre); font-weight: 700; font-size: 1.25rem; line-height: 1; width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 1px solid var(--trait); background: var(--surface); color: var(--encre); cursor: pointer; }
 .mtr .mtrj__pas:hover:not(:disabled) { background: var(--matiere-voile); border-color: var(--matiere); }
@@ -409,7 +415,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
 <p class="mtrj__titre">Ton trajet</p>
 <div class="mtrj__journal-corps"></div>
 </div>
-<p class="mtrj__source">Plan schématique dessiné d'après la carte du réseau du métro de la Société de transport de Montréal (STM)&nbsp;: 4 lignes, 68 stations et 4 stations de correspondance (Berri-UQAM, Lionel-Groulx, Snowdon et Jean-Talon). Les distances sur ce plan ne sont pas à l'échelle. Les trains de banlieue et les stations intermodales sont tracés comme sur la fiche d'exercice, avec les noms de l'époque&nbsp;: la ligne Dorion-Rigaud s'appelle aujourd'hui Vaudreuil-Hudson, Delson-Candiac s'appelle Candiac, Blainville-Saint-Jérôme s'appelle Saint-Jérôme et la ligne de Deux-Montagnes a été remplacée par le REM.</p>
+<p class="mtrj__source">Plan schématique dessiné d'après la carte du réseau du métro de la Société de transport de Montréal (STM)&nbsp;: 4 lignes, 68 stations et 4 stations de correspondance (Berri-UQAM, Lionel-Groulx, Snowdon et Jean-Talon). Les distances sur ce plan ne sont pas à l'échelle. Sur ce plan, un train de banlieue ne s'arrête qu'aux stations intermodales&nbsp;: les autres gares de sa ligne ne sont pas montrées. Les trains de banlieue et les stations intermodales sont tracés comme sur la fiche d'exercice, avec les noms de l'époque&nbsp;: la ligne Dorion-Rigaud s'appelle aujourd'hui Vaudreuil-Hudson, Delson-Candiac s'appelle Candiac, Blainville-Saint-Jérôme s'appelle Saint-Jérôme et la ligne de Deux-Montagnes a été remplacée par le REM.</p>
 </div>
 <script>
 /* Tracés et stations : © contributeurs d'OpenStreetMap, licence ODbL (https://www.openstreetmap.org/copyright). */
@@ -1004,7 +1010,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
   var consigne = q(".mtr__consigne"), titreCarte = q(".mtr__titre");
   var TEXTES_ONGLET = {
     reseau: [titreCarte.innerHTML, consigne.textContent],
-    trajet: ["Mon trajet dans le métro de Montréal", "Choisis un départ, une direction et un nombre de stations"]
+    trajet: ["Mon trajet en métro et en train de banlieue", "Choisis un départ, une direction et un nombre de stations"]
   };
   function ouvrirOnglet(nom, focus) {
     if (!TEXTES_ONGLET[nom]) { return; }
@@ -1045,7 +1051,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
        (d droite, g gauche, h dessus, b dessous, ne, se, sw, nw en diagonale, hd dessus à droite). */
     var POS = {"berri-uqam":[500,470,"g"],"sherbrooke":[476,446,"ne"],"mont-royal":[452,422,"ne"],"laurier":[428,398,"ne"],"rosemont":[404,374,"ne"],"beaubien":[380,350,"ne"],"jean-talon":[356,326,"d"],"jarry":[332,302,"g2"],"cremazie":[308,278,"ne"],"sauve":[284,254,"ne"],"henri-bourassa":[260,230,"ne"],"cartier":[236,206,"ne"],"de-la-concorde":[184,182,"hg"],"montmorency":[124,182,"g"],"champ-de-mars":[476,554,"se"],"place-d-armes":[452,578,"se"],"square-victoria-oaci":[428,602,"se"],"bonaventure":[404,626,"se2"],"lucien-l-allier":[380,650,"se"],"georges-vanier":[356,674,"se"],"lionel-groulx":[332,698,"sw"],"saint-laurent":[476,494,"g2"],"place-des-arts":[452,518,"g2"],"mcgill":[428,542,"g2"],"peel":[404,566,"g2"],"guy-concordia":[380,590,"g2"],"atwater":[356,614,"g2"],"place-saint-henri":[302,668,"sw"],"vendome":[272,638,"sw2"],"villa-maria":[242,608,"sw"],"snowdon":[212,578,"sw"],"cote-sainte-catherine":[188,554,"g2"],"plamondon":[164,530,"g2"],"namur":[140,506,"g2"],"de-la-savane":[116,482,"g2"],"du-college":[92,458,"g2"],"cote-vertu":[68,434,"h"],"charlevoix":[356,722,"ne"],"lasalle":[380,746,"ne"],"de-l-eglise":[370,784,"se"],"verdun":[346,808,"se"],"jolicoeur":[322,832,"se"],"monk":[298,856,"se"],"angrignon":[274,880,"g"],"beaudry":[552,470,"h"],"papineau":[610,470,"h"],"frontenac":[660,448,"se"],"prefontaine":[682,426,"se"],"joliette":[704,404,"se"],"pie-ix":[726,382,"se"],"viau":[748,360,"se"],"assomption":[770,338,"se"],"cadillac":[792,316,"se"],"langelier":[814,294,"se"],"radisson":[836,272,"se"],"honore-beaugrand":[858,250,"h"],"jean-drapeau":[592,562,"hd"],"longueuil-universite-de-sherbrooke":[686,562,"d"],"cote-des-neiges":[240,550,"se"],"universite-de-montreal":[268,522,"nw"],"edouard-montpetit":[296,494,"nw"],"outremont":[324,466,"d"],"acadie":[324,436,"d"],"parc":[324,406,"d"],"de-castelnau":[332,350,"hg"],"fabre":[382,300,"se"],"d-iberville":[408,274,"se"],"saint-michel":[434,248,"d"]};
     var COUDES = {"cartier|de-la-concorde":[[212,182]],"parc|de-castelnau":[[324,358]],"lasalle|de-l-eglise":[[394,760]],"atwater|lionel-groulx":[[332,638]],"berri-uqam|champ-de-mars":[[500,530]],"papineau|frontenac":[[638,470]]};
-    /* Trains de banlieue, tracés comme sur la fiche d'exercice : ils situent les gares, on n'y voyage pas ici. */
+    /* Trains de banlieue, tracés comme sur la fiche d'exercice. */
     var TRAINS = {"sj":[[184,122],[184,182],[184,266],[324,406],[266,406],[154,518],[20,518],[20,638]],"dm":[[-4,380],[210,380],[336,506],[336,554],[412,554],[412,626],[404,626]],"dr":[[-4,638],[272,638],[368,638],[380,650]],"dc":[[60,638],[60,876]],"msh":[[404,626],[425,647],[668,647]]};
     var DEUX = {"longueuil-universite-de-sherbrooke":["Longueuil-","Université-de-Sherbrooke"],"universite-de-montreal":["Université-","de-Montréal"],"edouard-montpetit":["Édouard-","Montpetit"],"cote-des-neiges":["Côte-des-","Neiges"],"de-castelnau":["De","Castelnau"]};
     var ST = {}, LISTE = {}, CORRESP = {}, TERMINUS = {};
@@ -1059,12 +1065,29 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     var IDS = Object.keys(ST);
     IDS.forEach(function (id) { if (ST[id].l.length > 1) { CORRESP[id] = true; } });
     LIG.forEach(function (k) { [LISTE[k][0], LISTE[k][LISTE[k].length - 1]].forEach(function (id) { if (!CORRESP[id]) { TERMINUS[id] = k; } }); });
+    /* Trains de banlieue : on peut aussi y voyager. Sur le plan, un train ne s'arrête qu'aux stations intermodales.
+       Chaque ligne commence par sa sortie du plan (le bout de la flèche) et finit à sa gare du centre-ville. */
+    var TR = ["sj", "dm", "dr", "dc", "msh"];
+    var NOM_TRAIN = { sj: "Blainville-Saint-Jérôme", dm: "Deux-Montagnes", dr: "Dorion-Rigaud", dc: "Delson-Candiac", msh: "Mont-Saint-Hilaire" };
+    var ARRETS = { sj: ["de-la-concorde", "parc", "vendome", "lucien-l-allier"], dm: ["bonaventure"], dr: ["vendome", "lucien-l-allier"], dc: ["vendome", "lucien-l-allier"], msh: ["bonaventure"] };
+    var FIN_LA = TRAINS.dr.slice(1), TRACE = { sj: TRAINS.sj.concat(FIN_LA), dm: TRAINS.dm, dr: TRAINS.dr, dc: TRAINS.dc.slice().reverse().concat(FIN_LA), msh: TRAINS.msh.slice().reverse() };
+    TR.forEach(function (k) {
+      ST["x-" + k] = { id: "x-" + k, n: NOM_TRAIN[k], l: [k], p: TRACE[k][0], hors: true };
+      LISTE[k] = ["x-" + k].concat(ARRETS[k]);
+      ARRETS[k].forEach(function (id) { ST[id].l.push(k); });
+    });
+    function estTrain(k) { return !!TRACE[k]; }
+    function titre(k, groupe) { return groupe ? "Train de banlieue" : estTrain(k) ? "Train de " + NOM_TRAIN[k] : NOM_LIGNE[k].charAt(0).toUpperCase() + NOM_LIGNE[k].slice(1); }
+    function la(k, groupe) { return groupe ? "le train de banlieue" : estTrain(k) ? "le train de " + NOM_TRAIN[k] : "la " + NOM_LIGNE[k]; }
+    function de(k, groupe) { return groupe ? "du train de banlieue" : estTrain(k) ? "du train de " + NOM_TRAIN[k] : "de la " + NOM_LIGNE[k]; }
+    function vers(k, groupe) { return groupe ? "au train de banlieue" : estTrain(k) ? "au train de " + NOM_TRAIN[k] : "à la " + NOM_LIGNE[k]; }
+    function dans(k, groupe) { return groupe ? "dans le train de banlieue" : estTrain(k) ? "dans le train de " + NOM_TRAIN[k] : "sur la " + NOM_LIGNE[k]; }
     var svgT = q(".mtrj__svg"), gHalos = q(".mtrj__halos"), gReperes = q(".mtrj__reperes"), train = q(".mtrj__train"), fleche = q(".mtrj__fleche");
     var commandes = q(".mtrj__commandes"), journal = q(".mtrj__journal-corps");
     var LIGNE_G = {}, STATION_G = {}, NOM_G = {}, BOITE = {};
 
     function nom(id) { return ST[id].n; }
-    function couleur(k) { return "var(--mtr-" + k + ")"; }
+    function couleur(k) { return estTrain(k) ? "var(--mtrj-train)" : "var(--mtr-" + k + ")"; }
     function coudes(a, b) {
       var c = COUDES[a + "|" + b]; if (c) { return c; }
       c = COUDES[b + "|" + a]; return c ? c.slice().reverse() : [];
@@ -1072,6 +1095,12 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     /* Points du plan entre deux stations d'une même ligne (indices i et j), coudes compris. */
     function points(k, i, j) {
       var L = LISTE[k], pas = j >= i ? 1 : -1, pts = [ST[L[i]].p];
+      if (TRACE[k]) {
+        /* Train : on découpe son tracé complet entre les deux arrêts. */
+        var rang = function (id) { var p = ST[id].p, r = -1; TRACE[k].forEach(function (t, n) { if (t[0] === p[0] && t[1] === p[1]) { r = n; } }); return r; };
+        var a = rang(L[i]), b = rang(L[j]), morceau = TRACE[k].slice(Math.min(a, b), Math.max(a, b) + 1);
+        return a <= b ? morceau : morceau.reverse();
+      }
       for (var x = i; x !== j; x += pas) {
         coudes(L[x], L[x + pas]).forEach(function (c) { pts.push(c); });
         pts.push(ST[L[x + pas]].p);
@@ -1128,6 +1157,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       var a = svgEl("text", { "class": "mtrj__banlieue-nom", x: t[2], y: t[3] }, g); a.textContent = "Trains de banlieue";
       var b = svgEl("text", { "class": "mtrj__banlieue-nom mtrj__banlieue-nom--fort", x: t[2], y: t[3] + 12.5 }, g); b.textContent = "Direction " + t[1];
       var ti = svgEl("title", {}, g); ti.textContent = "Trains de banlieue, direction " + t[1];
+      LIGNE_G[t[0]] = g;
     });
     Object.keys(INTERMODALE).forEach(function (id) {
       var p = [POS[id][0], POS[id][1]];
@@ -1182,7 +1212,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     function voisins(id) {
       var v = [];
       ST[id].l.forEach(function (k) { var i = LISTE[k].indexOf(id); if (i > 0) { v.push(LISTE[k][i - 1]); } if (i < LISTE[k].length - 1) { v.push(LISTE[k][i + 1]); } });
-      return v;
+      return v.filter(function (x) { return !ST[x].hors; });
     }
     function distance(a, b) {
       var vu = {}, file = [[a, 0]]; vu[a] = true;
@@ -1193,23 +1223,39 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       }
       return -1;
     }
-    function maxStations(k, id, s) { var i = LISTE[k].indexOf(id); return s > 0 ? LISTE[k].length - 1 - i : i; }
+    /* Nombre de stations du plan qu'on peut encore franchir : la sortie du plan d'un train ne compte pas. */
+    function maxStations(k, id, s) { var i = LISTE[k].indexOf(id); return s > 0 ? LISTE[k].length - 1 - i : i - (estTrain(k) ? 1 : 0); }
+    function sortiePossible(k, id, s) { return estTrain(k) && s < 0 && LISTE[k].indexOf(id) === 1; }
     function terminus(k, s) { var L = LISTE[k]; return s > 0 ? L[L.length - 1] : L[0]; }
+    function estTerminus(k, id) { var i = LISTE[k].indexOf(id); return i === LISTE[k].length - 1 || (i === 0 && !estTrain(k)); }
+    /* Choix offerts à une station. Les trains qui filent ensemble vers la même gare du centre-ville forment un seul choix. */
     function options(id) {
-      var o = [];
-      ST[id].l.forEach(function (k) { [1, -1].forEach(function (s) { if (maxStations(k, id, s) > 0) { o.push({ l: k, s: s }); } }); });
+      var o = [], vus = {};
+      ST[id].l.forEach(function (k) {
+        [1, -1].forEach(function (s) {
+          if (maxStations(k, id, s) > 0) {
+            if (estTrain(k) && s > 0) {
+              var cle = LISTE[k].slice(LISTE[k].indexOf(id) + 1).join();
+              if (vus[cle]) { vus[cle].groupe = true; return; }
+              vus[cle] = { l: k, s: s }; o.push(vus[cle]);
+            } else { o.push({ l: k, s: s }); }
+          } else if (sortiePossible(k, id, s)) { o.push({ l: k, s: s, sortie: true }); }
+        });
+      });
       return o;
     }
     function autresLignes(id, k) { return ST[id].l.filter(function (x) { return x !== k; }); }
+    /* « la ligne orange et des trains de banlieue » */
     function listeLignes(ks) {
-      var n = ks.map(function (k) { return "la " + NOM_LIGNE[k]; });
+      var n = ks.filter(function (k) { return !estTrain(k); }).map(function (k) { return la(k); });
+      if (ks.some(estTrain)) { n.push("des trains de banlieue"); }
       return n.length > 1 ? n.slice(0, -1).join(", ") + " et " + n[n.length - 1] : n[0];
     }
     function pluriel(n, mot) { return n + " " + mot + (n > 1 ? "s" : ""); }
 
     var REDUIT = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var E;
-    function etatVide() { return { phase: "depart", pos: null, depart: null, choix: null, n: 1, reste: 0, etapes: [], defi: null, message: "" }; }
+    function etatVide() { return { phase: "depart", pos: null, depart: null, choix: null, n: 1, reste: 0, etapes: [], defi: null, message: "", sorti: false }; }
     E = etatVide();
     var api = { delai: REDUIT ? 0 : 650 }, minuterie = 0;
 
@@ -1220,19 +1266,21 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       rendre();
     }
     function choisirDirection(k, s) {
-      if (E.phase !== "choix" || maxStations(k, E.pos, s) < 1) { return; }
-      E.choix = { l: k, s: s };
-      E.n = Math.max(1, Math.min(E.n, maxStations(k, E.pos, s)));
+      if (E.phase !== "choix") { return; }
+      var o = options(E.pos).filter(function (x) { return x.l === k && x.s === s; })[0];
+      if (!o) { return; }
+      E.choix = { l: k, s: s, sortie: !!o.sortie, groupe: !!o.groupe };
+      E.n = o.sortie ? 1 : Math.max(1, Math.min(E.n, maxStations(k, E.pos, s)));
       rendre();
     }
     function regler(n) {
-      if (!E.choix) { return; }
+      if (!E.choix || E.choix.sortie) { return; }
       E.n = Math.max(1, Math.min(n, maxStations(E.choix.l, E.pos, E.choix.s)));
       rendre();
     }
     function partir() {
       if (E.phase !== "choix" || !E.choix) { return; }
-      E.etapes.push({ l: E.choix.l, s: E.choix.s, ids: [E.pos], prevu: E.n, interrompu: false });
+      E.etapes.push({ l: E.choix.l, s: E.choix.s, ids: [E.pos], prevu: E.n, interrompu: false, sortie: !!E.choix.sortie, groupe: !!E.choix.groupe });
       E.reste = E.n; E.phase = "route"; E.message = "";
       rendre();
       planifier();
@@ -1249,7 +1297,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       if (ST[E.pos].l.length > 1) {
         E.phase = "pause";
         rendre();
-        annoncer("Tu arrives à " + nom(E.pos) + ", une station de correspondance.");
+        annoncer("Tu arrives à " + nom(E.pos) + ", où tu peux changer de ligne.");
         return;
       }
       rendre();
@@ -1266,6 +1314,11 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     }
     function arriver() {
       E.choix = null; E.n = 1;
+      if (ST[E.pos].hors) {
+        E.phase = "fin"; E.sorti = true;
+        rendre(); annoncer("Tu quittes le plan à bord du train de " + nom(E.pos) + ".");
+        return;
+      }
       if (E.defi && E.pos === E.defi.but) {
         E.phase = "fin"; E.defi.reussi = true;
         rendre(); annoncer("Bravo! Tu es à " + nom(E.pos) + ", ta destination.");
@@ -1275,7 +1328,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       E.message = "Tu es à la station " + nom(E.pos) + ".";
       if (ST[E.pos].l.length > 1) { E.message += " Tu peux y changer de ligne."; }
       var k = E.etapes[E.etapes.length - 1].l;
-      if (maxStations(k, E.pos, 1) === 0 || maxStations(k, E.pos, -1) === 0) { E.message += " C'est le terminus de la " + NOM_LIGNE[k] + "."; }
+      if (estTerminus(k, E.pos)) { E.message += " C'est le terminus " + de(k, E.etapes[E.etapes.length - 1].groupe) + "."; }
       rendre(); annoncer(E.message);
     }
     function terminer() { if (E.phase !== "choix" || !E.etapes.length) { return; } E.phase = "fin"; rendre(); }
@@ -1294,7 +1347,7 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
     /* ----- bilan */
     function bilan() {
       var n = 0, c = 0;
-      E.etapes.forEach(function (et, i) { n += et.ids.length - 1; if (i && et.l !== E.etapes[i - 1].l) { c += 1; } });
+      E.etapes.forEach(function (et, i) { n += et.ids.length - 1 - (et.sortie ? 1 : 0); if (i && et.l !== E.etapes[i - 1].l) { c += 1; } });
       return { stations: n, corresp: c };
     }
 
@@ -1339,20 +1392,25 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
           b.type = "button"; b.style.setProperty("--c", couleur(o.l));
           b.setAttribute("data-ligne", o.l); b.setAttribute("data-sens", String(o.s));
           b.setAttribute("aria-pressed", E.choix && E.choix.l === o.l && E.choix.s === o.s ? "true" : "false");
-          el("span", "mtrj__pastille mtrj__pastille--" + o.l, NUMERO[o.l], b);
+          if (estTrain(o.l)) { b.classList.add("mtrj__dir--train"); }
+          if (o.sortie) { b.setAttribute("data-sortie", "1"); }
+          el("span", "mtrj__pastille mtrj__pastille--" + (estTrain(o.l) ? "train" : o.l), NUMERO[o.l] || "T", b);
           var t = el("span", "mtrj__dir-texte", null, b);
-          el("span", "mtrj__dir-ligne", NOM_LIGNE[o.l].charAt(0).toUpperCase() + NOM_LIGNE[o.l].slice(1) + ", direction", t);
+          el("span", "mtrj__dir-ligne", titre(o.l, o.groupe) + ", direction", t);
           el("b", "", nom(terminus(o.l, o.s)), t);
+          if (o.sortie) { el("span", "mtrj__dir-ligne", "Sortie du plan", t); }
           b.addEventListener("click", function () { choisirDirection(o.l, o.s); });
         });
-        if (E.choix) {
+        if (E.choix && E.choix.sortie) {
+          para("Ce train quitte le plan sans autre arrêt montré ici. Si tu pars, ton trajet se termine.", "mtrj__sortie", c);
+        } else if (E.choix) {
           var mx = maxStations(E.choix.l, E.pos, E.choix.s);
           el("p", "mtrj__titre", (E.etapes.length ? "Nombre de stations" : "3. De combien de stations te déplaces-tu?"), c);
           var nb = el("div", "mtrj__nombre", null, c);
           var moins = el("button", "mtrj__pas mtrj__moins", "−", nb); moins.type = "button"; moins.setAttribute("aria-label", "Une station de moins"); moins.disabled = E.n <= 1;
           var val = el("output", "mtrj__valeur", String(E.n), nb); val.setAttribute("aria-label", "Nombre de stations");
           var plus = el("button", "mtrj__pas mtrj__plus", "+", nb); plus.type = "button"; plus.setAttribute("aria-label", "Une station de plus"); plus.disabled = E.n >= mx;
-          el("span", "mtrj__max", (mx === 1 ? "1 station" : "de 1 à " + mx + " stations") + " avant le terminus", nb);
+          el("span", "mtrj__max", (mx === 1 ? "1 station" : "de 1 à " + mx + " stations") + (estTrain(E.choix.l) && E.choix.s < 0 ? " avant la sortie du plan" : " avant le terminus"), nb);
           moins.addEventListener("click", function () { regler(E.n - 1); focusSur(".mtrj__moins"); });
           plus.addEventListener("click", function () { regler(E.n + 1); focusSur(".mtrj__plus"); });
         }
@@ -1366,14 +1424,17 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       var et = E.etapes[E.etapes.length - 1];
       if (E.phase === "route") {
         el("p", "mtrj__titre", "En route", c);
-        para("Tu roules sur la " + NOM_LIGNE[et.l] + ", direction " + nom(terminus(et.l, et.s)) + ".", "mtrj__ici", c);
-        para("Station " + (et.ids.length - 1) + " sur " + et.prevu + (et.ids.length > 1 ? " : " + nom(E.pos) : "") + ".", "", c);
+        para("Tu roules " + dans(et.l, et.groupe) + ", direction " + nom(terminus(et.l, et.s)) + ".", "mtrj__ici", c);
+        if (et.sortie) { para("Le train quitte le plan.", "", c); }
+        else { para("Station " + (et.ids.length - 1) + " sur " + et.prevu + (et.ids.length > 1 ? " : " + nom(E.pos) : "") + ".", "", c); }
         return;
       }
       if (E.phase === "pause") {
         var bp = el("div", "mtrj__encadre mtrj__encadre--arret", null, c);
-        para("Tu arrives à " + nom(E.pos) + ". C'est une station de correspondance avec " + listeLignes(autresLignes(E.pos, et.l)) + ".", "", bp);
-        para("Tu as parcouru " + pluriel(et.ids.length - 1, "station") + ". Il t'en reste " + E.reste + " sur la " + NOM_LIGNE[et.l] + ".", "", bp);
+        var autres = autresLignes(E.pos, et.l);
+        if (autres.every(estTrain)) { para("Tu arrives à " + nom(E.pos) + ". C'est une station intermodale : des trains de banlieue s'y arrêtent.", "", bp); }
+        else { para("Tu arrives à " + nom(E.pos) + ". C'est une station de correspondance avec " + listeLignes(autres) + ".", "", bp); }
+        para("Tu as parcouru " + pluriel(et.ids.length - 1, "station") + ". Il t'en reste " + E.reste + " " + dans(et.l, et.groupe) + ".", "", bp);
         el("p", "mtrj__titre", "Que fais-tu?", c);
         var ap = el("div", "mtrj__actions", null, c);
         bouton("Rester dans le train (encore " + pluriel(E.reste, "station") + ")", "mtrj__bouton--fort mtrj__rester", rester, ap);
@@ -1382,7 +1443,13 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       }
       /* fin */
       var b = bilan();
-      if (E.defi && E.defi.reussi) {
+      if (E.sorti) {
+        el("p", "mtrj__titre", "Trajet terminé", c);
+        var bs = el("div", "mtrj__encadre mtrj__encadre--arret", null, c);
+        para("Tu quittes le plan à bord du train de " + nom(E.pos) + ".", "", bs);
+        if (E.defi) { para("Défi non réussi : tu n'es pas passé par " + nom(E.defi.but) + ".", "", bs); }
+        para("Sur le plan, de " + nom(E.depart) + " à " + nom(et.ids[0]) + " : " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ".", "mtrj__ici", c);
+      } else if (E.defi && E.defi.reussi) {
         var bf = el("div", "mtrj__encadre", null, c);
         para("Bravo! Tu es à " + nom(E.pos) + ", ta destination.", "", bf);
         para("Ton trajet compte " + pluriel(b.stations, "station") + " et " + pluriel(b.corresp, "correspondance") + ". Le trajet le plus court compte " + pluriel(E.defi.min, "station") + ".", "", bf);
@@ -1405,12 +1472,13 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       var ol = el("ol", "", null, journal);
       E.etapes.forEach(function (et, i) {
         if (i && et.l !== E.etapes[i - 1].l) {
-          el("li", "mtrj__corresp", "Correspondance à " + nom(et.ids[0]) + " : de la " + NOM_LIGNE[E.etapes[i - 1].l] + " à la " + NOM_LIGNE[et.l], ol);
+          el("li", "mtrj__corresp", "Correspondance à " + nom(et.ids[0]) + " : " + de(E.etapes[i - 1].l, E.etapes[i - 1].groupe) + " " + vers(et.l, et.groupe), ol);
         }
         var n = et.ids.length - 1, enCours = i === E.etapes.length - 1 && (E.phase === "route" || E.phase === "pause");
         var li = el("li", "mtrj__etape", null, ol);
-        var t = NOM_LIGNE[et.l].charAt(0).toUpperCase() + NOM_LIGNE[et.l].slice(1) + ", direction " + nom(terminus(et.l, et.s)) + " : ";
-        if (enCours) { t += n + " station" + (n > 1 ? "s" : "") + " sur " + et.prevu + " pour l'instant, depuis " + nom(et.ids[0]) + "."; }
+        var t = titre(et.l, et.groupe) + ", direction " + nom(terminus(et.l, et.s)) + " : ";
+        if (et.sortie) { n = 0; t += "tu quittes le plan à partir de " + nom(et.ids[0]) + "."; }
+        else if (enCours) { t += n + " station" + (n > 1 ? "s" : "") + " sur " + et.prevu + " pour l'instant, depuis " + nom(et.ids[0]) + "."; }
         else if (et.interrompu) { t += pluriel(n, "station") + " sur les " + et.prevu + " prévues, de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + ". Tu descends pour changer de ligne."; }
         else { t += pluriel(n, "station") + ", de " + nom(et.ids[0]) + " à " + nom(et.ids[n]) + "."; }
         li.appendChild(document.createTextNode(typo(t)));
@@ -1447,13 +1515,13 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
         if (et.ids.length < 2) { return; }
         var L = LISTE[et.l];
         var dp = chemin(points(et.l, L.indexOf(et.ids[0]), L.indexOf(et.ids[et.ids.length - 1])));
-        svgEl("path", { "class": "mtrj__halo", d: dp }, gHalos);
+        svgEl("path", { "class": "mtrj__halo" + (estTrain(et.l) ? " mtrj__halo--train" : ""), d: dp }, gHalos);
         parcours.push([dp, et.l]);
         et.ids.slice(1).forEach(function (id) { parcourues[id] = true; });
       });
-      parcours.forEach(function (pc) { svgEl("path", { "class": "mtrj__trace mtrj__parcours", d: pc[0], style: "--c:" + couleur(pc[1]) }, gHalos); });
+      parcours.forEach(function (pc) { svgEl("path", { "class": "mtrj__trace mtrj__parcours" + (estTrain(pc[1]) ? " mtrj__parcours--train" : ""), d: pc[0], style: "--c:" + couleur(pc[1]) }, gHalos); });
       var actif = E.choix ? E.choix.l : (E.phase === "route" || E.phase === "pause") ? E.etapes[E.etapes.length - 1].l : null;
-      LIG.forEach(function (k) { LIGNE_G[k].classList.toggle("est-estompe", !!actif && actif !== k); });
+      LIG.concat(TR).forEach(function (k) { LIGNE_G[k].classList.toggle("est-estompe", !!actif && actif !== k); });
       P.classList.toggle("a-trajet", !!E.pos);
       var cliquable = E.phase === "depart" || (E.phase === "choix" && !E.etapes.length && !E.defi);
       IDS.forEach(function (id) {
@@ -1489,9 +1557,10 @@ html[data-sombre="on"] .mtr .mtrj__bouton--fort { color: #10171F; background: va
       if (g) { choisirDepart(g.getAttribute("data-station")); }
     });
     rendre();
-    api.etat = function () { return { phase: E.phase, pos: E.pos, depart: E.depart, choix: E.choix ? E.choix.l + (E.choix.s > 0 ? "+" : "-") : "", n: E.n, reste: E.reste, etapes: E.etapes.length, bilan: bilan(), defi: E.defi ? { but: E.defi.but, min: E.defi.min, reussi: E.defi.reussi } : null }; };
+    api.etat = function () { return { phase: E.phase, pos: E.pos, depart: E.depart, choix: E.choix ? E.choix.l + (E.choix.s > 0 ? "+" : "-") : "", n: E.n, reste: E.reste, etapes: E.etapes.length, sorti: E.sorti, bilan: bilan(), defi: E.defi ? { but: E.defi.but, min: E.defi.min, reussi: E.defi.reussi } : null }; };
     api.choisirDepart = choisirDepart; api.choisirDirection = choisirDirection; api.regler = regler; api.partir = partir;
     api.rester = rester; api.descendre = descendre; api.terminer = terminer; api.recommencer = recommencer; api.defi = defi;
+    api.options = function () { return E.pos && E.phase === "choix" ? options(E.pos) : []; };
     api.distance = distance; api.stations = function () { return IDS.slice(); };
     return api;
   })();
