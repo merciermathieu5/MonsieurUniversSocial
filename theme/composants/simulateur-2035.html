@@ -1,0 +1,187 @@
+<section class="s35" id="simulateur-2035" data-reinitialiser aria-label="Simulateur : combler les besoins en électricité du Québec d'ici 2035">
+<style>
+.s35 { --s35-econ: #6E9A54; --s35-vent: #5FA3C9; --s35-eau: #2D6A9F; --s35-soleil: #D2952E; --s35-gaz: #8A6A57; --s35-cible: rgba(46, 125, 79, .16); --s35-ok: #2E7D4F; --s35-alerte: #B5561F; margin: 1.2rem 0 2rem; border: 1px solid var(--trait); border-radius: var(--rayon); background: var(--surface); overflow: hidden; overflow: clip; }
+html[data-sombre="on"] .s35 { --s35-econ: #8DBA73; --s35-vent: #8EC3E0; --s35-eau: #5B9BD5; --s35-soleil: #E5AC44; --s35-gaz: #B9957F; --s35-cible: rgba(127, 203, 156, .18); --s35-ok: #7FCB9C; --s35-alerte: #F0B48C; }
+.s35 [hidden] { display: none !important; }
+.s35 .s35__entete { background: var(--matiere-fonce); color: #fff; padding: .55rem 1.2rem; display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.s35 .s35__titre { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; letter-spacing: -.01em; color: #fff; }
+.s35 .s35__consigne { margin: 0; font-family: var(--donnee); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.65); }
+html[data-sombre="on"] .s35 .s35__entete { background: var(--matiere-voile); }
+html[data-sombre="on"] .s35 .s35__titre { color: var(--encre); }
+html[data-sombre="on"] .s35 .s35__consigne { color: var(--encre-pale); }
+.s35__corps { padding: 1rem 1.2rem 1.2rem; }
+.s35 .s35__mandat { margin: 0 0 .9rem; font-family: var(--corps); font-size: 1rem; line-height: 1.5; color: var(--encre); }
+.s35__tableau { position: sticky; top: var(--s35-haut, 0px); z-index: 2; margin: 0 -1.2rem 1rem; padding: .7rem 1.2rem .8rem; background: var(--surface); border-bottom: 1px solid var(--trait); }
+.s35__total { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2rem 1rem; margin: 0 0 .45rem; font-family: var(--titre); }
+.s35__total-valeur { font-weight: 700; font-size: 1.45rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.s35__total-cible { font-size: .82rem; color: var(--encre-doux); }
+.s35__jauge { position: relative; height: 1.9rem; border-radius: 6px; background: var(--fond-creux, var(--trait)); overflow: hidden; }
+.s35__zone { position: absolute; z-index: 1; top: 0; bottom: 0; pointer-events: none; background: var(--s35-cible); border-left: 2px dashed var(--s35-ok); border-right: 2px dashed var(--s35-ok); box-sizing: border-box; }
+.s35__pile { position: absolute; top: 0; bottom: 0; left: 0; right: 0; display: flex; gap: 2px; }
+.s35__morceau { flex: none; }
+.s35__morceau { display: block; height: 100%; background: var(--c); transition: width .2s; }
+.s35__reperes { position: relative; height: 1rem; margin-top: .15rem; font-family: var(--donnee); font-size: .66rem; color: var(--encre-pale); }
+.s35__reperes span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.s35__reperes span:first-child { transform: none; }
+.s35__reperes span:last-child { transform: translateX(-100%); }
+.s35 .s35__verdict { margin: .35rem 0 0; font-family: var(--titre); font-weight: 600; font-size: .88rem; line-height: 1.35; color: var(--s35-alerte); }
+.s35 .s35__verdict.est-atteint { color: var(--s35-ok); }
+.s35__plan { margin-top: .55rem; }
+.s35__plan-legende { margin: 0 0 .2rem; font-family: var(--titre); font-size: .78rem; font-weight: 700; color: var(--encre-doux); }
+.s35__plan .s35__jauge { height: 1.1rem; }
+.s35__moyens { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: .75rem; }
+.s35__moyen { display: flex; flex-direction: column; gap: .4rem; margin: 0; padding: .75rem .85rem .8rem; border: 1px solid var(--trait); border-left: 6px solid var(--c); border-radius: 0 8px 8px 0; background: var(--surface); }
+.s35__moyen-tete { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.s35 .s35__nom { margin: 0; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); }
+.s35__valeur { flex: none; font-family: var(--titre); font-weight: 700; font-size: .95rem; color: var(--encre); font-variant-numeric: tabular-nums; }
+.s35 .s35__quoi { margin: 0; font-family: var(--corps); font-size: .92rem; line-height: 1.4; color: var(--encre-doux); }
+.s35__moyen input[type="range"] { width: 100%; margin: .1rem 0; accent-color: var(--c); }
+.s35 .s35__compte { margin: 0; font-family: var(--titre); font-size: .78rem; color: var(--encre-pale); }
+.s35 .s35__territoire { margin: .1rem 0 0; padding: .45rem .6rem; border-radius: 6px; background: var(--matiere-voile); font-family: var(--corps); font-size: .9rem; line-height: 1.4; color: var(--encre-pale); transition: color .2s; }
+.s35 .s35__territoire strong { font-family: var(--titre); font-size: .78rem; letter-spacing: .02em; }
+.s35__moyen.est-actif .s35__territoire { color: var(--encre); }
+.s35__actions { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 0; }
+.s35__bouton { margin: 0; font-family: var(--titre); font-weight: 600; font-size: .85rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .45rem 1rem; cursor: pointer; }
+.s35__bouton:hover { background: var(--matiere-voile); }
+.s35__bouton:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.s35 .s35__bilan { margin: .8rem 0 0; padding: .65rem .85rem; border-left: 4px solid var(--matiere); border-radius: 0; background: var(--matiere-voile); font-family: var(--corps); font-size: .98rem; line-height: 1.45; color: var(--encre); }
+.s35 .s35__source { margin: .8rem 0 0; font-family: var(--donnee); font-size: .68rem; line-height: 1.4; color: var(--encre-pale); }
+.s35__sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 40rem) { .s35__corps { padding: .9rem .8rem 1rem; } .s35__tableau { margin: 0 -.8rem 1rem; padding: .6rem .8rem .7rem; } .s35__total-valeur { font-size: 1.2rem; } }
+.s35.est-plein-ecran > .s35__entete { flex: none; }
+</style>
+<div class="s35__entete">
+<p class="s35__titre" role="heading" aria-level="3">Simulateur : trouver la puissance qui manquera en 2035</p>
+<p class="s35__consigne">Ajuste chaque moyen</p>
+</div>
+<div class="s35__corps">
+<p class="s35__mandat">Hydro-Québec estime qu'il faudra entre <strong>8 000 et 9 000 mégawatts</strong> de puissance de plus en 2035 pour passer les grands froids d'hiver, quand tout le monde chauffe en même temps. Combine les cinq moyens ci-dessous pour atteindre la cible, puis regarde ce que ton plan demande au territoire.</p>
+<div class="s35__tableau">
+<p class="s35__total"><span class="s35__total-valeur"><output class="s35__somme">0</output> MW</span><span class="s35__total-cible">Cible : de 8 000 à 9 000 MW</span></p>
+<div class="s35__jauge" aria-hidden="true"><span class="s35__zone"></span><span class="s35__pile s35__pile--eleve"></span></div>
+<div class="s35__reperes" aria-hidden="true"></div>
+<p class="s35__verdict" aria-live="polite"></p>
+<div class="s35__plan" hidden>
+<p class="s35__plan-legende">Le plan d'Hydro-Québec : environ 8 550 MW</p>
+<div class="s35__jauge" aria-hidden="true"><span class="s35__zone"></span><span class="s35__pile s35__pile--plan"></span></div>
+</div>
+</div>
+<div class="s35__moyens"></div>
+<div class="s35__actions">
+<button type="button" class="s35__bouton s35__comparer" aria-expanded="false">Comparer avec le plan d'Hydro-Québec</button>
+</div>
+<p class="s35__bilan" hidden></p>
+<p class="s35__source">Source : Hydro-Québec, Plan d'action 2035, novembre 2023. Le plan donne une fourchette pour chaque moyen; la comparaison utilise le milieu de chaque fourchette. Les mégawatts sont ceux qu'Hydro-Québec compte pour répondre à la pointe d'hiver.</p>
+</div>
+<script>
+(function () {
+  var racine = document.getElementById("simulateur-2035");
+  if (!racine || racine.getAttribute("data-pret")) { return; }
+  racine.setAttribute("data-pret", "1");
+  racine.classList.add("est-pret");
+  var CIBLE_MIN = 8000, CIBLE_MAX = 9000, ECHELLE = 12000;
+  // Facteur de l'éolien : le plan compte de 1 500 à 1 700 MW pour plus de 10 000 MW installés, soit environ 16 %.
+  var FACTEUR_VENT = 0.16;
+  var MOYENS = [
+    { cle: "econ", nom: "Économies d'énergie", couleur: "var(--s35-econ)", max: 3000, pas: 100, plan: 1700,
+      quoi: "Consommer moins : mieux isoler les bâtiments, installer des thermostats intelligents, déplacer une partie de la consommation hors des heures de pointe.",
+      territoire: "Aucune construction. Le défi est de convaincre des millions de clients de changer leurs habitudes." },
+    { cle: "vent", nom: "Énergie éolienne", couleur: "var(--s35-vent)", max: 15000, pas: 500, plan: 10000, installe: true,
+      quoi: "Ajouter des parcs d'éoliennes. Attention : le vent ne souffle pas toujours pendant les grands froids, alors Hydro-Québec ne compte qu'environ 16 % de leur puissance installée.",
+      territoire: "Des centaines d'éoliennes sur des terres agricoles, forestières ou autochtones. Il faut l'accord des municipalités et des communautés touchées." },
+    { cle: "eau", nom: "Hydroélectricité", couleur: "var(--s35-eau)", max: 6000, pas: 200, plan: 4000,
+      quoi: "Ajouter de la puissance aux centrales existantes ou bâtir une nouvelle centrale sur une rivière.",
+      territoire: "Une nouvelle centrale inonde des terres, transforme une rivière et touche des communautés autochtones, comme à la Baie-James ou sur la Romaine. Un tel chantier prend plus de dix ans." },
+    { cle: "soleil", nom: "Solaire, stockage et autres moyens", couleur: "var(--s35-soleil)", max: 2000, pas: 100, plan: 750,
+      quoi: "Des panneaux solaires et des batteries qui gardent l'électricité en réserve pour les heures de pointe.",
+      territoire: "Des installations plus petites, souvent sur des toits ou près des villes. Ces technologies sont encore très peu utilisées au Québec." },
+    { cle: "gaz", nom: "Centrale thermique au gaz naturel renouvelable", couleur: "var(--s35-gaz)", max: 600, pas: 100, plan: 500,
+      quoi: "Convertir une centrale thermique existante pour qu'elle brûle du gaz naturel renouvelable, seulement pendant les pointes. Le plan n'en prévoit pas plus de 600 MW.",
+      territoire: "Aucune nouvelle construction, mais une centrale qui brûle un combustible et rejette des gaz, même s'ils sont d'origine renouvelable." }
+  ];
+  function fmt(n) { return Math.round(n).toLocaleString("fr-CA").replace(/[  ,]/g, " "); }
+  function compte(m, v) { return m.installe ? Math.round(v * FACTEUR_VENT) : v; }
+  var zoneMoyens = racine.querySelector(".s35__moyens");
+  var pile = racine.querySelector(".s35__pile--eleve"), pilePlan = racine.querySelector(".s35__pile--plan");
+  var somme = racine.querySelector(".s35__somme"), verdict = racine.querySelector(".s35__verdict");
+  var bilan = racine.querySelector(".s35__bilan"), plan = racine.querySelector(".s35__plan"), comparer = racine.querySelector(".s35__comparer");
+  Array.prototype.forEach.call(racine.querySelectorAll(".s35__zone"), function (z) {
+    z.style.left = (CIBLE_MIN / ECHELLE * 100) + "%"; z.style.width = ((CIBLE_MAX - CIBLE_MIN) / ECHELLE * 100) + "%";
+  });
+  racine.querySelector(".s35__reperes").innerHTML = [0, 4000, 8000, 12000].map(function (v) {
+    return '<span style="left:' + (v / ECHELLE * 100) + '%">' + fmt(v) + (v === 12000 ? " MW" : "") + "</span>";
+  }).join("");
+  MOYENS.forEach(function (m) {
+    var art = document.createElement("div");
+    art.className = "s35__moyen"; art.setAttribute("data-moyen", m.cle); art.style.setProperty("--c", m.couleur);
+    var id = "s35-" + m.cle;
+    art.innerHTML = '<div class="s35__moyen-tete"><label class="s35__nom" for="' + id + '">' + m.nom + '</label><output class="s35__valeur" for="' + id + '"></output></div>' +
+      '<p class="s35__quoi">' + m.quoi + '</p>' +
+      '<input type="range" id="' + id + '" min="0" max="' + m.max + '" step="' + m.pas + '" value="0">' +
+      (m.installe ? '<p class="s35__compte"></p>' : "") +
+      '<p class="s35__territoire"><strong>SUR LE TERRITOIRE</strong><br>' + m.territoire + "</p>";
+    zoneMoyens.appendChild(art);
+    m.carte = art; m.curseur = art.querySelector("input"); m.sortie = art.querySelector(".s35__valeur"); m.ligneCompte = art.querySelector(".s35__compte");
+    m.morceau = document.createElement("span"); m.morceau.className = "s35__morceau"; m.morceau.style.setProperty("--c", m.couleur); pile.appendChild(m.morceau);
+    var mp = document.createElement("span"); mp.className = "s35__morceau"; mp.style.setProperty("--c", m.couleur);
+    mp.style.width = (compte(m, m.plan) / ECHELLE * 100) + "%"; pilePlan.appendChild(mp);
+    m.curseur.addEventListener("input", maj);
+    m.curseur.addEventListener("change", maj);
+  });
+  function maj() {
+    var total = 0;
+    MOYENS.forEach(function (m) {
+      var v = Number(m.curseur.value), c = compte(m, v);
+      total += c;
+      m.sortie.textContent = fmt(m.installe ? c : v) + " MW";
+      m.curseur.setAttribute("aria-valuetext", m.installe ? fmt(v) + " MW installés, " + fmt(c) + " MW comptés" : fmt(v) + " MW");
+      if (m.ligneCompte) { m.ligneCompte.textContent = fmt(v) + " MW installés, dont " + fmt(c) + " MW comptés pour la pointe"; }
+      m.morceau.style.width = (Math.min(c, ECHELLE) / ECHELLE * 100) + "%";
+      m.carte.classList.toggle("est-actif", v > 0);
+    });
+    somme.textContent = fmt(total);
+    var atteint = total >= CIBLE_MIN && total <= CIBLE_MAX;
+    verdict.classList.toggle("est-atteint", atteint);
+    if (total === 0) { verdict.textContent = "Ton plan est vide. Commence par le moyen qui te semble le plus acceptable."; }
+    else if (total < CIBLE_MIN) { verdict.textContent = "Il manque " + fmt(CIBLE_MIN - total) + " MW. Lors d'un grand froid, le réseau risquerait de ne pas suffire."; }
+    else if (atteint) { verdict.textContent = "Ton plan atteint la cible. Relis maintenant ce qu'il demande au territoire."; }
+    else { verdict.textContent = "Ton plan dépasse la cible de " + fmt(total - CIBLE_MAX) + " MW. Chaque mégawatt de trop coûte cher à bâtir et touche le territoire pour rien."; }
+    racine.setAttribute("data-total", String(total));
+    if (!bilan.hidden) { ecrireBilan(total); }
+  }
+  function ecrireBilan(total) {
+    var actifs = MOYENS.filter(function (m) { return Number(m.curseur.value) > 0; });
+    var premier = actifs.slice().sort(function (a, b) { return compte(b, Number(b.curseur.value)) - compte(a, Number(a.curseur.value)); })[0];
+    var txt = "Le plan d'Hydro-Québec mise d'abord sur l'hydroélectricité, environ 4 000 MW, puis sur les économies d'énergie. Il triple aussi la puissance éolienne en ajoutant plus de 10 000 MW d'éoliennes, qui ne comptent que pour environ 1 600 MW en pointe.";
+    if (premier) { txt += " Ton plan, lui, repose surtout sur : " + premier.nom.toLowerCase() + ", avec " + fmt(compte(premier, Number(premier.curseur.value))) + " MW sur " + fmt(total) + "."; }
+    bilan.textContent = txt;
+  }
+  comparer.addEventListener("click", function () {
+    var ouvrir = plan.hidden;
+    plan.hidden = !ouvrir; bilan.hidden = !ouvrir;
+    comparer.setAttribute("aria-expanded", ouvrir ? "true" : "false");
+    comparer.textContent = ouvrir ? "Masquer le plan d'Hydro-Québec" : "Comparer avec le plan d'Hydro-Québec";
+    if (ouvrir) { ecrireBilan(Number(racine.getAttribute("data-total"))); }
+  });
+  // Le tableau du total reste visible pendant qu'on règle les curseurs, sous le bandeau du site
+  // ou, en plein écran, sous l'entête de l'interface.
+  var entete = racine.querySelector(".s35__entete");
+  function caler() {
+    var haut = 0;
+    if (racine.classList.contains("est-plein-ecran")) { haut = entete.offsetHeight; }
+    else { var bandeau = document.querySelector(".bandeau"); if (bandeau && getComputedStyle(bandeau).position === "sticky") { haut = bandeau.offsetHeight; } }
+    racine.style.setProperty("--s35-haut", haut + "px");
+  }
+  window.addEventListener("resize", caler);
+  if (window.MutationObserver) { new MutationObserver(caler).observe(racine, { attributes: true, attributeFilter: ["class"] }); }
+  caler();
+  racine.addEventListener("reinitialiser", function () {
+    MOYENS.forEach(function (m) { m.curseur.value = "0"; });
+    plan.hidden = true; bilan.hidden = true;
+    comparer.setAttribute("aria-expanded", "false"); comparer.textContent = "Comparer avec le plan d'Hydro-Québec";
+    maj();
+  });
+  maj();
+})();
+</script>
+</section>

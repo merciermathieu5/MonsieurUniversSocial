@@ -87,48 +87,21 @@ propre limite l'effet de serre et freine le réchauffement de la planète.
 
 ## Les besoins énergétiques du Québec
 
-Le Québec produit environ 213 térawattheures d'électricité par année, soit à peu
-près le tiers de toute la production canadienne. C'est la province qui en produit
-le plus. L'hydroélectricité en fournit environ 94 %, l'éolien 5 %, et le reste
-vient de centrales thermiques et de quelques installations solaires.
+Le Québec est l'un des plus grands producteurs d'hydroélectricité au monde.
+Pourtant, quand on regarde toute l'énergie qu'il consomme, le portrait change.
+Explore le tableau en touchant chaque barre avant de répondre aux questions.
 
-Source : Régie de l'énergie du Canada, données de 2021, et État de l'énergie au
-Québec
-{: .source-texte }
+::: composant energie-portrait
 
-### L'électricité n'est pas toute l'énergie
-
-C'est ici qu'il faut être attentif. Le Québec produit une électricité presque
-entièrement propre, mais l'électricité ne représente qu'une partie de
-l'énergie qu'il consomme. En 2022, la consommation totale d'énergie du Québec
-atteignait 496 térawattheures, et les énergies fossiles en comblaient encore
-52 %, essentiellement du pétrole importé. Autrement dit, le Québec est
-autonome pour son électricité et complètement dépendant pour ses carburants.
-C'est cette moitié fossile que la transition énergétique cherche à remplacer.
-
-Source : Gouvernement du Québec, portrait énergétique, données de 2022
-{: .source-texte }
-
-### Qui consomme quoi
+Deux constats ressortent. D'abord, le Québec est autonome pour son électricité,
+presque entièrement renouvelable, mais il reste en dépendance énergétique pour
+le pétrole, qu'il doit importer pour faire rouler ses véhicules. C'est cette
+moitié fossile que la transition énergétique cherche à remplacer. Ensuite, il
+consomme beaucoup d'électricité par habitant : des industries énergivores sont
+venues s'y installer pour profiter de tarifs bas, et la plupart des ménages
+chauffent à l'électricité.
 
 ![Deux véhicules électriques en recharge en ville](../medias/07-territoire-energetique-quebec/voitures-electriques.jpg)
-
-La consommation finale d'énergie du Québec se répartit entre quatre grands
-secteurs.
-
-- L'industrie, 37 %
-- Les transports, 31 %
-- Le résidentiel, 19 %
-- Le commercial et l'institutionnel, 14 %
-
-Source : Gouvernement du Québec, portrait énergétique, données de 2022
-{: .source-texte }
-
-Le Québec détient un autre record : c'est la province où l'on consomme le plus
-d'électricité par habitant au Canada, avec 22,9 mégawattheures par personne, soit
-57 % de plus que la moyenne canadienne. Deux raisons l'expliquent. Des industries
-très énergivores sont venues s'installer ici pour profiter de tarifs bas, et la
-plupart des ménages québécois chauffent à l'électricité.
 
 ::: savais-tu
 La demande d'électricité augmente pour des raisons qui n'existaient pas il y a
@@ -147,24 +120,19 @@ de Radio-Canada permet de voir où se trouvent les bornes et si leur nombre suit
 la croissance du parc de véhicules électriques.
 :::
 
-### Manquerons-nous d'électricité
+### Manquerons-nous d'électricité?
 
-En novembre 2023, Hydro-Québec a rendu public son Plan d'action 2035. La
-société d'État y estime qu'il lui faudra 60 térawattheures de plus d'ici 2035,
-soit entre 8 000 et 9 000 mégawatts de puissance additionnelle, et de 150 à
-200 térawattheures de plus d'ici 2050, ce qui reviendrait à doubler la
-production actuelle. Pour donner une idée de ce que représentent ces 60
-térawattheures, Hydro-Québec les compare elle-même à trois de ses plus grands
-ouvrages réunis : l'aménagement Robert-Bourassa, Manic-5 et le complexe de la
-Romaine. Ce sont précisément les deux territoires étudiés dans cette fiche.
+En novembre 2023, Hydro-Québec a publié son Plan d'action 2035. Elle y prévoit
+qu'il faudra 60 térawattheures de plus d'ici 2035, l'équivalent de trois de ses
+plus grands ouvrages réunis : l'aménagement Robert-Bourassa, Manic-5 et le
+complexe de la Romaine. D'ici 2050, la production pourrait même devoir doubler.
+Le plan prévoit de 155 à 185 milliards de dollars d'investissements et plus de
+5 000 kilomètres de nouvelles lignes de transport.
 
-Le plan prévoit des investissements de 155 à 185 milliards de dollars, le triplement
-de la production éolienne pour atteindre 10 000 mégawatts, de nouvelles centrales
-hydroélectriques, plus de 5 000 kilomètres de lignes de transport et une centrale
-à réserve pompée, une technologie qui n'existe pas encore au Québec.
+Comment trouver toute cette électricité? Prends la place d'Hydro-Québec et bâtis
+ton propre plan.
 
-Source : Hydro-Québec, Plan d'action 2035, novembre 2023
-{: .source-texte }
+::: composant simulateur-2035
 
 ::: note
 Ce plan est débattu. Des organisations environnementales ont réclamé un moratoire
@@ -190,10 +158,15 @@ Hydro-Québec va bâtir des mégaparcs éoliens
 :::
 
 ::: questions
-1. Le Québec produit une électricité propre à 94 %, mais la moitié de son énergie
-   reste fossile. Explique ce que cela signifie pour la transition énergétique.
+1. Le Québec produit une électricité presque entièrement renouvelable, mais la
+   moitié de son énergie reste fossile. Explique ce que cela signifie pour la
+   transition énergétique.
 2. Nomme deux causes de la hausse prévue de la demande d'électricité, puis dis
    laquelle te semble la plus difficile à réduire.
+3. Dans le simulateur, il faut installer beaucoup plus d'éoliennes que ce
+   qu'elles comptent pour la pointe d'hiver. Explique pourquoi.
+4. Compare ton plan avec celui d'Hydro-Québec. Nomme le moyen sur lequel tu as
+   le plus misé et ce qu'il demande au territoire.
 :::
 
 ## L'histoire de l'hydroélectricité québécoise
@@ -624,6 +597,9 @@ Expérimentation dans la classe de Nicolas
 - [Territoire énergétique, projet Minecraft du RÉCIT](https://www.recitus.qc.ca/ressources/secondaire/publication/territoire-energetique-minecraft)
 - [Hydro-Québec, Plan d'action 2035](https://www.hydroquebec.com/a-propos/publications-rapports/plan-action-2035.html)
 - [Régie de l'énergie du Canada, profil énergétique du Québec](https://www.cer-rec.gc.ca/fr/donnees-analyse/marches-energetiques/profils-energetiques-provinces-territoires/profils-energetiques-provinces-territoires-quebec.html)
+- [Régie de l'énergie du Canada, l'électricité renouvelable au Québec](https://www.cer-rec.gc.ca/fr/donnees-analyse/produits-base-energetiques/electricite/rapport/electricite-renouvelable-canada/provinces/electricite-renouvelable-canada-quebec.html)
+- [Gouvernement du Québec, Portrait énergétique du Québec](https://www.quebec.ca/gouvernement/ministeres-organismes/economie/publications/portrait-energetique-du-quebec)
+- [Hydro-Québec, Plan d'action 2035, feuillet des faits saillants (novembre 2023)](https://news.hydroquebec.com/media/filer_private/2023/11/02/2023g648f_feuillet_media_-_plan_d_action_v6-fr.pdf)
 - [Encyclopédie canadienne, Convention de la Baie-James et du Nord québécois](https://www.thecanadianencyclopedia.ca/fr/article/convention-de-la-baie-james-et-du-nord-quebecois)
 - [Alloprof, les territoires énergétiques de la Jamésie et de la Côte-Nord](https://www.alloprof.qc.ca/fr/eleves/bv/geographie/es-territoires-energetiques-de-la-jamesie-et-de-la-cote-nord-g1041)
 - [Fondation Rivières, la rivière du Petit Mécatina](https://fondationrivieres.org/en/?p=55969)
