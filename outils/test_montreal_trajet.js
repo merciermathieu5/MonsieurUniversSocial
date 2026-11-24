@@ -3,7 +3,7 @@
  *     node outils/test_montreal_trajet.js [composant.html]
  * On vérifie les onglets, le plan schématique (4 lignes, 68 stations, 4 correspondances, trains de banlieue), le choix du départ
  * (liste et clic sur le plan, y compris à bord d'un train qui entre sur le plan), la direction et le nombre de stations, l'arrêt aux correspondances,
- * le changement de ligne, les trajets en train de banlieue, le journal, le défi et Réinitialiser.
+ * le changement de ligne, les trajets en train de banlieue, le journal, le défi, l'onglet Exerce-toi, les repères et Réinitialiser.
  */
 const fs = require("fs");
 const path = require("path");
@@ -33,7 +33,7 @@ const dir = (l, s) => un(`.mtrj__dir[data-ligne="${l}"][data-sens="${s}"]`);
 
 console.log("ONGLETS");
 const onglets = tous(".mtr__onglet");
-verifier("deux onglets, le réseau ouvert au départ", onglets.length === 2 && racine.getAttribute("data-onglet") === "reseau" && onglets[0].getAttribute("aria-selected") === "true");
+verifier("trois onglets, le réseau ouvert au départ", onglets.length === 3 && racine.getAttribute("data-onglet") === "reseau" && onglets[0].getAttribute("aria-selected") === "true");
 clic(onglets[1]);
 verifier("l'onglet Mon trajet s'ouvre et change le titre", racine.getAttribute("data-onglet") === "trajet" && /Mon trajet/.test(un(".mtr__titre").textContent) && onglets[1].getAttribute("aria-selected") === "true");
 clic(onglets[0]);
@@ -147,7 +147,59 @@ clic(bouton(".mtrj__terminer"));
 verifier("bilan depuis l'entrée du plan", /De l'entrée du plan \(train de Blainville-Saint-Jérôme\) à Lucien-L'Allier/.test(cmd()), cmd());
 verifier("le trajet le plus court tient compte des trains", T.distance("de-la-concorde", "lucien-l-allier") === 3);
 
+console.log("REPÈRES DE TERRITOIRE");
+verifier("Laval, île de Montréal et Longueuil sur le plan", tous(".mtrj__region").map((t) => t.textContent).join("|") === "Laval|Île de Montréal|Longueuil");
+
+console.log("EXERCE-TOI");
+const X = racine.mtr.exercice;
+clic(onglets[2]);
+verifier("l'onglet Exerce-toi s'ouvre avec le plan", racine.getAttribute("data-onglet") === "exercice" && /Exerce-toi/.test(un(".mtr__titre").textContent) && !!un(".mtrj__exercice .mtrj__ex-situation"));
+/* Plus court chemin en métro seulement, et nombre de chemins les plus courts, à partir des données du composant. */
+const D = JSON.parse(composant.slice(composant.indexOf("var D = ") + 8, composant.indexOf(";\n", composant.indexOf("var D = "))));
+const VOIS = {};
+for (const k of ["verte", "orange", "jaune", "bleue"]) { const st = D.lignes[k].st; st.forEach((id, i) => { VOIS[id] = VOIS[id] || []; if (i) VOIS[id].push(st[i - 1]); if (i < st.length - 1) VOIS[id].push(st[i + 1]); }); }
+function plusCourt(a, b) { const dist = { [a]: 0 }, nb = { [a]: 1 }, file = [a]; while (file.length) { const c = file.shift(); for (const v of VOIS[c]) { if (dist[v] === undefined) { dist[v] = dist[c] + 1; nb[v] = 0; file.push(v); } if (dist[v] === dist[c] + 1) nb[v] += nb[c]; } } return [dist[b], nb[b]]; }
+const QS = X.questions();
+verifier("13 situations, dont 5 en train de banlieue", QS.length === 13 && QS.filter((Q) => Q.train).length === 5);
+let qOk = true, qDetail = "";
+QS.forEach((Q, i) => {
+  const sg = X.segments(Q), dep = Q.train ? Q.trajet[0][1] : Q.depart;
+  let ok = sg.every(Boolean) && sg[0].ids[0] === dep && sg[sg.length - 1].ids.slice(-1)[0] === Q.but;
+  for (let j = 1; j < sg.length; j++) ok = ok && sg[j].ids[0] === sg[j - 1].ids.slice(-1)[0] && sg[j].l !== sg[j - 1].l;
+  if (Q.train) ok = ok && T.arrivee(Q.train) === dep && !!T.segment(Q.train, "x-" + Q.train, dep);
+  const total = sg.reduce((n, g) => n + g.n, 0), [d, nb] = plusCourt(dep, Q.but);
+  ok = ok && total === d && nb === 1;
+  ok = ok && Q.qui.includes("(station de métro " + T.nom(Q.but) + ")");
+  if (!ok) { qOk = false; qDetail += ` ${i + 1}:${total}/${d}/${nb}`; }
+});
+verifier("chaque itinéraire est valide et le seul plus court en métro", qOk, qDetail);
+X.aller(0);
+verifier("situation 1 : 7 cases (couleur, direction, nombre, correspondance)", X.champs().length === 7, X.champs().length);
+verifier("situation 1 : bonnes réponses attendues", X.cases().map((c) => c.rep).join() === "orange,cote-vertu,10,berri-uqam,verte,angrignon,2", X.cases().map((c) => c.rep).join());
+verifier("le plan marque le départ et la destination, sans tracer le trajet", !!un(".mtrj__repere--depart") && !!un(".mtrj__repere--but") && !un(".mtrj__halos .mtrj__halo"));
+const remplir = (vals) => X.champs().forEach((f, i) => { f.value = vals[i]; f.dispatchEvent(new window.Event("input", { bubbles: true })); });
+remplir(["orange", "cote-vertu", "9", "berri-uqam", "verte", "angrignon", "2"]);
+clic(un(".mtrj__ex-verifier"));
+verifier("une erreur : 6 bonnes réponses sur 7, la case fausse en rouge", /6 bonnes réponses sur 7/.test(un(".mtrj__ex-retour").textContent) && tous(".mtrj__ex-champ.est-faux").length === 1 && !un(".mtrj__halos .mtrj__halo"));
+remplir(["orange", "cote-vertu", "10", "berri-uqam", "verte", "angrignon", "2"]);
+clic(un(".mtrj__ex-verifier"));
+verifier("tout juste : bravo et trajet tracé sur le plan", /Bravo/.test(un(".mtrj__ex-retour").textContent) && tous(".mtrj__halos .mtrj__halo").length === 2);
+clic(un(".mtrj__ex-suiv"));
+verifier("situation suivante : cases vides, compteur à jour", X.no() === 1 && X.champs().every((f) => f.value === "") && /Situation 2 sur 13/.test(un(".mtrj__exercice").textContent));
+X.aller(9);
+verifier("situation en train : la première case est la station d'arrivée du train", X.cases()[0].rep === "lucien-l-allier" && /son train arrive-t-il/.test(un(".mtrj__ex-etapes").textContent));
+clic(un(".mtrj__ex-reponse"));
+verifier("Afficher la réponse remplit les cases et trace le train puis le métro", X.champs().every((f, i) => f.value === X.cases()[i].rep) && tous(".mtrj__halos .mtrj__halo").length === 3 && tous(".mtrj__halo--train").length === 1);
+racine.dispatchEvent(new window.CustomEvent("reinitialiser"));
+verifier("Réinitialiser vide les cases de la situation", X.no() === 9 && X.champs().every((f) => f.value === "") && !un(".mtrj__halos .mtrj__halo"));
+verifier("le plan n'accepte pas de clic de départ pendant l'exercice", (clic(un('.mtrj__station[data-station="snowdon"]')), T.etat().phase === "exercice"));
+clic(onglets[1]);
+verifier("retour à Mon trajet : on recommence au choix du départ", T.etat().phase === "depart" && !un(".mtrj__repere"));
+clic(onglets[2]);
+for (let i = 0; i < QS.length; i++) { X.aller(i); X.reponse(); if (i === 7) break; }
+
 console.log("RÉINITIALISATION ET TYPOGRAPHIE");
+clic(onglets[1]);
 racine.dispatchEvent(new window.CustomEvent("reinitialiser"));
 verifier("Réinitialiser ramène au choix du départ", etat().phase === "depart" && etat().etapes === 0 && !un(".mtrj__repere"));
 T.choisirDepart("vendome"); T.choisirDirection("orange", 1); T.regler(5); T.partir(); T.rester();
