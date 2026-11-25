@@ -402,20 +402,16 @@ retour de retraités vers l'appartement. Le marché locatif de Montréal demeure
 moins cher que celui de Toronto ou de Vancouver, ce qui n'empêche pas la
 pression de s'exercer sur les ménages à faible revenu.
 
-::: video An9lLGY80HE
-La crise du logement
+::: video v5VMn0Apers
 :::
 
-::: video G3Uaf58x8qE
-Se loger dans la métropole
+::: video 98jH8tJxCos
 :::
 
-::: video rYaMLZUgzM0
-Creux historique des logements à louer
+::: video yYo75n1gbEE
 :::
 
-::: video tY4vwVbmECM
-La crise du logement à Montréal
+::: video ws48zNSiYKQ
 :::
 
 ### Choisir la banlieue
