@@ -47,7 +47,11 @@ La Grèce antique n'était donc pas unifiée : elle était plutôt composée d'u
 multitude de cités-États indépendantes, souvent en conflit les unes avec les
 autres. Le terrain montagneux et la présence de nombreuses îles ont aussi joué
 un rôle important dans le développement de la navigation et du commerce
-maritime, éléments centraux de l'économie grecque antique.
+maritime, éléments centraux de l'économie grecque antique. La carte suivante
+situe les principales cités grecques du 5e siècle av. J.-C., leurs colonies,
+leurs grands sanctuaires et les mers qui les relient.
+
+::: composant grece-cites
 
 ### L'importance des mers Égée, Ionienne et Méditerranée
 
