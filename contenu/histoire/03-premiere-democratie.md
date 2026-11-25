@@ -47,11 +47,7 @@ La Grèce antique n'était donc pas unifiée : elle était plutôt composée d'u
 multitude de cités-États indépendantes, souvent en conflit les unes avec les
 autres. Le terrain montagneux et la présence de nombreuses îles ont aussi joué
 un rôle important dans le développement de la navigation et du commerce
-maritime, éléments centraux de l'économie grecque antique. La carte suivante
-situe les principales cités grecques du 5e siècle av. J.-C., leurs colonies,
-leurs grands sanctuaires et les mers qui les relient.
-
-::: composant grece-cites
+maritime, éléments centraux de l'économie grecque antique.
 
 ### L'importance des mers Égée, Ionienne et Méditerranée
 
@@ -90,6 +86,15 @@ Péloponnèse avait un terrain plus varié et fertile que l'Attique. La région
 était connue pour sa force militaire, en particulier les hoplites spartiates.
 Sa situation géographique et ses ressources naturelles en faisaient une zone
 stratégiquement et économiquement importante.
+
+### Le monde grec sur une carte
+
+La carte interactive rassemble ces repères : les principales cités grecques du
+5e siècle av. J.-C., leurs colonies et leurs grands sanctuaires, les mers qui
+les relient et les régions que dessine le relief. Une carte muette permet
+ensuite de vérifier qu'on sait situer les mers et les cités.
+
+::: composant grece-cites
 
 ::: questions
 1. Pourquoi la Grèce antique est-elle divisée en cités-États plutôt qu'unie en un seul pays?

@@ -48,14 +48,19 @@ const allerVue = (v) => clic(racine.querySelector(`.grc__vue[data-vue="${v}"]`))
 console.log("MISE EN PLACE");
 verifier("composant présent", !!racine);
 verifier("initialisé une seule fois", racine.getAttribute("data-pret") === "1" && racine.classList.contains("est-pret"));
-verifier("trois vues et deux cartes muettes", tous(".grc__svg:not(.grc__svg--exercice)").length === 3 && tous(".grc__svg--exercice").length === 2, tous(".grc__svg").length);
+verifier("trois vues des lieux, deux cartes des régions et deux cartes muettes",
+  tous(".grc__svg:not(.grc__svg--exercice):not(.grc__svg--regions)").length === 3 && tous(".grc__svg--regions").length === 2 && tous(".grc__svg--exercice").length === 2, tous(".grc__svg").length);
 verifier("la vue d'ensemble s'affiche au départ", vueVisible() === "ensemble", vueVisible());
 verifier("le panneau d'accueil s'affiche au départ", panneauxVisibles().join() === "accueil", panneauxVisibles().join());
 verifier("aucun lieu choisi au départ", boutonsPresses().length === 0 && tous(".est-choisi").length === 0);
-const boutons = tous(".grc__bouton");
-verifier("30 boutons : 11 cités-États, 7 colonies, 3 sanctuaires, 9 mers et golfes", boutons.length === 30, boutons.length);
+const tousBoutons = tous(".grc__bouton");
+const estRegion = (b) => b.getAttribute("data-vue").indexOf("regions") === 0;
+const boutons = tousBoutons.filter((b) => !estRegion(b));
+const boutonsRegions = tousBoutons.filter(estRegion);
+verifier("30 boutons de lieux : 11 cités-États, 7 colonies, 3 sanctuaires, 9 mers et golfes", boutons.length === 30, boutons.length);
+verifier("25 boutons de régions", boutonsRegions.length === 25, boutonsRegions.length);
 verifier("un panneau par bouton, relié par aria-controls",
-  boutons.every((b) => { const p = document.getElementById(b.getAttribute("aria-controls")); return p && p.getAttribute("data-lieu") === b.getAttribute("data-lieu"); }));
+  tousBoutons.every((b) => { const p = document.getElementById(b.getAttribute("aria-controls")); return p && p.getAttribute("data-lieu") === b.getAttribute("data-lieu"); }));
 const ids = tous("[id]", document).map((el) => el.id);
 verifier("aucun identifiant en double", new Set(ids).size === ids.length);
 verifier("chaque <use> vise un tracé existant", tous("use").every((u) => document.getElementById((u.getAttribute("href") || "").slice(1))));
@@ -155,6 +160,54 @@ clic(racine.querySelector('.grc__bouton[data-lieu="milet"]'));
 allerVue("peloponnese");
 clic(racine.querySelector(".grc__entete .reinitialiser"));
 verifier("Réinitialiser après plusieurs actions ramène l'état du chargement", etat() === depart, etat());
+
+console.log("COLONNE : LIEUX DE LA CARTE AFFICHÉE");
+const visiblesListe = () => tous(".grc__bouton").filter((b) => !b.hidden).map((b) => b.getAttribute("data-lieu"));
+VUES.forEach((v) => {
+  allerVue(v);
+  const attendus = boutons.filter((b) => b.getAttribute("data-liste").split(" ").includes(v)).map((b) => b.getAttribute("data-lieu"));
+  verifier(`vue ${v} : la liste ne montre que les lieux nommés sur cette carte`,
+    visiblesListe().join() === attendus.join() && attendus.length > 0 && attendus.every((c) => carte(v).querySelector(`[data-lieu="${c}"]`)), visiblesListe().join());
+  verifier(`vue ${v} : les groupes vides sont masqués`,
+    tous(".grc__choix .grc__groupe").every((gr) => gr.hidden === !gr.querySelector(".grc__bouton:not([hidden])")));
+});
+allerVue("peloponnese");
+verifier("vue Attique et Péloponnèse : Athènes et Sparte listées, pas Massalia",
+  visiblesListe().includes("athenes") && visiblesListe().includes("sparte") && !visiblesListe().includes("massalia"));
+verifier("la colonne vient après la fiche", (() => { const c = racine.querySelector(".grc__cote"); return c.firstElementChild.classList.contains("grc__contenu") && !!c.querySelector(".grc__choix"); })());
+
+console.log("RÉGIONS");
+allerVue("regions");
+verifier("l'onglet Régions affiche la carte des régions", vueVisible() === "regions" && racine.querySelector('.grc__vue[data-vue="regions"]').getAttribute("aria-pressed") === "true", vueVisible());
+verifier("la colonne liste les 25 régions et aucun lieu", visiblesListe().length === 25 && visiblesListe().every((c) => boutonsRegions.some((b) => b.getAttribute("data-lieu") === c)));
+verifier("titre de la colonne : Les régions", racine.querySelector(".grc__choix-titre").textContent === "Les régions");
+verifier("accueil propre aux régions", panneauxVisibles().join() === "accueil-regions", panneauxVisibles().join());
+boutonsRegions.forEach((b) => {
+  const cle = b.getAttribute("data-lieu");
+  const vue = b.getAttribute("data-vue");
+  allerVue("ensemble");
+  choisirB(b);
+  const zone = carte(vue).querySelector(`.grc__region[data-lieu="${cle}"]`);
+  const nom = carte(vue).querySelector(`.grc__etiq--reg[data-lieu="${cle}"]`);
+  verifier(`${b.textContent} : délimitée, nommée et mise en évidence (${vue})`,
+    vueVisible() === vue && zone && zone.getAttribute("d").length > 20 && zone.classList.contains("est-choisi") && nom && nom.textContent === b.textContent && panneauxVisibles().join() === cle,
+    `${vueVisible()} ${panneauxVisibles()}`);
+});
+verifier("chaque région est nommée sur les cartes annoncées par data-vues, et seulement là",
+  boutonsRegions.every((b) => { const vs = b.getAttribute("data-vues").split(" "); return vs.every((v) => carte(v).querySelector(`.grc__etiq--reg[data-lieu="${b.getAttribute("data-lieu")}"]`)) && tous(`.grc__etiq--reg[data-lieu="${b.getAttribute("data-lieu")}"]`).length === vs.length; }));
+verifier("les régions sont découpées par le trait de côte", tous(".grc__svg--regions .grc__regions").every((g) => /url\(#grc-clip-/.test(g.getAttribute("clip-path"))));
+allerVue("regions");
+clic(carte("regions").querySelector('.grc__zoom[data-zoom="regions-detail"]'));
+verifier("le cadre agrandit la Grèce centrale et le Péloponnèse", vueVisible() === "regions-detail", vueVisible());
+verifier("le bouton Régions reste actif dans le détail", racine.querySelector('.grc__vue[data-vue="regions"]').getAttribute("aria-pressed") === "true");
+clic(carte("regions-detail").querySelector('.grc__region[data-lieu="laconie"]'));
+verifier("un clic sur une région la choisit", panneauxVisibles().join() === "laconie" && boutonsPresses().join() === "laconie");
+verifier("la fiche de la Laconie parle de Sparte", /Sparte/.test(racine.querySelector("#grc-laconie").textContent));
+allerVue("peloponnese");
+verifier("revenir aux lieux ferme la fiche de la région", panneauxVisibles().join() === "accueil" && boutonsPresses().length === 0, panneauxVisibles().join());
+clic(racine.querySelector('.grc__bouton[data-lieu="athenes"]'));
+allerVue("regions");
+verifier("passer aux régions ferme la fiche d'un lieu", panneauxVisibles().join() === "accueil-regions", panneauxVisibles().join());
 
 console.log("EXERCICE");
 const exo = racine.querySelector('.grc__vue[data-vue="exercice"]');
