@@ -174,12 +174,16 @@ VUES.forEach((v) => {
 allerVue("peloponnese");
 verifier("vue Attique et Péloponnèse : Athènes et Sparte listées, pas Massalia",
   visiblesListe().includes("athenes") && visiblesListe().includes("sparte") && !visiblesListe().includes("massalia"));
-verifier("la colonne vient après la fiche", (() => { const c = racine.querySelector(".grc__cote"); return c.firstElementChild.classList.contains("grc__contenu") && !!c.querySelector(".grc__choix"); })());
+verifier("colonne : la liste, puis la fiche, dans une boîte qui défile", (() => { const c = racine.querySelector(".grc__cote > .grc__cote-int"); return !!c && c.firstElementChild.classList.contains("grc__choix") && c.children[1].classList.contains("grc__contenu"); })());
+verifier("chaque puce porte une pastille", tous(".grc__bouton").every((b) => b.querySelector(".grc__pastille")));
 
 console.log("RÉGIONS");
 allerVue("regions");
 verifier("l'onglet Régions affiche la carte des régions", vueVisible() === "regions" && racine.querySelector('.grc__vue[data-vue="regions"]').getAttribute("aria-pressed") === "true", vueVisible());
-verifier("la colonne liste les 25 régions et aucun lieu", visiblesListe().length === 25 && visiblesListe().every((c) => boutonsRegions.some((b) => b.getAttribute("data-lieu") === c)));
+verifier("la colonne ne liste plus rien : les régions se choisissent sur la carte", visiblesListe().length === 0);
+verifier("légende des cinq ensembles de régions", tous(".grc__legende > span").length === 5 && racine.getAttribute("data-vue") === "regions");
+verifier("chaque région est un bouton accessible au clavier, coloré selon son ensemble",
+  tous(".grc__region").every((z) => z.getAttribute("role") === "button" && z.getAttribute("tabindex") === "0" && z.getAttribute("aria-label") && /grc__region--(nord|centre|pelo|iles|asie)/.test(z.getAttribute("class")) && /grc__region--t[0-3]/.test(z.getAttribute("class"))));
 verifier("titre de la colonne : Les régions", racine.querySelector(".grc__choix-titre").textContent === "Les régions");
 verifier("accueil propre aux régions", panneauxVisibles().join() === "accueil-regions", panneauxVisibles().join());
 boutonsRegions.forEach((b) => {
@@ -202,6 +206,9 @@ verifier("le cadre agrandit la Grèce centrale et le Péloponnèse", vueVisible(
 verifier("le bouton Régions reste actif dans le détail", racine.querySelector('.grc__vue[data-vue="regions"]').getAttribute("aria-pressed") === "true");
 clic(carte("regions-detail").querySelector('.grc__region[data-lieu="laconie"]'));
 verifier("un clic sur une région la choisit", panneauxVisibles().join() === "laconie" && boutonsPresses().join() === "laconie");
+carte("regions-detail").querySelector('.grc__region[data-lieu="arcadie"]').dispatchEvent(new window.KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+verifier("la touche Entrée choisit une région", panneauxVisibles().join() === "arcadie", panneauxVisibles().join());
+clic(carte("regions-detail").querySelector('.grc__region[data-lieu="laconie"]'));
 verifier("la fiche de la Laconie parle de Sparte", /Sparte/.test(racine.querySelector("#grc-laconie").textContent));
 allerVue("peloponnese");
 verifier("revenir aux lieux ferme la fiche de la région", panneauxVisibles().join() === "accueil" && boutonsPresses().length === 0, panneauxVisibles().join());
@@ -283,7 +290,7 @@ verifier("dates en négatif, sans « av. J.-C. »", !/av\.\s*J\.-C\./.test(texte
 verifier("chaque panneau a un lieu, un rôle, un texte et un « Aujourd'hui » ou « À savoir »",
   tous(".grc__panneau:not(.grc__panneau--accueil)").every((p) => p.querySelector(".grc__lieu") && p.querySelector(".grc__role") && p.querySelector(".grc__detail").textContent.length > 80 && /^(Aujourd'hui|À savoir)\./.test(p.querySelector(".grc__auj").textContent)));
 verifier("chaque vue a une description pour les lecteurs d'écran",
-  tous(".grc__svg").every((s) => s.getAttribute("role") === "img" && (s.getAttribute("aria-label") || "").length > 40));
+  tous(".grc__svg").every((s) => /^(img|group)$/.test(s.getAttribute("role")) && (s.getAttribute("aria-label") || "").length > 40));
 verifier("la source nomme Natural Earth et signale les côtes qui ont bougé", /Natural Earth/.test(texte) && /Milet/.test(racine.querySelector(".grc__source").textContent));
 
 console.log(echecs ? `\n${echecs} échec(s).` : "\nTout est conforme.");
