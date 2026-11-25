@@ -48,7 +48,7 @@ const allerVue = (v) => clic(racine.querySelector(`.grc__vue[data-vue="${v}"]`))
 console.log("MISE EN PLACE");
 verifier("composant présent", !!racine);
 verifier("initialisé une seule fois", racine.getAttribute("data-pret") === "1" && racine.classList.contains("est-pret"));
-verifier("trois vues", tous(".grc__svg").length === 3, tous(".grc__svg").length);
+verifier("trois vues et deux cartes muettes", tous(".grc__svg:not(.grc__svg--exercice)").length === 3 && tous(".grc__svg--exercice").length === 2, tous(".grc__svg").length);
 verifier("la vue d'ensemble s'affiche au départ", vueVisible() === "ensemble", vueVisible());
 verifier("le panneau d'accueil s'affiche au départ", panneauxVisibles().join() === "accueil", panneauxVisibles().join());
 verifier("aucun lieu choisi au départ", boutonsPresses().length === 0 && tous(".est-choisi").length === 0);
@@ -58,6 +58,7 @@ verifier("un panneau par bouton, relié par aria-controls",
   boutons.every((b) => { const p = document.getElementById(b.getAttribute("aria-controls")); return p && p.getAttribute("data-lieu") === b.getAttribute("data-lieu"); }));
 const ids = tous("[id]", document).map((el) => el.id);
 verifier("aucun identifiant en double", new Set(ids).size === ids.length);
+verifier("chaque <use> vise un tracé existant", tous("use").every((u) => document.getElementById((u.getAttribute("href") || "").slice(1))));
 verifier("aucun titre de niveau 2 ou 3 dans le composant", tous("h2, h3").length === 0);
 verifier("titre en role=heading niveau 3", racine.querySelector(".grc__titre").getAttribute("aria-level") === "3");
 verifier("aucune figure, que le moteur déplacerait en galerie", tous("figure").length === 0);
@@ -154,6 +155,58 @@ clic(racine.querySelector('.grc__bouton[data-lieu="milet"]'));
 allerVue("peloponnese");
 clic(racine.querySelector(".grc__entete .reinitialiser"));
 verifier("Réinitialiser après plusieurs actions ramène l'état du chargement", etat() === depart, etat());
+
+console.log("EXERCICE");
+const exo = racine.querySelector('.grc__vue[data-vue="exercice"]');
+const caseEx = (id) => racine.querySelector(`.grc__case[data-case="${id}"]`);
+const etiquette = (id) => racine.querySelector(`.grc__etiquette[data-etiquette="${id}"]`);
+const visibles = () => tous(".grc__etiquette").filter((e) => !e.hidden && e.closest(".grc__banque")).map((e) => e.getAttribute("data-etiquette")).sort();
+const placer = (etiq, c) => { clic(etiquette(etiq)); clic(caseEx(c)); };
+const bilanEx = () => racine.querySelector(".grc__ex-bilan").textContent;
+verifier("bouton Exercice dans la barre des vues", !!exo);
+clic(exo);
+verifier("l'exercice affiche la carte muette des mers", vueVisible() === "exercice-mers" && racine.classList.contains("est-exercice"), vueVisible());
+verifier("la liste des lieux et les fiches sont masquées", racine.classList.contains("est-exercice"));
+const MERS_EX = ["adriatique", "egee", "ionienne", "mediterranee", "pont", "propontide", "tyrrhenienne"];
+verifier("étape 1 : sept étiquettes de mers dans la banque", visibles().join() === MERS_EX.join(), visibles().join());
+verifier("sept cases sur la carte des mers", tous(".grc__case", carte("exercice-mers")).length === 7);
+verifier("les cases n'affichent pas la réponse", tous(".grc__case").every((c) => c.querySelector(".grc__case-texte").textContent === "" && /^Case \d+, vide$/.test(c.getAttribute("aria-label"))));
+verifier("aucun nom de lieu écrit sur les cartes muettes", tous(".grc__svg--exercice text").every((t) => /^\d*$/.test(t.textContent)));
+clic(etiquette("egee"));
+verifier("choisir une étiquette la marque", etiquette("egee").getAttribute("aria-pressed") === "true");
+clic(caseEx("egee"));
+verifier("cliquer une case y place l'étiquette et la retire de la banque",
+  caseEx("egee").querySelector(".grc__case-texte").textContent === "Mer Égée" && !visibles().includes("egee") && /Mer Égée/.test(caseEx("egee").getAttribute("aria-label")));
+placer("ionienne", "adriatique");
+clic(racine.querySelector(".grc__ex-verifier"));
+verifier("Vérifier : bonne case en vert, mauvaise en rouge",
+  caseEx("egee").classList.contains("est-juste") && caseEx("adriatique").classList.contains("est-faux"));
+verifier("le bilan compte les bonnes réponses et les cases vides", /^1 bonne réponse sur 7\./.test(bilanEx()) && /5 cases vides/.test(bilanEx()), bilanEx());
+clic(caseEx("adriatique"));
+verifier("cliquer une case remplie reprend son étiquette, prête à replacer",
+  !caseEx("adriatique").classList.contains("est-rempli") && etiquette("ionienne").getAttribute("aria-pressed") === "true" && visibles().includes("ionienne"));
+clic(caseEx("ionienne"));
+MERS_EX.filter((m) => !["egee", "ionienne"].includes(m)).forEach((m) => placer(m, m));
+verifier("banque vide quand tout est placé", visibles().length === 0);
+clic(racine.querySelector(".grc__ex-verifier"));
+verifier("tout juste : félicitations et invitation à l'étape 2", /^Bravo! Les 7 étiquettes/.test(bilanEx()) && /étape 2/.test(bilanEx()) && tous(".grc__case.est-juste", carte("exercice-mers")).length === 7, bilanEx());
+clic(racine.querySelector('.grc__etape[data-etape="grece"]'));
+verifier("étape 2 : carte muette de l'Attique et du Péloponnèse", vueVisible() === "exercice-grece", vueVisible());
+verifier("étape 2 : Attique, Péloponnèse, Athènes, Sparte et trois autres cités",
+  visibles().join() === ["argos", "athenes", "attique", "corinthe", "peloponnese", "sparte", "thebes"].join(), visibles().join());
+verifier("étape 2 : les cinq cités sont reliées à un point", tous(".grc__case", carte("exercice-grece")).filter((c) => c.querySelector(".grc__ex-point")).length === 5);
+["attique", "peloponnese", "athenes", "sparte", "corinthe", "thebes", "argos"].forEach((c) => placer(c, c));
+clic(racine.querySelector(".grc__ex-verifier"));
+verifier("étape 2 réussie", /^Bravo! Les 7 étiquettes/.test(bilanEx()) && !/étape 2/.test(bilanEx()), bilanEx());
+clic(racine.querySelector(".grc__ex-recommencer"));
+verifier("Recommencer vide les cases de l'étape", tous(".grc__case.est-rempli", carte("exercice-grece")).length === 0 && visibles().length === 7 && bilanEx() === "");
+clic(racine.querySelector('.grc__etape[data-etape="mers"]'));
+verifier("l'étape 1 garde ses réponses", tous(".grc__case.est-rempli", carte("exercice-mers")).length === 7);
+allerVue("grece");
+verifier("un bouton de vue quitte l'exercice", vueVisible() === "grece" && !racine.classList.contains("est-exercice"));
+clic(exo);
+clic(racine.querySelector(".grc__entete .reinitialiser"));
+verifier("Réinitialiser quitte l'exercice et vide toutes les cases", etat() === depart && !racine.classList.contains("est-exercice") && tous(".grc__case.est-rempli").length === 0, etat());
 
 console.log("PLEIN ÉCRAN");
 const pleinBouton = racine.querySelector(".grc__entete .plein-ecran");
