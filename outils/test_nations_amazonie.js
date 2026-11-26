@@ -97,6 +97,26 @@ clic(tous(".nam__onglet").find((b) => /gardiens/.test(b.textContent)));
 verifier("onglet des gardiens : drones depuis 2019, 8 camions en 14 mois", /depuis 2019/.test(vue()) && /8 camions en 14 mois/.test(vue()) && /Bitaté/.test(vue()));
 clic(un('.nam__couche[data-couche="parc"]'));
 verifier("la couche du parc se désactive", !racine.classList.contains("avec-parc"));
+{
+  /* Les couches du dossier s'arrêtent net au bord d'un rectangle : la partie visible ne doit jamais en sortir. */
+  const cad = api.cadreUru, vb = () => un(".nam__svg").getAttribute("viewBox").split(" ").map(Number);
+  const dansCadre = (z) => z[0] >= cad.x - .01 && z[1] >= cad.y - .01 && z[0] + z[2] <= cad.x + cad.w + .01 && z[1] + z[3] <= cad.y + cad.h + .01;
+  verifier("cadre du dossier calculé à partir des couches (environ 144 x 116)", cad.w > 130 && cad.w < 160 && cad.h > 100 && cad.h < 130, JSON.stringify(cad));
+  verifier("vue de départ du dossier dans le cadre, bouton Éloigner actif", dansCadre(vb()) && un(".nam__zoom-moins").getAttribute("aria-disabled") === "false", vb().join(" "));
+  for (let i = 0; i < 8; i++) clic(un(".nam__zoom-moins"));
+  verifier("éloigner la carte s'arrête au bord des couches, bouton Éloigner désactivé", dansCadre(vb()) && un(".nam__zoom-moins").getAttribute("aria-disabled") === "true", vb().join(" "));
+  const svgN = un(".nam__svg"), rect = svgN.getBoundingClientRect;
+  svgN.getBoundingClientRect = () => ({ left: 0, top: 0, right: 1200, bottom: 400, width: 1200, height: 400 });
+  window.dispatchEvent(new window.Event("resize"));
+  const z = vb(), k = 1200 / 400 * 796.9 / 1000, visible = [z[0] - z[2] * (k - 1) / 2, z[1], z[2] * k, z[3]];
+  verifier("carte très large (plein écran) : la partie visible reste dans le cadre", dansCadre(visible), visible.map((n) => n.toFixed(1)).join(" "));
+  svgN.getBoundingClientRect = () => ({ left: 0, top: 0, right: 360, bottom: 700, width: 360, height: 700 });
+  window.dispatchEvent(new window.Event("resize"));
+  const z2 = vb(), k2 = 360 / 700 * 796.9 / 1000, visible2 = [z2[0], z2[1] - z2[3] * (1 / k2 - 1) / 2, z2[2], z2[3] / k2];
+  verifier("carte en hauteur (téléphone) : la partie visible reste dans le cadre", dansCadre(visible2), visible2.map((n) => n.toFixed(1)).join(" "));
+  svgN.getBoundingClientRect = rect;
+  window.dispatchEvent(new window.Event("resize"));
+}
 clic(tous(".nam__vue .nam__retour").find((b) => /dix peuples/.test(b.textContent)));
 verifier("retour aux dix peuples : carte entière", volet() === "peuples" && un(".nam__svg").getAttribute("viewBox") === "0 0 1000 796.9");
 pincer();
