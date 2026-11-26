@@ -429,10 +429,11 @@ la protection des réserves d'eau potable dans un territoire industriel.
 ## Une région industrielle du Québec : l'aluminium
 
 Le Québec possède son propre territoire industriel, plus petit mais bâti sur la
-même logique. Huit des neuf alumineries canadiennes s'y trouvent, exploitées par
+même logique. Neuf des dix alumineries canadiennes s'y trouvent, exploitées par
 trois multinationales : Rio Tinto, Alcoa et Alouette. Elles emploient plus de
-7 700 personnes au Québec, dans des régions éloignées des grands centres : le
-Saguenay-Lac-Saint-Jean, la Côte-Nord et le Centre-du-Québec.
+7 700 personnes au Québec, surtout dans des régions éloignées des grands
+centres : le Saguenay–Lac-Saint-Jean, la Côte-Nord, le Centre-du-Québec et la
+Capitale-Nationale, où se trouve l'aluminerie de Deschambault.
 
 Le facteur de localisation décisif est ici l'électricité. Fondre l'aluminium
 demande d'énormes quantités de courant, et c'est l'hydroélectricité bon marché
@@ -456,13 +457,13 @@ Le secteur québécois de l'aluminium envoie environ 96 % de ses exportations
 étrangères aux États-Unis. C'est une dépendance extrême, et les tarifs de 50 %
 imposés en 2025 l'ont mise à l'épreuve. La réaction est instructive. Plutôt
 que de réduire la production, l'industrie a redirigé une partie du métal vers
-l'Europe : les expéditions y sont passées de 99 907 tonnes en 2024 à 505 430
-tonnes en 2025, soit cinq fois plus. Les exportations métallurgiques
-québécoises ont tout de même chuté de 36 % en volume entre février 2025 et
-février 2026, mais les alumineries ont continué de tourner à 95 % de leur
-capacité, sans mise à pied.
+l'Europe : selon l'Association de l'aluminium du Canada, environ 800 000 tonnes
+y ont été expédiées depuis mars 2025, alors qu'on en compterait environ 100 000
+en temps normal. Les exportations métallurgiques québécoises (aluminium, cuivre
+et acier) ont tout de même chuté de 36 % en volume en 2025, mais les alumineries
+ont continué de tourner à 95 % de leur capacité, sans mise à pied.
 
-Source : Association de l'aluminium du Canada et Institut du Québec
+Sources : Association de l'aluminium du Canada (par La Presse canadienne, juin 2026), Institut du Québec et Ressources naturelles Canada
 {: .source-texte }
 
 ::: questions
