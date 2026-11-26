@@ -92,6 +92,26 @@ html[data-sombre="on"] .amz .amz__segment[aria-pressed="true"] { color: #10171F;
 .amz .amz__points { margin: 0 0 .9rem; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .35rem; }
 .amz .amz__points > li { margin: 0; padding: 0 0 0 1rem; position: relative; font-size: .92rem; line-height: 1.5; }
 .amz .amz__points > li::before { content: "" !important; display: block !important; position: absolute; left: .1rem; top: .62em; width: .4rem; height: .4rem; border-radius: 50%; background: var(--matiere); }
+/* Barres de répartition des usages de la forêt rasée. */
+.amz { --amz-u-paturage: #9A5B2E; --amz-u-soja: #E0B83E; --amz-u-mosaique: #C9A27A; --amz-u-cultures: #5E8C3A; --amz-u-mines: #5A5F6B; --amz-u-villes: #22303F; }
+html[data-sombre="on"] .amz { --amz-u-paturage: #C9834F; --amz-u-soja: #EBC85C; --amz-u-mosaique: #D8B892; --amz-u-cultures: #86B45E; --amz-u-mines: #A3A8B3; --amz-u-villes: #DDE3EA; }
+.amz .amz__usage--paturage { background: var(--amz-u-paturage); } .amz .amz__usage--soja { background: var(--amz-u-soja); } .amz .amz__usage--mosaique { background: var(--amz-u-mosaique); } .amz .amz__usage--cultures { background: var(--amz-u-cultures); } .amz .amz__usage--mines { background: var(--amz-u-mines); } .amz .amz__usage--villes { background: var(--amz-u-villes); }
+.amz .amz__usage { display: flex; height: .75rem; border-radius: 3px; overflow: hidden; background: var(--trait); }
+.amz .amz__usage--grande { height: 1.15rem; margin: .1rem 0 .55rem; }
+.amz .amz__usage-part { display: block; height: 100%; min-width: 1px; }
+.amz .amz__usage-part + .amz__usage-part { box-shadow: inset 1px 0 0 var(--surface); }
+.amz .amz__usage-cles { display: flex; flex-wrap: wrap; gap: .25rem .75rem; margin: 0 0 .55rem; padding: 0; list-style: none; font-family: var(--titre); font-size: .72rem; color: var(--encre-doux); }
+.amz .amz__usage-cles li, .amz .amz__usage-detail li { display: flex; align-items: center; gap: .35rem; margin: 0; padding: 0; }
+.amz .amz__usage-cles li::before, .amz .amz__usage-detail li::before, .amz .amz__usages li::before { content: none !important; display: none !important; }
+.amz .amz__usage-pastille { flex: none; width: .7rem; height: .7rem; border-radius: 2px; }
+.amz .amz__usages { display: flex; flex-direction: column; gap: .3rem; margin: 0 0 .6rem; padding: 0; list-style: none; }
+.amz .amz__usages li { margin: 0; padding: 0; }
+.amz .amz__usage-ligne { display: grid; grid-template-columns: 6.6rem minmax(0, 1fr); align-items: center; gap: .6rem; width: 100%; padding: .32rem .5rem; text-align: left; font-family: var(--titre); font-size: .82rem; font-weight: 600; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: 6px; cursor: pointer; }
+.amz .amz__usage-ligne:hover { background: var(--matiere-voile); border-color: var(--matiere); }
+.amz .amz__usage-ligne:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.amz .amz__usage-detail { display: flex; flex-direction: column; gap: .2rem; margin: 0 0 .6rem; padding: 0; list-style: none; font-family: var(--titre); font-size: .84rem; color: var(--encre); }
+.amz .amz__usage-nom { flex: 1; }
+.amz .amz__usage-val { font-variant-numeric: tabular-nums; font-weight: 600; }
 .amz .amz__choisir { display: flex; align-items: center; gap: .55rem; width: 100%; text-align: left; font-family: var(--titre); font-size: .88rem; color: var(--encre); background: var(--surface); border: 1px solid var(--trait); border-radius: var(--rayon); padding: .42rem .65rem; cursor: pointer; }
 .amz .amz__choisir:hover { background: var(--matiere-voile); border-color: var(--matiere); }
 .amz .amz__choisir:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
@@ -120,6 +140,20 @@ html[data-sombre="on"] .amz .amz__segment[aria-pressed="true"] { color: #10171F;
 .amz.est-plein-ecran .amz__visuel { display: flex; flex-direction: column; min-height: 0; border-right: 1px solid var(--trait); }
 .amz.est-plein-ecran .amz__carte { flex: 1 1 auto; min-height: 0; touch-action: none; }
 .amz.est-plein-ecran .amz__svg, .texte .amz.est-plein-ecran svg.amz__svg { position: absolute; inset: 0; width: 100%; height: 100%; max-height: none; }
+/* Plein écran, écran large : la carte prend toute la hauteur disponible; dessous,
+   une bande en deux colonnes (le compteur et les boutons à gauche, le
+   graphique et le curseur à droite), au lieu de tout empiler. */
+@media (min-width: 62.01rem) {
+  .amz.est-plein-ecran .amz__visuel { display: grid; grid-template-columns: minmax(19rem, 25rem) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto auto auto; grid-template-areas: "carte carte" "compteur graphe" "ligne graphe" "cles curseur"; }
+  .amz.est-plein-ecran .amz__carte { grid-area: carte; }
+  .amz.est-plein-ecran .amz__compteur { grid-area: compteur; grid-template-columns: minmax(0, 1fr); align-content: start; border-top: 1px solid var(--trait); border-bottom: 0; padding: .65rem 1.2rem .25rem; }
+  .amz.est-plein-ecran .amz__barre, .amz.est-plein-ecran .amz__barre > .amz__bloc:first-child { display: contents; }
+  .amz.est-plein-ecran .amz__barre-titre { display: none; }
+  .texte .amz.est-plein-ecran svg.amz__graphe, .amz.est-plein-ecran svg.amz__graphe { grid-area: graphe; width: 100%; height: 100%; min-height: 19vh; max-height: none; padding: .55rem 1.2rem 0 0; border-top: 1px solid var(--trait); box-sizing: border-box; }
+  .amz.est-plein-ecran .amz__curseur { grid-area: curseur; margin: 0; padding: .2rem 1.2rem .55rem 0; }
+  .amz.est-plein-ecran .amz__ligne-bas { grid-area: ligne; margin: 0 !important; padding: .35rem 1.2rem; }
+  .amz.est-plein-ecran .amz__cles { grid-area: cles; margin: 0; padding: .1rem 1.2rem .55rem; align-self: end; }
+}
 .amz.est-plein-ecran .amz__lecture { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-top: 0; }
 .amz.est-plein-ecran > .amz__source { flex: none; padding-top: .35rem; padding-bottom: .45rem; }
 .amz.est-plein-ecran.texte-masque > .amz__corps { grid-template-columns: minmax(0, 1fr); }
@@ -254,9 +288,9 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
 <p class="amz__annonce" aria-live="polite"></p>
 </div>
 </div>
-<p class="amz__source">Déforestation&nbsp;: INPE, programme PRODES, taux annuels par État de 1988 à 2025 et estimation 2026 publiée le 16 octobre 2026 (TerraBrasilis). Usage des terres déboisées&nbsp;: INPE et Embrapa, TerraClass 2024. Routes et déforestation&nbsp;: Barber et autres, Biological Conservation, 2014. Moratoire du soja&nbsp;: Abiove; Reuters, janvier 2026. PPCDAm&nbsp;: ministère de l'Environnement du Brésil. Fond de carte, fleuves et routes&nbsp;: Natural Earth. Consulté en novembre 2026.</p>
+<p class="amz__source">Déforestation&nbsp;: INPE, programme PRODES, taux annuels par État de 1988 à 2025 et estimation 2026 publiée le 16 octobre 2026 (TerraBrasilis). Ce qu'est devenue la forêt rasée&nbsp;: MapBiomas, collection&nbsp;11, transitions de la forêt de 1985 vers un usage humain en 2025, partie amazonienne de chaque État. Moratoire du soja&nbsp;: Abiove; Reuters, janvier 2026. PPCDAm&nbsp;: ministère de l'Environnement du Brésil. Fond de carte, fleuves et routes&nbsp;: Natural Earth. Consulté en novembre 2026.</p>
 <script>
-/* Déforestation de l'Amazonie légale : INPE PRODES (TerraBrasilis, rates2026.json), TerraClass 2024, Barber et al. 2014, Abiove. */
+/* Déforestation de l'Amazonie légale : INPE PRODES (TerraBrasilis, rates2026.json), MapBiomas collection 11 (transitions 1985-2025), Abiove. */
 (function () {
   var racine = document.getElementById("amazonie-deforestation");
   if (!racine || racine.getAttribute("data-pret") === "1") { return; }
@@ -455,11 +489,20 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
   var ORDRE = D.ordre, AN = D.annees, N = AN.length, DERNIERE = AN[N - 1];
   var SEUILS = { annee: [250, 1000, 2500, 5000], cumul: [5000, 20000, 50000, 100000] };
   var CLES = { annee: ["moins de 250", "250 à 1\u00a0000", "1\u00a0000 à 2\u00a0500", "2\u00a0500 à 5\u00a0000", "5\u00a0000 ou plus"], cumul: ["moins de 5\u00a0000", "5\u00a0000 à 20\u00a0000", "20\u00a0000 à 50\u00a0000", "50\u00a0000 à 100\u00a0000", "100\u00a0000 ou plus"] };
-  var CAUSES = {
-    elevage: { t: "L'élevage du bétail", p: ["La plupart des forêts coupées deviennent des pâturages. Sur les terres déboisées de l'Amazonie brésilienne, les prés pour le bétail occupent environ les deux tiers de la surface : 66\u00a0% en 2024.", "On abat les arbres, on brûle ce qui reste, puis on sème de l'herbe pour le bétail."], n: "Chiffre : TerraClass 2024, de l'INPE et de l'Embrapa, l'institut brésilien de recherche agricole." },
-    soja: { t: "Le soja et les grandes cultures", p: ["Les cultures occupent environ 12\u00a0% des terres déboisées en 2024. Le Mato Grosso est le plus grand producteur de soja du Brésil.", "En juillet 2006, les grandes entreprises qui achètent et exportent le soja signent un moratoire : elles s'engagent à ne pas acheter le soja cultivé sur des terres de l'Amazonie déboisées après une date limite, aujourd'hui fixée au 22 juillet 2008.", "En janvier 2026, leur association (l'Abiove) et plusieurs grandes entreprises annoncent quitter le moratoire. Une nouvelle loi du Mato Grosso retire en effet des avantages fiscaux aux entreprises qui y participent."], n: "Sources : TerraClass 2024; Abiove; Reuters, 5 janvier 2026." },
-    routes: { t: "Les routes", p: ["La forêt recule d'abord le long des routes. Selon une étude publiée en 2014, près de 95\u00a0% de la déforestation se trouve à moins de 5,5 km d'une route ou à moins de 1 km d'une rivière.", "Une route ouvre l'accès à la forêt : bûcherons, éleveurs et colons la suivent. Au Rondônia, les chemins tracés de part et d'autre de la route BR-364 dessinent des « arêtes de poisson » visibles du ciel.", "Active la couche des routes, puis compare son tracé avec les États les plus déboisés."], n: "Source : Barber et autres, Biological Conservation, 2014." }
-  };
+  /* Ce qu'est devenue la forêt rasée, par État : MapBiomas, collection 11,
+     feuille TRANSITION_11, période 1985-2025, biome Amazônia. Superficie
+     passée de la forêt (classe 1. Forest) à un usage humain, en km², et
+     répartition en % : pâturage, soja, mosaïque d'usages, autres cultures
+     et plantations, mines, villes et autres surfaces sans végétation. */
+  var USAGES = [
+    { id: "paturage", n: "Pâturage (élevage)" },
+    { id: "soja", n: "Soja" },
+    { id: "mosaique", n: "Mosaïque de pâturages et de cultures" },
+    { id: "cultures", n: "Autres cultures et plantations" },
+    { id: "mines", n: "Mines" },
+    { id: "villes", n: "Villes et autres" }
+  ];
+  var USAGE = {"AC": {"km2": 21245, "p": [93.9, 0.2, 4.9, 0.1, 0.0, 0.9]}, "AP": {"km2": 612, "p": [49.4, 0.0, 15.7, 16.9, 12.2, 5.8]}, "AM": {"km2": 28936, "p": [82.5, 0.0, 15.0, 0.1, 0.9, 1.4]}, "MA": {"km2": 39656, "p": [83.5, 4.2, 8.3, 2.3, 0.2, 1.4]}, "MT": {"km2": 155014, "p": [57.9, 27.1, 8.7, 5.5, 0.4, 0.3]}, "PA": {"km2": 199982, "p": [85.1, 3.1, 8.3, 1.8, 1.1, 0.6]}, "RO": {"km2": 76818, "p": [88.9, 4.3, 5.8, 0.3, 0.2, 0.6]}, "RR": {"km2": 9740, "p": [78.9, 1.8, 17.7, 0.5, 0.5, 0.6]}, "TO": {"km2": 9490, "p": [86.3, 1.0, 11.3, 1.0, 0.0, 0.3]}};
   var JALONS = [
     { a: 2004, t: "Un plan d'action contre la déforestation", p: ["En 2004, l'État fédéral lance le Plan d'action pour la prévention et le contrôle de la déforestation en Amazonie légale (PPCDAm). La même année, l'INPE met en service le DETER, qui repère les coupes par satellite presque en temps réel. Les agents de l'IBAMA, l'organisme de contrôle environnemental, reçoivent ces alertes pour intervenir rapidement.", "De 2003-2004 à 2011-2012, la déforestation annuelle passe de 27\u00a0772 à 4\u00a0571\u00a0km², une baisse d'environ 84\u00a0%."] },
     { a: 2006, t: "Le moratoire du soja", p: ["En juillet 2006, les grandes entreprises qui achètent et exportent le soja s'engagent à ne pas acheter le soja cultivé sur des terres de l'Amazonie déboisées. La date limite est aujourd'hui fixée au 22 juillet 2008."] },
@@ -493,8 +536,15 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
   D.etats.forEach(function (e) { POINT_CAP[e.id] = svgEl("circle", { "class": "amz__ville amz__ville--cap", cx: e.c[0], cy: e.c[1], r: 2.6 }, gVilles); });
   D.villes.forEach(function (v) { POINT_VILLE.push(svgEl("circle", { "class": "amz__ville", cx: v.p[0], cy: v.p[1], r: 2.3 }, gVilles)); });
   /* ----- graphique */
-  var G = q(".amz__graphe"), GX0 = 46, GX1 = 632, GY0 = 30, GY1 = 168, VMAX = 30000, pasX = (GX1 - GX0) / N, COL = [], PART = [];
+  /* Le graphique se redessine à la largeur de son espace : 640 unités dans la
+     page, davantage en plein écran, où il est plus large que haut. */
+  var G = q(".amz__graphe"), GX0 = 46, GX1 = 632, GY0 = 30, GY1 = 168, VMAX = 30000, pasX = (GX1 - GX0) / N, COL = [], PART = [], GJ = {}, largeurG = 0;
   function gy(v) { return GY1 - v / VMAX * (GY1 - GY0); }
+  function dessinerGraphe(largeur) {
+  largeurG = largeur;
+  while (G.firstChild) { G.removeChild(G.firstChild); }
+  G.setAttribute("viewBox", "0 0 " + largeur + " 200");
+  GX1 = largeur - 8; pasX = (GX1 - GX0) / N; COL = []; PART = []; GJ = {};
   [0, 10000, 20000, 30000].forEach(function (v) {
     svgEl("line", { "class": v ? "amz__grille" : "amz__axe", x1: GX0 - 4, x2: GX1, y1: gy(v), y2: gy(v) }, G);
     var t = svgEl("text", { x: GX0 - 7, y: gy(v) + 3.5, "text-anchor": "end", "font-size": 10 }, G); t.textContent = nb(v);
@@ -508,7 +558,6 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     PART.push(svgEl("rect", { "class": "amz__partie", x: x.toFixed(1), width: w.toFixed(1), y: GY1, height: 0 }, G));
     if (a % 5 === 0 || a === 1988) { var t = svgEl("text", { x: (x + w / 2).toFixed(1), y: GY1 + 14, "text-anchor": "middle", "font-size": 10 }, G); t.textContent = String(a); }
   });
-  var GJ = {};
   JALONS.forEach(function (j, k) {
     var x = GX0 + idx(j.a) * pasX + pasX / 2, g = svgEl("g", { "class": "amz__jalon", "data-jalon": j.a }, gJal);
     svgEl("line", { x1: x, x2: x, y1: 20, y2: GY1 }, g);
@@ -517,6 +566,15 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     var ti = svgEl("title", {}, g); ti.textContent = typo(j.a + " : " + j.t);
     GJ[j.a] = g;
   });
+  }
+  dessinerGraphe(640);
+  function ajusterGraphe() {
+    var voulu = 640;
+    if (pleinEcran() && G.clientHeight > 0) { voulu = Math.max(640, Math.round(200 * G.clientWidth / G.clientHeight)); }
+    if (Math.abs(voulu - largeurG) > 4) { dessinerGraphe(voulu); rendre(); }
+  }
+  if (window.ResizeObserver) { new ResizeObserver(function () { window.requestAnimationFrame(ajusterGraphe); }).observe(G); }
+  if (window.MutationObserver) { new MutationObserver(function () { window.requestAnimationFrame(ajusterGraphe); }).observe(racine, { attributes: true, attributeFilter: ["class"] }); }
   G.addEventListener("click", function (ev) {
     arreter();
     var j = ev.target.closest ? ev.target.closest("[data-jalon]") : null;
@@ -604,10 +662,39 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
       var w = etat.mode === "cumul" ? cumul(a, e) : val(a, e);
       el("li", "", null, ul).appendChild(bouton("amz__choisir", ETAT[e].n, nb(w) + "\u00a0km² · " + pct(w / base * 100), function () { choisir({ type: "etat", id: e }); }));
     });
-    el("span", "amz__rubrique", "Pourquoi la forêt recule", vueTexte);
-    var uc = el("ul", "amz__liste", null, vueTexte);
-    ["elevage", "soja", "routes"].forEach(function (c) { el("li", "", null, uc).appendChild(bouton("amz__choisir", CAUSES[c].t, null, function () { choisir({ type: "cause", id: c }); })); });
+    el("span", "amz__rubrique", "Ce qu'est devenue la forêt rasée, par État", vueTexte);
+    legendeUsages(vueTexte);
+    var uu = el("ul", "amz__usages", null, vueTexte);
+    ORDRE.slice().sort(function (x, y) { return USAGE[y].km2 - USAGE[x].km2; }).forEach(function (e) {
+      var b = bouton("amz__usage-ligne", "", null, function () { choisir({ type: "etat", id: e }); });
+      el("span", "amz__usage-etat", ETAT[e].n, b);
+      barreUsage(b, e, false).removeAttribute("role");
+      b.setAttribute("aria-label", typo(ETAT[e].n + " : " + USAGES.map(function (g, k) { return g.n + " " + pctU(USAGE[e].p[k]); }).join(", ")));
+      el("li", "", null, uu).appendChild(b);
+    });
+    el("p", "amz__note", "Forêt de 1985 devenue un usage humain en 2025, dans la partie amazonienne de chaque État (MapBiomas). Partout, le pâturage domine; le soja pèse surtout au Mato Grosso, les mines en Amapá.", vueTexte);
     el("p", "amz__note", "Le PRODES compte la forêt coupée à blanc, d'août à juillet. Il ne compte pas la forêt abîmée par les feux ou par la coupe sélective.", vueTexte);
+  }
+  /* Une barre de 100 % découpée par usage, avec un titre lisible au survol
+     et un texte complet pour les lecteurs d'écran. */
+  function barreUsage(parent, id, grande) {
+    var u = USAGE[id], boite = el("div", "amz__usage" + (grande ? " amz__usage--grande" : ""), null, parent);
+    var texte = USAGES.map(function (g, k) { return g.n + " " + pctU(u.p[k]); }).join(", ");
+    boite.setAttribute("role", "img");
+    boite.setAttribute("aria-label", typo(ETAT[id].n + " : " + texte));
+    USAGES.forEach(function (g, k) {
+      if (u.p[k] <= 0) { return; }
+      var part = el("span", "amz__usage-part amz__usage--" + g.id, null, boite);
+      part.style.width = u.p[k] + "%";
+      part.title = typo(g.n + " : " + pctU(u.p[k]));
+    });
+    return boite;
+  }
+  function pctU(x) { return x > 0 && x < .5 ? "moins de 1\u00a0%" : pct(x); }
+  function legendeUsages(parent) {
+    var ul = el("ul", "amz__usage-cles", null, parent);
+    ul.setAttribute("aria-hidden", "true");
+    USAGES.forEach(function (g) { var li = el("li", "", null, ul); el("span", "amz__usage-pastille amz__usage--" + g.id, null, li); li.appendChild(document.createTextNode(g.n)); });
   }
   function ficheEtat(id) {
     var e = ETAT[id], a = etat.annee, v = val(a, id), t = total(a);
@@ -616,18 +703,20 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     chiffres(vueTexte, [["En " + periode(a), nb(v) + "\u00a0km²"], ["Part de l'Amazonie légale", pct(v / t * 100)], ["Année record", periode(pic) + " · " + nb(val(pic, id)) + "\u00a0km²"], ["Total de 1988 à " + a, nb(cumul(a, id)) + "\u00a0km²"]]);
     var rangE = ORDRE.slice().sort(function (x, y) { return val(a, y) - val(a, x); }).indexOf(id) + 1;
     el("p", "amz__paragraphe", "En " + periode(a) + ", " + ART[id][0] + e.n + " arrive " + (rangE === 1 ? "au premier rang" : "au " + rangE + "e rang") + " des neuf États pour la forêt coupée. Sa capitale est " + e.cap + ".", vueTexte);
+    el("span", "amz__rubrique", "Ce qu'est devenue sa forêt rasée", vueTexte);
+    barreUsage(vueTexte, id, true);
+    var lu = el("ul", "amz__usage-detail", null, vueTexte);
+    USAGES.forEach(function (g, k) {
+      var li = el("li", "", null, lu);
+      el("span", "amz__usage-pastille amz__usage--" + g.id, null, li);
+      el("span", "amz__usage-nom", g.n, li);
+      el("span", "amz__usage-val", pctU(USAGE[id].p[k]), li);
+    });
+    el("p", "amz__note", typo("Forêt de 1985 devenue un usage humain en 2025, dans la partie amazonienne de l'État : " + nb(USAGE[id].km2) + "\u00a0km². Source : MapBiomas, collection 11."), vueTexte);
     if (id === "MA") { el("p", "amz__note", "Seul l'ouest du Maranhão, à l'ouest du 44e méridien, fait partie de l'Amazonie légale. La partie est apparaît en gris.", vueTexte); }
     notesAnnee(a).forEach(function (t2) { el("p", "amz__note", t2, vueTexte); });
     var act = el("div", "amz__actions", null, vueTexte);
     if (pic !== a) { act.appendChild(bouton("amz__retour", "Voir son année record", null, function () { etat.annee = pic; rendre(); })); }
-    act.appendChild(bouton("amz__retour", "Fermer la fiche", null, function () { choisir(null); }));
-  }
-  function ficheCause(id) {
-    var c = CAUSES[id];
-    entete("Une cause de la déforestation", c.t);
-    c.p.forEach(function (t) { el("p", "amz__paragraphe", t, vueTexte); });
-    el("p", "amz__note", c.n, vueTexte);
-    var act = el("div", "amz__actions", null, vueTexte);
     act.appendChild(bouton("amz__retour", "Fermer la fiche", null, function () { choisir(null); }));
   }
   function ficheJalon(id) {
@@ -701,7 +790,6 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     while (vueTexte.firstChild) { vueTexte.removeChild(vueTexte.firstChild); }
     if (!ch) { ficheAnnee(); }
     else if (ch.type === "etat") { ficheEtat(ch.id); }
-    else if (ch.type === "cause") { ficheCause(ch.id); }
     else if (ch.type === "jalon") { ficheJalon(ch.id); }
     etiqueter();
   }

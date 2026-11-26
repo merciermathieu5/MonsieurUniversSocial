@@ -62,7 +62,7 @@ verifier("data-reinitialiser et bouton Réinitialiser de page.js", racine.hasAtt
 verifier("neuf États de l'Amazonie légale", tous(".amz__etat").length === 9);
 verifier("39 colonnes de 1988 à 2026, six repères", tous(".amz__colonne").length === 39 && tous(".amz__jalon").length === 6);
 verifier("au départ : 2025-2026, 3 335 km², estimation, le plus bas", racine.getAttribute("data-annee") === "2026" && /3 335 km²/.test(vue()) && /Estimation/.test(vue()) && /le plus bas depuis 1988/.test(vue()));
-verifier("l'accueil liste les neuf États, Pará en tête (1 130 km², 34 %)", tous(".amz__vue .amz__choisir").length >= 12 && tous(".amz__vue .amz__choisir").some((b) => /^Pará1 130 km² · 34 %$/.test(nbsp(b.textContent))));
+verifier("l'accueil liste les neuf États, Pará en tête (1 130 km², 34 %)", tous(".amz__vue .amz__choisir").length >= 10 && tous(".amz__vue .amz__choisir").some((b) => /^Pará1 130 km² · 34 %$/.test(nbsp(b.textContent))));
 verifier("noms d'États et valeurs sur la carte", tous(".amz__etiquette--etat").length >= 5 && tous(".amz__etiquette--val").length >= 5);
 const depart = etatDepart();
 
@@ -99,8 +99,15 @@ verifier("repère suivant : moratoire du soja (2006)", choix() === "jalon:2006" 
 clic(un('.amz__jalon[data-jalon="2006"] circle'));
 verifier("un second clic sur le repère le ferme", choix() === "" && racine.getAttribute("data-annee") === "2006");
 clic(un('.amz__colonne[data-annee="2026"]'));
-clic(tous(".amz__vue .amz__choisir").find((b) => /routes/i.test(b.textContent)));
-verifier("la cause « routes » cite l'étude de 2014 (95 %)", choix() === "cause:routes" && /95 %/.test(vue()));
+verifier("« Pourquoi la forêt recule » est retiré", !/Pourquoi la forêt recule/.test(vue()));
+verifier("une barre de répartition par État, la plus grande d'abord (Pará)", tous(".amz__usage-ligne").length === 9
+  && /^Pará/.test(tous(".amz__usage-ligne")[0].textContent) && tous(".amz__usage-cles li").length === 6);
+clic(tous(".amz__usage-ligne").find((b) => /Mato Grosso/.test(b.textContent)));
+verifier("cliquer une barre ouvre la fiche de l'État, avec sa répartition", choix() === "etat:MT"
+  && /Ce qu'est devenue sa forêt rasée/.test(vue()) && /Soja27\u00a0%/.test(tous(".amz__usage-detail li").map((l) => l.textContent).join("|"))
+  && /Pâturage \(élevage\)58\u00a0%/.test(tous(".amz__usage-detail li").map((l) => l.textContent).join("|")), tous(".amz__usage-detail li").map((l) => l.textContent).join("|"));
+verifier("les barres se lisent au lecteur d'écran", /Mato Grosso\s?: Pâturage \(élevage\) 58\u00a0%, Soja 27\u00a0%/.test(un(".amz__usage--grande").getAttribute("aria-label")));
+api.choisir(null);
 clic(un('.amz__couche[data-couche="routes"]'));
 verifier("la couche des routes s'affiche", un(".amz__routes").style.display === "" && un(".amz__routes").getAttribute("d").length > 1000);
 clic(un('.amz__segment[data-mode="cumul"]'));
@@ -155,7 +162,6 @@ const lire = () => textes.push(un(".amz__lecture").textContent, un(".amz__cles")
 api.donnees.annees.forEach((a) => { api.annee(a); lire(); });
 api.mode("cumul"); lire(); api.mode("annee");
 api.donnees.ordre.forEach((e) => { api.choisir({ type: "etat", id: e }); lire(); api.choisir(null); });
-["elevage", "soja", "routes"].forEach((c) => { api.choisir({ type: "cause", id: c }); lire(); api.choisir(null); });
 [2004, 2006, 2012, 2019, 2023, 2026].forEach((j) => { api.choisir({ type: "jalon", id: String(j) }); lire(); api.choisir(null); });
 textes.push(tous(".amz__graphe title").map((t) => t.textContent).join(" "));
 typographie(textes);
