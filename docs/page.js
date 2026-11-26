@@ -30,6 +30,15 @@
     });
   }
 
+  // Hauteur du bandeau collant, pour que les sauts vers une section
+  // s'arrêtent sous lui (voir scroll-padding-top dans style.css).
+  var bandeau = document.querySelector(".bandeau");
+  function mesurerBandeau() {
+    if (bandeau) racine.style.setProperty("--bandeau", bandeau.offsetHeight + "px");
+  }
+  mesurerBandeau();
+  window.addEventListener("resize", mesurerBandeau);
+
   // Le sommaire est un tiroir : il glisse par-dessus la page sans rien
   // déplacer. Il se referme sur Échap, sur un clic hors du tiroir et dès
   // qu'une section est choisie. Fermé, son contenu est inerte, donc hors

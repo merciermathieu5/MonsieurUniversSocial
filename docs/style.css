@@ -88,6 +88,11 @@ a { color: inherit; }
 /* ---------------------------------------------------------------- bandeau */
 
 .bandeau { background: var(--encre); position: sticky; top: 0; z-index: 20; }
+/* Le bandeau colle en haut de l'écran : un saut vers une section doit
+   s'arrêter sous lui, sinon il cache le titre. Sa hauteur change avec la
+   largeur (une ou deux rangées), page.js la mesure dans --bandeau. */
+html { scroll-padding-top: calc(var(--bandeau, 4rem) + 1rem); }
+html:has(body[data-classe="on"]) { scroll-padding-top: 1rem; }
 .bandeau__interieur {
   max-width: var(--large); margin: 0 auto; padding: .75rem 1.75rem;
   display: flex; align-items: center; justify-content: space-between;
