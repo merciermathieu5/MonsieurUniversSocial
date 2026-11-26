@@ -11,7 +11,9 @@
   Elle lit contenu/articles.yml par l'API GitHub, colore chaque entrée selon
   son jugement (vert publié, rouge refusé, neutre en attente), et permet de
   trancher : Garder, Refuser, remettre En attente, écrire la note qui
-  remplace le titre du média sur la carte. La publication fait UN commit qui
+  remplace le titre du média sur la carte, changer le territoire quand le
+  classement s'est trompé d'aiguillage (le champ origine garde alors celui
+  qu'il avait choisi, pour articles.py --bilan). La publication fait UN commit qui
   réécrit le registre au format en sections d'articles.py, régénère la liste
   de la page Actualité et la pose dans theme/composants/actualite.html et
   docs/actualite.html. Cloudflare Pages redéploie tout seul.
@@ -73,8 +75,12 @@ button[disabled] { opacity: .45; cursor: not-allowed; }
 .carte--o .carte__statut { background: var(--ok); }
 .carte--n .carte__statut { background: var(--alerte); }
 .carte--douteux .carte__statut { background: #b8860b; }
-.carte__territoire { font-family: system-ui, sans-serif; font-size: .68rem; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--encre-pale); }
+.carte__territoire { font-family: system-ui, sans-serif; font-size: .74rem; color: var(--encre-doux);
+  background: transparent; border: 1px solid transparent; border-radius: var(--rayon);
+  padding: .12rem .3rem; max-width: 100%; cursor: pointer; }
+.carte__territoire:hover { border-color: var(--trait); background: var(--surface); }
+.carte__territoire.est-deplace { border-color: var(--accent); color: var(--accent-fonce); font-weight: 600; }
+.carte__origine { font-family: system-ui, sans-serif; font-size: .72rem; color: var(--encre-pale); font-style: italic; }
 .carte__date { font-family: ui-monospace, monospace; font-size: .72rem; color: var(--encre-pale); margin-left: auto; }
 .carte__titre { display: block; font-weight: 700; font-size: .98rem; line-height: 1.3; margin: .25rem 0 .1rem; }
 .carte__titre a { color: var(--encre); text-decoration: none; }
@@ -164,7 +170,7 @@ button.attente:hover { background: var(--surface-2); }
   // Elles reproduisent à l'octet près ce qu'écrit outils/articles.py.
   // ------------------------------------------------------------------
 
-  var CHAMPS = ["fiche", "media", "date", "titre", "garder", "note"];
+  var CHAMPS = ["fiche", "media", "date", "titre", "garder", "note", "origine"];
 
   function statutDe(garder) {
     var g = (garder || "").trim().toUpperCase();
@@ -265,6 +271,7 @@ button.attente:hover { background: var(--surface-2); }
         lignes.push("    titre: " + citer(a.titre));
         lignes.push("    garder: " + citer(a.garder));
         lignes.push("    note: " + citer(a.note));
+        if (a.origine) lignes.push("    origine: " + citer(a.origine));
         if (a.echecs) lignes.push("    echecs: " + a.echecs);
         lignes.push("");
       }
@@ -344,7 +351,20 @@ button.attente:hover { background: var(--surface-2); }
     return noms;
   }
 
+  // Change le territoire d'un article. « origine » retient la fiche choisie
+  // par le classement, une seule fois : déplacer deux fois garde la première,
+  // revenir au point de départ efface la trace. « charge » est la fiche telle
+  // que lue au chargement, qui sert d'origine si l'article n'en a pas encore.
+  function changerFiche(article, nouvelle, charge) {
+    var depart = article.origine || charge || article.fiche;
+    article.fiche = nouvelle;
+    if (nouvelle === depart) delete article.origine;
+    else article.origine = depart;
+    return article;
+  }
+
   window.AdminActualite = {
+    changerFiche: changerFiche,
     analyserRegistre: analyserRegistre, serialiserRegistre: serialiserRegistre,
     serialiserListe: serialiserListe, remplacerListe: remplacerListe,
     analyserNoms: analyserNoms, couperTitre: couperTitre,
@@ -484,9 +504,10 @@ button.attente:hover { background: var(--surface-2); }
   }
 
   function changements() {
-    var publies = 0, refuses = 0, remis = 0, notes = 0;
+    var publies = 0, refuses = 0, remis = 0, notes = 0, deplaces = 0;
     for (var i = 0; i < etat.articles.length; i++) {
       var a = etat.articles[i], o = etat.origine[i];
+      if (a.fiche !== o.fiche) deplaces++;
       if (a.garder !== o.garder) {
         var st = statutDe(a.garder);
         if (st === "o") publies++;
@@ -497,7 +518,8 @@ button.attente:hover { background: var(--surface-2); }
       }
     }
     return { publies: publies, refuses: refuses, remis: remis, notes: notes,
-             total: publies + refuses + remis + notes };
+             deplaces: deplaces,
+             total: publies + refuses + remis + notes + deplaces };
   }
 
   function dessiner() {
@@ -553,7 +575,8 @@ button.attente:hover { background: var(--surface-2); }
     var st = statutDe(a.garder);
     var noeud = document.createElement("article");
     noeud.className = "carte carte--" + st
-      + ((a.garder !== o.garder || (a.note || "") !== (o.note || "")) ? " est-change" : "");
+      + ((a.garder !== o.garder || (a.note || "") !== (o.note || "")
+          || a.fiche !== o.fiche) ? " est-change" : "");
 
     var haut = document.createElement("div");
     haut.className = "carte__haut";
@@ -562,10 +585,31 @@ button.attente:hover { background: var(--surface-2); }
     badge.textContent = st === "o" ? "Publié" : st === "n" ? "Refusé"
       : st === "douteux" ? "garder : « " + a.garder + " »" : "À juger";
     haut.appendChild(badge);
-    var territoire = document.createElement("span");
-    territoire.className = "carte__territoire";
-    territoire.textContent = a.fiche + " - " + (etat.noms[a.fiche] || "fiche inconnue");
+    // Le territoire est un menu : le classement se trompe parfois
+    // d'aiguillage sur un article qui mérite pourtant sa place.
+    var territoire = document.createElement("select");
+    territoire.className = "carte__territoire" + (a.origine ? " est-deplace" : "");
+    territoire.setAttribute("aria-label", "Territoire de l'article");
+    var numeros = Object.keys(etat.noms).sort();
+    if (numeros.indexOf(a.fiche) < 0) numeros.unshift(a.fiche);
+    numeros.forEach(function (numero) {
+      var choix = document.createElement("option");
+      choix.value = numero;
+      choix.textContent = numero + " - " + (etat.noms[numero] || "fiche inconnue");
+      territoire.appendChild(choix);
+    });
+    territoire.value = a.fiche;
+    territoire.addEventListener("change", function () {
+      changerFiche(a, territoire.value, o.fiche);
+      dessiner();
+    });
     haut.appendChild(territoire);
+    if (a.origine) {
+      var origine = document.createElement("span");
+      origine.className = "carte__origine";
+      origine.textContent = "proposé sous " + a.origine;
+      haut.appendChild(origine);
+    }
     var date = document.createElement("span");
     date.className = "carte__date";
     date.textContent = (a.media || "") + " · " + (a.date || "");
@@ -614,6 +658,8 @@ button.attente:hover { background: var(--surface-2); }
     if (c.refuses) morceaux.push(c.refuses + " refusé" + (c.refuses > 1 ? "s" : ""));
     if (c.remis) morceaux.push(c.remis + " remis en attente");
     if (c.notes) morceaux.push(c.notes + " note" + (c.notes > 1 ? "s" : ""));
+    if (c.deplaces) morceaux.push(c.deplaces + " territoire" + (c.deplaces > 1 ? "s" : "")
+      + " changé" + (c.deplaces > 1 ? "s" : ""));
     el("resume-changements").textContent = "En attente de publication : " + morceaux.join(", ") + ".";
     b.className = "barre-etat visible";
   }
@@ -625,6 +671,8 @@ button.attente:hover { background: var(--surface-2); }
     if (c.refuses) morceaux.push(c.refuses + " refusé" + (c.refuses > 1 ? "s" : ""));
     if (c.remis) morceaux.push(c.remis + " remis en attente");
     if (c.notes) morceaux.push(c.notes + " note" + (c.notes > 1 ? "s" : ""));
+    if (c.deplaces) morceaux.push(c.deplaces + " territoire" + (c.deplaces > 1 ? "s" : "")
+      + " changé" + (c.deplaces > 1 ? "s" : ""));
     return "Actualité : " + morceaux.join(", ");
   }
 

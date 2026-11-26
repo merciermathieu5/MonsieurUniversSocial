@@ -79,6 +79,10 @@ EN_TETE_REGISTRE = """\
 # Le champ note est facultatif : écris une phrase et elle remplacera le titre
 # du média sur la carte. Laisse-la vide et c'est le titre qui paraît.
 #
+# Le champ origine n'apparaît que si tu as changé le territoire d'un article :
+# il garde le numéro de la fiche que le classement avait choisie, pour que
+# --bilan compte les erreurs d'aiguillage. Change fiche, jamais origine.
+#
 # Les liens morts et les articles périmés sont retirés automatiquement au
 # passage suivant de --chercher.
 """
@@ -509,6 +513,8 @@ def ecrire_registre(articles: list[dict]) -> None:
             lignes.append(f"    titre: {guillemets(a.get('titre', ''))}")
             lignes.append(f"    garder: {guillemets(a.get('garder', ''))}")
             lignes.append(f"    note: {guillemets(a.get('note', ''))}")
+            if a.get("origine"):
+                lignes.append(f"    origine: {guillemets(a['origine'])}")
             if a.get("echecs"):
                 lignes.append(f"    echecs: {a['echecs']}")
             lignes.append("")
@@ -580,15 +586,17 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
     deja = [(mots_du_titre(a.get("titre", "")), a.get("date", ""))
             for a in registre]
     vus, ajoutes, vetos, doublons = set(), 0, 0, 0
-    par_resume = 0
+    par_resume = nouveaux = sans_territoire = 0
     for entree in entrees:
         cle = clef(entree["lien"])
         if cle in connus or cle in vus:
             continue
         vus.add(cle)
+        nouveaux += 1
         candidats = classer(entree["titre"], lexique,
                             entree.get("resume", ""), retro)
         if not candidats:
+            sans_territoire += 1
             continue
         if candidats[0][0] == "veto":
             vetos += 1
@@ -608,7 +616,12 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
             "titre": entree["titre"], "garder": "", "note": "",
         })
         ajoutes += 1
-    print(f"\n{ajoutes} proposition(s) ajoutée(s), dont {par_resume} par le "
+    # Le haut de l'entonnoir : la plupart des articles lus l'ont déjà été la
+    # veille. Seuls les nouveaux comptent pour juger le lexique, et ceux qui
+    # n'entrent dans aucun territoire sont la mesure de ce qu'il laisse filer.
+    print(f"\n{nouveaux} article(s) nouveau(x) depuis la dernière récolte, "
+          f"{sans_territoire} sans territoire")
+    print(f"{ajoutes} proposition(s) ajoutée(s), dont {par_resume} par le "
           f"résumé, {vetos} écartée(s) par le veto, {doublons} doublon(s) "
           "d'une dépêche déjà au registre")
 
@@ -776,6 +789,22 @@ def bilan(lexique: dict, registre: list[dict]) -> int:
         print(f"    {numero} {terme:<28}{o:>3} O{n:>4} N{marque}")
     if not douteux:
         print("    aucun terme n'a encore trois jugements")
+
+    print("\nAIGUILLAGES CORRIGÉS (territoire changé à la main)")
+    print("    Un article bien choisi mais mal rangé n'est pas un refus : il")
+    print("    dit qu'un terme pointe vers le mauvais territoire.")
+    corriges = [a for a in registre
+                if a.get("origine") and a.get("origine") != a.get("fiche")]
+    paires: dict = {}
+    for a in corriges:
+        cle = (a["origine"], a.get("fiche", ""))
+        paires[cle] = paires.get(cle, 0) + 1
+    for (de, vers), nombre in sorted(paires.items(), key=lambda x: -x[1]):
+        nom_de = (geo.get(de) or {}).get("nom", "?")[:30]
+        nom_vers = (geo.get(vers) or {}).get("nom", "?")[:30]
+        print(f"    {de} {nom_de:<31}-> {vers} {nom_vers:<31}{nombre:>3}")
+    if not corriges:
+        print("    aucun pour l'instant")
 
     print("\nTERMES FORTS JAMAIS VUS AU REGISTRE")
     print("    Normal pour un terme rare. Si tout un territoire est ici, il")
