@@ -476,6 +476,11 @@ body[data-sommaire="ouvert"] .sommaire__fleche { transform: rotate(180deg); }
 html[data-sombre="on"] .bouton, html[data-sombre="on"] .texte a.bouton { background: var(--matiere-voile); color: var(--encre); }
 
 .integration { margin: 1.8rem 0; clear: both; }
+/* Les interfaces de theme/composants/ sont des <section> posées dans le fil
+   du texte. Elles passent toujours sous une illustration flottante : depuis
+   que la page s'est élargie, un paragraphe peut finir avant la photo d'à
+   côté, et l'interface se serrait contre elle. */
+.texte > section { clear: both; }
 .integration iframe {
   width: 100%; aspect-ratio: 16 / 9;
   min-height: 17rem; max-height: 36rem;
