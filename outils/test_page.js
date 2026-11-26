@@ -27,11 +27,18 @@ function clic(sel) {
 const corps = document.body, racine = document.documentElement;
 
 console.log("SOMMAIRE");
-verifier("bouton présent", !!document.querySelector('[data-bascule="sommaire"]'));
+const boutonSommaire = document.querySelector('[data-bascule="sommaire"]');
+verifier("bouton présent", !!boutonSommaire);
+verifier("replié à l'arrivée", corps.dataset.sommaire === undefined
+  && boutonSommaire.getAttribute("aria-expanded") === "false");
 clic('[data-bascule="sommaire"]');
-verifier("se replie", corps.dataset.sommaire === "replie");
+verifier("se déplie", corps.dataset.sommaire === "ouvert"
+  && boutonSommaire.getAttribute("aria-expanded") === "true"
+  && /Replier/.test(boutonSommaire.title));
 clic('[data-bascule="sommaire"]');
-verifier("se déplie", corps.dataset.sommaire === undefined);
+verifier("se replie", corps.dataset.sommaire === undefined
+  && boutonSommaire.getAttribute("aria-expanded") === "false"
+  && /Déplier/.test(boutonSommaire.title));
 
 console.log("MODES");
 clic('[data-bascule="classe"]');
