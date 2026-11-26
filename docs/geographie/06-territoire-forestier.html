@@ -1726,6 +1726,7 @@ html[data-sombre="on"] .nam.avec-familles .nam__peuple { fill: var(--fs); }
 .nam .nam__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
 .nam .nam__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
 .nam .nam__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.nam .nam__bouton-carte[aria-disabled="true"], .nam .nam__bouton-carte[aria-disabled="true"]:hover { opacity: .45; cursor: default; color: var(--encre-doux); background: var(--surface); }
 .nam .nam__zoom-btn { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
 .nam .nam__recentrer[hidden] { display: none; }
 .nam .nam__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
@@ -1976,19 +1977,63 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
   var U0 = D.uru;
   /* ===== Zoom : la vue est une fenêtre (viewBox) sur la carte entière. ===== */
   var VR = H / W;
-  var ZOOM_URU = (function () { var cx = 476.5, cy = 549, w = 118; return { x: cx - w / 2, y: cy - w * VR / 2, w: w, h: w * VR }; })();
-  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
-  function vueDepart() { return etat.volet === "uru" ? { x: ZOOM_URU.x, y: ZOOM_URU.y, w: ZOOM_URU.w, h: ZOOM_URU.h } : { x: 0, y: 0, w: W, h: H }; }
-  function estZoome() { var d = vueDepart(); return Math.abs(etat.vue.w - d.w) > .5 || Math.abs(etat.vue.x - d.x) > .5 || Math.abs(etat.vue.y - d.y) > .5; }
-  function bornerVue(v) {
-    var w = Math.min(W, Math.max(W / ZOOM_MAX, v.w)), h = w * VR;
-    return { x: Math.max(-.02 * W, Math.min(W * 1.02 - w, v.x)), y: Math.max(-.02 * H, Math.min(H * 1.02 - h, v.y)), w: w, h: h };
+  var ZOOM_URU = { cx: 476.5, cy: 549, w: 118 };
+  /* Les couches du dossier (rivières, routes, autres terres) ne couvrent qu'un rectangle autour
+     du Rondônia : au-delà, elles s'arrêtent net. Dans ce volet, la partie visible de la carte
+     reste donc dans le rectangle commun aux trois couches, rentré d'une unité. */
+  function etendue(d) {
+    var b = [Infinity, Infinity, -Infinity, -Infinity], x = 0, y = 0, re = /([Mlz])([^Mlz]*)/g, m;
+    while ((m = re.exec(d))) {
+      var n = (m[2].match(/-?\d+(?:\.\d+)?/g) || []).map(Number);
+      for (var i = 0; i + 1 < n.length; i += 2) {
+        if (m[1] === "M") { x = n[i]; y = n[i + 1]; } else { x += n[i]; y += n[i + 1]; }
+        b = [Math.min(b[0], x), Math.min(b[1], y), Math.max(b[2], x), Math.max(b[3], y)];
+      }
+    }
+    return b;
   }
+  var CADRE_URU = (function () {
+    var c = [U0.autres, U0.rivieres, U0.routes].map(etendue).reduce(function (a, b) { return [Math.max(a[0], b[0]), Math.max(a[1], b[1]), Math.min(a[2], b[2]), Math.min(a[3], b[3])]; });
+    return { x: c[0] + 1, y: c[1] + 1, w: c[2] - c[0] - 2, h: c[3] - c[1] - 2 };
+  })();
+  function pleinEcran() { return racine.classList.contains("est-plein-ecran"); }
+  function cadre() { return etat.volet === "uru" ? CADRE_URU : null; }
+  /* La carte garde ses proportions (preserveAspectRatio par défaut) : si son cadre à l'écran est
+     plus large ou plus haut que la viewBox, on voit davantage de carte de ce côté-là. */
+  function etirement() {
+    var b = svg.getBoundingClientRect(), k = b.width && b.height ? b.width / b.height * VR : 1;
+    return { x: Math.max(1, k), y: Math.max(1, 1 / k) };
+  }
+  function zoneVisible() {
+    var e = etirement(), v = etat.vue;
+    return { x: v.x - v.w * (e.x - 1) / 2, y: v.y - v.h * (e.y - 1) / 2, w: v.w * e.x, h: v.h * e.y };
+  }
+  function largeurMax() {
+    var c = cadre(), e = etirement();
+    return c ? Math.min(c.w / e.x, c.h / (VR * e.y)) : W;
+  }
+  function bornerVue(v) {
+    var w = Math.min(largeurMax(), Math.max(W / ZOOM_MAX, v.w)), h = w * VR, c = cadre();
+    var x = v.x + (v.w - w) / 2, y = v.y + ((v.h || v.w * VR) - h) / 2;
+    if (!c) { return { x: Math.max(-.02 * W, Math.min(W * 1.02 - w, x)), y: Math.max(-.02 * H, Math.min(H * 1.02 - h, y)), w: w, h: h }; }
+    var e = etirement(), mx = w * (e.x - 1) / 2, my = h * (e.y - 1) / 2;
+    return { x: Math.max(c.x + mx, Math.min(c.x + c.w - w - mx, x)), y: Math.max(c.y + my, Math.min(c.y + c.h - h - my, y)), w: w, h: h };
+  }
+  function vueDepart() { return etat.volet === "uru" ? bornerVue({ x: ZOOM_URU.cx - ZOOM_URU.w / 2, y: ZOOM_URU.cy - ZOOM_URU.w * VR / 2, w: ZOOM_URU.w }) : { x: 0, y: 0, w: W, h: H }; }
+  function estZoome() { var d = vueDepart(); return Math.abs(etat.vue.w - d.w) > .5 || Math.abs(etat.vue.x - d.x) > .5 || Math.abs(etat.vue.y - d.y) > .5; }
   function texteVue(v) { return [v.x, v.y, v.w, v.h].map(function (n) { return String(Number(n.toFixed(2))); }).join(" "); }
-  function appliquerVue() {
-    svg.setAttribute("viewBox", texteVue(etat.vue));
+  function poserVue(v, depart) {
+    etat.vue = v; etat.depart = !!depart;
+    svg.setAttribute("viewBox", texteVue(v));
     q(".nam__recentrer").hidden = !estZoome();
-    carte.classList.toggle("est-zoomee", etat.vue.w < W * .98);
+    carte.classList.toggle("est-zoomee", v.w < W * .98);
+    q(".nam__zoom-moins").setAttribute("aria-disabled", v.w >= largeurMax() - .5 ? "true" : "false");
+    q(".nam__zoom-plus").setAttribute("aria-disabled", v.w <= W / ZOOM_MAX + .5 ? "true" : "false");
+  }
+  function appliquerVue() { poserVue(etat.vue, false); etiqueter(); }
+  /* Quand la carte change de format (plein écran, texte masqué, rotation), la vue est rebornée. */
+  function ajusterVue() {
+    poserVue(etat.depart ? vueDepart() : bornerVue(etat.vue), etat.depart);
     etiqueter();
   }
   function pointCarte(cx, cy) {
@@ -1999,7 +2044,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
     return { x: v.x + (cx - (b.left || 0) - ox) / s, y: v.y + (cy - (b.top || 0) - oy) / s, s: s };
   }
   function zoomerVers(f, p) {
-    var v = etat.vue, w = Math.min(W, Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
+    var v = etat.vue, w = Math.min(largeurMax(), Math.max(W / ZOOM_MAX, v.w * f)), r = w / v.w;
     if (Math.abs(r - 1) < 1e-4) { return; }
     etat.vue = bornerVue({ x: p.x - (p.x - v.x) * r, y: p.y - (p.y - v.y) * r, w: w });
     appliquerVue();
@@ -2008,7 +2053,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
   function centreVue() { return { x: etat.vue.x + etat.vue.w / 2, y: etat.vue.y + etat.vue.h / 2 }; }
   q(".nam__zoom-plus").addEventListener("click", function () { zoomerVers(1 / 1.6, centreVue()); });
   q(".nam__zoom-moins").addEventListener("click", function () { zoomerVers(1.6, centreVue()); });
-  q(".nam__recentrer").addEventListener("click", function () { etat.vue = vueDepart(); appliquerVue(); });
+  q(".nam__recentrer").addEventListener("click", function () { poserVue(vueDepart(), true); etiqueter(); });
   var molette = { f: 1, cx: 0, cy: 0, attente: 0 };
   svg.addEventListener("wheel", function (ev) {
     if (!pleinEcran()) { return; }
@@ -2022,7 +2067,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
   }, { passive: false });
   var glisse = null, glisseFini = false, pince = null, pinceAttente = 0;
   svg.addEventListener("pointerdown", function (ev) {
-    if (pince || etat.vue.w >= W - .5 || (ev.button !== undefined && ev.button !== 0)) { return; }
+    if (pince || (!cadre() && etat.vue.w >= W - .5) || (ev.button !== undefined && ev.button !== 0)) { return; }
     glisse = { x: ev.clientX, y: ev.clientY, vx: etat.vue.x, vy: etat.vue.y, s: pointCarte(ev.clientX, ev.clientY).s, bouge: false, id: ev.pointerId };
   });
   svg.addEventListener("pointermove", function (ev) {
@@ -2057,7 +2102,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
     if (!pince || ev.touches.length !== 2) { return; }
     ev.preventDefault();
     pince.m = milieu(ev.touches);
-    pince.w2 = Math.min(W, Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
+    pince.w2 = Math.min(largeurMax(), Math.max(W / ZOOM_MAX, pince.w * pince.d / ecart(ev.touches)));
     if (pinceAttente) { return; }
     var faire = function () { pinceAttente = 0; if (!pince || !pince.w2) { return; } etat.vue = bornerVue(vueSous(pince.p, pince.m, pince.w2)); appliquerVue(); };
     if (typeof window.requestAnimationFrame === "function") { pinceAttente = window.requestAnimationFrame(faire); } else { faire(); }
@@ -2076,9 +2121,9 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
     if (!b.width || !b.height) { return v.w / 760; }
     return 1 / Math.min(b.width / v.w, b.height / v.h);
   }
-  var places = [], U = 1;
+  var places = [], U = 1, VIS = null;
   function libre(r) {
-    var v = etat.vue, u = U;
+    var v = VIS || etat.vue, u = U;
     if (r[0] < v.x + 2 * u || r[1] < v.y + 2 * u || r[2] > v.x + v.w - 2 * u || r[3] > v.y + v.h - 2 * u) { return false; }
     for (var j = 0; j < places.length; j++) { var p = places[j]; if (r[0] < p[2] && r[2] > p[0] && r[1] < p[3] && r[3] > p[1]) { return false; } }
     return true;
@@ -2159,7 +2204,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
   }
   function etiqueter() {
     while (gEtiq.firstChild) { gEtiq.removeChild(gEtiq.firstChild); }
-    U = unite(); places = [];
+    U = unite(); places = []; VIS = zoneVisible();
     var u = U, ch = etat.choix ? pId[etat.choix.id] : null;
     Array.prototype.forEach.call(racine.querySelectorAll(".nam__carte > .nam__bouton-carte, .nam__outils"), function (bt) {
       var r = bt.getBoundingClientRect(); if (!r.width || !r.height) { return; }
@@ -2321,7 +2366,7 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
     var avant = etat.volet;
     etat.volet = v; etat.choix = null;
     if (v === "uru" && avant !== "uru") { etat.onglet = "territoire"; }
-    if (v !== avant) { etat.vue = vueDepart(); svg.setAttribute("viewBox", texteVue(etat.vue)); q(".nam__recentrer").hidden = true; carte.classList.toggle("est-zoomee", etat.vue.w < W * .98); }
+    if (v !== avant) { poserVue(vueDepart(), true); }
     rendre();
     var lecture = q(".nam__lecture"); if (lecture) { lecture.scrollTop = 0; }
     annonce.textContent = typo(v === "uru" ? "Dossier des Uru-Eu-Wau-Wau : la carte se rapproche du Rondônia." : "Volet : dix peuples de l'Amazonie.");
@@ -2349,35 +2394,32 @@ html[data-sombre="on"] .nam .nam__pastille { background: var(--fs); }
     var masque = racine.classList.toggle("texte-masque");
     replier.setAttribute("aria-expanded", masque ? "false" : "true");
     replier.textContent = masque ? "Afficher le texte" : "Masquer le texte";
-    window.setTimeout(etiqueter, 60);
+    window.setTimeout(ajusterVue, 60);
   });
   /* Réinitialiser (bouton posé par page.js) : volet, couches et vue de départ. */
   function reinitialiser() {
     etat.choix = null; etat.volet = "peuples"; etat.onglet = "territoire";
     for (var c in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c)) { etat.couches[c] = DEPART[c]; } }
-    etat.vue = vueDepart();
-    svg.setAttribute("viewBox", texteVue(etat.vue));
-    q(".nam__recentrer").hidden = true;
-    carte.classList.remove("est-zoomee");
+    poserVue(vueDepart(), true);
     rendre();
     var lecture = q(".nam__lecture"); if (lecture) { lecture.scrollTop = 0; }
     annonce.textContent = ""; window.setTimeout(function () { annonce.textContent = "Carte réinitialisée"; }, 30);
   }
   racine.addEventListener("reinitialiser", reinitialiser);
   for (var c0 in DEPART) { if (Object.prototype.hasOwnProperty.call(DEPART, c0)) { etat.couches[c0] = DEPART[c0]; } }
-  etat.vue = vueDepart();
+  etat.vue = vueDepart(); etat.depart = true;
   racine.nam = {
     etat: function () { return { volet: etat.volet, choix: etat.choix ? etat.choix.type + ":" + etat.choix.id : "", onglet: etat.onglet, couches: JSON.stringify(etat.couches), vue: svg.getAttribute("viewBox") }; },
-    choisir: choisir, montrer: montrer, volet: changerVolet, onglet: function (o) { etat.onglet = o; rendre(); }, aller: allerVers, D: D,
+    choisir: choisir, montrer: montrer, volet: changerVolet, onglet: function (o) { etat.onglet = o; rendre(); }, aller: allerVers, D: D, cadreUru: CADRE_URU,
     textes: { peuples: PEUPLES, familles: FAM, chrono: CHRONO }
   };
   var taille = "";
   function mesurer() {
     var b = svg.getBoundingClientRect(), t = Math.round(b.width) + "x" + Math.round(b.height);
-    if (t !== taille) { taille = t; etiqueter(); }
+    if (t !== taille) { taille = t; ajusterVue(); }
   }
-  if (window.ResizeObserver) { new window.ResizeObserver(mesurer).observe(racine); } else { window.addEventListener("resize", mesurer); }
-  svg.setAttribute("viewBox", texteVue(etat.vue));
+  if (window.ResizeObserver) { var ro = new window.ResizeObserver(mesurer); ro.observe(racine); ro.observe(carte); } else { window.addEventListener("resize", mesurer); }
+  poserVue(vueDepart(), true);
   rendre();
   racine.classList.add("est-pret");
 })();
