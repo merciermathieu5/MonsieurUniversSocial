@@ -324,47 +324,47 @@ a { color: inherit; }
 
 /* --------------------------------------------------------------- colonnes */
 
-/* Le sommaire arrive replié : le texte garde sa largeur de lecture (66rem,
-   celle qu'il avait à côté du sommaire ouvert) et se centre sur la page, la
-   flèche collée à sa gauche. Le padding de droite égale la colonne de la
-   flèche et son écart, pour que le texte soit au centre exact. Ouvert, le
-   sommaire reprend sa colonne de 15rem et la page s'étend comme avant. */
+/* Le texte a une seule colonne, centrée, de la largeur qu'il avait à côté
+   de l'ancien sommaire (66rem). Le sommaire est un tiroir, comme la feuille
+   du personnage de Lugal et de Virtù : il glisse par-dessus la page depuis
+   le bord gauche et ne déplace rien, ouvert ou fermé. */
 .colonnes {
-  max-width: none; margin: 0; padding: 2.5rem 2rem 4rem;
-  display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 2.5rem;
-  align-items: start;
-  transition: grid-template-columns .2s;
+  max-width: calc(66rem + 4rem); margin: 0 auto; padding: 2.5rem 2rem 4rem;
 }
-.sommaire__contenu { display: none; }
-.sommaire__fleche { transform: rotate(180deg); }
-.sommaire__bascule { position: relative; }
-.sommaire__bascule::after {
-  content: "Sommaire"; position: absolute; top: 3rem; writing-mode: vertical-rl;
-  font: .62rem ui-monospace, monospace; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--encre-doux);
-}
-@media (min-width: 62.01rem) {
-  body:not([data-sommaire="ouvert"]):not([data-classe="on"]) .colonnes {
-    max-width: calc(66rem + 2.4rem + 2.5rem + 4rem + 4.9rem); margin: 0 auto;
-    padding-right: calc(2rem + 4.9rem);
-  }
-}
-body[data-sommaire="ouvert"] .colonnes { grid-template-columns: 15rem minmax(0, 1fr); }
-body[data-sommaire="ouvert"] .sommaire__contenu { display: block; }
-body[data-sommaire="ouvert"] .sommaire__fleche { transform: none; }
-body[data-sommaire="ouvert"] .sommaire__bascule::after { content: none; }
 
-.sommaire__bascule {
-  display: flex; align-items: center; justify-content: center;
-  width: 2rem; height: 2rem; margin-bottom: .8rem;
-  background: var(--surface); border: 1px solid var(--trait);
-  border-radius: 50%; cursor: pointer; color: var(--encre-doux);
-  transition: color .15s, border-color .15s;
+.sommaire {
+  position: fixed; top: 0; bottom: 0; left: 0; z-index: 40;
+  width: min(21rem, 86vw); font-size: .92rem;
+  background: var(--surface); border-right: 1px solid var(--trait);
+  transform: translateX(-100%);
+  transition: transform .35s cubic-bezier(.33, 0, .2, 1), box-shadow .35s;
 }
-.sommaire__bascule:hover { color: var(--matiere); border-color: var(--matiere); }
-.sommaire__fleche { font-size: .7rem; transition: transform .2s; display: inline-block; }
+body[data-sommaire="ouvert"] .sommaire {
+  transform: none; box-shadow: 18px 0 50px rgba(0, 0, 0, .22);
+}
+.sommaire__contenu { height: 100%; overflow-y: auto; padding: 2rem 1.6rem 2rem 1.5rem; }
 
-.sommaire { position: sticky; top: 5rem; font-size: .92rem; }
+/* L'onglet dépasse du tiroir fermé, à mi-hauteur de l'écran. */
+.sommaire__onglet {
+  position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+  width: 2.3rem; padding: .95rem 0 .8rem;
+  display: flex; flex-direction: column; align-items: center; gap: .65rem;
+  /* var(--surface) et non #fff : en thème sombre, la couleur de matière
+     pâlit et le texte doit foncer avec elle pour rester lisible. */
+  background: var(--matiere-fonce); color: var(--surface); border: 0;
+  border-radius: 0 9px 9px 0; cursor: pointer;
+  box-shadow: 4px 2px 10px rgba(0, 0, 0, .22);
+}
+.sommaire__onglet:hover { background: var(--matiere); }
+.sommaire__onglet:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+.sommaire__etiquette {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--donnee); font-size: .66rem; letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.sommaire__fleche { font-size: .7rem; line-height: 1; transition: transform .35s; }
+body[data-sommaire="ouvert"] .sommaire__fleche { transform: rotate(180deg); }
+
 .sommaire__titre {
   font-family: var(--donnee); font-size: .66rem; letter-spacing: .12em;
   text-transform: uppercase; color: var(--encre-pale);
@@ -849,33 +849,9 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 /* ------------------------------------------------------------- responsive */
 
 @media (max-width: 62rem) {
-  /* minmax(0, 1fr) et non 1fr : une galerie de trois images réclame 867 px
-     de largeur minimale et élargissait toute la page sur tablette et téléphone. */
-  .colonnes, body[data-sommaire="ouvert"] .colonnes {
-    grid-template-columns: minmax(0, 1fr); gap: 1.75rem;
-  }
   .texte { padding: 2rem 1.5rem 2.25rem; }
-  .sommaire {
-    position: static; background: var(--surface); border: 1px solid var(--trait);
-    border-radius: var(--rayon); padding: 1.2rem 1.35rem;
-  }
-  /* Replié, le sommaire n'est plus qu'une barre « Sur cette page » : il
-     prenait tout un écran de téléphone avant le premier mot du texte. */
-  body:not([data-sommaire="ouvert"]) .sommaire { padding: .55rem .8rem; }
-  .sommaire__bascule::after, body[data-sommaire="ouvert"] .sommaire__bascule::after {
-    content: none;
-  }
-  body:not([data-sommaire="ouvert"]) .sommaire__bascule {
-    width: auto; height: auto; margin: 0; border: 0; background: none;
-    gap: .5rem; white-space: nowrap;
-    font: 600 .9rem system-ui, sans-serif; color: var(--encre);
-  }
-  body:not([data-sommaire="ouvert"]) .sommaire__bascule::after {
-    content: "Sur cette page"; position: static; writing-mode: horizontal-tb;
-    font: inherit; letter-spacing: 0; text-transform: none; color: inherit;
-  }
-  .sommaire__fleche { transform: rotate(-90deg); }
-  body[data-sommaire="ouvert"] .sommaire__fleche { transform: rotate(90deg); }
+  /* Au téléphone, l'onglet s'amincit : il chevauche la marge du texte. */
+  .sommaire__onglet { width: 1.8rem; padding: .8rem 0 .7rem; }
 }
 @media (max-width: 40rem) {
   body { font-size: 1.04rem; }
@@ -925,7 +901,7 @@ body[data-classe="on"] .texte h3 { font-size: calc(1.45rem * var(--echelle, 1));
 body[data-classe="on"] .bandeau, body[data-classe="on"] .frise,
 body[data-classe="on"] .sommaire, body[data-classe="on"] .suite,
 body[data-classe="on"] .credit { display: none; }
-body[data-classe="on"] .colonnes { grid-template-columns: 1fr; padding: 2rem 1.75rem 3rem; }
+body[data-classe="on"] .colonnes { max-width: none; padding: 2rem 1.75rem 3rem; }
 body[data-classe="on"] .texte { max-width: none; padding: 2.5rem 3rem; }
 
 body[data-classe="on"] .illustration--flottant,

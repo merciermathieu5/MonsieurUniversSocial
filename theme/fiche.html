@@ -98,24 +98,27 @@
   </nav>
   {% endif %}
 
-  <div class="colonnes">
+  {# Le sommaire est un tiroir fixé au bord gauche : il glisse par-dessus
+     la page et ne déplace rien. Fermé, seul son onglet dépasse. #}
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      {% for t in fiche.sommaire %}
+      <li><a href="#{{ t.id }}">{{ t.name }}</a></li>
+      {% endfor %}
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        {% for t in fiche.sommaire %}
-        <li><a href="#{{ t.id }}">{{ t.name }}</a></li>
-        {% endfor %}
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       {% if fiche.vide %}

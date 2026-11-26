@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=09a1e9cf">
 </head>
 <body>
 
@@ -171,31 +171,32 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
+      <li><a href="#situer-dans-le-temps-et-dans-lespace">Situer dans le temps et dans l&#39;espace</a></li>
+      <li><a href="#le-developpement-urbain-et-commercial">Le développement urbain et commercial</a></li>
+      <li><a href="#le-bourg-medieval">Le bourg médiéval</a></li>
+      <li><a href="#la-hierarchie-sociale-dans-les-bourgs">La hiérarchie sociale dans les bourgs</a></li>
+      <li><a href="#le-grand-commerce">Le Grand commerce</a></li>
+      <li><a href="#la-peste-noire">La peste noire</a></li>
+      <li><a href="#des-applications-pour-texercer">Des applications pour t&#39;exercer</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
-        <li><a href="#situer-dans-le-temps-et-dans-lespace">Situer dans le temps et dans l&#39;espace</a></li>
-        <li><a href="#le-developpement-urbain-et-commercial">Le développement urbain et commercial</a></li>
-        <li><a href="#le-bourg-medieval">Le bourg médiéval</a></li>
-        <li><a href="#la-hierarchie-sociale-dans-les-bourgs">La hiérarchie sociale dans les bourgs</a></li>
-        <li><a href="#le-grand-commerce">Le Grand commerce</a></li>
-        <li><a href="#la-peste-noire">La peste noire</a></li>
-        <li><a href="#des-applications-pour-texercer">Des applications pour t&#39;exercer</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -1857,7 +1858,7 @@ la période sur la ligne du temps.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=09a1e9cf" defer></script>
 
 </body>
 </html>
