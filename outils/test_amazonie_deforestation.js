@@ -115,24 +115,26 @@ console.log("TIMELAPSE");
   window.clearInterval = () => { tic = null; };
   const bouton = un(".amz__lire");
   clic(un('.amz__segment[data-mode="annee"]'));
-  verifier("en mode « Cette année », le compteur montre l'année seule", /Forêt rasée en 2025-2026/.test(un(".amz__compteur-titre").textContent)
-    && /3\u00a0335/.test(un(".amz__compteur-total").textContent) && tous(".amz__carre").length === 1
-    && /15\u00a0% du Bas-Saint-Laurent en un an/.test(un(".amz__compteur-fois").textContent), un(".amz__compteur-fois").textContent);
+  verifier("en mode « Cette année », le compteur montre l'année seule : un terrain toutes les 68 secondes",
+    /Forêt rasée en 2025-2026/.test(un(".amz__compteur-titre").textContent) && /3\u00a0335/.test(un(".amz__compteur-total").textContent)
+    && /Un terrain de soccer toutes les 68 secondes/.test(un(".amz__compteur-fois").textContent)
+    && tous(".amz__terrain").filter((t) => t.style.visibility !== "hidden").length === 1, un(".amz__compteur-fois").textContent);
   clic(bouton);
   verifier("le timelapse part de 1988, en mode total", racine.getAttribute("data-annee") === "1988"
     && racine.getAttribute("data-mode") === "cumul" && bouton.getAttribute("aria-pressed") === "true" && !!tic);
-  verifier("1988 : presque tout le Bas-Saint-Laurent", /21\u00a0050/.test(un(".amz__compteur-total").textContent)
-    && /Presque tout le Bas-Saint-Laurent en un an/.test(un(".amz__compteur-fois").textContent));
+  verifier("1988 : environ 6 terrains par minute, 6 terrains visibles", /21\u00a0050/.test(un(".amz__compteur-total").textContent)
+    && /Environ 6 terrains de soccer par minute/.test(un(".amz__compteur-fois").textContent)
+    && tous(".amz__terrain").filter((t) => t.style.visibility !== "hidden").length === 6, un(".amz__compteur-fois").textContent);
   verifier("les années à venir sont pâlies", un('.amz__colonne[data-annee="1989"]').classList.contains("est-futur")
     && !un('.amz__colonne[data-annee="1988"]').classList.contains("est-futur"));
   let totaux = [], baisse = false;
   while (tic) { tic(); totaux.push(Number(un(".amz__compteur-total").textContent.replace(/\D/g, ""))); }
   for (let k = 1; k < totaux.length; k++) { if (totaux[k] < totaux[k - 1]) baisse = true; }
   verifier("le total ne baisse jamais pendant le timelapse", !baisse && totaux.length === 39, totaux.length);
-  verifier("arrivé en 2026 : 506 517 km², plus de 22 fois le Bas-Saint-Laurent, 23 carrés",
+  verifier("arrivé en 2026 : 506 517 km² depuis 1988, un terrain toutes les 68 secondes, 8 places réservées",
     racine.getAttribute("data-annee") === "2026" && /506\u00a0517/.test(un(".amz__compteur-total").textContent)
-    && /Plus de 22 fois le Bas-Saint-Laurent en 39 ans/.test(un(".amz__compteur-fois").textContent)
-    && tous(".amz__carre").length === 23, un(".amz__compteur-fois").textContent);
+    && /toutes les 68 secondes/.test(un(".amz__compteur-fois").textContent) && tous(".amz__terrain").length === 8, un(".amz__compteur-fois").textContent);
+  verifier("plus aucun nombre flottant au-dessus des barres", !un(".amz__val-choisie"));
   verifier("le bouton propose de rejouer, l'annonce donne le total", /Rejouer/.test(bouton.textContent)
     && bouton.getAttribute("aria-pressed") === "false" && /506\u00a0517/.test(un(".amz__annonce").textContent));
   clic(bouton); tic(); tic();

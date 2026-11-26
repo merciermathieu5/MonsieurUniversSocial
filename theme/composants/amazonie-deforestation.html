@@ -26,19 +26,23 @@ html[data-sombre="on"] .amz .amz__consigne { color: var(--encre-pale); }
 .amz .amz__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
 .amz .amz__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
 .amz .amz__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
-/* Le compteur sous la carte : un carré vaut le Bas-Saint-Laurent. Toujours
-   visible, pour que rien ne bouge d'un mode à l'autre : l'année seule en mode
-   « Cette année », le total depuis 1988 en mode total et pendant le timelapse. */
-.amz .amz__compteur { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .3rem 1.1rem; padding: .7rem 1.2rem .75rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); color: var(--encre); }
+/* Le compteur sous la carte. À gauche, la superficie (l'année ou le total
+   depuis 1988). À droite, le rythme de l'année affichée en terrains de
+   soccer par minute : il monte et descend pendant le timelapse, pendant que
+   le total ne fait que grandir. Huit terrains réservés d'avance (le record
+   de 1995 est de 7,7 par minute) : rien ne bouge pendant la lecture. */
+.amz .amz__compteur { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .3rem 1.4rem; padding: .7rem 1.2rem .75rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); color: var(--encre); }
 .amz .amz__compteur-titre { margin: 0; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
 .amz .amz__compteur-total { margin: .05rem 0 0; font-weight: 700; font-size: 1.3rem; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; }
-/* Douze carrés par rangée et deux rangées réservées d'avance (23 carrés en 2026) : la bande ne grandit pas pendant le timelapse. */
-.amz .amz__carres { display: grid; grid-template-columns: repeat(12, .95rem); grid-auto-rows: .95rem; gap: 3px; min-height: calc(2 * .95rem + 3px); align-content: start; margin: 0 0 .3rem; }
-.amz .amz__carre { border-radius: 2px; border: 1px solid var(--amz-c4); background: linear-gradient(to top, var(--amz-c4) var(--plein, 0%), transparent var(--plein, 0%)); }
+.amz .amz__terrains { display: grid; grid-template-columns: repeat(8, 1.75rem); gap: 4px; margin: 0 0 .35rem; }
+.amz .amz__terrain { position: relative; height: 1.15rem; border: 1px solid var(--amz-c4); border-radius: 2px; background: linear-gradient(to right, var(--amz-c4) var(--plein, 0%), transparent var(--plein, 0%)); }
+.amz .amz__terrain::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px solid var(--amz-ligne-terrain); }
+.amz .amz__terrain::after { content: ""; position: absolute; left: 50%; top: 50%; width: .4rem; height: .4rem; margin: -.2rem 0 0 -.2rem; border: 1px solid var(--amz-ligne-terrain); border-radius: 50%; }
+.amz { --amz-ligne-terrain: rgba(255, 255, 255, .75); }
 .amz .amz__compteur-fois { margin: 0; font-size: .82rem; line-height: 1.35; color: var(--encre-doux); }
 .amz .amz__compteur-fois strong { color: var(--encre); }
 .amz .amz__compteur-cle { color: var(--encre-pale); }
-@media (max-width: 40rem) { .amz .amz__curseur { flex-wrap: wrap; } .amz .amz__curseur .amz__lire { flex: 1 0 100%; } .amz .amz__compteur { grid-template-columns: minmax(0, 1fr); padding-left: .8rem; padding-right: .8rem; } .amz .amz__carres { grid-template-columns: repeat(12, .8rem); grid-auto-rows: .8rem; min-height: calc(2 * .8rem + 3px); } }
+@media (max-width: 40rem) { .amz .amz__curseur { flex-wrap: wrap; } .amz .amz__curseur .amz__lire { flex: 1 0 100%; } .amz .amz__compteur { grid-template-columns: minmax(0, 1fr); padding-left: .8rem; padding-right: .8rem; } .amz .amz__terrains { grid-template-columns: repeat(8, 1.45rem); } .amz .amz__terrain { height: .95rem; } }
 .amz .amz__lire { flex: none; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: #fff; background: var(--matiere-fonce); border: 1px solid var(--matiere-fonce); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; white-space: nowrap; }
 .amz .amz__lire:hover { background: var(--matiere); border-color: var(--matiere); }
 .amz .amz__lire:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
@@ -166,7 +170,6 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
 .amz__colonne.est-choisi { fill: var(--amz-barre-choisie); }
 .amz__colonne--estimee { fill-opacity: .55; stroke: var(--amz-barre-choisie); stroke-width: 1px; stroke-dasharray: 2 2; }
 .amz__partie { fill: var(--amz-part); pointer-events: none; }
-.amz__val-choisie { font-weight: 700; fill: var(--encre) !important; }
 .amz__jalon line { stroke: var(--encre-pale); stroke-width: 1px; stroke-dasharray: 2 2; }
 .amz__jalon circle { fill: var(--surface); stroke: var(--encre); stroke-width: 1.3px; cursor: pointer; }
 .amz__jalon text { fill: var(--encre) !important; font-weight: 700; pointer-events: none; }
@@ -217,7 +220,7 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
 <p class="amz__compteur-total"></p>
 </div>
 <div>
-<div class="amz__carres" aria-hidden="true"></div>
+<div class="amz__terrains" aria-hidden="true"></div>
 <p class="amz__compteur-fois"></p>
 </div>
 </div>
@@ -473,8 +476,9 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
   function total(a) { return D.serie[idx(a)].reduce(function (s, v) { return s + v; }, 0); }
   function cumul(a, e) { var s = 0; for (var i = 0; i <= idx(a); i++) { s += D.serie[i][ETAT[e].i]; } return s; }
   function cumulTotal(a) { var s = 0; for (var i = 0; i <= idx(a); i++) { s += total(AN[i]); } return s; }
-  /* Superficie terrestre du Bas-Saint-Laurent, gouvernement du Québec, portrait régional 2025. */
-  var BSL = 22185;
+  /* Terrain de soccer recommandé par la FIFA : 105 m sur 68 m, 7 140 m². */
+  var TERRAIN_KM2 = 0.00714, MINUTES_AN = 365 * 24 * 60, TERRAINS_MAX = 8;
+  function parMinute(a) { return total(a) / TERRAIN_KM2 / MINUTES_AN; }
   function periode(a) { return (a - 1) + "-" + a; }
   function classe(v, mode) { var s = SEUILS[mode], c = 1; while (c <= 4 && v >= s[c - 1]) { c++; } return c; }
   function pct(x) { return Math.round(x) + "\u00a0%"; }
@@ -484,8 +488,10 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
   D.etats.forEach(function (e) { PE[e.id] = svgEl("path", { "class": "amz__etat", d: e.d, "data-etat": e.id }, gEtats); });
   D.fleuves.forEach(function (f) { svgEl("path", { "class": "amz__fleuve", d: f.d, "data-r": f.r }, q(".amz__fleuves")); });
   var gVilles = q(".amz__villes");
-  D.etats.forEach(function (e) { svgEl("circle", { "class": "amz__ville amz__ville--cap", cx: e.c[0], cy: e.c[1], r: 2.6 }, gVilles); });
-  D.villes.forEach(function (v) { svgEl("circle", { "class": "amz__ville", cx: v.p[0], cy: v.p[1], r: 2.3 }, gVilles); });
+  /* Un point de ville ne paraît que si son nom a trouvé sa place : sans nom, un point ne dit rien. */
+  var POINT_CAP = {}, POINT_VILLE = [];
+  D.etats.forEach(function (e) { POINT_CAP[e.id] = svgEl("circle", { "class": "amz__ville amz__ville--cap", cx: e.c[0], cy: e.c[1], r: 2.6 }, gVilles); });
+  D.villes.forEach(function (v) { POINT_VILLE.push(svgEl("circle", { "class": "amz__ville", cx: v.p[0], cy: v.p[1], r: 2.3 }, gVilles)); });
   /* ----- graphique */
   var G = q(".amz__graphe"), GX0 = 46, GX1 = 632, GY0 = 30, GY1 = 168, VMAX = 30000, pasX = (GX1 - GX0) / N, COL = [], PART = [];
   function gy(v) { return GY1 - v / VMAX * (GY1 - GY0); }
@@ -502,7 +508,6 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     PART.push(svgEl("rect", { "class": "amz__partie", x: x.toFixed(1), width: w.toFixed(1), y: GY1, height: 0 }, G));
     if (a % 5 === 0 || a === 1988) { var t = svgEl("text", { x: (x + w / 2).toFixed(1), y: GY1 + 14, "text-anchor": "middle", "font-size": 10 }, G); t.textContent = String(a); }
   });
-  var valChoisie = svgEl("text", { "class": "amz__val-choisie", "text-anchor": "middle", "font-size": 11 }, G);
   var GJ = {};
   JALONS.forEach(function (j, k) {
     var x = GX0 + idx(j.a) * pasX + pasX / 2, g = svgEl("g", { "class": "amz__jalon", "data-jalon": j.a }, gJal);
@@ -645,8 +650,8 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
       var e = ETAT[id], w = etat.mode === "cumul" ? cumul(a, id) : val(a, id), choisi = ch && ch.type === "etat" && ch.id === id;
       if (poser(e.a[0], e.a[1] - 7 * u, e.n, choisi ? "amz__etiquette--choisie" : "amz__etiquette--etat", choisi ? 15 : 12.5, { halo: 3.5 })) { poser(e.a[0], e.a[1] + 10 * u, nb(w) + "\u00a0km²", "amz__etiquette--val", 11, { halo: 3.5, chasse: .62 }); }
     });
-    D.etats.forEach(function (e) { poser(e.c[0] + 5 * u, e.c[1], e.cap, "amz__etiquette--pale", 10, { ancre: "start" }); });
-    D.villes.forEach(function (v) { poser(v.p[0] + 5 * u, v.p[1], v.n, "amz__etiquette--pale", 10, { ancre: "start" }); });
+    D.etats.forEach(function (e) { POINT_CAP[e.id].style.display = poser(e.c[0] + 5 * u, e.c[1], e.cap, "amz__etiquette--pale", 10, { ancre: "start" }) ? "" : "none"; });
+    D.villes.forEach(function (v, k) { POINT_VILLE[k].style.display = poser(v.p[0] + 5 * u, v.p[1], v.n, "amz__etiquette--pale", 10, { ancre: "start" }) ? "" : "none"; });
     D.eaux.forEach(function (e) { poser(e.p[0], e.p[1], e.n, "amz__etiquette--eau", 12); });
     D.pays.forEach(function (p) { poser(p.p[0], p.p[1], p.n, "amz__etiquette--pays", 10.5); });
   }
@@ -663,23 +668,24 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     q(".amz__routes").style.display = etat.couches.routes ? "" : "none";
     q(".amz__fleuves").style.display = etat.couches.fleuves ? "" : "none";
     COL.forEach(function (r, k) { r.classList.toggle("est-choisi", k === i); r.classList.toggle("est-futur", etat.mode === "cumul" && k > i); });
-    var cumulMode = etat.mode === "cumul", ct = cumulMode ? cumulTotal(a) : total(a), fois = ct / BSL;
+    var cumulMode = etat.mode === "cumul", rythme = parMinute(a);
     q(".amz__compteur-titre").textContent = cumulMode ? typo("Forêt rasée depuis 1988") : typo("Forêt rasée en " + periode(a));
-    q(".amz__compteur-total").textContent = typo(nb(ct) + "\u00a0km²");
-    var carres = q(".amz__carres"), voulus = Math.max(1, Math.ceil(ct / BSL));
-    while (carres.children.length < voulus) { el("span", "amz__carre", null, carres); }
-    while (carres.children.length > voulus) { carres.removeChild(carres.lastChild); }
-    Array.prototype.forEach.call(carres.children, function (c, k) { c.style.setProperty("--plein", (Math.max(0, Math.min(1, fois - k)) * 100).toFixed(1) + "%"); });
-    var foisTexte = fois < .9 ? Math.round(fois * 100) + "\u00a0% du Bas-Saint-Laurent" : (fois < 1 ? "Presque tout le Bas-Saint-Laurent" : (fois < 2 ? "Plus que le Bas-Saint-Laurent" : "Plus de " + Math.floor(fois) + " fois le Bas-Saint-Laurent"));
+    q(".amz__compteur-total").textContent = typo(nb(cumulMode ? cumulTotal(a) : total(a)) + "\u00a0km²");
+    var terrains = q(".amz__terrains");
+    while (terrains.children.length < TERRAINS_MAX) { el("span", "amz__terrain", null, terrains); }
+    Array.prototype.forEach.call(terrains.children, function (c, k) {
+      var plein = Math.max(0, Math.min(1, rythme - k));
+      c.style.setProperty("--plein", (plein * 100).toFixed(1) + "%");
+      c.style.visibility = k < Math.ceil(rythme) ? "" : "hidden";
+    });
+    var rythmeTexte = rythme < .95 ? "Un terrain de soccer toutes les " + Math.round(60 / rythme) + " secondes"
+      : (rythme < 1.5 ? "Environ un terrain de soccer par minute" : "Environ " + Math.round(rythme) + " terrains de soccer par minute");
     var fx = q(".amz__compteur-fois"); fx.textContent = "";
-    el("strong", "", foisTexte, fx);
-    fx.appendChild(document.createTextNode(typo(!cumulMode || a === AN[0] ? " en un an" : " en " + (idx(a) + 1) + " ans")));
-    el("span", "amz__compteur-cle", " · 1 carré = le Bas-Saint-Laurent (22\u00a0185\u00a0km²)", fx);
+    el("strong", "", rythmeTexte, fx);
+    fx.appendChild(document.createTextNode(typo(", jour et nuit, en " + periode(a))));
+    el("span", "amz__compteur-cle", " · terrain de 105 m sur 68 m", fx);
     var se = ch && ch.type === "etat" ? ETAT[ch.id].i : -1;
     PART.forEach(function (r, k) { var v = se < 0 ? 0 : D.serie[k][se]; r.setAttribute("y", gy(v).toFixed(1)); r.setAttribute("height", (GY1 - gy(v)).toFixed(1)); });
-    var vx = GX0 + i * pasX + pasX / 2, vv = se < 0 ? total(a) : D.serie[i][se];
-    valChoisie.setAttribute("x", Math.max(GX0 + 20, Math.min(GX1 - 20, vx)).toFixed(1)); valChoisie.setAttribute("y", (gy(se < 0 ? total(a) : Math.max(vv, total(a))) - 5).toFixed(1));
-    valChoisie.textContent = typo(nb(se < 0 ? total(a) : vv));
     JALONS.forEach(function (j) { GJ[j.a].classList.toggle("est-choisi", !!ch && ch.type === "jalon" && ch.id === String(j.a)); });
     curseur.value = String(i);
     curseur.setAttribute("aria-valuetext", typo("D'août " + (a - 1) + " à juillet " + a + " : " + nb(total(a)) + "\u00a0km²"));
