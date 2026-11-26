@@ -102,11 +102,12 @@
 
     <aside class="sommaire" aria-label="Sommaire de la page">
       <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="true" title="Replier le sommaire (touche S)">
+              aria-expanded="false" aria-controls="sommaire-contenu"
+              title="Déplier le sommaire (touche S)">
         <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Replier le sommaire</span>
+        <span class="visuellement-cache">Déplier le sommaire</span>
       </button>
-      <div class="sommaire__contenu">
+      <div class="sommaire__contenu" id="sommaire-contenu">
       <p class="sommaire__titre">Sur cette page</p>
       <ol>
         {% for t in fiche.sommaire %}

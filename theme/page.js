@@ -30,12 +30,17 @@
     });
   }
 
+  // Le sommaire arrive replié, à chaque page : l'ouvrir est un geste
+  // délibéré, et rien n'est retenu d'une page à l'autre.
   var sommaire = document.querySelector('[data-bascule="sommaire"]');
   if (sommaire) {
     sommaire.addEventListener("click", function () {
-      var replie = corps.dataset.sommaire === "replie";
-      if (replie) { delete corps.dataset.sommaire; } else { corps.dataset.sommaire = "replie"; }
-      sommaire.setAttribute("aria-expanded", String(replie));
+      var ouvrir = corps.dataset.sommaire !== "ouvert";
+      if (ouvrir) { corps.dataset.sommaire = "ouvert"; } else { delete corps.dataset.sommaire; }
+      sommaire.setAttribute("aria-expanded", String(ouvrir));
+      var libelle = (ouvrir ? "Replier" : "Déplier") + " le sommaire";
+      sommaire.title = libelle + " (touche S)";
+      sommaire.querySelector(".visuellement-cache").textContent = libelle;
     });
   }
 
