@@ -2604,6 +2604,25 @@ html[data-sombre="on"] .amz .amz__consigne { color: var(--encre-pale); }
 .amz .amz__bouton-carte { font-family: var(--titre); font-weight: 600; font-size: .78rem; line-height: 1; color: var(--encre-doux); background: var(--surface); border: 1px solid var(--trait); border-radius: 100px; padding: .38rem .7rem; cursor: pointer; box-shadow: 0 1px 3px rgba(20, 30, 40, .12); }
 .amz .amz__bouton-carte:hover { color: var(--matiere-fonce); background: var(--matiere-voile); }
 .amz .amz__bouton-carte:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+/* Le compteur sous la carte : un carré vaut le Bas-Saint-Laurent. Toujours
+   visible, pour que rien ne bouge d'un mode à l'autre : l'année seule en mode
+   « Cette année », le total depuis 1988 en mode total et pendant le timelapse. */
+.amz .amz__compteur { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .3rem 1.1rem; padding: .7rem 1.2rem .75rem; border-bottom: 1px solid var(--trait); font-family: var(--titre); color: var(--encre); }
+.amz .amz__compteur-titre { margin: 0; font-family: var(--donnee); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--encre-pale); }
+.amz .amz__compteur-total { margin: .05rem 0 0; font-weight: 700; font-size: 1.3rem; line-height: 1.1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* Douze carrés par rangée et deux rangées réservées d'avance (23 carrés en 2026) : la bande ne grandit pas pendant le timelapse. */
+.amz .amz__carres { display: grid; grid-template-columns: repeat(12, .95rem); grid-auto-rows: .95rem; gap: 3px; min-height: calc(2 * .95rem + 3px); align-content: start; margin: 0 0 .3rem; }
+.amz .amz__carre { border-radius: 2px; border: 1px solid var(--amz-c4); background: linear-gradient(to top, var(--amz-c4) var(--plein, 0%), transparent var(--plein, 0%)); }
+.amz .amz__compteur-fois { margin: 0; font-size: .82rem; line-height: 1.35; color: var(--encre-doux); }
+.amz .amz__compteur-fois strong { color: var(--encre); }
+.amz .amz__compteur-cle { color: var(--encre-pale); }
+@media (max-width: 40rem) { .amz .amz__curseur { flex-wrap: wrap; } .amz .amz__curseur .amz__lire { flex: 1 0 100%; } .amz .amz__compteur { grid-template-columns: minmax(0, 1fr); padding-left: .8rem; padding-right: .8rem; } .amz .amz__carres { grid-template-columns: repeat(12, .8rem); grid-auto-rows: .8rem; min-height: calc(2 * .8rem + 3px); } }
+.amz .amz__lire { flex: none; font-family: var(--titre); font-weight: 600; font-size: .8rem; color: #fff; background: var(--matiere-fonce); border: 1px solid var(--matiere-fonce); border-radius: 100px; padding: .32rem .85rem; cursor: pointer; white-space: nowrap; }
+.amz .amz__lire:hover { background: var(--matiere); border-color: var(--matiere); }
+.amz .amz__lire:focus-visible { outline: 2px solid var(--matiere); outline-offset: 2px; }
+html[data-sombre="on"] .amz .amz__lire { color: #10171F; background: var(--matiere); border-color: var(--matiere); }
+/* En mode total, les années à venir pâlissent : le graphique grandit avec le timelapse. */
+.amz__colonne.est-futur { fill-opacity: .18; }
 .amz .amz__zoom { width: 2rem; height: 2rem; padding: 0; font-size: 1.05rem; }
 .amz .amz__recentrer[hidden] { display: none; }
 .amz .amz__replier { position: absolute; top: .55rem; right: .55rem; z-index: 2; }
@@ -2690,7 +2709,7 @@ html[data-sombre="on"] .amz .amz__segment[aria-pressed="true"] { color: #10171F;
   .amz.est-plein-ecran .amz__barre-titre { display: none; }
 }
 @media print {
-  .amz .amz__outils, .amz .amz__replier, .amz .amz__barre { display: none; }
+  .amz .amz__outils, .amz .amz__replier, .amz .amz__barre, .amz .amz__lire { display: none; }
   .amz .amz__svg { max-height: none; }
   .amz .amz__corps { grid-template-columns: minmax(0, 1fr); }
   .amz .amz__visuel { border-right: 0; }
@@ -2769,11 +2788,22 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
 <button type="button" class="amz__bouton-carte amz__recentrer" hidden>Recentrer</button>
 </div>
 </div>
+<div class="amz__compteur">
+<div>
+<p class="amz__compteur-titre"></p>
+<p class="amz__compteur-total"></p>
+</div>
+<div>
+<div class="amz__carres" aria-hidden="true"></div>
+<p class="amz__compteur-fois"></p>
+</div>
+</div>
 <div class="amz__barre">
 <div class="amz__bloc">
 <p class="amz__barre-titre" id="amazonie-deforestation-graphe-titre">Kilomètres carrés déboisés chaque année dans l'Amazonie légale</p>
 <svg class="amz__graphe" viewBox="0 0 640 200" role="img" aria-labelledby="amazonie-deforestation-graphe-titre"></svg>
 <div class="amz__curseur">
+<button type="button" class="amz__lire" aria-pressed="false">&#9654; Timelapse</button>
 <button type="button" class="amz__pas amz__pas--moins" aria-label="Année précédente">&lsaquo;</button>
 <input type="range" class="amz__annee" min="0" max="0" step="1" value="0" aria-label="Année">
 <button type="button" class="amz__pas amz__pas--plus" aria-label="Année suivante">&rsaquo;</button>
@@ -3015,6 +3045,9 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
   function val(a, e) { return D.serie[idx(a)][ETAT[e].i]; }
   function total(a) { return D.serie[idx(a)].reduce(function (s, v) { return s + v; }, 0); }
   function cumul(a, e) { var s = 0; for (var i = 0; i <= idx(a); i++) { s += D.serie[i][ETAT[e].i]; } return s; }
+  function cumulTotal(a) { var s = 0; for (var i = 0; i <= idx(a); i++) { s += total(AN[i]); } return s; }
+  /* Superficie terrestre du Bas-Saint-Laurent, gouvernement du Québec, portrait régional 2025. */
+  var BSL = 22185;
   function periode(a) { return (a - 1) + "-" + a; }
   function classe(v, mode) { var s = SEUILS[mode], c = 1; while (c <= 4 && v >= s[c - 1]) { c++; } return c; }
   function pct(x) { return Math.round(x) + "\u00a0%"; }
@@ -3053,25 +3086,57 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     GJ[j.a] = g;
   });
   G.addEventListener("click", function (ev) {
+    arreter();
     var j = ev.target.closest ? ev.target.closest("[data-jalon]") : null;
     if (j) { var a = Number(j.getAttribute("data-jalon")); if (!(etat.choix && etat.choix.type === "jalon" && etat.choix.id === String(a))) { etat.annee = a; } choisir({ type: "jalon", id: String(a) }); return; }
     var c = ev.target.getAttribute && ev.target.getAttribute("data-annee");
     if (c) { annee(Number(c)); }
   });
   var curseur = q(".amz__annee"); curseur.max = String(N - 1);
-  curseur.addEventListener("input", function () { annee(AN[Number(curseur.value)]); });
-  q(".amz__pas--moins").addEventListener("click", function () { annee(AN[Math.max(0, idx(etat.annee) - 1)]); });
-  q(".amz__pas--plus").addEventListener("click", function () { annee(AN[Math.min(N - 1, idx(etat.annee) + 1)]); });
+  curseur.addEventListener("input", function () { arreter(); annee(AN[Number(curseur.value)]); });
+  q(".amz__pas--moins").addEventListener("click", function () { arreter(); annee(AN[Math.max(0, idx(etat.annee) - 1)]); });
+  q(".amz__pas--plus").addEventListener("click", function () { arreter(); annee(AN[Math.min(N - 1, idx(etat.annee) + 1)]); });
   function annee(a) {
     if (a === etat.annee) { return; }
     etat.annee = a;
     if (etat.choix && etat.choix.type === "jalon" && etat.choix.id !== String(a)) { etat.choix = null; }
     rendre();
   }
-  Array.prototype.forEach.call(racine.querySelectorAll(".amz__segment"), function (b) { b.addEventListener("click", function () { etat.mode = b.getAttribute("data-mode"); rendre(); }); });
+  Array.prototype.forEach.call(racine.querySelectorAll(".amz__segment"), function (b) { b.addEventListener("click", function () { arreter(); etat.mode = b.getAttribute("data-mode"); rendre(); }); });
+  /* ----- timelapse : les années défilent de 1988 à aujourd'hui en mode total.
+     Les barres annuelles baissent depuis 2004, le total ne baisse jamais :
+     c'est ce que le compteur et les carrés rendent visible. */
+  var lire = q(".amz__lire"), LECTURE_MS = 650, minuterie = 0;
+  function enLecture() { return !!minuterie; }
+  function libelleLire() {
+    lire.setAttribute("aria-pressed", enLecture() ? "true" : "false");
+    lire.textContent = enLecture() ? "\u275a\u275a Pause" : (etat.mode === "cumul" && etat.annee === DERNIERE ? "\u21ba Rejouer" : "\u25b6 Timelapse");
+  }
+  function arreter() {
+    if (!minuterie) { return; }
+    window.clearInterval(minuterie); minuterie = 0; libelleLire();
+  }
+  function avancer() {
+    var i = idx(etat.annee);
+    if (i >= N - 1) {
+      arreter(); rendre();
+      annonce.textContent = typo("Timelapse terminé : " + nb(cumulTotal(DERNIERE)) + "\u00a0km² de forêt rasés depuis 1988.");
+      return;
+    }
+    etat.annee = AN[i + 1]; rendre();
+  }
+  lire.addEventListener("click", function () {
+    if (enLecture()) { arreter(); return; }
+    if (etat.mode !== "cumul" || etat.annee === DERNIERE) { etat.annee = AN[0]; }
+    etat.mode = "cumul"; etat.choix = null;
+    rendre();
+    annonce.textContent = "Timelapse : de 1988 à " + DERNIERE + ".";
+    minuterie = window.setInterval(avancer, LECTURE_MS);
+    libelleLire();
+  });
   etat.annee = DERNIERE; etat.mode = "annee";
   var DEPART = { routes: false, fleuves: true };
-  function reinitExtra() { etat.annee = DERNIERE; etat.mode = "annee"; }
+  function reinitExtra() { arreter(); etat.annee = DERNIERE; etat.mode = "annee"; }
   function apresCouche(c) { }
   /* ----- fiches */
   function rang(a) {
@@ -3096,7 +3161,9 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     var paires = [];
     if (i > 0) { var p = total(AN[i - 1]), d = (v - p) / p * 100; paires.push(["Par rapport à " + periode(AN[i - 1]), (d > 0 ? "+" : "") + dec(d, 1) + "\u00a0%"]); }
     paires.push(["Rang depuis 1988", rang(a)]);
+    if (etat.mode === "cumul") { paires.push(["Total depuis 1988", nb(cumulTotal(a)) + "\u00a0km²"]); }
     chiffres(vueTexte, paires);
+    if (etat.mode === "cumul") { el("p", "amz__paragraphe", "Une année plus basse ralentit la perte, elle ne l'efface pas : le total ne baisse jamais.", vueTexte); }
     notesAnnee(a).forEach(function (t) { el("p", "amz__note", t, vueTexte); });
     if (JAL[a]) { var ul0 = el("ul", "amz__liste", null, vueTexte); el("li", "", null, ul0).appendChild(bouton("amz__choisir", JAL[a].t, String(a), function () { choisir({ type: "jalon", id: String(a) }); })); }
     el("span", "amz__rubrique", "Par État" + (etat.mode === "cumul" ? ", total de 1988 à " + a : ""), vueTexte);
@@ -3168,7 +3235,19 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     });
     q(".amz__routes").style.display = etat.couches.routes ? "" : "none";
     q(".amz__fleuves").style.display = etat.couches.fleuves ? "" : "none";
-    COL.forEach(function (r, k) { r.classList.toggle("est-choisi", k === i); });
+    COL.forEach(function (r, k) { r.classList.toggle("est-choisi", k === i); r.classList.toggle("est-futur", etat.mode === "cumul" && k > i); });
+    var cumulMode = etat.mode === "cumul", ct = cumulMode ? cumulTotal(a) : total(a), fois = ct / BSL;
+    q(".amz__compteur-titre").textContent = cumulMode ? typo("Forêt rasée depuis 1988") : typo("Forêt rasée en " + periode(a));
+    q(".amz__compteur-total").textContent = typo(nb(ct) + "\u00a0km²");
+    var carres = q(".amz__carres"), voulus = Math.max(1, Math.ceil(ct / BSL));
+    while (carres.children.length < voulus) { el("span", "amz__carre", null, carres); }
+    while (carres.children.length > voulus) { carres.removeChild(carres.lastChild); }
+    Array.prototype.forEach.call(carres.children, function (c, k) { c.style.setProperty("--plein", (Math.max(0, Math.min(1, fois - k)) * 100).toFixed(1) + "%"); });
+    var foisTexte = fois < .9 ? Math.round(fois * 100) + "\u00a0% du Bas-Saint-Laurent" : (fois < 1 ? "Presque tout le Bas-Saint-Laurent" : (fois < 2 ? "Plus que le Bas-Saint-Laurent" : "Plus de " + Math.floor(fois) + " fois le Bas-Saint-Laurent"));
+    var fx = q(".amz__compteur-fois"); fx.textContent = "";
+    el("strong", "", foisTexte, fx);
+    fx.appendChild(document.createTextNode(typo(!cumulMode || a === AN[0] ? " en un an" : " en " + (idx(a) + 1) + " ans")));
+    el("span", "amz__compteur-cle", " · 1 carré = le Bas-Saint-Laurent (22\u00a0185\u00a0km²)", fx);
     var se = ch && ch.type === "etat" ? ETAT[ch.id].i : -1;
     PART.forEach(function (r, k) { var v = se < 0 ? 0 : D.serie[k][se]; r.setAttribute("y", gy(v).toFixed(1)); r.setAttribute("height", (GY1 - gy(v)).toFixed(1)); });
     var vx = GX0 + i * pasX + pasX / 2, vv = se < 0 ? total(a) : D.serie[i][se];
@@ -3185,6 +3264,7 @@ html[data-sombre="on"] .amz { --amz-c1: #4A4330; --amz-c2: #7A5A2A; --amz-c3: #A
     if (etat.couches.routes) { var li2 = el("li", "", null, cles); var s2 = el("span", "amz__puce amz__puce--trait", null, li2); s2.style.background = "var(--amz-route)"; li2.appendChild(document.createTextNode("Route principale")); }
     if (ch && ch.type === "etat") { var li3 = el("li", "", null, cles); var s3 = el("span", "amz__puce", null, li3); s3.style.background = "var(--amz-part)"; li3.appendChild(document.createTextNode(typo("Part " + ART[ch.id][1] + ETAT[ch.id].n + " dans le graphique"))); }
     if (a === DERNIERE) { el("li", "", "* Estimation", cles); }
+    libelleLire();
     while (vueTexte.firstChild) { vueTexte.removeChild(vueTexte.firstChild); }
     if (!ch) { ficheAnnee(); }
     else if (ch.type === "etat") { ficheEtat(ch.id); }

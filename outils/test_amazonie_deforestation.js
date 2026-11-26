@@ -107,6 +107,43 @@ clic(un('.amz__segment[data-mode="cumul"]'));
 verifier("mode total : le Pará dépasse 100 000 km²", racine.getAttribute("data-mode") === "cumul" && un('.amz__etat[data-etat="PA"]').getAttribute("data-c") === "5");
 pincer();
 
+console.log("TIMELAPSE");
+{
+  const vraiIntervalle = window.setInterval, vraiArret = window.clearInterval;
+  let tic = null;
+  window.setInterval = (f) => { tic = f; return 1; };
+  window.clearInterval = () => { tic = null; };
+  const bouton = un(".amz__lire");
+  clic(un('.amz__segment[data-mode="annee"]'));
+  verifier("en mode « Cette année », le compteur montre l'année seule", /Forêt rasée en 2025-2026/.test(un(".amz__compteur-titre").textContent)
+    && /3\u00a0335/.test(un(".amz__compteur-total").textContent) && tous(".amz__carre").length === 1
+    && /15\u00a0% du Bas-Saint-Laurent en un an/.test(un(".amz__compteur-fois").textContent), un(".amz__compteur-fois").textContent);
+  clic(bouton);
+  verifier("le timelapse part de 1988, en mode total", racine.getAttribute("data-annee") === "1988"
+    && racine.getAttribute("data-mode") === "cumul" && bouton.getAttribute("aria-pressed") === "true" && !!tic);
+  verifier("1988 : presque tout le Bas-Saint-Laurent", /21\u00a0050/.test(un(".amz__compteur-total").textContent)
+    && /Presque tout le Bas-Saint-Laurent en un an/.test(un(".amz__compteur-fois").textContent));
+  verifier("les années à venir sont pâlies", un('.amz__colonne[data-annee="1989"]').classList.contains("est-futur")
+    && !un('.amz__colonne[data-annee="1988"]').classList.contains("est-futur"));
+  let totaux = [], baisse = false;
+  while (tic) { tic(); totaux.push(Number(un(".amz__compteur-total").textContent.replace(/\D/g, ""))); }
+  for (let k = 1; k < totaux.length; k++) { if (totaux[k] < totaux[k - 1]) baisse = true; }
+  verifier("le total ne baisse jamais pendant le timelapse", !baisse && totaux.length === 39, totaux.length);
+  verifier("arrivé en 2026 : 506 517 km², plus de 22 fois le Bas-Saint-Laurent, 23 carrés",
+    racine.getAttribute("data-annee") === "2026" && /506\u00a0517/.test(un(".amz__compteur-total").textContent)
+    && /Plus de 22 fois le Bas-Saint-Laurent en 39 ans/.test(un(".amz__compteur-fois").textContent)
+    && tous(".amz__carre").length === 23, un(".amz__compteur-fois").textContent);
+  verifier("le bouton propose de rejouer, l'annonce donne le total", /Rejouer/.test(bouton.textContent)
+    && bouton.getAttribute("aria-pressed") === "false" && /506\u00a0517/.test(un(".amz__annonce").textContent));
+  clic(bouton); tic(); tic();
+  verifier("rejouer repart de 1988", racine.getAttribute("data-annee") === "1990");
+  clic(un(".amz__pas--plus"));
+  verifier("toucher au curseur arrête le timelapse", !tic && /Timelapse/.test(bouton.textContent) && racine.getAttribute("data-annee") === "1991");
+  clic(bouton); clic(bouton);
+  verifier("le bouton met en pause", !tic && /Timelapse/.test(bouton.textContent));
+  window.setInterval = vraiIntervalle; window.clearInterval = vraiArret;
+}
+
 console.log("RÉINITIALISATION");
 clic(un(".amz__entete .reinitialiser"));
 verifier("Réinitialiser ramène l'état exact du départ", etatDepart() === depart, etatDepart());
