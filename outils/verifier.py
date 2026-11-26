@@ -418,7 +418,7 @@ CLASSES_EMISES = [
     "encadre", "encadre__titre", "schema", "video", "attente-image",
     "visionneuse", "diapo-barre", "jalon", "entete__ligne",
     "repere-ligne", "entete__bas", "pastilles",
-    "frise__bascule", "sommaire__bascule", "declencheur", "actions",
+    "frise__bascule", "sommaire__onglet", "declencheur", "actions",
     "mascotte", "documents", "galerie",
     "entete--page", "page__corps", "ouverture__acces",
     "matieres__lien--ressources", "matieres__lien--actualite",

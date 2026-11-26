@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=c0cee1df">
 </head>
 <body>
 
@@ -171,33 +171,34 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
+      <li><a href="#situer-la-renaissance-dans-le-temps">Situer la Renaissance dans le temps</a></li>
+      <li><a href="#situer-la-renaissance-dans-lespace">Situer la Renaissance dans l&#39;espace</a></li>
+      <li><a href="#la-diffusion-du-savoir">La diffusion du savoir</a></li>
+      <li><a href="#la-renaissance-et-lhumanisme">La Renaissance et l&#39;humanisme</a></li>
+      <li><a href="#la-renaissance-scientifique">La Renaissance scientifique</a></li>
+      <li><a href="#la-renaissance-artistique">La Renaissance artistique</a></li>
+      <li><a href="#larchitecture-a-la-renaissance">L&#39;architecture à la Renaissance</a></li>
+      <li><a href="#la-reforme-protestante">La Réforme protestante</a></li>
+      <li><a href="#un-projet-scratch-avec-le-recit">Un projet Scratch avec le RÉCIT</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
-        <li><a href="#situer-la-renaissance-dans-le-temps">Situer la Renaissance dans le temps</a></li>
-        <li><a href="#situer-la-renaissance-dans-lespace">Situer la Renaissance dans l&#39;espace</a></li>
-        <li><a href="#la-diffusion-du-savoir">La diffusion du savoir</a></li>
-        <li><a href="#la-renaissance-et-lhumanisme">La Renaissance et l&#39;humanisme</a></li>
-        <li><a href="#la-renaissance-scientifique">La Renaissance scientifique</a></li>
-        <li><a href="#la-renaissance-artistique">La Renaissance artistique</a></li>
-        <li><a href="#larchitecture-a-la-renaissance">L&#39;architecture à la Renaissance</a></li>
-        <li><a href="#la-reforme-protestante">La Réforme protestante</a></li>
-        <li><a href="#un-projet-scratch-avec-le-recit">Un projet Scratch avec le RÉCIT</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -1606,7 +1607,7 @@ documents de l'élève et de l'enseignant sont à venir sur le site du
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=c0cee1df" defer></script>
 
 </body>
 </html>

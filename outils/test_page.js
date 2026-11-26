@@ -28,17 +28,27 @@ const corps = document.body, racine = document.documentElement;
 
 console.log("SOMMAIRE");
 const boutonSommaire = document.querySelector('[data-bascule="sommaire"]');
+const contenuSommaire = document.querySelector(".sommaire__contenu");
 verifier("bouton présent", !!boutonSommaire);
-verifier("replié à l'arrivée", corps.dataset.sommaire === undefined
-  && boutonSommaire.getAttribute("aria-expanded") === "false");
-clic('[data-bascule="sommaire"]');
-verifier("se déplie", corps.dataset.sommaire === "ouvert"
-  && boutonSommaire.getAttribute("aria-expanded") === "true"
-  && /Replier/.test(boutonSommaire.title));
-clic('[data-bascule="sommaire"]');
-verifier("se replie", corps.dataset.sommaire === undefined
+verifier("fermé à l'arrivée, contenu inerte", corps.dataset.sommaire === undefined
   && boutonSommaire.getAttribute("aria-expanded") === "false"
-  && /Déplier/.test(boutonSommaire.title));
+  && contenuSommaire.hasAttribute("inert"));
+clic('[data-bascule="sommaire"]');
+verifier("s'ouvre", corps.dataset.sommaire === "ouvert"
+  && boutonSommaire.getAttribute("aria-expanded") === "true"
+  && !contenuSommaire.hasAttribute("inert") && /Fermer/.test(boutonSommaire.title));
+clic(".sommaire__contenu a");
+verifier("se ferme quand on choisit une section", corps.dataset.sommaire === undefined
+  && contenuSommaire.hasAttribute("inert"));
+clic('[data-bascule="sommaire"]');
+document.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+verifier("se ferme sur Échap", corps.dataset.sommaire === undefined);
+clic('[data-bascule="sommaire"]');
+clic(".texte");
+verifier("se ferme sur un clic hors du tiroir", corps.dataset.sommaire === undefined
+  && /Ouvrir/.test(boutonSommaire.title));
+verifier("le texte n'est plus dans une grille à deux colonnes",
+  !document.querySelector(".colonnes > .sommaire"));
 
 console.log("MODES");
 clic('[data-bascule="classe"]');
