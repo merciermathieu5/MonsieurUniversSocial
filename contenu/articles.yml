@@ -15,6 +15,10 @@
 # Le champ note est facultatif : écris une phrase et elle remplacera le titre
 # du média sur la carte. Laisse-la vide et c'est le titre qui paraît.
 #
+# Le champ origine n'apparaît que si tu as changé le territoire d'un article :
+# il garde le numéro de la fiche que le classement avait choisie, pour que
+# --bilan compte les erreurs d'aiguillage. Change fiche, jamais origine.
+#
 # Les liens morts et les articles périmés sont retirés automatiquement au
 # passage suivant de --chercher.
 

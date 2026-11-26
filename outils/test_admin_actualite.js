@@ -103,6 +103,42 @@ verifier("docs/actualite.html porte la même liste", blocDocs === blocAttendu);
 const remplace = A.remplacerListe(composant, lignes);
 verifier("le remplacement laisse le fichier identique", remplace === composant);
 
+console.log("CHANGEMENT DE TERRITOIRE");
+verifier("déplacer retient la fiche d'origine", (function () {
+  const a = A.changerFiche({ fiche: "02" }, "04", "02");
+  return a.fiche === "04" && a.origine === "02";
+})());
+verifier("déplacer deux fois garde la première origine", (function () {
+  const a = A.changerFiche({ fiche: "04", origine: "02" }, "07", "04");
+  return a.fiche === "07" && a.origine === "02";
+})());
+verifier("revenir au point de départ efface la trace", (function () {
+  const a = A.changerFiche({ fiche: "04", origine: "02" }, "02", "04");
+  return a.fiche === "02" && !("origine" in a);
+})());
+verifier("l'origine survit à l'aller-retour du registre", (function () {
+  const copie = JSON.parse(JSON.stringify(lu.articles));
+  A.changerFiche(copie[0], copie[0].fiche === "13" ? "12" : "13", copie[0].fiche);
+  const texte = A.serialiserRegistre(lu.entete, copie);
+  const relu2 = A.analyserRegistre(texte);
+  return relu2.restes.length === 0
+    && JSON.stringify(trier(relu2.articles)) === JSON.stringify(trier(copie))
+    && /\n    note: .*\n    origine: "\d+"\n/.test(texte);
+})());
+verifier("sans déplacement, aucune ligne origine n'est écrite",
+  !/^    origine:/m.test(A.serialiserRegistre(lu.entete,
+    lu.articles.filter(a => !a.origine))));
+verifier("la liste publiée suit le nouveau territoire", (function () {
+  const copie = JSON.parse(JSON.stringify(lu.articles));
+  const pub = copie.find(a => A.statutDe(a.garder) === "o");
+  const cible = pub.fiche === "13" ? "12" : "13";
+  A.changerFiche(pub, cible, pub.fiche);
+  const ligne = A.serialiserListe(copie, noms)
+    .find(l => l.indexOf('href="' + A.echapper(pub.adresse) + '"') >= 0);
+  return ligne && ligne.indexOf('data-fiche="' + cible + '"') >= 0
+    && ligne.indexOf('data-territoire="' + A.echapper(noms[cible]) + '"') >= 0;
+})());
+
 console.log("ÉCHAPPEMENT À LA PYTHON");
 verifier("html.escape est reproduit, guillemets et apostrophes compris",
   A.echapper("a&b <c> \"d\" l'e") === "a&amp;b &lt;c&gt; &quot;d&quot; l&#x27;e");
