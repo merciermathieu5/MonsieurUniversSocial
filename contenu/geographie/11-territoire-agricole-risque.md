@@ -193,7 +193,8 @@ Après le cyclone Remal, des centaines de milliers de personnes privées d'élec
 ::: note
 Ce que le diagramme montre mérite qu'on s'y arrête. Plus de dix millions de
 Bangladais vivent le long du littoral, dans les zones à risque. Avant l'arrivée
-du cyclone Sidr en 2007, environ 1,5 million d'entre eux avaient été évacués.
+du cyclone Sidr en 2007, plus de 1,5 million d'entre eux avaient été évacués
+vers des abris, selon le gouvernement du Bangladesh.
 
 Le nombre de victimes s'est effondré non parce que les cyclones ont faibli, mais
 parce que la société s'est organisée. C'est la définition même de la

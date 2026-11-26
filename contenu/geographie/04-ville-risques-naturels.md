@@ -271,11 +271,13 @@ ce qui la rend vulnérable aux séismes causés par le mouvement des plaques.
 La faille de San Andreas est une faille en décrochement, à la jonction des
 plaques pacifique et nord-américaine. Elle passe notamment par San Francisco
 et Los Angeles. Il serait plus juste de parler d'un système de failles, qui
-s'étend sur environ 1 300 kilomètres de long et 140 kilomètres de large et se
+s'étend sur environ 1 200 kilomètres de long et 140 kilomètres de large et se
 divise en de multiples segments. En décrochement signifie que les deux plaques
 glissent l'une contre l'autre à l'horizontale, sans que l'une passe sous
 l'autre. La plaque pacifique se déplace vers le nord-ouest d'environ cinq
-centimètres par année. Quand le frottement finit par céder d'un coup, le sol
+centimètres par année par rapport à la plaque nord-américaine; la faille de San
+Andreas elle-même en absorbe de deux à trois centimètres et demi, le reste se
+répartit sur les failles voisines. Quand le frottement finit par céder d'un coup, le sol
 tremble.
 
 ::: composant sf-failles
@@ -302,8 +304,8 @@ Le séisme frappe le 18 avril 1906 au petit matin. La rupture court sur environ
 
 - Magnitude de 7,8 à 7,9 sur l'échelle de magnitude de moment
 - Environ 3 000 morts
-- Entre 225 000 et 300 000 personnes sans toit
-- Environ 80 % de la ville détruite, en grande partie par les incendies
+- Environ 225 000 personnes sans toit, sur environ 400 000 habitants
+- Plus de 28 000 bâtiments détruits, en grande partie par les incendies
 - Dégâts estimés à 400 millions de dollars de l'époque
 
 Source : U.S. Geological Survey

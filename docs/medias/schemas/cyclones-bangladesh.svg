@@ -17,9 +17,9 @@
   <text class="cy-t cy-n" x="185" y="71" text-anchor="end">Bhola, 1970</text>
   <text class="cy-t cy-v" x="912" y="71">de 300 000 à 500 000</text>
 
-  <rect x="200" y="94" width="200" height="28" rx="3" fill="var(--schema-cle)"/>
+  <rect x="200" y="94" width="193" height="28" rx="3" fill="var(--schema-cle)"/>
   <text class="cy-t cy-n" x="185" y="113" text-anchor="end">Cyclone de 1991</text>
-  <text class="cy-t cy-v" x="412" y="113">143 000</text>
+  <text class="cy-t cy-v" x="405" y="113">environ 138 000</text>
 
   <rect x="200" y="136" width="6" height="28" rx="2" fill="var(--schema-cle)"/>
   <text class="cy-t cy-n" x="185" y="155" text-anchor="end">Sidr, 2007</text>

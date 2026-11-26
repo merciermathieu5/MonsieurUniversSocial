@@ -293,9 +293,10 @@ La Gaspésie est une péninsule de 30 341 kilomètres carrés, bordée par le fl
 Saint-Laurent au nord, le golfe du Saint-Laurent à l'est et la baie des Chaleurs
 au sud. La chaîne des Appalaches la traverse. Ses principales villes sont Matane,
 Sainte-Anne-des-Monts, Gaspé, Percé, Chandler, Bonaventure et Carleton, presque
-toutes situées sur le pourtour côtier. Trois parcs nationaux y protègent des
-milieux remarquables : le parc national de la Gaspésie, le parc national Forillon
-et le parc national de l'Île-Bonaventure-et-du-Rocher-Percé.
+toutes situées sur le pourtour côtier. Quatre parcs nationaux y protègent des
+milieux remarquables : le parc national Forillon, géré par Parcs Canada, et trois
+parcs nationaux du Québec, ceux de la Gaspésie, de
+l'Île-Bonaventure-et-du-Rocher-Percé et de Miguasha.
 
 La région a longtemps été une région ressource, c'est-à-dire une région dont
 l'économie reposait sur l'exploitation de ses richesses naturelles : la pêche, la
@@ -328,23 +329,23 @@ de citer longtemps les distinctions qu'elle a reçues.
 #### Le rocher Percé
 
 Le rocher Percé est un monolithe de calcaire situé à environ 750 kilomètres à
-l'est de Québec, près de la ville qui porte son nom. Il mesure 450 mètres de
-long, 90 mètres de large et 85 mètres de haut. À marée basse, un cordon de
+l'est de Québec, près de la ville qui porte son nom. Il mesure 433 mètres de
+long, 90 mètres de large et 88 mètres de haut. À marée basse, un cordon de
 galets le relie à la rive, mais il est maintenant interdit de s'y rendre : des
 tonnes de roches s'en détachent chaque année, en toute saison. Il doit son nom aux arches que la mer a creusées dans la roche : il en
 aurait compté plusieurs, mais une seule subsiste, large d'une trentaine de
 mètres. Une autre s'est effondrée sous l'effet de l'érosion en 1845, laissant un
 pilier détaché que l'on appelle l'Obélisque.
 
-Sources : L'Encyclopédie canadienne; Sépaq, parc national de l'Île-Bonaventure-et-du-Rocher-Percé
+Sources : L'Encyclopédie canadienne; Wikipédia, « Rocher Percé » (dimensions); Sépaq, parc national de l'Île-Bonaventure-et-du-Rocher-Percé
 {: .source-texte }
 
 #### L'île Bonaventure
 
 À quelques centaines de mètres du rocher, l'île Bonaventure abrite l'une des plus
 grandes colonies de fous de Bassan au monde. Environ 116 000 oiseaux y reviennent
-chaque été pour la reproduction. L'accès à l'île est contrôlé et le nombre de
-visiteurs limité, précisément pour protéger la colonie.
+chaque été pour la reproduction. On s'y rend par bateau et, comme dans tous les
+parcs nationaux du Québec, le nombre de visiteurs admis chaque jour est limité.
 
 #### Les monts Chic-Chocs
 
@@ -456,8 +457,9 @@ chacun nourrit les autres.
 **L'enjeu environnemental** porte sur des milieux fragiles que la fréquentation
 d'été abîme. Au rocher Percé, le piétinement intensif use la végétation et
 accélère l'érosion des falaises, ce qui oblige à entretenir les sentiers en
-continu. À l'île Bonaventure, le nombre de visiteurs est plafonné pour protéger
-la colonie de fous de Bassan pendant la reproduction.
+continu. À l'île Bonaventure, la visite se fait par des sentiers balisés et le
+nombre de visiteurs admis chaque jour est limité, ce qui ménage la colonie de
+fous de Bassan pendant la reproduction.
 
 **L'enjeu économique** tient à la dépendance envers une seule industrie et une
 seule saison. Beaucoup d'emplois en restauration et en hébergement n'existent que

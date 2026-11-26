@@ -604,7 +604,7 @@ Le Festival international de jazz de Montréal occupe la Place des festivals,
 dans le Quartier des spectacles, un espace d'un kilomètre carré aménagé par la
 Ville de Montréal depuis 2002. Le quartier compte près de 30 salles de
 spectacles. Le festival réunit 3 000 musiciens d'une trentaine de pays et
-présente 500 concerts, dont les deux tiers sont gratuits. Il reçoit plus de
+présente près de 350 concerts, dont environ les deux tiers sont gratuits. Il reçoit plus de
 deux millions de visites par année.
 
 Source : Équipe Spectra, citée par le Service national du RÉCIT
