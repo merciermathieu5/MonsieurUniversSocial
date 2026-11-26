@@ -586,15 +586,17 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
     deja = [(mots_du_titre(a.get("titre", "")), a.get("date", ""))
             for a in registre]
     vus, ajoutes, vetos, doublons = set(), 0, 0, 0
-    par_resume = 0
+    par_resume = nouveaux = sans_territoire = 0
     for entree in entrees:
         cle = clef(entree["lien"])
         if cle in connus or cle in vus:
             continue
         vus.add(cle)
+        nouveaux += 1
         candidats = classer(entree["titre"], lexique,
                             entree.get("resume", ""), retro)
         if not candidats:
+            sans_territoire += 1
             continue
         if candidats[0][0] == "veto":
             vetos += 1
@@ -614,7 +616,12 @@ def chercher(lexique: dict, registre: list[dict], jours: int) -> list[dict]:
             "titre": entree["titre"], "garder": "", "note": "",
         })
         ajoutes += 1
-    print(f"\n{ajoutes} proposition(s) ajoutée(s), dont {par_resume} par le "
+    # Le haut de l'entonnoir : la plupart des articles lus l'ont déjà été la
+    # veille. Seuls les nouveaux comptent pour juger le lexique, et ceux qui
+    # n'entrent dans aucun territoire sont la mesure de ce qu'il laisse filer.
+    print(f"\n{nouveaux} article(s) nouveau(x) depuis la dernière récolte, "
+          f"{sans_territoire} sans territoire")
+    print(f"{ajoutes} proposition(s) ajoutée(s), dont {par_resume} par le "
           f"résumé, {vetos} écartée(s) par le veto, {doublons} doublon(s) "
           "d'une dépêche déjà au registre")
 
