@@ -30,17 +30,44 @@
     });
   }
 
-  // Le sommaire arrive replié, à chaque page : l'ouvrir est un geste
-  // délibéré, et rien n'est retenu d'une page à l'autre.
+  // Hauteur du bandeau collant, pour que les sauts vers une section
+  // s'arrêtent sous lui (voir scroll-padding-top dans style.css).
+  var bandeau = document.querySelector(".bandeau");
+  function mesurerBandeau() {
+    if (bandeau) racine.style.setProperty("--bandeau", bandeau.offsetHeight + "px");
+  }
+  mesurerBandeau();
+  window.addEventListener("resize", mesurerBandeau);
+
+  // Le sommaire est un tiroir : il glisse par-dessus la page sans rien
+  // déplacer. Il se referme sur Échap, sur un clic hors du tiroir et dès
+  // qu'une section est choisie. Fermé, son contenu est inerte, donc hors
+  // de la tabulation. Rien n'est retenu d'une page à l'autre.
   var sommaire = document.querySelector('[data-bascule="sommaire"]');
-  if (sommaire) {
-    sommaire.addEventListener("click", function () {
-      var ouvrir = corps.dataset.sommaire !== "ouvert";
-      if (ouvrir) { corps.dataset.sommaire = "ouvert"; } else { delete corps.dataset.sommaire; }
-      sommaire.setAttribute("aria-expanded", String(ouvrir));
-      var libelle = (ouvrir ? "Replier" : "Déplier") + " le sommaire";
-      sommaire.title = libelle + " (touche S)";
-      sommaire.querySelector(".visuellement-cache").textContent = libelle;
+  var tiroir = sommaire && sommaire.closest(".sommaire");
+  var contenuSommaire = tiroir && tiroir.querySelector(".sommaire__contenu");
+  function tiroirOuvert() { return corps.dataset.sommaire === "ouvert"; }
+  function poserTiroir(ouvrir) {
+    if (ouvrir) { corps.dataset.sommaire = "ouvert"; } else { delete corps.dataset.sommaire; }
+    sommaire.setAttribute("aria-expanded", String(ouvrir));
+    var libelle = (ouvrir ? "Fermer" : "Ouvrir") + " le sommaire";
+    sommaire.title = libelle + " (touche S)";
+    sommaire.querySelector(".visuellement-cache").textContent = libelle;
+    if (contenuSommaire) {
+      if (ouvrir) contenuSommaire.removeAttribute("inert");
+      else contenuSommaire.setAttribute("inert", "");
+    }
+  }
+  if (sommaire && tiroir) {
+    sommaire.addEventListener("click", function () { poserTiroir(!tiroirOuvert()); });
+    tiroir.addEventListener("click", function (e) {
+      if (e.target.closest && e.target.closest(".sommaire__contenu a")) poserTiroir(false);
+    });
+    document.addEventListener("click", function (e) {
+      if (tiroirOuvert() && !tiroir.contains(e.target)) poserTiroir(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && tiroirOuvert()) { poserTiroir(false); sommaire.focus(); }
     });
   }
 

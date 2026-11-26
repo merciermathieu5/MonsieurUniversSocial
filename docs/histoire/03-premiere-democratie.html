@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=c0cee1df">
 </head>
 <body>
 
@@ -171,35 +171,36 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#la-grece-un-monde-de-cites-etats">La Grèce, un monde de cités-États</a></li>
+      <li><a href="#de-loligarchie-a-la-democratie">De l&#39;oligarchie à la démocratie</a></li>
+      <li><a href="#le-5e-siecle-les-guerres-mediques-et-lage-dor">Le 5e siècle : les guerres médiques et l&#39;âge d&#39;or</a></li>
+      <li><a href="#la-democratie-athenienne">La démocratie athénienne</a></li>
+      <li><a href="#les-institutions-politiques-dathenes">Les institutions politiques d&#39;Athènes</a></li>
+      <li><a href="#les-classes-sociales-atheniennes">Les classes sociales athéniennes</a></li>
+      <li><a href="#la-mythologie-grecque">La mythologie grecque</a></li>
+      <li><a href="#la-philosophie-dans-la-grece-antique">La philosophie dans la Grèce antique</a></li>
+      <li><a href="#le-commerce-et-lagora">Le commerce et l&#39;agora</a></li>
+      <li><a href="#la-guerre-du-peloponnese">La guerre du Péloponnèse</a></li>
+      <li><a href="#la-cite-etat-oligarchique-de-sparte">La cité-État oligarchique de Sparte</a></li>
+      <li><a href="#applications-dapprentissage">Applications d&#39;apprentissage</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#la-grece-un-monde-de-cites-etats">La Grèce, un monde de cités-États</a></li>
-        <li><a href="#de-loligarchie-a-la-democratie">De l&#39;oligarchie à la démocratie</a></li>
-        <li><a href="#le-5e-siecle-les-guerres-mediques-et-lage-dor">Le 5e siècle : les guerres médiques et l&#39;âge d&#39;or</a></li>
-        <li><a href="#la-democratie-athenienne">La démocratie athénienne</a></li>
-        <li><a href="#les-institutions-politiques-dathenes">Les institutions politiques d&#39;Athènes</a></li>
-        <li><a href="#les-classes-sociales-atheniennes">Les classes sociales athéniennes</a></li>
-        <li><a href="#la-mythologie-grecque">La mythologie grecque</a></li>
-        <li><a href="#la-philosophie-dans-la-grece-antique">La philosophie dans la Grèce antique</a></li>
-        <li><a href="#le-commerce-et-lagora">Le commerce et l&#39;agora</a></li>
-        <li><a href="#la-guerre-du-peloponnese">La guerre du Péloponnèse</a></li>
-        <li><a href="#la-cite-etat-oligarchique-de-sparte">La cité-État oligarchique de Sparte</a></li>
-        <li><a href="#applications-dapprentissage">Applications d&#39;apprentissage</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -3337,7 +3338,7 @@ permettent de vérifier tes connaissances.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=c0cee1df" defer></script>
 
 </body>
 </html>

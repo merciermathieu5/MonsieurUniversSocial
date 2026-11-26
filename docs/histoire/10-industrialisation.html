@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=c0cee1df">
 </head>
 <body>
 
@@ -171,34 +171,35 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
+      <li><a href="#situer-dans-lespace">Situer dans l&#39;espace</a></li>
+      <li><a href="#situer-dans-le-temps">Situer dans le temps</a></li>
+      <li><a href="#les-causes-de-lindustrialisation-en-angleterre">Les causes de l&#39;industrialisation en Angleterre</a></li>
+      <li><a href="#les-lois-de-lenclosure-de-1727">Les lois de l&#39;enclosure de 1727</a></li>
+      <li><a href="#de-la-production-artisanale-a-la-production-industrielle">De la production artisanale à la production industrielle</a></li>
+      <li><a href="#les-classes-sociales">Les classes sociales</a></li>
+      <li><a href="#le-liberalisme-economique">Le libéralisme économique</a></li>
+      <li><a href="#une-reponse-au-capitalisme-le-socialisme">Une réponse au capitalisme : le socialisme</a></li>
+      <li><a href="#la-naissance-du-syndicalisme">La naissance du syndicalisme</a></li>
+      <li><a href="#la-division-du-travail-et-le-fordisme">La division du travail et le fordisme</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#concepts-a-letude">Concepts à l&#39;étude</a></li>
-        <li><a href="#situer-dans-lespace">Situer dans l&#39;espace</a></li>
-        <li><a href="#situer-dans-le-temps">Situer dans le temps</a></li>
-        <li><a href="#les-causes-de-lindustrialisation-en-angleterre">Les causes de l&#39;industrialisation en Angleterre</a></li>
-        <li><a href="#les-lois-de-lenclosure-de-1727">Les lois de l&#39;enclosure de 1727</a></li>
-        <li><a href="#de-la-production-artisanale-a-la-production-industrielle">De la production artisanale à la production industrielle</a></li>
-        <li><a href="#les-classes-sociales">Les classes sociales</a></li>
-        <li><a href="#le-liberalisme-economique">Le libéralisme économique</a></li>
-        <li><a href="#une-reponse-au-capitalisme-le-socialisme">Une réponse au capitalisme : le socialisme</a></li>
-        <li><a href="#la-naissance-du-syndicalisme">La naissance du syndicalisme</a></li>
-        <li><a href="#la-division-du-travail-et-le-fordisme">La division du travail et le fordisme</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -2366,7 +2367,7 @@ suffisants pour qu'ils consomment les produits qu'ils avaient eux-mêmes fabriqu
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=c0cee1df" defer></script>
 
 </body>
 </html>

@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=c0cee1df">
 </head>
 <body>
 
@@ -171,32 +171,33 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#le-paleolithique-et-le-neolithique-deux-periodes-a-distinguer">Le Paléolithique et le Néolithique : deux périodes à distinguer</a></li>
+      <li><a href="#le-passage-du-nomadisme-au-sedentarisme">Le passage du nomadisme au sédentarisme</a></li>
+      <li><a href="#les-premiers-foyers-de-sedentarisation">Les premiers foyers de sédentarisation</a></li>
+      <li><a href="#les-premiers-villages">Les premiers villages</a></li>
+      <li><a href="#la-domestication-des-animaux">La domestication des animaux</a></li>
+      <li><a href="#la-domestication-des-vegetaux">La domestication des végétaux</a></li>
+      <li><a href="#maitriser-lagriculture">Maîtriser l&#39;agriculture</a></li>
+      <li><a href="#la-division-du-travail">La division du travail</a></li>
+      <li><a href="#les-rites-funeraires-et-les-croyances">Les rites funéraires et les croyances</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#le-paleolithique-et-le-neolithique-deux-periodes-a-distinguer">Le Paléolithique et le Néolithique : deux périodes à distinguer</a></li>
-        <li><a href="#le-passage-du-nomadisme-au-sedentarisme">Le passage du nomadisme au sédentarisme</a></li>
-        <li><a href="#les-premiers-foyers-de-sedentarisation">Les premiers foyers de sédentarisation</a></li>
-        <li><a href="#les-premiers-villages">Les premiers villages</a></li>
-        <li><a href="#la-domestication-des-animaux">La domestication des animaux</a></li>
-        <li><a href="#la-domestication-des-vegetaux">La domestication des végétaux</a></li>
-        <li><a href="#maitriser-lagriculture">Maîtriser l&#39;agriculture</a></li>
-        <li><a href="#la-division-du-travail">La division du travail</a></li>
-        <li><a href="#les-rites-funeraires-et-les-croyances">Les rites funéraires et les croyances</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -1209,7 +1210,7 @@ l'espoir d'assurer la prospérité et la survie de la communauté.</p>
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=c0cee1df" defer></script>
 
 </body>
 </html>

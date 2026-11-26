@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=e74458b3">
+<link rel="stylesheet" href="../style.css?v=c0cee1df">
 </head>
 <body>
 
@@ -171,35 +171,36 @@ aria-current="page">
     </div>
   </nav>
 
-  <div class="colonnes">
+  <aside class="sommaire" aria-label="Sommaire de la page">
+    <button type="button" class="sommaire__onglet" data-bascule="sommaire"
+            aria-expanded="false" aria-controls="sommaire-contenu"
+            title="Ouvrir le sommaire (touche S)">
+      <span class="sommaire__etiquette" aria-hidden="true">Sommaire</span>
+      <span class="sommaire__fleche" aria-hidden="true">&#10095;</span>
+      <span class="visuellement-cache">Ouvrir le sommaire</span>
+    </button>
+    <div class="sommaire__contenu" id="sommaire-contenu" inert>
+    <p class="sommaire__titre">Sur cette page</p>
+    <ol>
+      <li><a href="#mise-en-contexte">Mise en contexte</a></li>
+      <li><a href="#lapparition-des-premiers-grands-foyers-de-civilisation">L&#39;apparition des premiers grands foyers de civilisation</a></li>
+      <li><a href="#la-mesopotamie-et-le-croissant-fertile">La Mésopotamie et le Croissant fertile</a></li>
+      <li><a href="#situer-la-civilisation-mesopotamienne-dans-le-temps">Situer la civilisation mésopotamienne dans le temps</a></li>
+      <li><a href="#linvention-de-lecriture">L&#39;invention de l&#39;écriture</a></li>
+      <li><a href="#lutilite-de-lecriture-dans-la-societe-mesopotamienne">L&#39;utilité de l&#39;écriture dans la société mésopotamienne</a></li>
+      <li><a href="#babylone-hammourabi-et-son-code-de-lois">Babylone : Hammourabi et son code de lois</a></li>
+      <li><a href="#les-cites-etats-independantes-les-unes-des-autres">Les cités-États : indépendantes les unes des autres</a></li>
+      <li><a href="#la-hierarchie-sociale-mesopotamienne">La hiérarchie sociale mésopotamienne</a></li>
+      <li><a href="#la-religion-mesopotamienne">La religion mésopotamienne</a></li>
+      <li><a href="#le-commerce-en-mesopotamie">Le commerce en Mésopotamie</a></li>
+      <li><a href="#applications-dapprentissage">Applications d&#39;apprentissage</a></li>
+      <li><a href="#pour-aller-plus-loin">Pour aller plus loin</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ol>
+    </div>
+  </aside>
 
-    <aside class="sommaire" aria-label="Sommaire de la page">
-      <button type="button" class="sommaire__bascule" data-bascule="sommaire"
-              aria-expanded="false" aria-controls="sommaire-contenu"
-              title="Déplier le sommaire (touche S)">
-        <span class="sommaire__fleche" aria-hidden="true">&#10094;</span>
-        <span class="visuellement-cache">Déplier le sommaire</span>
-      </button>
-      <div class="sommaire__contenu" id="sommaire-contenu">
-      <p class="sommaire__titre">Sur cette page</p>
-      <ol>
-        <li><a href="#mise-en-contexte">Mise en contexte</a></li>
-        <li><a href="#lapparition-des-premiers-grands-foyers-de-civilisation">L&#39;apparition des premiers grands foyers de civilisation</a></li>
-        <li><a href="#la-mesopotamie-et-le-croissant-fertile">La Mésopotamie et le Croissant fertile</a></li>
-        <li><a href="#situer-la-civilisation-mesopotamienne-dans-le-temps">Situer la civilisation mésopotamienne dans le temps</a></li>
-        <li><a href="#linvention-de-lecriture">L&#39;invention de l&#39;écriture</a></li>
-        <li><a href="#lutilite-de-lecriture-dans-la-societe-mesopotamienne">L&#39;utilité de l&#39;écriture dans la société mésopotamienne</a></li>
-        <li><a href="#babylone-hammourabi-et-son-code-de-lois">Babylone : Hammourabi et son code de lois</a></li>
-        <li><a href="#les-cites-etats-independantes-les-unes-des-autres">Les cités-États : indépendantes les unes des autres</a></li>
-        <li><a href="#la-hierarchie-sociale-mesopotamienne">La hiérarchie sociale mésopotamienne</a></li>
-        <li><a href="#la-religion-mesopotamienne">La religion mésopotamienne</a></li>
-        <li><a href="#le-commerce-en-mesopotamie">Le commerce en Mésopotamie</a></li>
-        <li><a href="#applications-dapprentissage">Applications d&#39;apprentissage</a></li>
-        <li><a href="#pour-aller-plus-loin">Pour aller plus loin</a></li>
-        <li><a href="#sources">Sources</a></li>
-      </ol>
-      </div>
-    </aside>
+  <div class="colonnes">
 
     <div class="texte">
       <h2 id="mise-en-contexte">Mise en contexte</h2>
@@ -3542,7 +3543,7 @@ chariot, innovation technique importante et permise grâce à l'invention de la 
   </div>
 </footer>
 
-<script src="../page.js?v=e74458b3" defer></script>
+<script src="../page.js?v=c0cee1df" defer></script>
 
 </body>
 </html>
