@@ -324,15 +324,35 @@ a { color: inherit; }
 
 /* --------------------------------------------------------------- colonnes */
 
+/* Le sommaire arrive replié : le texte garde sa largeur de lecture (66rem,
+   celle qu'il avait à côté du sommaire ouvert) et se centre sur la page, la
+   flèche collée à sa gauche. Le padding de droite égale la colonne de la
+   flèche et son écart, pour que le texte soit au centre exact. Ouvert, le
+   sommaire reprend sa colonne de 15rem et la page s'étend comme avant. */
 .colonnes {
   max-width: none; margin: 0; padding: 2.5rem 2rem 4rem;
-  display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: 2.5rem;
+  display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 2.5rem;
   align-items: start;
   transition: grid-template-columns .2s;
 }
-body[data-sommaire="replie"] .colonnes { grid-template-columns: 2.4rem minmax(0, 1fr); }
-body[data-sommaire="replie"] .sommaire__contenu { display: none; }
-body[data-sommaire="replie"] .sommaire__fleche { transform: rotate(180deg); }
+.sommaire__contenu { display: none; }
+.sommaire__fleche { transform: rotate(180deg); }
+.sommaire__bascule { position: relative; }
+.sommaire__bascule::after {
+  content: "Sommaire"; position: absolute; top: 3rem; writing-mode: vertical-rl;
+  font: .62rem ui-monospace, monospace; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--encre-doux);
+}
+@media (min-width: 62.01rem) {
+  body:not([data-sommaire="ouvert"]):not([data-classe="on"]) .colonnes {
+    max-width: calc(66rem + 2.4rem + 2.5rem + 4rem + 4.9rem); margin: 0 auto;
+    padding-right: calc(2rem + 4.9rem);
+  }
+}
+body[data-sommaire="ouvert"] .colonnes { grid-template-columns: 15rem minmax(0, 1fr); }
+body[data-sommaire="ouvert"] .sommaire__contenu { display: block; }
+body[data-sommaire="ouvert"] .sommaire__fleche { transform: none; }
+body[data-sommaire="ouvert"] .sommaire__bascule::after { content: none; }
 
 .sommaire__bascule {
   display: flex; align-items: center; justify-content: center;
@@ -831,12 +851,31 @@ html[data-sombre="on"] .documents a { background: var(--matiere-voile); color: v
 @media (max-width: 62rem) {
   /* minmax(0, 1fr) et non 1fr : une galerie de trois images réclame 867 px
      de largeur minimale et élargissait toute la page sur tablette et téléphone. */
-  .colonnes { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; }
+  .colonnes, body[data-sommaire="ouvert"] .colonnes {
+    grid-template-columns: minmax(0, 1fr); gap: 1.75rem;
+  }
   .texte { padding: 2rem 1.5rem 2.25rem; }
   .sommaire {
     position: static; background: var(--surface); border: 1px solid var(--trait);
     border-radius: var(--rayon); padding: 1.2rem 1.35rem;
   }
+  /* Replié, le sommaire n'est plus qu'une barre « Sur cette page » : il
+     prenait tout un écran de téléphone avant le premier mot du texte. */
+  body:not([data-sommaire="ouvert"]) .sommaire { padding: .55rem .8rem; }
+  .sommaire__bascule::after, body[data-sommaire="ouvert"] .sommaire__bascule::after {
+    content: none;
+  }
+  body:not([data-sommaire="ouvert"]) .sommaire__bascule {
+    width: auto; height: auto; margin: 0; border: 0; background: none;
+    gap: .5rem; white-space: nowrap;
+    font: 600 .9rem system-ui, sans-serif; color: var(--encre);
+  }
+  body:not([data-sommaire="ouvert"]) .sommaire__bascule::after {
+    content: "Sur cette page"; position: static; writing-mode: horizontal-tb;
+    font: inherit; letter-spacing: 0; text-transform: none; color: inherit;
+  }
+  .sommaire__fleche { transform: rotate(-90deg); }
+  body[data-sommaire="ouvert"] .sommaire__fleche { transform: rotate(90deg); }
 }
 @media (max-width: 40rem) {
   body { font-size: 1.04rem; }
